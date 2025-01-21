@@ -224,7 +224,7 @@ struct ExampleCommand: ParsableCommand {
     /// is invoked.
     /// 
     /// - Parameters:
-    ///   - lambdaClient: The `IAMClient` to use.
+    ///   - lambdaClient: The `LambdaClient` to use.
     ///   - name: The name of the AWS Lambda function to update.
     ///   - path: The pathname of the Zip file containing the packaged Lambda
     ///     function.
