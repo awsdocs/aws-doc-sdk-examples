@@ -15,7 +15,6 @@ import com.kotlin.cognito.getAllPools
 import com.kotlin.cognito.getPools
 import com.kotlin.cognito.listAllUserPoolClients
 import com.kotlin.cognito.listPoolIdentities
-import com.kotlin.cognito.signUp
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
