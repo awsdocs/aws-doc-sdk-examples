@@ -28,10 +28,10 @@ repositories {
 
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:cloudwatch:1.2.28")
-    implementation("aws.sdk.kotlin:cloudwatchevents:1.2.28")
-    implementation("aws.sdk.kotlin:cloudwatchlogs:1.2.28")
-    implementation("aws.sdk.kotlin:secretsmanager:1.2.28")
+    implementation("aws.sdk.kotlin:cloudwatch:1.3.112")
+    implementation("aws.sdk.kotlin:cloudwatchevents:1.3.112")
+    implementation("aws.sdk.kotlin:cloudwatchlogs:1.3.112")
+    implementation("aws.sdk.kotlin:secretsmanager:1.3.112")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
     implementation("com.google.code.gson:gson:2.10")
