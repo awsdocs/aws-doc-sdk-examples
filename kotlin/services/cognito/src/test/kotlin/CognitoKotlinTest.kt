@@ -127,23 +127,23 @@ class CognitoKotlinTest {
 
     @Test
     @Order(3)
-    fun signUpUserTest() =
+    fun listUserPoolsTest() =
         runBlocking {
-            signUp(clientId, secretkey, username, password, email)
+            getAllPools()
             println("Test 3 passed")
         }
 
     @Test
     @Order(4)
-    fun listUserPoolsTest() =
+    fun listUserPoolClientsTest() =
         runBlocking {
-            getAllPools()
+            listAllUserPoolClients(existingUserPoolId)
             println("Test 4 passed")
         }
 
     @Test
     @Order(5)
-    fun listUserPoolClientsTest() =
+    fun listUsersTest() =
         runBlocking {
             listAllUserPoolClients(existingUserPoolId)
             println("Test 5 passed")
@@ -151,59 +151,51 @@ class CognitoKotlinTest {
 
     @Test
     @Order(6)
-    fun listUsersTest() =
+    fun describeUserPoolTest() =
         runBlocking {
-            listAllUserPoolClients(existingUserPoolId)
+            describePool(existingUserPoolId)
             println("Test 6 passed")
         }
 
     @Test
     @Order(7)
-    fun describeUserPoolTest() =
+    fun deleteUserPool() =
         runBlocking {
-            describePool(existingUserPoolId)
+            delPool(userPoolId)
             println("Test 7 passed")
         }
 
     @Test
     @Order(8)
-    fun deleteUserPool() =
+    fun createIdentityPoolTest() =
         runBlocking {
-            delPool(userPoolId)
+            identityPoolId = createIdPool(identityPoolName).toString()
+            Assertions.assertTrue(!identityPoolId.isEmpty())
             println("Test 8 passed")
         }
 
     @Test
     @Order(9)
-    fun createIdentityPoolTest() =
+    fun listIdentityProvidersTest() =
         runBlocking {
-            identityPoolId = createIdPool(identityPoolName).toString()
-            Assertions.assertTrue(!identityPoolId.isEmpty())
+            getPools()
             println("Test 9 passed")
         }
 
     @Test
     @Order(10)
-    fun listIdentityProvidersTest() =
+    fun listIdentitiesTest() =
         runBlocking {
-            getPools()
+            listPoolIdentities(identityPoolId)
             println("Test 10 passed")
         }
 
     @Test
     @Order(11)
-    fun listIdentitiesTest() =
-        runBlocking {
-            listPoolIdentities(identityPoolId)
-            println("Test 11 passed")
-        }
-
-    @Test
-    @Order(12)
     fun deleteIdentityPool() =
         runBlocking {
             deleteIdPool(identityPoolId)
-            println("Test 12 passed")
+            println("Test 11 passed")
         }
 
     private suspend fun getSecretValues(): String {
