@@ -53,7 +53,7 @@ public class S3ObjectLockWorkflow {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(DASHES);
-        System.out.println("Welcome to the Amazon Simple Storage Service (S3) Object Locking Workflow Scenario.");
+        System.out.println("Welcome to the Amazon Simple Storage Service (S3) Object Locking Feature Scenario.");
         System.out.println("Press Enter to continue...");
         scanner.nextLine();
         configurationSetup();

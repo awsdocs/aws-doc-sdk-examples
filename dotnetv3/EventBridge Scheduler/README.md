@@ -48,7 +48,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Scheduled Events workflow](Scenarios/SchedulerWorkflow.cs)
+- [Scheduled Events](Scenarios/SchedulerWorkflow.cs)
 
 
 <!--custom.examples.start-->
@@ -85,7 +85,7 @@ This example shows you how to get started using EventBridge Scheduler.
 
 
 
-#### Scheduled Events workflow
+#### Scheduled Events
 
 This example shows you how to do the following:
 
@@ -96,12 +96,12 @@ This example shows you how to do the following:
 - Delete EventBridge Scheduler the schedule and schedule group.
 - Clean up resources and delete the stack.
 
-<!--custom.scenario_prereqs.scheduler_ScheduledEventsWorkflow.start-->
-<!--custom.scenario_prereqs.scheduler_ScheduledEventsWorkflow.end-->
+<!--custom.scenario_prereqs.scheduler_ScheduledEventsScenario.start-->
+<!--custom.scenario_prereqs.scheduler_ScheduledEventsScenario.end-->
 
 
-<!--custom.scenarios.scheduler_ScheduledEventsWorkflow.start-->
-<!--custom.scenarios.scheduler_ScheduledEventsWorkflow.end-->
+<!--custom.scenarios.scheduler_ScheduledEventsScenario.start-->
+<!--custom.scenarios.scheduler_ScheduledEventsScenario.end-->
 
 ### Tests
 

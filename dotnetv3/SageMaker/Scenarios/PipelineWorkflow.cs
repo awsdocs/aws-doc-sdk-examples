@@ -85,7 +85,7 @@ public static class PipelineWorkflow
             Console.WriteLine(
                 "Welcome to the Amazon SageMaker pipeline example scenario.");
             Console.WriteLine(
-                "\nThis example workflow will guide you through setting up and running an" +
+                "\nThis example scenario will guide you through setting up and running an" +
                 "\nAmazon SageMaker pipeline. The pipeline uses an AWS Lambda function and an" +
                 "\nAmazon SQS Queue. It runs a vector enrichment reverse geocode job to" +
                 "\nreverse geocode addresses in an input file and store the results in an export file.");

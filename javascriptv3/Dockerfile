@@ -18,7 +18,7 @@ USER automation:automation
 # Copy resources
 COPY --chown=automation:automation ./resources /resources
 COPY --chown=automation:automation ./python/example_code/glue/flight_etl_job_script.py /python/example_code/glue/flight_etl_job_script.py
-COPY --chown=automation:automation ./workflows /workflows
+COPY --chown=automation:automation ./scenarios/features /scenarios/features
 
 # Set default command
 # `npm i` needs to be run in the container. Otherwise it causes a dependency issue: https://github.com/evanw/esbuild/issues/1646#issuecomment-1238080595

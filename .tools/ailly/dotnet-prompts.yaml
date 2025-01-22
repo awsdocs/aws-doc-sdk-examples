@@ -152,7 +152,7 @@ code:
               
               '''
               /// <summary>
-              /// Run the preparation step of the workflow. Should return successful.
+              /// Run the preparation step of the scenario. Should return successful.
               /// </summary>
               /// <returns>Async task.</returns>
               [Fact]

@@ -42,7 +42,7 @@ namespace TopicsAndQueuesScenario;
 
 // snippet-start:[TopicsAndQueues.dotnetv3.Scenario]
 /// <summary>
-/// Console application to run a workflow scenario for topics and queues.
+/// Console application to run a feature scenario for topics and queues.
 /// </summary>
 public static class TopicsAndQueues
 {
@@ -115,7 +115,7 @@ public static class TopicsAndQueues
             }
             await CleanupResources();
 
-            Console.WriteLine("Messaging with topics and queues workflow is complete.");
+            Console.WriteLine("Messaging with topics and queues scenario is complete.");
             return true;
         }
         catch (Exception ex)
@@ -129,7 +129,7 @@ public static class TopicsAndQueues
     }
 
     /// <summary>
-    /// Print a description for the tasks in the workflow.
+    /// Print a description for the tasks in the scenario.
     /// </summary>
     /// <returns>Async task.</returns>
     private static void PrintDescription()
@@ -138,7 +138,7 @@ public static class TopicsAndQueues
         Console.WriteLine($"Welcome to messaging with topics and queues.");
 
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"In this workflow, you will create an SNS topic and subscribe {_queueCount} SQS queues to the topic." +
+        Console.WriteLine($"In this scenario, you will create an SNS topic and subscribe {_queueCount} SQS queues to the topic." +
                           $"\r\nYou can select from several options for configuring the topic and the subscriptions for the 2 queues." +
                           $"\r\nYou can then post to the topic and see the results in the queues.\r\n");
 

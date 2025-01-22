@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 using Amazon.S3;
@@ -41,7 +41,7 @@ public class S3ObjectLockScenarioTests
     }
 
     /// <summary>
-    /// Run the setup step of the workflow. Should return successful.
+    /// Run the setup step of the scenario. Should return successful.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
@@ -68,7 +68,7 @@ public class S3ObjectLockScenarioTests
     }
 
     /// <summary>
-    /// Run the list object step of the workflow. Should return successful.
+    /// Run the list object step of the scenario. Should return successful.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
@@ -88,7 +88,7 @@ public class S3ObjectLockScenarioTests
 
 
     /// <summary>
-    /// Run the cleanup step of the workflow. Should return successful.
+    /// Run the cleanup step of the scenario. Should return successful.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]

@@ -156,9 +156,9 @@ scheduler_DeleteScheduleGroup:
                 - python.example_code.scheduler.DeleteScheduleGroup
   services:
     scheduler: {DeleteScheduleGroup}
-scheduler_ScheduledEventsWorkflow:
-  title: A complete &EVS; Scheduled Events workflow using an &AWS; SDK
-  title_abbrev: Scheduled Events workflow
+scheduler_ScheduledEventsScenario:
+  title: A complete &EVS; Scheduled Events scenario using an &AWS; SDK
+  title_abbrev: Scheduled Events
   synopsis_list:
     - Deploy a &CFN; stack with required resources.
     - Create a &EVS; schedule group.
@@ -173,7 +173,7 @@ scheduler_ScheduledEventsWorkflow:
         - sdk_version: 2
           github: javav2/example_code/scheduler
           excerpts:
-            - description: Run the workflow.
+            - description: Run the scenario.
               genai: most
               snippet_tags:
                 - scheduler.javav2.scenario.main
@@ -186,7 +186,7 @@ scheduler_ScheduledEventsWorkflow:
         - sdk_version: 3
           github: dotnetv3/EventBridge Scheduler
           excerpts:
-            - description: Run the workflow.
+            - description: Run the scenario.
               genai: most
               snippet_tags:
                 - Scheduler.dotnetv3.SchedulerWorkflow

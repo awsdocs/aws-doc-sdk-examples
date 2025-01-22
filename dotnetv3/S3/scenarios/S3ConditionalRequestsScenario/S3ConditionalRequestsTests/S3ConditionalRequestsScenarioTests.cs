@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 using Amazon.S3;
@@ -46,7 +46,7 @@ public class S3ConditionalRequestsScenarioTests
     }
 
     /// <summary>
-    /// Run the setup step of the workflow. Should return successful.
+    /// Run the setup step of the scenario. Should return successful.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]

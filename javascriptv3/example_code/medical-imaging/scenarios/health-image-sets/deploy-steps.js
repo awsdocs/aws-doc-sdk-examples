@@ -23,7 +23,7 @@ const stsClient = new STSClient({});
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const cfnTemplatePath = path.join(
   __dirname,
-  "../../../../../workflows/healthimaging_image_sets/resources/cfn_template.yaml",
+  "../../../../../scenarios/features/healthimaging_image_sets/resources/cfn_template.yaml",
 );
 
 export const deployStack = new ScenarioInput(

@@ -48,7 +48,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Newsletter workflow](NewsLetterWorkflow/Sesv2Scenario/NewsletterWorkflow.cs)
+- [Newsletter scenario](NewsLetterWorkflow/Sesv2Scenario/NewsletterWorkflow.cs)
 
 
 <!--custom.examples.start-->
@@ -81,9 +81,9 @@ Alternatively, you can run the example from within your IDE.
 
 
 
-#### Newsletter workflow
+#### Newsletter scenario
 
-This example shows you how to run the Amazon SES v2 API newsletter workflow.
+This example shows you how to run the Amazon SES v2 API newsletter scenario.
 
 
 <!--custom.scenario_prereqs.sesv2_NewsletterWorkflow.start-->

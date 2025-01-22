@@ -329,7 +329,7 @@ export async function createLambdaFunction({
 export async function uploadCSVDataToS3({ bucketName, s3Client }) {
   const s3Path = `${dirnameFromMetaUrl(
     import.meta.url,
-  )}../../../../../workflows/sagemaker_pipelines/resources/latlongtest.csv`;
+  )}../../../../../scenarios/features/sagemaker_pipelines/resources/latlongtest.csv`;
 
   await s3Client.send(
     new PutObjectCommand({
@@ -493,7 +493,7 @@ export async function createSagemakerPipeline({
     // on GitHub.
     `${dirnameFromMetaUrl(
       import.meta.url,
-    )}../../../../../workflows/sagemaker_pipelines/resources/GeoSpatialPipeline.json`,
+    )}../../../../../scenarios/features/sagemaker_pipelines/resources/GeoSpatialPipeline.json`,
   )
     .toString()
     .replace(/\*FUNCTION_ARN\*/g, functionArn);
