@@ -7,9 +7,7 @@ package com.kotlin.cloudformation
 import aws.sdk.kotlin.services.cloudformation.CloudFormationClient
 import aws.sdk.kotlin.services.cloudformation.model.CreateStackRequest
 import aws.sdk.kotlin.services.cloudformation.model.OnFailure
-import aws.sdk.kotlin.services.cloudformation.model.Parameter
 import kotlin.system.exitProcess
-
 // snippet-end:[cf.kotlin.create_stack.import]
 
 suspend fun main(args: Array<String>) {
