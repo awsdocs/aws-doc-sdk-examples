@@ -64,7 +64,9 @@ namespace S3_BasicsScenario
             {
                 var request = new PutObjectRequest
                 {
-                    BucketName = bucketName, Key = objectName, FilePath = filePath,
+                    BucketName = bucketName,
+                    Key = objectName,
+                    FilePath = filePath,
                 };
 
                 await client.PutObjectAsync(request);
