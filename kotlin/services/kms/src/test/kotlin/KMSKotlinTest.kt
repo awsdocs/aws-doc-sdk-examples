@@ -78,8 +78,9 @@ class KMSKotlinTest {
     @Order(3)
     fun encryptDataKeyTest() =
         runBlocking {
+            val plaintext = "Hello, AWS KMS!"
             val encryptData = encryptData(keyId)
-            decryptData(encryptData, keyId, path)
+            decryptData(encryptData, keyId)
             println("Test 3 passed")
         }
 

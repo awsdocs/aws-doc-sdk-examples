@@ -25,18 +25,17 @@ suspend fun main(args: Array<String>) {
             <keyId> <path>
         Where:
             keyId - A key id value to describe (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). 
-            path - The path of a text file where the data is written to (for example, C:\AWS\TextFile.txt). 
+           
     """
 
-    if (args.size != 2) {
+    if (args.size != 1) {
         println(usage)
         exitProcess(0)
     }
 
     val keyId = args[0]
-    val path = args[1]
     val encryptedData = encryptData(keyId)
-    decryptData(encryptedData, keyId, path)
+    decryptData(encryptedData, keyId)
 }
 
 // snippet-start:[kms.kotlin_encrypt_data.main]
@@ -62,8 +61,7 @@ suspend fun encryptData(keyIdValue: String): ByteArray? {
 
 suspend fun decryptData(
     encryptedDataVal: ByteArray?,
-    keyIdVal: String?,
-    path: String,
+    keyIdVal: String?
 ) {
     val decryptRequest =
         DecryptRequest {
@@ -74,10 +72,8 @@ suspend fun decryptData(
         val decryptResponse = kmsClient.decrypt(decryptRequest)
         val myVal = decryptResponse.plaintext
 
-        // Write the decrypted data to a file.
-        if (myVal != null) {
-            File(path).writeBytes(myVal)
-        }
+        // Print the decrypted data.
+        print(myVal)
     }
 }
 // snippet-end:[kms.kotlin_encrypt_data.main]
