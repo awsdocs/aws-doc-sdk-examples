@@ -65,9 +65,9 @@ suspend fun createDatabaseInstance(
             allocatedStorage = 100
             dbName = dbNamedbVal
             engine = "mysql"
-            dbInstanceClass = "db.m4.large"
-            engineVersion = "8.0"
-            storageType = "standard"
+            dbInstanceClass = "db.t3.micro" // Use a supported instance class
+            engineVersion = "8.0.39" // Use a supported engine version
+            storageType = "gp2"
             masterUsername = masterUsernameVal
             masterUserPassword = masterUserPasswordVal
         }
