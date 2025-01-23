@@ -7,7 +7,6 @@ package com.kotlin.kms
 import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.DecryptRequest
 import aws.sdk.kotlin.services.kms.model.EncryptRequest
-import java.io.File
 import kotlin.system.exitProcess
 // snippet-end:[kms.kotlin_encrypt_data.import]
 
@@ -25,7 +24,6 @@ suspend fun main(args: Array<String>) {
             <keyId> <path>
         Where:
             keyId - A key id value to describe (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). 
-           
     """
 
     if (args.size != 1) {
