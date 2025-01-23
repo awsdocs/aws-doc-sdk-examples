@@ -8,6 +8,7 @@ import aws.sdk.kotlin.services.kms.KmsClient
 import aws.sdk.kotlin.services.kms.model.DecryptRequest
 import aws.sdk.kotlin.services.kms.model.EncryptRequest
 import kotlin.system.exitProcess
+
 // snippet-end:[kms.kotlin_encrypt_data.import]
 
 /**
@@ -59,7 +60,7 @@ suspend fun encryptData(keyIdValue: String): ByteArray? {
 
 suspend fun decryptData(
     encryptedDataVal: ByteArray?,
-    keyIdVal: String?
+    keyIdVal: String?,
 ) {
     val decryptRequest =
         DecryptRequest {
