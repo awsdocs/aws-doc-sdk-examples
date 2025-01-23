@@ -54,8 +54,8 @@ class IAMTest {
             val json: String = getSecretValues()
             val randomValue = Random.nextInt(1, 10001)
             val values = gson.fromJson(json, SecretValues::class.java)
-            userName = values.userName.toString()+randomValue
-            policyName = values.policyName.toString()+randomValue
+            userName = values.userName.toString() + randomValue
+            policyName = values.policyName.toString() + randomValue
             roleName = values.roleName.toString()
             accountAlias = values.accountAlias.toString()
             usernameSc = values.usernameSc.toString()
