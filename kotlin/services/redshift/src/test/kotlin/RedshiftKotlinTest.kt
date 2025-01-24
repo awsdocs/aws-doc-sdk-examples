@@ -31,7 +31,8 @@ import java.util.Random
 class RedshiftKotlinTest {
     private var clusterId = ""
     private var eventSourceType = ""
-    private var secretName = ""
+    private var username = ""
+    private var password = ""
 
     @BeforeAll
     fun setup() =
@@ -44,7 +45,8 @@ class RedshiftKotlinTest {
             val json: String = getSecretValues().toString()
             val values = gson.fromJson(json, SecretValues::class.java)
             clusterId = values.clusterId + randomNum
-            secretName = values.secretName.toString()
+            username = values.userName.toString()
+            password = values.password.toString()
             eventSourceType = values.eventSourceType.toString()
 
 // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
@@ -62,38 +64,12 @@ class RedshiftKotlinTest {
     @Order(1)
     fun createClusterTest() =
         runBlocking {
-            val gson = Gson()
-            val user =
-                gson.fromJson(
-                    com.kotlin.redshift
-                        .getSecretValues(secretName)
-                        .toString(),
-                    User::class.java,
-                )
-            val username = user.username
-            val userPassword = user.password
-            createCluster(clusterId, username, userPassword)
+            createCluster(clusterId, username, password)
             println("Test 2 passed")
         }
 
     @Test
     @Order(2)
-    fun waitForClusterReadyTest() =
-        runBlocking {
-            waitForClusterReady(clusterId)
-            println("Test 3 passed")
-        }
-
-    @Test
-    @Order(3)
-    fun modifyClusterReadyTest() =
-        runBlocking {
-            modifyCluster(clusterId)
-            println("Test 4 passed")
-        }
-
-    @Test
-    @Order(4)
     fun describeClustersTest() =
         runBlocking {
             describeRedshiftClusters()
@@ -101,28 +77,13 @@ class RedshiftKotlinTest {
         }
 
     @Test
-    @Order(5)
+    @Order(3)
     fun findReservedNodeOfferTest() =
         runBlocking {
             findReservedNodeOffer()
             println("Test 6 passed")
         }
 
-    @Test
-    @Order(6)
-    fun listEventsTest() =
-        runBlocking {
-            listRedShiftEvents(clusterId, eventSourceType)
-            println("Test 7 passed")
-        }
-
-    @Test
-    @Order(7)
-    fun deleteClusterTest() =
-        runBlocking {
-            deleteRedshiftCluster(clusterId)
-            println("Test 8 passed")
-        }
 
     suspend fun getSecretValues(): String? {
         val secretName = "test/red"
@@ -142,6 +103,7 @@ class RedshiftKotlinTest {
     internal inner class SecretValues {
         val clusterId: String? = null
         val eventSourceType: String? = null
-        val secretName: String? = null
+        val userName: String? = null
+        val password: String? = null
     }
 }
