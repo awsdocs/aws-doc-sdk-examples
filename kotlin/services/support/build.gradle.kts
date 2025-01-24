@@ -50,4 +50,3 @@ tasks.test {
     testClassesDirs += files("build/classes/kotlin/test")
     classpath += files("build/classes/kotlin/main", "build/resources/main")
 }
-
