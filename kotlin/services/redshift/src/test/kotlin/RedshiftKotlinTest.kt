@@ -3,14 +3,9 @@
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
-import com.kotlin.redshift.User
 import com.kotlin.redshift.createCluster
-import com.kotlin.redshift.deleteRedshiftCluster
 import com.kotlin.redshift.describeRedshiftClusters
 import com.kotlin.redshift.findReservedNodeOffer
-import com.kotlin.redshift.listRedShiftEvents
-import com.kotlin.redshift.modifyCluster
-import com.kotlin.redshift.waitForClusterReady
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
