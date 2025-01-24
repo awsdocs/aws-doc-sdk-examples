@@ -37,7 +37,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Amazon Bedrock](hello_bedrock.py#L5)
+- [Hello Amazon Bedrock](hello_bedrock.py#L5) (`ListFoundationModels`)
 
 
 ### Single actions
