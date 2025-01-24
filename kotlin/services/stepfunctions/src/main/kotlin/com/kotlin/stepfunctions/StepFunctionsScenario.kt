@@ -278,7 +278,7 @@ suspend fun describeExe(executionArnVal: String?) {
 // snippet-start:[stepfunctions.kotlin.task_success.main]
 suspend fun sendTaskSuccess(
     token: String?,
-    json: String?,
+    json: String?
 ) {
     val successRequest =
         SendTaskSuccessRequest {
@@ -310,7 +310,7 @@ suspend fun getActivityTask(actArn: String?): List<String> {
 // snippet-start:[stepfunctions.kotlin.start_execute.main]
 suspend fun startWorkflow(
     stateMachineArnVal: String?,
-    jsonEx: String?,
+    jsonEx: String?
 ): String? {
     val uuid = UUID.randomUUID()
     val uuidValue = uuid.toString()
@@ -347,7 +347,7 @@ suspend fun describeStateMachine(stateMachineArnVal: String?) {
 suspend fun createMachine(
     roleARNVal: String?,
     stateMachineName: String?,
-    jsonVal: String?,
+    jsonVal: String?
 ): String? {
     val machineRequest =
         CreateStateMachineRequest {
@@ -366,7 +366,7 @@ suspend fun createMachine(
 
 suspend fun createIAMRole(
     roleNameVal: String?,
-    polJSON: String?,
+    polJSON: String?
 ): String? {
     val request =
         CreateRoleRequest {

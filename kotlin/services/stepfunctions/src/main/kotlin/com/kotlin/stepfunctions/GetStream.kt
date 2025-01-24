@@ -8,7 +8,7 @@ import java.io.FileInputStream
 import java.io.InputStream
 
 class GetStream {
-    suspend fun getStream(location:String): String {
+    suspend fun getStream(location: String): String {
         // Get JSON to use for the state machine and place the activityArn value into it.
         val input: InputStream = FileInputStream(location)
         val mapper = ObjectMapper()
