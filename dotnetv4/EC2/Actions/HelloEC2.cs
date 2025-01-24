@@ -28,7 +28,7 @@ public class HelloEc2
         try
         {
             // Retrieve information for up to 10 Amazon EC2 security groups.
-            var request = new DescribeSecurityGroupsRequest { MaxResults = 10, };
+            var request = new DescribeSecurityGroupsRequest { MaxResults = 10 };
             var securityGroups = new List<SecurityGroup>();
 
             var paginatorForSecurityGroups =

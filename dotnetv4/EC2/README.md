@@ -49,35 +49,19 @@ Code excerpts that show you how to call individual service functions.
 - [AssociateAddress](Actions/EC2Wrapper.cs#L64)
 - [AuthorizeSecurityGroupIngress](Actions/EC2Wrapper.cs#L107)
 - [CreateKeyPair](Actions/EC2Wrapper.cs#L170)
-- [CreateLaunchTemplate](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L263)
 - [CreateSecurityGroup](Actions/EC2Wrapper.cs#L242)
 - [DeleteKeyPair](Actions/EC2Wrapper.cs#L319)
-- [DeleteLaunchTemplate](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L470)
 - [DeleteSecurityGroup](Actions/EC2Wrapper.cs#L361)
-- [DescribeAvailabilityZones](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L325)
-- [DescribeIamInstanceProfileAssociations](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L574)
 - [DescribeInstanceTypes](Actions/EC2Wrapper.cs#L531)
 - [DescribeInstances](Actions/EC2Wrapper.cs#L474)
 - [DescribeKeyPairs](Actions/EC2Wrapper.cs#L578)
 - [DescribeSecurityGroups](Actions/EC2Wrapper.cs#L620)
-- [DescribeSubnets](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L422)
-- [DescribeVpcs](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L386)
 - [DisassociateAddress](Actions/EC2Wrapper.cs#L714)
-- [RebootInstances](Actions/EC2Wrapper.cs#L761)
 - [ReleaseAddress](Actions/EC2Wrapper.cs#L802)
-- [ReplaceIamInstanceProfileAssociation](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L611)
 - [RunInstances](Actions/EC2Wrapper.cs#L837)
 - [StartInstances](Actions/EC2Wrapper.cs#L890)
 - [StopInstances](Actions/EC2Wrapper.cs#L930)
 - [TerminateInstances](Actions/EC2Wrapper.cs#L971)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Build and manage a resilient service](../cross-service/ResilientService/ResilientServiceWorkflow/ResilientServiceWorkflow.cs)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -87,7 +71,7 @@ functions within the same service.
 ### Instructions
 
 For general instructions to run the examples, see the
-[README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
+[README](../README.md#building-and-running-the-code-examples) in the `dotnetv4` folder.
 
 Some projects might include a settings.json file. Before compiling the project,
 you can change these values to match your own account and resources. Alternatively,
@@ -129,32 +113,13 @@ This example shows you how to do the following:
 <!--custom.basics.ec2_Scenario_GetStartedInstances.start-->
 <!--custom.basics.ec2_Scenario_GetStartedInstances.end-->
 
-
-#### Build and manage a resilient service
-
-This example shows you how to create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.
-
-- Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.
-- Handle and distribute HTTP requests with Elastic Load Balancing.
-- Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.
-- Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.
-- Simulate a recommendation service with an Amazon DynamoDB table.
-- Control web server response to requests and health checks by updating AWS Systems Manager parameters.
-
-<!--custom.scenario_prereqs.cross_ResilientService.start-->
-<!--custom.scenario_prereqs.cross_ResilientService.end-->
-
-
-<!--custom.scenarios.cross_ResilientService.start-->
-<!--custom.scenarios.cross_ResilientService.end-->
-
 ### Tests
 
 ⚠ Running tests might result in charges to your AWS account.
 
 
 To find instructions for running these tests, see the [README](../README.md#Tests)
-in the `dotnetv3` folder.
+in the `dotnetv4` folder.
 
 
 
