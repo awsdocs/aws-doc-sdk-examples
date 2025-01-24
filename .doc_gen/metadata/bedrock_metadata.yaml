@@ -29,6 +29,15 @@ bedrock_Hello:
             - description:
               snippet_files:
                 - javascriptv3/example_code/bedrock/hello.js
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - bedrock.example_code.hello_bedrock.complete
   services:
     bedrock: {ListFoundationModels}
 
