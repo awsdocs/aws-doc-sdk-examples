@@ -79,7 +79,6 @@ class RedshiftKotlinTest {
             println("Test 6 passed")
         }
 
-
     suspend fun getSecretValues(): String? {
         val secretName = "test/red"
         val valueRequest =
