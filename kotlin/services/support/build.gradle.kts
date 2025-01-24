@@ -27,12 +27,25 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:support:1.2.28")
+    implementation("aws.sdk.kotlin:support:1.3.112")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
+    implementation("com.google.code.gson:gson:2.10")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
 }
+
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+
+    // Define the test source set
+    testClassesDirs += files("build/classes/kotlin/test")
+    classpath += files("build/classes/kotlin/main", "build/resources/main")
+}
+
