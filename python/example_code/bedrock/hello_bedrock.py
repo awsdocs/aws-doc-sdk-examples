@@ -47,7 +47,7 @@ def main():
     
     fm_models = list_foundation_models(bedrock_client)
     for model in fm_models:
-        print(f"Model: {model["modelName"]}")
+        print(f"Model: {model['modelName']}")
         print(json.dumps(model, indent=2))
         print("---------------------------\n")
     
