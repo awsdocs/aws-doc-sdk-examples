@@ -56,4 +56,4 @@ def main():
 if __name__ == "__main__":
     main()
 
- # snippet-end: [bedrock.example_code.hello_bedrock.complete]
+ # snippet-end:[bedrock.example_code.hello_bedrock.complete]
