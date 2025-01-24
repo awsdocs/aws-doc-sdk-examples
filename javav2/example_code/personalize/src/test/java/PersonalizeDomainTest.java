@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
 import com.example.personalize.CreateDataset;
 import com.example.personalize.CreateDatasetImportJob;
 import com.example.personalize.CreateDomainDatasetGroup;
@@ -64,14 +65,14 @@ public class PersonalizeDomainTest {
         Region region = Region.US_WEST_2;
 
         personalizeRuntimeClient = PersonalizeRuntimeClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
         personalizeClient = PersonalizeClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
         personalizeEventsClient = PersonalizeEventsClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
         try (InputStream input = PersonalizeDomainTest.class.getClassLoader().getResourceAsStream("domain-dsg-config.properties")) {
 
             Properties prop = new Properties();
@@ -114,6 +115,7 @@ public class PersonalizeDomainTest {
             ex.printStackTrace();
         }
     }
+
     @Test
     @Order(1)
     public void whenInitializingAWSService_thenNotNull() {
@@ -122,35 +124,39 @@ public class PersonalizeDomainTest {
         assertNotNull(personalizeEventsClient);
         System.out.println("Initialize clients test passed");
     }
+
     @Test
     @Order(2)
     public void CreateDomainDatasetGroup() {
         String domainDatasetGroupArn = CreateDomainDatasetGroup.createDomainDatasetGroup(personalizeClient,
-                createDomainDatasetGroupName, createDomainDatasetGroupDomain);
+            createDomainDatasetGroupName, createDomainDatasetGroupDomain);
         assertFalse(domainDatasetGroupArn.isEmpty());
         System.out.println("CreateDomainDatasetGroup test passed");
     }
+
     @Test
     @Order(3)
     public void CreateDomainSchema() {
         String domainSchemaArn = CreateDomainSchema.createDomainSchema(personalizeClient,
-                createDomainSchemaName, createDomainSchemaDomain, createDomainSchemaLocation);
+            createDomainSchemaName, createDomainSchemaDomain, createDomainSchemaLocation);
         assertFalse(domainSchemaArn.isEmpty());
         System.out.println("CreateDomainSchema test passed");
     }
+
     @Test
     @Order(4)
     public void CreateDomainDataset() {
         String datasetArn = CreateDataset.createDataset(personalizeClient,
-                newDatasetName, newDatasetDestinationDatasetGroupArn, newDatasetType, newDatasetSchemaArn);
+            newDatasetName, newDatasetDestinationDatasetGroupArn, newDatasetType, newDatasetSchemaArn);
         assertFalse(datasetArn.isEmpty());
         System.out.println("CreateDomainDataset test passed");
     }
+
     @Test
     @Order(5)
     public void CreateDatasetImportJob() {
         String datasetImportJobArn = CreateDatasetImportJob.createPersonalizeDatasetImportJob(personalizeClient,
-                domainDatasetImportJobName, importJobDatasetArn, domainS3BucketPath, domainRoleArn);
+            domainDatasetImportJobName, importJobDatasetArn, domainS3BucketPath, domainRoleArn);
         assertFalse(datasetImportJobArn.isEmpty());
         System.out.println("CreateDatasetImportJob test passed");
     }
@@ -159,18 +165,15 @@ public class PersonalizeDomainTest {
     @Order(6)
     public void CreateRecommender() {
         String recommenderArn = CreateRecommender.createRecommender(personalizeClient,
-                createRecommenderName, createRecommenderDatasetGroupArn, createRecommenderRecipeArn);
+            createRecommenderName, createRecommenderDatasetGroupArn, createRecommenderRecipeArn);
         assertFalse(recommenderArn.isEmpty());
         System.out.println("CreateRecommender test passed");
     }
+
     @Test
     @Order(7)
     public void GetRecommendations() {
         GetRecommendationsFromRecommender.getRecs(personalizeRuntimeClient, getRecommendationsRecommenderArn, getRecommendationsUserId);
         System.out.println("GetRecommendations test passed");
     }
-
-
-
-
 }

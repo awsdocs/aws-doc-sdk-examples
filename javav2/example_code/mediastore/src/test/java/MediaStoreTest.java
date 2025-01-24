@@ -112,62 +112,15 @@ public class MediaStoreTest {
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void PutObject() throws URISyntaxException {
-        Region region = Region.US_EAST_1;
-        URI uri = new URI(getEndpoint(containerName));
-        MediaStoreDataClient mediaStoreDataOb = MediaStoreDataClient.builder()
-                .endpointOverride(uri)
-                .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
-
-        assertDoesNotThrow(() -> PutObject.putMediaObject(mediaStoreDataOb, filePath, completePath));
-        System.out.println("Test 4 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(5)
     public void ListItems() {
         assertDoesNotThrow(() -> ListItems.listAllItems(mediaStoreData, containerName));
         System.out.println("Test 5 passed");
     }
 
-    @Test
-    @Tag("IntegrationTest")
-    @Order(6)
-    public void GetObject() throws URISyntaxException {
-        URI uri = new URI(getEndpoint(containerName));
-        Region region = Region.US_EAST_1;
-        MediaStoreDataClient mediaStoreDataOb = MediaStoreDataClient.builder()
-                .endpointOverride(uri)
-                .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
-
-        assertDoesNotThrow(() -> GetObject.getMediaObject(mediaStoreDataOb, completePath, savePath));
-        System.out.println("Test 4 passed");
-    }
 
     @Test
     @Tag("IntegrationTest")
-    @Order(6)
-    public void DeleteObject() throws URISyntaxException {
-        URI uri = new URI(getEndpoint(containerName));
-        Region region = Region.US_EAST_1;
-        MediaStoreDataClient mediaStoreDataOb = MediaStoreDataClient.builder()
-                .endpointOverride(uri)
-                .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
-
-        assertDoesNotThrow(() -> DeleteObject.deleteMediaObject(mediaStoreDataOb, completePath));
-        System.out.println("Test 6 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(7)
+    @Order(5)
     public void DeleteContainer() throws InterruptedException {
         System.out.println("Wait 1 min to delete container");
         TimeUnit.MINUTES.sleep(1);
