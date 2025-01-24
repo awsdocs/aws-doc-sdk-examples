@@ -12,6 +12,7 @@ import software.amazon.awssdk.services.firehose.FirehoseClient;
 import software.amazon.awssdk.services.firehose.model.*;
 import software.amazon.awssdk.services.firehose.model.Record;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
@@ -41,7 +42,6 @@ public class FirehoseScenario {
             System.out.println(usage);
             return;
         }
-
         String deliveryStreamName = args[0];
 
         try {
@@ -201,10 +201,10 @@ public class FirehoseScenario {
         }
     }
 
-    public static String readJsonFile(String fileName) {
-        try (InputStream inputStream = FirehoseScenario.class.getClassLoader().getResourceAsStream(fileName);
+    public static String readJsonFile(String fileName) throws IOException {
+        try (InputStream inputStream = FirehoseScenario.class.getResourceAsStream("/" + fileName);
              Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8)) {
-            return scanner.useDelimiter("\\A").next();
+            return scanner.useDelimiter("\\\\A").next();
         } catch (Exception e) {
             throw new RuntimeException("Error reading file: " + fileName, e);
         }

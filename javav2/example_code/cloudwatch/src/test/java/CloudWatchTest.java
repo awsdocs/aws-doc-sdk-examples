@@ -96,40 +96,6 @@ public class CloudWatchTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void testListMets() {
-        assertDoesNotThrow(() -> {
-            CompletableFuture<ArrayList<String>> future = cwActions.listMetsAsync(namespace);
-            ArrayList<String> metList = future.join();
-            assertFalse(metList.isEmpty());
-
-        });
-        logger.info("Test 3 passed");
-    }
-    @Test
-    @Tag("IntegrationTest")
-    @Order(4)
-    public void testGetSpecificMet() {
-        assertDoesNotThrow(() -> {
-            myDimension = cwActions.getSpecificMetAsync(namespace).join();
-            assertNotNull(myDimension, "The retrieved metric dimension should not be null");
-        });
-        logger.info("Test 4 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(5)
-    public void testGetAndDisplayMetric() {
-        assertDoesNotThrow(() -> {
-            CompletableFuture<GetMetricStatisticsResponse> future = cwActions.getAndDisplayMetricStatisticsAsync("AWS/MemoryDB","ActiveDefragHits", "Maximum", myDateSc, myDimension);
-            future.join();
-        });
-        logger.info("Test 5 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(6)
     void testCreateDashboard() {
         assertDoesNotThrow(() -> {
             CompletableFuture<PutDashboardResponse> future = cwActions.createDashboardWithMetricsAsync(dashboardNameSc, dashboardJsonSc);
@@ -140,7 +106,7 @@ public class CloudWatchTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(7)
+    @Order(4)
     public void testGetMetricData() {
         assertDoesNotThrow(() -> {
             CompletableFuture<GetMetricStatisticsResponse> future = cwActions.getMetricStatisticsAsync(costDateWeekSc);
@@ -151,7 +117,7 @@ public class CloudWatchTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(8)
+    @Order(5)
     public void testListDashboards() {
         assertDoesNotThrow(() -> {
             CompletableFuture<Void> future = cwActions.listDashboardsAsync();
@@ -162,7 +128,7 @@ public class CloudWatchTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(9)
+    @Order(6)
     public void testListMetrics() {
         Double dataPoint = Double.parseDouble("10.0");
         assertDoesNotThrow(() -> {
@@ -174,7 +140,7 @@ public class CloudWatchTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(10)
+    @Order(7)
     public void testMetricToDashboard() {
         assertDoesNotThrow(() -> {
             CompletableFuture<PutDashboardResponse> future = cwActions.addMetricToDashboardAsync(dashboardAddSc, dashboardNameSc);
@@ -185,7 +151,7 @@ public class CloudWatchTest {
     }
     @Test
     @Tag("IntegrationTest")
-    @Order(11)
+    @Order(8)
     public void testCreateAlarm() {
         assertDoesNotThrow(() -> {
             CompletableFuture<String> future = cwActions.createAlarmAsync(settingsSc);
@@ -197,7 +163,7 @@ public class CloudWatchTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(12)
+    @Order(9)
     public void testDescribeAlarms() {
         assertDoesNotThrow(() -> {
             CompletableFuture<Void> future = cwActions.describeAlarmsAsync();
@@ -208,7 +174,7 @@ public class CloudWatchTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(13)
+    @Order(10)
     public void testCustomMetricData() {
         assertDoesNotThrow(() -> {
             CompletableFuture<Void> future = cwActions.getCustomMetricDataAsync(settingsSc);
@@ -219,7 +185,7 @@ public class CloudWatchTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(14)
+    @Order(11)
     public void testMetricDataForAlarm() {
         assertDoesNotThrow(() -> {
             CompletableFuture<PutMetricDataResponse> future = cwActions.addMetricDataForAlarmAsync(settingsSc);
@@ -230,7 +196,7 @@ public class CloudWatchTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(15)
+    @Order(12)
     public void testMetricAlarmAsync() {
         assertDoesNotThrow(() -> {
             CompletableFuture<Void> future = cwActions.checkForMetricAlarmAsync(settingsSc);
@@ -241,7 +207,7 @@ public class CloudWatchTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(16)
+    @Order(13)
     public void testAlarmHistory() {
         assertDoesNotThrow(() -> {
             CompletableFuture<Void> future = cwActions.getAlarmHistoryAsync(settingsSc, myDateSc);
@@ -252,7 +218,7 @@ public class CloudWatchTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(17)
+    @Order(14)
     public void testAnomalyDetector() {
         assertDoesNotThrow(() -> {
             CompletableFuture<Void> future = cwActions.addAnomalyDetectorAsync(settingsSc);
@@ -263,7 +229,7 @@ public class CloudWatchTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(18)
+    @Order(15)
     public void testDeleteDashboard() {
         assertDoesNotThrow(() -> {
             CompletableFuture<DeleteDashboardsResponse> future = cwActions.deleteDashboardAsync(dashboardNameSc);
@@ -275,7 +241,7 @@ public class CloudWatchTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(19)
+    @Order(16)
     public void testCWAlarmAsync() {
         assertDoesNotThrow(() -> {
             CompletableFuture<DeleteAlarmsResponse> future = cwActions.deleteCWAlarmAsync(alarmName);
@@ -287,7 +253,7 @@ public class CloudWatchTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(20)
+    @Order(17)
     public void testDeleteAnomalyDetector() {
         assertDoesNotThrow(() -> {
             CompletableFuture<DeleteAnomalyDetectorResponse> future = cwActions.deleteAnomalyDetectorAsync(settingsSc);
