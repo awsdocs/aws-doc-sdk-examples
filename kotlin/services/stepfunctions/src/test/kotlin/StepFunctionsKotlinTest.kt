@@ -4,25 +4,8 @@
 import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.node.ObjectNode
 import com.google.gson.Gson
-import com.kotlin.stepfunctions.DASHES
-import com.kotlin.stepfunctions.GetStream
-import com.kotlin.stepfunctions.createActivity
-import com.kotlin.stepfunctions.createIAMRole
-import com.kotlin.stepfunctions.createMachine
-import com.kotlin.stepfunctions.deleteActivity
-import com.kotlin.stepfunctions.deleteMachine
-import com.kotlin.stepfunctions.describeExe
-import com.kotlin.stepfunctions.describeStateMachine
-import com.kotlin.stepfunctions.getActivityTask
-import com.kotlin.stepfunctions.listActivitesPagnator
 import com.kotlin.stepfunctions.listMachines
-import com.kotlin.stepfunctions.listStatemachinesPagnator
-import com.kotlin.stepfunctions.sendTaskSuccess
-import com.kotlin.stepfunctions.startWorkflow
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
@@ -32,7 +15,6 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.util.Scanner
 import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
