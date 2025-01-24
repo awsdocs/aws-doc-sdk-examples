@@ -4,7 +4,6 @@
 global using Amazon.EC2;
 global using Amazon.SimpleSystemsManagement;
 global using EC2Actions;
-global using Microsoft.Extensions.Configuration;
 global using Xunit;
 
 // Optional.

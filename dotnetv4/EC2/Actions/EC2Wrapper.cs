@@ -288,34 +288,6 @@ public class EC2Wrapper
 
     // snippet-end:[EC2.dotnetv4.CreateSecurityGroup]
 
-    // snippet-start:[EC2.dotnetv4.CreateVPC]
-    /// <summary>
-    /// Create a new Amazon EC2 VPC.
-    /// </summary>
-    /// <param name="cidrBlock">The CIDR block for the new security group.</param>
-    /// <returns>The VPC Id of the new VPC.</returns>
-    public async Task<string?> CreateVPC(string cidrBlock)
-    {
-
-        try
-        {
-            var response = await _amazonEC2.CreateVpcAsync(new CreateVpcRequest
-            {
-                CidrBlock = cidrBlock,
-            });
-
-            Vpc vpc = response.Vpc;
-            Console.WriteLine($"Created VPC with ID: {vpc.VpcId}.");
-            return vpc.VpcId;
-        }
-        catch (AmazonEC2Exception ex)
-        {
-            Console.WriteLine($"Couldn't create VPC because: {ex.Message}");
-            return null;
-        }
-    }
-    // snippet-end:[EC2.dotnetv4.CreateVPC]
-
     // snippet-start:[EC2.dotnetv4.DeleteKeyPair]
     /// <summary>
     /// Delete an Amazon EC2 key pair.
@@ -391,24 +363,6 @@ public class EC2Wrapper
     }
     // snippet-end:[EC2.dotnetv4.DeleteSecurityGroup]
 
-    // snippet-start:[EC2.dotnetv4.DeleteVPC]
-    /// <summary>
-    /// Delete an Amazon EC2 VPC.
-    /// </summary>
-    /// <returns>A Boolean value indicating the success of the action.</returns>
-    public async Task<bool> DeleteVpc(string vpcId)
-    {
-        var request = new DeleteVpcRequest
-        {
-            VpcId = vpcId,
-        };
-
-        var response = await _amazonEC2.DeleteVpcAsync(request);
-
-        return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
-    }
-    // snippet-end:[EC2.dotnetv4.DeleteVPC]
-
     // snippet-start:[EC2.dotnetv4.DescribeImages]
     /// <summary>
     /// Get information about existing Amazon EC2 images.
@@ -427,20 +381,6 @@ public class EC2Wrapper
         var response = await _amazonEC2.DescribeImagesAsync(request);
         return response.Images;
     }
-
-    /// <summary>
-    /// Display the information returned by DescribeImages.
-    /// </summary>
-    /// <param name="images">The list of image information to display.</param>
-    public void DisplayImageInfo(List<Image> images)
-    {
-        images.ForEach(image =>
-        {
-            Console.WriteLine($"{image.Name} Created on: {image.CreationDate}");
-        });
-
-    }
-    // snippet-end:[EC2.dotnetv4.DescribeImages]
 
     // snippet-start:[EC2.dotnetv4.DescribeInstance]
     /// <summary>
@@ -471,62 +411,6 @@ public class EC2Wrapper
     }
     // snippet-end:[EC2.dotnetv4.DescribeInstance]
 
-    // snippet-start:[EC2.dotnetv4.DescribeInstances]
-    /// <summary>
-    /// Get information about EC2 instances with a particular state.
-    /// </summary>
-    /// <param name="tagName">The name of the tag to filter on.</param>
-    /// <param name="tagValue">The value of the tag to look for.</param>
-    /// <returns>True if successful.</returns>
-    public async Task<bool> GetInstancesWithState(string state)
-    {
-        try
-        {
-            // Filters the results of the instance list.
-            var filters = new List<Filter>
-            {
-                new Filter
-                {
-                    Name = $"instance-state-name",
-                    Values = new List<string> { state, },
-                },
-            };
-            var request = new DescribeInstancesRequest { Filters = filters, };
-
-            Console.WriteLine($"\nShowing instances with state {state}");
-            var paginator = _amazonEC2.Paginators.DescribeInstances(request);
-
-            await foreach (var response in paginator.Responses)
-            {
-                foreach (var reservation in response.Reservations)
-                {
-                    foreach (var instance in reservation.Instances)
-                    {
-                        Console.Write($"Instance ID: {instance.InstanceId} ");
-                        Console.WriteLine($"\tCurrent State: {instance.State.Name}");
-                    }
-                }
-            }
-
-            return true;
-        }
-        catch (AmazonEC2Exception ec2Exception)
-        {
-            if (ec2Exception.ErrorCode == "InvalidParameterValue")
-            {
-                _logger.LogError(
-                    $"Invalid parameter value for filtering instances.");
-            }
-
-            return false;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Couldn't list instances because: {ex.Message}");
-            return false;
-        }
-    }
-    // snippet-end:[EC2.dotnetv4.DescribeInstances]
 
     // snippet-start:[EC2.dotnetv4.DescribeInstanceTypes]
     /// <summary>
@@ -585,6 +469,7 @@ public class EC2Wrapper
     {
         try
         {
+            var pairs = new List<KeyPairInfo>();
             var request = new DescribeKeyPairsRequest();
             if (!string.IsNullOrEmpty(keyPairName))
             {
@@ -595,7 +480,12 @@ public class EC2Wrapper
             }
 
             var response = await _amazonEC2.DescribeKeyPairsAsync(request);
-            return response.KeyPairs.ToList();
+            if (response.KeyPairs != null)
+            {
+                pairs = response.KeyPairs.ToList();
+            }
+            return pairs;
+
         }
         catch (AmazonEC2Exception ec2Exception)
         {
@@ -674,36 +564,36 @@ public class EC2Wrapper
     {
         Console.WriteLine($"{securityGroup.GroupName}");
         Console.WriteLine("Ingress permissions:");
-        securityGroup.IpPermissions.ForEach(permission =>
+        securityGroup.IpPermissions?.ForEach(permission =>
         {
             Console.WriteLine($"\tFromPort: {permission.FromPort}");
             Console.WriteLine($"\tIpProtocol: {permission.IpProtocol}");
 
             Console.Write($"\tIpv4Ranges: ");
-            permission.Ipv4Ranges.ForEach(range => { Console.Write($"{range.CidrIp} "); });
+            permission.Ipv4Ranges?.ForEach(range => { Console.Write($"{range.CidrIp} "); });
 
             Console.WriteLine($"\n\tIpv6Ranges:");
-            permission.Ipv6Ranges.ForEach(range => { Console.Write($"{range.CidrIpv6} "); });
+            permission.Ipv6Ranges?.ForEach(range => { Console.Write($"{range.CidrIpv6} "); });
 
             Console.Write($"\n\tPrefixListIds: ");
-            permission.PrefixListIds.ForEach(id => Console.Write($"{id.Id} "));
+            permission.PrefixListIds?.ForEach(id => Console.Write($"{id.Id} "));
 
             Console.WriteLine($"\n\tTo Port: {permission.ToPort}");
         });
         Console.WriteLine("Egress permissions:");
-        securityGroup.IpPermissionsEgress.ForEach(permission =>
+        securityGroup.IpPermissionsEgress?.ForEach(permission =>
         {
             Console.WriteLine($"\tFromPort: {permission.FromPort}");
             Console.WriteLine($"\tIpProtocol: {permission.IpProtocol}");
 
             Console.Write($"\tIpv4Ranges: ");
-            permission.Ipv4Ranges.ForEach(range => { Console.Write($"{range.CidrIp} "); });
+            permission.Ipv4Ranges?.ForEach(range => { Console.Write($"{range.CidrIp} "); });
 
             Console.WriteLine($"\n\tIpv6Ranges:");
-            permission.Ipv6Ranges.ForEach(range => { Console.Write($"{range.CidrIpv6} "); });
+            permission.Ipv6Ranges?.ForEach(range => { Console.Write($"{range.CidrIpv6} "); });
 
             Console.Write($"\n\tPrefixListIds: ");
-            permission.PrefixListIds.ForEach(id => Console.Write($"{id.Id} "));
+            permission.PrefixListIds?.ForEach(id => Console.Write($"{id.Id} "));
 
             Console.WriteLine($"\n\tTo Port: {permission.ToPort}");
         });
@@ -744,60 +634,6 @@ public class EC2Wrapper
     }
     // snippet-end:[EC2.dotnetv4.DisassociateAddress]
 
-    // snippet-start:[EC2.dotnetv4.GetAMIList]
-    /// <summary>
-    /// Retrieve a list of available Amazon Linux images.
-    /// </summary>
-    /// <returns>A list of image information.</returns>
-    public async Task<List<Image>> GetEC2AmiList()
-    {
-        var filter = new Filter { Name = "architecture", Values = new List<string> { "x86_64" } };
-        var filters = new List<Filter> { filter };
-        var response = await _amazonEC2.DescribeImagesAsync(new DescribeImagesRequest { Filters = filters });
-        return response.Images;
-    }
-    // snippet-end:[EC2.dotnetv4.GetAMIList]
-
-    // snippet-start:[EC2.dotnetv4.RebootInstances]
-    /// <summary>
-    /// Reboot a specific EC2 instance.
-    /// </summary>
-    /// <param name="ec2InstanceId">The instance Id of the instance that will be rebooted.</param>
-    /// <returns>Async Task.</returns>
-    public async Task<bool> RebootInstances(string ec2InstanceId)
-    {
-        try
-        {
-            var request = new RebootInstancesRequest
-            {
-                InstanceIds = new List<string> { ec2InstanceId },
-            };
-
-            await _amazonEC2.RebootInstancesAsync(request);
-
-            // Wait for the instance to be running.
-            Console.Write("Waiting for the instance to start.");
-            await WaitForInstanceState(ec2InstanceId, InstanceStateName.Running);
-
-            return true;
-        }
-        catch (AmazonEC2Exception ec2Exception)
-        {
-            if (ec2Exception.ErrorCode == "InvalidInstanceId")
-            {
-                _logger.LogError(
-                    $"InstanceId {ec2InstanceId} is invalid, unable to reboot. {ec2Exception.Message}");
-            }
-            return false;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(
-                $"An error occurred while rebooting the instance {ec2InstanceId}.: {ex.Message}");
-            return false;
-        }
-    }
-    // snippet-end:[EC2.dotnetv4.RebootInstances]
 
     // snippet-start:[EC2.dotnetv4.ReleaseAddress]
     /// <summary>
@@ -812,8 +648,8 @@ public class EC2Wrapper
         {
             var request = new ReleaseAddressRequest { AllocationId = allocationId };
 
-            var response = await _amazonEC2.ReleaseAddressAsync(request);
-            return response.HttpStatusCode == HttpStatusCode.OK;
+            await _amazonEC2.ReleaseAddressAsync(request);
+            return true;
         }
         catch (AmazonEC2Exception ec2Exception)
         {
