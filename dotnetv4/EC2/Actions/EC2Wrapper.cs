@@ -381,6 +381,7 @@ public class EC2Wrapper
         var response = await _amazonEC2.DescribeImagesAsync(request);
         return response.Images;
     }
+    // snippet-end:[EC2.dotnetv4.DescribeImages]
 
     // snippet-start:[EC2.dotnetv4.DescribeInstance]
     /// <summary>
