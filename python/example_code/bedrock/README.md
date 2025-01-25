@@ -39,6 +39,7 @@ python -m pip install -r requirements.txt
 
 - [Hello Amazon Bedrock](hello_bedrock.py#L5) (`ListFoundationModels`)
 
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -69,6 +70,13 @@ python bedrock_wrapper.py
 ```
 <!--custom.instructions.end-->
 
+#### Hello Amazon Bedrock
+
+This example shows you how to get started using Amazon Bedrock.
+
+```
+python hello_bedrock.py
+```
 
 
 ### Tests
