@@ -27,10 +27,11 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:keyspaces:1.3.112")
+    implementation(platform("aws.sdk.kotlin:bom:1.3.112"))
+    implementation("aws.sdk.kotlin:keyspaces")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp")
+    implementation("aws.smithy.kotlin:http-client-engine-crt")
     implementation("com.datastax.oss:java-driver-core:4.15.0")
-    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
-    implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
     implementation("software.aws.mcs:aws-sigv4-auth-cassandra-java-driver-plugin:4.0.8")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
