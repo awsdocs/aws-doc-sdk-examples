@@ -27,11 +27,12 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:sfn:1.3.112")
-    implementation("aws.sdk.kotlin:iam:1.3.112")
-    implementation("aws.sdk.kotlin:secretsmanager:1.3.112")
-    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
-    implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
+    implementation(platform("aws.sdk.kotlin:bom:1.3.112"))
+    implementation("aws.sdk.kotlin:sfn")
+    implementation("aws.sdk.kotlin:iam")
+    implementation("aws.sdk.kotlin:secretsmanager")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp")
+    implementation("aws.smithy.kotlin:http-client-engine-crt")
     implementation("com.google.code.gson:gson:2.10")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
