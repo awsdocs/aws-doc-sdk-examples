@@ -38,20 +38,21 @@ def list_foundation_models(bedrock_client):
 
 
 def main():
-    """Entry point for the example. Change region to the region
-    that you want to use."""
-   
-    region = "us-east-1"
+    """Entry point for the example. Uses the AWS SDK for Python (Boto3)
+    to create an Amazon Bedrock client. Then lists the available Bedrock models
+    in the region set in the callers profile and credentials.
+    """
 
-    bedrock_client = boto3.client(service_name="bedrock", region_name=region)
-    
+    bedrock_client = boto3.client(service_name="bedrock")
+
     fm_models = list_foundation_models(bedrock_client)
     for model in fm_models:
         print(f"Model: {model['modelName']}")
         print(json.dumps(model, indent=2))
         print("---------------------------\n")
-    
+
     logger.info("Done.")
+
 
 if __name__ == "__main__":
     main()
