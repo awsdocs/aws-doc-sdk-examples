@@ -15,6 +15,7 @@ public class CreateObjectLockRole {
     }
 
     // snippet-start:[S3Lock.javav2.lock.role.main]
+
     /**
      * Creates an IAM role for AWS S3 Batch Operations to manage object locks.
      */
@@ -22,38 +23,52 @@ public class CreateObjectLockRole {
         final String roleName = "batch_operations-object-lock1";
 
         // Trust policy
-        final String trustPolicy = "{"
-            + "\"Version\":\"2012-10-17\","
-            + "\"Statement\":[{"
-            + "\"Effect\":\"Allow\","
-            + "\"Principal\":{"
-            + "\"Service\":\"batchoperations.s3.amazonaws.com\""
-            + "},"
-            + "\"Action\":\"sts:AssumeRole\""
-            + "}]"
-            + "}";
+        final String trustPolicy = """
+            {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Principal": {
+                            "Service": "batchoperations.s3.amazonaws.com"
+                        },
+                        "Action": "sts:AssumeRole"
+                    }
+                ]
+            }
+            """;
+
 
         // Permissions policy
-        final String bopsPermissions = "{"
-            + "\"Version\":\"2012-10-17\","
-            + "\"Statement\":["
-            + "{"
-            + "\"Effect\":\"Allow\","
-            + "\"Action\":\"s3:GetBucketObjectLockConfiguration\","
-            + "\"Resource\":\"arn:aws:s3:::amzn-s3-demo-manifest-bucket\""
-            + "},"
-            + "{"
-            + "\"Effect\":\"Allow\","
-            + "\"Action\":[\"s3:GetObject\",\"s3:GetObjectVersion\",\"s3:GetBucketLocation\"],"
-            + "\"Resource\":\"arn:aws:s3:::amzn-s3-demo-manifest-bucket/*\""
-            + "},"
-            + "{"
-            + "\"Effect\":\"Allow\","
-            + "\"Action\":[\"s3:PutObject\",\"s3:GetBucketLocation\"],"
-            + "\"Resource\":\"arn:aws:s3:::amzn-s3-demo-completion-report-bucket/*\""
-            + "}"
-            + "]"
-            + "}";
+        final String bopsPermissions = """
+            {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Action": "s3:GetBucketObjectLockConfiguration",
+                        "Resource": "arn:aws:s3:::amzn-s3-demo-manifest-bucket"
+                    },
+                    {
+                        "Effect": "Allow",
+                        "Action": [
+                            "s3:GetObject",
+                            "s3:GetObjectVersion",
+                            "s3:GetBucketLocation"
+                        ],
+                        "Resource": "arn:aws:s3:::amzn-s3-demo-manifest-bucket/*"
+                    },
+                    {
+                        "Effect": "Allow",
+                        "Action": [
+                            "s3:PutObject",
+                            "s3:GetBucketLocation"
+                        ],
+                        "Resource": "arn:aws:s3:::amzn-s3-demo-completion-report-bucket/*"
+                    }
+                ]
+            }
+            """;
 
         // Create IAM client
         final IamClient iam = IamClient.builder()
