@@ -11,7 +11,20 @@ import software.amazon.awssdk.services.iam.model.PutRolePolicyRequest;
 
 public class CreateObjectLockRole {
     public static void main(String[] args) {
-        createLockRole();
+        final String usage = """
+
+            Usage:    <roleName>
+
+            Where:
+               roleName - the IAM role name.
+            """;
+
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
+        String roleName = args[0];
+        createLockRole(roleName);
     }
 
     // snippet-start:[S3Lock.javav2.lock.role.main]
@@ -19,9 +32,7 @@ public class CreateObjectLockRole {
     /**
      * Creates an IAM role for AWS S3 Batch Operations to manage object locks.
      */
-    public static void createLockRole() {
-        final String roleName = "batch_operations-object-lock1";
-
+    public static void createLockRole(String roleName) {
         // Trust policy
         final String trustPolicy = """
             {
