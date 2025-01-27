@@ -38,11 +38,7 @@ public class ListBuckets {
      */
     public static void listAllBuckets(S3Client s3) {
         ListBucketsIterable response = s3.listBucketsPaginator();
-
-        // Iterate over each response page and print bucket names.
-        response.stream()
-            .map(ListBucketsResponse::buckets)
-            .flatMap(buckets -> buckets.stream())
-            .forEach(bucket -> System.out.println("Bucket Name: " + bucket.name()));
+        response.buckets().forEach(bucket ->
+            System.out.println("Bucket Name: " + bucket.name()));
     }
 }// snippet-end:[s3.java2.list.buckets.main]
