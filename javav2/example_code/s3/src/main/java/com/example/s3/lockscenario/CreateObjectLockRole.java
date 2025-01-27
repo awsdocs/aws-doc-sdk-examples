@@ -28,7 +28,6 @@ public class CreateObjectLockRole {
     }
 
     // snippet-start:[S3Lock.javav2.lock.role.main]
-
     /**
      * Creates an IAM role for AWS S3 Batch Operations to manage object locks.
      */

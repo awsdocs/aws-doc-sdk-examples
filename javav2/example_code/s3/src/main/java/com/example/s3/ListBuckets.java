@@ -6,12 +6,7 @@ package com.example.s3;
 // snippet-start:[s3.java2.list.buckets.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.Bucket;
-import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
 import software.amazon.awssdk.services.s3.paginators.ListBucketsIterable;
-
-import java.util.List;
-
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
