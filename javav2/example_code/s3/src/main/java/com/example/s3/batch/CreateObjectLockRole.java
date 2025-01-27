@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 
-package com.example.s3.lockscenario;
+package com.example.s3.batch;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
