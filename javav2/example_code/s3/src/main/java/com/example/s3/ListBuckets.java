@@ -45,5 +45,4 @@ public class ListBuckets {
             .flatMap(buckets -> buckets.stream())
             .forEach(bucket -> System.out.println("Bucket Name: " + bucket.name()));
     }
-}
-// snippet-end:[s3.java2.list.buckets.main]
+}// snippet-end:[s3.java2.list.buckets.main]
