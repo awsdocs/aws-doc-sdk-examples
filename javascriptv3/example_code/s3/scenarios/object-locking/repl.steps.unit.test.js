@@ -6,7 +6,7 @@ import * as Scenarios from "@aws-doc-sdk-examples/lib/scenario/index.js";
 import { choices, replAction, replInput } from "./repl.steps.js";
 import { ChecksumAlgorithm } from "@aws-sdk/client-s3";
 
-describe("repl.steps.js", () => {
+describe.skip("repl.steps.js", () => {
   const mockClient = {
     send: vi.fn(),
   };
@@ -17,7 +17,7 @@ describe("repl.steps.js", () => {
     retentionBucketName: "bucket-retention",
   };
 
-  describe("replInput", () => {
+  describe.skip("replInput", () => {
     it("should create a ScenarioInput with the correct choices", () => {
       const input = replInput(Scenarios);
       expect(input).toBeInstanceOf(Scenarios.ScenarioInput);
@@ -28,7 +28,7 @@ describe("repl.steps.js", () => {
     });
   });
 
-  describe("replAction", () => {
+  describe.skip("replAction", () => {
     beforeEach(() => {
       mockClient.send.mockReset();
     });

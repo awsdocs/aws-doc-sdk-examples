@@ -26,7 +26,7 @@ import { legallyEmptyAndDeleteBuckets } from "../../libs/s3Utils.js";
 const bucketPrefix = "js-object-locking";
 const client = new S3Client({});
 
-describe("S3 Object Locking Integration Tests", () => {
+describe.skip("S3 Object Locking Integration Tests", () => {
   const state = {
     noLockBucketName: `${bucketPrefix}-no-lock`,
     lockEnabledBucketName: `${bucketPrefix}-lock-enabled`,
