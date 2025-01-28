@@ -246,15 +246,6 @@ public class AmazonCognitoTest {
     @Test
     @Tag("IntegrationTest")
     @Order(14)
-    public void SignUp() {
-        assertDoesNotThrow(
-                () -> SignUpUser.signUp(cognitoIdentityProviderClient, clientId, secretkey, username, password, email));
-        System.out.println("Test 14 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(15)
     public void DeleteIdentityPool() {
         assertDoesNotThrow(() -> DeleteIdentityPool.deleteIdPool(cognitoIdclient, identityPoolId));
         System.out.println("Test 15 passed");

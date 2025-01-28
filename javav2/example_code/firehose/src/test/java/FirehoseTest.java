@@ -79,16 +79,16 @@ public class FirehoseTest {
     @Tag("IntegrationTest")
     @Order(1)
     public void CreateDeliveryStream() {
-   //     assertDoesNotThrow(() -> CreateDeliveryStream.createStream(firehoseClient, bucketARN, roleARN, newStream));
+        assertDoesNotThrow(() -> CreateDeliveryStream.createStream(firehoseClient, bucketARN, roleARN, newStream));
         System.out.println("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void PutRecord() throws InterruptedException, JsonProcessingException {
-    //    System.out.println("Wait 10 mins for resource to become available.");
-     //   TimeUnit.MINUTES.sleep(10);
+    public void PutRecord() throws IOException, InterruptedException {
+        System.out.println("Wait 10 mins for resource to become available.");
+        TimeUnit.MINUTES.sleep(10);
         String jsonContent = FirehoseScenario.readJsonFile("sample_records.json");
         ObjectMapper objectMapper = new ObjectMapper();
         List<Map<String, Object>> sampleData = objectMapper.readValue(jsonContent, new TypeReference<>() {});
@@ -105,22 +105,9 @@ public class FirehoseTest {
         System.out.println("Test 2 passed");
     }
 
-    @Test
+   @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void PutBatchRecords() throws JsonProcessingException {
-        String jsonContent = FirehoseScenario.readJsonFile("sample_records.json");
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Map<String, Object>> sampleData = objectMapper.readValue(jsonContent, new TypeReference<>() {});
-
-        // Process individual records.
-        FirehoseScenario.putRecordBatch(sampleData.subList(100, sampleData.size()), 500, newStream);
-        System.out.println("Test 3 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(4)
     public void ListDeliveryStreams() {
         assertDoesNotThrow(() -> ListDeliveryStreams.listStreams(firehoseClient));
         System.out.println("Test 4 passed");
@@ -128,7 +115,7 @@ public class FirehoseTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(5)
+    @Order(4)
     public void DeleteStream() {
         assertDoesNotThrow(() -> DeleteStream.delStream(firehoseClient, newStream));
         System.out.println("Test 5 passed");

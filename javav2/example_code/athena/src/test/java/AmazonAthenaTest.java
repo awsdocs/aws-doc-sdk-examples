@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
 import aws.example.athena.*;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
@@ -21,9 +22,9 @@ public class AmazonAthenaTest {
     @BeforeAll
     public static void setUp() throws IOException {
         athenaClient = AthenaClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
 
         try (InputStream input = AmazonAthenaTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 
@@ -45,70 +46,52 @@ public class AmazonAthenaTest {
             ex.printStackTrace();
         }
     }
+
     @Test
     @Order(1)
-    public void whenInitializingAWSAthenaService_thenNotNull() {
-        assertNotNull(athenaClient);
-        System.out.println("Test 1 passed");
+    public void CreateNamedQueryExample() {
+        assertDoesNotThrow(() -> CreateNamedQueryExample.createNamedQuery(athenaClient, nameQuery));
+        System.out.println("Test passed");
     }
 
     @Test
     @Order(2)
-    public void CreateNamedQueryExample() {
-
-       CreateNamedQueryExample.createNamedQuery(athenaClient, nameQuery);
-       System.out.println("Test 2 passed");
+    public void ListNamedQueryExample() {
+        assertDoesNotThrow(() -> ListNamedQueryExample.listNamedQueries(athenaClient));
+        System.out.println("Test passed");
     }
 
     @Test
     @Order(3)
-    public void ListNamedQueryExample() {
-
-       ListNamedQueryExample.listNamedQueries(athenaClient);
-       System.out.println("Test 3 passed");
+    public void ListQueryExecutionsExample() {
+        assertDoesNotThrow(() -> ListQueryExecutionsExample.listQueryIds(athenaClient));
+        System.out.println("Test passed");
     }
 
     @Test
     @Order(4)
-    public void ListQueryExecutionsExample() {
+    public void DeleteNamedQueryExample() {
+        String sampleNamedQueryId = DeleteNamedQueryExample.getNamedQueryId(athenaClient, nameQuery);
+        assertDoesNotThrow(() -> DeleteNamedQueryExample.deleteQueryName(athenaClient, sampleNamedQueryId));
+        System.out.println("Test passed");
 
-        ListQueryExecutionsExample.listQueryIds(athenaClient);
-        System.out.println("Test 4 passed");
     }
 
     @Test
     @Order(5)
-    public void DeleteNamedQueryExample()
-    {
-        String sampleNamedQueryId = DeleteNamedQueryExample.getNamedQueryId(athenaClient, nameQuery);
-        DeleteNamedQueryExample.deleteQueryName(athenaClient, sampleNamedQueryId);
-        System.out.println("Test 5 passed");
-
+    public void StartQueryExample() {
+        String queryExecutionId = StartQueryExample.submitAthenaQuery(athenaClient);
+        assertDoesNotThrow(() -> StartQueryExample.waitForQueryToComplete(athenaClient, queryExecutionId));
+        assertDoesNotThrow(() -> StartQueryExample.processResultRows(athenaClient, queryExecutionId));
+        System.out.println("Test passed");
     }
-
 
     @Test
     @Order(6)
-    public void StartQueryExample() {
-
-        try {
-            String queryExecutionId = StartQueryExample.submitAthenaQuery(athenaClient);
-            StartQueryExample.waitForQueryToComplete(athenaClient, queryExecutionId);
-            StartQueryExample.processResultRows(athenaClient, queryExecutionId);
-             System.out.println("Test 6 passed");
-
-        }catch (InterruptedException e) {
-         e.getMessage();
-        }
-    }
-
-    @Test
-    @Order(7)
     public void StopQueryExecutionExample() {
-
         String sampleQueryExecutionId = StopQueryExecutionExample.submitAthenaQuery(athenaClient);
-        StopQueryExecutionExample.stopAthenaQuery(athenaClient, sampleQueryExecutionId);
-        System.out.println("Test 7 passed");
+        assertDoesNotThrow(() -> StopQueryExecutionExample.stopAthenaQuery(athenaClient, sampleQueryExecutionId));
+        System.out.println("Test passed");
     }
 }
 

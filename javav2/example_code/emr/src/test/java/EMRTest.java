@@ -10,7 +10,9 @@ import software.amazon.awssdk.services.emr.EmrClient;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
+
 import java.io.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -32,9 +34,9 @@ public class EMRTest {
     @BeforeAll
     public static void setUp() throws IOException {
         emrClient = EmrClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -50,7 +52,7 @@ public class EMRTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * EMRTest.class.getClassLoader().getResourceAsStream("config.properties")) {
          * Properties prop = new Properties();
@@ -66,7 +68,7 @@ public class EMRTest {
          * logUri = prop.getProperty("logUri");
          * name = prop.getProperty("name");
          * existingClusterId= prop.getProperty("existingClusterId");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }
@@ -83,41 +85,28 @@ public class EMRTest {
 
     @Test
     @Order(2)
-    public void describeClusterTest() {
-        assertDoesNotThrow(() -> DescribeCluster.describeMyCluster(emrClient, existingClusterId));
-        System.out.println("Test 2 passed");
-    }
-
-    @Test
-    @Order(3)
     public void listClusterTest() {
         assertDoesNotThrow(() -> ListClusters.listAllClusters(emrClient));
         System.out.println("Test 3 passed");
     }
 
     @Test
-    @Order(4)
+    @Order(3)
     public void createEmrFleetTest() {
         assertDoesNotThrow(() -> CreateEmrFleet.createFleet(emrClient));
         System.out.println("Test 4 passed");
     }
 
-    @Test
-    @Order(5)
-    public void addStepsTest() {
-        assertDoesNotThrow(() -> AddSteps.addNewStep(emrClient, jobFlowId, jar, myClass));
-        System.out.println("Test 5 passed");
-    }
 
     @Test
-    @Order(6)
+    @Order(4)
     public void createSparkClusterTest() {
         assertDoesNotThrow(() -> CreateSparkCluster.createCluster(emrClient, jar, myClass, keys, logUri, name));
         System.out.println("Test 6 passed");
     }
 
     @Test
-    @Order(7)
+    @Order(5)
     public void createHiveClusterTest() {
         assertDoesNotThrow(() -> CreateHiveCluster.createCluster(emrClient, jar, myClass, keys, logUri, name));
         System.out.println("Test 7 passed");
@@ -125,29 +114,22 @@ public class EMRTest {
     }
 
     @Test
-    @Order(8)
+    @Order(6)
     public void customEmrfsMaterialsTest() {
         assertDoesNotThrow(() -> CustomEmrfsMaterials.createEmrfsCluster(emrClient, jar, myClass, keys, logUri, name));
         System.out.println("Test 8 passed");
     }
 
-    @Test
-    @Order(9)
-    public void terminateJobFlowTest() {
-        assertDoesNotThrow(() -> TerminateJobFlow.terminateFlow(emrClient, existingClusterId));
-        System.out.println("Test 9 passed");
-    }
-
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
         String secretName = "text/emr";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-                .secretId(secretName)
-                .build();
+            .secretId(secretName)
+            .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();

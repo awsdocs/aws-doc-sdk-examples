@@ -73,7 +73,7 @@ public class CloudFormationTest {
     @Tag("IntegrationTest")
     @Order(1)
     public void CreateStack() {
-        assertDoesNotThrow(() -> CreateStack.createCFStack(cfClient, stackName, roleARN, location, key, value));
+        assertDoesNotThrow(() -> CreateStack.createCFStack(cfClient, stackName, roleARN, location));
         System.out.println("Test 1 passed");
     }
 
