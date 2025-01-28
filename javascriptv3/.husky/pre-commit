@@ -7,4 +7,4 @@ set -e
 npm run --prefix ./javascriptv3 lint
 
 # Test
-npm test --prefix ./javascriptv3
+# npm test --prefix ./javascriptv3

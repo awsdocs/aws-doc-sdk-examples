@@ -40,7 +40,7 @@ const cleanupAction = (scenarios, client) =>
         objectsResponse = await client.send(
           new ListObjectVersionsCommand({
             Bucket: bucket,
-          })
+          }),
         );
       } catch (e) {
         if (e instanceof Error && e.name === "NoSuchBucket") {
@@ -58,7 +58,7 @@ const cleanupAction = (scenarios, client) =>
             Bucket: bucket,
             Key,
             VersionId,
-          })
+          }),
         );
       }
 

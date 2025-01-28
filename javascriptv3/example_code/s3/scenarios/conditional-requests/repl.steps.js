@@ -34,7 +34,7 @@ const choices = {
 const replInput = (scenarios) =>
   new scenarios.ScenarioInput(
     "replChoice",
-    "Explore the S3 locking features by selecting one of the following choices",
+    "Explore the S3 conditional request features by selecting one of the following choices",
     {
       type: "select",
       choices: [
@@ -53,7 +53,7 @@ const replInput = (scenarios) =>
         },
         { name: "Clean up and exit scenario.", value: choices.EXIT },
       ],
-    }
+    },
   );
 
 /**
@@ -66,7 +66,7 @@ const getAllFiles = async (client, buckets) => {
   const files = [];
   for (const bucket of buckets) {
     const objectsResponse = await client.send(
-      new ListObjectVersionsCommand({ Bucket: bucket })
+      new ListObjectVersionsCommand({ Bucket: bucket }),
     );
     for (const version of objectsResponse.Versions || []) {
       const { Key } = version;
@@ -85,7 +85,7 @@ const getEtag = async (client, bucket, key) => {
     new GetObjectCommand({
       Bucket: bucket,
       Key: key,
-    })
+    }),
   );
   return objectsResponse.ETag;
 };
@@ -119,7 +119,7 @@ const replAction = (scenarios, client) =>
             })`,
             value: index,
           })),
-        }
+        },
       );
       const condReadOptions = new scenarios.ScenarioInput(
         "selectOption",
@@ -132,7 +132,7 @@ const replAction = (scenarios, client) =>
             "If-Modified-Since: using yesterday's date. This condition should succeed.",
             "If-Unmodified-Since: using yesterday's date. This condition should fail.",
           ],
-        }
+        },
       );
       const condCopyOptions = new scenarios.ScenarioInput(
         "selectOption",
@@ -145,7 +145,7 @@ const replAction = (scenarios, client) =>
             "If-Modified-Since: using yesterday's date. This condition should succeed.",
             "If-Unmodified-Since: using yesterday's date. This condition should fail.",
           ],
-        }
+        },
       );
       const condWriteOptions = new scenarios.ScenarioInput(
         "selectOption",
@@ -155,7 +155,7 @@ const replAction = (scenarios, client) =>
           choices: [
             "IfNoneMatch condition on the object key: If the key is a duplicate, the write will fail.",
           ],
-        }
+        },
       );
 
       const { replChoice } = state;
@@ -166,120 +166,119 @@ const replAction = (scenarios, client) =>
             state.sourceBucketName,
             state.destinationBucketName,
           ]);
-          state.replOutput =
-            "Listing the objects and buckets. \n" +
-            files
-              .map(
-                (file) =>
-                  `Items in bucket ${file.bucket}:\n object: ${file.key} `
-              )
-              .join("\n");
+          state.replOutput = `Listing the objects and buckets. \n${files}`
+            .map(
+              (file) =>
+                `Items in bucket ${file.bucket}:\n object: ${file.key} `,
+            )
+            .join("\n");
           break;
         }
-        case choices.CONDITIONAL_READ: {
-          /** @type {number} */
+        case choices.CONDITIONAL_READ:
+          {
+            /** @type {number} */
 
-          //Get yesterday's date.
-          var date = new Date();
-          date.setDate(date.getDate() - 1);
+            const selectedCondRead = await condReadOptions.handle(state);
+            if (
+              selectedCondRead ===
+              "If-Match: using the object's ETag. This condition should succeed."
+            ) {
+              //Get ETag of selected file.
+              const bucket = state.sourceBucketName;
+              const key = "file0.txt";
+              const ETag = await getEtag(client, bucket, key);
 
-          const selectedCondRead = await condReadOptions.handle(state);
-          if (
-            selectedCondRead ==
-            "If-Match: using the object's ETag. This condition should succeed."
-          ) {
-            //Get ETag of selected file.
-            const bucket = state.sourceBucketName;
-            const key = "file0.txt";
-            const ETag = await getEtag(client, bucket, key);
-
-            try {
-              await client.send(
-                new GetObjectCommand({
-                  Bucket: bucket,
-                  Key: key,
-                  IfMatch: ETag,
-                })
-              );
-              state.replOutput = ` file0.txt in bucket ${state.sourceBucketName} returned because ETag provided matches the object's ETag.`;
-            } catch (err) {
-              state.replOutput = `Unable to return object file0.txt in bucket ${state.sourceBucketName}: ${err.message}`;
+              try {
+                await client.send(
+                  new GetObjectCommand({
+                    Bucket: bucket,
+                    Key: key,
+                    IfMatch: ETag,
+                  }),
+                );
+                state.replOutput = `file0.txt in bucket ${state.sourceBucketName} returned because ETag provided matches the object's ETag.`;
+              } catch (err) {
+                state.replOutput = `Unable to return object file0.txt in bucket ${state.sourceBucketName}: ${err.message}`;
+              }
+              break;
             }
-            break;
-          }
-          if (
-            selectedCondRead ==
-            "If-None-Match: using the object's ETag. This condition should fail."
-          ) {
-            //Get ETag of selected file.
-            const bucket = state.sourceBucketName;
-            const key = "file0.txt";
-            const ETag = await getEtag(client, bucket, key);
+            if (
+              selectedCondRead ===
+              "If-None-Match: using the object's ETag. This condition should fail."
+            ) {
+              //Get ETag of selected file.
+              const bucket = state.sourceBucketName;
+              const key = "file0.txt";
+              const ETag = await getEtag(client, bucket, key);
 
-            try {
-              await client.send(
-                new GetObjectCommand({
-                  Bucket: bucket,
-                  Key: key,
-                  IfNoneMatch: ETag,
-                })
-              );
-              state.replOutput = `file0.txt in ${state.sourceBucketName} was returned.`;
-            } catch (err) {
-              state.replOutput = `file0.txt in ${state.sourceBucketName} was not returned because ETag provided matches the object's ETag. : ${err.message}`;
+              try {
+                await client.send(
+                  new GetObjectCommand({
+                    Bucket: bucket,
+                    Key: key,
+                    IfNoneMatch: ETag,
+                  }),
+                );
+                state.replOutput = `file0.txt in ${state.sourceBucketName} was returned.`;
+              } catch (err) {
+                state.replOutput = `file0.txt in ${state.sourceBucketName} was not returned because ETag provided matches the object's ETag. : ${err.message}`;
+              }
+              break;
             }
-            break;
-          }
-          if (
-            selectedCondRead ==
-            "If-Modified-Since: using yesterday's date. This condition should succeed."
-          ) {
-            const bucket = state.sourceBucketName;
-            const key = "file0.txt";
-            try {
-              await client.send(
-                new GetObjectCommand({
-                  Bucket: bucket,
-                  Key: key,
-                  IfModifiedSince: date,
-                })
-              );
-              state.replOutput = `file0.txt in bucket ${state.sourceBucketName} returned because it has been created or modified in the last 24 hours.`;
-            } catch (err) {
-              state.replOutput = `Unable to return object file0.txt in bucket ${state.sourceBucketName}: ${err.message}`;
-            }
-            break;
-          }
-          if (
-            selectedCondRead ==
-            "If-Unmodified-Since: using yesterday's date. This condition should fail."
-          ) {
-            const bucket = state.sourceBucketName;
-            const key = "file0.txt";
-            try {
-              await client.send(
-                new GetObjectCommand({
-                  Bucket: bucket,
-                  Key: key,
-                  IfUnmodifiedSince: date,
-                })
-              );
-              state.replOutput = `file0.txt in ${state.sourceBucketName} was returned.`;
-            } catch (err) {
-              state.replOutput = `file0.txt in ${state.sourceBucketName} was not returned because it was created or modified in the last 24 hours. : ${err.message}`;
-            }
-            break;
-          }
-        }
+            if (
+              selectedCondRead ===
+              "If-Modified-Since: using yesterday's date. This condition should succeed."
+            ) {
+              //Get date in standard US format (MM/DD/YYYY)
+              const date = new Date();
+              date.setDate(date.getDate() - 1);
 
+              const bucket = state.sourceBucketName;
+              const key = "file0.txt";
+              try {
+                await client.send(
+                  new GetObjectCommand({
+                    Bucket: bucket,
+                    Key: key,
+                    IfModifiedSince: date,
+                  }),
+                );
+                state.replOutput = `file0.txt in bucket ${state.sourceBucketName} returned because it has been created or modified in the last 24 hours.`;
+              } catch (err) {
+                state.replOutput = `Unable to return object file0.txt in bucket ${state.sourceBucketName}: ${err.message}`;
+              }
+              break;
+            }
+            if (
+              selectedCondRead ===
+              "If-Unmodified-Since: using yesterday's date. This condition should fail."
+            ) {
+              const bucket = state.sourceBucketName;
+              const key = "file0.txt";
+
+              //Get date in standard US format (MM/DD/YYYY)
+              const date = new Date();
+              date.setDate(date.getDate() - 1);
+              try {
+                await client.send(
+                  new GetObjectCommand({
+                    Bucket: bucket,
+                    Key: key,
+                    IfUnmodifiedSince: date,
+                  }),
+                );
+                state.replOutput = `file0.txt in ${state.sourceBucketName} was returned.`;
+              } catch (err) {
+                state.replOutput = `file0.txt in ${state.sourceBucketName} was not returned because it was created or modified in the last 24 hours. : ${err.message}`;
+              }
+              break;
+            }
+          }
+          break;
         case choices.CONDITIONAL_COPY: {
-          //Get yesterday's date.
-          var date = new Date();
-          date.setDate(date.getDate() - 1);
-
           const selectedCondCopy = await condCopyOptions.handle(state);
           if (
-            selectedCondCopy ==
+            selectedCondCopy ===
             "If-Match: using the object's ETag. This condition should succeed."
           ) {
             //Get ETag of selected file.
@@ -287,7 +286,7 @@ const replAction = (scenarios, client) =>
             const key = "file0.txt";
             const ETag = await getEtag(client, bucket, key);
 
-            const copySource = bucket + "/" + key;
+            const copySource = `${bucket}/${key}`;
             const name = data.default.name;
             const copiedKey = name + key;
             try {
@@ -296,32 +295,27 @@ const replAction = (scenarios, client) =>
                   CopySource: copySource,
                   Bucket: state.destinationBucketName,
                   Key: copiedKey,
-                  IfMatch: ETag,
-                })
+                  CopySourceIfMatch: ETag,
+                }),
               );
-              state.replOutput =
-                copiedKey +
-                " copied to bucket " +
-                state.destinationBucketName +
-                " because ETag provided matches the object's ETag.";
+              state.replOutput = `${copiedKey} copied to bucket ${state.destinationBucketName} because ETag provided matches the object's ETag.`;
             } catch (err) {
-              state.replOutput =
-                "Unable to copy object text01.txt to bucket " +
-                state.destinationBucketName +
+              state.replOutput = `Unable to copy object text01.txt to bucket " +
+                ${state.destinationBucketName} +
                 ":" +
-                err.message;
+                ${err.message}`;
             }
             break;
           }
           if (
-            selectedCondCopy ==
+            selectedCondCopy ===
             "If-None-Match: using the object's ETag. This condition should fail."
           ) {
             //Get ETag of selected file.
             const bucket = state.sourceBucketName;
             const key = "file0.txt";
             const ETag = await getEtag(client, bucket, key);
-            const copySource = bucket + "/" + key;
+            const copySource = `${bucket}/${key}`;
             const copiedKey = "test-111-file0.txt";
 
             try {
@@ -330,29 +324,28 @@ const replAction = (scenarios, client) =>
                   CopySource: copySource,
                   Bucket: state.destinationBucketName,
                   Key: copiedKey,
-                  IfNoneMatch: ETag,
-                })
+                  CopySourceIfNoneMatch: ETag,
+                }),
               );
-              state.replOutput =
-                copiedKey + " copied to bucket " + state.destinationBucketName;
+              state.replOutput = `${copiedKey} copied to bucket ${state.destinationBucketName}`;
             } catch (err) {
-              state.replOutput =
-                "Unable to copy object text01.txt to bucket " +
-                state.destinationBucketName +
-                " because ETag provided matches the object's ETag." +
-                ":" +
-                err.message;
+              state.replOutput = `Unable to copy object text01.txt to bucket " +
+                ${state.destinationBucketName} because ETag provided matches the object's ETag.:${err.message}`;
             }
             break;
           }
           if (
-            selectedCondCopy ==
+            selectedCondCopy ===
             "If-Modified-Since: using yesterday's date. This condition should succeed."
           ) {
             const bucket = state.sourceBucketName;
             const key = "file0.txt";
-            const copySource = bucket + "/" + key;
+            const copySource = `${bucket}/${key}`;
             const copiedKey = "test-111-file0.txt";
+
+            //Get date in standard US format (MM/DD/YYYY)
+            const date = new Date();
+            date.setDate(date.getDate() - 1);
 
             try {
               await client.send(
@@ -360,31 +353,27 @@ const replAction = (scenarios, client) =>
                   CopySource: copySource,
                   Bucket: state.destinationBucketName,
                   Key: copiedKey,
-                  IsModifiedSince: date,
-                })
+                  CopySourceIfModifiedSince: date,
+                }),
               );
-              state.replOutput =
-                copiedKey +
-                " copied to bucket " +
-                state.destinationBucketName +
-                "because it has been created or modified in the last 24 hours.";
+              state.replOutput = `${copiedKey} copied to bucket ${state.destinationBucketName} because it has been created or modified in the last 24 hours.`;
             } catch (err) {
-              state.replOutput =
-                "Unable to copy object text01.txt to bucket " +
-                state.destinationBucketName +
-                ":" +
-                err.message;
+              state.replOutput = `Unable to copy object text01.txt to bucket ${state.destinationBucketName} : ${err.message}`;
             }
             break;
           }
           if (
-            selectedCondCopy ==
+            selectedCondCopy ===
             "If-Unmodified-Since: using yesterday's date. This condition should fail."
           ) {
             const bucket = state.sourceBucketName;
             const key = "file0.txt";
-            const copySource = bucket + "/" + key;
+            const copySource = `${bucket}/${key}`;
             const copiedKey = "test-111-file0.txt";
+
+            //Get date in standard US format (MM/DD/YYYY)
+            const date = new Date();
+            date.setDate(date.getDate() - 1);
 
             try {
               await client.send(
@@ -392,60 +381,42 @@ const replAction = (scenarios, client) =>
                   CopySource: copySource,
                   Bucket: state.destinationBucketName,
                   Key: copiedKey,
-                  IsUnmodifiedSince: date,
-                })
+                  CopySourceIfUnmodifiedSince: date,
+                }),
               );
-              state.replOutput =
-                "Unable to copy object text01.txt to bucket " +
-                state.destinationBucketName +
-                ". Precondition not met.";
+              state.replOutput = `Unable to copy object text01.txt to bucket ${state.destinationBucketName}. Precondition not met.`;
             } catch (err) {
-              state.replOutput =
-                copiedKey +
-                " copied to bucket " +
-                state.destinationBucketName +
-                "because it has been created or modified in the last 24 hours." +
-                ":" +
-                err.message;
+              state.replOutput = `${copiedKey} copied to bucket ${state.destinationBucketName} because it has been created or modified in the last 24 hours.:${err.message}`;
             }
           }
           break;
         }
-        case choices.CONDITIONAL_WRITE: {
-          //Get yesterday's date.
-          var date = new Date();
-          date.setDate(date.getDate() - 1);
-
-          const selectedCondWrite = await condWriteOptions.handle(state);
-          if (
-            selectedCondWrite ==
-            "IfNoneMatch condition on the object key: If the key is a duplicate, the write will fail."
-          ) {
-            const filePath = "./text02.txt";
-            try {
-              await client.send(
-                new PutObjectCommand({
-                  Bucket: state.destinationBucketName,
-                  Key: "text02.txt",
-                  Body: await readFile(filePath),
-                  IfNoneMatch: "*",
-                })
-              );
-              state.replOutput =
-                " copied to bucket " +
-                state.destinationBucketName +
-                " because the key is not a duplicate.";
-            } catch (err) {
-              state.replOutput =
-                "Unable to copy object " +
-                " to bucket " +
-                state.destinationBucketName +
-                ":" +
-                err.message;
+        case choices.CONDITIONAL_WRITE:
+          {
+            const selectedCondWrite = await condWriteOptions.handle(state);
+            if (
+              selectedCondWrite ===
+              "IfNoneMatch condition on the object key: If the key is a duplicate, the write will fail."
+            ) {
+              const filePath = "./text02.txt";
+              try {
+                await client.send(
+                  new PutObjectCommand({
+                    Bucket: state.destinationBucketName,
+                    Key: "text02.txt",
+                    Body: await readFile(filePath),
+                    IfNoneMatch: "*",
+                  }),
+                );
+                state.replOutput = `Copied to bucket ${state.destinationBucketName} because the key is not a duplicate.`;
+              } catch (err) {
+                state.replOutput = `Unable to copy object to bucket ${state.destinationBucketName}:${err.message}`;
+              }
+              break;
             }
-            break;
           }
-        }
+          break;
+
         default:
           throw new Error(`Invalid replChoice: ${replChoice}`);
       }
@@ -457,10 +428,10 @@ const replAction = (scenarios, client) =>
         output: new scenarios.ScenarioOutput(
           "REPL output",
           (state) => state.replOutput,
-          { preformatted: true }
+          { preformatted: true },
         ),
       },
-    }
+    },
   );
 
 export { replInput, replAction, choices };

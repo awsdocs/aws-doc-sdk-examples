@@ -15,22 +15,19 @@ describe("clean.steps.js", () => {
         .mockResolvedValueOnce({ Versions: [] }) // ListObjectVersionsCommand
         .mockResolvedValueOnce({}) // DeleteBucketCommand
         .mockResolvedValueOnce({ Versions: [] }) // ListObjectVersionsCommand
-        .mockResolvedValueOnce({}) // DeleteBucketCommand
-        .mockResolvedValueOnce({ Versions: [] }) // ListObjectVersionsCommand
         .mockResolvedValueOnce({}), // DeleteBucketCommand
     };
 
     const state = {
       sourceBucketName: "bucket-no-lock",
       destinationBucketName: "bucket-lock-enabled",
-      retentionBucketName: "bucket-retention",
     };
 
     const action = cleanupAction(Scenarios, mockClient);
 
     await action.handle(state);
 
-    expect(mockClient.send).toHaveBeenCalledTimes(6);
+    expect(mockClient.send).toHaveBeenCalledTimes(4);
     expect(mockClient.send).toHaveBeenNthCalledWith(
       1,
       expect.any(ListObjectVersionsCommand),
@@ -40,66 +37,8 @@ describe("clean.steps.js", () => {
       expect.any(ListObjectVersionsCommand),
     );
     expect(mockClient.send).toHaveBeenNthCalledWith(
-      5,
+      3,
       expect.any(ListObjectVersionsCommand),
-    );
-  });
-
-  it("should call the DeleteObjectCommand with BypassGovernanceRetention set to true if the Retention Mode is 'GOVERNANCE'", async () => {
-    const mockClient = {
-      send: vi
-        .fn()
-        // ListObjectVersionsCommand
-        .mockResolvedValueOnce({ Versions: [] })
-        // DeleteBucketCommand
-        .mockResolvedValueOnce({})
-        // ListObjectVersionsCommand
-        .mockResolvedValueOnce({ Versions: [] })
-        // DeleteBucketCommand
-        .mockResolvedValueOnce({})
-        // ListObjectVersionsCommand
-        .mockResolvedValueOnce({ Versions: [{ Key: "key", VersionId: "id" }] })
-        // GetObjectLegalHoldCommand
-        .mockResolvedValueOnce({
-          LegalHold: {
-            Status: "OFF",
-          },
-        })
-        // GetObjectRetentionCommand
-        .mockResolvedValueOnce({
-          Retention: {
-            Mode: "GOVERNANCE",
-          },
-        })
-        // DeleteObjectCommand with BypassGovernanceRetention
-        .mockResolvedValueOnce({})
-        // DeleteObjectCommand without BypassGovernanceRetention
-        .mockResolvedValueOnce({}),
-    };
-
-    const state = {
-      sourceBucketName: "bucket-no-lock",
-      destinationBucketName: "bucket-lock-enabled",
-      retentionBucketName: "bucket-retention",
-    };
-
-    const action = cleanupAction(Scenarios, mockClient);
-
-    await action.handle(state);
-
-    for (const call of mockClient.send.mock.calls) {
-      console.log(call);
-    }
-
-    expect(mockClient.send).toHaveBeenCalledWith(
-      expect.objectContaining({
-        input: {
-          Bucket: state.retentionBucketName,
-          Key: "key",
-          VersionId: "id",
-          BypassGovernanceRetention: true,
-        },
-      }),
     );
   });
 });

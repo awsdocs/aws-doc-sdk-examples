@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "test": "vitest run **/*.unit.test.js"
+    "test": "vitest run unit"
   },
   "dependencies": {
     "@aws-sdk/client-codecommit": "^3.427.0"
