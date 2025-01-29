@@ -6,10 +6,7 @@ package com.example.s3;
 // snippet-start:[s3.java2.list.buckets.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.Bucket;
-import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
-import java.util.List;
-
+import software.amazon.awssdk.services.s3.paginators.ListBucketsIterable;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
@@ -35,11 +32,8 @@ public class ListBuckets {
      * @param s3 The {@link S3Client} instance to use for interacting with the Amazon S3 service.
      */
     public static void listAllBuckets(S3Client s3) {
-        ListBucketsResponse response = s3.listBuckets();
-        List<Bucket> bucketList = response.buckets();
-        for (Bucket bucket: bucketList) {
-            System.out.println("Bucket name "+bucket.name());
-        }
+        ListBucketsIterable response = s3.listBucketsPaginator();
+        response.buckets().forEach(bucket ->
+            System.out.println("Bucket Name: " + bucket.name()));
     }
-}
-// snippet-end:[s3.java2.list.buckets.main]
+}// snippet-end:[s3.java2.list.buckets.main]

@@ -33,7 +33,7 @@ s3-control_CreateJob:
             - description: Create a legal hold off job.
               snippet_tags:
                 - s3control.java2.create_job.compliance.main  
-            - description: Create a new governance retemtion job.
+            - description: Create a new governance retention job.
               snippet_tags:
                 - s3.java2.create_governance_retemtion.main       
   services:
