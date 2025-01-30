@@ -1,5 +1,5 @@
 ## Overview
-This AWS IoT SiteWise Service basic scenario demonstrates how to interact with the AWS IoT SiteWise service using an AWS SDK. The scenario covers various operations such as creating an Asset Model, creating assets, sending data to assets, and retrieving data.
+This AWS Entity Resolution basic scenario demonstrates how to interact with the AWS Entity Resolution service using an AWS SDK. The scenario covers various operations such as creating a schema mapping, creating a matching workflow, starting a matching job, and so on. 
 
 ## Key Operations
 
