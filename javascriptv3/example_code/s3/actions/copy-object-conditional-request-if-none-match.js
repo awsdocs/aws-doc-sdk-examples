@@ -8,11 +8,8 @@ import {
   S3ServiceException,
 } from "@aws-sdk/client-s3";
 import "@aws-sdk/crc64-nvme-crt";
-
 // Optional edit the default key name of the copied object in ./object_name.json
-
 import * as data from "./object_name.json" assert { type: "json" };
-
 /**
  * @param {S3Client} client
  * @param {string[]} bucket
@@ -29,17 +26,14 @@ export const main = async ({
   eTag,
 }) => {
   const client = new S3Client({});
-
-  const copySource = `${sourceBucketName}/${sourceKeyName}`;
   const name = data.default.name;
-  const copiedKey = name + sourceKeyName;
 
   try {
     const response = await client.send(
       new CopyObjectCommand({
-        CopySource: copySource,
+        CopySource: `${sourceBucketName}/${sourceKeyName}`,
         Bucket: destinationBucketName,
-        Key: copiedKey,
+        Key: `${name}${sourceKeyName}`,
         CopySourceIfNoneMatch: eTag,
       }),
     );

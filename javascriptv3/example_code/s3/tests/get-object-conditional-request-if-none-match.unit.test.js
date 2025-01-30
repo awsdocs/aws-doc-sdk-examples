@@ -38,7 +38,10 @@ describe("get-object", () => {
       eTag: "123456789",
     });
 
-    expect(spy).toHaveBeenCalledWith("foo");
+    expect(spy).toHaveBeenCalledWith(
+      "Success. Here is text of the file:",
+      "foo",
+    );
   });
 
   it("should log a relevant error message when the object key doesn't exist in the bucket", async () => {

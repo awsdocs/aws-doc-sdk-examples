@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {
-  CopyObjectCommand,
+  GetObjectCommand,
   NoSuchKey,
   S3Client,
   S3ServiceException,
@@ -16,7 +16,6 @@ import "@aws-sdk/crc64-nvme-crt";
 //Get date in standard US format (MM/DD/YYYY)
 const date = new Date();
 date.setDate(date.getDate() - 1);
-console.log("date ", date);
 
 /**
  * Get a single object from a specified S3 bucket.
@@ -27,7 +26,7 @@ export const main = async ({ bucketName, key }) => {
 
   try {
     const response = await client.send(
-      new CopyObjectCommand({
+      new GetObjectCommand({
         Bucket: bucketName,
         Key: key,
         IfUnmodifiedSince: date,
@@ -35,7 +34,7 @@ export const main = async ({ bucketName, key }) => {
     );
     // The Body object also has 'transformToByteArray' and 'transformToWebStream' methods.
     const str = await response.Body.transformToString();
-    console.log(str);
+    console.log("Success. Here is text of the file:", str);
   } catch (caught) {
     if (caught instanceof NoSuchKey) {
       console.error(

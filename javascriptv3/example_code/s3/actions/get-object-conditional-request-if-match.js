@@ -8,6 +8,7 @@ import {
   S3ServiceException,
 } from "@aws-sdk/client-s3";
 import "@aws-sdk/crc64-nvme-crt";
+
 /**
  * @param {S3Client} client
  * @param {string[]} bucket
@@ -15,7 +16,7 @@ import "@aws-sdk/crc64-nvme-crt";
 
 /**
  * Get a single object from a specified S3 bucket.
- * @param {{ bucketName: string, Key: string, eTag: string }}
+ * @param {{ bucketName: string, key: string, eTag: string }}
  */
 export const main = async ({ bucketName, key, eTag }) => {
   const client = new S3Client({});
@@ -30,7 +31,7 @@ export const main = async ({ bucketName, key, eTag }) => {
     );
     // The Body object also has 'transformToByteArray' and 'transformToWebStream' methods.
     const str = await response.Body.transformToString();
-    console.log(str);
+    console.log("Success. Here is text of the file:", str);
   } catch (caught) {
     if (caught instanceof NoSuchKey) {
       console.error(

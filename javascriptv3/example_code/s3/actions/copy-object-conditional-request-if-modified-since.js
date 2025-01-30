@@ -8,9 +8,7 @@ import {
   S3ServiceException,
 } from "@aws-sdk/client-s3";
 import "@aws-sdk/crc64-nvme-crt";
-
 // Optional edit the default key name of the copied object in ./object_name.json
-
 import * as data from "./object_name.json" assert { type: "json" };
 
 /**
@@ -20,6 +18,8 @@ import * as data from "./object_name.json" assert { type: "json" };
 //Get date in standard US format (MM/DD/YYYY)
 const date = new Date();
 date.setDate(date.getDate() - 1);
+
+const name = data.default.name;
 
 /**
  * Get a single object from a specified S3 bucket.
@@ -31,9 +31,7 @@ export const main = async ({
   destinationBucketName,
 }) => {
   const client = new S3Client({});
-
   const copySource = `${sourceBucketName}/${sourceKeyName}`;
-  const name = data.default.name;
   const copiedKey = name + sourceKeyName;
 
   try {

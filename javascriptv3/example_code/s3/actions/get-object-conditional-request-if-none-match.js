@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {
-  CopyObjectCommand,
+  GetObjectCommand,
   NoSuchKey,
   S3Client,
   S3ServiceException,
@@ -15,14 +15,14 @@ import "@aws-sdk/crc64-nvme-crt";
 
 /**
  * Get a single object from a specified S3 bucket.
- * @param {{ bucketName: string, Key: string, eTag: string }}
+ * @param {{ bucketName: string, key: string, eTag: string }}
  */
 export const main = async ({ bucketName, key, eTag }) => {
   const client = new S3Client({});
 
   try {
     const response = await client.send(
-      new CopyObjectCommand({
+      new GetObjectCommand({
         Bucket: bucketName,
         Key: key,
         IfNoneMatch: eTag,
@@ -30,7 +30,7 @@ export const main = async ({ bucketName, key, eTag }) => {
     );
     // The Body object also has 'transformToByteArray' and 'transformToWebStream' methods.
     const str = await response.Body.transformToString();
-    console.log(str);
+    console.log("Success. Here is text of the file:", str);
   } catch (caught) {
     if (caught instanceof NoSuchKey) {
       console.error(
