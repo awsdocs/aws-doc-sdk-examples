@@ -115,7 +115,7 @@ node ./hello.js
 #### Get started with image sets and image frames
 
 This example shows you how to import DICOM files and download image frames in HealthImaging.</para>
- <para>The implementation is structured as a workflow command-line
+ <para>The implementation is structured as a command-line
  application.
 
 

@@ -1,4 +1,4 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[SESWorkflow.dotnetv3.NewsletterWorkflow]
@@ -17,27 +17,27 @@ namespace Sesv2Scenario;
 public static class NewsletterWorkflow
 {
     /*
-      This workflow demonstrates how to use the Amazon Simple Email Service (SES) v2 to send a coupon newsletter to a list of subscribers.
-      The workflow performs the following tasks:
-     
+      This scenario demonstrates how to use the Amazon Simple Email Service (SES) v2 to send a coupon newsletter to a list of subscribers.
+      The scenario performs the following tasks:
+
       1. Prepare the application:
          - Create a verified email identity for sending and replying to emails.
          - Create a contact list to store the subscribers' email addresses.
          - Create an email template for the coupon newsletter.
-     
+
       2. Gather subscriber email addresses:
          - Prompt the user for a base email address.
          - Create 3 variants of the email address using subaddress extensions (e.g., user+ses-weekly-newsletter-1@example.com).
          - Add each variant as a contact to the contact list.
          - Send a welcome email to each new contact.
-     
+
       3. Send the coupon newsletter:
          - Retrieve the list of contacts from the contact list.
          - Send the coupon newsletter using the email template to each contact.
-     
+
       4. Monitor and review:
          - Provide instructions for the user to review the sending activity and metrics in the AWS console.
-     
+
       5. Clean up resources:
          - Delete the contact list (which also deletes all contacts within it).
          - Delete the email template.
@@ -80,8 +80,8 @@ public static class NewsletterWorkflow
         {
             Console.WriteLine(new string('-', 80));
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("Welcome to the Amazon SES v2 Coupon Newsletter Workflow.");
-            Console.WriteLine("This workflow demonstrates how to use the Amazon Simple Email Service (SES) v2 " +
+            Console.WriteLine("Welcome to the Amazon SES v2 Coupon Newsletter Scenario.");
+            Console.WriteLine("This scenario demonstrates how to use the Amazon Simple Email Service (SES) v2 " +
                               "\r\nto send a coupon newsletter to a list of subscribers.");
 
             // Prepare the application.
@@ -100,7 +100,7 @@ public static class NewsletterWorkflow
             await Cleanup(emailIdentity, true);
 
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("Amazon SES v2 Coupon Newsletter Workflow is complete.");
+            Console.WriteLine("Amazon SES v2 Coupon Newsletter scenario is complete.");
             Console.WriteLine(new string('-', 80));
             Console.WriteLine(new string('-', 80));
         }
@@ -120,7 +120,7 @@ public static class NewsletterWorkflow
     }
 
     /// <summary>
-    /// Set up the resources for the workflow.
+    /// Set up the resources for the scenario.
     /// </summary>
     /// <returns>The email address of the verified identity.</returns>
     public static async Task<string?> PrepareApplication()
@@ -340,7 +340,7 @@ public static class NewsletterWorkflow
     }
 
     /// <summary>
-    /// Clean up the resources used in the workflow.
+    /// Clean up the resources used in the scenario.
     /// </summary>
     /// <param name="verifiedEmailAddress">The verified email address from PrepareApplication.</param>
     /// <param name="interactive">True if interactive.</param>

@@ -47,7 +47,7 @@ For general prerequisites, see the [README](../../../README.md) in the `dotnetv3
 
 ### Resources
 
-Before running this workflow, ensure you have:
+Before running this scenario, ensure you have:
 
 - An AWS account with proper permissions to use Amazon SES v2.
 - (Optional) A verified email identity (domain or email address) in Amazon SES for the Sending address.

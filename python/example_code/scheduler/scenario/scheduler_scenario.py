@@ -119,7 +119,7 @@ class SchedulerScenario:
 
         print(f"Stack output RoleARN: {self.role_arn}")
         print(f"Stack output SNStopicARN: a")
-        schedule_group_name = "workflow-schedules-group"
+        schedule_group_name = "scenario-schedules-group"
         schedule_group_arn = self.eventbridge_scheduler.create_schedule_group(
             schedule_group_name
         )
@@ -154,7 +154,7 @@ class SchedulerScenario:
             use_flexible_time_window=True,
         )
         print(
-            f"Successfully created schedule '{schedule_name}' in schedule group 'workflow-schedules-group': {schedule_arn}."
+            f"Successfully created schedule '{schedule_name}' in schedule group 'scenario-schedules-group': {schedule_arn}."
         )
         print(f"Subscription email will receive an email from this event.")
         print(f"You must confirm your subscription to receive event emails.")
@@ -181,7 +181,7 @@ class SchedulerScenario:
         )
 
         print(
-            f"Successfully created schedule '{schedule_name}' in schedule group 'workflow-schedules-group': {schedule_arn}."
+            f"Successfully created schedule '{schedule_name}' in schedule group 'scenario-schedules-group': {schedule_arn}."
         )
         print(f"Subscription email will receive an email from this event.")
         print(f"You must confirm your subscription to receive event emails.")

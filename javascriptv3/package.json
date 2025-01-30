@@ -44,6 +44,7 @@
     "example_code/eventbridge",
     "example_code/glue",
     "example_code/iam",
+    "example_code/iotsitewise",
     "example_code/lambda",
     "example_code/libs",
     "example_code/kinesis",

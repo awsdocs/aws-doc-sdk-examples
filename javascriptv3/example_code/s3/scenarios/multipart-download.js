@@ -1,9 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "node:url";
-
 // snippet-start:[javascript.v3.s3.scenarios.multipartdownload]
+import { fileURLToPath } from "node:url";
 import { GetObjectCommand, NoSuchKey, S3Client } from "@aws-sdk/client-s3";
 import { createWriteStream, rmSync } from "node:fs";
 

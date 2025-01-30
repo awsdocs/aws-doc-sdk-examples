@@ -172,6 +172,15 @@ lambda_CreateFunction:
             - snippet_tags:
                 - lambda.rust.scenario.create_function
                 - lambda.rust.scenario.prepare_function
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/lambda/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.lambda-basics.imports
+                - swift.lambda-basics.CreateFunction
   services:
     lambda: {CreateFunction}
 lambda_DeleteFunction:
@@ -380,6 +389,15 @@ lambda_Invoke:
             - snippet_tags:
                 - lambda.rust.scenario.invoke
                 - lambda.rust.scenario.log_invoke_output
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/lambda/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.lambda-basics.imports
+                - swift.lambda-basics.Invoke
   services:
     lambda: {Invoke}
 lambda_GetFunction:
@@ -474,6 +492,15 @@ lambda_GetFunction:
           excerpts:
             - snippet_tags:
                 - lambda.rust.scenario.get_function
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/lambda/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.lambda-basics.imports
+                - swift.lambda-basics.GetFunctionInput
   services:
     lambda: {GetFunction}
 lambda_UpdateFunctionCode:
@@ -569,6 +596,15 @@ lambda_UpdateFunctionCode:
             - snippet_tags:
                 - lambda.rust.scenario.update_function_code
                 - lambda.rust.scenario.prepare_function
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/lambda/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.lambda-basics.imports
+                - swift.lambda-basics.UpdateFunctionCode
   services:
     lambda: {UpdateFunctionCode}
 lambda_UpdateFunctionConfiguration:
@@ -748,6 +784,15 @@ lambda_ListFunctions:
           excerpts:
             - snippet_tags:
                 - lambda.rust.scenario.list_functions
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/lambda/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.lambda-basics.imports
+                - swift.lambda-basics.ListFunctionsPaginated
   services:
     lambda: {ListFunctions}
 lambda_Scenario_GettingStartedFunctions:
@@ -937,5 +982,23 @@ lambda_Scenario_GettingStartedFunctions:
                 This file is src/bin/scenario.rs in the crate.
               snippet_files:
                 - rustv1/examples/lambda/src/bin/scenario.rs
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/lambda/basics
+          excerpts:
+            - description: Define the first &LAM; function, which simply increments the specified value.
+              snippet_files:
+                - swift/example_code/lambda/basics/increment/Package.swift
+                - swift/example_code/lambda/basics/increment/Sources/increment.swift
+            - description: Define the second &LAM; function, which performs an arithmetic operation on two numbers.
+              snippet_files:
+                - swift/example_code/lambda/basics/calculator/Package.swift
+                - swift/example_code/lambda/basics/calculator/Sources/calculator.swift
+            - description: Define the main program that will invoke the two &LAM; functions.
+              snippet_files:
+                - swift/example_code/lambda/basics/lambda-basics/Package.swift
+                - swift/example_code/lambda/basics/lambda-basics/Sources/entry.swift
+                - swift/example_code/lambda/basics/lambda-basics/Sources/ExampleError.swift
   services:
     lambda: {CreateFunction, DeleteFunction, Invoke, GetFunction, ListFunctions, UpdateFunctionCode, UpdateFunctionConfiguration}

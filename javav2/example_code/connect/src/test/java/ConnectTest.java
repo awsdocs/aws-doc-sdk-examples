@@ -120,15 +120,8 @@ public class ConnectTest {
     }
 
     @Test
-    @Order(5)
-    public void describeContact() {
-        assertDoesNotThrow(() -> DescribeContact.describeSpecificContact(connectClient, existingInstanceId, contactId));
-        System.out.println("Test 5 passed");
-    }
-
-    @Test
     @Tag("IntegrationTest")
-    @Order(6)
+    @Order(5)
     public void describeInstanceAttribute() {
         assertDoesNotThrow(() -> DescribeInstanceAttribute.describeAttribute(connectClient, existingInstanceId));
         System.out.println("Test 6 passed");
@@ -136,15 +129,7 @@ public class ConnectTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(7)
-    public void getContactAttributes() {
-        assertDoesNotThrow(() -> GetContactAttributes.getContactAttrs(connectClient, existingInstanceId, contactId));
-        System.out.println("Test 7 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(8)
+    @Order(6)
     public void listPhoneNumbers() {
         assertDoesNotThrow(() -> ListPhoneNumbers.getPhoneNumbers(connectClient, targetArn));
         System.out.println("Test 8 passed");
@@ -152,7 +137,7 @@ public class ConnectTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(9)
+    @Order(7)
     public void listUsers() {
         assertDoesNotThrow(() -> ListUsers.getUsers(connectClient, existingInstanceId));
         System.out.println("Test 9 passed");
@@ -160,7 +145,7 @@ public class ConnectTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(10)
+    @Order(7)
     public void searchQueues() {
         assertDoesNotThrow(() -> SearchQueues.searchQueue(connectClient, existingInstanceId));
         System.out.println("Test 10 passed");

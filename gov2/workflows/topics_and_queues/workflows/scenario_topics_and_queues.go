@@ -260,7 +260,7 @@ func RunTopicsAndQueuesScenario(
 
 	log.Println(strings.Repeat("-", 88))
 	log.Printf("Welcome to messaging with topics and queues.\n\n"+
-		"In this workflow, you will create an SNS topic and subscribe %v SQS queues to the\n"+
+		"In this scenario, you will create an SNS topic and subscribe %v SQS queues to the\n"+
 		"topic. You can select from several options for configuring the topic and the\n"+
 		"subscriptions for the queues. You can then post to the topic and see the results\n"+
 		"in the queues.\n", queueCount)
