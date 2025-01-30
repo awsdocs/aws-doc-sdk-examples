@@ -62,7 +62,7 @@ Code excerpts that show you how to call individual service functions.
 
 #### Learn the basics
 
-This example shows you how to uses InvokeFlow to converse with an Amazon Bedrock flow that includes an agent node.
+This example shows you how to use InvokeFlow to converse with an Amazon Bedrock flow that includes an agent node.
 
 
 <!--custom.basic_prereqs.bedrock-agent-runtime_Scenario_ConverseWithFlow.start-->

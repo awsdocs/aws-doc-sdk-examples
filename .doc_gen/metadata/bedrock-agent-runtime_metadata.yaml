@@ -35,7 +35,7 @@ bedrock-agent-runtime_InvokeFlow:
 
 bedrock-agent-runtime_Scenario_ConverseWithFlow:
   title: Converse with an &BRlong; flow
-  synopsis: uses InvokeFlow to converse with an &BRlong; flow that includes an agent node.
+  synopsis: use InvokeFlow to converse with an &BRlong; flow that includes an agent node.
   category: Basics
   guide_topic:
     title: Converse with an &BRlong; flow
