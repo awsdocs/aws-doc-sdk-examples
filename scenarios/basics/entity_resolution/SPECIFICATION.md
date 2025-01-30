@@ -59,24 +59,29 @@ The AWS Entity Resolution Basics scenario executes the following operations.
 The following shows the output of the AWS Entity Resolution Basics scenario in the console. 
 
 ```
-AWS IoT SiteWise is a fully managed industrial software-as-a-service (SaaS) that
-makes it easy to collect, store, organize, and monitor data from industrial equipment and processes.
-It is designed to help industrial and manufacturing organizations collect data from their equipment and
-processes, and use that data to make informed decisions about their operations.
+Welcome to the AWS Entity Resolution Scenario. 
+AWS Entity Resolution is a fully-managed machine learning service provided by
+Amazon Web Services (AWS) that helps organizations extract, link, and
+organize information from multiple data sources. It leverages natural
+language processing and deep learning models to identify and resolve
+entities, such as people, places, organizations, and products,
+across structured and unstructured data.
 
-One of the key features of AWS IoT SiteWise is its ability to connect to a wide range of industrial
-equipment and systems, including programmable logic controllers (PLCs), sensors, and other
-industrial devices. It can collect data from these devices and organize it into a unified data model,
-making it easier to analyze and gain insights from the data. AWS IoT SiteWise also provides tools for
-visualizing the data, setting up alarms and alerts, and generating reports.
+With Entity Resolution, customers can build robust data integration
+pipelines to combine and reconcile data from multiple systems, databases,
+and documents. The service can handle ambiguous, incomplete, or conflicting
+information, and provide a unified view of entities and their relationships.
+This can be particularly valuable in applications such as customer 360,
+fraud detection, supply chain management, and knowledge management, where
+accurate entity identification is crucial.
 
-Another key feature of AWS IoT SiteWise is its ability to scale to handle large volumes of data.
-It can collect and store data from thousands of devices and process millions of data points per second,
-making it suitable for large-scale industrial operations. Additionally, AWS IoT SiteWise is designed
-to be secure and compliant, with features like role-based access controls, data encryption,
-and integration with other AWS services for additional security and compliance features.
-
-Let's get started...
+The `EntityResolutionAsyncClient` interface in the AWS SDK for Java 2.x
+provides a set of methods to programmatically interact with the AWS Entity
+Resolution service. This allows developers to automate the entity extraction,
+linking, and deduplication process as part of their data processing workflows.
+With Entity Resolution, organizations can unlock the value of their data,
+improve decision-making, and enhance customer experiences by having a reliable,
+comprehensive view of their key entities.
 
 
 Enter 'c' followed by <ENTER> to continue:
@@ -84,57 +89,35 @@ c
 Continuing with the program...
 
 --------------------------------------------------------------------------------
-Use AWS CloudFormation to create an IAM role that are required for this scenario.
-Stack creation requested, ARN is arn:aws:cloudformation:us-east-1:814548047983:stack/RoleSitewise/29f480c0-75fd-11ef-a42e-12cd4e534049
-Stack created successfully
 --------------------------------------------------------------------------------
-1. Create an AWS SiteWise Asset Model
- An AWS IoT SiteWise Asset Model is a way to represent the physical assets, such as equipment,
- processes, and systems, that exist in an industrial environment. This model provides a structured and
- hierarchical representation of these assets, allowing users to define the relationships and properties
- of each asset.
+Upload the JSON to the glue-5ffb912c3d534e8493bac675c2a3196d S3 bucket if it does not exist
+[
+  {
+    "id": "1",
+    "name": "Alice Johnson",
+    "email": "alice.johnson@example.com"
+  },
+  {
+    "id": "2",
+    "name": "Bob Smith",
+    "email": "bob.smith@example.com"
+  },
+  {
+    "id": "3",
+    "name": "Charlie Black",
+    "email": "charlie.black@example.com"
+  }
+]
 
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The Asset Model MyAssetModel already exists. The id of the existing model is ffbc475b-73ad-4eb6-bf28-8728818fa8ef. Moving on...
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
---------------------------------------------------------------------------------
-2. Create an AWS IoT SiteWise Asset
- The IoT SiteWise model defines the structure and metadata for your physical assets. Now we
- can use the asset model to create the asset.
-
-
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-Asset created with ID: 4d681624-a303-46dd-8830-6189790ae915
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-3. Retrieve the property ID values
- To send data to an asset, we need to get the property ID values for the
- Temperature and Humidity properties.
-
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-The Humidity property Id is feb4aba6-55f9-4b00-b366-27b9d7e5a747
-The Temperature property Id is 6cb505aa-6bcc-46f4-a12a-7ca5df8eb028
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+The JSON exists in glue-5ffb912c3d534e8493bac675c2a3196d
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -142,47 +125,22 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-4. Send data to an AWS IoT SiteWise Asset
-By sending data to an IoT SiteWise Asset, you can aggregate data from
-multiple sources, normalize the data into a standard format, and store it in a
-centralized location. This makes it easier to analyze and gain insights from the data.
+1. Create Schema Mapping
+Entity Resolution Schema Mapping aligns and integrates data from
+multiple sources by identifying and matching corresponding entities
+like customers or products. It unifies schemas, resolves conflicts,
+and uses machine learning to link related entities, enabling a
+consolidated, accurate view for improved data quality and decision-making.
 
-This example demonstrate how to generate sample data and ingest it into the AWS IoT SiteWise asset.
-
-
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-Data sent successfully.
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-5. Retrieve the value of the IoT SiteWise Asset property
-IoT SiteWise is an AWS service that allows you to collect, process, and analyze industrial data
-from connected equipment and sensors. One of the key benefits of reading an IoT SiteWise property
-is the ability to gain valuable insights from your industrial data.
-
+In this example, the schema mapping lines up with the fields in the JSON. That is,
+it contains these fields: id, name, and email.
 
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The property name is: Temperature property 
-The value of this property is 23.5
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-The property name is: Humidity property 
-The value of this property is 65.0
+Schema Mapping Created Successfully!
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -190,93 +148,36 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-6. Create an IoT SiteWise Portal
- An IoT SiteWise Portal allows you to aggregate data from multiple industrial sources,
- such as sensors, equipment, and control systems, into a centralized platform.
+2. Create an AWS Entity Resolution Workflow. 
+An Entity Resolution matching workflow identifies and links records
+across datasets that represent the same real-world entity, such as
+customers or products. Using techniques like schema mapping,
+data profiling, and machine learning algorithms,
+it evaluates attributes like names or emails to detect duplicates
+or relationships, even with variations or inconsistencies.
+The workflow outputs consolidated, de-duplicated data, 
 
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Portal created successfully. Portal ID 63e65729-b7a1-410a-aa36-94145fe92153
-The portal Id is 63e65729-b7a1-410a-aa36-94145fe92153
+Workflow created successfully.
+The workflow ARN is: arn:aws:entityresolution:us-east-1:814548047983:matchingworkflow/MyMatchingWorkflow450
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-7. Describe the Portal
- In this step, we will describe the step and provide the portal URL.
-
+3. Start the matching job of the MyMatchingWorkflow450 workflow.
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Portal URL: https://p-fy9qnrqy.app.iotsitewise.aws
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-8. Create an IoTSitewise Gateway
-IoTSitewise Gateway serves as the bridge between industrial equipment, sensors, and the
-cloud-based IoTSitewise service. It is responsible for securely collecting, processing, and
-transmitting data from various industrial assets to the IoTSitewise platform,
-enabling real-time monitoring, analysis, and optimization of industrial operations.
-
-
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-The ARN of the gateway is arn:aws:iotsitewise:us-east-1:814548047983:gateway/50320670-1d88-4a7e-9013-1d7e8a3af832
-Gateway creation completed successfully. id is 50320670-1d88-4a7e-9013-1d7e8a3af832
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-9. Describe the IoTSitewise Gateway
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-Gateway Name: myGateway11
-Gateway ARN: arn:aws:iotsitewise:us-east-1:814548047983:gateway/50320670-1d88-4a7e-9013-1d7e8a3af832
-Gateway Platform: GatewayPlatform(GreengrassV2=GreengrassV2(CoreDeviceThingName=myThing78))
-Gateway Creation Date: 2024-09-18T20:34:13.117Z
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-10. Delete the AWS IoT SiteWise Assets
-Before you can delete the Asset Model, you must delete the assets.
-
-
-Would you like to delete the IoT Sitewise Assets? (y/n)
-y
-You selected to delete the Sitewise assets.
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-Portal 63e65729-b7a1-410a-aa36-94145fe92153 was deleted successfully.
-An unexpected error occurred: Cannot invoke "java.util.concurrent.CompletableFuture.join()" because "future" is null
-Asset deleted successfully.
-Lets wait 1 min for the asset to be deleted
-01:00The Gateway was deleted successfully
-00:00Countdown complete!
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-Delete the AWS IoT SiteWise Asset Model
-Asset model deleted successfully.
+Job ID: ec2dbd1717624b2b806ed93a04c20049
+The matching job was successfully started.
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -284,9 +185,56 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-Delete stack requested ....
-Stack deleted successfully.
-This concludes the AWS SiteWise Scenario
+4. Get details for job ec2dbd1717624b2b806ed93a04c20049
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+Job status: QUEUED
+Job details: GetMatchingJobResponse(JobId=ec2dbd1717624b2b806ed93a04c20049, StartTime=2025-01-30T18:37:57.475Z, Status=QUEUED)
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+5. Get Schema Mapping.
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+Attribute Name: id, Attribute Type: UNIQUE_ID
+Attribute Name: name, Attribute Type: STRING
+Attribute Name: email, Attribute Type: STRING
+Schema mapping retrieval completed.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+6. List Schema Mappings.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+7. Tag the schema450resource.
+Tags can help you organize and categorize your Entity Resolution resources.
+You can also use them to scope user permissions by granting a user permission
+to access or change only resources with certain tag values.
+In Entity Resolution, SchemaMapping and MatchingWorkflow can be tagged. For this example,
+the SchemaMapping is tagged.
+
+Successfully tagged the resource.
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+8. Delete the AWS Entity Resolution Workflow.
+You cannot delete a workflow that is in a running state.
+Would you like to wait for the workflow to complete.
+This can take up to 30 mins (y/n).
+
+n
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+This concludes the AWS Entity Resolution scenario.
 --------------------------------------------------------------------------------
 
 

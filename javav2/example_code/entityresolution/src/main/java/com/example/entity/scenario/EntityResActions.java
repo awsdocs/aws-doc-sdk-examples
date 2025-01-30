@@ -17,36 +17,28 @@ import software.amazon.awssdk.services.entityresolution.model.CreateMatchingWork
 import software.amazon.awssdk.services.entityresolution.model.CreateSchemaMappingRequest;
 import software.amazon.awssdk.services.entityresolution.model.CreateSchemaMappingResponse;
 import software.amazon.awssdk.services.entityresolution.model.DeleteMatchingWorkflowRequest;
-import software.amazon.awssdk.services.entityresolution.model.EntityResolutionException;
 import software.amazon.awssdk.services.entityresolution.model.GetMatchingJobRequest;
-import software.amazon.awssdk.services.entityresolution.model.GetMatchingJobResponse;
 import software.amazon.awssdk.services.entityresolution.model.GetSchemaMappingRequest;
 import software.amazon.awssdk.services.entityresolution.model.GetSchemaMappingResponse;
 import software.amazon.awssdk.services.entityresolution.model.InputSource;
 import software.amazon.awssdk.services.entityresolution.model.OutputAttribute;
 import software.amazon.awssdk.services.entityresolution.model.OutputSource;
-import software.amazon.awssdk.services.entityresolution.model.EntityResolutionException;
 import software.amazon.awssdk.services.entityresolution.model.ResolutionTechniques;
 import software.amazon.awssdk.services.entityresolution.model.ResolutionType;
 import software.amazon.awssdk.services.entityresolution.model.SchemaInputAttribute;
 import software.amazon.awssdk.services.entityresolution.model.StartMatchingJobRequest;
-import software.amazon.awssdk.services.entityresolution.model.StartMatchingJobResponse;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
-import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.entityresolution.model.TagResourceRequest;
 
-import java.nio.file.Paths;
 import java.time.Duration;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 
 public class EntityResActions {
 
@@ -318,7 +310,7 @@ public class EntityResActions {
         return getResolutionAsyncClient().createMatchingWorkflow(workflowRequest)
             .whenComplete((response, exception) -> {
                 if (response != null) {
-                    System.out.println("Workflow created successfully with ID: " + response.workflowArn());
+                    System.out.println("Workflow created successfully.");
                 } else {
                     throw new RuntimeException("Failed to create workflow: " + exception.getMessage(), exception);
                 }
@@ -327,6 +319,30 @@ public class EntityResActions {
     }
     // snippet-end:[entityres.java2_create_matching_workflow.main]
 
+    // snippet-start:[entityres.java2_tag_resource.main]
+    /**
+     * Tags the specified schema mapping ARN.
+     *
+     * @param schemaMappingARN the ARN of the schema mapping to tag
+     */
+    public CompletableFuture<Void> tagEntityResource(String schemaMappingARN) {
+        Map<String, String> tags = new HashMap<>();
+        tags.put("tag1", "tag1Value");
+        tags.put("tag2", "tag2Value");
+
+        TagResourceRequest request = TagResourceRequest.builder()
+            .resourceArn(schemaMappingARN)
+            .tags(tags)
+            .build();
+
+        return getResolutionAsyncClient().tagResource(request)
+            .thenAccept(response -> System.out.println("Successfully tagged the resource."))
+            .exceptionally(exception -> {
+                throw new RuntimeException("Failed to tag the resource: " + exception.getMessage(), exception);
+            });
+    }
+
+    // snippet-end:[entityres.java2_tag_resource.main]
 
     /**
      * Uploads a local file to an Amazon S3 bucket asynchronously.
@@ -372,5 +388,6 @@ public class EntityResActions {
             return false;
         }
     }
+
 
 }

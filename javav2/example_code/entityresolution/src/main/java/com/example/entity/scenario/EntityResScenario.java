@@ -4,6 +4,8 @@
 package com.example.entity.scenario;
 
 
+import software.amazon.awssdk.services.entityresolution.model.CreateSchemaMappingResponse;
+
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.CompletionException;
@@ -11,7 +13,8 @@ import java.util.concurrent.CompletionException;
 public class EntityResScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     private static final String ROLES_STACK = "EntityResolutionCdkStack";
-    public static void main (String[]args) throws InterruptedException {
+
+    public static void main(String[] args) throws InterruptedException {
 
         final String usage = """
 
@@ -26,13 +29,13 @@ public class EntityResScenario {
                 outputBucket: The S3 bucket URL where the results of the entity resolution workflow are stored (this resource is created using the CDK script. See the Readme)..
                 inputGlueTableArn: The ARN of the AWS Glue table which provides the input data for the entity resolution process (this resource is created using the CDK script. See the Readme)..
             """;
-        String workflowName = "MyMatchingWorkflow433";
-        String schemaName = "schema232";
+        String workflowName = "MyMatchingWorkflow450";
+        String schemaName = "schema450";
 
         // Use the AWS CDK to create this AWS resources. See the Readme file.
         String roleARN = "arn:aws:iam::814548047983:role/EntityResolutionCdkStack-EntityResolutionRoleB51A51-TSzkkBfrkbfm";
         String dataS3bucket = "glue-5ffb912c3d534e8493bac675c2a3196d";
-        String outputBucket = "s3://entity-resolution-output-entityresolutioncdkstack" ;
+        String outputBucket = "s3://entity-resolution-output-entityresolutioncdkstack";
         String inputGlueTableArn = "arn:aws:glue:us-east-1:814548047983:table/entity_resolution_db/entity_resolution";
 
         EntityResActions actions = new EntityResActions();
@@ -93,33 +96,34 @@ public class EntityResScenario {
               }
             ]
             """;
-        System.out.println("Upload the JSON to the "+ dataS3bucket +" S3 bucket if it does not exist");
+        System.out.println("Upload the JSON to the " + dataS3bucket + " S3 bucket if it does not exist");
         System.out.println(json);
         waitForInputToContinue(scanner);
         if (!actions.doesObjectExist(dataS3bucket)) {
             actions.uploadLocalFileAsync(dataS3bucket, json);
         } else {
-            System.out.println("The JSON exists in "+ dataS3bucket);
+            System.out.println("The JSON exists in " + dataS3bucket);
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("Create Schema Mapping");
+        System.out.println("1. Create Schema Mapping");
         System.out.println("""
             Entity Resolution Schema Mapping aligns and integrates data from 
             multiple sources by identifying and matching corresponding entities 
             like customers or products. It unifies schemas, resolves conflicts, 
             and uses machine learning to link related entities, enabling a 
             consolidated, accurate view for improved data quality and decision-making.
-            
+                        
             In this example, the schema mapping lines up with the fields in the JSON. That is, 
             it contains these fields: id, name, and email. 
             """);
         waitForInputToContinue(scanner);
+        String mappingARN = null; 
         try {
-            actions.createSchemaMappingAsync(schemaName).join();
-            System.out.println("Schema mapping was successfully created.");
+            CreateSchemaMappingResponse response = actions.createSchemaMappingAsync(schemaName).join();
+            mappingARN = response.schemaArn();
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             System.err.println("Failed to create schema mapping: " + (cause != null ? cause.getMessage() : ce.getMessage()));
@@ -129,7 +133,7 @@ public class EntityResScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("Create an AWS Entity Resolution Workflow. ");
+        System.out.println("2. Create an AWS Entity Resolution Workflow. ");
         System.out.println("""
             An Entity Resolution matching workflow identifies and links records 
             across datasets that represent the same real-world entity, such as 
@@ -142,7 +146,7 @@ public class EntityResScenario {
         waitForInputToContinue(scanner);
         try {
             String workflowArn = actions.createMatchingWorkflowAsync(roleARN, workflowName, outputBucket, inputGlueTableArn, schemaName).join();
-            System.out.println("The workflow was successfully created. The ARN is: " + workflowArn);
+            System.out.println("The workflow ARN is: " + workflowArn);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             System.err.println("Failed to create workflow: " + (cause != null ? cause.getMessage() : ce.getMessage()));
@@ -150,12 +154,12 @@ public class EntityResScenario {
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
-        System.out.println("3. Start the matching job of the " +workflowName +" workflow.");
+        System.out.println("3. Start the matching job of the " + workflowName + " workflow.");
         waitForInputToContinue(scanner);
-        String jobId = null; 
+        String jobId = null;
         try {
             jobId = actions.startMatchingJobAsync(workflowName).join();
-            System.out.println("The matching job was successfully started. Job ID: " + jobId);
+            System.out.println("The matching job was successfully started.");
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             System.err.println("Failed to start matching job: " + (cause != null ? cause.getMessage() : ce.getMessage()));
@@ -164,9 +168,14 @@ public class EntityResScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("4. Get job details.");
+        System.out.println("4. Get details for job "+jobId);
         waitForInputToContinue(scanner);
-        actions.getMatchingJobAsync(jobId, workflowName);
+        try {
+            actions.getMatchingJobAsync(jobId, workflowName).join();
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            System.err.println("Failed to start matching job: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+        }
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -181,7 +190,24 @@ public class EntityResScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("9. Delete the AWS Entity Resolution Workflow.");
+        System.out.println("6. List Schema Mappings.");
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("7. Tag the "+schemaName +"resource.");
+        System.out.println("""
+            Tags can help you organize and categorize your Entity Resolution resources. 
+            You can also use them to scope user permissions by granting a user permission 
+            to access or change only resources with certain tag values. 
+            In Entity Resolution, SchemaMapping and MatchingWorkflow can be tagged. For this example, 
+            the SchemaMapping is tagged.
+                """);
+        actions.tagEntityResource(mappingARN).join();
+        waitForInputToContinue(scanner);
+        System.out.println(DASHES);
+
+        System.out.println(DASHES);
+        System.out.println("8. Delete the AWS Entity Resolution Workflow.");
         System.out.println("""
             You cannot delete a workflow that is in a running state.  
             Would you like to wait for the workflow to complete. 
@@ -199,7 +225,6 @@ public class EntityResScenario {
                 Throwable cause = ce.getCause();
                 System.err.println("Failed to delete workflow: " + (cause != null ? cause.getMessage() : ce.getMessage()));
             }
-         //   CloudFormationHelper.destroyCloudFormationStack(ROLES_STACK);
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
