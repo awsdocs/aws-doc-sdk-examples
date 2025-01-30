@@ -25,46 +25,38 @@ The AWS Entity Resolution Basics scenario executes the following operations.
 
 3. **Start Matching Workflow**:
    - Description: Initiates a matching workflow to process entity resolution based on predefined configurations. 
-   - The method `listAssetModelProperties` is called to retrieve the property ID values.
-   - Exception Handling: Check to see if an `IoTSiteWiseException` is thrown. There are not 
-   many other useful exceptions for this specific call. If so, display the message and end the program.
+   - The method `startMatchingJob` is called to start the matching workflow.
+   - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program.
 
-4. **Send data to an AWS IoT SiteWise Asset**:
-   - Description: This operation sends data to an IoT SiteWise Asset.
-   - This step uses the method `batchPutAssetPropertyValue`.
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
+4. **Get Workflow Job Details**:
+   - Description: Retrieves details about a specific matching workflow job.
+   - This step uses the method `getMatchingJob`.
+   - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program.
 
-5. **Retrieve the value of the IoT SiteWise Asset property**:
-   - Description: This operation gets data from the asset.
-   - This step uses the method `getAssetPropertyValue`.
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
-6. **Create an IoT SiteWise Portal**:
-   - Description: This operation creates an IoT SiteWise portal.
+5. **List Matching Workflows**:
+   - Description: Lists all matching workflows created within the account.
+   - This step uses the method `listMatchingWorkflows`.
+   - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program.
+
+6. **Get Schema Mapping**:
+   - Description: Lists all schema mappings available in the account.
    - The method `createPortal` is called.
-   - Exception Handling: Check to see if an `IoTSiteWiseException` is thrown. If so, display the message and end the program. 
+   - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program
 
-7. **Describe the Portal**:
-   - Description: This operation describes the portal and returns a URL for the portal.
-   - The method `describePortal` is called and returns the URL.
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
+7. **Tag Resource**:
+   - Description: Adds tags associated with an AWS Entity Resolution resource.
+   - The method `tagResource` is called.
+   - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program
 
-8.  **Create an IoT SiteWise Gateway**:
-   - Description: This operation creates an IoT SiteWise Gateway.
-   - The method `createGateway` is called.
-   - Exception Handling: Check to see if an `IoTSiteWiseException` is thrown. If so, display the message and end the program.
+8.  **Delete Matching Workflow**:
+   - Description: Deletes a specified matching workflowy.
+   - The methods `deleteMatchingWorkflow` is called.
+   -    - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program
 
-9. **Describe the IoT SiteWise Gateway**:
-   - Description: This operation describes the Gateway.
-   - The method `describeGateway` is called.
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
-
-10. **Delete the AWS IoT SiteWise Assets**:
-    - The `delete` methods are called to clean up the resources.
-    - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program."
 
 ### Program execution
-The following shows the output of the AWS IoT SiteWise Basics scenario in the console. 
+The following shows the output of the AWS Entity Resolution Basics scenario in the console. 
 
 ```
 AWS IoT SiteWise is a fully managed industrial software-as-a-service (SaaS) that
@@ -303,26 +295,20 @@ This concludes the AWS SiteWise Scenario
 ## SOS Tags
 
 The following table describes the metadata used in this Basics Scenario.
+| action                  | metadata file          | metadata key                            |
+|-------------------------|------------------------|---------------------------------------- |
+| `createWorkflow`        | entity_metadata.yaml   | entity_CreateWorkflow                   |
+| `createSchemaMapping`   | entity_metadata.yaml   | entity_CreateMapping                    |
+| `startMatchingJob`      | entity_metadata.yaml   | entity_StartMatchingJob                 |
+| `getMatchingJob`        | entity_metadata.yaml   | entity_GetMatchingJob                   |
+| `listMatchingWorkflows` | entity_metadata.yaml   | entity_ListMatchingWorkflows            |
+| `getSchemaMapping`      | entity_metadata.yaml   | entity_GetSchemaMapping                 |
+| `listSchemaMappings`    | entity_metadata.yaml   | entity_ListSchemaMappings               |
+| `tagResource `          | entity_metadata.yaml   | entity_TagResource                      |
+| `deleteWorkflow `       | entity_metadata.yaml   | entity_DeleteWorkflow                   |
+| `listMappingJobs `      | entity_metadata.yaml   | entity_Hello                            |
+| `scenario`              | entity_metadata.yaml   | entity_Scenario                         |
 
-
-| action                         | metadata file                     | metadata key                            |
-|--------------------------------|-----------------------------------|---------------------------------------- |
-| `describeGateway`              | iot_sitewise_metadata.yaml        | iotsitewise_DescribeGateway             |
-| `deleteGateway `               | iot_sitewise_metadata.yaml        | iotsitewise_DeleteGateway               |
-| `createGateway `               | iot_sitewise_metadata.yaml        | iotsitewise_CreateGateway               |
-| `describePortal`               | iot_sitewise_metadata.yaml        | iotsitewise_DescribePortal              |
-| `listAssetModels`              | iot_sitewise_metadata.yaml        | iotsitewise_ListAssetModels             |
-| `deletePortal`                 | iot_sitewise_metadata.yaml        | iotsitewise_DeletePortal                |
-| `createPortal`                 | iot_sitewise_metadata.yaml        | iotsitewise_CreatePortal                |
-| `deleteAssetModel`             | iot_sitewise_metadata.yaml        | iotsitewise_DeleteAssetModel            |
-| `deleteAsset`                  | iot_sitewise_metadata.yaml        | iotsitewise_DeleteAsset                 |
-| `describeAssetModel`           | iot_sitewise_metadata.yaml        | iotsitewise_DescribeAssetModel          |
-| `getAssetPropertyValue`        | iot_sitewise_metadata.yaml        | iotsitewise_GetAssetPropertyValue       |
-| `batchPutAssetPropertyValue`   | iot_sitewise_metadata.yaml        | iotsitewise_BatchPutAssetPropertyValue  |
-| `createAsset`                  | iot_sitewise_metadata.yaml        | iotsitewise_CreateAsset                 |
-| `createAssetModel `            | iot_sitewise_metadata.yaml        | iotsitewise_CreateAssetModel            |
-| `scenario`                     | iot_sitewise_metadata.yaml        | iotsitewise_Scenario                    |
-| `hello`                        | iot_sitewise_metadata.yaml        | iotsitewise_Hello                       |
 
 
 
