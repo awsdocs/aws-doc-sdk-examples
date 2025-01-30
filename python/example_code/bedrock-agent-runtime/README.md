@@ -34,18 +34,18 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](flows/flow-conversation.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
 - [InvokeAgent](bedrock_agent_runtime_wrapper.py#L33)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [](flows/flow-conversation.py)
 
 
 <!--custom.examples.start-->
@@ -60,14 +60,13 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
+#### Learn the basics
 
-#### 
-
-This example shows you how to Uses InvokeFlow to converse with an Amazon Bedrock flow that includes an agent node.
+This example shows you how to uses InvokeFlow to converse with an Amazon Bedrock flow that includes an agent node.
 
 
-<!--custom.scenario_prereqs.bedrock-agent-runtime_Scenario_ConverseWithFlow.start-->
-<!--custom.scenario_prereqs.bedrock-agent-runtime_Scenario_ConverseWithFlow.end-->
+<!--custom.basic_prereqs.bedrock-agent-runtime_Scenario_ConverseWithFlow.start-->
+<!--custom.basic_prereqs.bedrock-agent-runtime_Scenario_ConverseWithFlow.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -76,8 +75,9 @@ python flows/flow-conversation.py
 ```
 
 
-<!--custom.scenarios.bedrock-agent-runtime_Scenario_ConverseWithFlow.start-->
-<!--custom.scenarios.bedrock-agent-runtime_Scenario_ConverseWithFlow.end-->
+<!--custom.basics.bedrock-agent-runtime_Scenario_ConverseWithFlow.start-->
+<!--custom.basics.bedrock-agent-runtime_Scenario_ConverseWithFlow.end-->
+
 
 ### Tests
 
