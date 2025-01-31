@@ -44,7 +44,7 @@ const cleanupAction = (scenarios, client) =>
         );
       } catch (e) {
         if (e instanceof Error && e.name === "NoSuchBucket") {
-          console.log("Object's bucket has already been deleted.");
+          console.log("Objects and buckets have already been deleted.");
           continue;
         }
         throw e;

@@ -3648,7 +3648,7 @@ s3_Scenario_ConditionalRequests:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/S3/scenarios/conditional-requests
+          github: javascriptv3/example_code/s3/scenarios/conditional-requests
           sdkguide:
           excerpts:
             - description: |

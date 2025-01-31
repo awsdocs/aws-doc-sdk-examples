@@ -8,8 +8,10 @@ import {
   S3ServiceException,
 } from "@aws-sdk/client-s3";
 import "@aws-sdk/crc64-nvme-crt";
-// Optional edit the default key name of the copied object in ./object_name.json
-import * as data from "./object_name.json" assert { type: "json" };
+// Optionally edit the default key name of the copied object in 'object_name.json'
+import * as data from "../scenarios/conditional-requests/object_name.json" assert {
+  type: "json",
+};
 
 /**
  * @param {S3Client} client

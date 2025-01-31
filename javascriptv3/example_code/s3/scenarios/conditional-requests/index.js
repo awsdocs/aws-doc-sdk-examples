@@ -43,12 +43,12 @@ export const getWorkflowStages = (scenarios, initialState = {}) => {
         populateBucketsAction(scenarios, client),
         saveState,
       ],
-      initialState
+      initialState,
     ),
     demo: new scenarios.Scenario(
       "S3 Conditional Requests - Demo",
-      [loadState, replAction(scenarios, client)],
-      initialState
+      [loadState, welcome(scenarios), replAction(scenarios, client)],
+      initialState,
     ),
     clean: new scenarios.Scenario(
       "S3 Conditional Requests - Destroy",
@@ -58,7 +58,7 @@ export const getWorkflowStages = (scenarios, initialState = {}) => {
         exitOnFalse(scenarios, "confirmCleanup"),
         cleanupAction(scenarios, client),
       ],
-      initialState
+      initialState,
     ),
   };
 };
