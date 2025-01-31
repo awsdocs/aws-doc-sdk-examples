@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import kotlin.random.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -51,9 +52,10 @@ class IAMTest {
             // Get the values to run these tests from AWS Secrets Manager.
             val gson = Gson()
             val json: String = getSecretValues()
+            val randomValue = Random.nextInt(1, 10001)
             val values = gson.fromJson(json, SecretValues::class.java)
-            userName = values.userName.toString()
-            policyName = values.policyName.toString()
+            userName = values.userName.toString() + randomValue
+            policyName = values.policyName.toString() + randomValue
             roleName = values.roleName.toString()
             accountAlias = values.accountAlias.toString()
             usernameSc = values.usernameSc.toString()

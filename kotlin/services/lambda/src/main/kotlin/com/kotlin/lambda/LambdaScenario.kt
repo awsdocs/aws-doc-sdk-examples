@@ -117,11 +117,11 @@ suspend fun createScFunction(
             description = "Created by the Lambda Kotlin API"
             handler = myHandler
             role = myRole
-            runtime = Runtime.Java8
+            runtime = Runtime.Java17
         }
 
     // Create a Lambda function using a waiter
-    LambdaClient { region = "us-west-2" }.use { awsLambda ->
+    LambdaClient { region = "us-east-1" }.use { awsLambda ->
         val functionResponse = awsLambda.createFunction(request)
         awsLambda.waitUntilFunctionActive {
             functionName = myFunctionName
@@ -136,7 +136,7 @@ suspend fun getFunction(functionNameVal: String) {
             functionName = functionNameVal
         }
 
-    LambdaClient { region = "us-west-2" }.use { awsLambda ->
+    LambdaClient { region = "us-east-1" }.use { awsLambda ->
         val response = awsLambda.getFunction(functionRequest)
         println("The runtime of this Lambda function is ${response.configuration?.runtime}")
     }
@@ -148,7 +148,7 @@ suspend fun listFunctionsSc() {
             maxItems = 10
         }
 
-    LambdaClient { region = "us-west-2" }.use { awsLambda ->
+    LambdaClient { region = "us-east-1" }.use { awsLambda ->
         val response = awsLambda.listFunctions(request)
         response.functions?.forEach { function ->
             println("The function name is ${function.functionName}")
@@ -166,7 +166,7 @@ suspend fun invokeFunctionSc(functionNameVal: String) {
             logType = LogType.Tail
         }
 
-    LambdaClient { region = "us-west-2" }.use { awsLambda ->
+    LambdaClient { region = "us-east-1" }.use { awsLambda ->
         val res = awsLambda.invoke(request)
         println("The function payload is ${res.payload?.toString(Charsets.UTF_8)}")
     }
@@ -185,7 +185,7 @@ suspend fun updateFunctionCode(
             s3Key = key
         }
 
-    LambdaClient { region = "us-west-2" }.use { awsLambda ->
+    LambdaClient { region = "us-east-1" }.use { awsLambda ->
         val response = awsLambda.updateFunctionCode(functionCodeRequest)
         awsLambda.waitUntilFunctionUpdated {
             functionName = functionNameVal
@@ -202,10 +202,10 @@ suspend fun updateFunctionConfiguration(
         UpdateFunctionConfigurationRequest {
             functionName = functionNameVal
             handler = handlerVal
-            runtime = Runtime.Java11
+            runtime = Runtime.Java17
         }
 
-    LambdaClient { region = "us-west-2" }.use { awsLambda ->
+    LambdaClient { region = "us-east-1" }.use { awsLambda ->
         awsLambda.updateFunctionConfiguration(configurationRequest)
     }
 }
@@ -216,7 +216,7 @@ suspend fun delFunction(myFunctionName: String) {
             functionName = myFunctionName
         }
 
-    LambdaClient { region = "us-west-2" }.use { awsLambda ->
+    LambdaClient { region = "us-east-1" }.use { awsLambda ->
         awsLambda.deleteFunction(request)
         println("$myFunctionName was deleted")
     }

@@ -68,10 +68,10 @@ suspend fun createNewFunction(
             description = "Created by the Lambda Kotlin API"
             handler = myHandler
             role = myRole
-            runtime = Runtime.Java8
+            runtime = Runtime.Java17
         }
 
-    LambdaClient { region = "us-west-2" }.use { awsLambda ->
+    LambdaClient { region = "us-east-1" }.use { awsLambda ->
         val functionResponse = awsLambda.createFunction(request)
         awsLambda.waitUntilFunctionActive {
             functionName = myFunctionName

@@ -125,7 +125,7 @@ class LambdaTest {
 
             // Update the AWS Lambda function code.
             println("*** Update the Lambda function code.")
-            updateFunctionCode(functionNameSc, updatedBucketName, s3Key)
+            updateFunctionCode(functionNameSc, s3BucketName, s3Key)
 
             // println("*** Invoke the function again after updating the code.")
             invokeFunctionSc(functionNameSc)
