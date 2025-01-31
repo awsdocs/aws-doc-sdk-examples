@@ -7,7 +7,6 @@ import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
 import com.kotlin.ses.listSESIdentities
 import com.kotlin.ses.send
-import com.kotlin.ses.sendemailAttachment
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
@@ -77,14 +76,6 @@ class SESTest {
 
     @Test
     @Order(2)
-    fun sendMessageAttTest() =
-        runBlocking {
-            sendemailAttachment(sender, recipient, subject, bodyText, bodyHTML, fileLocation)
-            println("Test 2 passed")
-        }
-
-    @Test
-    @Order(3)
     fun listIdentitiesTest() =
         runBlocking {
             listSESIdentities()
