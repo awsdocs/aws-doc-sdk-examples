@@ -40,7 +40,7 @@ async def test_invoke_agent(make_stubber, error_code):
     if error_code is None:
         wrapper.invoke_agent(agent_id, agent_alias_id, session_id, prompt)
     else:
-        with pytest.raises(ClientError):
+        with pytest.raises(ClientError) as exc_info:
             async for _ in wrapper.invoke_agent(
                 agent_id, agent_alias_id, session_id, prompt
             ):
@@ -84,7 +84,7 @@ async def test_invoke_flow(make_stubber, error_code):
     if error_code is None:
         wrapper.invoke_flow(flow_id, flow_alias_id, inputs, execution_id)
     else:
-        with pytest.raises(ClientError):
+        with pytest.raises(ClientError) as exc_info:
             async for _ in wrapper.invoke_flow(
                 flow_id, flow_alias_id, inputs, execution_id
             ):
