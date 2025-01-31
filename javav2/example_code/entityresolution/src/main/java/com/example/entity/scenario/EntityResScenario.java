@@ -191,6 +191,7 @@ public class EntityResScenario {
 
         System.out.println(DASHES);
         System.out.println("6. List Schema Mappings.");
+        actions.ListSchemaMappings();
         System.out.println(DASHES);
 
         System.out.println(DASHES);
