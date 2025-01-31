@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[cognito.javascript.lambda-trigger.pre-sign-up-auto-confirm]
-exports.handler = (event, context, callback) => {
+export const handler = async (event, context, callback) => {
   // Set the user pool autoConfirmUser flag after validating the email domain
   event.response.autoConfirmUser = false;
 
