@@ -86,7 +86,6 @@ async def test_invoke_flow(make_stubber, error_code):
         assert result is not None
     else:
         with pytest.raises(ClientError) as exc_info:
-            async for _ in wrapper.invoke_flow(
-                flow_id, flow_alias_id, inputs, execution_id
-            ):
-                assert exc_info.value.response["Error"]["Code"] == error_code
+             wrapper.invoke_flow(flow_id, flow_alias_id, inputs, execution_id)
+         
+        assert exc_info.value.response["Error"]["Code"] == error_code
