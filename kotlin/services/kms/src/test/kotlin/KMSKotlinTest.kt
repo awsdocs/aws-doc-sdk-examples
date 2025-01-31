@@ -38,7 +38,6 @@ class KMSKotlinTest {
     private var operation = ""
     private var grantId = ""
     private var aliasName = ""
-    private var path = ""
 
     @BeforeAll
     fun setup() =
@@ -51,7 +50,6 @@ class KMSKotlinTest {
             operation = values.operation.toString()
             aliasName = values.aliasName.toString()
             granteePrincipal = values.granteePrincipal.toString()
-            path = values.path.toString()
 
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
@@ -61,7 +59,6 @@ class KMSKotlinTest {
         granteePrincipal = prop.getProperty("granteePrincipal")
         operation = prop.getProperty("operation")
         aliasName = prop.getProperty("aliasName")
-        path = prop.getProperty("path")
          */
         }
 
@@ -78,8 +75,9 @@ class KMSKotlinTest {
     @Order(3)
     fun encryptDataKeyTest() =
         runBlocking {
+            val plaintext = "Hello, AWS KMS!"
             val encryptData = encryptData(keyId)
-            decryptData(encryptData, keyId, path)
+            decryptData(encryptData, keyId)
             println("Test 3 passed")
         }
 

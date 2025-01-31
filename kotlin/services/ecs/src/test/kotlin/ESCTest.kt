@@ -34,7 +34,6 @@ class ESCTest {
     var serviceName: String = ""
     var serviceArn: String = ""
     var taskDefinition: String = ""
-    var clusterArn: String = "arn:aws:ecs:us-east-1:814548047983:cluster/ScottCluste11"
 
     @BeforeAll
     fun setup() =
@@ -78,7 +77,7 @@ class ESCTest {
     @Order(2)
     fun createServiceTest() =
         runBlocking {
-            serviceArn = createNewService(clusterArn, serviceName, securityGroups, subnet, taskDefinition).toString()
+            serviceArn = createNewService(clusterARN, serviceName, securityGroups, subnet, taskDefinition).toString()
             println("Test 2 passed")
         }
 
@@ -94,7 +93,7 @@ class ESCTest {
     @Order(4)
     fun describeClustersTest() =
         runBlocking {
-            descCluster(clusterArn)
+            descCluster(clusterARN)
             println("Test 4 passed")
         }
 
@@ -102,7 +101,7 @@ class ESCTest {
     @Order(5)
     fun listTaskDefinitionsTest() =
         runBlocking {
-            getAllTasks(clusterArn, taskId)
+            getAllTasks(clusterARN, taskId)
             println("Test 5 passed")
         }
 
@@ -110,7 +109,7 @@ class ESCTest {
     @Order(6)
     fun updateServiceTest() =
         runBlocking {
-            updateSpecificService(clusterArn, serviceArn)
+            updateSpecificService(clusterARN, serviceArn)
             println("Test 6 passed")
         }
 
@@ -118,7 +117,7 @@ class ESCTest {
     @Order(7)
     fun deleteServiceTest() =
         runBlocking {
-            deleteSpecificService(clusterArn, serviceArn)
+            deleteSpecificService(clusterARN, serviceArn)
             println("Test 7 passed")
         }
 

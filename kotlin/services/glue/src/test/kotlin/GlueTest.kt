@@ -73,7 +73,7 @@ class GlueTest {
         }
 
     @Test
-    @Order(2)
+    @Order(1)
     fun getCrawlersTest() =
         runBlocking {
             getAllCrawlers()
@@ -81,7 +81,7 @@ class GlueTest {
         }
 
     @Test
-    @Order(4)
+    @Order(2)
     fun getDatabasesTest() =
         runBlocking {
             getAllDatabases()
@@ -89,7 +89,7 @@ class GlueTest {
         }
 
     @Test
-    @Order(5)
+    @Order(3)
     fun searchTablesTest() =
         runBlocking {
             searchGlueTable(text)
@@ -97,7 +97,7 @@ class GlueTest {
         }
 
     @Test
-    @Order(6)
+    @Order(4)
     fun listWorkflowsTest() =
         runBlocking {
             listAllWorkflows()

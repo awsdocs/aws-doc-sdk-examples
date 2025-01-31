@@ -38,8 +38,6 @@ class CloudFormationTest {
             stackName = values.stackName.toString()
             roleARN = values.roleARN.toString()
             location = values.location.toString()
-            key = values.key.toString()
-            value = values.value.toString()
 
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
@@ -57,7 +55,7 @@ class CloudFormationTest {
     @Order(1)
     fun createStackTest() =
         runBlocking {
-            createCFStack(stackName, roleARN, location, key, value)
+            createCFStack(stackName, roleARN, location)
             println("Test 1 passed")
         }
 
