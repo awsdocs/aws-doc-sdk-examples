@@ -5,7 +5,7 @@
   "type": "module",
   "main": "build/index.js",
   "scripts": {
-    "test": "vitest run **/*.unit.test.ts",
+    "test": "vitest run unit",
     "start": "node ./watch.js"
   },
   "author": "corepyle@amazon.com",

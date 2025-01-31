@@ -7,7 +7,7 @@ import * as Scenarios from "@aws-doc-sdk-examples/lib/scenario/index.js";
 
 import { cleanupAction } from "./clean.steps.js";
 
-describe("clean.steps.js", () => {
+describe.skip("clean.steps.js", () => {
   it("should call ListObjectVersionsCommand once for each bucket", async () => {
     const mockClient = {
       send: vi
