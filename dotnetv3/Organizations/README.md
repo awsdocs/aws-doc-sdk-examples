@@ -33,18 +33,18 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a target](AttachPolicyExample/AttachPolicyExample/AttachPolicy.cs#L6) (`AttachPolicy`)
-- [Create a policy](CreatePolicyExample/CreatePolicyExample/CreatePolicy.cs#L6) (`CreatePolicy`)
-- [Create an account](CreateAccountExample/CreateAccountExample/CreateAccount.cs#L6) (`CreateAccount`)
-- [Create an organization](CreateOrganizationExample/CreateOrganizationExample/CreateOrganization.cs#L6) (`CreateOrganization`)
-- [Create an organizational unit](CreateOrganizationalUnitExample/CreateOrganizationalUnitExample/CreateOrganizationalUnit.cs#L6) (`CreateOrganizationalUnit`)
-- [Delete a policy](DeletePolicyExample/DeletePolicyExample/DeletePolicy.cs#L6) (`DeletePolicy`)
-- [Delete an organization](DeleteOrganizationExample/DeleteOrganizationExample/DeleteOrganization.cs#L6) (`DeleteOrganization`)
-- [Delete an organizational unit](DeleteOrganizationalUnitExample/DeleteOrganizationalUnitExample/DeleteOrganizationalUnit.cs#L6) (`DeleteOrganizationalUnit`)
-- [Detach a policy from a target](DetachPolicyExample/DetachPolicyExample/DetachPolicy.cs#L6) (`DetachPolicy`)
-- [List accounts](ListAccountsExample/ListAccountsExample/ListAccounts.cs#L6) (`ListAccounts`)
-- [List organizational units](ListOrganizationalUnitsForParentExample/ListOrganizationalUnitsForParentExample/ListOrganizationalUnitsForParent.cs#L6) (`ListOrganizationalUnitsForParent`)
-- [List policies](ListPoliciesExample/ListPoliciesExample/ListPolicies.cs#L6) (`ListPolicies`)
+- [AttachPolicy](AttachPolicyExample/AttachPolicyExample/AttachPolicy.cs#L6)
+- [CreateAccount](CreateAccountExample/CreateAccountExample/CreateAccount.cs#L6)
+- [CreateOrganization](CreateOrganizationExample/CreateOrganizationExample/CreateOrganization.cs#L6)
+- [CreateOrganizationalUnit](CreateOrganizationalUnitExample/CreateOrganizationalUnitExample/CreateOrganizationalUnit.cs#L6)
+- [CreatePolicy](CreatePolicyExample/CreatePolicyExample/CreatePolicy.cs#L6)
+- [DeleteOrganization](DeleteOrganizationExample/DeleteOrganizationExample/DeleteOrganization.cs#L6)
+- [DeleteOrganizationalUnit](DeleteOrganizationalUnitExample/DeleteOrganizationalUnitExample/DeleteOrganizationalUnit.cs#L6)
+- [DeletePolicy](DeletePolicyExample/DeletePolicyExample/DeletePolicy.cs#L6)
+- [DetachPolicy](DetachPolicyExample/DetachPolicyExample/DetachPolicy.cs#L6)
+- [ListAccounts](ListAccountsExample/ListAccountsExample/ListAccounts.cs#L6)
+- [ListOrganizationalUnitsForParent](ListOrganizationalUnitsForParentExample/ListOrganizationalUnitsForParentExample/ListOrganizationalUnitsForParent.cs#L6)
+- [ListPolicies](ListPoliciesExample/ListPoliciesExample/ListPolicies.cs#L6)
 
 
 <!--custom.examples.start-->

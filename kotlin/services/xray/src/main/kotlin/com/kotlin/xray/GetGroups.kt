@@ -21,7 +21,6 @@ suspend fun main() {
 
 // snippet-start:[xray.kotlin_get_groups.main]
 suspend fun getAllGroups() {
-
     XRayClient { region = "us-east-1" }.use { xRayClient ->
         val response = xRayClient.getGroups(GetGroupsRequest {})
         response.groups?.forEach { group ->

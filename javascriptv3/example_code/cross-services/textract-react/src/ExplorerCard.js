@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useRef } from "react";
-import { ExplorerTree } from "./ExplorerTree";
+import { ExplorerTree } from "./ExplorerTree.js";
 
 /**
  * Displays output from Amazon Textract as a hierarchical tree of checkboxes.
@@ -48,9 +48,9 @@ export const ExplorerCard = (props) => {
             props.extracting ? "" : "visually-hidden"
           }`}
         >
-          <div className="spinner-border text-success" role="status">
+          <output className="spinner-border text-success">
             <span className="visually-hidden">Loading...</span>
-          </div>
+          </output>
         </div>
         <div className={props.extracting ? "visually-hidden" : ""}>{tree}</div>
       </div>

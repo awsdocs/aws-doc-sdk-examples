@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[dynamodb.JavaScript.item.updateItemV3]
 import { UpdateItemCommand, DynamoDBClient } from "@aws-sdk/client-dynamodb";

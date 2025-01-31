@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[dynamodb.JavaScript.table.queryV3]
 import { DynamoDBClient, QueryCommand } from "@aws-sdk/client-dynamodb";
@@ -24,9 +24,9 @@ export const main = async () => {
   });
 
   const response = await client.send(command);
-  response.Items.forEach(function (pie) {
+  for (const pie of response.Items) {
     console.log(`${pie.Flavor.S} - ${pie.Description.S}\n`);
-  });
+  }
   return response;
 };
 // snippet-end:[dynamodb.JavaScript.table.queryV3]

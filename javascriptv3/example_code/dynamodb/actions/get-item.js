@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[dynamodb.JavaScript.item.getItemV3]
 import { GetItemCommand, DynamoDBClient } from "@aws-sdk/client-dynamodb";
@@ -10,6 +10,7 @@ const client = new DynamoDBClient({});
 
 export const main = async () => {
   const command = new GetItemCommand({
+    ConsistentRead: true,
     TableName: "CafeTreats",
     // For more information about data types,
     // see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes and

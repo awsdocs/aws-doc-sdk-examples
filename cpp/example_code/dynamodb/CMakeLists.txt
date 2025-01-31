@@ -10,41 +10,32 @@ set(SERVICE_COMPONENTS dynamodb s3) # s3 is required for tests, and it must be i
 # Set this project's name.
 project("${SERVICE_NAME}-examples")
 
+# Use the MSVC variable to determine if this is a Windows build.
+set(WINDOWS_BUILD ${MSVC})
+
 # Set the location of where Windows can find the installed libraries of the SDK.
-if(MSVC)
+if (WINDOWS_BUILD)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
-endif()
+endif ()
 
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 11)
 
-# Enable CTest for testing these code examples.
-if(BUILD_TESTS)
-    include(CTest)
-endif()
-
 # Build shared libraries by default.
-if(NOT BUILD_SHARED_LIBS)
-    set(BUILD_SHARED_LIBS ON)
-endif()
+set(BUILD_SHARED_LIBS ON)
 
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
-# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
-# and building as shared libraries, then dynamically link to those shared libraries.
-if(MSVC AND BUILD_SHARED_LIBS)
-    add_definitions(-DUSE_IMPORT_EXPORT)
+if (WINDOWS_BUILD AND AWSSDK_INSTALL_AS_SHARED_LIBS)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
 
-    set(CMAKE_BUILD_TYPE Debug) # Explicitly setting CMAKE_BUILD_TYPE is necessary in windows to copy dlls.
+    # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
+    # and set the proper subdirectory to the executables' location.
 
-    list(APPEND SERVICE_LIST ${SERVICE_COMPONENTS})
-
-     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-endif()
-
+    AWSSDK_CPY_DYN_LIBS(SERVICE_COMPONENTS "" ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR})
+endif ()
 
 # AWSDOC_${SERVICE_COMPONENTS}_SOURCE can be defined in the command line to limit the files in a build, for example to one action.
 if(NOT DEFINED AWSDOC_SOURCE)
@@ -53,17 +44,6 @@ if(NOT DEFINED AWSDOC_SOURCE)
     )
     list(FILTER AWSDOC_SOURCE EXCLUDE REGEX "/dynamodb_utils.cpp$")
 endif()
-
-# Check whether the target system is Windows, including Win64.
-if(WIN32)
-    list(FILTER AWSDOC_SOURCE EXCLUDE REGEX "/list_buckets_disabling_dns_cache.cpp$") # Not supported in windows, see file for details
-
-    # Check whether the compiler is some version of Microsoft Visual C++, or another compiler simulating C++.
-    if(MSVC)
-         source_group("Source Files" FILES ${AWSDOC_SOURCE})
-    endif(MSVC)
-endif()
-
 
 foreach(file ${AWSDOC_SOURCE})
     get_filename_component(EXAMPLE ${file} NAME_WE)

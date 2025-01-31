@@ -1,0 +1,485 @@
+# zexi 0.4.0
+iotsitewise_Hello:
+  title: Hello &ITSWlong;
+  title_abbrev: Hello &ITSW;
+  synopsis: get started using &ITSW;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.hello.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.Hello
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.hello
+  services:
+    iotsitewise: {ListAssetModels}
+iotsitewise_DescribeGateway:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.describe.gateway.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.DescribeGateway
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.describeGateway
+  services:
+    iotsitewise: {DescribeGateway}
+iotsitewise_DeleteGateway:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.delete.gateway.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.DeleteGateway
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.deleteGateway
+  services:
+    iotsitewise: {DeleteGateway}
+iotsitewise_CreateGateway:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.create.gateway.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.CreateGateway
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.createGateway
+  services:
+    iotsitewise: {CreateGateway}
+iotsitewise_DescribePortal:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.describe.portal.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.CreateGateway
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.describePortal
+  services:
+    iotsitewise: {DescribePortal}
+iotsitewise_ListAssetModels:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.list.asset.model.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.ListAssetModels
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.listAssetModels
+  services:
+    iotsitewise: {ListAssetModels}
+iotsitewise_DeletePortal:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.delete.portal.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.DeletePortal
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.deletePortal
+  services:
+    iotsitewise: {DeletePortal}
+iotsitewise_CreatePortal:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.create.portal.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.CreatePortal
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.createPortal
+  services:
+    iotsitewise: {CreatePortal}
+iotsitewise_DeleteAssetModel:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.delete.asset.model.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.DeleteAssetModel
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.deleteAssetModel
+  services:
+    iotsitewise: {DeleteAssetModel}
+iotsitewise_DeleteAsset:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.delete.asset.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.DeleteAsset
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.deleteAsset
+  services:
+    iotsitewise: {DeleteAsset}
+iotsitewise_DescribeAssetModel:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.describe.asset.model.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.describeAssetModel
+  services:
+    iotsitewise: {DescribeAssetModel}
+iotsitewise_GetAssetPropertyValue:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2_get_property.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.GetAssetPropertyValue
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.getAssetPropertyValue
+  services:
+    iotsitewise: {GetAssetPropertyValue}
+iotsitewise_BatchPutAssetPropertyValue:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2_put_batch_property.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.BatchPutAssetPropertyValue
+            - description: >
+               A helper function to generate the entries parameter from a values
+               list.
+              snippet_tags:
+                - python.example_code.iotsitewise.BatchPutAssetPropertyValue.properties_to_values
+            - description: >
+               Here is an example of a values list to pass to the helper
+               function.
+              snippet_tags:
+                - python.example_code.iotsitewise.BatchPutAssetPropertyValue.values
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.batchPutAssetPropertyValue
+  services:
+    iotsitewise: {BatchPutAssetPropertyValue}
+iotsitewise_CreateAsset:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2_create_asset.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.CreateAsset
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.createAsset
+  services:
+    iotsitewise: {CreateAsset}
+iotsitewise_CreateAssetModel:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2_create_asset_model.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.CreateAssetModel
+            - description: >
+                Here is an example of a properties list to pass to the function.
+              snippet_tags:
+                - python.example_code.iotsitewise.CreateAssetModel.properties
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.createAssetModel
+  services:
+    iotsitewise: {CreateAssetModel}
+iotsitewise_Scenario:
+  synopsis: learn core operations for &ITSWlong; using an &AWS; SDK.
+  category: Basics
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &ITSW; features.
+              snippet_tags:
+                - iotsitewise.java2.scenario.main
+            - description: A wrapper class for &ITSW; SDK methods.
+              snippet_tags:
+                - iotsitewise.java2.actions.main 
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              genai: some
+              snippet_tags:
+                - python.example_code.iotsitewise.FeatureScenario
+            - description: IoTSitewiseWrapper class that wraps &ITSW; actions.
+              genai: some
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.class
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.JavaScript.Basics.scenario
+  services:
+    iotsitewise: {}

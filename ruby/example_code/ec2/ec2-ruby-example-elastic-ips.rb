@@ -6,7 +6,6 @@
 # check whether the specified Amazon Elastic Compute Cloud
 # (Amazon EC2) instance exists.
 
-
 # snippet-start:[ec2.Ruby.elasticIps]
 
 # This code example does the following:
@@ -20,7 +19,7 @@
 # 6. Displays information again about addresses associated with the instance.
 #    This time, the released address should not display.
 
-require "aws-sdk-ec2"
+require 'aws-sdk-ec2'
 
 # Checks whether the specified Amazon Elastic Compute Cloud
 # (Amazon EC2) instance exists.
@@ -39,9 +38,9 @@ require "aws-sdk-ec2"
 #   )
 def instance_exists?(ec2_client, instance_id)
   ec2_client.describe_instances(instance_ids: [instance_id])
-  return true
+  true
 rescue StandardError
-  return false
+  false
 end
 
 # snippet-start:[ec2.Ruby.allocateElasticIPs]
@@ -52,11 +51,11 @@ end
 # @example
 #   puts allocate_elastic_ip_address(Aws::EC2::Client.new(region: 'us-west-2'))
 def allocate_elastic_ip_address(ec2_client)
-  response = ec2_client.allocate_address(domain: "vpc")
-  return response.allocation_id
+  response = ec2_client.allocate_address(domain: 'vpc')
+  response.allocation_id
 rescue StandardError => e
   puts "Error allocating Elastic IP address: #{e.message}"
-  return "Error"
+  'Error'
 end
 # snippet-end:[ec2.Ruby.allocateElasticIPs]
 
@@ -87,13 +86,14 @@ def associate_elastic_ip_address_with_instance(
 )
   response = ec2_client.associate_address(
     allocation_id: allocation_id,
-    instance_id: instance_id,
+    instance_id: instance_id
   )
-  return response.association_id
+  response.association_id
 rescue StandardError => e
   puts "Error associating Elastic IP address with instance: #{e.message}"
-  return "Error"
+  'Error'
 end
+
 # snippet-end:[ec2.Ruby.associateElasticIPs]
 #
 # Gets information about addresses associated with an
@@ -114,17 +114,17 @@ def describe_addresses_for_instance(ec2_client, instance_id)
   response = ec2_client.describe_addresses(
     filters: [
       {
-        name: "instance-id",
+        name: 'instance-id',
         values: [instance_id]
       }
     ]
   )
   addresses = response.addresses
   if addresses.count.zero?
-    puts "No addresses."
+    puts 'No addresses.'
   else
     addresses.each do |address|
-      puts "-" * 20
+      puts '-' * 20
       puts "Public IP:  #{address.public_ip}"
       puts "Private IP: #{address.private_ip_address}"
     end
@@ -153,30 +153,30 @@ end
 #   )
 def elastic_ip_address_released?(ec2_client, allocation_id)
   ec2_client.release_address(allocation_id: allocation_id)
-  return true
+  true
 rescue StandardError => e
   puts("Error releasing Elastic IP address: #{e.message}")
-  return false
+  false
 end
 # snippet-end:[ec2.Ruby.releaseElasticIPs]
 
 # Example usage:
 def run_me
-  instance_id = ""
-  region = ""
+  instance_id = ''
+  region = ''
   # Print usage information and then stop.
-  if ARGV[0] == "--help" || ARGV[0] == "-h"
-    puts "Usage:   ruby ec2-ruby-example-elastic-ips.rb " \
-      "INSTANCE_ID REGION"
+  if ARGV[0] == '--help' || ARGV[0] == '-h'
+    puts 'Usage:   ruby ec2-ruby-example-elastic-ips.rb ' \
+      'INSTANCE_ID REGION'
     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    puts "Example: ruby ec2-ruby-example-elastic-ips.rb " \
-      "i-033c48ef067af3dEX us-west-2"
+    puts 'Example: ruby ec2-ruby-example-elastic-ips.rb ' \
+      'i-033c48ef067af3dEX us-west-2'
     exit 1
   # If no values are specified at the command prompt, use these default values.
   elsif ARGV.count.zero?
-    instance_id = "i-033c48ef067af3dEX"
-     # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
-    region = "us-west-2"
+    instance_id = 'i-033c48ef067af3dEX'
+    # Replace us-west-2 with the AWS Region you're using for Amazon EC2.
+    region = 'us-west-2'
   # Otherwise, use the values as specified at the command prompt.
   else
     instance_id = ARGV[0]
@@ -191,44 +191,44 @@ def run_me
   end
 
   puts "Addresses for instance with ID '#{instance_id}' before allocating " \
-    "Elastic IP address:"
+    'Elastic IP address:'
   describe_addresses_for_instance(ec2_client, instance_id)
 
-  puts "Allocating Elastic IP address..."
+  puts 'Allocating Elastic IP address...'
   allocation_id = allocate_elastic_ip_address(ec2_client)
-  if allocation_id.start_with?("Error")
-    puts "Stopping program."
+  if allocation_id.start_with?('Error')
+    puts 'Stopping program.'
     exit 1
   else
     puts "Elastic IP address created with allocation ID '#{allocation_id}'."
   end
 
-  puts "Associating Elastic IP address with instance..."
+  puts 'Associating Elastic IP address with instance...'
   association_id = associate_elastic_ip_address_with_instance(
     ec2_client,
     allocation_id,
     instance_id
   )
-  if association_id.start_with?("Error")
-    puts "Stopping program. You must associate the Elastic IP address yourself."
+  if association_id.start_with?('Error')
+    puts 'Stopping program. You must associate the Elastic IP address yourself.'
     exit 1
   else
-    puts "Elastic IP address associated with instance with association ID " \
+    puts 'Elastic IP address associated with instance with association ID ' \
       "'#{association_id}'."
   end
 
-  puts "Addresses for instance after allocating Elastic IP address:"
+  puts 'Addresses for instance after allocating Elastic IP address:'
   describe_addresses_for_instance(ec2_client, instance_id)
 
-  puts "Releasing the Elastic IP address from the instance..."
+  puts 'Releasing the Elastic IP address from the instance...'
   if elastic_ip_address_released?(ec2_client, allocation_id) == false
-    puts "Stopping program. You must release the Elastic IP address yourself."
+    puts 'Stopping program. You must release the Elastic IP address yourself.'
     exit 1
   else
-    puts "Address released."
+    puts 'Address released.'
   end
 
-  puts "Addresses for instance after releasing Elastic IP address:"
+  puts 'Addresses for instance after releasing Elastic IP address:'
   describe_addresses_for_instance(ec2_client, instance_id)
 end
 

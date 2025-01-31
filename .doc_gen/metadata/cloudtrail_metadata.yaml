@@ -1,9 +1,5 @@
 # zexi 0.4.0
 cloudtrail_ListTrails:
-  title: List &CT; trails using an &AWS; SDK
-  title_abbrev: List trails
-  synopsis: list &CTlong; trails.
-  category:
   languages:
     Ruby:
       versions:
@@ -17,10 +13,6 @@ cloudtrail_ListTrails:
   services:
     cloudtrail: {ListTrails}
 cloudtrail_CreateTrail:
-  title: Create a &CT; trail using an &AWS; SDK
-  title_abbrev: Create trails
-  synopsis: create a &CTlong; trail.
-  category:
   languages:
     Ruby:
       versions:
@@ -31,13 +23,17 @@ cloudtrail_CreateTrail:
             - description:
               snippet_tags:
                 - cloudtrail.Ruby.createTrail
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudtrail
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cloudtrail.CreateTrail
   services:
     cloudtrail: {CreateTrail}
-cloudtrail_ListTrailEvents:
-  title: List &CT; trail events using an &AWS; SDK
-  title_abbrev: List trail events
-  synopsis: list &CTlong; trail events.
-  category:
+cloudtrail_LookupEvents:
   languages:
     Ruby:
       versions:
@@ -48,13 +44,17 @@ cloudtrail_ListTrailEvents:
             - description:
               snippet_tags:
                 - cloudtrail.Ruby.lookupEvents
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudtrail
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cloudtrail.LookupEvents
   services:
     cloudtrail: {LookupEvents}
 cloudtrail_DeleteTrail:
-  title: Delete a &CT; trail using an &AWS; SDK
-  title_abbrev: Delete trail
-  synopsis: delete a &CTlong; trail.
-  category:
   languages:
     Ruby:
       versions:
@@ -65,5 +65,25 @@ cloudtrail_DeleteTrail:
             - description:
               snippet_tags:
                 - cloudtrail.Ruby.deleteTrail
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudtrail
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cloudtrail.DeleteTrail
   services:
     cloudtrail: {DeleteTrail}
+cloudtrail_DescribeTrail:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cloudtrail
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cloudtrail.DescribeTrails
+  services:
+    cloudtrail: {DescribeTrail}

@@ -3,7 +3,10 @@
 
 package scenarios
 
+// snippet-start:[gov2.dynamodb.Scenario_PartiQLSingle]
+
 import (
+	"context"
 	"fmt"
 	"log"
 	"strings"
@@ -14,8 +17,6 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/actions"
 )
 
-// snippet-start:[gov2.dynamodb.Scenario_PartiQLSingle]
-
 // RunPartiQLSingleScenario shows you how to use the AWS SDK for Go
 // to use PartiQL to query a table that stores data about movies.
 //
@@ -25,7 +26,7 @@ import (
 // you can replace it with a mocked or stubbed config for unit testing.
 //
 // This example creates and deletes a DynamoDB table to use during the scenario.
-func RunPartiQLSingleScenario(sdkConfig aws.Config, tableName string) {
+func RunPartiQLSingleScenario(ctx context.Context, sdkConfig aws.Config, tableName string) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Printf("Something went wrong with the demo.")
@@ -45,13 +46,13 @@ func RunPartiQLSingleScenario(sdkConfig aws.Config, tableName string) {
 		TableName:      tableName,
 	}
 
-	exists, err := tableBasics.TableExists()
+	exists, err := tableBasics.TableExists(ctx)
 	if err != nil {
 		panic(err)
 	}
 	if !exists {
 		log.Printf("Creating table %v...\n", tableName)
-		_, err = tableBasics.CreateMovieTable()
+		_, err = tableBasics.CreateMovieTable(ctx)
 		if err != nil {
 			panic(err)
 		} else {
@@ -73,14 +74,14 @@ func RunPartiQLSingleScenario(sdkConfig aws.Config, tableName string) {
 	}
 
 	log.Printf("Inserting movie '%v' released in %v.", customMovie.Title, customMovie.Year)
-	err = runner.AddMovie(customMovie)
+	err = runner.AddMovie(ctx, customMovie)
 	if err == nil {
 		log.Printf("Added %v to the movie table.\n", customMovie.Title)
 	}
 	log.Println(strings.Repeat("-", 88))
 
 	log.Printf("Getting data for movie '%v' released in %v.", customMovie.Title, customMovie.Year)
-	movie, err := runner.GetMovie(customMovie.Title, customMovie.Year)
+	movie, err := runner.GetMovie(ctx, customMovie.Title, customMovie.Year)
 	if err == nil {
 		log.Println(movie)
 	}
@@ -88,26 +89,26 @@ func RunPartiQLSingleScenario(sdkConfig aws.Config, tableName string) {
 
 	newRating := 6.6
 	log.Printf("Updating movie '%v' with a rating of %v.", customMovie.Title, newRating)
-	err = runner.UpdateMovie(customMovie, newRating)
+	err = runner.UpdateMovie(ctx, customMovie, newRating)
 	if err == nil {
 		log.Printf("Updated %v with a new rating.\n", customMovie.Title)
 	}
 	log.Println(strings.Repeat("-", 88))
 
 	log.Printf("Getting data again to verify the update.")
-	movie, err = runner.GetMovie(customMovie.Title, customMovie.Year)
+	movie, err = runner.GetMovie(ctx, customMovie.Title, customMovie.Year)
 	if err == nil {
 		log.Println(movie)
 	}
 	log.Println(strings.Repeat("-", 88))
 
 	log.Printf("Deleting movie '%v'.\n", customMovie.Title)
-	err = runner.DeleteMovie(customMovie)
+	err = runner.DeleteMovie(ctx, customMovie)
 	if err == nil {
 		log.Printf("Deleted %v.\n", customMovie.Title)
 	}
 
-	err = tableBasics.DeleteTable()
+	err = tableBasics.DeleteTable(ctx)
 	if err == nil {
 		log.Printf("Deleted table %v.\n", tableBasics.TableName)
 	}

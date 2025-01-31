@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <forecastArn>
@@ -38,10 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[forecast.kotlin.delete_forecast.main]
 suspend fun delForecast(forecastArnVal: String) {
-
-    val request = DeleteForecastRequest {
-        forecastArn = forecastArnVal
-    }
+    val request =
+        DeleteForecastRequest {
+            forecastArn = forecastArnVal
+        }
 
     ForecastClient { region = "us-west-2" }.use { forecast ->
         forecast.deleteForecast(request)

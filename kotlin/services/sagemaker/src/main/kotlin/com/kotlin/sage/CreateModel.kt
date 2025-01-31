@@ -19,7 +19,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <dataUrl> <image> <modelName> <executionRoleArn>
@@ -49,20 +48,21 @@ suspend fun createSagemakerModel(
     dataUrl: String,
     imageVal: String,
     modelNameVal: String,
-    executionRoleArnVal: String
+    executionRoleArnVal: String,
 ) {
+    val containerDefinition =
+        ContainerDefinition {
+            modelDataUrl = dataUrl
+            image = imageVal
+            mode = ContainerMode.SingleModel
+        }
 
-    val containerDefinition = ContainerDefinition {
-        modelDataUrl = dataUrl
-        image = imageVal
-        mode = ContainerMode.SingleModel
-    }
-
-    val request = CreateModelRequest {
-        modelName = modelNameVal
-        executionRoleArn = executionRoleArnVal
-        primaryContainer = containerDefinition
-    }
+    val request =
+        CreateModelRequest {
+            modelName = modelNameVal
+            executionRoleArn = executionRoleArnVal
+            primaryContainer = containerDefinition
+        }
 
     SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
         val response = sageMakerClient.createModel(request)

@@ -34,44 +34,44 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 - [Hello IAM](hello/hello.go#L4) (`ListPolicies`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/scenario_assume_role.go)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](actions/roles.go#L132) (`AttachRolePolicy`)
-- [Create a policy](actions/policies.go#L65) (`CreatePolicy`)
-- [Create a role](actions/roles.go#L46) (`CreateRole`)
-- [Create a service-linked role](actions/roles.go#L98) (`CreateServiceLinkedRole`)
-- [Create a user](actions/users.go#L74) (`CreateUser`)
-- [Create an access key](actions/users.go#L175) (`CreateAccessKey`)
-- [Create an inline policy for a user](actions/users.go#L92) (`PutUserPolicy`)
-- [Delete a policy](actions/policies.go#L118) (`DeletePolicy`)
-- [Delete a role](actions/roles.go#L200) (`DeleteRole`)
-- [Delete a service-linked role](actions/roles.go#L117) (`DeleteServiceLinkedRole`)
-- [Delete a user](actions/users.go#L160) (`DeleteUser`)
-- [Delete an access key](actions/users.go#L193) (`DeleteAccessKey`)
-- [Delete an inline policy from a user](actions/users.go#L144) (`DeleteUserPolicy`)
-- [Detach a policy from a role](actions/roles.go#L166) (`DetachRolePolicy`)
-- [Get a policy](actions/policies.go#L100) (`GetPolicy`)
-- [Get a role](actions/roles.go#L81) (`GetRole`)
-- [Get a user](actions/users.go#L47) (`GetUser`)
-- [Get the account password policy](actions/account.go#L26) (`GetAccountPasswordPolicy`)
-- [List SAML providers](actions/account.go#L44) (`ListSAMLProviders`)
-- [List a user's access keys](actions/users.go#L209) (`ListAccessKeys`)
-- [List groups](actions/groups.go#L27) (`ListGroups`)
-- [List inline policies for a role](actions/roles.go#L182) (`ListRolePolicies`)
-- [List inline policies for a user](actions/users.go#L126) (`ListUserPolicies`)
-- [List policies](actions/policies.go#L47) (`ListPolicies`)
-- [List policies attached to a role](actions/roles.go#L148) (`ListAttachedRolePolicies`)
-- [List roles](actions/roles.go#L28) (`ListRoles`)
-- [List users](actions/users.go#L29) (`ListUsers`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Create a user and assume a role](scenarios/scenario_assume_role.go)
+- [AttachRolePolicy](actions/roles.go#L133)
+- [CreateAccessKey](actions/users.go#L175)
+- [CreatePolicy](actions/policies.go#L46)
+- [CreateRole](actions/roles.go#L46)
+- [CreateServiceLinkedRole](actions/roles.go#L98)
+- [CreateUser](actions/users.go#L74)
+- [DeleteAccessKey](actions/users.go#L193)
+- [DeletePolicy](actions/policies.go#L114)
+- [DeleteRole](actions/roles.go#L201)
+- [DeleteServiceLinkedRole](actions/roles.go#L118)
+- [DeleteUser](actions/users.go#L160)
+- [DeleteUserPolicy](actions/users.go#L144)
+- [DetachRolePolicy](actions/roles.go#L167)
+- [GetAccountPasswordPolicy](actions/account.go#L26)
+- [GetPolicy](actions/policies.go#L96)
+- [GetRole](actions/roles.go#L81)
+- [GetUser](actions/users.go#L47)
+- [ListAccessKeys](actions/users.go#L209)
+- [ListAttachedRolePolicies](actions/roles.go#L149)
+- [ListGroups](actions/groups.go#L27)
+- [ListPolicies](actions/policies.go#L28)
+- [ListRolePolicies](actions/roles.go#L183)
+- [ListRoles](actions/roles.go#L28)
+- [ListSAMLProviders](actions/account.go#L44)
+- [ListUserPolicies](actions/users.go#L126)
+- [ListUsers](actions/users.go#L29)
+- [PutUserPolicy](actions/users.go#L92)
 
 
 <!--custom.examples.start-->
@@ -101,8 +101,7 @@ and to get help for running a scenario, use the following command:
 ```
 go run ./cmd -h
 ```
-
-#### Create a user and assume a role
+#### Learn the basics
 
 This example shows you how to create a user and assume a role. 
 
@@ -111,12 +110,13 @@ This example shows you how to create a user and assume a role.
 - Add a policy to let the user assume the role.
 - Assume the role and list S3 buckets using temporary credentials, then clean up resources.
 
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
 
 
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
+
 
 ### Tests
 

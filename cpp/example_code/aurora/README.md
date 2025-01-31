@@ -42,36 +42,37 @@ Next, for information on code example structures and how to build and run the ex
 - [Hello Aurora](hello_aurora/CMakeLists.txt#L4) (`DescribeDBClusters`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](getting_started_with_db_clusters.cpp)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB cluster](getting_started_with_db_clusters.cpp#L497) (`CreateDBCluster`)
-- [Create a DB cluster parameter group](getting_started_with_db_clusters.cpp#L333) (`CreateDBClusterParameterGroup`)
-- [Create a DB cluster snapshot](getting_started_with_db_clusters.cpp#L661) (`CreateDBClusterSnapshot`)
-- [Create a DB instance in a DB cluster](getting_started_with_db_clusters.cpp#L588) (`CreateDBInstance`)
-- [Delete a DB cluster](getting_started_with_db_clusters.cpp#L1033) (`DeleteDBCluster`)
-- [Delete a DB cluster parameter group](getting_started_with_db_clusters.cpp#L1103) (`DeleteDBClusterParameterGroup`)
-- [Delete a DB instance](getting_started_with_db_clusters.cpp#L1003) (`DeleteDBInstance`)
-- [Describe DB cluster parameter groups](getting_started_with_db_clusters.cpp#L295) (`DescribeDBClusterParameterGroups`)
-- [Describe DB cluster snapshots](getting_started_with_db_clusters.cpp#L701) (`DescribeDBClusterSnapshots`)
-- [Describe DB clusters](getting_started_with_db_clusters.cpp#L746) (`DescribeDBClusters`)
-- [Describe DB instances](getting_started_with_db_clusters.cpp#L883) (`DescribeDBInstances`)
-- [Describe database engine versions](getting_started_with_db_clusters.cpp#L845) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](getting_started_with_db_clusters.cpp#L923) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters from a DB cluster parameter group](getting_started_with_db_clusters.cpp#L786) (`DescribeDBClusterParameters`)
-- [Update parameters in a DB cluster parameter group](getting_started_with_db_clusters.cpp#L402) (`ModifyDBClusterParameterGroup`)
+- [CreateDBCluster](getting_started_with_db_clusters.cpp#L497)
+- [CreateDBClusterParameterGroup](getting_started_with_db_clusters.cpp#L333)
+- [CreateDBClusterSnapshot](getting_started_with_db_clusters.cpp#L661)
+- [CreateDBInstance](getting_started_with_db_clusters.cpp#L588)
+- [DeleteDBCluster](getting_started_with_db_clusters.cpp#L1047)
+- [DeleteDBClusterParameterGroup](getting_started_with_db_clusters.cpp#L1117)
+- [DeleteDBInstance](getting_started_with_db_clusters.cpp#L1017)
+- [DescribeDBClusterParameterGroups](getting_started_with_db_clusters.cpp#L276)
+- [DescribeDBClusterParameters](getting_started_with_db_clusters.cpp#L786)
+- [DescribeDBClusterSnapshots](getting_started_with_db_clusters.cpp#L701)
+- [DescribeDBClusters](getting_started_with_db_clusters.cpp#L746)
+- [DescribeDBEngineVersions](getting_started_with_db_clusters.cpp#L845)
+- [DescribeDBInstances](getting_started_with_db_clusters.cpp#L896)
+- [DescribeOrderableDBInstanceOptions](getting_started_with_db_clusters.cpp#L936)
+- [ModifyDBClusterParameterGroup](getting_started_with_db_clusters.cpp#L402)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
-
-- [Get started with DB clusters](getting_started_with_db_clusters.cpp)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
 
 - [Create an Aurora Serverless work item tracker](../../example_code/cross-service/serverless-aurora)
 
@@ -104,8 +105,7 @@ folder.
 This example shows you how to get started using Aurora.
 
 
-
-#### Get started with DB clusters
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -114,12 +114,25 @@ This example shows you how to do the following:
 - Create a DB instance that contains a database.
 - Take a snapshot of the DB cluster, then clean up resources.
 
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.end-->
 
 
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.end-->
+
+
+#### Create an Aurora Serverless work item tracker
+
+This example shows you how to create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_RDSDataTracker.start-->
+<!--custom.scenario_prereqs.cross_RDSDataTracker.end-->
+
+
+<!--custom.scenarios.cross_RDSDataTracker.start-->
+<!--custom.scenarios.cross_RDSDataTracker.end-->
 
 ### Tests
 

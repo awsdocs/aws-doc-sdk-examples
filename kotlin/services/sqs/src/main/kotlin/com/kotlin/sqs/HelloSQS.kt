@@ -14,7 +14,8 @@ suspend fun main() {
 
 suspend fun listTopicsPag() {
     SqsClient { region = "us-east-1" }.use { sqsClient ->
-        sqsClient.listQueuesPaginated { }
+        sqsClient
+            .listQueuesPaginated { }
             .transform { it.queueUrls?.forEach { queue -> emit(queue) } }
             .collect { queue ->
                 println("The Queue URL is $queue")

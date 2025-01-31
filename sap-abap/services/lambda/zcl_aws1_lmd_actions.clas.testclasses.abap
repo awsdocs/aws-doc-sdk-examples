@@ -1,4 +1,4 @@
-﻿" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 
 CLASS ltc_zcl_aws1_lmd_actions DEFINITION DEFERRED.
@@ -299,7 +299,7 @@ CLASS ltc_zcl_aws1_lmd_actions IMPLEMENTATION.
 
     DATA(lo_result) = ao_lmd_actions->update_function_configuration(
         iv_function_name = cv_function_name
-        iv_runtime = `python3.8`
+        iv_runtime = `python3.9`
         iv_memory_size = 150
      ).
 
@@ -321,7 +321,7 @@ CLASS ltc_zcl_aws1_lmd_actions IMPLEMENTATION.
     ).
 
     cl_abap_unit_assert=>assert_equals(
-      exp = `python3.8`
+      exp = `python3.9`
       act = lo_result->get_runtime( )
       msg = |Function's runtime did not match expected value |
     ).

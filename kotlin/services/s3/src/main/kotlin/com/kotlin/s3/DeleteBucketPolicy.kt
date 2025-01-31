@@ -37,9 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[s3.kotlin.delete_bucket_policy.main]
 suspend fun deleteS3BucketPolicy(bucketName: String?) {
-    val request = DeleteBucketPolicyRequest {
-        bucket = bucketName
-    }
+    val request =
+        DeleteBucketPolicyRequest {
+            bucket = bucketName
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.deleteBucketPolicy(request)

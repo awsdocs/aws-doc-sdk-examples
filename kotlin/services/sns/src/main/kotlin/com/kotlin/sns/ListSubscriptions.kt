@@ -21,7 +21,6 @@ suspend fun main() {
 
 // snippet-start:[sns.kotlin.ListSubscriptions.main]
 suspend fun listSNSSubscriptions() {
-
     SnsClient { region = "us-east-1" }.use { snsClient ->
         val response = snsClient.listSubscriptions(ListSubscriptionsRequest {})
         response.subscriptions?.forEach { sub ->

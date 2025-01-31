@@ -27,12 +27,15 @@ from test_tools.comprehend_stubber import ComprehendStubber
 from test_tools.config_stubber import ConfigStubber
 from test_tools.dynamodb_stubber import DynamoStubber
 from test_tools.ec2_stubber import Ec2Stubber
+from test_tools.ecr_stubber import EcrStubber
 from test_tools.elbv2_stubber import ELBv2Stubber
 from test_tools.emr_stubber import EmrStubber
 from test_tools.eventbridge_stubber import EventBridgeStubber
 from test_tools.glacier_stubber import GlacierStubber
 from test_tools.glue_stubber import GlueStubber
 from test_tools.iam_stubber import IamStubber
+from test_tools.iot_sitewise_stubber import IoTSitewiseStubber
+from test_tools.healthlake_stubber import HealthLakeStubber
 from test_tools.keyspaces_stubber import KeyspacesStubber
 from test_tools.kinesis_stubber import KinesisStubber
 from test_tools.kinesis_analytics_v2_stubber import KinesisAnalyticsV2Stubber
@@ -61,6 +64,9 @@ from test_tools.support_stubber import SupportStubber
 from test_tools.textract_stubber import TextractStubber
 from test_tools.transcribe_stubber import TranscribeStubber
 from test_tools.medical_imaging_stubber import MedicalImagingStubber
+from test_tools.redshift_stubber import RedshiftStubber
+from test_tools.redshift_data_stubber import RedshiftDataStubber
+from test_tools.scheduler_stubber import SchedulerStubber
 
 
 class StubberFactoryNotImplemented(Exception):
@@ -106,6 +112,8 @@ def stubber_factory(service_name):
         return DynamoStubber
     elif service_name == "ec2":
         return Ec2Stubber
+    elif service_name == "ecr":
+        return EcrStubber
     elif service_name == "elbv2":
         return ELBv2Stubber
     elif service_name == "emr":
@@ -118,6 +126,10 @@ def stubber_factory(service_name):
         return GlueStubber
     elif service_name == "iam":
         return IamStubber
+    elif service_name == "iotsitewise":
+        return IoTSitewiseStubber
+    elif service_name == "healthlake":
+        return HealthLakeStubber
     elif service_name == "keyspaces":
         return KeyspacesStubber
     elif service_name == "kinesis":
@@ -130,6 +142,8 @@ def stubber_factory(service_name):
         return LambdaStubber
     elif service_name == "lookoutvision":
         return LookoutVisionStubber
+    elif service_name == "medical-imaging":
+        return MedicalImagingStubber
     elif service_name == "organizations":
         return OrganizationsStubber
     elif service_name == "pinpoint":
@@ -144,6 +158,10 @@ def stubber_factory(service_name):
         return RdsStubber
     elif service_name == "rds-data":
         return RdsDataStubber
+    elif service_name == "redshift":
+        return RedshiftStubber
+    elif service_name == "redshift-data":
+        return RedshiftDataStubber
     elif service_name == "rekognition":
         return RekognitionStubber
     elif service_name == "route53":
@@ -152,6 +170,8 @@ def stubber_factory(service_name):
         return S3Stubber
     elif service_name == "s3control":
         return S3ControlStubber
+    elif service_name == "scheduler":
+        return SchedulerStubber
     elif service_name == "secretsmanager":
         return SecretsManagerStubber
     elif service_name == "ses":
@@ -172,8 +192,6 @@ def stubber_factory(service_name):
         return TextractStubber
     elif service_name == "transcribe":
         return TranscribeStubber
-    elif service_name == "medical-imaging":
-        return MedicalImagingStubber
     else:
         raise StubberFactoryNotImplemented(
             "If you see this exception, it probably means that you forgot to add "

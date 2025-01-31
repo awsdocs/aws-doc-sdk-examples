@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <indexId> <text>
@@ -40,13 +39,16 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[kendra.kotlin.query.index.main]
-suspend fun querySpecificIndex(indexIdVal: String?, text: String?) {
-
-    val queryRequest = QueryRequest {
-        indexId = indexIdVal
-        queryResultTypeFilter = QueryResultType.Document
-        queryText = text
-    }
+suspend fun querySpecificIndex(
+    indexIdVal: String?,
+    text: String?,
+) {
+    val queryRequest =
+        QueryRequest {
+            indexId = indexIdVal
+            queryResultTypeFilter = QueryResultType.Document
+            queryText = text
+        }
 
     KendraClient { region = "us-east-1" }.use { kendra ->
         val response = kendra.query(queryRequest)

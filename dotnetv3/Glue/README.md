@@ -34,31 +34,31 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 - [Hello AWS Glue](Actions/HelloGlue.cs#L4) (`ListJobs`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Actions/GlueWrapper.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](Actions/GlueWrapper.cs#L23) (`CreateCrawler`)
-- [Create a job definition](Actions/GlueWrapper.cs#L76) (`CreateJob`)
-- [Delete a crawler](Actions/GlueWrapper.cs#L120) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](Actions/GlueWrapper.cs#L134) (`DeleteDatabase`)
-- [Delete a job definition](Actions/GlueWrapper.cs#L148) (`DeleteJob`)
-- [Delete a table from a database](Actions/GlueWrapper.cs#L162) (`DeleteTable`)
-- [Get a crawler](Actions/GlueWrapper.cs#L176) (`GetCrawler`)
-- [Get a database from the Data Catalog](Actions/GlueWrapper.cs#L218) (`GetDatabase`)
-- [Get a job run](Actions/GlueWrapper.cs#L237) (`GetJobRun`)
-- [Get runs of a job](Actions/GlueWrapper.cs#L252) (`GetJobRuns`)
-- [Get tables from a database](Actions/GlueWrapper.cs#L284) (`GetTables`)
-- [List job definitions](Actions/GlueWrapper.cs#L308) (`ListJobs`)
-- [Start a crawler](Actions/GlueWrapper.cs#L328) (`StartCrawler`)
-- [Start a job run](Actions/GlueWrapper.cs#L348) (`StartJobRun`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with crawlers and jobs](Actions/GlueWrapper.cs)
+- [CreateCrawler](Actions/GlueWrapper.cs#L23)
+- [CreateJob](Actions/GlueWrapper.cs#L76)
+- [DeleteCrawler](Actions/GlueWrapper.cs#L120)
+- [DeleteDatabase](Actions/GlueWrapper.cs#L134)
+- [DeleteJob](Actions/GlueWrapper.cs#L148)
+- [DeleteTable](Actions/GlueWrapper.cs#L162)
+- [GetCrawler](Actions/GlueWrapper.cs#L176)
+- [GetDatabase](Actions/GlueWrapper.cs#L218)
+- [GetJobRun](Actions/GlueWrapper.cs#L237)
+- [GetJobRuns](Actions/GlueWrapper.cs#L252)
+- [GetTables](Actions/GlueWrapper.cs#L284)
+- [ListJobs](Actions/GlueWrapper.cs#L308)
+- [StartCrawler](Actions/GlueWrapper.cs#L328)
+- [StartJobRun](Actions/GlueWrapper.cs#L348)
 
 
 <!--custom.examples.start-->
@@ -94,8 +94,7 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using AWS Glue.
 
 
-
-#### Get started with crawlers and jobs
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -104,7 +103,7 @@ This example shows you how to do the following:
 - Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another S3 bucket.
 - List information about job runs, view transformed data, and clean up resources.
 
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
 This scenario requires the following scaffold resources:
 * An S3 bucket that can contain the Python ETL job script and receive
   output data.
@@ -116,7 +115,7 @@ This scenario requires the following scaffold resources:
 You can deploy and destroy these resources by using the AWS Cloud Development Kit
 (AWS CDK). To do this, run `cdk deploy` or `cdk destroy` in the
 [/resources/cdk/glue_role_bucket](/resources/cdk/glue_role_bucket) folder.
-  
+
 When the AWS CDK script reports the bucket name and the IAM role that was created, open the `settings.json` file and fill in
   the BucketName, RoleName, and ScriptURL values.
 
@@ -136,11 +135,12 @@ Example:
     "JobName": "glue-mvp-job"
 
 
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
 
 
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.start-->
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.end-->
+
 
 ### Tests
 

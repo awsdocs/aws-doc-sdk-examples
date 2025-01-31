@@ -1,13 +1,13 @@
-# ELB code examples for the SDK for JavaScript (v3)
+# Elastic Load Balancing - Version 2 code examples for the SDK for JavaScript (v3)
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v3) to work with Elastic Load Balancing (ELB).
+Shows how to use the AWS SDK for JavaScript (v3) to work with Elastic Load Balancing - Version 2.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_ELB automatically distributes your incoming traffic across multiple targets, such as EC2 instances, containers, and IP addresses, in one or more Availability Zones._
+_Elastic Load Balancing - Version 2 automatically distributes your incoming traffic across multiple targets, such as EC2 instances, containers, and IP addresses, in one or more Availability Zones._
 
 ## ⚠ Important
 
@@ -31,21 +31,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Elastic Load Balancing](hello.js) (`DescribeLoadBalancers`)
+- [Hello Elastic Load Balancing - Version 2](hello.js) (`DescribeLoadBalancers`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a listener for a load balancer](../cross-services/wkflw-resilient-service/steps-deploy.js#L463) (`CreateListener`)
-- [Create a target group](../cross-services/wkflw-resilient-service/steps-deploy.js#L402) (`CreateTargetGroup`)
-- [Create an Application Load Balancer](../cross-services/wkflw-resilient-service/steps-deploy.js#L435) (`CreateLoadBalancer`)
-- [Delete a load balancer](../cross-services/wkflw-resilient-service/steps-destroy.js#L293) (`DeleteLoadBalancer`)
-- [Delete a target group](../cross-services/wkflw-resilient-service/steps-destroy.js#L327) (`DeleteTargetGroup`)
-- [Describe target groups](../cross-services/wkflw-resilient-service/steps-demo.js#L77) (`DescribeTargetGroups`)
-- [Get the endpoint of a load balancer](hello.js) (`DescribeLoadBalancers`)
-- [Get the health of a target group](../cross-services/wkflw-resilient-service/steps-demo.js#L86) (`DescribeTargetHealth`)
+- [CreateListener](../cross-services/wkflw-resilient-service/steps-deploy.js#L464)
+- [CreateLoadBalancer](../cross-services/wkflw-resilient-service/steps-deploy.js#L436)
+- [CreateTargetGroup](../cross-services/wkflw-resilient-service/steps-deploy.js#L403)
+- [DeleteLoadBalancer](../cross-services/wkflw-resilient-service/steps-destroy.js#L287)
+- [DeleteTargetGroup](../cross-services/wkflw-resilient-service/steps-destroy.js#L320)
+- [DescribeLoadBalancers](hello.js)
+- [DescribeTargetGroups](../cross-services/wkflw-resilient-service/steps-demo.js#L77)
+- [DescribeTargetHealth](../cross-services/wkflw-resilient-service/steps-demo.js#L86)
 
 ### Scenarios
 
@@ -72,17 +72,28 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
 
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
+
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Elastic Load Balancing
+#### Hello Elastic Load Balancing - Version 2
 
-This example shows you how to get started using Elastic Load Balancing.
+This example shows you how to get started using Elastic Load Balancing - Version 2.
 
 ```bash
 node ./hello.js
@@ -122,9 +133,9 @@ in the `javascriptv3` folder.
 
 ## Additional resources
 
-- [ELB User Guide](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html)
-- [ELB API Reference](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/Welcome.html)
-- [SDK for JavaScript (v3) ELB reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/elastic-load-balancing-v2)
+- [Elastic Load Balancing - Version 2 User Guide](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html)
+- [Elastic Load Balancing - Version 2 API Reference](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/Welcome.html)
+- [SDK for JavaScript (v3) Elastic Load Balancing - Version 2 reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/elastic-load-balancing-v2)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

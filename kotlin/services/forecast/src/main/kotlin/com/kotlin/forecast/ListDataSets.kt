@@ -22,10 +22,10 @@ suspend fun main() {
 
 // snippet-start:[forecast.kotlin.list_datasets.main]
 suspend fun listForecastDataSets() {
-
-    val request = ListDatasetsRequest {
-        maxResults = 10
-    }
+    val request =
+        ListDatasetsRequest {
+            maxResults = 10
+        }
 
     ForecastClient { region = "us-west-2" }.use { forecast ->
         val response = forecast.listDatasets(request)

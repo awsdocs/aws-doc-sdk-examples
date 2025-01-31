@@ -21,7 +21,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <streamName> 
@@ -40,9 +39,8 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[firehose.kotlin.put_batch_records.main]
 suspend fun addStockTradeData(streamName: String?) {
-
     try {
-        val recordList = mutableListOf<Record> ()
+        val recordList = mutableListOf<Record>()
 
         // Repeatedly send stock trades with a 100 milliseconds wait in between.
         val stockTradeGenerator = StockTradeGenerator()
@@ -52,18 +50,20 @@ suspend fun addStockTradeData(streamName: String?) {
         for (x in 0 until index) {
             val trade = stockTradeGenerator.randomTrade
             val bytes = trade.toJsonAsBytes()
-            val myRecord = Record {
-                data = bytes
-            }
+            val myRecord =
+                Record {
+                    data = bytes
+                }
 
             println("Adding trade: $trade")
             recordList.add(myRecord)
             delay(100)
         }
-        val request = PutRecordBatchRequest {
-            deliveryStreamName = streamName
-            records = recordList
-        }
+        val request =
+            PutRecordBatchRequest {
+                deliveryStreamName = streamName
+                records = recordList
+            }
 
         FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
             val recordResponse = firehoseClient.putRecordBatch(request)

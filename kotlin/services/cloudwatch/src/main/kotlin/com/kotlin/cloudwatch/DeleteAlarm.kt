@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -38,10 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudwatch.kotlin.delete_metrics.main]
 suspend fun deleteCWAlarm(alarmNameVal: String) {
-
-    val request = DeleteAlarmsRequest {
-        alarmNames = listOf(alarmNameVal)
-    }
+    val request =
+        DeleteAlarmsRequest {
+            alarmNames = listOf(alarmNameVal)
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.deleteAlarms(request)

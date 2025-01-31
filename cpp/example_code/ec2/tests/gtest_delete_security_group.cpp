@@ -19,7 +19,7 @@ namespace AwsDocTest {
         Aws::String groupID = createSecurityGroup(uuidName("test-delete"));
         ASSERT_FALSE(groupID.empty());
 
-        auto result = AwsDoc::EC2::DeleteSecurityGroup(groupID, *s_clientConfig);
+        auto result = AwsDoc::EC2::deleteSecurityGroup(groupID, *s_clientConfig);
         ASSERT_TRUE(result);
     }
 

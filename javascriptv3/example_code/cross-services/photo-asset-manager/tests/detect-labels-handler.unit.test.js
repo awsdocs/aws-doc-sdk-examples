@@ -13,7 +13,7 @@ describe("detect-labels handler", () => {
         {
           s3: {
             bucket: {
-              name: "my-bucket",
+              name: "amzn-s3-demo-bucket",
             },
             object: {
               key: "my_image.jpeg",

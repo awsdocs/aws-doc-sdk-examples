@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-glue"
-require "aws-sdk-s3"
-require "logger"
+require 'aws-sdk-glue'
+require 'aws-sdk-s3'
+require 'logger'
 
 # snippet-start:[ruby.example_code.glue.GlueWrapper.full]
 # snippet-start:[ruby.example_code.glue.GlueWrapper.decl]
@@ -42,7 +42,7 @@ class GlueWrapper
   # @param db_prefix [String] The prefix to be added to the names of tables that the crawler creates.
   # @param s3_target [String] The S3 path that the crawler will crawl.
   # @return [void]
-  def create_crawler(name, role_arn, db_name, db_prefix, s3_target)
+  def create_crawler(name, role_arn, db_name, _db_prefix, s3_target)
     @glue_client.create_crawler(
       name: name,
       role: role_arn,
@@ -95,9 +95,9 @@ class GlueWrapper
   def get_database(name)
     response = @glue_client.get_database(name: name)
     response.database
-rescue Aws::Glue::Errors::GlueException => e
-  @logger.error("Glue could not get database #{name}: \n#{e.message}")
-  raise
+  rescue Aws::Glue::Errors::GlueException => e
+    @logger.error("Glue could not get database #{name}: \n#{e.message}")
+    raise
   end
   # snippet-end:[ruby.example_code.glue.GetDatabase]
 
@@ -129,11 +129,11 @@ rescue Aws::Glue::Errors::GlueException => e
       description: description,
       role: role_arn,
       command: {
-        name: "glueetl",
+        name: 'glueetl',
         script_location: script_location,
-        python_version: "3"
+        python_version: '3'
       },
-      glue_version: "3.0"
+      glue_version: '3.0'
     )
   rescue Aws::Glue::Errors::GlueException => e
     @logger.error("Glue could not create job #{name}: \n#{e.message}")
@@ -247,15 +247,14 @@ rescue Aws::Glue::Errors::GlueException => e
   def upload_job_script(file_path, bucket_resource)
     File.open(file_path) do |file|
       bucket_resource.client.put_object({
-       body: file,
-       bucket: bucket_resource.name,
-       key: file_path
-     })
+                                          body: file,
+                                          bucket: bucket_resource.name,
+                                          key: file_path
+                                        })
     end
   rescue Aws::S3::Errors::S3UploadFailedError => e
     @logger.error("S3 could not upload job script: \n#{e.message}")
     raise
   end
-
 end
 # snippet-end:[ruby.example_code.glue.GlueWrapper.full]

@@ -29,26 +29,38 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon S3](hello/hello_s3.rb#L4) (`ListBuckets`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_getting_started.rb)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add CORS rules to a bucket](bucket_cors.rb#L34) (`PutBucketCors`)
-- [Add a policy to a bucket](bucket_policy.rb#L36) (`PutBucketPolicy`)
-- [Copy an object from one bucket to another](object_copy.rb#L8) (`CopyObject`)
-- [Create a bucket](bucket_create.rb#L8) (`CreateBucket`)
-- [Delete CORS rules from a bucket](bucket_cors.rb#L60) (`DeleteBucketCors`)
-- [Delete a policy from a bucket](bucket_policy.rb#L48) (`DeleteBucketPolicy`)
-- [Delete an empty bucket](scenario_getting_started.rb#L125) (`DeleteBucket`)
-- [Delete multiple objects](scenario_getting_started.rb#L124) (`DeleteObjects`)
-- [Determine the existence and content type of an object](object_exists.rb#L8) (`HeadObject`)
-- [Get CORS rules for a bucket](bucket_cors.rb#L22) (`GetBucketCors`)
-- [Get an object from a bucket](object_get.rb#L8) (`GetObject`)
-- [Get the policy for a bucket](bucket_policy.rb#L23) (`GetBucketPolicy`)
-- [List buckets](bucket_list.rb#L8) (`ListBuckets`)
-- [List objects in a bucket](bucket_list_objects.rb#L8) (`ListObjectsV2`)
-- [Set the website configuration for a bucket](bucket_put_website.rb#L8) (`PutBucketWebsite`)
-- [Upload an object to a bucket](object_upload_file.rb#L8) (`PutObject`)
+- [CopyObject](object_copy.rb#L8)
+- [CreateBucket](bucket_create.rb#L8)
+- [DeleteBucket](scenario_getting_started.rb#L125)
+- [DeleteBucketCors](bucket_cors.rb#L60)
+- [DeleteBucketPolicy](bucket_policy.rb#L48)
+- [DeleteObjects](scenario_getting_started.rb#L124)
+- [GetBucketCors](bucket_cors.rb#L22)
+- [GetBucketPolicy](bucket_policy.rb#L23)
+- [GetObject](object_get.rb#L8)
+- [HeadObject](object_exists.rb#L8)
+- [ListBuckets](bucket_list.rb#L8)
+- [ListObjectsV2](bucket_list_objects.rb#L8)
+- [PutBucketCors](bucket_cors.rb#L34)
+- [PutBucketPolicy](bucket_policy.rb#L36)
+- [PutBucketWebsite](bucket_put_website.rb#L8)
+- [PutObject](object_upload_file.rb#L8)
 
 ### Scenarios
 
@@ -56,7 +68,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a presigned URL](object_presigned_url_upload.rb)
-- [Get started with buckets and objects](scenario_getting_started.rb)
 
 
 <!--custom.examples.start-->
@@ -71,6 +82,35 @@ functions within the same service.
 The quickest way to interact with this example code is to invoke a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
 <!--custom.instructions.end-->
 
+#### Hello Amazon S3
+
+This example shows you how to get started using Amazon S3.
+
+```
+ruby hello/hello_s3.rb
+```
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+ruby scenario_getting_started.rb
+```
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
 
 
 #### Create a presigned URL
@@ -89,28 +129,6 @@ ruby object_presigned_url_upload.rb
 
 <!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
 <!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
-
-#### Get started with buckets and objects
-
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-ruby scenario_getting_started.rb
-```
-
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
 
 ### Tests
 

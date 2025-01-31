@@ -34,29 +34,29 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 - [Hello Step Functions](Actions/HelloStepFunctions.cs#L4) (`ListStateMachines`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/StepFunctionsBasics.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a state machine](Actions/StepFunctionsWrapper.cs#L42) (`CreateStateMachine`)
-- [Create an activity](Actions/StepFunctionsWrapper.cs#L28) (`CreateActivity`)
-- [Delete a state machine](Actions/StepFunctionsWrapper.cs#L83) (`DeleteStateMachine`)
-- [Delete an activity](Actions/StepFunctionsWrapper.cs#L68) (`DeleteActivity`)
-- [Describe a state machine](Actions/StepFunctionsWrapper.cs#L114) (`DescribeStateMachine`)
-- [Describe a state machine run](Actions/StepFunctionsWrapper.cs#L99) (`DescribeExecution`)
-- [Get task data for an activity](Actions/StepFunctionsWrapper.cs#L129) (`GetActivityTask`)
-- [List activities](Actions/StepFunctionsWrapper.cs#L147) (`ListActivities`)
-- [List state machine runs](Actions/StepFunctionsWrapper.cs#L175) (`ListExecutions`)
-- [List state machines](Actions/StepFunctionsWrapper.cs#L204) (`ListStateMachines`)
-- [Send a success response to a task](Actions/StepFunctionsWrapper.cs#L225) (`SendTaskSuccess`)
-- [Start a state machine run](Actions/StepFunctionsWrapper.cs#L243) (`StartExecution`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with state machines](Scenarios/UIMethods.cs)
+- [CreateActivity](Actions/StepFunctionsWrapper.cs#L28)
+- [CreateStateMachine](Actions/StepFunctionsWrapper.cs#L42)
+- [DeleteActivity](Actions/StepFunctionsWrapper.cs#L68)
+- [DeleteStateMachine](Actions/StepFunctionsWrapper.cs#L83)
+- [DescribeExecution](Actions/StepFunctionsWrapper.cs#L99)
+- [DescribeStateMachine](Actions/StepFunctionsWrapper.cs#L114)
+- [GetActivityTask](Actions/StepFunctionsWrapper.cs#L129)
+- [ListActivities](Actions/StepFunctionsWrapper.cs#L147)
+- [ListExecutions](Actions/StepFunctionsWrapper.cs#L175)
+- [ListStateMachines](Actions/StepFunctionsWrapper.cs#L204)
+- [SendTaskSuccess](Actions/StepFunctionsWrapper.cs#L225)
+- [StartExecution](Actions/StepFunctionsWrapper.cs#L243)
 
 
 <!--custom.examples.start-->
@@ -92,8 +92,7 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using Step Functions.
 
 
-
-#### Get started with state machines
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -102,12 +101,13 @@ This example shows you how to do the following:
 - Run the state machine and respond to the activity with user input.
 - Get the final status and output after the run completes, then clean up resources.
 
-<!--custom.scenario_prereqs.sfn_Scenario_GetStartedStateMachines.start-->
-<!--custom.scenario_prereqs.sfn_Scenario_GetStartedStateMachines.end-->
+<!--custom.basic_prereqs.sfn_Scenario_GetStartedStateMachines.start-->
+<!--custom.basic_prereqs.sfn_Scenario_GetStartedStateMachines.end-->
 
 
-<!--custom.scenarios.sfn_Scenario_GetStartedStateMachines.start-->
-<!--custom.scenarios.sfn_Scenario_GetStartedStateMachines.end-->
+<!--custom.basics.sfn_Scenario_GetStartedStateMachines.start-->
+<!--custom.basics.sfn_Scenario_GetStartedStateMachines.end-->
+
 
 ### Tests
 

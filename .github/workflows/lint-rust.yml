@@ -1,0 +1,57 @@
+name: Lint - Test - Format Rust
+
+on:  # yamllint disable-line rule:truthy
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    name: Lint Rust
+    runs-on: aws-doc-sdk-examples_ubuntu-latest_16-core
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            rustv1
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@e9772d140489982e0e3704fea5ee93d536f1e275
+        with:
+          files: "rustv1/**/*.{rs,toml}"
+      - name: setup
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: sudo apt-get update && sudo apt-get install -y libclang-dev
+      - uses: dtolnay/rust-toolchain@stable
+        if: steps.changed-files.outputs.any_changed == 'true'
+        with:
+          toolchain: "1.83.0"
+          components: clippy, rustfmt
+      - name: Set Environment
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: >
+          export RUSTFLAGS="-D warnings" ;
+          export APP_ENVIRONMENT="test"
+      - name: Rust format
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: >
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rustv1/cross_service/Cargo.toml --all --check &&
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rustv1/examples/Cargo.toml --all --check &&
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rustv1/lambda/Cargo.toml --all --check &&
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rustv1/webassembly/Cargo.toml --all --check
+      - name: Rust lint
+        if: steps.changed-files.outputs.any_changed == 'true' && (success() || failure())
+        run: >
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rustv1/cross_service/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rustv1/examples/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rustv1/lambda/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rustv1/webassembly/Cargo.toml --all
+      - name: Rust test
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: >
+          "$HOME/.cargo/bin/cargo" test --manifest-path rustv1/cross_service/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" test --manifest-path rustv1/examples/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" test --manifest-path rustv1/lambda/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" test --manifest-path rustv1/webassembly/Cargo.toml --all

@@ -279,7 +279,7 @@ public class AuroraScenario
         foreach (var version in allowedEngines)
         {
             Console.WriteLine(
-                $"\t{i}. Engine: {version.Engine} Version {version.EngineVersion}.");
+                $"\t{i}. {version.DBEngineVersionDescription}.");
             i++;
         }
 

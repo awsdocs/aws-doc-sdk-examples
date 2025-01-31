@@ -36,9 +36,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.delete_security_group.main]
 suspend fun deleteEC2SecGroup(groupIdVal: String) {
-    val request = DeleteSecurityGroupRequest {
-        groupId = groupIdVal
-    }
+    val request =
+        DeleteSecurityGroupRequest {
+            groupId = groupIdVal
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         ec2.deleteSecurityGroup(request)

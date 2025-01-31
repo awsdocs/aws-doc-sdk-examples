@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[s3.javascript.bucket_operations.list_create_deleteV3]
 import {
@@ -11,7 +11,7 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 
-const wait = async (milliseconds) => {
+const wait = (milliseconds) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
@@ -31,11 +31,11 @@ export const main = async () => {
 
     await wait(2000);
 
-    console.log(`Here are your buckets:`);
+    console.log("Here are your buckets:");
     const { Buckets } = await client.send(listBucketsCommand);
-    Buckets.forEach((bucket) => {
+    for (const bucket of Buckets) {
       console.log(` • ${bucket.Name}`);
-    });
+    }
 
     await wait(2000);
 

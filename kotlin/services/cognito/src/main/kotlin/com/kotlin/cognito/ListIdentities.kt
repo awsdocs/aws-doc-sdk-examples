@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <identityPoolId>
@@ -38,11 +37,11 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cognito.kotlin.listidentities.main]
 suspend fun listPoolIdentities(identityPoolId: String?) {
-
-    val request = ListIdentitiesRequest {
-        this.identityPoolId = identityPoolId
-        maxResults = 15
-    }
+    val request =
+        ListIdentitiesRequest {
+            this.identityPoolId = identityPoolId
+            maxResults = 15
+        }
 
     CognitoIdentityClient { region = "us-east-1" }.use { cognitoIdentityClient ->
         val response = cognitoIdentityClient.listIdentities(request)

@@ -1,0 +1,212 @@
+scheduler_hello:
+  title: Hello &EVS;
+  title_abbrev: Hello &EVS;
+  synopsis: get started using &EVS;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/scheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.hello.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - Scheduler.dotnetv3.HelloScheduler
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/scheduler
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.scheduler.Hello
+  services:
+    scheduler: {ListSchedules}
+scheduler_CreateSchedule:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/scheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.create.schedule.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.CreateSchedule
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/scheduler
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.scheduler.EventSchedulerWrapper.decl
+                - python.example_code.scheduler.CreateSchedule
+  services:
+    scheduler: {CreateSchedule}
+scheduler_CreateScheduleGroup:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/scheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.create.schedule.group.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.CreateScheduleGroup
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/scheduler
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.scheduler.EventSchedulerWrapper.decl
+                - python.example_code.scheduler.CreateScheduleGroup
+  services:
+    scheduler: {CreateScheduleGroup}
+scheduler_DeleteSchedule:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.DeleteSchedule
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/scheduler
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.scheduler.EventSchedulerWrapper.decl
+                - python.example_code.scheduler.DeleteSchedule
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/scheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.delete.schedule.main
+  services:
+    scheduler: {DeleteSchedule}
+scheduler_DeleteScheduleGroup:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/scheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.delete.schedule.group.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.DeleteScheduleGroup
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/scheduler
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.scheduler.EventSchedulerWrapper.decl
+                - python.example_code.scheduler.DeleteScheduleGroup
+  services:
+    scheduler: {DeleteScheduleGroup}
+scheduler_ScheduledEventsScenario:
+  title: A complete &EVS; Scheduled Events scenario using an &AWS; SDK
+  title_abbrev: Scheduled Events
+  synopsis_list:
+    - Deploy a &CFN; stack with required resources.
+    - Create a &EVS; schedule group.
+    - Create a one-time &EVS; schedule with a flexible time window.
+    - Create a recurring &EVS; schedule with a specified rate.
+    - Delete &EVS; the schedule and schedule group.
+    - Clean up resources and delete the stack.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/scheduler
+          excerpts:
+            - description: Run the scenario.
+              genai: most
+              snippet_tags:
+                - scheduler.javav2.scenario.main
+            - description: Wrapper for service operations.
+              genai: most
+              snippet_tags:
+                - scheduler.javav2.actions.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description: Run the scenario.
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.SchedulerWorkflow
+            - description: Wrapper for service operations.
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.SchedulerWrapper
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/scheduler
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              genai: some
+              snippet_tags:
+                - python.example_code.scheduler.FeatureScenario
+            - description: SchedulerWrapper class that wraps &EVlong; Scheduler actions.
+              genai: some
+              snippet_tags:
+                - python.example_code.scheduler.EventSchedulerWrapper.class
+  services:
+    scheduler: {CreateSchedule, CreateScheduleGroup, DeleteSchedule, DeleteScheduleGroups}

@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
           Usage: 
             <message> <topicArn>
@@ -38,12 +37,15 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[sns.kotlin.PublishTopic.main]
-suspend fun pubTopic(topicArnVal: String, messageVal: String) {
-
-    val request = PublishRequest {
-        message = messageVal
-        topicArn = topicArnVal
-    }
+suspend fun pubTopic(
+    topicArnVal: String,
+    messageVal: String,
+) {
+    val request =
+        PublishRequest {
+            message = messageVal
+            topicArn = topicArnVal
+        }
 
     SnsClient { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.publish(request)

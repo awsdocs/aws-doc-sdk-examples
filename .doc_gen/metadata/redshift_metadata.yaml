@@ -5,6 +5,15 @@ redshift_Hello:
   synopsis: get started using &RS;.
   category: Hello
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/redshift
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.redshift.Hello
     Java:
       versions:
         - sdk_version: 2
@@ -14,14 +23,41 @@ redshift_Hello:
             - description:
               snippet_tags:
                 - redshift.java2.hello.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift.Hello
   services:
-    redshift: {describeClusters}
-redshift_CreateCluster:
-  title: Create an &RS; cluster using an &AWS; SDK
-  title_abbrev: Create a cluster
-  synopsis: create an &RS; cluster.
-  category:
+    redshift: {DescribeClusters}
+redshift_ListDatabases:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - redshift.java2.list_databases.main
+  services:
+    redshift: {ListDatabases}    
+redshift_CreateCluster:
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.redshift.Imports
+                - gov2.redshift.ActionsStruct
+                - gov2.redshift.CreateCluster
     Kotlin:
       versions:
         - sdk_version: 1
@@ -52,14 +88,33 @@ redshift_CreateCluster:
             - description: Create the cluster.
               snippet_tags:
                 - redshift.javascript.redshift-create-clusterV3
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper
+                - python.example_code.redshift.CreateCluster
+            - description: >
+                The following code instantiates the RedshiftWrapper object.
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper.instantiation
   services:
     redshift: {CreateCluster}
 redshift_DeleteCluster:
-  title: Delete an &RS; cluster using an &AWS; SDK
-  title_abbrev: Delete a cluster
-  synopsis: delete an &RS; cluster.
-  category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.redshift.Imports
+                - gov2.redshift.ActionsStruct
+                - gov2.redshift.DeleteCluster
     Kotlin:
       versions:
         - sdk_version: 1
@@ -90,14 +145,33 @@ redshift_DeleteCluster:
             - description: Create the cluster.
               snippet_tags:
                 - redshift.javascript.redshift-delete-clusterV3
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper
+                - python.example_code.redshift.DeleteCluster
+            - description: >
+                The following code instantiates the RedshiftWrapper object.
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper.instantiation
   services:
     redshift: {DeleteCluster}
 redshift_DescribeClusters:
-  title: Describe clusters using an &AWS; SDK
-  title_abbrev: Describe clusters
-  synopsis: describe &RS; clusters.
-  category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.redshift.Imports
+                - gov2.redshift.ActionsStruct
+                - gov2.redshift.DescribeClusters
     Kotlin:
       versions:
         - sdk_version: 1
@@ -128,14 +202,33 @@ redshift_DescribeClusters:
             - description: Describe your clusters.
               snippet_tags:
                 - redshift.javascript.redshift-describe-clustersV3
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper
+                - python.example_code.redshift.DescribeClusters
+            - description: >
+                The following code instantiates the RedshiftWrapper object.
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper.instantiation
   services:
     redshift: {DescribeClusters}
 redshift_ModifyCluster:
-  title: Modify an &RS; cluster using an &AWS; SDK
-  title_abbrev: Modify a cluster
-  synopsis: modify an &RS; cluster.
-  category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.redshift.Imports
+                - gov2.redshift.ActionsStruct
+                - gov2.redshift.ModifyCluster
     Kotlin:
       versions:
         - sdk_version: 1
@@ -166,13 +259,22 @@ redshift_ModifyCluster:
             - description: Modify a cluster.
               snippet_tags:
                 - redshift.javascript.redshift-modify-clustersV3
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper
+                - python.example_code.redshift.ModifyCluster
+            - description: >
+                The following code instantiates the RedshiftWrapper object.
+              snippet_tags:
+                - python.example_code.redshift.RedshiftWrapper.instantiation
   services:
     redshift: {ModifyCluster}
-redshift_Insert:
-  title: Insert data into an &RS; table using an &AWS; SDK
-  title_abbrev: Insert data into a table
-  synopsis: insert data into an &RS; table.
-  category:
+redshift_DescribeStatement:
   languages:
     Java:
       versions:
@@ -182,48 +284,23 @@ redshift_Insert:
           excerpts:
             - description:
               snippet_tags:
-                - redshiftdata.java2.add.record.main
-  services:
-    redshift: {Insert}
-redshift_Query:
-  title: Query an &RS; table using an &AWS; SDK
-  title_abbrev: Query a table
-  synopsis: query an &RS; table.
-  category:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/redshift
-          sdkguide:
-          excerpts:
-            - description: Query a table.
-              snippet_tags:
-                - redshiftdata.java2.query.main
-  services:
-    redshift: {Query}
-redshift_DescribeStatement:
-  title: Describe an &RS; query statement using an &AWS; SDK
-  title_abbrev: Describe a query statement
-  synopsis: describe an &RS; query statement.
-  category:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/redshift
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
                 - redshiftdata.java2.checkstatement.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift_data.RedshiftDataWrapper
+                - python.example_code.redshift_data.DescribeStatement
+            - description: >
+                The following code instantiates the RedshiftDataWrapper object.
+              snippet_tags:
+                - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
   services:
-    redshift: {DescribeStatement}    
+    redshift: {DescribeStatement}
 redshift_GetStatementResult:
-  title: Get the &RS; statement result using an &AWS; SDK
-  title_abbrev: Get the statement result
-  synopsis: get the statement result.
-  category:
   languages:
     Java:
       versions:
@@ -234,39 +311,85 @@ redshift_GetStatementResult:
             - description: Check the statement result.
               snippet_tags:
                 - redshiftdata.java2.getresults.main
-  services:
-    redshift: {GetStatementResult}
-redshift_CreateTable:
-  title: Create an &RS; table using an &AWS; SDK
-  title_abbrev: Create a table 
-  synopsis: create an &RS; table.
-  category:
-  languages:
-    Java:
+    Python:
       versions:
-        - sdk_version: 2
-          github: javav2/example_code/redshift
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - redshiftdata.java2.create_table.main
-  services:
-    redshift: {CreateTable}    
-redshift_Scenario:
-  title: Get started with &RS; tables, items, and queries
-  title_abbrev: Get started with &RS;
-  synopsis: work with &RS; tables, items, and queries.
-  category: Scenarios
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/redshift
-          sdkguide:
+        - sdk_version: 3
+          github: python/example_code/redshift
           excerpts:
             - description:
               snippet_tags:
-                - redshift.java2.scenario.main
+                - python.example_code.redshift_data.RedshiftDataWrapper
+                - python.example_code.redshift_data.GetStatementResult
+            - description: >
+                The following code instantiates the RedshiftDataWrapper object.
+              snippet_tags:
+                - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
   services:
-    redshift: {createCluster, describeClusters, executeStatement, describeStatement, modifyCluster, getStatementResult, listDatabasesPaginator}
+    redshift: {GetStatementResult}
+redshift_ExecuteStatement:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Executes a SQL statement to create a database table.
+              snippet_tags:
+                - redshiftdata.java2.execute_statement.main
+            - description: Executes a SQL statement to insert data into a database table.
+              snippet_tags:
+                - redshiftdata.java2.add.record.main 
+            - description: Executes a SQL statement to query a database table.
+              snippet_tags:
+                - redshiftdata.java2.query.main      
+  services:
+    redshift: {ExecuteStatement}
+redshift_Scenario:
+  synopsis: learn core operations for &RS; using an &AWS; SDK.
+  category: Basics
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.redshift.BasicsScenario
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &RS; features.
+              snippet_tags:
+                - redshift.java2.scenario.main
+            - description: A wrapper class for &RS; SDK methods.
+              snippet_tags:
+                - redshift.java2.actions.main  
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.redshift.redshift_scenario.RedshiftScenario
+            - description: Main function showing scenario implementation.
+              snippet_tags:
+                - python.example_code.redshift.redshift_scenario.RedshiftScenario.main
+            - description: >
+                The wrapper functions used in the scenario.
+              snippet_tags:
+                - python.example_code.redshift.CreateCluster
+                - python.example_code.redshift.DescribeClusters
+                - python.example_code.redshift_data.ExecuteStatement
+                - python.example_code.redshift_data.DescribeStatement
+                - python.example_code.redshift_data.GetStatementResult
+                - python.example_code.redshift.ModifyCluster
+                - python.example_code.redshift_data.ListDatabases
+                - python.example_code.redshift.DeleteCluster
+  services:
+    redshift: {CreateCluster, DescribeClusters, ExecuteStatement, DescribeStatement, ModifyCluster, GetStatementResult, ListDatabasesPaginator}

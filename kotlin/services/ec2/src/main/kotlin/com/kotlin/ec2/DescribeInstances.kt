@@ -22,9 +22,10 @@ suspend fun main() {
 
 // snippet-start:[ec2.kotlin.describe_instances.main]
 suspend fun describeEC2Instances() {
-    val request = DescribeInstancesRequest {
-        maxResults = 6
-    }
+    val request =
+        DescribeInstancesRequest {
+            maxResults = 6
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeInstances(request)

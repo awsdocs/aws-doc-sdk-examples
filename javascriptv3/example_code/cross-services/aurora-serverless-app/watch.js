@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
 import { spawn } from "node:child_process";
 
 const format = (data) => data.toString().trim();
@@ -15,7 +16,9 @@ const loadApp = (app) => {
     app.kill();
   }
 
-  const newApp = spawn("node", ["./build/cross-services/aurora-serverless-app/src/index.js"]);
+  const newApp = spawn("node", [
+    "./build/cross-services/aurora-serverless-app/src/index.js",
+  ]);
   newApp.stdout.on("data", (data) => appLogger(format(data)));
   newApp.stderr.on("data", (data) => appLogger(format(data)));
   return newApp;

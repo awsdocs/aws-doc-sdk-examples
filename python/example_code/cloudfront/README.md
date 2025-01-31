@@ -38,9 +38,9 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get distribution configuration](distributions.py#L14) (`GetDistributionConfig`)
-- [List distributions](distributions.py#L26) (`ListDistributions`)
-- [Update a distribution](distributions.py#L48) (`UpdateDistribution`)
+- [GetDistributionConfig](distributions.py#L14)
+- [ListDistributions](distributions.py#L26)
+- [UpdateDistribution](distributions.py#L48)
 
 
 <!--custom.examples.start-->

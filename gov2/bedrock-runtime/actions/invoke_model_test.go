@@ -6,6 +6,7 @@
 package actions
 
 import (
+	"context"
 	"encoding/json"
 	"log"
 	"testing"
@@ -18,8 +19,8 @@ import (
 
 const CLAUDE_MODEL_ID = "anthropic.claude-v2"
 const JURASSIC2_MODEL_ID = "ai21.j2-mid-v1"
-const LLAMA2_MODEL_ID = "meta.llama2-13b-chat-v1"
 const TITAN_IMAGE_MODEL_ID = "amazon.titan-image-generator-v1"
+const TITAN_TEXT_EXPRESS_MODEL_ID = "amazon.titan-text-express-v1"
 
 const prompt = "A test prompt"
 
@@ -32,31 +33,32 @@ func CallInvokeModelActions(sdkConfig aws.Config) {
 
 	client := bedrockruntime.NewFromConfig(sdkConfig)
 	wrapper := InvokeModelWrapper{client}
+	ctx := context.Background()
 
-	claudeCompletion, err := wrapper.InvokeClaude(prompt)
+	claudeCompletion, err := wrapper.InvokeClaude(ctx, prompt)
 	if err != nil {
 		panic(err)
 	}
 	log.Println(claudeCompletion)
 
-	jurassic2Completion, err := wrapper.InvokeJurassic2(prompt)
+	jurassic2Completion, err := wrapper.InvokeJurassic2(ctx, prompt)
 	if err != nil {
 		panic(err)
 	}
 	log.Println(jurassic2Completion)
 
-	llama2Completion, err := wrapper.InvokeLlama2(prompt)
-	if err != nil {
-		panic(err)
-	}
-	log.Println(llama2Completion)
-
 	seed := int64(0)
-	titanImageCompletion, err := wrapper.InvokeTitanImage(prompt, seed)
+	titanImageCompletion, err := wrapper.InvokeTitanImage(ctx, prompt, seed)
 	if err != nil {
 		panic(err)
 	}
 	log.Println(titanImageCompletion)
+
+	titanTextCompletion, err := wrapper.InvokeTitanText(ctx, prompt)
+	if err != nil {
+		panic(err)
+	}
+	log.Println(titanTextCompletion)
 
 	log.Printf("Thanks for watching!")
 }
@@ -72,8 +74,9 @@ func (scenTest *InvokeModelActionsTest) SetupDataAndStubs() []testtools.Stub {
 	var stubList []testtools.Stub
 	stubList = append(stubList, stubInvokeModel(CLAUDE_MODEL_ID))
 	stubList = append(stubList, stubInvokeModel(JURASSIC2_MODEL_ID))
-	stubList = append(stubList, stubInvokeModel(LLAMA2_MODEL_ID))
 	stubList = append(stubList, stubInvokeModel(TITAN_IMAGE_MODEL_ID))
+	stubList = append(stubList, stubInvokeModel(TITAN_TEXT_EXPRESS_MODEL_ID))
+
 	return stubList
 }
 
@@ -111,16 +114,6 @@ func stubInvokeModel(modelId string) testtools.Stub {
 			},
 		})
 
-	case LLAMA2_MODEL_ID:
-		request, _ = json.Marshal(Llama2Request{
-			Prompt:       prompt,
-			MaxGenLength: 512,
-			Temperature:  0.5,
-		})
-		response, _ = json.Marshal(Llama2Response{
-			Generation: "A fake response",
-		})
-
 	case TITAN_IMAGE_MODEL_ID:
 		request, _ = json.Marshal(TitanImageRequest{
 			TaskType: "TEXT_IMAGE",
@@ -138,6 +131,23 @@ func stubInvokeModel(modelId string) testtools.Stub {
 		})
 		response, _ = json.Marshal(TitanImageResponse{
 			Images: []string{"FakeBase64String=="},
+		})
+
+	case TITAN_TEXT_EXPRESS_MODEL_ID:
+		request, _ = json.Marshal(TitanTextRequest{
+			InputText: prompt,
+			TextGenerationConfig: TextGenerationConfig{
+				Temperature:   0,
+				TopP:          1,
+				MaxTokenCount: 4096,
+			},
+		})
+		response, _ = json.Marshal(TitanTextResponse{
+			Results: []Result{
+				{
+					OutputText: "A fake response",
+				},
+			},
 		})
 
 	default:

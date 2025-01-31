@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[medical-imaging.JavaScript.resource.searchImageSetV3]
 import { paginateSearchImageSets } from "@aws-sdk/client-medical-imaging";
@@ -10,10 +10,11 @@ import { medicalImagingClient } from "../libs/medicalImagingClient.js";
 /**
  * @param {string} datastoreId - The data store's ID.
  * @param { import('@aws-sdk/client-medical-imaging').SearchFilter[] } filters - The search criteria filters.
+ * @param { import('@aws-sdk/client-medical-imaging').Sort } sort - The search criteria sort.
  */
 export const searchImageSets = async (
   datastoreId = "xxxxxxxx",
-  filters = []
+  searchCriteria = {},
 ) => {
   const paginatorConfig = {
     client: medicalImagingClient,
@@ -22,9 +23,7 @@ export const searchImageSets = async (
 
   const commandParams = {
     datastoreId: datastoreId,
-    searchCriteria: {
-      filters,
-    },
+    searchCriteria: searchCriteria,
   };
 
   const paginator = paginateSearchImageSets(paginatorConfig, commandParams);
@@ -32,7 +31,7 @@ export const searchImageSets = async (
   const imageSetsMetadataSummaries = [];
   for await (const page of paginator) {
     // Each page contains a list of `jobSummaries`. The list is truncated if is larger than `pageSize`.
-    imageSetsMetadataSummaries.push(...page["imageSetsMetadataSummaries"]);
+    imageSetsMetadataSummaries.push(...page.imageSetsMetadataSummaries);
     console.log(page);
   }
   // {
@@ -66,14 +65,16 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   // Search using EQUAL operator.
   // snippet-start:[medical-imaging.JavaScript.resource.searchImageSetV3.equalFilter]
   try {
-    const filters = [
-      {
-        values: [{ DICOMPatientId: "9227465" }],
-        operator: "EQUAL",
-      },
-    ];
+    const searchCriteria = {
+      filters: [
+        {
+          values: [{ DICOMPatientId: "1234567" }],
+          operator: "EQUAL",
+        },
+      ],
+    };
 
-    await searchImageSets(datastoreId, filters);
+    await searchImageSets(datastoreId, searchCriteria);
   } catch (err) {
     console.error(err);
   }
@@ -82,27 +83,29 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   // Search with BETWEEN operator using DICOMStudyDate and DICOMStudyTime.
   // snippet-start:[medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter1]
   try {
-    const filters = [
-      {
-        values: [
-          {
-            DICOMStudyDateAndTime: {
-              DICOMStudyDate: "19900101",
-              DICOMStudyTime: "000000",
+    const searchCriteria = {
+      filters: [
+        {
+          values: [
+            {
+              DICOMStudyDateAndTime: {
+                DICOMStudyDate: "19900101",
+                DICOMStudyTime: "000000",
+              },
             },
-          },
-          {
-            DICOMStudyDateAndTime: {
-              DICOMStudyDate: "20230901",
-              DICOMStudyTime: "000000",
+            {
+              DICOMStudyDateAndTime: {
+                DICOMStudyDate: "20230901",
+                DICOMStudyTime: "000000",
+              },
             },
-          },
-        ],
-        operator: "BETWEEN",
-      },
-    ];
+          ],
+          operator: "BETWEEN",
+        },
+      ],
+    };
 
-    await searchImageSets(datastoreId, filters);
+    await searchImageSets(datastoreId, searchCriteria);
   } catch (err) {
     console.error(err);
   }
@@ -111,19 +114,56 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   // Search with BETWEEN operator and createdAt date.
   // snippet-start:[medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter2]
   try {
-    const filters = [
-      {
-        values: [
-          { createdAt: new Date("1985-04-12T23:20:50.52Z") },
-          { createdAt: new Date("2023-09-12T23:20:50.52Z") },
-        ],
-        operator: "BETWEEN",
-      },
-    ];
+    const searchCriteria = {
+      filters: [
+        {
+          values: [
+            { createdAt: new Date("1985-04-12T23:20:50.52Z") },
+            { createdAt: new Date() },
+          ],
+          operator: "BETWEEN",
+        },
+      ],
+    };
 
-    await searchImageSets(datastoreId, filters);
+    await searchImageSets(datastoreId, searchCriteria);
   } catch (err) {
     console.error(err);
   }
   // snippet-end:[medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter2]
+
+  // Search with EQUAL operator on DICOMSeriesInstanceUID and BETWEEN on updatedAt and sort response in ASC
+  // order on updatedAt field.
+  // snippet-start:[medical-imaging.JavaScript.resource.searchImageSetV3.sortAndFilter]
+  try {
+    const searchCriteria = {
+      filters: [
+        {
+          values: [
+            { updatedAt: new Date("1985-04-12T23:20:50.52Z") },
+            { updatedAt: new Date() },
+          ],
+          operator: "BETWEEN",
+        },
+        {
+          values: [
+            {
+              DICOMSeriesInstanceUID:
+                "1.1.123.123456.1.12.1.1234567890.1234.12345678.123",
+            },
+          ],
+          operator: "EQUAL",
+        },
+      ],
+      sort: {
+        sortOrder: "ASC",
+        sortField: "updatedAt",
+      },
+    };
+
+    await searchImageSets(datastoreId, searchCriteria);
+  } catch (err) {
+    console.error(err);
+  }
+  // snippet-end:[medical-imaging.JavaScript.resource.searchImageSetV3.sortAndFilter]
 }

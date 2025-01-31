@@ -26,14 +26,15 @@ class TextractTest {
     private var docName = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        sourceDoc = values.sourceDoc.toString()
-        bucketName = values.bucketName.toString()
-        docName = values.docName.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            sourceDoc = values.sourceDoc.toString()
+            bucketName = values.bucketName.toString()
+            docName = values.docName.toString()
 
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
@@ -46,44 +47,52 @@ class TextractTest {
         sourceDoc = prop.getProperty("sourceDoc")
         bucketName = prop.getProperty("bucketName")
         docName = prop.getProperty("docName")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun analyzeDocumentTest() = runBlocking {
-        analyzeDoc(sourceDoc)
-        println("Test 1 passed")
-    }
+    fun analyzeDocumentTest() =
+        runBlocking {
+            analyzeDoc(sourceDoc)
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun detectDocumentTextTest() = runBlocking {
-        detectDocText(sourceDoc)
-        println("Test 2 passed")
-    }
+    fun detectDocumentTextTest() =
+        runBlocking {
+            detectDocText(sourceDoc)
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun detectDocumentTextS3Test() = runBlocking {
-        detectDocTextS3(bucketName, docName)
-        println("Test 3 passed")
-    }
+    fun detectDocumentTextS3Test() =
+        runBlocking {
+            detectDocTextS3(bucketName, docName)
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun startDocumentAnalysisTest() = runBlocking {
-        startDocAnalysisS3(bucketName, docName)
-        println("Test 4 passed")
-    }
+    fun startDocumentAnalysisTest() =
+        runBlocking {
+            startDocAnalysisS3(bucketName, docName)
+            println("Test 4 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/textract"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
 
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

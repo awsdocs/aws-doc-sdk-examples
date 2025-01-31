@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[javascript.v3.cloudwatchlogs.actions.DescribeLogGroups]
 import {
@@ -16,7 +16,7 @@ export const main = async () => {
   const logGroups = [];
 
   for await (const page of paginatedLogGroups) {
-    if (page.logGroups && page.logGroups.every((lg) => !!lg)) {
+    if (page.logGroups?.every((lg) => !!lg)) {
       logGroups.push(...page.logGroups);
     }
   }

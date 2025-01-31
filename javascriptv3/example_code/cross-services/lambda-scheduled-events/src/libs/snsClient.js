@@ -14,12 +14,10 @@ Inputs (replace in code):
 */
 // snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.sns]
 
-const  { SNSClient } = require ( "@aws-sdk/client-sns" );
+const { SNSClient } = require("@aws-sdk/client-sns");
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 // Create an Amazon SNS service client object.
 const snsClient = new SNSClient({ region: REGION });
 module.exports = { snsClient };
 // snippet-end:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.sns]
-
-

@@ -1,13 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative "../create_subscription"
+require_relative '../create_subscription'
 
-describe "#subscription_created?" do
+describe '#subscription_created?' do
   let(:sns_client) { Aws::SNS::Client.new(stub_responses: true) }
-  let(:endpoint) { "example@server.com" }
+  let(:endpoint) { 'example@server.com' }
 
-  it "confirms the subscriptions was created" do
+  it 'confirms the subscriptions was created' do
     subscriptions_data = sns_client.stub_data(
       :create_subscriptions
     )

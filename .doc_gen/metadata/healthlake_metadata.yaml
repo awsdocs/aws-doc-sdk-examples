@@ -1,0 +1,188 @@
+# zexi 0.4.0
+healthlake_CreateFHIRDatastore:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/healthlake
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.healthlake.HealthLakeWrapper.decl
+                - python.example_code.healthlake.CreateFHIRDatastore
+            - description: >
+                The following code shows an example of parameters for a SMART on
+                FHIR-enabled HealthLake data store.
+              snippet_tags:
+                - python.example_code.healthlake.CreateFHIRDatastore.smart
+  services:
+    healthlake: {CreateFHIRDatastore}
+healthlake_DescribeFHIRDatastore:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/healthlake
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.healthlake.HealthLakeWrapper.decl
+                - python.example_code.healthlake.DescribeFHIRDatastore
+  services:
+    healthlake: {DescribeFHIRDatastore}
+healthlake_ListFHIRDatastores:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/healthlake
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.healthlake.HealthLakeWrapper.decl
+                - python.example_code.healthlake.ListFHIRDatastores
+  services:
+    healthlake: {ListFHIRDatastores}
+healthlake_DeleteFHIRDatastore:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/healthlake
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.healthlake.HealthLakeWrapper.decl
+                - python.example_code.healthlake.DeleteFHIRDatastore
+  services:
+    healthlake: {DeleteFHIRDatastore}
+healthlake_StartFHIRImportJob:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/healthlake
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.healthlake.HealthLakeWrapper.decl
+                - python.example_code.healthlake.StartFHIRImportJob
+  services:
+    healthlake: {StartFHIRImportJob}
+healthlake_DescribeFHIRImportJob:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/healthlake
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.healthlake.HealthLakeWrapper.decl
+                - python.example_code.healthlake.DescribeFHIRImportJob
+  services:
+    healthlake: {DescribeFHIRImportJob}
+healthlake_ListFHIRImportJobs:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/healthlake
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.healthlake.HealthLakeWrapper.decl
+                - python.example_code.healthlake.ListFHIRImportJobs
+  services:
+    healthlake: {ListFHIRImportJobs}
+healthlake_StartFHIRExportJob:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/healthlake
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.healthlake.HealthLakeWrapper.decl
+                - python.example_code.healthlake.StartFHIRExportJob
+  services:
+    healthlake: {StartFHIRExportJob}
+healthlake_DescribeFHIRExportJob:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/healthlake
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.healthlake.HealthLakeWrapper.decl
+                - python.example_code.healthlake.DescribeFHIRExportJob
+  services:
+    healthlake: {DescribeFHIRExportJob}
+healthlake_ListFHIRExportJobs:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/healthlake
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.healthlake.HealthLakeWrapper.decl
+                - python.example_code.healthlake.ListFHIRExportJobs
+  services:
+    healthlake: {ListFHIRExportJobs}
+healthlake_TagResource:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/healthlake
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.healthlake.HealthLakeWrapper.decl
+                - python.example_code.healthlake.TagResource
+  services:
+    healthlake: {TagResource}
+healthlake_ListTagsForResource:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/healthlake
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.healthlake.HealthLakeWrapper.decl
+                - python.example_code.healthlake.ListTagsForResource
+  services:
+    healthlake: {ListTagsForResource}
+healthlake_UntagResource:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/healthlake
+          github_note_at_bottom: true
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.healthlake.HealthLakeWrapper.decl
+                - python.example_code.healthlake.UntagResource
+  services:
+    healthlake: {UntagResource}

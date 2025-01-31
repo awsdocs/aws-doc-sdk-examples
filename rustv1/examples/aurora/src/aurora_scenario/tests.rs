@@ -205,12 +205,19 @@ async fn test_scenario_get_instance_classes() {
             Ok(vec![
                 OrderableDbInstanceOption::builder()
                     .db_instance_class("t1")
+                    .storage_type("aurora")
+                    .build(),
+                OrderableDbInstanceOption::builder()
+                    .db_instance_class("t1")
+                    .storage_type("aurora-iopt1")
                     .build(),
                 OrderableDbInstanceOption::builder()
                     .db_instance_class("t2")
+                    .storage_type("aurora")
                     .build(),
                 OrderableDbInstanceOption::builder()
                     .db_instance_class("t3")
+                    .storage_type("aurora")
                     .build(),
             ])
         });
@@ -945,7 +952,7 @@ async fn test_scenario_clean_up_errors() {
         assert!(clean_up.is_err());
         let errs = clean_up.unwrap_err();
         assert_eq!(errs.len(), 2);
-        assert_matches!(errs.get(0), Some(ScenarioError {message, context: _}) if message == "Failed to check instance state during deletion");
+        assert_matches!(errs.first(), Some(ScenarioError {message, context: _}) if message == "Failed to check instance state during deletion");
         assert_matches!(errs.get(1), Some(ScenarioError {message, context: _}) if message == "Failed to check cluster state during deletion");
     });
 

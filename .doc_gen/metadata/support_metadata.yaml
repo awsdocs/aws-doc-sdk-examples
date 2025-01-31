@@ -1,4 +1,3 @@
-# zexi 0.4.0
 support_Hello:
   title: Hello &SUP;
   title_abbrev: Hello &SUP;
@@ -11,7 +10,7 @@ support_Hello:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.hello.main
     Java:
@@ -20,7 +19,7 @@ support_Hello:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.hello.main
     .NET:
@@ -51,11 +50,7 @@ support_Hello:
                 - python.example_code.support.Hello
   services:
     support: {DescribeServices}
-support_AddAttachment:
-  title: Add an &SUP; attachment to a set using an &AWS; SDK
-  title_abbrev: Add an attachment to a set
-  synopsis: add an &SUP; attachment to an attachment set.
-  category:
+support_AddAttachmentsToSet:
   languages:
     Kotlin:
       versions:
@@ -63,7 +58,7 @@ support_AddAttachment:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.add.attach.main
     Java:
@@ -72,7 +67,7 @@ support_AddAttachment:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.add.attach.main
     .NET:
@@ -104,11 +99,7 @@ support_AddAttachment:
                 - python.example_code.support.AddAttachmentToSet
   services:
     support: {AddAttachmentsToSet}
-support_AddCommunication:
-  title: Add an &SUP; communication to a case using an &AWS; SDK
-  title_abbrev: Add a communication to a case
-  synopsis: add an &SUP; communication with an attachment to a support case.
-  category:
+support_AddCommunicationToCase:
   languages:
     Kotlin:
       versions:
@@ -116,7 +107,7 @@ support_AddCommunication:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.add.attach.case.main
     Java:
@@ -125,7 +116,7 @@ support_AddCommunication:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.add.attach.case.main
     .NET:
@@ -158,10 +149,6 @@ support_AddCommunication:
   services:
     support: {AddCommunicationToCase}
 support_CreateCase:
-  title: Create an &SUP; case using an &AWS; SDK
-  title_abbrev: Create a case
-  synopsis: create a new &SUP; case.
-  category:
   languages:
     Kotlin:
       versions:
@@ -169,7 +156,7 @@ support_CreateCase:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.create.case.main
     Java:
@@ -178,7 +165,7 @@ support_CreateCase:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.create.case.main
     .NET:
@@ -211,10 +198,6 @@ support_CreateCase:
   services:
     support: {CreateCase}
 support_DescribeAttachment:
-  title: Describe an attachment for an &SUP; case using an &AWS; SDK
-  title_abbrev: Describe an attachment
-  synopsis: describe an attachment for an &SUP;  case.
-  category:
   languages:
     Kotlin:
       versions:
@@ -222,7 +205,7 @@ support_DescribeAttachment:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.des.attachment.main
     Java:
@@ -231,7 +214,7 @@ support_DescribeAttachment:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.des.attachment.main
     .NET:
@@ -264,10 +247,6 @@ support_DescribeAttachment:
   services:
     support: {DescribeAttachment}
 support_DescribeCases:
-  title: Describe &SUP; cases using an &AWS; SDK
-  title_abbrev: Describe cases
-  synopsis: describe &SUP; cases.
-  category:
   languages:
     Kotlin:
       versions:
@@ -275,7 +254,7 @@ support_DescribeCases:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.get.open.cases.main
     Java:
@@ -284,7 +263,7 @@ support_DescribeCases:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.get.open.cases.main
     .NET:
@@ -317,10 +296,6 @@ support_DescribeCases:
   services:
     support: {DescribeCases}
 support_DescribeCommunications:
-  title: Describe &SUP; communications for a case using an &AWS; SDK
-  title_abbrev: Describe communications
-  synopsis: describe &SUP; communications for a case.
-  category:
   languages:
     Kotlin:
       versions:
@@ -328,7 +303,7 @@ support_DescribeCommunications:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.list.comms.main
     Java:
@@ -337,7 +312,7 @@ support_DescribeCommunications:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.list.comms.main
     .NET:
@@ -370,10 +345,6 @@ support_DescribeCommunications:
   services:
     support: {DescribeCommunications}
 support_DescribeServices:
-  title: Describe the available &AWS; services for support cases using an &AWS; SDK
-  title_abbrev: Describe services
-  synopsis: describe the list of &AWS; services.
-  category:
   languages:
     Kotlin:
       versions:
@@ -381,7 +352,7 @@ support_DescribeServices:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.display.main
     Java:
@@ -390,7 +361,7 @@ support_DescribeServices:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.display.services.main
     .NET:
@@ -414,10 +385,6 @@ support_DescribeServices:
   services:
     support: {DescribeServices}
 support_DescribeSeverityLevels:
-  title: Describe &SUP; severity levels using an &AWS; SDK
-  title_abbrev: Describe severity levels
-  synopsis: describe &SUP; severity levels.
-  category:
   languages:
     Kotlin:
       versions:
@@ -425,7 +392,7 @@ support_DescribeSeverityLevels:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.display.sev.main
     Java:
@@ -434,7 +401,7 @@ support_DescribeSeverityLevels:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.display.sev.main
     .NET:
@@ -451,7 +418,7 @@ support_DescribeSeverityLevels:
         - sdk_version: 3
           github: javascriptv3/example_code/support
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - javascript.v3.support.actions.DescribeSeverityLevels
     Python:
@@ -466,10 +433,6 @@ support_DescribeSeverityLevels:
   services:
     support: {DescribeSeverityLevels}
 support_ResolveCase:
-  title: Resolve an &SUP; case using an &AWS; SDK
-  title_abbrev: Resolve case
-  synopsis: resolve an &SUP; case.
-  category:
   languages:
     Kotlin:
       versions:
@@ -477,7 +440,7 @@ support_ResolveCase:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.resolve.main
     Java:
@@ -486,7 +449,7 @@ support_ResolveCase:
           github: javav2/example_code/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.java2.resolve.main
     .NET:
@@ -519,8 +482,6 @@ support_ResolveCase:
   services:
     support: {ResolveCase}
 support_Scenario_GetStartedSupportCases:
-  title: Get started with &SUP; cases using an &AWS; SDK
-  title_abbrev: Get started with cases
   synopsis_list:
     - Get and display available services and severity levels for cases.
     - Create a support case using a selected service, category, and severity level.
@@ -529,7 +490,7 @@ support_Scenario_GetStartedSupportCases:
     - Describe the new attachment and communication for the case.
     - Resolve the case.
     - Get and display a list of resolved cases for the current day.
-  category: Scenarios
+  category: Basics
   languages:
     Kotlin:
       versions:
@@ -537,7 +498,7 @@ support_Scenario_GetStartedSupportCases:
           github: kotlin/services/support
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - support.kotlin.scenario.main
     Java:
@@ -583,6 +544,5 @@ support_Scenario_GetStartedSupportCases:
               snippet_tags:
                 - python.example_code.support.SupportWrapper_full
   services:
-    support: {AddAttachmentsToSet, AddCommunicationToCase, CreateCase, DescribeAttachment,
-              DescribeCases, DescribeCommunications, DescribeServices, DescribeSeverityLevels,
-              ResolveCase}
+    support: {AddAttachmentsToSet, AddCommunicationToCase, CreateCase, DescribeAttachment, DescribeCases, DescribeCommunications,
+              DescribeServices, DescribeSeverityLevels, ResolveCase}

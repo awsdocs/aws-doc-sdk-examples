@@ -49,6 +49,26 @@ In general, follow these steps:
    and a **.csproj** file.
 4. Run the project using the ```dotnet run``` command.
 
+## Linting
+We rely on [dotnet-format](https://github.com/dotnet/format) to keep this code consistently formatted and styled.
+To contribute .NET code to this project, please refer to the following installation and usage steps.
+
+### Using dotnet-format
+We run dotnet-format using [a custom configuration file](.editorconfig) against any changed file or directory. See the [.NET Github Action workflow](../.github/workflows/dotnet-check.yml) for details.
+
+To invoke dotnet-format yourself, first install it with
+
+```
+dotnet tool install -g dotnet-format`.
+```
+
+Next, run the dotnet-format command in the directory of your solution or project:
+
+```
+dotnet format
+```
+
+
 ## Tests
 ⚠️ Running the tests might result in charges to your AWS account.
 

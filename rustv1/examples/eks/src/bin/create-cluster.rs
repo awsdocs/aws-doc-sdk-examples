@@ -21,8 +21,7 @@ struct Opt {
     /// To create a role-arn:
     ///
     /// 1. Follow instructions to create an IAM role:
-    /// https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html
-    ///
+    ///     https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html
     /// 2. Copy role arn
     #[structopt(long)]
     role_arn: String,

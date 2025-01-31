@@ -21,7 +21,6 @@ suspend fun main() {
 
 // snippet-start:[sts.kotlin.get_call_id.main]
 suspend fun getCallerId() {
-
     StsClient { region = "us-east-1" }.use { stsClient ->
         val response = stsClient.getCallerIdentity(GetCallerIdentityRequest {})
         println("The user id is ${response.userId}")

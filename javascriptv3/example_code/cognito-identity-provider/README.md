@@ -31,32 +31,35 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Amazon Cognito](hello.js#L6) (`ListUserPools`)
+- [Hello Amazon Cognito Identity Provider](hello.js#L6) (`ListUserPools`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Confirm a user](actions/confirm-sign-up.js#L9) (`ConfirmSignUp`)
-- [Confirm an MFA device for tracking](actions/confirm-device.js#L9) (`ConfirmDevice`)
-- [Get a token to associate an MFA application with a user](actions/associate-software-token.js#L9) (`AssociateSoftwareToken`)
-- [Get information about a user](actions/admin-get-user.js#L9) (`AdminGetUser`)
-- [List users](actions/list-users.js#L9) (`ListUsers`)
-- [Resend a confirmation code](actions/resend-confirmation-code.js#L9) (`ResendConfirmationCode`)
-- [Respond to SRP authentication challenges](actions/respond-to-auth-challenge.js#L10) (`RespondToAuthChallenge`)
-- [Respond to an authentication challenge](actions/admin-respond-to-auth-challenge.js#L10) (`AdminRespondToAuthChallenge`)
-- [Sign up a user](actions/sign-up.js#L9) (`SignUp`)
-- [Start authentication](actions/initiate-auth.js#L10) (`InitiateAuth`)
-- [Start authentication with administrator credentials](actions/admin-initiate-auth.js#L10) (`AdminInitiateAuth`)
-- [Verify an MFA application with a user](actions/verify-software-token.js#L9) (`VerifySoftwareToken`)
+- [AdminGetUser](actions/admin-get-user.js#L9)
+- [AdminInitiateAuth](actions/admin-initiate-auth.js#L10)
+- [AdminRespondToAuthChallenge](actions/admin-respond-to-auth-challenge.js#L10)
+- [AssociateSoftwareToken](actions/associate-software-token.js#L9)
+- [ConfirmDevice](actions/confirm-device.js#L9)
+- [ConfirmSignUp](actions/confirm-sign-up.js#L9)
+- [DeleteUser](../cross-services/wkflw-pools-triggers/actions/cognito-actions.js#L122)
+- [InitiateAuth](actions/initiate-auth.js#L10)
+- [ListUsers](actions/list-users.js#L9)
+- [ResendConfirmationCode](actions/resend-confirmation-code.js#L9)
+- [RespondToAuthChallenge](actions/respond-to-auth-challenge.js#L10)
+- [SignUp](actions/sign-up.js#L9)
+- [UpdateUserPool](../cross-services/wkflw-pools-triggers/actions/cognito-actions.js#L13)
+- [VerifySoftwareToken](actions/verify-software-token.js#L9)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Sign up a user with a user pool that requires MFA](actions/verify-software-token.js)
+- [Automatically confirm known users with a Lambda function](../cross-services/wkflw-pools-triggers/index.js)
+- [Sign up a user with a user pool that requires MFA](actions/admin-initiate-auth.js)
 
 
 <!--custom.examples.start-->
@@ -76,22 +79,49 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
 
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
+
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Amazon Cognito
+#### Hello Amazon Cognito Identity Provider
 
-This example shows you how to get started using Amazon Cognito.
+This example shows you how to get started using Amazon Cognito Identity Provider.
 
 ```bash
 node ./hello.js
 ```
 
+
+#### Automatically confirm known users with a Lambda function
+
+This example shows you how to automatically confirm known Amazon Cognito users with a Lambda function.
+
+- Configure a user pool to call a Lambda function for the <code>PreSignUp</code> trigger.
+- Sign up a user with Amazon Cognito.
+- The Lambda function scans a DynamoDB table and automatically confirms known users.
+- Sign in as the new user, then clean up resources.
+
+<!--custom.scenario_prereqs.cross_CognitoAutoConfirmUser.start-->
+<!--custom.scenario_prereqs.cross_CognitoAutoConfirmUser.end-->
+
+
+<!--custom.scenarios.cross_CognitoAutoConfirmUser.start-->
+<!--custom.scenarios.cross_CognitoAutoConfirmUser.end-->
 
 #### Sign up a user with a user pool that requires MFA
 

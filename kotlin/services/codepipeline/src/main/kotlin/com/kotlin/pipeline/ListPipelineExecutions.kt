@@ -10,7 +10,6 @@ import kotlin.system.exitProcess
 // snippet-end:[pipeline.kotlin.list_pipeline_exe.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <name> 
@@ -29,11 +28,11 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pipeline.kotlin.list_pipeline_exe.main]
 suspend fun listExecutions(name: String?) {
-
-    val request = ListPipelineExecutionsRequest {
-        maxResults = 10
-        pipelineName = name
-    }
+    val request =
+        ListPipelineExecutionsRequest {
+            maxResults = 10
+            pipelineName = name
+        }
 
     CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
         val response = pipelineClient.listPipelineExecutions(request)

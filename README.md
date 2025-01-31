@@ -4,7 +4,7 @@
 
 # AWS SDK Code Examples
 
-This repository contains code examples that demonstrate how to use the [AWSK SDKs](https://aws.amazon.com/developer/tools/) to interact with [AWS services](https://aws.amazon.com/products).
+This repository contains code examples that demonstrate how to use the [AWS SDKs](https://aws.amazon.com/developer/tools/) to interact with [AWS services](https://aws.amazon.com/products).
 
 Many examples are injected into the [AWS Documentation](https://docs.aws.amazon.com).
 
@@ -66,6 +66,31 @@ Additionally, example code might theoretically modify or delete existing AWS res
 # Contributing
 
 This repository thrives on your contributions! ❤️ To get involved, see the [CONTRIBUTING.md](CONTRIBUTING.md). 🙏
+
+# Requests
+
+Requests for examples can be made via [Issue tracker](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?assignees=octocat&labels=type%2Fenhancement&projects=&template=enhancement.yaml&title=%5BEnhancement%5D%3A+%3CDESCRIPTIVE+TITLE+HERE%3E).
+
+## How we prioritize contributions and requests
+Our team reviews all requests, evaluating them for the following:
+- Clarity
+- Relevance
+- Feasibility
+
+**All examples requests should be made as early as possible. For larger examples, this should be at least two months in advance of the required date.**
+
+Based on the evaluation, we determine the priority of each request and allocate resources accordingly. We prioritize requests that are clear, relevant, and can be completed in a reasonable amount of time. An accompanying high quality PR increases the chance we can address the request.
+
+Please note that some requests, such as bug fixes and security issues, take priority over new code examples. Additionally, we have finite resources and our own priorities that guide the development of code examples. If you have any questions or would like to contribute, please refer to our [contribution guide](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/CONTRIBUTING.md).
+
+
+## Tributaries
+
+The AWS Documentation includes source code examples from several additional sources. These sources are called tributaries, flowing into the "river" of AWS Documentation.
+
+* [awsdocs/aws-doc-sdk-examples](https://github.com/awsdocs/aws-doc-sdk-examples)
+* [aws-samples/serverless-snippets](https://github.com/aws-samples/serverless-snippets)
+* [aws/aws-tools-for-powershell](https://github.com/aws/aws-tools-for-powershell)
 
 # Copyright and license
 

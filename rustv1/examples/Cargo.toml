@@ -10,6 +10,7 @@ members = [
     "auto-scaling",
     "autoscalingplans",
     "batch",
+    "bedrock-runtime",
     "cloudformation",
     "cloudwatch",
     "cloudwatchlogs",

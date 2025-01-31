@@ -3,9 +3,19 @@
 import { v4 as uuidv4 } from "uuid";
 
 /**
- * @param {string} name
+ * @param {string} prefix
  */
-export const getUniqueName = (name) => `${uuidv4()}-${name.toLowerCase()}`;
+export const getUniqueName = (prefix) => {
+  class GetUniqueNameError extends Error {
+    name = GetUniqueNameError.name;
+  }
+
+  if (!prefix) {
+    throw new GetUniqueNameError("Prefix is missing.");
+  }
+
+  return `${prefix.toLowerCase()}-${uuidv4()}`;
+};
 
 /**
  * @param {int} length

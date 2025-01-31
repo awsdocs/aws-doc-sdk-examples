@@ -38,24 +38,26 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Check whether a phone number is opted out](libs/snsClient.js#L4) (`CheckIfPhoneNumberIsOptedOut`)
-- [Confirm an endpoint owner wants to receive messages](libs/snsClient.js#L4) (`ConfirmSubscription`)
-- [Create a topic](libs/snsClient.js#L4) (`CreateTopic`)
-- [Delete a subscription](libs/snsClient.js#L4) (`Unsubscribe`)
-- [Delete a topic](libs/snsClient.js#L4) (`DeleteTopic`)
-- [Get the properties of a topic](libs/snsClient.js#L4) (`GetTopicAttributes`)
-- [Get the settings for sending SMS messages](libs/snsClient.js#L4) (`GetSMSAttributes`)
-- [List the subscribers of a topic](libs/snsClient.js#L4) (`ListSubscriptions`)
-- [List topics](libs/snsClient.js#L4) (`ListTopics`)
-- [Publish a message with an attribute](../cross-services/wkflw-topics-queues/TopicsQueuesWkflw.js#L267) (`Publish`)
-- [Publish to a topic](libs/snsClient.js#L4) (`Publish`)
-- [Set the default settings for sending SMS messages](libs/snsClient.js#L4) (`SetSMSAttributes`)
-- [Set topic attributes](libs/snsClient.js#L4) (`SetTopicAttributes`)
-- [Subscribe a Lambda function to a topic](libs/snsClient.js#L4) (`Subscribe`)
-- [Subscribe a mobile application to a topic](libs/snsClient.js#L4) (`Subscribe`)
-- [Subscribe an SQS queue to a topic](actions/subscribe-queue.js#L6) (`Subscribe`)
-- [Subscribe an email address to a topic](libs/snsClient.js#L4) (`Subscribe`)
-- [Subscribe with a filter to a topic](actions/subscribe-queue-filtered.js#L6) (`Subscribe`)
+- [CheckIfPhoneNumberIsOptedOut](libs/snsClient.js#L4)
+- [ConfirmSubscription](libs/snsClient.js#L4)
+- [CreateTopic](libs/snsClient.js#L4)
+- [DeleteTopic](libs/snsClient.js#L4)
+- [GetSMSAttributes](libs/snsClient.js#L4)
+- [GetTopicAttributes](libs/snsClient.js#L4)
+- [ListSubscriptions](libs/snsClient.js#L4)
+- [ListTopics](libs/snsClient.js#L4)
+- [Publish](libs/snsClient.js#L4)
+- [SetSMSAttributes](libs/snsClient.js#L4)
+- [SetTopicAttributes](libs/snsClient.js#L4)
+- [Subscribe](libs/snsClient.js#L4)
+- [Unsubscribe](libs/snsClient.js#L4)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Publish messages to queues](../cross-services/wkflw-topics-queues/index.js)
 
 
 <!--custom.examples.start-->
@@ -75,10 +77,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
@@ -91,6 +104,22 @@ This example shows you how to get started using Amazon SNS.
 node ./hello.js
 ```
 
+
+#### Publish messages to queues
+
+This example shows you how to do the following:
+
+- Create topic (FIFO or non-FIFO).
+- Subscribe several queues to the topic with an option to apply a filter.
+- Publish messages to the topic.
+- Poll the queues for messages received.
+
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
 
 ### Tests
 

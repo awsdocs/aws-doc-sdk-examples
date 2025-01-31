@@ -38,9 +38,9 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a transcoding job](Scenarios/CreateJob/CreateJob.cs#L24) (`CreateJob`)
-- [Get a transcoding job](Scenarios/CreateJob/CreateJob.cs#L24) (`GetJob`)
-- [List transcoding jobs](Scenarios/CreateJob/CreateJob.cs#L24) (`ListJobs`)
+- [CreateJob](Scenarios/CreateJob/CreateJob.cs#L23)
+- [GetJob](Scenarios/CreateJob/CreateJob.cs#L23)
+- [ListJobs](Scenarios/CreateJob/CreateJob.cs#L23)
 
 
 <!--custom.examples.start-->
@@ -83,7 +83,7 @@ The project includes the following settings in `settings.json`:
 
 #### Hello MediaConvert
 
-This example shows you how to get started using AWS Elemental MediaConvert.
+This example shows you how to get started using MediaConvert.
 
 
 

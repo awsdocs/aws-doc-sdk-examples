@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[lex.kotlin.get_slot_types.main]
 suspend fun getSlotsInfo() {
-
     LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
 
         val response = lexClient.getSlotTypes(GetSlotTypesRequest { })

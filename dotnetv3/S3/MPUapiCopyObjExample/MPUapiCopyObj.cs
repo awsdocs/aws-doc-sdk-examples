@@ -16,8 +16,8 @@ namespace MPUapiCopyObjectExample
     /// </summary>
     public class MPUapiCopyObj
     {
-        private const string SourceBucket = "doc-example-bucket1";
-        private const string TargetBucket = "doc-example-bucket2";
+        private const string SourceBucket = "amzn-s3-demo-bucket1";
+        private const string TargetBucket = "amzn-s3-demo-bucket2";
         private const string SourceObjectKey = "example.mov";
         private const string TargetObjectKey = "copied_video_file.mov";
 

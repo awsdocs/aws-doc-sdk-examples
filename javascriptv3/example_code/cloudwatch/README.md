@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a metric alarm](actions/put-metric-alarm.js#L4) (`PutMetricAlarm`)
-- [Delete alarms](actions/delete-alarms.js#L4) (`DeleteAlarms`)
-- [Describe alarms for a metric](actions/describe-alarms.js#L4) (`DescribeAlarmsForMetric`)
-- [Disable alarm actions](actions/disable-alarm-actions.js#L4) (`DisableAlarmActions`)
-- [Enable alarm actions](actions/enable-alarm-actions.js#L4) (`EnableAlarmActions`)
-- [List metrics](actions/list-metrics.js#L4) (`ListMetrics`)
-- [Put data into a metric](actions/put-metric-data.js#L4) (`PutMetricData`)
+- [DeleteAlarms](actions/delete-alarms.js#L4)
+- [DescribeAlarmsForMetric](actions/describe-alarms.js#L4)
+- [DisableAlarmActions](actions/disable-alarm-actions.js#L4)
+- [EnableAlarmActions](actions/enable-alarm-actions.js#L4)
+- [ListMetrics](actions/list-metrics.js#L4)
+- [PutMetricAlarm](actions/put-metric-alarm.js#L4)
+- [PutMetricData](actions/put-metric-data.js#L4)
 
 
 <!--custom.examples.start-->
@@ -59,10 +59,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

@@ -1,16 +1,17 @@
 {
   "name": "@aws-doc-sdk-examples/example-javascriptv3-sns",
   "version": "1.0.0",
-  "author": "Corey Pyle <corepyle@amazon.com",
+  "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache-2.0",
   "dependencies": {
     "@aws-sdk/client-sns": "^3.370.0"
   },
   "scripts": {
-    "integration-test": "vitest run **/*.integration.test.js"
+    "integration-test": "vitest run **/*.integration.test.js --reporter=junit --outputFile=test_results/$npm_package_name.junit.xml"
   },
   "type": "module",
   "devDependencies": {
-    "@aws-sdk/client-sqs": "^3.382.0"
+    "@aws-sdk/client-sqs": "^3.382.0",
+    "vitest": "^1.6.0"
   }
 }

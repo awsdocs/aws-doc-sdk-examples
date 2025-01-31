@@ -22,15 +22,15 @@ suspend fun main() {
 
 // snippet-start:[eb.kotlin.describe_app.main]
 suspend fun describeApps() {
-
     ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
         val response = beanstalkClient.describeApplications(DescribeApplicationsRequest {})
         response.applications?.forEach { app ->
             println("The application name is ${app.applicationName}")
 
-            val desRequest = DescribeEnvironmentsRequest {
-                applicationName = app.applicationName
-            }
+            val desRequest =
+                DescribeEnvironmentsRequest {
+                    applicationName = app.applicationName
+                }
 
             ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
                 val res = beanstalkClient.describeEnvironments(desRequest)

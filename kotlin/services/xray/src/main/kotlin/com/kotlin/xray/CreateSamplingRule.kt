@@ -19,7 +19,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         
         Usage: 
@@ -41,22 +40,23 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[xray.kotlin_create_rule.main]
 suspend fun createRule(ruleNameVal: String?) {
+    val rule =
+        SamplingRule {
+            ruleName = ruleNameVal
+            priority = 1
+            httpMethod = "*"
+            serviceType = "*"
+            serviceName = "*"
+            urlPath = "*"
+            version = 1
+            host = "*"
+            resourceArn = "*"
+        }
 
-    val rule = SamplingRule {
-        ruleName = ruleNameVal
-        priority = 1
-        httpMethod = "*"
-        serviceType = "*"
-        serviceName = "*"
-        urlPath = "*"
-        version = 1
-        host = "*"
-        resourceArn = "*"
-    }
-
-    val ruleRequest = CreateSamplingRuleRequest {
-        samplingRule = rule
-    }
+    val ruleRequest =
+        CreateSamplingRuleRequest {
+            samplingRule = rule
+        }
 
     XRayClient { region = "us-east-1" }.use { xRayClient ->
         val ruleResponse: CreateSamplingRuleResponse = xRayClient.createSamplingRule(ruleRequest)

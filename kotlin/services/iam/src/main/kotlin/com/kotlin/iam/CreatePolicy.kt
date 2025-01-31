@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <policyName> 
@@ -38,28 +37,29 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[iam.kotlin.create_policy.main]
 suspend fun createIAMPolicy(policyNameVal: String?): String {
+    val policyDocumentVal =
+        "{" +
+            "  \"Version\": \"2012-10-17\"," +
+            "  \"Statement\": [" +
+            "    {" +
+            "        \"Effect\": \"Allow\"," +
+            "        \"Action\": [" +
+            "            \"dynamodb:DeleteItem\"," +
+            "            \"dynamodb:GetItem\"," +
+            "            \"dynamodb:PutItem\"," +
+            "            \"dynamodb:Scan\"," +
+            "            \"dynamodb:UpdateItem\"" +
+            "       ]," +
+            "       \"Resource\": \"*\"" +
+            "    }" +
+            "   ]" +
+            "}"
 
-    val policyDocumentVal = "{" +
-        "  \"Version\": \"2012-10-17\"," +
-        "  \"Statement\": [" +
-        "    {" +
-        "        \"Effect\": \"Allow\"," +
-        "        \"Action\": [" +
-        "            \"dynamodb:DeleteItem\"," +
-        "            \"dynamodb:GetItem\"," +
-        "            \"dynamodb:PutItem\"," +
-        "            \"dynamodb:Scan\"," +
-        "            \"dynamodb:UpdateItem\"" +
-        "       ]," +
-        "       \"Resource\": \"*\"" +
-        "    }" +
-        "   ]" +
-        "}"
-
-    val request = CreatePolicyRequest {
-        policyName = policyNameVal
-        policyDocument = policyDocumentVal
-    }
+    val request =
+        CreatePolicyRequest {
+            policyName = policyNameVal
+            policyDocument = policyDocumentVal
+        }
 
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.createPolicy(request)

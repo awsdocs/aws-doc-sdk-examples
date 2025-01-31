@@ -34,30 +34,31 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 - [Hello Lambda](hello.js#L6) (`ListFunctions`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](../iam/actions/attach-role-policy.js)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](actions/create-function.js#L15) (`CreateFunction`)
-- [Delete a function](actions/delete-function.js#L5) (`DeleteFunction`)
-- [Get a function](actions/get-function.js#L5) (`GetFunction`)
-- [Invoke a function](actions/invoke.js#L5) (`Invoke`)
-- [List functions](actions/list-functions.js#L5) (`ListFunctions`)
-- [Update function code](actions/update-function-code.js#L15) (`UpdateFunctionCode`)
-- [Update function configuration](actions/update-function-configuration.js#L12) (`UpdateFunctionConfiguration`)
+- [CreateFunction](actions/create-function.js#L15)
+- [DeleteFunction](actions/delete-function.js#L5)
+- [GetFunction](actions/get-function.js#L5)
+- [Invoke](actions/invoke.js#L5)
+- [ListFunctions](actions/list-functions.js#L5)
+- [UpdateFunctionCode](actions/update-function-code.js#L15)
+- [UpdateFunctionConfiguration](actions/update-function-configuration.js#L14)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with functions](../iam/actions/attach-role-policy.js)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Use Step Functions to invoke Lambda functions](../../example_code/cross-services/lambda-step-functions)
+- [Automatically confirm known users with a Lambda function](../cross-services/wkflw-pools-triggers/index.js)
 
 
 <!--custom.examples.start-->
@@ -77,10 +78,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
@@ -93,8 +105,7 @@ This example shows you how to get started using Lambda.
 node ./hello.js
 ```
 
-
-#### Get started with functions
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -104,12 +115,29 @@ This example shows you how to do the following:
 - Invoke the function with new parameters and get results. Display the returned execution log.
 - List the functions for your account, then clean up resources.
 
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
 
 
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
+
+
+#### Automatically confirm known users with a Lambda function
+
+This example shows you how to automatically confirm known Amazon Cognito users with a Lambda function.
+
+- Configure a user pool to call a Lambda function for the <code>PreSignUp</code> trigger.
+- Sign up a user with Amazon Cognito.
+- The Lambda function scans a DynamoDB table and automatically confirms known users.
+- Sign in as the new user, then clean up resources.
+
+<!--custom.scenario_prereqs.cross_CognitoAutoConfirmUser.start-->
+<!--custom.scenario_prereqs.cross_CognitoAutoConfirmUser.end-->
+
+
+<!--custom.scenarios.cross_CognitoAutoConfirmUser.start-->
+<!--custom.scenarios.cross_CognitoAutoConfirmUser.end-->
 
 ### Tests
 

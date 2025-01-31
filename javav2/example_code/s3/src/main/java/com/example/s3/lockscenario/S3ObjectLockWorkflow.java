@@ -8,8 +8,6 @@ import software.amazon.awssdk.services.s3.model.ObjectLockLegalHold;
 import software.amazon.awssdk.services.s3.model.ObjectLockRetention;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,26 +29,31 @@ import java.util.stream.Collectors;
  */
 public class S3ObjectLockWorkflow {
 
+    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     static String bucketName;
+    static S3LockActions s3LockActions;
     private static final List<String> bucketNames = new ArrayList<>();
     private static final List<String> fileNames = new ArrayList<>();
-    public static final String DASHES = new String(new char[80]).replace("\0", "-");
-    static S3LockActions s3LockActions;
 
     public static void main(String[] args) {
-        // Get the current date and time to ensure bucket name is unique.
-        LocalDateTime currentTime = LocalDateTime.now();
+        final String usage = """
+            Usage:
+                <bucketName> \s
 
-        // Format the date and time as a string.
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        String timeStamp = currentTime.format(formatter);
+            Where:
+                bucketName - The Amazon S3 bucket name. 
+           """;
 
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
         s3LockActions = new S3LockActions();
-        bucketName = "bucket"+timeStamp;
+        bucketName = args[0];
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(DASHES);
-        System.out.println("Welcome to the Amazon Simple Storage Service (S3) Object Locking Workflow Scenario.");
+        System.out.println("Welcome to the Amazon Simple Storage Service (S3) Object Locking Feature Scenario.");
         System.out.println("Press Enter to continue...");
         scanner.nextLine();
         configurationSetup();

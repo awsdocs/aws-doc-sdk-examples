@@ -62,9 +62,13 @@ const run = async () => {
 
   try {
     return await sesClient.send(sendEmailCommand);
-  } catch (e) {
-    console.error("Failed to send email.");
-    return e;
+  } catch (caught) {
+    if (caught instanceof Error && caught.name === "MessageRejected") {
+      /** @type { import('@aws-sdk/client-ses').MessageRejected} */
+      const messageRejectedError = caught;
+      return messageRejectedError;
+    }
+    throw caught;
   }
 };
 

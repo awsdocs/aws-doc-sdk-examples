@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: <streamName>
 
@@ -37,10 +36,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[kinesis.kotlin.ListShards.main]
 suspend fun listKinShards(name: String?) {
-
-    val request = ListShardsRequest {
-        streamName = name
-    }
+    val request =
+        ListShardsRequest {
+            streamName = name
+        }
 
     KinesisClient { region = "us-east-1" }.use { kinesisClient ->
         val response = kinesisClient.listShards(request)

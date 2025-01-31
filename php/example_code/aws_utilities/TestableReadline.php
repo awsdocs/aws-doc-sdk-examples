@@ -24,3 +24,19 @@ function testable_readline($prompt)
     }
     return readline($prompt);
 }
+
+// This is a helper function which makes it easy to ask the user to press enter to continue.
+function pressEnter(){
+    testable_readline("Press enter to continue.\n");
+}
+
+trait TestableReadline {
+    function testable_readline($prompt)
+    {
+        global $LINES;
+        if ($LINES && count($LINES) > 0) {
+            return array_shift($LINES);
+        }
+        return readline($prompt);
+    }
+}

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 const { tagResource } = await import("../actions/tag-resource.js");
 const { untagResource } = await import("../actions/untag-resource.js");

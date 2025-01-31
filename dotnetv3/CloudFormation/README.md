@@ -64,7 +64,7 @@ Alternatively, you can run the example from within your IDE.
 
 #### Hello CloudFormation
 
-This example shows you how to Get started using CloudFormation.
+This example shows you how to get started using CloudFormation.
 
 
 

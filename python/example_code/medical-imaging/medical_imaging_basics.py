@@ -380,7 +380,7 @@ class MedicalImagingWrapper:
 
     # snippet-start:[python.example_code.medical-imaging.UpdateImageSetMetadata]
     def update_image_set_metadata(
-        self, datastore_id, image_set_id, version_id, metadata
+        self, datastore_id, image_set_id, version_id, metadata, force=False
     ):
         """
         Update the metadata of an image set.
@@ -391,6 +391,7 @@ class MedicalImagingWrapper:
         :param metadata: The image set metadata as a dictionary.
             For example {"DICOMUpdates": {"updatableAttributes":
             "{\"SchemaVersion\":1.1,\"Patient\":{\"DICOM\":{\"PatientName\":\"Garcia^Gloria\"}}}"}}
+        :param: force: Force the update.
         :return: The updated image set metadata.
         """
         try:
@@ -399,6 +400,7 @@ class MedicalImagingWrapper:
                 datastoreId=datastore_id,
                 latestVersionId=version_id,
                 updateImageSetMetadataUpdates=metadata,
+                force=force,
             )
         except ClientError as err:
             logger.error(
@@ -420,6 +422,8 @@ class MedicalImagingWrapper:
         version_id,
         destination_image_set_id=None,
         destination_version_id=None,
+        force=False,
+        subsets=[],
     ):
         """
         Copy an image set.
@@ -429,6 +433,8 @@ class MedicalImagingWrapper:
         :param version_id: The ID of the image set version.
         :param destination_image_set_id: The ID of the optional destination image set.
         :param destination_version_id: The ID of the optional destination image set version.
+        :param force: Force the copy.
+        :param subsets: The optional subsets to copy. For example: ["12345678901234567890123456789012"].
         :return: The copied image set ID.
         """
         try:
@@ -445,12 +451,29 @@ class MedicalImagingWrapper:
                 }
             # snippet-end:[python.example_code.medical-imaging.CopyImageSet2]
             # snippet-start:[python.example_code.medical-imaging.CopyImageSet3]
+            if len(subsets) > 0:
+                copySubsetsJson = {
+                    "SchemaVersion": "1.1",
+                    "Study": {"Series": {"imageSetId": {"Instances": {}}}},
+                }
+
+                for subset in subsets:
+                    copySubsetsJson["Study"]["Series"]["imageSetId"]["Instances"][
+                        subset
+                    ] = {}
+
+                copy_image_set_information["sourceImageSet"]["DICOMCopies"] = {
+                    "copiableAttributes": json.dumps(copySubsetsJson)
+                }
+            # snippet-end:[python.example_code.medical-imaging.CopyImageSet3]
+            # snippet-start:[python.example_code.medical-imaging.CopyImageSet4]
             copy_results = self.health_imaging_client.copy_image_set(
                 datastoreId=datastore_id,
                 sourceImageSetId=image_set_id,
                 copyImageSetInformation=copy_image_set_information,
+                force=force,
             )
-            # snippet-end:[python.example_code.medical-imaging.CopyImageSet3]
+            # snippet-end:[python.example_code.medical-imaging.CopyImageSet4]
         except ClientError as err:
             logger.error(
                 "Couldn't copy image set. Here's why: %s: %s",
@@ -554,6 +577,118 @@ class MedicalImagingWrapper:
 
     # snippet-end:[python.example_code.medical-imaging.ListTagsForResource]
 
+    def search_imagesets_demo(self, data_store_id):
+        # Replace these values with your own.
+        patient_id = "123456"
+        series_instance_uid = "1.1.123.123456.1.12.1.1234567890.1234.12345678.123"
+        # Search with EQUAL operator.
+        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case1]
+        search_filter = {
+            "filters": [
+                {"operator": "EQUAL", "values": [{"DICOMPatientId": patient_id}]}
+            ]
+        }
+
+        image_sets = self.search_image_sets(data_store_id, search_filter)
+        print(f"Image sets found with EQUAL operator\n{image_sets}")
+        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case1]
+
+        # Search with BETWEEN operator using DICOMStudyDate and DICOMStudyTime.
+        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case2]
+        search_filter = {
+            "filters": [
+                {
+                    "operator": "BETWEEN",
+                    "values": [
+                        {
+                            "DICOMStudyDateAndTime": {
+                                "DICOMStudyDate": "19900101",
+                                "DICOMStudyTime": "000000",
+                            }
+                        },
+                        {
+                            "DICOMStudyDateAndTime": {
+                                "DICOMStudyDate": "20230101",
+                                "DICOMStudyTime": "000000",
+                            }
+                        },
+                    ],
+                }
+            ]
+        }
+
+        image_sets = self.search_image_sets(data_store_id, search_filter)
+        print(
+            f"Image sets found with BETWEEN operator using DICOMStudyDate and DICOMStudyTime\n{image_sets}"
+        )
+        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case2]
+
+        # Search with BETWEEN operator using createdAt. Time studies were previously persisted.
+        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case3]
+        search_filter = {
+            "filters": [
+                {
+                    "values": [
+                        {
+                            "createdAt": datetime.datetime(
+                                2021, 8, 4, 14, 49, 54, 429000
+                            )
+                        },
+                        {
+                            "createdAt": datetime.datetime.now()
+                            + datetime.timedelta(days=1)
+                        },
+                    ],
+                    "operator": "BETWEEN",
+                }
+            ]
+        }
+
+        recent_image_sets = self.search_image_sets(data_store_id, search_filter)
+        print(
+            f"Image sets found with with BETWEEN operator using createdAt\n{recent_image_sets}"
+        )
+        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case3]
+
+        # Search with EQUAL operator on DICOMSeriesInstanceUID and BETWEEN on updatedAt and sort response in ASC
+        # order on updatedAt field.
+        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case4]
+        search_filter = {
+            "filters": [
+                {
+                    "values": [
+                        {
+                            "updatedAt": datetime.datetime(
+                                2021, 8, 4, 14, 49, 54, 429000
+                            )
+                        },
+                        {
+                            "updatedAt": datetime.datetime.now()
+                            + datetime.timedelta(days=1)
+                        },
+                    ],
+                    "operator": "BETWEEN",
+                },
+                {
+                    "values": [{"DICOMSeriesInstanceUID": series_instance_uid}],
+                    "operator": "EQUAL",
+                },
+            ],
+            "sort": {
+                "sortOrder": "ASC",
+                "sortField": "updatedAt",
+            },
+        }
+
+        image_sets = self.search_image_sets(data_store_id, search_filter)
+        print(
+            "Image sets found with EQUAL operator on DICOMSeriesInstanceUID and BETWEEN on updatedAt and"
+        )
+        print(f"sort response in ASC order on updatedAt field\n{image_sets}")
+        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case4]
+
+        return recent_image_sets
+
     def usage_demo(self, source_s3_uri, dest_s3_uri, data_access_role_arn):
         data_store_name = f"python_usage_demo_data_store_{random.randint(0, 200000)}"
 
@@ -594,67 +729,7 @@ class MedicalImagingWrapper:
         for job in import_jobs:
             print(job)
 
-            # Search with EQUAL operator..
-            # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case1]
-        filter = {
-            "filters": [
-                {"operator": "EQUAL", "values": [{"DICOMPatientId": "3524578"}]}
-            ]
-        }
-
-        image_sets = self.search_image_sets(data_store_id, filter)
-        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case1]
-
-        # Search with BETWEEN operator using DICOMStudyDate and DICOMStudyTime.
-        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case2]
-        filter = {
-            "filters": [
-                {
-                    "operator": "BETWEEN",
-                    "values": [
-                        {
-                            "DICOMStudyDateAndTime": {
-                                "DICOMStudyDate": "19900101",
-                                "DICOMStudyTime": "000000",
-                            }
-                        },
-                        {
-                            "DICOMStudyDateAndTime": {
-                                "DICOMStudyDate": "20230101",
-                                "DICOMStudyTime": "000000",
-                            }
-                        },
-                    ],
-                }
-            ]
-        }
-
-        image_sets = self.search_image_sets(data_store_id, filter)
-        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case2]
-
-        # Search with BETWEEN operator using createdAt. Time studies were previously persisted.
-        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case3]
-        filter = {
-            "filters": [
-                {
-                    "values": [
-                        {
-                            "createdAt": datetime.datetime(
-                                2021, 8, 4, 14, 49, 54, 429000
-                            )
-                        },
-                        {
-                            "createdAt": datetime.datetime.now()
-                            + datetime.timedelta(days=1)
-                        },
-                    ],
-                    "operator": "BETWEEN",
-                }
-            ]
-        }
-
-        image_sets = self.search_image_sets(data_store_id, filter)
-        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case3]
+        image_sets = self.search_imagesets_demo(data_store_id)
 
         image_set_ids = [image_set["imageSetId"] for image_set in image_sets]
         for image_set in image_sets:
@@ -777,11 +852,86 @@ class MedicalImagingWrapper:
         self.delete_datastore(data_store_id)
         print(f"Data store deleted with id : {data_store_id}")
 
+    def update_image_set_metadata_demo(self):
+        data_store_id = "12345678901234567890123456789012"
+        image_set_id = "12345678901234567890123456789012"
+        version_id = "1"
+        force = False
+        update_type = "insert"  # or "remove-attribute" or "remove_instance" or "revert"
+        if update_type == "insert":
+            # Insert or update an attribute.
+            # snippet-start:[python.example_code.medical-imaging.UpdateImageSetMetadata.insert_or_update_attributes]
+            attributes = """{
+                    "SchemaVersion": 1.1,
+                    "Study": {
+                        "DICOM": {
+                            "StudyDescription": "CT CHEST"
+                        }
+                    }
+                }"""
+            metadata = {"DICOMUpdates": {"updatableAttributes": attributes}}
+
+            self.update_image_set_metadata(
+                data_store_id, image_set_id, version_id, metadata, force
+            )
+            # snippet-end:[python.example_code.medical-imaging.UpdateImageSetMetadata.insert_or_update_attributes]
+        elif update_type == "remove-attribute":
+            # Remove an existing attribute.
+            # snippet-start:[python.example_code.medical-imaging.UpdateImageSetMetadata.remove_attributes]
+            # Attribute key and value must match the existing attribute.
+            attributes = """{
+                    "SchemaVersion": 1.1,
+                    "Study": {
+                        "DICOM": {
+                            "StudyDescription": "CT CHEST"
+                        }
+                    }
+                }"""
+            metadata = {"DICOMUpdates": {"removableAttributes": attributes}}
+
+            self.update_image_set_metadata(
+                data_store_id, image_set_id, version_id, metadata, force
+            )
+            # snippet-end:[python.example_code.medical-imaging.UpdateImageSetMetadata.remove_attributes]
+        elif update_type == "remove_instance":
+            # Remove an existing instance.
+            # snippet-start:[python.example_code.medical-imaging.UpdateImageSetMetadata.remove_instance]
+            attributes = """{
+                    "SchemaVersion": 1.1,
+                    "Study": {
+                        "Series": {
+                            "1.1.1.1.1.1.12345.123456789012.123.12345678901234.1": {
+                                "Instances": {
+                                    "1.1.1.1.1.1.12345.123456789012.123.12345678901234.1": {}
+                                }
+                            }
+                        }
+                    }
+                }"""
+            metadata = {"DICOMUpdates": {"removableAttributes": attributes}}
+
+            self.update_image_set_metadata(
+                data_store_id, image_set_id, version_id, metadata, force
+            )
+
+            # snippet-end:[python.example_code.medical-imaging.UpdateImageSetMetadata.remove_instance]
+        elif update_type == "revert":
+            # Revert to a previous version.
+            # snippet-start:[python.example_code.medical-imaging.UpdateImageSetMetadata.revert]
+            metadata = {"revertToVersionId": "1"}
+
+            self.update_image_set_metadata(
+                data_store_id, image_set_id, version_id, metadata, force
+            )
+
+            # snippet-end:[python.example_code.medical-imaging.UpdateImageSetMetadata.revert]
+        print(f"Updated with update type {update_type}")
+
 
 if __name__ == "__main__":
     # Replace these values with your own.
-    source_s3_uri = "s3://medical-imaging-dicom-input/dicom_input/"
-    dest_s3_uri = "s3://medical-imaging-output/job_output/"
+    source_s3_uri = "s3://amzn-s3-demo-input/dicom_input/"
+    dest_s3_uri = "s3://amzn-s3-demo-output/job_output/"
     data_access_role_arn = "arn:aws:iam::123456789012:role/ImportJobDataAccessRole"
 
     # snippet-start:[python.example_code.medical-imaging.MedicalImagingWrapper.instantiation]

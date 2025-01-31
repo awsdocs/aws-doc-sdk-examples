@@ -33,11 +33,14 @@ if(NOT GTest_FOUND)
     FetchContent_MakeAvailable(googletest)
 endif()
 
+# Use the MSVC variable to determine if this is a Windows build.
+set(WINDOWS_BUILD ${MSVC})
+
 # Set the location for Windows to find the installed libraries of the SDK.
-if(MSVC)
+if (WINDOWS_BUILD)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
-endif()
+endif ()
 
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${CURRENT_TARGET_AWS_DEPENDENCIES})
@@ -46,29 +49,28 @@ add_executable(
         ${CURRENT_TARGET}
 )
 
-# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
-# and building as shared libraries, then dynamically link to those shared libraries.
-if(MSVC AND BUILD_SHARED_LIBS)
-    add_definitions(-DUSE_IMPORT_EXPORT)
+if (WINDOWS_BUILD)
+    # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
+    # and set the proper subdirectory to the executables' location.
 
-    set(CMAKE_BUILD_TYPE Debug) # Explicitly setting CMAKE_BUILD_TYPE is necessary in Windows to copy DLLs.
-
-    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-    AWSSDK_CPY_DYN_LIBS(
-            CURRENT_TARGET_AWS_DEPENDENCIES
-        ""
-        ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
-    )
+    if (AWSSDK_INSTALL_AS_SHARED_LIBS)
+        # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
+        AWSSDK_CPY_DYN_LIBS(
+                CURRENT_TARGET_AWS_DEPENDENCIES
+                ""
+                ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
+        )
+    endif ()
 
     add_custom_command(
-        TARGET
-        ${CURRENT_TARGET}
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-                ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}/gtest.dll
-                ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
+            TARGET
+            ${CURRENT_TARGET}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}${BIN_SUB_DIR}/gtest.dll
+            ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
     )
- endif()
+endif ()
 
 # GTEST_SOURCE_FILES can be defined in the command line to limit the files in a build. For example,
 # you can limit files to one action.

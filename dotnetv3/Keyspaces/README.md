@@ -34,27 +34,27 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 - [Hello Amazon Keyspaces](Actions/HelloKeyspaces.cs#L4) (`ListKeyspaces`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/Usings.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a keyspace](Actions/KeyspacesWrapper.cs#L23) (`CreateKeyspace`)
-- [Create a table](Actions/KeyspacesWrapper.cs#L39) (`CreateTable`)
-- [Delete a keyspace](Actions/KeyspacesWrapper.cs#L63) (`DeleteKeyspace`)
-- [Delete a table](Actions/KeyspacesWrapper.cs#L78) (`DeleteTable`)
-- [Get data about a keyspace](Actions/KeyspacesWrapper.cs#L94) (`GetKeyspace`)
-- [Get data about a table](Actions/KeyspacesWrapper.cs#L109) (`GetTable`)
-- [List keyspaces](Actions/KeyspacesWrapper.cs#L125) (`ListKeyspaces`)
-- [List tables in a keyspace](Actions/KeyspacesWrapper.cs#L144) (`ListTables`)
-- [Restore a table to a point in time](Actions/KeyspacesWrapper.cs#L163) (`RestoreTable`)
-- [Update a table](Actions/KeyspacesWrapper.cs#L188) (`UpdateTable`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with keyspaces and tables](Scenarios/KeyspacesBasics.cs)
+- [CreateKeyspace](Actions/KeyspacesWrapper.cs#L23)
+- [CreateTable](Actions/KeyspacesWrapper.cs#L39)
+- [DeleteKeyspace](Actions/KeyspacesWrapper.cs#L63)
+- [DeleteTable](Actions/KeyspacesWrapper.cs#L78)
+- [GetKeyspace](Actions/KeyspacesWrapper.cs#L94)
+- [GetTable](Actions/KeyspacesWrapper.cs#L109)
+- [ListKeyspaces](Actions/KeyspacesWrapper.cs#L125)
+- [ListTables](Actions/KeyspacesWrapper.cs#L144)
+- [RestoreTable](Actions/KeyspacesWrapper.cs#L163)
+- [UpdateTable](Actions/KeyspacesWrapper.cs#L188)
 
 
 <!--custom.examples.start-->
@@ -90,8 +90,7 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using Amazon Keyspaces.
 
 
-
-#### Get started with keyspaces and tables
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -101,12 +100,13 @@ This example shows you how to do the following:
 - Update the table. Add a column to track watched movies.
 - Restore the table to its previous state and clean up resources.
 
-<!--custom.scenario_prereqs.keyspaces_Scenario_GetStartedKeyspaces.start-->
-<!--custom.scenario_prereqs.keyspaces_Scenario_GetStartedKeyspaces.end-->
+<!--custom.basic_prereqs.keyspaces_Scenario_GetStartedKeyspaces.start-->
+<!--custom.basic_prereqs.keyspaces_Scenario_GetStartedKeyspaces.end-->
 
 
-<!--custom.scenarios.keyspaces_Scenario_GetStartedKeyspaces.start-->
-<!--custom.scenarios.keyspaces_Scenario_GetStartedKeyspaces.end-->
+<!--custom.basics.keyspaces_Scenario_GetStartedKeyspaces.start-->
+<!--custom.basics.keyspaces_Scenario_GetStartedKeyspaces.end-->
+
 
 ### Tests
 

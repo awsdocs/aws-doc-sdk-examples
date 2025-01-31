@@ -17,18 +17,16 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
     println("About to create a LambaClient")
     getSettings()
 }
 
 // snippet-start:[lambda.kotlin.account.main]
 suspend fun getSettings() {
-
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val response = awsLambda.getAccountSettings(GetAccountSettingsRequest { })
         println(
-            "Total code size for your account is ${response.accountLimit?.totalCodeSize} bytes"
+            "Total code size for your account is ${response.accountLimit?.totalCodeSize} bytes",
         )
     }
 }

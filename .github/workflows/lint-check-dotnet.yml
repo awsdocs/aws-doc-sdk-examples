@@ -1,0 +1,56 @@
+name: Dotnet Lint and Check
+
+on:  # yamllint disable-line rule:truthy
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  dotnetcheck:
+    name: Lint DotNet
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            6.0.x
+            8.0.x
+      - name: Checkout files
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            dotnetv3
+            dotnetv4
+      - name: Get changed files v3
+        id: changed-files-v3
+        uses: tj-actions/changed-files@e9772d140489982e0e3704fea5ee93d536f1e275
+        with:
+          files: "dotnetv3/**/*.{cs,sln,csproj,json}"
+      - name: Build check v3
+        if: steps.changed-files-v3.outputs.any_changed == 'true'
+        run: |
+          cd dotnetv3
+          dotnet build -v=q --property WarningLevel=0 /clp:ErrorsOnly
+      - name: Lint and format check v3
+        if: steps.changed-files-v3.outputs.any_changed == 'true' && (success() || failure())
+        run: |
+          cd dotnetv3
+          dotnet format --verify-no-changes
+      - name: Get changed files v4
+        id: changed-files-v4
+        uses: tj-actions/changed-files@e9772d140489982e0e3704fea5ee93d536f1e275
+        with:
+          files: "dotnetv4/**/*.{cs,sln,csproj,json}"
+      - name: Build check v4
+        if: steps.changed-files-v4.outputs.any_changed == 'true'
+        run: |
+          cd dotnetv4
+          dotnet build -v=q --property WarningLevel=0 /clp:ErrorsOnly
+      - name: Lint and format check v4
+        if: steps.changed-files-v4.outputs.any_changed == 'true' && (success() || failure())
+        run: |
+          cd dotnetv4
+          dotnet format --verify-no-changes
+      

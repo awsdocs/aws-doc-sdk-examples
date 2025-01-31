@@ -33,15 +33,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a topic](zcl_aws1_sns_actions.clas.abap#L65) (`CreateTopic`)
-- [Delete a subscription](zcl_aws1_sns_actions.clas.abap#L218) (`Unsubscribe`)
-- [Delete a topic](zcl_aws1_sns_actions.clas.abap#L82) (`DeleteTopic`)
-- [Get the properties of a topic](zcl_aws1_sns_actions.clas.abap#L99) (`GetTopicAttributes`)
-- [List the subscribers of a topic](zcl_aws1_sns_actions.clas.abap#L117) (`ListSubscriptions`)
-- [List topics](zcl_aws1_sns_actions.clas.abap#L135) (`ListTopics`)
-- [Publish to a topic](zcl_aws1_sns_actions.clas.abap#L153) (`Publish`)
-- [Set topic attributes](zcl_aws1_sns_actions.clas.abap#L173) (`SetTopicAttributes`)
-- [Subscribe an email address to a topic](zcl_aws1_sns_actions.clas.abap#L194) (`Subscribe`)
+- [CreateTopic](zcl_aws1_sns_actions.clas.abap#L65)
+- [DeleteTopic](zcl_aws1_sns_actions.clas.abap#L82)
+- [GetTopicAttributes](zcl_aws1_sns_actions.clas.abap#L99)
+- [ListSubscriptions](zcl_aws1_sns_actions.clas.abap#L117)
+- [ListTopics](zcl_aws1_sns_actions.clas.abap#L135)
+- [Publish](zcl_aws1_sns_actions.clas.abap#L153)
+- [SetTopicAttributes](zcl_aws1_sns_actions.clas.abap#L173)
+- [Subscribe](zcl_aws1_sns_actions.clas.abap#L194)
+- [Unsubscribe](zcl_aws1_sns_actions.clas.abap#L218)
 
 ### Scenarios
 

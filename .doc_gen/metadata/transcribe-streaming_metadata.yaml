@@ -1,0 +1,96 @@
+# zexi 0.4.3
+
+transcribe-streaming_StartStreamTranscription:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe-streaming
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.java-streaming-demo
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/transcribe-streaming
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.cpp.stream_transcription_async.code
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/transcribe-streaming
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.transcribe-streaming.StartStreamTranscription
+  services:
+    transcribe-streaming: {StartStreamTranscription}
+transcribe-streaming_StartMedicalStreamTranscription:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe-streaming
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.java-medical-streaming-demo
+  services:
+    transcribe-streaming: {StartMedicalStreamTranscription}
+transcribe-streaming_Scenario_StreamEvents_File:
+  title: Generate a transcription of a file using an &AWS; SDK
+  title_abbrev: Transcribe an audio file
+  synopsis: generate a transcription of a source audio file using &TSC; streaming.
+  category: Scenarios
+  languages:
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/transcribe-streaming
+          sdkguide:
+          excerpts:
+            - description: Use &TSC; streaming to transcribe the spoken language in an audio file.
+              snippet_tags:
+                - swift.transcribe-streaming.all
+                - swift.transcribe-streaming.transcribeerror
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe-streaming
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.java-streaming-demo-file.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/transcribe-streaming
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.cpp.stream_transcription_async.code
+  services:
+    transcribe-streaming: {StartStreamTranscription}
+transcribe-streaming_Scenario_StreamEvents_Microphone:
+  title: Generate a transcription from a microphone using an &AWS; SDK
+  title_abbrev: Transcribe audio from a microphone
+  synopsis: generate a transcription from a microphone using &TSC; streaming.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe-streaming
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.java-streaming-demo
+  services:
+    transcribe-streaming: {StartStreamTranscription}

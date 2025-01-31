@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <topicArn> <lambdaArn>
@@ -38,14 +37,17 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[sns.kotlin.SubscribeLambda.main]
-suspend fun subLambda(topicArnVal: String?, lambdaArn: String?) {
-
-    val request = SubscribeRequest {
-        protocol = "lambda"
-        endpoint = lambdaArn
-        returnSubscriptionArn = true
-        topicArn = topicArnVal
-    }
+suspend fun subLambda(
+    topicArnVal: String?,
+    lambdaArn: String?,
+) {
+    val request =
+        SubscribeRequest {
+            protocol = "lambda"
+            endpoint = lambdaArn
+            returnSubscriptionArn = true
+            topicArn = topicArnVal
+        }
 
     SnsClient { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.subscribe(request)

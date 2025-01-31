@@ -44,7 +44,7 @@ impl GlueScenario {
             .arguments(
                 "--input_table",
                 self.tables
-                    .get(0)
+                    .first()
                     .ok_or_else(|| GlueMvpError::Unknown("Missing crawler table".into()))?
                     .name(),
             )

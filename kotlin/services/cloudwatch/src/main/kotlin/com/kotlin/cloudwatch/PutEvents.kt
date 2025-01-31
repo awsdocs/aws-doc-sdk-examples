@@ -9,6 +9,7 @@ import aws.sdk.kotlin.services.cloudwatchevents.model.PutEventsRequest
 import aws.sdk.kotlin.services.cloudwatchevents.model.PutEventsRequestEntry
 import kotlin.system.exitProcess
 // snippet-end:[cloudwatch.kotlin.put_events.import]
+
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
@@ -17,7 +18,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <resourceArn>
@@ -37,18 +37,19 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudwatch.kotlin.put_events.main]
 suspend fun putCWEvents(resourceArn: String) {
-
     val eventDetails = "{ \"key1\": \"value1\", \"key2\": \"value2\" }"
-    val requestEntry = PutEventsRequestEntry {
-        detail = eventDetails
-        detailType = "sampleSubmitted"
-        resources = listOf(resourceArn)
-        source = "aws-sdk-java-cloudwatch-example"
-    }
+    val requestEntry =
+        PutEventsRequestEntry {
+            detail = eventDetails
+            detailType = "sampleSubmitted"
+            resources = listOf(resourceArn)
+            source = "aws-sdk-java-cloudwatch-example"
+        }
 
-    val request = PutEventsRequest {
-        entries = listOf(requestEntry)
-    }
+    val request =
+        PutEventsRequest {
+            entries = listOf(requestEntry)
+        }
 
     CloudWatchEventsClient { region = "us-west-2" }.use { cwe ->
         cwe.putEvents(request)

@@ -33,14 +33,14 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Associate a key with a log group](AssociateKmsKeyExample/AssociateKmsKey.cs#L6) (`AssociateKmsKey`)
-- [Cancel an export task](CancelExportTaskExample/CancelExportTask.cs#L6) (`CancelExportTask`)
-- [Create a log group](CreateLogGroupExample/CreateLogGroup.cs#L6) (`CreateLogGroup`)
-- [Create a new log stream](CreateLogStreamExample/CreateLogStream.cs#L6) (`CreateLogStream`)
-- [Create an export task](CreateExportTaskExample/CreateExportTask.cs#L6) (`CreateExportTask`)
-- [Delete a log group](DeleteLogGroupExample/DeleteLogGroup.cs#L6) (`DeleteLogGroup`)
-- [Describe export tasks](DescribeExportTasksExample/DescribeExportTasks.cs#L6) (`DescribeExportTasks`)
-- [Describe log groups](DescribeLogGroupsExample/DescribeLogGroups.cs#L6) (`DescribeLogGroups`)
+- [AssociateKmsKey](AssociateKmsKeyExample/AssociateKmsKey.cs#L6)
+- [CancelExportTask](CancelExportTaskExample/CancelExportTask.cs#L6)
+- [CreateExportTask](CreateExportTaskExample/CreateExportTask.cs#L6)
+- [CreateLogGroup](CreateLogGroupExample/CreateLogGroup.cs#L6)
+- [CreateLogStream](CreateLogStreamExample/CreateLogStream.cs#L6)
+- [DeleteLogGroup](DeleteLogGroupExample/DeleteLogGroup.cs#L6)
+- [DescribeExportTasks](DescribeExportTasksExample/DescribeExportTasks.cs#L6)
+- [DescribeLogGroups](DescribeLogGroupsExample/DescribeLogGroups.cs#L6)
 
 
 <!--custom.examples.start-->

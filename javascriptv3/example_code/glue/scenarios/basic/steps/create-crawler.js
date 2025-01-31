@@ -12,6 +12,9 @@ const crawlerExists = async ({ getCrawler }, crawlerName) => {
   }
 };
 
+/**
+ * @param {{ createCrawler: import('../../../actions/create-crawler.js').createCrawler}} actions
+ */
 const makeCreateCrawlerStep = (actions) => async (context) => {
   if (await crawlerExists(actions, process.env.CRAWLER_NAME)) {
     log("Crawler already exists. Skipping creation.");
@@ -21,7 +24,7 @@ const makeCreateCrawlerStep = (actions) => async (context) => {
       process.env.ROLE_NAME,
       process.env.DATABASE_NAME,
       process.env.TABLE_PREFIX,
-      process.env.S3_TARGET_PATH
+      process.env.S3_TARGET_PATH,
     );
 
     log("Crawler created successfully.", { type: "success" });

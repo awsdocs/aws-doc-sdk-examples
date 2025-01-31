@@ -38,31 +38,26 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a response from an AWS service integrated with a method](aws_service/aws_service.py#L25) (`PutIntegrationResponse`)
-- [Add an HTTP method to a REST resource](aws_service/aws_service.py#L25) (`PutMethod`)
-- [Add an HTTP response to a REST resource](aws_service/aws_service.py#L25) (`PutMethodResponse`)
-- [Create a REST API](aws_service/aws_service.py#L43) (`CreateRestApi`)
-- [Create a REST resource](aws_service/aws_service.py#L77) (`CreateResource`)
-- [Delete a REST API](aws_service/aws_service.py#L260) (`DeleteRestApi`)
-- [Deploy a REST API](aws_service/aws_service.py#L189) (`CreateDeployment`)
-- [Get REST resources](aws_service/aws_service.py#L25) (`GetResources`)
-- [Integrate a method with an AWS service](aws_service/aws_service.py#L100) (`PutIntegration`)
-- [List REST APIs](aws_service/aws_service.py#L231) (`GetRestApis`)
+- [CreateDeployment](aws_service/aws_service.py#L189)
+- [CreateResource](aws_service/aws_service.py#L77)
+- [CreateRestApi](aws_service/aws_service.py#L43)
+- [DeleteRestApi](aws_service/aws_service.py#L260)
+- [GetResources](aws_service/aws_service.py#L25)
+- [GetRestApis](aws_service/aws_service.py#L231)
+- [PutIntegration](aws_service/aws_service.py#L100)
+- [PutIntegrationResponse](aws_service/aws_service.py#L25)
+- [PutMethod](aws_service/aws_service.py#L25)
+- [PutMethodResponse](aws_service/aws_service.py#L25)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create and deploy a REST API](aws_service/aws_service.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
 - [Create a REST API to track COVID-19 data](../../cross_service/apigateway_covid-19_tracker)
 - [Create a lending library REST API](../../cross_service/aurora_rest_lending_library)
 - [Create a websocket chat application](../../cross_service/apigateway_websocket_chat)
+- [Create and deploy a REST API](aws_service/aws_service.py)
 - [Use API Gateway to invoke a Lambda function](../../example_code/lambda)
 
 
@@ -78,6 +73,42 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.end-->
 
 
+
+#### Create a REST API to track COVID-19 data
+
+This example shows you how to create a REST API that simulates a system to track daily cases of COVID-19 in the United States, using fictional data.
+
+
+<!--custom.scenario_prereqs.cross_ApiGatewayDataTracker.start-->
+<!--custom.scenario_prereqs.cross_ApiGatewayDataTracker.end-->
+
+
+<!--custom.scenarios.cross_ApiGatewayDataTracker.start-->
+<!--custom.scenarios.cross_ApiGatewayDataTracker.end-->
+
+#### Create a lending library REST API
+
+This example shows you how to create a lending library where patrons can borrow and return books by using a REST API backed by an Amazon Aurora database.
+
+
+<!--custom.scenario_prereqs.cross_AuroraRestLendingLibrary.start-->
+<!--custom.scenario_prereqs.cross_AuroraRestLendingLibrary.end-->
+
+
+<!--custom.scenarios.cross_AuroraRestLendingLibrary.start-->
+<!--custom.scenarios.cross_AuroraRestLendingLibrary.end-->
+
+#### Create a websocket chat application
+
+This example shows you how to create a chat application that is served by a websocket API built on Amazon API Gateway.
+
+
+<!--custom.scenario_prereqs.cross_ApiGatewayWebsocketChat.start-->
+<!--custom.scenario_prereqs.cross_ApiGatewayWebsocketChat.end-->
+
+
+<!--custom.scenarios.cross_ApiGatewayWebsocketChat.start-->
+<!--custom.scenarios.cross_ApiGatewayWebsocketChat.end-->
 
 #### Create and deploy a REST API
 
@@ -102,6 +133,18 @@ python aws_service/aws_service.py
 For additional instructions on how to set up and run this example, see the 
 [README](aws_service/README.md) in the `aws_service` folder.
 <!--custom.scenarios.api-gateway_Usage_CreateDeployRest.end-->
+
+#### Use API Gateway to invoke a Lambda function
+
+This example shows you how to create an AWS Lambda function invoked by Amazon API Gateway.
+
+
+<!--custom.scenario_prereqs.cross_LambdaAPIGateway.start-->
+<!--custom.scenario_prereqs.cross_LambdaAPIGateway.end-->
+
+
+<!--custom.scenarios.cross_LambdaAPIGateway.start-->
+<!--custom.scenarios.cross_LambdaAPIGateway.end-->
 
 ### Tests
 

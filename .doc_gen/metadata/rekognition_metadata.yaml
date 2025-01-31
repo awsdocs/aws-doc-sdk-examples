@@ -1,9 +1,24 @@
 # zexi 0.4.0
+rekognition_Hello:
+  title: Hello &REK;
+  title_abbrev: Hello &REK;
+  synopsis: get started using &REK;.
+  category: Hello
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/rekognition/hello_rekognition
+          excerpts:
+            - description: Code for the CMakeLists.txt CMake file.
+              snippet_tags:
+                - cpp.example_code.rekognition.hello_rekognition.cmake
+            - description: Code for the hello_rekognition.cpp source file.
+              snippet_tags:
+                - cpp.example_code.rekognition.hello_rekognition
+  services:
+    rekognition: {ListCollections}
 rekognition_DescribeCollection:
-  title: Describe an &REK; collection using an &AWS; SDK
-  title_abbrev: Describe a collection
-  synopsis: describe an &REK; collection.
-  category:
   guide_topic:
     title: Describing a collection
     url: rekognition/latest/dg/describe-collection-procedure.html
@@ -23,7 +38,7 @@ rekognition_DescribeCollection:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.describe_collection.main
     Java:
@@ -48,10 +63,6 @@ rekognition_DescribeCollection:
   services:
     rekognition: {DescribeCollection}
 rekognition_DeleteCollection:
-  title: Delete an &REK; collection using an &AWS; SDK
-  title_abbrev: Delete a collection
-  synopsis: delete an &REK; collection.
-  category:
   guide_topic:
     title: Deleting a collection
     url: rekognition/latest/dg/delete-collection-procedure.html
@@ -71,7 +82,7 @@ rekognition_DeleteCollection:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.delete_collection.main
     Java:
@@ -96,10 +107,6 @@ rekognition_DeleteCollection:
   services:
     rekognition: {DeleteCollection}
 rekognition_IndexFaces:
-  title: Index faces to an &REK; collection using an &AWS; SDK
-  title_abbrev: Index faces to a collection
-  synopsis: index faces in an image and add them to an &REK; collection.
-  category:
   guide_topic:
     title: Adding faces to a collection
     url: rekognition/latest/dg/add-faces-to-collection-procedure.html
@@ -119,7 +126,7 @@ rekognition_IndexFaces:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.add_faces_collection.main
     Java:
@@ -144,10 +151,6 @@ rekognition_IndexFaces:
   services:
     rekognition: {IndexFaces}
 rekognition_ListFaces:
-  title: List faces in an &REK; collection using an &AWS; SDK
-  title_abbrev: List faces in a collection
-  synopsis: list faces in an &REK; collection.
-  category:
   guide_topic:
     title: Listing faces in a collection
     url: rekognition/latest/dg/list-faces-in-collection-procedure.html
@@ -167,7 +170,7 @@ rekognition_ListFaces:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.list_faces_collection.main
     Java:
@@ -192,10 +195,6 @@ rekognition_ListFaces:
   services:
     rekognition: {ListFaces}
 rekognition_SearchFacesByImage:
-  title: Search for faces in an &REK; collection compared to a reference image using an &AWS; SDK
-  title_abbrev: Search for faces in a collection compared to a reference image
-  synopsis: search for faces in an &REK; collection compared to a reference image.
-  category:
   guide_topic:
     title: Searching for a face (image)
     url: rekognition/latest/dg/search-face-with-image-procedure.html
@@ -231,10 +230,6 @@ rekognition_SearchFacesByImage:
   services:
     rekognition: {SearchFacesByImage}
 rekognition_SearchFaces:
-  title: Search for faces in an &REK; collection using an &AWS; SDK
-  title_abbrev: Search for faces in a collection
-  synopsis: search for faces in an &REK; collection that match another face from the collection.
-  category:
   guide_topic:
     title: Searching for a face (face ID)
     url: rekognition/latest/dg/search-face-with-id-procedure.html
@@ -270,10 +265,6 @@ rekognition_SearchFaces:
   services:
     rekognition: {SearchFaces}
 rekognition_DeleteFaces:
-  title: Delete faces from an &REK; collection using an &AWS; SDK
-  title_abbrev: Delete faces from a collection
-  synopsis: delete faces from an &REK; collection.
-  category:
   guide_topic:
     title: Deleting faces from a collection
     url: rekognition/latest/dg/delete-faces-procedure.html
@@ -293,7 +284,7 @@ rekognition_DeleteFaces:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.delete_faces_collection.main
     Java:
@@ -318,10 +309,6 @@ rekognition_DeleteFaces:
   services:
     rekognition: {DeleteFaces}
 rekognition_CreateCollection:
-  title: Create an &REK; collection using an &AWS; SDK
-  title_abbrev: Create a collection
-  synopsis: create an &REK; collection.
-  category:
   guide_topic:
     title: Creating a collection
     url: rekognition/latest/dg/create-collection-procedure.html
@@ -341,7 +328,7 @@ rekognition_CreateCollection:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.create_collection.main
     Java:
@@ -366,10 +353,6 @@ rekognition_CreateCollection:
   services:
     rekognition: {CreateCollection}
 rekognition_ListCollections:
-  title: List &REK; collections using an &AWS; SDK
-  title_abbrev: List collections
-  synopsis: list &REK; collections.
-  category:
   guide_topic:
     title: Listing collections
     url: rekognition/latest/dg/list-collection-procedure.html
@@ -389,7 +372,7 @@ rekognition_ListCollections:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.list_collections.main
     Java:
@@ -449,17 +432,13 @@ rekognition_Usage_FindFacesInCollection:
                 - python.example_code.rekognition.SearchFaces
                 - python.example_code.rekognition.SearchFacesByImage
                 - python.example_code.rekognition.helper.RekognitionFace
-            - description: Use the wrapper classes to build a collection of faces from a
-                set of images and then search for faces in the collection.
+            - description: Use the wrapper classes to build a collection of faces from a set of images and then search for
+                faces in the collection.
               snippet_tags:
                 - python.example_code.rekognition.Usage_FindFacesInCollection
   services:
     rekognition: {}
 rekognition_DetectFaces:
-  title: Detect faces in an image with &REK; using an &AWS; SDK
-  title_abbrev: Detect faces in an image
-  synopsis: detect faces in an image with &REK;.
-  category:
   guide_topic:
     title: Detecting faces in an image
     url: rekognition/latest/dg/faces-detect-images.html
@@ -482,7 +461,7 @@ rekognition_DetectFaces:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.detect_faces.main
     Java:
@@ -507,10 +486,6 @@ rekognition_DetectFaces:
   services:
     rekognition: {DetectFaces}
 rekognition_CompareFaces:
-  title: Compare faces in an image against a reference image with &REK; using an &AWS; SDK
-  title_abbrev: Compare faces in an image against a reference image
-  synopsis: compare faces in an image against a reference image with &REK;.
-  category:
   guide_topic:
     title: Comparing faces in images
     url: rekognition/latest/dg/faces-comparefaces.html
@@ -530,7 +505,7 @@ rekognition_CompareFaces:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.compare_faces.main
     Java:
@@ -555,10 +530,6 @@ rekognition_CompareFaces:
   services:
     rekognition: {CompareFaces}
 rekognition_DetectLabels:
-  title: Detect labels in an image with &REK; using an &AWS; SDK
-  title_abbrev: Detect labels in an image
-  synopsis: detect labels in an image with &REK;.
-  category:
   guide_topic:
     title: Detecting labels in an image
     url: rekognition/latest/dg/labels-detect-labels-image.html
@@ -581,7 +552,7 @@ rekognition_DetectLabels:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.detect_labels.main
     Java:
@@ -603,14 +574,17 @@ rekognition_DetectLabels:
               snippet_tags:
                 - python.example_code.rekognition.RekognitionImage
                 - python.example_code.rekognition.DetectLabels
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/rekognition
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.rekognition.DetectLabels
   services:
     rekognition: {DetectLabels}
 rekognition_DetectModerationLabels:
-  title: Detect moderation labels in an image with &REK; using an &AWS; SDK
-  title_abbrev: Detect moderation labels in an image
-  synopsis: detect moderation labels in an image with &REK;. Moderation labels
-    identify content that may be inappropriate for some audiences.
-  category:
   guide_topic:
     title: Detecting inappropriate images
     url: rekognition/latest/dg/procedure-moderate-images.html
@@ -630,7 +604,7 @@ rekognition_DetectModerationLabels:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.detect_mod_labels.main
     Java:
@@ -655,10 +629,6 @@ rekognition_DetectModerationLabels:
   services:
     rekognition: {DetectModerationLabels}
 rekognition_DetectText:
-  title: Detect text in an image with &REK; using an &AWS; SDK
-  title_abbrev: Detect text in an image
-  synopsis: detect text in an image with &REK;.
-  category:
   guide_topic:
     title: Detecting text in an image
     url: rekognition/latest/dg/text-detecting-text-procedure.html
@@ -678,7 +648,7 @@ rekognition_DetectText:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.detect_text.main
     Java:
@@ -703,10 +673,6 @@ rekognition_DetectText:
   services:
     rekognition: {DetectText}
 rekognition_RecognizeCelebrities:
-  title: Recognize celebrities in an image with &REK; using an &AWS; SDK
-  title_abbrev: Recognize celebrities in an image
-  synopsis: recognize celebrities in an image with &REK;.
-  category:
   guide_topic:
     title: Recognizing celebrities in an image
     url: rekognition/latest/dg/celebrities-procedure-image.html
@@ -726,7 +692,7 @@ rekognition_RecognizeCelebrities:
           github: kotlin/services/rekognition
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - rekognition.kotlin.recognize_celebs.main
     Java:
@@ -792,18 +758,13 @@ rekognition_Usage_DetectAndDisplayImage:
                 - python.example_code.rekognition.helper.RekognitionLabel
                 - python.example_code.rekognition.helper.RekognitionModerationLabel
                 - python.example_code.rekognition.helper.RekognitionText
-            - description: Use the wrapper classes to detect elements in images and
-                display their bounding boxes. The images used in this example can be
-                found on GitHub along with instructions and more code.
+            - description: Use the wrapper classes to detect elements in images and display their bounding boxes. The images
+                used in this example can be found on GitHub along with instructions and more code.
               snippet_tags:
                 - python.example_code.rekognition.Usage_ImageDetection
   services:
     rekognition: {}
 rekognition_GetCelebrityInfo:
-  title: Get information about celebrities with &REK; using an &AWS; SDK
-  title_abbrev: Get information about celebrities
-  synopsis: get information about celebrities using &REK;.
-  category:
   languages:
     .NET:
       versions:
@@ -851,21 +812,20 @@ rekognition_VideoDetection:
                 - rekognition.java2.recognize_video_detect.main
             - description: Detect faces in a video stored in an &S3; bucket.
               snippet_tags:
-                - rekognition.java2.recognize_video_detect.main 
+                - rekognition.java2.recognize_video_detect.main
             - description: Detect inappropriate or offensive content in a video stored in an &S3; bucket.
               snippet_tags:
-                - rekognition.java2.recognize_video_moderation.main 
+                - rekognition.java2.recognize_video_moderation.main
             - description: Detect technical cue segments and shot detection segments in a video stored in an &S3; bucket.
               snippet_tags:
-                - rekognition.java2.recognize_video_segments.main 
+                - rekognition.java2.recognize_video_segments.main
             - description: Detect text in a video stored in a video stored in an &S3; bucket.
               snippet_tags:
-                - rekognition.java2.recognize_video_text.main 
+                - rekognition.java2.recognize_video_text.main
             - description: Detect people in a video stored in a video stored in an &S3; bucket.
               snippet_tags:
-                - rekognition.java2.recognize_video_person.main     
+                - rekognition.java2.recognize_video_person.main
   services:
-    rekognition: {GetCelebrityRecognition, GetContentModeration, GetLabelDetection, GetPersonTracking,
-                  GetSegmentDetection, GetTextDetection, StartCelebrityRecognition,
-                  StartContentModeration, StartLabelDetection, StartPersonTracking,
-                  StartSegmentDetection, StartTextDetection}
+    rekognition: {GetCelebrityRecognition, GetContentModeration, GetLabelDetection, GetPersonTracking, GetSegmentDetection,
+                  GetTextDetection, StartCelebrityRecognition, StartContentModeration, StartLabelDetection, StartPersonTracking, StartSegmentDetection,
+                  StartTextDetection}

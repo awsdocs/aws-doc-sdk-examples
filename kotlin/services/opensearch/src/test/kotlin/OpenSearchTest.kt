@@ -27,22 +27,25 @@ class OpenSearchTest {
 
     @Test
     @Order(1)
-    fun createDomainTest() = runBlocking {
-        createNewDomain(domainName)
-        println("Test 1 passed")
-    }
+    fun createDomainTest() =
+        runBlocking {
+            createNewDomain(domainName)
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun listDomainNamesTest() = runBlocking {
-        listAllDomains()
-        println("Test 2 passed")
-    }
+    fun listDomainNamesTest() =
+        runBlocking {
+            listAllDomains()
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun deleteDomainTest() = runBlocking {
-        deleteSpecificDomain(domainName)
-        println("Test 4 passed")
-    }
+    fun deleteDomainTest() =
+        runBlocking {
+            deleteSpecificDomain(domainName)
+            println("Test 4 passed")
+        }
 }

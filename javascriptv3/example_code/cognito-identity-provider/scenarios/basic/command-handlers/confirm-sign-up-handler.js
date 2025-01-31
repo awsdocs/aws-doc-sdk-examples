@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /** snippet-start:[javascript.v3.cognito-idp.scenarios.basic.ConfirmSignUpHandler] **/
-import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import { confirmSignUp } from "../../../actions/confirm-sign-up.js";
 import { FILE_USER_POOLS } from "./constants.js";
 import { getSecondValuesFromEntries } from "@aws-doc-sdk-examples/lib/utils/util-csv.js";
@@ -43,13 +43,13 @@ const confirmSignUpHandler = async (commands) => {
     const values = getSecondValuesFromEntries(FILE_USER_POOLS);
     const clientId = values[0];
     validateClient(clientId);
-    log(`Confirming user.`);
+    logger.log("Confirming user.");
     await confirmSignUp({ clientId, username, code });
-    log(
+    logger.log(
       `User confirmed. Run 'admin-initiate-auth ${username} <password>' to sign in.`,
     );
   } catch (err) {
-    log(err);
+    logger.error(err);
   }
 };
 

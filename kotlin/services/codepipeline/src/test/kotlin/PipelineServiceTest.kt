@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -31,65 +30,76 @@ class PipelineServiceTest {
     private var s3OutputBucket: String = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get values from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values: SecretValues = gson.fromJson(json, SecretValues::class.java)
-        name = values.name.toString()
-        roleArn = values.role.toString()
-        s3Bucket = values.s3Bucket.toString()
-        s3OutputBucket = values.s3OutputBucket.toString()
-    }
+    fun setup() =
+        runBlocking {
+            // Get values from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values: SecretValues = gson.fromJson(json, SecretValues::class.java)
+            name = values.name.toString()
+            roleArn = values.role.toString()
+            s3Bucket = values.s3Bucket.toString()
+            s3OutputBucket = values.s3OutputBucket.toString()
+        }
 
     @Test
     @Order(1)
-    fun createPipelineTest() = runBlocking {
-        createNewPipeline(name, roleArn, s3Bucket, s3OutputBucket)
-        println("\n Test 1 passed")
-    }
+    fun createPipelineTest() =
+        runBlocking {
+            createNewPipeline(name, roleArn, s3Bucket, s3OutputBucket)
+            println("\n Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun startPipelineExecutionTest() = runBlocking {
-        executePipeline(name)
-        println("Test 2 passed")
-    }
+    fun startPipelineExecutionTest() =
+        runBlocking {
+            executePipeline(name)
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun listPipelinesTest() = runBlocking {
-        getAllPipelines()
-        println("Test 3 passed")
-    }
+    fun listPipelinesTest() =
+        runBlocking {
+            getAllPipelines()
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun getPipelineTest() = runBlocking {
-        getSpecificPipeline(name)
-        println("Test 4 passed")
-    }
+    fun getPipelineTest() =
+        runBlocking {
+            getSpecificPipeline(name)
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun listPipelineExecutionsTest() = runBlocking {
-        listExecutions(name)
-        println("Test 5 passed")
-    }
+    fun listPipelineExecutionsTest() =
+        runBlocking {
+            listExecutions(name)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun deletePipelineTest() = runBlocking {
-        deleteSpecificPipeline(name)
-        println("Test 6 passed")
-    }
+    fun deletePipelineTest() =
+        runBlocking {
+            deleteSpecificPipeline(name)
+            println("Test 6 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/pipeline"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

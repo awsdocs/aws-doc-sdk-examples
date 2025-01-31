@@ -33,17 +33,18 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Describe a translation job](DescribeTextTranslationExample/DescribeTextTranslation.cs#L6) (`DescribeTextTranslationJob`)
-- [List translation jobs](ListTranslationJobsExample/ListTranslationJobs.cs#L6) (`ListTextTranslationJobs`)
-- [Start a translation job](BatchTranslateExample/BatchTranslate.cs#L6) (`StartTextTranslationJob`)
-- [Stop a translation job](StopTextTranslationJobExample/StopTextTranslationJob.cs#L6) (`StopTextTranslationJob`)
-- [Translate text](TranslateTextExample/TranslateText.cs#L6) (`TranslateText`)
+- [DescribeTextTranslationJob](DescribeTextTranslationExample/DescribeTextTranslation.cs#L6)
+- [ListTextTranslationJobs](ListTranslationJobsExample/ListTranslationJobs.cs#L6)
+- [StartTextTranslationJob](BatchTranslateExample/BatchTranslate.cs#L6)
+- [StopTextTranslationJob](StopTextTranslationJobExample/StopTextTranslationJob.cs#L6)
+- [TranslateText](TranslateTextExample/TranslateText.cs#L6)
 
-### Cross-service examples
+### Scenarios
 
-Sample applications that work across multiple AWS services.
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
-- [Building an Amazon SNS application](../cross_service/SubscribePublishTranslate)
+- [Building an Amazon SNS application](../cross-service/SubscribePublishTranslate)
 - [Create an application to analyze customer feedback](../cross-service/FeedbackSentimentAnalyzer)
 
 
@@ -76,6 +77,30 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.end-->
 
 
+
+#### Building an Amazon SNS application
+
+This example shows you how to create an application that has subscription and publish functionality and translates messages.
+
+
+<!--custom.scenario_prereqs.cross_SnsPublishSubscription.start-->
+<!--custom.scenario_prereqs.cross_SnsPublishSubscription.end-->
+
+
+<!--custom.scenarios.cross_SnsPublishSubscription.start-->
+<!--custom.scenarios.cross_SnsPublishSubscription.end-->
+
+#### Create an application to analyze customer feedback
+
+This example shows you how to create an application that analyzes customer comment cards, translates them from their original language, determines their sentiment, and generates an audio file from the translated text.
+
+
+<!--custom.scenario_prereqs.cross_FSA.start-->
+<!--custom.scenario_prereqs.cross_FSA.end-->
+
+
+<!--custom.scenarios.cross_FSA.start-->
+<!--custom.scenarios.cross_FSA.end-->
 
 ### Tests
 

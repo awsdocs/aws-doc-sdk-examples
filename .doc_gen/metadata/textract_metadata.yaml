@@ -1,9 +1,5 @@
 # zexi 0.4.0
 textract_AnalyzeDocument:
-  title: Analyze a document using &TEXTRACT; and an &AWS; SDK
-  title_abbrev: Analyze a document
-  synopsis: analyze a document using &TEXTRACTlong;.
-  category:
   languages:
     Java:
       versions:
@@ -35,10 +31,6 @@ textract_AnalyzeDocument:
   services:
     textract: {AnalyzeDocument}
 textract_DetectDocumentText:
-  title: Detect text in a document using &TEXTRACT; and an &AWS; SDK
-  title_abbrev: Detect text in a document
-  synopsis: detect text in a document using &TEXTRACTlong;.
-  category:
   languages:
     Java:
       versions:
@@ -73,10 +65,6 @@ textract_DetectDocumentText:
   services:
     textract: {DetectDocumentText}
 textract_StartDocumentAnalysis:
-  title: Start asynchronous analysis of a document using &TEXTRACT; and an &AWS; SDK
-  title_abbrev: Start asynchronous analysis of a document
-  synopsis: start asynchronous analysis of a document using &TEXTRACTlong;.
-  category:
   languages:
     Java:
       versions:
@@ -108,10 +96,6 @@ textract_StartDocumentAnalysis:
   services:
     textract: {StartDocumentAnalysis}
 textract_StartDocumentTextDetection:
-  title: Start asynchronous text detection using &TEXTRACT; and an &AWS; SDK
-  title_abbrev: Start asynchronous text detection
-  synopsis: start asynchronous text detection in a document using &TEXTRACT;.
-  category:
   languages:
     Python:
       versions:
@@ -135,10 +119,6 @@ textract_StartDocumentTextDetection:
   services:
     textract: {StartDocumentTextDetection}
 textract_GetDocumentAnalysis:
-  title: Get data about an &TEXTRACT; document analysis job using an &AWS; SDK
-  title_abbrev: Get data about a document analysis job
-  synopsis: get data about an &TEXTRACT; document analysis job.
-  category:
   languages:
     Python:
       versions:

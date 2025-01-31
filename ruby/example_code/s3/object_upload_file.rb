@@ -6,7 +6,7 @@
 # Shows how to use a managed uploader to upload an object to an Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[s3.ruby.upload_files_using_managed_file_uploader.rb]
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # Wraps Amazon S3 object actions.
 class ObjectUploadFileWrapper
@@ -32,7 +32,7 @@ end
 
 # Example usage:
 def run_demo
-  bucket_name = "doc-example-bucket"
+  bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-uploaded-file"
   file_path = "object_upload_file.rb"
 

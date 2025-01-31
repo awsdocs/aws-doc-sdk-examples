@@ -77,7 +77,7 @@ impl<'a> ZipUpload<'a> {
         let key = self.key;
 
         let body = ByteStream::read_from()
-            .file(zip.try_into()?)
+            .file(zip.into())
             .buffer_size(4096 * 16)
             .build()
             .await?;

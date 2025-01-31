@@ -34,29 +34,42 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 - [Hello Amazon S3](hello.js#L6) (`ListBuckets`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/basic.js)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add CORS rules to a bucket](actions/put-bucket-cors.js#L6) (`PutBucketCors`)
-- [Add a policy to a bucket](actions/put-bucket-policy.js#L6) (`PutBucketPolicy`)
-- [Copy an object from one bucket to another](actions/copy-object.js#L6) (`CopyObject`)
-- [Create a bucket](actions/create-bucket.js#L6) (`CreateBucket`)
-- [Delete a policy from a bucket](actions/delete-bucket-policy.js#L6) (`DeleteBucketPolicy`)
-- [Delete an empty bucket](actions/delete-bucket.js#L6) (`DeleteBucket`)
-- [Delete an object](actions/delete-object.js#L6) (`DeleteObject`)
-- [Delete multiple objects](actions/delete-objects.js#L6) (`DeleteObjects`)
-- [Delete the website configuration from a bucket](actions/delete-bucket-website.js#L6) (`DeleteBucketWebsite`)
-- [Get CORS rules for a bucket](actions/get-bucket-cors.js#L6) (`GetBucketCors`)
-- [Get an object from a bucket](actions/get-object.js#L6) (`GetObject`)
-- [Get the ACL of a bucket](actions/get-bucket-acl.js#L6) (`GetBucketAcl`)
-- [Get the policy for a bucket](actions/get-bucket-policy.js#L6) (`GetBucketPolicy`)
-- [Get the website configuration for a bucket](actions/get-bucket-website.js#L6) (`GetBucketWebsite`)
-- [List buckets](actions/list-buckets.js#L6) (`ListBuckets`)
-- [List objects in a bucket](actions/list-objects.js#L6) (`ListObjectsV2`)
-- [Set a new ACL for a bucket](actions/put-bucket-acl.js#L6) (`PutBucketAcl`)
-- [Set the website configuration for a bucket](actions/put-bucket-website.js#L6) (`PutBucketWebsite`)
-- [Upload an object to a bucket](actions/put-object.js#L6) (`PutObject`)
+- [CopyObject](actions/copy-object.js#L4)
+- [CreateBucket](actions/create-bucket.js#L4)
+- [DeleteBucket](actions/delete-bucket.js#L4)
+- [DeleteBucketPolicy](actions/delete-bucket-policy.js#L4)
+- [DeleteBucketWebsite](actions/delete-bucket-website.js#L4)
+- [DeleteObject](actions/delete-object.js#L4)
+- [DeleteObjects](actions/delete-objects.js#L4)
+- [GetBucketAcl](actions/get-bucket-acl.js#L4)
+- [GetBucketCors](actions/get-bucket-cors.js#L4)
+- [GetBucketPolicy](actions/get-bucket-policy.js#L4)
+- [GetBucketWebsite](actions/get-bucket-website.js#L4)
+- [GetObject](actions/get-object.js#L4)
+- [GetObjectLegalHold](actions/get-object-legal-hold.js)
+- [GetObjectLockConfiguration](actions/get-object-lock-configuration.js)
+- [GetObjectRetention](actions/get-object-retention.js)
+- [ListBuckets](actions/list-buckets.js#L6)
+- [ListObjectsV2](actions/list-objects.js#L4)
+- [PutBucketAcl](actions/put-bucket-acl.js#L4)
+- [PutBucketCors](actions/put-bucket-cors.js#L4)
+- [PutBucketPolicy](actions/put-bucket-policy.js#L4)
+- [PutBucketWebsite](actions/put-bucket-website.js#L4)
+- [PutObject](actions/put-object.js#L4)
+- [PutObjectLegalHold](actions/put-object-legal-hold.js)
+- [PutObjectLockConfiguration](actions/put-object-lock-configuration.js)
+- [PutObjectRetention](actions/put-object-retention.js)
 
 ### Scenarios
 
@@ -65,7 +78,8 @@ functions within the same service.
 
 - [Create a presigned URL](scenarios/presigned-url-upload.js)
 - [Create a web page that lists Amazon S3 objects](../web/s3/list-objects/src/App.tsx)
-- [Get started with buckets and objects](scenarios/basic.js)
+- [Delete all objects in a bucket](scenarios/delete-all-objects.js)
+- [Lock Amazon S3 objects](scenarios/object-locking/index.js)
 - [Upload or download large files](scenarios/multipart-upload.js)
 
 
@@ -86,10 +100,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 
@@ -108,6 +133,23 @@ This example shows you how to get started using Amazon S3.
 ```bash
 node ./hello.js
 ```
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
 
 
 #### Create a presigned URL
@@ -134,22 +176,29 @@ This example shows you how to list Amazon S3 objects in a web page.
 <!--custom.scenarios.s3_Scenario_ListObjectsWeb.start-->
 <!--custom.scenarios.s3_Scenario_ListObjectsWeb.end-->
 
-#### Get started with buckets and objects
+#### Delete all objects in a bucket
 
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+This example shows you how to delete all of the objects in an Amazon S3 bucket.
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.scenario_prereqs.s3_Scenario_DeleteAllObjects.start-->
+<!--custom.scenario_prereqs.s3_Scenario_DeleteAllObjects.end-->
+
+
+<!--custom.scenarios.s3_Scenario_DeleteAllObjects.start-->
+<!--custom.scenarios.s3_Scenario_DeleteAllObjects.end-->
+
+#### Lock Amazon S3 objects
+
+This example shows you how to work with S3 object lock features.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_ObjectLock.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ObjectLock.end-->
+
+
+<!--custom.scenarios.s3_Scenario_ObjectLock.start-->
+<!--custom.scenarios.s3_Scenario_ObjectLock.end-->
 
 #### Upload or download large files
 

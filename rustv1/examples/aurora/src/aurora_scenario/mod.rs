@@ -193,6 +193,7 @@ impl AuroraScenario {
             .map(|options| {
                 options
                     .iter()
+                    .filter(|o| o.storage_type() == Some("aurora"))
                     .map(|o| o.db_instance_class().unwrap_or_default().to_string())
                     .collect::<Vec<String>>()
             })

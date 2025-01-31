@@ -4,7 +4,7 @@
 import { describe, it } from "vitest";
 import { FoundationModels } from "../config/foundation_models.js";
 import { expectToBeANonEmptyString } from "./test_tools.js";
-import { invokeModel } from "../models/amazon_titan/titan_text.js";
+import { invokeModel } from "../models/amazonTitanText/invoke_model.js";
 
 const TEXT_PROMPT = "Hello, this is a test prompt";
 

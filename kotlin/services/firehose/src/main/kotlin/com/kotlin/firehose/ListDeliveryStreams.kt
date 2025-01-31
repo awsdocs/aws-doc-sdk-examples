@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[firehose.kotlin.list_streams.main]
 suspend fun listStreams() {
-
     FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
         val response = firehoseClient.listDeliveryStreams(ListDeliveryStreamsRequest {})
         response.deliveryStreamNames?.forEach { item ->

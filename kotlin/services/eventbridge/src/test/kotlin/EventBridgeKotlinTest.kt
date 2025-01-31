@@ -25,8 +25,9 @@ class EventBridgeKotlinTest {
 
     @Test
     @Order(1)
-    fun HelloEventBridgeTest() = runBlocking {
-        listBusesHello()
-        println("Test 1 passed")
-    }
+    fun helloEventBridgeTest() =
+        runBlocking {
+            listBusesHello()
+            println("Test 1 passed")
+        }
 }

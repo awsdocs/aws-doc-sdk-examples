@@ -34,33 +34,33 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 - [Hello AWS Glue](hello.js#L6) (`ListJobs`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](actions/create-crawler.js)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](actions/create-crawler.js#L6) (`CreateCrawler`)
-- [Create a job definition](actions/create-job.js#L6) (`CreateJob`)
-- [Delete a crawler](actions/delete-crawler.js#L6) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](actions/delete-database.js#L6) (`DeleteDatabase`)
-- [Delete a job definition](actions/delete-job.js#L6) (`DeleteJob`)
-- [Delete a table from a database](actions/delete-table.js#L6) (`DeleteTable`)
-- [Get a crawler](actions/get-crawler.js#L6) (`GetCrawler`)
-- [Get a database from the Data Catalog](actions/get-database.js#L6) (`GetDatabase`)
-- [Get a job run](actions/get-job-run.js#L6) (`GetJobRun`)
-- [Get databases from the Data Catalog](actions/get-databases.js#L6) (`GetDatabases`)
-- [Get job from the Data Catalog](actions/get-job.js#L6) (`GetJob`)
-- [Get runs of a job](actions/get-job-runs.js#L6) (`GetJobRuns`)
-- [Get tables from a database](actions/get-tables.js#L6) (`GetTables`)
-- [List job definitions](actions/list-jobs.js#L6) (`ListJobs`)
-- [Start a crawler](actions/start-crawler.js#L6) (`StartCrawler`)
-- [Start a job run](actions/start-job-run.js#L6) (`StartJobRun`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with crawlers and jobs](scenarios/basic/steps/start-crawler.js)
+- [CreateCrawler](actions/create-crawler.js#L6)
+- [CreateJob](actions/create-job.js#L6)
+- [DeleteCrawler](actions/delete-crawler.js#L6)
+- [DeleteDatabase](actions/delete-database.js#L6)
+- [DeleteJob](actions/delete-job.js#L6)
+- [DeleteTable](actions/delete-table.js#L6)
+- [GetCrawler](actions/get-crawler.js#L6)
+- [GetDatabase](actions/get-database.js#L6)
+- [GetDatabases](actions/get-databases.js#L6)
+- [GetJob](actions/get-job.js#L6)
+- [GetJobRun](actions/get-job-run.js#L6)
+- [GetJobRuns](actions/get-job-runs.js#L6)
+- [GetTables](actions/get-tables.js#L6)
+- [ListJobs](actions/list-jobs.js#L6)
+- [StartCrawler](actions/start-crawler.js#L6)
+- [StartJobRun](actions/start-job-run.js#L6)
 
 
 <!--custom.examples.start-->
@@ -80,10 +80,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
@@ -96,8 +107,7 @@ This example shows you how to get started using AWS Glue.
 node ./hello.js
 ```
 
-
-#### Get started with crawlers and jobs
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -106,12 +116,13 @@ This example shows you how to do the following:
 - Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another S3 bucket.
 - List information about job runs, view transformed data, and clean up resources.
 
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
 
 
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.start-->
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.end-->
+
 
 ### Tests
 

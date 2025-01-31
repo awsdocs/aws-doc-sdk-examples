@@ -96,7 +96,7 @@ impl AsRef<str> for Email {
     }
 }
 
-impl<'a> From<Email> for Address<'a> {
+impl From<Email> for Address<'_> {
     fn from(email: Email) -> Self {
         email.0.into()
     }

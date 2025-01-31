@@ -3,10 +3,14 @@
 
 package scenarios
 
+// snippet-start:[gov2.s3.Scenario_Presigning.imports]
+
 import (
-	"fmt"
+	"bytes"
+	"context"
 	"io"
 	"log"
+	"mime/multipart"
 	"net/http"
 	"os"
 	"strings"
@@ -17,12 +21,14 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/s3/actions"
 )
 
+// snippet-end:[gov2.s3.Scenario_Presigning.imports]
 // snippet-start:[gov2.s3.IHttpRequester.helper]
 
 // IHttpRequester abstracts HTTP requests into an interface so it can be mocked during
 // unit testing.
 type IHttpRequester interface {
 	Get(url string) (resp *http.Response, err error)
+	Post(url, contentType string, body io.Reader) (resp *http.Response, err error)
 	Put(url string, contentLength int64, body io.Reader) (resp *http.Response, err error)
 	Delete(url string) (resp *http.Response, err error)
 }
@@ -33,6 +39,15 @@ type HttpRequester struct{}
 func (httpReq HttpRequester) Get(url string) (resp *http.Response, err error) {
 	return http.Get(url)
 }
+func (httpReq HttpRequester) Post(url, contentType string, body io.Reader) (resp *http.Response, err error) {
+	postRequest, err := http.NewRequest("POST", url, body)
+	if err != nil {
+		return nil, err
+	}
+	postRequest.Header.Set("Content-Type", contentType)
+	return http.DefaultClient.Do(postRequest)
+}
+
 func (httpReq HttpRequester) Put(url string, contentLength int64, body io.Reader) (resp *http.Response, err error) {
 	putRequest, err := http.NewRequest("PUT", url, body)
 	if err != nil {
@@ -50,6 +65,43 @@ func (httpReq HttpRequester) Delete(url string) (resp *http.Response, err error)
 }
 
 // snippet-end:[gov2.s3.IHttpRequester.helper]
+
+// snippet-start:[gov2.s3.MultipartUpload.helper]
+func sendMultipartRequest(url string, fields map[string]string, file *os.File, filePath string, httpRequester IHttpRequester) (*http.Response, error) {
+	// Create a buffer to hold the multipart data
+	var requestBody bytes.Buffer
+	writer := multipart.NewWriter(&requestBody)
+
+	// Add form fields
+	for key, val := range fields {
+		err := writer.WriteField(key, val)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	// Always has to be named like this, and always has to be the last one
+	fileField := "file"
+	part, err := writer.CreateFormFile(fileField, filePath)
+	if err != nil {
+		return nil, err
+	}
+	_, err = io.Copy(part, file)
+	if err != nil {
+		return nil, err
+	}
+
+	// Close the writer to finalize the multipart message
+	err = writer.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	// make the request
+	return httpRequester.Post(url, writer.FormDataContentType(), &requestBody)
+}
+
+// snippet-end:[gov2.s3.MultipartUpload.helper]
 
 // snippet-start:[gov2.s3.Scenario_Presigning]
 
@@ -73,10 +125,14 @@ func (httpReq HttpRequester) Delete(url string) (resp *http.Response, err error)
 //
 // It uses an IHttpRequester interface to abstract HTTP requests so they can be mocked
 // during testing.
-func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestioner, httpRequester IHttpRequester) {
+func RunPresigningScenario(ctx context.Context, sdkConfig aws.Config, questioner demotools.IQuestioner, httpRequester IHttpRequester) {
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Printf("Something went wrong with the demo.")
+			log.Println("Something went wrong with the demo.")
+			_, isMock := questioner.(*demotools.MockQuestioner)
+			if isMock || questioner.AskBool("Do you want to see the full error message (y/n)?", "y") {
+				log.Println(r)
+			}
 		}
 	}()
 
@@ -91,12 +147,12 @@ func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 
 	bucketName := questioner.Ask("We'll need a bucket. Enter a name for a bucket "+
 		"you own or one you want to create:", demotools.NotEmpty{})
-	bucketExists, err := bucketBasics.BucketExists(bucketName)
+	bucketExists, err := bucketBasics.BucketExists(ctx, bucketName)
 	if err != nil {
 		panic(err)
 	}
 	if !bucketExists {
-		err = bucketBasics.CreateBucket(bucketName, sdkConfig.Region)
+		err = bucketBasics.CreateBucket(ctx, bucketName, sdkConfig.Region)
 		if err != nil {
 			panic(err)
 		} else {
@@ -115,7 +171,7 @@ func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 		panic(err)
 	}
 	defer uploadFile.Close()
-	presignedPutRequest, err := presigner.PutObject(bucketName, uploadKey, 60)
+	presignedPutRequest, err := presigner.PutObject(ctx, bucketName, uploadKey, 60)
 	if err != nil {
 		panic(err)
 	}
@@ -136,7 +192,7 @@ func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 
 	log.Printf("Let's presign a request to download the object.")
 	questioner.Ask("Press Enter when you're ready.")
-	presignedGetRequest, err := presigner.GetObject(bucketName, uploadKey, 60)
+	presignedGetRequest, err := presigner.GetObject(ctx, bucketName, uploadKey, 60)
 	if err != nil {
 		panic(err)
 	}
@@ -159,9 +215,28 @@ func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 	log.Println(string(downloadBody[:100]))
 	log.Println(strings.Repeat("-", 88))
 
+	log.Println("Now we'll create a new request to put the same object using a presigned post request")
+	questioner.Ask("Press Enter when you're ready.")
+	presignPostRequest, err := presigner.PresignPostObject(ctx, bucketName, uploadKey, 60)
+	if err != nil {
+		panic(err)
+	}
+	log.Printf("Got a presigned post request to url %v with values %v\n", presignPostRequest.URL, presignPostRequest.Values)
+	log.Println("Using net/http multipart to send the request...")
+	uploadFile, err = os.Open(uploadFilename)
+	if err != nil {
+		panic(err)
+	}
+	defer uploadFile.Close()
+	multiPartResponse, err := sendMultipartRequest(presignPostRequest.URL, presignPostRequest.Values, uploadFile, uploadKey, httpRequester)
+	if err != nil {
+		panic(err)
+	}
+	log.Printf("Presign post object %v with presigned URL returned %v.", uploadKey, multiPartResponse.StatusCode)
+
 	log.Println("Let's presign a request to delete the object.")
 	questioner.Ask("Press Enter when you're ready.")
-	presignedDelRequest, err := presigner.DeleteObject(bucketName, uploadKey)
+	presignedDelRequest, err := presigner.DeleteObject(ctx, bucketName, uploadKey)
 	if err != nil {
 		panic(err)
 	}

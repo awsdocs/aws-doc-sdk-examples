@@ -16,10 +16,10 @@
 import "bootstrap/dist/css/bootstrap.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import { Config } from "./Config";
-import { awsFactory } from "./AwsFactory";
-import App from "./App";
-import TextractModel from "./TextractModel";
+import { Config } from "./Config.js";
+import { awsFactory } from "./AwsFactory.js";
+import App from "./App.js";
+import TextractModel from "./TextractModel.js";
 
 const params = new URLSearchParams(window.location.hash.slice(1));
 const idToken = params.get("id_token");
@@ -38,11 +38,12 @@ const model = new TextractModel({
 });
 
 const render = () =>
+  // biome-ignore lint/correctness/noRenderReturnValue: Only invalid in new react versions
   ReactDOM.render(
     <React.StrictMode>
       <App model={model} isSignedIn={idToken !== null} config={Config} />
     </React.StrictMode>,
-    document.getElementById("root")
+    document.getElementById("root"),
   );
 
 model.subscribe(render);

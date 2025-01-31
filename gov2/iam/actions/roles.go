@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.iam.RoleWrapper.complete]
+// snippet-start:[gov2.iam.RoleWrapper.struct]
+
 import (
 	"context"
 	"encoding/json"
@@ -12,9 +15,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/iam"
 	"github.com/aws/aws-sdk-go-v2/service/iam/types"
 )
-
-// snippet-start:[gov2.iam.RoleWrapper.complete]
-// snippet-start:[gov2.iam.RoleWrapper.struct]
 
 // RoleWrapper encapsulates AWS Identity and Access Management (IAM) role actions
 // used in the examples.
@@ -28,9 +28,9 @@ type RoleWrapper struct {
 // snippet-start:[gov2.iam.ListRoles]
 
 // ListRoles gets up to maxRoles roles.
-func (wrapper RoleWrapper) ListRoles(maxRoles int32) ([]types.Role, error) {
+func (wrapper RoleWrapper) ListRoles(ctx context.Context, maxRoles int32) ([]types.Role, error) {
 	var roles []types.Role
-	result, err := wrapper.IamClient.ListRoles(context.TODO(),
+	result, err := wrapper.IamClient.ListRoles(ctx,
 		&iam.ListRolesInput{MaxItems: aws.Int32(maxRoles)},
 	)
 	if err != nil {
@@ -49,14 +49,14 @@ func (wrapper RoleWrapper) ListRoles(maxRoles int32) ([]types.Role, error) {
 // the role to acquire its permissions.
 // PolicyDocument shows how to work with a policy document as a data structure and
 // serialize it to JSON by using Go's JSON marshaler.
-func (wrapper RoleWrapper) CreateRole(roleName string, trustedUserArn string) (*types.Role, error) {
+func (wrapper RoleWrapper) CreateRole(ctx context.Context, roleName string, trustedUserArn string) (*types.Role, error) {
 	var role *types.Role
 	trustPolicy := PolicyDocument{
-		Version:   "2012-10-17",
+		Version: "2012-10-17",
 		Statement: []PolicyStatement{{
-			Effect: "Allow",
+			Effect:    "Allow",
 			Principal: map[string]string{"AWS": trustedUserArn},
-			Action: []string{"sts:AssumeRole"},
+			Action:    []string{"sts:AssumeRole"},
 		}},
 	}
 	policyBytes, err := json.Marshal(trustPolicy)
@@ -64,7 +64,7 @@ func (wrapper RoleWrapper) CreateRole(roleName string, trustedUserArn string) (*
 		log.Printf("Couldn't create trust policy for %v. Here's why: %v\n", trustedUserArn, err)
 		return nil, err
 	}
-	result, err := wrapper.IamClient.CreateRole(context.TODO(), &iam.CreateRoleInput{
+	result, err := wrapper.IamClient.CreateRole(ctx, &iam.CreateRoleInput{
 		AssumeRolePolicyDocument: aws.String(string(policyBytes)),
 		RoleName:                 aws.String(roleName),
 	})
@@ -81,9 +81,9 @@ func (wrapper RoleWrapper) CreateRole(roleName string, trustedUserArn string) (*
 // snippet-start:[gov2.iam.GetRole]
 
 // GetRole gets data about a role.
-func (wrapper RoleWrapper) GetRole(roleName string) (*types.Role, error) {
+func (wrapper RoleWrapper) GetRole(ctx context.Context, roleName string) (*types.Role, error) {
 	var role *types.Role
-	result, err := wrapper.IamClient.GetRole(context.TODO(),
+	result, err := wrapper.IamClient.GetRole(ctx,
 		&iam.GetRoleInput{RoleName: aws.String(roleName)})
 	if err != nil {
 		log.Printf("Couldn't get role %v. Here's why: %v\n", roleName, err)
@@ -98,9 +98,10 @@ func (wrapper RoleWrapper) GetRole(roleName string) (*types.Role, error) {
 // snippet-start:[gov2.iam.CreateServiceLinkedRole]
 
 // CreateServiceLinkedRole creates a service-linked role that is owned by the specified service.
-func (wrapper RoleWrapper) CreateServiceLinkedRole(serviceName string, description string) (*types.Role, error) {
+func (wrapper RoleWrapper) CreateServiceLinkedRole(ctx context.Context, serviceName string, description string) (
+	*types.Role, error) {
 	var role *types.Role
-	result, err := wrapper.IamClient.CreateServiceLinkedRole(context.TODO(), &iam.CreateServiceLinkedRoleInput{
+	result, err := wrapper.IamClient.CreateServiceLinkedRole(ctx, &iam.CreateServiceLinkedRoleInput{
 		AWSServiceName: aws.String(serviceName),
 		Description:    aws.String(description),
 	})
@@ -117,8 +118,8 @@ func (wrapper RoleWrapper) CreateServiceLinkedRole(serviceName string, descripti
 // snippet-start:[gov2.iam.DeleteServiceLinkedRole]
 
 // DeleteServiceLinkedRole deletes a service-linked role.
-func (wrapper RoleWrapper) DeleteServiceLinkedRole(roleName string) error {
-	_, err := wrapper.IamClient.DeleteServiceLinkedRole(context.TODO(), &iam.DeleteServiceLinkedRoleInput{
+func (wrapper RoleWrapper) DeleteServiceLinkedRole(ctx context.Context, roleName string) error {
+	_, err := wrapper.IamClient.DeleteServiceLinkedRole(ctx, &iam.DeleteServiceLinkedRoleInput{
 		RoleName: aws.String(roleName)},
 	)
 	if err != nil {
@@ -132,8 +133,8 @@ func (wrapper RoleWrapper) DeleteServiceLinkedRole(roleName string) error {
 // snippet-start:[gov2.iam.AttachRolePolicy]
 
 // AttachRolePolicy attaches a policy to a role.
-func (wrapper RoleWrapper) AttachRolePolicy(policyArn string, roleName string) error {
-	_, err := wrapper.IamClient.AttachRolePolicy(context.TODO(), &iam.AttachRolePolicyInput{
+func (wrapper RoleWrapper) AttachRolePolicy(ctx context.Context, policyArn string, roleName string) error {
+	_, err := wrapper.IamClient.AttachRolePolicy(ctx, &iam.AttachRolePolicyInput{
 		PolicyArn: aws.String(policyArn),
 		RoleName:  aws.String(roleName),
 	})
@@ -148,9 +149,9 @@ func (wrapper RoleWrapper) AttachRolePolicy(policyArn string, roleName string) e
 // snippet-start:[gov2.iam.ListAttachedRolePolicies]
 
 // ListAttachedRolePolicies lists the policies that are attached to the specified role.
-func (wrapper RoleWrapper) ListAttachedRolePolicies(roleName string) ([]types.AttachedPolicy, error) {
+func (wrapper RoleWrapper) ListAttachedRolePolicies(ctx context.Context, roleName string) ([]types.AttachedPolicy, error) {
 	var policies []types.AttachedPolicy
-	result, err := wrapper.IamClient.ListAttachedRolePolicies(context.TODO(), &iam.ListAttachedRolePoliciesInput{
+	result, err := wrapper.IamClient.ListAttachedRolePolicies(ctx, &iam.ListAttachedRolePoliciesInput{
 		RoleName: aws.String(roleName),
 	})
 	if err != nil {
@@ -166,8 +167,8 @@ func (wrapper RoleWrapper) ListAttachedRolePolicies(roleName string) ([]types.At
 // snippet-start:[gov2.iam.DetachRolePolicy]
 
 // DetachRolePolicy detaches a policy from a role.
-func (wrapper RoleWrapper) DetachRolePolicy(roleName string, policyArn string) error {
-	_, err := wrapper.IamClient.DetachRolePolicy(context.TODO(), &iam.DetachRolePolicyInput{
+func (wrapper RoleWrapper) DetachRolePolicy(ctx context.Context, roleName string, policyArn string) error {
+	_, err := wrapper.IamClient.DetachRolePolicy(ctx, &iam.DetachRolePolicyInput{
 		PolicyArn: aws.String(policyArn),
 		RoleName:  aws.String(roleName),
 	})
@@ -182,9 +183,9 @@ func (wrapper RoleWrapper) DetachRolePolicy(roleName string, policyArn string) e
 // snippet-start:[gov2.iam.ListRolePolicies]
 
 // ListRolePolicies lists the inline policies for a role.
-func (wrapper RoleWrapper) ListRolePolicies(roleName string) ([]string, error) {
+func (wrapper RoleWrapper) ListRolePolicies(ctx context.Context, roleName string) ([]string, error) {
 	var policies []string
-	result, err := wrapper.IamClient.ListRolePolicies(context.TODO(), &iam.ListRolePoliciesInput{
+	result, err := wrapper.IamClient.ListRolePolicies(ctx, &iam.ListRolePoliciesInput{
 		RoleName: aws.String(roleName),
 	})
 	if err != nil {
@@ -201,8 +202,8 @@ func (wrapper RoleWrapper) ListRolePolicies(roleName string) ([]string, error) {
 
 // DeleteRole deletes a role. All attached policies must be detached before a
 // role can be deleted.
-func (wrapper RoleWrapper) DeleteRole(roleName string) error {
-	_, err := wrapper.IamClient.DeleteRole(context.TODO(), &iam.DeleteRoleInput{
+func (wrapper RoleWrapper) DeleteRole(ctx context.Context, roleName string) error {
+	_, err := wrapper.IamClient.DeleteRole(ctx, &iam.DeleteRoleInput{
 		RoleName: aws.String(roleName),
 	})
 	if err != nil {

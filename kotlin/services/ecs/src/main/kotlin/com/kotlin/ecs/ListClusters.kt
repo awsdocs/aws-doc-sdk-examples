@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[ecs.kotlin.list_clusters.main]
 suspend fun listAllClusters() {
-
     EcsClient { region = "us-east-1" }.use { ecsClient ->
         val response = ecsClient.listClusters(ListClustersRequest {})
         response.clusterArns?.forEach { cluster ->

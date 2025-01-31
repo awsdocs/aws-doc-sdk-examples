@@ -9,6 +9,8 @@ import software.amazon.awssdk.services.iot.IotClient;
 import software.amazon.awssdk.services.iot.model.ListThingsRequest;
 import software.amazon.awssdk.services.iot.model.ListThingsResponse;
 import software.amazon.awssdk.services.iot.model.ThingAttribute;
+import software.amazon.awssdk.services.iot.paginators.ListThingsIterable;
+
 import java.util.List;
 
 public class HelloIoT {
@@ -21,17 +23,16 @@ public class HelloIoT {
         listAllThings(iotClient);
     }
 
-    public static void listAllThings( IotClient iotClient) {
-        ListThingsRequest thingsRequest = ListThingsRequest.builder()
-            .maxResults(10)
-            .build();
-
-        ListThingsResponse response = iotClient.listThings(thingsRequest) ;
-        List<ThingAttribute> thingList = response.things();
-        for (ThingAttribute attribute : thingList) {
-            System.out.println("Thing name: "+attribute.thingName());
-            System.out.println("Thing ARN: "+attribute.thingArn());
-        }
+    public static void listAllThings(IotClient iotClient) {
+        iotClient.listThingsPaginator(ListThingsRequest.builder()
+                .maxResults(10)
+                .build())
+            .stream()
+            .flatMap(response -> response.things().stream())
+            .forEach(attribute -> {
+                System.out.println("Thing name: " + attribute.thingName());
+                System.out.println("Thing ARN: " + attribute.thingArn());
+            });
     }
 }
 // snippet-end:[iot.java2.hello_iot.main]

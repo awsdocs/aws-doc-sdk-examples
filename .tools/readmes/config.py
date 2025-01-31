@@ -6,14 +6,19 @@ saved_readme = "README.old.md"
 doc_base_url = "https://docs.aws.amazon.com"
 categories = {
     "hello": "Hello",
+    "basics": "Basics",
     "scenarios": "Scenarios",
+    "actions": "Api",
+    "cross": "Cross-service examples",
 }
+basics_title_abbrev = "Learn the basics"
 entities = {
     "&AWS;": "AWS",
     "&aws_sec_sdk_use-federation-warning;": "",
     "&ASH;": "Security Hub",
     "&DAX;": "DynamoDB Accelerator",
     "&EC2long;": "Amazon Elastic Compute Cloud",
+    "&ELB;": "Elastic Load Balancing",
     "&ELBlong;": "Elastic Load Balancing",
     "&GLUDCLong;": "AWS Glue Data Catalog",
     "&GLUDC;": "Data Catalog",
@@ -21,6 +26,8 @@ entities = {
     "&IAM-users;": "IAM users",
     "&kms-key;": "KMS key",
     "&kms-keys;": "KMS keys",
+    "&S3long;": "Amazon Simple Storage Service",
+    "&S3only;": "S3",
     "&SLN;": "Amazon States Language",
 }
 language = {
@@ -36,6 +43,9 @@ language = {
             "base_folder": "gov2",
             "service_folder": 'gov2/{{service["name"]}}',
             "sdk_api_ref": 'https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/{{service["name"]}}',
+            "service_folder_overrides": {
+                "cognito-identity-provider": "gov2/cognito",
+            },
         },
     },
     "Java": {
@@ -44,6 +54,8 @@ language = {
             "service_folder": 'javav2/example_code/{{service["name"]}}',
             "sdk_api_ref": 'https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/{{service["name"]}}/package-summary.html',
             "service_folder_overrides": {
+                "s3-control": "javav2/example_code/s3/src/main/java/com/example/s3/batch",
+                "s3-directory-buckets": "javav2/example_code/s3/src/main/java/com/example/s3/directorybucket",
                 "medical-imaging": "javav2/example_code/medicalimaging",
             },
         },
@@ -71,6 +83,7 @@ language = {
                 "acm": "dotnetv3/ACM",
                 "aurora": "dotnetv3/Aurora",
                 "auto-scaling": "dotnetv3/AutoScaling",
+                "cloudformation": "dotnetv3/CloudFormation",
                 "cloudwatch": "dotnetv3/CloudWatch",
                 "cloudwatch-logs": "dotnetv3/CloudWatchLogs",
                 "cognito-identity-provider": "dotnetv3/Cognito",
@@ -94,8 +107,10 @@ language = {
                 "route-53": "dotnetv3/Route53",
                 "s3": "dotnetv3/S3",
                 "sagemaker": "dotnetv3/SageMaker",
+                "scheduler": "dotnetv3/EventBridge Scheduler",
                 "secrets-manager": "dotnetv3/SecretsManager",
                 "ses": "dotnetv3/SES",
+                "sesv2": "dotnetv3/SESv2",
                 "sns": "dotnetv3/SNS",
                 "sqs": "dotnetv3/SQS",
                 "sfn": "dotnetv3/StepFunctions",
@@ -104,6 +119,15 @@ language = {
                 "transcribe": "dotnetv3/Transcribe",
                 "translate": "dotnetv3/Translate",
             },
+        },
+        4: {
+            "base_folder": "dotnetv4",
+            "service_folder": 'dotnetv4/{{service["name"] | capitalize}}',
+            "sdk_api_ref": 'https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/{{service["name"] | capitalize}}/N{{service["name"] | capitalize}}.html',
+            "service_folder_overrides": {
+                "aurora": "dotnetv4/Aurora",
+                "auto-scaling": "dotnetv4/AutoScaling",
+            },
         }
     },
     "PHP": {
@@ -111,6 +135,9 @@ language = {
             "base_folder": "php",
             "service_folder": 'php/example_code/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.{{service["name"] | capitalize}}.html',
+            "service_folder_overrides": {
+            "s3-directory-buckets": "php/example_code/s3/express",
+            }
         }
     },
     "Python": {
@@ -124,6 +151,7 @@ language = {
                 "device-farm": "python/example_code/devicefarm",
                 "elastic-load-balancing-v2": "python/example_code/elastic-load-balancing",
                 "secrets-manager": "python/example_code/secretsmanager",
+                "dynamodb": "python/example_code/dynamodb",
             },
         }
     },
@@ -132,6 +160,9 @@ language = {
             "base_folder": "ruby",
             "service_folder": 'ruby/example_code/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/{{service["name"] | capitalize}}.html',
+            "service_folder_overrides": {
+                "cognito-identity-provider": "ruby/example_code/cognito",
+            },
         }
     },
     "Rust": {
@@ -139,6 +170,18 @@ language = {
             "base_folder": "rustv1",
             "service_folder": 'rustv1/examples/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.rs/aws-sdk-{{service["name"]}}/latest/aws_sdk_{{service["name"]}}/',
+            "service_folder_overrides": {
+                "api-gateway": "rustv1/examples/apigateway",
+                "apigatewaymanagementapi": "rustv1/examples/apigatewaymanagement",
+                "application-auto-scaling": "rustv1/examples/applicationautoscaling",
+                "cognito-identity-provider": "rustv1/examples/cognitoidentityprovider",
+                "cognito-sync": "rustv1/examples/cognitosync",
+                "rds-data": "rustv1/examples/rdsdata",
+                "route-53": "rustv1/examples/route53",
+                "secrets-manager": "rustv1/examples/secretsmanager",
+                "sesv2": "rustv1/examples/ses",
+                "ses": "rustv1/examples/_NONE_",
+            },
         }
     },
     "SAP ABAP": {
@@ -156,7 +199,15 @@ language = {
         1: {
             "base_folder": "swift",
             "service_folder": 'swift/example_code/{{service["name"]}}',
-            "sdk_api_ref": 'https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWS{{service["name"] | capitalize}}/Home',
+            "sdk_api_ref": '{% set name = service["name"] | replace("-","") -%}https://sdk.amazonaws.com/swift/api/aws{{name}}/latest/documentation/aws{{name}}',
+            "service_folder_overrides": {
+                "cognito-identity": "swift/example_code/cognito-identity",
+                "dynamodb": "swift/example_code/dynamodb",
+                "iam": "swift/example_code/iam",
+                "s3": "swift/example_code/s3",
+                "sts": "swift/example_code/sts"
+            }
+
         }
     },
     "Bash": {

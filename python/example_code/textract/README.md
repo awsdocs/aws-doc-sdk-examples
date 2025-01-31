@@ -38,15 +38,16 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Analyze a document](textract_wrapper.py#L61) (`AnalyzeDocument`)
-- [Detect text in a document](textract_wrapper.py#L34) (`DetectDocumentText`)
-- [Get data about a document analysis job](textract_wrapper.py#L255) (`GetDocumentAnalysis`)
-- [Start asynchronous analysis of a document](textract_wrapper.py#L207) (`StartDocumentAnalysis`)
-- [Start asynchronous text detection](textract_wrapper.py#L145) (`StartDocumentTextDetection`)
+- [AnalyzeDocument](textract_wrapper.py#L61)
+- [DetectDocumentText](textract_wrapper.py#L34)
+- [GetDocumentAnalysis](textract_wrapper.py#L255)
+- [StartDocumentAnalysis](textract_wrapper.py#L207)
+- [StartDocumentTextDetection](textract_wrapper.py#L145)
 
-### Cross-service examples
+### Scenarios
 
-Sample applications that work across multiple AWS services.
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
 - [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
 - [Detect entities in text extracted from an image](../../cross_service/textract_comprehend_notebook)
@@ -64,6 +65,30 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.end-->
 
 
+
+#### Create an Amazon Textract explorer application
+
+This example shows you how to explore Amazon Textract output through an interactive application.
+
+
+<!--custom.scenario_prereqs.cross_TextractExplorer.start-->
+<!--custom.scenario_prereqs.cross_TextractExplorer.end-->
+
+
+<!--custom.scenarios.cross_TextractExplorer.start-->
+<!--custom.scenarios.cross_TextractExplorer.end-->
+
+#### Detect entities in text extracted from an image
+
+This example shows you how to use Amazon Comprehend to detect entities in text extracted by Amazon Textract from an image that is stored in Amazon S3.
+
+
+<!--custom.scenario_prereqs.cross_TextractComprehendDetectEntities.start-->
+<!--custom.scenario_prereqs.cross_TextractComprehendDetectEntities.end-->
+
+
+<!--custom.scenarios.cross_TextractComprehendDetectEntities.start-->
+<!--custom.scenarios.cross_TextractComprehendDetectEntities.end-->
 
 ### Tests
 

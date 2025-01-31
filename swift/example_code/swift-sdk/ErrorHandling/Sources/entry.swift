@@ -15,8 +15,6 @@ let body = "This is the body of an Amazon S3 object."
 @main
 struct ErrorHandlingExample {
     static func main() async {
-        await SDKLoggingSystem.initialize(logLevel: .error)
-
         let bucketName = "ErrorHandling-Bucket-\(Int.random(in: 1000000..<10000000))"
         let objectKey = "ErrorHandling-Object-\(Int.random(in: 1000000..<10000000))"
 

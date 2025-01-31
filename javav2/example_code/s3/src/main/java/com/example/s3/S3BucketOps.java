@@ -42,7 +42,13 @@ public class S3BucketOps {
         performOperations(s3, bucket);
     }
 
-    // Create a bucket by using a S3Waiter object
+    /**
+     * Creates an Amazon S3 bucket.
+     *
+     * @param s3Client    the {@link S3Client} object used to interact with Amazon S3.
+     * @param bucketName  the name of the bucket to create.
+     * @throws S3Exception if the bucket cannot be created.
+     */
     public static void createBucket(S3Client s3Client, String bucketName) {
         try {
             S3Waiter s3Waiter = s3Client.waiter();
@@ -67,6 +73,12 @@ public class S3BucketOps {
     }
     // snippet-end:[s3.java2.s3_bucket_ops.create_bucket]
 
+    /**
+     * Performs various operations on an Amazon S3 bucket.
+     *
+     * @param s3     An {@link S3Client} object to interact with the Amazon S3 service.
+     * @param bucket The name of the Amazon S3 bucket to perform operations on.
+     */
     public static void performOperations(S3Client s3, String bucket) {
         // snippet-start:[s3.java2.s3_bucket_ops.list_bucket]
         // List buckets

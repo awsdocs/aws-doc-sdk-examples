@@ -42,42 +42,50 @@ Next, for information on code example structures and how to build and run the ex
 - [Hello Amazon S3](hello_s3/CMakeLists.txt#L4) (`ListBuckets`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](s3_getting_started_scenario.cpp)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a policy to a bucket](put_bucket_policy.cpp#L38) (`PutBucketPolicy`)
-- [Copy an object from one bucket to another](copy_object.cpp#L32) (`CopyObject`)
-- [Create a bucket](create_bucket.cpp#L33) (`CreateBucket`)
-- [Delete a policy from a bucket](delete_bucket_policy.cpp#L30) (`DeleteBucketPolicy`)
-- [Delete an empty bucket](delete_bucket.cpp#L30) (`DeleteBucket`)
-- [Delete an object](delete_object.cpp#L31) (`DeleteObject`)
-- [Delete multiple objects](delete_objects.cpp#L33) (`DeleteObjects`)
-- [Delete the website configuration from a bucket](delete_website_config.cpp#L30) (`DeleteBucketWebsite`)
-- [Get an object from a bucket](get_object.cpp#L33) (`GetObject`)
-- [Get the ACL of a bucket](get_bucket_acl.cpp#L37) (`GetBucketAcl`)
-- [Get the ACL of an object](get_put_object_acl.cpp#L44) (`GetObjectAcl`)
-- [Get the policy for a bucket](get_bucket_policy.cpp#L32) (`GetBucketPolicy`)
-- [Get the website configuration for a bucket](get_website_config.cpp#L30) (`GetBucketWebsite`)
-- [List buckets](list_buckets.cpp#L29) (`ListBuckets`)
-- [List objects in a bucket](list_objects.cpp#L31) (`ListObjectsV2`)
-- [Set a new ACL for a bucket](put_bucket_acl.cpp#L49) (`PutBucketAcl`)
-- [Set the ACL of an object](get_put_object_acl.cpp#L171) (`PutObjectAcl`)
-- [Set the website configuration for a bucket](put_website_config.cpp#L34) (`PutBucketWebsite`)
-- [Upload an object to a bucket](put_object.cpp#L33) (`PutObject`)
+- [AbortMultipartUpload](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp#L1097)
+- [CompleteMultipartUpload](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp#L1129)
+- [CopyObject](copy_object.cpp#L32)
+- [CreateBucket](create_bucket.cpp#L30)
+- [CreateMultipartUpload](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp#L1006)
+- [DeleteBucket](delete_bucket.cpp#L30)
+- [DeleteBucketPolicy](delete_bucket_policy.cpp#L30)
+- [DeleteBucketWebsite](delete_website_config.cpp#L30)
+- [DeleteObject](delete_object.cpp#L31)
+- [DeleteObjects](delete_objects.cpp#L33)
+- [GetBucketAcl](get_bucket_acl.cpp#L36)
+- [GetBucketPolicy](get_bucket_policy.cpp#L32)
+- [GetBucketWebsite](get_website_config.cpp#L29)
+- [GetObject](get_object.cpp#L33)
+- [GetObjectAcl](get_put_object_acl.cpp#L43)
+- [GetObjectAttributes](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp#L707)
+- [ListBuckets](list_buckets.cpp#L29)
+- [ListObjectsV2](list_objects.cpp#L32)
+- [PutBucketAcl](put_bucket_acl.cpp#L47)
+- [PutBucketPolicy](put_bucket_policy.cpp#L68)
+- [PutBucketWebsite](put_website_config.cpp#L33)
+- [PutObject](put_object.cpp#L33)
+- [PutObjectAcl](get_put_object_acl.cpp#L165)
+- [UploadPart](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp#L1040)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with buckets and objects](s3_getting_started_scenario.cpp)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
+- [Create a presigned URL](presigned_get_object.cpp)
 - [Create a serverless application to manage photos](../../example_code/cross-service/photo_asset_manager)
+- [Work with Amazon S3 object integrity](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp)
 
 
 <!--custom.examples.start-->
@@ -108,8 +116,7 @@ folder.
 This example shows you how to get started using Amazon S3.
 
 
-
-#### Get started with buckets and objects
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -119,12 +126,49 @@ This example shows you how to do the following:
 - List the objects in a bucket.
 - Delete the bucket objects and the bucket.
 
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
+
+#### Create a presigned URL
+
+This example shows you how to create a presigned URL for Amazon S3 and upload an object.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.end-->
+
+
+<!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
+
+#### Create a serverless application to manage photos
+
+This example shows you how to create a serverless application that lets users manage photos using labels.
+
+
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
+
+#### Work with Amazon S3 object integrity
+
+This example shows you how to work with S3 object integrity features.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_ObjectIntegrity.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ObjectIntegrity.end-->
+
+
+<!--custom.scenarios.s3_Scenario_ObjectIntegrity.start-->
+<!--custom.scenarios.s3_Scenario_ObjectIntegrity.end-->
 
 ### Tests
 

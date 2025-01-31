@@ -48,11 +48,22 @@ def test_install_libraries_on_core_nodes(
         runner.add(emr_stubber.stub_list_instances, cluster_id, ["CORE"], instance_ids)
         for command in commands:
             runner.add(
-                ssm_stubber.stub_send_command, instance_ids, [command], command_id
+                ssm_stubber.stub_send_command,
+                instance_ids,
+                commands=[command],
+                command_id=command_id,
             )
-            runner.add(ssm_stubber.stub_list_commands, command_id, status_details)
+            runner.add(
+                ssm_stubber.stub_list_commands,
+                command_id=command_id,
+                status_details=status_details,
+            )
             if status_details == "InProgress":
-                runner.add(ssm_stubber.stub_list_commands, command_id, "Success")
+                runner.add(
+                    ssm_stubber.stub_list_commands,
+                    command_id=command_id,
+                    status_details="Success",
+                )
             elif status_details == "Failed":
                 break
 

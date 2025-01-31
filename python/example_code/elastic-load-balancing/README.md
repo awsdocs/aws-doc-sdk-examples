@@ -1,8 +1,8 @@
-# ELB code examples for the SDK for Python
+# Elastic Load Balancing - Version 2 code examples for the SDK for Python
 
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to work with Elastic Load Balancing (ELB).
+Shows how to use the AWS SDK for Python (Boto3) to work with Elastic Load Balancing - Version 2.
 
 <!--custom.overview.start-->
 Most of the example code for Elastic Load Balancing can be found in the  
@@ -11,7 +11,7 @@ which contains the [Build and manage a resilient service](../../cross_service/re
 scenario.
 <!--custom.overview.end-->
 
-_ELB automatically distributes your incoming traffic across multiple targets, such as EC2 instances, containers, and IP addresses, in one or more Availability Zones._
+_Elastic Load Balancing - Version 2 automatically distributes your incoming traffic across multiple targets, such as EC2 instances, containers, and IP addresses, in one or more Availability Zones._
 
 ## ⚠ Important
 
@@ -40,20 +40,20 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Elastic Load Balancing](hello.py#L4) (`DescribeLoadBalancers`)
+- [Hello Elastic Load Balancing - Version 2](hello.py#L4) (`DescribeLoadBalancers`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a listener for a load balancer](../../cross_service/resilient_service/load_balancer.py#L143) (`CreateListener`)
-- [Create a target group](../../cross_service/resilient_service/load_balancer.py#L67) (`CreateTargetGroup`)
-- [Create an Application Load Balancer](../../cross_service/resilient_service/load_balancer.py#L142) (`CreateLoadBalancer`)
-- [Delete a load balancer](../../cross_service/resilient_service/load_balancer.py#L192) (`DeleteLoadBalancer`)
-- [Delete a target group](../../cross_service/resilient_service/load_balancer.py#L106) (`DeleteTargetGroup`)
-- [Get the endpoint of a load balancer](../../cross_service/resilient_service/load_balancer.py#L46) (`DescribeLoadBalancers`)
-- [Get the health of a target group](../../cross_service/resilient_service/load_balancer.py#L245) (`DescribeTargetHealth`)
+- [CreateListener](../../cross_service/resilient_service/load_balancer.py#L191)
+- [CreateLoadBalancer](../../cross_service/resilient_service/load_balancer.py#L140)
+- [CreateTargetGroup](../../cross_service/resilient_service/load_balancer.py#L28)
+- [DeleteLoadBalancer](../../cross_service/resilient_service/load_balancer.py#L251)
+- [DeleteTargetGroup](../../cross_service/resilient_service/load_balancer.py#L83)
+- [DescribeLoadBalancers](../../cross_service/resilient_service/load_balancer.py#L283)
+- [DescribeTargetHealth](../../cross_service/resilient_service/load_balancer.py#L336)
 
 ### Scenarios
 
@@ -74,9 +74,9 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Elastic Load Balancing
+#### Hello Elastic Load Balancing - Version 2
 
-This example shows you how to get started using Elastic Load Balancing.
+This example shows you how to get started using Elastic Load Balancing - Version 2.
 
 ```
 python hello.py
@@ -124,9 +124,9 @@ in the `python` folder.
 
 ## Additional resources
 
-- [ELB User Guide](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html)
-- [ELB API Reference](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/Welcome.html)
-- [SDK for Python ELB reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elbv2.html)
+- [Elastic Load Balancing - Version 2 User Guide](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html)
+- [Elastic Load Balancing - Version 2 API Reference](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/Welcome.html)
+- [SDK for Python Elastic Load Balancing - Version 2 reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elbv2.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

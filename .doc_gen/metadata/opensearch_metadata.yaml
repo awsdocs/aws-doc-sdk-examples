@@ -1,9 +1,22 @@
 # zexi 0.4.0
+opensearch_Hello:
+  title: Hello &ES;
+  title_abbrev: Hello &ES;
+  synopsis: get started using &ES;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.hello.main
+  services:
+    opensearch: {ListVersions}
 opensearch_CreateDomain:
-  title: Create an &ES; domain by using an &AWS; SDK
-  title_abbrev: Create a domain
-  synopsis: create an &ES; domain.
-  category:
   languages:
     Kotlin:
       versions:
@@ -26,10 +39,6 @@ opensearch_CreateDomain:
   services:
     opensearch: {CreateDomain}
 opensearch_DeleteDomain:
-  title: Delete an &ES; domain by using an &AWS; SDK
-  title_abbrev: Delete a domain
-  synopsis: delete an &ES; domain.
-  category:
   languages:
     Kotlin:
       versions:
@@ -50,12 +59,8 @@ opensearch_DeleteDomain:
               snippet_tags:
                 - opensearch.java2.delete_domain.main
   services:
-    opensearch: {DeleteDomain}    
+    opensearch: {DeleteDomain}
 opensearch_ListDomainNames:
-  title: List &ES; domains by using an &AWS; SDK
-  title_abbrev: List domains
-  synopsis: list &ES; domains.
-  category:
   languages:
     Kotlin:
       versions:
@@ -77,11 +82,59 @@ opensearch_ListDomainNames:
                 - opensearch.java2.list_domains.main
   services:
     opensearch: {ListDomainNames}
+opensearch_ListTags:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.add_tags.main
+  services:
+    opensearch: {ListTags}
+opensearch_AddTags:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.add_tags.main
+  services:
+    opensearch: {AddTags}
+opensearch_ChangeProgress:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.change_process.main
+  services:
+    opensearch: {ChangeProgress}
+opensearch_DescribeDomain:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.update_domain.main
+  services:
+    opensearch: {DescribeDomain}
 opensearch_UpdateDomainConfig:
-  title: Modify a cluster configuration of the specified &ES; domain by using an &AWS; SDK
-  title_abbrev: Modify a cluster configuration
-  synopsis: modify a cluster configuration of an &ES; domain.
-  category:
   languages:
     Kotlin:
       versions:
@@ -103,3 +156,32 @@ opensearch_UpdateDomainConfig:
                 - opensearch.java2.update_domain.main
   services:
     opensearch: {UpdateDomainConfig}
+opensearch_Scenario:
+  title: Learn core operations for &ESlong; using an &AWS; SDK
+  title_abbrev: Learn &ES; core operations
+  synopsis_list:
+    - Create an &ES; domain.
+    - Provides detailed information about a specific &ES; domain.
+    - Lists all the &ES; domains owned by the account.
+    - Waits until the &ES; domain's change status reaches a completed state.
+    - Modifies the configuration of an existing &ES; domain.
+    - Add a tag to the &ES; domain.
+    - Lists the tags associated with an &ES; domain.
+    - Removes tags from an &ES; domain.
+    - Deletes the &ES; domain.
+  category: Basics
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &ES; features.
+              snippet_tags:
+                - opensearch.java2.scenario.main
+            - description: A wrapper class for &ES; SDK methods.
+              snippet_tags:
+                - opensearch.java2.actions.main
+  services:
+    opensearch: {CreateDomain, DeleteDomain, DescribeDomain, ListDomainNames, UpdateDomainConfig, DescribeDomainChangeProgress, AddTags, ListTags}

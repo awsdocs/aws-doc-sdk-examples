@@ -18,7 +18,7 @@ namespace DeleteObjectVersionExample
     {
         public static async Task Main()
         {
-            string bucketName = "doc-example-bucket";
+            string bucketName = "amzn-s3-demo-bucket";
             string keyName = "verstioned-object.txt";
 
             // If the AWS Region of the default user is different from the AWS

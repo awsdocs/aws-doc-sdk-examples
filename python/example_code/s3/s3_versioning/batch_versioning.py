@@ -185,7 +185,7 @@ def create_lambda_function(
         response = custom_retry(
             lambda: aws_lambda.create_function(
                 FunctionName=function_name,
-                Runtime="python3.8",
+                Runtime="python3.9",
                 Role=iam_role.arn,
                 Handler=handler,
                 Code={

@@ -1,2 +1,4 @@
 boto3>=1.26.79
 pytest>=7.2.1
+alive-progress==2.4.1
+rich==13.5.2

@@ -1,0 +1,6 @@
+[
+  {
+    "name": "S3_BUCKET_NAME_PREFIX",
+    "value": "sdk-example-code"
+  }
+]

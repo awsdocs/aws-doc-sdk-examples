@@ -33,27 +33,28 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](AttachRolePolicy/Sources/ServiceHandler/ServiceHandler.swift#L51) (`AttachRolePolicy`)
-- [Create a policy](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L204) (`CreatePolicy`)
-- [Create a role](CreateRole/Sources/ServiceHandler/ServiceHandler.swift#L51) (`CreateRole`)
-- [Create a service-linked role](CreateServiceLinkedRole/Sources/ServiceHandler/ServiceHandler.swift#L59) (`CreateServiceLinkedRole`)
-- [Create a user](CreateUser/Sources/ServiceHandler/ServiceHandler.swift#L50) (`CreateUser`)
-- [Create an access key](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L179) (`CreateAccessKey`)
-- [Create an inline policy for a user](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L231) (`PutUserPolicy`)
-- [Delete a policy](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L312) (`DeletePolicy`)
-- [Delete a role](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L376) (`DeleteRole`)
-- [Delete a user](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L330) (`DeleteUser`)
-- [Delete an access key](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L350) (`DeleteAccessKey`)
-- [Delete an inline policy from a user](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L253) (`DeleteUserPolicy`)
-- [Detach a policy from a role](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L293) (`DetachRolePolicy`)
-- [Get a policy](GetPolicy/Sources/ServiceHandler/ServiceHandler.swift#L50) (`GetPolicy`)
-- [Get a role](GetRole/Sources/ServiceHandler/ServiceHandler.swift#L51) (`GetRole`)
-- [List groups](ListGroups/Sources/ServiceHandler/ServiceHandler.swift#L41) (`ListGroups`)
-- [List inline policies for a role](ListRolePolicies/Sources/ServiceHandler/ServiceHandler.swift#L49) (`ListRolePolicies`)
-- [List policies](ListPolicies/Sources/ServiceHandler/ServiceHandler.swift#L49) (`ListPolicies`)
-- [List policies attached to a role](ListAttachedRolePolicies/Sources/ServiceHandler/ServiceHandler.swift#L45) (`ListAttachedRolePolicies`)
-- [List roles](ListRoles/Sources/ServiceHandler/ServiceHandler.swift#L48) (`ListRoles`)
-- [List users](ListUsers/Sources/ServiceHandler/ServiceHandler.swift#L41) (`ListUsers`)
+- [AttachRolePolicy](AttachRolePolicy/Sources/ServiceHandler/ServiceHandler.swift#L50)
+- [CreateAccessKey](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L185)
+- [CreatePolicy](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L212)
+- [CreateRole](CreateRole/Sources/ServiceHandler/ServiceHandler.swift#L50)
+- [CreateServiceLinkedRole](CreateServiceLinkedRole/Sources/ServiceHandler/ServiceHandler.swift#L58)
+- [CreateUser](CreateUser/Sources/ServiceHandler/ServiceHandler.swift#L49)
+- [DeleteAccessKey](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L372)
+- [DeletePolicy](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L330)
+- [DeleteRole](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L401)
+- [DeleteUser](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L350)
+- [DeleteUserPolicy](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L265)
+- [DetachRolePolicy](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L309)
+- [GetPolicy](GetPolicy/Sources/ServiceHandler/ServiceHandler.swift#L49)
+- [GetRole](GetRole/Sources/ServiceHandler/ServiceHandler.swift#L50)
+- [GetUser](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L422)
+- [ListAttachedRolePolicies](ListAttachedRolePolicies/Sources/ServiceHandler/ServiceHandler.swift#L46)
+- [ListGroups](ListGroups/Sources/ServiceHandler/ServiceHandler.swift#L42)
+- [ListPolicies](ListPolicies/Sources/ServiceHandler/ServiceHandler.swift#L49)
+- [ListRolePolicies](ListRolePolicies/Sources/ServiceHandler/ServiceHandler.swift#L50)
+- [ListRoles](ListRoles/Sources/ServiceHandler/ServiceHandler.swift#L49)
+- [ListUsers](ListUsers/Sources/ServiceHandler/ServiceHandler.swift#L40)
+- [PutUserPolicy](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L241)
 
 
 <!--custom.examples.start-->
@@ -97,7 +98,7 @@ in the `swift` folder.
 
 - [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
 - [IAM API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
-- [SDK for Swift IAM reference](https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWSIam/Home)
+- [SDK for Swift IAM reference](https://sdk.amazonaws.com/swift/api/awsiam/latest/documentation/awsiam)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

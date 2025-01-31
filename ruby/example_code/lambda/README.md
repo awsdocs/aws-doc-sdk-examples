@@ -29,24 +29,29 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Lambda](hello/hello_lambda.rb#L4) (`ListFunctions`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](lambda_basics.rb)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](lambda_basics.rb#L127) (`CreateFunction`)
-- [Delete a function](lambda_basics.rb#L277) (`DeleteFunction`)
-- [Get a function](lambda_basics.rb#L110) (`GetFunction`)
-- [Invoke a function](lambda_basics.rb#L164) (`Invoke`)
-- [List functions](lambda_basics.rb#L262) (`ListFunctions`)
-- [Update function code](lambda_basics.rb#L237) (`UpdateFunctionCode`)
-- [Update function configuration](lambda_basics.rb#L212) (`UpdateFunctionConfiguration`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with functions](lambda_basics.rb)
+- [CreateFunction](lambda_basics.rb#L131)
+- [DeleteFunction](lambda_basics.rb#L281)
+- [GetFunction](lambda_basics.rb#L114)
+- [Invoke](lambda_basics.rb#L166)
+- [ListFunctions](lambda_basics.rb#L266)
+- [UpdateFunctionCode](lambda_basics.rb#L241)
+- [UpdateFunctionConfiguration](lambda_basics.rb#L216)
 
 
 <!--custom.examples.start-->
@@ -61,9 +66,15 @@ functions within the same service.
 The quickest way to interact with this example code is to invoke a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
 <!--custom.instructions.end-->
 
+#### Hello Lambda
 
+This example shows you how to get started using Lambda.
 
-#### Get started with functions
+```
+ruby hello/hello_lambda.rb
+```
+
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -73,8 +84,8 @@ This example shows you how to do the following:
 - Invoke the function with new parameters and get results. Display the returned execution log.
 - List the functions for your account, then clean up resources.
 
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -82,8 +93,9 @@ Start the example by running the following at a command prompt:
 ruby lambda_basics.rb
 ```
 
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
+
 
 ### Tests
 

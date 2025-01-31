@@ -34,21 +34,28 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 - [Hello Auto Scaling](Actions/HelloAutoScaling.cs#L4) (`DescribeAutoScalingGroups`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/AutoScalingBasics/AutoScalingBasics.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach an ELB target group to an Auto Scaling group](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L770) (`AttachLoadBalancerTargetGroups`)
-- [Create a group](Actions/AutoScalingWrapper.cs#L28) (`CreateAutoScalingGroup`)
-- [Delete a group](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L573) (`DeleteAutoScalingGroup`)
-- [Disable metrics collection for a group](Actions/AutoScalingWrapper.cs#L202) (`DisableMetricsCollection`)
-- [Enable metrics collection for a group](Actions/AutoScalingWrapper.cs#L223) (`EnableMetricsCollection`)
-- [Get information about groups](Actions/AutoScalingWrapper.cs#L109) (`DescribeAutoScalingGroups`)
-- [Get information about instances](Actions/AutoScalingWrapper.cs#L109) (`DescribeAutoScalingInstances`)
-- [Get information about scaling activities](Actions/AutoScalingWrapper.cs#L86) (`DescribeScalingActivities`)
-- [Set the desired capacity of a group](Actions/AutoScalingWrapper.cs#L249) (`SetDesiredCapacity`)
-- [Terminate an instance in a group](Actions/AutoScalingWrapper.cs#L275) (`TerminateInstanceInAutoScalingGroup`)
-- [Update a group](Actions/AutoScalingWrapper.cs#L306) (`UpdateAutoScalingGroup`)
+- [AttachLoadBalancerTargetGroups](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L890)
+- [CreateAutoScalingGroup](Actions/AutoScalingWrapper.cs#L28)
+- [DeleteAutoScalingGroup](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L693)
+- [DescribeAutoScalingGroups](Actions/AutoScalingWrapper.cs#L109)
+- [DescribeAutoScalingInstances](Actions/AutoScalingWrapper.cs#L109)
+- [DescribeScalingActivities](Actions/AutoScalingWrapper.cs#L86)
+- [DisableMetricsCollection](Actions/AutoScalingWrapper.cs#L202)
+- [EnableMetricsCollection](Actions/AutoScalingWrapper.cs#L223)
+- [SetDesiredCapacity](Actions/AutoScalingWrapper.cs#L249)
+- [TerminateInstanceInAutoScalingGroup](Actions/AutoScalingWrapper.cs#L275)
+- [UpdateAutoScalingGroup](Actions/AutoScalingWrapper.cs#L306)
 
 ### Scenarios
 
@@ -56,7 +63,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Build and manage a resilient service](../cross-service/ResilientService/ResilientServiceWorkflow/ResilientServiceWorkflow.cs)
-- [Manage groups and instances](Scenarios/AutoScalingBasics/UIWrapper.cs)
 
 
 <!--custom.examples.start-->
@@ -92,6 +98,40 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using Auto Scaling.
 
 
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create an Amazon EC2 Auto Scaling group with a launch template and Availability Zones, and get information about running instances.
+- Enable Amazon CloudWatch metrics collection.
+- Update the group's desired capacity and wait for an instance to start.
+- Terminate an instance in the group.
+- List scaling activities that occur in response to user requests and capacity changes.
+- Get statistics for CloudWatch metrics, then clean up resources.
+
+<!--custom.basic_prereqs.auto-scaling_Scenario_GroupsAndInstances.start-->
+<!--custom.basic_prereqs.auto-scaling_Scenario_GroupsAndInstances.end-->
+
+
+<!--custom.basics.auto-scaling_Scenario_GroupsAndInstances.start-->
+##### Configuration settings
+
+This example uses several configuration settings that are stored in `settings.json`
+to change the existing values.
+
+Note: The image ID, instance type, and Availability Zone must be available in the same AWS Region as the account that's
+used to run the scenario. For information about how to get valid settings, see [Find a Linux AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html).
+
+* `GroupName` - The name to use for the Auto Scaling group.
+* `ImageId` - The image ID to use with the Amazon EC2 Auto Scaling template. The AMI-ID column of the Amazon EC2 image locator table.
+* `InstanceType` - The instance type to use with the template. The Instance Type column of the Amazon EC2 image locator table.
+* `LaunchTemplateName` - The name of the launch template.
+* `AvailabilityZone` - The Availability Zone for the launch template. The Zone column of the Amazon EC2 image locator table.
+* `ServiceLinkedRoleArn` - The Amazon Resource Name (ARN) of a serivce-linked role that will be used
+                             to create the Auto Scaling group.
+
+<!--custom.basics.auto-scaling_Scenario_GroupsAndInstances.end-->
+
 
 #### Build and manage a resilient service
 
@@ -110,40 +150,6 @@ This example shows you how to create a load-balanced web service that returns bo
 
 <!--custom.scenarios.cross_ResilientService.start-->
 <!--custom.scenarios.cross_ResilientService.end-->
-
-#### Manage groups and instances
-
-This example shows you how to do the following:
-
-- Create an Amazon EC2 Auto Scaling group with a launch template and Availability Zones, and get information about running instances.
-- Enable Amazon CloudWatch metrics collection.
-- Update the group's desired capacity and wait for an instance to start.
-- Terminate an instance in the group.
-- List scaling activities that occur in response to user requests and capacity changes.
-- Get statistics for CloudWatch metrics, then clean up resources.
-
-<!--custom.scenario_prereqs.auto-scaling_Scenario_GroupsAndInstances.start-->
-<!--custom.scenario_prereqs.auto-scaling_Scenario_GroupsAndInstances.end-->
-
-
-<!--custom.scenarios.auto-scaling_Scenario_GroupsAndInstances.start-->
-##### Configuration settings
-
-This example uses several configuration settings that are stored in `settings.json`
-to change the existing values.
-
-Note: The image ID, instance type, and Availability Zone must be available in the same AWS Region as the account that's
-used to run the scenario. For information about how to get valid settings, see [Find a Linux AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html).
-
-* `GroupName` - The name to use for the Auto Scaling group.
-* `ImageId` - The image ID to use with the Amazon EC2 Auto Scaling template. The AMI-ID column of the Amazon EC2 image locator table.
-* `InstanceType` - The instance type to use with the template. The Instance Type column of the Amazon EC2 image locator table.
-* `LaunchTemplateName` - The name of the launch template.
-* `AvailabilityZone` - The Availability Zone for the launch template. The Zone column of the Amazon EC2 image locator table.
-* `ServiceLinkedRoleArn` - The Amazon Resource Name (ARN) of a serivce-linked role that will be used
-                             to create the Auto Scaling group.
-
-<!--custom.scenarios.auto-scaling_Scenario_GroupsAndInstances.end-->
 
 ### Tests
 

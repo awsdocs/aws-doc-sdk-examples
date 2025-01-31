@@ -1,9 +1,4 @@
-# zexi 0.4.2
 organizations_CreatePolicy:
-  title: Create an &AO; policy using an &AWS; SDK
-  title_abbrev: Create a policy
-  synopsis: create an &AO; policy.
-  category:
   languages:
     .NET:
       versions:
@@ -26,10 +21,6 @@ organizations_CreatePolicy:
   services:
     organizations: {CreatePolicy}
 organizations_CreateAccount:
-  title: Create an &AO; account using an &AWS; SDK
-  title_abbrev: Create an account
-  synopsis: create an &AO; account.
-  category:
   languages:
     .NET:
       versions:
@@ -43,10 +34,6 @@ organizations_CreateAccount:
   services:
     organizations: {CreateAccount}
 organizations_CreateOrganization:
-  title: Create an &AO; organization using an &AWS; SDK
-  title_abbrev: Create an organization
-  synopsis: create an &AO; organization.
-  category:
   languages:
     .NET:
       versions:
@@ -60,10 +47,6 @@ organizations_CreateOrganization:
   services:
     organizations: {CreateOrganization}
 organizations_CreateOrganizationalUnit:
-  title: Create an &AO; organizational unit using an &AWS; SDK
-  title_abbrev: Create an organizational unit
-  synopsis: create an &AO; organizational unit.
-  category:
   languages:
     .NET:
       versions:
@@ -77,10 +60,6 @@ organizations_CreateOrganizationalUnit:
   services:
     organizations: {CreateOrganizationalUnit}
 organizations_ListPolicies:
-  title: List &AO; policies using an &AWS; SDK
-  title_abbrev: List policies
-  synopsis: list &AO; policies.
-  category:
   languages:
     .NET:
       versions:
@@ -103,10 +82,6 @@ organizations_ListPolicies:
   services:
     organizations: {ListPolicies}
 organizations_DescribePolicy:
-  title: Describe an &AO; policy using an &AWS; SDK
-  title_abbrev: Describe a policy
-  synopsis: describe an &AO; policy.
-  category:
   languages:
     Python:
       versions:
@@ -120,10 +95,6 @@ organizations_DescribePolicy:
   services:
     organizations: {DescribePolicy}
 organizations_AttachPolicy:
-  title: Attach an &AO; policy to a target using an &AWS; SDK
-  title_abbrev: Attach a policy to a target
-  synopsis: attach an &AO; policy to a target.
-  category:
   languages:
     .NET:
       versions:
@@ -146,10 +117,6 @@ organizations_AttachPolicy:
   services:
     organizations: {AttachPolicy}
 organizations_DetachPolicy:
-  title: Detach an &AO; policy from a target using an &AWS; SDK
-  title_abbrev: Detach a policy from a target
-  synopsis: detach an &AO; policy from a target.
-  category:
   languages:
     .NET:
       versions:
@@ -172,10 +139,6 @@ organizations_DetachPolicy:
   services:
     organizations: {DetachPolicy}
 organizations_DeletePolicy:
-  title: Delete an &AO; policy using an &AWS; SDK
-  title_abbrev: Delete a policy
-  synopsis: delete an &AO; policy.
-  category:
   languages:
     .NET:
       versions:
@@ -198,10 +161,6 @@ organizations_DeletePolicy:
   services:
     organizations: {DeletePolicy}
 organizations_DeleteOrganizationalUnit:
-  title: Delete an &AO; organizational unit using an &AWS; SDK
-  title_abbrev: Delete an organizational unit
-  synopsis: delete an &AO; organizational unit.
-  category:
   languages:
     .NET:
       versions:
@@ -215,10 +174,6 @@ organizations_DeleteOrganizationalUnit:
   services:
     organizations: {DeleteOrganizationalUnit}
 organizations_DeleteOrganization:
-  title: Delete an &AO; organization using an &AWS; SDK
-  title_abbrev: Delete an organization
-  synopsis: delete an &AO; organization.
-  category:
   languages:
     .NET:
       versions:
@@ -232,10 +187,6 @@ organizations_DeleteOrganization:
   services:
     organizations: {DeleteOrganization}
 organizations_ListAccounts:
-  title: List accounts for an &AO; organization using an &AWS; SDK
-  title_abbrev: List accounts
-  synopsis: list accounts for an &AO; organization.
-  category:
   languages:
     .NET:
       versions:
@@ -248,11 +199,7 @@ organizations_ListAccounts:
                 - Organizations.dotnetv3.ListAccountsExample
   services:
     organizations: {ListAccounts}
-organizations_ListOrganizationalUnits:
-  title: List &AO; organizational units using an &AWS; SDK
-  title_abbrev: List organizational units
-  synopsis: list &AO; organizational units.
-  category:
+organizations_ListOrganizationalUnitsForParent:
   languages:
     .NET:
       versions:

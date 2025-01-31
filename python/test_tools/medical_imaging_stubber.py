@@ -8,6 +8,8 @@ Stub functions that are used by the AWS HealthImaging unit tests.
 from test_tools.example_stubber import ExampleStubber
 import botocore
 import io
+import gzip
+import json
 
 
 class MedicalImagingStubber(ExampleStubber):
@@ -183,10 +185,15 @@ class MedicalImagingStubber(ExampleStubber):
     def stub_get_image_set_metadata(self, datastore_id, image_set_id, error_code=None):
         expected_params = {"datastoreId": datastore_id, "imageSetId": image_set_id}
 
-        data_string = b"akdelfaldkflakdflkajs"
-        stream = botocore.response.StreamingBody(
-            io.BytesIO(data_string), len(data_string)
-        )
+        data_string = b'"{data: akdelfaldkflakdflkajs}"'
+
+        gzip_stream = io.BytesIO()
+        with gzip.open(gzip_stream, "wb") as f:
+            f.write(data_string)
+        gzip_stream.seek(0)
+
+        stream = botocore.response.StreamingBody(gzip_stream, 49)
+
         response = {
             "contentType": " text/plain",
             "contentEncoding": "gzip",
@@ -235,13 +242,14 @@ class MedicalImagingStubber(ExampleStubber):
         )
 
     def stub_update_image_set_metadata(
-        self, datastore_id, image_set_id, version_id, metadata, error_code=None
+        self, datastore_id, image_set_id, version_id, metadata, force, error_code=None
     ):
         expected_params = {
             "datastoreId": datastore_id,
             "imageSetId": image_set_id,
             "latestVersionId": version_id,
             "updateImageSetMetadataUpdates": metadata,
+            "force": force,
         }
 
         response = {
@@ -272,6 +280,7 @@ class MedicalImagingStubber(ExampleStubber):
             "copyImageSetInformation": {
                 "sourceImageSet": {"latestVersionId": version_id}
             },
+            "force": False,
         }
 
         response = {
@@ -297,8 +306,14 @@ class MedicalImagingStubber(ExampleStubber):
         version_id,
         destination_image_set_id,
         destination_version_id,
+        force,
+        subset,
         error_code=None,
     ):
+        copiable_attributes = {
+            "SchemaVersion": "1.1",
+            "Study": {"Series": {"imageSetId": {"Instances": {subset: {}}}}},
+        }
         expected_params = {
             "datastoreId": datastore_id,
             "sourceImageSetId": image_set_id,
@@ -307,8 +322,14 @@ class MedicalImagingStubber(ExampleStubber):
                     "imageSetId": destination_image_set_id,
                     "latestVersionId": destination_version_id,
                 },
-                "sourceImageSet": {"latestVersionId": version_id},
+                "sourceImageSet": {
+                    "latestVersionId": version_id,
+                    "DICOMCopies": {
+                        "copiableAttributes": json.dumps(copiable_attributes)
+                    },
+                },
             },
+            "force": force,
         }
 
         response = {

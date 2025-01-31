@@ -29,30 +29,30 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `aws-c
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](iam_create_user_assume_role_scenario.sh)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](iam_operations.sh#L503) (`AttachRolePolicy`)
-- [Create a policy](iam_operations.sh#L428) (`CreatePolicy`)
-- [Create a role](iam_operations.sh#L349) (`CreateRole`)
-- [Create a user](iam_operations.sh#L120) (`CreateUser`)
-- [Create an access key](iam_operations.sh#L199) (`CreateAccessKey`)
-- [Delete a policy](iam_operations.sh#L653) (`DeletePolicy`)
-- [Delete a role](iam_operations.sh#L723) (`DeleteRole`)
-- [Delete a user](iam_operations.sh#L875) (`DeleteUser`)
-- [Delete an access key](iam_operations.sh#L794) (`DeleteAccessKey`)
-- [Detach a policy from a role](iam_operations.sh#L578) (`DetachRolePolicy`)
-- [Get a user](iam_operations.sh#L24) (`GetUser`)
-- [List a user's access keys](iam_operations.sh#L280) (`ListAccessKeys`)
-- [List users](iam_operations.sh#L63) (`ListUsers`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Create a user and assume a role](iam_create_user_assume_role_scenario.sh)
+- [AttachRolePolicy](iam_operations.sh#L496)
+- [CreateAccessKey](iam_operations.sh#L192)
+- [CreatePolicy](iam_operations.sh#L421)
+- [CreateRole](iam_operations.sh#L342)
+- [CreateUser](iam_operations.sh#L113)
+- [DeleteAccessKey](iam_operations.sh#L787)
+- [DeletePolicy](iam_operations.sh#L646)
+- [DeleteRole](iam_operations.sh#L716)
+- [DeleteUser](iam_operations.sh#L868)
+- [DetachRolePolicy](iam_operations.sh#L571)
+- [GetUser](iam_operations.sh#L17)
+- [ListAccessKeys](iam_operations.sh#L273)
+- [ListUsers](iam_operations.sh#L56)
 
 
 <!--custom.examples.start-->
@@ -67,8 +67,7 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Create a user and assume a role
+#### Learn the basics
 
 This example shows you how to create a user and assume a role. 
 
@@ -77,12 +76,13 @@ This example shows you how to create a user and assume a role.
 - Add a policy to let the user assume the role.
 - Assume the role and list S3 buckets using temporary credentials, then clean up resources.
 
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
 
 
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
+
 
 ### Tests
 

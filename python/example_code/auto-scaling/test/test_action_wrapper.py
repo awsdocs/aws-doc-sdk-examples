@@ -6,9 +6,10 @@ Unit tests for action_wrapper.py.
 """
 
 from datetime import datetime
+
 import boto3
-from botocore.exceptions import ClientError
 import pytest
+from botocore.exceptions import ClientError
 
 from action_wrapper import AutoScalingWrapper
 
@@ -24,7 +25,7 @@ def test_create_group(make_stubber, error_code):
     min_size = 1
     max_size = 3
 
-    autoscaling_stubber.stub_create_auto_scaling_group(
+    autoscaling_stubber.stub_create_group(
         group_name,
         zones,
         launch_template_name,
@@ -73,9 +74,7 @@ def test_delete_group(make_stubber, error_code):
     wrapper = AutoScalingWrapper(autoscaling_client)
     group_name = "test-group_name"
 
-    autoscaling_stubber.stub_delete_auto_scaling_group(
-        group_name, error_code=error_code
-    )
+    autoscaling_stubber.stub_delete_group(group_name, error_code=error_code)
 
     if error_code is None:
         wrapper.delete_group(group_name)

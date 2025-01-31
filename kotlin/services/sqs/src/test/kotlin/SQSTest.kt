@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.util.*
+import java.util.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -34,16 +34,17 @@ class SQSTest {
     private var queueUrl = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        val random = Random()
-        val randomNum = random.nextInt(10000 - 1 + 1) + 1
+    fun setup() =
+        runBlocking {
+            val random = Random()
+            val randomNum = random.nextInt(10000 - 1 + 1) + 1
 
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val queueMessage = gson.fromJson(json, QueueMessage::class.java)
-        queueName = queueMessage.queueName.toString() + randomNum
-        message = queueMessage.message.toString()
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val queueMessage = gson.fromJson(json, QueueMessage::class.java)
+            queueName = queueMessage.queueName.toString() + randomNum
+            message = queueMessage.message.toString()
 
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
@@ -53,79 +54,92 @@ class SQSTest {
         prop.load(input)
         queueName = prop.getProperty("QueueName")
         message = prop.getProperty("Message")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun createSQSQueueTest() = runBlocking {
-        queueUrl = createQueue(queueName)
-        Assertions.assertTrue(!queueUrl.isEmpty())
-        println("Test 1 passed")
-    }
+    fun createSQSQueueTest() =
+        runBlocking {
+            queueUrl = createQueue(queueName)
+            Assertions.assertTrue(!queueUrl.isEmpty())
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun sendMessageTest() = runBlocking {
-        sendMessages(queueUrl, message)
-        println("Test 2 passed")
-    }
+    fun sendMessageTest() =
+        runBlocking {
+            sendMessages(queueUrl, message)
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun sendBatchMessagesTest() = runBlocking {
-        sendBatchMessages(queueUrl)
-        println("Test 3 passed")
-    }
+    fun sendBatchMessagesTest() =
+        runBlocking {
+            sendBatchMessages(queueUrl)
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun getMessageTest() = runBlocking {
-        receiveMessages(queueUrl)
-        println("Test 4 passed")
-    }
+    fun getMessageTest() =
+        runBlocking {
+            receiveMessages(queueUrl)
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun addQueueTagsTest() = runBlocking {
-        addTags(queueName)
-        println("Test 5 passed")
-    }
+    fun addQueueTagsTest() =
+        runBlocking {
+            addTags(queueName)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun listQueueTagsTest() = runBlocking {
-        listTags(queueName)
-        println("Test 6 passed")
-    }
+    fun listQueueTagsTest() =
+        runBlocking {
+            listTags(queueName)
+            println("Test 6 passed")
+        }
 
     @Test
     @Order(7)
-    fun removeQueueTagsTest() = runBlocking {
-        removeTag(queueName, "Test")
-        println("Test 7 passed")
-    }
+    fun removeQueueTagsTest() =
+        runBlocking {
+            removeTag(queueName, "Test")
+            println("Test 7 passed")
+        }
 
     @Test
     @Order(8)
-    fun deleteMessagesTest() = runBlocking {
-        deleteMessages(queueUrl)
-        println("Test 8 passed")
-    }
+    fun deleteMessagesTest() =
+        runBlocking {
+            deleteMessages(queueUrl)
+            println("Test 8 passed")
+        }
 
     @Test
     @Order(9)
-    fun deleteQueueTest() = runBlocking {
-        deleteQueue(queueUrl)
-        println("Test 9 passed")
-    }
+    fun deleteQueueTest() =
+        runBlocking {
+            deleteQueue(queueUrl)
+            println("Test 9 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/sqs"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

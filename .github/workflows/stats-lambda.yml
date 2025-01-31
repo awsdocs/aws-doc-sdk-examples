@@ -1,0 +1,51 @@
+# This workflow executes a Lamdba function that records metrics for each merged PR.
+#
+# For more information, see:
+# https://github.com/marketplace/actions/invoke-aws-lambda
+
+name: Trigger Lambda to capture metrics
+
+permissions:
+  packages: write
+  contents: read
+  id-token: write
+
+on:   # yamllint disable-line rule:truthy
+  pull_request_target:
+    types:
+      - closed
+    branches:
+      - 'main'
+  workflow_dispatch:
+env:
+  COMMIT: ${{github.event.pull_request.head.sha}}
+  PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+  AWS_REGION: "eu-west-1"
+jobs:
+  if_merged:
+    if: (github.event.pull_request.merged == true) && (contains(github.event.pull_request.labels.*.name, 'On Call Review complete'))
+    runs-on: ubuntu-latest
+    name: GitHub Statistics
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      - name: Configure AWS Credentials
+        id: creds
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{env.AWS_REGION}}
+          role-to-assume: ${{ secrets.ROLE_ID }}
+          output-credentials: true
+      - name: Create payload
+        run: echo "JSON_PAYLOAD={\"commit\" :\"${{ env.COMMIT }}\",\"author\" :\"${{ env.PR_AUTHOR }}\"}" >> $GITHUB_ENV
+      - name: Invoke Lambda
+        uses: gagoar/invoke-aws-lambda@master
+        with:
+          AWS_ACCESS_KEY_ID: ${{ steps.creds.outputs.aws-access-key-id }}
+          AWS_SECRET_ACCESS_KEY: ${{ steps.creds.outputs.aws-secret-access-key }}
+          AWS_SESSION_TOKEN: ${{ steps.creds.outputs.aws-session-token }}
+          REGION: ${{env.AWS_REGION}}
+          FunctionName: runTheNumbers
+          Payload: ${{env.JSON_PAYLOAD}}
+          InvocationType: RequestResponse
+          LogType: None

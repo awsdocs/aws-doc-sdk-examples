@@ -15,16 +15,15 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
     listAllCollections()
 }
 
 // snippet-start:[rekognition.kotlin.list_collections.main]
 suspend fun listAllCollections() {
-
-    val request = ListCollectionsRequest {
-        maxResults = 10
-    }
+    val request =
+        ListCollectionsRequest {
+            maxResults = 10
+        }
 
     RekognitionClient { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.listCollections(request)

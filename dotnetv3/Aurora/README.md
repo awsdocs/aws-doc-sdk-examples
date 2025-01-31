@@ -34,38 +34,39 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 - [Hello Aurora](Actions/HelloAurora.cs#L4) (`DescribeDBClusters`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/AuroraScenario.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB cluster](Actions/AuroraWrapper.cs#L199) (`CreateDBCluster`)
-- [Create a DB cluster parameter group](Actions/AuroraWrapper.cs#L41) (`CreateDBClusterParameterGroup`)
-- [Create a DB cluster snapshot](Actions/AuroraWrapper.cs#L320) (`CreateDBClusterSnapshot`)
-- [Create a DB instance in a DB cluster](Actions/AuroraWrapper.cs#L286) (`CreateDBInstance`)
-- [Delete a DB cluster](Actions/AuroraWrapper.cs#L367) (`DeleteDBCluster`)
-- [Delete a DB cluster parameter group](Actions/AuroraWrapper.cs#L181) (`DeleteDBClusterParameterGroup`)
-- [Delete a DB instance](Actions/AuroraWrapper.cs#L386) (`DeleteDBInstance`)
-- [Describe DB cluster parameter groups](Actions/AuroraWrapper.cs#L98) (`DescribeDBClusterParameterGroups`)
-- [Describe DB cluster snapshots](Actions/AuroraWrapper.cs#L340) (`DescribeDBClusterSnapshots`)
-- [Describe DB clusters](Actions/AuroraWrapper.cs#L259) (`DescribeDBClusters`)
-- [Describe DB instances](Actions/AuroraWrapper.cs#L236) (`DescribeDBInstances`)
-- [Describe database engine versions](Actions/AuroraWrapper.cs#L21) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](Actions/AuroraWrapper.cs#L154) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters from a DB cluster parameter group](Actions/AuroraWrapper.cs#L66) (`DescribeDBClusterParameters`)
-- [Update parameters in a DB cluster parameter group](Actions/AuroraWrapper.cs#L115) (`ModifyDBClusterParameterGroup`)
+- [CreateDBCluster](Actions/AuroraWrapper.cs#L199)
+- [CreateDBClusterParameterGroup](Actions/AuroraWrapper.cs#L41)
+- [CreateDBClusterSnapshot](Actions/AuroraWrapper.cs#L320)
+- [CreateDBInstance](Actions/AuroraWrapper.cs#L286)
+- [DeleteDBCluster](Actions/AuroraWrapper.cs#L367)
+- [DeleteDBClusterParameterGroup](Actions/AuroraWrapper.cs#L181)
+- [DeleteDBInstance](Actions/AuroraWrapper.cs#L386)
+- [DescribeDBClusterParameterGroups](Actions/AuroraWrapper.cs#L98)
+- [DescribeDBClusterParameters](Actions/AuroraWrapper.cs#L66)
+- [DescribeDBClusterSnapshots](Actions/AuroraWrapper.cs#L340)
+- [DescribeDBClusters](Actions/AuroraWrapper.cs#L259)
+- [DescribeDBEngineVersions](Actions/AuroraWrapper.cs#L21)
+- [DescribeDBInstances](Actions/AuroraWrapper.cs#L236)
+- [DescribeOrderableDBInstanceOptions](Actions/AuroraWrapper.cs#L154)
+- [ModifyDBClusterParameterGroup](Actions/AuroraWrapper.cs#L115)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with DB clusters](Scenarios/AuroraScenario.cs)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create an Aurora Serverless work item tracker](../cross_service/AuroraItemTracker)
+- [Create an Aurora Serverless work item tracker](../cross-service/AuroraItemTracker)
 
 
 <!--custom.examples.start-->
@@ -101,8 +102,7 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using Aurora.
 
 
-
-#### Get started with DB clusters
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -111,12 +111,25 @@ This example shows you how to do the following:
 - Create a DB instance that contains a database.
 - Take a snapshot of the DB cluster, then clean up resources.
 
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.end-->
 
 
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.end-->
+
+
+#### Create an Aurora Serverless work item tracker
+
+This example shows you how to create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_RDSDataTracker.start-->
+<!--custom.scenario_prereqs.cross_RDSDataTracker.end-->
+
+
+<!--custom.scenarios.cross_RDSDataTracker.start-->
+<!--custom.scenarios.cross_RDSDataTracker.end-->
 
 ### Tests
 

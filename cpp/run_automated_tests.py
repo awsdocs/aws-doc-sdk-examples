@@ -102,7 +102,7 @@ def build_tests(service="*"):
     return build_cmake_tests(cmake_files, executable_pattern)
 
 
-def run_tests(run_files=[], type1=False, type2=False, type3=False):
+def run_tests(run_files, type1=False, type2=False, type3=False):
     global build_sub_dir
     has_error = False
     filters = []
@@ -126,10 +126,10 @@ def run_tests(run_files=[], type1=False, type2=False, type3=False):
     os.chdir(run_dir)
     for run_file in run_files:
         # Run each filter separately or the no filter case.
-        for filter in filters:
+        for a_filter in filters:
             filter_arg = ""
-            if len(filter) > 0:
-                filter_arg = f"--gtest_filter={filter}"
+            if len(a_filter) > 0:
+                filter_arg = f"--gtest_filter={a_filter}"
             print(f"Calling '{run_file} {filter_arg}'.")
             proc = subprocess.Popen(
                 [run_file, filter_arg], stdout=subprocess.PIPE, stderr=subprocess.STDOUT
@@ -138,11 +138,11 @@ def run_tests(run_files=[], type1=False, type2=False, type3=False):
                 line = line.decode("utf-8")
                 sys.stdout.write(line)
 
-                match = re.search("\[  PASSED  \] (\d+) test", line)
+                match = re.search(r"\[ {2}PASSED {2}\] (\d+) test", line)
                 if match is not None:
                     passed_tests = passed_tests + int(match.group(1))
                     continue
-                match = re.search("\[  FAILED  \] (\d+) test", line)
+                match = re.search(r"\[ {2}FAILED {2}\] (\d+) test", line)
                 if match is not None:
                     failed_tests = failed_tests + int(match.group(1))
                     continue
@@ -170,6 +170,10 @@ def test_hello_service(service="*"):
     print(os.getcwd())
     cmake_files = glob.glob(f"example_code/{service}/hello_{service}/CMakeLists.txt")
 
+    if len(cmake_files) == 0:
+        print("No hello tests found.")
+        return [0, 0, 0]
+
     (err_code, run_files) = build_cmake_tests(
         cmake_files, ["/hello_*", "/Debug/hello_*.exe"]
     )
@@ -190,8 +194,64 @@ def test_hello_service(service="*"):
         path_split = os.path.splitext(run_file)
         if (path_split[1] == ".exe") or (path_split[1] == ""):
             print(f"Calling '{run_file}'.")
-            completedProcess = subprocess.run([run_file], stdout=subprocess.DEVNULL)
-            if completedProcess.returncode != 0:
+            completed_process = subprocess.run([run_file], stdout=subprocess.DEVNULL)
+            if completed_process.returncode != 0:
+                print(f"Error with {run_file}")
+                has_error = True
+                failed_count = failed_count + 1
+            else:
+                passed_count = passed_count + 1
+
+    print("-" * 88)
+    print(f"{passed_count} tests passed.")
+    print(f"{failed_count} tests failed.")
+    print(f"Total cmake files - {len(cmake_files)}")
+
+    os.chdir(old_dir)
+
+    if has_error:
+        return [1, passed_count, failed_count]
+    else:
+        return [0, passed_count, failed_count]
+
+
+def run_special_case_tests(service):
+    cmake_files = []
+    executable_pattern = []
+    if "sdk-customization" == service or service == "*":
+        cmake_files.append("example_code/sdk-customization/CMakeLists.txt")
+        executable_pattern.append("/run_override_default_logger")
+        executable_pattern.append("/run_override_default_logger.exe")
+
+    if len(cmake_files) == 0:
+        print("No special tests found.")
+        return [0, 0, 0]
+
+    print("-" * 88)
+    print(f"Running special tests for {service}.")
+
+    print(os.getcwd())
+
+    (err_code, run_files) = build_cmake_tests(cmake_files, executable_pattern)
+
+    if err_code != 0:
+        print("Build special tests failed.")
+        return [err_code, 0, 0]
+
+    old_dir = os.getcwd()
+    run_dir = os.path.join(build_sub_dir, "special_tests_run")
+    os.makedirs(name=run_dir, exist_ok=True)
+    os.chdir(run_dir)
+
+    passed_count = 0
+    failed_count = 0
+    has_error = False
+    for run_file in run_files:
+        path_split = os.path.splitext(run_file)
+        if (path_split[1] == ".exe") or (path_split[1] == ""):
+            print(f"Calling '{run_file}'.")
+            completed_process = subprocess.run([run_file], stdout=subprocess.DEVNULL)
+            if completed_process.returncode != 0:
                 print(f"Error with {run_file}")
                 has_error = True
                 failed_count = failed_count + 1
@@ -230,18 +290,21 @@ def main(argv):
             print(" 3. Does not require credentials.")
             print(" s. Test this service (regular expression).")
             sys.exit()
-        elif opt in ("-1"):
+        elif opt in "-1":
             type1 = True
-        elif opt in ("-2"):
+        elif opt in "-2":
             type2 = True
-        elif opt in ("-3"):
+        elif opt in "-3":
             type3 = True
-        elif opt in ("-s"):
+        elif opt in "-s":
             service = arg
 
     start_time = datetime.datetime.now()
 
     base_dir = os.getcwd()
+    
+    # Set the S3 bucket prefix to be used in tests
+    os.environ['S3TestsBucketPrefix'] = 'tests-script'
 
     [err_code, run_files] = build_tests(service=service)
 
@@ -260,6 +323,16 @@ def main(argv):
         )
         passed_count = passed_count + hello_passed_count
         failed_count = failed_count + hello_failed_count
+
+    os.chdir(base_dir)
+    if err_code == 0:
+        [
+            err_code,
+            run_special_case_passed_count,
+            run_special_case_failed_count,
+        ] = run_special_case_tests(service=service)
+        passed_count = passed_count + run_special_case_passed_count
+        failed_count = failed_count + run_special_case_failed_count
 
     if err_code == 0:
         print("-" * 88)

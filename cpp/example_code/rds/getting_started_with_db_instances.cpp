@@ -717,19 +717,35 @@ bool AwsDoc::RDS::getDBEngineVersions(const Aws::String &engineName,
         request.SetDBParameterGroupFamily(parameterGroupFamily);
     }
 
-    Aws::RDS::Model::DescribeDBEngineVersionsOutcome outcome =
-            client.DescribeDBEngineVersions(request);
+    engineVersionsResult.clear();
+    Aws::String marker; // Used for pagination.
 
-    if (outcome.IsSuccess()) {
-        engineVersionsResult = outcome.GetResult().GetDBEngineVersions();
-    }
-    else {
-        std::cerr << "Error with RDS::DescribeDBEngineVersionsRequest. "
-                  << outcome.GetError().GetMessage()
-                  << std::endl;
-    }
+    do {
+        if (!marker.empty()) {
+            request.SetMarker(marker);
+        }
 
-    return outcome.IsSuccess();
+
+        Aws::RDS::Model::DescribeDBEngineVersionsOutcome outcome =
+                client.DescribeDBEngineVersions(request);
+
+        if (outcome.IsSuccess()) {
+            auto &engineVersions = outcome.GetResult().GetDBEngineVersions();
+            engineVersionsResult.insert(engineVersionsResult.end(), engineVersions.begin(),
+                                        engineVersions.end());
+            marker = outcome.GetResult().GetMarker();
+        }
+        else {
+            std::cerr << "Error with RDS::DescribeDBEngineVersionsRequest. "
+                      << outcome.GetError().GetMessage()
+                      << std::endl;
+            return false;
+        }
+
+    } while (!marker.empty());
+
+
+    return true;
 }
 // snippet-end:[cpp.example_code.rds.DescribeDBEngineVersions]
 

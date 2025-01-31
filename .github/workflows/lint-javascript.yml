@@ -1,0 +1,43 @@
+name: JavaScript
+
+on:  # yamllint disable-line rule:truthy
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint Javascript
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            javascriptv3
+            scenarios
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@e9772d140489982e0e3704fea5ee93d536f1e275
+        with:
+          files: "javascriptv3/**/*.{js,ts,jsx,tsx,json}"
+      - name: Setup NodeJS
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22.x"
+      - name: Install dependencies
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: npm i --prefix javascriptv3
+      - name: Validate package names
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: ./javascriptv3/github_scripts/validate_packages.sh
+      - name: Lint added and modified files
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          changed_files=(${{steps.changed-files.outputs.all_changed_files}})
+          ./javascriptv3/github_scripts/lint.sh "${changed_files[@]}"
+      - name: Run unit tests
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: npm test --prefix javascriptv3

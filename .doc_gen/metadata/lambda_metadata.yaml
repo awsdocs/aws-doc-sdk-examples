@@ -13,7 +13,7 @@ lambda_Hello:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.java2.ListLambdaFunctions.complete
+                - lambda.java2.list.main
     .NET:
       versions:
         - sdk_version: 3
@@ -51,13 +51,25 @@ lambda_Hello:
             - description:
               snippet_tags:
                 - javascript.v3.lambda.hello
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example.hello_lambda
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.lambda.Hello
   services:
     lambda: {ListFunctions}
 lambda_CreateFunction:
-  title: Create a &LAM; function using an &AWS; SDK
-  title_abbrev: Create a function
-  synopsis: create a &LAM; function.
-  category:
   languages:
     .NET:
       versions:
@@ -160,13 +172,18 @@ lambda_CreateFunction:
             - snippet_tags:
                 - lambda.rust.scenario.create_function
                 - lambda.rust.scenario.prepare_function
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/lambda/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.lambda-basics.imports
+                - swift.lambda-basics.CreateFunction
   services:
     lambda: {CreateFunction}
 lambda_DeleteFunction:
-  title: Delete a &LAM; function using an &AWS; SDK
-  title_abbrev: Delete a function
-  synopsis: delete a &LAM; function.
-  category:
   languages:
     .NET:
       versions:
@@ -270,10 +287,6 @@ lambda_DeleteFunction:
   services:
     lambda: {DeleteFunction}
 lambda_Invoke:
-  title: Invoke a &LAM; function using an &AWS; SDK
-  title_abbrev: Invoke a function
-  synopsis: invoke a &LAM; function.
-  category:
   languages:
     .NET:
       versions:
@@ -376,14 +389,28 @@ lambda_Invoke:
             - snippet_tags:
                 - lambda.rust.scenario.invoke
                 - lambda.rust.scenario.log_invoke_output
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/lambda/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.lambda-basics.imports
+                - swift.lambda-basics.Invoke
   services:
     lambda: {Invoke}
 lambda_GetFunction:
-  title: Get a &LAM; function using an &AWS; SDK
-  title_abbrev: Get a function
-  synopsis: get a &LAM; function.
-  category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.java2.get.function.main
     .NET:
       versions:
         - sdk_version: 3
@@ -465,14 +492,28 @@ lambda_GetFunction:
           excerpts:
             - snippet_tags:
                 - lambda.rust.scenario.get_function
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/lambda/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.lambda-basics.imports
+                - swift.lambda-basics.GetFunctionInput
   services:
     lambda: {GetFunction}
 lambda_UpdateFunctionCode:
-  title: Update &LAM; function code using an &AWS; SDK
-  title_abbrev: Update function code
-  synopsis: update &LAM; function code.
-  category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.java2.get.function.main
     .NET:
       versions:
         - sdk_version: 3
@@ -555,14 +596,28 @@ lambda_UpdateFunctionCode:
             - snippet_tags:
                 - lambda.rust.scenario.update_function_code
                 - lambda.rust.scenario.prepare_function
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/lambda/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.lambda-basics.imports
+                - swift.lambda-basics.UpdateFunctionCode
   services:
     lambda: {UpdateFunctionCode}
 lambda_UpdateFunctionConfiguration:
-  title: Update &LAM; function configuration using an &AWS; SDK
-  title_abbrev: Update function configuration
-  synopsis: update &LAM; function configuration.
-  category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.java2.update.config.main
     .NET:
       versions:
         - sdk_version: 3
@@ -647,10 +702,6 @@ lambda_UpdateFunctionConfiguration:
   services:
     lambda: {UpdateFunctionConfiguration}
 lambda_ListFunctions:
-  title: List &LAM; functions using an &AWS; SDK
-  title_abbrev: List functions
-  synopsis: list &LAM; functions.
-  category:
   languages:
     .NET:
       versions:
@@ -733,21 +784,27 @@ lambda_ListFunctions:
           excerpts:
             - snippet_tags:
                 - lambda.rust.scenario.list_functions
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/lambda/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.lambda-basics.imports
+                - swift.lambda-basics.ListFunctionsPaginated
   services:
     lambda: {ListFunctions}
 lambda_Scenario_GettingStartedFunctions:
-  title: Get started creating and invoking &LAM; functions using an &AWS; SDK
-  title_abbrev: Get started with functions
   synopsis_list:
     - Create an &IAM; role and &LAM; function, then upload handler code.
     - Invoke the function with a single parameter and get results.
     - Update the function code and configure with an environment variable.
-    - Invoke the function with new parameters and get results. Display the returned execution
-      log.
+    - Invoke the function with new parameters and get results. Display the returned execution log.
     - List the functions for your account, then clean up resources.
-  category: Scenarios
+  category: Basics
   guide_topic:
-    title: "Create a &LAM; function with the console"
+    title: Create a &LAM; function with the console
     url: lambda/latest/dg/getting-started-create-function.html
   languages:
     .NET:
@@ -768,9 +825,7 @@ lambda_Scenario_GettingStartedFunctions:
             - description: Define a &LAM; handler that increments a number.
               snippet_tags:
                 - lambda.dotnetv3.handler.increment
-            - description:
-                Define a second &LAM; handler that performs arithmetic
-                operations.
+            - description: Define a second &LAM; handler that performs arithmetic operations.
               snippet_tags:
                 - lambda.dotnetv3.handler.arithmetic
     Go:
@@ -778,17 +833,12 @@ lambda_Scenario_GettingStartedFunctions:
         - sdk_version: 2
           github: gov2/lambda
           excerpts:
-            - description:
-                Create an interactive scenario that shows you how to get
-                started with &LAM; functions.
+            - description: Create an interactive scenario that shows you how to get started with &LAM; functions.
               snippet_tags:
                 - gov2.lambda.Scenario_GetStartedFunctions
             - description: Create a struct that wraps individual &LAM; actions.
               snippet_tags:
                 - gov2.lambda.FunctionWrapper.complete
-            - description: Create a struct that implements functions to help run the scenario.
-              snippet_tags:
-                - gov2.lambda.GetStartedFunctions_Helper
             - description: Define a &LAM; handler that increments a number.
               snippet_tags:
                 - gov2.lambda.handlers.increment
@@ -830,9 +880,7 @@ lambda_Scenario_GettingStartedFunctions:
             - description: Define a &LAM; handler that increments a number.
               snippet_tags:
                 - python.example_code.lambda.handler.increment
-            - description:
-                Define a second &LAM; handler that performs arithmetic
-                operations.
+            - description: Define a second &LAM; handler that performs arithmetic operations.
               snippet_tags:
                 - python.example_code.lambda.handler.arithmetic
             - description: Create functions that wrap &LAM; actions.
@@ -926,20 +974,31 @@ lambda_Scenario_GettingStartedFunctions:
             - description: The Cargo.toml with dependencies used in this scenario.
               snippet_files:
                 - rustv1/examples/lambda/Cargo.toml
-            - description: A collection of utilities that streamline calling Lambda for this scenario. This file is src/ations.rs in the crate.
+            - description: A collection of utilities that streamline calling Lambda for this scenario. This file is src/ations.rs
+                in the crate.
               snippet_files:
                 - rustv1/examples/lambda/src/actions.rs
-            - description: A binary to run the scenario from front to end, using command line flags to control some behavior. This file is src/bin/scenario.rs in the crate.
+            - description: A binary to run the scenario from front to end, using command line flags to control some behavior.
+                This file is src/bin/scenario.rs in the crate.
               snippet_files:
                 - rustv1/examples/lambda/src/bin/scenario.rs
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/lambda/basics
+          excerpts:
+            - description: Define the first &LAM; function, which simply increments the specified value.
+              snippet_files:
+                - swift/example_code/lambda/basics/increment/Package.swift
+                - swift/example_code/lambda/basics/increment/Sources/increment.swift
+            - description: Define the second &LAM; function, which performs an arithmetic operation on two numbers.
+              snippet_files:
+                - swift/example_code/lambda/basics/calculator/Package.swift
+                - swift/example_code/lambda/basics/calculator/Sources/calculator.swift
+            - description: Define the main program that will invoke the two &LAM; functions.
+              snippet_files:
+                - swift/example_code/lambda/basics/lambda-basics/Package.swift
+                - swift/example_code/lambda/basics/lambda-basics/Sources/entry.swift
+                - swift/example_code/lambda/basics/lambda-basics/Sources/ExampleError.swift
   services:
-    lambda:
-      {
-        CreateFunction,
-        DeleteFunction,
-        Invoke,
-        GetFunction,
-        ListFunctions,
-        UpdateFunctionCode,
-        UpdateFunctionConfiguration,
-      }
+    lambda: {CreateFunction, DeleteFunction, Invoke, GetFunction, ListFunctions, UpdateFunctionCode, UpdateFunctionConfiguration}

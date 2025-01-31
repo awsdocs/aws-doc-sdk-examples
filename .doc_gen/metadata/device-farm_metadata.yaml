@@ -11,9 +11,8 @@ device-farm_Scenario_BrowserTesting:
           github: python/example_code/devicefarm/browser_testing
           sdkguide:
           excerpts:
-            - description: Use PyTest and Selenium to browse to specified websites,
-                take screenshots, and compare actual website content with expected
-                content.
+            - description: Use PyTest and Selenium to browse to specified websites, take screenshots, and compare actual website
+                content with expected content.
               snippet_tags:
                 - python.example_code.device-farm.Scenario_BrowserTesting
   services:
@@ -30,11 +29,9 @@ device-farm_Scenario_DeviceTesting:
           github: python/example_code/devicefarm/device_testing
           sdkguide:
           excerpts:
-            - description: Upload compiled Android application and test packages to
-                &ATP;, start a test, wait for test completion, and report
-                the results.
+            - description: Upload compiled Android application and test packages to &ATP;, start a test, wait for test completion,
+                and report the results.
               snippet_tags:
                 - python.example_code.device-farm.Scenario_DeviceTesting
   services:
-    device-farm: {CreateUpload, GetUpload, ScheduleRun, GetRun, StopRun, ListJobs, ListSuites,
-                  ListTests, ListArtifacts}
+    device-farm: {CreateUpload, GetUpload, ScheduleRun, GetRun, StopRun, ListJobs, ListSuites, ListTests, ListArtifacts}

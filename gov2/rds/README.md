@@ -34,29 +34,29 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 - [Hello Amazon RDS](hello/hello.go#L4) (`DescribeDBInstances`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/get_started_instances.go)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB instance](actions/instances.go#L175) (`CreateDBInstance`)
-- [Create a DB parameter group](actions/instances.go#L49) (`CreateDBParameterGroup`)
-- [Create a snapshot of a DB instance](actions/instances.go#L138) (`CreateDBSnapshot`)
-- [Delete a DB instance](actions/instances.go#L229) (`DeleteDBInstance`)
-- [Delete a DB parameter group](actions/instances.go#L73) (`DeleteDBParameterGroup`)
-- [Describe DB instances](actions/instances.go#L204) (`DescribeDBInstances`)
-- [Describe DB parameter groups](actions/instances.go#L24) (`DescribeDBParameterGroups`)
-- [Describe database engine versions](actions/instances.go#L248) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](actions/instances.go#L269) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters in a DB parameter group](actions/instances.go#L91) (`DescribeDBParameters`)
-- [Describe snapshots of DB instances](actions/instances.go#L157) (`DescribeDBSnapshots`)
-- [Update parameters in a DB parameter group](actions/instances.go#L119) (`ModifyDBParameterGroup`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with DB instances](scenarios/get_started_instances.go)
+- [CreateDBInstance](actions/instances.go#L175)
+- [CreateDBParameterGroup](actions/instances.go#L49)
+- [CreateDBSnapshot](actions/instances.go#L138)
+- [DeleteDBInstance](actions/instances.go#L229)
+- [DeleteDBParameterGroup](actions/instances.go#L73)
+- [DescribeDBEngineVersions](actions/instances.go#L248)
+- [DescribeDBInstances](actions/instances.go#L204)
+- [DescribeDBParameterGroups](actions/instances.go#L24)
+- [DescribeDBParameters](actions/instances.go#L91)
+- [DescribeDBSnapshots](actions/instances.go#L157)
+- [DescribeOrderableDBInstanceOptions](actions/instances.go#L269)
+- [ModifyDBParameterGroup](actions/instances.go#L119)
 
 
 <!--custom.examples.start-->
@@ -86,8 +86,7 @@ and to get help for running a scenario, use the following command:
 ```
 go run ./cmd -h
 ```
-
-#### Get started with DB instances
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -96,12 +95,13 @@ This example shows you how to do the following:
 - Take a snapshot of the instance.
 - Delete the instance and parameter group.
 
-<!--custom.scenario_prereqs.rds_Scenario_GetStartedInstances.start-->
-<!--custom.scenario_prereqs.rds_Scenario_GetStartedInstances.end-->
+<!--custom.basic_prereqs.rds_Scenario_GetStartedInstances.start-->
+<!--custom.basic_prereqs.rds_Scenario_GetStartedInstances.end-->
 
 
-<!--custom.scenarios.rds_Scenario_GetStartedInstances.start-->
-<!--custom.scenarios.rds_Scenario_GetStartedInstances.end-->
+<!--custom.basics.rds_Scenario_GetStartedInstances.start-->
+<!--custom.basics.rds_Scenario_GetStartedInstances.end-->
+
 
 ### Tests
 

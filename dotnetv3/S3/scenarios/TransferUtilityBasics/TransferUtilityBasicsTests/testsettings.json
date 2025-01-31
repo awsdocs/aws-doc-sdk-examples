@@ -1,5 +1,5 @@
 {
-  "BucketName": "doc-example-bucket",
+  "BucketName": "amzn-s3-demo-bucket",
   "FileToDownload": "DownloadTest.txt",
   "FileToUpload": "UploadTest.txt",
   "S3Path": "DownloadTest"

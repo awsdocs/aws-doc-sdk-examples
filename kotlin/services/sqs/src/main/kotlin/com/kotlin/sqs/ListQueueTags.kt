@@ -18,7 +18,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <queueName>
@@ -37,17 +36,18 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[sqs.kotlin.list_tags.main]
 suspend fun listTags(queueNameVal: String?) {
-
-    val urlRequest = GetQueueUrlRequest {
-        queueName = queueNameVal
-    }
+    val urlRequest =
+        GetQueueUrlRequest {
+            queueName = queueNameVal
+        }
 
     SqsClient { region = "us-east-1" }.use { sqsClient ->
         val getQueueUrlResponse = sqsClient.getQueueUrl(urlRequest)
         val queueUrlVal = getQueueUrlResponse.queueUrl
-        val listQueueTagsRequest = ListQueueTagsRequest {
-            queueUrl = queueUrlVal
-        }
+        val listQueueTagsRequest =
+            ListQueueTagsRequest {
+                queueUrl = queueUrlVal
+            }
 
         val listQueueTagsResponse = sqsClient.listQueueTags(listQueueTagsRequest)
         println("ListQueueTags: tags for queue $queueNameVal are ${listQueueTagsResponse.tags}")

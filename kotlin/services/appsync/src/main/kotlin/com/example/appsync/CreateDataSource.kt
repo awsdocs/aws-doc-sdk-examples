@@ -20,7 +20,6 @@ import kotlin.system.exitProcess
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <apiId> <dsName> <dsRole> <tableName>
@@ -46,22 +45,28 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[appsync.kotlin.create_ds.main]
-suspend fun createDS(dsName: String, dsRole: String, apiVal: String, tableNameVal: String): String? {
+suspend fun createDS(
+    dsName: String,
+    dsRole: String,
+    apiVal: String,
+    tableNameVal: String,
+): String? {
+    val config =
+        DynamodbDataSourceConfig {
+            awsRegion = "us-east-1"
+            tableName = tableNameVal
+            versioned = true
+        }
 
-    val config = DynamodbDataSourceConfig {
-        awsRegion = "us-east-1"
-        tableName = tableNameVal
-        versioned = true
-    }
-
-    val request = CreateDataSourceRequest {
-        description = "Created using the AWS SDK for Kotlin"
-        apiId = apiVal
-        name = dsName
-        serviceRoleArn = dsRole
-        dynamodbConfig = config
-        type = DataSourceType.AmazonDynamodb
-    }
+    val request =
+        CreateDataSourceRequest {
+            description = "Created using the AWS SDK for Kotlin"
+            apiId = apiVal
+            name = dsName
+            serviceRoleArn = dsRole
+            dynamodbConfig = config
+            type = DataSourceType.AmazonDynamodb
+        }
 
     AppSyncClient { region = "us-east-1" }.use { appClient ->
         val response = appClient.createDataSource(request)

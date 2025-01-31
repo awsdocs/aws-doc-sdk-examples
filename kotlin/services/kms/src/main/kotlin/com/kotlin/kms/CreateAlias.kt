@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <targetKeyId> <aliasName>  
@@ -38,12 +37,15 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[kms.kotlin_create_alias.main]
-suspend fun createCustomAlias(targetKeyIdVal: String?, aliasNameVal: String?) {
-
-    val request = CreateAliasRequest {
-        aliasName = aliasNameVal
-        targetKeyId = targetKeyIdVal
-    }
+suspend fun createCustomAlias(
+    targetKeyIdVal: String?,
+    aliasNameVal: String?,
+) {
+    val request =
+        CreateAliasRequest {
+            aliasName = aliasNameVal
+            targetKeyId = targetKeyIdVal
+        }
 
     KmsClient { region = "us-west-2" }.use { kmsClient ->
         kmsClient.createAlias(request)

@@ -34,53 +34,60 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 - [Hello IAM](hello.js#L6) (`ListPolicies`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/basic.js)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](actions/attach-role-policy.js#L6) (`AttachRolePolicy`)
-- [Attach an inline policy to a role](actions/put-role-policy.js#L6) (`PutRolePolicy`)
-- [Create a SAML provider](actions/create-saml-provider.js#L6) (`CreateSAMLProvider`)
-- [Create a group](actions/create-group.js#L6) (`CreateGroup`)
-- [Create a policy](actions/create-policy.js#L6) (`CreatePolicy`)
-- [Create a role](actions/create-role.js#L6) (`CreateRole`)
-- [Create a service-linked role](actions/create-service-linked-role.js#L6) (`CreateServiceLinkedRole`)
-- [Create a user](actions/create-user.js#L6) (`CreateUser`)
-- [Create an access key](actions/create-access-key.js#L6) (`CreateAccessKey`)
-- [Create an alias for an account](actions/create-account-alias.js#L6) (`CreateAccountAlias`)
-- [Create an instance profile](../cross-services/wkflw-resilient-service/steps-demo.js#L450) (`CreateInstanceProfile`)
-- [Delete SAML provider](actions/delete-saml-provider.js#L6) (`DeleteSAMLProvider`)
-- [Delete a group](actions/delete-group.js#L6) (`DeleteGroup`)
-- [Delete a policy](actions/delete-policy.js#L6) (`DeletePolicy`)
-- [Delete a role](actions/delete-role.js#L6) (`DeleteRole`)
-- [Delete a role policy](actions/delete-role-policy.js#L6) (`DeleteRolePolicy`)
-- [Delete a server certificate](actions/delete-server-certificate.js#L6) (`DeleteServerCertificate`)
-- [Delete a service-linked role](actions/delete-service-linked-role.js#L6) (`DeleteServiceLinkedRole`)
-- [Delete a user](actions/delete-user.js#L6) (`DeleteUser`)
-- [Delete an access key](actions/delete-access-key.js#L6) (`DeleteAccessKey`)
-- [Delete an account alias](actions/delete-account-alias.js#L6) (`DeleteAccountAlias`)
-- [Delete an instance profile](../cross-services/wkflw-resilient-service/steps-destroy.js#L213) (`DeleteInstanceProfile`)
-- [Detach a policy from a role](actions/detach-role-policy.js#L6) (`DetachRolePolicy`)
-- [Get a policy](actions/get-policy.js#L6) (`GetPolicy`)
-- [Get a role](actions/get-role.js#L6) (`GetRole`)
-- [Get a server certificate](actions/get-server-certificate.js#L6) (`GetServerCertificate`)
-- [Get a service-linked role's deletion status](actions/get-service-linked-role-deletion-status.js#L6) (`GetServiceLinkedRoleDeletionStatus`)
-- [Get data about the last use of an access key](actions/get-access-key-last-used.js#L6) (`GetAccessKeyLastUsed`)
-- [Get the account password policy](actions/get-account-password-policy.js#L6) (`GetAccountPasswordPolicy`)
-- [List SAML providers](actions/list-saml-providers.js#L6) (`ListSAMLProviders`)
-- [List a user's access keys](actions/list-access-keys.js#L6) (`ListAccessKeys`)
-- [List account aliases](actions/list-account-aliases.js#L6) (`ListAccountAliases`)
-- [List groups](actions/list-groups.js#L6) (`ListGroups`)
-- [List inline policies for a role](actions/list-role-policies.js#L6) (`ListRolePolicies`)
-- [List policies](actions/list-policies.js#L6) (`ListPolicies`)
-- [List policies attached to a role](actions/list-attached-role-policies.js#L6) (`ListAttachedRolePolicies`)
-- [List roles](actions/list-roles.js#L6) (`ListRoles`)
-- [List server certificates](actions/list-server-certificates.js#L6) (`ListServerCertificates`)
-- [List users](actions/list-users.js#L6) (`ListUsers`)
-- [Update a server certificate](actions/update-server-certificate.js#L6) (`UpdateServerCertificate`)
-- [Update a user](actions/update-user.js#L6) (`UpdateUser`)
-- [Update an access key](actions/update-access-key.js#L6) (`UpdateAccessKey`)
-- [Upload a server certificate](actions/upload-server-certificate.js#L6) (`UploadServerCertificate`)
+- [AttachRolePolicy](actions/attach-role-policy.js#L6)
+- [CreateAccessKey](actions/create-access-key.js#L6)
+- [CreateAccountAlias](actions/create-account-alias.js#L6)
+- [CreateGroup](actions/create-group.js#L6)
+- [CreateInstanceProfile](../cross-services/wkflw-resilient-service/steps-demo.js#L450)
+- [CreatePolicy](actions/create-policy.js#L6)
+- [CreateRole](actions/create-role.js#L6)
+- [CreateSAMLProvider](actions/create-saml-provider.js#L6)
+- [CreateServiceLinkedRole](actions/create-service-linked-role.js#L6)
+- [CreateUser](actions/create-user.js#L6)
+- [DeleteAccessKey](actions/delete-access-key.js#L6)
+- [DeleteAccountAlias](actions/delete-account-alias.js#L6)
+- [DeleteGroup](actions/delete-group.js#L6)
+- [DeleteInstanceProfile](../cross-services/wkflw-resilient-service/steps-destroy.js#L210)
+- [DeletePolicy](actions/delete-policy.js#L6)
+- [DeleteRole](actions/delete-role.js#L6)
+- [DeleteRolePolicy](actions/delete-role-policy.js#L6)
+- [DeleteSAMLProvider](actions/delete-saml-provider.js#L6)
+- [DeleteServerCertificate](actions/delete-server-certificate.js#L6)
+- [DeleteServiceLinkedRole](actions/delete-service-linked-role.js#L6)
+- [DeleteUser](actions/delete-user.js#L6)
+- [DetachRolePolicy](actions/detach-role-policy.js#L6)
+- [GetAccessKeyLastUsed](actions/get-access-key-last-used.js#L6)
+- [GetAccountPasswordPolicy](actions/get-account-password-policy.js#L6)
+- [GetPolicy](actions/get-policy.js#L6)
+- [GetRole](actions/get-role.js#L6)
+- [GetServerCertificate](actions/get-server-certificate.js#L6)
+- [GetServiceLinkedRoleDeletionStatus](actions/get-service-linked-role-deletion-status.js#L6)
+- [ListAccessKeys](actions/list-access-keys.js#L6)
+- [ListAccountAliases](actions/list-account-aliases.js#L6)
+- [ListAttachedRolePolicies](actions/list-attached-role-policies.js#L6)
+- [ListGroups](actions/list-groups.js#L6)
+- [ListPolicies](actions/list-policies.js#L6)
+- [ListRolePolicies](actions/list-role-policies.js#L6)
+- [ListRoles](actions/list-roles.js#L6)
+- [ListSAMLProviders](actions/list-saml-providers.js#L6)
+- [ListServerCertificates](actions/list-server-certificates.js#L6)
+- [ListUsers](actions/list-users.js#L6)
+- [PutRolePolicy](actions/put-role-policy.js#L6)
+- [UpdateAccessKey](actions/update-access-key.js#L6)
+- [UpdateServerCertificate](actions/update-server-certificate.js#L6)
+- [UpdateUser](actions/update-user.js#L6)
+- [UploadServerCertificate](actions/upload-server-certificate.js#L6)
 
 ### Scenarios
 
@@ -88,7 +95,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Build and manage a resilient service](../cross-services/wkflw-resilient-service/index.js)
-- [Create a user and assume a role](scenarios/basic.js)
 
 
 <!--custom.examples.start-->
@@ -108,10 +114,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
@@ -123,6 +140,22 @@ This example shows you how to get started using IAM.
 ```bash
 node ./hello.js
 ```
+
+#### Learn the basics
+
+This example shows you how to create a user and assume a role. 
+
+- Create a user with no permissions.
+- Create a role that grants permission to list Amazon S3 buckets for the account.
+- Add a policy to let the user assume the role.
+- Assume the role and list S3 buckets using temporary credentials, then clean up resources.
+
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+
+
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
 
 
 #### Build and manage a resilient service
@@ -142,22 +175,6 @@ This example shows you how to create a load-balanced web service that returns bo
 
 <!--custom.scenarios.cross_ResilientService.start-->
 <!--custom.scenarios.cross_ResilientService.end-->
-
-#### Create a user and assume a role
-
-This example shows you how to create a user and assume a role. 
-
-- Create a user with no permissions.
-- Create a role that grants permission to list Amazon S3 buckets for the account.
-- Add a policy to let the user assume the role.
-- Assume the role and list S3 buckets using temporary credentials, then clean up resources.
-
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
-
-
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
 
 ### Tests
 

@@ -21,10 +21,10 @@ suspend fun main() {
 
 // snippet-start:[translate.kotlin._list_jobs.main]
 suspend fun getTranslationJobs() {
-
-    val textTranslationJobsRequest = ListTextTranslationJobsRequest {
-        maxResults = 10
-    }
+    val textTranslationJobsRequest =
+        ListTextTranslationJobsRequest {
+            maxResults = 10
+        }
 
     TranslateClient { region = "us-west-2" }.use { translateClient ->
         val response = translateClient.listTextTranslationJobs(textTranslationJobsRequest)

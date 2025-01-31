@@ -38,8 +38,8 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get the state of a routing control](routing_control_states.py#L37) (`GetRoutingControlState`)
-- [Update the state of a routing control](routing_control_states.py#L66) (`UpdateRoutingControlState`)
+- [GetRoutingControlState](routing_control_states.py#L37)
+- [UpdateRoutingControlState](routing_control_states.py#L66)
 
 
 <!--custom.examples.start-->

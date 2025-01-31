@@ -36,39 +36,51 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Amazon EC2](hello.py#L4) (`DescribeSecurityGroups`)
+- [Hello Amazon EC2](hello/hello_ec2.py#L11) (`DescribeSecurityGroups`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_get_started_instances.py)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Allocate an Elastic IP address](elastic_ip.py#L34) (`AllocateAddress`)
-- [Associate an Elastic IP address with an instance](elastic_ip.py#L59) (`AssociateAddress`)
-- [Create a launch template](../../cross_service/resilient_service/auto_scaler.py#L346) (`CreateLaunchTemplate`)
-- [Create a security group](security_group.py#L35) (`CreateSecurityGroup`)
-- [Create a security key pair](key_pair.py#L40) (`CreateKeyPair`)
-- [Create and run an instance](instance.py#L34) (`RunInstances`)
-- [Delete a launch template](../../cross_service/resilient_service/auto_scaler.py#L409) (`DeleteLaunchTemplate`)
-- [Delete a security group](security_group.py#L129) (`DeleteSecurityGroup`)
-- [Delete a security key pair](key_pair.py#L91) (`DeleteKeyPair`)
-- [Describe Availability Zones](../../cross_service/resilient_service/auto_scaler.py#L438) (`DescribeAvailabilityZones`)
-- [Describe instances](instance.py#L85) (`DescribeInstances`)
-- [Disassociate an Elastic IP address from an instance](elastic_ip.py#L89) (`DisassociateAddress`)
-- [Get data about Amazon Machine Images](instance.py#L195) (`DescribeImages`)
-- [Get data about a security group](security_group.py#L102) (`DescribeSecurityGroups`)
-- [Get data about instance types](instance.py#L217) (`DescribeInstanceTypes`)
-- [Get data about the instance profile associated with an instance](../../cross_service/resilient_service/auto_scaler.py#L184) (`DescribeIamInstanceProfileAssociations`)
-- [Get the default VPC](../../cross_service/resilient_service/auto_scaler.py#L630) (`DescribeVpcs`)
-- [Get the default subnets for a VPC](../../cross_service/resilient_service/auto_scaler.py#L731) (`DescribeSubnets`)
-- [List security key pairs](key_pair.py#L70) (`DescribeKeyPairs`)
-- [Reboot an instance](../../cross_service/resilient_service/auto_scaler.py#L21) (`RebootInstances`)
-- [Release an Elastic IP address](elastic_ip.py#L112) (`ReleaseAddress`)
-- [Replace the instance profile associated with an instance](../../cross_service/resilient_service/auto_scaler.py#L205) (`ReplaceIamInstanceProfileAssociation`)
-- [Set inbound rules for a security group](security_group.py#L62) (`AuthorizeSecurityGroupIngress`)
-- [Start an instance](instance.py#L141) (`StartInstances`)
-- [Stop an instance](instance.py#L168) (`StopInstances`)
-- [Terminate an instance](instance.py#L116) (`TerminateInstances`)
+- [AllocateAddress](elastic_ip.py#L56)
+- [AssociateAddress](elastic_ip.py#L82)
+- [AuthorizeSecurityGroupIngress](security_group.py#L68)
+- [CreateKeyPair](key_pair.py#L57)
+- [CreateLaunchTemplate](../../cross_service/resilient_service/auto_scaler.py#L383)
+- [CreateSecurityGroup](security_group.py#L42)
+- [CreateVpc](vpc.py#L39)
+- [CreateVpcEndpoint](vpc.py#L86)
+- [DeleteKeyPair](key_pair.py#L118)
+- [DeleteLaunchTemplate](../../cross_service/resilient_service/auto_scaler.py#L447)
+- [DeleteSecurityGroup](security_group.py#L148)
+- [DeleteVpc](vpc.py#L136)
+- [DeleteVpcEndpoints](vpc.py#L116)
+- [DescribeAvailabilityZones](../../cross_service/resilient_service/auto_scaler.py#L473)
+- [DescribeIamInstanceProfileAssociations](../../cross_service/resilient_service/auto_scaler.py#L216)
+- [DescribeImages](instance.py#L253)
+- [DescribeInstanceTypes](instance.py#L274)
+- [DescribeInstances](instance.py#L106)
+- [DescribeKeyPairs](key_pair.py#L89)
+- [DescribeRouteTables](vpc.py#L63)
+- [DescribeSecurityGroups](security_group.py#L108)
+- [DescribeSubnets](../../cross_service/resilient_service/auto_scaler.py#L821)
+- [DescribeVpcs](../../cross_service/resilient_service/auto_scaler.py#L684)
+- [DisassociateAddress](elastic_ip.py#L121)
+- [RebootInstances](../../cross_service/resilient_service/auto_scaler.py#L18)
+- [ReleaseAddress](elastic_ip.py#L162)
+- [ReplaceIamInstanceProfileAssociation](../../cross_service/resilient_service/auto_scaler.py#L244)
+- [RunInstances](instance.py#L43)
+- [StartInstances](instance.py#L190)
+- [StopInstances](instance.py#L221)
+- [TerminateInstances](instance.py#L158)
 
 ### Scenarios
 
@@ -76,7 +88,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Build and manage a resilient service](../../cross_service/resilient_service/runner.py)
-- [Get started with instances](scenario_get_started_instances.py)
 
 
 <!--custom.examples.start-->
@@ -95,8 +106,31 @@ functions within the same service.
 This example shows you how to get started using Amazon EC2.
 
 ```
-python hello.py
+python hello/hello_ec2.py
 ```
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a key pair and security group.
+- Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
+- Stop and restart the instance.
+- Associate an Elastic IP address with your instance.
+- Connect to your instance with SSH, then clean up resources.
+
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenario_get_started_instances.py
+```
+
+
+<!--custom.basics.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basics.ec2_Scenario_GetStartedInstances.end-->
 
 
 #### Build and manage a resilient service
@@ -124,29 +158,6 @@ python ../../cross_service/resilient_service/runner.py
 Complete details and instructions on how to run this example can be found in the
 [README](../../cross_service/resilient_service/README.md) for the example.
 <!--custom.scenarios.cross_ResilientService.end-->
-
-#### Get started with instances
-
-This example shows you how to do the following:
-
-- Create a key pair and security group.
-- Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
-- Stop and restart the instance.
-- Associate an Elastic IP address with your instance.
-- Connect to your instance with SSH, then clean up resources.
-
-<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-python scenario_get_started_instances.py
-```
-
-
-<!--custom.scenarios.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.scenarios.ec2_Scenario_GetStartedInstances.end-->
 
 ### Tests
 

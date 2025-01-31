@@ -27,9 +27,10 @@ suspend fun main() {
 
 // snippet-start:[mediaconvert.kotlin.list_jobs.main]
 suspend fun listCompleteJobs(mcClient: MediaConvertClient) {
-    val describeEndpoints = DescribeEndpointsRequest {
-        maxResults = 20
-    }
+    val describeEndpoints =
+        DescribeEndpointsRequest {
+            maxResults = 20
+        }
 
     val res = mcClient.describeEndpoints(describeEndpoints)
     if (res.endpoints?.size!! <= 0) {
@@ -37,17 +38,20 @@ suspend fun listCompleteJobs(mcClient: MediaConvertClient) {
         exitProcess(0)
     }
     val endpointURL = res.endpoints!![0].url!!
-    val mediaConvert = MediaConvertClient.fromEnvironment {
-        region = "us-west-2"
-        endpointProvider = MediaConvertEndpointProvider {
-            Endpoint(endpointURL)
+    val mediaConvert =
+        MediaConvertClient.fromEnvironment {
+            region = "us-west-2"
+            endpointProvider =
+                MediaConvertEndpointProvider {
+                    Endpoint(endpointURL)
+                }
         }
-    }
 
-    val jobsRequest = ListJobsRequest {
-        maxResults = 10
-        status = JobStatus.fromValue("COMPLETE")
-    }
+    val jobsRequest =
+        ListJobsRequest {
+            maxResults = 10
+            status = JobStatus.fromValue("COMPLETE")
+        }
 
     val jobsResponse = mediaConvert.listJobs(jobsRequest)
     val jobs = jobsResponse.jobs

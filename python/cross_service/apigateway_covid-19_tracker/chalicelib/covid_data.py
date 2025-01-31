@@ -12,6 +12,7 @@ serverless deployment package created by AWS Chalice.
 import datetime
 import os
 import random
+
 import boto3
 from boto3.dynamodb.conditions import Key
 

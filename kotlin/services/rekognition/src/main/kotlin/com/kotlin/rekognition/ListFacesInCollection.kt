@@ -16,7 +16,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
              <collectionId>
@@ -36,11 +35,11 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[rekognition.kotlin.list_faces_collection.main]
 suspend fun listFacesCollection(collectionIdVal: String?) {
-
-    val request = ListFacesRequest {
-        collectionId = collectionIdVal
-        maxResults = 10
-    }
+    val request =
+        ListFacesRequest {
+            collectionId = collectionIdVal
+            maxResults = 10
+        }
 
     RekognitionClient { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.listFaces(request)

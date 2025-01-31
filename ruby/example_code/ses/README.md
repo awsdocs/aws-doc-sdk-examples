@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get the status of an identity](v1/list_identities.rb#L7) (`GetIdentityVerificationAttributes`)
-- [List identities](v1/list_identities.rb#L7) (`ListIdentities`)
-- [Send email](v1/ses_send_email.rb#L7) (`SendEmail`)
-- [Verify an email identity](v1/ses_send_verification.rb#L7) (`VerifyEmailIdentity`)
+- [GetIdentityVerificationAttributes](v1/list_identities.rb#L7)
+- [ListIdentities](v1/list_identities.rb#L7)
+- [SendEmail](v1/ses_send_email.rb#L7)
+- [VerifyEmailIdentity](v1/ses_send_verification.rb#L7)
 
 
 <!--custom.examples.start-->

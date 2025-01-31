@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React from "react";
-import { ColorMap, FilterMap } from "./Utils";
+import { ColorMap, FilterMap } from "./Utils.js";
 
 /**
  * An individual node that displays a block item from Amazon Textract as a checkbox.
@@ -32,7 +32,7 @@ const ExplorerNode = (props) => {
               props.Id,
               props.BlockType,
               props.Geometry,
-              event.target.checked
+              event.target.checked,
             )
           }
         />
@@ -63,7 +63,7 @@ const ExplorerNode = (props) => {
  * @returns {JSX.Element}
  */
 const ExplorerList = (props) => {
-  let childNodes = props.Children
+  const childNodes = props.Children
     ? props.Children.filter((child) => {
         return FilterMap[props.extractType].includes(child.BlockType);
       }).map((child) => {
@@ -101,7 +101,7 @@ export const ExplorerTree = (props) => {
   return (
     <div>
       <div className="card-header">{props.extraction.Name}</div>
-      <div style={{ height: `calc(100vh - 200px)`, overflowY: "auto" }}>
+      <div style={{ height: "calc(100vh - 200px)", overflowY: "auto" }}>
         <ExplorerList
           listClasses={["list-group", "list-group-flush"]}
           Children={props.extraction.Children}

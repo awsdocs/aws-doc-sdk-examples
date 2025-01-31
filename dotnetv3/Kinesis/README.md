@@ -33,14 +33,14 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add tags](TagStreamExample/TagStreamExample/TagStream.cs#L6) (`AddTagsToStream`)
-- [Create a stream](CreateStreamExample/CreateStreamExample/CreateStream.cs#L6) (`CreateStream`)
-- [Delete a stream](DeleteStreamExample/DeleteStreamExample/DeleteStream.cs#L6) (`DeleteStream`)
-- [Deregister a consumer](DeregisterConsumerExample/DeregisterConsumerExample/DeregisterConsumer.cs#L6) (`DeregisterStreamConsumer`)
-- [List streams](ListStreamsExample/ListStreamsExample/ListStreams.cs#L6) (`ListStreams`)
-- [List tags](ListTagsExample/ListTagsExample/ListTags.cs#L6) (`ListTagsForStream`)
-- [List the consumers of a stream](ListConsumersExample/ListConsumersExample/ListConsumers.cs#L6) (`ListStreamConsumers`)
-- [Register a consumer](RegisterConsumerExample/RegisterConsumerExample/RegisterConsumer.cs#L6) (`RegisterStreamConsumer`)
+- [AddTagsToStream](TagStreamExample/TagStreamExample/TagStream.cs#L6)
+- [CreateStream](CreateStreamExample/CreateStreamExample/CreateStream.cs#L6)
+- [DeleteStream](DeleteStreamExample/DeleteStreamExample/DeleteStream.cs#L6)
+- [DeregisterStreamConsumer](DeregisterConsumerExample/DeregisterConsumerExample/DeregisterConsumer.cs#L6)
+- [ListStreamConsumers](ListConsumersExample/ListConsumersExample/ListConsumers.cs#L6)
+- [ListStreams](ListStreamsExample/ListStreamsExample/ListStreams.cs#L6)
+- [ListTagsForStream](ListTagsExample/ListTagsExample/ListTags.cs#L6)
+- [RegisterStreamConsumer](RegisterConsumerExample/RegisterConsumerExample/RegisterConsumer.cs#L6)
 
 
 <!--custom.examples.start-->

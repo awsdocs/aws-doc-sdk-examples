@@ -10,7 +10,8 @@
     "@aws-sdk/types": "^3.32.0"
   },
   "devDependencies": {
-    "@types/node": "^14.0.23"
+    "@types/node": "^14.0.23",
+    "vitest": "^1.6.0"
   },
   "type": "module"
 }

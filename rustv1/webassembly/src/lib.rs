@@ -152,14 +152,15 @@ impl MakeRequestBrowser for BrowserHttpClient {
         use js_sys::{Array, ArrayBuffer, Reflect, Uint8Array};
         use wasm_bindgen_futures::JsFuture;
 
-        let mut opts = web_sys::RequestInit::new();
-        opts.method(req.method());
-        opts.mode(web_sys::RequestMode::Cors);
+        let opts = web_sys::RequestInit::new();
+        opts.set_method(req.method());
+        opts.set_mode(web_sys::RequestMode::Cors);
 
-        let body_pinned = std::pin::Pin::new(req.body().bytes().unwrap());
-        if body_pinned.len() > 0 {
-            let uint_8_array = unsafe { Uint8Array::view(&body_pinned) };
-            opts.body(Some(&uint_8_array));
+        if let Some(body) = req.body().bytes() {
+            let body_str =
+                String::from_utf8(body.into()).map_err(|e| JsValue::from_str(&format!("{e:?}")))?;
+            let js_body = JsValue::from_str(&body_str);
+            opts.set_body(&js_body);
         }
 
         let request = web_sys::Request::new_with_str_and_init(req.uri(), &opts)?;

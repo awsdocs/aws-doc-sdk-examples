@@ -1,0 +1,67 @@
+<!--
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+-->
+
+<!-- snippet-start:[rekognition.HTML.photo-analyzer.complete]-->
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./main.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://unpkg.com/@davidsouther/jiffies-css"
+    />
+    <script
+      src="https://unpkg.com/@davidsouther/jiffies-css/accessibility.js"
+      async
+    ></script>
+    <title>AWS Photo Analyzer</title>
+  </head>
+
+  <body>
+    <main>
+      <mark id="info"></mark>
+      <h1>AWS Photo Analyzer Application</h1>
+
+      <div style="margin-bottom: 20px">
+        <h2>Images</h2>
+        <ul id="image-list"></ul>
+      </div>
+
+      <fieldset role="group">
+        <form onsubmit="return false;">
+          <fieldset style="--grid-column-count: 1">
+            <label for="input-image">
+              Select image to upload:
+              <input id="input-image" type="file" name="file" />
+            </label>
+            <button onclick="addToBucket();">Upload image</button>
+          </fieldset>
+        </form>
+
+        <form onsubmit="return false;">
+          <fieldset style="--grid-column-count: 1">
+            <label for="email"
+              >Email address:
+              <input
+                type="text"
+                id="email"
+                name="email"
+                value=""
+                autocomplete="off"
+                data-1p-ignore
+                data-lpignore="true"
+              />
+            </label>
+            <button onclick="processImages()">Analyze Photos</button>
+          </fieldset>
+        </form>
+      </fieldset>
+    </main>
+  </body>
+</html>
+<!-- snippet-end:[rekognition.HTML.photo-analyzer.complete]-->

@@ -44,7 +44,8 @@ func main() {
 
 	fmt.Printf("Using AWS region: %s\n", *region)
 
-	sdkConfig, err := config.LoadDefaultConfig(context.Background(), config.WithRegion(*region))
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx, config.WithRegion(*region))
 	if err != nil {
 		fmt.Println("Couldn't load default configuration. Have you set up your AWS account?")
 		fmt.Println(err)
@@ -72,7 +73,7 @@ func main() {
 		log.Panicln("Couldn't marshal the request: ", err)
 	}
 
-	result, err := client.InvokeModel(context.Background(), &bedrockruntime.InvokeModelInput{
+	result, err := client.InvokeModel(ctx, &bedrockruntime.InvokeModelInput{
 		ModelId:     aws.String(modelId),
 		ContentType: aws.String("application/json"),
 		Body:        body,

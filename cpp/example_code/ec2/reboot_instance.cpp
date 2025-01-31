@@ -13,21 +13,20 @@
  **/
 
 // snippet-start:[ec2.cpp.reboot_instance.inc]
-#include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/RebootInstancesRequest.h>
 #include <iostream>
 // snippet-end:[ec2.cpp.reboot_instance.inc]
 #include "ec2_samples.h"
 
+// snippet-start:[cpp.example_code.ec2.RebootInstances]
 //! Reboot an Amazon Elastic Compute Cloud (Amazon EC2) instance.
 /*!
-  \sa RebootInstance()
   \param instanceID: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::RebootInstance(const Aws::String &instanceId,
+bool AwsDoc::EC2::rebootInstance(const Aws::String &instanceId,
                                  const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.reboot_instance.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
@@ -36,28 +35,26 @@ bool AwsDoc::EC2::RebootInstance(const Aws::String &instanceId,
     request.AddInstanceIds(instanceId);
     request.SetDryRun(true);
 
-    auto dry_run_outcome = ec2Client.RebootInstances(request);
+    Aws::EC2::Model::RebootInstancesOutcome dry_run_outcome = ec2Client.RebootInstances(request);
     if (dry_run_outcome.IsSuccess()) {
         std::cerr
                 << "Failed dry run to reboot on instance. A dry run should trigger an error."
                 <<
                 std::endl;
         return false;
-    }
-    else if (dry_run_outcome.GetError().GetErrorType()
-             != Aws::EC2::EC2Errors::DRY_RUN_OPERATION) {
+    } else if (dry_run_outcome.GetError().GetErrorType()
+               != Aws::EC2::EC2Errors::DRY_RUN_OPERATION) {
         std::cout << "Failed dry run to reboot instance " << instanceId << ": "
                   << dry_run_outcome.GetError().GetMessage() << std::endl;
         return false;
     }
 
     request.SetDryRun(false);
-    auto outcome = ec2Client.RebootInstances(request);
+    Aws::EC2::Model::RebootInstancesOutcome outcome = ec2Client.RebootInstances(request);
     if (!outcome.IsSuccess()) {
         std::cout << "Failed to reboot instance " << instanceId << ": " <<
                   outcome.GetError().GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully rebooted instance " << instanceId <<
                   std::endl;
     }
@@ -65,6 +62,7 @@ bool AwsDoc::EC2::RebootInstance(const Aws::String &instanceId,
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.ec2.RebootInstances]
 
 /*
  *
@@ -92,7 +90,7 @@ int main(int argc, char **argv) {
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::EC2::RebootInstance(instanceId, clientConfig);
+        AwsDoc::EC2::rebootInstance(instanceId, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

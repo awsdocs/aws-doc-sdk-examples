@@ -38,16 +38,15 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Authorize a bucket to send messages to a queue](AuthorizeS3ToSendMessageExample/AuthorizeS3ToSendMessageExample/AuthorizeS3ToSendMessage.cs#L11) (`SendMessage`)
-- [Create a queue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L28) (`CreateQueue`)
-- [Delete a batch of messages from a queue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L154) (`DeleteMessageBatch`)
-- [Delete a message from a queue](ReceiveDeleteExample/ReceiveDeleteExample/ReceiveDeleteExample.cs#L17) (`DeleteMessage`)
-- [Delete a queue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L182) (`DeleteQueue`)
-- [Get attributes for a queue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L74) (`GetQueueAttributes`)
-- [Get the URL of a queue](GetQueueUrlExample/GetQueueUrlExample/GetQueueUrl.cs#L10) (`GetQueueUrl`)
-- [Receive messages from a queue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L132) (`ReceiveMessage`)
-- [Send a message to a queue](CreateSendExample/CreateSendExample/CreateSendExample.cs#L8) (`SendMessage`)
-- [Set queue attributes](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L95) (`SetQueueAttributes`)
+- [CreateQueue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L28)
+- [DeleteMessage](ReceiveDeleteExample/ReceiveDeleteExample/ReceiveDeleteExample.cs#L17)
+- [DeleteMessageBatch](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L154)
+- [DeleteQueue](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L182)
+- [GetQueueAttributes](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L74)
+- [GetQueueUrl](GetQueueUrlExample/GetQueueUrlExample/GetQueueUrl.cs#L10)
+- [ReceiveMessage](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L132)
+- [SendMessage](CreateSendExample/CreateSendExample/CreateSendExample.cs#L8)
+- [SetQueueAttributes](../cross-service/TopicsAndQueues/Actions/SQSActions/SQSWrapper.cs#L95)
 
 ### Scenarios
 
@@ -55,6 +54,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Publish messages to queues](../cross-service/TopicsAndQueues/Scenarios/TopicsAndQueuesScenario/TopicsAndQueues.cs)
+- [Use the AWS Message Processing Framework for .NET with Amazon SQS](../cross-service/MessageProcessingFramework)
 
 
 <!--custom.examples.start-->
@@ -106,6 +106,18 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
 <!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
+
+#### Use the AWS Message Processing Framework for .NET with Amazon SQS
+
+This example shows you how to create applications that publish and receive Amazon SQS messages using the AWS Message Processing Framework for .NET.
+
+
+<!--custom.scenario_prereqs.cross_MessageProcessingFrameworkTutorial.start-->
+<!--custom.scenario_prereqs.cross_MessageProcessingFrameworkTutorial.end-->
+
+
+<!--custom.scenarios.cross_MessageProcessingFrameworkTutorial.start-->
+<!--custom.scenarios.cross_MessageProcessingFrameworkTutorial.end-->
 
 ### Tests
 

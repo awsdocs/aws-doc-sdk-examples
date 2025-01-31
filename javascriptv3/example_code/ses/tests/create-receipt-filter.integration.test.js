@@ -10,7 +10,12 @@ describe("ses_createreceiptfilter", () => {
     await deleteReceiptFilter(FILTER_NAME);
   });
 
+  /**
+   * @typedef {import('@aws-sdk/client-ses').DeleteReceiptFilterCommandOutput} DeleteReceiptFilterCommandOutput
+   */
+
   it("should successfully create a filter", async () => {
+    /** @type {DeleteReceiptFilterCommandOutput} */
     const result = await run();
     expect(result.$metadata.httpStatusCode).toBe(200);
   });

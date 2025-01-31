@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <logGroup>  
@@ -36,11 +35,11 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudwatch.kotlin.describe_subscription_filters.main]
 suspend fun describeFilters(logGroup: String) {
-
-    val request = DescribeSubscriptionFiltersRequest {
-        logGroupName = logGroup
-        limit = 1
-    }
+    val request =
+        DescribeSubscriptionFiltersRequest {
+            logGroupName = logGroup
+            limit = 1
+        }
 
     CloudWatchLogsClient { region = "us-west-2" }.use { cwlClient ->
         val response = cwlClient.describeSubscriptionFilters(request)

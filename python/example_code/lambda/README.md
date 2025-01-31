@@ -34,28 +34,34 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Lambda](hello/hello_lambda.py#L4) (`ListFunctions`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](lambda_handler_basic.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](lambda_basics.py#L144) (`CreateFunction`)
-- [Delete a function](lambda_basics.py#L185) (`DeleteFunction`)
-- [Get a function](lambda_basics.py#L118) (`GetFunction`)
-- [Invoke a function](lambda_basics.py#L200) (`Invoke`)
-- [List functions](lambda_basics.py#L280) (`ListFunctions`)
-- [Update function code](lambda_basics.py#L226) (`UpdateFunctionCode`)
-- [Update function configuration](lambda_basics.py#L254) (`UpdateFunctionConfiguration`)
+- [CreateFunction](lambda_basics.py#L144)
+- [DeleteFunction](lambda_basics.py#L185)
+- [GetFunction](lambda_basics.py#L118)
+- [Invoke](lambda_basics.py#L200)
+- [ListFunctions](lambda_basics.py#L280)
+- [UpdateFunctionCode](lambda_basics.py#L226)
+- [UpdateFunctionConfiguration](lambda_basics.py#L254)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
-
-- [Get started with functions](lambda_handler_basic.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
 
 - [Create a REST API to track COVID-19 data](../../cross_service/apigateway_covid-19_tracker)
 - [Create a lending library REST API](../../cross_service/aurora_rest_lending_library)
@@ -76,9 +82,15 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Lambda
 
+This example shows you how to get started using Lambda.
 
-#### Get started with functions
+```
+python hello/hello_lambda.py
+```
+
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -88,8 +100,8 @@ This example shows you how to do the following:
 - Invoke the function with new parameters and get results. Display the returned execution log.
 - List the functions for your account, then clean up resources.
 
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -98,8 +110,81 @@ python lambda_handler_basic.py
 ```
 
 
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
+
+
+#### Create a REST API to track COVID-19 data
+
+This example shows you how to create a REST API that simulates a system to track daily cases of COVID-19 in the United States, using fictional data.
+
+
+<!--custom.scenario_prereqs.cross_ApiGatewayDataTracker.start-->
+<!--custom.scenario_prereqs.cross_ApiGatewayDataTracker.end-->
+
+
+<!--custom.scenarios.cross_ApiGatewayDataTracker.start-->
+<!--custom.scenarios.cross_ApiGatewayDataTracker.end-->
+
+#### Create a lending library REST API
+
+This example shows you how to create a lending library where patrons can borrow and return books by using a REST API backed by an Amazon Aurora database.
+
+
+<!--custom.scenario_prereqs.cross_AuroraRestLendingLibrary.start-->
+<!--custom.scenario_prereqs.cross_AuroraRestLendingLibrary.end-->
+
+
+<!--custom.scenarios.cross_AuroraRestLendingLibrary.start-->
+<!--custom.scenarios.cross_AuroraRestLendingLibrary.end-->
+
+#### Create a messenger application
+
+This example shows you how to create an AWS Step Functions messenger application that retrieves message records from a database table.
+
+
+<!--custom.scenario_prereqs.cross_StepFunctionsMessenger.start-->
+<!--custom.scenario_prereqs.cross_StepFunctionsMessenger.end-->
+
+
+<!--custom.scenarios.cross_StepFunctionsMessenger.start-->
+<!--custom.scenarios.cross_StepFunctionsMessenger.end-->
+
+#### Create a websocket chat application
+
+This example shows you how to create a chat application that is served by a websocket API built on Amazon API Gateway.
+
+
+<!--custom.scenario_prereqs.cross_ApiGatewayWebsocketChat.start-->
+<!--custom.scenario_prereqs.cross_ApiGatewayWebsocketChat.end-->
+
+
+<!--custom.scenarios.cross_ApiGatewayWebsocketChat.start-->
+<!--custom.scenarios.cross_ApiGatewayWebsocketChat.end-->
+
+#### Use API Gateway to invoke a Lambda function
+
+This example shows you how to create an AWS Lambda function invoked by Amazon API Gateway.
+
+
+<!--custom.scenario_prereqs.cross_LambdaAPIGateway.start-->
+<!--custom.scenario_prereqs.cross_LambdaAPIGateway.end-->
+
+
+<!--custom.scenarios.cross_LambdaAPIGateway.start-->
+<!--custom.scenarios.cross_LambdaAPIGateway.end-->
+
+#### Use scheduled events to invoke a Lambda function
+
+This example shows you how to create an AWS Lambda function invoked by an Amazon EventBridge scheduled event.
+
+
+<!--custom.scenario_prereqs.cross_LambdaScheduledEvents.start-->
+<!--custom.scenario_prereqs.cross_LambdaScheduledEvents.end-->
+
+
+<!--custom.scenarios.cross_LambdaScheduledEvents.start-->
+<!--custom.scenarios.cross_LambdaScheduledEvents.end-->
 
 ### Tests
 

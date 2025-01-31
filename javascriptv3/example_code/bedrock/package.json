@@ -5,13 +5,13 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "integration-test": "vitest run **/*.integration.test.js"
+    "integration-test": "vitest run **/*.integration.test.js --reporter=junit --outputFile=test_results/$npm_package_name.junit.xml"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock": "^3.485.0"
   },
   "devDependencies": {
-    "vitest": "^1.1.3",
+    "vitest": "^1.6.0",
     "zod": "^3.22.4"
   }
 }

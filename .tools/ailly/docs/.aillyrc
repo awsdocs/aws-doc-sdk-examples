@@ -1,0 +1,51 @@
+---
+combined: true
+overwrite: false
+---
+
+TCX SDK Code Examples
+The TCX SDK Code Examples team produces code examples that demonstrate how to automate AWS services to accomplish key user stories for developers and programmers. These code examples are quick and easy to find and use, are continually tested, and demonstrate AWS and community coding best practices.
+
+Mission
+
+We provide code examples for builders integrating AWS services into their applications and business workflows using the AWS Software Development Kits (SDKs). These examples are educational by design, follow engineering best practices, and target common customer use cases. Within AWS they can be easily integrated into all AWS technical content portals to promote customer discoverability.
+
+Vision
+
+We envision a best-in-class library of code examples for every AWS service and in every actively maintained SDK language. The code example library is a go-to resource for builders and is integrated into the builder experience across AWS customer-facing content. Each example is high-quality, whether hand-written or generated with AI assistance, and solves a specific problem for an AWS customer.
+
+Tenets
+
+These are our tenets, unless you know better ones:
+
+We are educators. Comprehension and learnability always take precedence.
+We are engineers. Our work and examples defer to industry best practices and we automate whenever possible.
+Our examples address common user challenges. They do not deliberately mirror AWS service silos.
+Our examples are discoverable. We surface discreet solutions from within larger examples and proactively work with content partners to ensure builders find them.
+We are subject matter experts. We are the primary reference for code example standards in TCX.
+
+A Workflow Example, as defined by the TCX Code Examples team, is an example scenario that is targeted to a particular real-world user story, use case, problem, or other common service integration. It may use one or more than one service, and it does not necessarily target a specific set of actions in a single service. Instead, it focuses directly on a specific task or set of service iterations. It should still be a running example, at minimum using command line interactions, and should focus on a specific task using AWS services and features.
+
+Ailly - AI Writing Ally
+
+Load your writing. Train Ailly on your voice. Write your outline. Prompt Ailly to continue to continue the writing. Edit its output, and retrain to get it even more like that.
+
+Rhymes with Daily.
+
+Conversational History
+
+In LLM Chatbots like ChatGPT or chains like Langchain, the history of the conversation is kept in the sequence of human, assistant interactions. This is typically kept in memory, or at least in an inaccessible format to the user. The user can only regenerate sequences, or add their next prompt at the end.
+
+Ailly removes this limitation by using your file system as the conversational history. The writer maintains full control over the sequence of prompts, up to and including editing the LLM's response before (re)generating the next prompt! This lets the writer decide how the conversation should evolve. By editing an LLM prompt, they can take the best of what the LLM did in some cases, and modify it in others. Using Ailly's filesystem based conversational history, each piece of the session can be stored in source control. Version tracking lets the author see how their prompts and responses have changed over time, and unlock a number of long-term process improvements that are difficult to impossible with chat interfaces.
+
+In one session, a developer was working on a long sequence of prompts to build a software project. While reviewing an LLM written draft of the README, the developer wanted the list of API calls to be links to the reference documentation. With a chat conversational history, the developer would have needed to modify the instructions for the entire prompt to encourage creating the list, rerun the generation, and hope the rest of the README came out similarly. Instead, with Ailly, the developer created a new file with only the list and an instruction on how to create URLs from the list items, saved it as list.md (with isolated: true in the combined head), and ran ailly list.md. The LLM followed the instructions, generated just the updated list, and the developer copied that list into the original (generated) README.md. In later prompts, the context window included the entire URLs, and the agent model was able to intelligently request to download their contents.
+
+To the author's knowledge, no other LLM interface provides this level of interaction with LLMs.
+
+Properties
+
+These properties can be set in a combination of places, includeing the command line, .aillyrc, and greymatter. Later settings override earlier.
+
+combined boolean If true, the file's body is the response and the prompt is in the greymatter key prompt. If false, the file's body is the prompt and the response is in {file_name}.ailly.md. Default false.
+skip boolean If true, the prompt will not be sent through the LLM (but it will be part of the context).
+isolated boolean If true, the LLM inference will only include the system prompt, and not the prior context in this folder.

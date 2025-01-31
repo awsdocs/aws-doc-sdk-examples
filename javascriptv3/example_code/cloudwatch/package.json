@@ -10,10 +10,10 @@
     "@aws-sdk/client-ec2": "^3.213.0"
   },
   "scripts": {
-    "integration-test": "vitest run **/*.integration.test.js"
+    "integration-test": "vitest run **/*.integration.test.js --reporter=junit --outputFile=test_results/$npm_package_name.junit.xml"
   },
   "devDependencies": {
     "uuid": "^9.0.0",
-    "vitest": "^0.25.2"
+    "vitest": "^1.6.0"
   }
 }

@@ -13,20 +13,19 @@
  **/
 
 // snippet-start:[ec2.cpp.release_address.inc]
-#include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/ReleaseAddressRequest.h>
 #include <iostream>
 // snippet-end:[ec2.cpp.release_address.inc]
 #include "ec2_samples.h"
 
+// snippet-start:[cpp.example_code.ec2.ReleaseAddress]
 //! Release an Elastic IP address.
 /*!
-  \sa ReleaseAddress()
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::ReleaseAddress(const Aws::String &allocationID,
+bool AwsDoc::EC2::releaseAddress(const Aws::String &allocationID,
                                  const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.release_address.code]
     Aws::EC2::EC2Client ec2(clientConfiguration);
@@ -34,13 +33,12 @@ bool AwsDoc::EC2::ReleaseAddress(const Aws::String &allocationID,
     Aws::EC2::Model::ReleaseAddressRequest request;
     request.SetAllocationId(allocationID);
 
-    auto outcome = ec2.ReleaseAddress(request);
+    Aws::EC2::Model::ReleaseAddressOutcome outcome = ec2.ReleaseAddress(request);
     if (!outcome.IsSuccess()) {
         std::cerr << "Failed to release Elastic IP address " <<
                   allocationID << ":" << outcome.GetError().GetMessage() <<
                   std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully released Elastic IP address " <<
                   allocationID << std::endl;
     }
@@ -48,6 +46,7 @@ bool AwsDoc::EC2::ReleaseAddress(const Aws::String &allocationID,
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.ec2.ReleaseAddress]
 
 /*
  *
@@ -75,7 +74,7 @@ int main(int argc, char **argv) {
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::EC2::ReleaseAddress(allocationID, clientConfig);
+        AwsDoc::EC2::releaseAddress(allocationID, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

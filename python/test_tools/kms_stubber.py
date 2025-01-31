@@ -32,6 +32,14 @@ class KmsStubber(ExampleStubber):
             "create_key", expected_params, response, error_code=error_code
         )
 
+    def stub_asymmetric_create_key(self, key_id, error_code=None):
+        expected_params = {'KeySpec':"RSA_2048",
+                           'KeyUsage': "SIGN_VERIFY", 'Origin':"AWS_KMS"}
+        response = {"KeyMetadata": {"KeyId": key_id}}
+        self._stub_bifurcator(
+            "create_key", expected_params, response, error_code=error_code
+        )
+
     def stub_list_keys(
         self, limit, key_ids, marker=None, truncated=False, error_code=None
     ):
@@ -45,9 +53,10 @@ class KmsStubber(ExampleStubber):
             "list_keys", expected_params, response, error_code=error_code
         )
 
-    def stub_describe_key(self, key_id, state, error_code=None):
+    def stub_describe_key(self, key_id, state, enabled = True, error_code=None):
         expected_params = {"KeyId": key_id}
-        response = {"KeyMetadata": {"KeyId": key_id, "KeyState": state}}
+        response = {"KeyMetadata": {"KeyId": key_id, "KeyState": state,
+                    "Enabled" : enabled}}
         self._stub_bifurcator(
             "describe_key", expected_params, response, error_code=error_code
         )
@@ -157,14 +166,14 @@ class KmsStubber(ExampleStubber):
         )
 
     def stub_get_key_policy(self, key_id, policy, error_code=None):
-        expected_params = {"KeyId": key_id, "PolicyName": "default"}
+        expected_params = {"KeyId": key_id}
         response = {"Policy": policy}
         self._stub_bifurcator(
             "get_key_policy", expected_params, response, error_code=error_code
         )
 
     def stub_put_key_policy(self, key_id, error_code=None):
-        expected_params = {"KeyId": key_id, "Policy": ANY, "PolicyName": "default"}
+        expected_params = {"KeyId": key_id, "Policy": ANY}
         response = {}
         self._stub_bifurcator(
             "put_key_policy", expected_params, response, error_code=error_code
@@ -172,7 +181,8 @@ class KmsStubber(ExampleStubber):
 
     def stub_encrypt(self, key_id, plaintext, ciphertext, error_code=None):
         expected_params = {"KeyId": key_id, "Plaintext": plaintext}
-        response = {"CiphertextBlob": ciphertext}
+        response = {"CiphertextBlob": ciphertext,
+                    'EncryptionAlgorithm':  'SYMMETRIC_DEFAULT'}
         self._stub_bifurcator(
             "encrypt", expected_params, response, error_code=error_code
         )
@@ -193,4 +203,48 @@ class KmsStubber(ExampleStubber):
         response = {"CiphertextBlob": ciphertext}
         self._stub_bifurcator(
             "re_encrypt", expected_params, response, error_code=error_code
+        )
+
+    def stub_sign(self, key_id, message, signature, error_code=None):
+        expected_params = {
+            "KeyId": key_id,
+            'Message':  message,
+            'SigningAlgorithm': 'RSASSA_PSS_SHA_256'
+        }
+        response = {'Signature': signature}
+        self._stub_bifurcator(
+            "sign", expected_params, response, error_code=error_code
+        )
+
+    def stub_verify(self, key_id, message, signature, error_code=None):
+        expected_params = {
+            "KeyId": key_id,
+            'Message':  message,
+            'Signature': signature,
+            'SigningAlgorithm': 'RSASSA_PSS_SHA_256'
+        }
+        response = {'SignatureValid': True}
+        self._stub_bifurcator(
+            "verify", expected_params, response, error_code=error_code
+        )
+
+    def stub_enable_key_rotation(self, key_id, error_code=None):
+        expected_params = {
+            "KeyId": key_id,
+
+        }
+        response = {}
+        self._stub_bifurcator(
+            "enable_key_rotation", expected_params, response, error_code=error_code
+        )
+
+    def stub_tag_resource(self, key_id, tag_key, tag_value, error_code=None):
+        expected_params = {
+            "KeyId": key_id,
+            'Tags': [{"TagKey": tag_key, "TagValue": tag_value}]
+
+        }
+        response = {}
+        self._stub_bifurcator(
+            "tag_resource", expected_params, response, error_code=error_code
         )

@@ -22,9 +22,9 @@ The **javav2** folder in this repository contains examples of complete use cases
 
 ### Use cases
 
-In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java. Most of these AWS SDK for Java tutorials use the Synchronous Java client.
+In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java. Most of these AWS SDK for Java tutorials use synchronous Java clients.
 
-If you are interested in using Asynchronous Java service clients, see one of these tutorials:
+If you are interested in using asynchronous Java service clients, see one of these tutorials:
 
 - [Creating a Feedback Sentiment Analyzer application using the SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_fsa_app) - Discusses how to develop a Feedback Sentiment Analyzer application using Machine Learning AWS services. The application solves a fictitious use case of a hotel that receives guest feedback on comment cards in a variety of languages. The application is developed by using the AWS SDK for Java (v2) and asynchronous Java clients.
 
@@ -32,7 +32,7 @@ If you are interested in using Asynchronous Java service clients, see one of the
 
 - [Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_async) - Discusses how to create a web MVC application that has subscription and publish functionality. In this tutorial, the Spring Framework is used with the AWS SDK for Java asynchronous client for Amazon Simple Notification Service (Amazon SNS).
 
-The following tutorials use the synchronous Java client to build sample relational & and non-relational database applications:
+The following tutorials use the synchronous Java client to build sample relational and non-relational database applications:
 
 - [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project) - Discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk to create a web application.
 
@@ -79,6 +79,10 @@ The following tutorials are AWS Lambda use cases:
 - [Building an AWS workflow that sends notifications over multiple channels](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_multiple_channels) - Discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function.
 
 - [Creating Lambda functions that tags digital assets located in Amazon S3 buckets](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_tag_assets) - Discusses how to create a Lambda function that automatically tags digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket.
+
+If you want to learn how to monitor the performance of an Amazon DynamoDB application in 
+Amazon CloudWatch, see
+- [Monitor performance of a DynamoDB application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/monitor_dynamodb)
 
 ### AWS service examples
 

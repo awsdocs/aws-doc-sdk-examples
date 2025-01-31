@@ -4,14 +4,11 @@
 """
 Unit tests for the dynamodb_item_tracker example.
 """
-
-import json
 import boto3
-from botocore.stub import ANY
 import pytest
-
-from app import create_app
 import storage
+from app import create_app  # pylint: disable=E0611
+from botocore.stub import ANY
 from storage import Storage
 
 
@@ -23,7 +20,7 @@ class MockManager:
         self.ses_stubber = ses_stubber
         self.stub_runner = stub_runner
         self.table = resource.Table("test-table")
-        self.storage = Storage(self.table)
+        self.storage = Storage(self.table)  # pylint: disable=E1120
         self.web_items = [
             {
                 "id": f"id-{index}",
@@ -257,14 +254,14 @@ def test_report_small(mock_mgr, monkeypatch):
             mock_mgr.ses_stubber.stub_send_email,
             mock_mgr.sender,
             {"ToAddresses": [mock_mgr.recipient]},
-            f"Work items",
+            "Work items",
             ANY,
             ANY,
             "test-msg-id",
         )
 
     with mock_mgr.app.test_client() as client:
-        rte = f"/api/items:report"
+        rte = "/api/items:report"
         rv = client.post(rte, json={"email": mock_mgr.recipient})
         assert rv.status_code == 200
 
@@ -286,7 +283,7 @@ def test_report_large(mock_mgr, monkeypatch):
         )
 
     with mock_mgr.app.test_client() as client:
-        rte = f"/api/items:report"
+        rte = "/api/items:report"
         rv = client.post(rte, json={"email": mock_mgr.recipient})
         assert rv.status_code == 200
 
@@ -306,13 +303,13 @@ def test_report_error(mock_mgr, monkeypatch, err, stop_on):
             mock_mgr.ses_stubber.stub_send_email,
             mock_mgr.sender,
             {"ToAddresses": [mock_mgr.recipient]},
-            f"Work items",
+            "Work items",
             ANY,
             ANY,
             "test-msg-id",
         )
 
     with mock_mgr.app.test_client() as client:
-        rte = f"/api/items:report"
+        rte = "/api/items:report"
         rv = client.post(rte, json={"email": mock_mgr.recipient})
         assert rv.status_code == 500

@@ -34,35 +34,36 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 - [Hello Amazon RDS](Actions/HelloRDS.cs#L4) (`DescribeDBInstances`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/RDSInstanceScenario/RDSInstanceScenario.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB instance](Actions/RDSWrapper.Instances.cs#L100) (`CreateDBInstance`)
-- [Create a DB parameter group](Actions/RDSWrapper.ParameterGroups.cs#L37) (`CreateDBParameterGroup`)
-- [Create a snapshot of a DB instance](Actions/RDSWrapper.Snapshots.cs#L17) (`CreateDBSnapshot`)
-- [Delete a DB instance](Actions/RDSWrapper.Instances.cs#L139) (`DeleteDBInstance`)
-- [Delete a DB parameter group](Actions/RDSWrapper.ParameterGroups.cs#L85) (`DeleteDBParameterGroup`)
-- [Describe DB instances](Actions/RDSWrapper.Instances.cs#L75) (`DescribeDBInstances`)
-- [Describe DB parameter groups](Actions/RDSWrapper.ParameterGroups.cs#L18) (`DescribeDBParameterGroups`)
-- [Describe database engine versions](Actions/RDSWrapper.Instances.cs#L24) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](Actions/RDSWrapper.Instances.cs#L46) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters in a DB parameter group](Actions/RDSWrapper.ParameterGroups.cs#L105) (`DescribeDBParameters`)
-- [Describe snapshots of DB instances](Actions/RDSWrapper.Snapshots.cs#L39) (`DescribeDBSnapshots`)
-- [Update parameters in a DB parameter group](Actions/RDSWrapper.ParameterGroups.cs#L62) (`ModifyDBParameterGroup`)
+- [CreateDBInstance](Actions/RDSWrapper.Instances.cs#L100)
+- [CreateDBParameterGroup](Actions/RDSWrapper.ParameterGroups.cs#L37)
+- [CreateDBSnapshot](Actions/RDSWrapper.Snapshots.cs#L17)
+- [DeleteDBInstance](Actions/RDSWrapper.Instances.cs#L139)
+- [DeleteDBParameterGroup](Actions/RDSWrapper.ParameterGroups.cs#L85)
+- [DescribeDBEngineVersions](Actions/RDSWrapper.Instances.cs#L24)
+- [DescribeDBInstances](Actions/RDSWrapper.Instances.cs#L75)
+- [DescribeDBParameterGroups](Actions/RDSWrapper.ParameterGroups.cs#L18)
+- [DescribeDBParameters](Actions/RDSWrapper.ParameterGroups.cs#L105)
+- [DescribeDBSnapshots](Actions/RDSWrapper.Snapshots.cs#L39)
+- [DescribeOrderableDBInstanceOptions](Actions/RDSWrapper.Instances.cs#L46)
+- [ModifyDBParameterGroup](Actions/RDSWrapper.ParameterGroups.cs#L62)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with DB instances](Scenarios/RDSInstanceScenario/RDSInstanceScenario.cs)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create an Aurora Serverless work item tracker](../cross_service/AuroraItemTracker)
+- [Create an Aurora Serverless work item tracker](../cross-service/AuroraItemTracker)
 
 
 <!--custom.examples.start-->
@@ -98,8 +99,7 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using Amazon RDS.
 
 
-
-#### Get started with DB instances
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -108,12 +108,25 @@ This example shows you how to do the following:
 - Take a snapshot of the instance.
 - Delete the instance and parameter group.
 
-<!--custom.scenario_prereqs.rds_Scenario_GetStartedInstances.start-->
-<!--custom.scenario_prereqs.rds_Scenario_GetStartedInstances.end-->
+<!--custom.basic_prereqs.rds_Scenario_GetStartedInstances.start-->
+<!--custom.basic_prereqs.rds_Scenario_GetStartedInstances.end-->
 
 
-<!--custom.scenarios.rds_Scenario_GetStartedInstances.start-->
-<!--custom.scenarios.rds_Scenario_GetStartedInstances.end-->
+<!--custom.basics.rds_Scenario_GetStartedInstances.start-->
+<!--custom.basics.rds_Scenario_GetStartedInstances.end-->
+
+
+#### Create an Aurora Serverless work item tracker
+
+This example shows you how to create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_RDSDataTracker.start-->
+<!--custom.scenario_prereqs.cross_RDSDataTracker.end-->
+
+
+<!--custom.scenarios.cross_RDSDataTracker.start-->
+<!--custom.scenarios.cross_RDSDataTracker.end-->
 
 ### Tests
 

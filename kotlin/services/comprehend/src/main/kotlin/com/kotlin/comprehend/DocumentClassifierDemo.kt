@@ -20,7 +20,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
         Usage: 
@@ -44,17 +43,22 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[comprehend.kotlin.classifier.main]
-suspend fun createDocumentClassifier(dataAccessRoleArnVal: String, s3UriVal: String, documentClassifierNameVal: String) {
-
-    val config = DocumentClassifierInputDataConfig {
-        s3Uri = s3UriVal
-    }
-    val request = CreateDocumentClassifierRequest {
-        documentClassifierName = documentClassifierNameVal
-        dataAccessRoleArn = dataAccessRoleArnVal
-        languageCode = LanguageCode.fromValue("en")
-        inputDataConfig = config
-    }
+suspend fun createDocumentClassifier(
+    dataAccessRoleArnVal: String,
+    s3UriVal: String,
+    documentClassifierNameVal: String,
+) {
+    val config =
+        DocumentClassifierInputDataConfig {
+            s3Uri = s3UriVal
+        }
+    val request =
+        CreateDocumentClassifierRequest {
+            documentClassifierName = documentClassifierNameVal
+            dataAccessRoleArn = dataAccessRoleArnVal
+            languageCode = LanguageCode.fromValue("en")
+            inputDataConfig = config
+        }
 
     ComprehendClient { region = "us-east-1" }.use { comClient ->
         val resp = comClient.createDocumentClassifier(request)

@@ -38,20 +38,20 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get a lexicon](polly_wrapper.py#L267) (`GetLexicon`)
-- [Get data about a speech synthesis task](polly_wrapper.py#L229) (`GetSpeechSynthesisTask`)
-- [Get voices available for synthesis](polly_wrapper.py#L35) (`DescribeVoices`)
-- [List pronunciation lexicons](polly_wrapper.py#L286) (`ListLexicons`)
-- [Start a speech synthesis task](polly_wrapper.py#L147) (`StartSpeechSynthesisTask`)
-- [Store a pronunciation lexicon](polly_wrapper.py#L249) (`PutLexicon`)
-- [Synthesize speech from text](polly_wrapper.py#L20) (`SynthesizeSpeech`)
+- [DescribeVoices](polly_wrapper.py#L35)
+- [GetLexicon](polly_wrapper.py#L267)
+- [GetSpeechSynthesisTask](polly_wrapper.py#L229)
+- [ListLexicons](polly_wrapper.py#L286)
+- [PutLexicon](polly_wrapper.py#L249)
+- [StartSpeechSynthesisTask](polly_wrapper.py#L147)
+- [SynthesizeSpeech](polly_wrapper.py#L54)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a lip-sync application](python/example_code/polly)
+- [Create a lip-sync application](../../example_code/polly)
 
 
 <!--custom.examples.start-->

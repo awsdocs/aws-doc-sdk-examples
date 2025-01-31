@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: <identityPoolName>
     
@@ -37,10 +36,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cognito.kotlin.deleteidpool.main]
 suspend fun deleteIdPool(identityPoold: String?) {
-
-    val request = DeleteIdentityPoolRequest {
-        this.identityPoolId = identityPoold
-    }
+    val request =
+        DeleteIdentityPoolRequest {
+            this.identityPoolId = identityPoold
+        }
 
     CognitoIdentityClient { region = "us-east-1" }.use { cognitoIdclient ->
 

@@ -1,26 +1,56 @@
-# zexi 0.4.0
 sesv2_CreateContactList:
-  title: Create an &SESv2; contact list using an &AWS; SDK
-  title_abbrev: Create a contact list
-  synopsis: create an &SESv2; contact list.
-  category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.CreateContactList
     Rust:
       versions:
         - sdk_version: 1
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - ses.rust.create-contact-list
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.java2.newsletter.CreateContactList
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.main
+                - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.CreateContactList
   services:
     sesv2: {CreateContactList}
 sesv2_CreateContact:
-  title: Create an &SESv2; contact in a contact list using an &AWS; SDK
-  title_abbrev: Create a contact in a contact list
-  synopsis: create an &SESv2; contact in a contact list.
-  category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.CreateContact
     Rust:
       versions:
         - sdk_version: 1
@@ -29,13 +59,29 @@ sesv2_CreateContact:
             - description:
               snippet_tags:
                 - ses.rust.create-contact
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.java2.newsletter.CreateContact
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.main
+                - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.CreateContact
   services:
     sesv2: {CreateContact}
 sesv2_GetEmailIdentity:
-  title: Get information about an &SESv2; identity using an &AWS; SDK
-  title_abbrev: Get identity information
-  synopsis: get &SESv2; identity information.
-  category:
   languages:
     Rust:
       versions:
@@ -48,10 +94,6 @@ sesv2_GetEmailIdentity:
   services:
     sesv2: {GetEmailIdentity}
 sesv2_ListContactLists:
-  title: List the &SESv2; contact lists using an &AWS; SDK
-  title_abbrev: List the contact lists
-  synopsis: list the &SESv2; contact lists.
-  category:
   languages:
     Rust:
       versions:
@@ -64,11 +106,16 @@ sesv2_ListContactLists:
   services:
     sesv2: {ListContactLists}
 sesv2_ListContacts:
-  title: List the contacts in an &SESv2; contact list using an &AWS; SDK
-  title_abbrev: List the contacts in a contact list
-  synopsis: list the contacts in an &SESv2; contact list.
-  category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.ListContacts
     Rust:
       versions:
         - sdk_version: 1
@@ -77,14 +124,39 @@ sesv2_ListContacts:
             - description:
               snippet_tags:
                 - ses.rust.list-contacts
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.java2.newsletter.ListContacts
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.main
+                - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.ListContacts
   services:
     sesv2: {ListContacts}
 sesv2_SendEmail:
-  title: Send an &SESv2; email using an &AWS; SDK
-  title_abbrev: Send an email
-  synopsis: send an &SESv2; email.
-  category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.SendEmail
     Java:
       versions:
         - sdk_version: 2
@@ -93,6 +165,9 @@ sesv2_SendEmail:
             - description: Sends a message.
               snippet_tags:
                 - ses.java2.sendmessage.sesv2.main
+            - description: Sends a message using a template.
+              snippet_tags:
+                - sesv2.java2.newsletter.SendEmail.template
     Rust:
       versions:
         - sdk_version: 1
@@ -101,6 +176,9 @@ sesv2_SendEmail:
             - description: Sends a message to all members of the contact list.
               snippet_tags:
                 - ses.rust.send-email
+            - description: Sends a message to all members of the contact list using a template.
+              snippet_tags:
+                - sesv2.rust.send-email.template
     Ruby:
       versions:
         - sdk_version: 3
@@ -110,5 +188,308 @@ sesv2_SendEmail:
             - description:
               snippet_tags:
                 - ruby.example_code.ses.v2.send_email
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description: Sends a message to all members of the contact list.
+              genai: most
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.main
+                - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.SendEmail.simple
+            - description: Sends a message to all members of the contact list using a template.
+              genai: most
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.main
+                - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.SendEmail.template
   services:
     sesv2: {SendEmail}
+sesv2_CreateEmailIdentity:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.CreateEmailIdentity
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.java2.newsletter.CreateEmailIdentity
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.main
+                - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.CreateEmailIdentity
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.rust.create-email-identity
+  services:
+    sesv2: {CreateEmailIdentity}
+sesv2_CreateEmailTemplate:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.CreateEmailTemplate
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.java2.newsletter.CreateEmailTemplate
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.main
+                - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.CreateEmailTemplate
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.rust.create-email-template
+  services:
+    sesv2: {CreateEmailTemplate}
+sesv2_DeleteContactList:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.DeleteContactList
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.java2.newsletter.DeleteContactList
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.main
+                - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.DeleteContactList
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.rust.delete-contact-list
+  services:
+    sesv2: {DeleteContactList}
+sesv2_DeleteEmailIdentity:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.DeleteEmailIdentity
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.java2.newsletter.DeleteEmailIdentity
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.main
+                - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.DeleteEmailIdentity
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.rust.delete-email-identity
+  services:
+    sesv2: {DeleteEmailIdentity}
+sesv2_DeleteEmailTemplate:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper.DeleteEmailTemplate
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.java2.newsletter.DeleteEmailTemplate
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.main
+                - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.DeleteEmailTemplate
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.rust.delete-email-template
+  services:
+    sesv2: {DeleteEmailTemplate}
+sesv2_NewsletterWorkflow:
+  title: A complete &SESv2; Newsletter scenario using an &AWS; SDK
+  title_abbrev: Newsletter scenario
+  synopsis: run the &SESv2; newsletter scenario.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SESv2
+          excerpts:
+            - description: Run the scenario.
+              genai: most
+              snippet_tags:
+                - SESWorkflow.dotnetv3.NewsletterWorkflow
+            - description: Wrapper for service operations.
+              genai: most
+              snippet_tags:
+                - SESWorkflow.dotnetv3.SESv2Wrapper
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.java2.newsletter.CreateContactList
+                - sesv2.java2.newsletter.CreateContact
+                - sesv2.java2.newsletter.ListContacts
+                - sesv2.java2.newsletter.SendEmail.template
+                - sesv2.java2.newsletter.CreateEmailIdentity
+                - sesv2.java2.newsletter.CreateEmailTemplate
+                - sesv2.java2.newsletter.DeleteContactList
+                - sesv2.java2.newsletter.DeleteEmailIdentity
+                - sesv2.java2.newsletter.DeleteEmailTemplate
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sesv2
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - python.example_code.sesv2.SESv2Workflow.main
+                - python.example_code.sesv2.SESv2Workflow.decl
+                - python.example_code.sesv2.CreateContactList
+                - python.example_code.sesv2.CreateContact
+                - python.example_code.sesv2.ListContacts
+                - python.example_code.sesv2.SendEmail.simple
+                - python.example_code.sesv2.SendEmail.template
+                - python.example_code.sesv2.CreateEmailIdentity
+                - python.example_code.sesv2.CreateEmailTemplate
+                - python.example_code.sesv2.DeleteContactList
+                - python.example_code.sesv2.DeleteEmailIdentity
+                - python.example_code.sesv2.DeleteEmailTemplate
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ses
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - sesv2.rust.create-contact-list
+                - sesv2.rust.create-contact
+                - sesv2.rust.list-contacts
+                - sesv2.rust.send-email.template
+                - sesv2.rust.create-email-identity
+                - sesv2.rust.create-email-template
+                - sesv2.rust.delete-contact-list
+                - sesv2.rust.delete-email-identity
+                - sesv2.rust.delete-email-template
+  services:
+    sesv2: {CreateContactList, CreateContact, ListContacts, SendEmail.simple, SendEmail.template, CreateEmailIdentity, CreateEmailTemplate,
+            DeleteContactList, DeleteEmailIdentity, DeleteEmailTemplate}

@@ -33,9 +33,12 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Delete a transcription job](src/transcribe_delete_job.js#L17) (`DeleteTranscriptionJob`)
-- [List transcription jobs](src/transcribe_list_jobs.js#L17) (`ListTranscriptionJobs`)
-- [Start a transcription job](src/transcribe_create_job.js#L22) (`StartTranscriptionJob`)
+- [DeleteMedicalTranscriptionJob](src/libs/transcribeClient.js#L16)
+- [DeleteTranscriptionJob](src/transcribe_delete_job.js#L17)
+- [ListMedicalTranscriptionJobs](src/libs/transcribeClient.js#L16)
+- [ListTranscriptionJobs](src/transcribe_list_jobs.js#L17)
+- [StartMedicalTranscriptionJob](src/libs/transcribeClient.js#L16)
+- [StartTranscriptionJob](src/transcribe_create_job.js#L22)
 
 
 <!--custom.examples.start-->
@@ -55,10 +58,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

@@ -18,10 +18,8 @@ node populate-table.js
 */
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.CreateTableV3]
 // Load the required Amazon DynamoDB client and commands.
-const {
-  BatchWriteItemCommand
-} = require("@aws-sdk/client-dynamodb");
-const {dynamoClient} = require ( "../libs/dynamoClient.js" );
+const { BatchWriteItemCommand } = require("@aws-sdk/client-dynamodb");
+const { dynamoClient } = require("../libs/dynamoClient.js");
 
 // Set the parameters.
 const params = {

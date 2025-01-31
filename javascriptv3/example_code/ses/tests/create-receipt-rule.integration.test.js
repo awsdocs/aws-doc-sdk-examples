@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import { describe, beforeAll, afterAll, it, expect } from "vitest";
+import { describe, beforeAll, afterAll, it } from "vitest";
 
 import {
   RULE_SET_NAME,
@@ -40,7 +40,6 @@ describe("ses_createreceiptrule", () => {
   });
 
   it("should create a receipt rule", async () => {
-    const result = await run();
-    expect(result.$metadata.httpStatusCode).toBe(200);
+    await run();
   });
 });

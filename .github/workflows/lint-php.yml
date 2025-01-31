@@ -1,0 +1,39 @@
+name: "PHP Linter"
+
+on:  # yamllint disable-line rule:truthy
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "**.php"
+      - ".github/linters/phpcs.xml"
+      - ".github/workflows/php-lint.yml"
+
+jobs:
+  phpcs:
+    name: "PHP Linter"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@e9772d140489982e0e3704fea5ee93d536f1e275
+        with:
+          files: "/php/**/*.php"
+
+      - name: Install PHP_CodeSniffer
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+          php phpcs.phar --version
+
+      - name: Run PHPCS
+        uses: thenabeel/action-phpcs@v8
+        if: steps.changed-files.outputs.any_changed == 'true'
+        with:
+          files: "**.php"
+          phpcs_path: php phpcs.phar
+          standard: ".github/linters/phpcs.xml"

@@ -45,20 +45,21 @@ class PinpointKotlinTest {
     private var existingApp = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val valuesOb = gson.fromJson(json, SecretValues::class.java)
-        appName = valuesOb.appName.toString()
-        originationNumber = valuesOb.originationNumber.toString()
-        destinationNumber = valuesOb.destinationNumber.toString()
-        message = valuesOb.message.toString()
-        userId = valuesOb.userId.toString()
-        senderAddress = valuesOb.senderAddress.toString()
-        toAddress = valuesOb.toAddress.toString()
-        subject = valuesOb.subject.toString()
-        existingApp = valuesOb.existingApplicationId.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val valuesOb = gson.fromJson(json, SecretValues::class.java)
+            appName = valuesOb.appName.toString()
+            originationNumber = valuesOb.originationNumber.toString()
+            destinationNumber = valuesOb.destinationNumber.toString()
+            message = valuesOb.message.toString()
+            userId = valuesOb.userId.toString()
+            senderAddress = valuesOb.senderAddress.toString()
+            toAddress = valuesOb.toAddress.toString()
+            subject = valuesOb.subject.toString()
+            existingApp = valuesOb.existingApplicationId.toString()
 
         /*
         try {
@@ -81,101 +82,117 @@ class PinpointKotlinTest {
             ex.printStackTrace()
         }
          */
-    }
+        }
 
     @Test
     @Order(1)
-    fun createAppTest() = runBlocking {
-        appId = createApplication(appName).toString()
-        assertTrue(!appId.isEmpty())
-        println("Test 1 passed")
-    }
+    fun createAppTest() =
+        runBlocking {
+            appId = createApplication(appName).toString()
+            assertTrue(!appId.isEmpty())
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun createEndpointTest() = runBlocking {
-        endpointId = createPinpointEndpoint(appId).toString()
-        assertTrue(!endpointId.isEmpty())
-        println("Test 2 passed")
-    }
+    fun createEndpointTest() =
+        runBlocking {
+            endpointId = createPinpointEndpoint(appId).toString()
+            assertTrue(!endpointId.isEmpty())
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun addExampleEndpointTest() = runBlocking {
-        updateEndpointsViaBatch(appId)
-        println("Test 3 passed")
-    }
+    fun addExampleEndpointTest() =
+        runBlocking {
+            updateEndpointsViaBatch(appId)
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun lookUpEndpointTest() = runBlocking {
-        lookupPinpointEndpoint(appId, endpointId)
-        println("Test 4 passed")
-    }
+    fun lookUpEndpointTest() =
+        runBlocking {
+            lookupPinpointEndpoint(appId, endpointId)
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun deleteEndpointTest() = runBlocking {
-        deletePinEncpoint(appId, endpointId)
-        println("Test 5 passed")
-    }
+    fun deleteEndpointTest() =
+        runBlocking {
+            deletePinEncpoint(appId, endpointId)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun sendMessageTest() = runBlocking {
-        sendSMSMessage(message, appId, originationNumber, destinationNumber)
-        println("Test 6 passed")
-    }
+    fun sendMessageTest() =
+        runBlocking {
+            sendSMSMessage(message, appId, originationNumber, destinationNumber)
+            println("Test 6 passed")
+        }
 
     @Test
     @Order(7)
-    fun createSegmentTest() = runBlocking {
-        segmentId = createPinpointSegment(appId).toString()
-        assertTrue(!segmentId.isEmpty())
-        println("Test 7 passed")
-    }
+    fun createSegmentTest() =
+        runBlocking {
+            segmentId = createPinpointSegment(appId).toString()
+            assertTrue(!segmentId.isEmpty())
+            println("Test 7 passed")
+        }
 
     @Test
     @Order(8)
-    fun listSegmentsTest() = runBlocking {
-        listSegs(appId)
-        println("Test 8 passed")
-    }
+    fun listSegmentsTest() =
+        runBlocking {
+            listSegs(appId)
+            println("Test 8 passed")
+        }
 
     @Test
     @Order(9)
-    fun createCampaignTest() = runBlocking {
-        createPinCampaign(appId, segmentId)
-        println("Test 9 passed")
-    }
+    fun createCampaignTest() =
+        runBlocking {
+            createPinCampaign(appId, segmentId)
+            println("Test 9 passed")
+        }
 
     @Test
     @Order(10)
-    fun sendEmailMessageTest() = runBlocking {
-        sendEmail(subject, senderAddress, toAddress)
-        println("Test 10 passed")
-    }
+    fun sendEmailMessageTest() =
+        runBlocking {
+            sendEmail(subject, senderAddress, toAddress)
+            println("Test 10 passed")
+        }
 
     @Test
     @Order(11)
-    fun listEndpointIdsTest() = runBlocking {
-        listAllEndpoints(existingApp, userId)
-        println("Test 11 passed")
-    }
+    fun listEndpointIdsTest() =
+        runBlocking {
+            listAllEndpoints(existingApp, userId)
+            println("Test 11 passed")
+        }
 
     @Test
     @Order(12)
-    fun deleteAppTest() = runBlocking {
-        deletePinApp(appId)
-        println("Test 12 passed")
-    }
+    fun deleteAppTest() =
+        runBlocking {
+            deletePinApp(appId)
+            println("Test 12 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/pinpoint"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

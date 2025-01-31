@@ -6,9 +6,7 @@ package com.example.photo
 class WorkCount {
     private var count = 0
 
-    fun getCount(): Int {
-        return count
-    }
+    fun getCount(): Int = count
 
     fun setCount(count: Int) {
         this.count = count

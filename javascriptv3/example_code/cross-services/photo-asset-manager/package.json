@@ -18,7 +18,8 @@
     "@types/lodash": "^4.14.195",
     "@types/tar-stream": "^2.2.2",
     "@types/uuid": "^9.0.1",
-    "rollup": "^3.23.0"
+    "rollup": "^3.23.0",
+    "vitest": "^1.6.0"
   },
   "dependencies": {
     "@aws-sdk/client-sns": "^3.342.0",

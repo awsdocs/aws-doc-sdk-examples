@@ -7,6 +7,7 @@ import aws.sdk.kotlin.services.support.SupportClient
 import aws.sdk.kotlin.services.support.model.DescribeServicesRequest
 
 // snippet-start:[support.kotlin.hello.main]
+
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
@@ -29,9 +30,10 @@ suspend fun main() {
 
 // Return a List that contains a Service name and Category name.
 suspend fun displaySomeServices() {
-    val servicesRequest = DescribeServicesRequest {
-        language = "en"
-    }
+    val servicesRequest =
+        DescribeServicesRequest {
+            language = "en"
+        }
 
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeServices(servicesRequest)

@@ -38,11 +38,11 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a stream](streams/kinesis_stream.py#L46) (`CreateStream`)
-- [Delete a stream](streams/kinesis_stream.py#L90) (`DeleteStream`)
-- [Describe a stream](streams/kinesis_stream.py#L69) (`DescribeStream`)
-- [Get data in batches from a stream](streams/kinesis_stream.py#L128) (`GetRecords`)
-- [Put data into a stream](streams/kinesis_stream.py#L105) (`PutRecord`)
+- [CreateStream](streams/kinesis_stream.py#L46)
+- [DeleteStream](streams/kinesis_stream.py#L90)
+- [DescribeStream](streams/kinesis_stream.py#L69)
+- [GetRecords](streams/kinesis_stream.py#L128)
+- [PutRecord](streams/kinesis_stream.py#L105)
 
 
 <!--custom.examples.start-->

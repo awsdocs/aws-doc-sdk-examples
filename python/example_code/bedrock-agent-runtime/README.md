@@ -1,13 +1,13 @@
-# Agents for Amazon Bedrock Runtime code examples for the SDK for Python
+# Amazon Bedrock Agents Runtime code examples for the SDK for Python
 
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to work with Agents for Amazon Bedrock Runtime.
+Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Bedrock Agents Runtime.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Agents for Amazon Bedrock Runtime offers you the ability to run autonomous agents in your application._
+_Amazon Bedrock Agents Runtime offers you the ability to run autonomous agents in your application._
 
 ## ⚠ Important
 
@@ -34,11 +34,18 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](flows/flow-conversation.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Invoke an agent](bedrock_agent_runtime_wrapper.py#L33) (`InvokeAgent`)
+- [InvokeAgent](bedrock_agent_runtime_wrapper.py#L33)
 
 
 <!--custom.examples.start-->
@@ -52,6 +59,24 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+
+#### Learn the basics
+
+This example shows you how to use InvokeFlow to converse with an Amazon Bedrock flow that includes an agent node.
+
+
+<!--custom.basic_prereqs.bedrock-agent-runtime_Scenario_ConverseWithFlow.start-->
+<!--custom.basic_prereqs.bedrock-agent-runtime_Scenario_ConverseWithFlow.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python flows/flow-conversation.py
+```
+
+
+<!--custom.basics.bedrock-agent-runtime_Scenario_ConverseWithFlow.start-->
+<!--custom.basics.bedrock-agent-runtime_Scenario_ConverseWithFlow.end-->
 
 
 ### Tests
@@ -69,9 +94,9 @@ in the `python` folder.
 
 ## Additional resources
 
-- [Agents for Amazon Bedrock Runtime User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
-- [Agents for Amazon Bedrock Runtime API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html)
-- [SDK for Python Agents for Amazon Bedrock Runtime reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent-runtime.html)
+- [Amazon Bedrock Agents Runtime User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
+- [Amazon Bedrock Agents Runtime API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html)
+- [SDK for Python Amazon Bedrock Agents Runtime reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent-runtime.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

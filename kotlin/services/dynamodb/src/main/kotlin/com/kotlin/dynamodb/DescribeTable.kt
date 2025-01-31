@@ -37,9 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[dynamodb.kotlin.describe_table.main]
 suspend fun describeDymamoDBTable(tableNameVal: String?) {
-    val request = DescribeTableRequest {
-        tableName = tableNameVal
-    }
+    val request =
+        DescribeTableRequest {
+            tableName = tableNameVal
+        }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
         val tableInfo = ddb.describeTable(request)

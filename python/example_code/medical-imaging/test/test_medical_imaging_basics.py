@@ -5,10 +5,11 @@
 Unit tests for medical_imaging_basics functions.
 """
 
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 import os
+
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 
 from medical_imaging_basics import MedicalImagingWrapper
 
@@ -295,6 +296,7 @@ def test_update_image_set_metadata(make_stubber, error_code):
     datastore_id = "abcdedf1234567890abcdef123456789"
     image_set_id = "cccccc1234567890abcdef123456789"
     version_id = "1"
+    force = False
     metadata = {
         "DICOMUpdates": {
             "updatableAttributes": '{"SchemaVersion":1.1,"Patient":{"DICOM":{"PatientName":"Garcia^Gloria"}}}'
@@ -302,18 +304,18 @@ def test_update_image_set_metadata(make_stubber, error_code):
     }
 
     medical_imaging_stubber.stub_update_image_set_metadata(
-        datastore_id, image_set_id, version_id, metadata, error_code=error_code
+        datastore_id, image_set_id, version_id, metadata, force, error_code=error_code
     )
 
     if error_code is None:
         wrapper.update_image_set_metadata(
-            datastore_id, image_set_id, version_id, metadata
+            datastore_id, image_set_id, version_id, metadata, force
         )
 
     else:
         with pytest.raises(ClientError) as exc_info:
             wrapper.update_image_set_metadata(
-                datastore_id, image_set_id, version_id, metadata
+                datastore_id, image_set_id, version_id, metadata, force
             )
         assert exc_info.value.response["Error"]["Code"] == error_code
 
@@ -351,6 +353,8 @@ def test_copy_image_set_with_destination(make_stubber, error_code):
     version_id = "1"
     destination_image_set_id = "cccccc1234567890abcdef123456789"
     destination_version_id = "1"
+    force = True
+    subset_Id = "cccccc1234567890abcdef123456789"
 
     medical_imaging_stubber.stub_copy_image_set_with_destination(
         datastore_id,
@@ -358,6 +362,8 @@ def test_copy_image_set_with_destination(make_stubber, error_code):
         version_id,
         destination_image_set_id,
         destination_version_id,
+        force,
+        subset_Id,
         error_code=error_code,
     )
 
@@ -368,6 +374,8 @@ def test_copy_image_set_with_destination(make_stubber, error_code):
             version_id,
             destination_image_set_id,
             destination_version_id,
+            force,
+            [subset_Id],
         )
 
     else:
@@ -378,6 +386,8 @@ def test_copy_image_set_with_destination(make_stubber, error_code):
                 version_id,
                 destination_image_set_id,
                 destination_version_id,
+                force,
+                [subset_Id],
             )
         assert exc_info.value.response["Error"]["Code"] == error_code
 

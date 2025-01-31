@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <healthCheckId> 
@@ -37,10 +36,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[route53.kotlin.get_health_check_status.main]
 suspend fun getHealthStatus(healthCheckIdVal: String?) {
-
-    val statusRequest = GetHealthCheckStatusRequest {
-        healthCheckId = healthCheckIdVal
-    }
+    val statusRequest =
+        GetHealthCheckStatusRequest {
+            healthCheckId = healthCheckIdVal
+        }
 
     Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
         val response = route53Client.getHealthCheckStatus(statusRequest)

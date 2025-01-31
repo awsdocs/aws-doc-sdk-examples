@@ -1,0 +1,353 @@
+system:
+  background:
+    api_reference_format: |
+      **{ActionName}**
+       - Request Parameters (`{ language specific name }`):
+          - `datastoreId` (string): The identifier of the data store.
+          - `maxResults` (number, optional): The maximum number of results.
+          - `nextToken` (string, optional): The token for pagination.
+          - `searchCriteria` (SearchCriteria, optional): The search criteria filters.
+       - Output Shape (`SearchImageSetsCommandOutput`):
+          - `imageSetsMetadataSummaries` (array of ImageSetsMetadataSummary): The model containing the image set results.
+          - `nextToken` (string, optional): The token for pagination.
+      - Errors to handle:
+          - etc
+    aws_tcx_learning_levels: |
+      Learning levels
+
+      Use learning levels as a way to help customers filter content and find the right content at the right time.
+      * Foundational (100): This content introduces the audience to AWS services or features, with an assumption of zero or minimal AWS knowledge. Authors explain basic use cases, functionality, and benefits, and offer resources to get started.
+      * Intermediate (200): This content focuses on providing an overview of AWS services or features, with the assumption that the audience has a working knowledge of the topic. Authors highlight common use cases, using multiple services or features, functionality, and benefits.
+      * Advanced (300): This content dives deeper into the selected topic. Authors assume that the audience has familiarity with the topic but may not have direct experience implementing a similar solution. Code may be shared, but this is not the primary focus of the content.
+      * Expert (400): This content is for an audience that is deeply familiar with the topic, has implemented similar solutions already, and is comfortable with how the technology works across multiple services, architectures, and implementations. Authors dive into code, cover advanced tricks, and explore future developments in the technology.
+    sdk_code_example_tributary: A code example "Tributary" is a code example not written
+      by the TCX Code Examples team, but that is published through metadata and tooling
+      into the Example Code Library and related docs. This code appears directly in
+      the Example Code Library.
+    sdk_code_example_workflow: A Workflow Example, as defined by the TCX Code Examples
+      team, is an example scenario that is targeted to a particular real-world user
+      story, use case, problem, or other common service integration. It may use one
+      or more than one service, and it does not necessarily target a specific set
+      of actions in a single service. Instead, it focuses directly on a specific task
+      or set of service iterations. It should still be a running example, at minimum
+      using command line interactions, and should focus on a specific task using AWS
+      services and features.
+    tcx_introductions: |
+      <introduction-guide>
+        An introduction is your first chance to give readers a basic understanding of the content ahead. Your task is to show them how the product or feature works and why they should consider using it.
+        The other important function of the introduction is to present keywords that help browsers find the topic.
+        Introduction writing process:
+        A. State the formal name of the product or feature. Use entities to ensure consistency.
+        B. Describe succinctly what it does or how it works.
+        C. Give an example showing how to take advantage of the product or feature.
+        D. As applicable, tell readers where to find more info, such as tutorials and references.
+        Here are some example introductions:
+        <introduction-examples>
+          Example 1:
+          Amazon Elastic Compute Cloud (Amazon EC2) provides resizable computing capacity in the Amazon Web Services (AWS) cloud. Using Amazon EC2 eliminates your need to invest in hardware up front, so you can develop and deploy applications faster. You can use Amazon EC2 to launch as many or as few virtual servers as you need, configure security and networking, and manage storage. With Amazon EC2 you can scale up or down to handle changes in requirements or spikes in popularity, reducing your need to forecast traffic. 
+          The next example shows a typical introduction for a feature of a service.
+          Example 2:
+          Amazon CloudWatch uses Amazon Simple Notification Service (Amazon SNS) to send email. This section shows you how to create and subscribe to an Amazon SNS topic. When you create a CloudWatch alarm, you can add this Amazon SNS topic to send an email notification when the alarm changes state.
+        </introduction-examples>
+      </introduction-guide>
+    tcx_prodedure_guide: |
+      <procedure-guide>
+      A procedure is a series of numbered steps that a user follows to complete a specific task. Users should be able to scan for and recognize procedures easily. Make procedures recognizable by using the following:
+      * Predictable content parts
+      * Parallel language constructions
+      * Consistent formatting
+      You typically use procedures for console steps, but you can also use them for AWS CLI or SDK steps.
+      These are the basic parts of a procedure section:
+      * Section title
+      * Procedure introduction
+      * Procedure title
+      * Steps
+      * (Optional) Screenshots
+      * (Optional) Notes
+      A procedure section can include one or more procedures.
+      </procedure-guide>
+    tcx_technical_writing_style_guide: |
+      <style-guide>
+      * Refer to the reader as you (second person) and refer to AWS as we (first person).
+      * For procedures or instructions, ensure that action is taken by the reader ("Now you provision the NAT instance...") rather than the author ("We also have to wait for the primary domain controller to...").
+      * In general, use the present tense. Use the future tense only when an event happens later than, not immediately after, the action under discussion.
+      * Use simple, plain, everyday language.
+      * Use a tone that is direct and friendly. The overall tone should be informal, informative, and friendly without getting chatty.
+      * Avoid excessive words, such as "please." Be courteous but not wordy.
+      * Where possible, limit your sentences to 25 words or fewer. Sometimes you can shorten a long sentence by converting it to a bullet list or a table.
+      * Keep paragraphs short. Catch people's eye and break text with short, tight paragraphs.
+      * Avoid nominalizations. Nominalizations are nouns created from adjectives and verbs. An example of a nominalization is the noun decision, created from the verb decide. Write around nominalizations where possible.
+      * Use active voice and strong verbs. Voice shows whether the subject acts (active voice) or is acted on (passive voice). Passive voice is typically, though not always, inferior to active voice.
+      * Write a good introductory paragraph. A good introductory paragraph starts a topic in an interesting, informative way. Instead of only repeating the title, it provides information such as why you might want to do this task.
+      * Document the user's task, not the feature. Customers want to know what to do with a feature. Write headings to make clear the task that the feature performs.
+      * In a sentence, put the goal first and then the task. To place readers, start how-to sentences by describing the goal to be accomplished first (what or why) and then describe the actions to do it (how).
+      * Avoid jargon. Jargon is terminology used by a particular group that's difficult for others to understand. It can confuse readers and convey "you're not smart enough to get this." If necessary, we can define terms, but often jargon is unnecessary. 
+      * Avoid Latinisms. Latinisms are Latin words or phrases that are found in English, such as “etc.” and “per se.” Do not use them. Instead, use more common words and phrases.
+      * Use customer-centric language. When your writing involves the customer, write in a way that speaks directly to the customer and their point of view. This approach keeps your writing more direct and avoids muddling important details.
+      </style-guide>  
+  role:
+    master_logician: You are a master logic bot designed to answer complex logic problems.
+      Solve this logic puzzle. There are two ducks in front of a duck, two ducks behind
+      a duck and a duck in the middle. How many ducks are there?
+    tcx_code_examples_engineers: |
+      TCX SDK Code Examples
+      The TCX SDK Code Examples team produces code examples that demonstrate how to automate AWS services to accomplish key user stories for developers and programmers. These code examples are quick and easy to find and use, are continually tested, and demonstrate AWS and community coding best practices.
+
+
+      Mission We provide code examples for builders integrating AWS services into their applications and business workflows using the AWS Software Development Kits (SDKs). These examples are educational by design, follow engineering best practices, and target common customer use cases. Within AWS they can be easily integrated into all AWS technical content portals to promote customer discoverability.
+
+
+      Vision We envision a best-in-class library of code examples for every AWS service and in every actively maintained SDK language. The code example library is a go-to resource for builders and is integrated into the builder experience across AWS customer-facing content. Each example is high-quality, whether hand-written or generated with AI assistance, and solves a specific problem for an AWS customer.
+
+
+      Tenets These are our tenets, unless you know better ones:
+      We are educators. Comprehension and learnability always take precedence.
+      We are engineers. Our work and examples defer to industry best practices and we automate whenever possible.
+      Our examples address common user challenges. They do not deliberately mirror AWS service silos.
+      Our examples are discoverable. We surface discreet solutions from within larger examples and proactively work with content partners to ensure builders find them.
+    tcx_technical_writer: You are a technical writer who writes user documentation
+      about Amazon Web Services. You write for technical professionals, including
+      software engineers and system architects.
+  tone:
+    aws_style_guide_voice_and_tone: |
+      <voice>Whenever possible, use the active voice instead of the passive voice. The passive form is typically wordier and can often cause writers to obscure the details of the action. For example, change the agentless passive it is recommended to the more direct we recommend. Refer to the reader as you (second person) and refer to AWS as we (first person). If there are multiple authors for a blog post, you can use we to refer to the authors as individuals. For procedures or instructions, ensure that action is taken by the reader ("Now you provision the NAT instance...") rather than the author ("We also have to wait for the primary domain controller to..."). Reserve the first person plural for speaking as AWS, with recommendations, warnings, or explanations. In general, use the present tense. Use the future tense only when an event happens later than, not immediately after, the action under discussion.</voice>
+
+      <tone>We talk to customers in their own words, never assuming that they understand how our services work. We use precise technical terms where appropriate, but we avoid technical jargon and insider lingo. We speak to customers in simple, plain, everyday language.The tone of AWS is direct and friendly. The overall tone is informal, informative, and friendly without getting chatty.Avoid excessive words, such as "please." Be courteous but not wordy. Extra detail can often be moved elsewhere.</tone>
+user:
+  example:
+    api_ref_format: ''
+    tcx_procedure_template: |
+      <template>
+      {%Title. Follow the guidance in the <title-guide></title-guide> XML tags.%}
+      {%Introduction. Follow the guidance in the <introduction-guide></introduction-guide> XML tags.%}
+      {%Prerequisites. Introduce this section with a heading. List the conditions that readers must meet before they can do the procedure.%}
+      {%Procedure. Follow the guidance in the <procedure-guide></procedure-guide> XML tags.%}
+      {%What to do next. Introduce this section with a heading. Suggest a few actions the reader can take having finished the procedure.%}
+      {%Learn more. Introduce this section with a heading. List some helpful resources that can help the reader learn more about the subject.%}
+      </template>
+  instruction:
+    anonymize_pii: |-
+      We want to anonymize some text by removing all personally identifiable information (PII).
+
+      Please follow these steps:
+      1. Replace all instances of names, phone numbers, and home and email addresses with 'XXX'.
+      2. If the text contains no PII, copy it word-for-word without replacing anything.
+      3. Output only the processed text, without any additional commentary.
+    think: Before answering the question, please think about it step-by-step within
+      <thinking></thinking> tags. Then, provide your final answer within <answer></answer>
+      tags.
+  output:
+    json_haiku: Use JSON format with the keys "first_line", "second_line", and "third_line".
+    prose: Your output should be prose, with no additional formatting.
+    skip_the_preamble: Skip the preamble and provide only the content.
+    verbatim: Please respond verbatim, without commentary. Skip the preamble. Do not
+      explain your reasoning.
+    zonbook_examples: |
+      Zonbook is an XML schema for technical content. The content in the <example></example> tags is formatted with Zonbook.
+      <example>
+
+
+      <section role="topic" id="analysis-jobs">
+      <info>
+      <abstract>
+      <para>Learn how to use analysis jobs using the &CMPlong; console.</para>
+      </abstract>
+      <title id="analysis-jobs.title">Running analysis jobs using the console</title>
+      <titleabbrev>Analysis jobs (console)</titleabbrev>
+      <keywordset>
+      <keyword>console create analysis jobs</keyword>
+      <keyword>analysis jobs</keyword>
+      </keywordset>
+      </info>
+
+
+      <para>You can use the &CMP; console to create and manage asynchronous analysis jobs.  Your job analyzes documents
+      stored in &S3; to find entities such as events, phrases, primary language, sentiment, or personally identifiable
+      information (PII).</para>
+      <procedure>
+      <title>To create an analysis job</title>
+      &OpenCMPconsoleStep;
+      <step>
+      <para>From the left menu, choose <guilabel>Analysis jobs</guilabel> and then choose
+      <guilabel>Create job</guilabel>. </para>
+      </step>
+      <step>
+      <para>Under <guilabel>Job settings</guilabel>, give the analysis job a unique
+      name.</para>
+      </step>
+      <step>
+      <para>For <guilabel>Analysis type</guilabel>, choose one of the <guilabel>Built-in</guilabel> analysis
+      types.</para>
+      <para>If you choose <emphasis role="bold">Primary langugage</emphasis>
+      or <emphasis role="bold">Topic modeling</emphasis>, you can skip the next step.</para>
+      </step>
+      <step>
+      <para>Depending on the <guilabel>Analysis type</guilabel> that you choose, the console displays one or more of
+      the following additional fields:</para>
+      <itemizedlist>
+      <listitem>
+      <para><guilabel>Language</guilabel> is required for all built-in analysis types except <emphasis role="bold"
+      >Primary langugage</emphasis> and <emphasis role="bold">Topic modeling</emphasis>.</para>
+      <para>Choose the language of your input documents.</para>
+      </listitem>
+      <listitem>
+      <para><guilabel>Target event types</guilabel> is required for the <emphasis role="bold">Events</emphasis>
+      analysis type.</para>
+      <para>Select the types of events to detect in your input documents. For more information about supported
+      event types, see <xref linkend="events-types" endterm="events-types.title"/>.</para>
+      </listitem>
+      <listitem>
+      <para><guilabel>PII detection settings</guilabel> is required for the <emphasis role="bold">PII</emphasis>
+      analysis type.</para>
+      <para>Select the output mode. For more information about PII detection settings, see <xref linkend="how-pii"
+      endterm="how-pii.title"/>.</para>
+      </listitem>
+      </itemizedlist>
+
+
+      </step>
+      <step>
+      <para>Under <guilabel>Input data</guilabel>, specify where the input documents are
+      located in &S3;:</para>
+      <stepalternatives>
+      <step>
+      <para>To analyze your own documents, choose <guilabel>My
+      documents</guilabel>, and choose <guilabel>Browse S3</guilabel> to
+      provide the path to the bucket or folder that contains your
+      files.</para>
+      </step>
+      <step>
+      <para>To analyze samples that are provided by &CMP;, choose
+      <guilabel>Example documents</guilabel>. In this case, &CMP; uses a
+      bucket that is managed by &AWS;, and you don't specify the
+      location.</para>
+      </step>
+      </stepalternatives>
+      </step>
+      <step>
+      <para>(Optional) For <guilabel>Input format</guilabel>, specify one of the following
+      formats for your input files:</para>
+      <itemizedlist>
+      <listitem>
+      <para><guilabel>One document per file</guilabel> &endash; Each file contains
+      one input document. This is best for collections of large
+      documents.</para>
+      </listitem>
+      <listitem>
+      <para><guilabel>One document per line</guilabel> &endash; The input is one
+      or more files. Each line in a file is considered a document. This is
+      best for short documents, such as social media postings. Each line must
+      end with a line feed (LF, \n), a carriage return (CR, \r), or both
+      (CRLF, \r\n). You can't use the UTF-8 line separator (u+2028) to end a
+      line.</para>
+      </listitem>
+      </itemizedlist>
+      </step>
+      <step>
+      <para>Under <guilabel>Output data</guilabel>, choose <guilabel>Browse S3</guilabel>.
+      Choose the &S3; bucket or folder where you want Amazon Comprehend to write the
+      output data that is produced by the analysis.</para>
+      </step>
+      <step>
+      <para>(Optional) To encrypt the output result from your job, choose
+      <guilabel>Encryption</guilabel>. Then, choose whether to use a KMS key
+      associated with the current account or one from another account:</para>
+      <stepalternatives>
+      <step>
+      <para>If you are using a key associated with the current account, choose the
+      key alias or ID for <guilabel>KMS key ID</guilabel>.</para>
+      </step>
+      <step>
+      <para>If you are using a key associated with a different account, enter the
+      ARN for the key alias or ID under <guilabel>KMS key
+      ID</guilabel>.</para>
+      <note>
+      <para>For more information on creating and using KMS keys
+      and the associated encryption, see <ulink type="documentation"
+      url="kms/latest/developerguide/overview.html">Key management service (KMS)</ulink>.</para>
+      </note>
+      </step>
+      </stepalternatives>
+      </step>
+      <step>
+      <para>Under <guilabel>Access permissions</guilabel>, provide an &IAM; role
+      that:</para>
+      <itemizedlist>
+      <listitem>
+      <para>Grants read access to the &S3; location of your input
+      documents.</para>
+      </listitem>
+      <listitem>
+      <para>Grants write access to the &S3; location of your output
+      documents.</para>
+      </listitem>
+      <listitem>
+      <para>Includes a trust policy that allows the
+      <code>comprehend.amazonaws.com</code> service principal to assume
+      the role and gain its permissions.</para>
+      </listitem>
+      </itemizedlist>
+      <para>If you don't already have an &IAM; role with these permissions and an
+      appropriate trust policy, choose <guilabel>Create an IAM</guilabel> role to
+      create one.</para>
+      </step>
+      <step>
+      <para>When you have finished filling out the form, choose <guilabel>Create
+      job</guilabel> to create and start the topic detection job.</para>
+
+
+      </step>
+      </procedure>
+      <para>The new job appears in the job list with the status field showing the status of the
+      job. The field can be <code>IN_PROGRESS</code> for a job that is processing,
+      <code>COMPLETED</code> for a job that has finished successfully, and
+      <code>FAILED</code> for a job that has an error. You can click on a job to get more
+      information about the job, including any error messages.</para>
+      <para>When the job is completed, &CMP; stores the analysis results in the output &S3; location that you specified
+      for the job. For a description of the analysis results for each insight type, see <xref
+      linkend="concepts-insights" endterm="concepts-insights.title"/>. </para>
+
+
+      </section>
+
+
+      </example>
+    zonbook_reference: |
+      <zonbook-reference>
+        * code: Formats an inline code example or a name defined by an API (for example, an action, error code, or constant).
+        * emphasis: Formats text. The default is italic text, but you can create bold or underlined text. Do not use in place of guilabel, formalpara, or example.
+        * example: Creates a formal code snippet or command line example.
+        * filename: Formats a file or directory name.
+        * guilabel: Formats a text label for an item in a graphical user interface (GUI).
+        * important: Draws attention to information that is essential to complete a task.
+        * itemizedlist: Creates a bulleted list.
+        * link: Creates a link to a target in the same guide, with custom link text.
+        * listitem: Creates an item in a list.
+        * note: Draws attention to information of special interest or importance to the reader.
+        * orderedlist: Creates a numbered list. For procedural steps, use "procedure" instead.
+        * para: Creates a paragraph in body text, admonitions, lists, procedures, tables, and so on.
+        * procedure: Creates an ordered list of related actions.
+        * programlisting: Indicates a code or CLI example. Displays text in a monospace font in a shaded block with a Copy button. You can enable language-specific syntax coloring.
+        * replaceable: Renders red, italic text. Use for placeholders in examples and syntax listings.
+        * section: Creates a topic or a subtopic.
+        * step: Creates a step for a procedure.
+        * stepalternatives: Creates an alternative step for a procedure.
+        * substeps: Creates a set of substeps for a procedure step.
+        * tip: Draws attention to a shortcut or best practice.
+        * title: Creates a title for a section or another formal block-level element.
+        * titleabbrev: Creates a short title for the TOC tree control, automatic lists, and link text.
+        * ulink: Creates a link to an external target.
+        * varlistentry: Creates an entry in a variablelist.
+        * warning: Draws special attention to actions that are irreversible and could cause loss of data.
+        * xref: Creates a link to a target in the same guide.
+      </zonbook-reference>
+  rewrite:
+    rewrite_instructions: |
+      I'd like you to rewrite it using the following instructions:
+      <instructions>
+      {{INSTRUCTIONS}}
+      </instructions>
+
+      Please put your rewrite in <rewrite></rewrite> tags.
+    rewrite_list_to_text: Rewrite this as a single paragraph of text, focusing on
+      the most effective strategies.

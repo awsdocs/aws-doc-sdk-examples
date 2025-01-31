@@ -120,10 +120,11 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[autoscale.kotlin.describe_scaling_activites.main]
 suspend fun describeAutoScalingGroups(groupName: String) {
-    val groupsReques = DescribeAutoScalingGroupsRequest {
-        autoScalingGroupNames = listOf(groupName)
-        maxRecords = 10
-    }
+    val groupsReques =
+        DescribeAutoScalingGroupsRequest {
+            autoScalingGroupNames = listOf(groupName)
+            maxRecords = 10
+        }
 
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         val response = autoScalingClient.describeAutoScalingGroups(groupsReques)
@@ -136,10 +137,11 @@ suspend fun describeAutoScalingGroups(groupName: String) {
 
 // snippet-start:[autoscale.kotlin.disable_collection.main]
 suspend fun disableMetricsCollection(groupName: String) {
-    val disableMetricsCollectionRequest = DisableMetricsCollectionRequest {
-        autoScalingGroupName = groupName
-        metrics = listOf("GroupMaxSize")
-    }
+    val disableMetricsCollectionRequest =
+        DisableMetricsCollectionRequest {
+            autoScalingGroupName = groupName
+            metrics = listOf("GroupMaxSize")
+        }
 
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         autoScalingClient.disableMetricsCollection(disableMetricsCollectionRequest)
@@ -149,10 +151,11 @@ suspend fun disableMetricsCollection(groupName: String) {
 // snippet-end:[autoscale.kotlin.disable_collection.main]
 
 suspend fun describeScalingActivities(groupName: String?) {
-    val scalingActivitiesRequest = DescribeScalingActivitiesRequest {
-        autoScalingGroupName = groupName
-        maxRecords = 10
-    }
+    val scalingActivitiesRequest =
+        DescribeScalingActivitiesRequest {
+            autoScalingGroupName = groupName
+            maxRecords = 10
+        }
 
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         val response = autoScalingClient.describeScalingActivities(scalingActivitiesRequest)
@@ -165,9 +168,10 @@ suspend fun describeScalingActivities(groupName: String?) {
 
 // snippet-start:[autoscale.kotlin.describe_autoscalinggroups.main]
 suspend fun getAutoScalingGroups(groupName: String) {
-    val scalingGroupsRequest = DescribeAutoScalingGroupsRequest {
-        autoScalingGroupNames = listOf(groupName)
-    }
+    val scalingGroupsRequest =
+        DescribeAutoScalingGroupsRequest {
+            autoScalingGroupNames = listOf(groupName)
+        }
 
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         val response = autoScalingClient.describeAutoScalingGroups(scalingGroupsRequest)
@@ -185,10 +189,11 @@ suspend fun getAutoScalingGroups(groupName: String) {
 
 // snippet-start:[autoscale.kotlin.set_capacity.main]
 suspend fun setDesiredCapacity(groupName: String) {
-    val capacityRequest = SetDesiredCapacityRequest {
-        autoScalingGroupName = groupName
-        desiredCapacity = 2
-    }
+    val capacityRequest =
+        SetDesiredCapacityRequest {
+            autoScalingGroupName = groupName
+            desiredCapacity = 2
+        }
 
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         autoScalingClient.setDesiredCapacity(capacityRequest)
@@ -198,21 +203,28 @@ suspend fun setDesiredCapacity(groupName: String) {
 // snippet-end:[autoscale.kotlin.set_capacity.main]
 
 // snippet-start:[autoscale.kotlin.update_autoscalinggroup.main]
-suspend fun updateAutoScalingGroup(groupName: String, launchTemplateNameVal: String, serviceLinkedRoleARNVal: String) {
-    val templateSpecification = LaunchTemplateSpecification {
-        launchTemplateName = launchTemplateNameVal
-    }
+suspend fun updateAutoScalingGroup(
+    groupName: String,
+    launchTemplateNameVal: String,
+    serviceLinkedRoleARNVal: String,
+) {
+    val templateSpecification =
+        LaunchTemplateSpecification {
+            launchTemplateName = launchTemplateNameVal
+        }
 
-    val groupRequest = UpdateAutoScalingGroupRequest {
-        maxSize = 3
-        serviceLinkedRoleArn = serviceLinkedRoleARNVal
-        autoScalingGroupName = groupName
-        launchTemplate = templateSpecification
-    }
+    val groupRequest =
+        UpdateAutoScalingGroupRequest {
+            maxSize = 3
+            serviceLinkedRoleArn = serviceLinkedRoleARNVal
+            autoScalingGroupName = groupName
+            launchTemplate = templateSpecification
+        }
 
-    val groupsRequestWaiter = DescribeAutoScalingGroupsRequest {
-        autoScalingGroupNames = listOf(groupName)
-    }
+    val groupsRequestWaiter =
+        DescribeAutoScalingGroupsRequest {
+            autoScalingGroupNames = listOf(groupName)
+        }
 
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         autoScalingClient.updateAutoScalingGroup(groupRequest)
@@ -223,25 +235,33 @@ suspend fun updateAutoScalingGroup(groupName: String, launchTemplateNameVal: Str
 // snippet-end:[autoscale.kotlin.update_autoscalinggroup.main]
 
 // snippet-start:[autoscale.kotlin.create_autoscalinggroup.main]
-suspend fun createAutoScalingGroup(groupName: String, launchTemplateNameVal: String, serviceLinkedRoleARNVal: String, vpcZoneIdVal: String) {
-    val templateSpecification = LaunchTemplateSpecification {
-        launchTemplateName = launchTemplateNameVal
-    }
+suspend fun createAutoScalingGroup(
+    groupName: String,
+    launchTemplateNameVal: String,
+    serviceLinkedRoleARNVal: String,
+    vpcZoneIdVal: String,
+) {
+    val templateSpecification =
+        LaunchTemplateSpecification {
+            launchTemplateName = launchTemplateNameVal
+        }
 
-    val request = CreateAutoScalingGroupRequest {
-        autoScalingGroupName = groupName
-        availabilityZones = listOf("us-east-1a")
-        launchTemplate = templateSpecification
-        maxSize = 1
-        minSize = 1
-        vpcZoneIdentifier = vpcZoneIdVal
-        serviceLinkedRoleArn = serviceLinkedRoleARNVal
-    }
+    val request =
+        CreateAutoScalingGroupRequest {
+            autoScalingGroupName = groupName
+            availabilityZones = listOf("us-east-1a")
+            launchTemplate = templateSpecification
+            maxSize = 1
+            minSize = 1
+            vpcZoneIdentifier = vpcZoneIdVal
+            serviceLinkedRoleArn = serviceLinkedRoleARNVal
+        }
 
     // This object is required for the waiter call.
-    val groupsRequestWaiter = DescribeAutoScalingGroupsRequest {
-        autoScalingGroupNames = listOf(groupName)
-    }
+    val groupsRequestWaiter =
+        DescribeAutoScalingGroupsRequest {
+            autoScalingGroupNames = listOf(groupName)
+        }
 
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         autoScalingClient.createAutoScalingGroup(request)
@@ -253,9 +273,10 @@ suspend fun createAutoScalingGroup(groupName: String, launchTemplateNameVal: Str
 
 // snippet-start:[autoscale.kotlin.describe_instance.main]
 suspend fun describeAutoScalingInstance(id: String) {
-    val describeAutoScalingInstancesRequest = DescribeAutoScalingInstancesRequest {
-        instanceIds = listOf(id)
-    }
+    val describeAutoScalingInstancesRequest =
+        DescribeAutoScalingInstancesRequest {
+            instanceIds = listOf(id)
+        }
 
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         val response = autoScalingClient.describeAutoScalingInstances(describeAutoScalingInstancesRequest)
@@ -268,11 +289,12 @@ suspend fun describeAutoScalingInstance(id: String) {
 
 // snippet-start:[autoscale.kotlin.enable_collection.main]
 suspend fun enableMetricsCollection(groupName: String?) {
-    val collectionRequest = EnableMetricsCollectionRequest {
-        autoScalingGroupName = groupName
-        metrics = listOf("GroupMaxSize")
-        granularity = "1Minute"
-    }
+    val collectionRequest =
+        EnableMetricsCollectionRequest {
+            autoScalingGroupName = groupName
+            metrics = listOf("GroupMaxSize")
+            granularity = "1Minute"
+        }
 
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         autoScalingClient.enableMetricsCollection(collectionRequest)
@@ -284,9 +306,10 @@ suspend fun enableMetricsCollection(groupName: String?) {
 // snippet-start:[autoscale.kotlin.get_autoscalinggroup.main]
 suspend fun getSpecificAutoScaling(groupName: String): String {
     var instanceId = ""
-    val scalingGroupsRequest = DescribeAutoScalingGroupsRequest {
-        autoScalingGroupNames = listOf(groupName)
-    }
+    val scalingGroupsRequest =
+        DescribeAutoScalingGroupsRequest {
+            autoScalingGroupNames = listOf(groupName)
+        }
 
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         val response = autoScalingClient.describeAutoScalingGroups(scalingGroupsRequest)
@@ -315,10 +338,11 @@ suspend fun describeAccountLimits() {
 
 // snippet-start:[autoscale.kotlin.terminate_instance.main]
 suspend fun terminateInstanceInAutoScalingGroup(instanceIdVal: String) {
-    val request = TerminateInstanceInAutoScalingGroupRequest {
-        instanceId = instanceIdVal
-        shouldDecrementDesiredCapacity = false
-    }
+    val request =
+        TerminateInstanceInAutoScalingGroupRequest {
+            instanceId = instanceIdVal
+            shouldDecrementDesiredCapacity = false
+        }
 
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         autoScalingClient.terminateInstanceInAutoScalingGroup(request)
@@ -329,10 +353,11 @@ suspend fun terminateInstanceInAutoScalingGroup(instanceIdVal: String) {
 
 // snippet-start:[autoscale.kotlin.del_group.main]
 suspend fun deleteSpecificAutoScalingGroup(groupName: String) {
-    val deleteAutoScalingGroupRequest = DeleteAutoScalingGroupRequest {
-        autoScalingGroupName = groupName
-        forceDelete = true
-    }
+    val deleteAutoScalingGroupRequest =
+        DeleteAutoScalingGroupRequest {
+            autoScalingGroupName = groupName
+            forceDelete = true
+        }
 
     AutoScalingClient { region = "us-east-1" }.use { autoScalingClient ->
         autoScalingClient.deleteAutoScalingGroup(deleteAutoScalingGroupRequest)

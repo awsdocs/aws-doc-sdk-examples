@@ -7,8 +7,7 @@ use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::presigning::PresigningConfig;
 use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client};
 use clap::Parser;
-use std::error::Error;
-use std::time::Duration;
+use s3_code_examples::error::S3ExampleError;
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -40,19 +39,22 @@ async fn put_object(
     bucket: &str,
     object: &str,
     expires_in: u64,
-) -> Result<(), Box<dyn Error>> {
-    let expires_in = Duration::from_secs(expires_in);
-
+) -> Result<String, S3ExampleError> {
+    let expires_in: std::time::Duration = std::time::Duration::from_secs(expires_in);
+    let expires_in: aws_sdk_s3::presigning::PresigningConfig =
+        PresigningConfig::expires_in(expires_in).map_err(|err| {
+            S3ExampleError::new(format!(
+                "Failed to convert expiration to PresigningConfig: {err:?}"
+            ))
+        })?;
     let presigned_request = client
         .put_object()
         .bucket(bucket)
         .key(object)
-        .presigned(PresigningConfig::expires_in(expires_in)?)
+        .presigned(expires_in)
         .await?;
 
-    println!("Object URI: {}", presigned_request.uri());
-
-    Ok(())
+    Ok(presigned_request.uri().into())
 }
 // snippet-end:[s3.rust.put-object-presigned]
 
@@ -68,7 +70,7 @@ async fn put_object(
 ///   If not given, this defaults to 15 minutes.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn Error>> {
+async fn main() -> Result<(), S3ExampleError> {
     tracing_subscriber::fmt::init();
 
     let Opt {
@@ -96,5 +98,9 @@ async fn main() -> Result<(), Box<dyn Error>> {
         println!();
     }
 
-    put_object(&client, &bucket, &object, expires_in.unwrap_or(900)).await
+    let uri = put_object(&client, &bucket, &object, expires_in.unwrap_or(900)).await?;
+
+    println!("Presigned PUT URI: {}", uri);
+
+    Ok(())
 }

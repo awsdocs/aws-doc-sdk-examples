@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a cluster](src/libs/redshiftClient.js#L15) (`CreateCluster`)
-- [Delete a cluster](src/libs/redshiftClient.js#L15) (`DeleteCluster`)
-- [Describe clusters](src/libs/redshiftClient.js#L15) (`DescribeClusters`)
-- [Modify a cluster](src/libs/redshiftClient.js#L15) (`ModifyCluster`)
+- [CreateCluster](src/libs/redshiftClient.js#L15)
+- [DeleteCluster](src/libs/redshiftClient.js#L15)
+- [DescribeClusters](src/libs/redshiftClient.js#L15)
+- [ModifyCluster](src/libs/redshiftClient.js#L15)
 
 
 <!--custom.examples.start-->
@@ -56,10 +56,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

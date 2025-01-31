@@ -17,7 +17,7 @@ namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(EC2_GTests, describe_regions_and_zones_2_) {
 
-        auto result = AwsDoc::EC2::DescribeRegionsAndZones(*s_clientConfig);
+        auto result = AwsDoc::EC2::describeRegions(*s_clientConfig);
         ASSERT_TRUE(result);
     }
 

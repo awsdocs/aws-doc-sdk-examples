@@ -34,29 +34,32 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 - [Hello Amazon S3](helloS3.php#L5) (`ListBuckets`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](GettingStartedWithS3.php)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](GettingStartedWithS3.php#L52) (`CopyObject`)
-- [Create a bucket](GettingStartedWithS3.php#L52) (`CreateBucket`)
-- [Delete an empty bucket](GettingStartedWithS3.php#L52) (`DeleteBucket`)
-- [Delete multiple objects](GettingStartedWithS3.php#L52) (`DeleteObjects`)
-- [Get an object from a bucket](GettingStartedWithS3.php#L52) (`GetObject`)
-- [List objects in a bucket](GettingStartedWithS3.php#L52) (`ListObjectsV2`)
-- [Upload an object to a bucket](GettingStartedWithS3.php#L52) (`PutObject`)
+- [CopyObject](GettingStartedWithS3.php#L104)
+- [CreateBucket](GettingStartedWithS3.php#L61)
+- [DeleteBucket](GettingStartedWithS3.php#L52)
+- [DeleteObject](S3Service.php#L258)
+- [DeleteObjects](GettingStartedWithS3.php#L52)
+- [GetObject](GettingStartedWithS3.php#L52)
+- [ListObjectsV2](GettingStartedWithS3.php#L52)
+- [PutObject](GettingStartedWithS3.php#L52)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with buckets and objects](GettingStartedWithS3.php)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
+- [Create a presigned URL](S3Service.php)
 - [Create a serverless application to manage photos](../../applications/photo_asset_manager)
 
 
@@ -76,8 +79,7 @@ Sample applications that work across multiple AWS services.
 This example shows you how to get started using Amazon S3.
 
 
-
-#### Get started with buckets and objects
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -87,12 +89,37 @@ This example shows you how to do the following:
 - List the objects in a bucket.
 - Delete the bucket objects and the bucket.
 
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
+
+#### Create a presigned URL
+
+This example shows you how to create a presigned URL for Amazon S3 and upload an object.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.end-->
+
+
+<!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
+
+#### Create a serverless application to manage photos
+
+This example shows you how to create a serverless application that lets users manage photos using labels.
+
+
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
 
 ### Tests
 

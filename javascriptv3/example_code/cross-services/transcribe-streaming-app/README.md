@@ -76,13 +76,31 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 
 ### Create the resources using the AWS Management Console
 
-####Create an unauthenticated user role 4. Open [AWS Cognito in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the _Stacks_ page. 5. Choose **Manage Identity Pools**. 6. Choose **Create new identity pool**. 7. In the **Identity pool name** field, give your identity pool a name. 7. Select the **Enable access to unauthenticated identities** checkbox. 8. Choose **Create Pool**. 9. Choose **Allow**. 10. Take note of the **Identity pool ID**, which is highlighted in red in the **Get AWS Credentials** section.
+#### Create an unauthenticated user role
+
+1. Open [AWS Cognito in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the _Stacks_ page.
+2. Choose **Manage Identity Pools**.
+3. Choose **Create new identity pool**.
+4. In the **Identity pool name** field, give your identity pool a name.
+5. Select the **Enable access to unauthenticated identities** checkbox.
+6. Choose **Create Pool**.
+7. Choose **Allow**.
+8. Take note of the **Identity pool ID**, which is highlighted in red in the **Get AWS Credentials** section.
 
 ![ ](images/identity_pool_ids.png)
 
-11.Choose **Edit identity pool**. 12. Take note of the name of the role in the **Unauthenticated role** field.
+9. Choose **Edit identity pool**.
+10. Take note of the name of the role in the **Unauthenticated role** field.
 
-####Adding permissions to an unauthenticated user role 13. Open [IAM in the AWS Management Console](https://aws.amazon.com/iam/), and open the _Roles_ page. 14. Search for the unauthenticated role you just created. 15. Open the role. 16. Click the down arrow beside the policy name. 17. Choose **Edit Policy**. 18. Choose the **JSON** tab. 18. Delete the existing content, and paste the code below into it.
+#### Adding permissions to an unauthenticated user role
+
+11. Open [IAM in the AWS Management Console](https://aws.amazon.com/iam/), and open the _Roles_ page.
+12. Search for the unauthenticated role you just created.
+13. Open the role.
+14. Click the down arrow beside the policy name.
+15. Choose **Edit Policy**.
+16. Choose the **JSON** tab.
+17. Delete the existing content, and paste the code below into it.
 
 ```json
 {
@@ -117,8 +135,8 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 }
 ```
 
-19. Choose **Review Policy**.
-20. Choose **Save Changes**.
+18. Choose **Review Policy**.
+19. Choose **Save Changes**.
 
 ### Verify an email address on Amazon SES
 
@@ -130,11 +148,9 @@ Create and verify an email address in Amazon SES. For more information, see [Cre
    See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for
    instructions.
 
-2. Run the following commands in sequence in the terminal to install the AWS service client modules and third-party modules listed in the _package.json_:
+2. Run the following commands in sequence in the terminal to install the AWS service client modules and third-party modules listed in the `package.json`:
 
 ```
-npm install node -g
-cd javascriptv3/example_code/cross-services/transcribe-streaming-app
 npm install
 ```
 
@@ -171,22 +187,25 @@ To bundle the JavaScript and Node.js for this example in a single file named mai
 enter the following commands in sequence in the AWS CLI command line:
 
 ```
-cd javascriptv3/example_code/cross-services/transcribe-streaming-app/
 npm run build
 ```
 
-This will create a minified js file called **main.js** in the src folder.
+This will create bundled scripts in the public folder.
 
 ## Run the app
 
-Open the index.html in src in your favorite browser, and follow the onscreen instructions.
+```
+npx http-server public
+```
+
+This will create a local web-server that hosts the content in the public folder. Open the URL displayed in the output of this command.
 
 ## Destroying the resources
 
-4. Open [AWS CloudFormation in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the _Stacks_ page.
+1. Open [AWS CloudFormation in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the _Stacks_ page.
 
 ![ ](images/cloud_formation_stacks.png)
 
-5. Select the stack you created in [Create the resources](#create-the-resources) on this page.
+2. Select the stack you created in [Create the resources](#create-the-resources) on this page.
 
-6. Choose **Delete**.
+3. Choose **Delete**.

@@ -34,27 +34,27 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](certificate_basics.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add tags to a certificate](certificate_basics.py#L168) (`AddTagsToCertificate`)
-- [Delete a certificate](certificate_basics.py#L152) (`DeleteCertificate`)
-- [Describe a certificate](certificate_basics.py#L37) (`DescribeCertificate`)
-- [Get a certificate](certificate_basics.py#L61) (`GetCertificate`)
-- [Import certificates](certificate_basics.py#L128) (`ImportCertificate`)
-- [List certificates](certificate_basics.py#L80) (`ListCertificates`)
-- [List tags for a certificate](certificate_basics.py#L189) (`ListTagsForCertificate`)
-- [Remove tags from a certificate](certificate_basics.py#L211) (`RemoveTagsFromCertificate`)
-- [Request validation of a certificate](certificate_basics.py#L242) (`RequestCertificate`)
-- [Resend validation email for a certificate](certificate_basics.py#L293) (`ResendValidationEmail`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Manage certificates](certificate_basics.py)
+- [AddTagsToCertificate](certificate_basics.py#L168)
+- [DeleteCertificate](certificate_basics.py#L152)
+- [DescribeCertificate](certificate_basics.py#L37)
+- [GetCertificate](certificate_basics.py#L61)
+- [ImportCertificate](certificate_basics.py#L128)
+- [ListCertificates](certificate_basics.py#L80)
+- [ListTagsForCertificate](certificate_basics.py#L189)
+- [RemoveTagsFromCertificate](certificate_basics.py#L211)
+- [RequestCertificate](certificate_basics.py#L242)
+- [ResendValidationEmail](certificate_basics.py#L293)
 
 
 <!--custom.examples.start-->
@@ -69,8 +69,7 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Manage certificates
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -79,8 +78,8 @@ This example shows you how to do the following:
 - List and describe certificates.
 - Remove certificates.
 
-<!--custom.scenario_prereqs.acm_Usage_ImportListRemove.start-->
-<!--custom.scenario_prereqs.acm_Usage_ImportListRemove.end-->
+<!--custom.basic_prereqs.acm_Usage_ImportListRemove.start-->
+<!--custom.basic_prereqs.acm_Usage_ImportListRemove.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -89,8 +88,9 @@ python certificate_basics.py
 ```
 
 
-<!--custom.scenarios.acm_Usage_ImportListRemove.start-->
-<!--custom.scenarios.acm_Usage_ImportListRemove.end-->
+<!--custom.basics.acm_Usage_ImportListRemove.start-->
+<!--custom.basics.acm_Usage_ImportListRemove.end-->
+
 
 ### Tests
 

@@ -33,16 +33,17 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Delete a lexicon](DeleteLexiconExample/DeleteLexicon.cs#L6) (`DeleteLexicon`)
-- [Get a lexicon](GetLexiconExample/GetLexicon.cs#L6) (`GetLexicon`)
-- [Get voices available for synthesis](DescribeVoicesExample/DescribeVoices.cs#L10) (`DescribeVoices`)
-- [List pronunciation lexicons](ListLexiconsExample/ListLexicons.cs#L6) (`ListLexicons`)
-- [Store a pronunciation lexicon](PutLexiconExample/PutLexicon.cs#L6) (`PutLexicon`)
-- [Synthesize speech from text](SynthesizeSpeechExample/SynthesizeSpeech.cs#L11) (`SynthesizeSpeech`)
+- [DeleteLexicon](DeleteLexiconExample/DeleteLexicon.cs#L6)
+- [DescribeVoices](DescribeVoicesExample/DescribeVoices.cs#L10)
+- [GetLexicon](GetLexiconExample/GetLexicon.cs#L6)
+- [ListLexicons](ListLexiconsExample/ListLexicons.cs#L6)
+- [PutLexicon](PutLexiconExample/PutLexicon.cs#L6)
+- [SynthesizeSpeech](SynthesizeSpeechExample/SynthesizeSpeech.cs#L11)
 
-### Cross-service examples
+### Scenarios
 
-Sample applications that work across multiple AWS services.
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
 - [Create an application to analyze customer feedback](../cross-service/FeedbackSentimentAnalyzer)
 
@@ -76,6 +77,18 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.end-->
 
 
+
+#### Create an application to analyze customer feedback
+
+This example shows you how to create an application that analyzes customer comment cards, translates them from their original language, determines their sentiment, and generates an audio file from the translated text.
+
+
+<!--custom.scenario_prereqs.cross_FSA.start-->
+<!--custom.scenario_prereqs.cross_FSA.end-->
+
+
+<!--custom.scenarios.cross_FSA.start-->
+<!--custom.scenarios.cross_FSA.end-->
 
 ### Tests
 

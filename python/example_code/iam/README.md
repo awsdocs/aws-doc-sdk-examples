@@ -34,48 +34,60 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello IAM](hello/hello_iam.py#L4) (`ListPolicies`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_create_user_assume_role.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](policy_wrapper.py#L221) (`AttachRolePolicy`)
-- [Attach a policy to a user](user_wrapper.py#L107) (`AttachUserPolicy`)
-- [Create a policy](policy_wrapper.py#L25) (`CreatePolicy`)
-- [Create a policy version](policy_wrapper.py#L79) (`CreatePolicyVersion`)
-- [Create a role](role_wrapper.py#L23) (`CreateRole`)
-- [Create a service-linked role](service_linked_roles.py#L23) (`CreateServiceLinkedRole`)
-- [Create a user](user_wrapper.py#L25) (`CreateUser`)
-- [Create an access key](access_key_wrapper.py#L21) (`CreateAccessKey`)
-- [Create an alias for an account](account_wrapper.py#L23) (`CreateAccountAlias`)
-- [Create an instance profile](../../cross_service/resilient_service/auto_scaler.py#L86) (`CreateInstanceProfile`)
-- [Delete a policy](policy_wrapper.py#L61) (`DeletePolicy`)
-- [Delete a role](role_wrapper.py#L102) (`DeleteRole`)
-- [Delete a user](user_wrapper.py#L46) (`DeleteUser`)
-- [Delete an access key](access_key_wrapper.py#L47) (`DeleteAccessKey`)
-- [Delete an account alias](account_wrapper.py#L44) (`DeleteAccountAlias`)
-- [Delete an instance profile](../../cross_service/resilient_service/auto_scaler.py#L259) (`DeleteInstanceProfile`)
-- [Detach a policy from a role](policy_wrapper.py#L240) (`DetachRolePolicy`)
-- [Detach a policy from a user](user_wrapper.py#L126) (`DetachUserPolicy`)
-- [Generate a credential report](account_wrapper.py#L131) (`GenerateCredentialReport`)
-- [Get a credential report](account_wrapper.py#L155) (`GetCredentialReport`)
-- [Get a detailed authorization report for your account](account_wrapper.py#L86) (`GetAccountAuthorizationDetails`)
-- [Get a policy](policy_wrapper.py#L139) (`GetPolicy`)
-- [Get a policy version](policy_wrapper.py#L140) (`GetPolicyVersion`)
-- [Get a role](role_wrapper.py#L59) (`GetRole`)
-- [Get a summary of account usage](account_wrapper.py#L111) (`GetAccountSummary`)
-- [Get data about the last use of an access key](access_key_wrapper.py#L68) (`GetAccessKeyLastUsed`)
-- [Get the account password policy](account_wrapper.py#L175) (`GetAccountPasswordPolicy`)
-- [List SAML providers](account_wrapper.py#L213) (`ListSAMLProviders`)
-- [List a user's access keys](access_key_wrapper.py#L97) (`ListAccessKeys`)
-- [List account aliases](account_wrapper.py#L62) (`ListAccountAliases`)
-- [List groups](group_wrapper.py#L21) (`ListGroups`)
-- [List inline policies for a role](role_wrapper.py#L139) (`ListRolePolicies`)
-- [List policies](policy_wrapper.py#L117) (`ListPolicies`)
-- [List policies attached to a role](role_wrapper.py#L158) (`ListAttachedRolePolicies`)
-- [List roles](role_wrapper.py#L81) (`ListRoles`)
-- [List users](user_wrapper.py#L65) (`ListUsers`)
-- [Update a user](user_wrapper.py#L85) (`UpdateUser`)
-- [Update an access key](access_key_wrapper.py#L118) (`UpdateAccessKey`)
+- [AttachRolePolicy](policy_wrapper.py#L221)
+- [AttachUserPolicy](user_wrapper.py#L107)
+- [CreateAccessKey](access_key_wrapper.py#L21)
+- [CreateAccountAlias](account_wrapper.py#L23)
+- [CreateInstanceProfile](../../cross_service/resilient_service/auto_scaler.py#L151)
+- [CreatePolicy](policy_wrapper.py#L25)
+- [CreatePolicyVersion](policy_wrapper.py#L79)
+- [CreateRole](role_wrapper.py#L23)
+- [CreateServiceLinkedRole](service_linked_roles.py#L23)
+- [CreateUser](user_wrapper.py#L25)
+- [DeleteAccessKey](access_key_wrapper.py#L47)
+- [DeleteAccountAlias](account_wrapper.py#L44)
+- [DeleteInstanceProfile](../../cross_service/resilient_service/auto_scaler.py#L304)
+- [DeletePolicy](policy_wrapper.py#L61)
+- [DeleteRole](role_wrapper.py#L102)
+- [DeleteUser](user_wrapper.py#L46)
+- [DetachRolePolicy](policy_wrapper.py#L240)
+- [DetachUserPolicy](user_wrapper.py#L126)
+- [GenerateCredentialReport](account_wrapper.py#L131)
+- [GetAccessKeyLastUsed](access_key_wrapper.py#L68)
+- [GetAccountAuthorizationDetails](account_wrapper.py#L86)
+- [GetAccountPasswordPolicy](account_wrapper.py#L175)
+- [GetAccountSummary](account_wrapper.py#L111)
+- [GetCredentialReport](account_wrapper.py#L155)
+- [GetPolicy](policy_wrapper.py#L139)
+- [GetPolicyVersion](policy_wrapper.py#L140)
+- [GetRole](role_wrapper.py#L59)
+- [ListAccessKeys](access_key_wrapper.py#L97)
+- [ListAccountAliases](account_wrapper.py#L62)
+- [ListAttachedRolePolicies](role_wrapper.py#L158)
+- [ListGroups](group_wrapper.py#L21)
+- [ListPolicies](policy_wrapper.py#L117)
+- [ListRolePolicies](role_wrapper.py#L139)
+- [ListRoles](role_wrapper.py#L81)
+- [ListSAMLProviders](account_wrapper.py#L213)
+- [ListUsers](user_wrapper.py#L65)
+- [UpdateAccessKey](access_key_wrapper.py#L118)
+- [UpdateUser](user_wrapper.py#L85)
 
 ### Scenarios
 
@@ -83,7 +95,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Build and manage a resilient service](../../cross_service/resilient_service/runner.py)
-- [Create a user and assume a role](scenario_create_user_assume_role.py)
 - [Create read-only and read-write users](user_wrapper.py)
 - [Manage access keys](access_key_wrapper.py)
 - [Manage policies](policy_wrapper.py)
@@ -103,6 +114,35 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello IAM
+
+This example shows you how to get started using IAM.
+
+```
+python hello/hello_iam.py
+```
+
+#### Learn the basics
+
+This example shows you how to create a user and assume a role. 
+
+- Create a user with no permissions.
+- Create a role that grants permission to list Amazon S3 buckets for the account.
+- Add a policy to let the user assume the role.
+- Assume the role and list S3 buckets using temporary credentials, then clean up resources.
+
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenario_create_user_assume_role.py
+```
+
+
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
 
 
 #### Build and manage a resilient service
@@ -130,28 +170,6 @@ python ../../cross_service/resilient_service/runner.py
 Complete details and instructions on how to run this example can be found in the
 [README](../../cross_service/resilient_service/README.md) for the example.
 <!--custom.scenarios.cross_ResilientService.end-->
-
-#### Create a user and assume a role
-
-This example shows you how to create a user and assume a role. 
-
-- Create a user with no permissions.
-- Create a role that grants permission to list Amazon S3 buckets for the account.
-- Add a policy to let the user assume the role.
-- Assume the role and list S3 buckets using temporary credentials, then clean up resources.
-
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-python scenario_create_user_assume_role.py
-```
-
-
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
 
 #### Create read-only and read-write users
 

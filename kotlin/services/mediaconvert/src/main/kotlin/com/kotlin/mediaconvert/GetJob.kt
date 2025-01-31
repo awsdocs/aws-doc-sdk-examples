@@ -39,10 +39,14 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[mediaconvert.kotlin.get_job.main]
-suspend fun getSpecificJob(mcClient: MediaConvertClient, jobId: String?) {
-    val describeEndpoints = DescribeEndpointsRequest {
-        maxResults = 20
-    }
+suspend fun getSpecificJob(
+    mcClient: MediaConvertClient,
+    jobId: String?,
+) {
+    val describeEndpoints =
+        DescribeEndpointsRequest {
+            maxResults = 20
+        }
 
     val res = mcClient.describeEndpoints(describeEndpoints)
     if (res.endpoints?.size!! <= 0) {
@@ -51,16 +55,19 @@ suspend fun getSpecificJob(mcClient: MediaConvertClient, jobId: String?) {
     }
 
     val endpointURL = res.endpoints!!.get(0).url!!
-    val mediaConvert = MediaConvertClient.fromEnvironment {
-        region = "us-west-2"
-        endpointProvider = MediaConvertEndpointProvider {
-            Endpoint(endpointURL)
+    val mediaConvert =
+        MediaConvertClient.fromEnvironment {
+            region = "us-west-2"
+            endpointProvider =
+                MediaConvertEndpointProvider {
+                    Endpoint(endpointURL)
+                }
         }
-    }
 
-    val jobRequest = GetJobRequest {
-        id = jobId
-    }
+    val jobRequest =
+        GetJobRequest {
+            id = jobId
+        }
 
     val response: GetJobResponse = mediaConvert.getJob(jobRequest)
     println("The ARN of the job is ${response.job?.arn}.")

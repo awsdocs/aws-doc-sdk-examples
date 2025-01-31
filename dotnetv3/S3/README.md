@@ -29,42 +29,49 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](S3_Basics/S3_Basics.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add CORS rules to a bucket](s3CORSExample/S3CORS.cs#L104) (`PutBucketCors`)
-- [Add a lifecycle configuration to a bucket](LifecycleExample/Lifecycle.cs#L145) (`PutBucketLifecycleConfiguration`)
-- [Cancel multipart uploads](AbortMPUExample/AbortMPU.cs#L6) (`AbortMultipartUploads`)
-- [Copy an object from one bucket to another](CopyObjectExample/CopyObject.cs#L11) (`CopyObject`)
-- [Create a bucket](S3_Basics/S3Bucket.cs#L12) (`CreateBucket`)
-- [Delete CORS rules from a bucket](s3CORSExample/S3CORS.cs#L147) (`DeleteBucketCors`)
-- [Delete an empty bucket](S3_Basics/S3Bucket.cs#L266) (`DeleteBucket`)
-- [Delete an object](non-versioned-examples/DeleteObjectExample/DeleteObject.cs#L6) (`DeleteObject`)
-- [Delete multiple objects](S3_Basics/S3Bucket.cs#L221) (`DeleteObjects`)
-- [Delete the lifecycle configuration of a bucket](LifecycleExample/Lifecycle.cs#L192) (`DeleteBucketLifecycle`)
-- [Enable logging](ServerAccessLoggingExample/ServerAccessLogging.cs#L6) (`PutBucketLogging`)
-- [Enable notifications](EnableNotificationsExample/EnableNotifications.cs#L6) (`PutBucketNotificationConfiguration`)
-- [Enable transfer acceleration](TransferAccelerationExample/TransferAcceleration.cs#L6) (`PutBucketAccelerateConfiguration`)
-- [Get CORS rules for a bucket](s3CORSExample/S3CORS.cs#L125) (`GetBucketCors`)
-- [Get an object from a bucket](S3_Basics/S3Bucket.cs#L85) (`GetObject`)
-- [Get the ACL of a bucket](BucketACLExample/BucketACL.cs#L75) (`GetBucketAcl`)
-- [Get the legal hold configuration of an object](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L259) (`GetObjectLegalHold`)
-- [Get the lifecycle configuration of a bucket](LifecycleExample/Lifecycle.cs#L169) (`GetBucketLifecycleConfiguration`)
-- [Get the object lock configuration of a bucket](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L290) (`GetObjectLockConfiguration`)
-- [Get the retention configuration of an object](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L193) (`GetObjectRetention`)
-- [Get the website configuration for a bucket](WebsiteConfigExample/WebsiteConfig.cs#L72) (`GetBucketWebsite`)
-- [List buckets](ListBucketsExample/ListBuckets.cs#L4) (`ListBuckets`)
-- [List object versions in a bucket](versioned-examples/ListObjectVersionsExample/ListObjectVersions.cs#L6) (`ListObjectVersions`)
-- [List objects in a bucket](S3_Basics/S3Bucket.cs#L171) (`ListObjectsV2`)
-- [Restore an archived copy of an object](RestoreArchivedObjectExample/RestoreArchivedObject.cs#L6) (`RestoreObject`)
-- [Set a new ACL for a bucket](BucketACLExample/BucketACL.cs#L37) (`PutBucketAcl`)
-- [Set the default retention period of a bucket](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L139) (`PutObjectLockConfiguration`)
-- [Set the legal hold configuration of an object](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L224) (`PutObjectLegalHold`)
-- [Set the object lock configuration of an bucket](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L60) (`PutObjectLockConfiguration`)
-- [Set the retention period of an object](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L102) (`PutObjectRetention`)
-- [Set the website configuration for a bucket](WebsiteConfigExample/WebsiteConfig.cs#L57) (`PutBucketWebsite`)
-- [Upload an object to a bucket](S3_Basics/S3Bucket.cs#L43) (`PutObject`)
+- [CopyObject](CopyObjectExample/CopyObject.cs#L11)
+- [CreateBucket](S3_Basics/S3Bucket.cs#L12)
+- [DeleteBucket](S3_Basics/S3Bucket.cs#L266)
+- [DeleteBucketCors](s3CORSExample/S3CORS.cs#L147)
+- [DeleteBucketLifecycle](LifecycleExample/Lifecycle.cs#L192)
+- [DeleteObject](non-versioned-examples/DeleteObjectExample/DeleteObject.cs#L6)
+- [DeleteObjects](S3_Basics/S3Bucket.cs#L221)
+- [GetBucketAcl](BucketACLExample/BucketACL.cs#L75)
+- [GetBucketCors](s3CORSExample/S3CORS.cs#L125)
+- [GetBucketEncryption](PutBucketEncryption/ServerSideEncryption/ServerSideEncryption.cs#L107)
+- [GetBucketLifecycleConfiguration](LifecycleExample/Lifecycle.cs#L169)
+- [GetBucketWebsite](WebsiteConfigExample/WebsiteConfig.cs#L72)
+- [GetObject](S3_Basics/S3Bucket.cs#L85)
+- [GetObjectLegalHold](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L259)
+- [GetObjectLockConfiguration](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L290)
+- [GetObjectRetention](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L193)
+- [ListBuckets](ListBucketsExample/ListBuckets.cs#L4)
+- [ListObjectVersions](versioned-examples/ListObjectVersionsExample/ListObjectVersions.cs#L6)
+- [ListObjectsV2](S3_Basics/S3Bucket.cs#L171)
+- [PutBucketAccelerateConfiguration](TransferAccelerationExample/TransferAcceleration.cs#L6)
+- [PutBucketAcl](BucketACLExample/BucketACL.cs#L37)
+- [PutBucketCors](s3CORSExample/S3CORS.cs#L104)
+- [PutBucketEncryption](PutBucketEncryption/ServerSideEncryption/ServerSideEncryption.cs#L64)
+- [PutBucketLifecycleConfiguration](LifecycleExample/Lifecycle.cs#L145)
+- [PutBucketLogging](ServerAccessLoggingExample/ServerAccessLogging.cs#L6)
+- [PutBucketNotificationConfiguration](EnableNotificationsExample/EnableNotifications.cs#L6)
+- [PutBucketWebsite](WebsiteConfigExample/WebsiteConfig.cs#L57)
+- [PutObject](S3_Basics/S3Bucket.cs#L43)
+- [PutObjectLegalHold](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L224)
+- [PutObjectLockConfiguration](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L60)
+- [PutObjectRetention](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs#L102)
+- [RestoreObject](RestoreArchivedObjectExample/RestoreArchivedObject.cs#L6)
 
 ### Scenarios
 
@@ -72,20 +79,16 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a presigned URL](GenPresignedURLExample/GenPresignedUrl.cs)
-- [Get started with buckets and objects](S3_Basics/S3_Basics.cs)
+- [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
+- [Detect objects in images](../cross-service/PhotoAnalyzerApp)
 - [Get started with encryption](SSEClientEncryptionExample/SSEClientEncryption.cs)
 - [Get started with tags](ObjectTagExample/ObjectTag.cs)
 - [Lock Amazon S3 objects](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ObjectLockWorkflow.cs)
+- [Make conditional requests](scenarios/S3ConditionalRequestsScenario/S3ConditionalRequests/S3ConditionalRequestsScenario.cs)
 - [Manage access control lists (ACLs)](ManageACLsExample/ManageACLs.cs)
 - [Perform a multipart copy](MPUapiCopyObjExample/MPUapiCopyObj.cs)
-- [Upload or download large files](scenarios/TransferUtilityBasics/TransferUtilityBasics/TransferBasics.cs)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
-- [Detect objects in images](../cross-service/PhotoAnalyzerApp)
+- [Transform data with S3 Object Lambda](../cross-service/S3ObjectLambdaFunction)
+- [Upload or download large files](scenarios/TransferUtilityBasics/TransferUtilityBasics/GlobalUsings.cs)
 
 
 <!--custom.examples.start-->
@@ -117,6 +120,23 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.end-->
 
 
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
 
 #### Create a presigned URL
 
@@ -130,22 +150,29 @@ This example shows you how to create a presigned URL for Amazon S3 and upload an
 <!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
 <!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
 
-#### Get started with buckets and objects
+#### Create a serverless application to manage photos
 
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+This example shows you how to create a serverless application that lets users manage photos using labels.
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
+
+#### Detect objects in images
+
+This example shows you how to build an app that uses Amazon Rekognition to detect objects by category in images.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.end-->
+
+
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.end-->
 
 #### Get started with encryption
 
@@ -183,6 +210,18 @@ This example shows you how to work with S3 object lock features.
 <!--custom.scenarios.s3_Scenario_ObjectLock.start-->
 <!--custom.scenarios.s3_Scenario_ObjectLock.end-->
 
+#### Make conditional requests
+
+This example shows you how to add preconditions to Amazon S3 requests.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_ConditionalRequests.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ConditionalRequests.end-->
+
+
+<!--custom.scenarios.s3_Scenario_ConditionalRequests.start-->
+<!--custom.scenarios.s3_Scenario_ConditionalRequests.end-->
+
 #### Manage access control lists (ACLs)
 
 This example shows you how to manage access control lists (ACLs) for Amazon S3 buckets.
@@ -206,6 +245,18 @@ This example shows you how to perform a multipart copy of an Amazon S3 object.
 
 <!--custom.scenarios.s3_MultipartCopy.start-->
 <!--custom.scenarios.s3_MultipartCopy.end-->
+
+#### Transform data with S3 Object Lambda
+
+This example shows you how to transform data for your application with S3 Object Lambda.
+
+
+<!--custom.scenario_prereqs.cross_ServerlessS3DataTransformation.start-->
+<!--custom.scenario_prereqs.cross_ServerlessS3DataTransformation.end-->
+
+
+<!--custom.scenarios.cross_ServerlessS3DataTransformation.start-->
+<!--custom.scenarios.cross_ServerlessS3DataTransformation.end-->
 
 #### Upload or download large files
 

@@ -21,7 +21,6 @@ suspend fun main() {
 
 // snippet-start:[sagemaker.kotlin.list_jobs.main]
 suspend fun listJobs() {
-
     SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
         val response = sageMakerClient.listTrainingJobs(ListTrainingJobsRequest { })
         response.trainingJobSummaries?.forEach { item ->

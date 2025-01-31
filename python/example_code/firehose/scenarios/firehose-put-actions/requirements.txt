@@ -1,0 +1,5 @@
+boto3==1.26.65
+botocore==1.29.65
+moto==4.0.9
+pytest==7.3.1
+backoff==2.2.1

@@ -74,7 +74,7 @@ Install the packages for the example by running the following:
 python -m pip install -r requirements.txt
 ```
 
-This installs all of the packages listed in the `requirements.txt` file in the current
+This installs all the packages listed in the `requirements.txt` file in the current
 folder.
 
 ### Run the code
@@ -89,6 +89,44 @@ python file_with_main.py
 Some examples require command line arguments. In these cases, you can run the example
 with a `-h` flag to get help. Each example has a README.md that describes additional 
 specifics about how to run the example and any other prerequisites. 
+
+## Linting and formatting
+We rely on [pylint](https://pylint.pycqa.org/en/latest/) and [black](https://black.readthedocs.io/en/stable/) to keep this code consistently formatted and styled.
+To contribute Python code to this project, please refer to the following installation and usage steps.
+
+### Using Pylint
+We run Pylint using [a custom configuration file](.github/linters/.python-lint) against any changed file or directory. See the [Python Github Action workflow](../.github/workflows/python.yml) for details.
+
+To invoke Pylint yourself, first install it with `pip install pylint`. 
+
+Next, run:
+
+```bash
+pylint --rcfile=.github/linters/.python-lint path/to/python/file_or_directory
+```
+
+To lint all Python files in the current directory and its subdirectories, run:
+
+```bash
+pylint --rcfile=.github/linters/.python-lint .
+```
+
+### Using Black
+We run Black against any changed file or directory. See the [Python Github Action workflow](../.github/workflows/python.yml) for details.
+
+To invoke Black yourself, first install it with `pip install black`. 
+
+Next, run:
+
+```bash
+black path/to/python/file_or_directory
+```
+
+To format all Python files in the current directory and its subdirectories, run:
+
+```bash
+black .
+```
 
 ## Tests
 

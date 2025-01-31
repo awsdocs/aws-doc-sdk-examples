@@ -1,3 +1,4 @@
+*.egg-info
 *.exe
 *.swp
 .*~
@@ -6,10 +7,12 @@
 .idea
 *.iml
 .metadata
-.phpunit.result.cache
 .recommenders
+.phpunit.result.cache
+.phpunit.cache
 .swiftpm
 .venv
+.vs
 .vscode
 Package.resolved
 build_dir

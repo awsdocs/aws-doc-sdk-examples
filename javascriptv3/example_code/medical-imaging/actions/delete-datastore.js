@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[medical-imaging.JavaScript.datastore.deleteDatastoreV3]
 import { DeleteDatastoreCommand } from "@aws-sdk/client-medical-imaging";
@@ -12,7 +12,7 @@ import { medicalImagingClient } from "../libs/medicalImagingClient.js";
  */
 export const deleteDatastore = async (datastoreId = "DATASTORE_ID") => {
   const response = await medicalImagingClient.send(
-    new DeleteDatastoreCommand({ datastoreId })
+    new DeleteDatastoreCommand({ datastoreId }),
   );
   console.log(response);
   // {

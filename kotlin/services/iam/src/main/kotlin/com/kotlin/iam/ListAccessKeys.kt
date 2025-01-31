@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <username> 
@@ -37,10 +36,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[iam.kotlin.list_access_keys.main]
 suspend fun listKeys(userNameVal: String?) {
-
-    val request = ListAccessKeysRequest {
-        userName = userNameVal
-    }
+    val request =
+        ListAccessKeysRequest {
+            userName = userNameVal
+        }
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.listAccessKeys(request)
         response.accessKeyMetadata?.forEach { md ->

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useRef, useLayoutEffect } from "react";
-import { ColorMap } from "./Utils";
+import { ColorMap } from "./Utils.js";
 
 /**
  * Displays a PNG image formatted as a Base64 string and draws polygons on top of
@@ -26,31 +26,31 @@ export const ImageDisplay = (props) => {
       if (img) {
         // Update the canvas position to match that of the image.
         canvas.style.position = "absolute";
-        canvas.style.left = img.offsetLeft + "px";
-        canvas.style.top = img.offsetTop + "px";
+        canvas.style.left = `${img.offsetLeft}px`;
+        canvas.style.top = `${img.offsetTop}px`;
         canvas.width = img.offsetWidth;
         canvas.height = img.offsetHeight;
 
         // Polygon points are defined as fractions of the total height and width of
         // the image.
         const context = canvas.getContext("2d");
-        props.shownPolygons.forEach((poly) => {
+        for (const poly of props.shownPolygons) {
           context.strokeStyle = ColorMap[poly.BlockType];
           context.lineWidth = 2;
           const points = poly.Geometry.Polygon;
           context.beginPath();
           context.moveTo(
             canvas.width * points[0].X,
-            canvas.height * points[0].Y
+            canvas.height * points[0].Y,
           );
-          points
-            .slice(1)
-            .forEach((point) =>
-              context.lineTo(canvas.width * point.X, canvas.height * point.Y)
-            );
+
+          for (const point of points.slice(1)) {
+            context.lineTo(canvas.width * point.X, canvas.height * point.Y);
+          }
+
           context.closePath();
           context.stroke();
-        });
+        }
       }
     };
 
@@ -63,7 +63,7 @@ export const ImageDisplay = (props) => {
     <div>
       <img
         ref={imgRef}
-        src={"data:image/png;base64," + props.imageData}
+        src={`data:image/png;base64,${props.imageData}`}
         className="img-fluid"
         alt="Extraction source"
       />

@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
           Usage:    
             <id>
@@ -38,10 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[erm.kotlin.terminate_job.main]
 suspend fun terminateFlow(id: String) {
-
-    val request = TerminateJobFlowsRequest {
-        jobFlowIds = listOf(id)
-    }
+    val request =
+        TerminateJobFlowsRequest {
+            jobFlowIds = listOf(id)
+        }
 
     EmrClient { region = "us-west-2" }.use { emrClient ->
         emrClient.terminateJobFlows(request)

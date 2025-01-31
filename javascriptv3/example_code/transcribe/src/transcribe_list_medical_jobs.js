@@ -28,7 +28,7 @@ export const params = {
 export const run = async () => {
   try {
     const data = await transcribeClient.send(
-      new ListMedicalTranscriptionJobsCommand(params)
+      new ListMedicalTranscriptionJobsCommand(params),
     );
     console.log("Success", data.MedicalTranscriptionJobName);
     return data; // For unit tests.

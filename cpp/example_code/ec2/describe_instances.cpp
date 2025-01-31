@@ -13,7 +13,6 @@
  **/
 
 // snippet-start:[ec2.cpp.describe_instances.inc]
-#include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeInstancesRequest.h>
 #include <aws/ec2/model/DescribeInstancesResponse.h>
@@ -22,13 +21,13 @@
 // snippet-end:[ec2.cpp.describe_instances.inc]
 #include "ec2_samples.h"
 
+// snippet-start:[cpp.example_code.ec2.DescribeInstances]
 //! Describe all Amazon Elastic Compute Cloud (Amazon EC2) instances associated with an account.
 /*!
-  \sa DescribeInstances()
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::DescribeInstances(
+bool AwsDoc::EC2::describeInstances(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.describe_instances.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
@@ -36,7 +35,7 @@ bool AwsDoc::EC2::DescribeInstances(
     bool header = false;
     bool done = false;
     while (!done) {
-        auto outcome = ec2Client.DescribeInstances(request);
+        Aws::EC2::Model::DescribeInstancesOutcome outcome = ec2Client.DescribeInstances(request);
         if (outcome.IsSuccess()) {
             if (!header) {
                 std::cout << std::left <<
@@ -72,7 +71,7 @@ bool AwsDoc::EC2::DescribeInstances(
                     const std::vector<Aws::EC2::Model::Tag> &tags = instance.GetTags();
                     auto nameIter = std::find_if(tags.cbegin(), tags.cend(),
                                                  [](const Aws::EC2::Model::Tag &tag) {
-                                                         return tag.GetKey() == "Name";
+                                                     return tag.GetKey() == "Name";
                                                  });
                     if (nameIter != tags.cend()) {
                         name = nameIter->GetValue();
@@ -89,12 +88,10 @@ bool AwsDoc::EC2::DescribeInstances(
 
             if (!outcome.GetResult().GetNextToken().empty()) {
                 request.SetNextToken(outcome.GetResult().GetNextToken());
-            }
-            else {
+            } else {
                 done = true;
             }
-        }
-        else {
+        } else {
             std::cerr << "Failed to describe EC2 instances:" <<
                       outcome.GetError().GetMessage() << std::endl;
             return false;
@@ -104,6 +101,7 @@ bool AwsDoc::EC2::DescribeInstances(
 
     return true;
 }
+// snippet-end:[cpp.example_code.ec2.DescribeInstances]
 
 /*
  *
@@ -125,7 +123,7 @@ int main(int argc, char **argv) {
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::EC2::DescribeInstances(clientConfig);
+        AwsDoc::EC2::describeInstances(clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

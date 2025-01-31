@@ -4,7 +4,7 @@
 import { describe, it } from "vitest";
 import { FoundationModels } from "../config/foundation_models.js";
 import { expectToBeANonEmptyString } from "./test_tools.js";
-import { invokeModel } from "../models/ai21_labs_jurassic2/jurassic2.js";
+import { invokeModel } from "../models/ai21LabsJurassic2/invoke_model.js";
 
 const TEXT_PROMPT = "Hello, this is a test prompt";
 

@@ -29,7 +29,7 @@ describe("describe-key-pairs", () => {
       ],
     });
 
-    await main();
+    await main({ dryRun: false });
 
     expect(logSpy).nthCalledWith(
       1,
@@ -38,14 +38,21 @@ describe("describe-key-pairs", () => {
     expect(logSpy).nthCalledWith(2, " • bar: foo");
   });
 
-  it("should log the error message", async () => {
-    const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to describe key pairs"));
+  it("should log DryRunOperation errors", async () => {
+    const logSpy = vi.spyOn(console, "log");
+    const error = new Error("Would have run.");
+    error.name = "DryRunOperation";
+    send.mockRejectedValueOnce(error);
 
-    await main();
+    await main({ dryRun: true });
 
-    expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to describe key pairs"),
-    );
+    expect(logSpy).toHaveBeenCalledWith("Would have run.");
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Unknown error");
+    send.mockRejectedValueOnce(error);
+
+    await expect(() => main({ keyName: "name" })).rejects.toBe(error);
   });
 });

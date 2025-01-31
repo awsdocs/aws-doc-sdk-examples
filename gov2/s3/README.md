@@ -34,19 +34,34 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 - [Hello Amazon S3](hello/hello.go#L4) (`ListBuckets`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](actions/bucket_basics.go)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](actions/bucket_basics.go#L220) (`CopyObject`)
-- [Create a bucket](actions/bucket_basics.go#L81) (`CreateBucket`)
-- [Delete an empty bucket](actions/bucket_basics.go#L278) (`DeleteBucket`)
-- [Delete multiple objects](actions/bucket_basics.go#L256) (`DeleteObjects`)
-- [Determine the existence of a bucket](actions/bucket_basics.go#L51) (`HeadBucket`)
-- [Get an object from a bucket](actions/bucket_basics.go#L149) (`GetObject`)
-- [List buckets](actions/bucket_basics.go#L35) (`ListBuckets`)
-- [List objects in a bucket](actions/bucket_basics.go#L238) (`ListObjectsV2`)
-- [Upload an object to a bucket](actions/bucket_basics.go#L100) (`PutObject`)
+- [CopyObject](actions/bucket_basics.go#L288)
+- [CreateBucket](actions/bucket_basics.go#L94)
+- [DeleteBucket](actions/bucket_basics.go#L387)
+- [DeleteObject](../workflows/s3_object_lock/actions/s3_actions.go#L365)
+- [DeleteObjects](../workflows/s3_object_lock/actions/s3_actions.go#L413)
+- [GetObject](actions/bucket_basics.go#L200)
+- [GetObjectLegalHold](../workflows/s3_object_lock/actions/s3_actions.go#L72)
+- [GetObjectLockConfiguration](../workflows/s3_object_lock/actions/s3_actions.go#L109)
+- [GetObjectRetention](../workflows/s3_object_lock/actions/s3_actions.go#L138)
+- [HeadBucket](actions/bucket_basics.go#L64)
+- [ListBuckets](actions/bucket_basics.go#L36)
+- [ListObjectVersions](../workflows/s3_object_lock/actions/s3_actions.go#L338)
+- [ListObjectsV2](actions/bucket_basics.go#L316)
+- [PutObject](actions/bucket_basics.go#L126)
+- [PutObjectLegalHold](../workflows/s3_object_lock/actions/s3_actions.go#L173)
+- [PutObjectLockConfiguration](../workflows/s3_object_lock/actions/s3_actions.go#L234)
+- [PutObjectRetention](../workflows/s3_object_lock/actions/s3_actions.go#L276)
 
 ### Scenarios
 
@@ -54,7 +69,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a presigned URL](actions/presigner.go)
-- [Get started with buckets and objects](actions/bucket_basics.go)
+- [Lock Amazon S3 objects](../workflows/s3_object_lock/workflows/s3_object_lock.go)
 - [Upload or download large files](actions/bucket_basics.go)
 
 
@@ -85,6 +100,23 @@ and to get help for running a scenario, use the following command:
 ```
 go run ./cmd -h
 ```
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
 
 #### Create a presigned URL
 
@@ -101,25 +133,17 @@ go run ./cmd -scenario presigning
 ```
 <!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
 
-#### Get started with buckets and objects
+#### Lock Amazon S3 objects
 
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+This example shows you how to work with S3 object lock features.
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-```
-go run ./cmd -scenario getstarted
-```
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.scenario_prereqs.s3_Scenario_ObjectLock.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ObjectLock.end-->
+
+
+<!--custom.scenarios.s3_Scenario_ObjectLock.start-->
+<!--custom.scenarios.s3_Scenario_ObjectLock.end-->
 
 #### Upload or download large files
 

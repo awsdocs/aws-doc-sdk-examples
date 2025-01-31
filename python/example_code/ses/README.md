@@ -38,26 +38,26 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a receipt filter](ses_receipt_handler.py#L36) (`CreateReceiptFilter`)
-- [Create a receipt rule](ses_receipt_handler.py#L162) (`CreateReceiptRule`)
-- [Create a receipt rule set](ses_receipt_handler.py#L102) (`CreateReceiptRuleSet`)
-- [Create an email template](ses_templates.py#L72) (`CreateTemplate`)
-- [Delete a receipt filter](ses_receipt_handler.py#L86) (`DeleteReceiptFilter`)
-- [Delete a receipt rule](ses_receipt_handler.py#L229) (`DeleteReceiptRule`)
-- [Delete a rule set](ses_receipt_handler.py#L250) (`DeleteReceiptRuleSet`)
-- [Delete an email template](ses_templates.py#L99) (`DeleteTemplate`)
-- [Delete an identity](ses_identities.py#L116) (`DeleteIdentity`)
-- [Describe a receipt rule set](ses_receipt_handler.py#L208) (`DescribeReceiptRuleSet`)
-- [Get an existing email template](ses_templates.py#L117) (`GetTemplate`)
-- [Get the status of an identity](ses_identities.py#L91) (`GetIdentityVerificationAttributes`)
-- [List email templates](ses_templates.py#L142) (`ListTemplates`)
-- [List identities](ses_identities.py#L132) (`ListIdentities`)
-- [List receipt filters](ses_receipt_handler.py#L67) (`ListReceiptFilters`)
-- [Send email](ses_email.py#L65) (`SendEmail`)
-- [Send templated email](ses_email.py#L108) (`SendTemplatedEmail`)
-- [Update an email template](ses_templates.py#L161) (`UpdateTemplate`)
-- [Verify a domain identity](ses_identities.py#L30) (`VerifyDomainIdentity`)
-- [Verify an email identity](ses_identities.py#L55) (`VerifyEmailIdentity`)
+- [CreateReceiptFilter](ses_receipt_handler.py#L36)
+- [CreateReceiptRule](ses_receipt_handler.py#L162)
+- [CreateReceiptRuleSet](ses_receipt_handler.py#L102)
+- [CreateTemplate](ses_templates.py#L72)
+- [DeleteIdentity](ses_identities.py#L116)
+- [DeleteReceiptFilter](ses_receipt_handler.py#L86)
+- [DeleteReceiptRule](ses_receipt_handler.py#L229)
+- [DeleteReceiptRuleSet](ses_receipt_handler.py#L250)
+- [DeleteTemplate](ses_templates.py#L99)
+- [DescribeReceiptRuleSet](ses_receipt_handler.py#L208)
+- [GetIdentityVerificationAttributes](ses_identities.py#L91)
+- [GetTemplate](ses_templates.py#L117)
+- [ListIdentities](ses_identities.py#L132)
+- [ListReceiptFilters](ses_receipt_handler.py#L67)
+- [ListTemplates](ses_templates.py#L142)
+- [SendEmail](ses_email.py#L65)
+- [SendTemplatedEmail](ses_email.py#L108)
+- [UpdateTemplate](ses_templates.py#L161)
+- [VerifyDomainIdentity](ses_identities.py#L30)
+- [VerifyEmailIdentity](ses_identities.py#L55)
 
 ### Scenarios
 
@@ -65,16 +65,11 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Copy email and domain identities across Regions](ses_replicate_identities.py)
-- [Generate credentials to connect to an SMTP endpoint](ses_generate_smtp_credentials.py)
-- [Verify an email identity and send messages](ses_email.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
 - [Create a web application to track DynamoDB data](../../cross_service/dynamodb_item_tracker)
 - [Create an Aurora Serverless work item tracker](../../cross_service/aurora_item_tracker)
 - [Detect objects in images](../../cross_service/photo_analyzer)
+- [Generate credentials to connect to an SMTP endpoint](ses_generate_smtp_credentials.py)
+- [Verify an email identity and send messages](ses_email.py)
 
 
 <!--custom.examples.start-->
@@ -107,6 +102,42 @@ python ses_replicate_identities.py
 
 <!--custom.scenarios.ses_Scenario_ReplicateIdentities.start-->
 <!--custom.scenarios.ses_Scenario_ReplicateIdentities.end-->
+
+#### Create a web application to track DynamoDB data
+
+This example shows you how to create a web application that tracks work items in an Amazon DynamoDB table and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_DynamoDBDataTracker.start-->
+<!--custom.scenario_prereqs.cross_DynamoDBDataTracker.end-->
+
+
+<!--custom.scenarios.cross_DynamoDBDataTracker.start-->
+<!--custom.scenarios.cross_DynamoDBDataTracker.end-->
+
+#### Create an Aurora Serverless work item tracker
+
+This example shows you how to create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_RDSDataTracker.start-->
+<!--custom.scenario_prereqs.cross_RDSDataTracker.end-->
+
+
+<!--custom.scenarios.cross_RDSDataTracker.start-->
+<!--custom.scenarios.cross_RDSDataTracker.end-->
+
+#### Detect objects in images
+
+This example shows you how to build an app that uses Amazon Rekognition to detect objects by category in images.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.end-->
+
+
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.end-->
 
 #### Generate credentials to connect to an SMTP endpoint
 

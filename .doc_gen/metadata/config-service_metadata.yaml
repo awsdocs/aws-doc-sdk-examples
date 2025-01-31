@@ -1,9 +1,5 @@
 # zexi 0.4.0
 config-service_PutConfigRule:
-  title: Put an &CC; rule using an &AWS; SDK
-  title_abbrev: Put a rule
-  synopsis: put an &CC; rule.
-  category:
   languages:
     Python:
       versions:
@@ -18,10 +14,6 @@ config-service_PutConfigRule:
   services:
     config-service: {PutConfigRule}
 config-service_DescribeConfigRules:
-  title: Describe &CC; rules using an &AWS; SDK
-  title_abbrev: Describe rules
-  synopsis: describe &CC; rules.
-  category:
   languages:
     Python:
       versions:
@@ -36,10 +28,6 @@ config-service_DescribeConfigRules:
   services:
     config-service: {DescribeConfigRules}
 config-service_DeleteConfigRule:
-  title: Delete an &CC; rule using an &AWS; SDK
-  title_abbrev: Delete a rule
-  synopsis: delete an &CC; rule.
-  category:
   languages:
     Python:
       versions:

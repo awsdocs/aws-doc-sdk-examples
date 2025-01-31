@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <userPoolId> <userName> <email> <password>
@@ -43,19 +42,25 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[cognito.kotlin.new_admin_user.main]
-suspend fun createNewUser(userPoolId: String, name: String, email: String, password: String) {
+suspend fun createNewUser(
+    userPoolId: String,
+    name: String,
+    email: String,
+    password: String,
+) {
+    val attType =
+        AttributeType {
+            this.name = "email"
+            value = email
+        }
 
-    val attType = AttributeType {
-        this.name = "email"
-        value = email
-    }
-
-    val request = AdminCreateUserRequest {
-        this.userPoolId = userPoolId
-        username = name
-        temporaryPassword = password
-        userAttributes = listOf(attType)
-    }
+    val request =
+        AdminCreateUserRequest {
+            this.userPoolId = userPoolId
+            username = name
+            temporaryPassword = password
+            userAttributes = listOf(attType)
+        }
 
     CognitoIdentityProviderClient { region = "us-east-1" }.use { cognitoClient ->
         val response = cognitoClient.adminCreateUser(request)

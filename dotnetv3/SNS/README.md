@@ -38,26 +38,25 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Check whether a phone number is opted out](IsPhoneNumOptedOutExample/IsPhoneNumOptedOutExample/IsPhoneNumOptedOut.cs#L6) (`CheckIfPhoneNumberIsOptedOut`)
-- [Create a topic](CreateSNSTopicExample/CreateSNSTopicExample/CreateSNSTopic.cs#L6) (`CreateTopic`)
-- [Delete a subscription](../cross-service/TopicsAndQueues/Actions/SNSActions/SNSWrapper.cs#L137) (`Unsubscribe`)
-- [Delete a topic](../cross-service/TopicsAndQueues/Actions/SNSActions/SNSWrapper.cs#L154) (`DeleteTopic`)
-- [Get the properties of a topic](GetTopicAttributesExample/GetTopicAttributesExample/GetTopicAttributes.cs#L6) (`GetTopicAttributes`)
-- [List the subscribers of a topic](ListSNSSubscriptionsExample/ListSNSSubscriptionsExample/ListSubscriptions.cs#L6) (`ListSubscriptions`)
-- [List topics](ListSNSTopicsExample/ListSNSTopicsExample/ListSNSTopics.cs#L6) (`ListTopics`)
-- [Publish a message with an attribute](../cross-service/TopicsAndQueues/Scenarios/TopicsAndQueuesScenario/TopicsAndQueues.cs#L334) (`Publish`)
-- [Publish an SMS text message](SNSMessageExample/SNSMessageExample/SNSMessage.cs#L4) (`Publish`)
-- [Publish to a topic](PublishToSNSTopicExample/PublishToSNSTopicExample/PublishToSNSTopic.cs#L6) (`Publish`)
-- [Subscribe an SQS queue to a topic](../cross-service/TopicsAndQueues/Actions/SNSActions/SNSWrapper.cs#L67) (`Subscribe`)
-- [Subscribe an email address to a topic](ManageTopicSubscriptionExample/ManageTopicSubscriptionExample/ManageTopicSubscription.cs#L38) (`Subscribe`)
-- [Subscribe with a filter to a topic](../cross-service/TopicsAndQueues/Actions/SNSActions/SNSWrapper.cs#L67) (`Subscribe`)
+- [CheckIfPhoneNumberIsOptedOut](IsPhoneNumOptedOutExample/IsPhoneNumOptedOutExample/IsPhoneNumOptedOut.cs#L6)
+- [CreateTopic](CreateSNSTopicExample/CreateSNSTopicExample/CreateSNSTopic.cs#L6)
+- [DeleteTopic](../cross-service/TopicsAndQueues/Actions/SNSActions/SNSWrapper.cs#L154)
+- [GetTopicAttributes](GetTopicAttributesExample/GetTopicAttributesExample/GetTopicAttributes.cs#L6)
+- [ListSubscriptions](ListSNSSubscriptionsExample/ListSNSSubscriptionsExample/ListSubscriptions.cs#L6)
+- [ListTopics](ListSNSTopicsExample/ListSNSTopicsExample/ListSNSTopics.cs#L6)
+- [Publish](PublishToSNSTopicExample/PublishToSNSTopicExample/PublishToSNSTopic.cs#L6)
+- [Subscribe](ManageTopicSubscriptionExample/ManageTopicSubscriptionExample/ManageTopicSubscription.cs#L38)
+- [Unsubscribe](../cross-service/TopicsAndQueues/Actions/SNSActions/SNSWrapper.cs#L137)
 
-### Cross-service examples
+### Scenarios
 
-Sample applications that work across multiple AWS services.
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
-- [Building an Amazon SNS application](../cross_service/SubscribePublishTranslate)
+- [Building an Amazon SNS application](../cross-service/SubscribePublishTranslate)
 - [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
+- [Publish an SMS text message](SNSMessageExample/SNSMessageExample/SNSMessage.cs)
+- [Publish messages to queues](../cross-service/TopicsAndQueues/Scenarios/TopicsAndQueuesScenario/TopicsAndQueues.cs)
 
 
 <!--custom.examples.start-->
@@ -93,6 +92,58 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using Amazon SNS.
 
 
+
+#### Building an Amazon SNS application
+
+This example shows you how to create an application that has subscription and publish functionality and translates messages.
+
+
+<!--custom.scenario_prereqs.cross_SnsPublishSubscription.start-->
+<!--custom.scenario_prereqs.cross_SnsPublishSubscription.end-->
+
+
+<!--custom.scenarios.cross_SnsPublishSubscription.start-->
+<!--custom.scenarios.cross_SnsPublishSubscription.end-->
+
+#### Create a serverless application to manage photos
+
+This example shows you how to create a serverless application that lets users manage photos using labels.
+
+
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
+
+#### Publish an SMS text message
+
+This example shows you how to publish SMS messages using Amazon SNS.
+
+
+<!--custom.scenario_prereqs.sns_PublishTextSMS.start-->
+<!--custom.scenario_prereqs.sns_PublishTextSMS.end-->
+
+
+<!--custom.scenarios.sns_PublishTextSMS.start-->
+<!--custom.scenarios.sns_PublishTextSMS.end-->
+
+#### Publish messages to queues
+
+This example shows you how to do the following:
+
+- Create topic (FIFO or non-FIFO).
+- Subscribe several queues to the topic with an option to apply a filter.
+- Publish messages to the topic.
+- Poll the queues for messages received.
+
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
 
 ### Tests
 

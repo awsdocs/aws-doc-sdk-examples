@@ -40,26 +40,26 @@ python -m pip install -r requirements.txt
 - [Hello Support](hello.py#L4) (`DescribeServices`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](get_started_support_cases.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a communication to a case](support_wrapper.py#L179) (`AddCommunicationToCase`)
-- [Add an attachment to a set](support_wrapper.py#L19) (`AddAttachmentsToSet`)
-- [Create a case](support_wrapper.py#L103) (`CreateCase`)
-- [Describe an attachment](support_wrapper.py#L242) (`DescribeAttachment`)
-- [Describe cases](support_wrapper.py#L304) (`DescribeCases`)
-- [Describe communications](support_wrapper.py#L210) (`DescribeCommunications`)
-- [Describe services](support_wrapper.py#L39) (`DescribeServices`)
-- [Describe severity levels](support_wrapper.py#L71) (`DescribeSeverityLevels`)
-- [Resolve case](support_wrapper.py#L274) (`ResolveCase`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with cases](get_started_support_cases.py)
+- [AddAttachmentsToSet](support_wrapper.py#L143)
+- [AddCommunicationToCase](support_wrapper.py#L179)
+- [CreateCase](support_wrapper.py#L103)
+- [DescribeAttachment](support_wrapper.py#L242)
+- [DescribeCases](support_wrapper.py#L304)
+- [DescribeCommunications](support_wrapper.py#L210)
+- [DescribeServices](support_wrapper.py#L39)
+- [DescribeSeverityLevels](support_wrapper.py#L71)
+- [ResolveCase](support_wrapper.py#L274)
 
 
 <!--custom.examples.start-->
@@ -81,8 +81,7 @@ This example shows you how to get started using Support.
 python hello.py
 ```
 
-
-#### Get started with cases
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -94,8 +93,8 @@ This example shows you how to do the following:
 - Resolve the case.
 - Get and display a list of resolved cases for the current day.
 
-<!--custom.scenario_prereqs.support_Scenario_GetStartedSupportCases.start-->
-<!--custom.scenario_prereqs.support_Scenario_GetStartedSupportCases.end-->
+<!--custom.basic_prereqs.support_Scenario_GetStartedSupportCases.start-->
+<!--custom.basic_prereqs.support_Scenario_GetStartedSupportCases.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -104,8 +103,9 @@ python get_started_support_cases.py
 ```
 
 
-<!--custom.scenarios.support_Scenario_GetStartedSupportCases.start-->
-<!--custom.scenarios.support_Scenario_GetStartedSupportCases.end-->
+<!--custom.basics.support_Scenario_GetStartedSupportCases.start-->
+<!--custom.basics.support_Scenario_GetStartedSupportCases.end-->
+
 
 ### Tests
 

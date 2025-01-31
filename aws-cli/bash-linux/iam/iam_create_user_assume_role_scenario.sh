@@ -2,8 +2,6 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 # bashsupport disable=BP2002
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
 
 ###############################################################################
 #
@@ -506,7 +504,7 @@ function sts_assume_role() {
         return 0
         ;;
       \?)
-        ech o"Invalid parameter"
+        echo "Invalid parameter"
         usage
         return 1
         ;;

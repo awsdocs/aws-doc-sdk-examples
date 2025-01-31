@@ -6,6 +6,7 @@
 package workflows
 
 import (
+	"context"
 	"fmt"
 	"testing"
 	"topics_and_queues/stubs"
@@ -59,7 +60,7 @@ func (scenTest *TopicsAndQueuesScenarioTest) SetupDataAndStubs() []testtools.Stu
 	toneChoice := 1
 	filterAttributes := map[string]snstypes.MessageAttributeValue{TONE_KEY: {
 		DataType:    aws.String("String"),
-		StringValue: aws.String(ToneChoices[toneChoice]),
+		StringValue: aws.String(ToneChoices[toneChoice-1]),
 	}}
 	receiptHandles := []string{"test-handle-1", "test-handle-2", "test-handle-3"}
 
@@ -103,7 +104,7 @@ func (scenTest *TopicsAndQueuesScenarioTest) SetupDataAndStubs() []testtools.Stu
 // or without errors.
 func (scenTest *TopicsAndQueuesScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
 	mockQuestioner := demotools.MockQuestioner{Answers: scenTest.Answers}
-	RunTopicsAndQueuesScenario(*stubber.SdkConfig, &mockQuestioner)
+	RunTopicsAndQueuesScenario(context.Background(), *stubber.SdkConfig, &mockQuestioner)
 }
 
 func (scenTest *TopicsAndQueuesScenarioTest) Cleanup() {}

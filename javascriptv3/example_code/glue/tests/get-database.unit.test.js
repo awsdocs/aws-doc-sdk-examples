@@ -6,7 +6,7 @@ import { makeGetDatabaseStep } from "../scenarios/basic/steps/get-database.js";
 
 describe("get-database", () => {
   it("should call getDatabase with the database environment variable", async () => {
-    const getDatabase = vi.fn(async () => ({ Database: {} }));
+    const getDatabase = vi.fn(() => Promise.resolve({ Database: {} }));
     const actions = { getDatabase };
 
     process.env.DATABASE_NAME = "db_name";
@@ -17,7 +17,7 @@ describe("get-database", () => {
   });
 
   it("should return a context object", async () => {
-    const getDatabase = vi.fn(async () => ({ Database: {} }));
+    const getDatabase = vi.fn(() => Promise.resolve({ Database: {} }));
     const actions = { getDatabase };
 
     const step = makeGetDatabaseStep(actions);

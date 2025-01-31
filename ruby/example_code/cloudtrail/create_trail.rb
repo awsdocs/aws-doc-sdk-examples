@@ -6,12 +6,11 @@
 # Demonstrates how to create an AWS CloudTrail trail
 
 # snippet-start:[cloudtrail.Ruby.createTrail]
-require "aws-sdk-cloudtrail" # v2: require 'aws-sdk'
-require "aws-sdk-s3"
-require "aws-sdk-sts"
+require 'aws-sdk-cloudtrail' # v2: require 'aws-sdk'
+require 'aws-sdk-s3'
+require 'aws-sdk-sts'
 
 def create_trail_example(s3_client, sts_client, cloudtrail_client, trail_name, bucket_name)
-
   resp = sts_client.get_caller_identity({})
   account_id = resp.account
 
@@ -19,28 +18,28 @@ def create_trail_example(s3_client, sts_client, cloudtrail_client, trail_name, b
   s3_client.create_bucket(bucket: bucket_name)
   begin
     policy = {
-      "Version" => "2012-10-17",
-      "Statement" => [
+      'Version' => '2012-10-17',
+      'Statement' => [
         {
-          "Sid" => "AWSCloudTrailAclCheck20150319",
-          "Effect" => "Allow",
-          "Principal" => {
-            "Service" => "cloudtrail.amazonaws.com"
+          'Sid' => 'AWSCloudTrailAclCheck20150319',
+          'Effect' => 'Allow',
+          'Principal' => {
+            'Service' => 'cloudtrail.amazonaws.com'
           },
-          "Action" => "s3:GetBucketAcl",
-          "Resource" => "arn:aws:s3:::#{bucket_name}"
+          'Action' => 's3:GetBucketAcl',
+          'Resource' => "arn:aws:s3:::#{bucket_name}"
         },
         {
-          "Sid" => "AWSCloudTrailWrite20150319",
-          "Effect" => "Allow",
-          "Principal" => {
-            "Service" => "cloudtrail.amazonaws.com"
+          'Sid' => 'AWSCloudTrailWrite20150319',
+          'Effect' => 'Allow',
+          'Principal' => {
+            'Service' => 'cloudtrail.amazonaws.com'
           },
-          "Action" => "s3:PutObject",
-          "Resource" => "arn:aws:s3:::#{bucket_name}/AWSLogs/#{account_id}/*",
-          "Condition" => {
-            "StringEquals" => {
-              "s3:x-amz-acl" => "bucket-owner-full-control"
+          'Action' => 's3:PutObject',
+          'Resource' => "arn:aws:s3:::#{bucket_name}/AWSLogs/#{account_id}/*",
+          'Condition' => {
+            'StringEquals' => {
+              's3:x-amz-acl' => 'bucket-owner-full-control'
             }
           }
         }
@@ -56,9 +55,9 @@ def create_trail_example(s3_client, sts_client, cloudtrail_client, trail_name, b
 
   begin
     cloudtrail_client.create_trail({
-                                      name: trail_name, # required
-                                      s3_bucket_name: bucket_name # required
-                                    })
+                                     name: trail_name, # required
+                                     s3_bucket_name: bucket_name # required
+                                   })
 
     puts "Successfully created trail: #{trail_name}."
   rescue StandardError => e
@@ -69,7 +68,7 @@ def create_trail_example(s3_client, sts_client, cloudtrail_client, trail_name, b
   # snippet-end:[cloudtrail.Ruby.createTrail]
 end
 
-if __FILE__ == $0
+if __FILE__ == $PROGRAM_NAME
   @s3_client = Aws::S3::Client.new
   @sts_client = Aws::STS::Client.new
   @cloudtrail_client = Aws::CloudTrail::Client.new

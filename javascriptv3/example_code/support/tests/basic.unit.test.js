@@ -4,7 +4,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 const send = vi.fn();
-const prompt = vi.fn();
+const selectMock = vi.fn();
+const confirmMock = vi.fn();
 
 vi.doMock("@aws-sdk/client-support", async () => {
   const actual = await vi.importActual("@aws-sdk/client-support");
@@ -16,9 +17,10 @@ vi.doMock("@aws-sdk/client-support", async () => {
   };
 });
 
-vi.doMock("inquirer", () => {
+vi.doMock("@inquirer/prompts", () => {
   return Promise.resolve({
-    default: { prompt },
+    select: selectMock,
+    confirm: confirmMock,
   });
 });
 
@@ -76,7 +78,7 @@ describe("Basic", () => {
         code: "AmazonEC2",
       };
       send.mockResolvedValueOnce({ services: [] });
-      prompt.mockResolvedValueOnce({ selectedService: service });
+      selectMock.mockResolvedValueOnce(service);
 
       await expect(getService()).resolves.toEqual(service);
     });
@@ -86,7 +88,7 @@ describe("Basic", () => {
     it("should return the selected category", async () => {
       expect.assertions(1);
       const category = { name: "General Support", code: "GeneralSupport" };
-      prompt.mockResolvedValueOnce({ selectedCategory: category });
+      selectMock.mockResolvedValueOnce(category);
 
       await expect(getCategory({ categories: [] })).resolves.toEqual(category);
     });
@@ -97,7 +99,7 @@ describe("Basic", () => {
       expect.assertions(1);
       const severityLevel = { name: "low", code: "low" };
       send.mockResolvedValueOnce({ severityLevels: [] });
-      prompt.mockResolvedValueOnce({ selectedSeverityLevel: severityLevel });
+      selectMock.mockResolvedValueOnce(severityLevel);
 
       await expect(getSeverityLevel()).resolves.toEqual(severityLevel);
     });
@@ -207,14 +209,14 @@ describe("Basic", () => {
 
   describe("resolveCase", () => {
     it("should resolve the case if the user confirms", async () => {
-      prompt.mockResolvedValueOnce({ shouldResolve: true });
+      confirmMock.mockResolvedValueOnce(true);
       send.mockResolvedValueOnce();
       await expect(resolveCase("case1")).resolves.toEqual(true);
       expect(send).toHaveBeenCalled();
     });
 
     it("should not resolve the case if the user does not confirm", async () => {
-      prompt.mockResolvedValueOnce({ shouldResolve: false });
+      confirmMock.mockResolvedValueOnce(false);
       await expect(resolveCase("case1")).resolves.toEqual(false);
       expect(send).not.toHaveBeenCalled();
     });

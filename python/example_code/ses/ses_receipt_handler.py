@@ -282,7 +282,7 @@ def usage_demo():
     rule_set_name = "doc-example-rule-set"
     rule_name = "copy-mail-to-bucket"
     email = "example@example.org"
-    bucket_name = f"doc-example-bucket-{time.time_ns()}"
+    bucket_name = f"amzn-s3-demo-bucket-{time.time_ns()}"
     prefix = "example-emails/"
 
     current_ip_address = (

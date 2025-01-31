@@ -33,14 +33,14 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a key](src/bin/create-key.rs#L22) (`CreateKey`)
-- [Create a random byte string](src/bin/generate-random.rs#L27) (`GenerateRandom`)
-- [Decrypt ciphertext](src/bin/decrypt.rs#L32) (`Decrypt`)
-- [Encrypt text using a key](src/bin/encrypt.rs#L37) (`Encrypt`)
-- [Generate a plaintext data key for client-side encryption](src/bin/generate-data-key.rs#L27) (`GenerateDataKey`)
-- [Generate an encrypted data key](src/bin/generate-data-key-without-plaintext.rs#L27) (`GenerateDataKeyWithoutPlaintext`)
-- [List keys](src/bin/list-keys.rs#L22) (`ListKeys`)
-- [Recencrypt ciphertext from one key to another](src/bin/reencrypt-data.rs#L42) (`ReEncrypt`)
+- [CreateKey](src/bin/create-key.rs#L22)
+- [Decrypt](src/bin/decrypt.rs#L32)
+- [Encrypt](src/bin/encrypt.rs#L37)
+- [GenerateDataKey](src/bin/generate-data-key.rs#L27)
+- [GenerateDataKeyWithoutPlaintext](src/bin/generate-data-key-without-plaintext.rs#L27)
+- [GenerateRandom](src/bin/generate-random.rs#L27)
+- [ListKeys](src/bin/list-keys.rs#L22)
+- [ReEncrypt](src/bin/reencrypt-data.rs#L42)
 
 
 <!--custom.examples.start-->

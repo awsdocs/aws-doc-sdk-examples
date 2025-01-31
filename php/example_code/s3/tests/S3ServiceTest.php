@@ -11,6 +11,7 @@ use Aws\Result;
 use Aws\ResultPaginator;
 use Aws\S3\S3Client;
 use AwsUtilities\AWSServiceClass;
+use AwsUtilities\MockS3Client;
 use PHPUnit\Framework\TestCase;
 use S3\S3Service;
 
@@ -262,5 +263,23 @@ class S3ServiceTest extends TestCase
         $this->assertTrue($this->service->isVerbose());
         $this->service->setVerbose(false);
         $this->assertFalse($this->service->isVerbose());
+    }
+
+    public function testPreSignedUrl()
+    {
+        $mockClient = new MockS3Client([]);
+        $mockRequest = new class {
+            public function getUri()
+            {
+                return "testUri.test";
+            }
+        };
+        $mockClient->set("createPresignedRequest", $mockRequest);
+        $this->service->setClient($mockClient);
+
+        $commandMock = $this->createMock(CommandInterface::class);
+        $expiration = 10;
+        $preSignedUrl = $this->service->preSignedUrl($commandMock, $expiration);
+        $this->assertEquals("testUri.test", $preSignedUrl);
     }
 }

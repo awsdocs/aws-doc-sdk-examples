@@ -27,15 +27,16 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:opensearch:1.0.30")
-    implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
-    implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
+    implementation(platform("aws.sdk.kotlin:bom:1.3.112"))
+    implementation("aws.sdk.kotlin:opensearch")
+    implementation("aws.smithy.kotlin:http-client-engine-okhttp")
+    implementation("aws.smithy.kotlin:http-client-engine-crt")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
 }
 
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
 }
 tasks.test {

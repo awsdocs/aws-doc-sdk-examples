@@ -34,30 +34,30 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 - [Hello Aurora](src/bin/hello-world.rs) (`DescribeDBClusters`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/aurora_scenario/mod.rs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB cluster](src/aurora_scenario/mod.rs#L352) (`CreateDBCluster`)
-- [Create a DB cluster parameter group](src/aurora_scenario/mod.rs#L203) (`CreateDBClusterParameterGroup`)
-- [Create a DB cluster snapshot](src/aurora_scenario/mod.rs#L352) (`CreateDBClusterSnapshot`)
-- [Create a DB instance in a DB cluster](src/aurora_scenario/mod.rs#L352) (`CreateDBInstance`)
-- [Delete a DB cluster](src/aurora_scenario/mod.rs#L512) (`DeleteDBCluster`)
-- [Delete a DB cluster parameter group](src/aurora_scenario/mod.rs#L512) (`DeleteDBClusterParameterGroup`)
-- [Delete a DB instance](src/aurora_scenario/mod.rs#L512) (`DeleteDBInstance`)
-- [Describe DB clusters](src/aurora_scenario/mod.rs#L352) (`DescribeDBClusters`)
-- [Describe DB instances](src/aurora_scenario/mod.rs#L512) (`DescribeDBInstances`)
-- [Describe database engine versions](src/aurora_scenario/mod.rs#L142) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](src/aurora_scenario/mod.rs#L179) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters from a DB cluster parameter group](src/aurora_scenario/mod.rs#L286) (`DescribeDBClusterParameters`)
-- [Update parameters in a DB cluster parameter group](src/aurora_scenario/mod.rs#L315) (`ModifyDBClusterParameterGroup`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with DB clusters](src/aurora_scenario/mod.rs)
+- [CreateDBCluster](src/rds.rs#L151)
+- [CreateDBClusterParameterGroup](src/rds.rs#L88)
+- [CreateDBClusterSnapshot](src/rds.rs#L206)
+- [CreateDBInstance](src/rds.rs#L174)
+- [DeleteDBCluster](src/aurora_scenario/tests.rs#L790)
+- [DeleteDBClusterParameterGroup](src/aurora_scenario/tests.rs#L790)
+- [DeleteDBInstance](src/aurora_scenario/tests.rs#L790)
+- [DescribeDBClusterParameters](src/aurora_scenario/tests.rs#L376)
+- [DescribeDBClusters](src/rds.rs#L106)
+- [DescribeDBEngineVersions](src/rds.rs#L56)
+- [DescribeDBInstances](src/aurora_scenario/tests.rs#L790)
+- [DescribeOrderableDBInstanceOptions](src/rds.rs#L69)
+- [ModifyDBClusterParameterGroup](src/rds.rs#L135)
 
 
 <!--custom.examples.start-->
@@ -76,8 +76,7 @@ functions within the same service.
 This example shows you how to get started using Aurora.
 
 
-
-#### Get started with DB clusters
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -86,12 +85,13 @@ This example shows you how to do the following:
 - Create a DB instance that contains a database.
 - Take a snapshot of the DB cluster, then clean up resources.
 
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.end-->
 
 
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.end-->
+
 
 ### Tests
 

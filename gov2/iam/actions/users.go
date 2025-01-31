@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.iam.UserWrapper.complete]
+// snippet-start:[gov2.iam.UserWrapper.struct]
+
 import (
 	"context"
 	"encoding/json"
@@ -15,9 +18,6 @@ import (
 	"github.com/aws/smithy-go"
 )
 
-// snippet-start:[gov2.iam.UserWrapper.complete]
-// snippet-start:[gov2.iam.UserWrapper.struct]
-
 // UserWrapper encapsulates user actions used in the examples.
 // It contains an IAM service client that is used to perform user actions.
 type UserWrapper struct {
@@ -29,9 +29,9 @@ type UserWrapper struct {
 // snippet-start:[gov2.iam.ListUsers]
 
 // ListUsers gets up to maxUsers number of users.
-func (wrapper UserWrapper) ListUsers(maxUsers int32) ([]types.User, error) {
+func (wrapper UserWrapper) ListUsers(ctx context.Context, maxUsers int32) ([]types.User, error) {
 	var users []types.User
-	result, err := wrapper.IamClient.ListUsers(context.TODO(), &iam.ListUsersInput{
+	result, err := wrapper.IamClient.ListUsers(ctx, &iam.ListUsersInput{
 		MaxItems: aws.Int32(maxUsers),
 	})
 	if err != nil {
@@ -47,9 +47,9 @@ func (wrapper UserWrapper) ListUsers(maxUsers int32) ([]types.User, error) {
 // snippet-start:[gov2.iam.GetUser]
 
 // GetUser gets data about a user.
-func (wrapper UserWrapper) GetUser(userName string) (*types.User, error) {
+func (wrapper UserWrapper) GetUser(ctx context.Context, userName string) (*types.User, error) {
 	var user *types.User
-	result, err := wrapper.IamClient.GetUser(context.TODO(), &iam.GetUserInput{
+	result, err := wrapper.IamClient.GetUser(ctx, &iam.GetUserInput{
 		UserName: aws.String(userName),
 	})
 	if err != nil {
@@ -74,9 +74,9 @@ func (wrapper UserWrapper) GetUser(userName string) (*types.User, error) {
 // snippet-start:[gov2.iam.CreateUser]
 
 // CreateUser creates a new user with the specified name.
-func (wrapper UserWrapper) CreateUser(userName string) (*types.User, error) {
+func (wrapper UserWrapper) CreateUser(ctx context.Context, userName string) (*types.User, error) {
 	var user *types.User
-	result, err := wrapper.IamClient.CreateUser(context.TODO(), &iam.CreateUserInput{
+	result, err := wrapper.IamClient.CreateUser(ctx, &iam.CreateUserInput{
 		UserName: aws.String(userName),
 	})
 	if err != nil {
@@ -95,13 +95,13 @@ func (wrapper UserWrapper) CreateUser(userName string) (*types.User, error) {
 // grants a list of actions on a specified role.
 // PolicyDocument shows how to work with a policy document as a data structure and
 // serialize it to JSON by using Go's JSON marshaler.
-func (wrapper UserWrapper) CreateUserPolicy(userName string, policyName string, actions []string,
-		roleArn string) error {
+func (wrapper UserWrapper) CreateUserPolicy(ctx context.Context, userName string, policyName string, actions []string,
+	roleArn string) error {
 	policyDoc := PolicyDocument{
-		Version:   "2012-10-17",
+		Version: "2012-10-17",
 		Statement: []PolicyStatement{{
-			Effect: "Allow",
-			Action: actions,
+			Effect:   "Allow",
+			Action:   actions,
 			Resource: aws.String(roleArn),
 		}},
 	}
@@ -110,7 +110,7 @@ func (wrapper UserWrapper) CreateUserPolicy(userName string, policyName string, 
 		log.Printf("Couldn't create policy document for %v. Here's why: %v\n", roleArn, err)
 		return err
 	}
-	_, err = wrapper.IamClient.PutUserPolicy(context.TODO(), &iam.PutUserPolicyInput{
+	_, err = wrapper.IamClient.PutUserPolicy(ctx, &iam.PutUserPolicyInput{
 		PolicyDocument: aws.String(string(policyBytes)),
 		PolicyName:     aws.String(policyName),
 		UserName:       aws.String(userName),
@@ -126,9 +126,9 @@ func (wrapper UserWrapper) CreateUserPolicy(userName string, policyName string, 
 // snippet-start:[gov2.iam.ListUserPolicies]
 
 // ListUserPolicies lists the inline policies for the specified user.
-func (wrapper UserWrapper) ListUserPolicies(userName string) ([]string, error) {
+func (wrapper UserWrapper) ListUserPolicies(ctx context.Context, userName string) ([]string, error) {
 	var policies []string
-	result, err := wrapper.IamClient.ListUserPolicies(context.TODO(), &iam.ListUserPoliciesInput{
+	result, err := wrapper.IamClient.ListUserPolicies(ctx, &iam.ListUserPoliciesInput{
 		UserName: aws.String(userName),
 	})
 	if err != nil {
@@ -144,8 +144,8 @@ func (wrapper UserWrapper) ListUserPolicies(userName string) ([]string, error) {
 // snippet-start:[gov2.iam.DeleteUserPolicy]
 
 // DeleteUserPolicy deletes an inline policy from a user.
-func (wrapper UserWrapper) DeleteUserPolicy(userName string, policyName string) error {
-	_, err := wrapper.IamClient.DeleteUserPolicy(context.TODO(), &iam.DeleteUserPolicyInput{
+func (wrapper UserWrapper) DeleteUserPolicy(ctx context.Context, userName string, policyName string) error {
+	_, err := wrapper.IamClient.DeleteUserPolicy(ctx, &iam.DeleteUserPolicyInput{
 		PolicyName: aws.String(policyName),
 		UserName:   aws.String(userName),
 	})
@@ -160,8 +160,8 @@ func (wrapper UserWrapper) DeleteUserPolicy(userName string, policyName string) 
 // snippet-start:[gov2.iam.DeleteUser]
 
 // DeleteUser deletes a user.
-func (wrapper UserWrapper) DeleteUser(userName string) error {
-	_, err := wrapper.IamClient.DeleteUser(context.TODO(), &iam.DeleteUserInput{
+func (wrapper UserWrapper) DeleteUser(ctx context.Context, userName string) error {
+	_, err := wrapper.IamClient.DeleteUser(ctx, &iam.DeleteUserInput{
 		UserName: aws.String(userName),
 	})
 	if err != nil {
@@ -176,9 +176,9 @@ func (wrapper UserWrapper) DeleteUser(userName string) error {
 
 // CreateAccessKeyPair creates an access key for a user. The returned access key contains
 // the ID and secret credentials needed to use the key.
-func (wrapper UserWrapper) CreateAccessKeyPair(userName string) (*types.AccessKey, error) {
+func (wrapper UserWrapper) CreateAccessKeyPair(ctx context.Context, userName string) (*types.AccessKey, error) {
 	var key *types.AccessKey
-	result, err := wrapper.IamClient.CreateAccessKey(context.TODO(), &iam.CreateAccessKeyInput{
+	result, err := wrapper.IamClient.CreateAccessKey(ctx, &iam.CreateAccessKeyInput{
 		UserName: aws.String(userName)})
 	if err != nil {
 		log.Printf("Couldn't create access key pair for user %v. Here's why: %v\n", userName, err)
@@ -193,8 +193,8 @@ func (wrapper UserWrapper) CreateAccessKeyPair(userName string) (*types.AccessKe
 // snippet-start:[gov2.iam.DeleteAccessKey]
 
 // DeleteAccessKey deletes an access key from a user.
-func (wrapper UserWrapper) DeleteAccessKey(userName string, keyId string) error {
-	_, err := wrapper.IamClient.DeleteAccessKey(context.TODO(), &iam.DeleteAccessKeyInput{
+func (wrapper UserWrapper) DeleteAccessKey(ctx context.Context, userName string, keyId string) error {
+	_, err := wrapper.IamClient.DeleteAccessKey(ctx, &iam.DeleteAccessKeyInput{
 		AccessKeyId: aws.String(keyId),
 		UserName:    aws.String(userName),
 	})
@@ -209,9 +209,9 @@ func (wrapper UserWrapper) DeleteAccessKey(userName string, keyId string) error 
 // snippet-start:[gov2.iam.ListAccessKeys]
 
 // ListAccessKeys lists the access keys for the specified user.
-func (wrapper UserWrapper) ListAccessKeys(userName string) ([]types.AccessKeyMetadata, error) {
+func (wrapper UserWrapper) ListAccessKeys(ctx context.Context, userName string) ([]types.AccessKeyMetadata, error) {
 	var keys []types.AccessKeyMetadata
-	result, err := wrapper.IamClient.ListAccessKeys(context.TODO(), &iam.ListAccessKeysInput{
+	result, err := wrapper.IamClient.ListAccessKeys(ctx, &iam.ListAccessKeysInput{
 		UserName: aws.String(userName),
 	})
 	if err != nil {

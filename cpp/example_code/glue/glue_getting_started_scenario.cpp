@@ -58,7 +58,7 @@
 #include <aws/s3/model/DeleteObjectsRequest.h>
 #include <aws/s3/model/DeleteBucketRequest.h>
 #include <aws/s3/model/GetObjectRequest.h>
-#include <aws/s3/model/ListObjectsRequest.h>
+#include <aws/s3/model/ListObjectsV2Request.h>
 #include <aws/s3/model/PutObjectRequest.h>
 #include <vector>
 #include <fstream>
@@ -327,34 +327,43 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
 // snippet-start:[cpp.example_code.glue.GetTables]
         Aws::Glue::Model::GetTablesRequest request;
         request.SetDatabaseName(CRAWLER_DATABASE_NAME);
+        std::vector<Aws::Glue::Model::Table> all_tables;
+        Aws::String nextToken; // Used for pagination.
+        do {
+            Aws::Glue::Model::GetTablesOutcome outcome = client.GetTables(request);
 
-        Aws::Glue::Model::GetTablesOutcome outcome = client.GetTables(request);
-
-        if (outcome.IsSuccess()) {
-            const std::vector<Aws::Glue::Model::Table> &tables = outcome.GetResult().GetTableList();
-            std::cout << "The database contains " << tables.size()
-                      << (tables.size() == 1 ?
-                          " table." : "tables.") << std::endl;
-            std::cout << "Here is a list of the tables in the database.";
-            for (size_t index = 0; index < tables.size(); ++index) {
-                std::cout << "    " << index + 1 << ":  " << tables[index].GetName()
-                          << std::endl;
+            if (outcome.IsSuccess()) {
+                const std::vector<Aws::Glue::Model::Table> &tables = outcome.GetResult().GetTableList();
+                all_tables.insert(all_tables.end(), tables.begin(), tables.end());
+                nextToken = outcome.GetResult().GetNextToken();
             }
-
-            if (!tables.empty()) {
-                int tableIndex = askQuestionForIntRange(
-                        "Enter an index to display the database detail ",
-                        1, static_cast<int>(tables.size()));
-                std::cout << tables[tableIndex - 1].Jsonize().View().WriteReadable()
+            else {
+                std::cerr << "Error getting the tables. "
+                          << outcome.GetError().GetMessage()
                           << std::endl;
+                deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
+                             clientConfig);
+                return false;
             }
-        }
-        else {
-            std::cerr << "Error getting the tables. " << outcome.GetError().GetMessage()
+        } while (!nextToken.empty());
+
+        std::cout << "The database contains " << all_tables.size()
+                  << (all_tables.size() == 1 ?
+                      " table." : "tables.") << std::endl;
+        std::cout << "Here is a list of the tables in the database.";
+        for (size_t index = 0; index < all_tables.size(); ++index) {
+            std::cout << "    " << index + 1 << ":  " << all_tables[index].GetName()
                       << std::endl;
-            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, "", bucketName,
-                         clientConfig);
-            return false;
+        }
+
+        if (!all_tables.empty()) {
+            int tableIndex = askQuestionForIntRange(
+                    "Enter an index to display the database detail ",
+                    1, static_cast<int>(all_tables.size()));
+            std::cout << all_tables[tableIndex - 1].Jsonize().View().WriteReadable()
+                      << std::endl;
+
+            tableName = all_tables[tableIndex - 1].GetName();
         }
 // snippet-end:[cpp.example_code.glue.GetTables]
     }
@@ -472,49 +481,63 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
     // 9. List the output data stored in the S3 bucket.
     {
         Aws::S3::S3Client s3Client;
-        Aws::S3::Model::ListObjectsRequest request;
+        Aws::S3::Model::ListObjectsV2Request request;
         request.SetBucket(bucketName);
         request.SetPrefix(OUTPUT_FILE_PREFIX);
 
-        Aws::S3::Model::ListObjectsOutcome outcome = s3Client.ListObjects(request);
-
-        if (outcome.IsSuccess()) {
-            const std::vector<Aws::S3::Model::Object> &objects = outcome.GetResult().GetContents();
-            std::cout << "Data from your job is in " << objects.size() <<
-                      " files in the S3 bucket, " << bucketName << "." << std::endl;
-
-            for (size_t i = 0; i < objects.size(); ++i) {
-                std::cout << "    " << i + 1 << ". " << objects[i].GetKey()
-                          << std::endl;
+        Aws::String continuationToken; // Used for pagination.
+        std::vector<Aws::S3::Model::Object> allObjects;
+        do {
+            if (!continuationToken.empty()) {
+                request.SetContinuationToken(continuationToken);
             }
+            Aws::S3::Model::ListObjectsV2Outcome outcome = s3Client.ListObjectsV2(
+                    request);
 
-            int objectIndex = askQuestionForIntRange(
-                    std::string(
-                            "Enter the number of a block to download it and see the first ") +
-                    std::to_string(LINES_OF_RUN_FILE_TO_DISPLAY) +
-                    " lines of JSON output in the block: ", 1,
-                    static_cast<int>(objects.size()));
-
-            Aws::String objectKey = objects[objectIndex - 1].GetKey();
-
-            std::stringstream stringStream;
-            if (getObjectFromBucket(bucketName, objectKey, stringStream,
-                                    clientConfig)) {
-                for (int i = 0; i < LINES_OF_RUN_FILE_TO_DISPLAY && stringStream; ++i) {
-                    std::string line;
-                    std::getline(stringStream, line);
-                    std::cout << "    " << line << std::endl;
-                }
+            if (outcome.IsSuccess()) {
+                const std::vector<Aws::S3::Model::Object> &objects =
+                        outcome.GetResult().GetContents();
+                allObjects.insert(allObjects.end(), objects.begin(), objects.end());
+                continuationToken = outcome.GetResult().GetNextContinuationToken();
             }
             else {
-                deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME, bucketName,
-                             clientConfig);
-                return false;
+                std::cerr << "Error listing objects. "
+                          << outcome.GetError().GetMessage()
+                          << std::endl;
+                break;
+            }
+        } while (!continuationToken.empty());
+
+        std::cout << "Data from your job is in " << allObjects.size() <<
+                  " files in the S3 bucket, " << bucketName << "." << std::endl;
+
+        for (size_t i = 0; i < allObjects.size(); ++i) {
+            std::cout << "    " << i + 1 << ". " << allObjects[i].GetKey()
+                      << std::endl;
+        }
+
+        int objectIndex = askQuestionForIntRange(
+                std::string(
+                        "Enter the number of a block to download it and see the first ") +
+                std::to_string(LINES_OF_RUN_FILE_TO_DISPLAY) +
+                " lines of JSON output in the block: ", 1,
+                static_cast<int>(allObjects.size()));
+
+        Aws::String objectKey = allObjects[objectIndex - 1].GetKey();
+
+        std::stringstream stringStream;
+        if (getObjectFromBucket(bucketName, objectKey, stringStream,
+                                clientConfig)) {
+            for (int i = 0; i < LINES_OF_RUN_FILE_TO_DISPLAY && stringStream; ++i) {
+                std::string line;
+                std::getline(stringStream, line);
+                std::cout << "    " << line << std::endl;
             }
         }
         else {
-            std::cerr << "Error listing objects. " << outcome.GetError().GetMessage()
-                      << std::endl;
+            deleteAssets(CRAWLER_NAME, CRAWLER_DATABASE_NAME, JOB_NAME, bucketName,
+                         clientConfig);
+            return false;
         }
     }
 
@@ -523,30 +546,41 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
     {
 // snippet-start:[cpp.example_code.glue.ListJobs]
         Aws::Glue::Model::ListJobsRequest listJobsRequest;
-        Aws::Glue::Model::ListJobsOutcome listRunsOutcome = client.ListJobs(
-                listJobsRequest);
 
-        if (listRunsOutcome.IsSuccess()) {
-            const std::vector<Aws::String> &jobNames = listRunsOutcome.GetResult().GetJobNames();
-            std::cout << "Your account has " << jobNames.size() << " jobs."
-                      << std::endl;
-            for (size_t i = 0; i < jobNames.size(); ++i) {
-                std::cout << "   " << i + 1 << ". " << jobNames[i] << std::endl;
+        Aws::String nextToken;
+        std::vector<Aws::String> allJobNames;
+
+        do {
+            if (!nextToken.empty()) {
+                listJobsRequest.SetNextToken(nextToken);
             }
-            int jobIndex = askQuestionForIntRange(
-                    Aws::String("Enter a number between 1 and ") +
-                    std::to_string(jobNames.size()) +
-                    " to see the list of runs for a job: ",
-                    1, static_cast<int>(jobNames.size()));
+            Aws::Glue::Model::ListJobsOutcome listRunsOutcome = client.ListJobs(
+                    listJobsRequest);
 
-            jobName = jobNames[jobIndex - 1];
-        }
-        else {
-            std::cerr << "Error listing jobs. "
-                      << listRunsOutcome.GetError().GetMessage()
-                      << std::endl;
-        }
+            if (listRunsOutcome.IsSuccess()) {
+                const std::vector<Aws::String> &jobNames = listRunsOutcome.GetResult().GetJobNames();
+                allJobNames.insert(allJobNames.end(), jobNames.begin(), jobNames.end());
+                nextToken = listRunsOutcome.GetResult().GetNextToken();
+            }
+            else {
+                std::cerr << "Error listing jobs. "
+                          << listRunsOutcome.GetError().GetMessage()
+                          << std::endl;
+            }
+        } while (!nextToken.empty());
 // snippet-end:[cpp.example_code.glue.ListJobs]
+        std::cout << "Your account has " << allJobNames.size() << " jobs."
+                  << std::endl;
+        for (size_t i = 0; i < allJobNames.size(); ++i) {
+            std::cout << "   " << i + 1 << ". " << allJobNames[i] << std::endl;
+        }
+        int jobIndex = askQuestionForIntRange(
+                Aws::String("Enter a number between 1 and ") +
+                std::to_string(allJobNames.size()) +
+                " to see the list of runs for a job: ",
+                1, static_cast<int>(allJobNames.size()));
+
+        jobName = allJobNames[jobIndex - 1];
     }
 
     // 11. Get the job runs for a job.
@@ -556,33 +590,45 @@ bool AwsDoc::Glue::runGettingStartedWithGlueScenario(const Aws::String &bucketNa
         Aws::Glue::Model::GetJobRunsRequest getJobRunsRequest;
         getJobRunsRequest.SetJobName(jobName);
 
-        Aws::Glue::Model::GetJobRunsOutcome jobRunsOutcome = client.GetJobRuns(
-                getJobRunsRequest);
-
-        if (jobRunsOutcome.IsSuccess()) {
-            std::vector<Aws::Glue::Model::JobRun> jobRuns = jobRunsOutcome.GetResult().GetJobRuns();
-            std::cout << "There are " << jobRuns.size() << " runs in the job '"
-                      <<
-                      jobName << "'." << std::endl;
-
-            for (size_t i = 0; i < jobRuns.size(); ++i) {
-                std::cout << "   " << i + 1 << ". " << jobRuns[i].GetJobName()
-                          << std::endl;
+        Aws::String nextToken; // Used for pagination.
+        std::vector<Aws::Glue::Model::JobRun> allJobRuns;
+        do {
+            if (!nextToken.empty()) {
+                getJobRunsRequest.SetNextToken(nextToken);
             }
+            Aws::Glue::Model::GetJobRunsOutcome jobRunsOutcome = client.GetJobRuns(
+                    getJobRunsRequest);
 
-            int runIndex = askQuestionForIntRange(
-                    Aws::String("Enter a number between 1 and ") +
-                    std::to_string(jobRuns.size()) +
-                    " to see details for a run: ",
-                    1, static_cast<int>(jobRuns.size()));
-            jobRunID = jobRuns[runIndex - 1].GetId();
-        }
-        else {
-            std::cerr << "Error getting job runs. "
-                      << jobRunsOutcome.GetError().GetMessage()
+            if (jobRunsOutcome.IsSuccess()) {
+                const std::vector<Aws::Glue::Model::JobRun> &jobRuns = jobRunsOutcome.GetResult().GetJobRuns();
+                allJobRuns.insert(allJobRuns.end(), jobRuns.begin(), jobRuns.end());
+
+                nextToken = jobRunsOutcome.GetResult().GetNextToken();
+            }
+            else {
+                std::cerr << "Error getting job runs. "
+                          << jobRunsOutcome.GetError().GetMessage()
+                          << std::endl;
+                break;
+            }
+        } while (!nextToken.empty());
+// snippet-end:[cpp.example_code.glue.GetJobRuns]
+
+        std::cout << "There are " << allJobRuns.size() << " runs in the job '"
+                  <<
+                  jobName << "'." << std::endl;
+
+        for (size_t i = 0; i < allJobRuns.size(); ++i) {
+            std::cout << "   " << i + 1 << ". " << allJobRuns[i].GetJobName()
                       << std::endl;
         }
-// snippet-end:[cpp.example_code.glue.GetJobRuns]
+
+        int runIndex = askQuestionForIntRange(
+                Aws::String("Enter a number between 1 and ") +
+                std::to_string(allJobRuns.size()) +
+                " to see details for a run: ",
+                1, static_cast<int>(allJobRuns.size()));
+        jobRunID = allJobRuns[runIndex - 1].GetId();
     }
 
     // 12. Get a single job run.
@@ -751,50 +797,64 @@ AwsDoc::Glue::uploadFile(const Aws::String &bucketName,
 bool AwsDoc::Glue::deleteAllObjectsInS3Bucket(const Aws::String &bucketName,
                                               const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
-    Aws::S3::Model::ListObjectsRequest listObjectsRequest;
+    Aws::S3::Model::ListObjectsV2Request listObjectsRequest;
     listObjectsRequest.SetBucket(bucketName);
 
+    Aws::String continuationToken; // Used for pagination.
+    bool result = true;
+    do {
+        if (!continuationToken.empty()) {
+            listObjectsRequest.SetContinuationToken(continuationToken);
+        }
 
-    Aws::S3::Model::ListObjectsOutcome listObjectsOutcome = client.ListObjects(
-            listObjectsRequest);
+        Aws::S3::Model::ListObjectsV2Outcome listObjectsOutcome = client.ListObjectsV2(
+                listObjectsRequest);
 
-    bool result = false;
-    if (listObjectsOutcome.IsSuccess()) {
-        const std::vector<Aws::S3::Model::Object> &objects = listObjectsOutcome.GetResult().GetContents();
-        if (!objects.empty()) {
-            Aws::S3::Model::DeleteObjectsRequest deleteObjectsRequest;
-            deleteObjectsRequest.SetBucket(bucketName);
+        if (listObjectsOutcome.IsSuccess()) {
+            const std::vector<Aws::S3::Model::Object> &objects = listObjectsOutcome.GetResult().GetContents();
+            if (!objects.empty()) {
+                Aws::S3::Model::DeleteObjectsRequest deleteObjectsRequest;
+                deleteObjectsRequest.SetBucket(bucketName);
 
-            std::vector<Aws::S3::Model::ObjectIdentifier> objectIdentifiers;
-            for (const Aws::S3::Model::Object &object: objects) {
-                objectIdentifiers.push_back(
-                        Aws::S3::Model::ObjectIdentifier().WithKey(object.GetKey()));
-            }
-            Aws::S3::Model::Delete objectsDelete;
-            objectsDelete.SetObjects(objectIdentifiers);
-            objectsDelete.SetQuiet(true);
-            deleteObjectsRequest.SetDelete(objectsDelete);
+                std::vector<Aws::S3::Model::ObjectIdentifier> objectIdentifiers;
+                for (const Aws::S3::Model::Object &object: objects) {
+                    objectIdentifiers.push_back(
+                            Aws::S3::Model::ObjectIdentifier().WithKey(
+                                    object.GetKey()));
+                }
+                Aws::S3::Model::Delete objectsDelete;
+                objectsDelete.SetObjects(objectIdentifiers);
+                objectsDelete.SetQuiet(true);
+                deleteObjectsRequest.SetDelete(objectsDelete);
 
-            Aws::S3::Model::DeleteObjectsOutcome deleteObjectsOutcome =
-                    client.DeleteObjects(deleteObjectsRequest);
+                Aws::S3::Model::DeleteObjectsOutcome deleteObjectsOutcome =
+                        client.DeleteObjects(deleteObjectsRequest);
 
-            if (!deleteObjectsOutcome.IsSuccess()) {
-                std::cerr << "Error deleting objects. " <<
-                          deleteObjectsOutcome.GetError().GetMessage() << std::endl;
+                if (!deleteObjectsOutcome.IsSuccess()) {
+                    std::cerr << "Error deleting objects. " <<
+                              deleteObjectsOutcome.GetError().GetMessage() << std::endl;
+                    result = false;
+                    break;
+                }
+                else {
+                    std::cout << "Successfully deleted the objects." << std::endl;
+
+                }
             }
             else {
-                std::cout << "Successfully deleted the objects." << std::endl;
-                result = true;
+                std::cout << "No objects to delete in '" << bucketName << "'."
+                          << std::endl;
             }
+
+            continuationToken = listObjectsOutcome.GetResult().GetNextContinuationToken();
         }
         else {
-            std::cout << "No objects to delete in '" << bucketName << "'." << std::endl;
+            std::cerr << "Error listing objects. "
+                      << listObjectsOutcome.GetError().GetMessage() << std::endl;
+            result = false;
+            break;
         }
-    }
-    else {
-        std::cerr << "Error listing objects. "
-                  << listObjectsOutcome.GetError().GetMessage() << std::endl;
-    }
+    } while (!continuationToken.empty());
 
     return result;
 }
@@ -841,7 +901,7 @@ bool AwsDoc::Glue::getObjectFromBucket(const Aws::String &bucketName,
  *
  * Prerequisites: An IAM role and an S3 bucket.
  *
- * To create the resources required by this example, see the "Prerequisites" section in the README.
+ * To create the resources required by this example, see the "Get started with crawlers and jobs" section in the README.
  *
  * Usage: 'run_glue_getting_started_scenario <role_name> <bucket_name'
  *

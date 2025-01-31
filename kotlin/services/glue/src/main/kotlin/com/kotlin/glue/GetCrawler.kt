@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <crawlerName>
@@ -38,10 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[glue.kotlin.get_crawler.main]
 suspend fun getSpecificCrawler(crawlerName: String?) {
-
-    val request = GetCrawlerRequest {
-        name = crawlerName
-    }
+    val request =
+        GetCrawlerRequest {
+            name = crawlerName
+        }
     GlueClient { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getCrawler(request)
         val role = response.crawler?.role

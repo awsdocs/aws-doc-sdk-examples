@@ -47,7 +47,7 @@ export const putTarget = async (
 
 // Call a function if this file was run directly. This allows the file
 // to be runnable without running on import.
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   putTarget();
 }

@@ -21,7 +21,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <clusterName> <serviceName> <securityGroups> <subnets> <taskDefinition>
@@ -54,26 +53,28 @@ suspend fun createNewService(
     serviceNameVal: String,
     securityGroupsVal: String,
     subnetsVal: String,
-    taskDefinitionVal: String
+    taskDefinitionVal: String,
 ): String? {
+    val vpcConfiguration =
+        AwsVpcConfiguration {
+            securityGroups = listOf(securityGroupsVal)
+            subnets = listOf(subnetsVal)
+        }
 
-    val vpcConfiguration = AwsVpcConfiguration {
-        securityGroups = listOf(securityGroupsVal)
-        subnets = listOf(subnetsVal)
-    }
+    val configuration =
+        NetworkConfiguration {
+            awsvpcConfiguration = vpcConfiguration
+        }
 
-    val configuration = NetworkConfiguration {
-        awsvpcConfiguration = vpcConfiguration
-    }
-
-    val request = CreateServiceRequest {
-        cluster = clusterNameVal
-        networkConfiguration = configuration
-        desiredCount = 1
-        launchType = LaunchType.Fargate
-        serviceName = serviceNameVal
-        taskDefinition = taskDefinitionVal
-    }
+    val request =
+        CreateServiceRequest {
+            cluster = clusterNameVal
+            networkConfiguration = configuration
+            desiredCount = 1
+            launchType = LaunchType.Fargate
+            serviceName = serviceNameVal
+            taskDefinition = taskDefinitionVal
+        }
 
     EcsClient { region = "us-east-1" }.use { ecsClient ->
         val response = ecsClient.createService(request)

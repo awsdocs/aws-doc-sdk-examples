@@ -1,9 +1,9 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative "../s3_get_cskms_decrypt_item"
+require_relative '../s3_get_cskms_decrypt_item'
 
-describe "#get_decrypted_object_content" do
+describe '#get_decrypted_object_content' do
   # Captures the data (metadata and body) put to an Amason S3 object.
   def stub_put(s3_client)
     data = {}
@@ -21,12 +21,8 @@ describe "#get_decrypted_object_content" do
   #   auth_tag.
   def stub_get(s3_client, data, stub_auth_tag)
     resp_headers = Hash[*data[:metadata].flat_map { |k, v| ["x-amz-meta-#{k}", v] }]
-    resp_headers["content-length"] = data[:enc_body].length
-    if stub_auth_tag
-      auth_tag = data[:enc_body].unpack("C*")[-16, 16].pack("C*")
-    else
-      auth_tag = nil
-    end
+    resp_headers['content-length'] = data[:enc_body].length
+    auth_tag = (data[:enc_body].unpack('C*')[-16, 16].pack('C*') if stub_auth_tag)
     s3_client.stub_responses(
       :get_object,
       {
@@ -44,20 +40,19 @@ describe "#get_decrypted_object_content" do
     kms_client.stub_responses(
       :decrypt, lambda do |context|
         if opts[:any_kms_key]
-          expect(context.params["key_id"]).to be_nil
+          expect(context.params['key_id']).to be_nil
         else
-          if opts[:raise] && context.params["key_id"] != opts[:response][:key_id]
-            raise Aws::KMS::Errors::IncorrectKeyException.new(context, "")
-          else
-            expect(context.params[:key_id]).to eq(opts[:response][:key_id])
-          end
+          raise Aws::KMS::Errors::IncorrectKeyException.new(context, '') if opts[:raise] && context.params['key_id'] != opts[:response][:key_id]
+
+          expect(context.params[:key_id]).to eq(opts[:response][:key_id])
+
         end
         opts[:response]
       end
     )
   end
 
-  let(:bucket_name) { "doc-example-bucket" }
+  let(:bucket_name) { "amzn-s3-demo-bucket" }
   let(:object_key) { "my-file.txt" }
   let(:object_content) { "This is the content of my-file.txt." }
   let(:kms_key_id) { "9041e78c-7a20-4db3-929e-828abEXAMPLE" }
@@ -85,7 +80,7 @@ describe "#get_decrypted_object_content" do
       stub_responses: {
         generate_data_key: {
           ciphertext_blob: kms_ciphertext_blob,
-          key_id: "arn:aws:kms:us-west-2:111111111111:key/9041e78c-7a20-4db3-929e-828abEXAMPLE",
+          key_id: 'arn:aws:kms:us-west-2:111111111111:key/9041e78c-7a20-4db3-929e-828abEXAMPLE',
           plaintext: kms_plaintext
         }
       }
@@ -102,7 +97,7 @@ describe "#get_decrypted_object_content" do
     )
   end
 
-  it "gets the decrypted content of an object in an Amazon S3 bucket" do
+  it 'gets the decrypted content of an object in an Amazon S3 bucket' do
     data = stub_put(s3_client)
     s3_encryption_client.put_object(
       bucket: bucket_name,
@@ -114,13 +109,12 @@ describe "#get_decrypted_object_content" do
       {
         key_id: kms_key_id,
         plaintext: kms_plaintext,
-        encryption_algorithm: "SYMMETRIC_DEFAULT"
-      }
-    )
+        encryption_algorithm: 'SYMMETRIC_DEFAULT'
+      })
     expect(get_decrypted_object_content(
-      s3_encryption_client,
-      bucket_name,
-      object_key
-    )).to eq(object_content)
+             s3_encryption_client,
+             bucket_name,
+             object_key
+           )).to eq(object_content)
   end
 end

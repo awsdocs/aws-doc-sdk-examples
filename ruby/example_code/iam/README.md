@@ -29,51 +29,56 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello IAM](hello/hello_iam.rb#L4) (`ListPolicies`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_users.rb)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](attach_role_policy.rb#L6) (`AttachRolePolicy`)
-- [Attach a policy to a user](attach_user_policy.rb#L39) (`AttachUserPolicy`)
-- [Create a policy](attach_role_policy.rb#L6) (`CreatePolicy`)
-- [Create a role](manage_roles.rb#L63) (`CreateRole`)
-- [Create a service-linked role](manage_roles.rb#L91) (`CreateServiceLinkedRole`)
-- [Create a user](manage_users.rb#L18) (`CreateUser`)
-- [Create an access key](manage_access_keys.rb#L6) (`CreateAccessKey`)
-- [Create an alias for an account](manage_account_aliases.rb#L6) (`CreateAccountAlias`)
-- [Create an inline policy for a user](attach_user_policy.rb#L17) (`PutUserPolicy`)
-- [Delete a role](manage_roles.rb#L111) (`DeleteRole`)
-- [Delete a server certificate](manage_server_certificates.rb#L6) (`DeleteServerCertificate`)
-- [Delete a service-linked role](manage_roles.rb#L143) (`DeleteServiceLinkedRole`)
-- [Delete a user](manage_users.rb#L134) (`DeleteUser`)
-- [Delete an access key](manage_access_keys.rb#L6) (`DeleteAccessKey`)
-- [Delete an account alias](manage_account_aliases.rb#L6) (`DeleteAccountAlias`)
-- [Delete an inline policy from a user](manage_users.rb#L134) (`DeleteUserPolicy`)
-- [Detach a policy from a role](attach_role_policy.rb#L6) (`DetachRolePolicy`)
-- [Detach a policy from a user](attach_user_policy.rb#L57) (`DetachUserPolicy`)
-- [Get a policy](attach_role_policy.rb#L34) (`GetPolicy`)
-- [Get a role](manage_roles.rb#L44) (`GetRole`)
-- [Get a user](manage_users.rb#L43) (`GetUser`)
-- [Get the account password policy](get_account_password_policy.rb#L6) (`GetAccountPasswordPolicy`)
-- [List SAML providers](list_saml_providers.rb#L7) (`ListSAMLProviders`)
-- [List a user's access keys](manage_access_keys.rb#L6) (`ListAccessKeys`)
-- [List account aliases](manage_account_aliases.rb#L6) (`ListAccountAliases`)
-- [List groups](list_groups.rb#L6) (`ListGroups`)
-- [List inline policies for a role](attach_role_policy.rb#L68) (`ListRolePolicies`)
-- [List policies](attach_role_policy.rb#L6) (`ListPolicies`)
-- [List policies attached to a role](attach_role_policy.rb#L6) (`ListAttachedRolePolicies`)
-- [List roles](manage_roles.rb#L18) (`ListRoles`)
-- [List server certificates](manage_server_certificates.rb#L6) (`ListServerCertificates`)
-- [List users](manage_users.rb#L60) (`ListUsers`)
-- [Update a server certificate](manage_server_certificates.rb#L6) (`UpdateServerCertificate`)
-- [Update a user](manage_users.rb#L78) (`UpdateUser`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Create a user and assume a role](scenario_users.rb)
+- [AttachRolePolicy](attach_role_policy.rb#L6)
+- [AttachUserPolicy](attach_user_policy.rb#L38)
+- [CreateAccessKey](manage_access_keys.rb#L6)
+- [CreateAccountAlias](manage_account_aliases.rb#L6)
+- [CreatePolicy](attach_role_policy.rb#L6)
+- [CreateRole](manage_roles.rb#L64)
+- [CreateServiceLinkedRole](manage_roles.rb#L92)
+- [CreateUser](manage_users.rb#L18)
+- [DeleteAccessKey](manage_access_keys.rb#L6)
+- [DeleteAccountAlias](manage_account_aliases.rb#L6)
+- [DeleteRole](manage_roles.rb#L113)
+- [DeleteServerCertificate](manage_server_certificates.rb#L6)
+- [DeleteServiceLinkedRole](manage_roles.rb#L143)
+- [DeleteUser](manage_users.rb#L134)
+- [DeleteUserPolicy](manage_users.rb#L134)
+- [DetachRolePolicy](attach_role_policy.rb#L6)
+- [DetachUserPolicy](attach_user_policy.rb#L56)
+- [GetAccountPasswordPolicy](get_account_password_policy.rb#L6)
+- [GetPolicy](attach_role_policy.rb#L34)
+- [GetRole](manage_roles.rb#L45)
+- [GetUser](manage_users.rb#L43)
+- [ListAccessKeys](manage_access_keys.rb#L6)
+- [ListAccountAliases](manage_account_aliases.rb#L6)
+- [ListAttachedRolePolicies](attach_role_policy.rb#L6)
+- [ListGroups](list_groups.rb#L6)
+- [ListPolicies](attach_role_policy.rb#L6)
+- [ListRolePolicies](attach_role_policy.rb#L68)
+- [ListRoles](manage_roles.rb#L18)
+- [ListSAMLProviders](list_saml_providers.rb#L7)
+- [ListServerCertificates](manage_server_certificates.rb#L6)
+- [ListUsers](manage_users.rb#L60)
+- [PutUserPolicy](attach_user_policy.rb#L17)
+- [UpdateServerCertificate](manage_server_certificates.rb#L6)
+- [UpdateUser](manage_users.rb#L78)
 
 
 <!--custom.examples.start-->
@@ -88,9 +93,15 @@ functions within the same service.
 The quickest way to interact with this example code is to invoke a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
 <!--custom.instructions.end-->
 
+#### Hello IAM
 
+This example shows you how to get started using IAM.
 
-#### Create a user and assume a role
+```
+ruby hello/hello_iam.rb
+```
+
+#### Learn the basics
 
 This example shows you how to create a user and assume a role. 
 
@@ -99,8 +110,8 @@ This example shows you how to create a user and assume a role.
 - Add a policy to let the user assume the role.
 - Assume the role and list S3 buckets using temporary credentials, then clean up resources.
 
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -108,8 +119,9 @@ Start the example by running the following at a command prompt:
 ruby scenario_users.rb
 ```
 
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
+
 
 ### Tests
 

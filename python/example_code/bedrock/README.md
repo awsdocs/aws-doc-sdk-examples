@@ -35,12 +35,17 @@ python -m pip install -r requirements.txt
 > ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon Bedrock](hello_bedrock.py#L5) (`ListFoundationModels`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Get details about an Amazon Bedrock foundation model](bedrock_wrapper.py#L33) (`GetFoundationModel`)
-- [List available Amazon Bedrock foundation models](bedrock_wrapper.py#L53) (`ListFoundationModels`)
+- [GetFoundationModel](bedrock_wrapper.py#L33)
+- [ListFoundationModels](bedrock_wrapper.py#L53)
 
 
 <!--custom.examples.start-->
@@ -65,6 +70,13 @@ python bedrock_wrapper.py
 ```
 <!--custom.instructions.end-->
 
+#### Hello Amazon Bedrock
+
+This example shows you how to get started using Amazon Bedrock.
+
+```
+python hello_bedrock.py
+```
 
 
 ### Tests

@@ -20,8 +20,7 @@ use Aws\MediaConvert\MediaConvertClient;
 $mediaConvertClient = new MediaConvertClient([
     'version' => '2017-08-29',
     'region' => 'us-east-1',
-    'profile' => 'default',
-    'endpoint' => 'https://lxEXAMPLE.mediaconvert.us-east-1.amazonaws.com'
+    'profile' => 'default'
 ]);
 
 $settingsJSON = '{

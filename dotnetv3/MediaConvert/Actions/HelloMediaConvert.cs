@@ -14,18 +14,21 @@ public static class HelloMediaConvert
         // Create the client using the default profile.
         var mediaConvertClient = new AmazonMediaConvertClient();
 
-        Console.WriteLine($"Hello AWS Elemental MediaConvert! Your MediaConvert Endpoints are:");
+        Console.WriteLine($"Hello AWS Elemental MediaConvert! Your MediaConvert Jobs are:");
         Console.WriteLine();
 
         // You can use await and any of the async methods to get a response.
-        // Let's get the MediaConvert endpoints.
-        var response = await mediaConvertClient.DescribeEndpointsAsync(
-            new DescribeEndpointsRequest()
+        // Let's get some MediaConvert jobs.
+        var response = await mediaConvertClient.ListJobsAsync(
+            new ListJobsRequest()
+            {
+                MaxResults = 10
+            }
             );
 
-        foreach (var endPoint in response.Endpoints)
+        foreach (var job in response.Jobs)
         {
-            Console.WriteLine($"\tEndPoint: {endPoint.Url}");
+            Console.WriteLine($"\tJob: {job.Id} status {job.Status}");
             Console.WriteLine();
         }
     }

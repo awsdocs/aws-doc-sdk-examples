@@ -21,7 +21,6 @@ suspend fun main() {
 
 // snippet-start:[sagemaker.kotlin.list_books.main]
 suspend fun listBooks() {
-
     SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
         val response = sageMakerClient.listNotebookInstances(ListNotebookInstancesRequest {})
         response.notebookInstances?.forEach { item ->

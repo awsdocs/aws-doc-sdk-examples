@@ -38,18 +38,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Change message timeout visibility](actions/change-message-visibility.js#L5) (`ChangeMessageVisibility`)
-- [Configure a dead-letter queue](actions/set-attributes-dead-letter.js#L6) (`SetQueueAttributes`)
-- [Create a queue](actions/create-queue.js#L9) (`CreateQueue`)
-- [Delete a batch of messages from a queue](actions/receive-delete-message.js#L6) (`DeleteMessageBatch`)
-- [Delete a message from a queue](actions/receive-delete-message.js#L6) (`DeleteMessage`)
-- [Delete a queue](actions/delete-queue.js#L6) (`DeleteQueue`)
-- [Get attributes for a queue](actions/get-queue-attributes.js#L6) (`GetQueueAttributes`)
-- [Get the URL of a queue](actions/get-queue-url.js#L6) (`GetQueueUrl`)
-- [List queues](actions/list-queues.js#L6) (`ListQueues`)
-- [Receive messages from a queue](actions/receive-delete-message.js#L6) (`ReceiveMessage`)
-- [Send a message to a queue](actions/send-message.js#L6) (`SendMessage`)
-- [Set queue attributes](actions/set-queue-attributes.js#L6) (`SetQueueAttributes`)
+- [ChangeMessageVisibility](actions/change-message-visibility.js#L5)
+- [CreateQueue](actions/create-queue.js#L9)
+- [DeleteMessage](actions/receive-delete-message.js#L6)
+- [DeleteMessageBatch](actions/receive-delete-message.js#L6)
+- [DeleteQueue](actions/delete-queue.js#L6)
+- [GetQueueAttributes](actions/get-queue-attributes.js#L6)
+- [GetQueueUrl](actions/get-queue-url.js#L6)
+- [ListQueues](actions/list-queues.js#L6)
+- [ReceiveMessage](actions/receive-delete-message.js#L6)
+- [SendMessage](actions/send-message.js#L6)
+- [SetQueueAttributes](actions/set-queue-attributes.js#L6)
 
 ### Scenarios
 
@@ -76,10 +75,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

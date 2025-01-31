@@ -7,6 +7,11 @@ import PackageDescription
 
 let package = Package(
     name: "SwiftUtilities",
+    // Let Xcode know the minimum Apple platforms supported.
+    platforms: [
+        .macOS(.v11),
+        .iOS(.v13)
+    ],
     products: [
         // Products define the executables and libraries a package produces.
         // They also make their own executables and libraries visible to other
@@ -30,9 +35,6 @@ let package = Package(
             name: "SwiftUtilities",
             dependencies: [
                 "Fakery"
-            ],
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         ),
         .testTarget(
@@ -40,9 +42,6 @@ let package = Package(
             dependencies: [
                 "SwiftUtilities",
                 "Fakery"
-            ],
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         ),
     ]

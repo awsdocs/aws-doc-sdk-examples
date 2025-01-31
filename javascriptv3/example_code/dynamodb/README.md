@@ -34,39 +34,39 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 - [Hello DynamoDB](hello.js#L6) (`ListTables`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/basic.js)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](actions/create-table.js#L6) (`CreateTable`)
-- [Delete a table](actions/delete-table.js#L6) (`DeleteTable`)
-- [Delete an item from a table](actions/document-client/delete.js#L6) (`DeleteItem`)
-- [Get a batch of items](actions/document-client/batch-get.js#L6) (`BatchGetItem`)
-- [Get an item from a table](actions/document-client/get.js#L6) (`GetItem`)
-- [Get information about a table](actions/describe-table.js#L6) (`DescribeTable`)
-- [List tables](actions/list-tables.js#L6) (`ListTables`)
-- [Put an item in a table](actions/document-client/put.js#L6) (`PutItem`)
-- [Query a table](actions/document-client/query.js#L6) (`Query`)
-- [Run a PartiQL statement](actions/partiql/partiql-put.js#L6) (`ExecuteStatement`)
-- [Run batches of PartiQL statements](actions/partiql/partiql-batch-put.js#L6) (`BatchExecuteStatement`)
-- [Scan a table](actions/document-client/scan.js#L6) (`Scan`)
-- [Update an item in a table](actions/document-client/update.js#L6) (`UpdateItem`)
-- [Write a batch of items](actions/document-client/batch-write.js#L6) (`BatchWriteItem`)
+- [BatchExecuteStatement](actions/partiql/partiql-batch-put.js#L6)
+- [BatchGetItem](actions/document-client/batch-get.js#L6)
+- [BatchWriteItem](actions/document-client/batch-write.js#L6)
+- [CreateTable](actions/create-table.js#L6)
+- [DeleteItem](actions/document-client/delete.js#L6)
+- [DeleteTable](actions/delete-table.js#L6)
+- [DescribeTable](actions/describe-table.js#L6)
+- [ExecuteStatement](actions/partiql/partiql-put.js#L6)
+- [GetItem](actions/document-client/get.js#L6)
+- [ListTables](actions/list-tables.js#L6)
+- [PutItem](actions/document-client/put.js#L6)
+- [Query](actions/document-client/query.js#L6)
+- [Scan](actions/document-client/scan.js#L6)
+- [UpdateItem](actions/document-client/update.js#L6)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with tables, items, and queries](scenarios/basic.js)
 - [Query a table by using batches of PartiQL statements](scenarios/partiql-batch.js)
 - [Query a table using PartiQL](scenarios/partiql-single.js)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Use Step Functions to invoke Lambda functions](../../example_code/cross-services/lambda-step-functions)
 
 
 <!--custom.examples.start-->
@@ -86,10 +86,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
@@ -102,8 +113,7 @@ This example shows you how to get started using DynamoDB.
 node ./hello.js
 ```
 
-
-#### Get started with tables, items, and queries
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -114,12 +124,13 @@ This example shows you how to do the following:
 - Scan for movies that were released in a range of years.
 - Delete a movie from the table, then delete the table.
 
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
 
 
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.end-->
+
 
 #### Query a table by using batches of PartiQL statements
 

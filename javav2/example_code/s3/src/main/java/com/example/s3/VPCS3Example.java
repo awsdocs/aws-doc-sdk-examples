@@ -55,6 +55,12 @@ public class VPCS3Example {
         s3.close();
     }
 
+    /**
+     * Lists the objects in an Amazon S3 bucket.
+     *
+     * @param s3 an instance of the S3Client class, which is used to interact with the Amazon S3 service
+     * @param bucketName the name of the S3 bucket to list the objects for
+     */
     public static void listBucketObjects(S3Client s3, String bucketName) {
         try {
             ListObjectsRequest listObjects = ListObjectsRequest.builder()

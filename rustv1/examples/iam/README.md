@@ -34,41 +34,41 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 - [Hello IAM](src/bin/hello.rs#L3) (`ListPolicies`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/bin/iam-getting-started.rs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](src/iam-service-lib.rs#L221) (`AttachRolePolicy`)
-- [Attach a policy to a user](src/iam-service-lib.rs#L236) (`AttachUserPolicy`)
-- [Create a policy](src/iam-service-lib.rs#L18) (`CreatePolicy`)
-- [Create a role](src/iam-service-lib.rs#L65) (`CreateRole`)
-- [Create a service-linked role](src/iam-service-lib.rs#L417) (`CreateServiceLinkedRole`)
-- [Create a user](src/iam-service-lib.rs#L87) (`CreateUser`)
-- [Create an access key](src/iam-service-lib.rs#L270) (`CreateAccessKey`)
-- [Delete a policy](src/iam-service-lib.rs#L338) (`DeletePolicy`)
-- [Delete a role](src/iam-service-lib.rs#L160) (`DeleteRole`)
-- [Delete a service-linked role](src/iam-service-lib.rs#L176) (`DeleteServiceLinkedRole`)
-- [Delete a user](src/iam-service-lib.rs#L191) (`DeleteUser`)
-- [Delete an access key](src/iam-service-lib.rs#L294) (`DeleteAccessKey`)
-- [Delete an inline policy from a user](src/iam-service-lib.rs#L349) (`DeleteUserPolicy`)
-- [Detach a policy from a role](src/iam-service-lib.rs#L321) (`DetachRolePolicy`)
-- [Detach a policy from a user](src/iam-service-lib.rs#L253) (`DetachUserPolicy`)
-- [Get a role](src/iam-service-lib.rs#L113) (`GetRole`)
-- [Get the account password policy](src/iam-service-lib.rs#L436) (`GetAccountPasswordPolicy`)
-- [List SAML providers](src/iam-service-lib.rs#L486) (`ListSAMLProviders`)
-- [List groups](src/iam-service-lib.rs#L398) (`ListGroups`)
-- [List inline policies for a role](src/iam-service-lib.rs#L467) (`ListRolePolicies`)
-- [List policies](src/iam-service-lib.rs#L366) (`ListPolicies`)
-- [List policies attached to a role](src/iam-service-lib.rs#L446) (`ListAttachedRolePolicies`)
-- [List roles](src/iam-service-lib.rs#L95) (`ListRoles`)
-- [List users](src/iam-service-lib.rs#L123) (`ListUsers`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Create a user and assume a role](src/bin/iam-getting-started.rs)
+- [AttachRolePolicy](src/iam-service-lib.rs#L190)
+- [AttachUserPolicy](src/iam-service-lib.rs#L205)
+- [CreateAccessKey](src/iam-service-lib.rs#L239)
+- [CreatePolicy](src/iam-service-lib.rs#L18)
+- [CreateRole](src/iam-service-lib.rs#L34)
+- [CreateServiceLinkedRole](src/iam-service-lib.rs#L386)
+- [CreateUser](src/iam-service-lib.rs#L56)
+- [DeleteAccessKey](src/iam-service-lib.rs#L263)
+- [DeletePolicy](src/iam-service-lib.rs#L307)
+- [DeleteRole](src/iam-service-lib.rs#L129)
+- [DeleteServiceLinkedRole](src/iam-service-lib.rs#L145)
+- [DeleteUser](src/iam-service-lib.rs#L160)
+- [DeleteUserPolicy](src/iam-service-lib.rs#L318)
+- [DetachRolePolicy](src/iam-service-lib.rs#L290)
+- [DetachUserPolicy](src/iam-service-lib.rs#L222)
+- [GetAccountPasswordPolicy](src/iam-service-lib.rs#L405)
+- [GetRole](src/iam-service-lib.rs#L82)
+- [ListAttachedRolePolicies](src/iam-service-lib.rs#L415)
+- [ListGroups](src/iam-service-lib.rs#L367)
+- [ListPolicies](src/iam-service-lib.rs#L335)
+- [ListRolePolicies](src/iam-service-lib.rs#L436)
+- [ListRoles](src/iam-service-lib.rs#L64)
+- [ListSAMLProviders](src/iam-service-lib.rs#L455)
+- [ListUsers](src/iam-service-lib.rs#L92)
 
 
 <!--custom.examples.start-->
@@ -87,8 +87,7 @@ functions within the same service.
 This example shows you how to get started using IAM.
 
 
-
-#### Create a user and assume a role
+#### Learn the basics
 
 This example shows you how to create a user and assume a role. 
 
@@ -97,12 +96,13 @@ This example shows you how to create a user and assume a role.
 - Add a policy to let the user assume the role.
 - Assume the role and list S3 buckets using temporary credentials, then clean up resources.
 
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
 
 
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
+
 
 ### Tests
 

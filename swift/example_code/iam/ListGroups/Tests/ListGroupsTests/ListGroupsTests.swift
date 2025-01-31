@@ -1,10 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import XCTest
-import Foundation
-import AWSIAM
 import AWSClientRuntime
+import AWSIAM
 import ClientRuntime
+import Foundation
 import SwiftUtilities
 
 @testable import ServiceHandler
@@ -21,7 +20,6 @@ final class ListGroupsTests: XCTestCase {
     ///
     /// This function sets up the following:
     ///
-    ///     Configures the AWS SDK log system to only log errors.
     ///     Initializes the service handler, which is used to call
     ///     Amazon Identity and Access Management (IAM) functions.
     ///     Initializes the demo cleanup handler, which is used to
@@ -30,10 +28,9 @@ final class ListGroupsTests: XCTestCase {
     override class func setUp() {
         let tdSem = TestWaiter(name: "Setup")
         super.setUp()
-        SDKLoggingSystem.initialize(logLevel: .error)
 
-        Task() {
-            ListGroupsTests.serviceHandler = await ServiceHandler()
+        Task {
+            ListGroupsTests.serviceHandler = try await ServiceHandler()
             tdSem.signal()
         }
         tdSem.wait()
@@ -44,7 +41,7 @@ final class ListGroupsTests: XCTestCase {
     override func tearDown() async throws {
         let tdSem = TestWaiter(name: "Teardown")
 
-        Task() {
+        Task {
             tdSem.signal()
         }
         tdSem.wait()
@@ -57,7 +54,7 @@ final class ListGroupsTests: XCTestCase {
 
             let previousGroups = try await ListGroupsTests.serviceHandler!.listGroups()
 
-            for _ in 1...5 {
+            for _ in 1 ... 5 {
                 let newName = String.uniqueName()
                 _ = try await ListGroupsTests.serviceHandler!.createGroup(name: newName)
                 createdGroups.append(newName)

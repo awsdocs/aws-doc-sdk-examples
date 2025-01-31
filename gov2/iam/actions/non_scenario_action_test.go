@@ -6,6 +6,7 @@
 package actions
 
 import (
+	"context"
 	"errors"
 	"log"
 	"testing"
@@ -26,7 +27,7 @@ const linkService = "batch.amazonaws.com"
 // CallNonScenarioActions calls the actions not used in scenarios to verify that they
 // run as expected. This script can be run as a unit test using stubs so that AWS
 // is not called, or as an integration test to verify it works when calling live AWS services.
-func CallNonScenarioActions(sdkConfig aws.Config, ) {
+func CallNonScenarioActions(ctx context.Context, sdkConfig aws.Config) {
 	defer func() {
 		if r := recover(); r != nil {
 			log.Println(r)
@@ -37,10 +38,10 @@ func CallNonScenarioActions(sdkConfig aws.Config, ) {
 	accountWrapper := AccountWrapper{IamClient: iamClient}
 	groupWrapper := GroupWrapper{IamClient: iamClient}
 	policyWrapper := PolicyWrapper{IamClient: iamClient}
-	roleWrapper:= RoleWrapper{IamClient: iamClient}
-	userWrapper:= UserWrapper{IamClient: iamClient}
+	roleWrapper := RoleWrapper{IamClient: iamClient}
+	userWrapper := UserWrapper{IamClient: iamClient}
 
-	pwPolicy, err := accountWrapper.GetAccountPasswordPolicy()
+	pwPolicy, err := accountWrapper.GetAccountPasswordPolicy(ctx)
 	if err != nil {
 		var apiError smithy.APIError
 		if errors.As(err, &apiError) {
@@ -55,53 +56,73 @@ func CallNonScenarioActions(sdkConfig aws.Config, ) {
 		log.Printf("Policy min length: %v\n", pwPolicy.MinimumPasswordLength)
 	}
 
-	providers, err := accountWrapper.ListSAMLProviders()
-	if err != nil {panic(err)}
+	providers, err := accountWrapper.ListSAMLProviders(ctx)
+	if err != nil {
+		panic(err)
+	}
 	for _, prov := range providers {
 		log.Println(*prov.Arn)
 	}
 
-	groups, err := groupWrapper.ListGroups(maxThings)
-	if err != nil {panic(err)}
+	groups, err := groupWrapper.ListGroups(ctx, maxThings)
+	if err != nil {
+		panic(err)
+	}
 	for _, group := range groups {
 		log.Println(*group.GroupName)
 	}
 
-	policies, err := policyWrapper.ListPolicies(maxThings)
-	if err != nil {panic(err)}
+	policies, err := policyWrapper.ListPolicies(ctx, maxThings)
+	if err != nil {
+		panic(err)
+	}
 	for _, pol := range policies {
 		log.Println(*pol.PolicyName)
 	}
 
-	policy, err := policyWrapper.GetPolicy(policyArn)
-	if err != nil {panic(err)}
+	policy, err := policyWrapper.GetPolicy(ctx, policyArn)
+	if err != nil {
+		panic(err)
+	}
 	log.Println(*policy.Arn)
 
-	roles, err := roleWrapper.ListRoles(maxThings)
-	if err != nil {panic(err)}
+	roles, err := roleWrapper.ListRoles(ctx, maxThings)
+	if err != nil {
+		panic(err)
+	}
 	for _, r := range roles {
 		log.Println(*r.RoleName)
 	}
 
-	role, err := roleWrapper.GetRole(roleName)
-	if err != nil {panic(err)}
+	role, err := roleWrapper.GetRole(ctx, roleName)
+	if err != nil {
+		panic(err)
+	}
 	log.Println(*role.RoleName)
 
-	svcRole, err := roleWrapper.CreateServiceLinkedRole("batch.amazonaws.com", "test")
-	if err != nil {panic(err)}
+	svcRole, err := roleWrapper.CreateServiceLinkedRole(ctx, "batch.amazonaws.com", "test")
+	if err != nil {
+		panic(err)
+	}
 	log.Println(*svcRole.RoleName)
 
-	err = roleWrapper.DeleteServiceLinkedRole(*svcRole.RoleName)
-	if err != nil {panic(err)}
+	err = roleWrapper.DeleteServiceLinkedRole(ctx, *svcRole.RoleName)
+	if err != nil {
+		panic(err)
+	}
 
-	rPols, err := roleWrapper.ListRolePolicies(roleName)
-	if err != nil {panic(err)}
+	rPols, err := roleWrapper.ListRolePolicies(ctx, roleName)
+	if err != nil {
+		panic(err)
+	}
 	for _, rPol := range rPols {
 		log.Println(rPol)
 	}
 
-	users, err := userWrapper.ListUsers(maxThings)
-	if err != nil {panic(err)}
+	users, err := userWrapper.ListUsers(ctx, maxThings)
+	if err != nil {
+		panic(err)
+	}
 	for _, user := range users {
 		log.Println(user.UserName)
 	}
@@ -118,7 +139,7 @@ func TestCallNonScenarioActions(t *testing.T) {
 }
 
 // NonScenarioActionsTest encapsulates data for a scenario test.
-type NonScenarioActionsTest struct {}
+type NonScenarioActionsTest struct{}
 
 // SetupDataAndStubs sets up test data and builds the stubs that are used to return
 // mocked data.
@@ -142,7 +163,7 @@ func (scenTest *NonScenarioActionsTest) SetupDataAndStubs() []testtools.Stub {
 // RunSubTest performs a single test run with a set of stubs set up to run with
 // or without errors.
 func (scenTest *NonScenarioActionsTest) RunSubTest(stubber *testtools.AwsmStubber) {
-	CallNonScenarioActions(*stubber.SdkConfig)
+	CallNonScenarioActions(context.Background(), *stubber.SdkConfig)
 }
 
 func (scenTest *NonScenarioActionsTest) Cleanup() {}

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[javascript.v3.support.scenarios.Hello]
 import {
@@ -21,9 +21,8 @@ const getServiceCount = async () => {
       throw new Error(
         "You must be subscribed to the AWS Support plan to use this feature.",
       );
-    } else {
-      throw err;
     }
+    throw err;
   }
 };
 

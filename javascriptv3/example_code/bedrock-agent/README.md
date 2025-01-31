@@ -1,13 +1,13 @@
-# Agents for Amazon Bedrock code examples for the SDK for JavaScript (v3)
+# Amazon Bedrock Agents code examples for the SDK for JavaScript (v3)
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v3) to work with Agents for Amazon Bedrock.
+Shows how to use the AWS SDK for JavaScript (v3) to work with Amazon Bedrock Agents.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Agents for Amazon Bedrock offer you the ability to build and configure autonomous agents in your application._
+_Amazon Bedrock Agents offer you the ability to build and configure autonomous agents in your application._
 
 ## ⚠ Important
 
@@ -27,25 +27,22 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 
 <!--custom.prerequisites.start-->
-
-> ⚠ You must request access to a foundation model before you can use it. If you try to use the foundation model before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
-
 <!--custom.prerequisites.end-->
 
 ### Get started
 
-- [Hello Agents for Amazon Bedrock](hello.js) (`ListAgents`)
+- [Hello Amazon Bedrock Agents](hello.js) (`GetAgent`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create an agent](actions/create-agent.js) (`CreateAgent`)
-- [Delete an agent](actions/delete-agent.js) (`DeleteAgent`)
-- [Get information about an agent](actions/get-agent.js) (`GetAgent`)
-- [List the action groups for an agent](actions/list-agent-action-groups.js) (`ListAgentActionGroups`)
-- [List the available agents](actions/list-agents.js) (`ListAgents`)
+- [CreateAgent](actions/create-agent.js)
+- [DeleteAgent](actions/delete-agent.js)
+- [GetAgent](actions/get-agent.js)
+- [ListAgentActionGroups](actions/list-agent-action-groups.js)
+- [ListAgents](actions/list-agents.js)
 
 
 <!--custom.examples.start-->
@@ -65,17 +62,28 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
 
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
+
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Agents for Amazon Bedrock
+#### Hello Amazon Bedrock Agents
 
-This example shows you how to get started using Agents for Amazon Bedrock.
+This example shows you how to get started using Amazon Bedrock Agents.
 
 ```bash
 node ./hello.js
@@ -97,9 +105,9 @@ in the `javascriptv3` folder.
 
 ## Additional resources
 
-- [Agents for Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
-- [Agents for Amazon Bedrock API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock.html)
-- [SDK for JavaScript (v3) Agents for Amazon Bedrock reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/bedrock-agent)
+- [Amazon Bedrock Agents User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
+- [Amazon Bedrock Agents API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock.html)
+- [SDK for JavaScript (v3) Amazon Bedrock Agents reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/bedrock-agent)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

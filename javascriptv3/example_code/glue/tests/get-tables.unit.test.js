@@ -6,7 +6,7 @@ import { describe, it, expect, vi } from "vitest";
 import { makeGetTablesStep } from "../scenarios/basic/steps/get-tables.js";
 
 describe("get-tables", () => {
-  const getTables = vi.fn(async () => ({ TableList: [] }));
+  const getTables = vi.fn(() => Promise.resolve({ TableList: [] }));
   const actions = { getTables };
   const step = makeGetTablesStep(actions);
 

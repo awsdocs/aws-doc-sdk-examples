@@ -34,31 +34,36 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello AWS Glue](hello/hello_glue.py#L4) (`ListJobs`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](glue_wrapper.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](glue_wrapper.py#L57) (`CreateCrawler`)
-- [Create a job definition](glue_wrapper.py#L159) (`CreateJob`)
-- [Delete a crawler](glue_wrapper.py#L367) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](glue_wrapper.py#L347) (`DeleteDatabase`)
-- [Delete a job definition](glue_wrapper.py#L305) (`DeleteJob`)
-- [Delete a table from a database](glue_wrapper.py#L326) (`DeleteTable`)
-- [Get a crawler](glue_wrapper.py#L30) (`GetCrawler`)
-- [Get a database from the Data Catalog](glue_wrapper.py#L113) (`GetDatabase`)
-- [Get a job run](glue_wrapper.py#L280) (`GetJobRun`)
-- [Get runs of a job](glue_wrapper.py#L256) (`GetJobRuns`)
-- [Get tables from a database](glue_wrapper.py#L136) (`GetTables`)
-- [List job definitions](glue_wrapper.py#L235) (`ListJobs`)
-- [Start a crawler](glue_wrapper.py#L92) (`StartCrawler`)
-- [Start a job run](glue_wrapper.py#L196) (`StartJobRun`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with crawlers and jobs](glue_wrapper.py)
+- [CreateCrawler](glue_wrapper.py#L57)
+- [CreateJob](glue_wrapper.py#L159)
+- [DeleteCrawler](glue_wrapper.py#L367)
+- [DeleteDatabase](glue_wrapper.py#L347)
+- [DeleteJob](glue_wrapper.py#L305)
+- [DeleteTable](glue_wrapper.py#L326)
+- [GetCrawler](glue_wrapper.py#L30)
+- [GetDatabase](glue_wrapper.py#L113)
+- [GetJobRun](glue_wrapper.py#L280)
+- [GetJobRuns](glue_wrapper.py#L256)
+- [GetTables](glue_wrapper.py#L136)
+- [ListJobs](glue_wrapper.py#L235)
+- [StartCrawler](glue_wrapper.py#L92)
+- [StartJobRun](glue_wrapper.py#L196)
 
 
 <!--custom.examples.start-->
@@ -72,9 +77,15 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello AWS Glue
 
+This example shows you how to get started using AWS Glue.
 
-#### Get started with crawlers and jobs
+```
+python hello/hello_glue.py
+```
+
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -83,7 +94,7 @@ This example shows you how to do the following:
 - Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another S3 bucket.
 - List information about job runs, view transformed data, and clean up resources.
 
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
 This example requires the following scaffold resources that are defined in the
 accompanying AWS CloudFormation script `setup_scenario_getting_started.yaml`.
 
@@ -110,7 +121,7 @@ Outputs:
 If you prefer, you can deploy and destroy scaffold resources by using the AWS Cloud
 Development Kit (AWS CDK). To do this, run `cdk deploy` or `cdk destroy` in the
 [/resources/cdk/glue_role_bucket](/resources/cdk/glue_role_bucket) folder.
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -119,13 +130,14 @@ python glue_wrapper.py
 ```
 
 
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.start-->
 After the example is done, destroy scaffold resources at a command prompt.
 
 ```
 python scaffold.py destroy
 ```
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.end-->
+
 
 ### Tests
 

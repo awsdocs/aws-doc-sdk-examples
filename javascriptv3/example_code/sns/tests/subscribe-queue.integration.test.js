@@ -20,7 +20,10 @@ import {
 import { subscribeQueueFiltered } from "../actions/subscribe-queue-filtered.js";
 
 describe("subscribeQueue", () => {
-  let topicArn, queueArn, queueUrl, subscriptionArn;
+  let topicArn;
+  let queueArn;
+  let queueUrl;
+  let subscriptionArn;
   const sqsClient = new SQSClient({});
   const affix = Math.floor(Math.random() * 1000000);
 
@@ -78,7 +81,10 @@ describe("subscribeQueue", () => {
 });
 
 describe("subscribeQueueFiltered", () => {
-  let topicArn, queueArn, queueUrl, subscriptionArn;
+  let topicArn;
+  let queueArn;
+  let queueUrl;
+  let subscriptionArn;
   const sqsClient = new SQSClient({});
   const affix = Math.floor(Math.random() * 1000000);
 

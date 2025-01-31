@@ -34,9 +34,9 @@ public extension ServiceHandler {
             guard let policy = output.policy else {
                 throw ServiceHandlerError.noSuchPolicy
             }
-            guard   let policyName = policy.policyName,
-                    let policyID = policy.policyId,
-                    let policyARN = policy.arn else {
+            guard   let _ = policy.policyName,
+                    let _ = policy.policyId,
+                    let _ = policy.arn else {
                 throw ServiceHandlerError.noSuchPolicy
             }
             return policy

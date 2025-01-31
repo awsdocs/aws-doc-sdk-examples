@@ -21,10 +21,10 @@ suspend fun main() {
 
 // snippet-start:[sts.kotlin.get_session_token.main]
 suspend fun getToken() {
-
-    val request = GetSessionTokenRequest {
-        durationSeconds = 1500
-    }
+    val request =
+        GetSessionTokenRequest {
+            durationSeconds = 1500
+        }
 
     StsClient { region = "us-east-1" }.use { stsClient ->
         val tokenResponse = stsClient.getSessionToken(request)

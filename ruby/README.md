@@ -1,6 +1,6 @@
 # AWS SDK for Ruby Version 3 code examples
 ## Overview
-The code examples in this topic show you how to use the AWS SDK for Ruby Version 3 with AWS. 
+The code examples in this topic show you how to use the AWS SDK for Ruby Version 3. 
 
 The AWS SDK for Ruby Version 3 provides a Ruby API for AWS infrastructure services. Using the SDK, you can build applications on top of Amazon S3, Amazon EC2, Amazon DynamoDB, and more.
 
@@ -53,6 +53,27 @@ bundle install
 ```
 
 To use a different Ruby version, modify or remove `ruby "3.1.2"` from the [Gemfile](Gemfile).
+
+## Linting
+We rely on [rubocop](https://docs.rubocop.org/rubocop/1.63/index.html) to keep this code consistently formatted and styled.
+To contribute Ruby code to this project, please refer to the following installation and usage steps.
+
+### Using Rubocop
+We run Rubocop using [a custom configuration file](.github/linters/.ruby-lint.yml) against any changed file or directory. See the [Ruby Github Action workflow](../.github/workflows/ruby.yml) for details.
+
+To invoke Rubocop yourself, first install it with `gem install rubocop`. 
+
+Next, run:
+
+```bash
+rubocop --config .github/linters/.ruby-lint.yml path/to/ruby/file_or_directory
+```
+
+To lint all Ruby files in the current directory and its subdirectories, run:
+
+```bash
+rubocop --config .github/linters/.ruby-lint.yml .
+```
 
 ## Tests
 **Note**: Running the tests might result in charges to your AWS account.

@@ -47,7 +47,7 @@ The application uses the following services:
 - Amazon Cognito
 - Amazon API Gateway
 
-### [Amazon Aurora work item tracker web application](AuroraItemTracker/Readme.md)
+### [Amazon Aurora work item tracker web application](AuroraItemTracker/README.md)
 
 Shows how to create a web application that tracks work items in an Amazon Aurora database
 and emails reports by using Amazon Simple Email Service (Amazon SES).
@@ -58,7 +58,7 @@ The application uses the following services:
 - Amazon Relational Database Service (Amazon RDS)
 - Amazon Simple Email Service (Amazon SES)
 
-### [Subscribe, publish, and translate example](SubscribePublishTranslate/Readme.md).
+### [Subscribe, publish, and translate example](SubscribePublishTranslate/README.md).
 
 Create an ASP .NET application that allows users to subscribe to an Amazon Simple Notification Service (Amazon SNS)
 queue and to publish messages with optional translation to French or Spanish.
@@ -68,7 +68,7 @@ The application uses the following services:
   - Amazon SNS
   - Amazon Translate
 
-### [Amazon DynamoDB work item tracker web application](DynamodbWebApp/Readme.md)
+### [Amazon DynamoDB work item tracker web application](DynamoDbItemTracker/README.md)
 
 Shows how to create a web application that tracks work items in DynamoDB and emails 
 reports by using Amazon SES.
@@ -79,7 +79,7 @@ The application uses the following services:
 - Amazon SES
 - AWS Identity and Access Management (IAM)
 
-### [Amazon Rekognition photo analyzer application](PhotoAnalyzerApp/Readme.md)
+### [Amazon Rekognition photo analyzer application](PhotoAnalyzerApp/README.md)
 
 Shows how to create a web application that analyzes photos uploaded to an Amazon Simple Storage Service (Amazon S3) bucket, using Amazon Rekognition to label the photos, and Amazon SES to send email reports of the image analysis.
 
@@ -88,6 +88,14 @@ The application uses the following services:
 - Amazon Rekognition
 - Amazon S3
 - Amazon SES
+
+### [AWS Message Processing Framework for .NET applications](MessageProcessingFramework/README.md)
+
+Provides a tutorial for the AWS Message Processing Framework for .NET. The tutorial creates a web application that allows the user to publish an Amazon SQS message and a command-line application that receives the message.
+
+The application uses the following services:
+
+- Amazon SQS
 
 ---
 

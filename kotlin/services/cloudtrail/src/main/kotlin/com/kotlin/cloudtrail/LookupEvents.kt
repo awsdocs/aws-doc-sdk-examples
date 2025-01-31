@@ -14,10 +14,10 @@ suspend fun main() {
 
 // snippet-start:[cloudtrail.kotlin.events.main]
 suspend fun lookupAllEvents() {
-
-    val request = LookupEventsRequest {
-        maxResults = 20
-    }
+    val request =
+        LookupEventsRequest {
+            maxResults = 20
+        }
 
     CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
         val response = cloudTrail.lookupEvents(request)

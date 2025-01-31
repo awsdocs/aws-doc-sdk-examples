@@ -13,31 +13,27 @@ import kotlin.system.exitProcess
  * To make this code example work, create a Role that you want to assume.
  * Then define a Trust Relationship in the AWS Console. You can use this as an example:
  *
- * {
- *   "Version": "2012-10-17",
- *   "Statement": [
- *     {
- *       "Effect": "Allow",
- *       "Principal": {
- *         "AWS": "<Specify the ARN of your IAM user you are using in this code example>"
- *       },
- *       "Action": "sts:AssumeRole"
- *     }
- *   ]
- * }
- *
- */
+ {
+ "Version": "2012-10-17",
+ "Statement": [
+ {
+ "Effect": "Allow",
+ "Principal": {
+ "AWS": "<Specify the ARN of your IAM user you are using in this code example>"
+ },
+ "Action": "sts:AssumeRole"
+ }
+ ]
+ }
 
-/**
-Before running this Kotlin code example, set up your development environment,
-including your credentials.
+ * Before running this Kotlin code example, set up your development environment,
+ * including your credentials.
 
-For more information, see the following documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ * For more information, see the following documentation topic:
+ * https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <roleArn> <roleSessionName> 
@@ -58,12 +54,15 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[sts.kotlin.assume_role.main]
-suspend fun assumeGivenRole(roleArnVal: String?, roleSessionNameVal: String?) {
-
-    val roleRequest = AssumeRoleRequest {
-        roleArn = roleArnVal
-        roleSessionName = roleSessionNameVal
-    }
+suspend fun assumeGivenRole(
+    roleArnVal: String?,
+    roleSessionNameVal: String?,
+) {
+    val roleRequest =
+        AssumeRoleRequest {
+            roleArn = roleArnVal
+            roleSessionName = roleSessionNameVal
+        }
 
     StsClient { region = "us-east-1" }.use { stsClient ->
         val roleResponse = stsClient.assumeRole(roleRequest)

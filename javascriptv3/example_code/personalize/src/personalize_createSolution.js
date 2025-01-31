@@ -21,22 +21,23 @@ node createSolution.js
 
 // snippet-start:[personalize.JavaScript.createSolutionV3]
 // Get service clients module and commands using ES6 syntax.
-import { CreateSolutionCommand } from
-  "@aws-sdk/client-personalize";
+import { CreateSolutionCommand } from "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 // Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
 // Set the solution parameters.
 export const createSolutionParam = {
-  datasetGroupArn: 'DATASET_GROUP_ARN', /* required */
-  recipeArn: 'RECIPE_ARN', /* required */
-  name: 'NAME' /* required */
-}
+  datasetGroupArn: "DATASET_GROUP_ARN" /* required */,
+  recipeArn: "RECIPE_ARN" /* required */,
+  name: "NAME" /* required */,
+};
 
 export const run = async () => {
   try {
-    const response = await personalizeClient.send(new CreateSolutionCommand(createSolutionParam));
+    const response = await personalizeClient.send(
+      new CreateSolutionCommand(createSolutionParam),
+    );
     console.log("Success", response);
     return response; // For unit tests.
   } catch (err) {

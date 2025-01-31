@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <crawlerName>
@@ -38,10 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[glue.kotlin.stop_crawler.main]
 suspend fun stopSpecificCrawler(crawlerName: String) {
-
-    val request = StopCrawlerRequest {
-        name = crawlerName
-    }
+    val request =
+        StopCrawlerRequest {
+            name = crawlerName
+        }
 
     GlueClient { region = "us-west-2" }.use { glueClient ->
         glueClient.stopCrawler(request)

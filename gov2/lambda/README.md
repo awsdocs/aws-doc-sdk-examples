@@ -34,24 +34,33 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 - [Hello Lambda](hello/hello.go#L4) (`ListFunctions`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/scenario_get_started_functions.go)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](actions/functions.go#L47) (`CreateFunction`)
-- [Delete a function](actions/functions.go#L155) (`DeleteFunction`)
-- [Get a function](actions/functions.go#L29) (`GetFunction`)
-- [Invoke a function](actions/functions.go#L169) (`Invoke`)
-- [List functions](actions/functions.go#L134) (`ListFunctions`)
-- [Update function code](actions/functions.go#L90) (`UpdateFunctionCode`)
-- [Update function configuration](actions/functions.go#L118) (`UpdateFunctionConfiguration`)
+- [CreateFunction](actions/functions.go#L47)
+- [DeleteFunction](actions/functions.go#L155)
+- [GetFunction](actions/functions.go#L29)
+- [Invoke](actions/functions.go#L169)
+- [ListFunctions](actions/functions.go#L134)
+- [UpdateFunctionCode](actions/functions.go#L90)
+- [UpdateFunctionConfiguration](actions/functions.go#L118)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with functions](scenarios/scenario_get_started_functions.go)
+- [Automatically confirm known users with a Lambda function](../workflows/user_pools_and_lambda_triggers/workflows/scenario_auto_confirm_trusted_accounts.go)
+- [Automatically migrate known users with a Lambda function](../workflows/user_pools_and_lambda_triggers/workflows/scenario_migrate_user.go)
+- [Write custom activity data with a Lambda function after Amazon Cognito user authentication](../workflows/user_pools_and_lambda_triggers/workflows/scenario_activity_log.go)
 
 
 <!--custom.examples.start-->
@@ -81,8 +90,7 @@ and to get help for running a scenario, use the following command:
 ```
 go run ./cmd -h
 ```
-
-#### Get started with functions
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -92,12 +100,63 @@ This example shows you how to do the following:
 - Invoke the function with new parameters and get results. Display the returned execution log.
 - List the functions for your account, then clean up resources.
 
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
 
 
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
+
+
+#### Automatically confirm known users with a Lambda function
+
+This example shows you how to automatically confirm known Amazon Cognito users with a Lambda function.
+
+- Configure a user pool to call a Lambda function for the <code>PreSignUp</code> trigger.
+- Sign up a user with Amazon Cognito.
+- The Lambda function scans a DynamoDB table and automatically confirms known users.
+- Sign in as the new user, then clean up resources.
+
+<!--custom.scenario_prereqs.cross_CognitoAutoConfirmUser.start-->
+<!--custom.scenario_prereqs.cross_CognitoAutoConfirmUser.end-->
+
+
+<!--custom.scenarios.cross_CognitoAutoConfirmUser.start-->
+<!--custom.scenarios.cross_CognitoAutoConfirmUser.end-->
+
+#### Automatically migrate known users with a Lambda function
+
+This example shows you how to automatically migrate known Amazon Cognito users with a Lambda function.
+
+- Configure a user pool to call a Lambda function for the <code>MigrateUser</code> trigger.
+- Sign in to Amazon Cognito with a username and email that is not in the user pool.
+- The Lambda function scans a DynamoDB table and automatically migrates known users to the user pool.
+- Perform the forgot password flow to reset the password for the migrated user.
+- Sign in as the new user, then clean up resources.
+
+<!--custom.scenario_prereqs.cross_CognitoAutoMigrateUser.start-->
+<!--custom.scenario_prereqs.cross_CognitoAutoMigrateUser.end-->
+
+
+<!--custom.scenarios.cross_CognitoAutoMigrateUser.start-->
+<!--custom.scenarios.cross_CognitoAutoMigrateUser.end-->
+
+#### Write custom activity data with a Lambda function after Amazon Cognito user authentication
+
+This example shows you how to write custom activity data with a Lambda function after Amazon Cognito user authentication.
+
+- Use administrator functions to add a user to a user pool.
+- Configure a user pool to call a Lambda function for the <code>PostAuthentication</code> trigger.
+- Sign the new user in to Amazon Cognito.
+- The Lambda function writes custom information to CloudWatch Logs and to an DynamoDB table.
+- Get and display custom data from the DynamoDB table, then clean up resources.
+
+<!--custom.scenario_prereqs.cross_CognitoCustomActivityLog.start-->
+<!--custom.scenario_prereqs.cross_CognitoCustomActivityLog.end-->
+
+
+<!--custom.scenarios.cross_CognitoCustomActivityLog.start-->
+<!--custom.scenarios.cross_CognitoCustomActivityLog.end-->
 
 ### Tests
 

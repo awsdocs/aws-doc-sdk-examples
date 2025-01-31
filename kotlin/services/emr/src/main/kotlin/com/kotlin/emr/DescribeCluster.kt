@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <clusterIdVal> 
@@ -38,10 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[erm.kotlin.describe_cluster.main]
 suspend fun describeMyCluster(clusterIdVal: String?) {
-
-    val request = DescribeClusterRequest {
-        clusterId = clusterIdVal
-    }
+    val request =
+        DescribeClusterRequest {
+            clusterId = clusterIdVal
+        }
 
     EmrClient { region = "us-west-2" }.use { emrClient ->
         val response = emrClient.describeCluster(request)

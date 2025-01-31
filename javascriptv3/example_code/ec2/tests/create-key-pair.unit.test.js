@@ -24,17 +24,26 @@ describe("create-key-pair", () => {
       KeyMaterial: "foo",
     });
 
-    await main();
+    await main({ keyName: "test" });
 
     expect(logSpy).toHaveBeenCalledWith("foo");
   });
 
-  it("should log the error message", async () => {
-    const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to create key pair"));
+  it("should log InvalidKeyPair.Duplicate errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("InvalidKeyPair");
+    error.name = "InvalidKeyPair.Duplicate";
 
-    await main();
+    send.mockRejectedValueOnce(error);
 
-    expect(logSpy).toHaveBeenCalledWith(new Error("Failed to create key pair"));
+    await main({ keyName: "keyName" });
+
+    expect(logSpy).toBeCalledWith("InvalidKeyPair. Try another key name.");
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Failed to create key pair");
+    send.mockRejectedValueOnce(error);
+    await expect(() => main({ keyName: "test" })).rejects.toBe(error);
   });
 });

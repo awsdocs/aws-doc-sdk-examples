@@ -36,9 +36,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[s3.kotlin.del_bucket.main]
 suspend fun deleteExistingBucket(bucketName: String?) {
-    val request = DeleteBucketRequest {
-        bucket = bucketName
-    }
+    val request =
+        DeleteBucketRequest {
+            bucket = bucketName
+        }
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.deleteBucket(request)
         println("The $bucketName was successfully deleted!")

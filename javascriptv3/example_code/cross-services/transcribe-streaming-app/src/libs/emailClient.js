@@ -41,27 +41,14 @@ const createSESClient = () => {
 const createHTMLBody = (originalText, translatedText) => {
   return {
     Charset: "UTF-8",
-    Data:
-      "<h1>Hello!</h1><p>Here is your Amazon Transcribe recording:</p>" +
-      "<h1>Original</h1>" +
-      "<p>" +
-      originalText +
-      "</p>" +
-      "<h1>Translation (if available)</h1>" +
-      "<p>" +
-      translatedText +
-      "</p>",
+    Data: `<h1>Hello!</h1><p>Here is your Amazon Transcribe recording:</p><h1>Original</h1><p>${originalText}</p><h1>Translation (if available)</h1><p>${translatedText}</p>`,
   };
 };
 
 const createTextBody = (originalText, translatedText) => {
   return {
     Charset: "UTF-8",
-    Data:
-      "Hello,\\r\\n" +
-      "Here is your Amazon Transcribe transcription:" +
-      "\n" +
-      translatedText,
+    Data: `Hello,\\r\\nHere is your Amazon Transcribe transcription:\n${translatedText}`,
   };
 };
 

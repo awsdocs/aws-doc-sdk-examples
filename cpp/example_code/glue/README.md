@@ -35,6 +35,7 @@ Next, for information on code example structures and how to build and run the ex
 
 
 <!--custom.prerequisites.start-->
+
 <!--custom.prerequisites.end-->
 
 ### Get started
@@ -42,30 +43,30 @@ Next, for information on code example structures and how to build and run the ex
 - [Hello AWS Glue](hello_glue/CMakeLists.txt#L4) (`ListJobs`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](glue_getting_started_scenario.cpp)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](glue_getting_started_scenario.cpp#L181) (`CreateCrawler`)
-- [Create a job definition](glue_getting_started_scenario.cpp#L364) (`CreateJob`)
-- [Delete a crawler](glue_getting_started_scenario.cpp#L674) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](glue_getting_started_scenario.cpp#L654) (`DeleteDatabase`)
-- [Delete a job definition](glue_getting_started_scenario.cpp#L634) (`DeleteJob`)
-- [Get a crawler](glue_getting_started_scenario.cpp#L210) (`GetCrawler`)
-- [Get a database from the Data Catalog](glue_getting_started_scenario.cpp#L302) (`GetDatabase`)
-- [Get a job run](glue_getting_started_scenario.cpp#L590) (`GetJobRun`)
-- [Get runs of a job](glue_getting_started_scenario.cpp#L555) (`GetJobRuns`)
-- [Get tables from a database](glue_getting_started_scenario.cpp#L327) (`GetTables`)
-- [List job definitions](glue_getting_started_scenario.cpp#L524) (`ListJobs`)
-- [Start a crawler](glue_getting_started_scenario.cpp#L235) (`StartCrawler`)
-- [Start a job run](glue_getting_started_scenario.cpp#L394) (`StartJobRun`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with crawlers and jobs](glue_getting_started_scenario.cpp)
+- [CreateCrawler](glue_getting_started_scenario.cpp#L181)
+- [CreateJob](glue_getting_started_scenario.cpp#L373)
+- [DeleteCrawler](glue_getting_started_scenario.cpp#L720)
+- [DeleteDatabase](glue_getting_started_scenario.cpp#L700)
+- [DeleteJob](glue_getting_started_scenario.cpp#L680)
+- [GetCrawler](glue_getting_started_scenario.cpp#L210)
+- [GetDatabase](glue_getting_started_scenario.cpp#L302)
+- [GetJobRun](glue_getting_started_scenario.cpp#L636)
+- [GetJobRuns](glue_getting_started_scenario.cpp#L589)
+- [GetTables](glue_getting_started_scenario.cpp#L327)
+- [ListJobs](glue_getting_started_scenario.cpp#L547)
+- [StartCrawler](glue_getting_started_scenario.cpp#L235)
+- [StartJobRun](glue_getting_started_scenario.cpp#L403)
 
 
 <!--custom.examples.start-->
@@ -96,8 +97,7 @@ folder.
 This example shows you how to get started using AWS Glue.
 
 
-
-#### Get started with crawlers and jobs
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -106,12 +106,13 @@ This example shows you how to do the following:
 - Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another S3 bucket.
 - List information about job runs, view transformed data, and clean up resources.
 
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
 
 
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.start-->
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.end-->
+
 
 ### Tests
 

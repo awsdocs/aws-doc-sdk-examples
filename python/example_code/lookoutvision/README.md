@@ -43,19 +43,19 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a dataset](datasets.py#L32) (`CreateDataset`)
-- [Create a model](models.py#L29) (`CreateModel`)
-- [Create a project](projects.py#L31) (`CreateProject`)
-- [Delete a dataset](datasets.py#L201) (`DeleteDataset`)
-- [Delete a model](models.py#L167) (`DeleteModel`)
-- [Delete a project](projects.py#L54) (`DeleteProject`)
-- [Describe a dataset](datasets.py#L227) (`DescribeDataset`)
-- [Describe a model](models.py#L102) (`DescribeModel`)
-- [Detect anomalies in an image with a trained model](inference.py#L23) (`DetectAnomalies`)
-- [List models](models.py#L143) (`ListModels`)
-- [List projects](projects.py#L73) (`ListProjects`)
-- [Start a model](hosting.py#L30) (`StartModel`)
-- [Stop a model](hosting.py#L87) (`StopModel`)
+- [CreateDataset](datasets.py#L32)
+- [CreateModel](models.py#L29)
+- [CreateProject](projects.py#L31)
+- [DeleteDataset](datasets.py#L201)
+- [DeleteModel](models.py#L167)
+- [DeleteProject](projects.py#L54)
+- [DescribeDataset](datasets.py#L227)
+- [DescribeModel](models.py#L102)
+- [DetectAnomalies](inference.py#L23)
+- [ListModels](models.py#L143)
+- [ListProjects](projects.py#L73)
+- [StartModel](hosting.py#L30)
+- [StopModel](hosting.py#L87)
 
 ### Scenarios
 
@@ -63,7 +63,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a manifest file](datasets.py)
-- [Create, train, and start a model](python/example_code/lookoutvision)
+- [Create, train, and start a model](../../example_code/lookoutvision)
 - [Export the datasets from a project](export_datasets.py)
 - [Find a project with a specific tag](find_tag.py)
 - [List models that are currently hosted](hosting.py)
@@ -94,7 +94,7 @@ Before running these demonstrations do the following:
 
 The folder structures for the training and test images must be as follows:
 ```
-s3://doc-example-bucket/<train or test>/
+s3://amzn-s3-demo-bucket/<train or test>/
     normal/
     anomaly/
 ```
@@ -234,11 +234,11 @@ Start the example by running the following at a command prompt:
 - `project` - A name for your project.
 - `bucket` - The name of the Amazon S3 bucket in which to store your manifest files and
   training output. The bucket must be in your AWS account and in the same AWS Region as
-  the Amazon S3 path supplied for `train` and `test`. For example, `doc-example-bucket`.
+  the Amazon S3 path supplied for `train` and `test`. For example, `amzn-s3-demo-bucket`.
 - `train` - The Amazon S3 path where your training images are stored. For example,
-  `s3://doc-example-bucket/circuitboard/train/`.
+  `s3://amzn-s3-demo-bucket/circuitboard/train/`.
 - `test` - (Optional) the Amazon S3 path where your test images are stored. For example,
-  `s3://doc-example-bucket/circuitboard/test/`. If you don't supply a value,
+  `s3://amzn-s3-demo-bucket/circuitboard/test/`. If you don't supply a value,
   Lookout for Vision splits the training dataset to create a test dataset.
 
 After training completes, use the performance metrics to decide if the model's

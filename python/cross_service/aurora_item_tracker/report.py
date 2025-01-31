@@ -11,19 +11,19 @@ attachment to the email instead of in the body of the email itself.
 """
 
 import csv
+import logging
 from datetime import datetime
+from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.application import MIMEApplication
-import logging
 from io import StringIO
+
 from botocore.exceptions import ClientError
 from flask import jsonify, render_template
 from flask.views import MethodView
+from storage import StorageError
 from webargs import fields
 from webargs.flaskparser import use_kwargs
-
-from storage import StorageError
 
 logger = logging.getLogger(__name__)
 
@@ -106,7 +106,7 @@ class Report(MethodView):
         try:
             work_items = self.storage.get_work_items(archived=False)
             snap_time = datetime.now()
-            logger.info(f"Sending report of %s items to %s.", len(work_items), email)
+            logger.info(f"Sending report of {len(work_items)} items to {email}.")
             html_report = render_template(
                 "report.html",
                 work_items=work_items,
@@ -134,7 +134,7 @@ class Report(MethodView):
                     Source=self.email_sender,
                     Destination={"ToAddresses": [email]},
                     Message={
-                        "Subject": {"Data": f"Work items"},
+                        "Subject": {"Data": "Work items"},
                         "Body": {
                             "Html": {"Data": html_report},
                             "Text": {"Data": text_report},

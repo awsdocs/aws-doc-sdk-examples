@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[medical-imaging.JavaScript.imageset.deleteImageSetV3]
 import { DeleteImageSetCommand } from "@aws-sdk/client-medical-imaging";
@@ -13,13 +13,13 @@ import { medicalImagingClient } from "../libs/medicalImagingClient.js";
  */
 export const deleteImageSet = async (
   datastoreId = "xxxxxxxxxxxxxxxx",
-  imageSetId = "xxxxxxxxxxxxxxxx"
+  imageSetId = "xxxxxxxxxxxxxxxx",
 ) => {
   const response = await medicalImagingClient.send(
     new DeleteImageSetCommand({
       datastoreId: datastoreId,
       imageSetId: imageSetId,
-    })
+    }),
   );
   console.log(response);
   // {
@@ -44,6 +44,6 @@ export const deleteImageSet = async (
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   await deleteImageSet(
     "12345678901234567890123456789012",
-    "12345678901234567890123456789012"
+    "12345678901234567890123456789012",
   );
 }

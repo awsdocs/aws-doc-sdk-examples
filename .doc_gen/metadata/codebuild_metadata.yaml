@@ -1,9 +1,5 @@
 # zexi 0.4.0
 codebuild_CreateProject:
-  title: Create an &ACB; project
-  title_abbrev: Create a project
-  synopsis: create an &ACB; project.
-  category:
   languages:
     JavaScript:
       versions:
@@ -16,3 +12,39 @@ codebuild_CreateProject:
                 - javascript.v3.codebuild.actions.CreateProject
   services:
     codebuild: {CreateProject}
+codebuild_ListBuilds:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/codebuild
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.codebuild.ListBuilds
+  services:
+    codebuild: {ListBuilds}
+codebuild_ListProjects:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/codebuild
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.codebuild.ListProjects
+  services:
+    codebuild: {ListProjects}
+codebuild_StartBuild:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/codebuild
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.codebuild.StartBuild
+  services:
+    codebuild: {StartBuild}

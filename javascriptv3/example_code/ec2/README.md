@@ -31,42 +31,49 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Amazon EC2](hello.js#L6) (`DescribeSecurityGroups`)
+- [Hello Amazon EC2](hello.js) (`DescribeSecurityGroups`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/steps.js)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Allocate an Elastic IP address](actions/allocate-address.js#L6) (`AllocateAddress`)
-- [Associate an Elastic IP address with an instance](actions/associate-address.js#L6) (`AssociateAddress`)
-- [Create a launch template](../cross-services/wkflw-resilient-service/steps-deploy.js#L278) (`CreateLaunchTemplate`)
-- [Create a security group](actions/create-security-group.js#L6) (`CreateSecurityGroup`)
-- [Create a security key pair](actions/create-key-pair.js#L6) (`CreateKeyPair`)
-- [Create and run an instance](actions/run-instances.js#L6) (`RunInstances`)
-- [Delete a launch template](../cross-services/wkflw-resilient-service/steps-destroy.js#L266) (`DeleteLaunchTemplate`)
-- [Delete a security group](actions/delete-security-group.js#L6) (`DeleteSecurityGroup`)
-- [Delete a security key pair](actions/delete-key-pair.js#L6) (`DeleteKeyPair`)
-- [Describe Regions](actions/describe-regions.js#L6) (`DescribeRegions`)
-- [Describe instances](actions/describe-instances.js#L6) (`DescribeInstances`)
-- [Disable detailed monitoring](actions/unmonitor-instances.js#L6) (`UnmonitorInstances`)
-- [Disassociate an Elastic IP address from an instance](actions/disassociate-address.js#L6) (`DisassociateAddress`)
-- [Enable monitoring](actions/monitor-instances.js#L6) (`MonitorInstances`)
-- [Get data about Amazon Machine Images](actions/describe-images.js#L6) (`DescribeImages`)
-- [Get data about a security group](actions/describe-security-groups.js#L6) (`DescribeSecurityGroups`)
-- [Get data about instance types](actions/describe-instance-types.js#L6) (`DescribeInstanceTypes`)
-- [Get data about the instance profile associated with an instance](../cross-services/wkflw-resilient-service/steps-demo.js#L241) (`DescribeIamInstanceProfileAssociations`)
-- [Get details about Elastic IP addresses](actions/describe-addresses.js#L6) (`DescribeAddresses`)
-- [Get the default VPC](../cross-services/wkflw-resilient-service/steps-deploy.js#L357) (`DescribeVpcs`)
-- [Get the default subnets for a VPC](../cross-services/wkflw-resilient-service/steps-deploy.js#L372) (`DescribeSubnets`)
-- [List security key pairs](actions/describe-key-pairs.js#L6) (`DescribeKeyPairs`)
-- [Reboot an instance](actions/reboot-instances.js#L6) (`RebootInstances`)
-- [Release an Elastic IP address](actions/release-address.js#L6) (`ReleaseAddress`)
-- [Replace the instance profile associated with an instance](../cross-services/wkflw-resilient-service/steps-demo.js#L253) (`ReplaceIamInstanceProfileAssociation`)
-- [Set inbound rules for a security group](actions/authorize-security-group-ingress.js#L6) (`AuthorizeSecurityGroupIngress`)
-- [Start an instance](actions/start-instances.js#L6) (`StartInstances`)
-- [Stop an instance](actions/stop-instances.js#L6) (`StopInstances`)
-- [Terminate an instance](actions/terminate-instances.js#L6) (`TerminateInstances`)
+- [AllocateAddress](actions/allocate-address.js)
+- [AssociateAddress](actions/associate-address.js#L4)
+- [AuthorizeSecurityGroupIngress](actions/authorize-security-group-ingress.js#L4)
+- [CreateKeyPair](actions/create-key-pair.js#L4)
+- [CreateLaunchTemplate](../cross-services/wkflw-resilient-service/steps-deploy.js#L279)
+- [CreateSecurityGroup](actions/create-security-group.js#L4)
+- [DeleteKeyPair](actions/delete-key-pair.js#L4)
+- [DeleteLaunchTemplate](../cross-services/wkflw-resilient-service/steps-destroy.js#L261)
+- [DeleteSecurityGroup](actions/delete-security-group.js#L4)
+- [DescribeAddresses](actions/describe-addresses.js#L4)
+- [DescribeIamInstanceProfileAssociations](../cross-services/wkflw-resilient-service/steps-demo.js#L241)
+- [DescribeImages](actions/describe-images.js#L4)
+- [DescribeInstanceTypes](actions/describe-instance-types.js#L4)
+- [DescribeInstances](actions/describe-instances.js#L4)
+- [DescribeKeyPairs](actions/describe-key-pairs.js#L4)
+- [DescribeRegions](actions/describe-regions.js#L4)
+- [DescribeSecurityGroups](actions/describe-security-groups.js#L4)
+- [DescribeSubnets](../cross-services/wkflw-resilient-service/steps-deploy.js#L373)
+- [DescribeVpcs](../cross-services/wkflw-resilient-service/steps-deploy.js#L358)
+- [DisassociateAddress](actions/disassociate-address.js#L4)
+- [MonitorInstances](actions/monitor-instances.js#L4)
+- [RebootInstances](actions/reboot-instances.js#L4)
+- [ReleaseAddress](actions/release-address.js#L4)
+- [ReplaceIamInstanceProfileAssociation](../cross-services/wkflw-resilient-service/steps-demo.js#L253)
+- [RunInstances](actions/run-instances.js#L4)
+- [StartInstances](actions/start-instances.js#L4)
+- [StopInstances](actions/stop-instances.js#L4)
+- [TerminateInstances](actions/terminate-instances.js#L4)
+- [UnmonitorInstances](actions/unmonitor-instances.js#L4)
 
 ### Scenarios
 
@@ -74,7 +81,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Build and manage a resilient service](../cross-services/wkflw-resilient-service/index.js)
-- [Get started with instances](scenarios/basic.js)
 
 
 <!--custom.examples.start-->
@@ -94,10 +100,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
@@ -109,6 +126,23 @@ This example shows you how to get started using Amazon EC2.
 ```bash
 node ./hello.js
 ```
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a key pair and security group.
+- Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
+- Stop and restart the instance.
+- Associate an Elastic IP address with your instance.
+- Connect to your instance with SSH, then clean up resources.
+
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.end-->
+
+
+<!--custom.basics.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basics.ec2_Scenario_GetStartedInstances.end-->
 
 
 #### Build and manage a resilient service
@@ -128,23 +162,6 @@ This example shows you how to create a load-balanced web service that returns bo
 
 <!--custom.scenarios.cross_ResilientService.start-->
 <!--custom.scenarios.cross_ResilientService.end-->
-
-#### Get started with instances
-
-This example shows you how to do the following:
-
-- Create a key pair and security group.
-- Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
-- Stop and restart the instance.
-- Associate an Elastic IP address with your instance.
-- Connect to your instance with SSH, then clean up resources.
-
-<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.end-->
-
-
-<!--custom.scenarios.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.scenarios.ec2_Scenario_GetStartedInstances.end-->
 
 ### Tests
 

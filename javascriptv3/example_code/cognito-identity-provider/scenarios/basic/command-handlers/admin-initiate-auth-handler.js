@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 /** snippet-start:[javascript.v3.cognito-idp.scenarios.basic.AdminInitiateAuthHandler] **/
 import qrcode from "qrcode-terminal";
-import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import { adminInitiateAuth } from "../../../actions/admin-initiate-auth.js";
 import { associateSoftwareToken } from "../../../actions/associate-software-token.js";
 import { FILE_USER_POOLS } from "./constants.js";
@@ -61,7 +61,7 @@ const adminInitiateAuthHandler = async (commands) => {
     validateId(userPoolId);
     validateClient(clientId);
 
-    log("Signing in.");
+    logger.log("Signing in.");
     const { ChallengeName, Session } = await adminInitiateAuth({
       clientId,
       userPoolId,
@@ -70,16 +70,16 @@ const adminInitiateAuthHandler = async (commands) => {
     });
 
     if (ChallengeName === "MFA_SETUP") {
-      log("MFA setup is required.");
+      logger.log("MFA setup is required.");
       return handleMfaSetup(Session, username);
     }
 
     if (ChallengeName === "SOFTWARE_TOKEN_MFA") {
       handleSoftwareTokenMfa(Session);
-      log(`Run 'admin-respond-to-auth-challenge ${username} <totp>'`);
+      logger.log(`Run 'admin-respond-to-auth-challenge ${username} <totp>'`);
     }
   } catch (err) {
-    log(err);
+    logger.error(err);
   }
 };
 

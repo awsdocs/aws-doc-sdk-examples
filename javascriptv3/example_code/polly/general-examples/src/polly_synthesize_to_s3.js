@@ -19,11 +19,11 @@ Running the code:
 node polly_synthesize_to_s3.js
 */
 // snippet-start:[Polly.JavaScript.general-examples.synthesizetos3_V3]
-const { StartSpeechSynthesisTaskCommand } = require("@aws-sdk/client-polly");
-const { pollyClient } = require("./libs/pollyClient.js");
+import { StartSpeechSynthesisTaskCommand } from "@aws-sdk/client-polly";
+import { pollyClient } from "./libs/pollyClient.js";
 
 // Create the parameters
-var params = {
+const params = {
   OutputFormat: "mp3",
   OutputS3BucketName: "videoanalyzerbucket",
   Text: "Hello David, How are you?",
@@ -35,7 +35,7 @@ var params = {
 const run = async () => {
   try {
     await pollyClient.send(new StartSpeechSynthesisTaskCommand(params));
-    console.log("Success, audio file added to " + params.OutputS3BucketName);
+    console.log(`Success, audio file added to ${params.OutputS3BucketName}`);
   } catch (err) {
     console.log("Error putting object", err);
   }

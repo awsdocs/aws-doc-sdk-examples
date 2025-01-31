@@ -17,7 +17,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: 
         <collectionId> 
@@ -38,10 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[rekognition.kotlin.delete_collection.main]
 suspend fun deleteMyCollection(collectionIdVal: String) {
-
-    val request = DeleteCollectionRequest {
-        collectionId = collectionIdVal
-    }
+    val request =
+        DeleteCollectionRequest {
+            collectionId = collectionIdVal
+        }
 
     RekognitionClient { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.deleteCollection(request)

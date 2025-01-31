@@ -34,24 +34,36 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello DynamoDB](hello/hello_dynamodb.py#L4) (`ListTables`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](GettingStarted/scenario_getting_started_movies.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](GettingStarted/scenario_getting_started_movies.py#L80) (`CreateTable`)
-- [Delete a table](GettingStarted/scenario_getting_started_movies.py#L343) (`DeleteTable`)
-- [Delete an item from a table](GettingStarted/scenario_getting_started_movies.py#L322) (`DeleteItem`)
-- [Get a batch of items](batching/dynamo_batching.py#L64) (`BatchGetItem`)
-- [Get an item from a table](GettingStarted/scenario_getting_started_movies.py#L203) (`GetItem`)
-- [Get information about a table](GettingStarted/scenario_getting_started_movies.py#L50) (`DescribeTable`)
-- [List tables](GettingStarted/scenario_getting_started_movies.py#L120) (`ListTables`)
-- [Put an item in a table](GettingStarted/scenario_getting_started_movies.py#L173) (`PutItem`)
-- [Query a table](GettingStarted/scenario_getting_started_movies.py#L260) (`Query`)
-- [Run a PartiQL statement](partiql/scenario_partiql_single.py#L43) (`ExecuteStatement`)
-- [Run batches of PartiQL statements](partiql/scenario_partiql_batch.py#L44) (`BatchExecuteStatement`)
-- [Scan a table](GettingStarted/scenario_getting_started_movies.py#L283) (`Scan`)
-- [Update an item in a table](GettingStarted/scenario_getting_started_movies.py#L228) (`UpdateItem`)
-- [Write a batch of items](GettingStarted/scenario_getting_started_movies.py#L144) (`BatchWriteItem`)
+- [BatchExecuteStatement](partiql/scenario_partiql_batch.py#L44)
+- [BatchGetItem](batching/dynamo_batching.py#L64)
+- [BatchWriteItem](GettingStarted/scenario_getting_started_movies.py#L164)
+- [CreateTable](GettingStarted/scenario_getting_started_movies.py#L100)
+- [DeleteItem](GettingStarted/scenario_getting_started_movies.py#L342)
+- [DeleteTable](GettingStarted/scenario_getting_started_movies.py#L363)
+- [DescribeTable](GettingStarted/scenario_getting_started_movies.py#L70)
+- [ExecuteStatement](partiql/scenario_partiql_single.py#L43)
+- [GetItem](GettingStarted/scenario_getting_started_movies.py#L223)
+- [ListTables](GettingStarted/scenario_getting_started_movies.py#L140)
+- [PutItem](GettingStarted/scenario_getting_started_movies.py#L193)
+- [Query](GettingStarted/scenario_getting_started_movies.py#L280)
+- [Scan](GettingStarted/scenario_getting_started_movies.py#L303)
+- [UpdateItem](GettingStarted/scenario_getting_started_movies.py#L248)
 
 ### Scenarios
 
@@ -59,18 +71,12 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Accelerate reads with DynamoDB Accelerator](TryDax/01-create-table.py)
-- [Get started with tables, items, and queries](GettingStarted/scenario_getting_started_movies.py)
-- [Query a table by using batches of PartiQL statements](partiql/scenario_partiql_batch.py)
-- [Query a table using PartiQL](partiql/scenario_partiql_single.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
 - [Create a REST API to track COVID-19 data](../../cross_service/apigateway_covid-19_tracker)
 - [Create a messenger application](../../cross_service/stepfunctions_messenger)
 - [Create a web application to track DynamoDB data](../../cross_service/dynamodb_item_tracker)
 - [Create a websocket chat application](../../cross_service/apigateway_websocket_chat)
+- [Query a table by using batches of PartiQL statements](partiql/scenario_partiql_batch.py)
+- [Query a table using PartiQL](partiql/scenario_partiql_single.py)
 
 
 <!--custom.examples.start-->
@@ -84,6 +90,37 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello DynamoDB
+
+This example shows you how to get started using DynamoDB.
+
+```
+python hello/hello_dynamodb.py
+```
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a table that can hold movie data.
+- Put, get, and update a single movie in the table.
+- Write movie data to the table from a sample JSON file.
+- Query for movies that were released in a given year.
+- Scan for movies that were released in a range of years.
+- Delete a movie from the table, then delete the table.
+
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python GettingStarted/scenario_getting_started_movies.py
+```
+
+
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.end-->
 
 
 #### Accelerate reads with DynamoDB Accelerator
@@ -115,7 +152,7 @@ The tutorial shows you how to set up the following additional resources:
 - A VPC from Amazon Virtual Private Cloud (Amazon VPC)
 - A DAX cluster set up in your VPC 
 - An EC2 instance running in your VPC with the following installed:
-    - Python 3.7 or later
+    - Python 3.9 or later
     - Boto3 1.11.10 or later
     - Amazon DAX Client for Python 1.1.7 or later
 
@@ -130,29 +167,53 @@ python 04-query-test.py YOUR-CLUSTER-NAME.111111.clustercfg.dax.usw2.cache.amazo
 ```
 <!--custom.scenarios.dynamodb_Usage_DaxDemo.end-->
 
-#### Get started with tables, items, and queries
+#### Create a REST API to track COVID-19 data
 
-This example shows you how to do the following:
-
-- Create a table that can hold movie data.
-- Put, get, and update a single movie in the table.
-- Write movie data to the table from a sample JSON file.
-- Query for movies that were released in a given year.
-- Scan for movies that were released in a range of years.
-- Delete a movie from the table, then delete the table.
-
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-python GettingStarted/scenario_getting_started_movies.py
-```
+This example shows you how to create a REST API that simulates a system to track daily cases of COVID-19 in the United States, using fictional data.
 
 
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.scenario_prereqs.cross_ApiGatewayDataTracker.start-->
+<!--custom.scenario_prereqs.cross_ApiGatewayDataTracker.end-->
+
+
+<!--custom.scenarios.cross_ApiGatewayDataTracker.start-->
+<!--custom.scenarios.cross_ApiGatewayDataTracker.end-->
+
+#### Create a messenger application
+
+This example shows you how to create an AWS Step Functions messenger application that retrieves message records from a database table.
+
+
+<!--custom.scenario_prereqs.cross_StepFunctionsMessenger.start-->
+<!--custom.scenario_prereqs.cross_StepFunctionsMessenger.end-->
+
+
+<!--custom.scenarios.cross_StepFunctionsMessenger.start-->
+<!--custom.scenarios.cross_StepFunctionsMessenger.end-->
+
+#### Create a web application to track DynamoDB data
+
+This example shows you how to create a web application that tracks work items in an Amazon DynamoDB table and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_DynamoDBDataTracker.start-->
+<!--custom.scenario_prereqs.cross_DynamoDBDataTracker.end-->
+
+
+<!--custom.scenarios.cross_DynamoDBDataTracker.start-->
+<!--custom.scenarios.cross_DynamoDBDataTracker.end-->
+
+#### Create a websocket chat application
+
+This example shows you how to create a chat application that is served by a websocket API built on Amazon API Gateway.
+
+
+<!--custom.scenario_prereqs.cross_ApiGatewayWebsocketChat.start-->
+<!--custom.scenario_prereqs.cross_ApiGatewayWebsocketChat.end-->
+
+
+<!--custom.scenarios.cross_ApiGatewayWebsocketChat.start-->
+<!--custom.scenarios.cross_ApiGatewayWebsocketChat.end-->
 
 #### Query a table by using batches of PartiQL statements
 

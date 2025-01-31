@@ -1,9 +1,4 @@
-# zexi 0.4.0
-elastic-beanstalk_ListStacks:
-  title: List &AEB; stacks using an &AWS; SDK
-  title_abbrev: List stacks
-  synopsis: list &AEBlong; stacks.
-  category:
+elastic-beanstalk_ListAvailableSolutionStacks:
   languages:
     Ruby:
       versions:
@@ -16,11 +11,7 @@ elastic-beanstalk_ListStacks:
                 - eb.Ruby.listStacks
   services:
     elastic-beanstalk: {ListAvailableSolutionStacks}
-elastic-beanstalk_DescribeApp:
-  title: Describe an &AEB; app using an &AWS; SDK
-  title_abbrev: Describe app
-  synopsis: describe an &AEBlong; app.
-  category:
+elastic-beanstalk_DescribeApplications:
   languages:
     Ruby:
       versions:
@@ -34,10 +25,6 @@ elastic-beanstalk_DescribeApp:
   services:
     elastic-beanstalk: {DescribeApplications}
 elastic-beanstalk_UpdateApplication:
-  title: Update an &AEB; app using an &AWS; SDK
-  title_abbrev: Update app
-  synopsis: update an &AEBlong; app.
-  category:
   languages:
     Ruby:
       versions:

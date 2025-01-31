@@ -3,7 +3,10 @@
 
 package scenarios
 
+// snippet-start:[gov2.rds.Scenario_GetStartedInstances]
+
 import (
+	"context"
 	"fmt"
 	"log"
 	"sort"
@@ -18,26 +21,6 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/rds/actions"
 	"github.com/google/uuid"
 )
-
-// IScenarioHelper abstracts the function from a scenario so that it
-// can be mocked for unit testing.
-type IScenarioHelper interface {
-	Pause(secs int)
-	UniqueId() string
-}
-type ScenarioHelper struct{}
-
-// Pause waits for the specified number of seconds.
-func (helper ScenarioHelper) Pause(secs int) {
-	time.Sleep(time.Duration(secs) * time.Second)
-}
-
-// UniqueId returns a new UUID.
-func (helper ScenarioHelper) UniqueId() string {
-	return uuid.New().String()
-}
-
-// snippet-start:[gov2.rds.Scenario_GetStartedInstances]
 
 // GetStartedInstances is an interactive example that shows you how to use the AWS SDK for Go
 // with Amazon Relation Database Service (Amazon RDS) to do the following:
@@ -70,7 +53,7 @@ func NewGetStartedInstances(sdkConfig aws.Config, questioner demotools.IQuestion
 }
 
 // Run runs the interactive scenario.
-func (scenario GetStartedInstances) Run(dbEngine string, parameterGroupName string,
+func (scenario GetStartedInstances) Run(ctx context.Context, dbEngine string, parameterGroupName string,
 	instanceName string, dbName string) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -82,12 +65,12 @@ func (scenario GetStartedInstances) Run(dbEngine string, parameterGroupName stri
 	log.Println("Welcome to the Amazon Relational Database Service (Amazon RDS) DB Instance demo.")
 	log.Println(strings.Repeat("-", 88))
 
-	parameterGroup := scenario.CreateParameterGroup(dbEngine, parameterGroupName)
-	scenario.SetUserParameters(parameterGroupName)
-	instance := scenario.CreateInstance(instanceName, dbEngine, dbName, parameterGroup)
+	parameterGroup := scenario.CreateParameterGroup(ctx, dbEngine, parameterGroupName)
+	scenario.SetUserParameters(ctx, parameterGroupName)
+	instance := scenario.CreateInstance(ctx, instanceName, dbEngine, dbName, parameterGroup)
 	scenario.DisplayConnection(instance)
-	scenario.CreateSnapshot(instance)
-	scenario.Cleanup(instance, parameterGroup)
+	scenario.CreateSnapshot(ctx, instance)
+	scenario.Cleanup(ctx, instance, parameterGroup)
 
 	log.Println(strings.Repeat("-", 88))
 	log.Println("Thanks for watching!")
@@ -97,18 +80,18 @@ func (scenario GetStartedInstances) Run(dbEngine string, parameterGroupName stri
 // CreateParameterGroup shows how to get available engine versions for a specified
 // database engine and create a DB parameter group that is compatible with a
 // selected engine family.
-func (scenario GetStartedInstances) CreateParameterGroup(dbEngine string,
+func (scenario GetStartedInstances) CreateParameterGroup(ctx context.Context, dbEngine string,
 	parameterGroupName string) *types.DBParameterGroup {
 
 	log.Printf("Checking for an existing DB parameter group named %v.\n",
 		parameterGroupName)
-	parameterGroup, err := scenario.instances.GetParameterGroup(parameterGroupName)
+	parameterGroup, err := scenario.instances.GetParameterGroup(ctx, parameterGroupName)
 	if err != nil {
 		panic(err)
 	}
 	if parameterGroup == nil {
 		log.Printf("Getting available database engine versions for %v.\n", dbEngine)
-		engineVersions, err := scenario.instances.GetEngineVersions(dbEngine, "")
+		engineVersions, err := scenario.instances.GetEngineVersions(ctx, dbEngine, "")
 		if err != nil {
 			panic(err)
 		}
@@ -125,11 +108,11 @@ func (scenario GetStartedInstances) CreateParameterGroup(dbEngine string,
 		familyIndex := scenario.questioner.AskChoice("Which family do you want to use?\n", families)
 		log.Println("Creating a DB parameter group.")
 		_, err = scenario.instances.CreateParameterGroup(
-			parameterGroupName, families[familyIndex], "Example parameter group.")
+			ctx, parameterGroupName, families[familyIndex], "Example parameter group.")
 		if err != nil {
 			panic(err)
 		}
-		parameterGroup, err = scenario.instances.GetParameterGroup(parameterGroupName)
+		parameterGroup, err = scenario.instances.GetParameterGroup(ctx, parameterGroupName)
 		if err != nil {
 			panic(err)
 		}
@@ -145,16 +128,16 @@ func (scenario GetStartedInstances) CreateParameterGroup(dbEngine string,
 
 // SetUserParameters shows how to get the parameters contained in a custom parameter
 // group and update some of the parameter values in the group.
-func (scenario GetStartedInstances) SetUserParameters(parameterGroupName string) {
+func (scenario GetStartedInstances) SetUserParameters(ctx context.Context, parameterGroupName string) {
 	log.Println("Let's set some parameter values in your parameter group.")
-	dbParameters, err := scenario.instances.GetParameters(parameterGroupName, "")
+	dbParameters, err := scenario.instances.GetParameters(ctx, parameterGroupName, "")
 	if err != nil {
 		panic(err)
 	}
 	var updateParams []types.Parameter
 	for _, dbParam := range dbParameters {
 		if strings.HasPrefix(*dbParam.ParameterName, "auto_increment") &&
-			dbParam.IsModifiable && *dbParam.DataType == "integer" {
+			*dbParam.IsModifiable && *dbParam.DataType == "integer" {
 			log.Printf("The %v parameter is described as:\n\t%v",
 				*dbParam.ParameterName, *dbParam.Description)
 			rangeSplit := strings.Split(*dbParam.AllowedValues, "-")
@@ -167,12 +150,12 @@ func (scenario GetStartedInstances) SetUserParameters(parameterGroupName string)
 			updateParams = append(updateParams, dbParam)
 		}
 	}
-	err = scenario.instances.UpdateParameters(parameterGroupName, updateParams)
+	err = scenario.instances.UpdateParameters(ctx, parameterGroupName, updateParams)
 	if err != nil {
 		panic(err)
 	}
 	log.Println("To get a list of parameters that you set previously, specify a source of 'user'.")
-	userParameters, err := scenario.instances.GetParameters(parameterGroupName, "user")
+	userParameters, err := scenario.instances.GetParameters(ctx, parameterGroupName, "user")
 	if err != nil {
 		panic(err)
 	}
@@ -185,11 +168,11 @@ func (scenario GetStartedInstances) SetUserParameters(parameterGroupName string)
 
 // CreateInstance shows how to create a DB instance that contains a database of a
 // specified type. The database is also configured to use a custom DB parameter group.
-func (scenario GetStartedInstances) CreateInstance(instanceName string, dbEngine string,
+func (scenario GetStartedInstances) CreateInstance(ctx context.Context, instanceName string, dbEngine string,
 	dbName string, parameterGroup *types.DBParameterGroup) *types.DBInstance {
 
 	log.Println("Checking for an existing DB instance.")
-	instance, err := scenario.instances.GetInstance(instanceName)
+	instance, err := scenario.instances.GetInstance(ctx, instanceName)
 	if err != nil {
 		panic(err)
 	}
@@ -198,7 +181,7 @@ func (scenario GetStartedInstances) CreateInstance(instanceName string, dbEngine
 			"Enter an administrator username for the database: ", demotools.NotEmpty{})
 		adminPassword := scenario.questioner.AskPassword(
 			"Enter a password for the administrator (at least 8 characters): ", 7)
-		engineVersions, err := scenario.instances.GetEngineVersions(dbEngine,
+		engineVersions, err := scenario.instances.GetEngineVersions(ctx, dbEngine,
 			*parameterGroup.DBParameterGroupFamily)
 		if err != nil {
 			panic(err)
@@ -210,7 +193,7 @@ func (scenario GetStartedInstances) CreateInstance(instanceName string, dbEngine
 		engineIndex := scenario.questioner.AskChoice(
 			"The available engines for your parameter group are:\n", engineChoices)
 		engineSelection := engineVersions[engineIndex]
-		instOpts, err := scenario.instances.GetOrderableInstances(*engineSelection.Engine,
+		instOpts, err := scenario.instances.GetOrderableInstances(ctx, *engineSelection.Engine,
 			*engineSelection.EngineVersion)
 		if err != nil {
 			panic(err)
@@ -239,7 +222,7 @@ func (scenario GetStartedInstances) CreateInstance(instanceName string, dbEngine
 			instanceName, dbName, *parameterGroup.DBParameterGroupName, *engineSelection.EngineVersion,
 			optChoices[optIndex], allocatedStorage, storageType)
 		instance, err = scenario.instances.CreateInstance(
-			instanceName, dbName, *engineSelection.Engine, *engineSelection.EngineVersion,
+			ctx, instanceName, dbName, *engineSelection.Engine, *engineSelection.EngineVersion,
 			*parameterGroup.DBParameterGroupName, optChoices[optIndex], storageType,
 			allocatedStorage, adminUsername, adminPassword)
 		if err != nil {
@@ -247,7 +230,7 @@ func (scenario GetStartedInstances) CreateInstance(instanceName string, dbEngine
 		}
 		for *instance.DBInstanceStatus != "available" {
 			scenario.helper.Pause(30)
-			instance, err = scenario.instances.GetInstance(instanceName)
+			instance, err = scenario.instances.GetInstance(ctx, instanceName)
 			if err != nil {
 				panic(err)
 			}
@@ -281,18 +264,18 @@ func (scenario GetStartedInstances) DisplayConnection(instance *types.DBInstance
 }
 
 // CreateSnapshot shows how to create a DB instance snapshot and wait until it's available.
-func (scenario GetStartedInstances) CreateSnapshot(instance *types.DBInstance) {
+func (scenario GetStartedInstances) CreateSnapshot(ctx context.Context, instance *types.DBInstance) {
 	if scenario.questioner.AskBool(
 		"Do you want to create a snapshot of your DB instance (y/n)? ", "y") {
 		snapshotId := fmt.Sprintf("%v-%v", *instance.DBInstanceIdentifier, scenario.helper.UniqueId())
 		log.Printf("Creating a snapshot named %v. This typically takes a few minutes.\n", snapshotId)
-		snapshot, err := scenario.instances.CreateSnapshot(*instance.DBInstanceIdentifier, snapshotId)
+		snapshot, err := scenario.instances.CreateSnapshot(ctx, *instance.DBInstanceIdentifier, snapshotId)
 		if err != nil {
 			panic(err)
 		}
 		for *snapshot.Status != "available" {
 			scenario.helper.Pause(30)
-			snapshot, err = scenario.instances.GetSnapshot(snapshotId)
+			snapshot, err = scenario.instances.GetSnapshot(ctx, snapshotId)
 			if err != nil {
 				panic(err)
 			}
@@ -312,12 +295,12 @@ func (scenario GetStartedInstances) CreateSnapshot(instance *types.DBInstance) {
 // Cleanup shows how to clean up a DB instance and DB parameter group.
 // Before the DB parameter group can be deleted, all associated DB instances must first be deleted.
 func (scenario GetStartedInstances) Cleanup(
-	instance *types.DBInstance, parameterGroup *types.DBParameterGroup) {
+	ctx context.Context, instance *types.DBInstance, parameterGroup *types.DBParameterGroup) {
 
 	if scenario.questioner.AskBool(
 		"\nDo you want to delete the database instance and parameter group (y/n)? ", "y") {
 		log.Printf("Deleting database instance %v.\n", *instance.DBInstanceIdentifier)
-		err := scenario.instances.DeleteInstance(*instance.DBInstanceIdentifier)
+		err := scenario.instances.DeleteInstance(ctx, *instance.DBInstanceIdentifier)
 		if err != nil {
 			panic(err)
 		}
@@ -325,17 +308,35 @@ func (scenario GetStartedInstances) Cleanup(
 			"Waiting for the DB instance to delete. This typically takes several minutes.")
 		for instance != nil {
 			scenario.helper.Pause(30)
-			instance, err = scenario.instances.GetInstance(*instance.DBInstanceIdentifier)
+			instance, err = scenario.instances.GetInstance(ctx, *instance.DBInstanceIdentifier)
 			if err != nil {
 				panic(err)
 			}
 		}
 		log.Printf("Deleting parameter group %v.", *parameterGroup.DBParameterGroupName)
-		err = scenario.instances.DeleteParameterGroup(*parameterGroup.DBParameterGroupName)
+		err = scenario.instances.DeleteParameterGroup(ctx, *parameterGroup.DBParameterGroupName)
 		if err != nil {
 			panic(err)
 		}
 	}
+}
+
+// IScenarioHelper abstracts the function from a scenario so that it
+// can be mocked for unit testing.
+type IScenarioHelper interface {
+	Pause(secs int)
+	UniqueId() string
+}
+type ScenarioHelper struct{}
+
+// Pause waits for the specified number of seconds.
+func (helper ScenarioHelper) Pause(secs int) {
+	time.Sleep(time.Duration(secs) * time.Second)
+}
+
+// UniqueId returns a new UUID.
+func (helper ScenarioHelper) UniqueId() string {
+	return uuid.New().String()
 }
 
 // snippet-end:[gov2.rds.Scenario_GetStartedInstances]

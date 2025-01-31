@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -9,9 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.EC2" Version="3.7.112" />
+    <PackageReference Include="AWSSDK.EC2" Version="3.7.406.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+    <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="Xunit.Extensions.Ordering" Version="1.4.5" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -36,7 +37,8 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Actions\EC2Actions.csproj" />
-	  <ProjectReference Include="..\Scenarios\EC2_Basics\Ec2_Basics.csproj" />
+	  <ProjectReference Include="..\Scenarios\CreateVPCforS3Example\CreateVPCforS3Example.csproj" />
+	  <ProjectReference Include="..\Scenarios\EC2_Basics\Basics.csproj" />
 	</ItemGroup>
 
 </Project>

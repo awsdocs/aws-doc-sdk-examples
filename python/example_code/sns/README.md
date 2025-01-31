@@ -38,28 +38,23 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a topic](sns_basics.py#L33) (`CreateTopic`)
-- [Delete a subscription](sns_basics.py#L164) (`Unsubscribe`)
-- [Delete a topic](sns_basics.py#L70) (`DeleteTopic`)
-- [List the subscribers of a topic](sns_basics.py#L116) (`ListSubscriptions`)
-- [List topics](sns_basics.py#L52) (`ListTopics`)
-- [Publish an SMS text message](sns_basics.py#L179) (`Publish`)
-- [Publish to a topic](sns_basics.py#L205) (`Publish`)
-- [Set a filter policy](sns_basics.py#L139) (`SetSubscriptionAttributes`)
-- [Subscribe an email address to a topic](sns_basics.py#L85) (`Subscribe`)
+- [CreateTopic](sns_basics.py#L33)
+- [DeleteTopic](sns_basics.py#L70)
+- [ListSubscriptions](sns_basics.py#L116)
+- [ListTopics](sns_basics.py#L52)
+- [Publish](sns_basics.py#L205)
+- [SetSubscriptionAttributes](sns_basics.py#L139)
+- [Subscribe](sns_basics.py#L85)
+- [Unsubscribe](sns_basics.py#L164)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create and publish to a FIFO topic](sns_fifo_topic.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
 - [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
+- [Create and publish to a FIFO topic](sns_fifo_topic.py)
+- [Publish an SMS text message](sns_basics.py)
 
 
 <!--custom.examples.start-->
@@ -80,6 +75,18 @@ python sns_basics.py
 
 
 
+#### Create an Amazon Textract explorer application
+
+This example shows you how to explore Amazon Textract output through an interactive application.
+
+
+<!--custom.scenario_prereqs.cross_TextractExplorer.start-->
+<!--custom.scenario_prereqs.cross_TextractExplorer.end-->
+
+
+<!--custom.scenarios.cross_TextractExplorer.start-->
+<!--custom.scenarios.cross_TextractExplorer.end-->
+
 #### Create and publish to a FIFO topic
 
 This example shows you how to create and publish to a FIFO Amazon SNS topic.
@@ -97,6 +104,24 @@ python sns_fifo_topic.py
 
 <!--custom.scenarios.sns_PublishFifoTopic.start-->
 <!--custom.scenarios.sns_PublishFifoTopic.end-->
+
+#### Publish an SMS text message
+
+This example shows you how to publish SMS messages using Amazon SNS.
+
+
+<!--custom.scenario_prereqs.sns_PublishTextSMS.start-->
+<!--custom.scenario_prereqs.sns_PublishTextSMS.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python sns_basics.py
+```
+
+
+<!--custom.scenarios.sns_PublishTextSMS.start-->
+<!--custom.scenarios.sns_PublishTextSMS.end-->
 
 ### Tests
 

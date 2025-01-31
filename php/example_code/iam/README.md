@@ -29,32 +29,32 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](GettingStartedWithIAM.php)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](GettingStartedWithIAM.php#L46) (`AttachRolePolicy`)
-- [Create a policy](GettingStartedWithIAM.php#L46) (`CreatePolicy`)
-- [Create a role](GettingStartedWithIAM.php#L46) (`CreateRole`)
-- [Create a service-linked role](GettingStartedWithIAM.php#L46) (`CreateServiceLinkedRole`)
-- [Create a user](GettingStartedWithIAM.php#L46) (`CreateUser`)
-- [Get a policy](GettingStartedWithIAM.php#L46) (`GetPolicy`)
-- [Get a role](GettingStartedWithIAM.php#L46) (`GetRole`)
-- [Get the account password policy](GettingStartedWithIAM.php#L46) (`GetAccountPasswordPolicy`)
-- [List SAML providers](GettingStartedWithIAM.php#L46) (`ListSAMLProviders`)
-- [List groups](GettingStartedWithIAM.php#L46) (`ListGroups`)
-- [List inline policies for a role](GettingStartedWithIAM.php#L46) (`ListRolePolicies`)
-- [List policies](GettingStartedWithIAM.php#L46) (`ListPolicies`)
-- [List policies attached to a role](GettingStartedWithIAM.php#L46) (`ListAttachedRolePolicies`)
-- [List roles](GettingStartedWithIAM.php#L46) (`ListRoles`)
-- [List users](GettingStartedWithIAM.php#L46) (`ListUsers`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Create a user and assume a role](GettingStartedWithIAM.php)
+- [AttachRolePolicy](GettingStartedWithIAM.php#L82)
+- [CreatePolicy](GettingStartedWithIAM.php#L70)
+- [CreateRole](GettingStartedWithIAM.php#L57)
+- [CreateServiceLinkedRole](GettingStartedWithIAM.php#L46)
+- [CreateUser](GettingStartedWithIAM.php#L51)
+- [GetAccountPasswordPolicy](GettingStartedWithIAM.php#L46)
+- [GetPolicy](GettingStartedWithIAM.php#L46)
+- [GetRole](GettingStartedWithIAM.php#L46)
+- [ListAttachedRolePolicies](GettingStartedWithIAM.php#L46)
+- [ListGroups](GettingStartedWithIAM.php#L46)
+- [ListPolicies](GettingStartedWithIAM.php#L46)
+- [ListRolePolicies](GettingStartedWithIAM.php#L46)
+- [ListRoles](GettingStartedWithIAM.php#L46)
+- [ListSAMLProviders](GettingStartedWithIAM.php#L46)
+- [ListUsers](GettingStartedWithIAM.php#L46)
 
 
 <!--custom.examples.start-->
@@ -71,8 +71,7 @@ Run the example with the following command:
 <!--custom.instructions.end-->
 
 
-
-#### Create a user and assume a role
+#### Learn the basics
 
 This example shows you how to create a user and assume a role. 
 
@@ -81,12 +80,13 @@ This example shows you how to create a user and assume a role.
 - Add a policy to let the user assume the role.
 - Assume the role and list S3 buckets using temporary credentials, then clean up resources.
 
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
 
 
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
+
 
 ### Tests
 

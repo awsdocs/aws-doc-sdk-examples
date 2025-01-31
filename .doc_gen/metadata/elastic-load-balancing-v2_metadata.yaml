@@ -34,10 +34,6 @@ elastic-load-balancing-v2_Hello:
   services:
     elastic-load-balancing-v2: {DescribeLoadBalancers}
 elastic-load-balancing-v2_DescribeLoadBalancers:
-  title: Get the endpoint of an ELB load balancer using an &AWS; SDK
-  title_abbrev: Get the endpoint of a load balancer
-  synopsis: get the endpoint of an ELB load balancer.
-  category:
   languages:
     .NET:
       versions:
@@ -69,10 +65,6 @@ elastic-load-balancing-v2_DescribeLoadBalancers:
   services:
     elastic-load-balancing-v2: {DescribeLoadBalancers}
 elastic-load-balancing-v2_DescribeTargetGroups:
-  title: Describe the specified target groups or all of your target groups
-  title_abbrev: Describe target groups
-  synopsis: describe specific target groups.
-  category:
   languages:
     JavaScript:
       versions:
@@ -86,10 +78,6 @@ elastic-load-balancing-v2_DescribeTargetGroups:
   services:
     elastic-load-balancing-v2: {DescribeTargetGroups}
 elastic-load-balancing-v2_CreateTargetGroup:
-  title: Create an ELB target group using an &AWS; SDK
-  title_abbrev: Create a target group
-  synopsis: create an ELB target group.
-  category:
   languages:
     .NET:
       versions:
@@ -130,10 +118,6 @@ elastic-load-balancing-v2_CreateTargetGroup:
   services:
     elastic-load-balancing-v2: {CreateTargetGroup}
 elastic-load-balancing-v2_DeleteTargetGroup:
-  title: Delete an ELB target group using an &AWS; SDK
-  title_abbrev: Delete a target group
-  synopsis: delete an ELB  target group.
-  category:
   languages:
     .NET:
       versions:
@@ -174,10 +158,6 @@ elastic-load-balancing-v2_DeleteTargetGroup:
   services:
     elastic-load-balancing-v2: {DeleteTargetGroup}
 elastic-load-balancing-v2_CreateLoadBalancer:
-  title: Create an ELB Application Load Balancer using an &AWS; SDK
-  title_abbrev: Create an Application Load Balancer
-  synopsis: create an ELB Application Load Balancer.
-  category:
   languages:
     .NET:
       versions:
@@ -218,10 +198,6 @@ elastic-load-balancing-v2_CreateLoadBalancer:
   services:
     elastic-load-balancing-v2: {CreateLoadBalancer}
 elastic-load-balancing-v2_CreateListener:
-  title: Create a listener for an ELB load balancer using an &AWS; SDK
-  title_abbrev: Create a listener for a load balancer
-  synopsis: create a listener that forwards requests from an ELB load balancer to a target group.
-  category:
   languages:
     .NET:
       versions:
@@ -262,10 +238,6 @@ elastic-load-balancing-v2_CreateListener:
   services:
     elastic-load-balancing-v2: {CreateListener}
 elastic-load-balancing-v2_DeleteLoadBalancer:
-  title: Delete an ELB load balancer using an &AWS; SDK
-  title_abbrev: Delete a load balancer
-  synopsis: delete an ELB load balancer.
-  category:
   languages:
     .NET:
       versions:
@@ -302,14 +274,10 @@ elastic-load-balancing-v2_DeleteLoadBalancer:
           excerpts:
             - description:
               snippet_tags:
-                - javascript.v3.wkflw.resilient.DeleteLoadBalancer 
+                - javascript.v3.wkflw.resilient.DeleteLoadBalancer
   services:
     elastic-load-balancing-v2: {DeleteLoadBalancer}
 elastic-load-balancing-v2_DescribeTargetHealth:
-  title: Get the health of an ELB target group using an &AWS; SDK
-  title_abbrev: Get the health of a target group
-  synopsis: get the health of instances in an ELB target group.
-  category:
   languages:
     .NET:
       versions:

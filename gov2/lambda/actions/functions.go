@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.lambda.FunctionWrapper.complete]
+// snippet-start:[gov2.lambda.FunctionWrapper.struct]
+
 import (
 	"bytes"
 	"context"
@@ -16,9 +19,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/lambda/types"
 )
 
-// snippet-start:[gov2.lambda.FunctionWrapper.complete]
-// snippet-start:[gov2.lambda.FunctionWrapper.struct]
-
 // FunctionWrapper encapsulates function actions used in the examples.
 // It contains an AWS Lambda service client that is used to perform user actions.
 type FunctionWrapper struct {
@@ -29,9 +29,9 @@ type FunctionWrapper struct {
 // snippet-start:[gov2.lambda.GetFunction]
 
 // GetFunction gets data about the Lambda function specified by functionName.
-func (wrapper FunctionWrapper) GetFunction(functionName string) types.State {
+func (wrapper FunctionWrapper) GetFunction(ctx context.Context, functionName string) types.State {
 	var state types.State
-	funcOutput, err := wrapper.LambdaClient.GetFunction(context.TODO(), &lambda.GetFunctionInput{
+	funcOutput, err := wrapper.LambdaClient.GetFunction(ctx, &lambda.GetFunctionInput{
 		FunctionName: aws.String(functionName),
 	})
 	if err != nil {
@@ -53,16 +53,16 @@ func (wrapper FunctionWrapper) GetFunction(functionName string) types.State {
 // When the function already exists, types.StateActive is returned.
 // When the function is created, a lambda.FunctionActiveV2Waiter is used to wait until the
 // function is active.
-func (wrapper FunctionWrapper) CreateFunction(functionName string, handlerName string,
+func (wrapper FunctionWrapper) CreateFunction(ctx context.Context, functionName string, handlerName string,
 	iamRoleArn *string, zipPackage *bytes.Buffer) types.State {
 	var state types.State
-	_, err := wrapper.LambdaClient.CreateFunction(context.TODO(), &lambda.CreateFunctionInput{
+	_, err := wrapper.LambdaClient.CreateFunction(ctx, &lambda.CreateFunctionInput{
 		Code:         &types.FunctionCode{ZipFile: zipPackage.Bytes()},
 		FunctionName: aws.String(functionName),
 		Role:         iamRoleArn,
 		Handler:      aws.String(handlerName),
 		Publish:      true,
-		Runtime:      types.RuntimePython38,
+		Runtime:      types.RuntimePython39,
 	})
 	if err != nil {
 		var resConflict *types.ResourceConflictException
@@ -74,7 +74,7 @@ func (wrapper FunctionWrapper) CreateFunction(functionName string, handlerName s
 		}
 	} else {
 		waiter := lambda.NewFunctionActiveV2Waiter(wrapper.LambdaClient)
-		funcOutput, err := waiter.WaitForOutput(context.TODO(), &lambda.GetFunctionInput{
+		funcOutput, err := waiter.WaitForOutput(ctx, &lambda.GetFunctionInput{
 			FunctionName: aws.String(functionName)}, 1*time.Minute)
 		if err != nil {
 			log.Panicf("Couldn't wait for function %v to be active. Here's why: %v\n", functionName, err)
@@ -93,16 +93,16 @@ func (wrapper FunctionWrapper) CreateFunction(functionName string, handlerName s
 // The existing code for the Lambda function is entirely replaced by the code in the
 // zipPackage buffer. After the update action is called, a lambda.FunctionUpdatedV2Waiter
 // is used to wait until the update is successful.
-func (wrapper FunctionWrapper) UpdateFunctionCode(functionName string, zipPackage *bytes.Buffer) types.State {
+func (wrapper FunctionWrapper) UpdateFunctionCode(ctx context.Context, functionName string, zipPackage *bytes.Buffer) types.State {
 	var state types.State
-	_, err := wrapper.LambdaClient.UpdateFunctionCode(context.TODO(), &lambda.UpdateFunctionCodeInput{
+	_, err := wrapper.LambdaClient.UpdateFunctionCode(ctx, &lambda.UpdateFunctionCodeInput{
 		FunctionName: aws.String(functionName), ZipFile: zipPackage.Bytes(),
 	})
 	if err != nil {
 		log.Panicf("Couldn't update code for function %v. Here's why: %v\n", functionName, err)
 	} else {
 		waiter := lambda.NewFunctionUpdatedV2Waiter(wrapper.LambdaClient)
-		funcOutput, err := waiter.WaitForOutput(context.TODO(), &lambda.GetFunctionInput{
+		funcOutput, err := waiter.WaitForOutput(ctx, &lambda.GetFunctionInput{
 			FunctionName: aws.String(functionName)}, 1*time.Minute)
 		if err != nil {
 			log.Panicf("Couldn't wait for function %v to be active. Here's why: %v\n", functionName, err)
@@ -119,8 +119,8 @@ func (wrapper FunctionWrapper) UpdateFunctionCode(functionName string, zipPackag
 
 // UpdateFunctionConfiguration updates a map of environment variables configured for
 // the Lambda function specified by functionName.
-func (wrapper FunctionWrapper) UpdateFunctionConfiguration(functionName string, envVars map[string]string) {
-	_, err := wrapper.LambdaClient.UpdateFunctionConfiguration(context.TODO(), &lambda.UpdateFunctionConfigurationInput{
+func (wrapper FunctionWrapper) UpdateFunctionConfiguration(ctx context.Context, functionName string, envVars map[string]string) {
+	_, err := wrapper.LambdaClient.UpdateFunctionConfiguration(ctx, &lambda.UpdateFunctionConfigurationInput{
 		FunctionName: aws.String(functionName),
 		Environment:  &types.Environment{Variables: envVars},
 	})
@@ -135,13 +135,13 @@ func (wrapper FunctionWrapper) UpdateFunctionConfiguration(functionName string, 
 
 // ListFunctions lists up to maxItems functions for the account. This function uses a
 // lambda.ListFunctionsPaginator to paginate the results.
-func (wrapper FunctionWrapper) ListFunctions(maxItems int) []types.FunctionConfiguration {
+func (wrapper FunctionWrapper) ListFunctions(ctx context.Context, maxItems int) []types.FunctionConfiguration {
 	var functions []types.FunctionConfiguration
 	paginator := lambda.NewListFunctionsPaginator(wrapper.LambdaClient, &lambda.ListFunctionsInput{
 		MaxItems: aws.Int32(int32(maxItems)),
 	})
 	for paginator.HasMorePages() && len(functions) < maxItems {
-		pageOutput, err := paginator.NextPage(context.TODO())
+		pageOutput, err := paginator.NextPage(ctx)
 		if err != nil {
 			log.Panicf("Couldn't list functions for your account. Here's why: %v\n", err)
 		}
@@ -155,8 +155,8 @@ func (wrapper FunctionWrapper) ListFunctions(maxItems int) []types.FunctionConfi
 // snippet-start:[gov2.lambda.DeleteFunction]
 
 // DeleteFunction deletes the Lambda function specified by functionName.
-func (wrapper FunctionWrapper) DeleteFunction(functionName string) {
-	_, err := wrapper.LambdaClient.DeleteFunction(context.TODO(), &lambda.DeleteFunctionInput{
+func (wrapper FunctionWrapper) DeleteFunction(ctx context.Context, functionName string) {
+	_, err := wrapper.LambdaClient.DeleteFunction(ctx, &lambda.DeleteFunctionInput{
 		FunctionName: aws.String(functionName),
 	})
 	if err != nil {
@@ -171,7 +171,7 @@ func (wrapper FunctionWrapper) DeleteFunction(functionName string) {
 // Invoke invokes the Lambda function specified by functionName, passing the parameters
 // as a JSON payload. When getLog is true, types.LogTypeTail is specified, which tells
 // Lambda to include the last few log lines in the returned result.
-func (wrapper FunctionWrapper) Invoke(functionName string, parameters any, getLog bool) *lambda.InvokeOutput {
+func (wrapper FunctionWrapper) Invoke(ctx context.Context, functionName string, parameters any, getLog bool) *lambda.InvokeOutput {
 	logType := types.LogTypeNone
 	if getLog {
 		logType = types.LogTypeTail
@@ -180,7 +180,7 @@ func (wrapper FunctionWrapper) Invoke(functionName string, parameters any, getLo
 	if err != nil {
 		log.Panicf("Couldn't marshal parameters to JSON. Here's why %v\n", err)
 	}
-	invokeOutput, err := wrapper.LambdaClient.Invoke(context.TODO(), &lambda.InvokeInput{
+	invokeOutput, err := wrapper.LambdaClient.Invoke(ctx, &lambda.InvokeInput{
 		FunctionName: aws.String(functionName),
 		LogType:      logType,
 		Payload:      payload,

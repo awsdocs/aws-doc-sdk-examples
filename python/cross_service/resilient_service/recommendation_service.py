@@ -3,6 +3,7 @@
 
 import json
 import logging
+from typing import Any, Dict
 
 import boto3
 from botocore.exceptions import ClientError
@@ -11,7 +12,17 @@ log = logging.getLogger(__name__)
 
 
 class RecommendationServiceError(Exception):
-    def __init__(self, table_name, message):
+    """
+    Custom exception for errors related to the RecommendationService.
+    """
+
+    def __init__(self, table_name: str, message: str):
+        """
+        Initializes the RecommendationServiceError.
+
+        :param table_name: The name of the DynamoDB table where the error occurred.
+        :param message: The error message.
+        """
         self.table_name = table_name
         self.message = message
         super().__init__(self.message)
@@ -24,32 +35,25 @@ class RecommendationService:
     and songs.
     """
 
-    def __init__(self, table_name, dynamodb_client):
+    def __init__(self, table_name: str, dynamodb_client: boto3.client):
         """
+        Initializes the RecommendationService class with the necessary parameters.
+
         :param table_name: The name of the DynamoDB recommendations table.
         :param dynamodb_client: A Boto3 DynamoDB client.
         """
         self.table_name = table_name
         self.dynamodb_client = dynamodb_client
 
-    @classmethod
-    def from_client(cls, table_name):
+    def create(self) -> Dict[str, Any]:
         """
-        Creates this class from a Boto3 client.
-
-        :param table_name: The name of the DynamoDB recommendations table.
-        """
-        ddb_client = boto3.client("dynamodb")
-        return cls(table_name, ddb_client)
-
-    def create(self):
-        """
-        Creates a DynamoDB table to use a recommendation service. The table has a
+        Creates a DynamoDB table to use as a recommendation service. The table has a
         hash key named 'MediaType' that defines the type of media recommended, such as
         Book or Movie, and a range key named 'ItemId' that, combined with the MediaType,
         forms a unique identifier for the recommended item.
 
         :return: Data about the newly created table.
+        :raises RecommendationServiceError: If the table creation fails.
         """
         try:
             response = self.dynamodb_client.create_table(
@@ -70,7 +74,7 @@ class RecommendationService:
             log.info("Table %s created.", self.table_name)
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceInUseException":
-                log.info("Table %s exists, nothing to be do.", self.table_name)
+                log.info("Table %s exists, nothing to be done.", self.table_name)
             else:
                 raise RecommendationServiceError(
                     self.table_name, f"ClientError when creating table: {err}."
@@ -78,11 +82,12 @@ class RecommendationService:
         else:
             return response
 
-    def populate(self, data_file):
+    def populate(self, data_file: str) -> None:
         """
         Populates the recommendations table from a JSON file.
 
         :param data_file: The path to the data file.
+        :raises RecommendationServiceError: If the table population fails.
         """
         try:
             with open(data_file) as data:
@@ -97,9 +102,11 @@ class RecommendationService:
                 self.table_name, f"Couldn't populate table from {data_file}: {err}"
             )
 
-    def destroy(self):
+    def destroy(self) -> None:
         """
         Deletes the recommendations table.
+
+        :raises RecommendationServiceError: If the table deletion fails.
         """
         try:
             self.dynamodb_client.delete_table(TableName=self.table_name)

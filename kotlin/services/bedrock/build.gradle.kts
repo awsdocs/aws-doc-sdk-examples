@@ -26,7 +26,7 @@ dependencies {
     implementation("aws.sdk.kotlin:sts:0.33.1-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
 }
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
 }
 tasks.test {

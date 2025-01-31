@@ -12,9 +12,10 @@ This file is deployed to AWS Lambda as part of the Chalice deployment.
 
 import logging
 import urllib.parse
+
+import chalicelib.library_data
 from chalice import Chalice
 from chalice.app import RequestTimeoutError
-import chalicelib.library_data
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -138,7 +139,7 @@ def add_patron():
         logger.exception(
             f"Got exception in add_patron() inside library_api/app.py: {str(err)}"
         )
-        logger.exception(f"Returning None instead of patron_id.")
+        logger.exception("Returning None instead of patron_id.")
         return None
 
 
@@ -169,7 +170,7 @@ def list_borrowed_books():
         logger.exception(
             f"Exception while calling get_storage().get_borrowed_books(): {str(err)}"
         )
-        logger.exception(f"Continuing with blank list of borrowed books...")
+        logger.exception("Continuing with blank list of borrowed books...")
         return {"books": []}
 
 

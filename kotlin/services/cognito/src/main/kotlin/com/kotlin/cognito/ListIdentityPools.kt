@@ -17,16 +17,15 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
     getPools()
 }
 
 // snippet-start:[cognito.kotlin.listproviders.main]
 suspend fun getPools() {
-
-    val request = ListIdentityPoolsRequest {
-        maxResults = 10
-    }
+    val request =
+        ListIdentityPoolsRequest {
+            maxResults = 10
+        }
 
     CognitoIdentityClient { region = "us-east-1" }.use { cognitoIdentityClient ->
         val response = cognitoIdentityClient.listIdentityPools(request)

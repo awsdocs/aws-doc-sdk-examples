@@ -3,7 +3,10 @@
 
 package scenarios
 
+// snippet-start:[gov2.dynamodb.Scenario_GettingStartedMovies]
+
 import (
+	"context"
 	"fmt"
 	"log"
 	"strings"
@@ -14,18 +17,16 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/actions"
 )
 
-// snippet-start:[gov2.dynamodb.Scenario_GettingStartedMovies]
-
 // RunMovieScenario is an interactive example that shows you how to use the AWS SDK for Go
 // to create and use an Amazon DynamoDB table that stores data about movies.
 //
-//   1. Create a table that can hold movie data.
-//   2. Put, get, and update a single movie in the table.
-//   3. Write movie data to the table from a sample JSON file.
-//   4. Query for movies that were released in a given year.
-//   5. Scan for movies that were released in a range of years.
-//   6. Delete a movie from the table.
-//   7. Delete the table.
+//  1. Create a table that can hold movie data.
+//  2. Put, get, and update a single movie in the table.
+//  3. Write movie data to the table from a sample JSON file.
+//  4. Query for movies that were released in a given year.
+//  5. Scan for movies that were released in a range of years.
+//  6. Delete a movie from the table.
+//  7. Delete the table.
 //
 // This example creates a DynamoDB service client from the specified sdkConfig so that
 // you can replace it with a mocked or stubbed config for unit testing.
@@ -36,7 +37,7 @@ import (
 // The specified movie sampler is used to get sample data from a URL that is loaded
 // into the named table.
 func RunMovieScenario(
-	sdkConfig aws.Config, questioner demotools.IQuestioner, tableName string,
+	ctx context.Context, sdkConfig aws.Config, questioner demotools.IQuestioner, tableName string,
 	movieSampler actions.IMovieSampler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -51,13 +52,13 @@ func RunMovieScenario(
 	tableBasics := actions.TableBasics{TableName: tableName,
 		DynamoDbClient: dynamodb.NewFromConfig(sdkConfig)}
 
-	exists, err := tableBasics.TableExists()
+	exists, err := tableBasics.TableExists(ctx)
 	if err != nil {
 		panic(err)
 	}
 	if !exists {
 		log.Printf("Creating table %v...\n", tableName)
-		_, err = tableBasics.CreateMovieTable()
+		_, err = tableBasics.CreateMovieTable(ctx)
 		if err != nil {
 			panic(err)
 		} else {
@@ -69,17 +70,16 @@ func RunMovieScenario(
 
 	var customMovie actions.Movie
 	customMovie.Title = questioner.Ask("Enter a movie title to add to the table:",
-		[]demotools.IAnswerValidator{demotools.NotEmpty{}})
+		demotools.NotEmpty{})
 	customMovie.Year = questioner.AskInt("What year was it released?",
-		[]demotools.IAnswerValidator{demotools.NotEmpty{}, demotools.InIntRange{
-			Lower: 1900, Upper: 2030}})
+		demotools.NotEmpty{}, demotools.InIntRange{Lower: 1900, Upper: 2030})
 	customMovie.Info = map[string]interface{}{}
 	customMovie.Info["rating"] = questioner.AskFloat64(
-		"Enter a rating between 1 and 10:", []demotools.IAnswerValidator{
-			demotools.NotEmpty{}, demotools.InFloatRange{Lower: 1, Upper: 10}})
+		"Enter a rating between 1 and 10:",
+		demotools.NotEmpty{}, demotools.InFloatRange{Lower: 1, Upper: 10})
 	customMovie.Info["plot"] = questioner.Ask("What's the plot? ",
-		[]demotools.IAnswerValidator{demotools.NotEmpty{}})
-	err = tableBasics.AddMovie(customMovie)
+		demotools.NotEmpty{})
+	err = tableBasics.AddMovie(ctx, customMovie)
 	if err == nil {
 		log.Printf("Added %v to the movie table.\n", customMovie.Title)
 	}
@@ -87,12 +87,12 @@ func RunMovieScenario(
 
 	log.Printf("Let's update your movie. You previously rated it %v.\n", customMovie.Info["rating"])
 	customMovie.Info["rating"] = questioner.AskFloat64(
-		"What new rating would you give it?", []demotools.IAnswerValidator{
-			demotools.NotEmpty{}, demotools.InFloatRange{Lower: 1, Upper: 10}})
+		"What new rating would you give it?",
+		demotools.NotEmpty{}, demotools.InFloatRange{Lower: 1, Upper: 10})
 	log.Printf("You summarized the plot as '%v'.\n", customMovie.Info["plot"])
 	customMovie.Info["plot"] = questioner.Ask("What would you say now?",
-		[]demotools.IAnswerValidator{demotools.NotEmpty{}})
-	attributes, err := tableBasics.UpdateMovie(customMovie)
+		demotools.NotEmpty{})
+	attributes, err := tableBasics.UpdateMovie(ctx, customMovie)
 	if err == nil {
 		log.Printf("Updated %v with new values.\n", customMovie.Title)
 		for _, attVal := range attributes {
@@ -106,7 +106,7 @@ func RunMovieScenario(
 	log.Printf("Getting movie data from %v and adding 250 movies to the table...\n",
 		movieSampler.GetURL())
 	movies := movieSampler.GetSampleMovies()
-	written, err := tableBasics.AddMovieBatch(movies, 250)
+	written, err := tableBasics.AddMovieBatch(ctx, movies, 250)
 	if err != nil {
 		panic(err)
 	} else {
@@ -122,10 +122,10 @@ func RunMovieScenario(
 		log.Printf("\t%v. %v\n", index+1, movie.Title)
 	}
 	movieIndex := questioner.AskInt(
-		"Enter the number of a movie to get info about it: ", []demotools.IAnswerValidator{
-			demotools.InIntRange{Lower: 1, Upper: show}},
+		"Enter the number of a movie to get info about it: ",
+		demotools.InIntRange{Lower: 1, Upper: show},
 	)
-	movie, err := tableBasics.GetMovie(movies[movieIndex-1].Title, movies[movieIndex-1].Year)
+	movie, err := tableBasics.GetMovie(ctx, movies[movieIndex-1].Title, movies[movieIndex-1].Year)
 	if err == nil {
 		log.Println(movie)
 	}
@@ -133,9 +133,9 @@ func RunMovieScenario(
 
 	log.Println("Let's get a list of movies released in a given year.")
 	releaseYear := questioner.AskInt("Enter a year between 1972 and 2018: ",
-		[]demotools.IAnswerValidator{demotools.InIntRange{Lower: 1972, Upper: 2018}},
+		demotools.InIntRange{Lower: 1972, Upper: 2018},
 	)
-	releases, err := tableBasics.Query(releaseYear)
+	releases, err := tableBasics.Query(ctx, releaseYear)
 	if err == nil {
 		if len(releases) == 0 {
 			log.Printf("I couldn't find any movies released in %v!\n", releaseYear)
@@ -148,11 +148,11 @@ func RunMovieScenario(
 	log.Println(strings.Repeat("-", 88))
 
 	log.Println("Now let's scan for movies released in a range of years.")
-	startYear := questioner.AskInt("Enter a year: ", []demotools.IAnswerValidator{
-		demotools.InIntRange{Lower: 1972, Upper: 2018}})
-	endYear := questioner.AskInt("Enter another year: ", []demotools.IAnswerValidator{
-		demotools.InIntRange{Lower: 1972, Upper: 2018}})
-	releases, err = tableBasics.Scan(startYear, endYear)
+	startYear := questioner.AskInt("Enter a year: ",
+		demotools.InIntRange{Lower: 1972, Upper: 2018})
+	endYear := questioner.AskInt("Enter another year: ",
+		demotools.InIntRange{Lower: 1972, Upper: 2018})
+	releases, err = tableBasics.Scan(ctx, startYear, endYear)
 	if err == nil {
 		if len(releases) == 0 {
 			log.Printf("I couldn't find any movies released between %v and %v!\n", startYear, endYear)
@@ -169,7 +169,7 @@ func RunMovieScenario(
 
 	var tables []string
 	if questioner.AskBool("Do you want to list all of your tables? (y/n) ", "y") {
-		tables, err = tableBasics.ListTables()
+		tables, err = tableBasics.ListTables(ctx)
 		if err == nil {
 			log.Printf("Found %v tables:", len(tables))
 			for _, table := range tables {
@@ -181,14 +181,14 @@ func RunMovieScenario(
 
 	log.Printf("Let's remove your movie '%v'.\n", customMovie.Title)
 	if questioner.AskBool("Do you want to delete it from the table? (y/n) ", "y") {
-		err = tableBasics.DeleteMovie(customMovie)
+		err = tableBasics.DeleteMovie(ctx, customMovie)
 	}
 	if err == nil {
 		log.Printf("Deleted %v.\n", customMovie.Title)
 	}
 
 	if questioner.AskBool("Delete the table, too? (y/n)", "y") {
-		err = tableBasics.DeleteTable()
+		err = tableBasics.DeleteTable(ctx)
 	} else {
 		log.Println("Don't forget to delete the table when you're done or you might " +
 			"incur charges on your account.")

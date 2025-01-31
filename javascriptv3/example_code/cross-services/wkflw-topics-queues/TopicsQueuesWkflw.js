@@ -112,7 +112,7 @@ export class TopicsQueuesWkflw {
   async createQueues() {
     await this.logger.log(MESSAGES.createQueuesNotice);
     // Increase this number to add more queues.
-    let maxQueues = 2;
+    const maxQueues = 2;
 
     for (let i = 0; i < maxQueues; i++) {
       await this.logger.log(MESSAGES.queueCount.replace("${COUNT}", i + 1));
@@ -270,7 +270,9 @@ export class TopicsQueuesWkflw {
       message: MESSAGES.publishMessagePrompt,
     });
 
-    let groupId, deduplicationId, choices;
+    let groupId;
+    let deduplicationId;
+    let choices;
 
     if (this.isFifo) {
       await this.logger.log(MESSAGES.groupIdNotice);

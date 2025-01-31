@@ -1,9 +1,5 @@
 # zexi 0.4.0
 forecast_CreateDataset:
-  title: Create a data set for the &FORlong; using an &AWS; SDK
-  title_abbrev: Create a data set
-  synopsis: create a &FOR; data set.
-  category:
   languages:
     Java:
       versions:
@@ -17,10 +13,6 @@ forecast_CreateDataset:
   services:
     forecast: {CreateDataset}
 forecast_CreateForecast:
-  title: Create a forecast for the &FORlong; using an &AWS; SDK
-  title_abbrev: Create a forecast
-  synopsis: create a &FOR; forecast.
-  category:
   languages:
     Java:
       versions:
@@ -32,12 +24,8 @@ forecast_CreateForecast:
               snippet_tags:
                 - forecast.java2.create_forecast.main
   services:
-    forecast: {CreateForecast}    
+    forecast: {CreateForecast}
 forecast_DeleteForecast:
-  title: Delete a forecast for the &FORlong; using an &AWS; SDK
-  title_abbrev: Delete a forecast
-  synopsis: delete a &FOR; forecast.
-  category:
   languages:
     Java:
       versions:
@@ -49,12 +37,8 @@ forecast_DeleteForecast:
               snippet_tags:
                 - forecast.java2.delete_forecast_dataset.main
   services:
-    forecast: {DeleteForecast}        
+    forecast: {DeleteForecast}
 forecast_DeleteDataset:
-  title: Delete a data set for the &FORlong; using an &AWS; SDK
-  title_abbrev: Delete a data set
-  synopsis: delete a &FOR; data set.
-  category:
   languages:
     Java:
       versions:
@@ -68,10 +52,6 @@ forecast_DeleteDataset:
   services:
     forecast: {DeleteDataset}
 forecast_DescribeForecast:
-  title: Describe a forecast for the &FORlong; using an &AWS; SDK
-  title_abbrev: Describe a forecast
-  synopsis: describe a &FOR; forecast.
-  category:
   languages:
     Java:
       versions:
@@ -85,10 +65,6 @@ forecast_DescribeForecast:
   services:
     forecast: {DescribeForecast}
 forecast_ListDatasetGroups:
-  title: List &FORlong; data set groups using an &AWS; SDK
-  title_abbrev: List data set groups
-  synopsis: list &FOR; data set groups.
-  category:
   languages:
     Java:
       versions:
@@ -102,10 +78,6 @@ forecast_ListDatasetGroups:
   services:
     forecast: {ListDatasetGroups}
 forecast_ListForecasts:
-  title: List &FORlong; forecasts using an &AWS; SDK
-  title_abbrev: List forecasts
-  synopsis: list &FOR; forecasts.
-  category:
   languages:
     Java:
       versions:

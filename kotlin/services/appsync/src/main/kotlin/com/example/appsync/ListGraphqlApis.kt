@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[appsync.kotlin.get_apis.main]
 suspend fun getApis() {
-
     AppSyncClient { region = "us-east-1" }.use { appClient ->
         val response = appClient.listGraphqlApis(ListGraphqlApisRequest {})
         response.graphqlApis?.forEach { graph ->

@@ -36,36 +36,36 @@ To enable billing metrics and statistics for these examples, make sure to
 - [Hello CloudWatch](Actions/HelloCloudWatch.cs#L4) (`ListMetrics`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/CloudWatchScenario.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a dashboard](Actions/CloudWatchWrapper.cs#L91) (`PutDashboard`)
-- [Create a metric alarm](Actions/CloudWatchWrapper.cs#L265) (`PutMetricAlarm`)
-- [Create an anomaly detector](Actions/CloudWatchWrapper.cs#L450) (`PutAnomalyDetector`)
-- [Delete alarms](Actions/CloudWatchWrapper.cs#L396) (`DeleteAlarms`)
-- [Delete an anomaly detector](Actions/CloudWatchWrapper.cs#L494) (`DeleteAnomalyDetector`)
-- [Delete dashboards](Actions/CloudWatchWrapper.cs#L512) (`DeleteDashboards`)
-- [Describe alarm history](Actions/CloudWatchWrapper.cs#L369) (`DescribeAlarmHistory`)
-- [Describe alarms](Actions/CloudWatchWrapper.cs#L326) (`DescribeAlarms`)
-- [Describe alarms for a metric](Actions/CloudWatchWrapper.cs#L349) (`DescribeAlarmsForMetric`)
-- [Describe anomaly detectors](Actions/CloudWatchWrapper.cs#L468) (`DescribeAnomalyDetectors`)
-- [Disable alarm actions](Actions/CloudWatchWrapper.cs#L414) (`DisableAlarmActions`)
-- [Enable alarm actions](Actions/CloudWatchWrapper.cs#L432) (`EnableAlarmActions`)
-- [Get a metric data image](Actions/CloudWatchWrapper.cs#L175) (`GetMetricWidgetImage`)
-- [Get dashboard details](Actions/CloudWatchWrapper.cs#L115) (`GetDashboard`)
-- [Get metric data](Actions/CloudWatchWrapper.cs#L226) (`GetMetricData`)
-- [Get metric statistics](Actions/CloudWatchWrapper.cs#L61) (`GetMetricStatistics`)
-- [List dashboards](Actions/CloudWatchWrapper.cs#L134) (`ListDashboards`)
-- [List metrics](Actions/CloudWatchWrapper.cs#L33) (`ListMetrics`)
-- [Put data into a metric](Actions/CloudWatchWrapper.cs#L154) (`PutMetricData`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with metrics, dashboards, and alarms](Scenarios/CloudWatchScenario.cs)
+- [DeleteAlarms](Actions/CloudWatchWrapper.cs#L396)
+- [DeleteAnomalyDetector](Actions/CloudWatchWrapper.cs#L494)
+- [DeleteDashboards](Actions/CloudWatchWrapper.cs#L512)
+- [DescribeAlarmHistory](Actions/CloudWatchWrapper.cs#L369)
+- [DescribeAlarms](Actions/CloudWatchWrapper.cs#L326)
+- [DescribeAlarmsForMetric](Actions/CloudWatchWrapper.cs#L349)
+- [DescribeAnomalyDetectors](Actions/CloudWatchWrapper.cs#L468)
+- [DisableAlarmActions](Actions/CloudWatchWrapper.cs#L414)
+- [EnableAlarmActions](Actions/CloudWatchWrapper.cs#L432)
+- [GetDashboard](Actions/CloudWatchWrapper.cs#L115)
+- [GetMetricData](Actions/CloudWatchWrapper.cs#L226)
+- [GetMetricStatistics](Actions/CloudWatchWrapper.cs#L61)
+- [GetMetricWidgetImage](Actions/CloudWatchWrapper.cs#L175)
+- [ListDashboards](Actions/CloudWatchWrapper.cs#L134)
+- [ListMetrics](Actions/CloudWatchWrapper.cs#L33)
+- [PutAnomalyDetector](Actions/CloudWatchWrapper.cs#L450)
+- [PutDashboard](Actions/CloudWatchWrapper.cs#L91)
+- [PutMetricAlarm](Actions/CloudWatchWrapper.cs#L265)
+- [PutMetricData](Actions/CloudWatchWrapper.cs#L154)
 
 
 <!--custom.examples.start-->
@@ -101,8 +101,7 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using CloudWatch.
 
 
-
-#### Get started with metrics, dashboards, and alarms
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -114,12 +113,13 @@ This example shows you how to do the following:
 - Add an anomaly detector.
 - Get a metric image, then clean up resources.
 
-<!--custom.scenario_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
-<!--custom.scenario_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
+<!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
+<!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
 
 
-<!--custom.scenarios.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
-<!--custom.scenarios.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
+<!--custom.basics.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
+<!--custom.basics.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
+
 
 ### Tests
 

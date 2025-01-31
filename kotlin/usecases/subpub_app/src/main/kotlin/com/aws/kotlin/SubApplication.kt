@@ -29,14 +29,10 @@ class MessageResource {
     var sns: SnsService? = null
 
     @GetMapping("/")
-    fun root(): String {
-        return "index"
-    }
+    fun root(): String = "index"
 
     @GetMapping("/subscribe")
-    fun add(): String {
-        return "sub"
-    }
+    fun add(): String = "sub"
 
     @RequestMapping(value = ["/delSub"], method = [RequestMethod.POST])
     @ResponseBody

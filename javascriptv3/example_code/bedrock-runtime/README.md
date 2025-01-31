@@ -28,28 +28,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 <!--custom.prerequisites.start-->
 
-> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
+> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console)
+> before you have requested access to it, you will receive an error message. For more information,
+> see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 
 <!--custom.prerequisites.end-->
 
 ### Get started
 
-- [Hello Amazon Bedrock](hello.js) (`InvokeModel`)
-
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [AI21 Labs Jurassic-2: Text generation](models/ai21_labs_jurassic2/jurassic2.js) (`InvokeModel`)
-- [Amazon Titan: Text generation](models/amazon_titan/titan_text.js) (`InvokeModel`)
-- [Anthropic Claude 2: Real-time response stream processing](models/anthropic_claude/claude_3.js) (`InvokeModelWithResponseStream`)
-- [Anthropic Claude 2: Text generation](models/anthropic_claude/claude_2.js) (`InvokeModel`)
-- [Anthropic Claude 3: Text generation](models/anthropic_claude/claude_3.js) (`InvokeModel`)
-- [Anthropic Claude Instant: Text generation](models/anthropic_claude/claude_instant_1.js) (`InvokeModel`)
-- [Meta Llama 2: Text generation](models/meta_llama2/llama2_chat.js) (`InvokeModel`)
-- [Mistral AI: Text generation with Mistral 7B Instruct](models/mistral_ai/mistral_7b.js) (`InvokeModel`)
-- [Mistral AI: Text generation with Mixtral 8x7B Instruct](models/mistral_ai/mixtral_8x7b.js) (`InvokeModel`)
+- [Hello Amazon Bedrock Runtime](hello.js) (`InvokeModel`)
 
 ### Scenarios
 
@@ -57,6 +44,42 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](scenarios/cli_text_playground.js)
+
+### AI21 Labs Jurassic-2
+
+- [Converse](models/ai21LabsJurassic2/converse.js#L4)
+- [InvokeModel](models/ai21LabsJurassic2/invoke_model.js)
+
+### Amazon Titan Text
+
+- [Converse](models/amazonTitanText/converse.js#L4)
+- [ConverseStream](models/amazonTitanText/converseStream.js#L4)
+- [InvokeModel](models/amazonTitanText/invoke_model.js)
+
+### Anthropic Claude
+
+- [Converse](models/anthropicClaude/converse.js#L4)
+- [ConverseStream](models/anthropicClaude/converseStream.js#L4)
+- [InvokeModel](models/anthropicClaude/invoke_claude_3.js)
+- [InvokeModelWithResponseStream](models/anthropicClaude/invoke_claude_3.js)
+
+### Cohere Command
+
+- [Converse](models/cohereCommand/converse.js#L4)
+- [ConverseStream](models/cohereCommand/converseStream.js#L4)
+
+### Meta Llama
+
+- [Converse](models/metaLlama/converse.js#L4)
+- [ConverseStream](models/metaLlama/converseStream.js#L4)
+- [InvokeModel: Llama 3](models/metaLlama/llama3/invoke_model_quickstart.js#L4)
+- [InvokeModelWithResponseStream: Llama 3](models/metaLlama/llama3/invoke_model_with_response_stream_quickstart.js#L4)
+
+### Mistral AI
+
+- [Converse](models/mistral/converse.js#L4)
+- [ConverseStream](models/mistral/converseStream.js#L4)
+- [InvokeModel](models/mistral/invoke_mistral_7b.js)
 
 
 <!--custom.examples.start-->
@@ -76,17 +99,28 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
 
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
+
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Amazon Bedrock
+#### Hello Amazon Bedrock Runtime
 
-This example shows you how to get started using Amazon Bedrock.
+This example shows you how to get started using Amazon Bedrock Runtime.
 
 ```bash
 node ./hello.js

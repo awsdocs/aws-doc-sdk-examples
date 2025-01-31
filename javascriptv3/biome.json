@@ -1,0 +1,56 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.3/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "ignore": [
+      "./example_code/reactnative/",
+      "./example_code/medical-imaging/scenarios/health-image-sets/pixel-data-verification",
+      "./example_code/kinesis/kinesis-cdk",
+      "./example_code/medical-imaging/scenarios/health-image-sets/pixel-data-verification/openjphjs/openjphjs.js",
+      "./example_code/cross-services/textract-react",
+      "**/dist",
+      "**/cdk.out",
+      "cdk.json"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "tab"
+  },
+  "organizeImports": {
+    "enabled": false
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUndeclaredVariables": {
+          "level": "error"
+        }
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "indentStyle": "space",
+      "trailingCommas": "all"
+    }
+  },
+  "json": {
+    "formatter": {
+      "indentStyle": "space"
+    }
+  },
+  "css": {
+    "formatter": {
+      "indentStyle": "space"
+    }
+  }
+}

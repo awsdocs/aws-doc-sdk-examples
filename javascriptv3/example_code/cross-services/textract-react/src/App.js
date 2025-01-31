@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useState, useEffect } from "react";
-import { ImageLoader } from "./ImageLoader";
-import { ImageDisplay } from "./ImageDisplay";
-import { ExtractButtons } from "./ExtractButtons";
-import { ExplorerCard } from "./ExplorerCard";
-import { LoginCard } from "./LoginCard";
+import { ImageLoader } from "./ImageLoader.js";
+import { ImageDisplay } from "./ImageDisplay.js";
+import { ExtractButtons } from "./ExtractButtons.js";
+import { ExplorerCard } from "./ExplorerCard.js";
+import { LoginCard } from "./LoginCard.js";
 
 /**
  * Main React application element. Includes panels for signing in, loading and
@@ -32,7 +32,7 @@ function App(props) {
           Id: polyId,
           BlockType: blockType,
           Geometry: geometry,
-        })
+        }),
       );
     } else {
       setShownPolygons(shownPolygons.filter((poly) => poly.Id !== polyId));

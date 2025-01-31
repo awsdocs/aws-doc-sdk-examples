@@ -46,7 +46,6 @@ This example performs these operations:
 
 // snippet-start:[iam.kotlin.scenario.main]
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <username> <policyName> <roleName> <roleSessionName> <fileLocation> <bucketName> 
@@ -93,10 +92,10 @@ suspend fun main(args: Array<String>) {
 }
 
 suspend fun createUser(usernameVal: String?): String? {
-
-    val request = CreateUserRequest {
-        userName = usernameVal
-    }
+    val request =
+        CreateUserRequest {
+            userName = usernameVal
+        }
 
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.createUser(request)
@@ -105,24 +104,25 @@ suspend fun createUser(usernameVal: String?): String? {
 }
 
 suspend fun createPolicy(policyNameVal: String?): String {
+    val policyDocumentValue: String =
+        "{" +
+            "  \"Version\": \"2012-10-17\"," +
+            "  \"Statement\": [" +
+            "    {" +
+            "        \"Effect\": \"Allow\"," +
+            "        \"Action\": [" +
+            "            \"s3:*\"" +
+            "       ]," +
+            "       \"Resource\": \"*\"" +
+            "    }" +
+            "   ]" +
+            "}"
 
-    val policyDocumentValue: String = "{" +
-        "  \"Version\": \"2012-10-17\"," +
-        "  \"Statement\": [" +
-        "    {" +
-        "        \"Effect\": \"Allow\"," +
-        "        \"Action\": [" +
-        "            \"s3:*\"" +
-        "       ]," +
-        "       \"Resource\": \"*\"" +
-        "    }" +
-        "   ]" +
-        "}"
-
-    val request = CreatePolicyRequest {
-        policyName = policyNameVal
-        policyDocument = policyDocumentValue
-    }
+    val request =
+        CreatePolicyRequest {
+            policyName = policyNameVal
+            policyDocument = policyDocumentValue
+        }
 
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.createPolicy(request)
@@ -130,15 +130,18 @@ suspend fun createPolicy(policyNameVal: String?): String {
     }
 }
 
-suspend fun createRole(rolenameVal: String?, fileLocation: String?): String? {
-
+suspend fun createRole(
+    rolenameVal: String?,
+    fileLocation: String?,
+): String? {
     val jsonObject = fileLocation?.let { readJsonSimpleDemo(it) } as JSONObject
 
-    val request = CreateRoleRequest {
-        roleName = rolenameVal
-        assumeRolePolicyDocument = jsonObject.toJSONString()
-        description = "Created using the AWS SDK for Kotlin"
-    }
+    val request =
+        CreateRoleRequest {
+            roleName = rolenameVal
+            assumeRolePolicyDocument = jsonObject.toJSONString()
+            description = "Created using the AWS SDK for Kotlin"
+        }
 
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.createRole(request)
@@ -146,11 +149,14 @@ suspend fun createRole(rolenameVal: String?, fileLocation: String?): String? {
     }
 }
 
-suspend fun attachRolePolicy(roleNameVal: String, policyArnVal: String) {
-
-    val request = ListAttachedRolePoliciesRequest {
-        roleName = roleNameVal
-    }
+suspend fun attachRolePolicy(
+    roleNameVal: String,
+    policyArnVal: String,
+) {
+    val request =
+        ListAttachedRolePoliciesRequest {
+            roleName = roleNameVal
+        }
 
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.listAttachedRolePolicies(request)
@@ -160,21 +166,25 @@ suspend fun attachRolePolicy(roleNameVal: String, policyArnVal: String) {
         val checkStatus: Int
         if (attachedPolicies != null) {
             checkStatus = checkMyList(attachedPolicies, policyArnVal)
-            if (checkStatus == -1)
+            if (checkStatus == -1) {
                 return
+            }
         }
 
-        val policyRequest = AttachRolePolicyRequest {
-            roleName = roleNameVal
-            policyArn = policyArnVal
-        }
+        val policyRequest =
+            AttachRolePolicyRequest {
+                roleName = roleNameVal
+                policyArn = policyArnVal
+            }
         iamClient.attachRolePolicy(policyRequest)
         println("Successfully attached policy $policyArnVal to role $roleNameVal")
     }
 }
 
-fun checkMyList(attachedPolicies: List<AttachedPolicy>, policyArnVal: String): Int {
-
+fun checkMyList(
+    attachedPolicies: List<AttachedPolicy>,
+    policyArnVal: String,
+): Int {
     for (policy in attachedPolicies) {
         val polArn = policy.policyArn.toString()
 
@@ -186,16 +196,21 @@ fun checkMyList(attachedPolicies: List<AttachedPolicy>, policyArnVal: String): I
     return 0
 }
 
-suspend fun assumeGivenRole(roleArnVal: String?, roleSessionNameVal: String?, bucketName: String) {
+suspend fun assumeGivenRole(
+    roleArnVal: String?,
+    roleSessionNameVal: String?,
+    bucketName: String,
+) {
+    val stsClient =
+        StsClient {
+            region = "us-east-1"
+        }
 
-    val stsClient = StsClient {
-        region = "us-east-1"
-    }
-
-    val roleRequest = AssumeRoleRequest {
-        roleArn = roleArnVal
-        roleSessionName = roleSessionNameVal
-    }
+    val roleRequest =
+        AssumeRoleRequest {
+            roleArn = roleArnVal
+            roleSessionName = roleSessionNameVal
+        }
 
     val roleResponse = stsClient.assumeRole(roleRequest)
     val myCreds = roleResponse.credentials
@@ -203,24 +218,27 @@ suspend fun assumeGivenRole(roleArnVal: String?, roleSessionNameVal: String?, bu
     val secKey = myCreds?.secretAccessKey
     val secToken = myCreds?.sessionToken
 
-    val staticCredentials = StaticCredentialsProvider {
-        accessKeyId = key
-        secretAccessKey = secKey
-        sessionToken = secToken
-    }
+    val staticCredentials =
+        StaticCredentialsProvider {
+            accessKeyId = key
+            secretAccessKey = secKey
+            sessionToken = secToken
+        }
 
     // List all objects in an Amazon S3 bucket using the temp creds.
-    val s3 = S3Client {
-        credentialsProvider = staticCredentials
-        region = "us-east-1"
-    }
+    val s3 =
+        S3Client {
+            credentialsProvider = staticCredentials
+            region = "us-east-1"
+        }
 
     println("Created a S3Client using temp credentials.")
     println("Listing objects in $bucketName")
 
-    val listObjects = ListObjectsRequest {
-        bucket = bucketName
-    }
+    val listObjects =
+        ListObjectsRequest {
+            bucket = bucketName
+        }
 
     val response = s3.listObjects(listObjects)
     response.contents?.forEach { myObject ->
@@ -229,30 +247,35 @@ suspend fun assumeGivenRole(roleArnVal: String?, roleSessionNameVal: String?, bu
     }
 }
 
-suspend fun deleteRole(roleNameVal: String, polArn: String) {
-
+suspend fun deleteRole(
+    roleNameVal: String,
+    polArn: String,
+) {
     val iam = IamClient { region = "AWS_GLOBAL" }
 
     // First the policy needs to be detached.
-    val rolePolicyRequest = DetachRolePolicyRequest {
-        policyArn = polArn
-        roleName = roleNameVal
-    }
+    val rolePolicyRequest =
+        DetachRolePolicyRequest {
+            policyArn = polArn
+            roleName = roleNameVal
+        }
 
     iam.detachRolePolicy(rolePolicyRequest)
 
     // Delete the policy.
-    val request = DeletePolicyRequest {
-        policyArn = polArn
-    }
+    val request =
+        DeletePolicyRequest {
+            policyArn = polArn
+        }
 
     iam.deletePolicy(request)
     println("*** Successfully deleted $polArn")
 
     // Delete the role.
-    val roleRequest = DeleteRoleRequest {
-        roleName = roleNameVal
-    }
+    val roleRequest =
+        DeleteRoleRequest {
+            roleName = roleNameVal
+        }
 
     iam.deleteRole(roleRequest)
     println("*** Successfully deleted $roleNameVal")
@@ -260,9 +283,10 @@ suspend fun deleteRole(roleNameVal: String, polArn: String) {
 
 suspend fun deleteUser(userNameVal: String) {
     val iam = IamClient { region = "AWS_GLOBAL" }
-    val request = DeleteUserRequest {
-        userName = userNameVal
-    }
+    val request =
+        DeleteUserRequest {
+            userName = userNameVal
+        }
 
     iam.deleteUser(request)
     println("*** Successfully deleted $userNameVal")

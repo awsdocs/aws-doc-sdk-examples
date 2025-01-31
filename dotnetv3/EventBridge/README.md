@@ -34,28 +34,28 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 - [Hello EventBridge](Actions/HelloEventBridge.cs#L4) (`ListEventBuses`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/EventBridgeScenario.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a target](Actions/EventBridgeWrapper.cs#L347) (`PutTargets`)
-- [Create a rule](Actions/EventBridgeWrapper.cs#L166) (`PutRule`)
-- [Delete a rule](Actions/EventBridgeWrapper.cs#L433) (`DeleteRule`)
-- [Describe a rule](Actions/EventBridgeWrapper.cs#L34) (`DescribeRule`)
-- [Disable a rule](Actions/EventBridgeWrapper.cs#L70) (`DisableRule`)
-- [Enable a rule](Actions/EventBridgeWrapper.cs#L53) (`EnableRule`)
-- [List rule names for a target](Actions/EventBridgeWrapper.cs#L140) (`ListRuleNamesByTarget`)
-- [List rules](Actions/EventBridgeWrapper.cs#L87) (`ListRules`)
-- [List targets for a rule](Actions/EventBridgeWrapper.cs#L114) (`ListTargetsByRule`)
-- [Remove targets from a rule](Actions/EventBridgeWrapper.cs#L391) (`RemoveTargets`)
-- [Send events](Actions/EventBridgeWrapper.cs#L290) (`PutEvents`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with rules and targets](Scenarios/EventBridgeScenario.cs)
+- [DeleteRule](Actions/EventBridgeWrapper.cs#L433)
+- [DescribeRule](Actions/EventBridgeWrapper.cs#L34)
+- [DisableRule](Actions/EventBridgeWrapper.cs#L70)
+- [EnableRule](Actions/EventBridgeWrapper.cs#L53)
+- [ListRuleNamesByTarget](Actions/EventBridgeWrapper.cs#L140)
+- [ListRules](Actions/EventBridgeWrapper.cs#L87)
+- [ListTargetsByRule](Actions/EventBridgeWrapper.cs#L114)
+- [PutEvents](Actions/EventBridgeWrapper.cs#L290)
+- [PutRule](Actions/EventBridgeWrapper.cs#L166)
+- [PutTargets](Actions/EventBridgeWrapper.cs#L347)
+- [RemoveTargets](Actions/EventBridgeWrapper.cs#L391)
 
 
 <!--custom.examples.start-->
@@ -91,8 +91,7 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using EventBridge.
 
 
-
-#### Get started with rules and targets
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -101,12 +100,13 @@ This example shows you how to do the following:
 - List and update rules and targets.
 - Send events, then clean up resources.
 
-<!--custom.scenario_prereqs.eventbridge_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.eventbridge_Scenario_GettingStarted.end-->
+<!--custom.basic_prereqs.eventbridge_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.eventbridge_Scenario_GettingStarted.end-->
 
 
-<!--custom.scenarios.eventbridge_Scenario_GettingStarted.start-->
-<!--custom.scenarios.eventbridge_Scenario_GettingStarted.end-->
+<!--custom.basics.eventbridge_Scenario_GettingStarted.start-->
+<!--custom.basics.eventbridge_Scenario_GettingStarted.end-->
+
 
 ### Tests
 

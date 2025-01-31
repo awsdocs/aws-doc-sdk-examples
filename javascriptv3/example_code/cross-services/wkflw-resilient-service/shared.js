@@ -27,8 +27,7 @@ export async function findLoadBalancer(loadBalancerName) {
   } catch (e) {
     if (e.name === "LoadBalancerNotFoundException") {
       return undefined;
-    } else {
-      throw e;
     }
+    throw e;
   }
 }

@@ -10,6 +10,7 @@ use aws_sdk_s3::types::{
 };
 use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client};
 use clap::Parser;
+use s3_code_examples::error::S3ExampleError;
 use serde::de::IgnoredAny;
 use serde::Deserialize;
 
@@ -24,7 +25,7 @@ struct Opt {
     bucket: String,
 
     /// The object key to scan. This example expects the object to be an uncompressed CSV file with:
-
+    ///
     /// Name,PhoneNumber,City,Occupation
     /// Person1,(nnn) nnn-nnnn,City1,Occupation1,Comment
     /// ...
@@ -51,8 +52,8 @@ pub struct Record {
     pub description: String,
 }
 
-fn is_valid_json(data: impl AsRef<str>) -> bool {
-    serde_json::from_str::<IgnoredAny>(data.as_ref()).is_ok()
+fn is_valid_json(data: &str) -> bool {
+    serde_json::from_str::<IgnoredAny>(data).is_ok()
 }
 
 // Get object content.
@@ -62,7 +63,7 @@ async fn get_content(
     bucket: &str,
     object: &str,
     name: &str,
-) -> Result<(), anyhow::Error> {
+) -> Result<(), S3ExampleError> {
     // To escape a single quote, use two single quotes.
     let name = name.replace('\'', "''");
     let person: String = format!("SELECT * FROM s3object s where s.Name like '{name}%'");
@@ -128,15 +129,18 @@ async fn get_content(
 }
 
 /// Parse a new line &str, potentially using content from the previous line
-fn parse_line_buffered(buf: &mut String, line: &str) -> Result<Option<Record>, anyhow::Error> {
+fn parse_line_buffered(buf: &mut String, line: &str) -> Result<Option<Record>, S3ExampleError> {
     if buf.is_empty() && is_valid_json(line) {
-        Ok(Some(serde_json::from_str(line)?))
+        Ok(Some(serde_json::from_str(line).map_err(|err| {
+            S3ExampleError::new(format!("Failed to parse JSON: {err:?}"))
+        })?))
     } else {
         buf.push_str(line);
-        if is_valid_json(&buf) {
-            let result = serde_json::from_str(buf);
+        if is_valid_json(buf) {
+            let result = serde_json::from_str(buf)
+                .map_err(|err| S3ExampleError::new(format!("Failed to parse JSON: {err:?}")))?;
             buf.clear();
-            Ok(Some(result?))
+            Ok(Some(result))
         } else {
             Ok(None)
         }
@@ -153,7 +157,7 @@ fn parse_line_buffered(buf: &mut String, line: &str) -> Result<Option<Record>, a
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), anyhow::Error> {
+async fn main() -> Result<(), S3ExampleError> {
     tracing_subscriber::fmt::init();
 
     let Opt {

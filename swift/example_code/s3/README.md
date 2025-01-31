@@ -29,26 +29,34 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](basics/Sources/ServiceHandler/ServiceHandler.swift)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](basics/Sources/ServiceHandler/ServiceHandler.swift#L164) (`CopyObject`)
-- [Create a bucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L41) (`CreateBucket`)
-- [Delete an empty bucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L56) (`DeleteBucket`)
-- [Delete an object](basics/Sources/ServiceHandler/ServiceHandler.swift#L183) (`DeleteObject`)
-- [Delete multiple objects](DeleteObjects/Sources/ServiceHandler/ServiceHandler.swift#L54) (`DeleteObjects`)
-- [Get an object from a bucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L112) (`GetObject`)
-- [List buckets](ListBuckets/Sources/ListBuckets/S3Session.swift#L70) (`ListBuckets`)
-- [List objects in a bucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L204) (`ListObjectsV2`)
-- [Upload an object to a bucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L70) (`PutObject`)
+- [CopyObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L232)
+- [CreateBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L56)
+- [DeleteBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L87)
+- [DeleteObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L257)
+- [DeleteObjects](DeleteObjects/Sources/ServiceHandler/ServiceHandler.swift#L59)
+- [GetObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L163)
+- [ListBuckets](ListBuckets/Sources/ListBuckets/S3Session.swift#L106)
+- [ListObjectsV2](basics/Sources/ServiceHandler/ServiceHandler.swift#L280)
+- [PutObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L107)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with buckets and objects](basics/Sources/ServiceHandler/ServiceHandler.swift)
+- [Download stream of unknown size](binary-streaming/Sources/streamdown/streamdown.swift)
+- [Upload stream of unknown size](binary-streaming/Sources/streamup/streamup.swift)
 
 
 <!--custom.examples.start-->
@@ -74,8 +82,7 @@ and run commands.
 <!--custom.instructions.end-->
 
 
-
-#### Get started with buckets and objects
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -85,12 +92,37 @@ This example shows you how to do the following:
 - List the objects in a bucket.
 - Delete the bucket objects and the bucket.
 
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
+
+#### Download stream of unknown size
+
+This example shows you how to download a stream of unknown size from an Amazon S3 object.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_DownloadStream.start-->
+<!--custom.scenario_prereqs.s3_Scenario_DownloadStream.end-->
+
+
+<!--custom.scenarios.s3_Scenario_DownloadStream.start-->
+<!--custom.scenarios.s3_Scenario_DownloadStream.end-->
+
+#### Upload stream of unknown size
+
+This example shows you how to upload a stream of unknown size to an Amazon S3 object.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_UploadStream.start-->
+<!--custom.scenario_prereqs.s3_Scenario_UploadStream.end-->
+
+
+<!--custom.scenarios.s3_Scenario_UploadStream.start-->
+<!--custom.scenarios.s3_Scenario_UploadStream.end-->
 
 ### Tests
 
@@ -109,7 +141,7 @@ in the `swift` folder.
 
 - [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
 - [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
-- [SDK for Swift Amazon S3 reference](https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWSS3/Home)
+- [SDK for Swift Amazon S3 reference](https://sdk.amazonaws.com/swift/api/awss3/latest/documentation/awss3)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <name> 
@@ -37,11 +36,11 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pipeline.kotlin.get_pipeline.main]
 suspend fun getSpecificPipeline(nameVal: String?) {
-
-    val request = GetPipelineRequest {
-        name = nameVal
-        version = 1
-    }
+    val request =
+        GetPipelineRequest {
+            name = nameVal
+            version = 1
+        }
     CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
         val response = pipelineClient.getPipeline(request)
         response.pipeline?.stages?.forEach { stage ->

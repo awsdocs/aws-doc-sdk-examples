@@ -58,7 +58,7 @@ class APIGatewayTest {
         httpMethod = prop.getProperty("httpMethod")
         restApiName = prop.getProperty("restApiName")
         stageName = prop.getProperty("stageName")
-       */
+        */
     }
 
     @Test
@@ -84,7 +84,7 @@ class APIGatewayTest {
 
     @Test
     @Order(4)
-    fun DeleteRestApi() = runBlocking {
+    fun deleteRestApi() = runBlocking {
         deleteAPI(newApiId)
         println("Test 6 passed")
     }
@@ -94,7 +94,10 @@ class APIGatewayTest {
         val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

@@ -42,28 +42,29 @@ Next, for information on code example structures and how to build and run the ex
 - [Hello Lambda](hello_lambda/CMakeLists.txt#L4) (`ListFunctions`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](get_started_with_functions_scenario.cpp)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a function](get_started_with_functions_scenario.cpp#L172) (`CreateFunction`)
-- [Delete a function](get_started_with_functions_scenario.cpp#L843) (`DeleteFunction`)
-- [Get a function](get_started_with_functions_scenario.cpp#L488) (`GetFunction`)
-- [Invoke a function](get_started_with_functions_scenario.cpp#L538) (`Invoke`)
-- [List functions](get_started_with_functions_scenario.cpp#L440) (`ListFunctions`)
-- [Update function code](get_started_with_functions_scenario.cpp#L291) (`UpdateFunctionCode`)
-- [Update function configuration](get_started_with_functions_scenario.cpp#L342) (`UpdateFunctionConfiguration`)
+- [CreateFunction](get_started_with_functions_scenario.cpp#L172)
+- [DeleteFunction](get_started_with_functions_scenario.cpp#L843)
+- [GetFunction](get_started_with_functions_scenario.cpp#L488)
+- [Invoke](get_started_with_functions_scenario.cpp#L538)
+- [ListFunctions](get_started_with_functions_scenario.cpp#L440)
+- [UpdateFunctionCode](get_started_with_functions_scenario.cpp#L291)
+- [UpdateFunctionConfiguration](get_started_with_functions_scenario.cpp#L342)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
-
-- [Get started with functions](get_started_with_functions_scenario.cpp)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
 
 - [Create a serverless application to manage photos](../../example_code/cross-service/photo_asset_manager)
 
@@ -96,8 +97,7 @@ folder.
 This example shows you how to get started using Lambda.
 
 
-
-#### Get started with functions
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -107,12 +107,25 @@ This example shows you how to do the following:
 - Invoke the function with new parameters and get results. Display the returned execution log.
 - List the functions for your account, then clean up resources.
 
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
 
 
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
+
+
+#### Create a serverless application to manage photos
+
+This example shows you how to create a serverless application that lets users manage photos using labels.
+
+
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
 
 ### Tests
 

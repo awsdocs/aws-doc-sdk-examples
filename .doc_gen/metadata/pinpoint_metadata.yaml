@@ -1,9 +1,17 @@
 pinpoint_SendMessages:
-  title: Send email and text messages with &PIN; using an &AWS; SDK
-  title_abbrev: Send email and text messages
-  synopsis: send email and text messages with &PIN;.
-  category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Pinpoint
+          sdkguide:
+          excerpts:
+            - description: Send an email message.
+              snippet_tags:
+                - pinpoint.dotnet.pinpoint_send_email_message_api.complete
+            - description: Send an SMS message.
+              snippet_tags:
+                - pinpoint.dotnet.pinpoint_send_sms_message_api.complete
     Kotlin:
       versions:
         - sdk_version: 1
@@ -24,13 +32,13 @@ pinpoint_SendMessages:
                 - pinpoint.java2.send_email.main
             - description: Send an email message with CC values.
               snippet_tags:
-                - pinpoint.java2.send_emailcc.main    
+                - pinpoint.java2.send_emailcc.main
             - description: Send an SMS message.
               snippet_tags:
                 - pinpoint.java2.sendmsg.main
             - description: Send batch SMS messages.
               snippet_tags:
-                - pinpoint.java2.sendmsg.batch.main  
+                - pinpoint.java2.sendmsg.batch.main
     Python:
       versions:
         - sdk_version: 3
@@ -43,6 +51,12 @@ pinpoint_SendMessages:
             - description: Send an SMS message.
               snippet_tags:
                 - pinpoint.python.pinpoint_send_sms_message_api.complete
+            - description: Send an email message with an existing email template.
+              snippet_tags:
+                - pinpoint.python.pinpoint_send_templated_email_message.complete
+            - description: Send a text message with an existing SMS template.
+              snippet_tags:
+                - pinpoint.python.pinpoint_send_templated_sms_message.complete
     JavaScript:
       versions:
         - sdk_version: 3
@@ -70,30 +84,7 @@ pinpoint_SendMessages:
                 - pinpoint.javascript.pinpoint_send_sms_message_api.complete
   services:
     pinpoint: {SendMessages}
-pinpoint_SendMessages_Templated:
-  title: Send templated email and text messages with &PIN; using an &AWS; SDK
-  title_abbrev: Send templated email and text messages
-  synopsis: send templated email and text messages with &PIN;.
-  category:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/pinpoint
-          sdkguide:
-          excerpts:
-            - description: Send an email message with an existing email template.
-              snippet_tags:
-                - pinpoint.python.pinpoint_send_templated_email_message.complete
-            - description: Send a text message with an existing SMS template.
-              snippet_tags:
-                - pinpoint.python.pinpoint_send_templated_sms_message.complete
-  services:
-    pinpoint: {SendMessages}
 pinpoint_CreateApp:
-  title: Create an &PIN; application
-  title_abbrev: Create an application 
-  synopsis: create an appliation.
   languages:
     Kotlin:
       versions:
@@ -110,15 +101,12 @@ pinpoint_CreateApp:
           github: javav2/example_code/pinpoint
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - pinpoint.java2.createapp.main
   services:
-    pinpoint: {CreateApp}    
+    pinpoint: {CreateApp}
 pinpoint_CreateCampaign:
-  title: Create an &PIN; campaign
-  title_abbrev: Create a campaign 
-  synopsis: create a campaign.
   languages:
     Kotlin:
       versions:
@@ -139,11 +127,8 @@ pinpoint_CreateCampaign:
               snippet_tags:
                 - pinpoint.java2.createcampaign.main
   services:
-    pinpoint: {CreateCampaign}  
+    pinpoint: {CreateCampaign}
 pinpoint_UpdateEndpoint:
-  title: Update an &PIN; endpoint
-  title_abbrev: Update an endpoint 
-  synopsis: update an endpoint.
   languages:
     Java:
       versions:
@@ -151,15 +136,12 @@ pinpoint_UpdateEndpoint:
           github: javav2/example_code/pinpoint
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - pinpoint.java2.createendpoint.main
   services:
-    pinpoint: {UpdateEndpoint}       
+    pinpoint: {UpdateEndpoint}
 pinpoint_CreateSegment:
-  title: Create an &PIN; segment
-  title_abbrev: Create a segment 
-  synopsis: create a segment.
   languages:
     Kotlin:
       versions:
@@ -176,15 +158,12 @@ pinpoint_CreateSegment:
           github: javav2/example_code/pinpoint
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - pinpoint.java2.createsegment.main
   services:
     pinpoint: {CreateSegment}
 pinpoint_DeleteApp:
-  title: Delete an &PIN; application
-  title_abbrev: Delete an application
-  synopsis: delete an application.
   languages:
     Kotlin:
       versions:
@@ -205,11 +184,8 @@ pinpoint_DeleteApp:
               snippet_tags:
                 - pinpoint.java2.deleteapp.main
   services:
-    pinpoint: {DeleteApp}     
+    pinpoint: {DeleteApp}
 pinpoint_DeleteEndpoint:
-  title: Delete an &PIN; endpoint
-  title_abbrev: Delete an endpoint
-  synopsis: delete an endpoint.
   languages:
     Kotlin:
       versions:
@@ -232,9 +208,6 @@ pinpoint_DeleteEndpoint:
   services:
     pinpoint: {DeleteEndpoint}
 pinpoint_CreateExportJob:
-  title: Export an &PIN; endpoint
-  title_abbrev: Export an endpoint
-  synopsis: export an endpoint.
   languages:
     Java:
       versions:
@@ -246,11 +219,8 @@ pinpoint_CreateExportJob:
               snippet_tags:
                 - pinpoint.java2.export_endpoint.main
   services:
-    pinpoint: {CreateExportJob}     
+    pinpoint: {CreateExportJob}
 pinpoint_CreateImportJob:
-  title: Import an &PIN; segment
-  title_abbrev: Import a segment
-  synopsis: import a segment.
   languages:
     Java:
       versions:
@@ -262,11 +232,8 @@ pinpoint_CreateImportJob:
               snippet_tags:
                 - pinpoint.java2.importsegment.main
   services:
-    pinpoint: {CreateImportJob}   
+    pinpoint: {CreateImportJob}
 pinpoint_GetUserEndpoints:
-  title: List &PIN; endpoints that are associated with a specific user ID
-  title_abbrev: List endpoints
-  synopsis: list endpoints.
   languages:
     Java:
       versions:
@@ -274,15 +241,12 @@ pinpoint_GetUserEndpoints:
           github: javav2/example_code/pinpoint
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - pinpoint.java2.list_endpoints.main
   services:
-    pinpoint: {GetUserEndpoints}       
+    pinpoint: {GetUserEndpoints}
 pinpoint_GetSegments:
-  title: List &PIN; segments in an application
-  title_abbrev: List segments
-  synopsis: list segments.
   languages:
     Kotlin:
       versions:
@@ -303,11 +267,8 @@ pinpoint_GetSegments:
               snippet_tags:
                 - pinpoint.java2.listsegments.main
   services:
-    pinpoint: {GetSegments}   
+    pinpoint: {GetSegments}
 pinpoint_GetEndpoint:
-  title: Display information about an existing &PIN; endpoint
-  title_abbrev: Get endpoints
-  synopsis: get endpoints.
   languages:
     Kotlin:
       versions:
@@ -328,11 +289,8 @@ pinpoint_GetEndpoint:
               snippet_tags:
                 - pinpoint.java2.lookup.main
   services:
-    pinpoint: {GetEndpoint}   
+    pinpoint: {GetEndpoint}
 pinpoint_GetSmsChannel:
-  title: Update an &PIN; channel
-  title_abbrev: Update channels
-  synopsis: update channels.
   languages:
     Java:
       versions:

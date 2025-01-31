@@ -46,28 +46,25 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a topic](create_topic.cpp#L21) (`CreateTopic`)
-- [Delete a subscription](unsubscribe.cpp#L21) (`Unsubscribe`)
-- [Delete a topic](delete_topic.cpp#L21) (`DeleteTopic`)
-- [Get the properties of a topic](get_topic_attributes.cpp#L22) (`GetTopicAttributes`)
-- [Get the settings for sending SMS messages](get_sms_type.cpp#L21) (`GetSMSAttributes`)
-- [List the subscribers of a topic](list_subscriptions.cpp#L21) (`ListSubscriptions`)
-- [List topics](list_topics.cpp#L21) (`ListTopics`)
-- [Publish a message with an attribute](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L52) (`Publish`)
-- [Publish an SMS text message](publish_sms.cpp#L21) (`Publish`)
-- [Publish to a topic](publish_to_topic.cpp#L21) (`Publish`)
-- [Set the default settings for sending SMS messages](set_sms_type.cpp#L21) (`SetSMSAttributes`)
-- [Subscribe a Lambda function to a topic](subscribe_lambda.cpp#L21) (`Subscribe`)
-- [Subscribe a mobile application to a topic](subscribe_app.cpp#L21) (`Subscribe`)
-- [Subscribe an SQS queue to a topic](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L815) (`Subscribe`)
-- [Subscribe an email address to a topic](subscribe_email.cpp#L10) (`Subscribe`)
-- [Subscribe with a filter to a topic](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L52) (`Subscribe`)
+- [CreateTopic](create_topic.cpp#L21)
+- [DeleteTopic](delete_topic.cpp#L21)
+- [GetSMSAttributes](get_sms_type.cpp#L21)
+- [GetTopicAttributes](get_topic_attributes.cpp#L22)
+- [ListSubscriptions](list_subscriptions.cpp#L21)
+- [ListTopics](list_topics.cpp#L21)
+- [Publish](publish_to_topic.cpp#L21)
+- [SetSMSAttributes](set_sms_type.cpp#L21)
+- [Subscribe](subscribe_email.cpp#L10)
+- [Unsubscribe](unsubscribe.cpp#L21)
 
-### Cross-service examples
+### Scenarios
 
-Sample applications that work across multiple AWS services.
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
 - [Create a serverless application to manage photos](../../example_code/cross-service/photo_asset_manager)
+- [Publish an SMS text message](publish_sms.cpp)
+- [Publish messages to queues](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp)
 
 
 <!--custom.examples.start-->
@@ -98,6 +95,46 @@ folder.
 This example shows you how to get started using Amazon SNS.
 
 
+
+#### Create a serverless application to manage photos
+
+This example shows you how to create a serverless application that lets users manage photos using labels.
+
+
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
+
+#### Publish an SMS text message
+
+This example shows you how to publish SMS messages using Amazon SNS.
+
+
+<!--custom.scenario_prereqs.sns_PublishTextSMS.start-->
+<!--custom.scenario_prereqs.sns_PublishTextSMS.end-->
+
+
+<!--custom.scenarios.sns_PublishTextSMS.start-->
+<!--custom.scenarios.sns_PublishTextSMS.end-->
+
+#### Publish messages to queues
+
+This example shows you how to do the following:
+
+- Create topic (FIFO or non-FIFO).
+- Subscribe several queues to the topic with an option to apply a filter.
+- Publish messages to the topic.
+- Poll the queues for messages received.
+
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
 
 ### Tests
 

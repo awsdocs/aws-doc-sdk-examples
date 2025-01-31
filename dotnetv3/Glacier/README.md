@@ -31,21 +31,21 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 ### Get started
 
-- [Hello Amazon S3 Glacier](Actions/HelloGlacier.cs#L4) (`ListVaults`)
+- [Hello S3 Glacier](Actions/HelloGlacier.cs#L4) (`ListVaults`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add tags](Actions/GlacierWrapper.cs#L33) (`AddTagsToVault`)
-- [Create a vault](Actions/GlacierWrapper.cs#L58) (`CreateVault`)
-- [Describe a vault](Actions/GlacierWrapper.cs#L83) (`DescribeVault`)
-- [Download an archive](Actions/GlacierWrapper.cs)
-- [List jobs](Actions/GlacierWrapper.cs#L164) (`ListJobs`)
-- [List tags](Actions/GlacierWrapper.cs#L188) (`ListTagsForVault`)
-- [List vaults](Actions/GlacierWrapper.cs#L213) (`ListVaults`)
-- [Upload an archive to a vault](Actions/GlacierWrapper.cs#L234) (`UploadArchive`)
+- [AddTagsToVault](Actions/GlacierWrapper.cs#L33)
+- [CreateVault](Actions/GlacierWrapper.cs#L58)
+- [DescribeVault](Actions/GlacierWrapper.cs#L83)
+- [InitiateJob](Actions/GlacierWrapper.cs#L112)
+- [ListJobs](Actions/GlacierWrapper.cs#L164)
+- [ListTagsForVault](Actions/GlacierWrapper.cs#L188)
+- [ListVaults](Actions/GlacierWrapper.cs#L213)
+- [UploadArchive](Actions/GlacierWrapper.cs#L234)
 
 
 <!--custom.examples.start-->
@@ -76,9 +76,9 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Amazon S3 Glacier
+#### Hello S3 Glacier
 
-This example shows you how to get started using Amazon S3 Glacier.
+This example shows you how to get started using S3 Glacier.
 
 
 

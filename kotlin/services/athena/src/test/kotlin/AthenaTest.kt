@@ -53,7 +53,7 @@ class AthenaTest {
         queryString = prop.getProperty("queryString")
         database = prop.getProperty("database")
         outputLocation = prop.getProperty("outputLocation")
-        */
+         */
     }
 
     @Test
@@ -99,7 +99,10 @@ class AthenaTest {
         val valueRequest = GetSecretValueRequest {
             secretId = secretName
         }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

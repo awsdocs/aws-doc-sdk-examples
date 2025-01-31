@@ -33,11 +33,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a stream](src/bin/create-stream.rs#L26) (`CreateStream`)
-- [Delete a stream](src/bin/delete-stream.rs#L26) (`DeleteStream`)
-- [Describe a stream](src/bin/describe-stream.rs#L26) (`DescribeStream`)
-- [List streams](src/bin/list-streams.rs#L22) (`ListStreams`)
-- [Put data into a stream](src/bin/put-record.rs#L35) (`PutRecord`)
+- [CreateStream](src/bin/create-stream.rs#L26)
+- [DeleteStream](src/bin/delete-stream.rs#L26)
+- [DescribeStream](src/bin/describe-stream.rs#L26)
+- [ListStreams](src/bin/list-streams.rs#L22)
+- [PutRecord](src/bin/put-record.rs#L35)
 
 
 <!--custom.examples.start-->

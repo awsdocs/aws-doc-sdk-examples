@@ -6,12 +6,14 @@
 package scenarios
 
 import (
+	"context"
 	"fmt"
 	"strconv"
 	"testing"
 
 	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
+	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/actions"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/stubs"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
@@ -136,6 +138,8 @@ func (scenTest *MovieScenarioTest) SetupDataAndStubs() []testtools.Stub {
 // RunSubTest performs a single test run with a set of stubs set up to run with
 // or without errors.
 func (scenTest *MovieScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
-	mockQuestioner := testtools.MockQuestioner{Answers: scenTest.Answers}
-	RunMovieScenario(*stubber.SdkConfig, &mockQuestioner, scenTest.TableName, scenTest.Sampler)
+	mockQuestioner := demotools.MockQuestioner{Answers: scenTest.Answers}
+	RunMovieScenario(context.Background(), *stubber.SdkConfig, &mockQuestioner, scenTest.TableName, scenTest.Sampler)
 }
+
+func (scenTest *MovieScenarioTest) Cleanup() {}

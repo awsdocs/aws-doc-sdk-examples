@@ -14,7 +14,12 @@ describe("ses_gettemplate", () => {
     await deleteTemplate(TEMPLATE_NAME);
   });
 
+  /**
+   * @typedef {import('@aws-sdk/client-ses').GetTemplateCommandOutput} GetTemplateCommandOutput
+   */
+
   it("should successfully get an existing email template", async () => {
+    /** @type { GetTemplateCommandOutput } */
     const result = await run();
     expect(result.Template.TemplateName).toBe(TEMPLATE_NAME);
   });

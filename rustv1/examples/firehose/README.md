@@ -1,13 +1,13 @@
-# Kinesis Data Firehose code examples for the SDK for Rust
+# Data Firehose code examples for the SDK for Rust
 
 ## Overview
 
-Shows how to use the AWS SDK for Rust to work with Amazon Kinesis Data Firehose.
+Shows how to use the AWS SDK for Rust to work with Amazon Data Firehose.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Kinesis Data Firehose is a fully managed service for delivering real-time streaming data to AWS destinations and third-party HTTP endpoints._
+_Data Firehose is a fully managed service for delivering real-time streaming data to AWS destinations and third-party HTTP endpoints._
 
 ## ⚠ Important
 
@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [Write multiple data records](src/bin/put-records-batch.rs#L30) (`PutRecordBatch`)
+- [PutRecordBatch](src/bin/put-records-batch.rs#L30)
 
 
 <!--custom.examples.start-->
@@ -64,9 +64,9 @@ in the `rustv1` folder.
 
 ## Additional resources
 
-- [Kinesis Data Firehose User Guide](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)
-- [Kinesis Data Firehose API Reference](https://docs.aws.amazon.com/firehose/latest/APIReference/Welcome.html)
-- [SDK for Rust Kinesis Data Firehose reference](https://docs.rs/aws-sdk-firehose/latest/aws_sdk_firehose/)
+- [Data Firehose User Guide](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)
+- [Data Firehose API Reference](https://docs.aws.amazon.com/firehose/latest/APIReference/Welcome.html)
+- [SDK for Rust Data Firehose reference](https://docs.rs/aws-sdk-firehose/latest/aws_sdk_firehose/)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

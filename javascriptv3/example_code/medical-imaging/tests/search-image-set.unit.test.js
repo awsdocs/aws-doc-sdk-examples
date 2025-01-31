@@ -20,15 +20,17 @@ describe("search-image-sets", () => {
   it("should log the response", async () => {
     const logSpy = vi.spyOn(console, "log");
     const datastoreId = "12345678901234567890123456789012";
-    const filters = [
-      {
-        values: [
-          { createdAt: new Date("1985-04-12T23:20:50.52Z") },
-          { createdAt: new Date("2023-09-12T23:20:50.52Z") },
-        ],
-        operator: "BETWEEN",
-      },
-    ];
+    const searchCriteria = {
+      filters: [
+        {
+          values: [
+            { createdAt: new Date("1985-04-12T23:20:50.52Z") },
+            { createdAt: new Date() },
+          ],
+          operator: "BETWEEN",
+        },
+      ],
+    };
 
     const response = {
       $metadata: {
@@ -54,7 +56,7 @@ describe("search-image-sets", () => {
       yield response;
     });
 
-    await searchImageSets(datastoreId, filters);
+    await searchImageSets(datastoreId, searchCriteria);
 
     expect(logSpy).toHaveBeenCalledWith(response);
   });

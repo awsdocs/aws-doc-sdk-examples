@@ -10,11 +10,10 @@ import aws.sdk.kotlin.services.apigateway.model.GetApiKeysRequest
 
 suspend fun main() {
     getKeys()
- }
+}
 
 // snippet-start:[apigateway.kotlin.get_apikeys.main]
 suspend fun getKeys() {
-
     ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
         val response = apiGateway.getApiKeys(GetApiKeysRequest { })
         response.items?.forEach { key ->

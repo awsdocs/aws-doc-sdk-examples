@@ -22,10 +22,10 @@ suspend fun main() {
 
 // snippet-start:[glue.kotlin.get_crawlers.main]
 suspend fun getAllCrawlers() {
-
-    val request = GetCrawlersRequest {
-        maxResults = 10
-    }
+    val request =
+        GetCrawlersRequest {
+            maxResults = 10
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getCrawlers(request)

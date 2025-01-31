@@ -1,0 +1,36 @@
+name: Lint Python
+
+on:  # yamllint disable-line rule:truthy
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  black:
+    name: Flake8 Linting & Black Formatting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@e9772d140489982e0e3704fea5ee93d536f1e275
+        with:
+          files: "**.py"
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          pip install black==23.9.1 pylint
+
+      - name: Run Black & Pylint
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          changed_files=(${{steps.changed-files.outputs.all_changed_files}})
+          black "${changed_files[@]}"
+          pylint --rcfile .github/linters/.python-lint "${changed_files[@]}"

@@ -19,10 +19,10 @@ namespace AwsDocTest {
         auto instanceID = getCachedInstanceID();
         ASSERT_FALSE(instanceID.empty()) << preconditionError << std::endl;
 
-        auto result = AwsDoc::EC2::EnableMonitoring(instanceID, *s_clientConfig);
+        auto result = AwsDoc::EC2::enableMonitoring(instanceID, *s_clientConfig);
         ASSERT_TRUE(result);
 
-        result = AwsDoc::EC2::DisableMonitoring(instanceID, *s_clientConfig);
+        result = AwsDoc::EC2::disableMonitoring(instanceID, *s_clientConfig);
         ASSERT_TRUE(result);
     }
 

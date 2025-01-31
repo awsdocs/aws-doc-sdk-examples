@@ -1,6 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# snippet-start:[python.example_code.python.GetSecretValue.scenario]
 """
 Purpose
 
@@ -38,6 +39,6 @@ def run_scenario(secret_name):
         logging.error(f"Error retrieving secret: {e}")
         raise
 
-
+# snippet-end:[python.example_code.python.GetSecretValue.scenario]
 if __name__ == "__main__":
     run_scenario(secret_name="mySecret1")

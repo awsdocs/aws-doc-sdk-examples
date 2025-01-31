@@ -17,13 +17,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
     listLexicons()
 }
 
 // snippet-start:[polly.kotlin.list_icons.main]
 suspend fun listLexicons() {
-
     PollyClient { region = "us-west-2" }.use { polly ->
         val response = polly.listLexicons(ListLexiconsRequest {})
         response.lexicons?.forEach { lexDescription ->

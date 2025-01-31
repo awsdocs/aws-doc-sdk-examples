@@ -38,9 +38,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.describe_vpc.main]
 suspend fun describeEC2Vpcs(vpcId: String) {
-    val request = DescribeVpcsRequest {
-        vpcIds = listOf(vpcId)
-    }
+    val request =
+        DescribeVpcsRequest {
+            vpcIds = listOf(vpcId)
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeVpcs(request)

@@ -34,30 +34,30 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 - [Hello AWS Glue](src/run.rs#L15) (`ListJobs`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/prepare.rs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](src/prepare.rs#L50) (`CreateCrawler`)
-- [Create a job definition](src/prepare.rs#L253) (`CreateJob`)
-- [Delete a crawler](src/cleanup.rs#L82) (`DeleteCrawler`)
-- [Delete a database from the Data Catalog](src/cleanup.rs#L73) (`DeleteDatabase`)
-- [Delete a job definition](src/cleanup.rs#L15) (`DeleteJob`)
-- [Delete a table from a database](src/cleanup.rs#L23) (`DeleteTable`)
-- [Get a crawler](src/prepare.rs#L118) (`GetCrawler`)
-- [Get a database from the Data Catalog](src/prepare.rs#L148) (`GetDatabase`)
-- [Get a job run](src/run.rs#L70) (`GetJobRun`)
-- [Get tables from a database](src/prepare.rs#L163) (`GetTables`)
-- [List job definitions](src/run.rs#L15) (`ListJobs`)
-- [Start a crawler](src/prepare.rs#L79) (`StartCrawler`)
-- [Start a job run](src/run.rs#L39) (`StartJobRun`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with crawlers and jobs](src/prepare.rs)
+- [CreateCrawler](src/prepare.rs#L50)
+- [CreateJob](src/prepare.rs#L253)
+- [DeleteCrawler](src/cleanup.rs#L82)
+- [DeleteDatabase](src/cleanup.rs#L73)
+- [DeleteJob](src/cleanup.rs#L15)
+- [DeleteTable](src/cleanup.rs#L23)
+- [GetCrawler](src/prepare.rs#L118)
+- [GetDatabase](src/prepare.rs#L148)
+- [GetJobRun](src/run.rs#L70)
+- [GetTables](src/prepare.rs#L163)
+- [ListJobs](src/run.rs#L15)
+- [StartCrawler](src/prepare.rs#L79)
+- [StartJobRun](src/run.rs#L39)
 
 
 <!--custom.examples.start-->
@@ -76,8 +76,7 @@ functions within the same service.
 This example shows you how to get started using AWS Glue.
 
 
-
-#### Get started with crawlers and jobs
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -86,12 +85,13 @@ This example shows you how to do the following:
 - Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another S3 bucket.
 - List information about job runs, view transformed data, and clean up resources.
 
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
 
 
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.start-->
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.end-->
+
 
 ### Tests
 

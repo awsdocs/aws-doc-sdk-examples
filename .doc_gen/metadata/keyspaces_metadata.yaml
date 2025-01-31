@@ -43,10 +43,6 @@ keyspaces_Hello:
   services:
     keyspaces: {ListKeyspaces}
 keyspaces_CreateKeyspace:
-  title: Create an &KEY; keyspace using an &AWS; SDK
-  title_abbrev: Create a keyspace
-  synopsis: create an &KEY; keyspace.
-  category:
   languages:
     .NET:
       versions:
@@ -88,10 +84,6 @@ keyspaces_CreateKeyspace:
   services:
     keyspaces: {CreateKeyspace}
 keyspaces_GetKeyspace:
-  title: Get data about an &KEY; keyspace using an &AWS; SDK
-  title_abbrev: Get data about a keyspace
-  synopsis: get data about an &KEY; keyspace.
-  category:
   languages:
     .NET:
       versions:
@@ -133,10 +125,6 @@ keyspaces_GetKeyspace:
   services:
     keyspaces: {GetKeyspace}
 keyspaces_ListKeyspaces:
-  title: List &KEY; keyspaces using an &AWS; SDK
-  title_abbrev: List keyspaces
-  synopsis: list &KEY; keyspaces.
-  category:
   languages:
     .NET:
       versions:
@@ -178,10 +166,6 @@ keyspaces_ListKeyspaces:
   services:
     keyspaces: {ListKeyspaces}
 keyspaces_CreateTable:
-  title: Create an &KEY; table using an &AWS; SDK
-  title_abbrev: Create a table
-  synopsis: create an &KEY; table.
-  category:
   languages:
     .NET:
       versions:
@@ -223,10 +207,6 @@ keyspaces_CreateTable:
   services:
     keyspaces: {CreateTable}
 keyspaces_GetTable:
-  title: Get data about an &KEY; table using an &AWS; SDK
-  title_abbrev: Get data about a table
-  synopsis: get data about an &KEY; table.
-  category:
   languages:
     .NET:
       versions:
@@ -268,10 +248,6 @@ keyspaces_GetTable:
   services:
     keyspaces: {GetTable}
 keyspaces_ListTables:
-  title: List &KEY; tables in a keyspace using an &AWS; SDK
-  title_abbrev: List tables in a keyspace
-  synopsis: list &KEY; tables in a keyspace.
-  category:
   languages:
     .NET:
       versions:
@@ -313,10 +289,6 @@ keyspaces_ListTables:
   services:
     keyspaces: {ListTables}
 keyspaces_UpdateTable:
-  title: Update an &KEY; table using an &AWS; SDK
-  title_abbrev: Update a table
-  synopsis: update an &KEY; table.
-  category:
   languages:
     .NET:
       versions:
@@ -358,10 +330,6 @@ keyspaces_UpdateTable:
   services:
     keyspaces: {UpdateTable}
 keyspaces_RestoreTable:
-  title: Restore an &KEY; table to a point in time using an &AWS; SDK
-  title_abbrev: Restore a table to a point in time
-  synopsis: restore an &KEY; table to a point in time.
-  category:
   languages:
     .NET:
       versions:
@@ -403,10 +371,6 @@ keyspaces_RestoreTable:
   services:
     keyspaces: {RestoreTable}
 keyspaces_DeleteTable:
-  title: Delete an &KEY; table using an &AWS; SDK
-  title_abbrev: Delete a table
-  synopsis: delete an &KEY; table.
-  category:
   languages:
     .NET:
       versions:
@@ -448,10 +412,6 @@ keyspaces_DeleteTable:
   services:
     keyspaces: {DeleteTable}
 keyspaces_DeleteKeyspace:
-  title: Delete an &KEY; keyspace using an &AWS; SDK
-  title_abbrev: Delete a keyspace
-  synopsis: delete an &KEY; keyspace.
-  category:
   languages:
     .NET:
       versions:
@@ -493,17 +453,13 @@ keyspaces_DeleteKeyspace:
   services:
     keyspaces: {DeleteKeyspace}
 keyspaces_Scenario_GetStartedKeyspaces:
-  title: Get started with &KEY; keyspaces and tables using an &AWS; SDK
-  title_abbrev: Get started with keyspaces and tables
   synopsis_list:
-    - Create a keyspace and table. The table schema holds movie data and 
-      has point-in-time recovery enabled.
-    - Connect to the keyspace using a secure TLS connection with SigV4 
-      authentication.
+    - Create a keyspace and table. The table schema holds movie data and has point-in-time recovery enabled.
+    - Connect to the keyspace using a secure TLS connection with SigV4 authentication.
     - Query the table. Add, retrieve, and update movie data.
     - Update the table. Add a column to track watched movies.
     - Restore the table to its previous state and clean up resources.
-  category: Scenarios
+  category: Basics
   languages:
     .NET:
       versions:
@@ -515,7 +471,7 @@ keyspaces_Scenario_GetStartedKeyspaces:
               snippet_tags:
                 - Keyspaces.dotnetv3.KeyspacesBasicsGlobalUsings
                 - Keyspaces.dotnetv3.KeyspacesScenario
-            - description: 
+            - description:
               snippet_tags:
                 - Keyspaces.dotnetv3.KeyspacesWrapper
             - description:
@@ -551,10 +507,10 @@ keyspaces_Scenario_GetStartedKeyspaces:
             - description: Define a class that wraps keyspace and table actions.
               snippet_tags:
                 - python.example_code.keyspaces.KeyspaceWrapper.class
-            - description: Define a class that creates a TLS connection to a keyspace,
-                authenticates with SigV4, and sends CQL queries to a table in the keyspace.
+            - description: Define a class that creates a TLS connection to a keyspace, authenticates with SigV4, and sends
+                CQL queries to a table in the keyspace.
               snippet_tags:
                 - python.example_code.keyspaces.QueryManager.class
   services:
-    keyspaces: {CreateKeyspace, CreateTable, DeleteKeyspace, DeleteTable, GetKeyspace,
-                GetTable, ListKeyspaces, ListTables, RestoreTable, UpdateTable}
+    keyspaces: {CreateKeyspace, CreateTable, DeleteKeyspace, DeleteTable, GetKeyspace, GetTable, ListKeyspaces, ListTables,
+                RestoreTable, UpdateTable}

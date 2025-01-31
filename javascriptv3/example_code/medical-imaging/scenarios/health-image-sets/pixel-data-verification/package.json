@@ -1,0 +1,15 @@
+{
+  "name": "@aws-doc-sdk-examples/pixel-data-verification",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-medical-imaging": "^3.427.0",
+    "crc-32": "^1.2.2"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0"
+  }
+}

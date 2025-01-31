@@ -37,9 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[dynamodb.kotlin.scan_items.main]
 suspend fun scanItems(tableNameVal: String) {
-    val request = ScanRequest {
-        tableName = tableNameVal
-    }
+    val request =
+        ScanRequest {
+            tableName = tableNameVal
+        }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
         val response = ddb.scan(request)

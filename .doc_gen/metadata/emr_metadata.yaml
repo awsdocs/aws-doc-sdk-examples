@@ -1,9 +1,5 @@
 # zexi 0.4.0
 emr_RunJobFlow:
-  title: Run an &EMR; job flow using an &AWS; SDK
-  title_abbrev: Run a job flow
-  synopsis: run an &EMR; job flow.
-  category:
   languages:
     Python:
       versions:
@@ -17,10 +13,6 @@ emr_RunJobFlow:
   services:
     emr: {RunJobFlow}
 emr_DescribeCluster:
-  title: Describe an &EMR; cluster using an &AWS; SDK
-  title_abbrev: Describe a cluster
-  synopsis: describe an &EMR; cluster.
-  category:
   languages:
     Python:
       versions:
@@ -34,10 +26,6 @@ emr_DescribeCluster:
   services:
     emr: {DescribeCluster}
 emr_TerminateJobFlows:
-  title: Terminate &EMR; job flows using an &AWS; SDK
-  title_abbrev: Terminate job flows
-  synopsis: terminate &EMR; job flows.
-  category:
   languages:
     Python:
       versions:
@@ -51,10 +39,6 @@ emr_TerminateJobFlows:
   services:
     emr: {TerminateJobFlows}
 emr_AddJobFlowSteps:
-  title: Add steps to an &EMR; job flow using an &AWS; SDK
-  title_abbrev: Add steps to a job flow
-  synopsis: add steps to an &EMR; job flow.
-  category:
   languages:
     Python:
       versions:
@@ -65,19 +49,13 @@ emr_AddJobFlowSteps:
             - description: Add a Spark step, which is run by the cluster as soon as it is added.
               snippet_tags:
                 - python.example_code.emr.AddJobFlowSteps
-            - description:
-                Run an &EMR; File System (EMRFS) command as a job step on a cluster.
-                This can be used to automate EMRFS commands on a cluster instead of running
-                commands manually through an SSH connection.
+            - description: Run an &EMR; File System (EMRFS) command as a job step on a cluster. This can be used to automate
+                EMRFS commands on a cluster instead of running commands manually through an SSH connection.
               snippet_tags:
                 - emr.python.addstep.emrfs
   services:
     emr: {AddJobFlowSteps}
 emr_ListSteps:
-  title: List steps for an &EMR; cluster using an &AWS; SDK
-  title_abbrev: List steps for a cluster
-  synopsis: list steps for an &EMR; cluster.
-  category:
   languages:
     Python:
       versions:
@@ -91,10 +69,6 @@ emr_ListSteps:
   services:
     emr: {ListSteps}
 emr_DescribeStep:
-  title: Describe a step on an &EMR; cluster using an &AWS; SDK
-  title_abbrev: Describe a step
-  synopsis: describe a step on an &EMR; cluster.
-  category:
   languages:
     Python:
       versions:
@@ -110,9 +84,8 @@ emr_DescribeStep:
 emr_Usage_InstallLibrariesWithSsm:
   title: Run a shell script to install libraries on &EMR; instances using an &AWS; SDK
   title_abbrev: Run a shell script to install libraries
-  synopsis: use &SYSlong; to run a shell script on &EMR; instances that installs
-    additional libraries. This way, you can automate instance management instead
-    of running commands manually through an SSH connection.
+  synopsis: use &SYSlong; to run a shell script on &EMR; instances that installs additional libraries. This way, you can automate
+    instance management instead of running commands manually through an SSH connection.
   category: Scenarios
   languages:
     Python:
@@ -129,9 +102,7 @@ emr_Usage_InstallLibrariesWithSsm:
 emr_Scenario_ShortLivedEmrCluster:
   title: Create a short-lived &EMR; cluster and run a step using an &AWS; SDK
   title_abbrev: Create a short-lived &EMR; cluster and run a step
-  synopsis:
-    create a short-lived &EMR; cluster that runs a step and automatically
-    terminates after the step completes.
+  synopsis: create a short-lived &EMR; cluster that runs a step and automatically terminates after the step completes.
   category: Scenarios
   languages:
     Python:

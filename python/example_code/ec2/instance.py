@@ -1,7 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-
 import logging
+from typing import Any, Dict, List, Optional
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -10,243 +11,302 @@ logger = logging.getLogger(__name__)
 
 # snippet-start:[python.example_code.ec2.InstanceWrapper.class]
 # snippet-start:[python.example_code.ec2.InstanceWrapper.decl]
-class InstanceWrapper:
-    """Encapsulates Amazon Elastic Compute Cloud (Amazon EC2) instance actions."""
+class EC2InstanceWrapper:
+    """Encapsulates Amazon Elastic Compute Cloud (Amazon EC2) instance actions using the client interface."""
 
-    def __init__(self, ec2_resource, instance=None):
+    def __init__(
+        self, ec2_client: Any, instances: Optional[List[Dict[str, Any]]] = None
+    ) -> None:
         """
-        :param ec2_resource: A Boto3 Amazon EC2 resource. This high-level resource
-                             is used to create additional high-level objects
-                             that wrap low-level Amazon EC2 service actions.
-        :param instance: A Boto3 Instance object. This is a high-level object that
-                           wraps instance actions.
+        Initializes the EC2InstanceWrapper with an EC2 client and optional instances.
+
+        :param ec2_client: A Boto3 Amazon EC2 client. This client provides low-level
+                           access to AWS EC2 services.
+        :param instances: A list of dictionaries representing Boto3 Instance objects. These are high-level objects that
+                          wrap instance actions.
         """
-        self.ec2_resource = ec2_resource
-        self.instance = instance
+        self.ec2_client = ec2_client
+        self.instances = instances or []
 
     @classmethod
-    def from_resource(cls):
-        ec2_resource = boto3.resource("ec2")
-        return cls(ec2_resource)
+    def from_client(cls) -> "EC2InstanceWrapper":
+        """
+        Creates an EC2InstanceWrapper instance with a default EC2 client.
+
+        :return: An instance of EC2InstanceWrapper initialized with the default EC2 client.
+        """
+        ec2_client = boto3.client("ec2")
+        return cls(ec2_client)
 
     # snippet-end:[python.example_code.ec2.InstanceWrapper.decl]
 
     # snippet-start:[python.example_code.ec2.RunInstances]
-    def create(self, image, instance_type, key_pair, security_groups=None):
+    def create(
+        self,
+        image_id: str,
+        instance_type: str,
+        key_pair_name: str,
+        security_group_ids: Optional[List[str]] = None,
+    ) -> List[Dict[str, Any]]:
         """
-        Creates a new EC2 instance. The instance starts immediately after
-        it is created.
+        Creates a new EC2 instance in the default VPC of the current account.
 
-        The instance is created in the default VPC of the current account.
+        The instance starts immediately after it is created.
 
-        :param image: A Boto3 Image object that represents an Amazon Machine Image (AMI)
-                      that defines attributes of the instance that is created. The AMI
-                      defines things like the kind of operating system and the type of
-                      storage used by the instance.
+        :param image_id: The ID of the Amazon Machine Image (AMI) to use for the instance.
         :param instance_type: The type of instance to create, such as 't2.micro'.
-                              The instance type defines things like the number of CPUs and
-                              the amount of memory.
-        :param key_pair: A Boto3 KeyPair or KeyPairInfo object that represents the key
-                         pair that is used to secure connections to the instance.
-        :param security_groups: A list of Boto3 SecurityGroup objects that represents the
-                                security groups that are used to grant access to the
-                                instance. When no security groups are specified, the
-                                default security group of the VPC is used.
-        :return: A Boto3 Instance object that represents the newly created instance.
+        :param key_pair_name: The name of the key pair to use for SSH access.
+        :param security_group_ids: A list of security group IDs to associate with the instance.
+                                   If not specified, the default security group of the VPC is used.
+        :return: A list of dictionaries representing Boto3 Instance objects representing the newly created instances.
         """
         try:
             instance_params = {
-                "ImageId": image.id,
+                "ImageId": image_id,
                 "InstanceType": instance_type,
-                "KeyName": key_pair.name,
+                "KeyName": key_pair_name,
             }
-            if security_groups is not None:
-                instance_params["SecurityGroupIds"] = [sg.id for sg in security_groups]
-            self.instance = self.ec2_resource.create_instances(
+            if security_group_ids is not None:
+                instance_params["SecurityGroupIds"] = security_group_ids
+
+            response = self.ec2_client.run_instances(
                 **instance_params, MinCount=1, MaxCount=1
-            )[0]
-            self.instance.wait_until_running()
-        except ClientError as err:
-            logging.error(
-                "Couldn't create instance with image %s, instance type %s, and key %s. "
-                "Here's why: %s: %s",
-                image.id,
-                instance_type,
-                key_pair.name,
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
             )
+            instance = response["Instances"][0]
+            self.instances.append(instance)
+            waiter = self.ec2_client.get_waiter("instance_running")
+            waiter.wait(InstanceIds=[instance["InstanceId"]])
+        except ClientError as err:
+            params_str = "\n\t".join(
+                f"{key}: {value}" for key, value in instance_params.items()
+            )
+            logger.error(
+                f"Failed to complete instance creation request.\nRequest details:{params_str}"
+            )
+            error_code = err.response["Error"]["Code"]
+            if error_code == "InstanceLimitExceeded":
+                logger.error(
+                    (
+                        f"Insufficient capacity for instance type '{instance_type}'. "
+                        "Terminate unused instances or contact AWS Support for a limit increase."
+                    )
+                )
+            if error_code == "InsufficientInstanceCapacity":
+                logger.error(
+                    (
+                        f"Insufficient capacity for instance type '{instance_type}'. "
+                        "Select a different instance type or launch in a different availability zone."
+                    )
+                )
             raise
-        else:
-            return self.instance
+        return self.instances
 
     # snippet-end:[python.example_code.ec2.RunInstances]
 
     # snippet-start:[python.example_code.ec2.DescribeInstances]
-    def display(self, indent=1):
+    def display(self, state_filter: Optional[str] = "running") -> None:
         """
-        Displays information about an instance.
+        Displays information about instances, filtering by the specified state.
 
-        :param indent: The visual indent to apply to the output.
+        :param state_filter: The instance state to include in the output. Only instances in this state
+                             will be displayed. Default is 'running'. Example states: 'running', 'stopped'.
         """
-        if self.instance is None:
-            logger.info("No instance to display.")
+        if not self.instances:
+            logger.info("No instances to display.")
             return
 
+        instance_ids = [instance["InstanceId"] for instance in self.instances]
+        paginator = self.ec2_client.get_paginator("describe_instances")
+        page_iterator = paginator.paginate(InstanceIds=instance_ids)
+
         try:
-            self.instance.load()
-            ind = "\t" * indent
-            print(f"{ind}ID: {self.instance.id}")
-            print(f"{ind}Image ID: {self.instance.image_id}")
-            print(f"{ind}Instance type: {self.instance.instance_type}")
-            print(f"{ind}Key name: {self.instance.key_name}")
-            print(f"{ind}VPC ID: {self.instance.vpc_id}")
-            print(f"{ind}Public IP: {self.instance.public_ip_address}")
-            print(f"{ind}State: {self.instance.state['Name']}")
+            for page in page_iterator:
+                for reservation in page["Reservations"]:
+                    for instance in reservation["Instances"]:
+                        instance_state = instance["State"]["Name"]
+
+                        # Apply the state filter (default is 'running')
+                        if state_filter and instance_state != state_filter:
+                            continue  # Skip this instance if it doesn't match the filter
+
+                        # Create a formatted string with instance details
+                        instance_info = (
+                            f"• ID: {instance['InstanceId']}\n"
+                            f"• Image ID: {instance['ImageId']}\n"
+                            f"• Instance type: {instance['InstanceType']}\n"
+                            f"• Key name: {instance['KeyName']}\n"
+                            f"• VPC ID: {instance['VpcId']}\n"
+                            f"• Public IP: {instance.get('PublicIpAddress', 'N/A')}\n"
+                            f"• State: {instance_state}"
+                        )
+                        print(instance_info)
+
         except ClientError as err:
             logger.error(
-                "Couldn't display your instance. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
+                f"Failed to display instance(s). : {' '.join(map(str, instance_ids))}"
             )
-            raise
+            error_code = err.response["Error"]["Code"]
+            if error_code == "InvalidInstanceID.NotFound":
+                logger.error(
+                    "One or more instance IDs do not exist. "
+                    "Please verify the instance IDs and try again."
+                )
+                raise
 
     # snippet-end:[python.example_code.ec2.DescribeInstances]
 
     # snippet-start:[python.example_code.ec2.TerminateInstances]
-    def terminate(self):
+    def terminate(self) -> None:
         """
-        Terminates an instance and waits for it to be in a terminated state.
+        Terminates instances and waits for them to reach the terminated state.
         """
-        if self.instance is None:
-            logger.info("No instance to terminate.")
+        if not self.instances:
+            logger.info("No instances to terminate.")
             return
 
-        instance_id = self.instance.id
+        instance_ids = [instance["InstanceId"] for instance in self.instances]
         try:
-            self.instance.terminate()
-            self.instance.wait_until_terminated()
-            self.instance = None
+            self.ec2_client.terminate_instances(InstanceIds=instance_ids)
+            waiter = self.ec2_client.get_waiter("instance_terminated")
+            waiter.wait(InstanceIds=instance_ids)
+            self.instances.clear()
+            for instance_id in instance_ids:
+                print(f"• Instance ID: {instance_id}\n" f"• Action: Terminated")
+
         except ClientError as err:
-            logging.error(
-                "Couldn't terminate instance %s. Here's why: %s: %s",
-                instance_id,
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
+            logger.error(
+                f"Failed instance termination details:\n\t{str(self.instances)}"
             )
+            error_code = err.response["Error"]["Code"]
+            if error_code == "InvalidInstanceID.NotFound":
+                logger.error(
+                    "One or more instance IDs do not exist. "
+                    "Please verify the instance IDs and try again."
+                )
             raise
 
     # snippet-end:[python.example_code.ec2.TerminateInstances]
 
     # snippet-start:[python.example_code.ec2.StartInstances]
-    def start(self):
+    def start(self) -> Optional[Dict[str, Any]]:
         """
-        Starts an instance and waits for it to be in a running state.
+        Starts instances and waits for them to be in a running state.
 
         :return: The response to the start request.
         """
-        if self.instance is None:
-            logger.info("No instance to start.")
-            return
+        if not self.instances:
+            logger.info("No instances to start.")
+            return None
 
+        instance_ids = [instance["InstanceId"] for instance in self.instances]
         try:
-            response = self.instance.start()
-            self.instance.wait_until_running()
+            start_response = self.ec2_client.start_instances(InstanceIds=instance_ids)
+            waiter = self.ec2_client.get_waiter("instance_running")
+            waiter.wait(InstanceIds=instance_ids)
+            return start_response
         except ClientError as err:
             logger.error(
-                "Couldn't start instance %s. Here's why: %s: %s",
-                self.instance.id,
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
+                f"Failed to start instance(s): {','.join(map(str, instance_ids))}"
             )
+            error_code = err.response["Error"]["Code"]
+            if error_code == "IncorrectInstanceState":
+                logger.error(
+                    "Couldn't start instance(s) because they are in an incorrect state. "
+                    "Ensure the instances are in a stopped state before starting them."
+                )
             raise
-        else:
-            return response
 
     # snippet-end:[python.example_code.ec2.StartInstances]
 
     # snippet-start:[python.example_code.ec2.StopInstances]
-    def stop(self):
+    def stop(self) -> Optional[Dict[str, Any]]:
         """
-        Stops an instance and waits for it to be in a stopped state.
+        Stops instances and waits for them to be in a stopped state.
 
-        :return: The response to the stop request.
+        :return: The response to the stop request, or None if there are no instances to stop.
         """
-        if self.instance is None:
-            logger.info("No instance to stop.")
-            return
+        if not self.instances:
+            logger.info("No instances to stop.")
+            return None
 
+        instance_ids = [instance["InstanceId"] for instance in self.instances]
         try:
-            response = self.instance.stop()
-            self.instance.wait_until_stopped()
+            # Attempt to stop the instances
+            stop_response = self.ec2_client.stop_instances(InstanceIds=instance_ids)
+            waiter = self.ec2_client.get_waiter("instance_stopped")
+            waiter.wait(InstanceIds=instance_ids)
         except ClientError as err:
             logger.error(
-                "Couldn't stop instance %s. Here's why: %s: %s",
-                self.instance.id,
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
+                f"Failed to stop instance(s): {','.join(map(str, instance_ids))}"
             )
+            error_code = err.response["Error"]["Code"]
+            if error_code == "IncorrectInstanceState":
+                logger.error(
+                    "Couldn't stop instance(s) because they are in an incorrect state. "
+                    "Ensure the instances are in a running state before stopping them."
+                )
             raise
-        else:
-            return response
+        return stop_response
 
     # snippet-end:[python.example_code.ec2.StopInstances]
 
     # snippet-start:[python.example_code.ec2.DescribeImages]
-    def get_images(self, image_ids):
+    def get_images(self, image_ids: List[str]) -> List[Dict[str, Any]]:
         """
         Gets information about Amazon Machine Images (AMIs) from a list of AMI IDs.
 
-        :param image_ids: The list of AMIs to look up.
-        :return: A list of Boto3 Image objects that represent the requested AMIs.
+        :param image_ids: The list of AMI IDs to look up.
+        :return: A list of dictionaries representing the requested AMIs.
         """
         try:
-            images = list(self.ec2_resource.images.filter(ImageIds=image_ids))
+            response = self.ec2_client.describe_images(ImageIds=image_ids)
+            images = response["Images"]
         except ClientError as err:
-            logger.error(
-                "Couldn't get images. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
-            )
+            logger.error(f"Failed to stop AMI(s): {','.join(map(str, image_ids))}")
+            error_code = err.response["Error"]["Code"]
+            if error_code == "InvalidAMIID.NotFound":
+                logger.error("One or more of the AMI IDs does not exist.")
             raise
-        else:
-            return images
+        return images
 
     # snippet-end:[python.example_code.ec2.DescribeImages]
 
     # snippet-start:[python.example_code.ec2.DescribeInstanceTypes]
-    def get_instance_types(self, architecture):
+    def get_instance_types(
+        self, architecture: str = "x86_64", sizes: List[str] = ["*.micro", "*.small"]
+    ) -> List[Dict[str, Any]]:
         """
-        Gets instance types that support the specified architecture and are designated
-        as either 'micro' or 'small'. When an instance is created, the instance type
-        you specify must support the architecture of the AMI you use.
+        Gets instance types that support the specified architecture and size.
+        See https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstanceTypes.html
+        for a list of allowable parameters.
 
-        :param architecture: The kind of architecture the instance types must support,
-                             such as 'x86_64'.
-        :return: A list of instance types that support the specified architecture
-                 and are either 'micro' or 'small'.
+        :param architecture: The architecture supported by instance types. Default: 'x86_64'.
+        :param sizes: The size of instance types. Default: '*.micro', '*.small',
+        :return: A list of dictionaries representing instance types that support the specified architecture and size.
         """
         try:
             inst_types = []
-            it_paginator = self.ec2_resource.meta.client.get_paginator(
-                "describe_instance_types"
-            )
-            for page in it_paginator.paginate(
+            paginator = self.ec2_client.get_paginator("describe_instance_types")
+            for page in paginator.paginate(
                 Filters=[
                     {
                         "Name": "processor-info.supported-architecture",
                         "Values": [architecture],
                     },
-                    {"Name": "instance-type", "Values": ["*.micro", "*.small"]},
+                    {"Name": "instance-type", "Values": sizes},
                 ]
             ):
                 inst_types += page["InstanceTypes"]
         except ClientError as err:
             logger.error(
-                "Couldn't get instance types. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
+                f"Failed to get instance types: {architecture}, {','.join(map(str, sizes))}"
             )
+            error_code = err.response["Error"]["Code"]
+            if error_code == "InvalidParameterValue":
+                logger.error(
+                    "Parameters are invalid. "
+                    "Ensure architecture and size strings conform to DescribeInstanceTypes API reference."
+                )
             raise
         else:
             return inst_types

@@ -12,11 +12,11 @@ import org.junit.jupiter.api.TestMethodOrder
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class SupportTest {
-
     @Test
     @Order(1)
-    fun supportHelloScenario() = runBlocking {
-        displaySomeServices()
-        println("\n AWS Support Hello Test passed")
-    }
+    fun supportHelloScenario() =
+        runBlocking {
+            displaySomeServices()
+            println("\n AWS Support Hello Test passed")
+        }
 }

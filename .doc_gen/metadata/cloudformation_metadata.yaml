@@ -14,3 +14,16 @@ cloudformation_Hello:
                 - CloudFormation.dotnetv3.CloudFormationActions.HelloCloudFormation
   services:
     cloudformation: {DescribeStackResources}
+cloudformation_DescribeStacks:
+  languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/user_pools_and_lambda_triggers
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.cloudformation.CloudFormationActions.complete
+  services:
+    cloudformation: {DescribeStacks}

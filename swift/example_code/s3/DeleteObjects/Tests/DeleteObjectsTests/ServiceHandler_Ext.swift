@@ -9,7 +9,7 @@
 import Foundation
 import AWSS3
 import AWSClientRuntime
-import ClientRuntime
+import Smithy
 import SwiftUtilities
 @testable import ServiceHandler
 
@@ -20,12 +20,8 @@ public extension ServiceHandler {
     ///   - name: Name of the bucket to create.
     /// Throws an exception if an error occurs.
     func createBucket(name: String) async throws {
-        let config = S3ClientTypes.CreateBucketConfiguration(
-            locationConstraint: self.region
-        )
         let input = CreateBucketInput(
-            bucket: name,
-            createBucketConfiguration: config
+            bucket: name
         )
         _ = try await client.createBucket(input: input)
     }
@@ -47,7 +43,7 @@ public extension ServiceHandler {
     ///   - key: Name of the file to create.
     ///   - data: A `Data` object to write into the new file.
     func createFile(bucket: String, key: String, withData data: Data) async throws {
-        let dataStream = ByteStream.from(data: data)
+        let dataStream = ByteStream.data(data)
 
         let input = PutObjectInput(
             body: dataStream,

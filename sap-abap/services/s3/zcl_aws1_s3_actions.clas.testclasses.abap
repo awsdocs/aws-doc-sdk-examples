@@ -1,4 +1,4 @@
-﻿" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 
 CLASS ltc_zcl_aws1_s3_actions DEFINITION DEFERRED.
@@ -52,7 +52,7 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
     ao_s3_actions = NEW zcl_aws1_s3_actions( ).
   ENDMETHOD.
   METHOD create_bucket.
-    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-create-bucket'.
+    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'amzn-s3-demo-bucket'.
     ao_s3_actions->create_bucket( iv_bucket_name = cv_bucket ).
 
     assert_bucket_exists(
@@ -152,9 +152,9 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
         ).
   ENDMETHOD.
   METHOD copy_object.
-    CONSTANTS cv_src_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-copy-object-src-bucket'.
+    CONSTANTS cv_src_bucket TYPE /aws1/s3_bucketname VALUE 'amzn-s3-demo-copy-object-src-bucket'.
     ao_s3->createbucket( iv_bucket = cv_src_bucket ).
-    CONSTANTS cv_dest_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-copy-object-dest-bucket'.
+    CONSTANTS cv_dest_bucket TYPE /aws1/s3_bucketname VALUE 'amzn-s3-demo-copy-object-dest-bucket'.
     ao_s3->createbucket( iv_bucket = cv_dest_bucket ).
 
     CONSTANTS cv_src_file TYPE /aws1/s3_objectkey VALUE 'copy_object_ex_file'.
@@ -283,7 +283,7 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
 
   ENDMETHOD.
   METHOD delete_bucket.
-    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-delete-bucket'.
+    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'amzn-s3-demo-bucket'.
     ao_s3->createbucket( iv_bucket = cv_bucket ).
     ao_s3_actions->delete_bucket( iv_bucket_name =  cv_bucket ).
 

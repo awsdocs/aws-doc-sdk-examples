@@ -50,9 +50,10 @@ bool AwsDoc::DynamoDB::deleteItem(const Aws::String &tableName,
     else {
         std::cerr << "Failed to delete item: " << outcome.GetError().GetMessage()
                   << std::endl;
+        return false;
     }
 
-    return outcome.IsSuccess();
+    return waitTableActive(tableName, dynamoClient);
 }
 // snippet-end:[cpp.example_code.dynamodb.delete_item]
 

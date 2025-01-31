@@ -19,7 +19,7 @@ namespace AwsDocTest {
         Aws::String allocationID = allocateIPAddress();
         ASSERT_FALSE(allocationID.empty()) << preconditionError() << std::endl;
 
-        auto result = AwsDoc::EC2::ReleaseAddress(allocationID, *s_clientConfig);
+        auto result = AwsDoc::EC2::releaseAddress(allocationID, *s_clientConfig);
         ASSERT_TRUE(result);
     }
 

@@ -29,29 +29,29 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `aws-c
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_getting_started_movies.sh)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](dynamodb_operations.sh#L25) (`CreateTable`)
-- [Delete a table](dynamodb_operations.sh#L1006) (`DeleteTable`)
-- [Delete an item from a table](dynamodb_operations.sh#L543) (`DeleteItem`)
-- [Get a batch of items](dynamodb_operations.sh#L910) (`BatchGetItem`)
-- [Get an item from a table](dynamodb_operations.sh#L447) (`GetItem`)
-- [Get information about a table](dynamodb_operations.sh#L191) (`DescribeTable`)
-- [List tables](dynamodb_operations.sh#L977) (`ListTables`)
-- [Put an item in a table](dynamodb_operations.sh#L265) (`PutItem`)
-- [Query a table](dynamodb_operations.sh#L622) (`Query`)
-- [Scan a table](dynamodb_operations.sh#L732) (`Scan`)
-- [Update an item in a table](dynamodb_operations.sh#L346) (`UpdateItem`)
-- [Write a batch of items](dynamodb_operations.sh#L842) (`BatchWriteItem`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with tables, items, and queries](scenario_getting_started_movies.sh)
+- [BatchGetItem](dynamodb_operations.sh#L902)
+- [BatchWriteItem](dynamodb_operations.sh#L834)
+- [CreateTable](dynamodb_operations.sh#L17)
+- [DeleteItem](dynamodb_operations.sh#L535)
+- [DeleteTable](dynamodb_operations.sh#L998)
+- [DescribeTable](dynamodb_operations.sh#L183)
+- [GetItem](dynamodb_operations.sh#L439)
+- [ListTables](dynamodb_operations.sh#L969)
+- [PutItem](dynamodb_operations.sh#L257)
+- [Query](dynamodb_operations.sh#L614)
+- [Scan](dynamodb_operations.sh#L724)
+- [UpdateItem](dynamodb_operations.sh#L338)
 
 
 <!--custom.examples.start-->
@@ -66,8 +66,7 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Get started with tables, items, and queries
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -78,12 +77,13 @@ This example shows you how to do the following:
 - Scan for movies that were released in a range of years.
 - Delete a movie from the table, then delete the table.
 
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
 
 
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.end-->
+
 
 ### Tests
 

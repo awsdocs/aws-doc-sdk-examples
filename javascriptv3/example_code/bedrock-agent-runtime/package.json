@@ -8,10 +8,9 @@
     "test": "vitest run **/*.unit.test.js"
   },
   "dependencies": {
-    "@aws-sdk/client-bedrock-agent-runtime": "^3.501.0"
+    "@aws-sdk/client-bedrock-agent-runtime": "^3.675.0"
   },
   "devDependencies": {
-    "vitest": "^1.2.1",
-    "zod": "^3.22.4"
+    "vitest": "^1.6.0"
   }
 }

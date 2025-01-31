@@ -31,15 +31,16 @@ class TranslateKotlinTest {
     private var jobId = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        s3Uri = values.s3Uri.toString()
-        s3UriOut = values.s3UriOut.toString()
-        jobName = values.jobName.toString() + UUID.randomUUID()
-        dataAccessRoleArn = values.dataAccessRoleArn.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            s3Uri = values.s3Uri.toString()
+            s3UriOut = values.s3UriOut.toString()
+            jobName = values.jobName.toString() + UUID.randomUUID()
+            dataAccessRoleArn = values.dataAccessRoleArn.toString()
 
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
@@ -51,44 +52,52 @@ class TranslateKotlinTest {
         s3UriOut = prop.getProperty("s3UriOut")
         jobName = prop.getProperty("jobName")
         dataAccessRoleArn = prop.getProperty("dataAccessRoleArn")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun translateTextTest() = runBlocking {
-        textTranslate()
-        println("Test 1 passed")
-    }
+    fun translateTextTest() =
+        runBlocking {
+            textTranslate()
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun batchTranslationTest() = runBlocking {
-        jobId = translateDocuments(s3Uri, s3UriOut, jobName, dataAccessRoleArn).toString()
-        Assertions.assertTrue(!jobId.isEmpty())
-        println("Test 2 passed")
-    }
+    fun batchTranslationTest() =
+        runBlocking {
+            jobId = translateDocuments(s3Uri, s3UriOut, jobName, dataAccessRoleArn).toString()
+            Assertions.assertTrue(!jobId.isEmpty())
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun listTextTranslationJobsTest() = runBlocking {
-        getTranslationJobs()
-        println("Test 3 passed")
-    }
+    fun listTextTranslationJobsTest() =
+        runBlocking {
+            getTranslationJobs()
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun describeTextTranslationJobTest() = runBlocking {
-        describeTranslationJob(jobId)
-        println("Test 4 passed")
-    }
+    fun describeTextTranslationJobTest() =
+        runBlocking {
+            describeTranslationJob(jobId)
+            println("Test 4 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/translate"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

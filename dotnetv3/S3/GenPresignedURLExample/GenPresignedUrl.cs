@@ -18,7 +18,7 @@ namespace GenPresignedUrlExample
     {
         public static void Main()
         {
-            const string bucketName = "doc-example-bucket";
+            const string bucketName = "amzn-s3-demo-bucket";
             const string objectKey = "sample.txt";
 
             // Specify how long the presigned URL lasts, in hours

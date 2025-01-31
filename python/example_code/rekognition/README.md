@@ -40,34 +40,29 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Compare faces in an image against a reference image](rekognition_image_detection.py#L117) (`CompareFaces`)
-- [Create a collection](rekognition_collections.py#L323) (`CreateCollection`)
-- [Delete a collection](rekognition_collections.py#L111) (`DeleteCollection`)
-- [Delete faces from a collection](rekognition_collections.py#L280) (`DeleteFaces`)
-- [Describe a collection](rekognition_collections.py#L84) (`DescribeCollection`)
-- [Detect faces in an image](rekognition_image_detection.py#L96) (`DetectFaces`)
-- [Detect labels in an image](rekognition_image_detection.py#L156) (`DetectLabels`)
-- [Detect moderation labels in an image](rekognition_image_detection.py#L178) (`DetectModerationLabels`)
-- [Detect text in an image](rekognition_image_detection.py#L207) (`DetectText`)
-- [Index faces to a collection](rekognition_collections.py#L126) (`IndexFaces`)
-- [List collections](rekognition_collections.py#L346) (`ListCollections`)
-- [List faces in a collection](rekognition_collections.py#L167) (`ListFaces`)
-- [Recognize celebrities in an image](rekognition_image_detection.py#L226) (`RecognizeCelebrities`)
-- [Search for faces in a collection](rekognition_collections.py#L241) (`SearchFaces`)
-- [Search for faces in a collection compared to a reference image](rekognition_collections.py#L193) (`SearchFacesByImage`)
+- [CompareFaces](rekognition_image_detection.py#L117)
+- [CreateCollection](rekognition_collections.py#L323)
+- [DeleteCollection](rekognition_collections.py#L111)
+- [DeleteFaces](rekognition_collections.py#L280)
+- [DescribeCollection](rekognition_collections.py#L84)
+- [DetectFaces](rekognition_image_detection.py#L96)
+- [DetectLabels](rekognition_image_detection.py#L156)
+- [DetectModerationLabels](rekognition_image_detection.py#L178)
+- [DetectText](rekognition_image_detection.py#L207)
+- [IndexFaces](rekognition_collections.py#L126)
+- [ListCollections](rekognition_collections.py#L346)
+- [ListFaces](rekognition_collections.py#L167)
+- [RecognizeCelebrities](rekognition_image_detection.py#L226)
+- [SearchFaces](rekognition_collections.py#L241)
+- [SearchFacesByImage](rekognition_collections.py#L193)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Build a collection and find faces in it](rekognition_objects.py)
+- [Build a collection and find faces in it](rekognition_collections.py)
 - [Detect and display elements in images](rekognition_image_detection.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
 - [Detect objects in images](../../cross_service/photo_analyzer)
 - [Detect people and objects in a video](../../example_code/rekognition)
 
@@ -100,7 +95,7 @@ This example shows you how to do the following:
 Start the example by running the following at a command prompt:
 
 ```
-python rekognition_objects.py
+python rekognition_collections.py
 ```
 
 
@@ -126,6 +121,30 @@ python rekognition_image_detection.py
 
 <!--custom.scenarios.rekognition_Usage_DetectAndDisplayImage.start-->
 <!--custom.scenarios.rekognition_Usage_DetectAndDisplayImage.end-->
+
+#### Detect objects in images
+
+This example shows you how to build an app that uses Amazon Rekognition to detect objects by category in images.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.end-->
+
+
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.end-->
+
+#### Detect people and objects in a video
+
+This example shows you how to detect people and objects in a video with Amazon Rekognition.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionVideoDetection.start-->
+<!--custom.scenario_prereqs.cross_RekognitionVideoDetection.end-->
+
+
+<!--custom.scenarios.cross_RekognitionVideoDetection.start-->
+<!--custom.scenarios.cross_RekognitionVideoDetection.end-->
 
 ### Tests
 

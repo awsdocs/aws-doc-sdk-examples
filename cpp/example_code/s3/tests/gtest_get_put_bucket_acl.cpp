@@ -11,22 +11,36 @@
 
 #include <gtest/gtest.h>
 #include <fstream>
-#include "awsdoc/s3/s3_examples.h"
+#include "../s3_examples.h"
 #include "S3_GTests.h"
 
 static const int BUCKETS_NEEDED = 1;
 
 namespace AwsDocTest {
 // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(S3_GTests, get_put_bucket_acl_2_) {
+    TEST_F(S3_GTests, get_put_bucket_acl_canonical_user_2_) {
         std::vector<Aws::String> bucketNames = GetCachedS3Buckets(BUCKETS_NEEDED);
         ASSERT_GE(bucketNames.size(), BUCKETS_NEEDED) << "Failed to meet precondition" << std::endl;
 
         Aws::String canonicalUserID = GetCanonicalUserID();
         ASSERT_TRUE(!canonicalUserID.empty()) << "Failed to meet precondition" << std::endl;
 
-        bool result = AwsDoc::S3::GetPutBucketAcl(bucketNames[0], canonicalUserID, "READ", "Canonical user",
-                                                  canonicalUserID, *s_clientConfig);
+        bool result = AwsDoc::S3::getPutBucketAcl(bucketNames[0], canonicalUserID, "READ", "Canonical user",
+                                                  canonicalUserID, "", "", *s_clientConfig);
+
+        ASSERT_TRUE(result);
+    }
+
+// NOLINTNEXTLINE(readability-named-parameter)
+    TEST_F(S3_GTests, get_put_bucket_email_2_) {
+        std::vector<Aws::String> bucketNames = GetCachedS3Buckets(BUCKETS_NEEDED);
+        ASSERT_GE(bucketNames.size(), BUCKETS_NEEDED) << "Failed to meet precondition" << std::endl;
+
+        Aws::String canonicalUserID = GetCanonicalUserID();
+        ASSERT_TRUE(!canonicalUserID.empty()) << "Failed to meet precondition" << std::endl;
+
+        bool result = AwsDoc::S3::getPutBucketAcl(bucketNames[0], canonicalUserID, "READ", "Amazon customer by email",
+                                                  "", "user2@example.com", "", *s_clientConfig);
 
         ASSERT_TRUE(result);
     }

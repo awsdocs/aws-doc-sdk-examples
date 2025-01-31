@@ -7,14 +7,14 @@
  *
  * @typedef {Object} Usage
  * @property {number} input_tokens
- * @property {number} oputput_tokens
+ * @property {number} output_tokens
  *
  * @typedef {Object} ResponseBody
  * @property {Content[]} content
  * @property {Usage} usage
  */
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,

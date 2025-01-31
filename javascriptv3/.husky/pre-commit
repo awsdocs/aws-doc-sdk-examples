@@ -1,0 +1,10 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+set -e
+
+# Lint
+npm run --prefix ./javascriptv3 lint
+
+# Test
+npm test --prefix ./javascriptv3

@@ -1,13 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-use std::io::Read;
-
 use anyhow::anyhow;
 use aws_sdk_dynamodb::primitives::DateTime;
 use aws_sdk_s3::{operation::get_object::GetObjectOutput, types::CompletedPart};
 use aws_smithy_types_convert::date_time::DateTimeExt;
 use chrono::NaiveDateTime;
 use pipe::{pipe, PipeReader, PipeWriter};
+use std::io::Read;
 use streaming_zip::{Archive, CompressionMode};
 use uuid::Uuid;
 
@@ -37,7 +36,7 @@ pub struct ZipUpload<'a> {
     s3_client: &'a aws_sdk_s3::Client,
 }
 
-impl<'a> std::fmt::Debug for ZipUpload<'a> {
+impl std::fmt::Debug for ZipUpload<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("ZipUpload")
             .field("key", &self.key)
@@ -117,9 +116,9 @@ impl<'a> ZipUploadBuilder<'a> {
     }
 }
 
-impl<'a> ZipUpload<'a> {
+impl ZipUpload<'_> {
     // Start a builder for the ZipUpload.
-    pub fn builder(common: &'a Common) -> ZipUploadBuilder {
+    pub fn builder(common: &Common) -> ZipUploadBuilder {
         ZipUploadBuilder {
             key: None,
             bucket: None,

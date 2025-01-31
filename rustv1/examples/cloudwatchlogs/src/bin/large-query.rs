@@ -27,7 +27,11 @@ use sdk_examples_test_utils::wait_on;
 #[derive(Debug)]
 enum LargeQueryError {
     DateOutOfBounds,
+    // Internal error is used in Debug output
+    #[allow(dead_code)]
     FromCloudwatchLogs(Error),
+    // Internal error is used in Debug output
+    #[allow(dead_code)]
     FromChronoParse(chrono::ParseError),
 }
 
@@ -236,27 +240,9 @@ async fn main() -> Result<(), LargeQueryError> {
 #[cfg(test)]
 mod test {
     use super::*;
-    use aws_config::Region;
-    use aws_sdk_cloudwatchlogs::{operation::start_query::StartQueryOutput, Config};
-    use aws_smithy_mocks_experimental::{mock, MockResponseInterceptor, Rule};
+    use aws_sdk_cloudwatchlogs::operation::start_query::StartQueryOutput;
+    use aws_smithy_mocks_experimental::{mock, mock_client, RuleMode};
     use chrono::{TimeZone, Utc};
-
-    fn client_from_rules(rules: &[&Rule], enforce_order: bool) -> Client {
-        let mut mock_response_interceptor = MockResponseInterceptor::new();
-        for rule in rules {
-            mock_response_interceptor = mock_response_interceptor.with_rule(rule)
-        }
-        if enforce_order {
-            mock_response_interceptor = mock_response_interceptor.enforce_order();
-        }
-        Client::from_conf(
-            Config::builder()
-                .with_test_defaults()
-                .region(Region::from_static("us-east-1"))
-                .interceptor(mock_response_interceptor)
-                .build(),
-        )
-    }
 
     // Test the behavior of the DateRange::split function.
     #[tokio::test]
@@ -333,7 +319,7 @@ mod test {
                     .build()
             });
 
-        let client = client_from_rules(&[&start_query, &small_result], false);
+        let client = mock_client!(aws_sdk_cloudwatchlogs, &[&start_query, &small_result]);
 
         let query = CloudWatchLongQuery::new(client, "testing".into(), date_range.clone());
         // Act: Invoke the large_query method with this range.
@@ -388,7 +374,11 @@ mod test {
                 .build()
         });
 
-        let client = client_from_rules(&[&get_query_results_0, &get_query_results_1], true);
+        let client = mock_client!(
+            aws_sdk_cloudwatchlogs,
+            RuleMode::Sequential,
+            &[&get_query_results_0, &get_query_results_1]
+        );
 
         // Arrange: Mock different responses from CloudWatch Logs with varying statuses.
         let query = CloudWatchLongQuery::new(client, "testing".into(), date_range.clone());

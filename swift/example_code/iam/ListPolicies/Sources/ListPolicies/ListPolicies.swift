@@ -29,9 +29,10 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[iam.swift.listpolicies.command.runasync]
     func runAsync() async throws {
-        let serviceHandler = await ServiceHandler()
-
+        
         do {
+            let serviceHandler = try await ServiceHandler()
+
             let nameCol = TextTableColumn(header: "Policy Name")
             let idCol = TextTableColumn(header: "ID")
             let arnCol = TextTableColumn(header: "ARN")
@@ -46,6 +47,7 @@ struct ExampleCommand: ParsableCommand {
 
             print(table.render())
         } catch {
+            print("ERROR: ListPolicies::runAsync :", dump(error))
             throw error
         }
     }

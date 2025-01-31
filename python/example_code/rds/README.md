@@ -34,33 +34,39 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon RDS](hello/hello_rds.py#L4) (`DescribeDBInstances`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_get_started_instances.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB instance](instance_wrapper.py#L333) (`CreateDBInstance`)
-- [Create a DB parameter group](instance_wrapper.py#L69) (`CreateDBParameterGroup`)
-- [Create a snapshot of a DB instance](instance_wrapper.py#L189) (`CreateDBSnapshot`)
-- [Delete a DB instance](instance_wrapper.py#L389) (`DeleteDBInstance`)
-- [Delete a DB parameter group](instance_wrapper.py#L102) (`DeleteDBParameterGroup`)
-- [Describe DB instances](instance_wrapper.py#L304) (`DescribeDBInstances`)
-- [Describe DB parameter groups](instance_wrapper.py#L40) (`DescribeDBParameterGroups`)
-- [Describe database engine versions](instance_wrapper.py#L242) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](instance_wrapper.py#L273) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters in a DB parameter group](instance_wrapper.py#L125) (`DescribeDBParameters`)
-- [Describe snapshots of DB instances](instance_wrapper.py#L216) (`DescribeDBSnapshots`)
-- [Update parameters in a DB parameter group](instance_wrapper.py#L163) (`ModifyDBParameterGroup`)
+- [CreateDBInstance](instance_wrapper.py#L333)
+- [CreateDBParameterGroup](instance_wrapper.py#L69)
+- [CreateDBSnapshot](instance_wrapper.py#L189)
+- [DeleteDBInstance](instance_wrapper.py#L389)
+- [DeleteDBParameterGroup](instance_wrapper.py#L102)
+- [DescribeDBEngineVersions](instance_wrapper.py#L242)
+- [DescribeDBInstances](instance_wrapper.py#L304)
+- [DescribeDBParameterGroups](instance_wrapper.py#L40)
+- [DescribeDBParameters](instance_wrapper.py#L125)
+- [DescribeDBSnapshots](instance_wrapper.py#L216)
+- [DescribeOrderableDBInstanceOptions](instance_wrapper.py#L273)
+- [ModifyDBParameterGroup](instance_wrapper.py#L163)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
-
-- [Get started with DB instances](scenario_get_started_instances.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
 
 - [Create an Aurora Serverless work item tracker](../../cross_service/aurora_item_tracker)
 
@@ -76,9 +82,15 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Amazon RDS
 
+This example shows you how to get started using Amazon RDS.
 
-#### Get started with DB instances
+```
+python hello/hello_rds.py
+```
+
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -87,8 +99,8 @@ This example shows you how to do the following:
 - Take a snapshot of the instance.
 - Delete the instance and parameter group.
 
-<!--custom.scenario_prereqs.rds_Scenario_GetStartedInstances.start-->
-<!--custom.scenario_prereqs.rds_Scenario_GetStartedInstances.end-->
+<!--custom.basic_prereqs.rds_Scenario_GetStartedInstances.start-->
+<!--custom.basic_prereqs.rds_Scenario_GetStartedInstances.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -97,8 +109,21 @@ python scenario_get_started_instances.py
 ```
 
 
-<!--custom.scenarios.rds_Scenario_GetStartedInstances.start-->
-<!--custom.scenarios.rds_Scenario_GetStartedInstances.end-->
+<!--custom.basics.rds_Scenario_GetStartedInstances.start-->
+<!--custom.basics.rds_Scenario_GetStartedInstances.end-->
+
+
+#### Create an Aurora Serverless work item tracker
+
+This example shows you how to create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_RDSDataTracker.start-->
+<!--custom.scenario_prereqs.cross_RDSDataTracker.end-->
+
+
+<!--custom.scenarios.cross_RDSDataTracker.start-->
+<!--custom.scenarios.cross_RDSDataTracker.end-->
 
 ### Tests
 

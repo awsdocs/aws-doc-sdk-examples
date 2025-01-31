@@ -14,7 +14,6 @@ suspend fun main() {
 
 // snippet-start:[athena.kotlin.ListNamedQueryExample.main]
 suspend fun listNamedQueries() {
-
     val request = ListNamedQueriesRequest {
         this.maxResults = 10
     }

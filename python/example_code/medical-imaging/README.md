@@ -34,34 +34,40 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello HealthImaging](imaging_set_and_frames_workflow/hello.py#L4) (`ListDatastores`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Add a tag to a resource](medical_imaging_basics.py#L491) (`TagResource`)
-- [Copy an image set](medical_imaging_basics.py#L415) (`CopyImageSet`)
-- [Create a data store](medical_imaging_basics.py#L31) (`CreateDatastore`)
-- [Delete a data store](medical_imaging_basics.py#L104) (`DeleteDatastore`)
-- [Delete an image set](medical_imaging_basics.py#L466) (`DeleteImageSet`)
-- [Get an image frame](medical_imaging_basics.py#L318) (`GetImageFrame`)
-- [Get data store properties](medical_imaging_basics.py#L54) (`GetDatastore`)
-- [Get image set properties](medical_imaging_basics.py#L241) (`GetImageSet`)
-- [Get import job properties](medical_imaging_basics.py#L158) (`GetDICOMImportJob`)
-- [Get metadata for an image set](medical_imaging_basics.py#L274) (`GetImageSetMetadata`)
-- [Import bulk data into a data store](medical_imaging_basics.py#L124) (`StartDICOMImportJob`)
-- [List data stores](medical_imaging_basics.py#L79) (`ListDatastores`)
-- [List image set versions](medical_imaging_basics.py#L350) (`ListImageSetVersions`)
-- [List import jobs for a data store](medical_imaging_basics.py#L183) (`ListDICOMImportJobs`)
-- [List tags for a resource](medical_imaging_basics.py#L533) (`ListTagsForResource`)
-- [Remove a tag from a resource](medical_imaging_basics.py#L511) (`UntagResource`)
-- [Search image sets](medical_imaging_basics.py#L211) (`SearchImageSets`)
-- [Update image set metadata](medical_imaging_basics.py#L381) (`UpdateImageSetMetadata`)
+- [CopyImageSet](medical_imaging_basics.py#L417)
+- [CreateDatastore](medical_imaging_basics.py#L31)
+- [DeleteDatastore](medical_imaging_basics.py#L104)
+- [DeleteImageSet](medical_imaging_basics.py#L489)
+- [GetDICOMImportJob](medical_imaging_basics.py#L158)
+- [GetDatastore](medical_imaging_basics.py#L54)
+- [GetImageFrame](medical_imaging_basics.py#L318)
+- [GetImageSet](medical_imaging_basics.py#L241)
+- [GetImageSetMetadata](medical_imaging_basics.py#L274)
+- [ListDICOMImportJobs](medical_imaging_basics.py#L183)
+- [ListDatastores](medical_imaging_basics.py#L79)
+- [ListImageSetVersions](medical_imaging_basics.py#L350)
+- [ListTagsForResource](medical_imaging_basics.py#L556)
+- [SearchImageSets](medical_imaging_basics.py#L211)
+- [StartDICOMImportJob](medical_imaging_basics.py#L124)
+- [TagResource](medical_imaging_basics.py#L514)
+- [UntagResource](medical_imaging_basics.py#L534)
+- [UpdateImageSetMetadata](medical_imaging_basics.py#L381)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Get started with image sets and image frames](imaging_set_and_frames_workflow/imaging_set_and_frames.py)
 - [Tagging a data store](tagging_data_stores.py)
 - [Tagging an image set](tagging_image_sets.py)
 
@@ -77,7 +83,41 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello HealthImaging
 
+This example shows you how to get started using HealthImaging.
+
+```
+python imaging_set_and_frames_workflow/hello.py
+```
+
+
+#### Get started with image sets and image frames
+
+This example shows you how to import DICOM files and download image frames in HealthImaging.</para>
+ <para>The implementation is structured as a command-line
+ application.
+
+
+- Set up resources for a DICOM import.
+- Import DICOM files into a data store.
+- Retrieve the image set IDs for the import job.
+- Retrieve the image frame IDs for the image sets.
+- Download, decode and verify the image frames.
+- Clean up resources.
+
+<!--custom.scenario_prereqs.medical-imaging_Scenario_ImageSetsAndFrames.start-->
+<!--custom.scenario_prereqs.medical-imaging_Scenario_ImageSetsAndFrames.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python imaging_set_and_frames_workflow/imaging_set_and_frames.py
+```
+
+
+<!--custom.scenarios.medical-imaging_Scenario_ImageSetsAndFrames.start-->
+<!--custom.scenarios.medical-imaging_Scenario_ImageSetsAndFrames.end-->
 
 #### Tagging a data store
 

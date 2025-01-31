@@ -38,10 +38,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a pipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L366) (`CreatePipeline`)
-- [Delete a pipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L401) (`DeletePipeline`)
-- [Describe a pipeline execution](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L592) (`DescribePipelineExecution`)
-- [Execute a pipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L507) (`StartPipelineExecution`)
+- [CreatePipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L477)
+- [DeletePipeline](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L535)
+- [DescribePipelineExecution](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L795)
+- [StartPipelineExecution](scenarios/wkflw-sagemaker-geospatial-pipeline/lib.js#L710)
 
 ### Scenarios
 
@@ -68,10 +68,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

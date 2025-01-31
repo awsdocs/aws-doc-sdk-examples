@@ -5,9 +5,7 @@
 use BedrockRuntime\GettingStartedWithBedrockRuntime;
 
 include __DIR__ . '/vendor/autoload.php';
-
 include 'GettingStartedWithBedrockRuntime.php';
-
 try {
     $runner = new GettingStartedWithBedrockRuntime();
     $runner->runExample();

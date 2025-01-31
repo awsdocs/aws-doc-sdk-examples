@@ -28,9 +28,8 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[iam.swift.listroles.command.runasync]
     func runAsync() async throws {
-        let serviceHandler = await ServiceHandler()
-
         do {
+            let serviceHandler = try await ServiceHandler()
             let roles = try await serviceHandler.listRoles()
             
             print("Found \(roles.count) roles")

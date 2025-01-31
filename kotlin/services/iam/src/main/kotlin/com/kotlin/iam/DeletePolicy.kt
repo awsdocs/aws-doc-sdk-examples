@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <policyARN> 
@@ -37,10 +36,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[iam.kotlin.delete_policy.main]
 suspend fun deleteIAMPolicy(policyARNVal: String?) {
-
-    val request = DeletePolicyRequest {
-        policyArn = policyARNVal
-    }
+    val request =
+        DeletePolicyRequest {
+            policyArn = policyARNVal
+        }
 
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         iamClient.deletePolicy(request)

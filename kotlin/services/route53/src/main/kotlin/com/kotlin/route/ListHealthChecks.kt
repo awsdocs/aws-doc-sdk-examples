@@ -22,10 +22,10 @@ suspend fun main() {
 
 // snippet-start:[route53.kotlin.list_health_checks.main]
 suspend fun listAllHealthChecks() {
-
-    val requestOb = ListHealthChecksRequest {
-        this.maxItems = 10
-    }
+    val requestOb =
+        ListHealthChecksRequest {
+            this.maxItems = 10
+        }
 
     Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
         val response = route53Client.listHealthChecks(requestOb)

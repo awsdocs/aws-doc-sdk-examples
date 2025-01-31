@@ -243,7 +243,7 @@ impl GlueScenario {
         Ok(())
     }
 
-    // Upload Python ETL script to the user's Amazon Simple Storage Service (Amazon S3) bucket. It looks something like this: s3://doc-example-bucket-123456/flight_etl_job_script.py.
+    // Upload Python ETL script to the user's Amazon Simple Storage Service (Amazon S3) bucket. It looks something like this: s3://amzn-s3-demo-bucket-123456/flight_etl_job_script.py.
     // Create a job, pass it the AWS Identity and Access Management (IAM) role and the URL to the uploaded script.
     #[instrument(skip(self))]
     pub async fn prepare_job(self: &GlueScenario) -> Result<Job, GlueMvpError> {

@@ -3,7 +3,10 @@
 
 package workflows
 
+// snippet-start:[gov2.workflows.TopicsAndQueues.Resources.complete]
+
 import (
+	"context"
 	"fmt"
 	"log"
 	"topics_and_queues/actions"
@@ -19,7 +22,7 @@ type Resources struct {
 }
 
 // Cleanup deletes all AWS resources created during an example.
-func (resources Resources) Cleanup() {
+func (resources Resources) Cleanup(ctx context.Context) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("Something went wrong during cleanup. Use the AWS Management Console\n" +
@@ -30,7 +33,7 @@ func (resources Resources) Cleanup() {
 	var err error
 	if resources.topicArn != "" {
 		log.Printf("Deleting topic %v.\n", resources.topicArn)
-		err = resources.snsActor.DeleteTopic(resources.topicArn)
+		err = resources.snsActor.DeleteTopic(ctx, resources.topicArn)
 		if err != nil {
 			panic(err)
 		}
@@ -38,9 +41,11 @@ func (resources Resources) Cleanup() {
 
 	for _, queueUrl := range resources.queueUrls {
 		log.Printf("Deleting queue %v.\n", queueUrl)
-		err = resources.sqsActor.DeleteQueue(queueUrl)
+		err = resources.sqsActor.DeleteQueue(ctx, queueUrl)
 		if err != nil {
 			panic(err)
 		}
 	}
 }
+
+// snippet-end:[gov2.workflows.TopicsAndQueues.Resources.complete]

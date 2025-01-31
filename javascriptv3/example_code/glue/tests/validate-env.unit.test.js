@@ -5,9 +5,9 @@ import { validateEnv, keys } from "../scenarios/basic/steps/validate-env.js";
 
 describe("validateEnv", () => {
   beforeAll(() => {
-    keys.forEach((key) => {
+    for (const key of keys) {
       process.env[key] = "";
-    });
+    }
   });
 
   it("should throw an error if no arguments are passed", () => {
@@ -23,7 +23,9 @@ describe("validateEnv", () => {
 
   it("should return a copy of the context if all env vars are present", async () => {
     const context = {};
-    keys.forEach((key) => (process.env[key] = "some value"));
+    for (const key of keys) {
+      process.env[key] = "some value";
+    }
     console.log(process.env);
     await expect(validateEnv(context)).resolves.toEqual(context);
     return expect(validateEnv(context)).resolves.not.toBe(context);

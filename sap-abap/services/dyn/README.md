@@ -29,27 +29,27 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](zcl_aws1_dyn_scenario.clas.abap)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a table](zcl_aws1_dyn_actions.clas.abap#L75) (`CreateTable`)
-- [Delete a table](zcl_aws1_dyn_actions.clas.abap#L141) (`DeleteTable`)
-- [Delete an item from a table](zcl_aws1_dyn_actions.clas.abap#L117) (`DeleteItem`)
-- [Get an item from a table](zcl_aws1_dyn_actions.clas.abap#L189) (`GetItem`)
-- [Get information about a table](zcl_aws1_dyn_actions.clas.abap#L164) (`DescribeTable`)
-- [List tables](zcl_aws1_dyn_actions.clas.abap#L215) (`ListTables`)
-- [Put an item in a table](zcl_aws1_dyn_actions.clas.abap#L239) (`PutItem`)
-- [Query a table](zcl_aws1_dyn_actions.clas.abap#L263) (`Query`)
-- [Scan a table](zcl_aws1_dyn_actions.clas.abap#L301) (`Scan`)
-- [Update an item in a table](zcl_aws1_dyn_actions.clas.abap#L337) (`UpdateItem`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with tables, items, and queries](zcl_aws1_dyn_scenario.clas.abap)
+- [CreateTable](zcl_aws1_dyn_actions.clas.abap#L75)
+- [DeleteItem](zcl_aws1_dyn_actions.clas.abap#L117)
+- [DeleteTable](zcl_aws1_dyn_actions.clas.abap#L141)
+- [DescribeTable](zcl_aws1_dyn_actions.clas.abap#L164)
+- [GetItem](zcl_aws1_dyn_actions.clas.abap#L189)
+- [ListTables](zcl_aws1_dyn_actions.clas.abap#L215)
+- [PutItem](zcl_aws1_dyn_actions.clas.abap#L239)
+- [Query](zcl_aws1_dyn_actions.clas.abap#L263)
+- [Scan](zcl_aws1_dyn_actions.clas.abap#L301)
+- [UpdateItem](zcl_aws1_dyn_actions.clas.abap#L337)
 
 
 <!--custom.examples.start-->
@@ -64,8 +64,7 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Get started with tables, items, and queries
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -76,12 +75,13 @@ This example shows you how to do the following:
 - Scan for movies that were released in a range of years.
 - Delete a movie from the table, then delete the table.
 
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
 
 
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.end-->
+
 
 ### Tests
 

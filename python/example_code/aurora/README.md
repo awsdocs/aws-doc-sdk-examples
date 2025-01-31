@@ -34,36 +34,42 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Aurora](hello/hello_aurora.py#L4) (`DescribeDBClusters`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_get_started_aurora.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a DB cluster](aurora_wrapper.py#L220) (`CreateDBCluster`)
-- [Create a DB cluster parameter group](aurora_wrapper.py#L68) (`CreateDBClusterParameterGroup`)
-- [Create a DB cluster snapshot](aurora_wrapper.py#L288) (`CreateDBClusterSnapshot`)
-- [Create a DB instance in a DB cluster](aurora_wrapper.py#L341) (`CreateDBInstance`)
-- [Delete a DB cluster](aurora_wrapper.py#L270) (`DeleteDBCluster`)
-- [Delete a DB cluster parameter group](aurora_wrapper.py#L101) (`DeleteDBClusterParameterGroup`)
-- [Delete a DB instance](aurora_wrapper.py#L469) (`DeleteDBInstance`)
-- [Describe DB cluster parameter groups](aurora_wrapper.py#L39) (`DescribeDBClusterParameterGroups`)
-- [Describe DB cluster snapshots](aurora_wrapper.py#L315) (`DescribeDBClusterSnapshots`)
-- [Describe DB clusters](aurora_wrapper.py#L191) (`DescribeDBClusters`)
-- [Describe DB instances](aurora_wrapper.py#L440) (`DescribeDBInstances`)
-- [Describe database engine versions](aurora_wrapper.py#L378) (`DescribeDBEngineVersions`)
-- [Describe options for DB instances](aurora_wrapper.py#L409) (`DescribeOrderableDBInstanceOptions`)
-- [Describe parameters from a DB cluster parameter group](aurora_wrapper.py#L126) (`DescribeDBClusterParameters`)
-- [Update parameters in a DB cluster parameter group](aurora_wrapper.py#L164) (`ModifyDBClusterParameterGroup`)
+- [CreateDBCluster](aurora_wrapper.py#L220)
+- [CreateDBClusterParameterGroup](aurora_wrapper.py#L68)
+- [CreateDBClusterSnapshot](aurora_wrapper.py#L288)
+- [CreateDBInstance](aurora_wrapper.py#L341)
+- [DeleteDBCluster](aurora_wrapper.py#L270)
+- [DeleteDBClusterParameterGroup](aurora_wrapper.py#L101)
+- [DeleteDBInstance](aurora_wrapper.py#L469)
+- [DescribeDBClusterParameterGroups](aurora_wrapper.py#L39)
+- [DescribeDBClusterParameters](aurora_wrapper.py#L126)
+- [DescribeDBClusterSnapshots](aurora_wrapper.py#L315)
+- [DescribeDBClusters](aurora_wrapper.py#L191)
+- [DescribeDBEngineVersions](aurora_wrapper.py#L378)
+- [DescribeDBInstances](aurora_wrapper.py#L440)
+- [DescribeOrderableDBInstanceOptions](aurora_wrapper.py#L409)
+- [ModifyDBClusterParameterGroup](aurora_wrapper.py#L164)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
-
-- [Get started with DB clusters](scenario_get_started_aurora.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
 
 - [Create a lending library REST API](../../cross_service/aurora_rest_lending_library)
 - [Create an Aurora Serverless work item tracker](../../cross_service/aurora_item_tracker)
@@ -80,9 +86,15 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Aurora
 
+This example shows you how to get started using Aurora.
 
-#### Get started with DB clusters
+```
+python hello/hello_aurora.py
+```
+
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -91,8 +103,8 @@ This example shows you how to do the following:
 - Create a DB instance that contains a database.
 - Take a snapshot of the DB cluster, then clean up resources.
 
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -101,8 +113,33 @@ python scenario_get_started_aurora.py
 ```
 
 
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.end-->
+
+
+#### Create a lending library REST API
+
+This example shows you how to create a lending library where patrons can borrow and return books by using a REST API backed by an Amazon Aurora database.
+
+
+<!--custom.scenario_prereqs.cross_AuroraRestLendingLibrary.start-->
+<!--custom.scenario_prereqs.cross_AuroraRestLendingLibrary.end-->
+
+
+<!--custom.scenarios.cross_AuroraRestLendingLibrary.start-->
+<!--custom.scenarios.cross_AuroraRestLendingLibrary.end-->
+
+#### Create an Aurora Serverless work item tracker
+
+This example shows you how to create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_RDSDataTracker.start-->
+<!--custom.scenario_prereqs.cross_RDSDataTracker.end-->
+
+
+<!--custom.scenarios.cross_RDSDataTracker.start-->
+<!--custom.scenarios.cross_RDSDataTracker.end-->
 
 ### Tests
 

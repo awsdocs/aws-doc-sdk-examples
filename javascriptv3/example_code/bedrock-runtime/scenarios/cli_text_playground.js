@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import {
   Scenario,
   ScenarioAction,
@@ -42,7 +42,6 @@ const printDetails = new ScenarioOutput(
    * @param {{ model: ModelConfig, prompt: string }} c
    */
   (c) => console.log(`Invoking ${c.model.modelName} with '${c.prompt}'...`),
-  { slow: false },
 );
 
 const invokeModel = new ScenarioAction(
@@ -63,7 +62,6 @@ const printResponse = new ScenarioOutput(
    * @param {{ response: string }} c
    */
   (c) => c.response,
-  { slow: false },
 );
 
 const scenario = new Scenario("Amazon Bedrock Runtime Demo", [

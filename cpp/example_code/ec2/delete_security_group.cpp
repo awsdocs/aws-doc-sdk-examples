@@ -13,34 +13,32 @@
  **/
 
 // snippet-start:[ec2.cpp.delete_security_group.inc]
-#include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DeleteSecurityGroupRequest.h>
 #include <iostream>
 // snippet-end:[ec2.cpp.delete_security_group.inc]
 #include "ec2_samples.h"
 
+// snippet-start:[cpp.example_code.ec2.DeleteSecurityGroup]
 //! Delete a security group.
 /*!
-  \sa DeleteSecurityGroup()
   \param securityGroupID: A security group ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::DeleteSecurityGroup(const Aws::String &securityGroupID,
+bool AwsDoc::EC2::deleteSecurityGroup(const Aws::String &securityGroupID,
                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.delete_security_group.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
     Aws::EC2::Model::DeleteSecurityGroupRequest request;
 
     request.SetGroupId(securityGroupID);
-    auto outcome = ec2Client.DeleteSecurityGroup(request);
+    Aws::EC2::Model::DeleteSecurityGroupOutcome outcome = ec2Client.DeleteSecurityGroup(request);
 
     if (!outcome.IsSuccess()) {
         std::cerr << "Failed to delete security group " << securityGroupID <<
                   ":" << outcome.GetError().GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully deleted security group " << securityGroupID <<
                   std::endl;
     }
@@ -48,6 +46,7 @@ bool AwsDoc::EC2::DeleteSecurityGroup(const Aws::String &securityGroupID,
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.ec2.DeleteSecurityGroup]
 
 /*
  *  main function
@@ -74,7 +73,7 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
         Aws::String groupID = argv[1];
-        AwsDoc::EC2::DeleteSecurityGroup(groupID, clientConfig);
+        AwsDoc::EC2::deleteSecurityGroup(groupID, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

@@ -42,31 +42,31 @@ Next, for information on code example structures and how to build and run the ex
 - [Hello AWS IoT](hello_iot/CMakeLists.txt#L4) (`listThings`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](things_and_shadows_workflow/iot_things_and_shadows_workflow.cpp)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a certificate](attach_thing_principal.cpp#L22) (`AttachThingPrincipal`)
-- [Create a certificate](create_keys_and_certificate.cpp#L23) (`CreateKeysAndCertificate`)
-- [Create a rule](create_topic_rule.cpp#L22) (`CreateTopicRule`)
-- [Create a thing](create_thing.cpp#L22) (`CreateThing`)
-- [Delete a certificate](delete_certificate.cpp#L22) (`DeleteCertificate`)
-- [Delete a rule](delete_topic_rule.cpp#L22) (`DeleteTopicRule`)
-- [Delete a thing](delete_thing.cpp#L22) (`DeleteThing`)
-- [Describe a thing](describe_thing.cpp#L22) (`DescribeThing`)
-- [Detach a certificate](detach_thing_principal.cpp#L23) (`DetachThingPrincipal`)
-- [Get endpoint information](describe_endpoint.cpp#L22) (`DescribeEndpoint`)
-- [List your certificates](list_certificates.cpp#L23) (`ListCertificates`)
-- [Query the search index](search_index.cpp#L22) (`SearchIndex`)
-- [Update a thing](update_thing.cpp#L23) (`UpdateThing`)
-- [Update the search configuration](update_indexing_configuration.cpp#L22) (`UpdateIndexingConfiguration`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Work with device management use cases](things_and_shadows_workflow/iot_things_and_shadows_workflow.cpp)
+- [AttachThingPrincipal](attach_thing_principal.cpp#L22)
+- [CreateKeysAndCertificate](create_keys_and_certificate.cpp#L23)
+- [CreateThing](create_thing.cpp#L22)
+- [CreateTopicRule](create_topic_rule.cpp#L22)
+- [DeleteCertificate](delete_certificate.cpp#L22)
+- [DeleteThing](delete_thing.cpp#L22)
+- [DeleteTopicRule](delete_topic_rule.cpp#L22)
+- [DescribeEndpoint](describe_endpoint.cpp#L22)
+- [DescribeThing](describe_thing.cpp#L22)
+- [DetachThingPrincipal](detach_thing_principal.cpp#L23)
+- [ListCertificates](list_certificates.cpp#L23)
+- [SearchIndex](search_index.cpp#L22)
+- [UpdateIndexingConfiguration](update_indexing_configuration.cpp#L22)
+- [UpdateThing](update_thing.cpp#L23)
 
 
 <!--custom.examples.start-->
@@ -97,19 +97,18 @@ folder.
 This example shows you how to get started using AWS IoT.
 
 
+#### Learn the basics
 
-#### Work with device management use cases
-
-This example shows you how to work with AWS IoT device management use cases using AWS IoT SDK
-
-
-<!--custom.scenario_prereqs.iot_Scenario.start-->
-To run this workflow, refer to the [README](things_and_shadows_workflow/README.md)
-<!--custom.scenario_prereqs.iot_Scenario.end-->
+This example shows you how to work with AWS IoT device management.
 
 
-<!--custom.scenarios.iot_Scenario.start-->
-<!--custom.scenarios.iot_Scenario.end-->
+<!--custom.basic_prereqs.iot_Scenario.start-->
+<!--custom.basic_prereqs.iot_Scenario.end-->
+
+
+<!--custom.basics.iot_Scenario.start-->
+<!--custom.basics.iot_Scenario.end-->
+
 
 ### Tests
 

@@ -33,9 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create an identity pool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L92) (`CreateIdentityPool`)
-- [Delete an identity pool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L114) (`DeleteIdentityPool`)
-- [List identity pools](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L25) (`CreateIdentityPool`)
+- [CreateIdentityPool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L98)
+- [DeleteIdentityPool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L126)
+- [ListIdentityPools](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L30)
 
 
 <!--custom.examples.start-->
@@ -79,7 +79,7 @@ in the `swift` folder.
 
 - [Amazon Cognito Identity Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html)
 - [Amazon Cognito Identity API Reference](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html)
-- [SDK for Swift Amazon Cognito Identity reference](https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWSCognito-identity/Home)
+- [SDK for Swift Amazon Cognito Identity reference](https://sdk.amazonaws.com/swift/api/awscognitoidentity/latest/documentation/awscognitoidentity)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

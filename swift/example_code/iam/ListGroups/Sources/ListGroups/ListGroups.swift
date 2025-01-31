@@ -8,9 +8,10 @@
 
 // snippet-start:[iam.swift.listgroups.example]
 // snippet-start:[iam.swift.listgroups.main.imports]
+import ArgumentParser
 import Foundation
 import ServiceHandler
-import ArgumentParser
+
 // snippet-end:[iam.swift.listgroups.main.imports]
 
 /// The command line arguments and options available for this
@@ -28,9 +29,9 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[iam.swift.listgroups.command.runasync]
     func runAsync() async throws {
-        let serviceHandler = await ServiceHandler()
-
         do {
+            let serviceHandler = try await ServiceHandler()
+
             let groups = try await serviceHandler.listGroups()
             print("Found \(groups.count) groups")
             for group in groups {
@@ -42,6 +43,7 @@ struct ExampleCommand: ParsableCommand {
     }
     // snippet-end:[iam.swift.listgroups.command.runasync]
 }
+
 // snippet-end:[iam.swift.listgroups.command]
 
 //
@@ -59,7 +61,8 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
+
 // snippet-end:[iam.swift.listgroups.main]
 // snippet-end:[iam.swift.listgroups.example]

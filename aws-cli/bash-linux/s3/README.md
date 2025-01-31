@@ -29,26 +29,26 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `aws-c
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](s3_getting_started.sh)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Copy an object from one bucket to another](bucket-lifecycle-operations/bucket_operations.sh#L202) (`CopyObject`)
-- [Create a bucket](bucket-lifecycle-operations/bucket_operations.sh#L50) (`CreateBucket`)
-- [Delete an empty bucket](bucket-lifecycle-operations/bucket_operations.sh#L343) (`DeleteBucket`)
-- [Delete an object](bucket-lifecycle-operations/bucket_operations.sh#L272) (`DeleteObject`)
-- [Delete multiple objects](bucket-lifecycle-operations/bucket_operations.sh#L303) (`DeleteObjects`)
-- [Determine the existence of a bucket](bucket-lifecycle-operations/bucket_operations.sh#L20) (`HeadBucket`)
-- [Get an object from a bucket](bucket-lifecycle-operations/bucket_operations.sh#L168) (`GetObject`)
-- [List objects in a bucket](bucket-lifecycle-operations/awsdocs_general.sh#L94) (`ListObjectsV2`)
-- [Upload an object to a bucket](bucket-lifecycle-operations/bucket_operations.sh#L134) (`PutObject`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with buckets and objects](s3_getting_started.sh)
+- [CopyObject](bucket-lifecycle-operations/bucket_operations.sh#L202)
+- [CreateBucket](bucket-lifecycle-operations/bucket_operations.sh#L50)
+- [DeleteBucket](bucket-lifecycle-operations/bucket_operations.sh#L343)
+- [DeleteObject](bucket-lifecycle-operations/bucket_operations.sh#L272)
+- [DeleteObjects](bucket-lifecycle-operations/bucket_operations.sh#L303)
+- [GetObject](bucket-lifecycle-operations/bucket_operations.sh#L168)
+- [HeadBucket](bucket-lifecycle-operations/bucket_operations.sh#L20)
+- [ListObjectsV2](bucket-lifecycle-operations/bucket_operations.sh#L236)
+- [PutObject](bucket-lifecycle-operations/bucket_operations.sh#L134)
 
 
 <!--custom.examples.start-->
@@ -63,8 +63,7 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Get started with buckets and objects
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -74,12 +73,13 @@ This example shows you how to do the following:
 - List the objects in a bucket.
 - Delete the bucket objects and the bucket.
 
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
 
 ### Tests
 

@@ -39,27 +39,27 @@ python -m pip install -r requirements.txt
 - [Hello Amazon Keyspaces](hello.py#L4) (`ListKeyspaces`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_get_started_keyspaces.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a keyspace](keyspace.py#L32) (`CreateKeyspace`)
-- [Create a table](keyspace.py#L109) (`CreateTable`)
-- [Delete a keyspace](keyspace.py#L277) (`DeleteKeyspace`)
-- [Delete a table](keyspace.py#L256) (`DeleteTable`)
-- [Get data about a keyspace](keyspace.py#L57) (`GetKeyspace`)
-- [Get data about a table](keyspace.py#L147) (`GetTable`)
-- [List keyspaces](keyspace.py#L86) (`ListKeyspaces`)
-- [List tables in a keyspace](keyspace.py#L177) (`ListTables`)
-- [Restore a table to a point in time](keyspace.py#L224) (`RestoreTable`)
-- [Update a table](keyspace.py#L199) (`UpdateTable`)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with keyspaces and tables](scenario_get_started_keyspaces.py)
+- [CreateKeyspace](keyspace.py#L32)
+- [CreateTable](keyspace.py#L109)
+- [DeleteKeyspace](keyspace.py#L277)
+- [DeleteTable](keyspace.py#L256)
+- [GetKeyspace](keyspace.py#L57)
+- [GetTable](keyspace.py#L147)
+- [ListKeyspaces](keyspace.py#L86)
+- [ListTables](keyspace.py#L177)
+- [RestoreTable](keyspace.py#L224)
+- [UpdateTable](keyspace.py#L199)
 
 
 <!--custom.examples.start-->
@@ -81,8 +81,7 @@ This example shows you how to get started using Amazon Keyspaces.
 python hello.py
 ```
 
-
-#### Get started with keyspaces and tables
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -92,8 +91,8 @@ This example shows you how to do the following:
 - Update the table. Add a column to track watched movies.
 - Restore the table to its previous state and clean up resources.
 
-<!--custom.scenario_prereqs.keyspaces_Scenario_GetStartedKeyspaces.start-->
-<!--custom.scenario_prereqs.keyspaces_Scenario_GetStartedKeyspaces.end-->
+<!--custom.basic_prereqs.keyspaces_Scenario_GetStartedKeyspaces.start-->
+<!--custom.basic_prereqs.keyspaces_Scenario_GetStartedKeyspaces.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -102,8 +101,9 @@ python scenario_get_started_keyspaces.py
 ```
 
 
-<!--custom.scenarios.keyspaces_Scenario_GetStartedKeyspaces.start-->
-<!--custom.scenarios.keyspaces_Scenario_GetStartedKeyspaces.end-->
+<!--custom.basics.keyspaces_Scenario_GetStartedKeyspaces.start-->
+<!--custom.basics.keyspaces_Scenario_GetStartedKeyspaces.end-->
+
 
 ### Tests
 

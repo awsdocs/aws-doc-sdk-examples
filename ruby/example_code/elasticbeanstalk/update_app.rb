@@ -1,9 +1,9 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-elasticbeanstalk"
-require "aws-sdk-s3"
-require "securerandom"
-require "logger"
+require 'aws-sdk-elasticbeanstalk'
+require 'aws-sdk-s3'
+require 'securerandom'
+require 'logger'
 
 # snippet-start:[eb.Ruby.updateMyRailsApp]
 # Manages deployment of Rails applications to AWS Elastic Beanstalk
@@ -62,7 +62,7 @@ class RailsAppDeployer
 
   # Creates a new application version and deploys it
   def create_and_deploy_new_application_version(zip_file_name)
-    version_label = File.basename(zip_file_name, ".zip")
+    version_label = File.basename(zip_file_name, '.zip')
     @eb_client.create_application_version(
       process: false,
       application_name: @app_name,
@@ -104,6 +104,6 @@ end
 if $PROGRAM_NAME == __FILE__
   eb_client = Aws::ElasticBeanstalk::Client.new
   s3_client = Aws::S3::Client.new
-  app_deployer = RailsAppDeployer.new(eb_client, s3_client, "MyRailsApp")
+  app_deployer = RailsAppDeployer.new(eb_client, s3_client, 'MyRailsApp')
   app_deployer.deploy
 end

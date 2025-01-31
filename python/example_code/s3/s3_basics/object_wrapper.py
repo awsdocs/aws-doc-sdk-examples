@@ -294,7 +294,7 @@ def usage_demo():
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     s3_resource = boto3.resource("s3")
-    bucket = s3_resource.Bucket(f"doc-example-bucket-{uuid.uuid4()}")
+    bucket = s3_resource.Bucket(f"amzn-s3-demo-bucket-{uuid.uuid4()}")
     try:
         bucket.create(
             CreateBucketConfiguration={

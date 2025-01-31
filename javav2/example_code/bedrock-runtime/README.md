@@ -28,30 +28,64 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 <!--custom.prerequisites.start-->
 
-> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
-> 
+> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console)
+> before you have requested access to it, you will receive an error message. For more information,
+> see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
+>
 <!--custom.prerequisites.end-->
+### AI21 Labs Jurassic-2
 
-### Single actions
+- [Converse](src/main/java/com/example/bedrockruntime/models/ai21LabsJurassic2/Converse.java#L6)
+- [InvokeModel](src/main/java/com/example/bedrockruntime/models/ai21LabsJurassic2/InvokeModel.java#L6)
 
-Code excerpts that show you how to call individual service functions.
+### Amazon Titan Image Generator
 
-- [AI21 Labs Jurassic-2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L205) (`InvokeModel`)
-- [Amazon Titan: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L399) (`InvokeModel`)
-- [Anthropic Claude 2: Real-time response stream processing](src/main/java/com/example/bedrockruntime/Claude2.java#L65) (`InvokeModelWithResponseStream`)
-- [Anthropic Claude 2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModel.java#L112) (`InvokeModel`)
-- [Anthropic Claude 3: Real-time response stream processing](src/main/java/com/example/bedrockruntime/Claude3.java#L49) (`InvokeModelWithResponseStream`)
-- [Meta Llama 2: Text generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L268) (`InvokeModel`)
-- [Mistral AI: Text generation with Mistral 7B Instruct](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L33) (`InvokeModel`)
-- [Mistral AI: Text generation with Mixtral 8x7B Instruct](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L88) (`InvokeModel`)
-- [Stable Diffusion: Image generation](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L329) (`InvokeModel`)
+- [InvokeModel](src/main/java/com/example/bedrockruntime/models/amazonTitanImage/InvokeModel.java#L6)
 
-### Scenarios
+### Amazon Titan Text
 
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
+- [Converse](src/main/java/com/example/bedrockruntime/models/amazonTitanText/Converse.java#L7)
+- [ConverseStream](src/main/java/com/example/bedrockruntime/models/amazonTitanText/ConverseStream.java#L6)
+- [InvokeModel](src/main/java/com/example/bedrockruntime/models/amazonTitanText/InvokeModel.java#L6)
+- [InvokeModelWithResponseStream](src/main/java/com/example/bedrockruntime/models/amazonTitanText/InvokeModelWithResponseStream.java#L6)
 
-- [Invoke multiple foundation models on Amazon Bedrock](src/main/java/com/example/bedrockruntime/BedrockRuntimeUsageDemo.java)
+### Amazon Titan Text Embeddings
+
+- [InvokeModel](src/main/java/com/example/bedrockruntime/models/amazonTitanTextEmbeddings/InvokeModel.java#L6)
+
+### Anthropic Claude
+
+- [Converse](src/main/java/com/example/bedrockruntime/models/anthropicClaude/Converse.java#L6)
+- [ConverseStream](src/main/java/com/example/bedrockruntime/models/anthropicClaude/ConverseStream.java#L6)
+- [InvokeModel](src/main/java/com/example/bedrockruntime/models/anthropicClaude/InvokeModel.java#L6)
+- [InvokeModelWithResponseStream](src/main/java/com/example/bedrockruntime/models/anthropicClaude/InvokeModelWithResponseStream.java#L6)
+
+### Cohere Command
+
+- [Converse](src/main/java/com/example/bedrockruntime/models/cohereCommand/Converse.java#L6)
+- [ConverseStream](src/main/java/com/example/bedrockruntime/models/cohereCommand/ConverseStream.java#L6)
+- [InvokeModel: Command R and R+](src/main/java/com/example/bedrockruntime/models/cohereCommand/Command_R_InvokeModel.java#L6)
+- [InvokeModel: Command and Command Light](src/main/java/com/example/bedrockruntime/models/cohereCommand/Command_InvokeModel.java#L6)
+- [InvokeModelWithResponseStream: Command R and R+](src/main/java/com/example/bedrockruntime/models/cohereCommand/Command_R_InvokeModelWithResponseStream.java#L6)
+- [InvokeModelWithResponseStream: Command and Command Light](src/main/java/com/example/bedrockruntime/models/cohereCommand/Command_InvokeModelWithResponseStream.java#L6)
+
+### Meta Llama
+
+- [Converse](src/main/java/com/example/bedrockruntime/models/metaLlama/Converse.java#L6)
+- [ConverseStream](src/main/java/com/example/bedrockruntime/models/metaLlama/ConverseStream.java#L6)
+- [InvokeModel: Llama 3](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama3_InvokeModel.java#L6)
+- [InvokeModelWithResponseStream: Llama 3](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama3_InvokeModelWithResponseStream.java#L6)
+
+### Mistral AI
+
+- [Converse](src/main/java/com/example/bedrockruntime/models/mistral/Converse.java#L6)
+- [ConverseStream](src/main/java/com/example/bedrockruntime/models/mistral/ConverseStream.java#L6)
+- [InvokeModel](src/main/java/com/example/bedrockruntime/models/mistral/InvokeModel.java#L6)
+- [InvokeModelWithResponseStream](src/main/java/com/example/bedrockruntime/models/mistral/InvokeModelWithResponseStream.java#L6)
+
+### Stable Diffusion
+
+- [InvokeModel](src/main/java/com/example/bedrockruntime/models/stabilityAi/InvokeModel.java#L6)
 
 
 <!--custom.examples.start-->
@@ -66,18 +100,6 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Invoke multiple foundation models on Amazon Bedrock
-
-This example shows you how to prepare and send a prompt to a variety of large-language models (LLMs) on Amazon Bedrock
-
-
-<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModels.start-->
-<!--custom.scenario_prereqs.bedrock-runtime_Scenario_InvokeModels.end-->
-
-
-<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.start-->
-<!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.end-->
 
 ### Tests
 

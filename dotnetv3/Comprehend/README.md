@@ -33,17 +33,18 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Detect entities in a document](DetectEntitiesExample/DetectEntitiesExample/DetectEntities.cs#L6) (`DetectEntities`)
-- [Detect key phrases in a document](DetectKeyPhraseExample/DetectKeyPhraseExample/DetectKeyPhrase.cs#L6) (`DetectKeyPhrases`)
-- [Detect personally identifiable information in a document](DetectingPIIExample/DetectingPIIExample/DetectingPII.cs#L6) (`DetectPiiEntities`)
-- [Detect syntactical elements of a document](DetectingSyntaxExample/DetectingSyntaxExample/DetectingSyntax.cs#L6) (`DetectSyntax`)
-- [Detect the dominant language in a document](DetectDominantLanguageExample/DetectDominantLanguageExample/DetectDominantLanguage.cs#L6) (`DetectDominantLanguage`)
-- [Detect the sentiment of a document](DetectSentimentExample/DetectSentimentExample/DetectSentiment.cs#L6) (`DetectSentiment`)
-- [Start a topic modeling job](TopicModelingExample/TopicModelingExample/TopicModeling.cs#L6) (`StartTopicsDetectionJob`)
+- [DetectDominantLanguage](DetectDominantLanguageExample/DetectDominantLanguageExample/DetectDominantLanguage.cs#L6)
+- [DetectEntities](DetectEntitiesExample/DetectEntitiesExample/DetectEntities.cs#L6)
+- [DetectKeyPhrases](DetectKeyPhraseExample/DetectKeyPhraseExample/DetectKeyPhrase.cs#L6)
+- [DetectPiiEntities](DetectingPIIExample/DetectingPIIExample/DetectingPII.cs#L6)
+- [DetectSentiment](DetectSentimentExample/DetectSentimentExample/DetectSentiment.cs#L6)
+- [DetectSyntax](DetectingSyntaxExample/DetectingSyntaxExample/DetectingSyntax.cs#L6)
+- [StartTopicsDetectionJob](TopicModelingExample/TopicModelingExample/TopicModeling.cs#L6)
 
-### Cross-service examples
+### Scenarios
 
-Sample applications that work across multiple AWS services.
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
 - [Create an application to analyze customer feedback](../cross-service/FeedbackSentimentAnalyzer)
 
@@ -77,6 +78,18 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.end-->
 
 
+
+#### Create an application to analyze customer feedback
+
+This example shows you how to create an application that analyzes customer comment cards, translates them from their original language, determines their sentiment, and generates an audio file from the translated text.
+
+
+<!--custom.scenario_prereqs.cross_FSA.start-->
+<!--custom.scenario_prereqs.cross_FSA.end-->
+
+
+<!--custom.scenarios.cross_FSA.start-->
+<!--custom.scenarios.cross_FSA.end-->
 
 ### Tests
 

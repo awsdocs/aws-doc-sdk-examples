@@ -1,5 +1,5 @@
-name: "cpp lint check"
-on:
+name: "Lint C++"
+on:   # yamllint disable-line rule:truthy
   pull_request:
   workflow_dispatch:
 
@@ -19,7 +19,7 @@ jobs:
             cpp
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v41
+        uses: tj-actions/changed-files@e9772d140489982e0e3704fea5ee93d536f1e275
         with:
           files: "cpp/**/*.{cpp,h}"
       - name: "Run clang-tidy check"

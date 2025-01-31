@@ -33,14 +33,14 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a log group](actions/create-log-group.js#L4) (`CreateLogGroup`)
-- [Create a subscription filter](actions/put-subscription-filter.js#L4) (`PutSubscriptionFilter`)
-- [Delete a log group](actions/delete-log-group.js#L4) (`DeleteLogGroup`)
-- [Delete a subscription filter](actions/delete-subscription-filter.js#L4) (`DeleteSubscriptionFilter`)
-- [Describe existing subscription filters](actions/describe-subscription-filters.js#L4) (`DescribeSubscriptionFilters`)
-- [Describe log groups](actions/describe-log-groups.js#L6) (`DescribeLogGroups`)
-- [Get the results of a query](scenarios/large-query/cloud-watch-query.js#L108) (`GetQueryResults`)
-- [Start a query](scenarios/large-query/cloud-watch-query.js#L142) (`StartQuery`)
+- [CreateLogGroup](actions/create-log-group.js#L4)
+- [DeleteLogGroup](actions/delete-log-group.js#L4)
+- [DeleteSubscriptionFilter](actions/delete-subscription-filter.js#L4)
+- [DescribeLogGroups](actions/describe-log-groups.js#L6)
+- [DescribeSubscriptionFilters](actions/describe-subscription-filters.js#L4)
+- [GetQueryResults](scenarios/large-query/cloud-watch-query.js#L108)
+- [PutSubscriptionFilter](actions/put-subscription-filter.js#L4)
+- [StartQuery](scenarios/large-query/cloud-watch-query.js#L141)
 
 ### Scenarios
 
@@ -67,10 +67,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

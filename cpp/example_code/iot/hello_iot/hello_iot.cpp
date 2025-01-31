@@ -39,21 +39,34 @@ int main(int argc, char **argv) {
         Aws::IoT::IoTClient iotClient(clientConfig);
         // List the things in the current account.
         Aws::IoT::Model::ListThingsRequest listThingsRequest;
-        Aws::IoT::Model::ListThingsOutcome listThingsOutcome = iotClient.ListThings(
-                listThingsRequest);
-        if (listThingsOutcome.IsSuccess()) {
-            const Aws::Vector<Aws::IoT::Model::ThingAttribute> &things = listThingsOutcome.GetResult().GetThings();
-            std::cout << things.size() << " thing(s) found." << std::endl;
-            for (auto const &thing: things) {
-                std::cout << thing.GetThingName() << std::endl;
+
+        Aws::String nextToken; // Used for pagination.
+        Aws::Vector<Aws::IoT::Model::ThingAttribute> allThings;
+
+        do {
+            if (!nextToken.empty()) {
+                listThingsRequest.SetNextToken(nextToken);
             }
-        }
-        else {
-            std::cerr << "List things failed"
-                      << listThingsOutcome.GetError().GetMessage() << std::endl;
+
+            Aws::IoT::Model::ListThingsOutcome listThingsOutcome = iotClient.ListThings(
+                    listThingsRequest);
+            if (listThingsOutcome.IsSuccess()) {
+                const Aws::Vector<Aws::IoT::Model::ThingAttribute> &things = listThingsOutcome.GetResult().GetThings();
+                allThings.insert(allThings.end(), things.begin(), things.end());
+                nextToken = listThingsOutcome.GetResult().GetNextToken();
+            }
+            else {
+                std::cerr << "List things failed"
+                          << listThingsOutcome.GetError().GetMessage() << std::endl;
+                break;
+            }
+        } while (!nextToken.empty());
+
+        std::cout << allThings.size() << " thing(s) found." << std::endl;
+        for (auto const &thing: allThings) {
+            std::cout << thing.GetThingName() << std::endl;
         }
     }
-
 
     Aws::ShutdownAPI(options); // Should only be called once.
     return 0;

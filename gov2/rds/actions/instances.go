@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.rds.DbInstances.complete]
+// snippet-start:[gov2.rds.DbInstances.struct]
+
 import (
 	"context"
 	"errors"
@@ -13,9 +16,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/rds/types"
 )
 
-// snippet-start:[gov2.rds.DbInstances.complete]
-// snippet-start:[gov2.rds.DbInstances.struct]
-
 type DbInstances struct {
 	RdsClient *rds.Client
 }
@@ -24,10 +24,10 @@ type DbInstances struct {
 // snippet-start:[gov2.rds.DescribeDBParameterGroups]
 
 // GetParameterGroup gets a DB parameter group by name.
-func (instances *DbInstances) GetParameterGroup(parameterGroupName string) (
+func (instances *DbInstances) GetParameterGroup(ctx context.Context, parameterGroupName string) (
 	*types.DBParameterGroup, error) {
 	output, err := instances.RdsClient.DescribeDBParameterGroups(
-		context.TODO(), &rds.DescribeDBParameterGroupsInput{
+		ctx, &rds.DescribeDBParameterGroupsInput{
 			DBParameterGroupName: aws.String(parameterGroupName),
 		})
 	if err != nil {
@@ -51,10 +51,10 @@ func (instances *DbInstances) GetParameterGroup(parameterGroupName string) (
 // CreateParameterGroup creates a DB parameter group that is based on the specified
 // parameter group family.
 func (instances *DbInstances) CreateParameterGroup(
-	parameterGroupName string, parameterGroupFamily string, description string) (
+	ctx context.Context, parameterGroupName string, parameterGroupFamily string, description string) (
 	*types.DBParameterGroup, error) {
 
-	output, err := instances.RdsClient.CreateDBParameterGroup(context.TODO(),
+	output, err := instances.RdsClient.CreateDBParameterGroup(ctx,
 		&rds.CreateDBParameterGroupInput{
 			DBParameterGroupName:   aws.String(parameterGroupName),
 			DBParameterGroupFamily: aws.String(parameterGroupFamily),
@@ -73,8 +73,8 @@ func (instances *DbInstances) CreateParameterGroup(
 // snippet-start:[gov2.rds.DeleteDBParameterGroup]
 
 // DeleteParameterGroup deletes the named DB parameter group.
-func (instances *DbInstances) DeleteParameterGroup(parameterGroupName string) error {
-	_, err := instances.RdsClient.DeleteDBParameterGroup(context.TODO(),
+func (instances *DbInstances) DeleteParameterGroup(ctx context.Context, parameterGroupName string) error {
+	_, err := instances.RdsClient.DeleteDBParameterGroup(ctx,
 		&rds.DeleteDBParameterGroupInput{
 			DBParameterGroupName: aws.String(parameterGroupName),
 		})
@@ -91,7 +91,7 @@ func (instances *DbInstances) DeleteParameterGroup(parameterGroupName string) er
 // snippet-start:[gov2.rds.DescribeDBParameters]
 
 // GetParameters gets the parameters that are contained in a DB parameter group.
-func (instances *DbInstances) GetParameters(parameterGroupName string, source string) (
+func (instances *DbInstances) GetParameters(ctx context.Context, parameterGroupName string, source string) (
 	[]types.Parameter, error) {
 
 	var output *rds.DescribeDBParametersOutput
@@ -103,7 +103,7 @@ func (instances *DbInstances) GetParameters(parameterGroupName string, source st
 			Source:               aws.String(source),
 		})
 	for parameterPaginator.HasMorePages() {
-		output, err = parameterPaginator.NextPage(context.TODO())
+		output, err = parameterPaginator.NextPage(ctx)
 		if err != nil {
 			log.Printf("Couldn't get parameters for %v: %v\n", parameterGroupName, err)
 			break
@@ -119,8 +119,8 @@ func (instances *DbInstances) GetParameters(parameterGroupName string, source st
 // snippet-start:[gov2.rds.ModifyDBParameterGroup]
 
 // UpdateParameters updates parameters in a named DB parameter group.
-func (instances *DbInstances) UpdateParameters(parameterGroupName string, params []types.Parameter) error {
-	_, err := instances.RdsClient.ModifyDBParameterGroup(context.TODO(),
+func (instances *DbInstances) UpdateParameters(ctx context.Context, parameterGroupName string, params []types.Parameter) error {
+	_, err := instances.RdsClient.ModifyDBParameterGroup(ctx,
 		&rds.ModifyDBParameterGroupInput{
 			DBParameterGroupName: aws.String(parameterGroupName),
 			Parameters:           params,
@@ -138,9 +138,9 @@ func (instances *DbInstances) UpdateParameters(parameterGroupName string, params
 // snippet-start:[gov2.rds.CreateDBSnapshot]
 
 // CreateSnapshot creates a snapshot of a DB instance.
-func (instances *DbInstances) CreateSnapshot(instanceName string, snapshotName string) (
+func (instances *DbInstances) CreateSnapshot(ctx context.Context, instanceName string, snapshotName string) (
 	*types.DBSnapshot, error) {
-	output, err := instances.RdsClient.CreateDBSnapshot(context.TODO(), &rds.CreateDBSnapshotInput{
+	output, err := instances.RdsClient.CreateDBSnapshot(ctx, &rds.CreateDBSnapshotInput{
 		DBInstanceIdentifier: aws.String(instanceName),
 		DBSnapshotIdentifier: aws.String(snapshotName),
 	})
@@ -157,8 +157,8 @@ func (instances *DbInstances) CreateSnapshot(instanceName string, snapshotName s
 // snippet-start:[gov2.rds.DescribeDBSnapshots]
 
 // GetSnapshot gets a DB instance snapshot.
-func (instances *DbInstances) GetSnapshot(snapshotName string) (*types.DBSnapshot, error) {
-	output, err := instances.RdsClient.DescribeDBSnapshots(context.TODO(),
+func (instances *DbInstances) GetSnapshot(ctx context.Context, snapshotName string) (*types.DBSnapshot, error) {
+	output, err := instances.RdsClient.DescribeDBSnapshots(ctx,
 		&rds.DescribeDBSnapshotsInput{
 			DBSnapshotIdentifier: aws.String(snapshotName),
 		})
@@ -175,11 +175,11 @@ func (instances *DbInstances) GetSnapshot(snapshotName string) (*types.DBSnapsho
 // snippet-start:[gov2.rds.CreateDBInstance]
 
 // CreateInstance creates a DB instance.
-func (instances *DbInstances) CreateInstance(instanceName string, dbName string,
+func (instances *DbInstances) CreateInstance(ctx context.Context, instanceName string, dbName string,
 	dbEngine string, dbEngineVersion string, parameterGroupName string, dbInstanceClass string,
 	storageType string, allocatedStorage int32, adminName string, adminPassword string) (
 	*types.DBInstance, error) {
-	output, err := instances.RdsClient.CreateDBInstance(context.TODO(), &rds.CreateDBInstanceInput{
+	output, err := instances.RdsClient.CreateDBInstance(ctx, &rds.CreateDBInstanceInput{
 		DBInstanceIdentifier: aws.String(instanceName),
 		DBName:               aws.String(dbName),
 		DBParameterGroupName: aws.String(parameterGroupName),
@@ -204,9 +204,9 @@ func (instances *DbInstances) CreateInstance(instanceName string, dbName string,
 // snippet-start:[gov2.rds.DescribeDBInstances]
 
 // GetInstance gets data about a DB instance.
-func (instances *DbInstances) GetInstance(instanceName string) (
+func (instances *DbInstances) GetInstance(ctx context.Context, instanceName string) (
 	*types.DBInstance, error) {
-	output, err := instances.RdsClient.DescribeDBInstances(context.TODO(),
+	output, err := instances.RdsClient.DescribeDBInstances(ctx,
 		&rds.DescribeDBInstancesInput{
 			DBInstanceIdentifier: aws.String(instanceName),
 		})
@@ -229,10 +229,10 @@ func (instances *DbInstances) GetInstance(instanceName string) (
 // snippet-start:[gov2.rds.DeleteDBInstance]
 
 // DeleteInstance deletes a DB instance.
-func (instances *DbInstances) DeleteInstance(instanceName string) error {
-	_, err := instances.RdsClient.DeleteDBInstance(context.TODO(), &rds.DeleteDBInstanceInput{
+func (instances *DbInstances) DeleteInstance(ctx context.Context, instanceName string) error {
+	_, err := instances.RdsClient.DeleteDBInstance(ctx, &rds.DeleteDBInstanceInput{
 		DBInstanceIdentifier:   aws.String(instanceName),
-		SkipFinalSnapshot:      true,
+		SkipFinalSnapshot:      aws.Bool(true),
 		DeleteAutomatedBackups: aws.Bool(true),
 	})
 	if err != nil {
@@ -249,9 +249,9 @@ func (instances *DbInstances) DeleteInstance(instanceName string) error {
 
 // GetEngineVersions gets database engine versions that are available for the specified engine
 // and parameter group family.
-func (instances *DbInstances) GetEngineVersions(engine string, parameterGroupFamily string) (
+func (instances *DbInstances) GetEngineVersions(ctx context.Context, engine string, parameterGroupFamily string) (
 	[]types.DBEngineVersion, error) {
-	output, err := instances.RdsClient.DescribeDBEngineVersions(context.TODO(),
+	output, err := instances.RdsClient.DescribeDBEngineVersions(ctx,
 		&rds.DescribeDBEngineVersionsInput{
 			Engine:                 aws.String(engine),
 			DBParameterGroupFamily: aws.String(parameterGroupFamily),
@@ -270,7 +270,7 @@ func (instances *DbInstances) GetEngineVersions(engine string, parameterGroupFam
 
 // GetOrderableInstances uses a paginator to get DB instance options that can be used to create DB instances that are
 // compatible with a set of specifications.
-func (instances *DbInstances) GetOrderableInstances(engine string, engineVersion string) (
+func (instances *DbInstances) GetOrderableInstances(ctx context.Context, engine string, engineVersion string) (
 	[]types.OrderableDBInstanceOption, error) {
 
 	var output *rds.DescribeOrderableDBInstanceOptionsOutput
@@ -282,7 +282,7 @@ func (instances *DbInstances) GetOrderableInstances(engine string, engineVersion
 			EngineVersion: aws.String(engineVersion),
 		})
 	for orderablePaginator.HasMorePages() {
-		output, err = orderablePaginator.NextPage(context.TODO())
+		output, err = orderablePaginator.NextPage(ctx)
 		if err != nil {
 			log.Printf("Couldn't get orderable DB instance options: %v\n", err)
 			break

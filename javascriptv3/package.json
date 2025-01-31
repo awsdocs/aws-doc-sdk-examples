@@ -2,19 +2,17 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "npm run test --workspaces --if-present -- --reporter verbose",
-    "integration-test": "npm run integration-test --workspaces --if-present -- --reporter verbose",
+    "compile": "npm run compile --workspaces --if-present",
+    "test": "npm run compile && npm run test --workspaces --if-present -- --silent",
+    "integration-test": "npm run integration-test --workspaces --if-present -- --silent; exit_code=$?; npm run merge-test-results; npm run log-tests; exit ${exit_code:-99}",
+    "merge-test-results": "jrm test-results.xml \"**/test_results/**/*.junit.xml\"",
+    "log-tests": "cat test-results.xml",
     "lint": "lint-staged",
-    "ci-lint": "eslint"
+    "ci-lint": "biome check",
+    "prepare": "cd .. && husky javascriptv3/.husky"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx}": [
-      "eslint",
-      "prettier -w"
-    ],
-    "*.{md}": [
-      "prettier -w"
-    ]
+    "*.{js,ts,jsx,tsx,json}": ["biome format --write", "biome lint"]
   },
   "workspaces": [
     "example_code/auto-scaling",
@@ -34,7 +32,10 @@
     "example_code/cross-services/feedback-sentiment-analyzer/ExtractText",
     "example_code/cross-services/feedback-sentiment-analyzer/SynthesizeAudio",
     "example_code/cross-services/feedback-sentiment-analyzer/TranslateText",
+    "example_code/cross-services/photo_analyzer",
     "example_code/cross-services/photo-asset-manager",
+    "example_code/cross-services/transcribe-streaming-app",
+    "example_code/cross-services/wkflw-pools-triggers",
     "example_code/cross-services/wkflw-topics-queues",
     "example_code/cross-services/wkflw-resilient-service",
     "example_code/dynamodb",
@@ -43,11 +44,16 @@
     "example_code/eventbridge",
     "example_code/glue",
     "example_code/iam",
+    "example_code/iotsitewise",
     "example_code/lambda",
     "example_code/libs",
+    "example_code/kinesis",
     "example_code/mediaconvert",
     "example_code/medical-imaging",
+    "example_code/medical-imaging/scenarios/health-image-sets/pixel-data-verification",
     "example_code/nodegetstarted",
+    "example_code/personalize",
+    "example_code/pinpoint",
     "example_code/polly",
     "example_code/redshift",
     "example_code/s3",
@@ -56,22 +62,20 @@
     "example_code/ses",
     "example_code/sns",
     "example_code/sqs",
+    "example_code/ssm",
     "example_code/sts",
     "example_code/support",
+    "example_code/transcribe",
     "example_code/web/s3/list-objects",
     "example_code/sfn"
   ],
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.7.2",
-    "@react-native-community/eslint-config": "^3.2.0",
-    "@typescript-eslint/parser": "^6.7.2",
-    "@vitest/coverage-c8": "^0.33.0",
-    "eslint": "^8.49.0",
-    "eslint-import-resolver-typescript": "^3.6.0",
-    "eslint-plugin-import": "^2.28.1",
+    "@biomejs/biome": "1.9.3",
+    "eslint": "^9.13.0",
+    "husky": "^9.1.6",
+    "junit-report-merger": "^7.0.0",
     "lint-staged": "^14.0.1",
-    "prettier": "^3.0.3",
     "typescript": "^5.2.2",
-    "vitest": "^0.34.4"
+    "vitest": "^1.6.0"
   }
 }

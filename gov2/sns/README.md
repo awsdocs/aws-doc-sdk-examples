@@ -38,31 +38,21 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a topic](../workflows/topics_and_queues/actions/sns_actions.go#L27) (`CreateTopic`)
-- [Delete a topic](../workflows/topics_and_queues/actions/sns_actions.go#L56) (`DeleteTopic`)
-- [List topics](hello/hello.go#L4) (`ListTopics`)
-- [Publish a message with an attribute](../workflows/topics_and_queues/actions/sns_actions.go#L105) (`Publish`)
-- [Publish to a topic](../workflows/topics_and_queues/actions/sns_actions.go#L105) (`Publish`)
-- [Subscribe an SQS queue to a topic](../workflows/topics_and_queues/actions/sns_actions.go#L70) (`Subscribe`)
-- [Subscribe with a filter to a topic](../workflows/topics_and_queues/actions/sns_actions.go#L70) (`Subscribe`)
+- [CreateTopic](../workflows/topics_and_queues/actions/sns_actions.go#L27)
+- [DeleteTopic](../workflows/topics_and_queues/actions/sns_actions.go#L56)
+- [ListTopics](hello/hello.go#L4)
+- [Publish](../workflows/topics_and_queues/actions/sns_actions.go#L105)
+- [Subscribe](../workflows/topics_and_queues/actions/sns_actions.go#L70)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Publish messages to queues](../workflows/topics_and_queues/workflows/scenario_topics_and_queues.go)
 
 
 <!--custom.examples.start-->
-### Workflows
-
-Examples that show you how to complete a specific task.
-
-#### [Publish messages to queues](../workflows/topics_and_queues/workflows/scenario_topics_and_queues.go)
-
-This example shows you how to do the following:
-
-- Create topic (FIFO or non-FIFO).
-- Subscribe several queues to the topic with an option to apply a filter.
-- Publish messages to the topic.
-- Poll the queues for messages received.
-
-The code for this example is in the `gov2/workflows/topics_and_queues` folder.
-Instructions for how to run are in the [README](../workflows/topics_and_queues/README.md) in the same folder.
 <!--custom.examples.end-->
 
 ## Run the examples
@@ -89,6 +79,22 @@ and to get help for running a scenario, use the following command:
 ```
 go run ./cmd -h
 ```
+
+#### Publish messages to queues
+
+This example shows you how to do the following:
+
+- Create topic (FIFO or non-FIFO).
+- Subscribe several queues to the topic with an option to apply a filter.
+- Publish messages to the topic.
+- Poll the queues for messages received.
+
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
 
 ### Tests
 

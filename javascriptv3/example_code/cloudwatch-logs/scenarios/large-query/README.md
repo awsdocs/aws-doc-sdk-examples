@@ -29,7 +29,7 @@ To run this example, you need a CloudWatch log group that contains over 10,000 l
 
 Use the following steps to create the necessary resources in AWS CloudFormation and use the AWS CLI to upload the necessary logs.
 
-1. In your local terminal, change directories to [resources](../../../../../workflows/cloudwatch_logs_large_query/resources/).
+1. In your local terminal, change directories to [resources](../../../../../scenarios/features/cloudwatch_logs_large_query/resources/).
 1. Run `aws cloudformation deploy --template-file stack.yaml --stack-name CloudWatchLargeQuery`
 1. Run `./make-log-files.sh`. This will output two timestamps for use in the following step.
 1. Copy and run the `export QUERY_START_DATE=<...>` and `export QUERY_END_DATE=<...>` from the `make-log-files.sh` output.

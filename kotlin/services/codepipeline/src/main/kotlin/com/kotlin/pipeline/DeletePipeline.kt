@@ -10,7 +10,6 @@ import kotlin.system.exitProcess
 // snippet-end:[pipeline.kotlin.delete_pipeline.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <name> 
@@ -28,10 +27,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pipeline.kotlin.delete_pipeline.main]
 suspend fun deleteSpecificPipeline(nameVal: String) {
-
-    val request = DeletePipelineRequest {
-        name = nameVal
-    }
+    val request =
+        DeletePipelineRequest {
+            name = nameVal
+        }
     CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
         pipelineClient.deletePipeline(request)
         println("$nameVal was successfully deleted")

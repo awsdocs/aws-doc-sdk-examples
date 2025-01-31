@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[javascript.v3.utils.prompter]
-import { select, input, confirm, checkbox } from "@inquirer/prompts";
+import { select, input, confirm, checkbox, password } from "@inquirer/prompts";
 
 export class Prompter {
   /**
@@ -20,11 +20,18 @@ export class Prompter {
   }
 
   /**
+   * @param {{ message: string }} options
+   */
+  password(options) {
+    return password({ ...options, mask: true });
+  }
+
+  /**
    * @param {string} prompt
    */
   checkContinue = async (prompt = "") => {
-    const prefix = prompt && prompt + " ";
-    let ok = await this.confirm({
+    const prefix = prompt && `${prompt} `;
+    const ok = await this.confirm({
       message: `${prefix}Continue?`,
     });
     if (!ok) throw new Error("Exiting...");

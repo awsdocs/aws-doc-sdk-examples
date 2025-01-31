@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <forecastArn>
@@ -38,10 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[forecast.kotlin.describe_forecast.main]
 suspend fun describe(forecastarn: String?) {
-
-    val request = DescribeForecastRequest {
-        forecastArn = forecastarn
-    }
+    val request =
+        DescribeForecastRequest {
+            forecastArn = forecastarn
+        }
 
     ForecastClient { region = "us-west-2" }.use { forecast ->
         val response = forecast.describeForecast(request)

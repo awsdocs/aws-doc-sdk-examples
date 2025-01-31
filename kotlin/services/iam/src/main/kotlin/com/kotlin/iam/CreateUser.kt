@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <username> 
@@ -38,10 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[iam.kotlin.create_user.main]
 suspend fun createIAMUser(usernameVal: String?): String? {
-
-    val request = CreateUserRequest {
-        userName = usernameVal
-    }
+    val request =
+        CreateUserRequest {
+            userName = usernameVal
+        }
 
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.createUser(request)

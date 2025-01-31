@@ -16,16 +16,15 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
     listAllModels()
 }
 
 // snippet-start:[sagemaker.kotlin.list_models.main]
 suspend fun listAllModels() {
-
-    val request = ListModelsRequest {
-        maxResults = 15
-    }
+    val request =
+        ListModelsRequest {
+            maxResults = 15
+        }
     SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
         val response = sageMakerClient.listModels(request)
         response.models?.forEach { item ->

@@ -1,4 +1,3 @@
-# zexi 0.4.0
 glacier_Hello:
   title: Hello &GLlong;
   title_abbrev: Hello &GLlong;
@@ -17,9 +16,6 @@ glacier_Hello:
   services:
     glacier: {ListVaults}
 glacier_CreateVault:
-  title: Create an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Create a vault
-  synopsis: create an &GLlong; vault.
   languages:
     .NET:
       versions:
@@ -71,9 +67,6 @@ glacier_CreateVault:
   services:
     glacier: {CreateVault}
 glacier_ListVaults:
-  title: List &GLlong; vaults using an &AWS; SDK
-  title_abbrev: List vaults
-  synopsis: list &GLlong; vaults.
   languages:
     .NET:
       versions:
@@ -106,9 +99,6 @@ glacier_ListVaults:
   services:
     glacier: {ListVaults}
 glacier_UploadArchive:
-  title: Upload an archive to an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Upload an archive to a vault
-  synopsis: upload an archive to an &GLlong; vault.
   languages:
     .NET:
       versions:
@@ -160,9 +150,6 @@ glacier_UploadArchive:
   services:
     glacier: {UploadArchive}
 glacier_UploadMultipartPart:
-  title: Create a multipart upload to an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Create a multipart upload
-  synopsis: create a multipart upload to an &GLlong; vault.
   languages:
     JavaScript:
       versions:
@@ -175,10 +162,7 @@ glacier_UploadMultipartPart:
                 - glacier.JavaScript.multipartUpload.initiateMultipartUpload
   services:
     glacier: {UploadMultipartPart}
-glacier_InitiateJob_InventoryRetrieval:
-  title: Retrieve an &GLlong; vault inventory using an &AWS; SDK
-  title_abbrev: Retrieve a vault inventory
-  synopsis: retrieve an &GLlong; vault inventory.
+glacier_InitiateJob:
   languages:
     Java:
       versions:
@@ -186,25 +170,36 @@ glacier_InitiateJob_InventoryRetrieval:
           github: javav2/example_code/glacier
           sdkguide:
           excerpts:
-            - description:
+            - description: Retrieve a vault inventory.
               snippet_tags:
                 - glacier.java2.download.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description: Retrieve an archive from a vault. This example uses the ArchiveTransferManager class. For API details
+                see <ulink type="documentation" url="sdkfornet/v3/apidocs/items/Glacier/TArchiveTransferManager">ArchiveTransferManager</ulink>.
+              snippet_tags:
+                - Glacier.dotnetv3.GlacierActions.ArchiveTransferManager.Download
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/glacier
           sdkguide:
           excerpts:
-            - description:
+            - description: Retrieve a vault inventory.
               snippet_tags:
                 - python.example_code.glacier.GlacierWrapper
                 - python.example_code.glacier.InitiateJob.InventoryRetrieval
+            - description: Retrieve an archive from a vault.
+              snippet_tags:
+                - python.example_code.glacier.GlacierWrapper
+                - python.example_code.glacier.InitiateJob.ArchiveRetrieval
   services:
     glacier: {InitiateJob}
 glacier_ListJobs:
-  title: List &GLlong; jobs using an &AWS; SDK
-  title_abbrev: List jobs
-  synopsis: list &GLlong; jobs.
   languages:
     .NET:
       versions:
@@ -228,9 +223,6 @@ glacier_ListJobs:
   services:
     glacier: {ListJobs}
 glacier_DeleteVault:
-  title: Delete an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Delete a vault
-  synopsis: delete an &GLlong; vault.
   languages:
     Java:
       versions:
@@ -253,27 +245,7 @@ glacier_DeleteVault:
                 - python.example_code.glacier.DeleteVault
   services:
     glacier: {DeleteVault}
-glacier_InitiateJob_ArchiveRetrieval:
-  title: Retrieve an archive from an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Retrieve an archive from a vault
-  synopsis: retrieve an archive from an &GLlong; vault.
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/glacier
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.glacier.GlacierWrapper
-                - python.example_code.glacier.InitiateJob.ArchiveRetrieval
-  services:
-    glacier: {InitiateJob}
 glacier_DeleteArchive:
-  title: Delete an &GLlong; archive using an &AWS; SDK
-  title_abbrev: Delete an archive
-  synopsis: delete an &GLlong; archive.
   languages:
     Java:
       versions:
@@ -297,9 +269,6 @@ glacier_DeleteArchive:
   services:
     glacier: {DeleteArchive}
 glacier_DescribeJob:
-  title: Describe an &GLlong; job using an &AWS; SDK
-  title_abbrev: Describe a job
-  synopsis: describe an &GLlong; job.
   languages:
     Python:
       versions:
@@ -314,9 +283,6 @@ glacier_DescribeJob:
   services:
     glacier: {DescribeJob}
 glacier_DescribeVault:
-  title: Describe an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Describe a vault
-  synopsis: describe an &GLlong; vault.
   languages:
     .NET:
       versions:
@@ -330,9 +296,6 @@ glacier_DescribeVault:
   services:
     glacier: {DescribeVault}
 glacier_GetJobOutput:
-  title: Get &GLlong; job output using an &AWS; SDK
-  title_abbrev: Get job output
-  synopsis: get &GLlong; job output.
   languages:
     Python:
       versions:
@@ -347,9 +310,6 @@ glacier_GetJobOutput:
   services:
     glacier: {GetJobOutput}
 glacier_SetVaultNotifications:
-  title: Set &GLlong; vault notifications using an &AWS; SDK
-  title_abbrev: Set vault notifications
-  synopsis: set &GLlong; vault notifications.
   languages:
     Python:
       versions:
@@ -364,9 +324,6 @@ glacier_SetVaultNotifications:
   services:
     glacier: {SetVaultNotifications}
 glacier_GetVaultNotifications:
-  title: Get &GLlong; vault notification configuration using an &AWS; SDK
-  title_abbrev: Get vault notification configuration
-  synopsis: get &GLlong; vault notification configuration.
   languages:
     Python:
       versions:
@@ -381,9 +338,6 @@ glacier_GetVaultNotifications:
   services:
     glacier: {GetVaultNotifications}
 glacier_DeleteVaultNotifications:
-  title: Delete &GLlong; vault notifications using an &AWS; SDK
-  title_abbrev: Delete vault notifications
-  synopsis: delete &GLlong; vault notifications.
   languages:
     Python:
       versions:
@@ -423,9 +377,8 @@ glacier_Usage_UploadNotifyInitiate:
                 - python.example_code.glacier.InitiateJob.ArchiveRetrieval
                 - python.example_code.glacier.ListJobs
                 - python.example_code.glacier.SetVaultNotifications
-            - description: Call functions on the wrapper class to create a vault and
-                upload a file, then configure the vault to publish notifications and
-                initiate a job to retrieve the archive.
+            - description: Call functions on the wrapper class to create a vault and upload a file, then configure the vault
+                to publish notifications and initiate a job to retrieve the archive.
               snippet_tags:
                 - python.example_code.glacier.usage.upload_demo
   services:
@@ -455,16 +408,13 @@ glacier_Usage_RetrieveDelete:
                 - python.example_code.glacier.GetJobOutput
                 - python.example_code.glacier.DeleteArchive
                 - python.example_code.glacier.DeleteVault
-            - description: Call functions on the wrapper class to get archive content
-                from a completed job, then delete the archive.
+            - description: Call functions on the wrapper class to get archive content from a completed job, then delete the
+                archive.
               snippet_tags:
                 - python.example_code.glacier.usage.retrieve_demo
   services:
     glacier: {DeleteArchive, DeleteVault, GetJobOutput, ListJobs}
 glacier_AddTagsToVault:
-  title: Add tags to an &GLlong; vault using an &AWS; SDK
-  title_abbrev: Add tags
-  synopsis: add tags to an &GLlong; vault.
   languages:
     .NET:
       versions:
@@ -478,9 +428,6 @@ glacier_AddTagsToVault:
   services:
     glacier: {AddTagsToVault}
 glacier_ListTagsForVault:
-  title: List tags for an &GLlong; vault using an &AWS; SDK
-  title_abbrev: List tags
-  synopsis: list tags for an &GLlong; vault.
   languages:
     .NET:
       versions:
@@ -493,19 +440,3 @@ glacier_ListTagsForVault:
                 - Glacier.dotnetv3.GlacierActions.ListTagsForVault
   services:
     glacier: {ListTagsForVault}
-glacier_DownloadArchive:
-  title: Download an &GLlong; archive using an &AWS; SDK
-  title_abbrev: Download an archive
-  synopsis: download an &GLlong; archive.
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Glacier
-          sdkguide:
-          excerpts:
-            - description: This example uses the ArchiveTransferManager class. For API details see <ulink type="documentation" url="sdkfornet/v3/apidocs/items/Glacier/TArchiveTransferManager">ArchiveTransferManager</ulink>.
-              snippet_tags:
-                - Glacier.dotnetv3.GlacierActions.ArchiveTransferManager.Download
-  services:
-    glacier: {}

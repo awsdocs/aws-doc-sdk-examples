@@ -21,7 +21,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <sourceDoc> 
@@ -41,23 +40,24 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[textract.kotlin._analyze_doc.main]
 suspend fun analyzeDoc(sourceDoc: String?) {
-
     val sourceStream = FileInputStream(File(sourceDoc))
     val sourceBytes = sourceStream.readBytes()
 
     // Get the input Document object as bytes.
-    val myDoc = Document {
-        bytes = sourceBytes
-    }
+    val myDoc =
+        Document {
+            bytes = sourceBytes
+        }
 
     val featureTypesOb = mutableListOf<FeatureType>()
     featureTypesOb.add(FeatureType.Forms)
     featureTypesOb.add(FeatureType.Tables)
 
-    val analyzeDocumentRequest = AnalyzeDocumentRequest {
-        featureTypes = featureTypesOb
-        document = myDoc
-    }
+    val analyzeDocumentRequest =
+        AnalyzeDocumentRequest {
+            featureTypes = featureTypesOb
+            document = myDoc
+        }
 
     TextractClient { region = "us-east-1" }.use { textractClient ->
         val response = textractClient.analyzeDocument(analyzeDocumentRequest)

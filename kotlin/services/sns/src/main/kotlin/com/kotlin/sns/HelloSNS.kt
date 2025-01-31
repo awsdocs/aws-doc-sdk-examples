@@ -22,7 +22,8 @@ suspend fun main() {
 
 suspend fun listTopicsPag() {
     SnsClient { region = "us-east-1" }.use { snsClient ->
-        snsClient.listTopicsPaginated(ListTopicsRequest { })
+        snsClient
+            .listTopicsPaginated(ListTopicsRequest { })
             .transform { it.topics?.forEach { topic -> emit(topic) } }
             .collect { topic ->
                 println("The topic ARN is ${topic.topicArn}")

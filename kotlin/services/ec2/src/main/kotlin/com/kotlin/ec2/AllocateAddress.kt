@@ -40,18 +40,20 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.allocate_address.main]
 suspend fun getAllocateAddress(instanceIdVal: String?): String? {
-    val allocateRequest = AllocateAddressRequest {
-        domain = DomainType.Vpc
-    }
+    val allocateRequest =
+        AllocateAddressRequest {
+            domain = DomainType.Vpc
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val allocateResponse = ec2.allocateAddress(allocateRequest)
         val allocationIdVal = allocateResponse.allocationId
 
-        val request = AssociateAddressRequest {
-            instanceId = instanceIdVal
-            allocationId = allocationIdVal
-        }
+        val request =
+            AssociateAddressRequest {
+                instanceId = instanceIdVal
+                allocationId = allocationIdVal
+            }
 
         val associateResponse = ec2.associateAddress(request)
         return associateResponse.associationId

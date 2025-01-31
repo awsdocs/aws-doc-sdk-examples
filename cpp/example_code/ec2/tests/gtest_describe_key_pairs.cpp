@@ -17,7 +17,7 @@ namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(EC2_GTests, describe_key_pairs_2_) {
 
-        auto result = AwsDoc::EC2::DescribeKeyPairs(*s_clientConfig);
+        auto result = AwsDoc::EC2::describeKeyPairs(*s_clientConfig);
         ASSERT_TRUE(result);
     }
 

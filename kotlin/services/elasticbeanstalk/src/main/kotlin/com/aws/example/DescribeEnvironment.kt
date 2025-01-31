@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <appName> 
@@ -37,10 +36,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[eb.kotlin.describe_env.main]
 suspend fun describeEnv(appName: String) {
-
-    val request = DescribeEnvironmentsRequest {
-        environmentNames = listOf(appName)
-    }
+    val request =
+        DescribeEnvironmentsRequest {
+            environmentNames = listOf(appName)
+        }
 
     ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
         val res = beanstalkClient.describeEnvironments(request)

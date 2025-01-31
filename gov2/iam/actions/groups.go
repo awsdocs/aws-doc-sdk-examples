@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.iam.GroupWrapper.complete]
+// snippet-start:[gov2.iam.GroupWrapper.struct]
+
 import (
 	"context"
 	"log"
@@ -11,9 +14,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/iam"
 	"github.com/aws/aws-sdk-go-v2/service/iam/types"
 )
-
-// snippet-start:[gov2.iam.GroupWrapper.complete]
-// snippet-start:[gov2.iam.GroupWrapper.struct]
 
 // GroupWrapper encapsulates AWS Identity and Access Management (IAM) group actions
 // used in the examples.
@@ -27,9 +27,9 @@ type GroupWrapper struct {
 // snippet-start:[gov2.iam.ListGroups]
 
 // ListGroups lists up to maxGroups number of groups.
-func (wrapper GroupWrapper) ListGroups(maxGroups int32) ([]types.Group, error) {
+func (wrapper GroupWrapper) ListGroups(ctx context.Context, maxGroups int32) ([]types.Group, error) {
 	var groups []types.Group
-	result, err := wrapper.IamClient.ListGroups(context.TODO(), &iam.ListGroupsInput{
+	result, err := wrapper.IamClient.ListGroups(ctx, &iam.ListGroupsInput{
 		MaxItems: aws.Int32(maxGroups),
 	})
 	if err != nil {

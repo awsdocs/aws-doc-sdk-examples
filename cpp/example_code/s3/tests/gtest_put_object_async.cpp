@@ -12,7 +12,7 @@
 #include <gtest/gtest.h>
 #include <fstream>
 #include <aws/s3/S3Client.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "../s3_examples.h"
 #include "S3_GTests.h"
 
 static const int BUCKETS_NEEDED = 1;
@@ -29,7 +29,7 @@ namespace AwsDocTest {
         {
             Aws::S3::S3Client client(*s_clientConfig);
             std::unique_lock<std::mutex> lock(AwsDoc::S3::upload_mutex);
-            bool result = AwsDoc::S3::PutObjectAsync(client, bucketNames[0], testFile);
+            bool result = AwsDoc::S3::putObjectAsync(client, bucketNames[0], testFile);
 
             AwsDoc::S3::upload_variable.wait(lock);
 

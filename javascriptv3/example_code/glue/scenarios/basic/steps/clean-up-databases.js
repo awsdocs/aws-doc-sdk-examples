@@ -4,17 +4,31 @@
 import { log } from "../log.js";
 
 /** snippet-start:[javascript.v3.glue.scenarios.basic.CleanUpDatabasesStep] */
+/**
+ * @param {import('../../../actions/delete-database.js').deleteDatabase} deleteDatabase
+ * @param {string[]} databaseNames
+ */
 const deleteDatabases = (deleteDatabase, databaseNames) =>
   Promise.all(
-    databaseNames.map((dbName) => deleteDatabase(dbName).catch(console.error))
+    databaseNames.map((dbName) => deleteDatabase(dbName).catch(console.error)),
   );
 
+/**
+ * @param {{
+ *   getDatabases: import('../../../actions/get-databases.js').getDatabases
+ *   deleteDatabase: import('../../../actions/delete-database.js').deleteDatabase
+ * }} config
+ */
 const makeCleanUpDatabasesStep =
   ({ getDatabases, deleteDatabase }) =>
+  /**
+   * @param {{ prompter: { prompt: () => Promise<any>}} context
+   */
   async (context) => {
     const { DatabaseList } = await getDatabases();
 
     if (DatabaseList.length > 0) {
+      /** @type {{ dbNames: string[] }} */
       const { dbNames } = await context.prompter.prompt({
         name: "dbNames",
         type: "checkbox",

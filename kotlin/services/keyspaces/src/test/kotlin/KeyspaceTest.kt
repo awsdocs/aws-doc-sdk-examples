@@ -12,10 +12,10 @@ import org.junit.jupiter.api.TestMethodOrder
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class KeyspaceTest {
-
     @Test
     @Order(1)
-    fun KeyspaceTest() = runBlocking {
-        listKeyspaces()
-    }
+    fun keyspaceTest() =
+        runBlocking {
+            listKeyspaces()
+        }
 }

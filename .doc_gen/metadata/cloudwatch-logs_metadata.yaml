@@ -1,9 +1,5 @@
 # zexi 0.2.0
 cloudwatch-logs_AssociateKmsKey:
-  title: Associate an &KMS; key with a &CWL; log group using an &AWS; SDK
-  title_abbrev: Associate a key with a log group
-  synopsis: associate an &KMS; key with an existing &CWL; log group.
-  category:
   languages:
     .NET:
       versions:
@@ -16,10 +12,6 @@ cloudwatch-logs_AssociateKmsKey:
   services:
     cloudwatch-logs: {AssociateKmsKey}
 cloudwatch-logs_CancelExportTask:
-  title: Cancel a &CWL; export task using an &AWS; SDK
-  title_abbrev: Cancel an export task
-  synopsis: cancel an existing &CWL; export task.
-  category:
   languages:
     .NET:
       versions:
@@ -32,10 +24,6 @@ cloudwatch-logs_CancelExportTask:
   services:
     cloudwatch-logs: {CancelExportTask}
 cloudwatch-logs_CreateExportTask:
-  title: Create a &CWL; export task using an &AWS; SDK
-  title_abbrev: Create an export task
-  synopsis: create a new &CWL; export task.
-  category:
   languages:
     .NET:
       versions:
@@ -48,10 +36,6 @@ cloudwatch-logs_CreateExportTask:
   services:
     cloudwatch-logs: {CreateExportTask}
 cloudwatch-logs_CreateLogGroup:
-  title: Create a &CWL; log group using an &AWS; SDK
-  title_abbrev: Create a log group
-  synopsis: create a new &CWL; log group.
-  category:
   languages:
     .NET:
       versions:
@@ -72,10 +56,6 @@ cloudwatch-logs_CreateLogGroup:
   services:
     cloudwatch-logs: {CreateLogGroup}
 cloudwatch-logs_CreateLogStream:
-  title: Create a &CWL; log stream using an &AWS; SDK
-  title_abbrev: Create a new log stream
-  synopsis: create a new &CWL; log stream.
-  category:
   languages:
     .NET:
       versions:
@@ -88,10 +68,6 @@ cloudwatch-logs_CreateLogStream:
   services:
     cloudwatch-logs: {CreateLogStream}
 cloudwatch-logs_DeleteLogGroup:
-  title: Delete a &CWL; log group using an &AWS; SDK
-  title_abbrev: Delete a log group
-  synopsis: delete an existing &CWL; log group.
-  category:
   languages:
     .NET:
       versions:
@@ -112,10 +88,6 @@ cloudwatch-logs_DeleteLogGroup:
   services:
     cloudwatch-logs: {DeleteLogGroup}
 cloudwatch-logs_DescribeExportTasks:
-  title: Describe &CWL; export tasks using an &AWS; SDK
-  title_abbrev: Describe export tasks
-  synopsis: describe &CWL; export tasks.
-  category:
   languages:
     .NET:
       versions:
@@ -128,10 +100,6 @@ cloudwatch-logs_DescribeExportTasks:
   services:
     cloudwatch-logs: {DescribeExportTasks}
 cloudwatch-logs_DescribeLogGroups:
-  title: Describe &CWL; log groups using an &AWS; SDK
-  title_abbrev: Describe log groups
-  synopsis: describe &CWL; log groups.
-  category:
   languages:
     .NET:
       versions:
@@ -152,10 +120,6 @@ cloudwatch-logs_DescribeLogGroups:
   services:
     cloudwatch-logs: {DescribeLogGroups}
 cloudwatch-logs_DescribeSubscriptionFilters:
-  title: Describe &CWL; subscription filters using an &AWS; SDK
-  title_abbrev: Describe existing subscription filters
-  synopsis: describe &CWLlong; existing subscription filters.
-  category:
   languages:
     Kotlin:
       versions:
@@ -197,7 +161,8 @@ cloudwatch-logs_DescribeSubscriptionFilters:
                 - javascript.v3.cloudwatchlogs.actions.DescribeSubscriptionFilters
         - sdk_version: 2
           github: javascript/example_code/cloudwatch-logs
-          sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
+          sdkguide: 
+            sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
           excerpts:
             - description:
               snippet_tags:
@@ -205,10 +170,6 @@ cloudwatch-logs_DescribeSubscriptionFilters:
   services:
     cloudwatch-logs: {DescribeSubscriptionFilters}
 cloudwatch-logs_DeleteSubscriptionFilter:
-  title: Delete a &CWL; subscription filter using an &AWS; SDK
-  title_abbrev: Delete a subscription filter
-  synopsis: delete an &CWLlong; subscription filter.
-  category:
   languages:
     Kotlin:
       versions:
@@ -258,10 +219,6 @@ cloudwatch-logs_DeleteSubscriptionFilter:
   services:
     cloudwatch-logs: {DeleteSubscriptionFilter}
 cloudwatch-logs_PutSubscriptionFilter:
-  title: Create a &CWL; subscription filter using an &AWS; SDK
-  title_abbrev: Create a subscription filter
-  synopsis: create an &CWLlong; subscription filter.
-  category:
   languages:
     Java:
       versions:
@@ -302,10 +259,6 @@ cloudwatch-logs_PutSubscriptionFilter:
   services:
     cloudwatch-logs: {PutSubscriptionFilter}
 cloudwatch-logs_GetQueryResults:
-  title: Get the results of a &CWL; query using an &AWS; SDK
-  title_abbrev: Get the results of a query
-  synopsis: get the results of a query.
-  category:
   languages:
     JavaScript:
       versions:
@@ -326,10 +279,6 @@ cloudwatch-logs_GetQueryResults:
   services:
     cloudwatch-logs: {GetQueryResults}
 cloudwatch-logs_StartQuery:
-  title: Start a &CWL; query using an &AWS; SDK
-  title_abbrev: Start a query
-  synopsis: start a query.
-  category:
   languages:
     JavaScript:
       versions:

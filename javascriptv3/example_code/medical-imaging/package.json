@@ -4,14 +4,17 @@
   "author": "Steven Meyer <meyertst@amazon.com",
   "license": "Apache-2.0",
   "dependencies": {
-    "@aws-doc-sdk-examples/lib": "^1.0.0",
-    "@aws-sdk/client-medical-imaging": "^3.391.0"
+    "@aws-doc-sdk-examples/lib": "^1.0.1",
+    "@aws-sdk/client-cloudformation": "^3.620.0",
+    "@aws-sdk/client-medical-imaging": "^3.620.0",
+    "@aws-sdk/client-sts": "^3.620.0"
   },
   "scripts": {
-    "integration-test": "vitest run **/*.integration.test.js"
+    "test": "vitest run **/*.unit.test.js",
+    "integration-test": "vitest run **/*.integration.test.js --reporter=junit --outputFile=test_results/$npm_package_name.junit.xml"
   },
   "type": "module",
   "devDependencies": {
-    "vitest": "^0.25.2"
+    "vitest": "^2.0.4"
   }
 }

@@ -24,7 +24,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
     Usage: 
@@ -52,38 +51,41 @@ suspend fun main(args: Array<String>) {
 suspend fun createBot(
     botNameVal: String?,
     intentNameVal: String?,
-    intentVersionVal: String?
+    intentVersionVal: String?,
 ) {
-
     // Create an Intent object for the bot.
-    val weatherIntent = Intent {
-        intentName = intentNameVal
-        intentVersion = intentVersionVal
-    }
+    val weatherIntent =
+        Intent {
+            intentName = intentNameVal
+            intentVersion = intentVersionVal
+        }
 
     val intentObs = mutableListOf<Intent>()
     intentObs.add(weatherIntent)
 
-    val msg = Message {
-        content = "I do not understand you!"
-        contentType = ContentType.PlainText
-    }
+    val msg =
+        Message {
+            content = "I do not understand you!"
+            contentType = ContentType.PlainText
+        }
 
     val abortMsg: ArrayList<Message> = ArrayList<Message>()
     abortMsg.add(msg)
 
-    val statement = Statement {
-        messages = abortMsg
-    }
+    val statement =
+        Statement {
+            messages = abortMsg
+        }
 
-    val request = PutBotRequest {
-        abortStatement = statement
-        description = "Created by using the Amazon Lex Kotlin API"
-        childDirected = true
-        locale = Locale.fromValue("en-US")
-        name = botNameVal
-        intents = intentObs
-    }
+    val request =
+        PutBotRequest {
+            abortStatement = statement
+            description = "Created by using the Amazon Lex Kotlin API"
+            childDirected = true
+            locale = Locale.fromValue("en-US")
+            name = botNameVal
+            intents = intentObs
+        }
 
     LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
         lexClient.putBot(request)

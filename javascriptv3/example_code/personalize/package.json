@@ -1,0 +1,19 @@
+{
+  "name": "@aws-doc-sdk-examples/personalize-js-project",
+  "version": "1.0.0",
+  "description": "personalize operations",
+  "main": "personalizeClients.js",
+  "scripts": {
+    "test": "vitest run **/*.unit.test.js"
+  },
+  "type": "module",
+  "author": "Samuel Ashman <seashman@amazon.com>",
+  "dependencies": {
+    "@aws-sdk/client-personalize": "^3.350.0",
+    "@aws-sdk/client-personalize-events": "^3.350.0",
+    "@aws-sdk/client-personalize-runtime": "^3.350.0"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0"
+  }
+}

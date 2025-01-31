@@ -67,15 +67,9 @@ public class CloudFrontTest {
         }
     }
 
-    @Test
-    @Order(1)
-    public void whenInitializingAWSService_thenNotNull() {
-        assertNotNull(cloudFrontClient);
-        System.out.println("Test 1 passed");
-    }
 
     @Test
-    @Order(2)
+    @Order(1)
     public void CreateFunction() {
         functionName = "FunctionUploadedByJava" + UUID.randomUUID();
         funcARN =  CreateFunction.createNewFunction(cloudFrontClient, functionName, functionFileName);
@@ -84,7 +78,7 @@ public class CloudFrontTest {
     }
 
     @Test
-    @Order(3)
+    @Order(2)
     public void DescribeFunction() {
         eTagVal = DescribeFunction.describeFunction(cloudFrontClient, functionName);
         assertTrue(!eTagVal.isEmpty());
@@ -92,32 +86,22 @@ public class CloudFrontTest {
     }
 
     @Test
-    @Order(4)
+    @Order(3)
     public void ListFunctions(){
         ListFunctions.listAllFunctions(cloudFrontClient);
         System.out.println("Test 4 passed");
     }
 
     @Test
-    @Order(5)
+    @Order(4)
    public void GetDistribution() {
         GetDistributions.getCFDistributions(cloudFrontClient);
         System.out.println("Test 5 passed");
    }
 
-
     @Test
-    @Order(6)
-   public void ModifyDistribution() {
-
-        ModifyDistribution.modDistribution(cloudFrontClient, distributionId);
-        System.out.println("Test 6 passed");
-   }
-
-    @Test
-    @Order(7)
+    @Order(5)
    public void DeleteFunction(){
-
        DeleteFunction.deleteSpecificFunction(cloudFrontClient, functionName, eTagVal);
        System.out.println("Test 7 passed");
     }

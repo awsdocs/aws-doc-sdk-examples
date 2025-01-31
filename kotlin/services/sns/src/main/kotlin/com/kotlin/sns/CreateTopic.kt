@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
         Usage: 
@@ -39,10 +38,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[sns.kotlin.CreateTopic.main]
 suspend fun createSNSTopic(topicName: String): String {
-
-    val request = CreateTopicRequest {
-        name = topicName
-    }
+    val request =
+        CreateTopicRequest {
+            name = topicName
+        }
 
     SnsClient { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.createTopic(request)

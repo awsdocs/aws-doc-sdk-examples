@@ -33,9 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a multipart upload](None) (`UploadMultipartPart`)
-- [Create a vault](src/libs/glacierClient.js#L15) (`CreateVault`)
-- [Upload an archive to a vault](src/libs/glacierClient.js#L15) (`UploadArchive`)
+- [CreateVault](src/libs/glacierClient.js#L15)
+- [UploadArchive](src/libs/glacierClient.js#L15)
 
 
 <!--custom.examples.start-->
@@ -55,10 +54,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

@@ -29,7 +29,6 @@ import kotlin.system.exitProcess
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <indexDescription> <indexName> <indexRoleArn> <dataSourceRoleArn> <dataSourceName> <dataSourceDescription> <s3BucketName>
@@ -62,15 +61,20 @@ suspend fun main(args: Array<String>) {
     val dsIdValue = createDataSource(s3BucketName, dataSourceName, dataSourceDescription, indexId, dataSourceRoleArn)
     startDataSource(indexId, dsIdValue)
 }
-// snippet-start:[kendra.kotlin.index.main]
-suspend fun createIndex(indexDescription: String, indexName: String, indexRoleArn: String): String {
 
+// snippet-start:[kendra.kotlin.index.main]
+suspend fun createIndex(
+    indexDescription: String,
+    indexName: String,
+    indexRoleArn: String,
+): String {
     println("Creating an index named $indexName")
-    val createIndexRequest = CreateIndexRequest {
-        description = indexDescription
-        name = indexName
-        roleArn = indexRoleArn
-    }
+    val createIndexRequest =
+        CreateIndexRequest {
+            description = indexDescription
+            name = indexName
+            roleArn = indexRoleArn
+        }
 
     KendraClient { region = "us-east-1" }.use { kendra ->
         val createIndexResponse = kendra.createIndex(createIndexRequest)
@@ -78,9 +82,10 @@ suspend fun createIndex(indexDescription: String, indexName: String, indexRoleAr
         println("Waiting until the index with index ID $indexId is created.")
 
         while (true) {
-            val describeIndexRequest = DescribeIndexRequest {
-                id = indexId
-            }
+            val describeIndexRequest =
+                DescribeIndexRequest {
+                    id = indexId
+                }
             val describeIndexResponse = kendra.describeIndex(describeIndexRequest)
             val status = describeIndexResponse.status
             println("Status is $status")
@@ -95,42 +100,51 @@ suspend fun createIndex(indexDescription: String, indexName: String, indexRoleAr
 // snippet-end:[kendra.kotlin.index.main]
 
 // snippet-start:[kendra.kotlin.datasource.main]
-suspend fun createDataSource(s3BucketName: String?, dataSourceName: String?, dataSourceDescription: String?, indexIdVal: String?, dataSourceRoleArn: String?): String {
+suspend fun createDataSource(
+    s3BucketName: String?,
+    dataSourceName: String?,
+    dataSourceDescription: String?,
+    indexIdVal: String?,
+    dataSourceRoleArn: String?,
+): String {
     println("Creating an S3 data source")
 
-    val createDataSourceRequest = CreateDataSourceRequest {
-        indexId = indexIdVal
-        name = dataSourceName
-        description = dataSourceDescription
-        roleArn = dataSourceRoleArn
-        type = DataSourceType.S3
-        configuration = DataSourceConfiguration {
-            s3Configuration = S3DataSourceConfiguration {
-                bucketName = s3BucketName
-            }
+    val createDataSourceRequest =
+        CreateDataSourceRequest {
+            indexId = indexIdVal
+            name = dataSourceName
+            description = dataSourceDescription
+            roleArn = dataSourceRoleArn
+            type = DataSourceType.S3
+            configuration =
+                DataSourceConfiguration {
+                    s3Configuration =
+                        S3DataSourceConfiguration {
+                            bucketName = s3BucketName
+                        }
+                }
         }
-    }
 
     KendraClient { region = "us-east-1" }.use { kendra ->
-
         val createDataSourceResponse = kendra.createDataSource(createDataSourceRequest)
         println("Response of creating data source $createDataSourceResponse")
         val dataSourceId = createDataSourceResponse.id
         println("Waiting for Kendra to create the data source $dataSourceId")
 
-        val describeDataSourceRequest = DescribeDataSourceRequest {
-            indexId = indexIdVal
-            id = dataSourceId
-        }
+        val describeDataSourceRequest =
+            DescribeDataSourceRequest {
+                indexId = indexIdVal
+                id = dataSourceId
+            }
 
         var finished = false
         while (!finished) {
-
             val describeDataSourceResponse = kendra.describeDataSource(describeDataSourceRequest)
             val status = describeDataSourceResponse.status
             println("Status is $status")
-            if (status !== DataSourceStatus.Creating)
+            if (status !== DataSourceStatus.Creating) {
                 finished = true
+            }
             delay(30000)
         }
         return dataSourceId.toString()
@@ -139,17 +153,22 @@ suspend fun createDataSource(s3BucketName: String?, dataSourceName: String?, dat
 // snippet-end:[kendra.kotlin.datasource.main]
 
 // snippet-start:[kendra.kotlin.start.datasource.main]
-suspend fun startDataSource(indexIdVal: String?, dataSourceId: String?) {
-
+suspend fun startDataSource(
+    indexIdVal: String?,
+    dataSourceId: String?,
+) {
     println("Synchronize the data source $dataSourceId")
-    val startDataSourceSyncJobRequest = StartDataSourceSyncJobRequest {
-        indexId = indexIdVal
-        id = dataSourceId
-    }
+    val startDataSourceSyncJobRequest =
+        StartDataSourceSyncJobRequest {
+            indexId = indexIdVal
+            id = dataSourceId
+        }
 
     KendraClient { region = "us-east-1" }.use { kendra ->
         val startDataSourceSyncJobResponse = kendra.startDataSourceSyncJob(startDataSourceSyncJobRequest)
-        println("Waiting for the data source to sync with the index $indexIdVal for execution ID ${startDataSourceSyncJobResponse.executionId}")
+        println(
+            "Waiting for the data source to sync with the index $indexIdVal for execution ID ${startDataSourceSyncJobResponse.executionId}",
+        )
     }
     println("Index setup is complete")
 }

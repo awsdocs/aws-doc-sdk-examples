@@ -3,20 +3,20 @@
 
 package actions
 
+// snippet-start:[gov2.dynamodb.Movie.struct]
+
 import (
 	"archive/zip"
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 
 	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 )
-
-// snippet-start:[gov2.dynamodb.Movie.struct]
 
 // Movie encapsulates data about a movie. Title and Year are the composite primary key
 // of the movie in Amazon DynamoDB. Title is the sort key, Year is the partition key,
@@ -75,7 +75,7 @@ func (sampler MovieSampler) GetSampleMovies() []Movie {
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Panicf("Couldn't read body of response. Here's why: %v\n", err)
 	}
@@ -91,7 +91,7 @@ func (sampler MovieSampler) GetSampleMovies() []Movie {
 		log.Panicf("Couldn't open first archive in .zip file. Here's why: %v\n", err)
 	}
 	defer zf.Close()
-	movieBytes, err := ioutil.ReadAll(zf)
+	movieBytes, err := io.ReadAll(zf)
 	if err != nil {
 		log.Panicf("Couldn't read bytes from .zip archive. Here's why: %v\n", err)
 	}

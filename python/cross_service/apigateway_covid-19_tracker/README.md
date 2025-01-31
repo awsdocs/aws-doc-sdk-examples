@@ -24,7 +24,7 @@ tutorials in the
 - You must have an AWS account, and have your default credentials and AWS Region
   configured as described in the [AWS Tools and SDKs Shared Configuration and
   Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
+- Python 3.9 or later
 - An Amazon S3 bucket
 
 ## Cautions

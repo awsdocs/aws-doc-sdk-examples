@@ -63,7 +63,8 @@ describe("update-image-set-metadata", () => {
       datastoreId,
       imageSetId,
       versionID,
-      updateMetadata
+      updateMetadata,
+      true,
     );
 
     expect(logSpy).toHaveBeenCalledWith(response);

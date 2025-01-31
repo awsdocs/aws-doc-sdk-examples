@@ -38,9 +38,9 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Delete a rule](config_rules.py#L89) (`DeleteConfigRule`)
-- [Describe rules](config_rules.py#L67) (`DescribeConfigRules`)
-- [Put a rule](config_rules.py#L34) (`PutConfigRule`)
+- [DeleteConfigRule](config_rules.py#L89)
+- [DescribeConfigRules](config_rules.py#L67)
+- [PutConfigRule](config_rules.py#L34)
 
 
 <!--custom.examples.start-->

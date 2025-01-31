@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <appName> 
@@ -39,11 +38,11 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[eb.kotlin.create_app.main]
 suspend fun createApp(appName: String?): String {
-
-    val applicationRequest = CreateApplicationRequest {
-        description = "An AWS Elastic Beanstalk app created using the AWS SDK for Kotlin"
-        applicationName = appName
-    }
+    val applicationRequest =
+        CreateApplicationRequest {
+            description = "An AWS Elastic Beanstalk app created using the AWS SDK for Kotlin"
+            applicationName = appName
+        }
 
     var tableArn: String
     ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->

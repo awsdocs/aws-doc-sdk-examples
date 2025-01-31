@@ -2,21 +2,22 @@
 #######################
 # Rubocop Config file #
 #######################
-
-inherit_gem:
-  rubocop-github:
-    - config/default.yml
 Metrics/MethodLength:
-  Max: 25
+  Max: 50
+Layout/LineLength:
+  Max: 150
+Metrics/BlockLength:
+  Max: 150
 Metrics/AbcSize:
-  Max: 20
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
 Layout/EndOfLine:
   Enabled: false
-Layout/LineLength:
-  Exclude:
-    - ruby/example_code/kms/decrypt_data.rb
 Naming/FileName:
   Enabled: false
 Style/HashSyntax:

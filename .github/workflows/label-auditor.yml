@@ -1,6 +1,6 @@
 name: "Audit Labels"
 
-on:
+on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
   pull_request:
     branches:
@@ -16,9 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           sparse-checkout: .github/allowed-labels.yml
           sparse-checkout-cone-mode: false
@@ -31,8 +30,7 @@ jobs:
       #
       # For more information, see:
       # https://github.com/crazy-max/ghaction-github-labeler
-      -
-        name: Audit Labels
+      - name: Audit Labels
         if: success()
         uses: crazy-max/ghaction-github-labeler@v4
         with:

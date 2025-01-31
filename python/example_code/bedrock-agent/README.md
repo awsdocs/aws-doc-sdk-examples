@@ -1,13 +1,13 @@
-# Agents for Amazon Bedrock code examples for the SDK for Python
+# Amazon Bedrock Agents code examples for the SDK for Python
 
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to work with Agents for Amazon Bedrock.
+Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Bedrock Agents.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Agents for Amazon Bedrock offer you the ability to build and configure autonomous agents in your application._
+_Amazon Bedrock Agents offer you the ability to build and configure autonomous agents in your application._
 
 ## ⚠ Important
 
@@ -38,16 +38,16 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create an agent](bedrock_agent_wrapper.py#L33) (`CreateAgent`)
-- [Create an agent action group](bedrock_agent_wrapper.py#L62) (`CreateAgentActionGroup`)
-- [Create an agent alias](bedrock_agent_wrapper.py#L97) (`CreateAgentAlias`)
-- [Delete an agent](bedrock_agent_wrapper.py#L119) (`DeleteAgent`)
-- [Delete an agent alias](bedrock_agent_wrapper.py#L140) (`DeleteAgentAlias`)
-- [Get information about an agent](bedrock_agent_wrapper.py#L162) (`GetAgent`)
-- [List the action groups for an agent](bedrock_agent_wrapper.py#L209) (`ListAgentActionGroups`)
-- [List the available agents](bedrock_agent_wrapper.py#L186) (`ListAgents`)
-- [List the knowledge bases associated with an agent](bedrock_agent_wrapper.py#L238) (`ListAgentKnowledgeBases`)
-- [Prepare an agent](bedrock_agent_wrapper.py#L267) (`PrepareAgent`)
+- [CreateAgent](bedrock_agent_wrapper.py#L32)
+- [CreateAgentActionGroup](bedrock_agent_wrapper.py#L61)
+- [CreateAgentAlias](bedrock_agent_wrapper.py#L96)
+- [DeleteAgent](bedrock_agent_wrapper.py#L118)
+- [DeleteAgentAlias](bedrock_agent_wrapper.py#L139)
+- [GetAgent](bedrock_agent_wrapper.py#L161)
+- [ListAgentActionGroups](bedrock_agent_wrapper.py#L208)
+- [ListAgentKnowledgeBases](bedrock_agent_wrapper.py#L237)
+- [ListAgents](bedrock_agent_wrapper.py#L185)
+- [PrepareAgent](bedrock_agent_wrapper.py#L266)
 
 ### Scenarios
 
@@ -110,9 +110,9 @@ in the `python` folder.
 
 ## Additional resources
 
-- [Agents for Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
-- [Agents for Amazon Bedrock API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock.html)
-- [SDK for Python Agents for Amazon Bedrock reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent.html)
+- [Amazon Bedrock Agents User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
+- [Amazon Bedrock Agents API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock.html)
+- [SDK for Python Amazon Bedrock Agents reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

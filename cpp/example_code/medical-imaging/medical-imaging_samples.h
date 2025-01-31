@@ -91,11 +91,10 @@ namespace AwsDoc {
           \param clientConfig: Aws client configuration.
           \return bool: Function succeeded.
           */
-        bool searchImageSets(
-                const Aws::String &dataStoreID,
-                const Aws::MedicalImaging::Model::SearchCriteria &searchCriteria,
-                Aws::Vector<Aws::String> &imageSetResults,
-                const Aws::Client::ClientConfiguration &clientConfig);
+        bool searchImageSets(const Aws::String &dataStoreID,
+                             const Aws::MedicalImaging::Model::SearchCriteria &searchCriteria,
+                             Aws::Vector<Aws::String> &imageSetResults,
+                             const Aws::Client::ClientConfiguration &clientConfig);
 
 
     } // namespace Medical_Imaging

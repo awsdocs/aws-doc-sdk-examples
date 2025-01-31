@@ -33,23 +33,24 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create an email template](Actions/SESWrapper.cs#L262) (`CreateTemplate`)
-- [Delete an email template](Actions/SESWrapper.cs#L343) (`DeleteTemplate`)
-- [Delete an identity](Actions/SESWrapper.cs#L119) (`DeleteIdentity`)
-- [Get sending limits](Actions/SESWrapper.cs#L212) (`GetSendQuota`)
-- [Get the status of an identity](Actions/SESWrapper.cs#L56) (`GetIdentityVerificationAttributes`)
-- [List email templates](Actions/SESWrapper.cs#L237) (`ListTemplates`)
-- [List identities](Actions/SESWrapper.cs#L27) (`ListIdentities`)
-- [Send email](Actions/SESWrapper.cs#L148) (`SendEmail`)
-- [Send templated email](Actions/SESWrapper.cs#L301) (`SendTemplatedEmail`)
-- [Verify an email identity](Actions/SESWrapper.cs#L87) (`VerifyEmailIdentity`)
+- [CreateTemplate](Actions/SESWrapper.cs#L262)
+- [DeleteIdentity](Actions/SESWrapper.cs#L119)
+- [DeleteTemplate](Actions/SESWrapper.cs#L343)
+- [GetIdentityVerificationAttributes](Actions/SESWrapper.cs#L56)
+- [GetSendQuota](Actions/SESWrapper.cs#L212)
+- [ListIdentities](Actions/SESWrapper.cs#L27)
+- [ListTemplates](Actions/SESWrapper.cs#L237)
+- [SendEmail](Actions/SESWrapper.cs#L148)
+- [SendTemplatedEmail](Actions/SESWrapper.cs#L301)
+- [VerifyEmailIdentity](Actions/SESWrapper.cs#L87)
 
-### Cross-service examples
+### Scenarios
 
-Sample applications that work across multiple AWS services.
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
-- [Create a web application to track DynamoDB data](../cross_service/DynamoDbItemTracker)
-- [Create an Aurora Serverless work item tracker](../cross_service/AuroraItemTracker)
+- [Create a web application to track DynamoDB data](../cross-service/DynamoDbItemTracker)
+- [Create an Aurora Serverless work item tracker](../cross-service/AuroraItemTracker)
 - [Detect objects in images](../cross-service/PhotoAnalyzerApp)
 
 
@@ -82,6 +83,42 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.end-->
 
 
+
+#### Create a web application to track DynamoDB data
+
+This example shows you how to create a web application that tracks work items in an Amazon DynamoDB table and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_DynamoDBDataTracker.start-->
+<!--custom.scenario_prereqs.cross_DynamoDBDataTracker.end-->
+
+
+<!--custom.scenarios.cross_DynamoDBDataTracker.start-->
+<!--custom.scenarios.cross_DynamoDBDataTracker.end-->
+
+#### Create an Aurora Serverless work item tracker
+
+This example shows you how to create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_RDSDataTracker.start-->
+<!--custom.scenario_prereqs.cross_RDSDataTracker.end-->
+
+
+<!--custom.scenarios.cross_RDSDataTracker.start-->
+<!--custom.scenarios.cross_RDSDataTracker.end-->
+
+#### Detect objects in images
+
+This example shows you how to build an app that uses Amazon Rekognition to detect objects by category in images.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.end-->
+
+
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.end-->
 
 ### Tests
 

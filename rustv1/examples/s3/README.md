@@ -29,40 +29,46 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon S3](src/bin/s3-helloworld.rs#L35) (`ListBuckets`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/bin/s3-getting-started.rs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [Complete a multipart upload](src/bin/s3-multipart-upload.rs#L136) (`CompleteMultipartUpload`)
-- [Copy an object from one bucket to another](src/s3-service-lib.rs#L99) (`CopyObject`)
-- [Create a bucket](src/s3-service-lib.rs#L156) (`CreateBucket`)
-- [Create a multipart upload](src/bin/s3-multipart-upload.rs#L48) (`CreateMultipartUpload`)
-- [Delete an empty bucket](src/s3-service-lib.rs#L23) (`DeleteBucket`)
-- [Delete an object](src/bin/delete-object.rs#L30) (`DeleteObject`)
-- [Delete multiple objects](src/s3-service-lib.rs#L31) (`DeleteObjects`)
-- [Get an object from a bucket](src/bin/get-object.rs#L20) (`GetObject`)
-- [Get an object from a bucket if it has been modified](src/bin/if-modified-since.rs#L6) (`GetObject`)
-- [Get the Region location for a bucket](src/bin/list-buckets.rs#L26) (`GetBucketLocation`)
-- [List buckets](src/bin/list-buckets.rs#L26) (`ListBuckets`)
-- [List object versions in a bucket](src/bin/list-object-versions.rs#L26) (`ListObjectVersions`)
-- [List objects in a bucket](src/s3-service-lib.rs#L73) (`ListObjectsV2`)
-- [Upload a single part of a multipart upload](src/bin/s3-multipart-upload.rs#L112) (`UploadPart`)
-- [Upload an object to a bucket](src/s3-service-lib.rs#L137) (`PutObject`)
+- [CompleteMultipartUpload](src/bin/s3-multipart-upload.rs#L139)
+- [CopyObject](src/lib.rs#L7)
+- [CreateBucket](src/lib.rs#L192)
+- [CreateMultipartUpload](src/bin/s3-multipart-upload.rs#L48)
+- [DeleteBucket](src/lib.rs#L224)
+- [DeleteObject](src/lib.rs#L37)
+- [DeleteObjects](src/lib.rs#L156)
+- [GetBucketLocation](src/bin/list-buckets.rs#L27)
+- [GetObject](src/bin/get-object.rs#L21)
+- [ListBuckets](src/bin/list-buckets.rs#L27)
+- [ListObjectVersions](src/bin/list-object-versions.rs#L26)
+- [ListObjectsV2](src/lib.rs#L92)
+- [PutObject](src/lib.rs#L73)
+- [UploadPart](src/bin/s3-multipart-upload.rs#L101)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a presigned URL](src/bin/put-object-presigned.rs)
-- [Get started with buckets and objects](src/bin/s3-getting-started.rs)
+- [Create a presigned URL](src/bin/get-object-presigned.rs)
+- [Get an object from a bucket if it has been modified](src/bin/if-modified-since.rs)
+- [Unit and integration test with an SDK](Cargo.toml)
 - [Upload or download large files](src/bin/s3-multipart-upload.rs)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Unit and integration test with an SDK](../../examples/testing)
 
 
 <!--custom.examples.start-->
@@ -76,6 +82,27 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Amazon S3
+
+This example shows you how to get started using Amazon S3.
+
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
 
 
 #### Create a presigned URL
@@ -90,22 +117,29 @@ This example shows you how to create a presigned URL for Amazon S3 and upload an
 <!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
 <!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
 
-#### Get started with buckets and objects
+#### Get an object from a bucket if it has been modified
 
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+This example shows you how to read data from an object in an S3 bucket, but only if that bucket has not been modified since the last retrieval time.
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.scenario_prereqs.s3_GetObject_IfModifiedSince.start-->
+<!--custom.scenario_prereqs.s3_GetObject_IfModifiedSince.end-->
+
+
+<!--custom.scenarios.s3_GetObject_IfModifiedSince.start-->
+<!--custom.scenarios.s3_GetObject_IfModifiedSince.end-->
+
+#### Unit and integration test with an SDK
+
+This example shows you how to examples for best-practice techniques when writing unit and integration tests using an AWS SDK.
+
+
+<!--custom.scenario_prereqs.cross_Testing.start-->
+<!--custom.scenario_prereqs.cross_Testing.end-->
+
+
+<!--custom.scenarios.cross_Testing.start-->
+<!--custom.scenarios.cross_Testing.end-->
 
 #### Upload or download large files
 

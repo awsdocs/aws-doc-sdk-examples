@@ -38,7 +38,7 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [Send a voice message with Amazon Pinpoint SMS and Voice](pinpoint_send_voice_message_sms_voice_api.py#L11) (`SendVoiceMessage`)
+- [SendVoiceMessage](pinpoint_send_voice_message_sms_voice_api.py#L11)
 
 
 <!--custom.examples.start-->

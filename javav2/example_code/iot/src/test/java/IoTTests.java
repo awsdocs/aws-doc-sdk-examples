@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.iot.HelloIoT;
-import com.example.iot.IotScenario;
+import com.example.iot.scenario.IotActions;
+import com.example.iot.scenario.IotScenario;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -95,54 +96,51 @@ public class IoTTests {
     @Tag("IntegrationTest")
     @Order(2)
     public void testIotScenario() throws InterruptedException {
-        assertDoesNotThrow(() -> IotScenario.createIoTThing(iotClient, thingName),
+        IotActions iotActions = new IotActions();
+
+        assertDoesNotThrow(() -> iotActions.createIoTThing(thingName),
             "Failed to create your thing in the scenario.");
 
-        String certArn = assertDoesNotThrow(() -> IotScenario.createCertificate(iotClient),
+        String certArn = assertDoesNotThrow(() -> iotActions.createCertificate(),
             "Failed to create a cert in the scenario.");
 
-        assertDoesNotThrow(() -> IotScenario.attachCertificateToThing(iotClient, thingName, certArn),
+        assertDoesNotThrow(() ->  iotActions.attachCertificateToThing(thingName, certArn),
             "Failed to attach a cert in the scenario.");
 
-        assertDoesNotThrow(() -> IotScenario.updateThing(iotClient, thingName),
+        assertDoesNotThrow(() -> iotActions.updateShadowThing(thingName),
             "Failed to update the thing in the scenario.");
 
-        String endpointUrl = assertDoesNotThrow(() -> IotScenario. describeEndpoint(iotClient),
+        String endpointUrl = String.valueOf(assertDoesNotThrow(() -> iotActions.describeEndpoint(),
+            "Failed to update the thing in the scenario."));
+
+        assertDoesNotThrow(() ->  iotActions.listCertificates(),
             "Failed to update the thing in the scenario.");
 
-        IotDataPlaneClient iotPlaneClient = IotDataPlaneClient.builder()
-            .region(Region.US_EAST_1)
-            .endpointOverride(URI.create(endpointUrl))
-            .build();
-
-        assertDoesNotThrow(() -> IotScenario.listCertificates(iotClient),
-            "Failed to update the thing in the scenario.");
-
-        assertDoesNotThrow(() -> IotScenario.updateShadowThing(iotPlaneClient, thingName),
+        assertDoesNotThrow(() ->  iotActions.updateShadowThing(thingName),
             "Failed to update shawdow in the scenario.");
 
-        assertDoesNotThrow(() -> IotScenario.getPayload(iotPlaneClient, thingName),
+        assertDoesNotThrow(() ->  iotActions.getPayload(thingName),
             "Failed to get payload in the scenario.");
 
-        assertDoesNotThrow(() -> IotScenario.createIoTRule(iotClient, roleARN, ruleName, snsAction),
+        assertDoesNotThrow(() ->  iotActions.createIoTRule(roleARN, ruleName, snsAction),
             "Failed to get payload in the scenario.");
 
-        assertDoesNotThrow(() -> IotScenario.listIoTRules(iotClient),
+        assertDoesNotThrow(() ->  iotActions.listIoTRules(),
             "Failed to list rules in the scenario.");
 
         System.out.println("Wait 5 secs");
         Thread.sleep(5000);
 
-        assertDoesNotThrow(() ->IotScenario.searchThings(iotClient, queryString),
+        assertDoesNotThrow(() -> iotActions.searchThings(queryString),
             "Failed to search things in the scenario.");
 
-        assertDoesNotThrow(() -> IotScenario.detachThingPrincipal(iotClient, thingName, certArn),
+        assertDoesNotThrow(() ->  iotActions.detachThingPrincipal(thingName, certArn),
             "Failed to detach cert in the scenario.");
 
-        assertDoesNotThrow(() -> IotScenario.deleteCertificate(iotClient, certArn),
+        assertDoesNotThrow(() ->  iotActions.deleteCertificate(certArn),
             "Failed to delete cert in the scenario.");
 
-        assertDoesNotThrow(() -> IotScenario.deleteIoTThing(iotClient, thingName),
+        assertDoesNotThrow(() ->  iotActions.deleteIoTThing(thingName),
             "Failed to delete your thing in the scenario.");
 
         System.out.println("Scenario test passed");

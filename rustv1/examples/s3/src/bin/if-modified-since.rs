@@ -6,10 +6,10 @@
 // snippet-start:[s3.rust.if-modified-since]
 use aws_sdk_s3::{
     error::SdkError,
-    operation::head_object::HeadObjectError,
     primitives::{ByteStream, DateTime, DateTimeFormat},
-    Client, Error,
+    Client,
 };
+use s3_code_examples::error::S3ExampleError;
 use tracing::{error, warn};
 
 const KEY: &str = "key";
@@ -25,7 +25,7 @@ const BODY: &str = "Hello, world!";
 /// - Get the bucket headers again but only if modified.
 /// - Delete the bucket.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() -> Result<(), S3ExampleError> {
     tracing_subscriber::fmt::init();
 
     // Get a new UUID to use when creating a unique bucket name.
@@ -122,39 +122,38 @@ async fn main() -> Result<(), Error> {
     // `SdkError::ServiceError`.
 
     // snippet-start:[s3.rust.if-modified-since.result-handler]
-    let (last_modified, e_tag_2): (Result<DateTime, SdkError<HeadObjectError>>, String) =
-        match head_object_output {
-            Ok(head_object) => (
-                Ok(head_object.last_modified().cloned().unwrap()),
-                head_object.e_tag.unwrap(),
-            ),
-            Err(err) => match err {
-                SdkError::ServiceError(err) => {
-                    // Get the raw HTTP response. If its status is 304, the
-                    // object has not changed. This is the expected code path.
-                    let http = err.raw();
-                    match http.status().as_u16() {
-                        // If the HTTP status is 304: Not Modified, return a
-                        // tuple containing the values of the HTTP
-                        // `last-modified` and `etag` headers.
-                        304 => (
-                            Ok(DateTime::from_str(
-                                http.headers().get("last-modified").unwrap(),
-                                DateTimeFormat::HttpDate,
-                            )
-                            .unwrap()),
-                            http.headers().get("etag").map(|t| t.into()).unwrap(),
-                        ),
-                        // Any other HTTP status code is returned as an
-                        // `SdkError::ServiceError`.
-                        _ => (Err(SdkError::ServiceError(err)), String::new()),
-                    }
+    let (last_modified, e_tag_2) = match head_object_output {
+        Ok(head_object) => (
+            Ok(head_object.last_modified().cloned().unwrap()),
+            head_object.e_tag.unwrap(),
+        ),
+        Err(err) => match err {
+            SdkError::ServiceError(err) => {
+                // Get the raw HTTP response. If its status is 304, the
+                // object has not changed. This is the expected code path.
+                let http = err.raw();
+                match http.status().as_u16() {
+                    // If the HTTP status is 304: Not Modified, return a
+                    // tuple containing the values of the HTTP
+                    // `last-modified` and `etag` headers.
+                    304 => (
+                        Ok(DateTime::from_str(
+                            http.headers().get("last-modified").unwrap(),
+                            DateTimeFormat::HttpDate,
+                        )
+                        .unwrap()),
+                        http.headers().get("etag").map(|t| t.into()).unwrap(),
+                    ),
+                    // Any other HTTP status code is returned as an
+                    // `SdkError::ServiceError`.
+                    _ => (Err(SdkError::ServiceError(err)), String::new()),
                 }
-                // Any other kind of error is returned in a tuple containing the
-                // error and an empty string.
-                _ => (Err(err), String::new()),
-            },
-        };
+            }
+            // Any other kind of error is returned in a tuple containing the
+            // error and an empty string.
+            _ => (Err(err), String::new()),
+        },
+    };
     // snippet-end:[s3.rust.if-modified-since.result-handler]
 
     warn!("last modified: {last_modified:?}");

@@ -29,16 +29,16 @@ const toAddress = "TO_ADDRESS";
 const projectId = "PINPOINT_PROJECT_ID";
 
 // The subject line of the email.
-var subject = "Amazon Pinpoint Test (AWS SDK for JavaScript in Node.js)";
+const subject = "Amazon Pinpoint Test (AWS SDK for JavaScript in Node.js)";
 
 // The email body for recipients with non-HTML email clients.
-var body_text = `Amazon Pinpoint Test (SDK for JavaScript in Node.js)
+const body_text = `Amazon Pinpoint Test (SDK for JavaScript in Node.js)
 ----------------------------------------------------
 This email was sent with Amazon Pinpoint using the AWS SDK for JavaScript in Node.js.
 For more information, see https://aws.amazon.com/sdk-for-node-js/`;
 
 // The body of the email for recipients whose email clients support HTML content.
-var body_html = `<html>
+const body_html = `<html>
 <head></head>
 <body>
   <h1>Amazon Pinpoint Test (SDK for JavaScript in Node.js)</h1>
@@ -50,7 +50,7 @@ var body_html = `<html>
 </html>`;
 
 // The character encoding for the subject line and message body of the email.
-var charset = "UTF-8";
+const charset = "UTF-8";
 
 const params = {
   ApplicationId: projectId,
@@ -84,19 +84,24 @@ const params = {
 
 const run = async () => {
   try {
-    const data = await pinClient.send(new SendMessagesCommand(params));
+    const { MessageResponse } = await pinClient.send(
+      new SendMessagesCommand(params),
+    );
 
-    const {
-      MessageResponse: { Result },
-    } = data;
+    if (!MessageResponse) {
+      throw new Error("No message response.");
+    }
 
-    const recipientResult = Result[toAddress];
+    if (!MessageResponse.Result) {
+      throw new Error("No message result.");
+    }
+
+    const recipientResult = MessageResponse.Result[toAddress];
 
     if (recipientResult.StatusCode !== 200) {
       throw new Error(recipientResult.StatusMessage);
-    } else {
-      console.log(recipientResult.MessageId);
     }
+    console.log(recipientResult.MessageId);
   } catch (err) {
     console.log(err.message);
   }

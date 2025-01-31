@@ -40,35 +40,47 @@ bool AwsDoc::DynamoDB::scanTable(const Aws::String &tableName,
     if (!projectionExpression.empty())
         request.SetProjectionExpression(projectionExpression);
 
-    // Perform scan on table.
-    const Aws::DynamoDB::Model::ScanOutcome &outcome = dynamoClient.Scan(request);
-    if (outcome.IsSuccess()) {
-        // Reference the retrieved items.
-        const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = outcome.GetResult().GetItems();
-        if (!items.empty()) {
-            std::cout << "Number of items retrieved from scan: " << items.size()
-                      << std::endl;
-            // Iterate each item and print.
-            for (const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &itemMap: items) {
-                std::cout << "******************************************************"
-                          << std::endl;
-                // Output each retrieved field and its value.
-                for (const auto &itemEntry: itemMap)
-                    std::cout << itemEntry.first << ": " << itemEntry.second.GetS()
-                              << std::endl;
-            }
+    Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> all_items;
+    Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> last_evaluated_key; // Used for pagination;
+    do {
+        if (!last_evaluated_key.empty()) {
+            request.SetExclusiveStartKey(last_evaluated_key);
         }
+        const Aws::DynamoDB::Model::ScanOutcome &outcome = dynamoClient.Scan(request);
+        if (outcome.IsSuccess()) {
+            // Reference the retrieved items.
+            const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = outcome.GetResult().GetItems();
+            all_items.insert(all_items.end(), items.begin(), items.end());
 
+            last_evaluated_key = outcome.GetResult().GetLastEvaluatedKey();
+        }
         else {
-            std::cout << "No item found in table: " << tableName << std::endl;
+            std::cerr << "Failed to Scan items: " << outcome.GetError().GetMessage()
+                      << std::endl;
+            return false;
+        }
+
+    } while (!last_evaluated_key.empty());
+
+    if (!all_items.empty()) {
+        std::cout << "Number of items retrieved from scan: " << all_items.size()
+                  << std::endl;
+        // Iterate each item and print.
+        for (const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &itemMap: all_items) {
+            std::cout << "******************************************************"
+                      << std::endl;
+            // Output each retrieved field and its value.
+            for (const auto &itemEntry: itemMap)
+                std::cout << itemEntry.first << ": " << itemEntry.second.GetS()
+                          << std::endl;
         }
     }
+
     else {
-        std::cerr << "Failed to Scan items: " << outcome.GetError().GetMessage()
-                  << std::endl;
+        std::cout << "No items found in table: " << tableName << std::endl;
     }
 
-    return outcome.IsSuccess();
+    return true;
 }
 
 // snippet-end:[dynamodb.cpp.scan_table.code]

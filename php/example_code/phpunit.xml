@@ -8,10 +8,16 @@
          failOnRisky="true"
          failOnWarning="true"
          verbose="true">
-    <testsuites>
-        <testsuite name="dynamodb-basics">
-            <file>dynamodb/dynamodb_basics/tests/DynamoDBBasicsTest.php</file>
-        </testsuite>
+<!--    <testsuites>-->
+<!--        <testsuite name="kms-basics">-->
+<!--            <file>kms/tests/KmsBasicsTests.php</file>-->
+<!--        </testsuite>-->
+<!--        <testsuite name="s3-express-basics">-->
+<!--            <file>s3/tests/S3ExpressBasicsTest.php</file>-->
+<!--        </testsuite>-->
+<!--        <testsuite name="dynamodb-basics">-->
+<!--            <file>dynamodb/dynamodb_basics/tests/DynamoDBBasicsTest.php</file>-->
+<!--        </testsuite>-->
 <!--        <testsuite name="partiql-basics">-->
 <!--            <file>dynamodb/partiql_basics/tests/PartiQLBasicsTest.php</file>-->
 <!--        </testsuite>-->
@@ -27,7 +33,7 @@
 <!--        <testsuite name="auto-scaling-basics">-->
 <!--            <file>auto-scaling/tests/AutoScalingBasicsTest.php</file>-->
 <!--        </testsuite>-->
-    </testsuites>
+<!--    </testsuites>-->
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"
               processUncoveredFiles="false">
@@ -37,6 +43,8 @@
             <directory suffix=".php">iam</directory>
             <directory suffix=".php">lambda</directory>
             <directory suffix=".php">auto-scaling</directory>
+            <directory suffix=".php">kms</directory>
+            <directory suffix=".php">s3</directory>
         </include>
         <exclude>
             <directory suffix=".php">*vendor*</directory>

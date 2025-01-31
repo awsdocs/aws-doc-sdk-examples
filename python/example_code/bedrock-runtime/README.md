@@ -33,24 +33,66 @@ python -m pip install -r requirements.txt
 
 <!--custom.prerequisites.start-->
 
-> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
-> 
+> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console)
+> before you have requested access to it, you will receive an error message. For more information,
+> see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
+>
 <!--custom.prerequisites.end-->
+### AI21 Labs Jurassic-2
 
-### Single actions
+- [Converse](models/ai21_labs_jurassic2/converse.py#L4)
+- [InvokeModel](models/ai21_labs_jurassic2/invoke_model.py#L4)
 
-Code excerpts that show you how to call individual service functions.
+### Amazon Titan Image Generator
 
-- [AI21 Labs Jurassic-2: Text generation](bedrock_runtime_wrapper.py#L79) (`InvokeModel`)
-- [Amazon Titan: Image generation](bedrock_runtime_wrapper.py#L275) (`InvokeModel`)
-- [Anthropic Claude 2: Real-time response stream processing](bedrock_runtime_wrapper.py#L320) (`InvokeModelWithResponseStream`)
-- [Anthropic Claude 2: Text generation](bedrock_runtime_wrapper.py#L39) (`InvokeModel`)
-- [Anthropic Claude 3: Multimodal invocation](models/anthropic/claude_3.py#L94) (`InvokeModel`)
-- [Anthropic Claude 3: Text generation](models/anthropic/claude_3.py#L33) (`InvokeModel`)
-- [Meta Llama 2: Text generation](bedrock_runtime_wrapper.py#L115) (`InvokeModel`)
-- [Mistral AI: Text generation with Mistral 7B Instruct](bedrock_runtime_wrapper.py#L152) (`InvokeModel`)
-- [Mistral AI: Text generation with Mixtral 8x7B Instruct](bedrock_runtime_wrapper.py#L192) (`InvokeModel`)
-- [Stable Diffusion: Image generation](bedrock_runtime_wrapper.py#L232) (`InvokeModel`)
+- [InvokeModel](models/amazon_titan_image_generator/invoke_model.py#L4)
+
+### Amazon Titan Text
+
+- [Converse](models/amazon_titan_text/converse.py#L4)
+- [ConverseStream](models/amazon_titan_text/converse_stream.py#L4)
+- [InvokeModel](models/amazon_titan_text/invoke_model.py#L4)
+- [InvokeModelWithResponseStream](models/amazon_titan_text/invoke_model_with_response_stream.py#L4)
+
+### Amazon Titan Text Embeddings
+
+- [InvokeModel](models/amazon_titan_text_embeddings/invoke_model.py#L4)
+
+### Anthropic Claude
+
+- [Converse](models/anthropic_claude/converse.py#L4)
+- [ConverseStream](models/anthropic_claude/converse_stream.py#L4)
+- [InvokeModel](models/anthropic_claude/invoke_model.py#L4)
+- [InvokeModelWithResponseStream](models/anthropic_claude/invoke_model_with_response_stream.py#L4)
+- [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
+
+### Cohere Command
+
+- [Converse](models/cohere_command/converse.py#L4)
+- [ConverseStream](models/cohere_command/converse_stream.py#L4)
+- [InvokeModel: Command R and R+](models/cohere_command/command_r_invoke_model.py#L4)
+- [InvokeModel: Command and Command Light](models/cohere_command/command_invoke_model.py#L4)
+- [InvokeModelWithResponseStream: Command R and R+](models/cohere_command/command_r_invoke_model_with_response_stream.py#L4)
+- [InvokeModelWithResponseStream: Command and Command Light](models/cohere_command/command_invoke_model_with_response_stream.py#L4)
+- [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
+
+### Meta Llama
+
+- [Converse](models/meta_llama/converse.py#L4)
+- [ConverseStream](models/meta_llama/converse_stream.py#L4)
+- [InvokeModel: Llama 3](models/meta_llama/llama3_invoke_model.py#L4)
+- [InvokeModelWithResponseStream: Llama 3](models/meta_llama/llama3_invoke_model_with_response_stream.py#L4)
+
+### Mistral AI
+
+- [Converse](models/mistral_ai/converse.py#L4)
+- [ConverseStream](models/mistral_ai/converse_stream.py#L4)
+- [InvokeModel](models/mistral_ai/invoke_model.py#L4)
+- [InvokeModelWithResponseStream](models/mistral_ai/invoke_model_with_response_stream.py#L4)
+
+### Stable Diffusion
+
+- [InvokeModel](models/stability_ai/invoke_model.py#L4)
 
 
 <!--custom.examples.start-->
@@ -62,7 +104,9 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.instructions.start-->
-The examples are wrapped into two separate scripts, with *claude_3.py* demonstrating the use of Claude 3, and *bedrock_runtime_wrapper.py* demonstrating Claude 2, Titan, Stable Diffusion, Jurassic-2, Llama 2, and both models from Mistral AI.
+The examples are wrapped into two separate scripts, with *claude_3.py* demonstrating the use of Claude 3, and
+*bedrock_runtime_wrapper.py* demonstrating Claude 2, Titan, Stable Diffusion, Jurassic-2, Llama 2, and both models from
+Mistral AI.
 
 - To run the demo for Anthropic Claude 3, navigate to the `python/example/code/bedrock-runtime` directory and type:
   ```commandline
@@ -73,6 +117,7 @@ The examples are wrapped into two separate scripts, with *claude_3.py* demonstra
   ```commandline
   python bedrock_runtime_wrapper.py
   ```
+
 <!--custom.instructions.end-->
 
 

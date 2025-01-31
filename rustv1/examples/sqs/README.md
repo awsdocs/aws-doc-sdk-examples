@@ -33,9 +33,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [List queues](src/bin/sqs-hello-world.rs#L30) (`ListQueues`)
-- [Receive messages from a queue](src/bin/sqs-hello-world.rs#L62) (`ReceiveMessage`)
-- [Send a message to a queue](src/bin/sqs-hello-world.rs#L42) (`SendMessage`)
+- [ListQueues](src/bin/sqs-hello-world.rs#L30)
+- [ReceiveMessage](src/bin/sqs-hello-world.rs#L62)
+- [SendMessage](src/bin/sqs-hello-world.rs#L42)
 
 
 <!--custom.examples.start-->

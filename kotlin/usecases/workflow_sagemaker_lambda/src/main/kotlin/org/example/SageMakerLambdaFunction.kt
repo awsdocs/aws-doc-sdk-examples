@@ -137,13 +137,13 @@ class SageMakerLambdaFunction : RequestHandler<HashMap<String, Any>, Map<String,
             logger.log("*** INVOKE geoSpatialClient.startVectorEnrichmentJob with client")
             SageMakerGeospatialClient { region = "us-west-2" }.use { geospatialObject ->
                 val vecJobResponse = geospatialObject.startVectorEnrichmentJob(jobRequest)
-                val vej_arnValue = vecJobResponse.arn
-                logger.log("vej_arn: $vej_arnValue")
+                val vejArnValue = vecJobResponse.arn
+                logger.log("vej_arn: $vejArnValue")
                 val status = vecJobResponse.status
                 logger.log("STATUS: $status")
 
                 responseDictionary["statusCode"] = status.toString()
-                responseDictionary["vej_arn"] = vej_arnValue.toString()
+                responseDictionary["vej_arn"] = vejArnValue.toString()
             }
         }
 
@@ -161,11 +161,11 @@ class SageMakerLambdaFunction : RequestHandler<HashMap<String, Any>, Map<String,
 
         if (queuePayload.getArguments()!!.containsKey("vej_arn")) {
             // Use the job ARN and the token to get the job status.
-            val job_arn = queuePayload.getArguments()!!["vej_arn"]
-            logger.log("Token: $token, arn $job_arn")
+            val jobArn = queuePayload.getArguments()!!["vej_arn"]
+            logger.log("Token: $token, arn $jobArn")
 
             val jobInfoRequest = GetVectorEnrichmentJobRequest {
-                arn = job_arn
+                arn = jobArn
             }
 
             val vectorResponse = geoClient.getVectorEnrichmentJob(jobInfoRequest)

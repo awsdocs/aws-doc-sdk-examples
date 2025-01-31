@@ -7,10 +7,12 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
+	"github.com/aws/smithy-go"
 )
 
 // main uses the AWS SDK for Go V2 to create an Amazon Simple Storage Service
@@ -18,7 +20,8 @@ import (
 // This example uses the default settings specified in your shared credentials
 // and config files.
 func main() {
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		fmt.Println("Couldn't load default configuration. Have you set up your AWS account?")
 		fmt.Println(err)
@@ -27,9 +30,14 @@ func main() {
 	s3Client := s3.NewFromConfig(sdkConfig)
 	count := 10
 	fmt.Printf("Let's list up to %v buckets for your account.\n", count)
-	result, err := s3Client.ListBuckets(context.TODO(), &s3.ListBucketsInput{})
+	result, err := s3Client.ListBuckets(ctx, &s3.ListBucketsInput{})
 	if err != nil {
-		fmt.Printf("Couldn't list buckets for your account. Here's why: %v\n", err)
+		var ae smithy.APIError
+		if errors.As(err, &ae) && ae.ErrorCode() == "AccessDenied" {
+			fmt.Println("You don't have permission to list buckets for this account.")
+		} else {
+			fmt.Printf("Couldn't list buckets for your account. Here's why: %v\n", err)
+		}
 		return
 	}
 	if len(result.Buckets) == 0 {

@@ -12,6 +12,9 @@
 #include <aws/testing/mocks/http/MockHttpClient.h>
 
 namespace AwsDocTest {
+    class MyStringBuffer : public std::stringbuf {
+        int underflow() override;
+    };
 
     class S3_GTests : public testing::Test {
     protected:
@@ -50,7 +53,13 @@ namespace AwsDocTest {
 
         static Aws::String GetCanonicalUserID();
 
+        static Aws::String GetBucketNamePrefix();
+
+        static Aws::String GetUniqueBucketName();
+
         static Aws::String preconditionError();
+
+        void AddCommandLineResponses(const std::vector<std::string> &responses);
 
         // s_clientConfig must be a pointer because the client config must be initialized after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
@@ -69,6 +78,9 @@ namespace AwsDocTest {
 
         std::stringbuf m_coutBuffer;  // used just to silence cout.
         std::streambuf *m_savedBuffer = nullptr;
+
+        MyStringBuffer m_cinBuffer;
+        std::streambuf *m_savedInBuffer = nullptr;
     };
 
     class MockHTTP {

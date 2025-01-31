@@ -1,7 +1,9 @@
 {
   "name": "@aws-doc-sdk-examples/auto-scaling",
   "version": "1.0.0",
-  "devDependencies": {},
+  "devDependencies": {
+    "vitest": "^1.6.0"
+  },
   "scripts": {},
   "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache-2.0"

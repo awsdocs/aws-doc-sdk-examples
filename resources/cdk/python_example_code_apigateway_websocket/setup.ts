@@ -9,7 +9,7 @@
 //     * An AWS Identity and Access Management (IAM) role and policy that grants
 //       AWS Lambda permission to access the DynamoDB table and have basic rights to
 //       run functions.
-//     * A Lambda function that runs on Python 3.7 and has an environment variable
+//     * A Lambda function that runs on Python 3.9 and has an environment variable
 //       that contains the DynamoDB table name. The function code is updated as part
 //       of the example.
 //
@@ -64,7 +64,7 @@ export class SetupStack extends cdk.Stack {
     );
 
     const fn = new Function(this, "doc-example-apigateway-websocket-connect", {
-      runtime: Runtime.PYTHON_3_7,
+      runtime: Runtime.PYTHON_3_9,
       handler: "lambda_chat.lambda_handler",
       code: Code.fromInline(
         "# This placeholder is replaced during code example deployment."

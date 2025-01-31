@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [List channels](src/bin/mediapackage-helloworld.rs#L22) (`ListChannels`)
-- [List your origin endpoints](src/bin/list-endpoints.rs#L22) (`ListOriginEndpoints`)
+- [ListChannels](src/bin/mediapackage-helloworld.rs#L22)
+- [ListOriginEndpoints](src/bin/list-endpoints.rs#L22)
 
 
 <!--custom.examples.start-->

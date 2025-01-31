@@ -48,6 +48,7 @@ import {
   ScenarioInput,
   ScenarioAction,
 } from "@aws-doc-sdk-examples/lib/scenario/index.js";
+import { saveState } from "@aws-doc-sdk-examples/lib/scenario/steps-common.js";
 import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 import { MESSAGES, NAMES, RESOURCES_PATH, ROOT } from "./constants.js";
@@ -551,9 +552,8 @@ export const deploySteps = [
           "${IP_RULES}",
           JSON.stringify(state.myIpRules, null, 2),
         );
-      } else {
-        return MESSAGES.noIpRules;
       }
+      return MESSAGES.noIpRules;
     },
   ),
   new ScenarioInput(
@@ -564,9 +564,8 @@ export const deploySteps = [
     (state) => {
       if (state.myIpRules.length > 0) {
         return false;
-      } else {
-        return MESSAGES.noIpRules;
       }
+      return MESSAGES.noIpRules;
     },
     { type: "confirm" },
   ),
@@ -595,9 +594,8 @@ export const deploySteps = [
   new ScenarioOutput("addedInboundRule", (state) => {
     if (state.shouldAddInboundRule) {
       return MESSAGES.addedInboundRule.replace("${IP_ADDRESS}", state.myIp);
-    } else {
-      return false;
     }
+    return false;
   }),
   new ScenarioOutput("verifyingEndpoint", (state) =>
     MESSAGES.verifyingEndpoint.replace("${DNS_NAME}", state.loadBalancerDns),
@@ -622,4 +620,5 @@ export const deploySteps = [
       );
     }
   }),
+  saveState,
 ];

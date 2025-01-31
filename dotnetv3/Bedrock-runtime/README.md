@@ -28,20 +28,47 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
+### AI21 Labs Jurassic-2
 
-### Single actions
+- [Converse](Models/Ai21LabsJurassic2/Converse/Converse.cs#L4)
+- [InvokeModel](Models/Ai21LabsJurassic2/InvokeModel/InvokeModel.cs#L4)
 
-Code excerpts that show you how to call individual service functions.
+### Amazon Titan Text
 
-- [AI21 Labs Jurassic-2: Text generation](Actions/InvokeModelAsync.cs#L164) (`InvokeModel`)
-- [Amazon Titan: Image generation](Actions/InvokeModelAsync.cs#L450) (`InvokeModel`)
-- [Amazon Titan: Text generation](Actions/InvokeModelAsync.cs#L277) (`InvokeModel`)
-- [Anthropic Claude 2: Real-time response stream processing](Actions/InvokeModelAsync.cs#L76) (`InvokeModelWithResponseStream`)
-- [Anthropic Claude 2: Text generation](Actions/InvokeModelAsync.cs#L18) (`InvokeModel`)
-- [Meta Llama 2: Text generation](Actions/InvokeModelAsync.cs#L221) (`InvokeModel`)
-- [Mistral AI: Text generation with Mistral 7B Instruct](Actions/InvokeModelAsync.cs#L338) (`InvokeModel`)
-- [Mistral AI: Text generation with Mixtral 8x7B Instruct](Actions/InvokeModelAsync.cs#L394) (`InvokeModel`)
-- [Stable Diffusion: Image generation](Actions/InvokeModelAsync.cs#L518) (`InvokeModel`)
+- [Converse](Models/AmazonTitanText/Converse/Converse.cs#L4)
+- [ConverseStream](Models/AmazonTitanText/ConverseStream/ConverseStream.cs#L4)
+- [InvokeModel](Models/AmazonTitanText/InvokeModel/InvokeModel.cs#L4)
+- [InvokeModelWithResponseStream](Models/AmazonTitanText/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
+
+### Anthropic Claude
+
+- [Converse](Models/AnthropicClaude/Converse/Converse.cs#L4)
+- [ConverseStream](Models/AnthropicClaude/ConverseStream/ConverseStream.cs#L4)
+- [InvokeModel](Models/AnthropicClaude/InvokeModel/InvokeModel.cs#L4)
+- [InvokeModelWithResponseStream](Models/AnthropicClaude/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
+
+### Cohere Command
+
+- [Converse](Models/CohereCommand/Converse/Converse.cs#L4)
+- [ConverseStream](Models/CohereCommand/ConverseStream/ConverseStream.cs#L4)
+- [InvokeModel: Command R and R+](Models/CohereCommand/Command_R_InvokeModel/InvokeModel.cs#L4)
+- [InvokeModel: Command and Command Light](Models/CohereCommand/Command_InvokeModel/InvokeModel.cs#L4)
+- [InvokeModelWithResponseStream: Command R and R+](Models/CohereCommand/Command_R_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
+- [InvokeModelWithResponseStream: Command and Command Light](Models/CohereCommand/Command_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
+
+### Meta Llama
+
+- [Converse](Models/MetaLlama/Converse/Converse.cs#L4)
+- [ConverseStream](Models/MetaLlama/ConverseStream/ConverseStream.cs#L4)
+- [InvokeModel: Llama 3](Models/MetaLlama/Llama3_InvokeModel/InvokeModel.cs#L4)
+- [InvokeModelWithResponseStream: Llama 3](Models/MetaLlama/Llama3_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
+
+### Mistral AI
+
+- [Converse](Models/Mistral/Converse/Converse.cs#L4)
+- [ConverseStream](Models/Mistral/ConverseStream/ConverseStream.cs#L4)
+- [InvokeModel](Models/Mistral/InvokeModel/InvokeModel.cs#L4)
+- [InvokeModelWithResponseStream](Models/Mistral/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 
 <!--custom.examples.start-->

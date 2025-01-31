@@ -21,10 +21,10 @@ suspend fun main() {
 
 // snippet-start:[cognito.kotlin.ListUserPools.main]
 suspend fun getAllPools() {
-
-    val request = ListUserPoolsRequest {
-        maxResults = 10
-    }
+    val request =
+        ListUserPoolsRequest {
+            maxResults = 10
+        }
 
     CognitoIdentityProviderClient { region = "us-east-1" }.use { cognitoClient ->
         val response = cognitoClient.listUserPools(request)

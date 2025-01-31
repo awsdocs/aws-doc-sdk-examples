@@ -1,9 +1,39 @@
-# zexi 0.4.0
+ssm_Hello:
+  title: Hello &SYS;
+  title_abbrev: Hello &SYS;
+  synopsis: get started using &SYS;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.hello.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.JavaScript.Basics.hello
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.Hello
+  services:
+    ssm: {ListDocuments}
 ssm_DescribeParameters:
-  title: Get information about &SYS; parameters using an &AWS; SDK
-  title_abbrev: Get parameters information
-  synopsis: get &SYS; parameters information.
-  category:
   languages:
     Java:
       versions:
@@ -24,11 +54,18 @@ ssm_DescribeParameters:
                 - ssm.rust.describe-parameters
   services:
     ssm: {DescribeParameters}
+ssm_GetParameter:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ssm
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.ssm_list_path.impl
+  services:
+    ssm: {GetParameter}
 ssm_PutParameter:
-  title: Add a &SYS; parameter using an &AWS; SDK
-  title_abbrev: Add a parameter
-  synopsis: add a &SYS; parameter.
-  category:
   languages:
     Java:
       versions:
@@ -50,10 +87,6 @@ ssm_PutParameter:
   services:
     ssm: {PutParameter}
 ssm_CreateOpsItem:
-  title: Create a new OpsItem using an &AWS; SDK
-  title_abbrev: Create a new OpsItem
-  synopsis: create a new OpsItem.
-  category:
   languages:
     Java:
       versions:
@@ -64,13 +97,179 @@ ssm_CreateOpsItem:
             - description:
               snippet_tags:
                 - ssm.java2.create_ops.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.JavaScript.Basics.createOpsItem
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.OpsItemWrapper.decl
+                - python.example_code.ssm.CreateOpsItem
   services:
-    ssm: {CreateOpsItem} 
+    ssm: {CreateOpsItem}
+ssm_UpdateMaintenanceWindow:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.update_window.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.JavaScript.Basics.updateMaintenanceWindow
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.MaintenanceWindowWrapper.decl
+                - python.example_code.ssm.UpdateMaintenanceWindow
+  services:
+    ssm: {UpdateMaintenanceWindow}
+ssm_CreateMaintenanceWindow:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.create_window.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.JavaScript.Basics.createMaintenanceWindow
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.MaintenanceWindowWrapper.decl
+                - python.example_code.ssm.CreateMaintenanceWindow
+  services:
+    ssm: {CreateMaintenanceWindow}
+ssm_SendCommand:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.Java2.send_command.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.JavaScript.Basics.sendCommand
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.DocumentWrapper.decl
+                - python.example_code.ssm.SendCommand
+  services:
+    ssm: {SendCommand}
+ssm_ListCommandInvocations:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.JavaScript.Basics.listCommandInvocations
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.DocumentWrapper.decl
+                - python.example_code.ssm.ListCommandInvocations
+  services:
+    ssm: {ListCommandInvocations}
+ssm_CreateDocument:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.create_doc.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.JavaScript.Basics.createDocument
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.DocumentWrapper.decl
+                - python.example_code.ssm.CreateDocument
+  services:
+    ssm: {CreateDocument}
 ssm_DescribeOpsItems:
-  title: Describe an OpsItem using an &AWS; SDK
-  title_abbrev: Describe an OpsItem
-  synopsis: describe an OpsItem.
-  category:
   languages:
     Java:
       versions:
@@ -81,13 +280,106 @@ ssm_DescribeOpsItems:
             - description:
               snippet_tags:
                 - ssm.java2.describe_ops.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.JavaScript.Basics.describeOpsItems
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.OpsItemWrapper.decl
+                - python.example_code.ssm.DescribeOpsItem
   services:
     ssm: {DescribeOpsItems}
+ssm_DeleteOpsItem:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.OpsItemWrapper.decl
+                - python.example_code.ssm.DeleteOpsItem
+  services:
+    ssm: {DeleteOpsItem}
+ssm_DeleteMaintenanceWindow:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.delete_window.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.JavaScript.Basics.deleteMaintenanceWindow
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.MaintenanceWindowWrapper.decl
+                - python.example_code.ssm.DeleteMaintenanceWindow
+  services:
+    ssm: {DeleteMaintenanceWindow}
+ssm_DeleteDocument:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.Java2.delete_doc.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.JavaScript.Basics.deleteDocument
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.DocumentWrapper.decl
+                - python.example_code.ssm.DeleteDocument
+  services:
+    ssm: {DeleteDocument}
 ssm_UpdateOpsItem:
-  title: Updates an OpsItem using an &AWS; SDK
-  title_abbrev: Updates an OpsItem
-  synopsis: updates an OpsItem.
-  category:
   languages:
     Java:
       versions:
@@ -98,5 +390,74 @@ ssm_UpdateOpsItem:
             - description:
               snippet_tags:
                 - ssm.Java2.resolve_ops.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.JavaScript.Basics.updateOpsItem
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.OpsItemWrapper.decl
+                - python.example_code.ssm.UpdateOpsItem
   services:
-    ssm: {UpdateOpsItem}                 
+    ssm: {UpdateOpsItem}
+ssm_Scenario:
+  synopsis: work with &SYS; maintenance windows, documents, and OpsItems.
+  category: Basics
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.scenario.main
+            - description: A wrapper class for &SYS; SDK methods.
+              snippet_tags:
+                - ssm.java2.actions.main    
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - ssm.JavaScript.Basics.scenario
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.Scenario_GetStartedSSM
+            - description: Define a class that wraps document and command actions.
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.DocumentWrapper.class
+            - description: Define a class that wraps ops item actions.
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.OpsItemWrapper.class
+            - description: Define a class that wraps maintenance window actions.
+              genai: some
+              snippet_tags:
+                - python.example_code.ssm.MaintenanceWindowWrapper.class
+  services:
+    ssm: {CreateOpsItem, CreateMaintenanceWindow, CreateDocument, SendCommand, ListCommandInvocations, DeleteMaintenanceWindow,
+          UpdateOpsItem}

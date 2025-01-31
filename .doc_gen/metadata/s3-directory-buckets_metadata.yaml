@@ -1,0 +1,465 @@
+s3-directory-buckets_Hello:
+  title: Hello &S3; directory buckets
+  title_abbrev: Hello &S3; directory buckets
+  synopsis: get started using &S3; directory buckets.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_hello.main
+  services:
+    s3-directory-buckets: {CreateBucket, ListDirectoryBuckets}
+
+s3-directory-buckets_CreateBucket:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Create an S3 directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_create_bucket.import
+                - s3directorybuckets.java2.directory_bucket_create_bucket.main
+  services:
+    s3-directory-buckets: {CreateBucket}
+
+s3-directory-buckets_AbortMultipartUpload:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Abort a multipart upload in a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.abortmultipartupload.import
+                - s3directorybuckets.java2.abortmultipartupload.main
+  services:
+    s3-directory-buckets: {AbortMultipartUpload}
+
+s3-directory-buckets_CompleteMultipartUpload:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Complete a multipart upload in a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.completedirectorybucketmultipartupload.import
+                - s3directorybuckets.java2.completedirectorybucketmultipartupload.main
+  services:
+    s3-directory-buckets: {CompleteMultipartUpload}
+
+s3-directory-buckets_CopyObject:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Copy an object from a directory bucket to a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.copydirectorybucketobject.import
+                - s3directorybuckets.java2.copydirectorybucketobject.main
+  services:
+    s3-directory-buckets: {CopyObject}
+
+s3-directory-buckets_CreateMultipartUpload:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Create a multipart upload in a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.create_directory_bucket_multipart_upload.import
+                - s3directorybuckets.java2.directory_bucket_create_multipartupload.main
+  services:
+    s3-directory-buckets: {CreateMultipartUpload}
+
+s3-directory-buckets_DeleteBucket:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Delete an S3 directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.delete_directory_bucket.import
+                - s3directorybuckets.java2.directory_bucket_delete.main
+  services:
+    s3-directory-buckets: {DeleteBucket}
+
+s3-directory-buckets_DeleteBucketEncryption:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Delete the encryption configuration for a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.delete_directory_bucket_encryption.import
+                - s3directorybuckets.java2.directory_bucket_delete_bucket_encryption.main
+  services:
+    s3-directory-buckets: {DeleteBucketEncryption}
+
+s3-directory-buckets_DeleteObject:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Delete an object in a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_delete_object.import
+                - s3directorybuckets.java2.directory_bucket_delete_object.main
+  services:
+    s3-directory-buckets: {DeleteObject}
+
+s3-directory-buckets_DeleteObjects:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Delete multiple objects in a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_delete_objects.import
+                - s3directorybuckets.java2.directory_bucket_delete_objects.main
+  services:
+    s3-directory-buckets: {DeleteObjects}
+
+s3-directory-buckets_DeleteBucketPolicy:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Delete a bucket policy for a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_delete_policy.import
+                - s3directorybuckets.java2.directory_bucket_delete_policy.main
+  services:
+    s3-directory-buckets: {DeleteBucketPolicy}
+
+s3-directory-buckets_GetBucketEncryption:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Get the encryption configuration of a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_get_encryption.import
+                - s3directorybuckets.java2.directory_bucket_get_encryption.main
+  services:
+    s3-directory-buckets: {GetBucketEncryption}
+
+s3-directory-buckets_GetObject:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Get an object from a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_get_object.import
+                - s3directorybuckets.java2.directory_bucket_get_object.main
+  services:
+    s3-directory-buckets: {GetObject}
+
+s3-directory-buckets_GetObjectAttributes:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Get an object attributes from a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_get_object_attributes.import
+                - s3directorybuckets.java2.directory_bucket_get_object_attributes.main
+  services:
+    s3-directory-buckets: {GetObjectAttributes}
+
+s3-directory-buckets_GetBucketPolicy:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Get the policy of a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.get_directory_bucket_policy.import
+                - s3directorybuckets.java2.directory_bucket_get_policy.main
+  services:
+    s3-directory-buckets: {GetBucketPolicy}
+
+s3-directory-buckets_HeadBucket:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Checks if the specified S3 directory bucket exists and is accessible.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_head_bucket.import
+                - s3directorybuckets.java2.directory_bucket_head_bucket.main
+  services:
+    s3-directory-buckets: {HeadBucket}
+
+s3-directory-buckets_HeadObject:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Get metadata of an object in a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_head_object.import
+                - s3directorybuckets.java2.directory_bucket_head_object.main
+  services:
+    s3-directory-buckets: {HeadObject}
+
+s3-directory-buckets_ListMultipartUploads:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: List multipart uploads in a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_list_multipart_upload.import
+                - s3directorybuckets.java2.directory_bucket_list_multipart_upload.main
+  services:
+    s3-directory-buckets: {ListMultipartUploads}
+
+s3-directory-buckets_ListObjectsV2:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: List objects in a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_list_objects_v2.import
+                - s3directorybuckets.java2.directory_bucket_list_objects_v2.main
+  services:
+    s3-directory-buckets: {ListObjectsV2}
+
+s3-directory-buckets_ListParts:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: List parts of a multipart upload in a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_list_multipart_upload_parts.import
+                - s3directorybuckets.java2.directory_bucket_list_multipart_upload_parts.main
+  services:
+    s3-directory-buckets: {ListParts}
+
+s3-directory-buckets_ListDirectoryBuckets:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: List all directory buckets.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_list_buckets.import
+                - s3directorybuckets.java2.directory_bucket_list_buckets.main
+  services:
+    s3-directory-buckets: {ListDirectoryBuckets}
+
+s3-directory-buckets_PutBucketEncryption:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Set bucket encryption to a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_put_encryption.import
+                - s3directorybuckets.java2.directory_bucket_put_encryption.main
+  services:
+    s3-directory-buckets: {PutBucketEncryption}
+
+s3-directory-buckets_PutObject:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Put an object into a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_put_object.import
+                - s3directorybuckets.java2.directory_bucket_put_object.main
+  services:
+    s3-directory-buckets: {PutObject}
+
+s3-directory-buckets_PutBucketPolicy:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Apply a bucket policy to a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.put_directory_bucket_policy.import
+                - s3directorybuckets.java2.directory_bucket_put_bucket_policy.main
+  services:
+    s3-directory-buckets: {PutBucketPolicy}
+
+s3-directory-buckets_UploadPartCopy:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Create copy parts based on source object size and copy over individual parts to a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_upload_part_copy.import
+                - s3directorybuckets.java2.directory_bucket_upload_part_copy.main
+  services:
+    s3-directory-buckets: {UploadPartCopy}
+
+s3-directory-buckets_UploadPart:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Upload part of a multipart upload for a directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_upload_part.import
+                - s3directorybuckets.java2.directory_bucket_upload_part.main
+  services:
+    s3-directory-buckets: {UploadPart}
+
+s3-directory-buckets_CreateSession:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3-directory-buckets
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3_directory.S3ExpressWrapper.decl
+                - python.example_code.s3_directory.CreateSession
+  services:
+    s3-directory-buckets: {CreateSession}
+
+s3-directory-buckets_Scenario_ExpressBasics:
+  synopsis_list:
+    - Set up a VPC and VPC Endpoint.
+    - Set up the Policies, Roles, and User to work with S3 directory buckets and the S3 Express One Zone storage class.
+    - Create two S3 Clients.
+    - Create two buckets.
+    - Create an object and copy it over.
+    - Demonstrate performance difference.
+    - Populate the buckets to show the lexicographical difference.
+    - Prompt the user to see if they want to clean up the resources.
+  category: Basics
+  languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/s3/express
+          sdkguide:
+          excerpts:
+            - description: Run a scenario demonstrating the basics of &S3; directory buckets and S3 Express One Zone.
+              snippet_tags:
+                - php.example_code.s3.ExpressBasics
+                - php.example_code.s3.service.S3Service
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3-directory-buckets/
+          sdkguide:
+          excerpts:
+            - description: >
+               Run a scenario demonstrating the basics of &S3; directory buckets
+               and S3 Express One Zone.
+              snippet_tags:
+                - python.example_code.s3.s3_express_basics
+            - description: A wrapper class for &S3; Express SDK functions.
+              snippet_tags:
+                - python.example_code.s3_directory.S3ExpressWrapper.class
+  services:
+    s3-directory-buckets: {CreateBucket, CopyObject, GetObject, PutObject, ListObjects, DeleteObject, DeleteBucket}
+
+s3-directory-buckets_GeneratePresignedGetURLForDirectoryBucket:
+  title: Create a presigned URL for &S3; directory buckets to get an object using an &AWS; SDK
+  title_abbrev: Create a presigned URL to get an object
+  synopsis: create a presigned URL for S3 directory buckets and get an object.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Generate a presigned GET URL for accessing an object in an S3 directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_generate_presigned_url.import
+                - s3directorybuckets.java2.directory_bucket_generate_presigned_url.main
+  services:
+    s3-directory-buckets: {GetObject}
