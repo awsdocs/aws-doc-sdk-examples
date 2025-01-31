@@ -21,15 +21,14 @@ You can use the AWS Cloud Development Kit (AWS CDK) or the AWS Command Line Inte
 
 ### Deploy with the AWS CDK
 
-To deploy with the AWS CDK, you must install [Node.js](https://nodejs.org) and the 
+To deploy with the AWS CDK, you must install [Java JDK](https://www.oracle.com/ca-en/java/technologies/downloads/) and the 
 [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
 
-This example was built and tested with AWS CDK 2.33.0.
+This example was built and tested with AWS CDK 2.135.0.
 
 Deploy AWS resources by running the following at a command prompt in this README's folder:
 
 ```
-npm install
 cdk deploy
 ```
 
@@ -38,42 +37,12 @@ the following:
 
 ```
 Outputs:
-doc-example-work-item-tracker-stack.TableName = doc-example-work-item-tracker
+EntityResolutionCdkStack.EntityResolutionArn = arn:aws:iam::XXXXX:role/EntityResolutionCdkStack-EntityResolutionRoleB51A51-TSzkkBfrkbfm
+EntityResolutionCdkStack.GlueDataBucketName = glue-XXXXX3196d
+EntityResolutionCdkStack.GlueTableArn = arn:aws:glue:us-east-1:XXXXX:table/entity_resolution_db/entity_resolution
 ```
 
-### Deploy with the AWS CLI 
-
-To deploy with the AWS CLI, you must first install the 
-[AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
-
-1. Deploy AWS resources by running the following at a command prompt in this README's folder: 
-    
-    ```
-    aws cloudformation create-stack --template-body file://setup.yaml --stack-name YOUR_STACK_NAME
-    ```
-    
-    *Note:* The stack name must be unique within an AWS Region and AWS account. You can 
-    specify up to 128 characters, and numbers and hyphens are allowed.
-
-2. The stack takes a few minutes to deploy. You can check status by running the following:
-
-    ```
-    aws cloudformation describe-stacks --stack-name YOUR_STACK_NAME
-    ```
-    
-    When the stack is ready, it shows `StackStatus` of `CREATE_COMPLETE`.
-
-3. You can get the outputs from the stack by running the following:
-
-    ```
-    aws cloudformation describe-stacks --stack-name STACK_NAME --query Stacks[0].Outputs --output text
-    ```
-    
-    This results in output like the following: 
-    
-    ```
-    TableName = doc-example-work-item-tracker
-    ```
+Note - Copy these AWS resources into your AWS Entity Resolution scenario. These values are required for the program to successfully run. 
 
 ## Destroy resources
 
@@ -83,14 +52,6 @@ You can use the AWS CDK to destroy the resources by running the following:
 
 ```
 cdk destroy
-```
-
-### Destroy with the AWS CLI
-
-You can use the AWS CLI to destroy the resources by running the following:
-
-```
-aws cloudformation delete-stack --stack-name YOUR_STACK_NAME
 ```
 
 ## Additional resources
