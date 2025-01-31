@@ -83,59 +83,62 @@ class BedrockAgentRuntimeWrapper:
         Returns:
             Dict containing flow_complete status, input_required info, and execution_id
         """
+        try:
+            response = None
+            request_params = None
 
-        response = None
-        request_params = None
+            if execution_id is None:
+                # Don't pass execution ID for first run.
+                request_params = {
+                    "flowIdentifier": flow_id,
+                    "flowAliasIdentifier": flow_alias_id,
+                    "inputs": input_data,
+                    "enableTrace": True
+                }
+            else:
+                request_params = {
+                    "flowIdentifier": flow_id,
+                    "flowAliasIdentifier": flow_alias_id,
+                    "executionId": execution_id,
+                    "inputs": input_data,
+                    "enableTrace": True
+                }
 
-        if execution_id is None:
-            # Don't pass execution ID for first run.
-            request_params = {
-                "flowIdentifier": flow_id,
-                "flowAliasIdentifier": flow_alias_id,
-                "inputs": input_data,
-                "enableTrace": True
+            response = self.agents_runtime_client.invoke_flow(**request_params)
+
+            if "executionId" not in request_params:
+                execution_id = response['executionId']
+
+            input_required = None
+            flow_status = ""
+
+            # Process the streaming response
+            for event in response['responseStream']:
+
+                # Check if flow is complete.
+                if 'flowCompletionEvent' in event:
+                    flow_status = event['flowCompletionEvent']['completionReason']
+
+                # Check if more input us needed from user.
+                elif 'flowMultiTurnInputRequestEvent' in event:
+                    input_required = event
+
+                # Print the model output.
+                elif 'flowOutputEvent' in event:
+                    print(event['flowOutputEvent']['content']['document'])
+
+                # Log trace events.
+                elif 'flowTraceEvent' in event:
+                    logger.info("Flow trace:  %s", event['flowTraceEvent'])
+
+            return {
+                "flow_status": flow_status,
+                "input_required": input_required,
+                "execution_id": execution_id
             }
-        else:
-            request_params = {
-                "flowIdentifier": flow_id,
-                "flowAliasIdentifier": flow_alias_id,
-                "executionId": execution_id,
-                "inputs": input_data,
-                "enableTrace": True
-            }
-
-        response = self.agents_runtime_client.invoke_flow(**request_params)
-
-        if "executionId" not in request_params:
-            execution_id = response['executionId']
-
-        input_required = None
-        flow_status = ""
-
-        # Process the streaming response
-        for event in response['responseStream']:
-
-            # Check if flow is complete.
-            if 'flowCompletionEvent' in event:
-                flow_status = event['flowCompletionEvent']['completionReason']
-
-            # Check if more input us needed from user.
-            elif 'flowMultiTurnInputRequestEvent' in event:
-                input_required = event
-
-            # Print the model output.
-            elif 'flowOutputEvent' in event:
-                print(event['flowOutputEvent']['content']['document'])
-
-            # Log trace events.
-            elif 'flowTraceEvent' in event:
-                logger.info("Flow trace:  %s", event['flowTraceEvent'])
-
-        return {
-            "flow_status": flow_status,
-            "input_required": input_required,
-            "execution_id": execution_id
-        }
+        except ClientError as e:
+            logger.error("Couldn't invoke flow %s.", {e})
+            raise
 
     # snippet-end:[python.example_code.bedrock-agent-runtime.InvokeFlow]
 
