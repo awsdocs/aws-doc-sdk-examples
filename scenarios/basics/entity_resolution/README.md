@@ -3,26 +3,24 @@ This AWS Entity Resolution basic scenario demonstrates how to interact with the 
 
 ## Key Operations
 
-1. **Create an AWS SiteWise Asset Model**:
-   - This step creates an AWS SiteWise Asset Model by invoking the `createAssetModel` method.
+1. **Create an AWS Entity Resolution Schema Mapping**:
+   - This step creates an AWS Entity Resolution Schema Mapping by invoking the `createSchemaMapping` method.
 
-2. **Create an AWS IoT SiteWise Asset**:
-   - This operation creates an AWS SiteWise asset.
+2. **Create an AWS Entity Resolution Workflow**:
+   - This step creates an AWS Entity Resolution matching Workflow by invoking the `createMatchingWorkflow` method.
 
-3. **Retrieve the property ID values**:
-   - To send data to an asset, we need to get the property ID values for the model properties. This scenario uses temperature and humidity properties.
+3. **Start Matching Workflow**:
+   - This step starts the AWS Entity Resolution matching Workflow by invoking the `startMatchingJob` method.
 
-4. **Send data to an AWS IoT SiteWise Asset**:
-   - This operation sends data to an IoT SiteWise Asset.
+4. **Get Workflow Job Details**:
+   - This step gets workflow job details by `getMatchingJob` method.
 
-5. **Retrieve the value of the IoT SiteWise Asset property**:
-   - This operation gets data from the asset.
 
 **Note** See the Eng spec for a full listing of operations. 
 
 ## Resources
 
-This Basics scenario requires an IAM role that has permissions to work with the AWS IoT SiteWise service. The scenario creates this resource using a CloudFormation template.
+This Basics scenario requires an IAM role that has permissions to work with the AWS Entity Resolution service, an AWS Glue database, and two S3 buckets. A CDK script is provided to create these resources.
 
 ## Implementations
 
@@ -30,10 +28,10 @@ This scenario example will be implemented in the following languages:
 
 - Java
 - Python
-- JavaScript
+- Kotlin
 
 ## Additional Reading
 
-- [AWS IoT SiteWise Documentation](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/what-is-sitewise.html)
+- [AWS Entity Resolution Documentation](https://docs.aws.amazon.com/entityresolution/latest/userguide/what-is-service.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
