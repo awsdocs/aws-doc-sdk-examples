@@ -32,7 +32,7 @@ public class EntityResScenario {
         String workflowName = "MyMatchingWorkflow451";
         String schemaName = "schema451";
 
-        // Use the AWS CDK to create this AWS resources. See the Readme file.
+        // Use the AWS CDK to create this AWS resources. See the Readme file located at .
         String roleARN = "arn:aws:iam::814548047983:role/EntityResolutionCdkStack-EntityResolutionRoleB51A51-TSzkkBfrkbfm";
         String dataS3bucket = "glue-5ffb912c3d534e8493bac675c2a3196d";
         String outputBucket = "s3://entity-resolution-output-entityresolutioncdkstack";
