@@ -126,12 +126,13 @@ struct ExampleCommand: ParsableCommand {
     func startMultipartUpload(client: S3Client, bucket: String, key: String) async throws -> String {
         let multiPartUploadOutput: CreateMultipartUploadOutput
 
-        // First, create the multi-part upload.
+        // First, create the multi-part upload, using SHA256 checksums.
         
         do {
             multiPartUploadOutput = try await client.createMultipartUpload(
                 input: CreateMultipartUploadInput(
                     bucket: bucket,
+                    checksumAlgorithm: .sha256,
                     key: key
                 )
             )
@@ -170,18 +171,28 @@ struct ExampleCommand: ParsableCommand {
         let uploadPartInput = UploadPartInput(
             body: ByteStream.data(data),
             bucket: bucket,
+            checksumAlgorithm: .sha256,
             key: key,
             partNumber: partNumber,
             uploadId: uploadID
         )
         
+        // Upload the part with a SHA256 checksum.
         do {
-        let uploadPartOutput = try await client.uploadPart(input: uploadPartInput)
+            let uploadPartOutput = try await client.uploadPart(input: uploadPartInput)
+
             guard let eTag = uploadPartOutput.eTag else {
                 throw TransferError.uploadError("Missing eTag")
             } 
+            guard let checksum = uploadPartOutput.checksumSHA256 else {
+                throw TransferError.checksumError
+            }
 
-            return S3ClientTypes.CompletedPart(eTag: eTag, partNumber: partNumber)
+            return S3ClientTypes.CompletedPart(
+                checksumSHA256: checksum,
+                eTag: eTag,
+                partNumber: partNumber
+            )
         } catch {
             throw TransferError.uploadError(error.localizedDescription)
         }
