@@ -29,8 +29,8 @@ public class EntityResScenario {
                 outputBucket: The S3 bucket URL where the results of the entity resolution workflow are stored (this resource is created using the CDK script. See the Readme)..
                 inputGlueTableArn: The ARN of the AWS Glue table which provides the input data for the entity resolution process (this resource is created using the CDK script. See the Readme)..
             """;
-        String workflowName = "MyMatchingWorkflow450";
-        String schemaName = "schema450";
+        String workflowName = "MyMatchingWorkflow451";
+        String schemaName = "schema451";
 
         // Use the AWS CDK to create this AWS resources. See the Readme file.
         String roleARN = "arn:aws:iam::814548047983:role/EntityResolutionCdkStack-EntityResolutionRoleB51A51-TSzkkBfrkbfm";
@@ -187,11 +187,13 @@ public class EntityResScenario {
         } catch (CompletionException ce) {
             System.err.println("Error retrieving schema mapping: " + ce.getCause().getMessage());
         }
+        waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
         System.out.println("6. List Schema Mappings.");
         actions.ListSchemaMappings();
+        waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
