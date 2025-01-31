@@ -293,6 +293,18 @@ s3_CopyObject:
             - description: Copy the object.
               snippet_tags:
                 - s3.JavaScript.buckets.copyObjectV3
+            - description: Copy the object on condition its ETag does not match the one provided.
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/copy-object-conditional-request-if-match.js
+            - description: Copy the object on condition its ETag does not match the one provided.
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/copy-object-conditional-request-if-none-match.js
+            - description: Copy the object using on condition it has been created or modified in a given timeframe.
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/copy-object-conditional-request-if-modified-since.js
+            - description: Copy the object using on condition it has not been created or modified in a given timeframe.
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/copy-object-conditional-request-if-unmodified-since.js
     PHP:
       versions:
         - sdk_version: 3
@@ -951,6 +963,18 @@ s3_GetObject:
             - description: Download the object.
               snippet_tags:
                 - s3.JavaScript.buckets.getobjectV3
+            - description: Download the object on condition its ETag does not match the one provided.
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/get-object-conditional-request-if-match.js
+            - description: Download the object on condition its ETag does not match the one provided.
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/get-object-conditional-request-if-none-match.js
+            - description: Download the object using on condition it has been created or modified in a given timeframe.
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/get-object-conditional-request-if-modified-since.js
+            - description: Download the object using on condition it has not been created or modified in a given timeframe.
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/get-object-conditional-request-if-unmodified-since.js
     Ruby:
       versions:
         - sdk_version: 3
@@ -1602,6 +1626,9 @@ s3_PutObject:
             - description: Upload the object.
               snippet_tags:
                 - s3.JavaScript.buckets.uploadV3
+            - description: Upload the object on condition its ETag matches the one provided.
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/get-object-conditional-request-if-match.js
     Ruby:
       versions:
         - sdk_version: 3
@@ -3617,6 +3644,29 @@ s3_Scenario_ConditionalRequests:
             - description: A wrapper class for S3 functions.
               snippet_tags:
                 - S3ConditionalRequests.dotnetv3.S3ActionsWrapper
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3/scenarios/conditional-requests
+          sdkguide:
+          excerpts:
+            - description: |
+                Entrypoint for the workflow (<noloc>index.js</noloc>). This orchestrates all of the steps.
+                Visit GitHub to see the implementation details for Scenario, ScenarioInput, ScenarioOutput, and ScenarioAction.
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/conditional-requests/index.js
+            - description: Output welcome messages to the console (<noloc>welcome.steps.js</noloc>).
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/conditional-requests/welcome.steps.js
+            - description: Deploy buckets and objects (<noloc>setup.steps.js</noloc>).
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/conditional-requests/setup.steps.js
+            - description: Get, copy, and put objects using S3 conditional requests (<noloc>repl.steps.js</noloc>).
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/conditional-requests/repl.steps.js
+            - description: Destroy all created resources (<noloc>clean.steps.js</noloc>).
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/conditional-requests/clean.steps.js
   services:
     s3: {GetObject, PutObject, CopyObject}
 s3_Scenario_DownloadS3Directory:

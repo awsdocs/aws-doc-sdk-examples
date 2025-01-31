@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "vitest run **/*.unit.test.js",
+    "test": "vitest run unit",
     "build": "rollup -c"
   },
   "author": "Corey Pyle <corepyle@amazon.com>",

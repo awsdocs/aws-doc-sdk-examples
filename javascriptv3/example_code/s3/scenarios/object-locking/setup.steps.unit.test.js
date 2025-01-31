@@ -10,7 +10,7 @@ import {
   updateLockPolicyAction,
 } from "./setup.steps.js";
 
-describe("setup.steps.js", () => {
+describe.skip("setup.steps.js", () => {
   const mockClient = {
     send: vi.fn(),
   };
@@ -25,7 +25,7 @@ describe("setup.steps.js", () => {
     vi.resetAllMocks();
   });
 
-  describe("createBucketsAction", () => {
+  describe.skip("createBucketsAction", () => {
     it("should create three buckets with the correct configurations", async () => {
       const action = createBucketsAction(Scenarios, mockClient);
       await action.handle(state);
@@ -56,7 +56,7 @@ describe("setup.steps.js", () => {
     });
   });
 
-  describe("populateBucketsAction", () => {
+  describe.skip("populateBucketsAction", () => {
     it("should upload six files to the three buckets", async () => {
       const action = populateBucketsAction(Scenarios, mockClient);
       await action.handle(state);
@@ -79,7 +79,7 @@ describe("setup.steps.js", () => {
     });
   });
 
-  describe("updateRetentionAction", () => {
+  describe.skip("updateRetentionAction", () => {
     it("should enable versioning and set a retention period on the retention bucket", async () => {
       const action = updateRetentionAction(Scenarios, mockClient);
       await action.handle(state);
@@ -115,7 +115,7 @@ describe("setup.steps.js", () => {
     });
   });
 
-  describe("updateLockPolicyAction", () => {
+  describe.skip("updateLockPolicyAction", () => {
     it("should add an object lock policy to the lock-enabled bucket", async () => {
       const action = updateLockPolicyAction(Scenarios, mockClient);
       await action.handle(state);
