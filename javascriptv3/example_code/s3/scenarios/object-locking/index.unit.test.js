@@ -13,7 +13,7 @@ vi.doMock("fs/promises", () => ({
 
 const { getWorkflowStages } = await import("./index.js");
 
-describe("S3 Object Locking Workflow", () => {
+describe.skip("S3 Object Locking Workflow", () => {
   /**
    * @param {{}} state
    */

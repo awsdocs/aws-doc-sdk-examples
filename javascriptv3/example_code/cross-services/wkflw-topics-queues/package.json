@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest run **/*.unit.test.js"
+    "test": "vitest run unit"
   },
   "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache-2.0",
