@@ -2,7 +2,7 @@
 
 ## Overview
 
-Creates the following AWS resources for Amazon DynamoDB item tracker sample applications: 
+Creates the following AWS resources for the AWS Entity Resolution scenario: 
  
 * An AWS IAM role that has permissions required to run this Scenario.
 * An AWS Glue table that provides the input data for the entity resolution matching workflow.
@@ -21,7 +21,7 @@ You can use the AWS Cloud Development Kit (AWS CDK) or the AWS Command Line Inte
 
 ### Deploy with the AWS CDK
 
-To deploy with the AWS CDK, you must install [Java JDK](https://www.oracle.com/ca-en/java/technologies/downloads/) and the 
+To deploy with the AWS CDK, you must install [Java JDK 17](https://www.oracle.com/ca-en/java/technologies/downloads/) and the 
 [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
 
 This example was built and tested with AWS CDK 2.135.0.
