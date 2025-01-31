@@ -21,12 +21,14 @@ import software.amazon.awssdk.services.entityresolution.model.GetMatchingJobRequ
 import software.amazon.awssdk.services.entityresolution.model.GetSchemaMappingRequest;
 import software.amazon.awssdk.services.entityresolution.model.GetSchemaMappingResponse;
 import software.amazon.awssdk.services.entityresolution.model.InputSource;
+import software.amazon.awssdk.services.entityresolution.model.ListSchemaMappingsRequest;
 import software.amazon.awssdk.services.entityresolution.model.OutputAttribute;
 import software.amazon.awssdk.services.entityresolution.model.OutputSource;
 import software.amazon.awssdk.services.entityresolution.model.ResolutionTechniques;
 import software.amazon.awssdk.services.entityresolution.model.ResolutionType;
 import software.amazon.awssdk.services.entityresolution.model.SchemaInputAttribute;
 import software.amazon.awssdk.services.entityresolution.model.StartMatchingJobRequest;
+import software.amazon.awssdk.services.entityresolution.paginators.ListSchemaMappingsPublisher;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
@@ -110,6 +112,30 @@ public class EntityResActions {
         }
         return s3AsyncClient;
     }
+
+    // snippet-start:[entityres.java2_list_mappings.main]
+    /**
+     * Lists the schema mappings associated with the current AWS account.
+     * This method uses an asynchronous paginator to retrieve the schema mappings,
+     * and prints the name of each schema mapping to the console.
+     */
+    public void ListSchemaMappings() {
+        ListSchemaMappingsRequest mappingsRequest = ListSchemaMappingsRequest.builder()
+            .build();
+
+        ListSchemaMappingsPublisher paginator = getResolutionAsyncClient().listSchemaMappingsPaginator(mappingsRequest);
+
+       // Iterate through the pages of results
+        CompletableFuture<Void> future = paginator.subscribe(response -> {
+            response.schemaList().forEach(schemaMapping ->
+                System.out.println("Schema Mapping Name: " +schemaMapping.schemaName())
+            );
+        });
+
+        // Wait for the asynchronous operation to complete
+        future.join();
+    }
+    // snippet-end:[entityres.java2_list_mappings.main]
 
     // snippet-start:[entityres.java2_delete_matching_workflow.main]
     /**
