@@ -3,14 +3,12 @@
 
 package com.example.bedrockruntime
 
-// snippet-start:[bedrock.kotlin.invoke_model.import]
+// snippet-start:[bedrock-runtime.kotlin.InvokeModel_AmazonTitanText]
 import aws.sdk.kotlin.services.bedrockruntime.BedrockRuntimeClient
 import aws.sdk.kotlin.services.bedrockruntime.model.InvokeModelRequest
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-// snippet-end:[bedrock.kotlin.invoke_model.import]
 
-// snippet-start:[bedrock.kotlin.invoke_model.main]
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
  *
@@ -66,4 +64,4 @@ private data class BedrockResponse(val results: List<Result>)
 
 @Serializable
 private data class Result(val outputText: String)
-// snippet-end:[bedrock.kotlin.invoke_model.main]
+// snippet-end:[bedrock-runtime.kotlin.InvokeModel_AmazonTitanText]
