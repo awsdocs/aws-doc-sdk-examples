@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -42,17 +44,6 @@ class AppSyncTest {
             dsName = values.dsName.toString()
             dsRole = values.dsRole.toString()
             tableName = values.tableName.toString()
-
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        apiId = prop.getProperty("apiId")
-        dsName = prop.getProperty("dsName")
-        dsRole = prop.getProperty("dsRole")
-        tableName = prop.getProperty("tableName")
-         */
         }
 
     @Test
