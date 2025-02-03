@@ -2,20 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import java.util.Random
-
 import aws.sdk.kotlin.services.apigateway.ApiGatewayClient
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
-
 import com.google.gson.Gson
-
 import com.kotlin.gateway.createAPI
 import com.kotlin.gateway.deleteAPI
 import com.kotlin.gateway.getAllDeployments
 import com.kotlin.gateway.getAllStages
-
 import kotlinx.coroutines.runBlocking
-
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
@@ -24,7 +19,6 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
