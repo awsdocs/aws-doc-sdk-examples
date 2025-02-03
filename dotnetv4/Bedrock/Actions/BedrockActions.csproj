@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="AWSSDK.Bedrock" Version="4.0.0-preview.4" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
   </ItemGroup>
 
 </Project>
