@@ -6,7 +6,6 @@
 
 // snippet-start:[swift.s3.multipart-upload.imports]
 import ArgumentParser
-import AsyncHTTPClient
 import AWSClientRuntime
 import AWSS3
 import Foundation
@@ -38,6 +37,14 @@ struct ExampleCommand: ParsableCommand {
 
     // -MARK: - File uploading
 
+    /// Upload a file to Amazon S3.
+    /// 
+    /// - Parameters:
+    ///   - file: The path of the local file to upload to Amazon S3.
+    ///   - bucket: The name of the bucket to upload the file into.
+    ///   - key: The key (name) to give the object on Amazon S3.
+    ///
+    /// - Throws: Errors from `TransferError`
     func uploadFile(file: String, bucket: String, key: String?) async throws {
         let fileURL = URL(fileURLWithPath: file)
         let fileName: String
@@ -126,13 +133,12 @@ struct ExampleCommand: ParsableCommand {
     func startMultipartUpload(client: S3Client, bucket: String, key: String) async throws -> String {
         let multiPartUploadOutput: CreateMultipartUploadOutput
 
-        // First, create the multi-part upload, using SHA256 checksums.
+        // First, create the multi-part upload.
         
         do {
             multiPartUploadOutput = try await client.createMultipartUpload(
                 input: CreateMultipartUploadInput(
                     bucket: bucket,
-                    checksumAlgorithm: .sha256,
                     key: key
                 )
             )
@@ -171,25 +177,20 @@ struct ExampleCommand: ParsableCommand {
         let uploadPartInput = UploadPartInput(
             body: ByteStream.data(data),
             bucket: bucket,
-            checksumAlgorithm: .sha256,
             key: key,
             partNumber: partNumber,
             uploadId: uploadID
         )
         
-        // Upload the part with a SHA256 checksum.
+        // Upload the part.
         do {
             let uploadPartOutput = try await client.uploadPart(input: uploadPartInput)
 
             guard let eTag = uploadPartOutput.eTag else {
                 throw TransferError.uploadError("Missing eTag")
             } 
-            guard let checksum = uploadPartOutput.checksumSHA256 else {
-                throw TransferError.checksumError
-            }
 
             return S3ClientTypes.CompletedPart(
-                checksumSHA256: checksum,
                 eTag: eTag,
                 partNumber: partNumber
             )
