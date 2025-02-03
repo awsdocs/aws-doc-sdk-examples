@@ -20,7 +20,7 @@ This AWS Entity Resolution basic scenario demonstrates how to interact with the 
 
 ## Resources
 
-This Basics scenario requires an IAM role that has permissions to work with the AWS Entity Resolution service, an AWS Glue database, and two S3 buckets. A CDK script is provided to create these resources.
+This Basics scenario requires an IAM role that has permissions to work with the AWS Entity Resolution service, an AWS Glue database, and two S3 buckets. A CDK script is provided to create these resources. See the Readme file at resources/cdk/entityresolution_resources.
 
 ## Implementations
 
