@@ -19,13 +19,11 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
 import java.util.Random
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class APIGatewayTest {
-    private val logger: Logger = LoggerFactory.getLogger(APIGatewayTest::class.java)
+//    private val logger: Logger = LoggerFactory.getLogger(APIGatewayTest::class.java)
     lateinit var apiGatewayClient: ApiGatewayClient
     private var restApiId = ""
     private var httpMethod = ""
@@ -51,28 +49,28 @@ class APIGatewayTest {
     @Order(1)
     fun createRestApiTest() = runBlocking {
         newApiId = createAPI(restApiId).toString()
-        logger.info("Test 1 passed")
+        println("Test 1 passed")
     }
 
     @Test
     @Order(2)
     fun getDeploymentsTest() = runBlocking {
         getAllDeployments(newApiId)
-        logger.info("Test 2 passed")
+        println("Test 2 passed")
     }
 
     @Test
     @Order(3)
     fun getAllStagesTest() = runBlocking {
         getAllStages(newApiId)
-        logger.info("Test 3 passed")
+        println("Test 3 passed")
     }
 
     @Test
     @Order(4)
     fun deleteRestApi() = runBlocking {
         deleteAPI(newApiId)
-        logger.info("Test 4 passed")
+        println("Test 4 passed")
     }
 
     private suspend fun getSecretValues(): String {
