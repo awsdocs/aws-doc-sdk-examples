@@ -36,6 +36,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
     implementation("com.google.code.gson:gson:2.10")
+    implementation("org.slf4j:slf4j-api:2.0.15")
+    implementation("ch.qos.logback:logback-classic:1.4.14")
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
