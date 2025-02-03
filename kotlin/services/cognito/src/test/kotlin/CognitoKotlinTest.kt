@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -25,11 +24,14 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class CognitoKotlinTest {
+    private val logger: Logger = LoggerFactory.getLogger(CognitoKotlinTest::class.java)
     private var userPoolName = ""
     private var identityId = ""
     private var userPoolId = "" // set in test 2
@@ -77,34 +79,6 @@ class CognitoKotlinTest {
             userNameMVP = values.userNameMVP.toString()
             passwordMVP = values.passwordMVP.toString()
             emailMVP = values.emailMVP.toString()
-
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-        /*
-        // load the properties file.
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        userPoolName = prop.getProperty("userPoolName")
-        identityId = prop.getProperty("identityId")
-        username = prop.getProperty("username")
-        email = prop.getProperty("email")
-        clientName = prop.getProperty("clientName")
-        identityPoolName = prop.getProperty("identityPoolName")
-        appId = prop.getProperty("appId")
-        existingUserPoolId = prop.getProperty("existingUserPoolId")
-        existingIdentityPoolId = prop.getProperty("existingIdentityPoolId")
-        providerName = prop.getProperty("providerName")
-        existingPoolName = prop.getProperty("existingPoolName")
-        clientId = prop.getProperty("clientId")
-        secretkey = prop.getProperty("secretkey")
-        password = prop.getProperty("password")
-        poolIdMVP = prop.getProperty("poolIdMVP")
-        clientIdMVP = prop.getProperty("clientIdMVP")
-        userNameMVP = prop.getProperty("userNameMVP")
-        passwordMVP = prop.getProperty("passwordMVP")
-        emailMVP = prop.getProperty("emailMVP")
-
-         */
         }
 
     @Test
@@ -113,7 +87,7 @@ class CognitoKotlinTest {
         runBlocking {
             userPoolId = createPool(userPoolName).toString()
             Assertions.assertTrue(!userPoolId.isEmpty())
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -121,7 +95,7 @@ class CognitoKotlinTest {
     fun createAdminUserTest() =
         runBlocking {
             createNewUser(userPoolId, username, email, password)
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -129,7 +103,7 @@ class CognitoKotlinTest {
     fun listUserPoolsTest() =
         runBlocking {
             getAllPools()
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -137,7 +111,7 @@ class CognitoKotlinTest {
     fun listUserPoolClientsTest() =
         runBlocking {
             listAllUserPoolClients(existingUserPoolId)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -145,7 +119,7 @@ class CognitoKotlinTest {
     fun listUsersTest() =
         runBlocking {
             listAllUserPoolClients(existingUserPoolId)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -153,7 +127,7 @@ class CognitoKotlinTest {
     fun describeUserPoolTest() =
         runBlocking {
             describePool(existingUserPoolId)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -161,7 +135,7 @@ class CognitoKotlinTest {
     fun deleteUserPool() =
         runBlocking {
             delPool(userPoolId)
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     @Test
@@ -170,7 +144,7 @@ class CognitoKotlinTest {
         runBlocking {
             identityPoolId = createIdPool(identityPoolName).toString()
             Assertions.assertTrue(!identityPoolId.isEmpty())
-            println("Test 8 passed")
+            logger.info("Test 8 passed")
         }
 
     @Test
@@ -178,7 +152,7 @@ class CognitoKotlinTest {
     fun listIdentityProvidersTest() =
         runBlocking {
             getPools()
-            println("Test 9 passed")
+            logger.info("Test 9 passed")
         }
 
     @Test
@@ -186,7 +160,7 @@ class CognitoKotlinTest {
     fun listIdentitiesTest() =
         runBlocking {
             listPoolIdentities(identityPoolId)
-            println("Test 10 passed")
+            logger.info("Test 10 passed")
         }
 
     @Test
@@ -194,14 +168,13 @@ class CognitoKotlinTest {
     fun deleteIdentityPool() =
         runBlocking {
             deleteIdPool(identityPoolId)
-            println("Test 11 passed")
+            logger.info("Test 11 passed")
         }
 
     private suspend fun getSecretValues(): String {
         val secretClient =
             SecretsManagerClient {
                 region = "us-east-1"
-                credentialsProvider = EnvironmentCredentialsProvider()
             }
         val secretName = "test/cognito"
         val valueRequest =
