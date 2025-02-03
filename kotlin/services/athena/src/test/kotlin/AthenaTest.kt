@@ -23,10 +23,13 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class AthenaTest {
+    private val logger: Logger = LoggerFactory.getLogger(AthenaTest::class.java)
     private var nameQuery: String? = null
     private var queryString: String? = null
     private var database: String? = null
@@ -43,17 +46,6 @@ class AthenaTest {
         queryString = values.queryString.toString()
         database = values.database.toString()
         outputLocation = values.outputLocation.toString()
-
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        nameQuery = prop.getProperty("nameQuery")
-        queryString = prop.getProperty("queryString")
-        database = prop.getProperty("database")
-        outputLocation = prop.getProperty("outputLocation")
-         */
     }
 
     @Test
@@ -61,21 +53,21 @@ class AthenaTest {
     fun createNamedQueryTest() = runBlocking {
         queryId = createNamedQuery(queryString.toString(), nameQuery.toString(), database.toString())
         queryId?.let { assertTrue(it.isNotEmpty()) }
-        println("Test 1 passed")
+        logger.info("Test 1 passed")
     }
 
     @Test
     @Order(2)
     fun listNamedQueryTest() = runBlocking {
         listNamedQueries()
-        println("Test 2 passed")
+        logger.info("Test 2 passed")
     }
 
     @Test
     @Order(3)
     fun listQueryExecutionsTest() = runBlocking {
         listQueryIds()
-        println("Test 3 passed")
+        logger.info("Test 3 passed")
     }
 
     @Test
@@ -84,14 +76,14 @@ class AthenaTest {
         val queryExecutionId = submitAthenaQuery(queryString.toString(), database.toString(), outputLocation.toString())
         waitForQueryToComplete(queryExecutionId)
         processResultRows(queryExecutionId)
-        println("Test 4 passed")
+        logger.info("Test 4 passed")
     }
 
     @Test
     @Order(5)
     fun deleteNamedQueryTest() = runBlocking {
         deleteQueryName(queryId)
-        println("Test 5 passed")
+        logger.info("Test 5 passed")
     }
 
     private suspend fun getSecretValues(): String {
@@ -101,7 +93,6 @@ class AthenaTest {
         }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
