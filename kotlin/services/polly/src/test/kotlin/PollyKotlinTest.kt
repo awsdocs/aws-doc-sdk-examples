@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory
 @TestMethodOrder(OrderAnnotation::class)
 class PollyKotlinTest {
     private val logger: Logger = LoggerFactory.getLogger(PollyKotlinTest::class.java)
+
     @Test
     @Order(1)
     fun pollyDemo() =
