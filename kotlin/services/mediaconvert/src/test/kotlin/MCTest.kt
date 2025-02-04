@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
@@ -19,11 +18,14 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.io.IOException
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class MCTest {
+    private val logger: Logger = LoggerFactory.getLogger(MCTest::class.java)
     lateinit var mcClient: MediaConvertClient
     private var mcRoleARN = ""
     private var fileInput = ""
@@ -40,39 +42,31 @@ class MCTest {
             val values = gson.fromJson(json, SecretValues::class.java)
             mcRoleARN = values.mcRoleARN.toString()
             fileInput = values.fileInput.toString()
-        /*
-
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        mcRoleARN = prop.getProperty("mcRoleARN")
-        fileInput = prop.getProperty("fileInput")
-         */
         }
 
     @Test
-    @Order(2)
+    @Order(1)
     fun createJobTest() =
         runBlocking {
             jobId = createMediaJob(mcClient, mcRoleARN, fileInput).toString()
             assertTrue(!jobId.isEmpty()).toString()
-            println("Test 2 passed")
+            logger.info("Test 1 passed")
+        }
+
+    @Test
+    @Order(2)
+    fun listJobsTest() =
+        runBlocking {
+            listCompleteJobs(mcClient)
+            logger.info("Test 2 passed")
         }
 
     @Test
     @Order(3)
-    fun listJobsTest() =
-        runBlocking {
-            listCompleteJobs(mcClient)
-            println("Test 3 passed")
-        }
-
-    @Test
-    @Order(4)
     fun getJobTest() =
         runBlocking {
             getSpecificJob(mcClient, jobId)
-            println("Test 4 passed")
+            logger.info("Test 3 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -83,7 +77,6 @@ class MCTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
