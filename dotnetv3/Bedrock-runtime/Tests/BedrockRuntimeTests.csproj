@@ -13,6 +13,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.11.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.1" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
 		<PackageReference Include="xunit" Version="2.9.2" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
@@ -50,6 +51,7 @@
 	  <ProjectReference Include="..\Models\Mistral\Converse\Converse.csproj" />
 	  <ProjectReference Include="..\Models\Mistral\InvokeModelWithResponseStream\InvokeModelWithResponseStream.csproj" />
 	  <ProjectReference Include="..\Models\Mistral\InvokeModel\InvokeModel.csproj" />
+	  <ProjectReference Include="..\Scenarios\ConverseToolScenario\ConverseToolScenario.csproj" />
 	</ItemGroup>
 
 </Project>
