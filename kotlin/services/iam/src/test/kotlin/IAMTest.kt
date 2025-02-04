@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -28,11 +27,14 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import kotlin.random.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class IAMTest {
+    private val logger: Logger = LoggerFactory.getLogger(IAMTest::class.java)
     private var userName = ""
     private var policyName = ""
     private var roleName = ""
@@ -64,22 +66,6 @@ class IAMTest {
             roleSessionName = values.roleName.toString()
             fileLocationSc = values.fileLocationSc.toString()
             bucketNameSc = values.bucketNameSc.toString()
-
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        userName = prop.getProperty("userName")
-        policyName = prop.getProperty("policyName")
-        roleName = prop.getProperty("roleName")
-        accountAlias = prop.getProperty("accountAlias")
-        policyNameSc = prop.getProperty("policyNameSc")
-        usernameSc = prop.getProperty("usernameSc")
-        roleNameSc = prop.getProperty("roleNameSc")
-        roleSessionName = prop.getProperty("roleSessionName")
-        fileLocationSc = prop.getProperty("fileLocationSc")
-        bucketNameSc = prop.getProperty("bucketNameSc")
-         */
         }
 
     @Test
@@ -90,7 +76,7 @@ class IAMTest {
             if (result != null) {
                 Assertions.assertTrue(!result.isEmpty())
             }
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -99,7 +85,7 @@ class IAMTest {
         runBlocking {
             policyARN = createIAMPolicy(policyName)
             Assertions.assertTrue(!policyARN.isEmpty())
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -108,7 +94,7 @@ class IAMTest {
         runBlocking {
             keyId = createIAMAccessKey(userName)
             Assertions.assertTrue(!keyId.isEmpty())
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -116,7 +102,7 @@ class IAMTest {
     fun attachRolePolicyTest() =
         runBlocking {
             attachIAMRolePolicy(roleName, policyARN)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -124,7 +110,7 @@ class IAMTest {
     fun detachRolePolicyTest() =
         runBlocking {
             detachPolicy(roleName, policyARN)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -132,7 +118,7 @@ class IAMTest {
     fun getPolicyTest() =
         runBlocking {
             getIAMPolicy(policyARN)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -140,7 +126,7 @@ class IAMTest {
     fun listAccessKeysTest() =
         runBlocking {
             listKeys(userName)
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     @Test
@@ -148,7 +134,7 @@ class IAMTest {
     fun listUsersTest() =
         runBlocking {
             listAllUsers()
-            println("Test 8 passed")
+            logger.info("Test 8 passed")
         }
 
     @Test
@@ -156,7 +142,7 @@ class IAMTest {
     fun createAccountAliasTest() =
         runBlocking {
             createIAMAccountAlias(accountAlias)
-            println("Test 9 passed")
+            logger.info("Test 9 passed")
         }
 
     @Test
@@ -164,7 +150,7 @@ class IAMTest {
     fun deleteAccountAliasTest() =
         runBlocking {
             deleteIAMAccountAlias(accountAlias)
-            println("Test 10 passed")
+            logger.info("Test 10 passed")
         }
 
     @Test
@@ -172,7 +158,7 @@ class IAMTest {
     fun deletePolicyTest() =
         runBlocking {
             deleteIAMPolicy(policyARN)
-            println("Test 11 passed")
+            logger.info("Test 11 passed")
         }
 
     @Test
@@ -180,7 +166,7 @@ class IAMTest {
     fun deleteAccessKeyTest() =
         runBlocking {
             deleteKey(userName, keyId)
-            println("Test 12 passed")
+            logger.info("Test 12 passed")
         }
 
     @Test
@@ -188,7 +174,7 @@ class IAMTest {
     fun deleteUserTest() =
         runBlocking {
             deleteIAMUser(userName)
-            println("Test 13 passed")
+            logger.info("Test 13 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -199,7 +185,6 @@ class IAMTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
