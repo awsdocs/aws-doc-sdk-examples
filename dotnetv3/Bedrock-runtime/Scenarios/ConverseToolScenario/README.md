@@ -6,6 +6,15 @@ This example shows how to use AWS SDKs and the Amazon Bedrock Converse API to ca
 
 [Bedrock Converse API with Tool Definition](https://docs.aws.amazon.com/bedrock/latest/userguide/tool-use-inference-call.html).
 
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account.
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+## Scenario
+
 This example illustrates a typical interaction between a generative AI model, an application, and connected tools or APIs to solve a problem or achieve a specific goal. The scenario follows these steps:
 
 1. Set up the system prompt and tool configuration. 
@@ -18,15 +27,26 @@ This example illustrates a typical interaction between a generative AI model, an
 8. The model uses the tool response to generate a final response. If additional tool requests are needed, the process is repeated.
 9. Once the final response is received and printed, the application returns to the prompt.
 
+### Prerequisites
+
+For general prerequisites, see the [README](../../../README.md) in the `dotnetv3` folder.
+
 ### Resources
 
 No additional resources are needed for this scenario.
 
-## Implementations
+### Instructions
 
-This example is implemented in the following languages:
+After the example compiles, you can run it from the command line. To do so, navigate to
+the folder that contains the .sln file and run the following command:
 
-- [.NET](../../../dotnetv3/Bedrock-runtime/Scenarios/ConverseToolScenario/README.md)
+```
+dotnet run
+```
+
+Alternatively, you can run the example from within your IDE.
+
+This starts an interactive scenario that walks you through exploring conditional requests for read, write, and copy operations.
 
 ## Additional resources
 
