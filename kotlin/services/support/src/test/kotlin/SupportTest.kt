@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class SupportTest {
     private val logger: Logger = LoggerFactory.getLogger(SupportTest::class.java)
+
     @Test
     @Order(1)
     fun supportHelloScenario() =
