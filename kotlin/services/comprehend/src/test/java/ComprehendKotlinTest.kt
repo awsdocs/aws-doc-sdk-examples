@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -19,10 +18,13 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class ComprehendKotlinTest {
+    private val logger: Logger = LoggerFactory.getLogger(ComprehendKotlinTest::class.java)
     private val text =
 """
 Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders.
@@ -43,21 +45,6 @@ Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle -
             dataAccessRoleArn = values.dataAccessRoleArn.toString()
             s3Uri = values.s3Uri.toString()
             documentClassifierName = values.documentClassifier.toString()
-
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-
-        // load the properties file.
-        prop.load(input)
-
-        // Populate the data members required for all tests.
-        dataAccessRoleArn = prop.getProperty("dataAccessRoleArn")
-        s3Uri = prop.getProperty("s3Uri")
-        documentClassifierName = prop.getProperty("documentClassifier")
-         */
         }
 
     @Test
@@ -65,7 +52,7 @@ Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle -
     fun detectEntitiesTest() =
         runBlocking {
             detectAllEntities(text)
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -73,7 +60,7 @@ Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle -
     fun detectKeyPhrasesTest() =
         runBlocking {
             detectAllKeyPhrases(text)
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -81,7 +68,7 @@ Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle -
     fun detectLanguageTest() =
         runBlocking {
             detectTheDominantLanguage(frText)
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -89,7 +76,7 @@ Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle -
     fun detectSentimentTest() =
         runBlocking {
             detectSentiments(text)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -97,14 +84,13 @@ Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle -
     fun detectSyntaxTest() =
         runBlocking {
             detectAllSyntax(text)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     private suspend fun getSecretValues(): String {
         val secretClient =
             SecretsManagerClient {
                 region = "us-east-1"
-                credentialsProvider = EnvironmentCredentialsProvider()
             }
         val secretName = "test/comprehend"
         val valueRequest =

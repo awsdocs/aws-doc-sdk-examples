@@ -35,6 +35,8 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("org.slf4j:slf4j-api:2.0.15")
+    implementation("org.slf4j:slf4j-simple:2.0.15")
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
