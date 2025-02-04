@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -17,10 +16,13 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class TextractTest {
+    private val logger: Logger = LoggerFactory.getLogger(TextractTest::class.java)
     private var sourceDoc = ""
     private var bucketName = ""
     private var docName = ""
@@ -35,19 +37,6 @@ class TextractTest {
             sourceDoc = values.sourceDoc.toString()
             bucketName = values.bucketName.toString()
             docName = values.docName.toString()
-
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-
-        // load the properties file.
-        prop.load(input)
-
-        // Populate the data members required for all tests
-        sourceDoc = prop.getProperty("sourceDoc")
-        bucketName = prop.getProperty("bucketName")
-        docName = prop.getProperty("docName")
-         */
         }
 
     @Test
@@ -55,7 +44,7 @@ class TextractTest {
     fun analyzeDocumentTest() =
         runBlocking {
             analyzeDoc(sourceDoc)
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -63,7 +52,7 @@ class TextractTest {
     fun detectDocumentTextTest() =
         runBlocking {
             detectDocText(sourceDoc)
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -71,7 +60,7 @@ class TextractTest {
     fun detectDocumentTextS3Test() =
         runBlocking {
             detectDocTextS3(bucketName, docName)
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -79,7 +68,7 @@ class TextractTest {
     fun startDocumentAnalysisTest() =
         runBlocking {
             startDocAnalysisS3(bucketName, docName)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -91,7 +80,6 @@ class TextractTest {
 
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
