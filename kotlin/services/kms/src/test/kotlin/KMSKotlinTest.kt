@@ -55,12 +55,12 @@ class KMSKotlinTest {
         }
 
     @Test
-    @Order(2)
+    @Order(1)
     fun createCustomerKeyTest() =
         runBlocking {
             keyId = createKey(keyDesc).toString()
             Assertions.assertTrue(!keyId.isEmpty())
-            logger.info("Test 2 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
