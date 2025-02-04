@@ -28,6 +28,7 @@ public class BedrockActionsWrapper
         _logger = logger;
     }
 
+
     /// <summary>
     /// Sends a Converse request to the Amazon Bedrock Converse API.
     /// </summary>
