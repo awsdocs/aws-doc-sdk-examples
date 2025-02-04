@@ -39,6 +39,8 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
+    implementation("org.slf4j:slf4j-api:2.0.15")
+    implementation("org.slf4j:slf4j-simple:2.0.15")
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
