@@ -1,6 +1,8 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[Bedrock.ConverseTool.dotnetv3.Scenario]
+
 using Amazon.BedrockRuntime;
 using Amazon.BedrockRuntime.Model;
 using Amazon.Runtime.Documents;
@@ -352,5 +354,5 @@ public static class ConverseToolScenario
         Console.WriteLine(message);
         Console.WriteLine();
     }
-
 }
+// snippet-end:[Bedrock.ConverseTool.dotnetv3.Scenario]
