@@ -46,6 +46,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 - [ConverseStream](Models/AnthropicClaude/ConverseStream/ConverseStream.cs#L4)
 - [InvokeModel](Models/AnthropicClaude/InvokeModel/InvokeModel.cs#L4)
 - [InvokeModelWithResponseStream](Models/AnthropicClaude/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
+- [Scenario: Tool use with the Converse API](Scenarios/ConverseToolScenario/ConverseToolScenario.cs#L4)
 
 ### Cohere Command
 
