@@ -12,11 +12,14 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class MediaStoreTest {
+    private val logger: Logger = LoggerFactory.getLogger(MediaStoreTest::class.java)
     private var containerName = ""
 
     @BeforeAll
@@ -30,16 +33,16 @@ class MediaStoreTest {
     @Order(1)
     fun createContainerTest() =
         runBlocking {
-            println("Status is " + createMediaContainer(containerName))
-            println("Test 1 passed")
+            logger.info("Status is " + createMediaContainer(containerName))
+            logger.info("Test 1 passed")
         }
 
     @Test
     @Order(2)
     fun describeContainerTest() =
         runBlocking {
-            println("Status is " + checkContainer(containerName))
-            println("Test 2 passed")
+            logger.info("Status is " + checkContainer(containerName))
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -47,7 +50,7 @@ class MediaStoreTest {
     fun listContainersTest() =
         runBlocking {
             listAllContainers()
-            println("Test 4 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -55,6 +58,6 @@ class MediaStoreTest {
     fun deleteContainerTest() =
         runBlocking {
             deleteMediaContainer(containerName)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 }

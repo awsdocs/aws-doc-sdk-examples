@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -30,11 +29,13 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class Route53Test {
-    val dash: String? = String(CharArray(80)).replace("\u0000", "-")
+    private val logger: Logger = LoggerFactory.getLogger(Route53Test::class.java)
     private var domainName = ""
     private var healthCheckId = ""
     private var hostedZoneId = ""
@@ -61,20 +62,6 @@ class Route53Test {
             firstNameSc = values.firstNameSc.toString()
             lastNameSc = values.lastNameSc.toString()
             citySc = values.citySc.toString()
-
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        domainName = prop.getProperty("domainName")
-        domainSuggestionSc = prop.getProperty("domainSuggestionSc")
-        domainTypeSc = prop.getProperty("domainTypeSc")
-        phoneNumerSc = prop.getProperty("phoneNumerSc")
-        emailSc = prop.getProperty("emailSc")
-        firstNameSc = prop.getProperty("firstNameSc")
-        lastNameSc = prop.getProperty("lastNameSc")
-        citySc = prop.getProperty("citySc")
-         */
         }
 
     @Test
@@ -83,8 +70,7 @@ class Route53Test {
         runBlocking {
             healthCheckId = createCheck(domainName).toString()
             Assertions.assertFalse(healthCheckId.isEmpty())
-            println("The health check id is $healthCheckId")
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -93,8 +79,7 @@ class Route53Test {
         runBlocking {
             hostedZoneId = createZone(domainName).toString()
             Assertions.assertFalse(hostedZoneId.isEmpty())
-            println("The hosted zone id is $hostedZoneId")
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -102,7 +87,7 @@ class Route53Test {
     fun listHealthChecks() =
         runBlocking {
             listAllHealthChecks()
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -110,7 +95,7 @@ class Route53Test {
     fun updateHealthCheck() =
         runBlocking {
             updateSpecificHealthCheck(healthCheckId)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -118,7 +103,7 @@ class Route53Test {
     fun listHostedZones() =
         runBlocking {
             listZones()
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -126,59 +111,24 @@ class Route53Test {
     fun deleteHealthCheck() =
         runBlocking {
             delHealthCheck(healthCheckId)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
     @Order(7)
     fun fullScenarioTest() =
         runBlocking {
-            println(dash)
-            println("1. List current domains.")
             listDomains()
-            println(dash)
-
-            println(dash)
-            println("2. List operations in the past year.")
             listOperations()
-            println(dash)
-
-            println(dash)
-            println("3. View billing for the account in the past year.")
             listBillingRecords()
-            println(dash)
-
-            println(dash)
-            println("4. View prices for domain types.")
             listAllPrices(domainTypeSc)
-            println(dash)
-
-            println(dash)
-            println("5. Get domain suggestions.")
             listDomainSuggestions(domainSuggestionSc)
-            println(dash)
-
-            println(dash)
-            println("6. Check domain availability.")
             checkDomainAvailability(domainSuggestionSc)
-            println(dash)
-
-            println(dash)
-            println("7. Check domain transferability.")
             checkDomainTransferability(domainSuggestionSc)
-            println(dash)
-
-            println(dash)
-            println("8. Request a domain registration.")
             val opId = requestDomainRegistration(domainSuggestionSc, phoneNumerSc, emailSc, firstNameSc, lastNameSc, citySc)
             opId?.let { Assertions.assertFalse(it.isEmpty()) }
-            println(dash)
-
-            println(dash)
-            println("9. Get operation details.")
             getOperationalDetail(opId)
-            println(dash)
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -189,7 +139,6 @@ class Route53Test {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

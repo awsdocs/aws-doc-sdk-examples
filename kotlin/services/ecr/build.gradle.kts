@@ -39,7 +39,8 @@ dependencies {
     implementation("com.github.docker-java:docker-java-core:3.3.6")
     implementation("com.github.docker-java:docker-java-transport-httpclient5:3.3.6")
     implementation("com.github.docker-java:docker-java:3.3.6")
-    // implementation("ch.qos.logback:logback-classic:1.2.11") // Updated Logback version
+    implementation("org.slf4j:slf4j-api:2.0.15")
+    implementation("org.slf4j:slf4j-simple:2.0.15")
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
