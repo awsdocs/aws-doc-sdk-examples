@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -18,11 +17,14 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class GlueTest {
+    private val logger: Logger = LoggerFactory.getLogger(GlueTest::class.java)
     private var cron = ""
     private var iam = ""
     private var tableName = ""
@@ -53,23 +55,6 @@ class GlueTest {
             crawlerNameSc = values.crawlerNameSc.toString() + UUID.randomUUID()
             scriptLocationSc = values.scriptLocationSc.toString()
             locationUri = values.locationUri.toString()
-
-            // Uncomment the block below if using config.properties file
-        /*
-        val input = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        cron = prop.getProperty("cron")
-        iam = prop.getProperty("IAM")
-        tableName = prop.getProperty("tableName")
-        text = prop.getProperty("text")
-        jobNameSc = prop.getProperty("jobNameSc")
-        s3PathSc = prop.getProperty("s3PathSc")
-        dbNameSc = prop.getProperty("dbNameSc")
-        crawlerNameSc = prop.getProperty("crawlerNameSc")
-        scriptLocationSc = prop.getProperty("scriptLocationSc")
-        locationUri = prop.getProperty("locationUri")
-         */
         }
 
     @Test
@@ -77,7 +62,7 @@ class GlueTest {
     fun getCrawlersTest() =
         runBlocking {
             getAllCrawlers()
-            println("Test 2 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -85,7 +70,7 @@ class GlueTest {
     fun getDatabasesTest() =
         runBlocking {
             getAllDatabases()
-            println("Test 4 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -93,7 +78,7 @@ class GlueTest {
     fun searchTablesTest() =
         runBlocking {
             searchGlueTable(text)
-            println("Test 5 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -101,7 +86,7 @@ class GlueTest {
     fun listWorkflowsTest() =
         runBlocking {
             listAllWorkflows()
-            println("Test 6 passed")
+            logger.info("Test 4 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -112,7 +97,6 @@ class GlueTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
