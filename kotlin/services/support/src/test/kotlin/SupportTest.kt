@@ -8,15 +8,18 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class SupportTest {
+    private val logger: Logger = LoggerFactory.getLogger(SupportTest::class.java)
     @Test
     @Order(1)
     fun supportHelloScenario() =
         runBlocking {
             displaySomeServices()
-            println("\n AWS Support Hello Test passed")
+            logger.info("\n AWS Support Hello Test passed")
         }
 }
