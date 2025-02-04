@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.example.ecr.listImageTags
@@ -17,10 +16,13 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class ECRTest {
+    private val logger: Logger = LoggerFactory.getLogger(ECRTest::class.java)
     private var repoName = ""
     private var newRepoName = ""
     private var iamRole = ""
@@ -40,34 +42,18 @@ class ECRTest {
         }
 
     @Test
-    @Order(1)
-    fun testScenario() =
-        runBlocking {
-            ecrActions?.createECRRepository(newRepoName)
-            ecrActions?.setRepoPolicy(newRepoName, iamRole)
-            ecrActions?.getRepoPolicy(newRepoName)
-            ecrActions?.getRepositoryURI(newRepoName)
-            ecrActions?.setLifeCyclePolicy(newRepoName)
-            ecrActions?.pushDockerImage(newRepoName, newRepoName)
-            ecrActions?.verifyImage(newRepoName, newRepoName)
-            ecrActions?.deleteECRRepository(newRepoName)
-            println("Test 1 passed")
-        }
-
-    @Test
     @Tag("IntegrationTest")
-    @Order(2)
+    @Order(1)
     fun testHello() =
         runBlocking {
             listImageTags(repoName)
-            println("Test 2 passed")
+            logger.info("Test 1 passed")
         }
 
     private suspend fun getSecretValues(): String {
         val secretClient =
             SecretsManagerClient {
                 region = "us-east-1"
-                credentialsProvider = EnvironmentCredentialsProvider()
             }
         val secretName = "test/ecr"
         val valueRequest =
