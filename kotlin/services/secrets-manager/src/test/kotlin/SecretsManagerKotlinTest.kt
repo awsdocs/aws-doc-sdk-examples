@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class SecretsManagerKotlinTest {
-    private val logger: Logger = LoggerFactory.getLogger(APIGatewayTest::class.java)
+    private val logger: Logger = LoggerFactory.getLogger(SecretsManagerKotlinTest::class.java)
     private var secretName = "mysecret"
 
     @Test
