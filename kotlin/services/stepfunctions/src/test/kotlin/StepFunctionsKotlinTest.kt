@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -15,11 +14,14 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class StepFunctionsKotlinTest {
+    private val logger: Logger = LoggerFactory.getLogger(StepFunctionsKotlinTest::class.java)
     private var roleNameSC = ""
     private var activityNameSC = ""
     private var stateMachineNameSC = ""
@@ -36,18 +38,6 @@ class StepFunctionsKotlinTest {
             activityNameSC = values.activityNameSC.toString() + UUID.randomUUID()
             stateMachineNameSC = values.stateMachineNameSC.toString() + UUID.randomUUID()
             jsonFile = values.machineFile.toString()
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties") as InputStream
-        val prop = Properties()
-        prop.load(input)
-        jsonFile = prop.getProperty("jsonFile")
-        jsonFileSM = prop.getProperty("jsonFileSM")
-        roleARN = prop.getProperty("roleARN")
-        stateMachineName = prop.getProperty("stateMachineName")
-        roleNameSC = prop.getProperty("roleNameSC")
-        activityNameSC = prop.getProperty("activityNameSC")
-        stateMachineNameSC = prop.getProperty("stateMachineNameSC")
-         */
         }
 
     @Test
@@ -55,7 +45,7 @@ class StepFunctionsKotlinTest {
     fun listStateMachines() =
         runBlocking {
             listMachines()
-            println("Test 4 passed")
+            logger.info("Test 1 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -66,7 +56,6 @@ class StepFunctionsKotlinTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
