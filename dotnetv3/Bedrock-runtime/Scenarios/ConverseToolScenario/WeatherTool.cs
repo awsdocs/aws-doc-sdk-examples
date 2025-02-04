@@ -1,6 +1,8 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[Bedrock.ConverseTool.dotnetv3.WeatherTool]
+
 using Amazon.BedrockRuntime.Model;
 using Amazon.Runtime.Documents;
 using Microsoft.Extensions.Logging;
@@ -93,3 +95,4 @@ public class WeatherTool
         }
     }
 }
+// snippet-end:[Bedrock.ConverseTool.dotnetv3.WeatherTool]

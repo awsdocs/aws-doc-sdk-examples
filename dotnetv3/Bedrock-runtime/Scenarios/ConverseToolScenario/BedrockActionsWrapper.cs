@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 
 namespace ConverseToolScenario;
 
+// snippet-start:[Bedrock.ConverseTool.dotnetv3.SendConverseRequest]
+
 /// <summary>
 /// Wrapper class for interacting with the Amazon Bedrock Converse API.
 /// </summary>
@@ -25,7 +27,6 @@ public class BedrockActionsWrapper
         _bedrockClient = bedrockClient;
         _logger = logger;
     }
-
 
     /// <summary>
     /// Sends a Converse request to the Amazon Bedrock Converse API.
@@ -66,6 +67,11 @@ public class BedrockActionsWrapper
 
             return response;
         }
+        catch (ModelNotReadyException ex)
+        {
+            _logger.LogError(ex, "Model not ready, please wait and try again.");
+            throw;
+        }
         catch (AmazonBedrockRuntimeException ex)
         {
             _logger.LogError(ex, "Error occurred while sending Converse request.");
@@ -73,3 +79,4 @@ public class BedrockActionsWrapper
         }
     }
 }
+// snippet-end:[Bedrock.ConverseTool.dotnetv3.SendConverseRequest]
