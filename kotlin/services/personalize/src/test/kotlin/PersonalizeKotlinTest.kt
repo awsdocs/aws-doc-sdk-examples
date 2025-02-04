@@ -15,6 +15,8 @@ import com.kotlin.personalize.listAllCampaigns
 import com.kotlin.personalize.listAllRecipes
 import com.kotlin.personalize.listAllSolutions
 import com.kotlin.personalize.listDSGroups
+import java.util.concurrent.TimeUnit
+import java.util.UUID
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
@@ -27,8 +29,6 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.util.concurrent.TimeUnit
-import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
