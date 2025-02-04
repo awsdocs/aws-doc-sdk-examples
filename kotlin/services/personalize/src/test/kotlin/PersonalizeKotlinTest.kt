@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
+import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
 import com.kotlin.personalize.createPersonalCompaign
 import com.kotlin.personalize.createPersonalizeSolution
@@ -15,8 +15,6 @@ import com.kotlin.personalize.listAllCampaigns
 import com.kotlin.personalize.listAllRecipes
 import com.kotlin.personalize.listAllSolutions
 import com.kotlin.personalize.listDSGroups
-import java.util.UUID
-import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
@@ -29,6 +27,8 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.util.UUID
+import java.util.concurrent.TimeUnit
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
