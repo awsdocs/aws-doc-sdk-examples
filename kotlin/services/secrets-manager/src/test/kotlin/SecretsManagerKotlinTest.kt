@@ -7,10 +7,13 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class SecretsManagerKotlinTest {
+    private val logger: Logger = LoggerFactory.getLogger(APIGatewayTest::class.java)
     private var secretName = "mysecret"
 
     @Test
@@ -18,6 +21,6 @@ class SecretsManagerKotlinTest {
     fun getSecretValue() =
         runBlocking {
             getValue(secretName)
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 }
