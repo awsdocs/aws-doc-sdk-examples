@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -16,20 +15,17 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class SESTest {
+    private val logger: Logger = LoggerFactory.getLogger(SESTest::class.java)
     private var sender = ""
     private var recipient = ""
     private var subject = ""
     private var fileLocation = ""
-
-    private val bodyText =
-        """
-        Hello,
-        Please see the attached file for a list of customers to contact.
-        """.trimIndent()
 
     private val bodyHTML = """
     <html>
@@ -52,18 +48,6 @@ class SESTest {
             recipient = values.recipient.toString()
             subject = values.subject.toString()
             fileLocation = values.fileLocation.toString()
-
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        sender = prop.getProperty("sender")
-        recipient = prop.getProperty("recipient")
-        subject = prop.getProperty("subject")
-        fileLocation = prop.getProperty("fileLocation")
-         */
         }
 
     @Test
@@ -71,7 +55,7 @@ class SESTest {
     fun sendMessageTest() =
         runBlocking {
             send(sender, recipient, subject, bodyHTML)
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -79,7 +63,7 @@ class SESTest {
     fun listIdentitiesTest() =
         runBlocking {
             listSESIdentities()
-            println("Test 3 passed")
+            logger.info("Test 2 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -90,7 +74,6 @@ class SESTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
