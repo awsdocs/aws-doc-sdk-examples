@@ -40,10 +40,10 @@ suspend fun main(args: Array<String>) {
         
         """.trimIndent()
 
-     if (args.size != 2) {
-         println(usage)
-         return
-     }
+    if (args.size != 2) {
+        println(usage)
+        return
+    }
 
     var iamRole = args[0]
     var localImageName: String
