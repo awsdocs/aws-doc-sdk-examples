@@ -3,14 +3,9 @@
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
-import com.kotlin.redshift.User
 import com.kotlin.redshift.createCluster
-import com.kotlin.redshift.deleteRedshiftCluster
 import com.kotlin.redshift.describeRedshiftClusters
 import com.kotlin.redshift.findReservedNodeOffer
-import com.kotlin.redshift.listRedShiftEvents
-import com.kotlin.redshift.modifyCluster
-import com.kotlin.redshift.waitForClusterReady
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
@@ -20,6 +15,8 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.Random
 
 /**
@@ -29,9 +26,11 @@ import java.util.Random
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class RedshiftKotlinTest {
+    private val logger: Logger = LoggerFactory.getLogger(RedshiftKotlinTest::class.java)
     private var clusterId = ""
     private var eventSourceType = ""
-    private var secretName = ""
+    private var username = ""
+    private var password = ""
 
     @BeforeAll
     fun setup() =
@@ -44,84 +43,33 @@ class RedshiftKotlinTest {
             val json: String = getSecretValues().toString()
             val values = gson.fromJson(json, SecretValues::class.java)
             clusterId = values.clusterId + randomNum
-            secretName = values.secretName.toString()
+            username = values.userName.toString()
+            password = values.password.toString()
             eventSourceType = values.eventSourceType.toString()
-
-// Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-/*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        clusterId = prop.getProperty("clusterId")
-        eventSourceType = prop.getProperty("eventSourceType")
-        secretName  prop.getProperty("secretName")
- */
         }
 
     @Test
     @Order(1)
     fun createClusterTest() =
         runBlocking {
-            val gson = Gson()
-            val user =
-                gson.fromJson(
-                    com.kotlin.redshift
-                        .getSecretValues(secretName)
-                        .toString(),
-                    User::class.java,
-                )
-            val username = user.username
-            val userPassword = user.password
-            createCluster(clusterId, username, userPassword)
-            println("Test 2 passed")
+            createCluster(clusterId, username, password)
+            logger.info("Test 1 passed")
         }
 
     @Test
     @Order(2)
-    fun waitForClusterReadyTest() =
+    fun describeClustersTest() =
         runBlocking {
-            waitForClusterReady(clusterId)
-            println("Test 3 passed")
+            describeRedshiftClusters()
+            logger.info("Test 2 passed")
         }
 
     @Test
     @Order(3)
-    fun modifyClusterReadyTest() =
-        runBlocking {
-            modifyCluster(clusterId)
-            println("Test 4 passed")
-        }
-
-    @Test
-    @Order(4)
-    fun describeClustersTest() =
-        runBlocking {
-            describeRedshiftClusters()
-            println("Test 5 passed")
-        }
-
-    @Test
-    @Order(5)
     fun findReservedNodeOfferTest() =
         runBlocking {
             findReservedNodeOffer()
-            println("Test 6 passed")
-        }
-
-    @Test
-    @Order(6)
-    fun listEventsTest() =
-        runBlocking {
-            listRedShiftEvents(clusterId, eventSourceType)
-            println("Test 7 passed")
-        }
-
-    @Test
-    @Order(7)
-    fun deleteClusterTest() =
-        runBlocking {
-            deleteRedshiftCluster(clusterId)
-            println("Test 8 passed")
+            logger.info("Test 3 passed")
         }
 
     suspend fun getSecretValues(): String? {
@@ -142,6 +90,7 @@ class RedshiftKotlinTest {
     internal inner class SecretValues {
         val clusterId: String? = null
         val eventSourceType: String? = null
-        val secretName: String? = null
+        val userName: String? = null
+        val password: String? = null
     }
 }

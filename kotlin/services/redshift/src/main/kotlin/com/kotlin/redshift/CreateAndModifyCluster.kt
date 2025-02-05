@@ -62,6 +62,7 @@ suspend fun createCluster(
     val clusterRequest =
         CreateClusterRequest {
             clusterIdentifier = clusterId
+            availabilityZone = "us-east-1a"
             masterUsername = masterUsernameVal
             masterUserPassword = masterUserPasswordVal
             nodeType = "ra3.4xlarge"

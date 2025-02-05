@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -26,12 +25,15 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class PersonalizeKotlinTest {
+    private val logger: Logger = LoggerFactory.getLogger(PersonalizeKotlinTest::class.java)
     private var datasetGroupArn = ""
     private var solutionArn = ""
     private var solutionVersionArn = ""
@@ -55,18 +57,6 @@ class PersonalizeKotlinTest {
             solutionName = values.solutionName.toString() + UUID.randomUUID()
             userId = values.userId.toString()
             campaignName = values.campaignName.toString() + UUID.randomUUID()
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        solutionName = prop.getProperty("solutionName")
-        datasetGroupArn = prop.getProperty("datasetGroupArn")
-        recipeArn = prop.getProperty("recipeArn")
-        solutionVersionArn = prop.getProperty("solutionVersionArn")
-        campaignName = prop.getProperty("campaignName")
-        campaignArn = prop.getProperty("campaignArn")
-        userId = prop.getProperty("userId")
-         */
         }
 
     @Test
@@ -75,7 +65,7 @@ class PersonalizeKotlinTest {
         runBlocking {
             solutionArn = createPersonalizeSolution(datasetGroupArn, solutionName, recipeArn).toString()
             assertTrue(!solutionArn.isEmpty())
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -83,7 +73,7 @@ class PersonalizeKotlinTest {
     fun listSolutions() =
         runBlocking {
             listAllSolutions(datasetGroupArn)
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -91,7 +81,7 @@ class PersonalizeKotlinTest {
     fun describeSolution() =
         runBlocking {
             describeSpecificSolution(solutionArn)
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -100,7 +90,7 @@ class PersonalizeKotlinTest {
         runBlocking {
             newCampaignArn = createPersonalCompaign(solutionVersionArn, campaignName).toString()
             assertTrue(!newCampaignArn.isEmpty())
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -110,7 +100,7 @@ class PersonalizeKotlinTest {
             println("Wait 20 mins for resource to become available.")
             TimeUnit.MINUTES.sleep(20)
             describeSpecificCampaign(newCampaignArn)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -118,7 +108,7 @@ class PersonalizeKotlinTest {
     fun listCampaigns() =
         runBlocking {
             listAllCampaigns(solutionArn)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -126,7 +116,7 @@ class PersonalizeKotlinTest {
     fun listRecipes() =
         runBlocking {
             listAllRecipes()
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     @Test
@@ -134,7 +124,7 @@ class PersonalizeKotlinTest {
     fun listDatasetGroups() =
         runBlocking {
             listDSGroups()
-            println("Test 8 passed")
+            logger.info("Test 8 passed")
         }
 
     @Test
@@ -142,7 +132,7 @@ class PersonalizeKotlinTest {
     fun deleteSolution() =
         runBlocking {
             deleteGivenSolution(solutionArn)
-            println("Test 9 passed")
+            logger.info("Test 9 passed")
         }
 
     @Test
@@ -150,7 +140,7 @@ class PersonalizeKotlinTest {
     fun getRecommendations() =
         runBlocking {
             getRecs(newCampaignArn, userId)
-            println("Test 10 passed")
+            logger.info("Test 10 passed")
         }
 
     @Test
@@ -158,7 +148,7 @@ class PersonalizeKotlinTest {
     fun deleteCampaign() =
         runBlocking {
             deleteSpecificCampaign(newCampaignArn)
-            println("Test 11 passed")
+            logger.info("Test 11 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -169,7 +159,6 @@ class PersonalizeKotlinTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

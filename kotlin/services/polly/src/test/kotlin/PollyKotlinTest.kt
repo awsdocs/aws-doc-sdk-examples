@@ -10,16 +10,20 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class PollyKotlinTest {
+    private val logger: Logger = LoggerFactory.getLogger(PollyKotlinTest::class.java)
+
     @Test
     @Order(1)
     fun pollyDemo() =
         runBlocking {
             talkPolly()
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -27,7 +31,7 @@ class PollyKotlinTest {
     fun describeVoicesSample() =
         runBlocking {
             describeVoice()
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -35,6 +39,6 @@ class PollyKotlinTest {
     fun listLexiconsTest() =
         runBlocking {
             listLexicons()
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 }

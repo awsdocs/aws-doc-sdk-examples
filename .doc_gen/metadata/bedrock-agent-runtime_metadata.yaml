@@ -32,3 +32,24 @@ bedrock-agent-runtime_InvokeFlow:
                 - javascriptv3/example_code/bedrock-agent-runtime/actions/invoke-flow.js
   services:
     bedrock-agent-runtime: {InvokeFlow}
+
+bedrock-agent-runtime_Scenario_ConverseWithFlow:
+  title: Converse with an &BRlong; flow
+  synopsis: use InvokeFlow to converse with an &BRlong; flow that includes an agent node.
+  category: Basics
+  guide_topic:
+    title: Converse with an &BRlong; flow
+    url: bedrock/latest/userguide/flows-multi-turn-invocation.html
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent-runtime
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.bedrock-agent-runtime.flow_conversation.complete
+
+  services:
+    bedrock-agent-runtime: {InvokeFlow}

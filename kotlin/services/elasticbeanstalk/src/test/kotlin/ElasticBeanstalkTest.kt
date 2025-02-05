@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.net.URISyntaxException
 import java.util.Random
@@ -24,6 +26,7 @@ import java.util.concurrent.TimeUnit
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class ElasticBeanstalkTest {
+    private val logger: Logger = LoggerFactory.getLogger(ElasticBeanstalkTest::class.java)
     var appName: String = "TestApp"
     var envName: String = "TestEnv"
     var appArn: String = ""
@@ -42,7 +45,7 @@ class ElasticBeanstalkTest {
     @Order(1)
     fun whenInitializingAWSService_thenNotNull() {
         Assertions.assertNotNull(appName)
-        println("Test 1 passed")
+        logger.info("Test 1 passed")
     }
 
     @Test
@@ -51,7 +54,7 @@ class ElasticBeanstalkTest {
         runBlocking {
             appArn = createApp(appName)
             assertTrue(!appArn.isEmpty())
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -60,7 +63,7 @@ class ElasticBeanstalkTest {
         runBlocking {
             envArn = createEBEnvironment(envName, appName)
             assertTrue(!envArn.isEmpty())
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -68,7 +71,7 @@ class ElasticBeanstalkTest {
     fun describeApplications() =
         runBlocking {
             describeApps()
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -76,7 +79,7 @@ class ElasticBeanstalkTest {
     fun describeEnvironment() =
         runBlocking {
             describeEnv(appName)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -84,7 +87,7 @@ class ElasticBeanstalkTest {
     fun describeOptions() =
         runBlocking {
             getOptions(envName)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -94,6 +97,6 @@ class ElasticBeanstalkTest {
             println("*** Wait for 5 MIN so the app can be deleted")
             TimeUnit.MINUTES.sleep(5)
             deleteApp(appName)
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 }

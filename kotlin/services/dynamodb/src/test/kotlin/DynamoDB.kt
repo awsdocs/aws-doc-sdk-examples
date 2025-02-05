@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
@@ -41,10 +40,13 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class DynamoDB {
+    private val logger: Logger = LoggerFactory.getLogger(DynamoDB::class.java)
     var tableName: String = ""
     var fileName: String = ""
     var tableName2: String = ""
@@ -76,27 +78,6 @@ class DynamoDB {
             songTitle = values.songTitleVal.toString()
             songTitleVal = values.songTitleVal.toString()
             tableName2 = "Movies"
-
-        /*
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = java.util.Properties()
-
-        // load the properties file.
-        prop.load(input)
-        tableName = prop.getProperty("tableName")
-        tableName2 = prop.getProperty("tableName2")
-        fileName = prop.getProperty("fileName")
-        key = prop.getProperty("key")
-        keyValue = prop.getProperty("keyValue")
-        albumTitle = prop.getProperty("albumTitle")
-        albumTitleValue = prop.getProperty("albumTitleValue")
-        awards = prop.getProperty("awards")
-        awardVal = prop.getProperty("awardVal")
-        songTitle = prop.getProperty("songTitle")
-        songTitleVal = prop.getProperty("songTitleVal")
-        modAwardVal = prop.getProperty("modAwardVal")
-         */
         }
 
     @Test
@@ -104,7 +85,7 @@ class DynamoDB {
     fun createTableTest() =
         runBlocking {
             createNewTable(tableName, key)
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -112,7 +93,7 @@ class DynamoDB {
     fun describeTableTest() =
         runBlocking {
             describeDymamoDBTable(tableName)
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -130,7 +111,7 @@ class DynamoDB {
                 songTitle,
                 songTitleVal,
             )
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -138,7 +119,7 @@ class DynamoDB {
     fun listTablesTest() =
         runBlocking {
             listAllTables()
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -146,7 +127,7 @@ class DynamoDB {
     fun updateItemTest() =
         runBlocking {
             updateTableItem(tableName, key, keyValue, awards, modAwardVal)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -154,7 +135,7 @@ class DynamoDB {
     fun getItemTest() =
         runBlocking {
             getSpecificItem(tableName, key, keyValue)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -162,7 +143,7 @@ class DynamoDB {
     fun queryTableTest() =
         runBlocking {
             queryDynTable(tableName, key, keyValue, "#a")
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     @Test
@@ -170,7 +151,7 @@ class DynamoDB {
     fun dynamoDBScanTest() =
         runBlocking {
             scanItems(tableName)
-            println("Test 8 passed")
+            logger.info("Test 8 passed")
         }
 
     @Test
@@ -178,7 +159,7 @@ class DynamoDB {
     fun deleteItemTest() =
         runBlocking {
             com.kotlin.dynamodb.deleteDynamoDBItem(tableName, key, keyValue)
-            println("Test 9 passed")
+            logger.info("Test 9 passed")
         }
 
     @Test
@@ -186,7 +167,7 @@ class DynamoDB {
     fun deleteTableTest() =
         runBlocking {
             deleteDynamoDBTable(tableName)
-            println("Test 10 passed")
+            logger.info("Test 10 passed")
         }
 
     @Test
@@ -198,6 +179,7 @@ class DynamoDB {
             getMovie(tableName2, "year", "1933")
             scanMovies(tableName2)
             deletIssuesTable(tableName2)
+            logger.info("Test 11 passed")
         }
 
     @Test
@@ -213,6 +195,7 @@ class DynamoDB {
             updateTableItemPartiQL(ddb)
             queryTablePartiQL(ddb)
             deleteTablePartiQL(tableNamePartiQ)
+            logger.info("Test 12 passed")
         }
 
     @Test
@@ -227,13 +210,13 @@ class DynamoDB {
             updateTableItemBatchBatch(ddb)
             deleteItemsBatch(ddb)
             deleteTablePartiQLBatch(tableNamePartiQBatch)
+            logger.info("Test 13 passed")
         }
 
     private suspend fun getSecretValues(): String {
         val secretClient =
             SecretsManagerClient {
                 region = "us-east-1"
-                credentialsProvider = EnvironmentCredentialsProvider()
             }
         val secretName = "test/dynamodb"
         val valueRequest =

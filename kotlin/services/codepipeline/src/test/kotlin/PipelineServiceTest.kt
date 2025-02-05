@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -20,10 +19,13 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class PipelineServiceTest {
+    private val logger: Logger = LoggerFactory.getLogger(PipelineServiceTest::class.java)
     private var name: String = ""
     private var roleArn: String = ""
     private var s3Bucket: String = ""
@@ -47,7 +49,7 @@ class PipelineServiceTest {
     fun createPipelineTest() =
         runBlocking {
             createNewPipeline(name, roleArn, s3Bucket, s3OutputBucket)
-            println("\n Test 1 passed")
+            logger.info("\n Test 1 passed")
         }
 
     @Test
@@ -55,7 +57,7 @@ class PipelineServiceTest {
     fun startPipelineExecutionTest() =
         runBlocking {
             executePipeline(name)
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -63,7 +65,7 @@ class PipelineServiceTest {
     fun listPipelinesTest() =
         runBlocking {
             getAllPipelines()
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -71,7 +73,7 @@ class PipelineServiceTest {
     fun getPipelineTest() =
         runBlocking {
             getSpecificPipeline(name)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -79,7 +81,7 @@ class PipelineServiceTest {
     fun listPipelineExecutionsTest() =
         runBlocking {
             listExecutions(name)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -87,7 +89,7 @@ class PipelineServiceTest {
     fun deletePipelineTest() =
         runBlocking {
             deleteSpecificPipeline(name)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -98,7 +100,6 @@ class PipelineServiceTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

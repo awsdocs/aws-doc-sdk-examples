@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.kendra.KendraClient
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
@@ -23,11 +22,14 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class KendraTest {
+    private val logger: Logger = LoggerFactory.getLogger(KendraTest::class.java)
     private var kendra: KendraClient? = null
     private var indexName = ""
     private var indexDescription = ""
@@ -55,29 +57,6 @@ class KendraTest {
             dataSourceDescription = values.dataSourceDescription.toString()
             dataSourceRoleArn = values.dataSourceRoleArn.toString()
             text = values.text.toString()
-
-        /*
-        try {
-            KendraTest::class.java.classLoader.getResourceAsStream("config.properties").use { input ->
-                val prop = Properties()
-                if (input == null) {
-                    println("Sorry, unable to find config.properties")
-                    return
-                }
-                prop.load(input)
-                indexName = prop.getProperty("indexName")
-                indexRoleArn = prop.getProperty("indexRoleArn")
-                indexDescription = prop.getProperty("indexDescription")
-                s3BucketName = prop.getProperty("s3BucketName")
-                dataSourceName = prop.getProperty("dataSourceName")
-                dataSourceDescription = prop.getProperty("dataSourceDescription")
-                dataSourceRoleArn = prop.getProperty("dataSourceRoleArn")
-                text = prop.getProperty("text")
-            }
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-        }
-         */
         }
 
     @Test
@@ -86,7 +65,7 @@ class KendraTest {
         runBlocking {
             indexId = createIndex(indexDescription, indexName, indexRoleArn)
             assertTrue(!indexId.isEmpty())
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -95,7 +74,7 @@ class KendraTest {
         runBlocking {
             dataSourceId = createDataSource(s3BucketName, dataSourceName, dataSourceDescription, indexId, dataSourceRoleArn)
             assertTrue(!dataSourceId.isEmpty())
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -103,7 +82,7 @@ class KendraTest {
     fun syncDataSource() =
         runBlocking {
             startDataSource(indexId, dataSourceId)
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -111,7 +90,7 @@ class KendraTest {
     fun listSyncJobs() =
         runBlocking {
             listSyncJobs(indexId, dataSourceId)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -119,7 +98,7 @@ class KendraTest {
     fun queryIndex() =
         runBlocking {
             querySpecificIndex(indexId, text)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -127,7 +106,7 @@ class KendraTest {
     fun deleteDataSource() =
         runBlocking {
             deleteSpecificDataSource(indexId, dataSourceId)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -135,7 +114,7 @@ class KendraTest {
     fun deleteIndex() =
         runBlocking {
             deleteSpecificIndex(indexId)
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -146,7 +125,6 @@ class KendraTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -20,10 +19,13 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class LexTest {
+    private val logger: Logger = LoggerFactory.getLogger(LexTest::class.java)
     private var botName = ""
     private var intentName = ""
     private var intentVersion = ""
@@ -38,13 +40,6 @@ class LexTest {
             botName = values.botName.toString()
             intentName = values.intentName.toString()
             intentVersion = values.intentVersion.toString()
-
-            // val input = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-            // val prop = Properties()
-            // prop.load(input)
-            // botName = prop.getProperty("botName")
-            // intentName = prop.getProperty("intentName")
-            // intentVersion = prop.getProperty("intentVersion")
         }
 
     @Test
@@ -52,7 +47,7 @@ class LexTest {
     fun putBotTest() =
         runBlocking {
             createBot(botName, intentName, intentVersion)
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -60,7 +55,7 @@ class LexTest {
     fun getBotsTest() =
         runBlocking {
             getAllBots()
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -68,7 +63,7 @@ class LexTest {
     fun getIntentTest() =
         runBlocking {
             getSpecificIntent(intentName, intentVersion)
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -76,7 +71,7 @@ class LexTest {
     fun getSlotTypesTest() =
         runBlocking {
             getSlotsInfo()
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -84,7 +79,7 @@ class LexTest {
     fun getBotStatusTest() =
         runBlocking {
             getStatus(botName)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -92,7 +87,7 @@ class LexTest {
     fun deleteBotTest() =
         runBlocking {
             deleteSpecificBot(botName)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -103,7 +98,6 @@ class LexTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

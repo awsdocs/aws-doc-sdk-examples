@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -15,17 +14,19 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.io.IOException
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class EMRTest {
+    private val logger: Logger = LoggerFactory.getLogger(EMRTest::class.java)
     private var jar = ""
     private var myClass = ""
     private var keys = ""
     private var logUri = ""
     private var name = ""
-    private var jobFlowId = ""
     private var existingClusterId = ""
 
     @BeforeAll
@@ -42,31 +43,6 @@ class EMRTest {
             logUri = values.logUri.toString()
             name = values.name.toString()
             existingClusterId = values.existingClusterId.toString()
-
-        /*
-        try {
-            EMRTest::class.java.classLoader.getResourceAsStream("config.properties").use { input ->
-                val prop = Properties()
-                if (input == null) {
-                    println("Sorry, unable to find config.properties")
-                    return
-                }
-
-                // load a properties file from class path, inside static method
-                prop.load(input)
-
-                // Populate the data members required for all tests
-                jar = prop.getProperty("jar")
-                myClass = prop.getProperty("myClass")
-                keys = prop.getProperty("keys")
-                logUri = prop.getProperty("logUri")
-                name = prop.getProperty("name")
-                existingClusterId = prop.getProperty("existingClusterId")
-            }
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-        }
-         */
         }
 
     @Test
@@ -74,7 +50,7 @@ class EMRTest {
     fun listClustersTest() =
         runBlocking {
             listAllClusters()
-            println("Test 3 passed")
+            logger.info("Test 1 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -85,7 +61,6 @@ class EMRTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

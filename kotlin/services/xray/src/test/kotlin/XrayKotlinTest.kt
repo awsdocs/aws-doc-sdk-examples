@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -20,11 +19,14 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class XrayKotlinTest {
+    private val logger: Logger = LoggerFactory.getLogger(XrayKotlinTest::class.java)
     private var groupName = ""
     private var newGroupName = ""
     private var ruleName = ""
@@ -42,17 +44,6 @@ class XrayKotlinTest {
             groupName = values.groupName.toString()
             newGroupName = values.newGroupName.toString() + randomNum
             ruleName = values.ruleName.toString() + randomNum
-
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        groupName = prop.getProperty("groupName")
-        newGroupName = prop.getProperty("newGroupName")
-        ruleName = prop.getProperty("ruleName")
-         */
         }
 
     @Test
@@ -60,7 +51,7 @@ class XrayKotlinTest {
     fun createGroup() =
         runBlocking {
             createNewGroup(newGroupName)
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -68,7 +59,7 @@ class XrayKotlinTest {
     fun createSamplingRule() =
         runBlocking {
             createRule(ruleName)
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -76,7 +67,7 @@ class XrayKotlinTest {
     fun getGroups() =
         runBlocking {
             getAllGroups()
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -84,7 +75,7 @@ class XrayKotlinTest {
     fun getSamplingRules() =
         runBlocking {
             getRules()
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -92,7 +83,7 @@ class XrayKotlinTest {
     fun deleteSamplingRule() =
         runBlocking {
             deleteRule(ruleName)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -100,7 +91,7 @@ class XrayKotlinTest {
     fun deleteGroup() =
         runBlocking {
             deleteSpecificGroup(newGroupName)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -111,7 +102,6 @@ class XrayKotlinTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
