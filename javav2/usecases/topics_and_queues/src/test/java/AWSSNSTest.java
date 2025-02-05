@@ -30,7 +30,7 @@ public class AWSSNSTest {
                                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                                 .build();
 
-                String accountId = "814548047983";
+                String accountId = "";
                 String duplication = "n";
                 String topicName;
 
@@ -161,7 +161,7 @@ public class AWSSNSTest {
                                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                                 .build();
 
-                String accountId = "814548047983";
+                String accountId = "";
                 String useFIFO;
                 String duplication = "n";
                 String topicName;
