@@ -162,7 +162,7 @@ public class EntityResTests {
     @Order(8)
     public void testLDeleteMapping() {
         assertDoesNotThrow(() -> {
-            System.out.println("Wait 30 mins for the workflow to complete");
+            logger.info("Wait 30 mins for the workflow to complete");
             Thread.sleep(1800000);
             actions.deleteMatchingWorkflowAsync(workflowName).join();
         });
