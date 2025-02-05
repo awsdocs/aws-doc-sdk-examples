@@ -141,7 +141,7 @@ class AWSSNSTest {
     @Test
     @Order(2)
     fun testWorkflowNonFIFO() = runBlocking {
-        val accountId = "814548047983"
+        val accountId = ""
         val topicName: String
         val topicArnVal: String?
         val sqsQueueName: String
