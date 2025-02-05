@@ -12,8 +12,6 @@ import java.util.concurrent.CompletionException;
 
 public class EntityResScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-    private static final String ROLES_STACK = "EntityResolutionCdkStack";
-
     public static void main(String[] args) throws InterruptedException {
 
         final String usage = """
@@ -29,19 +27,19 @@ public class EntityResScenario {
                 outputBucket: The S3 bucket URL where the results of the entity resolution workflow are stored (this resource is created using the CDK script. See the Readme)..
                 inputGlueTableArn: The ARN of the AWS Glue table which provides the input data for the entity resolution process (this resource is created using the CDK script. See the Readme)..
             """;
-        String workflowName = "MyMatchingWorkflow451";
-        String schemaName = "schema451";
+        String workflowName = args[0];
+        String schemaName = args[1];
 
         // Use the AWS CDK to create these AWS resources.
         // See the Readme file located at resources/cdk/entityresolution_resources.
-        String roleARN = "arn:aws:iam::814548047983:role/EntityResolutionCdkStack-EntityResolutionRoleB51A51-TSzkkBfrkbfm";
-        String dataS3bucket = "glue-5ffb912c3d534e8493bac675c2a3196d";
-        String outputBucket = "s3://entity-resolution-output-entityresolutioncdkstack";
-        String inputGlueTableArn = "arn:aws:glue:us-east-1:814548047983:table/entity_resolution_db/entity_resolution";
+        String roleARN = args[2];
+        String dataS3bucket = args[3];
+        String outputBucket = args[4];
+        String inputGlueTableArn = args[5];
 
         EntityResActions actions = new EntityResActions();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to the AWS Entity Resolution Scenario. ");
+        System.out.println("Welcome to the AWS Entity Resolution Scenario.");
         System.out.println("""
             AWS Entity Resolution is a fully-managed machine learning service provided by 
             Amazon Web Services (AWS) that helps organizations extract, link, and 
