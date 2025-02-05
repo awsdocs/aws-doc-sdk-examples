@@ -211,6 +211,7 @@ allow_list:
   - "src/main/java/com/example/acm/DeleteCert"
   - "src/main/java/com/example/acm/ImportCert"
   - "EnablePropagateAdditionalUserContextData"
+  - "4085ebe4c7463900cf3f683cdd128dc61cb1e77d"
 sample_files:
   - "README.md"
   - "chat_sfn_state_machine.json"
