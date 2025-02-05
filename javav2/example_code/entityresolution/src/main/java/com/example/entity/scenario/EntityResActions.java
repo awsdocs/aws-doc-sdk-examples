@@ -9,9 +9,9 @@ import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.entityresolution.EntityResolutionClient;
 import software.amazon.awssdk.services.entityresolution.EntityResolutionAsyncClient;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.entityresolution.model.CreateMatchingWorkflowRequest;
 import software.amazon.awssdk.services.entityresolution.model.CreateMatchingWorkflowResponse;
 import software.amazon.awssdk.services.entityresolution.model.CreateSchemaMappingRequest;
@@ -35,7 +35,6 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.entityresolution.model.TagResourceRequest;
-
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
@@ -43,8 +42,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class EntityResActions {
-
-    private EntityResolutionClient resolutionClient;
+    private static final Logger logger = LoggerFactory.getLogger(EntityResActions.class);
 
     private static EntityResolutionAsyncClient entityResolutionAsyncClient;
 
@@ -128,7 +126,7 @@ public class EntityResActions {
        // Iterate through the pages of results
         CompletableFuture<Void> future = paginator.subscribe(response -> {
             response.schemaList().forEach(schemaMapping ->
-                System.out.println("Schema Mapping Name: " +schemaMapping.schemaName())
+                logger.info("Schema Mapping Name: " +schemaMapping.schemaName())
             );
         });
 
@@ -182,7 +180,7 @@ public class EntityResActions {
         return getResolutionAsyncClient().createSchemaMapping(request)
             .whenComplete((response, exception) -> {
                 if (response != null) {
-                    System.out.println("Schema Mapping Created Successfully!");
+                    logger.info("Schema Mapping Created Successfully!");
                 } else {
                     throw new RuntimeException("Failed to create schema mapping: " + exception.getMessage(), exception);
                 }
@@ -207,7 +205,7 @@ public class EntityResActions {
             .whenComplete((response, exception) -> {
                 if (response != null) {
                     response.mappedInputFields().forEach(attribute ->
-                        System.out.println("Attribute Name: " + attribute.fieldName() +
+                        logger.info("Attribute Name: " + attribute.fieldName() +
                             ", Attribute Type: " + attribute.type().toString()));
                 } else {
                     throw new RuntimeException("Failed to get schema mapping: " + exception.getMessage(), exception);
@@ -232,8 +230,8 @@ public class EntityResActions {
 
         return getResolutionAsyncClient().getMatchingJob(request)
             .thenAccept(response -> {
-                System.out.println("Job status: " + response.status());
-                System.out.println("Job details: " + response.toString());
+                logger.info("Job status: " + response.status());
+                logger.info("Job details: " + response.toString());
             })
             .exceptionally(ex -> {
                 throw new RuntimeException("Error fetching matching job: " + ex.getMessage(), ex);
@@ -258,7 +256,7 @@ public class EntityResActions {
                 if (response != null) {
                     // Get the job ID from the response
                     String jobId = response.jobId();
-                    System.out.println("Job ID: " + jobId);
+                    logger.info("Job ID: " + jobId);
                 } else {
                     // Handle the exception if the response is null
                     throw new RuntimeException("Failed to start matching job: " + exception.getMessage(), exception);
@@ -284,11 +282,11 @@ public class EntityResActions {
 
         return getResolutionAsyncClient().getMatchingJob(request)
             .thenApply(response -> {
-                System.out.println("\nJob status: " + response.status());
+                logger.info("\nJob status: " + response.status());
                 return "SUCCEEDED".equalsIgnoreCase(String.valueOf(response.status()));
             })
             .exceptionally(exception -> {
-                System.out.println("Error checking workflow status: " + exception.getMessage());
+                logger.info("Error checking workflow status: " + exception.getMessage());
                 return false;
             });
     }
@@ -336,7 +334,7 @@ public class EntityResActions {
         return getResolutionAsyncClient().createMatchingWorkflow(workflowRequest)
             .whenComplete((response, exception) -> {
                 if (response != null) {
-                    System.out.println("Workflow created successfully.");
+                    logger.info("Workflow created successfully.");
                 } else {
                     throw new RuntimeException("Failed to create workflow: " + exception.getMessage(), exception);
                 }
@@ -362,7 +360,7 @@ public class EntityResActions {
             .build();
 
         return getResolutionAsyncClient().tagResource(request)
-            .thenAccept(response -> System.out.println("Successfully tagged the resource."))
+            .thenAccept(response -> logger.info("Successfully tagged the resource."))
             .exceptionally(exception -> {
                 throw new RuntimeException("Failed to tag the resource: " + exception.getMessage(), exception);
             });
@@ -414,6 +412,4 @@ public class EntityResActions {
             return false;
         }
     }
-
-
 }
