@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
         """.trimIndent()
 
      if (args.size != 2) {
-        println(usage)
+         println(usage)
          return
      }
 
