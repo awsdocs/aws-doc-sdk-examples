@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -28,17 +27,19 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class KMSKotlinTest {
+    private val logger: Logger = LoggerFactory.getLogger(KMSKotlinTest::class.java)
     private var keyId = "" // gets set in test 2
     private var keyDesc = ""
     private var granteePrincipal = ""
     private var operation = ""
     private var grantId = ""
     private var aliasName = ""
-    private var path = ""
 
     @BeforeAll
     fun setup() =
@@ -51,77 +52,66 @@ class KMSKotlinTest {
             operation = values.operation.toString()
             aliasName = values.aliasName.toString()
             granteePrincipal = values.granteePrincipal.toString()
-            path = values.path.toString()
-
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        keyDesc = prop.getProperty("keyDesc")
-        granteePrincipal = prop.getProperty("granteePrincipal")
-        operation = prop.getProperty("operation")
-        aliasName = prop.getProperty("aliasName")
-        path = prop.getProperty("path")
-         */
         }
 
     @Test
-    @Order(2)
+    @Order(1)
     fun createCustomerKeyTest() =
         runBlocking {
             keyId = createKey(keyDesc).toString()
             Assertions.assertTrue(!keyId.isEmpty())
-            println("Test 2 passed")
+            logger.info("Test 1 passed")
+        }
+
+    @Test
+    @Order(2)
+    fun encryptDataKeyTest() =
+        runBlocking {
+            val plaintext = "Hello, AWS KMS!"
+            val encryptData = encryptData(keyId)
+            decryptData(encryptData, keyId)
+            logger.info("Test 2 passed")
         }
 
     @Test
     @Order(3)
-    fun encryptDataKeyTest() =
+    fun disableCustomerKeyTest() =
         runBlocking {
-            val encryptData = encryptData(keyId)
-            decryptData(encryptData, keyId, path)
-            println("Test 3 passed")
+            disableKey(keyId)
+            logger.info("Test 3 passed")
         }
 
     @Test
     @Order(4)
-    fun disableCustomerKeyTest() =
+    fun enableCustomerKeyTest() =
         runBlocking {
-            disableKey(keyId)
-            println("Test 4 passed")
+            enableKey(keyId)
+            logger.info("Test 4 passed")
         }
 
     @Test
     @Order(5)
-    fun enableCustomerKeyTest() =
-        runBlocking {
-            enableKey(keyId)
-            println("Test 5 passed")
-        }
-
-    @Test
-    @Order(6)
     fun createGrantTest() =
         runBlocking {
             grantId = createNewGrant(keyId, granteePrincipal, operation).toString()
             Assertions.assertTrue(!grantId.isEmpty())
-            println("Test 6 passed")
+            logger.info("Test 5 passed")
+        }
+
+    @Test
+    @Order(6)
+    fun listGrantsTest() =
+        runBlocking {
+            displayGrantIds(keyId)
+            logger.info("Test 6 passed")
         }
 
     @Test
     @Order(7)
-    fun listGrantsTest() =
-        runBlocking {
-            displayGrantIds(keyId)
-            println("Test 7 passed")
-        }
-
-    @Test
-    @Order(8)
     fun revokeGrantsTest() =
         runBlocking {
             revokeKeyGrant(keyId, grantId)
-            println("Test 8 passed")
+            logger.info("Test 7 passed")
         }
 
     @Test
@@ -129,39 +119,39 @@ class KMSKotlinTest {
     fun describeKeyTest() =
         runBlocking {
             describeSpecifcKey(keyId)
-            println("Test 9 passed")
+            logger.info("Test 8 passed")
+        }
+
+    @Test
+    @Order(9)
+    fun createAliasTest() =
+        runBlocking {
+            createCustomAlias(keyId, aliasName)
+            logger.info("Test 9 passed")
         }
 
     @Test
     @Order(10)
-    fun createAliasTest() =
+    fun listAliasesTest() =
         runBlocking {
-            createCustomAlias(keyId, aliasName)
-            println("Test 10 passed")
+            listAllAliases()
+            logger.info("Test 10 passed")
         }
 
     @Test
     @Order(11)
-    fun listAliasesTest() =
+    fun deleteAliasTest() =
         runBlocking {
-            listAllAliases()
-            println("Test 11 passed")
+            deleteSpecificAlias(aliasName)
+            logger.info("Test 11 passed")
         }
 
     @Test
     @Order(12)
-    fun deleteAliasTest() =
-        runBlocking {
-            deleteSpecificAlias(aliasName)
-            println("Test 12 passed")
-        }
-
-    @Test
-    @Order(13)
     fun listKeysTest() =
         runBlocking {
             listAllKeys()
-            println("Test 13 passed")
+            logger.info("Test 12 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -172,7 +162,6 @@ class KMSKotlinTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

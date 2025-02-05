@@ -94,7 +94,7 @@ private suspend fun getJobResults(
         val response = textractClient.getDocumentAnalysis(analysisRequest)
         status = response.jobStatus.toString()
 
-        if (status.compareTo("SUCCEEDED") == 0) {
+        if (status.compareTo("Succeeded") == 0) {
             finished = true
         } else {
             println("$index status is: $status")

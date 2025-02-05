@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -22,11 +21,14 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class SageMakerTest {
+    private val logger: Logger = LoggerFactory.getLogger(SageMakerTest::class.java)
     private var image = ""
     private var modelDataUrl = ""
     private var executionRoleArn = ""
@@ -57,28 +59,6 @@ class SageMakerTest {
             s3OutputPath = values.s3OutputPath.toString()
             channelName = values.channelName.toString()
             trainingImage = values.trainingImage.toString()
-
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        image = prop.getProperty("image")
-        modelDataUrl = prop.getProperty("modelDataUrl")
-        executionRoleArn = prop.getProperty("executionRoleArn")
-        modelName = prop.getProperty("modelName")
-        s3UriData = prop.getProperty("s3UriData")
-        s3Uri = prop.getProperty("s3Uri")
-        roleArn = prop.getProperty("roleArn")
-        trainingJobName = prop.getProperty("trainingJobName")
-        s3OutputPath = prop.getProperty("s3OutputPath")
-        channelName = prop.getProperty("channelName")
-        trainingImage = prop.getProperty("trainingImage")
-        s3UriTransform = prop.getProperty("s3UriTransform")
-        s3OutputPathTransform = prop.getProperty("s3OutputPathTransform")
-        transformJobName = prop.getProperty("transformJobName")
-         */
         }
 
     @Test
@@ -86,7 +66,7 @@ class SageMakerTest {
     fun createModelTest() =
         runBlocking {
             createSagemakerModel(modelDataUrl, image, modelName, executionRoleArn)
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -94,7 +74,7 @@ class SageMakerTest {
     fun createTrainingJobTest() =
         runBlocking {
             trainJob(s3UriData, s3Uri, trainingJobName, roleArn, s3OutputPath, channelName, trainingImage)
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -102,7 +82,7 @@ class SageMakerTest {
     fun describeTrainingJobTest() =
         runBlocking {
             describeTrainJob(trainingJobName)
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -110,7 +90,7 @@ class SageMakerTest {
     fun listModelsTest() =
         runBlocking {
             listAllModels()
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -118,7 +98,7 @@ class SageMakerTest {
     fun listNotebooksTest() =
         runBlocking {
             listBooks()
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -126,7 +106,7 @@ class SageMakerTest {
     fun listAlgorithmsTest() =
         runBlocking {
             listAlgs()
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -134,7 +114,7 @@ class SageMakerTest {
     fun listTrainingJobsTest() =
         runBlocking {
             listJobs()
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     @Test
@@ -142,7 +122,7 @@ class SageMakerTest {
     fun deleteModelTest() =
         runBlocking {
             deleteSagemakerModel(modelName)
-            println("Test 8 passed")
+            logger.info("Test 8 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -154,7 +134,6 @@ class SageMakerTest {
 
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

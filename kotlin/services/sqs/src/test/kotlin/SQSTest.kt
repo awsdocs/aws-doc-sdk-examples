@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -24,11 +23,14 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class SQSTest {
+    private val logger: Logger = LoggerFactory.getLogger(SQSTest::class.java)
     private var queueName = ""
     private var message = ""
     private var queueUrl = ""
@@ -45,16 +47,6 @@ class SQSTest {
             val queueMessage = gson.fromJson(json, QueueMessage::class.java)
             queueName = queueMessage.queueName.toString() + randomNum
             message = queueMessage.message.toString()
-
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-
-        // load the properties file.
-        prop.load(input)
-        queueName = prop.getProperty("QueueName")
-        message = prop.getProperty("Message")
-         */
         }
 
     @Test
@@ -63,7 +55,7 @@ class SQSTest {
         runBlocking {
             queueUrl = createQueue(queueName)
             Assertions.assertTrue(!queueUrl.isEmpty())
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -71,7 +63,7 @@ class SQSTest {
     fun sendMessageTest() =
         runBlocking {
             sendMessages(queueUrl, message)
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -79,7 +71,7 @@ class SQSTest {
     fun sendBatchMessagesTest() =
         runBlocking {
             sendBatchMessages(queueUrl)
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -87,7 +79,7 @@ class SQSTest {
     fun getMessageTest() =
         runBlocking {
             receiveMessages(queueUrl)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -95,7 +87,7 @@ class SQSTest {
     fun addQueueTagsTest() =
         runBlocking {
             addTags(queueName)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -103,7 +95,7 @@ class SQSTest {
     fun listQueueTagsTest() =
         runBlocking {
             listTags(queueName)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -111,7 +103,7 @@ class SQSTest {
     fun removeQueueTagsTest() =
         runBlocking {
             removeTag(queueName, "Test")
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     @Test
@@ -119,7 +111,7 @@ class SQSTest {
     fun deleteMessagesTest() =
         runBlocking {
             deleteMessages(queueUrl)
-            println("Test 8 passed")
+            logger.info("Test 8 passed")
         }
 
     @Test
@@ -127,7 +119,7 @@ class SQSTest {
     fun deleteQueueTest() =
         runBlocking {
             deleteQueue(queueUrl)
-            println("Test 9 passed")
+            logger.info("Test 9 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -138,7 +130,6 @@ class SQSTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

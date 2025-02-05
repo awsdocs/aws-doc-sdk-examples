@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -19,12 +18,15 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class FirehoseTest {
+    private val logger: Logger = LoggerFactory.getLogger(FirehoseTest::class.java)
     private var bucketARN = ""
     private var roleARN = ""
     private var newStream = ""
@@ -42,63 +44,49 @@ class FirehoseTest {
             roleARN = values.roleARN.toString()
             newStream = values.newStream.toString() + UUID.randomUUID()
             textValue = values.textValue.toString()
+        }
 
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        bucketARN = prop.getProperty("bucketARN")
-        roleARN = prop.getProperty("roleARN")
-        newStream = prop.getProperty("newStream")
-        textValue = prop.getProperty("textValue")
-        existingStream = prop.getProperty("existingStream")
-        delStream = prop.getProperty("delStream")
-         */
+    @Test
+    @Order(1)
+    fun createDeliveryStreamTest() =
+        runBlocking {
+            createStream(bucketARN, roleARN, newStream)
+            logger.info("Test 1 passed")
         }
 
     @Test
     @Order(2)
-    fun createDeliveryStreamTest() =
-        runBlocking {
-            createStream(bucketARN, roleARN, newStream)
-            println("Test 2 passed")
-        }
-
-    @Test
-    @Order(3)
     fun putRecordsTest() =
         runBlocking {
             // Wait for the resource to become available
             println("Wait 15 mins for resource to become available.")
             TimeUnit.MINUTES.sleep(15)
             putSingleRecord(textValue, newStream)
-            println("Test 3 passed")
+            logger.info("Test 2 passed")
+        }
+
+    @Test
+    @Order(3)
+    fun putBatchRecordsTest() =
+        runBlocking {
+            addStockTradeData(newStream)
+            logger.info("Test 3 passed")
         }
 
     @Test
     @Order(4)
-    fun putBatchRecordsTest() =
+    fun listDeliveryStreamsTest() =
         runBlocking {
-            addStockTradeData(newStream)
-            println("Test 4 passed")
+            listStreams()
+            logger.info("Test 4 passed")
         }
 
     @Test
     @Order(5)
-    fun listDeliveryStreamsTest() =
-        runBlocking {
-            listStreams()
-            println("Test 5 passed")
-        }
-
-    @Test
-    @Order(6)
     fun deleteStreamTest() =
         runBlocking {
             delStream(newStream)
-            println("Test 6 passed")
+            logger.info("Test 5 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -109,7 +97,6 @@ class FirehoseTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

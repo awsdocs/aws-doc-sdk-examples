@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.Random
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
@@ -19,6 +21,7 @@ import kotlin.system.exitProcess
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class KinesisTest {
+    private val logger: Logger = LoggerFactory.getLogger(KinesisTest::class.java)
     private var streamName = "Stream"
 
     @BeforeAll
@@ -33,7 +36,7 @@ class KinesisTest {
     fun createDataStreamTest() =
         runBlocking {
             createStream(streamName)
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -41,7 +44,7 @@ class KinesisTest {
     fun describeLimitsTest() =
         runBlocking {
             describeKinLimits()
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -56,14 +59,14 @@ class KinesisTest {
                 System.err.println(e.message)
                 exitProcess(1)
             }
-            println("Test 4 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
-    @Order(5)
+    @Order(4)
     fun deleteDataStreamTest() =
         runBlocking {
             deleteStream(streamName)
-            println("Test 7 passed")
+            logger.info("Test 4 passed")
         }
 }

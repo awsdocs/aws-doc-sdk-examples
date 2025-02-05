@@ -60,22 +60,22 @@ namespace S3_BasicsScenario
             string objectName,
             string filePath)
         {
-            var request = new PutObjectRequest
+            try
             {
-                BucketName = bucketName,
-                Key = objectName,
-                FilePath = filePath,
-            };
+                var request = new PutObjectRequest
+                {
+                    BucketName = bucketName,
+                    Key = objectName,
+                    FilePath = filePath,
+                };
 
-            var response = await client.PutObjectAsync(request);
-            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
-            {
+                await client.PutObjectAsync(request);
                 Console.WriteLine($"Successfully uploaded {objectName} to {bucketName}.");
                 return true;
             }
-            else
+            catch (AmazonS3Exception ex)
             {
-                Console.WriteLine($"Could not upload {objectName} to {bucketName}.");
+                Console.WriteLine($"Could not upload {objectName} to {bucketName}: '{ex.Message}'");
                 return false;
             }
         }
@@ -274,13 +274,18 @@ namespace S3_BasicsScenario
         /// the delete operation.</returns>
         public static async Task<bool> DeleteBucketAsync(IAmazonS3 client, string bucketName)
         {
-            var request = new DeleteBucketRequest
+            try
             {
-                BucketName = bucketName,
-            };
+                var request = new DeleteBucketRequest { BucketName = bucketName, };
 
-            var response = await client.DeleteBucketAsync(request);
-            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+                await client.DeleteBucketAsync(request);
+                return true;
+            }
+            catch (AmazonS3Exception ex)
+            {
+                Console.WriteLine($"Error deleting bucket: {ex.Message}");
+                return false;
+            }
         }
 
         // snippet-end:[S3.dotnetv3.S3_Basics-DeleteBucket]

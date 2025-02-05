@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -26,11 +25,14 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class LambdaTest {
+    private val logger: Logger = LoggerFactory.getLogger(LambdaTest::class.java)
     var functionName: String = ""
     var functionARN: String = "" // Gets set in a test.
     var s3BucketName: String = ""
@@ -55,19 +57,6 @@ class LambdaTest {
             s3BucketName = values.bucketName.toString()
             updatedBucketName = values.bucketName2.toString()
             s3Key = values.key.toString()
-
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        functionName = prop.getProperty("functionName")
-        functionNameSc = prop.getProperty("functionNameSc")
-        s3BucketName = prop.getProperty("s3BucketName")
-        updatedBucketName = prop.getProperty("updatedBucketName")
-        s3Key = prop.getProperty("s3Key")
-        role = prop.getProperty("role")
-        handler = prop.getProperty("handler")
-         */
         }
 
     @Test
@@ -76,7 +65,7 @@ class LambdaTest {
         runBlocking {
             functionARN = createNewFunction(functionName, s3BucketName, s3Key, handler, role).toString()
             Assertions.assertTrue(!functionARN.isEmpty())
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -84,7 +73,7 @@ class LambdaTest {
     fun listLambdaTest() =
         runBlocking {
             listFunctions()
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -92,7 +81,7 @@ class LambdaTest {
     fun getAccountSettings() =
         runBlocking {
             getSettings()
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -100,7 +89,7 @@ class LambdaTest {
     fun deleteFunctionTest() =
         runBlocking {
             delLambdaFunction(functionName)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -125,7 +114,7 @@ class LambdaTest {
 
             // Update the AWS Lambda function code.
             println("*** Update the Lambda function code.")
-            updateFunctionCode(functionNameSc, updatedBucketName, s3Key)
+            updateFunctionCode(functionNameSc, s3BucketName, s3Key)
 
             // println("*** Invoke the function again after updating the code.")
             invokeFunctionSc(functionNameSc)
@@ -137,6 +126,7 @@ class LambdaTest {
             // Delete the AWS Lambda function.
             println("Delete the AWS Lambda function.")
             delFunction(functionNameSc)
+            logger.info("Test 5 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -147,7 +137,6 @@ class LambdaTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

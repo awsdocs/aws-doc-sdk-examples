@@ -1,6 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -22,12 +21,15 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.Random
 import java.util.concurrent.TimeUnit
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class ForecastKotlinTest {
+    private val logger: Logger = LoggerFactory.getLogger(ForecastKotlinTest::class.java)
     private var predictorARN = ""
     private var forecastArn = "" // set in test 3
     private var forecastName = ""
@@ -46,17 +48,6 @@ class ForecastKotlinTest {
             predictorARN = values.predARN.toString()
             forecastName = values.forecastName.toString() + randomNum
             dataSetName = values.dataSet.toString() + randomNum
-
-        /*
-        // load the properties file.
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        forecastName = prop.getProperty("forecastName")
-        dataSetName = prop.getProperty("dataSetName")
-        predictorARN = prop.getProperty("predictorARN")
-        existingforecastDelete = prop.getProperty("existingforecastDelete")
-         */
         }
 
     @Test
@@ -65,7 +56,7 @@ class ForecastKotlinTest {
         runBlocking {
             myDataSetARN = createForecastDataSet(dataSetName).toString()
             assertTrue(!myDataSetARN.isEmpty())
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -74,7 +65,7 @@ class ForecastKotlinTest {
         runBlocking {
             forecastArn = createNewForecast(forecastName, predictorARN).toString()
             assertTrue(!forecastArn.isEmpty())
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -82,7 +73,7 @@ class ForecastKotlinTest {
     fun listDataSets() =
         runBlocking {
             listForecastDataSets()
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -90,7 +81,7 @@ class ForecastKotlinTest {
     fun listDataSetGroups() =
         runBlocking {
             listDataGroups()
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -98,7 +89,7 @@ class ForecastKotlinTest {
     fun listForecasts() =
         runBlocking {
             listAllForeCasts()
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -106,7 +97,7 @@ class ForecastKotlinTest {
     fun describeForecast() =
         runBlocking {
             describe(forecastArn)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -114,7 +105,7 @@ class ForecastKotlinTest {
     fun deleteDataSet() =
         runBlocking {
             deleteForecastDataSet(myDataSetARN)
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     @Test
@@ -124,7 +115,7 @@ class ForecastKotlinTest {
             println("Wait 40 mins for resource to become available.")
             TimeUnit.MINUTES.sleep(40)
             delForecast(forecastArn)
-            println("Test 8 passed")
+            logger.info("Test 8 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -135,7 +126,6 @@ class ForecastKotlinTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
