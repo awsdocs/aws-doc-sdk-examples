@@ -96,7 +96,7 @@ def create_account_alias(alias_name: str) -> None:
         )
 
 
-if __name__ == "__main__":
+def main():
     import argparse
 
     # Set up logging
@@ -113,3 +113,6 @@ if __name__ == "__main__":
 
     # Call the function with the provided alias
     create_account_alias(args.alias)
+
+if __name__ == "__main__":
+    main()
