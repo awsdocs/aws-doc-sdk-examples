@@ -34,11 +34,13 @@ import software.amazon.awssdk.services.sqs.model.QueueAttributeName;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.SqsException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -47,13 +49,13 @@ import com.google.gson.JsonPrimitive;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
- *
+ * <p>
  * This Java example performs these tasks:
- *
+ * <p>
  * 1. Gives the user three options to choose from.
  * 2. Creates an Amazon Simple Notification Service (Amazon SNS) topic.
  * 3. Creates an Amazon Simple Queue Service (Amazon SQS) queue.
@@ -71,28 +73,28 @@ public class SNSWorkflow {
 
     public static void main(String[] args) {
         final String usage = "\n" +
-                "Usage:\n" +
-                "    <fifoQueueARN>\n\n" +
-                "Where:\n" +
-                "    accountId - Your AWS account Id value.";
+            "Usage:\n" +
+            "    <fifoQueueARN>\n\n" +
+            "Where:\n" +
+            "    accountId - Your AWS account Id value.";
 
-        // if (args.length != 1) {
-        // System.out.println(usage);
-        // System.exit(1);
-        // }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
 
         SqsClient sqsClient = SqsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
 
         Scanner in = new Scanner(System.in);
-        String accountId = "814548047983";
+        String accountId = args[0];
         String useFIFO;
         String duplication = "n";
         String topicName;
@@ -114,28 +116,28 @@ public class SNSWorkflow {
         System.out.println(DASHES);
         System.out.println("Welcome to messaging with topics and queues.");
         System.out.println("In this scenario, you will create an SNS topic and subscribe an SQS queue to the topic.\n" +
-                "You can select from several options for configuring the topic and the subscriptions for the queue.\n" +
-                "You can then post to the topic and see the results in the queue.");
+            "You can select from several options for configuring the topic and the subscriptions for the queue.\n" +
+            "You can then post to the topic and see the results in the queue.");
         System.out.println(DASHES);
 
         System.out.println(DASHES);
         System.out.println("SNS topics can be configured as FIFO (First-In-First-Out).\n" +
-                "FIFO topics deliver messages in order and support deduplication and message filtering.\n" +
-                "Would you like to work with FIFO topics? (y/n)");
+            "FIFO topics deliver messages in order and support deduplication and message filtering.\n" +
+            "Would you like to work with FIFO topics? (y/n)");
         useFIFO = in.nextLine();
         if (useFIFO.compareTo("y") == 0) {
             selectFIFO = true;
             System.out.println("You have selected FIFO");
             System.out.println(" Because you have chosen a FIFO topic, deduplication is supported.\n" +
-                    "        Deduplication IDs are either set in the message or automatically generated from content using a hash function.\n"
-                    +
-                    "        If a message is successfully published to an SNS FIFO topic, any message published and determined to have the same deduplication ID,\n"
-                    +
-                    "        within the five-minute deduplication interval, is accepted but not delivered.\n" +
-                    "        For more information about deduplication, see https://docs.aws.amazon.com/sns/latest/dg/fifo-message-dedup.html.");
+                "        Deduplication IDs are either set in the message or automatically generated from content using a hash function.\n"
+                +
+                "        If a message is successfully published to an SNS FIFO topic, any message published and determined to have the same deduplication ID,\n"
+                +
+                "        within the five-minute deduplication interval, is accepted but not delivered.\n" +
+                "        For more information about deduplication, see https://docs.aws.amazon.com/sns/latest/dg/fifo-message-dedup.html.");
 
             System.out.println(
-                    "Would you like to use content-based deduplication instead of entering a deduplication ID? (y/n)");
+                "Would you like to use content-based deduplication instead of entering a deduplication ID? (y/n)");
             duplication = in.nextLine();
             if (duplication.compareTo("y") == 0) {
                 System.out.println("Please enter a group id value");
@@ -192,22 +194,22 @@ public class SNSWorkflow {
         // running this code
         // in a different region.
         String policy = "{\n" +
-                "     \"Statement\": [\n" +
-                "     {\n" +
-                "         \"Effect\": \"Allow\",\n" +
-                "                 \"Principal\": {\n" +
-                "             \"Service\": \"sns.amazonaws.com\"\n" +
-                "         },\n" +
-                "         \"Action\": \"sqs:SendMessage\",\n" +
-                "                 \"Resource\": \"arn:aws:sqs:us-east-1:" + accountId + ":" + sqsQueueName + "\",\n" +
-                "                 \"Condition\": {\n" +
-                "             \"ArnEquals\": {\n" +
-                "                 \"aws:SourceArn\": \"arn:aws:sns:us-east-1:" + accountId + ":" + topicName + "\"\n" +
-                "             }\n" +
-                "         }\n" +
-                "     }\n" +
-                "     ]\n" +
-                " }";
+            "     \"Statement\": [\n" +
+            "     {\n" +
+            "         \"Effect\": \"Allow\",\n" +
+            "                 \"Principal\": {\n" +
+            "             \"Service\": \"sns.amazonaws.com\"\n" +
+            "         },\n" +
+            "         \"Action\": \"sqs:SendMessage\",\n" +
+            "                 \"Resource\": \"arn:aws:sqs:us-east-1:" + accountId + ":" + sqsQueueName + "\",\n" +
+            "                 \"Condition\": {\n" +
+            "             \"ArnEquals\": {\n" +
+            "                 \"aws:SourceArn\": \"arn:aws:sns:us-east-1:" + accountId + ":" + topicName + "\"\n" +
+            "             }\n" +
+            "         }\n" +
+            "     }\n" +
+            "     ]\n" +
+            " }";
 
         setQueueAttr(sqsClient, sqsQueueUrl, policy);
         System.out.println(DASHES);
@@ -216,13 +218,13 @@ public class SNSWorkflow {
         System.out.println("6. Subscribe to the SQS queue.");
         if (selectFIFO) {
             System.out.println(
-                    "If you add a filter to this subscription, then only the filtered messages will be received in the queue.\n"
-                            +
-                            "For information about message filtering, see https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html\n"
-                            +
-                            "For this example, you can filter messages by a \"tone\" attribute.");
+                "If you add a filter to this subscription, then only the filtered messages will be received in the queue.\n"
+                    +
+                    "For information about message filtering, see https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html\n"
+                    +
+                    "For this example, you can filter messages by a \"tone\" attribute.");
             System.out.println("Would you like to filter messages for " + sqsQueueName + "'s subscription to the topic "
-                    + topicName + "?  (y/n)");
+                + topicName + "?  (y/n)");
             String filterAns = in.nextLine();
             if (filterAns.compareTo("y") == 0) {
                 boolean moreAns = false;
@@ -334,8 +336,8 @@ public class SNSWorkflow {
     public static void deleteSNSTopic(SnsClient snsClient, String topicArn) {
         try {
             DeleteTopicRequest request = DeleteTopicRequest.builder()
-                    .topicArn(topicArn)
-                    .build();
+                .topicArn(topicArn)
+                .build();
 
             DeleteTopicResponse result = snsClient.deleteTopic(request);
             System.out.println("Status was " + result.sdkHttpResponse().statusCode());
@@ -349,13 +351,13 @@ public class SNSWorkflow {
     public static void deleteSQSQueue(SqsClient sqsClient, String queueName) {
         try {
             GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
-                    .queueName(queueName)
-                    .build();
+                .queueName(queueName)
+                .build();
 
             String queueUrl = sqsClient.getQueueUrl(getQueueRequest).queueUrl();
             DeleteQueueRequest deleteQueueRequest = DeleteQueueRequest.builder()
-                    .queueUrl(queueUrl)
-                    .build();
+                .queueUrl(queueUrl)
+                .build();
 
             sqsClient.deleteQueue(deleteQueueRequest);
             System.out.println(queueName + " was successfully deleted.");
@@ -369,12 +371,12 @@ public class SNSWorkflow {
     public static void unSub(SnsClient snsClient, String subscriptionArn) {
         try {
             UnsubscribeRequest request = UnsubscribeRequest.builder()
-                    .subscriptionArn(subscriptionArn)
-                    .build();
+                .subscriptionArn(subscriptionArn)
+                .build();
 
             UnsubscribeResponse result = snsClient.unsubscribe(request);
             System.out.println("Status was " + result.sdkHttpResponse().statusCode()
-                    + "\nSubscription was removed for " + request.subscriptionArn());
+                + "\nSubscription was removed for " + request.subscriptionArn());
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -388,16 +390,16 @@ public class SNSWorkflow {
             List<DeleteMessageBatchRequestEntry> entries = new ArrayList<>();
             for (Message msg : messages) {
                 DeleteMessageBatchRequestEntry entry = DeleteMessageBatchRequestEntry.builder()
-                        .id(msg.messageId())
-                        .build();
+                    .id(msg.messageId())
+                    .build();
 
                 entries.add(entry);
             }
 
             DeleteMessageBatchRequest deleteMessageBatchRequest = DeleteMessageBatchRequest.builder()
-                    .queueUrl(queueUrl)
-                    .entries(entries)
-                    .build();
+                .queueUrl(queueUrl)
+                .entries(entries)
+                .build();
 
             sqsClient.deleteMessageBatch(deleteMessageBatchRequest);
             System.out.println("The batch delete of messages was successful");
@@ -413,17 +415,17 @@ public class SNSWorkflow {
         try {
             if (msgAttValue.isEmpty()) {
                 ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
-                        .queueUrl(queueUrl)
-                        .maxNumberOfMessages(5)
-                        .build();
+                    .queueUrl(queueUrl)
+                    .maxNumberOfMessages(5)
+                    .build();
                 return sqsClient.receiveMessage(receiveMessageRequest).messages();
             } else {
                 // We know there are filters on the message.
                 ReceiveMessageRequest receiveRequest = ReceiveMessageRequest.builder()
-                        .queueUrl(queueUrl)
-                        .messageAttributeNames(msgAttValue) // Include other message attributes if needed.
-                        .maxNumberOfMessages(5)
-                        .build();
+                    .queueUrl(queueUrl)
+                    .messageAttributeNames(msgAttValue) // Include other message attributes if needed.
+                    .maxNumberOfMessages(5)
+                    .build();
 
                 return sqsClient.receiveMessage(receiveRequest).messages();
             }
@@ -438,13 +440,13 @@ public class SNSWorkflow {
     public static void pubMessage(SnsClient snsClient, String message, String topicArn) {
         try {
             PublishRequest request = PublishRequest.builder()
-                    .message(message)
-                    .topicArn(topicArn)
-                    .build();
+                .message(message)
+                .topicArn(topicArn)
+                .build();
 
             PublishResponse result = snsClient.publish(request);
             System.out
-                    .println(result.messageId() + " Message sent. Status is " + result.sdkHttpResponse().statusCode());
+                .println(result.messageId() + " Message sent. Status is " + result.sdkHttpResponse().statusCode());
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -453,12 +455,12 @@ public class SNSWorkflow {
     }
 
     public static void pubMessageFIFO(SnsClient snsClient,
-            String message,
-            String topicArn,
-            String msgAttValue,
-            String duplication,
-            String groupId,
-            String deduplicationID) {
+                                      String message,
+                                      String topicArn,
+                                      String msgAttValue,
+                                      String duplication,
+                                      String groupId,
+                                      String deduplicationID) {
 
         try {
             PublishRequest request;
@@ -466,48 +468,48 @@ public class SNSWorkflow {
             if (msgAttValue.isEmpty()) {
                 if (duplication.compareTo("y") == 0) {
                     request = PublishRequest.builder()
-                            .message(message)
-                            .messageGroupId(groupId)
-                            .topicArn(topicArn)
-                            .build();
+                        .message(message)
+                        .messageGroupId(groupId)
+                        .topicArn(topicArn)
+                        .build();
                 } else {
                     request = PublishRequest.builder()
-                            .message(message)
-                            .messageDeduplicationId(deduplicationID)
-                            .messageGroupId(groupId)
-                            .topicArn(topicArn)
-                            .build();
+                        .message(message)
+                        .messageDeduplicationId(deduplicationID)
+                        .messageGroupId(groupId)
+                        .topicArn(topicArn)
+                        .build();
                 }
 
             } else {
                 Map<String, MessageAttributeValue> messageAttributes = new HashMap<>();
                 messageAttributes.put(msgAttValue, MessageAttributeValue.builder()
-                        .dataType("String")
-                        .stringValue("true")
-                        .build());
+                    .dataType("String")
+                    .stringValue("true")
+                    .build());
 
                 if (duplication.compareTo("y") == 0) {
                     request = PublishRequest.builder()
-                            .message(message)
-                            .messageGroupId(groupId)
-                            .topicArn(topicArn)
-                            .build();
+                        .message(message)
+                        .messageGroupId(groupId)
+                        .topicArn(topicArn)
+                        .build();
                 } else {
                     // Create a publish request with the message and attributes.
                     request = PublishRequest.builder()
-                            .topicArn(topicArn)
-                            .message(message)
-                            .messageDeduplicationId(deduplicationID)
-                            .messageGroupId(groupId)
-                            .messageAttributes(messageAttributes)
-                            .build();
+                        .topicArn(topicArn)
+                        .message(message)
+                        .messageDeduplicationId(deduplicationID)
+                        .messageGroupId(groupId)
+                        .messageAttributes(messageAttributes)
+                        .build();
                 }
             }
 
             // Publish the message to the topic.
             PublishResponse result = snsClient.publish(request);
             System.out
-                    .println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
+                .println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -522,27 +524,27 @@ public class SNSWorkflow {
             if (filterList.isEmpty()) {
                 // No filter subscription is added.
                 request = SubscribeRequest.builder()
-                        .protocol("sqs")
-                        .endpoint(queueArn)
-                        .returnSubscriptionArn(true)
-                        .topicArn(topicArn)
-                        .build();
+                    .protocol("sqs")
+                    .endpoint(queueArn)
+                    .returnSubscriptionArn(true)
+                    .topicArn(topicArn)
+                    .build();
 
                 SubscribeResponse result = snsClient.subscribe(request);
                 System.out.println("The queue " + queueArn + " has been subscribed to the topic " + topicArn + "\n" +
-                        "with the subscription ARN " + result.subscriptionArn());
+                    "with the subscription ARN " + result.subscriptionArn());
                 return result.subscriptionArn();
             } else {
                 request = SubscribeRequest.builder()
-                        .protocol("sqs")
-                        .endpoint(queueArn)
-                        .returnSubscriptionArn(true)
-                        .topicArn(topicArn)
-                        .build();
+                    .protocol("sqs")
+                    .endpoint(queueArn)
+                    .returnSubscriptionArn(true)
+                    .topicArn(topicArn)
+                    .build();
 
                 SubscribeResponse result = snsClient.subscribe(request);
                 System.out.println("The queue " + queueArn + " has been subscribed to the topic " + topicArn + "\n" +
-                        "with the subscription ARN " + result.subscriptionArn());
+                    "with the subscription ARN " + result.subscriptionArn());
 
                 String attributeName = "FilterPolicy";
                 Gson gson = new Gson();
@@ -556,10 +558,10 @@ public class SNSWorkflow {
                 String updatedJsonString = gson.toJson(jsonObject);
                 System.out.println(updatedJsonString);
                 SetSubscriptionAttributesRequest attRequest = SetSubscriptionAttributesRequest.builder()
-                        .subscriptionArn(result.subscriptionArn())
-                        .attributeName(attributeName)
-                        .attributeValue(updatedJsonString)
-                        .build();
+                    .subscriptionArn(result.subscriptionArn())
+                    .attributeName(attributeName)
+                    .attributeValue(updatedJsonString)
+                    .build();
 
                 snsClient.setSubscriptionAttributes(attRequest);
                 return result.subscriptionArn();
@@ -580,9 +582,9 @@ public class SNSWorkflow {
             attrMap.put(QueueAttributeName.POLICY, policy);
 
             SetQueueAttributesRequest attributesRequest = SetQueueAttributesRequest.builder()
-                    .queueUrl(queueUrl)
-                    .attributes(attrMap)
-                    .build();
+                .queueUrl(queueUrl)
+                .attributes(attrMap)
+                .build();
 
             sqsClient.setQueueAttributes(attributesRequest);
             System.out.println("The policy has been successfully attached.");
@@ -600,9 +602,9 @@ public class SNSWorkflow {
         atts.add(QueueAttributeName.QUEUE_ARN);
 
         GetQueueAttributesRequest attributesRequest = GetQueueAttributesRequest.builder()
-                .queueUrl(queueUrl)
-                .attributeNames(atts)
-                .build();
+            .queueUrl(queueUrl)
+            .attributeNames(atts)
+            .build();
 
         GetQueueAttributesResponse response = sqsClient.getQueueAttributes(attributesRequest);
         Map<String, String> queueAtts = response.attributesAsStrings();
@@ -619,24 +621,24 @@ public class SNSWorkflow {
                 Map<QueueAttributeName, String> attrs = new HashMap<>();
                 attrs.put(QueueAttributeName.FIFO_QUEUE, "true");
                 CreateQueueRequest createQueueRequest = CreateQueueRequest.builder()
-                        .queueName(queueName)
-                        .attributes(attrs)
-                        .build();
+                    .queueName(queueName)
+                    .attributes(attrs)
+                    .build();
 
                 sqsClient.createQueue(createQueueRequest);
                 System.out.println("\nGet queue url");
                 GetQueueUrlResponse getQueueUrlResponse = sqsClient
-                        .getQueueUrl(GetQueueUrlRequest.builder().queueName(queueName).build());
+                    .getQueueUrl(GetQueueUrlRequest.builder().queueName(queueName).build());
                 return getQueueUrlResponse.queueUrl();
             } else {
                 CreateQueueRequest createQueueRequest = CreateQueueRequest.builder()
-                        .queueName(queueName)
-                        .build();
+                    .queueName(queueName)
+                    .build();
 
                 sqsClient.createQueue(createQueueRequest);
                 System.out.println("\nGet queue url");
                 GetQueueUrlResponse getQueueUrlResponse = sqsClient
-                        .getQueueUrl(GetQueueUrlRequest.builder().queueName(queueName).build());
+                    .getQueueUrl(GetQueueUrlRequest.builder().queueName(queueName).build());
                 return getQueueUrlResponse.queueUrl();
             }
 
@@ -651,8 +653,8 @@ public class SNSWorkflow {
         CreateTopicResponse result;
         try {
             CreateTopicRequest request = CreateTopicRequest.builder()
-                    .name(topicName)
-                    .build();
+                .name(topicName)
+                .build();
 
             result = snsClient.createTopic(request);
             return result.topicArn();
@@ -677,9 +679,9 @@ public class SNSWorkflow {
             }
 
             CreateTopicRequest topicRequest = CreateTopicRequest.builder()
-                    .name(topicName)
-                    .attributes(topicAttributes)
-                    .build();
+                .name(topicName)
+                .attributes(topicAttributes)
+                .build();
 
             CreateTopicResponse response = snsClient.createTopic(topicRequest);
             return response.topicArn();

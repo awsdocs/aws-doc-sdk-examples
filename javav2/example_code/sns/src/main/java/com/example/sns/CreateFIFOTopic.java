@@ -35,8 +35,8 @@ public class CreateFIFOTopic {
             System.exit(1);
         }
 
-        String fifoTopicName = "PriceUpdatesTopic3.fifo";
-        String fifoQueueARN = "arn:aws:sqs:us-east-1:814548047983:MyPriceSQS.fifo";
+        String fifoTopicName = args[0];
+        String fifoQueueARN = args[1];
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
