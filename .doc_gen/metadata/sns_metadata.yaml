@@ -56,6 +56,17 @@ sns_Hello:
             - description: Initialize an SNS client and and list topics in your account.
               snippet_tags:
                 - javascript.v3.sns.hello
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sns/basics
+          excerpts:
+            - description: The Package.swift file.
+              snippet_tags:
+                - swift.s3.sns-basics.package
+            - description: The main Swift program.
+              snippet_tags:
+                - swift.s3.sns-basics.hello
   services:
     sns: {ListTopics}
 sns_GetTopicAttributes:
