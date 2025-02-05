@@ -2,7 +2,8 @@ regions:
   - us-east-1
 
 blocklist:
-  - 1234567890
+  # Must have 1+ blocklist entry (see https://aws-nuke.ekristen.dev/warning/)
+  - 000000000000
 
 resource-types:
   excludes:
