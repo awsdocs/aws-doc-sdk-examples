@@ -162,7 +162,7 @@ public class EntityResActions {
     /**
      * Creates a schema mapping asynchronously.
      *
-     * @param schemaName the name of the schema to create the mapping for
+     * @param schemaName the name of the schema to create
      * @return a {@link CompletableFuture} that represents the asynchronous creation of the schema mapping
      */
     public CompletableFuture<CreateSchemaMappingResponse> createSchemaMappingAsync(String schemaName) {
