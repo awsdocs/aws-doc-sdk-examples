@@ -1,3 +1,15 @@
+entityresolution_GetSchemaMapping:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entityres.java2_get_schema_mapping.main
+  services:
+    entityresolution: {GetSchemaMapping}
 entityresolution_CreateSchemaMapping:
   languages:
     Java:
