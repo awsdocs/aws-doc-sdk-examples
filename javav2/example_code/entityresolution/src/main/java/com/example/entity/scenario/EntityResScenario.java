@@ -241,8 +241,6 @@ public class EntityResScenario {
         logger.info(DASHES);
         logger.info("This concludes the AWS Entity Resolution scenario.");
         logger.info(DASHES);
-
-
     }
 
     private static void waitForInputToContinue(Scanner scanner) {

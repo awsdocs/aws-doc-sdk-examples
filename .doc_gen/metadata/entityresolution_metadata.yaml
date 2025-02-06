@@ -1,0 +1,12 @@
+entityresolution_CreateSchemaMapping:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entityres.java2_create_schema.main
+  services:
+    entityresolution: {CreateSchemaMapping}
