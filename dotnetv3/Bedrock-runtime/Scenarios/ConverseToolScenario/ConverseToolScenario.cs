@@ -87,7 +87,7 @@ public static class ConverseToolScenario
         finally
         {
             Console.WriteLine(
-                "Amazon  Bedrock Converse API with Tool Use Feature Scenario is complete.");
+                "Amazon Bedrock Converse API with Tool Use Feature Scenario is complete.");
             Console.WriteLine(new string('-', 80));
         }
     }
