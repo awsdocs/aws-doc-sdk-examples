@@ -1,5 +1,5 @@
 name: Dependabot auto-approve
-on: pull_request
+on: pull_request   # yamllint disable-line rule:truthy
 permissions:
   pull-requests: write
   id-token: write
