@@ -23,35 +23,61 @@ For an introduction, see the [README.md](README.md).
 
 The user's input is used as the starting point for the Bedrock Runtime conversation, and each response is added to an array of messages. 
 The model should respond when it needs to invoke the tool, and the application should run the tool and append the response to the conversation.
-This process can be repeated as needed. See the .NET implementation for an example of the processing of the messages. Following is an example of how the conversation could go:
+This process can be repeated as needed until a maximum number of recursions (5). See the .NET implementation for an example of the processing of the messages. Following is an example of how the conversation could go:
 
-1. **Greet the user and provide an overview of the application**:
-  - The application is an assistant that provides current weather information for user-specified locations.
-  - Users can ask for weather details by providing the location name or coordinates.
-  - Example queries are provided, such as "What's the weather like in New York?" and "Current weather for latitude 40.70, longitude -74.01".
-  - Users can exit the application by typing 'x' and pressing Enter.
-  - The application is not limited to single locations or using English.
+1. Greet the user and provide an overview of the application.
+1. Handle the user's weather information request:
+   1. The user requests weather information. This request is sent to the Bedrock model.
+   2. The model response includes a tool request, with a latitude and longitude to provide to the tool.
+   3. The application then uses the Weather_Tool to retrieve the current weather data for those coordinates, and appends that response as a tool response to the conversation. The conversation is sent back to the model.
+   4. The model responds with either a final response, or a request for more information. The process repeats. 
+   5. The application prints the final response.
+1. Any off topic requests should be handled according to the system prompt. This prompt is provided below.
+1. The user can type 'x' to exit the application.
 
-2. **Handle the user's weather information request**:
-  - The user requests weather information.
-  - The application looks up the latitude and longitude coordinates for Oklahoma City.
-  - The application then uses the Weather_Tool to retrieve the current weather data for those coordinates.
-  - The application prints the current weather conditions, including the temperature, wind speed and direction, and a description of the weather.
+#### System prompt
+```
+You are a weather assistant that provides current weather data for user-specified locations using only
+the Weather_Tool, which expects latitude and longitude. Infer the coordinates from the location yourself.
+If the user provides coordinates, infer the approximate location and refer to it in your response.
+To use the tool, you strictly apply the provided tool specification.
 
-3. **Handle an off-topic user request**:
-  - The user requests information about a different topic.
-  - The application responds that it is focused on providing current weather information and does not have any data or capabilities related to discussing other topics.
-  - The application suggests returning to discussing weather conditions for a particular location.
+- Explain your step-by-step process, and give brief updates before each step.
+- Only use the Weather_Tool for data. Never guess or make up information. 
+- Repeat the tool use for subsequent requests if necessary.
+- If the tool errors, apologize, explain weather is unavailable, and suggest other options.
+- Report temperatures in °C (°F) and wind in km/h (mph). Keep weather reports concise. Sparingly use
+  emojis where appropriate.
+- Only respond to weather queries. Remind off-topic users of your purpose. 
+- Never claim to search online, access external data, or use tools besides Weather_Tool.
+- Complete the entire process until you have all required data before sending the complete response.
+```
 
-4. **Find the warmest city in a location**:
-  - The user requests the warmest city in a state.
-  - The application looks up the coordinates for some major cities in the state.
-  - The application uses the Weather_Tool to retrieve the current temperature for each city.
-  - The application compares the temperatures prints a response.
+#### Weather tool specification
+For strongly typed languages, you will need to use the Bedrock classes provided for tool specification.
 
-5 **Exit the application**:
-  - The user types 'x' and presses Enter to exit the application.
-  - The application prints a farewell message and provides a link to more Bedrock examples.
+```
+"toolSpec": {
+            "name": "Weather_Tool",
+            "description": "Get the current weather for a given location, based on its WGS84 coordinates.",
+            "inputSchema": {
+                "json": {
+                    "type": "object",
+                    "properties": {
+                        "latitude": {
+                            "type": "string",
+                            "description": "Geographical WGS84 latitude of the location.",
+                        },
+                        "longitude": {
+                            "type": "string",
+                            "description": "Geographical WGS84 longitude of the location.",
+                        },
+                    },
+                    "required": ["latitude", "longitude"],
+                }
+            },
+        }
+```
 
 
 ## Example Output
