@@ -125,12 +125,15 @@ bedrock-runtime_Scenario_ToolUse:
           github: dotnetv3/Bedrock-runtime/Scenarios/ConverseToolScenario
           excerpts:
             - description: "The primary execution of the scenario flow. This scenario orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              genai: some
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.Scenario
             - description: "The weather tool used by the demo. This file defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
+              genai: some
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.WeatherTool
             - description: "The Converse API action with a tool configuration."
+              genai: some
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
     Python:
@@ -190,6 +193,7 @@ bedrock-runtime_Converse_AnthropicClaude:
               snippet_tags:
                 - BedrockRuntime.dotnetv3.Converse_AnthropicClaude
             - description: Send a conversation of messages to Anthropic Claude, using Bedrock's Converse API with a tool configuration.
+              genai: some
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
     Python:
@@ -1257,12 +1261,15 @@ bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude:
           github: dotnetv3/Bedrock-runtime/Scenarios/ConverseToolScenario
           excerpts:
             - description: "The primary execution of the scenario flow. This scenario orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              genai: some
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.Scenario
             - description: "The weather tool used by the demo. This file defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
+              genai: some
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.WeatherTool
             - description: "The Converse API action with a tool configuration."
+              genai: some
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
     Python:
