@@ -18,6 +18,8 @@ This example illustrates a typical interaction between a generative AI model, an
 8. The model uses the tool response to generate a final response. If additional tool requests are needed, the process is repeated.
 9. Once the final response is received and printed, the application returns to the prompt.
 
+![img.png](toolscenario.png)
+
 ### Resources
 
 No additional resources are needed for this scenario.
