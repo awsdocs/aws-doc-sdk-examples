@@ -5,11 +5,10 @@
 // The swift-tools-version declares the minimum version of Swift required to
 // build this package.
 
-// snippet-start:[swift.sns.basics.package]
 import PackageDescription
 
 let package = Package(
-    name: "sns-basics",
+    name: "publish",
     // Let Xcode know the minimum Apple platforms supported.
     platforms: [
         .macOS(.v13),
@@ -30,7 +29,7 @@ let package = Package(
         // Targets can depend on other targets in this package and products
         // from dependencies.
         .executableTarget(
-            name: "sns-basics",
+            name: "publish",
             dependencies: [
                 .product(name: "AWSSNS", package: "aws-sdk-swift"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser")
@@ -39,4 +38,3 @@ let package = Package(
 
     ]
 )
-// snippet-end:[swift.sns.basics.package]

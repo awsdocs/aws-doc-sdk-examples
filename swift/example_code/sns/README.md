@@ -34,6 +34,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 - [Hello Amazon SNS](basics/Package.swift#L8) (`ListTopics`)
 
 
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [CreateTopic](CreateTopic/Sources/entry.swift#L29)
+- [DeleteTopic](DeleteTopic/Sources/entry.swift#L29)
+- [ListTopics](basics/Sources/entry.swift#L28)
+- [Publish](Publish/Sources/entry.swift#L30)
+- [Subscribe](SubscribeEmail/Sources/entry.swift#L31)
+- [Unsubscribe](Unsubscribe/Sources/entry.swift#L29)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 

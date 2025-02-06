@@ -4,7 +4,7 @@
 // An example demonstrating how to set up and use an AWS Simple Notification
 // Service client to list your available AWS SNS topics.
 
-// snippet-start:[swift.s3.sns-basics.hello]
+// snippet-start:[swift.sns.basics.hello]
 import ArgumentParser
 import AWSClientRuntime
 import AWSSNS
@@ -25,6 +25,7 @@ struct ExampleCommand: ParsableCommand {
     
     /// Called by ``main()`` to run the bulk of the example.
     func runAsync() async throws {
+        // snippet-start:[swift.sns.ListTopics]
         let config = try await SNSClient.SNSClientConfiguration(region: region)
         let snsClient = SNSClient(config: config)
 
@@ -52,6 +53,7 @@ struct ExampleCommand: ParsableCommand {
                 topics.append(arn)
             }
         }
+        // snippet-end:[swift.sns.ListTopics]
 
         print("You have \(topics.count) topics:")
         for topic in topics {
@@ -74,4 +76,4 @@ struct Main {
         }
     }    
 }
-// snippet-end:[swift.s3.sns-basics.hello]
+// snippet-end:[swift.sns.basics.hello]
