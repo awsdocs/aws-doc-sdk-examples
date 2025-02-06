@@ -8,15 +8,14 @@ This example shows how to use AWS SDKs and the Amazon Bedrock Converse API to ca
 
 This example illustrates a typical interaction between a generative AI model, an application, and connected tools or APIs to solve a problem or achieve a specific goal. The scenario follows these steps:
 
-1. Set up the system prompt and tool configuration. 
-2. Specify the AI model to be used (e.g., Anthropic Claude 3 Sonnet). 
-3. Create a client to interact with Amazon Bedrock. 
-4. Prompt the user for their weather request. 
-5. Send the user input including the conversation history to the model.
-6. The model processes the input and determines if a connected tool or API needs to be used. If this is the case, the model returns a tool use request with specific parameters needed to invoke the tool, and a unique tool use ID to correlate tool responses to the request.
-7. The scenario application invokes the tool to fetch weather data, and append the response and tool use ID to the conversation.
-8. The model uses the tool response to generate a final response. If additional tool requests are needed, the process is repeated.
-9. Once the final response is received and printed, the application returns to the prompt.
+1. Set up the system prompt and tool configuration.
+2. Create a client to interact with Amazon Bedrock. 
+3. Prompt the user for their weather request. 
+4. Send the user input including the conversation history to the model.
+5. The model processes the input and determines if a connected tool or API needs to be used. If this is the case, the model returns a tool use request with specific parameters needed to invoke the tool, and a unique tool use ID to correlate tool responses to the request.
+6. The scenario application invokes the tool to fetch weather data, and append the response and tool use ID to the conversation.
+7. The model uses the tool response to generate a final response. If additional tool requests are needed, the process is repeated. If the max recursion is reached, the conversation is ended.
+8. Once the final response is received and printed, the application returns to the prompt.
 
 ![img.png](toolscenario.png)
 
