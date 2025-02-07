@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
+
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -26,11 +26,14 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class SNSTest {
+    private val logger: Logger = LoggerFactory.getLogger(SNSTest::class.java)
     private var topicName = ""
     private var topicArn = "" // This value is dynamically set
     private var subArn = "" // This value is dynamically set
@@ -57,21 +60,6 @@ class SNSTest {
             lambdaarn = values.lambdaarn.toString()
             phone = values.phone.toString()
             message = values.message.toString()
-
-        /*
-        // load the properties file.
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        topicName = prop.getProperty("topicName")
-        attributeName = prop.getProperty("attributeName")
-        attributeValue = prop.getProperty("attributeValue")
-        email = prop.getProperty("email")
-        lambdaarn = prop.getProperty("lambdaarn")
-        phone = prop.getProperty("phone")
-        message = prop.getProperty("message")
-        existingsubarn = prop.getProperty("existingsubarn")
-         */
         }
 
     @Test
@@ -80,7 +68,7 @@ class SNSTest {
         runBlocking {
             topicArn = createSNSTopic(topicName)
             Assertions.assertTrue(!topicArn.isEmpty())
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -88,7 +76,7 @@ class SNSTest {
     fun listTopicsTest() =
         runBlocking {
             listSNSTopics()
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -96,7 +84,7 @@ class SNSTest {
     fun setTopicAttributesTest() =
         runBlocking {
             setTopAttr(attributeName, topicArn, attributeValue)
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -104,7 +92,7 @@ class SNSTest {
     fun subscribeEmailTest() =
         runBlocking {
             subEmail(topicArn, email)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -112,7 +100,7 @@ class SNSTest {
     fun subscribeLambdaTest() =
         runBlocking {
             subLambda(topicArn, lambdaarn)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -120,7 +108,7 @@ class SNSTest {
     fun addTagsTest() =
         runBlocking {
             addTopicTags(topicArn)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -128,7 +116,7 @@ class SNSTest {
     fun listTagsTest() =
         runBlocking {
             listTopicTags(topicArn)
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     @Test
@@ -136,7 +124,7 @@ class SNSTest {
     fun deleteTagTest() =
         runBlocking {
             removeTag(topicArn, "Team")
-            println("Test 8 passed")
+            logger.info("Test 8 passed")
         }
 
     @Test
@@ -144,7 +132,7 @@ class SNSTest {
     fun subEmailTest() =
         runBlocking {
             subEmail(topicArn, email)
-            println("Test 10 passed")
+            logger.info("Test 10 passed")
         }
 
     @Test
@@ -152,7 +140,7 @@ class SNSTest {
     fun pubTopicTest() =
         runBlocking {
             pubTopic(topicArn, message)
-            println("Test 11 passed")
+            logger.info("Test 11 passed")
         }
 
     @Test
@@ -160,7 +148,7 @@ class SNSTest {
     fun listSubsTest() =
         runBlocking {
             listSNSSubscriptions()
-            println("Test 12 passed")
+            logger.info("Test 12 passed")
         }
 
     @Test
@@ -168,7 +156,7 @@ class SNSTest {
     fun subscribeTextSMSTest() =
         runBlocking {
             subTextSNS(topicArn, phone)
-            println("Test 14 passed")
+            logger.info("Test 14 passed")
         }
 
     @Test
@@ -176,7 +164,7 @@ class SNSTest {
     fun deleteTopicTest() =
         runBlocking {
             deleteSNSTopic(topicArn)
-            println("Test 15 passed")
+            logger.info("Test 15 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -187,7 +175,6 @@ class SNSTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

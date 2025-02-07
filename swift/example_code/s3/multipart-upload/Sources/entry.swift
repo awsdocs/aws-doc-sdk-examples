@@ -6,7 +6,6 @@
 
 // snippet-start:[swift.s3.multipart-upload.imports]
 import ArgumentParser
-import AsyncHTTPClient
 import AWSClientRuntime
 import AWSS3
 import Foundation
@@ -38,6 +37,14 @@ struct ExampleCommand: ParsableCommand {
 
     // -MARK: - File uploading
 
+    /// Upload a file to Amazon S3.
+    /// 
+    /// - Parameters:
+    ///   - file: The path of the local file to upload to Amazon S3.
+    ///   - bucket: The name of the bucket to upload the file into.
+    ///   - key: The key (name) to give the object on Amazon S3.
+    ///
+    /// - Throws: Errors from `TransferError`
     func uploadFile(file: String, bucket: String, key: String?) async throws {
         let fileURL = URL(fileURLWithPath: file)
         let fileName: String
@@ -175,13 +182,18 @@ struct ExampleCommand: ParsableCommand {
             uploadId: uploadID
         )
         
+        // Upload the part.
         do {
-        let uploadPartOutput = try await client.uploadPart(input: uploadPartInput)
+            let uploadPartOutput = try await client.uploadPart(input: uploadPartInput)
+
             guard let eTag = uploadPartOutput.eTag else {
                 throw TransferError.uploadError("Missing eTag")
             } 
 
-            return S3ClientTypes.CompletedPart(eTag: eTag, partNumber: partNumber)
+            return S3ClientTypes.CompletedPart(
+                eTag: eTag,
+                partNumber: partNumber
+            )
         } catch {
             throw TransferError.uploadError(error.localizedDescription)
         }

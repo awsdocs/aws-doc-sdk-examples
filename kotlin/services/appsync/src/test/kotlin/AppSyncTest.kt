@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.example.appsync.createDS
@@ -21,10 +20,13 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class AppSyncTest {
+    private val logger: Logger = LoggerFactory.getLogger(AppSyncTest::class.java)
     private var apiId = ""
     private var dsName = ""
     private var dsRole = ""
@@ -42,17 +44,6 @@ class AppSyncTest {
             dsName = values.dsName.toString()
             dsRole = values.dsRole.toString()
             tableName = values.tableName.toString()
-
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        apiId = prop.getProperty("apiId")
-        dsName = prop.getProperty("dsName")
-        dsRole = prop.getProperty("dsRole")
-        tableName = prop.getProperty("tableName")
-         */
         }
 
     @Test
@@ -61,7 +52,7 @@ class AppSyncTest {
         runBlocking {
             keyId = createKey(apiId).toString()
             assertTrue(!keyId.isEmpty())
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -72,7 +63,7 @@ class AppSyncTest {
             if (dsARN != null) {
                 assertTrue(dsARN.isNotEmpty())
             }
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -80,7 +71,7 @@ class AppSyncTest {
     fun getDataSource() =
         runBlocking {
             getDS(apiId, dsName)
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -88,7 +79,7 @@ class AppSyncTest {
     fun listGraphqlApis() =
         runBlocking {
             getKeys(apiId)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -96,7 +87,7 @@ class AppSyncTest {
     fun listApiKeys() =
         runBlocking {
             getKeys(apiId)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -104,7 +95,7 @@ class AppSyncTest {
     fun deleteDataSource() =
         runBlocking {
             deleteDS(apiId, dsName)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -112,7 +103,7 @@ class AppSyncTest {
     fun deleteApiKey() =
         runBlocking {
             deleteKey(keyId, apiId)
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -123,7 +114,6 @@ class AppSyncTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
