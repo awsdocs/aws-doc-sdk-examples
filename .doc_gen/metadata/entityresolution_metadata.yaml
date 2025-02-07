@@ -26,7 +26,7 @@ entityresolution_TagEntityResource:
                 - entityres.java2_tag_resource.main
   services:
     entityresolution: {TagEntityResource}
-entityresolution_CreateMatchingWork:
+entityresolution_CreateMatchingWorkflow:
   languages:
     Java:
       versions:
@@ -37,7 +37,7 @@ entityresolution_CreateMatchingWork:
               snippet_tags:
                 - entityres.java2_create_matching_workflow.main
   services:
-    entityresolution: {CreateMatchingWork}
+    entityresolution: {CreateMatchingWorkflow}
 entityresolution_CheckWorkflowStatus:
   languages:
     Java:
