@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
+// snippet-start:[entityres.java2_actions.main]
 public class EntityResActions {
     private static final Logger logger = LoggerFactory.getLogger(EntityResActions.class);
 
@@ -412,3 +413,4 @@ public class EntityResActions {
         }
     }
 }
+// snippet-end:[entityres.java2_actions.main]

@@ -3,7 +3,6 @@
 
 package com.example.entity;
 
-import com.example.entity.scenario.EntityResScenario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
@@ -12,21 +11,20 @@ import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.entityresolution.EntityResolutionAsyncClient;
-import software.amazon.awssdk.services.entityresolution.model.GetIdMappingWorkflowRequest;
-import software.amazon.awssdk.services.entityresolution.model.GetIdMappingWorkflowResponse;
-import software.amazon.awssdk.services.entityresolution.model.ListIdMappingJobsRequest;
 import software.amazon.awssdk.services.entityresolution.model.ListMatchingWorkflowsRequest;
-import software.amazon.awssdk.services.entityresolution.model.ListMatchingWorkflowsResponse;
-import software.amazon.awssdk.services.entityresolution.model.ListSchemaMappingsRequest;
-import software.amazon.awssdk.services.entityresolution.model.ResourceNotFoundException;
-import software.amazon.awssdk.services.entityresolution.paginators.ListIdMappingJobsPublisher;
 import software.amazon.awssdk.services.entityresolution.paginators.ListMatchingWorkflowsPublisher;
-import software.amazon.awssdk.services.entityresolution.paginators.ListSchemaMappingsPublisher;
-
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
 // snippet-start:[entityres.java2_hello.main]
+/**
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class HelloEntityResoultion {
 
     private static final Logger logger = LoggerFactory.getLogger(HelloEntityResoultion.class);
@@ -65,9 +63,17 @@ public class HelloEntityResoultion {
                 .build();
         }
         return entityResolutionAsyncClient;
-
     }
 
+    /**
+     * Lists all matching workflows using an asynchronous paginator.
+     * <p>
+     * This method requests a paginated list of matching workflows from the
+     * AWS Entity Resolution service and logs the names of the retrieved workflows.
+     * It uses an asynchronous approach with a paginator and waits for the operation
+     * to complete using {@code CompletableFuture#join()}.
+     * </p>
+     */
     public static void listMatchingWorkflows() {
         ListMatchingWorkflowsRequest request = ListMatchingWorkflowsRequest.builder().build();
 

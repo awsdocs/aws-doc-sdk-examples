@@ -122,3 +122,30 @@ entityresolution_CreateSchemaMapping:
                 - entityres.java2_create_schema.main
   services:
     entityresolution: {CreateSchemaMapping}
+entityresolution_Scenario:
+  synopsis_list:
+    - Create Schema Mapping.
+    - Create an &ERlong; workflow.
+    - Start the matching job for the workflow.
+    - Get details for the matching job.
+    - Get Schema Mapping.
+    - List all Schema Mappings.
+    - Tag the Schema Mapping resource.
+    - Delete the AWS Entity Resolution Workflow.
+    - Delete the &ERlong; Assets.
+  category: Basics
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/entityresolution
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &ERlong; features.
+              snippet_tags:
+                - entityres.java2_scenario.main
+            - description: A wrapper class for &ITSW; SDK methods.
+              snippet_tags:
+                - iotsitewise.java2.actions.main 
+  services:
+    iotsitewise: {}    
