@@ -79,7 +79,6 @@ public class EntityResActions {
         return entityResolutionAsyncClient;
     }
 
-
     public static S3AsyncClient getS3AsyncClient() {
         if (s3AsyncClient == null) {
             /*
