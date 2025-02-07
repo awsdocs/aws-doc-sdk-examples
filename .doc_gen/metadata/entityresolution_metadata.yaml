@@ -131,7 +131,7 @@ entityresolution_Scenario:
     - Get Schema Mapping.
     - List all Schema Mappings.
     - Tag the Schema Mapping resource.
-    - Delete the AWS Entity Resolution Workflow.
+    - Delete the Workflow.
     - Delete the &ERlong; Assets.
   category: Basics
   languages:
