@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-// An example demonstrating how to unsubscribe a subscriber from an AWS Simple
+// An example demonstrating how to unsubscribe a subscriber from an Amazon Simple
 // Notification Service (SNS) topic.
 
 import ArgumentParser
@@ -18,7 +18,7 @@ struct ExampleCommand: ParsableCommand {
     static var configuration = CommandConfiguration(
         commandName: "unsubscribe",
         abstract: """
-        Unsubscribe a subscriber from an AWS SNS topic.
+        Unsubscribe a subscriber from an Amazon SNS topic.
         """,
         discussion: """
         """

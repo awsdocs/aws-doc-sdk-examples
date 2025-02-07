@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-// An example demonstrating how to set up and use an AWS Simple Notification
-// Service client to list your available AWS SNS topics.
+// An example demonstrating how to set up and use an Amazon Simple Notification
+// Service client to list your available Amazon SNS topics.
 
 // snippet-start:[swift.sns.basics.hello]
 import ArgumentParser
@@ -17,7 +17,7 @@ struct ExampleCommand: ParsableCommand {
     static var configuration = CommandConfiguration(
         commandName: "sns-basics",
         abstract: """
-        This example shows how to list all of your available AWS SNS topics.
+        This example shows how to list all of your available Amazon SNS topics.
         """,
         discussion: """
         """
@@ -38,7 +38,7 @@ struct ExampleCommand: ParsableCommand {
 
         for try await output in outputPages {
             guard let topicList = output.topics else {
-                print("Unable to get a page of AWS SNS topics.")
+                print("Unable to get a page of Amazon SNS topics.")
                 return
             }
 

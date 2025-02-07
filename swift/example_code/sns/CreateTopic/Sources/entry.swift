@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-// An example demonstrating how to set up and use an AWS Simple Notification
+// An example demonstrating how to set up and use an Amazon Simple Notification
 // Service (SNS) client to create a new topic.
 
 import ArgumentParser
@@ -10,7 +10,7 @@ import AWSSNS
 import Foundation
 
 struct ExampleCommand: ParsableCommand {
-    @Argument(help: "Name to give the new AWS SNS topic")
+    @Argument(help: "Name to give the new Amazon SNS topic")
     var name: String
     @Option(help: "Name of the Amazon S3 Region to use (default: us-east-1)")
     var region = "us-east-1"
@@ -18,7 +18,7 @@ struct ExampleCommand: ParsableCommand {
     static var configuration = CommandConfiguration(
         commandName: "createtopic",
         abstract: """
-        This example shows how to create an AWS SNS topic.
+        This example shows how to create an Amazon SNS topic.
         """,
         discussion: """
         """
@@ -35,7 +35,7 @@ struct ExampleCommand: ParsableCommand {
         )
 
         guard let arn = output.topicArn else {
-            print("No topic ARN returned by AWS SNS.")
+            print("No topic ARN returned by Amazon SNS.")
             return
         }
         // snippet-end:[swift.sns.CreateTopic]

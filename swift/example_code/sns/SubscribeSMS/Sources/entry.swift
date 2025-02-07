@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-// An example demonstrating how to subscribe an email address to an AWS Simple
+// An example demonstrating how to subscribe an email address to an Amazon Simple
 // Notification Service (SNS) topic.
 
 import ArgumentParser
@@ -10,7 +10,7 @@ import AWSSNS
 import Foundation
 
 struct ExampleCommand: ParsableCommand {
-    @Argument(help: "The ARN of the AWS SNS topic to subscribe to")
+    @Argument(help: "The ARN of the Amazon SNS topic to subscribe to")
     var arn: String
     @Argument(help: "The phone number to subscribe to the topic")
     var phone: String
@@ -20,7 +20,7 @@ struct ExampleCommand: ParsableCommand {
     static var configuration = CommandConfiguration(
         commandName: "subscribe-sms",
         abstract: """
-        Subscribes a phone number to receive text messages from an AWS SNS topic.
+        Subscribes a phone number to receive text messages from an Amazon SNS topic.
         """,
         discussion: """
         """
@@ -42,7 +42,7 @@ struct ExampleCommand: ParsableCommand {
         )
 
         guard let subscriptionArn = output.subscriptionArn else {
-            print("No subscription ARN received from AWS SNS.")
+            print("No subscription ARN received from Amazon SNS.")
             return
         }
         

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-// An example demonstrating how to set up and use an AWS Simple Notification
+// An example demonstrating how to set up and use an Amazon Simple Notification
 // Service (SNS) client to delete a topic.
 
 import ArgumentParser
@@ -10,7 +10,7 @@ import AWSSNS
 import Foundation
 
 struct ExampleCommand: ParsableCommand {
-    @Argument(help: "The ARN of the AWS SNS topic to delete")
+    @Argument(help: "The ARN of the Amazon SNS topic to delete")
     var arn: String
     @Option(help: "Name of the Amazon S3 Region to use (default: us-east-1)")
     var region = "us-east-1"
@@ -18,7 +18,7 @@ struct ExampleCommand: ParsableCommand {
     static var configuration = CommandConfiguration(
         commandName: "deletetopic",
         abstract: """
-        This example shows how to delete an AWS SNS topic.
+        This example shows how to delete an Amazon SNS topic.
         """,
         discussion: """
         """

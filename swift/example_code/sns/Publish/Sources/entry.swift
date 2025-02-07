@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-// An example demonstrating how to publish a message to an AWS SNS topic.
+// An example demonstrating how to publish a message to an Amazon SNS topic.
 
 import ArgumentParser
 import AWSClientRuntime
@@ -9,7 +9,7 @@ import AWSSNS
 import Foundation
 
 struct ExampleCommand: ParsableCommand {
-    @Argument(help: "The ARN of the AWS SNS topic to publish to")
+    @Argument(help: "The ARN of the Amazon SNS topic to publish to")
     var arn: String
     @Argument(help: "The message to publish to the topic")
     var message: String
@@ -19,7 +19,7 @@ struct ExampleCommand: ParsableCommand {
     static var configuration = CommandConfiguration(
         commandName: "publish",
         abstract: """
-        This example shows how to publish a message to an AWS SNS topic.
+        This example shows how to publish a message to an Amazon SNS topic.
         """,
         discussion: """
         """
@@ -39,7 +39,7 @@ struct ExampleCommand: ParsableCommand {
         )
 
         guard let messageId = output.messageId else {
-            print("No message ID received from AWS SNS.")
+            print("No message ID received from Amazon SNS.")
             return
         }
         
