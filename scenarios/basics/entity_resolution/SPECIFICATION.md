@@ -7,7 +7,7 @@ This SDK Basics scenario demonstrates how to interact with AWS Entity Resolution
 This Basics scenario requires an IAM role that has permissions to work with the AWS Entity Resolution service, an AWS Glue database and a table, and two S3 buckets. A CDK script is provided to create these resources. 
 
 ## Hello AWS Entity Resolution
-This program is intended for users not familiar with the AWS Entity Resolution Service to easily get up and running. The program uses a `listIdMappingJobsPaginator` to demonstrate how you can read through workflow job information.
+This program is intended for users not familiar with the AWS Entity Resolution Service to easily get up and running. The program uses a `listMatchingWorkflowsPaginator` to demonstrate how you can read through workflow information.
 
 ## Basics Scenario Program Flow
 The AWS Entity Resolution Basics scenario executes the following operations.

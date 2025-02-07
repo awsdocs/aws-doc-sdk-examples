@@ -1,4 +1,8 @@
-entityresolution_HelloEntity:
+entityresolution_Hello:
+  title: Hello &ERlong;
+  title_abbrev: Hello &ER;
+  synopsis: get started using &ER;.
+  category: Hello
   languages:
     Java:
       versions:
@@ -7,9 +11,9 @@ entityresolution_HelloEntity:
           excerpts:
             - description:
               snippet_tags:
-                - entityres.java2_tag_resource.main
+                - entityres.java2_hello.main
   services:
-    entityresolution: {HelloEntity}
+    entityresolution: {listMatchingWorkflows}
 entityresolution_TagEntityResource:
   languages:
     Java:
