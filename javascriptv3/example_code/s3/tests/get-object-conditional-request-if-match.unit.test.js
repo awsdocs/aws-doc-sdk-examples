@@ -49,7 +49,6 @@ describe("get-object", () => {
     const key = "foo";
     const eTag = "123456789";
     const error = new NoSuchKey();
-    error.$metadata = "metadata"; // Workaround until PR is released. https://github.com/smithy-lang/smithy-typescript/pull/1503
     send.mockRejectedValueOnce(error);
 
     const spy = vi.spyOn(console, "error");

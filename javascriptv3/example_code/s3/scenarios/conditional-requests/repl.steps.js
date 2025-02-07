@@ -67,7 +67,6 @@ const replInput = (scenarios) =>
  */
 const getAllFiles = async (client, buckets) => {
   /** @type {{bucket: string, key: string, version: string}[]} */
-
   const files = [];
   for (const bucket of buckets) {
     const objectsResponse = await client.send(
@@ -84,6 +83,7 @@ const getAllFiles = async (client, buckets) => {
 /**
  * @param {S3Client} client
  * @param {string[]} buckets
+ * @param {string} key
  */
 const getEtag = async (client, bucket, key) => {
   const objectsResponse = await client.send(
@@ -187,7 +187,6 @@ export const replAction = (scenarios, client) =>
               selectedCondRead ===
               "If-Match: using the object's ETag. This condition should succeed."
             ) {
-              //Get ETag of selected file.
               const bucket = state.sourceBucketName;
               const key = "file01.txt";
               const ETag = await getEtag(client, bucket, key);
@@ -210,7 +209,6 @@ export const replAction = (scenarios, client) =>
               selectedCondRead ===
               "If-None-Match: using the object's ETag. This condition should fail."
             ) {
-              //Get ETag of selected file.
               const bucket = state.sourceBucketName;
               const key = "file01.txt";
               const ETag = await getEtag(client, bucket, key);
@@ -233,7 +231,6 @@ export const replAction = (scenarios, client) =>
               selectedCondRead ===
               "If-Modified-Since: using yesterday's date. This condition should succeed."
             ) {
-              //Get date in standard US format (MM/DD/YYYY)
               const date = new Date();
               date.setDate(date.getDate() - 1);
 
@@ -260,7 +257,6 @@ export const replAction = (scenarios, client) =>
               const bucket = state.sourceBucketName;
               const key = "file01.txt";
 
-              //Get date in standard US format (MM/DD/YYYY)
               const date = new Date();
               date.setDate(date.getDate() - 1);
               try {
@@ -285,13 +281,12 @@ export const replAction = (scenarios, client) =>
             selectedCondCopy ===
             "If-Match: using the object's ETag. This condition should succeed."
           ) {
-            //Get ETag of selected file.
             const bucket = state.sourceBucketName;
             const key = "file01.txt";
             const ETag = await getEtag(client, bucket, key);
 
             const copySource = `${bucket}/${key}`;
-            // Optionallly edit the default key name prefix of the copied object in ./object_name.json.
+            // Optionally edit the default key name prefix of the copied object in ./object_name.json.
             const name = data.default.name;
             const copiedKey = `${name}${key}`;
             try {
@@ -313,12 +308,11 @@ export const replAction = (scenarios, client) =>
             selectedCondCopy ===
             "If-None-Match: using the object's ETag. This condition should fail."
           ) {
-            //Get ETag of selected file.
             const bucket = state.sourceBucketName;
             const key = "file01.txt";
             const ETag = await getEtag(client, bucket, key);
             const copySource = `${bucket}/${key}`;
-            // Optionallly edit the default key name prefix of the copied object in ./object_name.json.
+            // Optionally edit the default key name prefix of the copied object in ./object_name.json.
             const name = data.default.name;
             const copiedKey = `${name}${key}`;
 
@@ -344,11 +338,10 @@ export const replAction = (scenarios, client) =>
             const bucket = state.sourceBucketName;
             const key = "file01.txt";
             const copySource = `${bucket}/${key}`;
-            // Optionallly edit the default key name prefix of the copied object in ./object_name.json.
+            // Optionally edit the default key name prefix of the copied object in ./object_name.json.
             const name = data.default.name;
             const copiedKey = `${name}${key}`;
 
-            //Get date in standard US format (MM/DD/YYYY)
             const date = new Date();
             date.setDate(date.getDate() - 1);
 
@@ -374,11 +367,10 @@ export const replAction = (scenarios, client) =>
             const bucket = state.sourceBucketName;
             const key = "file01.txt";
             const copySource = `${bucket}/${key}`;
-            // Optionallly edit the default key name prefix of the copied object in ./object_name.json.
+            // Optionally edit the default key name prefix of the copied object in ./object_name.json.
             const name = data.default.name;
             const copiedKey = `${name}${key}`;
 
-            //Get date in standard US format (MM/DD/YYYY)
             const date = new Date();
             date.setDate(date.getDate() - 1);
 
@@ -405,7 +397,7 @@ export const replAction = (scenarios, client) =>
               selectedCondWrite ===
               "IfNoneMatch condition on the object key: If the key is a duplicate, the write will fail."
             ) {
-              // Optionallly edit the default key name prefix of the copied object in ./object_name.json.
+              // Optionally edit the default key name prefix of the copied object in ./object_name.json.
               const key = "text02.txt";
               const filePath = `.\\${key}`;
               try {

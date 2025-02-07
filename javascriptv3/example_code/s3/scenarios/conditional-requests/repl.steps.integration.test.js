@@ -4,10 +4,7 @@
 import { describe, it } from "vitest";
 import { replAction } from "./repl.steps.js";
 import { S3Client } from "@aws-sdk/client-s3";
-/**
- * @param {S3Client} client
- * @param {string[]} scenarios
- */
+
 describe("basic scenario", () => {
   it(
     "should run without error",

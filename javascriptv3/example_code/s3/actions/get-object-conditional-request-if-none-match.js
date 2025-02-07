@@ -7,11 +7,6 @@ import {
   S3Client,
   S3ServiceException,
 } from "@aws-sdk/client-s3";
-import "@aws-sdk/crc64-nvme-crt";
-/**
- * @param {S3Client} client
- * @param {string[]} bucket
- */
 
 /**
  * Get a single object from a specified S3 bucket.

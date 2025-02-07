@@ -29,8 +29,7 @@ const confirmCleanup = (scenarios) =>
 const cleanupAction = (scenarios, client) =>
   new scenarios.ScenarioAction("cleanupAction", async (state) => {
     const { sourceBucketName, destinationBucketName } = state;
-
-    const buckets = [sourceBucketName, destinationBucketName];
+    const buckets = [sourceBucketName, destinationBucketName].filter((b) => b);
 
     for (const bucket of buckets) {
       /** @type {import("@aws-sdk/client-s3").ListObjectVersionsCommandOutput} */

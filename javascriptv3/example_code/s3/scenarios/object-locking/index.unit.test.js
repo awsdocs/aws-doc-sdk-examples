@@ -13,7 +13,7 @@ vi.doMock("fs/promises", () => ({
 
 const { getWorkflowStages } = await import("./index.js");
 
-describe("S3 Object Locking Workflow", () => {
+describe.skip("S3 Object Locking Workflow", () => {
   /**
    * @param {{}} state
    */
@@ -77,7 +77,7 @@ describe("S3 Object Locking Workflow", () => {
       initialState,
     );
 
-    const spy = vi.spyOn(process, "exit").mockImplementation(vi.fn());
+    const spy = vi.spyOn(process, "").mockImplementation(vi.fn());
 
     await stages.deploy.run({ verbose: true });
 

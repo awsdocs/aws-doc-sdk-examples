@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { ObjectNotInActiveTierError } from "@aws-sdk/client-s3";
 import { describe, it, expect, vi } from "vitest";
 
 const send = vi.fn();
