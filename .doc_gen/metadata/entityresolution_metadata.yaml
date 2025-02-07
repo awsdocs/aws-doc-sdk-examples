@@ -1,3 +1,99 @@
+entityresolution_HelloEntity:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entityres.java2_tag_resource.main
+  services:
+    entityresolution: {HelloEntity}
+entityresolution_TagEntityResource:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entityres.java2_tag_resource.main
+  services:
+    entityresolution: {TagEntityResource}
+entityresolution_CreateMatchingWork:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entityres.java2_create_matching_workflow.main
+  services:
+    entityresolution: {CreateMatchingWork}
+entityresolution_CheckWorkflowStatus:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entityres.java2_check_matching_workflow.main
+  services:
+    entityresolution: {CheckWorkflowStatus}
+entityresolution_StartMatchingJob:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entityres.java2_start_job.main
+  services:
+    entityresolution: {StartMatchingJob}
+entityresolution_GetMatchingJob:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entityres.java2_get_job.main
+  services:
+    entityresolution: {GetMatchingJob}
+entityresolution_DeleteMatchingWorkflow:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entityres.java2_delete_matching_workflow.main
+  services:
+    entityresolution: {DeleteMatchingWorkflow}
+entityresolution_ListSchemaMappings:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entityres.java2_list_mappings.main
+  services:
+    entityresolution: {ListSchemaMappings}
 entityresolution_GetSchemaMapping:
   languages:
     Java:
