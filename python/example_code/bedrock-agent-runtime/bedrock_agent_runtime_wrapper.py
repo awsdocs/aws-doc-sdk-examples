@@ -68,20 +68,18 @@ class BedrockAgentRuntimeWrapper:
 
     # snippet-end:[python.example_code.bedrock-agent-runtime.InvokeAgent]
 
-        # snippet-start:[python.example_code.bedrock-agent-runtime.InvokeFlow]
+    # snippet-start:[python.example_code.bedrock-agent-runtime.InvokeFlow]
     def invoke_flow(self, flow_id, flow_alias_id, input_data, execution_id):
         """
         Invoke an Amazon Bedrock flow and handle the response stream.
 
         Args:
-            client: Boto3 client for Amazon Bedrock agent runtime.
-            flow_id: The ID of the flow to invoke.
-            flow_alias_id: The alias ID of the flow.
-            input_data: Input data for the flow.
-            execution_id: Execution ID for continuing a flow. Use the value None on first run.
+            param flow_id: The ID of the flow to invoke.
+            param flow_alias_id: The alias ID of the flow.
+            param input_data: Input data for the flow.
+            param execution_id: Execution ID for continuing a flow. Use the value None on first run.
 
-        Returns:
-            The response
+        Return: Response from the flow.
         """
         try:
       
