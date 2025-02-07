@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Scanner;
 import java.util.concurrent.CompletionException;
 
+// snippet-start:[entityres.java2_scenario.main]
 public class EntityResScenario {
     private static final Logger logger = LoggerFactory.getLogger(EntityResScenario.class);
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -289,5 +290,5 @@ public class EntityResScenario {
             }
         }
     }
-
 }
+// snippet-end:[entityres.java2_scenario.main]
