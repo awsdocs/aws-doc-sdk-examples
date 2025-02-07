@@ -1,0 +1,32 @@
+on:  # yamllint disable-line rule:truthy
+  pull_request_review:
+    types: submitted
+
+jobs:
+  approved_pr:
+    name: Automerge approved PRs
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    if: ${{ github.event.review.state == 'approved' && github.repository == 'awsdocs/aws-doc-sdk-examples' && (github.event.review.author_association == 'OWNER' || github.event.review.author_association == 'MEMBER' || github.event.review.user.login == 'aws-sdk-osds') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-west-2
+          role-to-assume: arn:aws:iam::206735643321:role/ConfigureAwsCredentialsPackageRole
+          role-duration-seconds: 900
+          role-session-name: SecretsManagerFetch
+      - name: Get bot user token
+        uses: aws-actions/aws-secretsmanager-get-secrets@v2
+        with:
+          parse-json-secrets: true
+          secret-ids: |
+            OSDS,arn:aws:secretsmanager:us-west-2:206735643321:secret:github-aws-sdk-osds-automation-gebs9n
+      - name: Enable PR automerge
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ env.OSDS_ACCESS_TOKEN }}

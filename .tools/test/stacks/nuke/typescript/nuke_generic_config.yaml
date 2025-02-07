@@ -1,0 +1,157 @@
+regions:
+  - us-east-1
+
+blocklist:
+  # Must have 1+ blocklist entry (see https://aws-nuke.ekristen.dev/warning/)
+  - 000000000000
+
+resource-types:
+  excludes:
+    - ACMCertificate
+    - AWSBackupPlan
+    - AWSBackupRecoveryPoint
+    - AWSBackupSelection
+    - AWSBackupVault
+    - AWSBackupVaultAccessPolicy
+    - CloudTrailTrail
+    - CloudWatchEventsTarget
+    - CodeCommitRepository
+    - CodeStarProject
+    - ConfigServiceConfigRule
+    - ECRRepository
+    - EC2Address
+    - EC2ClientVpnEndpoint
+    - EC2ClientVpnEndpointAttachment
+    - EC2CustomerGateway
+    - EC2DHCPOption
+    - EC2DefaultSecurityGroupRule
+    - EC2EgressOnlyInternetGateway
+    - EC2InternetGateway
+    - EC2InternetGatewayAttachment
+    - EC2KeyPair
+    - EC2NetworkACL
+    - EC2NetworkInterface
+    - EC2RouteTable
+    - EC2SecurityGroup
+    - EC2Subnet
+    - EC2VPC
+    - EC2VPCEndpoint
+    - IAMGroup
+    - IAMGroupPolicy
+    - IAMGroupPolicyAttachment
+    - IAMInstanceProfile
+    - IAMInstanceProfileRole
+    - IAMLoginProfile
+    - IAMOpenIDConnectProvider
+    - IAMPolicy
+    - IAMRole
+    - IAMRolePolicy
+    - IAMRolePolicyAttachment
+    - IAMSAMLProvider
+    - IAMServerCertificate
+    - IAMServiceSpecificCredential
+    - IAMSigningCertificate
+    - IAMUser
+    - IAMUserAccessKey
+    - IAMUserGroupAttachment
+    - IAMUserPolicy
+    - IAMUserPolicyAttachment
+    - IAMUserSSHPublicKey
+    - IAMVirtualMFADevice
+    - KMSAlias
+    - KMSKey
+    - Route53HostedZone
+    - Route53ResourceRecordSet
+    - S3Bucket
+    - S3Object
+    - SecretsManagerSecret
+    - SQSQueue
+    - SSMParameter
+
+accounts:
+  AWSACCOUNTID:
+    filters:
+      EC2VPC:
+        - property: IsDefault
+          value: "true"
+      EC2DHCPOption:
+        - property: DefaultVPC
+          value: "true"
+      EC2InternetGateway:
+        - property: DefaultVPC
+          value: "true"
+      EC2InternetGatewayAttachment:
+        - property: DefaultVPC
+          value: "true"
+      EC2Subnet:
+        - property: DefaultVPC
+          value: "true"
+      EC2RouteTable:
+        - property: DefaultVPC
+          value: "true"
+      EC2DefaultSecurityGroupRule:
+        - property: SecurityGroupId
+          type: glob
+          value: "*"
+      LambdaEventSourceMapping:
+        - property: "EventSourceArn"
+          type: "glob"
+          value: "^(PluginStack|NukeStack)*$"
+        - property: "FunctionArn"
+          type: "glob"
+          value: "^(PluginStack|NukeStack)*$"
+      LambdaPermission:
+        - property: "name"
+          type: "glob"
+          value: "^(PluginStack|NukeStack)*$"
+      GuardDutyDetector:
+        - property: DetectorID
+          type: glob
+          value: "*"
+      CloudWatchEventsRule:
+        - type: regex
+          value: "^Rule: (AwsSecurity.*)$"
+      CloudWatchEventsTarget:
+        - type: regex
+          value: "^Rule: (AwsSecurity.*)$"
+      CloudWatchLogsLogGroup:
+        - type: regex
+          value: "^.*$"
+      ConfigServiceDeliveryChannel:
+        - "default"
+      ConfigServiceConfigRule:
+        - type: regex
+          value: "^(managed-ec2-patch-compliance|ec2-managed-by-systems-manager-REMEDIATE)$"
+      S3Bucket:
+        - property: Name
+          type: regex
+          value: "^(cdktoolkit-stagingbucket-.*|aws-nuke.*)$"
+      S3Object:
+        - property: Bucket
+          type: regex
+          value: "^(cdktoolkit-stagingbucket-.*|aws-nuke.*)$"
+      ConfigServiceConfigurationRecorder:
+        - "MainRecorder"
+      CloudFormationStack:
+        - property: Name
+          type: regex
+          value: "^(CDKToolkit)$"
+        - property: Name
+          type: regex
+          value: "^(PluginStack|NukeStack)*$"
+      IAMPolicy:
+        - property: Name
+          type: regex
+          value: "^(ConfigAccessPolicy|ResourceConfigurationCollectorPolicy|CloudFormationRefereeService|EC2CapacityReservationService|AwsSecurit.*AuditPolicy)$"
+      IAMRole:
+        - property: Name
+          type: regex
+          value: "^(AWSServiceRoleFor.*|Admin|ReadOnly|InternalAuditInternal|EC2CapacityReservationService|AccessAnalyzerTrustedService|AwsSecurit.*Audit|AWS.*Audit)$"
+      IAMRolePolicy:
+        - property: role:RoleName
+          type: regex
+          value: "^(AccessAnalyzerTrustedService|AwsSecurit.*Audit)$"
+      IAMRolePolicyAttachment:
+        - property: RoleName
+          type: regex
+          value: "^(Admin|ReadOnly|AWSServiceRoleFor.*|InternalAuditInternal|EC2CapacityReservationService|AWSVAPTAudit|AwsSecurit.*Audit)$"
