@@ -126,26 +126,13 @@ struct ExampleCommand: ParsableCommand {
     /// Run the transcription process.
     ///
     /// - Throws: An error from `TranscribeError`.
-    func transcribe() async throws {
-        // Convert the value of the `--format` option into the Transcribe
-        // Streaming `MediaEncoding` type.
-
-        let mediaEncoding: TranscribeStreamingClientTypes.MediaEncoding
-        switch format {
-        case .flac:
-            mediaEncoding = .flac
-        case .ogg:
-            mediaEncoding = .oggOpus
-        case .pcm:
-            mediaEncoding = .pcm
-        }
-
+    func transcribe(encoding: TranscribeStreamingClientTypes.MediaEncoding) async throws {
         // Create the Transcribe Streaming client.
 
         // snippet-start:[swift.transcribe-streaming.StartStreamTranscription]
         let client = TranscribeStreamingClient(
             config: try await TranscribeStreamingClient.TranscribeStreamingClientConfiguration(
-                                region: region
+                region: region
             )
         )
 
@@ -155,7 +142,7 @@ struct ExampleCommand: ParsableCommand {
             input: StartStreamTranscriptionInput(
                 audioStream: try await createAudioStream(),
                 languageCode: TranscribeStreamingClientTypes.LanguageCode(rawValue: lang),
-                mediaEncoding: mediaEncoding,
+                mediaEncoding: encoding,
                 mediaSampleRateHertz: sampleRate
             )
         )
@@ -200,6 +187,26 @@ struct ExampleCommand: ParsableCommand {
         }
     }
     // snippet-end:[swift.transcribe-streaming]
+
+    /// Convert the value of the `--format` command line option into the
+    /// corresponding Transcribe Streaming `MediaEncoding` type.
+    ///
+    /// - Returns: The `MediaEncoding` equivalent of the format specified on
+    ///   the command line.
+    func getMediaEncoding() -> TranscribeStreamingClientTypes.MediaEncoding {
+        let mediaEncoding: TranscribeStreamingClientTypes.MediaEncoding
+        
+        switch format {
+        case .flac:
+            mediaEncoding = .flac
+        case .ogg:
+            mediaEncoding = .oggOpus
+        case .pcm:
+            mediaEncoding = .pcm
+        }
+
+        return mediaEncoding
+    }
 }
 
 // -MARK: - Entry point
@@ -212,7 +219,7 @@ struct Main {
 
         do {
             let command = try ExampleCommand.parse(args)
-            try await command.transcribe()
+            try await command.transcribe(encoding: command.getMediaEncoding())
         } catch let error as TranscribeError {
             print("ERROR: \(error.errorDescription ?? "Unknown error")")
         } catch {
