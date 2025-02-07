@@ -28,6 +28,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Tool use with the Converse API](Scenarios/ConverseToolScenario/ConverseToolScenario.cs)
+
 ### AI21 Labs Jurassic-2
 
 - [Converse](Models/Ai21LabsJurassic2/Converse/Converse.cs#L4)
@@ -101,6 +108,18 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.end-->
 
 
+
+#### Tool use with the Converse API
+
+This example shows you how to build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input.
+
+
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_ToolUse.start-->
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_ToolUse.end-->
+
+
+<!--custom.scenarios.bedrock-runtime_Scenario_ToolUse.start-->
+<!--custom.scenarios.bedrock-runtime_Scenario_ToolUse.end-->
 
 ### Tests
 
