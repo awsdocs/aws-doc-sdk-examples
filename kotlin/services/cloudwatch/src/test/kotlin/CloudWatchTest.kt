@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -27,10 +26,13 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class CloudWatchTest {
+    private val logger: Logger = LoggerFactory.getLogger(CloudWatchTest::class.java)
     private var logGroup = ""
     private var alarmName = ""
     private var streamName = ""
@@ -79,33 +81,6 @@ class CloudWatchTest {
             dashboardAddSc = values.dashboardAddSc.toString()
             settingsSc = values.settingsSc.toString()
             metricImageSc = values.metricImageSc.toString()
-
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        logGroup = prop.getProperty("logGroup")
-        alarmName = prop.getProperty("alarmName")
-        streamName = prop.getProperty("streamName")
-        ruleResource = prop.getProperty("ruleResource")
-        metricId = prop.getProperty("metricId")
-        filterName = prop.getProperty("filterName")
-        destinationArn = prop.getProperty("destinationArn")
-        roleArn = prop.getProperty("roleArn")
-        filterPattern = prop.getProperty("filterPattern")
-        instanceId = prop.getProperty("instanceId")
-        ruleName = prop.getProperty("ruleName")
-        ruleArn = prop.getProperty("ruleArn")
-        namespace = prop.getProperty("namespace")
-        myDateSc = prop.getProperty("myDateSc")
-        costDateWeekSc = prop.getProperty("costDateWeekSc")
-        dashboardNameSc = prop.getProperty("dashboardNameSc")
-        dashboardJsonSc = prop.getProperty("dashboardJsonSc")
-        dashboardAddSc = prop.getProperty("dashboardAddSc")
-        settingsSc = prop.getProperty("settingsSc")
-        metricImageSc = prop.getProperty("metricImageSc")
-         */
         }
 
     @Test
@@ -113,7 +88,7 @@ class CloudWatchTest {
     fun createAlarmTest() =
         runBlocking {
             putAlarm(alarmName, instanceId)
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -121,7 +96,7 @@ class CloudWatchTest {
     fun describeAlarmsTest() =
         runBlocking {
             desCWAlarms()
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -129,7 +104,7 @@ class CloudWatchTest {
     fun createSubscriptionFiltersTest() =
         runBlocking {
             putSubFilters(filterName, filterPattern, logGroup, destinationArn)
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -137,7 +112,7 @@ class CloudWatchTest {
     fun describeSubscriptionFiltersTest() =
         runBlocking {
             describeFilters(logGroup)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -145,7 +120,7 @@ class CloudWatchTest {
     fun disableAlarmActionsTest() =
         runBlocking {
             disableActions(alarmName)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -153,7 +128,7 @@ class CloudWatchTest {
     fun enableAlarmActionsTest() =
         runBlocking {
             enableActions(alarmName)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -161,7 +136,7 @@ class CloudWatchTest {
     fun getLogEventsTest() =
         runBlocking {
             getCWLogEvents(logGroup, streamName)
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     @Test
@@ -169,7 +144,7 @@ class CloudWatchTest {
     fun putCloudWatchEventTest() =
         runBlocking {
             putCWEvents(ruleResource)
-            println("Test 8 passed")
+            logger.info("Test 8 passed")
         }
 
     @Test
@@ -177,7 +152,7 @@ class CloudWatchTest {
     fun getMetricDataTest() =
         runBlocking {
             getMetData()
-            println("Test 9 passed")
+            logger.info("Test 9 passed")
         }
 
     @Test
@@ -185,7 +160,7 @@ class CloudWatchTest {
     fun deleteSubscriptionFilterTest() =
         runBlocking {
             deleteSubFilter(filterName, logGroup)
-            println("Test 10 passed")
+            logger.info("Test 10 passed")
         }
 
     @Test
@@ -193,7 +168,7 @@ class CloudWatchTest {
     fun putRuleTest() =
         runBlocking {
             putCWRule(ruleName, ruleArn)
-            println("Test 11 passed")
+            logger.info("Test 11 passed")
         }
 
     @Test
@@ -201,7 +176,7 @@ class CloudWatchTest {
     fun putLogEvents() =
         runBlocking {
             putCWLogEvents(logGroup, streamName)
-            println("Test 12 passed")
+            logger.info("Test 12 passed")
         }
 
     @Test
@@ -209,7 +184,7 @@ class CloudWatchTest {
     fun deleteCWAlarmTest() =
         runBlocking {
             deleteCWAlarm(alarmName)
-            println("Test 13 passed")
+            logger.info("Test 13 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -220,7 +195,6 @@ class CloudWatchTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

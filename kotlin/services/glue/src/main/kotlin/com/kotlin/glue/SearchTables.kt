@@ -40,7 +40,7 @@ suspend fun searchGlueTable(text: String?) {
     val request =
         SearchTablesRequest {
             searchText = text
-            resourceShareType = ResourceShareType.fromValue("All")
+            resourceShareType = ResourceShareType.All
             maxResults = 10
         }
 

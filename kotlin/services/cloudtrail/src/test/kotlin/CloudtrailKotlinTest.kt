@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -22,10 +21,13 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class CloudtrailKotlinTest {
+    private val logger: Logger = LoggerFactory.getLogger(CloudtrailKotlinTest::class.java)
     private var trailName = ""
     private var s3BucketName = ""
 
@@ -37,17 +39,6 @@ class CloudtrailKotlinTest {
             val values: SecretValues = gson.fromJson<SecretValues>(json, SecretValues::class.java)
             trailName = values.trailName.toString()
             s3BucketName = values.s3BucketName.toString()
-
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-
-        // load the properties file.
-        prop.load(input)
-        trailName = prop.getProperty("trailName")
-        s3BucketName = prop.getProperty("s3BucketName")
-         */
         }
 
     @Test
@@ -55,7 +46,7 @@ class CloudtrailKotlinTest {
     fun createTrail() =
         runBlocking {
             createNewTrail(trailName, s3BucketName)
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -63,7 +54,7 @@ class CloudtrailKotlinTest {
     fun putEventSelectors() =
         runBlocking {
             setSelector(trailName)
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -71,7 +62,7 @@ class CloudtrailKotlinTest {
     fun getEventSelectors() =
         runBlocking {
             getSelectors(trailName)
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -79,7 +70,7 @@ class CloudtrailKotlinTest {
     fun lookupEvents() =
         runBlocking {
             lookupAllEvents()
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -87,7 +78,7 @@ class CloudtrailKotlinTest {
     fun describeTrails() =
         runBlocking {
             describeSpecificTrails(trailName)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -96,7 +87,7 @@ class CloudtrailKotlinTest {
         runBlocking {
             startLog(trailName)
             stopLog(trailName)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -104,7 +95,7 @@ class CloudtrailKotlinTest {
     fun deleteTrail() =
         runBlocking {
             deleteSpecificTrail(trailName)
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -115,7 +106,6 @@ class CloudtrailKotlinTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
