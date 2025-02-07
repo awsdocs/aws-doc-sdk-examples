@@ -304,7 +304,8 @@ public static class ConverseToolScenario
         =================================================
 
         This assistant provides current weather information for user-specified locations.
-        You can ask for weather details by providing the location name or coordinates.
+        You can ask for weather details by providing the location name or coordinates. Weather information
+        will be provided using a custom Tool and open-meteo API.
 
         Example queries:
         - What's the weather like in New York?
