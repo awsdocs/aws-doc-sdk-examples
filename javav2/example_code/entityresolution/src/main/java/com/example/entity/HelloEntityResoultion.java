@@ -12,20 +12,28 @@ import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.entityresolution.EntityResolutionAsyncClient;
+import software.amazon.awssdk.services.entityresolution.model.GetIdMappingWorkflowRequest;
+import software.amazon.awssdk.services.entityresolution.model.GetIdMappingWorkflowResponse;
+import software.amazon.awssdk.services.entityresolution.model.ListIdMappingJobsRequest;
+import software.amazon.awssdk.services.entityresolution.model.ListMatchingWorkflowsRequest;
+import software.amazon.awssdk.services.entityresolution.model.ListMatchingWorkflowsResponse;
 import software.amazon.awssdk.services.entityresolution.model.ListSchemaMappingsRequest;
+import software.amazon.awssdk.services.entityresolution.model.ResourceNotFoundException;
+import software.amazon.awssdk.services.entityresolution.paginators.ListIdMappingJobsPublisher;
+import software.amazon.awssdk.services.entityresolution.paginators.ListMatchingWorkflowsPublisher;
 import software.amazon.awssdk.services.entityresolution.paginators.ListSchemaMappingsPublisher;
 
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
+// snippet-start:[entityres.java2_hello.main]
 public class HelloEntityResoultion {
 
     private static final Logger logger = LoggerFactory.getLogger(HelloEntityResoultion.class);
 
     private static EntityResolutionAsyncClient entityResolutionAsyncClient;
     public static void main(String[] args) {
-
-
+        listMatchingWorkflows();
     }
 
     public static EntityResolutionAsyncClient getResolutionAsyncClient() {
@@ -57,19 +65,19 @@ public class HelloEntityResoultion {
                 .build();
         }
         return entityResolutionAsyncClient;
+
     }
 
+    public static void listMatchingWorkflows() {
+        ListMatchingWorkflowsRequest request = ListMatchingWorkflowsRequest.builder().build();
 
-    public void ListSchemaMappings() {
-        ListSchemaMappingsRequest mappingsRequest = ListSchemaMappingsRequest.builder()
-            .build();
+        ListMatchingWorkflowsPublisher paginator =
+            getResolutionAsyncClient().listMatchingWorkflowsPaginator(request);
 
-        ListSchemaMappingsPublisher paginator = getResolutionAsyncClient().listSchemaMappingsPaginator(mappingsRequest);
-
-        // Iterate through the pages of results
+        // Iterate through the paginated results asynchronously
         CompletableFuture<Void> future = paginator.subscribe(response -> {
-            response.schemaList().forEach(schemaMapping ->
-                logger.info("Schema Mapping Name: " +schemaMapping.schemaName())
+            response.workflowSummaries().forEach(workflow ->
+                logger.info("Matching Workflow Name: " + workflow.workflowName())
             );
         });
 
@@ -77,3 +85,4 @@ public class HelloEntityResoultion {
         future.join();
     }
 }
+// snippet-end:[entityres.java2_hello.main]
