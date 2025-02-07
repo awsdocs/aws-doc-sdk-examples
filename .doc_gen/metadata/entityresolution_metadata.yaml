@@ -145,6 +145,6 @@ entityresolution_Scenario:
                 - entityres.java2_scenario.main
             - description: A wrapper class for &ERlong; SDK methods.
               snippet_tags:
-                - iotsitewise.java2.actions.main 
+                - entityres.java2_actions.main
   services:
     entityresolution: {}    
