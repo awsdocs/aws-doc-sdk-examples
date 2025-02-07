@@ -147,4 +147,4 @@ entityresolution_Scenario:
               snippet_tags:
                 - iotsitewise.java2.actions.main 
   services:
-    iotsitewise: {}    
+    entityresolution: {}    
