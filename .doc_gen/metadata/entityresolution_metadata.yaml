@@ -143,7 +143,7 @@ entityresolution_Scenario:
             - description: Run an interactive scenario demonstrating &ERlong; features.
               snippet_tags:
                 - entityres.java2_scenario.main
-            - description: A wrapper class for &ITSW; SDK methods.
+            - description: A wrapper class for &ERlong; SDK methods.
               snippet_tags:
                 - iotsitewise.java2.actions.main 
   services:
