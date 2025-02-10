@@ -124,7 +124,7 @@ public class AuroraWrapper
     {
         foreach (var p in parameters)
         {
-            if (p.IsModifiable.Value && p.DataType == "integer")
+            if (p.IsModifiable.GetValueOrDefault() && p.DataType == "integer")
             {
                 while (newValue == 0)
                 {
