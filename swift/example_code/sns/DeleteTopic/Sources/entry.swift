@@ -12,7 +12,7 @@ import Foundation
 struct ExampleCommand: ParsableCommand {
     @Argument(help: "The ARN of the Amazon SNS topic to delete")
     var arn: String
-    @Option(help: "Name of the Amazon S3 Region to use (default: us-east-1)")
+    @Option(help: "Name of the Amazon Region to use (default: us-east-1)")
     var region = "us-east-1"
 
     static var configuration = CommandConfiguration(

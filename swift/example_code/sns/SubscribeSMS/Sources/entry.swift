@@ -14,7 +14,7 @@ struct ExampleCommand: ParsableCommand {
     var arn: String
     @Argument(help: "The phone number to subscribe to the topic")
     var phone: String
-    @Option(help: "Name of the Amazon S3 Region to use (default: us-east-1)")
+    @Option(help: "Name of the Amazon Region to use (default: us-east-1)")
     var region = "us-east-1"
 
     static var configuration = CommandConfiguration(
