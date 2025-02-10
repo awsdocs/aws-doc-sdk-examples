@@ -32,33 +32,33 @@ const cleanupAction = (scenarios, client) =>
     const buckets = [sourceBucketName, destinationBucketName].filter((b) => b);
 
     for (const bucket of buckets) {
-      /** @type {import("@aws-sdk/client-s3").ListObjectVersionsCommandOutput} */
-      let objectsResponse;
-
       try {
+        let objectsResponse;
         objectsResponse = await client.send(
           new ListObjectVersionsCommand({
             Bucket: bucket,
           }),
         );
+        for (const version of objectsResponse.Versions || []) {
+          const { Key, VersionId } = version;
+          try {
+            await client.send(
+              new DeleteObjectCommand({
+                Bucket: bucket,
+                Key,
+                VersionId,
+              }),
+            );
+          } catch (err) {
+            console.log(`An error occurred: ${err.message} `);
+          }
+        }
       } catch (e) {
         if (e instanceof Error && e.name === "NoSuchBucket") {
           console.log("Objects and buckets have already been deleted.");
           continue;
         }
         throw e;
-      }
-
-      for (const version of objectsResponse.Versions || []) {
-        const { Key, VersionId } = version;
-
-        await client.send(
-          new DeleteObjectCommand({
-            Bucket: bucket,
-            Key,
-            VersionId,
-          }),
-        );
       }
 
       await client.send(new DeleteBucketCommand({ Bucket: bucket }));

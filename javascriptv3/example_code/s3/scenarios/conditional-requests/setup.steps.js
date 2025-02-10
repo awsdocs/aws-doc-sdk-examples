@@ -25,7 +25,7 @@ const getBucketPrefix = (scenarios) =>
   new scenarios.ScenarioInput(
     "bucketPrefix",
     "Provide a prefix that will be used for bucket creation.",
-    { type: "input", default: "amzn-s3-demo-bucket" }
+    { type: "input", default: "amzn-s3-demo-bucket" },
   );
 /**
  * @param {Scenarios} scenarios
@@ -36,7 +36,7 @@ const createBuckets = (scenarios) =>
     (state) => `The following buckets will be created:
          ${state.bucketPrefix}-source-bucket.
          ${state.bucketPrefix}-destination-bucket.`,
-    { preformatted: true }
+    { preformatted: true },
   );
 
 /**
@@ -60,17 +60,17 @@ const createBucketsAction = (scenarios, client) =>
       await client.send(
         new CreateBucketCommand({
           Bucket: sourceBucketName,
-        })
+        }),
       );
       await waitUntilBucketExists({ client }, { Bucket: sourceBucketName });
       await client.send(
         new CreateBucketCommand({
           Bucket: destinationBucketName,
-        })
+        }),
       );
       await waitUntilBucketExists(
         { client },
-        { Bucket: destinationBucketName }
+        { Bucket: destinationBucketName },
       );
 
       state.sourceBucketName = sourceBucketName;
@@ -95,8 +95,8 @@ const populateBuckets = (scenarios) =>
   new scenarios.ScenarioOutput(
     "populateBuckets",
     (state) => `The following test files will be created:
-         file0.txt in ${state.bucketPrefix}-source-bucket.`,
-    { preformatted: true }
+         file01.txt in ${state.bucketPrefix}-source-bucket.`,
+    { preformatted: true },
   );
 
 /**
@@ -106,7 +106,7 @@ const confirmPopulateBuckets = (scenarios) =>
   new scenarios.ScenarioInput(
     "confirmPopulateBuckets",
     "Populate the buckets?",
-    { type: "confirm" }
+    { type: "confirm" },
   );
 
 /**
@@ -119,15 +119,15 @@ const populateBucketsAction = (scenarios, client) =>
       await client.send(
         new PutObjectCommand({
           Bucket: state.sourceBucketName,
-          Key: "file0.txt",
+          Key: "file01.txt",
           Body: "Content",
           ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
-        })
+        }),
       );
     } catch (caught) {
       if (caught instanceof S3ServiceException) {
         console.error(
-          `Error from S3 while uploading object.  ${caught.name}: ${caught.message}`
+          `Error from S3 while uploading object.  ${caught.name}: ${caught.message}`,
         );
       } else {
         throw caught;

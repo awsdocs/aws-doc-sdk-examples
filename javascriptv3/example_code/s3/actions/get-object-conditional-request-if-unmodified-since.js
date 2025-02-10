@@ -34,7 +34,7 @@ export const main = async ({ bucketName, key }) => {
       );
     } else if (caught instanceof S3ServiceException) {
       console.error(
-        `Error from S3 while getting object from ${bucketName}.  ${caught.name}: The file was not returned because it was created or modified in the last 24 hours.`,
+        `Error from S3 while getting object from ${bucketName}.  ${caught.name}: ${caught.message}`,
       );
     } else {
       throw caught;

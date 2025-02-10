@@ -33,7 +33,7 @@ export const main = async ({ bucketName, key, eTag }) => {
       );
     } else if (caught instanceof S3ServiceException) {
       console.error(
-        `Error from S3 while getting object from ${bucketName}.  ${caught.name}: The file was not returned because ETag provided matches the object's ETag.`,
+        `Error from S3 while getting object from ${bucketName}. ${caught.name}: ${caught.message}`,
       );
     } else {
       throw caught;

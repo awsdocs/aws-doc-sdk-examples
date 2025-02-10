@@ -1,5 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { dirname } from "node:path";
+
 import {
   ListObjectVersionsCommand,
   GetObjectCommand,
@@ -30,8 +35,6 @@ const choices = {
   CONDITIONAL_COPY: 3,
   CONDITIONAL_WRITE: 4,
 };
-
-//const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 /**
  * @param {Scenarios} scenarios
@@ -180,8 +183,6 @@ export const replAction = (scenarios, client) =>
         }
         case choices.CONDITIONAL_READ:
           {
-            /** @type {number} */
-
             const selectedCondRead = await condReadOptions.handle(state);
             if (
               selectedCondRead ===
@@ -269,7 +270,7 @@ export const replAction = (scenarios, client) =>
                 );
                 state.replOutput = `${key} in ${state.sourceBucketName} was returned.`;
               } catch (err) {
-                state.replOutput = `${key} in ${state.sourceBucketName} was not returned because it was created or modified in the last 24 hours. : ${err.message}`;
+                state.replOutput = `${key} in ${state.sourceBucketName} was not returned: ${err.message}`;
               }
               break;
             }
@@ -327,7 +328,7 @@ export const replAction = (scenarios, client) =>
               );
               state.replOutput = `${copiedKey} copied to bucket ${state.destinationBucketName}`;
             } catch (err) {
-              state.replOutput = `Unable to copy object as ${key} as as ${copiedKey} to bucket ${state.destinationBucketName} because ETag provided matches the object's ETag.:${err.message}`;
+              state.replOutput = `Unable to copy object as ${key} as as ${copiedKey} to bucket ${state.destinationBucketName}: ${err.message}`;
             }
             break;
           }
@@ -385,7 +386,7 @@ export const replAction = (scenarios, client) =>
               );
               state.replOutput = `${copiedKey} copied to bucket ${state.destinationBucketName} because it has not been created or modified in the last 24 hours.`;
             } catch (err) {
-              state.replOutput = `Unable to copy object ${key} to bucket ${state.destinationBucketName} because it has not been created or modified in the last 24 hours.:${err.message}`;
+              state.replOutput = `Unable to copy object ${key} to bucket ${state.destinationBucketName}: ${err.message}`;
             }
           }
           break;
@@ -399,7 +400,9 @@ export const replAction = (scenarios, client) =>
             ) {
               // Optionally edit the default key name prefix of the copied object in ./object_name.json.
               const key = "text02.txt";
-              const filePath = `.\\${key}`;
+              const __filename = fileURLToPath(import.meta.url);
+              const __dirname = dirname(__filename);
+              const filePath = path.join(__dirname, "text02.txt");
               try {
                 await client.send(
                   new PutObjectCommand({

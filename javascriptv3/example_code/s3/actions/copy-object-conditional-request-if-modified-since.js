@@ -47,7 +47,7 @@ export const main = async ({
       );
     } else if (caught instanceof S3ServiceException) {
       console.error(
-        `Error from S3 while getting object from ${sourceBucketName}.  ${caught.name}: The file was not copied because it was created or modified in the last 24 hours.`,
+        `Error from S3 while getting object from ${sourceBucketName}.  ${caught.name}: ${caught.message}`,
       );
     } else {
       throw caught;
