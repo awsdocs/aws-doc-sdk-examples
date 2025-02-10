@@ -51,7 +51,7 @@ public class HelloCognito
         {
             userPools.ForEach(userPool =>
             {
-                Console.WriteLine($"{userPool.Name}\t{userPool.Id}\t{userPool.Status}");
+                Console.WriteLine($"{userPool.Name}\t{userPool.Id}");
             });
         }
         else

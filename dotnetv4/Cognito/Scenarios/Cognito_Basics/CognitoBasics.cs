@@ -120,7 +120,7 @@ public static class CognitoBasics
         var code = _interactive ? Console.ReadLine() : "-";
 
         await cognitoWrapper.ConfirmSignupAsync(clientId, code, userName);
-        
+
 
         UiMethods.DisplayTitle("Checking status");
         Console.WriteLine($"Rechecking the status of {userName} in the user pool");
@@ -148,7 +148,7 @@ public static class CognitoBasics
                 authCode, authSession, poolId);
         Console.WriteLine(
             $"Authenticated and received access token: {authResult.AccessToken}");
-        
+
 
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Cognito scenario is complete.");

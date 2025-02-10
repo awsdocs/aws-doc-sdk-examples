@@ -23,7 +23,7 @@ _Amazon Cognito Identity Provider handles user authentication and authorization 
 
 ### Prerequisites
 
-For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3` folder.
+For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4` folder.
 
 
 <!--custom.prerequisites.start-->
@@ -34,7 +34,7 @@ These examples also require the following resources:
 
 
 To create these resources, run the AWS CloudFormation script in the
-[resources/cdk/cognito_scenario_user_pool_with_mfa](../../../resources/cdk/cognito_scenario_user_pool_with_mfa)
+[resources/cdk/cognito_scenario_user_pool_with_mfa](../../resources/cdk/cognito_scenario_user_pool_with_mfa)
 folder. This script outputs a user pool ID and a client ID that you can use to run
 the scenario.
 <!--custom.prerequisites.end-->
@@ -72,7 +72,7 @@ functions within the same service.
 ### Instructions
 
 For general instructions to run the examples, see the
-[README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
+[README](../README.md#building-and-running-the-code-examples) in the `dotnetv4` folder.
 
 Some projects might include a settings.json file. Before compiling the project,
 you can change these values to match your own account and resources. Alternatively,
@@ -115,7 +115,7 @@ This example shows you how to do the following:
 
 
 To find instructions for running these tests, see the [README](../README.md#Tests)
-in the `dotnetv3` folder.
+in the `dotnetv4` folder.
 
 
 

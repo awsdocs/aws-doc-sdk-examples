@@ -16,7 +16,7 @@ namespace CognitoWrapperTests;
 /// </summary>
 public class CognitoBasicsTests
 {
-    private ILoggerFactory _loggerFactory;
+    private ILoggerFactory _loggerFactory = null!;
 
     [Trait("Category", "Unit")]
     [Fact]
