@@ -784,6 +784,123 @@ function iam_delete_role() {
 }
 # snippet-end:[aws-cli.bash-linux.iam.DeleteRole]
 
+# snippet-start:[aws-cli.bash-linux.iam.UpdateAccessKey]
+###############################################################################
+# function iam_update_access_key
+#
+# This function can activate or deactivate an IAM access key for the specified IAM user.
+#
+# Parameters:
+#       -u user_name  -- The name of the user.
+#       -k access_key -- The access key to update.
+#       -a            -- Activate the selected access key.
+#       -d            -- Deactivate the selected access key.
+#
+# Example:
+#       # To deactivate the selected access key for IAM user Bob
+#       iam_update_access_key -u Bob -k AKIAIOSFODNN7EXAMPLE -d 
+#
+# Returns:
+#       0 - If successful.
+#       1 - If it fails.
+###############################################################################
+function iam_update_access_key() {
+  local user_name access_key status response
+  local option OPTARG # Required to use getopts command in a function.
+  local activate_flag=false deactivate_flag=false
+
+  # bashsupport disable=BP5008
+  function usage() {
+    echo "function iam_update_access_key"
+    echo "Updates the status of an AWS Identity and Access Management (IAM) access key for the specified IAM user"
+    echo "  -u user_name    The name of the user."
+    echo "  -k access_key   The access key to update."
+    echo "  -a              Activate the access key."
+    echo "  -d              Deactivate the access key."
+    echo ""
+  }
+
+  # Retrieve the calling parameters.
+    while getopts "u:k:adh" option; do
+      case "${option}" in
+        u) user_name="${OPTARG}" ;;
+        k) access_key="${OPTARG}" ;;
+        a) activate_flag=true ;;
+        d) deactivate_flag=true ;;
+        h)
+          usage
+          return 0
+          ;;
+        \?)
+          echo "Invalid parameter"
+          usage
+          return 1
+          ;;
+      esac
+    done
+    export OPTIND=1
+  
+   # Validate input parameters
+    if [[ -z "$user_name" ]]; then
+      errecho "ERROR: You must provide a username with the -u parameter."
+      usage
+      return 1
+    fi
+  
+    if [[ -z "$access_key" ]]; then
+      errecho "ERROR: You must provide an access key with the -k parameter."
+      usage
+      return 1
+    fi
+
+    # Ensure that only -a or -d is specified
+    if [[ "$activate_flag" == true && "$deactivate_flag" == true ]]; then
+      errecho "ERROR: You cannot specify both -a (activate) and -d (deactivate) at the same time."
+      usage
+      return 1
+    fi
+  
+    # If neither -a nor -d is provided, return an error
+    if [[ "$activate_flag" == false && "$deactivate_flag" == false ]]; then
+      errecho "ERROR: You must specify either -a (activate) or -d (deactivate)."
+      usage
+      return 1
+    fi
+
+    # Determine the status based on the flag
+    if [[ "$activate_flag" == true ]]; then
+      status="Active"
+    elif [[ "$deactivate_flag" == true ]]; then
+      status="Inactive"
+    fi
+  
+    iecho "Parameters:\n"
+    iecho "    Username:   $user_name"
+    iecho "    Access key: $access_key"
+    iecho "    New status: $status"
+    iecho ""
+  
+    # Update the access key status
+    response=$(aws iam update-access-key \
+      --user-name "$user_name" \
+      --access-key-id "$access_key" \
+      --status "$status" 2>&1)
+  
+    local error_code=${?}
+  
+    if [[ $error_code -ne 0 ]]; then
+      aws_cli_error_log $error_code
+      errecho "ERROR: AWS reports update-access-key operation failed.\n$response"
+      return 1
+    fi
+  
+    iecho "update-access-key response: $response"
+    iecho
+  
+    return 0
+}
+# snippet-end:[aws-cli.bash-linux.iam.UpdateAccessKey]
+
 # snippet-start:[aws-cli.bash-linux.iam.DeleteAccessKey]
 ###############################################################################
 # function iam_delete_access_key
