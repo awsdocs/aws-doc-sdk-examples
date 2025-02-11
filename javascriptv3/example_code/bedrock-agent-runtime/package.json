@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "test": "vitest run **/*.unit.test.js"
+    "integration-test": "vitest run integration"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-agent-runtime": "^3.675.0"
