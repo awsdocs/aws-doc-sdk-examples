@@ -918,7 +918,7 @@ bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude:
           excerpts:
             - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
               snippet_tags:
-                - gov2.bedrock-runtime.InvokeModelWrapper.struct
+                - gov2.bedrock-runtime.InvokeModelWithResponseStreamWrapper.struct
                 - gov2.bedrock-runtime.InvokeModelWithResponseStream
     JavaScript:
       versions:
