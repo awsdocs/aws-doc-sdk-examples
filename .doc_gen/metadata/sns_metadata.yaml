@@ -56,6 +56,17 @@ sns_Hello:
             - description: Initialize an SNS client and and list topics in your account.
               snippet_tags:
                 - javascript.v3.sns.hello
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sns/basics
+          excerpts:
+            - description: The Package.swift file.
+              snippet_tags:
+                - swift.sns.basics.package
+            - description: The main Swift program.
+              snippet_tags:
+                - swift.sns.basics.hello
   services:
     sns: {ListTopics}
 sns_GetTopicAttributes:
@@ -294,6 +305,13 @@ sns_ListTopics:
           excerpts:
             - snippet_tags:
                 - sns.rust.list-topics
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sns/basics
+          excerpts:
+            - snippet_tags:
+                - swift.sns.ListTopics
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -525,6 +543,13 @@ sns_CreateTopic:
           excerpts:
             - snippet_tags:
                 - sns.rust.create-topic
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sns
+          excerpts:
+            - snippet_tags:
+                - swift.sns.CreateTopic
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -607,6 +632,13 @@ sns_DeleteTopic:
             - snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.DeleteTopic
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sns
+          excerpts:
+            - snippet_tags:
+                - swift.sns.DeleteTopic
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -745,6 +777,13 @@ sns_Publish:
           excerpts:
             - snippet_tags:
                 - sns.rust.sns-hello-world
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sns
+          excerpts:
+            - snippet_tags:
+                - swift.sns.Publish
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -1067,6 +1106,17 @@ sns_Subscribe:
             - description: Subscribe an email address to a topic.
               snippet_tags:
                 - sns.rust.sns-hello-world
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sns
+          excerpts:
+            - description: Subscribe an email address to a topic.
+              snippet_tags:
+                - swift.sns.SubscribeEmail
+            - description: Subscribe a phone number to a topic to receive notifications by SMS.
+              snippet_tags:
+                - swift.sns.SubscribeSMS
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -1140,6 +1190,13 @@ sns_Unsubscribe:
             - snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Unsubscribe
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sns
+          excerpts:
+            - snippet_tags:
+                - swift.sns.Unsubscribe
     SAP ABAP:
       versions:
         - sdk_version: 1
