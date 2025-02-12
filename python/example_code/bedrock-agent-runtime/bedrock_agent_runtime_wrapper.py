@@ -68,4 +68,58 @@ class BedrockAgentRuntimeWrapper:
 
     # snippet-end:[python.example_code.bedrock-agent-runtime.InvokeAgent]
 
+    # snippet-start:[python.example_code.bedrock-agent-runtime.InvokeFlow]
+    def invoke_flow(self, flow_id, flow_alias_id, input_data, execution_id):
+        """
+        Invoke an Amazon Bedrock flow and handle the response stream.
+
+        Args:
+            param flow_id: The ID of the flow to invoke.
+            param flow_alias_id: The alias ID of the flow.
+            param input_data: Input data for the flow.
+            param execution_id: Execution ID for continuing a flow. Use the value None on first run.
+
+        Return: Response from the flow.
+        """
+        try:
+      
+            request_params = None
+
+            if execution_id is None:
+                # Don't pass execution ID for first run.
+                request_params = {
+                    "flowIdentifier": flow_id,
+                    "flowAliasIdentifier": flow_alias_id,
+                    "inputs": input_data,
+                    "enableTrace": True
+                }
+            else:
+                request_params = {
+                    "flowIdentifier": flow_id,
+                    "flowAliasIdentifier": flow_alias_id,
+                    "executionId": execution_id,
+                    "inputs": input_data,
+                    "enableTrace": True
+                }
+
+            response = self.agents_runtime_client.invoke_flow(**request_params)
+
+            if "executionId" not in request_params:
+                execution_id = response['executionId']
+
+            result = ""
+
+            # Get the streaming response
+            for event in response['responseStream']:
+                result = result + str(event) + '\n'
+            print(result)
+
+        except ClientError as e:
+            logger.error("Couldn't invoke flow %s.", {e})
+            raise
+
+        return result
+
+    # snippet-end:[python.example_code.bedrock-agent-runtime.InvokeFlow]
+
 # snippet-end:[python.example_code.bedrock-agent-runtime.BedrockAgentsRuntimeWrapper.class]

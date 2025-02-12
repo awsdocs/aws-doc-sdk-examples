@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -29,12 +28,15 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.util.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class EC2Test {
+    private val logger: Logger = LoggerFactory.getLogger(EC2Test::class.java)
     private var instanceId = "" // Gets set in test 2.
     private var ami = ""
     private var instanceName = ""
@@ -73,38 +75,6 @@ class EC2Test {
             groupNameSc = values.groupNameSc.toString() + randomNum
             vpcIdSc = values.vpcIdSc.toString()
             myIpAddressSc = values.myIpAddressSc.toString()
-
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-
-        /*
-        try {
-            EC2Test::class.java.classLoader.getResourceAsStream("config.properties").use { input ->
-                val prop = Properties()
-                if (input == null) {
-                    println("Sorry, unable to find config.properties")
-                    return
-                }
-                prop.load(input)
-
-                // Populate the data members required for all tests.
-                ami = prop.getProperty("ami")
-                instanceName = prop.getProperty("instanceName")
-                keyName = prop.getProperty("keyName")
-                groupName = prop.getProperty("groupName")
-                groupDesc = prop.getProperty("groupDesc")
-                vpcId = prop.getProperty("vpcId")
-
-                keyNameSc = prop.getProperty("keyNameSc")
-                fileNameSc = prop.getProperty("fileNameSc")
-                groupDescSc = prop.getProperty("groupDescSc")
-                groupNameSc = prop.getProperty("groupNameSc")
-                vpcIdSc = prop.getProperty("vpcIdSc")
-                myIpAddressSc = prop.getProperty("myIpAddressSc")
-            }
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-        }
-         */
         }
 
     @Test
@@ -113,7 +83,7 @@ class EC2Test {
         runBlocking {
             instanceId = createEC2Instance(instanceName, ami).toString()
             assertTrue(instanceId.isNotEmpty())
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -121,7 +91,7 @@ class EC2Test {
     fun createKeyPairTest() =
         runBlocking {
             createEC2KeyPair(keyName)
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -129,7 +99,7 @@ class EC2Test {
     fun describeKeyPairTest() =
         runBlocking {
             describeEC2Keys()
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -137,7 +107,7 @@ class EC2Test {
     fun deleteKeyPairTest() =
         runBlocking {
             deleteKeys(keyName)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -146,7 +116,7 @@ class EC2Test {
         runBlocking {
             groupId = createEC2SecurityGroup(groupName, groupDesc, vpcId).toString()
             assertTrue(groupId.isNotEmpty())
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -154,7 +124,7 @@ class EC2Test {
     fun describeSecurityGroupTest() =
         runBlocking {
             describeEC2SecurityGroups(groupId)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -162,7 +132,7 @@ class EC2Test {
     fun deleteSecurityGroupTest() =
         runBlocking {
             deleteEC2SecGroup(groupId)
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     @Test
@@ -170,7 +140,7 @@ class EC2Test {
     fun describeAccountTest() =
         runBlocking {
             describeEC2Account()
-            println("Test 8 passed")
+            logger.info("Test 8 passed")
         }
 
     @Test
@@ -178,7 +148,7 @@ class EC2Test {
     fun describeInstancesTest() =
         runBlocking {
             describeEC2Instances()
-            println("Test 9 passed")
+            logger.info("Test 9 passed")
         }
 
     @Test
@@ -186,7 +156,7 @@ class EC2Test {
     fun describeRegionsAndZonesTest() =
         runBlocking {
             describeEC2RegionsAndZones()
-            println("Test 10 passed")
+            logger.info("Test 10 passed")
         }
 
     @Test
@@ -194,7 +164,7 @@ class EC2Test {
     fun describeVPCsTest() =
         runBlocking {
             describeEC2Vpcs(vpcId)
-            println("Test 11 passed")
+            logger.info("Test 11 passed")
         }
 
     @Test
@@ -202,7 +172,7 @@ class EC2Test {
     fun findRunningInstancesTest() =
         runBlocking {
             findRunningEC2Instances()
-            println("Test 12 passed")
+            logger.info("Test 12 passed")
         }
 
     @Test
@@ -210,7 +180,7 @@ class EC2Test {
     fun describeAddressesTest() =
         runBlocking {
             describeEC2Address()
-            println("Test 13 passed")
+            logger.info("Test 13 passed")
         }
 
     @Test
@@ -218,7 +188,7 @@ class EC2Test {
     fun terminateInstanceTest() =
         runBlocking {
             terminateEC2(instanceId)
-            println("Test 14 passed")
+            logger.info("Test 14 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -229,7 +199,6 @@ class EC2Test {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

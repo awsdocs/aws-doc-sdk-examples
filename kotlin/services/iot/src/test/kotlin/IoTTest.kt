@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.example.iot.attachCertificateToThing
@@ -30,11 +29,14 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class IoTTest {
+    private val logger: Logger = LoggerFactory.getLogger(IoTTest::class.java)
     private var roleARN = ""
     private var snsAction = ""
     private var thingName = "foo"
@@ -63,7 +65,7 @@ class IoTTest {
     fun helloIoTTest() =
         runBlocking {
             listAllThings()
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -89,14 +91,13 @@ class IoTTest {
                 deleteCertificate(certificateArn)
             }
             deleteIoTThing(thingName)
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     private suspend fun getSecretValues(): String {
         val secretClient =
             SecretsManagerClient {
                 region = "us-east-1"
-                credentialsProvider = EnvironmentCredentialsProvider()
             }
         val secretName = "test/iot"
         val valueRequest =

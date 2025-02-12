@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
@@ -27,10 +26,13 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class PinpointKotlinTest {
+    private val logger: Logger = LoggerFactory.getLogger(PinpointKotlinTest::class.java)
     private var appName = ""
     private var appId = ""
     private var endpointId = ""
@@ -60,28 +62,6 @@ class PinpointKotlinTest {
             toAddress = valuesOb.toAddress.toString()
             subject = valuesOb.subject.toString()
             existingApp = valuesOb.existingApplicationId.toString()
-
-        /*
-        try {
-            val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-            val prop = Properties()
-
-            // load the properties file.
-            prop.load(input)
-            appName = prop.getProperty("appName")
-            originationNumber = prop.getProperty("originationNumber")
-            destinationNumber = prop.getProperty("destinationNumber")
-            message = prop.getProperty("message")
-            userId = prop.getProperty("userId")
-            senderAddress = prop.getProperty("senderAddress")
-            toAddress = prop.getProperty("toAddress")
-            subject = prop.getProperty("subject")
-            existingApp = prop.getProperty("existingApp")
-            existingEndpoint = prop.getProperty("existingEndpoint")
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-        }
-         */
         }
 
     @Test
@@ -90,7 +70,7 @@ class PinpointKotlinTest {
         runBlocking {
             appId = createApplication(appName).toString()
             assertTrue(!appId.isEmpty())
-            println("Test 1 passed")
+            logger.info("Test 1 passed")
         }
 
     @Test
@@ -99,7 +79,7 @@ class PinpointKotlinTest {
         runBlocking {
             endpointId = createPinpointEndpoint(appId).toString()
             assertTrue(!endpointId.isEmpty())
-            println("Test 2 passed")
+            logger.info("Test 2 passed")
         }
 
     @Test
@@ -107,7 +87,7 @@ class PinpointKotlinTest {
     fun addExampleEndpointTest() =
         runBlocking {
             updateEndpointsViaBatch(appId)
-            println("Test 3 passed")
+            logger.info("Test 3 passed")
         }
 
     @Test
@@ -115,7 +95,7 @@ class PinpointKotlinTest {
     fun lookUpEndpointTest() =
         runBlocking {
             lookupPinpointEndpoint(appId, endpointId)
-            println("Test 4 passed")
+            logger.info("Test 4 passed")
         }
 
     @Test
@@ -123,7 +103,7 @@ class PinpointKotlinTest {
     fun deleteEndpointTest() =
         runBlocking {
             deletePinEncpoint(appId, endpointId)
-            println("Test 5 passed")
+            logger.info("Test 5 passed")
         }
 
     @Test
@@ -131,7 +111,7 @@ class PinpointKotlinTest {
     fun sendMessageTest() =
         runBlocking {
             sendSMSMessage(message, appId, originationNumber, destinationNumber)
-            println("Test 6 passed")
+            logger.info("Test 6 passed")
         }
 
     @Test
@@ -140,7 +120,7 @@ class PinpointKotlinTest {
         runBlocking {
             segmentId = createPinpointSegment(appId).toString()
             assertTrue(!segmentId.isEmpty())
-            println("Test 7 passed")
+            logger.info("Test 7 passed")
         }
 
     @Test
@@ -148,7 +128,7 @@ class PinpointKotlinTest {
     fun listSegmentsTest() =
         runBlocking {
             listSegs(appId)
-            println("Test 8 passed")
+            logger.info("Test 8 passed")
         }
 
     @Test
@@ -156,7 +136,7 @@ class PinpointKotlinTest {
     fun createCampaignTest() =
         runBlocking {
             createPinCampaign(appId, segmentId)
-            println("Test 9 passed")
+            logger.info("Test 9 passed")
         }
 
     @Test
@@ -164,7 +144,7 @@ class PinpointKotlinTest {
     fun sendEmailMessageTest() =
         runBlocking {
             sendEmail(subject, senderAddress, toAddress)
-            println("Test 10 passed")
+            logger.info("Test 10 passed")
         }
 
     @Test
@@ -172,7 +152,7 @@ class PinpointKotlinTest {
     fun listEndpointIdsTest() =
         runBlocking {
             listAllEndpoints(existingApp, userId)
-            println("Test 11 passed")
+            logger.info("Test 11 passed")
         }
 
     @Test
@@ -180,7 +160,7 @@ class PinpointKotlinTest {
     fun deleteAppTest() =
         runBlocking {
             deletePinApp(appId)
-            println("Test 12 passed")
+            logger.info("Test 12 passed")
         }
 
     private suspend fun getSecretValues(): String {
@@ -191,7 +171,6 @@ class PinpointKotlinTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()

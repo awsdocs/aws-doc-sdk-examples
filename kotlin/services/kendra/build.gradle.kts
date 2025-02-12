@@ -31,12 +31,13 @@ dependencies {
     implementation(platform("aws.sdk.kotlin:bom:1.3.112"))
     implementation("aws.sdk.kotlin:kendra")
     implementation("aws.sdk.kotlin:secretsmanager")
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp")
     implementation("aws.smithy.kotlin:http-client-engine-crt")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-
     implementation("com.google.code.gson:gson:2.10")
+    implementation("org.slf4j:slf4j-api:2.0.15")
+    implementation("org.slf4j:slf4j-simple:2.0.15")
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"

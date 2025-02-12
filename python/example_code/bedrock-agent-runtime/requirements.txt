@@ -1,5 +1,5 @@
-boto3==1.33.8
-botocore==1.33.8
+boto3==1.36.13
+botocore==1.36.13
 colorama==0.4.6
 iniconfig==2.0.0
 jmespath==1.0.1

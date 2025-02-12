@@ -34,6 +34,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.0")
+    implementation("org.slf4j:slf4j-api:2.0.15")
+    implementation("org.slf4j:slf4j-simple:2.0.15")
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"

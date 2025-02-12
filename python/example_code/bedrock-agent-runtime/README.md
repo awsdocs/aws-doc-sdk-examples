@@ -46,6 +46,7 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [InvokeAgent](bedrock_agent_runtime_wrapper.py#L33)
+- [InvokeFlow](bedrock_agent_runtime_wrapper.py#L71)
 
 
 <!--custom.examples.start-->
