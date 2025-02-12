@@ -1437,7 +1437,7 @@ GEM
     pp (0.4.0)
       prettyprint
     prettyprint (0.1.1)
-    rack (3.1.8)
+    rack (3.1.10)
     rack-protection (4.1.0)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
