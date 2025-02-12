@@ -346,7 +346,14 @@ redshift_ExecuteStatement:
   services:
     redshift: {ExecuteStatement}
 redshift_Scenario:
-  synopsis: learn core operations for &RS; using an &AWS; SDK.
+  synopsis_list:
+    - Create a Redshift cluster.
+    - List databases in the cluster.
+    - Create a table named Movies.
+    - Populate the Movies table.
+    - Query the Movies table by year.
+    - Modify the Redshift cluster.
+    - Delete the Amazon Redshift cluster.
   category: Basics
   languages:
     Go:
