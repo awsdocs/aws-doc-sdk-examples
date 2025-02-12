@@ -412,7 +412,14 @@ ssm_UpdateOpsItem:
   services:
     ssm: {UpdateOpsItem}
 ssm_Scenario:
-  synopsis: work with &SYS; maintenance windows, documents, and OpsItems.
+  synopsis_list:
+    - Create a maintenance window.
+    - Modify the maintenance window schedule.
+    - Create a document.
+    - Send a command to a specified EC2 instance.
+    - Create an OpsItem.
+    - Update and resolve the OpsItem.
+    - Delete the maintenance window, OpsItem, and document.
   category: Basics
   languages:
     Java:
