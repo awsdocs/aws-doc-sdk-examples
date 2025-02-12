@@ -95,7 +95,7 @@ suspend fun translateDocuments(
             jobStatus = response.textTranslationJobProperties?.jobStatus.toString()
             println(jobStatus)
 
-            if (jobStatus.contains("COMPLETED")) {
+            if (jobStatus.contains("Completed")) {
                 break
             } else {
                 print(".")
