@@ -200,9 +200,9 @@ export const replAction = (scenarios, client) =>
                     IfMatch: ETag,
                   }),
                 );
-                state.replOutput = `${key} in bucket ${state.sourceBucketName} returned because ETag provided matches the object's ETag.`;
+                state.replOutput = `${key} in bucket ${state.sourceBucketName} read because ETag provided matches the object's ETag.`;
               } catch (err) {
-                state.replOutput = `Unable to return object ${key} in bucket ${state.sourceBucketName}: ${err.message}`;
+                state.replOutput = `Unable to read object ${key} in bucket ${state.sourceBucketName}: ${err.message}`;
               }
               break;
             }
@@ -224,7 +224,7 @@ export const replAction = (scenarios, client) =>
                 );
                 state.replOutput = `${key} in ${state.sourceBucketName} was returned.`;
               } catch (err) {
-                state.replOutput = `${key} in ${state.sourceBucketName} was not returned because ETag provided matches the object's ETag.`;
+                state.replOutput = `${key} in ${state.sourceBucketName} was not read: ${err.message}`;
               }
               break;
             }
@@ -245,9 +245,9 @@ export const replAction = (scenarios, client) =>
                     IfModifiedSince: date,
                   }),
                 );
-                state.replOutput = `${key} in bucket ${state.sourceBucketName} returned because it has been created or modified in the last 24 hours.`;
+                state.replOutput = `${key} in bucket ${state.sourceBucketName} read because it has been created or modified in the last 24 hours.`;
               } catch (err) {
-                state.replOutput = `Unable to return object ${key} in bucket ${state.sourceBucketName}: ${err.message}`;
+                state.replOutput = `Unable to read object ${key} in bucket ${state.sourceBucketName}: ${err.message}`;
               }
               break;
             }
@@ -268,9 +268,9 @@ export const replAction = (scenarios, client) =>
                     IfUnmodifiedSince: date,
                   }),
                 );
-                state.replOutput = `${key} in ${state.sourceBucketName} was returned.`;
+                state.replOutput = `${key} in ${state.sourceBucketName} was read.`;
               } catch (err) {
-                state.replOutput = `${key} in ${state.sourceBucketName} was not returned: ${err.message}`;
+                state.replOutput = `${key} in ${state.sourceBucketName} was not read: ${err.message}`;
               }
               break;
             }

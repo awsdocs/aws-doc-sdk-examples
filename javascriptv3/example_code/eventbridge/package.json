@@ -4,7 +4,7 @@
   "author": "Corey Pyle <corepyle@amazon.com>",
   "type": "module",
   "scripts": {
-    "integration-test": "vitest run integration-test --reporter=junit --outputFile=test_results/example-test-results.junit.xml"
+    "integration-test": "vitest run integration --reporter=junit --outputFile=test_results/example-test-results.junit.xml"
   },
   "dependencies": {
     "@aws-doc-sdk-examples/lib": "^1.0.0",

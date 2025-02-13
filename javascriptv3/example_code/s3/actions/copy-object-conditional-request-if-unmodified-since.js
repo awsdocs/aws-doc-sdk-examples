@@ -42,11 +42,11 @@ export const main = async ({
   } catch (caught) {
     if (caught instanceof NoSuchKey) {
       console.error(
-        `Error from S3 while getting object "${sourceKeyName}" from "${sourceBucketName}". No such key exists.`,
+        `Error from S3 while copying object "${sourceKeyName}" from "${sourceBucketName}". No such key exists.`,
       );
     } else if (caught instanceof S3ServiceException) {
       console.error(
-        `Error from S3 while getting object from ${sourceBucketName}.  ${caught.name}: ${caught.message}`,
+        `Error from S3 while copying object from ${sourceBucketName}.  ${caught.name}: ${caught.message}`,
       );
     } else {
       throw caught;

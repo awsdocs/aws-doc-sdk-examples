@@ -14,6 +14,7 @@ import {
   waitUntilObjectNotExists,
   waitUntilBucketExists,
   waitUntilBucketNotExists,
+  waitUntilObjectExists,
 } from "@aws-sdk/client-s3";
 import { client as s3Client } from "../client.js";
 
