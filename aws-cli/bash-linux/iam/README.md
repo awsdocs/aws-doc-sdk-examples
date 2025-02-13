@@ -45,14 +45,15 @@ Code excerpts that show you how to call individual service functions.
 - [CreatePolicy](iam_operations.sh#L421)
 - [CreateRole](iam_operations.sh#L342)
 - [CreateUser](iam_operations.sh#L113)
-- [DeleteAccessKey](iam_operations.sh#L787)
+- [DeleteAccessKey](iam_operations.sh#L904)
 - [DeletePolicy](iam_operations.sh#L646)
 - [DeleteRole](iam_operations.sh#L716)
-- [DeleteUser](iam_operations.sh#L868)
+- [DeleteUser](iam_operations.sh#L985)
 - [DetachRolePolicy](iam_operations.sh#L571)
 - [GetUser](iam_operations.sh#L17)
 - [ListAccessKeys](iam_operations.sh#L273)
 - [ListUsers](iam_operations.sh#L56)
+- [UpdateAccessKey](iam_operations.sh#L787)
 
 
 <!--custom.examples.start-->
@@ -110,4 +111,3 @@ in the `aws-cli` folder.
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-SPDX-License-Identifier: Apache-2.0
