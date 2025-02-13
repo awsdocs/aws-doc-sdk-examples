@@ -2,14 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { describe, it } from "vitest";
-import { replAction } from "./repl.steps.js";
-import { S3Client } from "@aws-sdk/client-s3";
+import { main } from "../actions/get-object-conditional-request-if-modified-since.js";
 
-describe("basic scenario", () => {
+describe("test get-object-conditional-request-if-modified-since", () => {
   it(
     "should run without error",
     async () => {
-      await replAction({ confirmAll: true }, S3Client);
+      await main({
+        bucketName: "mybucket",
+        key: "myKey",
+      });
     },
     { timeout: 600000 },
   );

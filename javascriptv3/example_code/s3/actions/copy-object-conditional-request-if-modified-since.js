@@ -7,31 +7,25 @@ import {
   S3Client,
   S3ServiceException,
 } from "@aws-sdk/client-s3";
-import "@aws-sdk/crc64-nvme-crt";
+
 // Optionally edit the default key name of the copied object in 'object_name.json'
-import * as data from "../scenarios/conditional-requests/object_name.json" assert {
+import data from "../scenarios/conditional-requests/object_name.json" assert {
   type: "json",
 };
 
 /**
- * @param {S3Client} client
- * @param {string} bucket
- */
-//Get date in standard US format (MM/DD/YYYY)
-const date = new Date();
-date.setDate(date.getDate() - 1);
-
-const name = data.default.name;
-
-/**
  * Get a single object from a specified S3 bucket.
- * @param {{ sourceBucketName: string, sourceKeyName: string, sourceBucketName: string }}
+ * @param {{ sourceBucketName: string, sourceKeyName: string, destinationBucketName: string }}
  */
 export const main = async ({
   sourceBucketName,
   sourceKeyName,
   destinationBucketName,
 }) => {
+  const date = new Date();
+  date.setDate(date.getDate() - 1);
+
+  const name = data.name;
   const client = new S3Client({});
   const copySource = `${sourceBucketName}/${sourceKeyName}`;
   const copiedKey = name + sourceKeyName;
@@ -49,11 +43,11 @@ export const main = async ({
   } catch (caught) {
     if (caught instanceof NoSuchKey) {
       console.error(
-        `Error from S3 while getting object "${sourceKeyName}" from "${sourceBucketName}". No such key exists.`,
+        `Error from S3 while copying object "${sourceKeyName}" from "${sourceBucketName}". No such key exists.`,
       );
     } else if (caught instanceof S3ServiceException) {
       console.error(
-        `Error from S3 while getting object from ${sourceBucketName}.  ${caught.name}: The file was not copied because it was created or modified in the last 24 hours.`,
+        `Error from S3 while copying object from ${sourceBucketName}.  ${caught.name}: ${caught.message}`,
       );
     } else {
       throw caught;

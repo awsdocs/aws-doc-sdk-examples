@@ -2,14 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { describe, it } from "vitest";
-import { replAction } from "./repl.steps.js";
-import { S3Client } from "@aws-sdk/client-s3";
+import { main } from "../actions/put-object-conditional-request-if-none-match.js";
 
-describe("basic scenario", () => {
+describe("test put-object-conditional-request-if-none-match", () => {
   it(
     "should run without error",
     async () => {
-      await replAction({ confirmAll: true }, S3Client);
+      await main({
+        destinationBucketName: "mybucket",
+      });
     },
     { timeout: 600000 },
   );

@@ -7,23 +7,15 @@ import {
   S3Client,
   S3ServiceException,
 } from "@aws-sdk/client-s3";
-import "@aws-sdk/crc64-nvme-crt";
-
-/**
- * @param {S3Client} client
- * @param {string} bucket
- */
-//Get date in standard US format (MM/DD/YYYY)
-const date = new Date();
-date.setDate(date.getDate() - 1);
 
 /**
  * Get a single object from a specified S3 bucket.
- * @param {{ bucket: string, key: string, date: string }}
+ * @param {{ bucketName: string, key: string }}
  */
 export const main = async ({ bucketName, key }) => {
   const client = new S3Client({});
-
+  const date = new Date();
+  date.setDate(date.getDate() - 1);
   try {
     const response = await client.send(
       new GetObjectCommand({
@@ -42,7 +34,7 @@ export const main = async ({ bucketName, key }) => {
       );
     } else if (caught instanceof S3ServiceException) {
       console.error(
-        `Error from S3 while getting object from ${bucketName}.  ${caught.name}: The file was not returned because it was created or modified in the last 24 hours.`,
+        `Error from S3 while getting object from ${bucketName}.  ${caught.name}: ${caught.message}`,
       );
     } else {
       throw caught;

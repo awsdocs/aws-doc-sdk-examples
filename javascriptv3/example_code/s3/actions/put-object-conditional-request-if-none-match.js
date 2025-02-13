@@ -6,12 +6,7 @@ import {
   S3Client,
   S3ServiceException,
 } from "@aws-sdk/client-s3";
-import "@aws-sdk/crc64-nvme-crt";
-
-/**
- * @param {S3Client} client
- * @param {string[]} bucket
- */
+import { readFile } from "node:fs/promises";
 
 /**
  * Get a single object from a specified S3 bucket.
@@ -19,7 +14,6 @@ import "@aws-sdk/crc64-nvme-crt";
  */
 export const main = async ({ destinationBucketName }) => {
   const client = new S3Client({});
-
   const filePath = "./text01.txt";
   try {
     await client.send(
@@ -50,7 +44,6 @@ import {
   isMain,
   validateArgs,
 } from "@aws-doc-sdk-examples/lib/utils/util-node.js";
-import { readFile } from "node:fs/promises";
 
 const loadArgs = () => {
   const options = {

@@ -7,11 +7,6 @@ import {
   S3Client,
   S3ServiceException,
 } from "@aws-sdk/client-s3";
-import "@aws-sdk/crc64-nvme-crt";
-/**
- * @param {S3Client} client
- * @param {string[]} bucket
- */
 
 /**
  * Get a single object from a specified S3 bucket.
@@ -38,7 +33,7 @@ export const main = async ({ bucketName, key, eTag }) => {
       );
     } else if (caught instanceof S3ServiceException) {
       console.error(
-        `Error from S3 while getting object from ${bucketName}.  ${caught.name}: The file was not returned because ETag provided matches the object's ETag.`,
+        `Error from S3 while getting object from ${bucketName}. ${caught.name}: ${caught.message}`,
       );
     } else {
       throw caught;

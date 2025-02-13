@@ -1,5 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { dirname } from "node:path";
+
 import {
   ListObjectVersionsCommand,
   GetObjectCommand,
@@ -30,8 +35,6 @@ const choices = {
   CONDITIONAL_COPY: 3,
   CONDITIONAL_WRITE: 4,
 };
-
-//const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 /**
  * @param {Scenarios} scenarios
@@ -67,7 +70,6 @@ const replInput = (scenarios) =>
  */
 const getAllFiles = async (client, buckets) => {
   /** @type {{bucket: string, key: string, version: string}[]} */
-
   const files = [];
   for (const bucket of buckets) {
     const objectsResponse = await client.send(
@@ -84,6 +86,7 @@ const getAllFiles = async (client, buckets) => {
 /**
  * @param {S3Client} client
  * @param {string[]} buckets
+ * @param {string} key
  */
 const getEtag = async (client, bucket, key) => {
   const objectsResponse = await client.send(
@@ -180,14 +183,11 @@ export const replAction = (scenarios, client) =>
         }
         case choices.CONDITIONAL_READ:
           {
-            /** @type {number} */
-
             const selectedCondRead = await condReadOptions.handle(state);
             if (
               selectedCondRead ===
               "If-Match: using the object's ETag. This condition should succeed."
             ) {
-              //Get ETag of selected file.
               const bucket = state.sourceBucketName;
               const key = "file01.txt";
               const ETag = await getEtag(client, bucket, key);
@@ -202,7 +202,7 @@ export const replAction = (scenarios, client) =>
                 );
                 state.replOutput = `${key} in bucket ${state.sourceBucketName} read because ETag provided matches the object's ETag.`;
               } catch (err) {
-                state.replOutput = `Unable to return object ${key} in bucket ${state.sourceBucketName}: ${err.message}`;
+                state.replOutput = `Unable to read object ${key} in bucket ${state.sourceBucketName}: ${err.message}`;
               }
               break;
             }
@@ -210,7 +210,6 @@ export const replAction = (scenarios, client) =>
               selectedCondRead ===
               "If-None-Match: using the object's ETag. This condition should fail."
             ) {
-              //Get ETag of selected file.
               const bucket = state.sourceBucketName;
               const key = "file01.txt";
               const ETag = await getEtag(client, bucket, key);
@@ -223,9 +222,9 @@ export const replAction = (scenarios, client) =>
                     IfNoneMatch: ETag,
                   }),
                 );
-                state.replOutput = `${key} in ${state.sourceBucketName} was read.`;
+                state.replOutput = `${key} in ${state.sourceBucketName} was returned.`;
               } catch (err) {
-                state.replOutput = `${key} in ${state.sourceBucketName} was not read because ETag provided matches the object's ETag.`;
+                state.replOutput = `${key} in ${state.sourceBucketName} was not read: ${err.message}`;
               }
               break;
             }
@@ -233,7 +232,6 @@ export const replAction = (scenarios, client) =>
               selectedCondRead ===
               "If-Modified-Since: using yesterday's date. This condition should succeed."
             ) {
-              //Get date in standard US format (MM/DD/YYYY)
               const date = new Date();
               date.setDate(date.getDate() - 1);
 
@@ -249,7 +247,7 @@ export const replAction = (scenarios, client) =>
                 );
                 state.replOutput = `${key} in bucket ${state.sourceBucketName} read because it has been created or modified in the last 24 hours.`;
               } catch (err) {
-                state.replOutput = `Unable to return object ${key} in bucket ${state.sourceBucketName}: ${err.message}`;
+                state.replOutput = `Unable to read object ${key} in bucket ${state.sourceBucketName}: ${err.message}`;
               }
               break;
             }
@@ -260,7 +258,6 @@ export const replAction = (scenarios, client) =>
               const bucket = state.sourceBucketName;
               const key = "file01.txt";
 
-              //Get date in standard US format (MM/DD/YYYY)
               const date = new Date();
               date.setDate(date.getDate() - 1);
               try {
@@ -273,7 +270,7 @@ export const replAction = (scenarios, client) =>
                 );
                 state.replOutput = `${key} in ${state.sourceBucketName} was read.`;
               } catch (err) {
-                state.replOutput = `${key} in ${state.sourceBucketName} was not read because it was created or modified in the last 24 hours. : ${err.message}`;
+                state.replOutput = `${key} in ${state.sourceBucketName} was not read: ${err.message}`;
               }
               break;
             }
@@ -285,13 +282,12 @@ export const replAction = (scenarios, client) =>
             selectedCondCopy ===
             "If-Match: using the object's ETag. This condition should succeed."
           ) {
-            //Get ETag of selected file.
             const bucket = state.sourceBucketName;
             const key = "file01.txt";
             const ETag = await getEtag(client, bucket, key);
 
             const copySource = `${bucket}/${key}`;
-            // Optionallly edit the default key name prefix of the copied object in ./object_name.json.
+            // Optionally edit the default key name prefix of the copied object in ./object_name.json.
             const name = data.default.name;
             const copiedKey = `${name}${key}`;
             try {
@@ -313,12 +309,11 @@ export const replAction = (scenarios, client) =>
             selectedCondCopy ===
             "If-None-Match: using the object's ETag. This condition should fail."
           ) {
-            //Get ETag of selected file.
             const bucket = state.sourceBucketName;
             const key = "file01.txt";
             const ETag = await getEtag(client, bucket, key);
             const copySource = `${bucket}/${key}`;
-            // Optionallly edit the default key name prefix of the copied object in ./object_name.json.
+            // Optionally edit the default key name prefix of the copied object in ./object_name.json.
             const name = data.default.name;
             const copiedKey = `${name}${key}`;
 
@@ -333,7 +328,7 @@ export const replAction = (scenarios, client) =>
               );
               state.replOutput = `${copiedKey} copied to bucket ${state.destinationBucketName}`;
             } catch (err) {
-              state.replOutput = `Unable to copy object ${key} as ${copiedKey} to bucket ${state.destinationBucketName} :${err.message}`;
+              state.replOutput = `Unable to copy object as ${key} as as ${copiedKey} to bucket ${state.destinationBucketName}: ${err.message}`;
             }
             break;
           }
@@ -344,11 +339,10 @@ export const replAction = (scenarios, client) =>
             const bucket = state.sourceBucketName;
             const key = "file01.txt";
             const copySource = `${bucket}/${key}`;
-            // Optionallly edit the default key name prefix of the copied object in ./object_name.json.
+            // Optionally edit the default key name prefix of the copied object in ./object_name.json.
             const name = data.default.name;
             const copiedKey = `${name}${key}`;
 
-            //Get date in standard US format (MM/DD/YYYY)
             const date = new Date();
             date.setDate(date.getDate() - 1);
 
@@ -374,11 +368,10 @@ export const replAction = (scenarios, client) =>
             const bucket = state.sourceBucketName;
             const key = "file01.txt";
             const copySource = `${bucket}/${key}`;
-            // Optionallly edit the default key name prefix of the copied object in ./object_name.json.
+            // Optionally edit the default key name prefix of the copied object in ./object_name.json.
             const name = data.default.name;
             const copiedKey = `${name}${key}`;
 
-            //Get date in standard US format (MM/DD/YYYY)
             const date = new Date();
             date.setDate(date.getDate() - 1);
 
@@ -393,7 +386,7 @@ export const replAction = (scenarios, client) =>
               );
               state.replOutput = `${copiedKey} copied to bucket ${state.destinationBucketName} because it has not been created or modified in the last 24 hours.`;
             } catch (err) {
-              state.replOutput = `Unable to copy object ${key} to bucket ${state.destinationBucketName} :${err.message}`;
+              state.replOutput = `Unable to copy object ${key} to bucket ${state.destinationBucketName}: ${err.message}`;
             }
           }
           break;
@@ -405,9 +398,11 @@ export const replAction = (scenarios, client) =>
               selectedCondWrite ===
               "IfNoneMatch condition on the object key: If the key is a duplicate, the write will fail."
             ) {
-              // Optionallly edit the default key name prefix of the copied object in ./object_name.json.
+              // Optionally edit the default key name prefix of the copied object in ./object_name.json.
               const key = "text02.txt";
-              const filePath = `.\\${key}`;
+              const __filename = fileURLToPath(import.meta.url);
+              const __dirname = dirname(__filename);
+              const filePath = path.join(__dirname, "text02.txt");
               try {
                 await client.send(
                   new PutObjectCommand({
