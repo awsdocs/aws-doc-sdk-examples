@@ -42,8 +42,6 @@ python -m pip install -r requirements.txt
 ### Get started
 
 - [Hello Amazon Bedrock Runtime](hello/hello_bedrock_runtime_invoke.py#L5) (`InvokeModel`)
-- [Hello Amazon Bedrock Runtime](hello/hello_bedrock_runtime_converse.py#L5)
-(`Converse`)
 
 ### AI21 Labs Jurassic-2
 
