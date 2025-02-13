@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "vitest run unit",
-    "integration-test": "vitest run integration"
+    "integration-test": "vitest run integration --reporter=junit --outputFile=test_results/example-test-results.junit.xml"
   },
   "devDependencies": {
     "vitest": "^1.6.0"
