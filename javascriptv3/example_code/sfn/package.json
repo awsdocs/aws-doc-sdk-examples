@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "Corey Pyle <corepyle@amazon.com>",
   "scripts": {
-    "test": "vitest run **/*.unit.test.js"
+    "test": "vitest run unit"
   },
   "license": "Apache-2.0",
   "type": "module",

@@ -4,7 +4,7 @@
   "description": "personalize operations",
   "main": "personalizeClients.js",
   "scripts": {
-    "test": "vitest run **/*.unit.test.js"
+    "test": "vitest run unit"
   },
   "type": "module",
   "author": "Samuel Ashman <seashman@amazon.com>",

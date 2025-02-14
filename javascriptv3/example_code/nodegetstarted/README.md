@@ -38,7 +38,7 @@ The final package.json should look similar to this:
   "description": "This guide shows you how to initialize an NPM package, add a service client to your package, and use the JavaScript SDK to call a service action.",
   "main": "index.js",
   "scripts": {
-    "test": "vitest run **/*.unit.test.js"
+    "test": "vitest run unit"
   },
   "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache-2.0",
