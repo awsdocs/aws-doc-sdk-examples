@@ -6,10 +6,10 @@ import { main } from "../actions/get-object-conditional-request-if-modified-sinc
 
 describe("test get-object-conditional-request-if-modified-since", () => {
   it(
-    "should run without error",
+    "should not re-throw service exceptions",
     async () => {
       await main({
-        bucketName: "mybucket",
+        bucketName: "amzn-s3-demo-bucket",
         key: "myKey",
       });
     },

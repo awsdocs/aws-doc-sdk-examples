@@ -6,10 +6,10 @@ import { main } from "../actions/get-object-conditional-request-if-none-match.js
 
 describe("test get-object-conditional-request-if-none-match", () => {
   it(
-    "should run without error",
+    "should not re-throw service exceptions",
     async () => {
       await main({
-        bucketName: "mybucket",
+        bucketName: "amzn-s3-demo-bucket",
         key: "myKey",
         eTag: "123456789",
       });

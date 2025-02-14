@@ -30,7 +30,7 @@ export const main = async ({ destinationBucketName }) => {
   } catch (caught) {
     if (caught instanceof S3ServiceException) {
       console.error(
-        "Error from S3 while uploading object to bucket. The object was too large. To upload objects larger than 5GB, use the S3 console (160GB max) or the multipart upload API (5TB max).",
+        `Error from S3 while uploading object to bucket. ${caught.name}: ${caught.message}`,
       );
     } else {
       throw caught;

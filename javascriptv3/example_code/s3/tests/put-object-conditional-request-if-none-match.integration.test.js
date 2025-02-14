@@ -6,10 +6,10 @@ import { main } from "../actions/put-object-conditional-request-if-none-match.js
 
 describe("test put-object-conditional-request-if-none-match", () => {
   it(
-    "should run without error",
+    "should not re-throw service exceptions",
     async () => {
       await main({
-        destinationBucketName: "mybucket",
+        destinationBucketName: "amzn-s3-demo-bucket1",
       });
     },
     { timeout: 600000 },

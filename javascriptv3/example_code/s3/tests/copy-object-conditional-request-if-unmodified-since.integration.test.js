@@ -6,12 +6,12 @@ import { main } from "../actions/copy-object-conditional-request-if-unmodified-s
 
 describe("test copy-object-conditional-request-if-unmodified-since", () => {
   it(
-    "should run without error",
+    "should not re-throw service exceptions",
     async () => {
       await main({
-        sourceBucketName: "mybucket",
+        sourceBucketName: "amzn-s3-demo-bucket",
         sourceKeyName: "mykey",
-        destinationBucketName: "mydestinationbucket",
+        destinationBucketName: "amzn-s3-demo-bucket1",
       });
     },
     { timeout: 600000 },

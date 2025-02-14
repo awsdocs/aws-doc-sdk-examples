@@ -6,12 +6,12 @@ import { main } from "../actions/copy-object-conditional-request-if-match.js";
 
 describe("test copy-object-conditional-request-if-match", () => {
   it(
-    "should run without error",
+    "should not re-throw service exceptions",
     async () => {
       await main({
-        sourceBucketName: "mybucket",
+        sourceBucketName: "amzn-s3-demo-bucket",
         sourceKeyName: "mykey",
-        destinationBucketName: "mydestinationbucket",
+        destinationBucketName: "amzn-s3-demo-bucket1",
         eTag: "123456789",
       });
     },
