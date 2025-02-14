@@ -889,6 +889,15 @@ iam_UpdateAccessKey:
             - description:
               snippet_tags:
                 - iam.cpp.update_access_key.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.UpdateAccessKey
   services:
     iam: {UpdateAccessKey}
 iam_Scenario_ManageAccessKeys:
