@@ -7,7 +7,7 @@
     "@aws-sdk/client-secrets-manager": "^3.386.0"
   },
   "scripts": {
-    "integration-test": "vitest run integration --reporter=junit --outputFile=test_results/example-test-results.junit.xml"
+    "integration-test": "vitest run integration --reporter=junit --outputFile=test_results/secrets-manager-test-results.junit.xml"
   },
   "type": "module",
   "devDependencies": {
