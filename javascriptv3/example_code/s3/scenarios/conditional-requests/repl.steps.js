@@ -11,7 +11,7 @@ import {
   CopyObjectCommand,
   PutObjectCommand,
 } from "@aws-sdk/client-s3";
-import * as data from "./object_name.json" assert { type: "json" };
+import data from "./object_name.json" assert { type: "json" };
 import { readFile } from "node:fs/promises";
 import {
   ScenarioInput,
@@ -288,7 +288,7 @@ export const replAction = (scenarios, client) =>
 
             const copySource = `${bucket}/${key}`;
             // Optionally edit the default key name prefix of the copied object in ./object_name.json.
-            const name = data.default.name;
+            const name = data.name;
             const copiedKey = `${name}${key}`;
             try {
               await client.send(
@@ -314,7 +314,7 @@ export const replAction = (scenarios, client) =>
             const ETag = await getEtag(client, bucket, key);
             const copySource = `${bucket}/${key}`;
             // Optionally edit the default key name prefix of the copied object in ./object_name.json.
-            const name = data.default.name;
+            const name = data.name;
             const copiedKey = `${name}${key}`;
 
             try {
@@ -340,7 +340,7 @@ export const replAction = (scenarios, client) =>
             const key = "file01.txt";
             const copySource = `${bucket}/${key}`;
             // Optionally edit the default key name prefix of the copied object in ./object_name.json.
-            const name = data.default.name;
+            const name = data.name;
             const copiedKey = `${name}${key}`;
 
             const date = new Date();
@@ -369,7 +369,7 @@ export const replAction = (scenarios, client) =>
             const key = "file01.txt";
             const copySource = `${bucket}/${key}`;
             // Optionally edit the default key name prefix of the copied object in ./object_name.json.
-            const name = data.default.name;
+            const name = data.name;
             const copiedKey = `${name}${key}`;
 
             const date = new Date();
