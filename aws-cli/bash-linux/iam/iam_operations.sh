@@ -133,7 +133,7 @@ function iam_create_user() {
   # bashsupport disable=BP5008
   function usage() {
     echo "function iam_create_user"
-    echo "Creates an WS Identity and Access Management (IAM) user. You must supply a username:"
+    echo "Creates an AWS Identity and Access Management (IAM) user. You must supply a username:"
     echo "  -u user_name    The name of the user. It must be unique within the account."
     echo ""
   }
@@ -663,7 +663,7 @@ function iam_delete_policy() {
   # bashsupport disable=BP5008
   function usage() {
     echo "function iam_delete_policy"
-    echo "Deletes an WS Identity and Access Management (IAM) policy"
+    echo "Deletes an AWS Identity and Access Management (IAM) policy"
     echo "  -n policy_arn -- The name of the IAM policy arn."
     echo ""
   }
@@ -733,7 +733,7 @@ function iam_delete_role() {
   # bashsupport disable=BP5008
   function usage() {
     echo "function iam_delete_role"
-    echo "Deletes an WS Identity and Access Management (IAM) role"
+    echo "Deletes an AWS Identity and Access Management (IAM) role"
     echo "  -n role_name -- The name of the IAM role."
     echo ""
   }
@@ -922,7 +922,7 @@ function iam_delete_access_key() {
   # bashsupport disable=BP5008
   function usage() {
     echo "function iam_delete_access_key"
-    echo "Deletes an WS Identity and Access Management (IAM) access key for the specified IAM user"
+    echo "Deletes an AWS Identity and Access Management (IAM) access key for the specified IAM user"
     echo "  -u user_name    The name of the user."
     echo "  -k access_key   The access key to delete."
     echo ""
@@ -1002,7 +1002,7 @@ function iam_delete_user() {
   # bashsupport disable=BP5008
   function usage() {
     echo "function iam_delete_user"
-    echo "Deletes an WS Identity and Access Management (IAM) user. You must supply a username:"
+    echo "Deletes an AWS Identity and Access Management (IAM) user. You must supply a username:"
     echo "  -u user_name    The name of the user."
     echo ""
   }
