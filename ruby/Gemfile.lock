@@ -1399,7 +1399,7 @@ GEM
     base64 (0.2.0)
     cli-ui (2.2.3)
     concurrent-ruby (1.2.2)
-    date (3.3.3)
+    date (3.4.1)
     diff-lcs (1.5.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
@@ -1417,12 +1417,12 @@ GEM
     multi_json (1.15.0)
     mustermann (3.0.3)
       ruby2_keywords (~> 0.0.1)
-    net-imap (0.3.4)
+    net-imap (0.3.8)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
-    net-protocol (0.2.1)
+    net-protocol (0.2.2)
       timeout
     net-smtp (0.3.3)
       net-protocol
@@ -1503,7 +1503,7 @@ GEM
     tilt (2.4.0)
     time (0.2.2)
       date
-    timeout (0.3.2)
+    timeout (0.4.3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
