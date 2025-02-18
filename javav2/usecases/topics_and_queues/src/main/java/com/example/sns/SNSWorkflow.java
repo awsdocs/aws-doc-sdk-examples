@@ -193,23 +193,25 @@ public class SNSWorkflow {
         // Define the policy to use. Make sure that you change the REGION if you are
         // running this code
         // in a different region.
-        String policy = "{\n" +
-            "     \"Statement\": [\n" +
-            "     {\n" +
-            "         \"Effect\": \"Allow\",\n" +
-            "                 \"Principal\": {\n" +
-            "             \"Service\": \"sns.amazonaws.com\"\n" +
-            "         },\n" +
-            "         \"Action\": \"sqs:SendMessage\",\n" +
-            "                 \"Resource\": \"arn:aws:sqs:us-east-1:" + accountId + ":" + sqsQueueName + "\",\n" +
-            "                 \"Condition\": {\n" +
-            "             \"ArnEquals\": {\n" +
-            "                 \"aws:SourceArn\": \"arn:aws:sns:us-east-1:" + accountId + ":" + topicName + "\"\n" +
-            "             }\n" +
-            "         }\n" +
-            "     }\n" +
-            "     ]\n" +
-            " }";
+        String policy = """
+        {
+             "Statement": [
+             {
+                 "Effect": "Allow",
+                         "Principal": {
+                     "Service": "sns.amazonaws.com"
+                 },
+                 "Action": "sqs:SendMessage",
+                         "Resource": "arn:aws:sqs:us-east-1:%s:%s",
+                         "Condition": {
+                     "ArnEquals": {
+                         "aws:SourceArn": "arn:aws:sns:us-east-1:%s:%s"
+                     }
+                 }
+             }
+             ]
+         }
+        """.formatted(accountId, sqsQueueName, accountId, topicName);
 
         setQueueAttr(sqsClient, sqsQueueUrl, policy);
         System.out.println(DASHES);
