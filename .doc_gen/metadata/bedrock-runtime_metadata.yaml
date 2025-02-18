@@ -21,6 +21,20 @@ bedrock-runtime_Hello:
             - description:
               snippet_files:
                 - javascriptv3/example_code/bedrock-runtime/hello.js
+
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          sdkguide:
+          excerpts:
+            - description: Send a prompt to a model with the InvokeModel operation.
+              snippet_tags:
+                - bedrock-runtime.example_code.hello_bedrock_invoke.complete
+            - description: Send a user message to a model with the Converse operation.
+              snippet_tags:
+                - bedrock-runtime.example_code.hello_bedrock_converse.complete
+
   services:
     bedrock-runtime: {InvokeModel}
 
