@@ -80,6 +80,7 @@ functions within the same service.
 - [Create a web page that lists Amazon S3 objects](../web/s3/list-objects/src/App.tsx)
 - [Delete all objects in a bucket](scenarios/delete-all-objects.js)
 - [Lock Amazon S3 objects](scenarios/object-locking/index.js)
+- [Make conditional requests](scenarios/conditional-requests/index.js)
 - [Upload or download large files](scenarios/multipart-upload.js)
 
 
@@ -199,6 +200,18 @@ This example shows you how to work with S3 object lock features.
 
 <!--custom.scenarios.s3_Scenario_ObjectLock.start-->
 <!--custom.scenarios.s3_Scenario_ObjectLock.end-->
+
+#### Make conditional requests
+
+This example shows you how to add preconditions to Amazon S3 requests.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_ConditionalRequests.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ConditionalRequests.end-->
+
+
+<!--custom.scenarios.s3_Scenario_ConditionalRequests.start-->
+<!--custom.scenarios.s3_Scenario_ConditionalRequests.end-->
 
 #### Upload or download large files
 
