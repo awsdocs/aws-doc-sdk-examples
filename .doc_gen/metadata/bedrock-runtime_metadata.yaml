@@ -69,6 +69,23 @@ bedrock-runtime_Converse_Ai21LabsJurassic2:
   services:
     bedrock-runtime: {Converse}
 
+bedrock-runtime_Converse_AmazonNovaText:
+  title: Invoke Amazon Nova on &BR; using Bedrock's Converse API
+  title_abbrev: "Converse"
+  synopsis: send a text message to Amazon Nova, using Bedrock's Converse API.
+  category: Amazon Nova
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.Converse_AmazonNovaText
+  services:
+    bedrock-runtime: {Converse}
+
 bedrock-runtime_Converse_AmazonTitanText:
   title: Invoke Amazon Titan Text on &BR; using Bedrock's Converse API
   title_abbrev: "Converse"
@@ -301,6 +318,23 @@ bedrock-runtime_Converse_Mistral:
     bedrock-runtime: {Converse}
 
 # Converse Stream
+bedrock-runtime_ConverseStream_AmazonNovaText:
+  title: Invoke Amazon Nova on &BR; using Bedrock's Converse API with a response stream
+  title_abbrev: "ConverseStream"
+  synopsis: send a text message to Amazon Nova, using Bedrock's Converse API and process the response stream in real-time.
+  category: Amazon Nova
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API and process the response stream in real-time.
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.ConverseStream_AmazonNovaText
+  services:
+    bedrock-runtime: {ConverseStream}
+
 bedrock-runtime_ConverseStream_AmazonTitanText:
   title: Invoke Amazon Titan Text on &BR; using Bedrock's Converse API with a response stream
   title_abbrev: "ConverseStream"
@@ -1072,6 +1106,23 @@ bedrock-runtime_InvokeModelWithResponseStream_MistralAi:
     bedrock-runtime: {InvokeModelWithResponseStream}
 
 # Image Generation Models
+bedrock-runtime_InvokeModel_AmazonNovaImageGeneration:
+  title: Invoke Amazon Nova Canvas on &BR; to generate an image
+  title_abbrev: "InvokeModel"
+  synopsis: invoke Amazon Nova Canvas on &BR; to generate an image.
+  category: Amazon Nova Canvas
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock-runtime
+          excerpts:
+            - description: Create an image with Amazon Nova Canvas.
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.InvokeModel_AmazonNovaImageGeneration
+  services:
+    bedrock-runtime: {InvokeModel}
+
 bedrock-runtime_InvokeModel_TitanImageGenerator:
   title: Invoke Amazon Titan Image on &BR; to generate an image
   title_abbrev: "InvokeModel"
