@@ -837,6 +837,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S3ObjectLockScenario", "S3\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S3ObjectLockTests", "S3\scenarios\S3ObjectLockScenario\S3ObjectLockTests\S3ObjectLockTests.csproj", "{BCCFBED0-E800-46C5-975B-7D404486F00F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConverseToolScenario", "Bedrock-runtime\Scenarios\ConverseToolScenario\ConverseToolScenario.csproj", "{83ED7BBE-5C9A-47AC-805B-351270069570}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1915,6 +1917,10 @@ Global
 		{BCCFBED0-E800-46C5-975B-7D404486F00F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCCFBED0-E800-46C5-975B-7D404486F00F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCCFBED0-E800-46C5-975B-7D404486F00F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83ED7BBE-5C9A-47AC-805B-351270069570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83ED7BBE-5C9A-47AC-805B-351270069570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83ED7BBE-5C9A-47AC-805B-351270069570}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83ED7BBE-5C9A-47AC-805B-351270069570}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2296,6 +2302,7 @@ Global
 		{7EC94891-9A5F-47EF-9C97-8A280754525C} = {0169CEB9-B6A7-447D-921D-C79358DDCCE6}
 		{93588ED1-A248-4F6C-85A4-27E9E65D8AC7} = {7EC94891-9A5F-47EF-9C97-8A280754525C}
 		{BCCFBED0-E800-46C5-975B-7D404486F00F} = {7EC94891-9A5F-47EF-9C97-8A280754525C}
+		{83ED7BBE-5C9A-47AC-805B-351270069570} = {BA23BB28-EC63-4330-8CA7-DEB1B6489580}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {08502818-E8E1-4A91-A51C-4C8C8D4FF9CA}
