@@ -33,26 +33,28 @@ public class PutBucketLogging {
         final String usage = """
 
             Usage:
-              <bucketName> <targetBucket> \s
+              <bucketName> <targetBucket> <accountId> \s
 
             Where:
               bucketName - The Amazon S3 bucket to upload an object into.
-              targetBucket - The target bucket .
+              targetBucket - The target bucket.
+              accountId - The account id.
             """;
 
-        if (args.length != 2) {
+        if (args.length != 3) {
             System.out.println(usage);
             System.exit(1);
         }
 
         String bucketName = args[0];
         String targetBucket = args[1];
+        String accountId = args[2];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)
             .build();
 
-        setlogRequest(s3, bucketName, targetBucket);
+        setlogRequest(s3, bucketName, targetBucket, accountId);
         s3.close();
     }
 
@@ -62,10 +64,11 @@ public class PutBucketLogging {
      * @param s3 an instance of the {@link S3Client} used to interact with the S3 service
      * @param bucketName the name of the bucket for which logging needs to be enabled
      * @param targetBucket the name of the target bucket where the logs will be stored
+     * @param accountId the account Id
      *
      * @throws S3Exception if an error occurs while enabling logging for the bucket
      */
-    public static void setlogRequest(S3Client s3, String bucketName, String targetBucket) {
+    public static void setlogRequest(S3Client s3, String bucketName, String targetBucket, String accountId) {
         try {
             GetBucketAclRequest aclRequest = GetBucketAclRequest.builder()
                 .bucket(targetBucket)
@@ -96,7 +99,7 @@ public class PutBucketLogging {
 
             PutBucketLoggingRequest loggingRequest = PutBucketLoggingRequest.builder()
                 .bucket(bucketName)
-                .expectedBucketOwner("814548047983")
+                .expectedBucketOwner(accountId)
                 .bucketLoggingStatus(loggingStatus)
                 .build();
 

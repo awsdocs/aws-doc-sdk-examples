@@ -45,29 +45,6 @@ public class ForecastTest {
         predARN = values.getPredARN();
         forecastName = values.getForecastName() + randomNum;
         dataSet = values.getDataSet() + randomNum;
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * ForecastTest.class.getClassLoader().getResourceAsStream("config.properties"))
-         * {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests.
-         * predARN = "arn:aws:forecast:us-west-2:814548047983:predictor/ScottPredictor";
-         * forecastName = "forecast"+randomNum;
-         * dataSet = "dataSet"+randomNum;
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
