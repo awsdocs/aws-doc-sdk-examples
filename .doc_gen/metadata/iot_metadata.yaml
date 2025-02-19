@@ -439,7 +439,7 @@ iot_Scenario:
     - Write out state information.
     - Creates a rule.
     - List your rules.
-    - Search things using the Thing name
+    - Search things using the Thing name.
     - Delete an &IoT; Thing.
   category: Basics
   languages:
