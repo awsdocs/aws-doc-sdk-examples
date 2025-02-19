@@ -18,11 +18,11 @@ if __name__ == "__main__":
     else:
         sys.argv.remove(NO_UPDATE_FLAG)
 
-    # This import must remain in the main, after the update, as it depends on
-    # importing the things that got changed during update.
-    from typer import run
-
+    # This import from runner must remain in __main__, after calling update(),
+    # as it depends on things that got changed during update().
     from runner import writeme
+
+    from typer import run
 
     run(writeme)
 else:
