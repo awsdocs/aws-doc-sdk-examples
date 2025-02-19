@@ -332,7 +332,7 @@ bedrock-runtime_ConverseStream_AmazonNovaText:
         - sdk_version: 2
           github: javav2/example_code/bedrock-runtime
           excerpts:
-            - description: Send a text message to Amazon Titan Text using Bedrock's Converse API and process the response stream in real-time.
+            - description: Send a text message to Amazon Nova using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
                 - bedrock-runtime.java2.ConverseStream_AmazonNovaText
   services:
