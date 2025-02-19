@@ -38,6 +38,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 - [Converse](src/main/java/com/example/bedrockruntime/models/ai21LabsJurassic2/Converse.java#L6)
 - [InvokeModel](src/main/java/com/example/bedrockruntime/models/ai21LabsJurassic2/InvokeModel.java#L6)
 
+### Amazon Nova
+
+- [Converse](src/main/java/com/example/bedrockruntime/models/amazon/nova/text/ConverseAsync.java#L6)
+- [ConverseStream](src/main/java/com/example/bedrockruntime/models/amazon/nova/text/ConverseStream.java#L6)
+
+### Amazon Nova Canvas
+
+- [InvokeModel](src/main/java/com/example/bedrockruntime/models/amazon/nova/canvas/InvokeModel.java#L6)
+
 ### Amazon Titan Image Generator
 
 - [InvokeModel](src/main/java/com/example/bedrockruntime/models/amazonTitanImage/InvokeModel.java#L6)

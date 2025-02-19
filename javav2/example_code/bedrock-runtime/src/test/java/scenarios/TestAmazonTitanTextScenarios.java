@@ -3,14 +3,13 @@
 
 package scenarios;
 
-import actions.IntegrationTestBase;
 import org.junit.jupiter.api.Test;
 
 import static com.example.bedrockruntime.models.amazonTitanText.TextScenarios.invokeWithConversation;
 import static com.example.bedrockruntime.models.amazonTitanText.TextScenarios.invokeWithSystemPrompt;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class TestAmazonTitanTextScenarios extends IntegrationTestBase {
+class TestAmazonTitanTextScenarios {
 
     @Test
     void invokeWithSystemPromptScenario() {
