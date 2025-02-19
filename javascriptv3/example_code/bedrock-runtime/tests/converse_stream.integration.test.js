@@ -9,17 +9,18 @@ describe("ConverseStream with text generation models", () => {
   const fileName = "converseStream.js";
   const baseDirectory = path.join(__dirname, "..", "models");
 
-  const subdirectories = [
-    "amazonTitanText",
-    "anthropicClaude",
-    "cohereCommand",
-    "metaLlama",
-    "mistral",
-  ];
+  const models = {
+    amazonNovaText: "Amazon Nova",
+    amazonTitanText: "Amazon Titan",
+    anthropicClaude: "Anthropic Claude",
+    cohereCommand: "Cohere Command",
+    metaLlama: "Meta Llama",
+    mistral: "Mistral",
+  };
 
-  test.each(subdirectories)(
-    "should invoke the model and return text",
-    async (subdirectory) => {
+  test.each(Object.entries(models).map(([sub, name]) => [name, sub]))(
+    "should invoke %s and return text",
+    async (_, subdirectory) => {
       let output = "";
       const outputStream = new Writable({
         write(/** @type string */ chunk, encoding, callback) {

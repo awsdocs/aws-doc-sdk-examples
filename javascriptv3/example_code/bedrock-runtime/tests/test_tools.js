@@ -10,5 +10,5 @@ import { expect } from "vitest";
  */
 export const expectToBeANonEmptyString = (string) => {
   expect(typeof string).toBe("string");
-  expect(string.length).not.toBe(0);
+  expect(string).not.toHaveLength(0);
 };
