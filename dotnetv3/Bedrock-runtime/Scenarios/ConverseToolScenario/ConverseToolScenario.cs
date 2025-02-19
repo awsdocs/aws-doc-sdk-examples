@@ -3,6 +3,7 @@
 
 // snippet-start:[Bedrock.ConverseTool.dotnetv3.Scenario]
 
+using Amazon;
 using Amazon.BedrockRuntime;
 using Amazon.BedrockRuntime.Model;
 using Amazon.Runtime.Documents;
@@ -29,7 +30,8 @@ public static class ConverseToolScenario
     public static WeatherTool _weatherTool = null!;
     public static bool _interactive = true;
 
-    private static string model_id = "anthropic.claude-3-sonnet-20240229-v1:0";
+    // Change this string to use a different model with Converse API.
+    private static string model_id = "amazon.nova-lite-v1:0";
 
     private static string system_prompt = @"
         You are a weather assistant that provides current weather data for user-specified locations using only
@@ -64,7 +66,7 @@ public static class ConverseToolScenario
                     .AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Trace))
             .ConfigureServices((_, services) =>
                 services.AddHttpClient()
-                    .AddAWSService<IAmazonBedrockRuntime>()
+                    .AddSingleton<IAmazonBedrockRuntime>(_ => new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1)) // Specify a region that has access to the chosen model.
                     .AddTransient<BedrockActionsWrapper>()
                     .AddTransient<WeatherTool>()
                     .RemoveAll<IHttpMessageHandlerBuilderFilter>()

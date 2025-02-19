@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+using Amazon;
 using Amazon.BedrockRuntime;
 using ConverseToolScenario;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,7 +38,7 @@ public class ConverseToolScenarioTests
             .GetRequiredService<IHttpClientFactory>();
 
         _bedrockActionsWrapper = new BedrockActionsWrapper(
-            new AmazonBedrockRuntimeClient(), new Logger<BedrockActionsWrapper>(_loggerFactory));
+            new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1), new Logger<BedrockActionsWrapper>(_loggerFactory));
         _weatherTool = new WeatherTool(new Logger<WeatherTool>(_loggerFactory),
             _httpClientFactory);
         ConverseToolScenario.ConverseToolScenario._bedrockActionsWrapper = _bedrockActionsWrapper;
