@@ -12,7 +12,7 @@
 - name: MVP
   color: f5f7f9
   description: "A Minimum Viable Product example to show the bare bones of how to use a service via an SDK."
-- name: Workflow
+- name: Feature Scenario
   color: f5f7f9
   description: "A simple code example to show how certain tasks can be accomplished using several services and SDKs."
 - name: Basics
