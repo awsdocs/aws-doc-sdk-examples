@@ -15,9 +15,13 @@ import java.util.Base64;
 public class ImageTools {
 
     public static void displayImage(String base64ImageData) {
+        byte[] imageData = Base64.getDecoder().decode(base64ImageData);
+        displayImage(imageData);
+    }
+
+    public static void displayImage(byte[] imageData) {
         try {
-            byte[] imageBytes = Base64.getDecoder().decode(base64ImageData);
-            BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageBytes));
+            BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageData));
             JFrame frame = new JFrame("Image");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -30,5 +34,4 @@ public class ImageTools {
             throw new RuntimeException(e);
         }
     }
-
 }
