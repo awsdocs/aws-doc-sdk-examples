@@ -38,6 +38,11 @@ python -m pip install -r requirements.txt
 > see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 >
 <!--custom.prerequisites.end-->
+
+### Get started
+
+- [Hello Amazon Bedrock Runtime](hello/hello_bedrock_runtime_invoke.py#L5) (`InvokeModel`)
+
 ### AI21 Labs Jurassic-2
 
 - [Converse](models/ai21_labs_jurassic2/converse.py#L4)
@@ -120,6 +125,13 @@ Mistral AI.
 
 <!--custom.instructions.end-->
 
+#### Hello Amazon Bedrock Runtime
+
+This example shows you how to get started using Amazon Bedrock Runtime.
+
+```
+python hello/hello_bedrock_runtime_invoke.py
+```
 
 
 ### Tests
