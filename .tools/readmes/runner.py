@@ -1,18 +1,27 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-import argparse
-import config
+import typer
+from typing_extensions import Annotated
 import logging
 import os
+
 from difflib import unified_diff
+from enum import Enum
 from pathlib import Path
 from typing import Optional
 
-from render import Renderer, MissingMetadataError, RenderStatus
+from render import Renderer, RenderStatus, MissingMetadataError
 from scanner import Scanner
 
 from aws_doc_sdk_examples_tools.doc_gen import DocGen
+
+
+# Default to not using Rich
+if "USE_RICH" not in os.environ:
+    import typer.core
+
+    typer.core.rich = None  # type: ignore
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO").upper(), force=True)
 
@@ -35,61 +44,70 @@ def prepare_scanner(doc_gen: DocGen) -> Optional[Scanner]:
     return scanner
 
 
-def main():
-    # Load all examples immediately for cross references. Trades correctness for speed.
-    doc_gen = DocGen.from_root(Path(__file__).parent.parent.parent, incremental=True)
+# Load all examples immediately for cross references. Trades correctness for speed.
+doc_gen = DocGen.from_root(Path(__file__).parent.parent.parent, incremental=True)
 
-    languages = doc_gen.languages()
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--languages",
-        choices=[*languages] + ["all"],
-        nargs="+",
-        help="The languages of the SDK. Choose from: %(choices)s.",
-        default=["all"],
-    )
 
-    parser.add_argument(
-        "--services",
-        choices=[*doc_gen.services.keys()] + ["all"],
-        nargs="+",
-        help="The targeted service. Choose from: %(choices)s.",
-        default=["all"],
-    )
-    parser.add_argument(
-        "--safe",
-        action="store_true",
-        help=f"Save a copy of the original README as the 'saved_readme' value specified in config.py ({config.saved_readme}).",
-    )
-    parser.add_argument(
-        "--verbose",
-        action="store_true",
-        help="When set, output verbose debugging info.",
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        dest="dry_run",
-        help="In dry run, compare current vs generated and exit with failure if they do not match.",
-        default=False,  # Change this to default false when we're ready to use this generally.
-    )
-    parser.add_argument("--no-dry-run", dest="dry_run", action="store_false")
-    parser.add_argument("--check", dest="dry_run", action="store_true")
-    parser.add_argument("--diff", action="store_true", default=False)
-    args = parser.parse_args()
+Language = Enum(
+    "Language", {lang: lang for lang in ([*doc_gen.languages()] + ["all"])}
+)  # type: ignore
+Service = Enum(
+    "Service", {serv: serv for serv in ([*doc_gen.services.keys()] + ["all"])}
+)  # type: ignore
 
-    if "all" in args.languages:
-        args.languages = [*languages]
 
-    if "all" in args.services:
-        args.services = [*doc_gen.services.keys()]
+def writeme(
+    languages: Annotated[
+        list[Language],  # type: ignore
+        typer.Option(
+            "--language",
+            help="The languages of the SDK.",
+        ),
+    ] = [
+        Language.all  # type: ignore
+    ],  # type: ignore
+    services: Annotated[
+        list[Service],  # type: ignore
+        typer.Option(
+            "--service",
+            help="The targeted service.",
+        ),
+    ] = [
+        Service.all  # type: ignore
+    ],  # type: ignore
+    safe: Annotated[
+        bool,
+        typer.Option(
+            help="Save a copy of the original README as the 'saved_readme' value specified in config.py ({config.saved_readme})."
+        ),
+    ] = True,
+    verbose: Annotated[
+        bool, typer.Option(help="When set, output verbose debugging info.")
+    ] = False,
+    dry_run: Annotated[
+        bool,
+        typer.Option(
+            help="In dry run, compare current vs generated and exit with failure if they do not match."
+        ),
+    ] = False,
+    check: Annotated[bool, typer.Option(help="Alias for --dry-run.")] = False,
+    diff: Annotated[
+        bool, typer.Option(help="Show a diff of READMEs that have changed.")
+    ] = False,
+):
+    if "all" in languages:
+        languages = list(Language)  # type: ignore
 
-    if args.verbose:
+    if "all" in services:
+        services = list(Service)  # type: ignore
+
+    if verbose:
         logging.basicConfig(level=logging.DEBUG)
 
-    logging.debug(f"Args configuration: {args}")
+    if check:
+        dry_run = check
 
-    if args.dry_run:
+    if dry_run:
         print("Dry run, no changes will be made.")
 
     skipped = []
@@ -104,23 +122,23 @@ def main():
         return -1
 
     renderer = Renderer(scanner)
-    for service in args.services:
-        for language_and_version in args.languages:
-            (language, version) = language_and_version.split(":")
+    for service in services:
+        for language_and_version in languages:
+            (language, version) = language_and_version.value.split(":")
             id = f"{language}:{version}:{service}"
             try:
-                renderer.set_example(service, language, int(version), args.safe)
+                renderer.set_example(service.value, language, int(version), safe)
 
                 logging.debug("Rendering %s", id)
                 render_status = renderer.render()
                 logging.debug("Status %s", render_status)
 
                 if render_status == RenderStatus.UPDATED:
-                    if args.dry_run:
-                        diff = None
-                        if args.diff:
-                            diff = make_diff(renderer, id)
-                        failed.append((id, diff))
+                    if dry_run:
+                        diff_text = None
+                        if diff:
+                            diff_text = make_diff(renderer, id)
+                        failed.append((id, diff_text))
                     else:
                         renderer.write()
                         written.append(id)
@@ -139,10 +157,10 @@ def main():
                 skipped.append(id)
             except MissingMetadataError as mme:
                 logging.debug(mme, exc_info=True)
-                failed.append(id)
+                failed.append((id, None))
             except Exception as e:
                 logging.error(e, exc_info=True)
-                failed.append(id)
+                failed.append((id, None))
 
     skip_list = "\n".join(f"Skipped {f}" for f in sorted(skipped))
     logging.debug(skip_list or "(None Skipped)")
@@ -155,11 +173,11 @@ def main():
     if no_folder:
         no_folder_list = "\n".join(f"No folder: {f}" for f in sorted(no_folder))
         print(no_folder_list)
-    if not args.dry_run:
+    if not dry_run:
         done_list = "\n".join(f"Wrote {f}" for f in sorted(written))
         print(done_list or "(None Written)")
     if failed:
-        if args.diff:
+        if diff:
             failed_list = "\n".join(
                 f"Diff: {f[1]}" for f in sorted(failed, key=lambda f: f[0])
             )
