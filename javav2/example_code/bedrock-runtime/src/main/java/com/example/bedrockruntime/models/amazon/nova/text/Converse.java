@@ -22,22 +22,22 @@ import software.amazon.awssdk.services.bedrockruntime.model.*;
  */
 public class Converse {
 
-    public static void converse() {
+    public static String converse() {
 
         // Step 1: Create the Amazon Bedrock runtime client
-        // The runtime client handles the communication with models on Amazon Bedrock
+        // The runtime client handles the communication with AI models on Amazon Bedrock
         BedrockRuntimeClient client = BedrockRuntimeClient.builder()
                 .credentialsProvider(DefaultCredentialsProvider.create())
                 .region(Region.US_EAST_1)
                 .build();
 
-        // Step 2: Specify which model to use:
+        // Step 2: Specify which model to use
         // Available Amazon Nova models and their characteristics:
         // - Amazon Nova Micro: Text-only model optimized for lowest latency and cost
         // - Amazon Nova Lite:  Fast, low-cost multimodal model for image, video, and text
         // - Amazon Nova Pro:   Advanced multimodal model balancing accuracy, speed, and cost
         //
-        // For the most current model IDs, see:
+        // For the latest available models, see:
         // https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html
         String modelId = "amazon.nova-lite-v1:0";
 
@@ -67,12 +67,10 @@ public class Converse {
 
         // Step 5: Send and process the request
         // - Send the request to the model
-        // - Extract the generated text from the response
-        // - Display the result
+        // - Extract and return the generated text from the response
         try {
             ConverseResponse response = client.converse(request);
-            String responseText = response.output().message().content().get(0).text();
-            System.out.println(responseText);
+            return response.output().message().content().get(0).text();
 
         } catch (SdkClientException e) {
             System.err.printf("ERROR: Can't invoke '%s'. Reason: %s", modelId, e.getMessage());
@@ -81,7 +79,8 @@ public class Converse {
     }
 
     public static void main(String[] args) {
-        converse();
+        String response = converse();
+        System.out.println(response);
     }
 }
 

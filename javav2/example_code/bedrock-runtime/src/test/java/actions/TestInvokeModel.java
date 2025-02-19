@@ -3,66 +3,23 @@
 
 package actions;
 
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
 
-public class TestInvokeModel extends IntegrationTestBase {
-    @Test
-    void testJurassic2() {
-        String result = com.example.bedrockruntime.models.ai21LabsJurassic2.InvokeModel.invokeModel();
-        assertNotNullOrEmpty(result);
+public class TestInvokeModel extends AbstractModelTest {
+    protected String getMethodName() {
+        return "invokeModel";
     }
 
-    @Test
-    void testTitanImage() {
-        String result = com.example.bedrockruntime.models.amazonTitanImage.InvokeModel.invokeModel();
-        assertNotNullOrEmpty(result);
-    }
-
-    @Test
-    void testTitanText() {
-        String result = com.example.bedrockruntime.models.amazonTitanText.InvokeModel.invokeModel();
-        assertNotNullOrEmpty(result);
-    }
-
-    @Test
-    void testTitanTextEmbeddings() {
-        String result = com.example.bedrockruntime.models.amazonTitanTextEmbeddings.InvokeModel.invokeModel();
-        assertNotNullOrEmpty(result);
-    }
-
-    @Test
-    void testClaude() {
-        String result = com.example.bedrockruntime.models.anthropicClaude.InvokeModel.invokeModel();
-        assertNotNullOrEmpty(result);
-    }
-
-    @Test
-    void testCohereCommand() {
-        String result = com.example.bedrockruntime.models.cohereCommand.Command_InvokeModel.invokeModel();
-        assertNotNullOrEmpty(result);
-    }
-
-    @Test
-    void testCohereCommandR() {
-        String result = com.example.bedrockruntime.models.cohereCommand.Command_R_InvokeModel.invokeModel();
-        assertNotNullOrEmpty(result);
-    }
-
-    @Test
-    void testLlama3() {
-        String result = com.example.bedrockruntime.models.metaLlama.Llama3_InvokeModel.invokeModel();
-        assertNotNullOrEmpty(result);
-    }
-
-    @Test
-    void testMistral() {
-        String result = com.example.bedrockruntime.models.mistral.InvokeModel.invokeModel();
-        assertNotNullOrEmpty(result);
-    }
-
-    @Test
-    void testStableDiffusion() {
-        String result = com.example.bedrockruntime.models.stabilityAi.InvokeModel.invokeModel();
-        assertNotNullOrEmpty(result);
+    protected Stream<TestInvokeModel.ModelTest> modelProvider() {
+        return Stream.of(
+                new TestInvokeModel.ModelTest("Claude", com.example.bedrockruntime.models.anthropicClaude.InvokeModel.class),
+                new TestInvokeModel.ModelTest("CohereCommand", com.example.bedrockruntime.models.cohereCommand.Command_InvokeModel.class),
+                new TestInvokeModel.ModelTest("CohereCommandR", com.example.bedrockruntime.models.cohereCommand.Command_R_InvokeModel.class),
+                new TestInvokeModel.ModelTest("Jurassic2", com.example.bedrockruntime.models.ai21LabsJurassic2.InvokeModel.class),
+                new TestInvokeModel.ModelTest("Llama", com.example.bedrockruntime.models.metaLlama.Llama3_InvokeModel.class),
+                new TestInvokeModel.ModelTest("Mistral", com.example.bedrockruntime.models.mistral.InvokeModel.class),
+                new TestInvokeModel.ModelTest("TitanText", com.example.bedrockruntime.models.amazonTitanText.InvokeModel.class),
+                new TestInvokeModel.ModelTest("TitanTextEmbeddings", com.example.bedrockruntime.models.amazonTitanText.InvokeModel.class)
+        );
     }
 }
