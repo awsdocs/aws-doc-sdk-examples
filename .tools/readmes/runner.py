@@ -60,20 +60,18 @@ def writeme(
     languages: Annotated[
         list[Language],  # type: ignore
         typer.Option(
-            "--language",
             help="The languages of the SDK.",
         ),
     ] = [
-        Language.all  # type: ignore
+        Language.all.value  # type: ignore
     ],  # type: ignore
     services: Annotated[
         list[Service],  # type: ignore
         typer.Option(
-            "--service",
             help="The targeted service.",
         ),
     ] = [
-        Service.all  # type: ignore
+        Service.all.value  # type: ignore
     ],  # type: ignore
     safe: Annotated[
         bool,
@@ -95,11 +93,13 @@ def writeme(
         bool, typer.Option(help="Show a diff of READMEs that have changed.")
     ] = False,
 ):
-    if "all" in languages:
+    if Language.all in languages:  # type: ignore
         languages = list(Language)  # type: ignore
+        languages.remove(Language.all)  # type: ignore
 
-    if "all" in services:
+    if Service.all in services:  # type: ignore
         services = list(Service)  # type: ignore
+        services.remove(Service.all)  # type: ignore
 
     if verbose:
         logging.basicConfig(level=logging.DEBUG)
@@ -123,7 +123,11 @@ def writeme(
 
     renderer = Renderer(scanner)
     for service in services:
+        if service == Service.all:  # type: ignore
+            continue
         for language_and_version in languages:
+            if language_and_version == Language.all:  # type: ignore
+                continue
             (language, version) = language_and_version.value.split(":")
             id = f"{language}:{version}:{service}"
             try:
