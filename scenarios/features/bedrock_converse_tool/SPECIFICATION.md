@@ -239,8 +239,8 @@ For languages which already have an entry for the action, add a description for 
 
 | action / scenario                          | metadata file                  | metadata key                                         |
 |--------------------------------------------|--------------------------------|------------------------------------------------------|
-| `Converse`                                 | bedrock-runtime_metadata.yaml  | bedrock-runtime_Converse_AnthropicClaude             |
+| `Converse`                                 | bedrock-runtime_metadata.yaml  | bedrock-runtime_Converse_AmazonNovaText             |
 | `Tool use with the Converse API`           | bedrock-runtime_metadata.yaml  | bedrock-runtime_Scenario_ToolUse                     |
-| `Scenario: Tool use with the Converse API` | bedrock-runtime_metadata.yaml  | bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude |
+| `Scenario: Tool use with the Converse API` | bedrock-runtime_metadata.yaml  | bedrock-runtime_Scenario_ToolUseDemo_AmazonNova |
 
 
