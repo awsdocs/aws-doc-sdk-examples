@@ -673,6 +673,14 @@ bedrock-runtime_InvokeModel_TitanText:
             - description: Use the Invoke Model API to send a text message.
               snippet_tags:
                 - bedrock-runtime.java2.InvokeModel_AmazonTitanText
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to generate a short story.
+              snippet_tags:
+                - bedrock-runtime.kotlin.InvokeModel_AmazonTitanText
     .NET:
       versions:
         - sdk_version: 3
