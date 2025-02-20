@@ -429,7 +429,18 @@ iot_CreateThing:
   services:
     iot: {CreateThing}
 iot_Scenario:
-  synopsis: work with &IoT; device management.
+  synopsis_list:
+    - Create an &IoT; Thing.
+    - Generate a device certificate.
+    - Update an &IoT; Thing with Attributes.
+    - Return a unique endpoint.
+    - List your &IoT; certificates.
+    - Create an &IoT; shadow.
+    - Write out state information.
+    - Creates a rule.
+    - List your rules.
+    - Search things using the Thing name.
+    - Delete an &IoT; Thing.
   category: Basics
   languages:
     Kotlin:
