@@ -1346,7 +1346,7 @@ bedrock-runtime_Scenario_ToolUseDemo_AmazonNova:
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
   services:
-    bedrock-runtime: { Converse }
+    bedrock-runtime: {Converse}
 
 bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude:
   title: "A tool use demo illustrating how to connect AI models on &BR; with a custom tool or API"

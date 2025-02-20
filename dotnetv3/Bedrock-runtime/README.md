@@ -40,6 +40,11 @@ functions within the same service.
 - [Converse](Models/Ai21LabsJurassic2/Converse/Converse.cs#L4)
 - [InvokeModel](Models/Ai21LabsJurassic2/InvokeModel/InvokeModel.cs#L4)
 
+### Amazon Nova
+
+- [Converse](Scenarios/ConverseToolScenario/BedrockActionsWrapper.cs#L10)
+- [Scenario: Tool use with the Converse API](Scenarios/ConverseToolScenario/ConverseToolScenario.cs#L4)
+
 ### Amazon Titan Text
 
 - [Converse](Models/AmazonTitanText/Converse/Converse.cs#L4)
@@ -53,7 +58,6 @@ functions within the same service.
 - [ConverseStream](Models/AnthropicClaude/ConverseStream/ConverseStream.cs#L4)
 - [InvokeModel](Models/AnthropicClaude/InvokeModel/InvokeModel.cs#L4)
 - [InvokeModelWithResponseStream](Models/AnthropicClaude/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
-- [Scenario: Tool use with the Converse API](Scenarios/ConverseToolScenario/ConverseToolScenario.cs#L4)
 
 ### Cohere Command
 
