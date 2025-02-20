@@ -44,6 +44,7 @@ functions within the same service.
 
 - [Converse](Models/AmazonNova/AmazonNovaText/Converse/Converse.cs#L4)
 - [ConverseStream](Models/AmazonNova/AmazonNovaText/ConverseStream/ConverseStream.cs#L4)
+- [Scenario: Tool use with the Converse API](Scenarios/ConverseToolScenario/ConverseToolScenario.cs#L4)
 
 ### Amazon Nova Canvas
 
