@@ -33,6 +33,15 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 - [Converse](Models/Ai21LabsJurassic2/Converse/Converse.cs#L4)
 - [InvokeModel](Models/Ai21LabsJurassic2/InvokeModel/InvokeModel.cs#L4)
 
+### Amazon Nova
+
+- [Converse](Models/AmazonNova/AmazonNovaText/Converse/Converse.cs#L4)
+- [ConverseStream](Models/AmazonNova/AmazonNovaText/ConverseStream/ConverseStream.cs#L4)
+
+### Amazon Nova Canvas
+
+- [InvokeModel](Models/AmazonNova/AmazonNovaCanvas/InvokeModel/InvokeModel.cs#L4)
+
 ### Amazon Titan Text
 
 - [Converse](Models/AmazonTitanText/Converse/Converse.cs#L4)
