@@ -99,8 +99,19 @@ This example shows you how to get started using AWS IoT.
 
 #### Learn the basics
 
-This example shows you how to work with AWS IoT device management.
+This example shows you how to do the following:
 
+- Create an AWS IoT Thing.
+- Generate a device certificate.
+- Update an AWS IoT Thing with Attributes.
+- Return a unique endpoint.
+- List your AWS IoT certificates.
+- Create an AWS IoT shadow.
+- Write out state information.
+- Creates a rule.
+- List your rules.
+- Search things using the Thing name.
+- Delete an AWS IoT Thing.
 
 <!--custom.basic_prereqs.iot_Scenario.start-->
 <!--custom.basic_prereqs.iot_Scenario.end-->

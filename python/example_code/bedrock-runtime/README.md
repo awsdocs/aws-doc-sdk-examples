@@ -55,6 +55,15 @@ functions within the same service.
 - [Converse](models/ai21_labs_jurassic2/converse.py#L4)
 - [InvokeModel](models/ai21_labs_jurassic2/invoke_model.py#L4)
 
+### Amazon Nova
+
+- [Converse](models/amazon_nova/amazon_nova_text/converse.py#L4)
+- [ConverseStream](models/amazon_nova/amazon_nova_text/converse_stream.py#L4)
+
+### Amazon Nova Canvas
+
+- [InvokeModel](models/amazon_nova/amazon_nova_canvas/invoke_model.py#L4)
+
 ### Amazon Titan Image Generator
 
 - [InvokeModel](models/amazon_titan_image_generator/invoke_model.py#L4)

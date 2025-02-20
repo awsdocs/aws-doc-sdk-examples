@@ -42,8 +42,12 @@ functions within the same service.
 
 ### Amazon Nova
 
-- [Converse](Scenarios/ConverseToolScenario/BedrockActionsWrapper.cs#L10)
-- [Scenario: Tool use with the Converse API](Scenarios/ConverseToolScenario/ConverseToolScenario.cs#L4)
+- [Converse](Models/AmazonNova/AmazonNovaText/Converse/Converse.cs#L4)
+- [ConverseStream](Models/AmazonNova/AmazonNovaText/ConverseStream/ConverseStream.cs#L4)
+
+### Amazon Nova Canvas
+
+- [InvokeModel](Models/AmazonNova/AmazonNovaCanvas/InvokeModel/InvokeModel.cs#L4)
 
 ### Amazon Titan Text
 

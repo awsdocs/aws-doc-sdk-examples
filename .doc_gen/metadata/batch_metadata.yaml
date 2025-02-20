@@ -174,8 +174,6 @@ batch_CreateComputeEnvironment:
   services:
     batch: {CreateComputeEnvironment}
 batch_Scenario:
-  title: Learn core operations for'&BATCHlong; using an &AWS; SDK
-  title_abbrev: Learn &BATCH; core operations
   synopsis_list:
     - Create an &BATCH; compute environment.
     - Check the status of the compute environment.
@@ -185,7 +183,7 @@ batch_Scenario:
     - Get a list of jobs applicable to the job queue.
     - Check the status of job.
     - Delete &BATCH; resources.
-  category: Scenarios
+  category: Basics
   languages:
     Java:
       versions:

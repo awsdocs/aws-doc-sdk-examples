@@ -86,8 +86,17 @@ python hello/hello_iot_sitewise.py
 
 #### Learn the basics
 
-This example shows you how to learn core operations for AWS IoT SiteWise using an AWS SDK.
+This example shows you how to do the following:
 
+- Create an AWS IoT SiteWise Asset Model.
+- Create an AWS IoT SiteWise Asset.
+- Retrieve the property ID values.
+- Send data to an AWS IoT SiteWise Asset.
+- Retrieve the value of the AWS IoT SiteWise Asset property.
+- Create an AWS IoT SiteWise Portal.
+- Create an AWS IoT SiteWise Gateway.
+- Describe the AWS IoT SiteWise Gateway.
+- Delete the AWS IoT SiteWise Assets.
 
 <!--custom.basic_prereqs.iotsitewise_Scenario.start-->
 <!--custom.basic_prereqs.iotsitewise_Scenario.end-->
