@@ -4,7 +4,7 @@
 // An example demonstrating how to set up and use an Amazon Simple Notification
 // Service client to list your available Amazon SQS queues.
 
-// snippet-start:[swift.sqs.basics.hello]
+// snippet-start:[swift.sqs.basics]
 import ArgumentParser
 import AWSClientRuntime
 import AWSSQS
@@ -72,4 +72,4 @@ struct Main {
         }
     }    
 }
-// snippet-end:[swift.sqs.basics.hello]
+// snippet-end:[swift.sqs.basics]

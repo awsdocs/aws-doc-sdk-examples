@@ -5,7 +5,6 @@
 // The swift-tools-version declares the minimum version of Swift required to
 // build this package.
 
-// snippet-start:[swift.sqs.basics.package]
 import PackageDescription
 
 let package = Package(
@@ -39,4 +38,3 @@ let package = Package(
 
     ]
 )
-// snippet-end:[swift.sqs.basics.package]
