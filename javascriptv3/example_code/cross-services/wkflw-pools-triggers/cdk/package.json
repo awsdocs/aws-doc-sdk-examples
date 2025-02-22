@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "vitest run **/*.unit.test.ts",
+    "test": "vitest run unit",
     "cdk": "cdk"
   },
   "devDependencies": {

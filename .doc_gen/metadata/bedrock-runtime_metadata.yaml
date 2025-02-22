@@ -21,6 +21,20 @@ bedrock-runtime_Hello:
             - description:
               snippet_files:
                 - javascriptv3/example_code/bedrock-runtime/hello.js
+
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          sdkguide:
+          excerpts:
+            - description: Send a prompt to a model with the InvokeModel operation.
+              snippet_tags:
+                - bedrock-runtime.example_code.hello_bedrock_invoke.complete
+            - description: Send a user message to a model with the Converse operation.
+              snippet_tags:
+                - bedrock-runtime.example_code.hello_bedrock_converse.complete
+
   services:
     bedrock-runtime: {InvokeModel}
 
@@ -69,6 +83,46 @@ bedrock-runtime_Converse_Ai21LabsJurassic2:
   services:
     bedrock-runtime: {Converse}
 
+bedrock-runtime_Converse_AmazonNovaText:
+  title: Invoke Amazon Nova on &BR; using Bedrock's Converse API
+  title_abbrev: "Converse"
+  synopsis: send a text message to Amazon Nova, using Bedrock's Converse API.
+  category: Amazon Nova
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova using Bedrock's Converse API with the async Java client.
+              snippet_tags:
+                - bedrock-runtime.java2.ConverseAsync_AmazonNovaText
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
+              snippet_tags:
+                - bedrock-runtime.java2.Converse_AmazonNovaText
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.Converse_AmazonNovaText
+            - description: Send a conversation of messages to Amazon Nova using Bedrock's Converse API with a tool configuration.
+              genai: some
+              snippet_tags:
+                - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.Converse_AmazonNovaText
+  services:
+    bedrock-runtime: {Converse}
+
 bedrock-runtime_Converse_AmazonTitanText:
   title: Invoke Amazon Titan Text on &BR; using Bedrock's Converse API
   title_abbrev: "Converse"
@@ -110,6 +164,60 @@ bedrock-runtime_Converse_AmazonTitanText:
             - description: Send a text message to Amazon Titan Text, using Bedrock's Converse API.
               snippet_tags:
                 - javascript.v3.bedrock-runtime.Converse_AmazonTitanText
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_Scenario_ToolUse:
+  title: "A tool use example illustrating how to connect AI models on &BR; with a custom tool or API"
+  title_abbrev: "Tool use with the Converse API"
+  synopsis: "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input."
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock-runtime/Scenarios/ConverseToolScenario
+          excerpts:
+            - description: "The primary execution of the scenario flow. This scenario orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              genai: some
+              snippet_tags:
+                - Bedrock.ConverseTool.dotnetv3.Scenario
+            - description: "The weather tool used by the demo. This file defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
+              genai: some
+              snippet_tags:
+                - Bedrock.ConverseTool.dotnetv3.WeatherTool
+            - description: "The Converse API action with a tool configuration."
+              genai: some
+              snippet_tags:
+                - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: "The primary execution script of the demo. This script orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              snippet_files:
+                - python/example_code/bedrock-runtime/cross-model-scenarios/tool_use_demo/tool_use_demo.py
+            - description: "The weather tool used by the demo. This script defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
+              snippet_files:
+                - python/example_code/bedrock-runtime/cross-model-scenarios/tool_use_demo/weather_tool.py
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/bedrock-runtime
+          excerpts:
+            - description: "The primary scenario and logic for the demo. This orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              snippet_tags:
+                - rust.bedrock-runtime.Converse_AnthropicClaude.tool-use
+            - description: "The weather tool used by the demo. This script defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
+              snippet_tags:
+                - rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.weather-tool
+            - description: "Utilities to print the Message Content Blocks."
+              snippet_tags:
+                - rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.user-interface
+            - description: "Use statements, Error utility, and constants."
+              snippet_tags:
+                - rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.supporting
   services:
     bedrock-runtime: {Converse}
 
@@ -301,6 +409,39 @@ bedrock-runtime_Converse_Mistral:
     bedrock-runtime: {Converse}
 
 # Converse Stream
+bedrock-runtime_ConverseStream_AmazonNovaText:
+  title: Invoke Amazon Nova on &BR; using Bedrock's Converse API with a response stream
+  title_abbrev: "ConverseStream"
+  synopsis: send a text message to Amazon Nova, using Bedrock's Converse API and process the response stream in real-time.
+  category: Amazon Nova
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova using Bedrock's Converse API and process the response stream in real-time.
+              snippet_tags:
+                - bedrock-runtime.java2.ConverseStream_AmazonNovaText
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API and process the response stream in real-time.
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.ConverseStream_AmazonNovaText
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API and process the response stream in real-time.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.ConverseStream_AmazonNovaText
+  services:
+    bedrock-runtime: {ConverseStream}
+
 bedrock-runtime_ConverseStream_AmazonTitanText:
   title: Invoke Amazon Titan Text on &BR; using Bedrock's Converse API with a response stream
   title_abbrev: "ConverseStream"
@@ -590,6 +731,14 @@ bedrock-runtime_InvokeModel_TitanText:
             - description: Use the Invoke Model API to send a text message.
               snippet_tags:
                 - bedrock-runtime.java2.InvokeModel_AmazonTitanText
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to generate a short story.
+              snippet_tags:
+                - bedrock-runtime.kotlin.InvokeModel_AmazonTitanText
     .NET:
       versions:
         - sdk_version: 3
@@ -1072,6 +1221,39 @@ bedrock-runtime_InvokeModelWithResponseStream_MistralAi:
     bedrock-runtime: {InvokeModelWithResponseStream}
 
 # Image Generation Models
+bedrock-runtime_InvokeModel_AmazonNovaImageGeneration:
+  title: Invoke Amazon Nova Canvas on &BR; to generate an image
+  title_abbrev: "InvokeModel"
+  synopsis: invoke Amazon Nova Canvas on &BR; to generate an image.
+  category: Amazon Nova Canvas
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Create an image with Amazon Nova Canvas.
+              snippet_tags:
+                - bedrock-runtime.java2.InvokeModel_AmazonNovaImageGeneration
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock-runtime
+          excerpts:
+            - description: Create an image with Amazon Nova Canvas.
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.InvokeModel_AmazonNovaImageGeneration
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Create an image with the Amazon Nova Canvas.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModel_AmazonNovaImageGeneration
+  services:
+    bedrock-runtime: {InvokeModel}
+
 bedrock-runtime_InvokeModel_TitanImageGenerator:
   title: Invoke Amazon Titan Image on &BR; to generate an image
   title_abbrev: "InvokeModel"
@@ -1191,6 +1373,32 @@ bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings:
     bedrock-runtime: {InvokeModel}
 
 # Tool use scenarios
+bedrock-runtime_Scenario_ToolUseDemo_AmazonNova:
+  title: "A tool use demo illustrating how to connect AI models on &BR; with a custom tool or API"
+  title_abbrev: "Scenario: Tool use with the Converse API"
+  synopsis: "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input."
+  category: Amazon Nova
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock-runtime/Scenarios/ConverseToolScenario
+          excerpts:
+            - description: "The primary execution of the scenario flow. This scenario orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              genai: some
+              snippet_tags:
+                - Bedrock.ConverseTool.dotnetv3.Scenario
+            - description: "The weather tool used by the demo. This file defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
+              genai: some
+              snippet_tags:
+                - Bedrock.ConverseTool.dotnetv3.WeatherTool
+            - description: "The Converse API action with a tool configuration."
+              genai: some
+              snippet_tags:
+                - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
+  services:
+    bedrock-runtime: {Converse}
+
 bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude:
   title: "A tool use demo illustrating how to connect AI models on &BR; with a custom tool or API"
   title_abbrev: "Scenario: Tool use with the Converse API"
@@ -1225,7 +1433,6 @@ bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude:
             - description: "Use statements, Error utility, and constants."
               snippet_tags:
                 - rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.supporting
-
   services:
     bedrock-runtime: {Converse}
 

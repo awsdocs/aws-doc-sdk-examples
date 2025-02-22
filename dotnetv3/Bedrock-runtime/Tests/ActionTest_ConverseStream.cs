@@ -10,6 +10,7 @@ public class ActionTest_ConverseStream
     [InlineData(typeof(MetaLlama.ConverseStream))]
     [InlineData(typeof(CohereCommand.ConverseStream))]
     [InlineData(typeof(AnthropicClaude.ConverseStream))]
+    [InlineData(typeof(AmazonNovaText.ConverseStream))]
     [InlineData(typeof(AmazonTitanText.ConverseStream))]
     public void ConverseStreamDoesNotThrow(Type type)
     {

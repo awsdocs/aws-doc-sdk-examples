@@ -80,8 +80,15 @@ go run ./cmd -h
 ```
 #### Learn the basics
 
-This example shows you how to learn core operations for Amazon Redshift using an AWS SDK.
+This example shows you how to do the following:
 
+- Create a Redshift cluster.
+- List databases in the cluster.
+- Create a table named Movies.
+- Populate the Movies table.
+- Query the Movies table by year.
+- Modify the Redshift cluster.
+- Delete the Amazon Redshift cluster.
 
 <!--custom.basic_prereqs.redshift_Scenario.start-->
 <!--custom.basic_prereqs.redshift_Scenario.end-->

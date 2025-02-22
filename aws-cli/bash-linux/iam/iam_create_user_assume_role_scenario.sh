@@ -352,6 +352,15 @@ function clean_up() {
   fi
 
   if [ -n "$access_key_name" ]; then
+      if (iam_update_access_key -u "$user_name" -k "$access_key_name" -d); then
+        echo "Deactivated access key $access_key_name"
+      else
+        errecho "The access key failed to deactivate."
+        result=1
+      fi
+    fi
+
+  if [ -n "$access_key_name" ]; then
     if (iam_delete_access_key -u "$user_name" -k "$access_key_name"); then
       echo "Deleted access key $access_key_name"
     else
