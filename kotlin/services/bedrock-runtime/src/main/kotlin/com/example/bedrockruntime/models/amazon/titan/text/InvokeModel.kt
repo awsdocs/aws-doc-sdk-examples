@@ -17,8 +17,6 @@ import kotlinx.serialization.json.Json
  * - Create a request payload
  * - Configure and send a request
  * - Process the response
- *
- * @throws RuntimeException if the model invocation fails
  */
 suspend fun main() {
     invokeModel().also { println(it) }
@@ -28,28 +26,14 @@ suspend fun main() {
 private val json = Json { ignoreUnknownKeys = true }
 
 suspend fun invokeModel(): String {
-    // Step 1: Create the Amazon Bedrock runtime client
-    // The runtime client handles the communication with AI models on Amazon Bedrock
+    // Create and configure the Bedrock runtime client
     BedrockRuntimeClient { region = "us-east-1" }.use { client ->
 
-        // Step 2: Specify which model to use
-        // Available Amazon Titan models and their characteristics:
-        // - Titan Text Lite: Fast, cost-effective text generation
-        // - Titan Text Express: Balanced performance and cost
-        // - Titan Text Large: Advanced capabilities for complex tasks
-        //
         // For the latest available models, see:
         // https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html
         val modelId = "amazon.titan-text-lite-v1"
 
-        // Step 3: Create the request payload
-        // Optional parameters to control the model's response:
-        // - maxTokenCount: maximum number of tokens to generate
-        // - temperature: randomness (max: 1.0, default: 0.7)
-        //   OR
-        // - topP: diversity of word choice (max: 1.0, default: 0.9)
-        // Note: Use either temperature OR topP, but not both
-        //
+        // Create the request payload with optional configuration parameters
         // For detailed parameter descriptions, see:
         // https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-text.html
         val prompt = "Describe the purpose of a 'hello world' program in one line."
@@ -63,10 +47,7 @@ suspend fun invokeModel(): String {
             }
         """.trimIndent()
 
-        // Step 4: Send and process the request
-        // - Send the request to the model
-        // - Parse the JSON response
-        // - Extract and return the generated text
+        // Send the request and process the model's response
         runCatching {
             // Send the request to the model
             val response = client.invokeModel(InvokeModelRequest {
