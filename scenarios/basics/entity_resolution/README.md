@@ -3,24 +3,26 @@ This AWS Entity Resolution basic scenario demonstrates how to interact with the 
 
 ## Key Operations
 
-1. **Create an AWS Entity Resolution Schema Mapping**:
-   - This step creates an AWS Entity Resolution Schema Mapping by invoking the `createSchemaMapping` method.
+1. **Create an AWS Entity Resolution schema mapping**:
+   - This step creates an AWS Entity Resolution schema mapping by invoking the `createSchemaMapping` method.
 
-2. **Create an AWS Entity Resolution Workflow**:
-   - This step creates an AWS Entity Resolution matching Workflow by invoking the `createMatchingWorkflow` method.
+2. **Create an AWS Entity Resolution workflow**:
+   - This step creates an AWS Entity Resolution matching workflow by invoking the `createMatchingWorkflow` method.
 
-3. **Start Matching Workflow**:
-   - This step starts the AWS Entity Resolution matching Workflow by invoking the `startMatchingJob` method.
+3. **Start a matching aorkflow**:
+   - This step starts the AWS Entity Resolution matching workflow by invoking the `startMatchingJob` method.
 
-4. **Get Workflow Job Details**:
-   - This step gets workflow job details by `getMatchingJob` method.
+4. **Get workflow job details**:
+   - This step gets workflow job details by invoking the `getMatchingJob` method.
 
 
-**Note** See the Eng spec for a full listing of operations. 
+**Note:** See the [specification document](SPECIFICATION.md) for a complete list of operations. 
 
 ## Resources
 
-This Basics scenario requires an IAM role that has permissions to work with the AWS Entity Resolution service, an AWS Glue database, and two S3 buckets. A CDK script is provided to create these resources. See the Readme file at resources/cdk/entityresolution_resources.
+This Basics scenario requires an IAM role that has permissions to work with the AWS Entity Resolution service, 
+an AWS Glue database, and two S3 buckets. A CDK script is provided to create these resources. 
+See the resources [Readme](../../../resources/cdk/entityresolution_resources/README.md) file.
 
 ## Implementations
 

@@ -1,8 +1,9 @@
-# AWS Entity Resolution resources
+# AWS Entity Resolution scenario resources
 
 ## Overview
 
-Creates the following AWS resources for the AWS Entity Resolution scenario: 
+This AWS CDK Java application generates a AWS CloudFormation template.
+The CloudFormation template creates  the following resources for the AWS Entity Resolution scenario application: 
  
 * An AWS IAM role that has permissions required to run this Scenario.
 * An AWS Glue table that provides the input data for the entity resolution matching workflow.
@@ -11,50 +12,35 @@ Creates the following AWS resources for the AWS Entity Resolution scenario:
 
 ## ⚠️ Important
 
-* Running this code might result in charges to your AWS account. 
+* When the template is used by the AWS Entity Resolution scenario application,
+  the resources it creates might result in charges to your account.
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-## Deploy resources
+## Create a CloudFormation template
 
-You can use the AWS Cloud Development Kit (AWS CDK) or the AWS Command Line Interface
-(AWS CLI) to deploy and destroy the resources for this example.
-
-### Deploy with the AWS CDK
-
-To deploy with the AWS CDK, you must install [Java JDK 17](https://www.oracle.com/ca-en/java/technologies/downloads/) and the 
-[AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html).
-
-This example was built and tested with AWS CDK 2.135.0.
-
-Deploy AWS resources by running the following at a command prompt in this README's folder:
-
+To output a template that creates the CloudFormation stack, execute the following CDK CLI command from the 
+`resources/cdk/entityresolution_resources` working directory:
 ```
-cdk deploy
+cdk synth --yaml >  ../../../javav2/example_code/entityresolution/src/main/resources/template.yaml
 ```
+The result of running this command puts the `template.yaml` file into the directory where
+the scenario application can use it.
 
-The stack takes a few minutes to deploy. When it completes, it prints output like 
-the following:
 
+## Outputs generated
+When the template is used and the stack is created by the AWS Entity Resolution scenario application,
+the following outputs are generated and used in the application:
 ```
-Outputs:
 EntityResolutionCdkStack.EntityResolutionArn = arn:aws:iam::XXXXX:role/EntityResolutionCdkStack-EntityResolutionRoleB51A51-TSzkkBfrkbfm
 EntityResolutionCdkStack.GlueDataBucketName = glue-XXXXX3196d
 EntityResolutionCdkStack.GlueTableArn = arn:aws:glue:us-east-1:XXXXX:table/entity_resolution_db/entity_resolution
 ```
 
-Note - Copy these AWS resources into your AWS Entity Resolution scenario. These values are required for the program to successfully run. 
+## How stack-created resources are destroyed
+AWS Entity Resolution scenario application destroys the resources created by the stack before it completes.
 
-## Destroy resources
 
-### Destroy with the AWS CDK
-
-You can use the AWS CDK to destroy the resources by running the following:
-
-```
-cdk destroy
-```
-
-## Additional resources
+## Additional information
 
 * [AWS CDK v2 Developer Guide](https://docs.aws.amazon.com/cdk/v2/guide/home.html)
 * [AWS CLI User Guide for Version 2](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
