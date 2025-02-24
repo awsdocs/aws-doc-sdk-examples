@@ -1,62 +1,88 @@
-# AWS Entity Resolution Service Scenario Specification
+# Specification for the AWS Entity Resolution Service Scenario
 
 ## Overview
-This SDK Basics scenario demonstrates how to interact with AWS Entity Resolution  using an AWS SDK. It demonstrates various tasks such as creating a Schema Mapping, creating an matching workflow, starting the workflow, and so on.  Finally this scenario demonstrates how to clean up resources. Its purpose is to demonstrate how to get up and running with AWS Entity Resolution and an AWS SDK.
+
+This SDK Basics scenario demonstrates how to interact with AWS Entity Resolution
+using an AWS SDK. It demonstrates various tasks such as creating a schema
+mapping, creating an matching workflow, starting a workflow, and so on. Finally,
+this scenario demonstrates how to clean up resources.
 
 ## Resources
-This Basics scenario requires an IAM role that has permissions to work with the AWS Entity Resolution service, an AWS Glue database and a table, and two S3 buckets. A CDK script is provided to create these resources. 
+
+This Basics scenario requires an IAM role that has permissions to work with the
+AWS Entity Resolution service, an AWS Glue database and a table, and two S3
+buckets.
+A [CDK script](../../../resources/cdk/entityresolution_resources/README.md
+) is provided to create these resources.
 
 ## Hello AWS Entity Resolution
-This program is intended for users not familiar with the AWS Entity Resolution Service to easily get up and running. The program uses a `listMatchingWorkflowsPaginator` to demonstrate how you can read through workflow information.
+
+This program is intended for users not familiar with the AWS Entity Resolution
+Service to easily get up and running. The program uses a
+`listMatchingWorkflowsPaginator` to demonstrate how you can read through
+workflow information.
 
 ## Basics Scenario Program Flow
+
 The AWS Entity Resolution Basics scenario executes the following operations.
 
-1. **Create a Schema Mapping**:
-   - Description: Creates a schema mapping invoking the `createSchemaMapping` method.
-   - Exception Handling: Check to see if a `ConflictException` is thrown. 
-     If it is thrown, display the information and end the program.
+1. **Create a schema mapping**:
+    - Description: Creates a schema mapping by invoking the
+      `createSchemaMapping` method.
+    - Exception Handling: Check to see if a `ConflictException` is thrown, which
+      indicates that the schema mapping already exists. If the exception is
+      thrown, display the information and end the program.
 
 2. **Create a Matching Workflow**:
-   - Description: Creates a new matching workflow, defining how entities should be resolved and matched..
-   - The method `createMatchingWorkflow` is called.
-   - Exception Handling: Check to see if a `ConflictException` is thrown if a conflict in the current state of the resource exists. If so, 
-   display the message and end the program.
+    - Description: Creates a new matching workflow that defines how entities
+      should be resolved and matched. The method `createMatchingWorkflow` is
+      called.
+    - Exception Handling: Check to see if a `ConflictException` is thrown, which
+      is thrown if the matching workflow already exists. If so, display the
+      message and end the program.
 
 3. **Start Matching Workflow**:
-   - Description: Initiates a matching workflow to process entity resolution based on predefined configurations. 
-   - The method `startMatchingJob` is called to start the matching workflow.
-   - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program.
+    - Description: Initiates a matching workflow by calling the
+      `startMatchingJob` method to process entity resolution based on predefined
+      configurations.
+    - Exception Handling: Check to see if an `ConflictException` is thrown,
+      which indicates that the matching workflow job is already running. If the
+      exception is thrown, display the message and end the program.
 
 4. **Get Workflow Job Details**:
-   - Description: Retrieves details about a specific matching workflow job.
-   - This step uses the method `getMatchingJob`.
-   - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program.
-
+    - Description: Retrieves details about a specific matching workflow job by
+      calling the `getMatchingJob` method.
+    - Exception Handling: Check to see if an `ResourceNotFoundException` is
+      thrown, which indicates that the workflow cannot be found. If the
+      exception is thrown, display the message and end the program.
 
 5. **List Matching Workflows**:
-   - Description: Lists all matching workflows created within the account.
-   - This step uses the method `listMatchingWorkflows`.
-   - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program.
+    - Description: Lists all matching workflows created within the account by
+      calling the `listMatchingWorkflows` method.
+    - Exception Handling: Check to see if an `CompletionException` is thrown. If
+      so, display the message and end the program.
 
 6. **Get Schema Mapping**:
-   - Description: Lists all schema mappings available in the account.
-   - The method `createPortal` is called.
-   - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program
+    - Description: Returns the `SchemaMapping` of a given name by calling the
+      `getSchemaMapping` method.
+    - Exception Handling: Check to see if a `ResourceNotFoundException` is
+      thrown. If so, display the message and end the program.
 
 7. **Tag Resource**:
-   - Description: Adds tags associated with an AWS Entity Resolution resource.
-   - The method `tagResource` is called.
-   - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program
-
-8.  **Delete Matching Workflow**:
-   - Description: Deletes a specified matching workflowy.
-   - The methods `deleteMatchingWorkflow` is called.
-   -    - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program
-
+    - Description: Adds tags associated with an AWS Entity Resolution resource
+      by calling the`tagResource` method.
+    - Exception Handling: Check to see if a `ResourceNotFoundException` is
+      thrown. If so, display the message and end the program
+8. **Delete Matching Workflow**:
+    - Description: Deletes a specified matching workflow by calling the
+      `deleteMatchingWorkflow` method.
+    - Exception Handling: Check to see if an `ConflictException` is thrown. If
+      so, display the message and end the program.
 
 ### Program execution
-The following shows the output of the AWS Entity Resolution Basics scenario in the console. 
+
+The following shows the output of the AWS Entity Resolution Basics scenario in
+the console.
 
 ```
 Welcome to the AWS Entity Resolution Scenario. 
@@ -243,19 +269,20 @@ This concludes the AWS Entity Resolution scenario.
 ## SOS Tags
 
 The following table describes the metadata used in this Basics Scenario.
-| action                  | metadata file          | metadata key                            |
-|-------------------------|------------------------|---------------------------------------- |
-| `createWorkflow`        | entity_metadata.yaml   | entity_CreateWorkflow                   |
-| `createSchemaMapping`   | entity_metadata.yaml   | entity_CreateMapping                    |
-| `startMatchingJob`      | entity_metadata.yaml   | entity_StartMatchingJob                 |
-| `getMatchingJob`        | entity_metadata.yaml   | entity_GetMatchingJob                   |
-| `listMatchingWorkflows` | entity_metadata.yaml   | entity_ListMatchingWorkflows            |
-| `getSchemaMapping`      | entity_metadata.yaml   | entity_GetSchemaMapping                 |
-| `listSchemaMappings`    | entity_metadata.yaml   | entity_ListSchemaMappings               |
-| `tagResource `          | entity_metadata.yaml   | entity_TagResource                      |
-| `deleteWorkflow `       | entity_metadata.yaml   | entity_DeleteWorkflow                   |
-| `listMappingJobs `      | entity_metadata.yaml   | entity_Hello                            |
-| `scenario`              | entity_metadata.yaml   | entity_Scenario                         |
+
+| action                  | metadata file          | metadata key                  |
+|-------------------------|------------------------|-------------------------------|
+| `createWorkflow`        | entity_metadata.yaml   | entity_CreateWorkflow         |
+| `createSchemaMapping`   | entity_metadata.yaml   | entity_CreateMapping          |
+| `startMatchingJob`      | entity_metadata.yaml   | entity_StartMatchingJob       |
+| `getMatchingJob`        | entity_metadata.yaml   | entity_GetMatchingJob         |
+| `listMatchingWorkflows` | entity_metadata.yaml   | entity_ListMatchingWorkflows  |
+| `getSchemaMapping`      | entity_metadata.yaml   | entity_GetSchemaMapping       |
+| `listSchemaMappings`    | entity_metadata.yaml   | entity_ListSchemaMappings     |
+| `tagResource `          | entity_metadata.yaml   | entity_TagResource            |
+| `deleteWorkflow `       | entity_metadata.yaml   | entity_DeleteWorkflow         |
+| `listMappingJobs `      | entity_metadata.yaml   | entity_Hello                  |
+| `scenario`              | entity_metadata.yaml   | entity_Scenario               |
 
 
 

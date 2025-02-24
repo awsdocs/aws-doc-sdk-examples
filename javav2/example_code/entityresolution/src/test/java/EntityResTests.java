@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.entityresolution.model.CreateSchemaMappingResponse;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
@@ -77,7 +76,7 @@ public class EntityResTests {
             ]
             """;
         if (!actions.doesObjectExist(dataS3bucket)) {
-            actions.uploadLocalFileAsync(dataS3bucket, json);
+            actions.uploadInputData(dataS3bucket, json);
         } else {
             System.out.println("The JSON exists in " + dataS3bucket);
         }
