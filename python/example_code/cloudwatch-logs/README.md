@@ -47,6 +47,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Run a large query](scenarios/large-query/exec.py)
+- [Use scheduled events to invoke a Lambda function](../../example_code/lambda)
 
 
 <!--custom.examples.start-->
@@ -79,6 +80,18 @@ python scenarios/large-query/exec.py
 
 <!--custom.scenarios.cloudwatch-logs_Scenario_BigQuery.start-->
 <!--custom.scenarios.cloudwatch-logs_Scenario_BigQuery.end-->
+
+#### Use scheduled events to invoke a Lambda function
+
+This example shows you how to create an AWS Lambda function invoked by an Amazon EventBridge scheduled event.
+
+
+<!--custom.scenario_prereqs.cross_LambdaScheduledEvents.start-->
+<!--custom.scenario_prereqs.cross_LambdaScheduledEvents.end-->
+
+
+<!--custom.scenarios.cross_LambdaScheduledEvents.start-->
+<!--custom.scenarios.cross_LambdaScheduledEvents.end-->
 
 ### Tests
 
