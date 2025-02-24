@@ -21,6 +21,7 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
+    testImplementation("org.jetbrains.kotlin:kotlin-reflect")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
