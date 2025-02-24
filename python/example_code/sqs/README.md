@@ -56,6 +56,7 @@ functions within the same service.
 - [Create a messenger application](../../cross_service/stepfunctions_messenger)
 - [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
 - [Create and publish to a FIFO topic](../sns/sns_fifo_topic.py)
+- [Detect people and objects in a video](../../example_code/rekognition)
 - [Send and receive batches of messages](message_wrapper.py)
 
 
@@ -113,6 +114,18 @@ python ../sns/sns_fifo_topic.py
 
 <!--custom.scenarios.sns_PublishFifoTopic.start-->
 <!--custom.scenarios.sns_PublishFifoTopic.end-->
+
+#### Detect people and objects in a video
+
+This example shows you how to detect people and objects in a video with Amazon Rekognition.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionVideoDetection.start-->
+<!--custom.scenario_prereqs.cross_RekognitionVideoDetection.end-->
+
+
+<!--custom.scenarios.cross_RekognitionVideoDetection.start-->
+<!--custom.scenarios.cross_RekognitionVideoDetection.end-->
 
 #### Send and receive batches of messages
 
