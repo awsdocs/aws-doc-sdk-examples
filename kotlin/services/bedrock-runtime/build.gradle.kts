@@ -1,45 +1,31 @@
 plugins {
     kotlin("jvm") version "2.1.10"
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.10"
-    id("org.jlleitschuh.gradle.ktlint") version "11.3.1" apply true
+    kotlin("plugin.serialization") version "2.1.10"
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
     application
 }
 
 group = "com.example.bedrockruntime"
 version = "1.0-SNAPSHOT"
 
+val awsSdkVersion = "1.4.27"
+val junitVersion = "5.12.0"
+
 repositories {
     mavenCentral()
 }
 
-buildscript {
-    repositories {
-        maven("https://plugins.gradle.org/m2/")
-    }
-    dependencies {
-        classpath("org.jlleitschuh.gradle:ktlint-gradle:11.3.1")
-    }
-}
-
 dependencies {
-    implementation("aws.sdk.kotlin:bedrockruntime:1.4.11")
+    implementation("aws.sdk.kotlin:bedrockruntime:$awsSdkVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.8.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-application {
-    mainClass.set("com.example.bedrockruntime.InvokeModelKt")
-}
-
-// Java and Kotlin configuration
 kotlin {
     jvmToolchain(21)
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
 }
 
 tasks.test {
@@ -47,8 +33,8 @@ tasks.test {
     testLogging {
         events("passed", "skipped", "failed")
     }
+}
 
-    // Define the test source set
-    testClassesDirs += files("build/classes/kotlin/test")
-    classpath += files("build/classes/kotlin/main", "build/resources/main")
+application {
+    mainClass.set("com.example.bedrockruntime.InvokeModelKt")
 }
