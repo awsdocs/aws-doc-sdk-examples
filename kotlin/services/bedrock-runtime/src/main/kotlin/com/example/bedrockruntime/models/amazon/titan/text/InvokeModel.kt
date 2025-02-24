@@ -22,6 +22,16 @@ suspend fun main() {
     invokeModel().also { println(it) }
 }
 
+// Data class for parsing the model's response
+@Serializable
+private data class BedrockResponse(val results: List<Result>) {
+    @Serializable
+    data class Result(
+        val outputText: String
+    )
+}
+
+
 // Initialize JSON parser with relaxed configuration
 private val json = Json { ignoreUnknownKeys = true }
 
@@ -29,7 +39,7 @@ suspend fun invokeModel(): String {
     // Create and configure the Bedrock runtime client
     BedrockRuntimeClient { region = "us-east-1" }.use { client ->
 
-        // For the latest available models, see:
+        // Specify the model ID. For the latest available models, see:
         // https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html
         val modelId = "amazon.titan-text-lite-v1"
 
@@ -45,7 +55,7 @@ suspend fun invokeModel(): String {
                     "temperature": 0.5
                 }
             }
-        """.trimIndent()
+            """.trimIndent()
 
         // Send the request and process the model's response
         runCatching {
@@ -72,11 +82,5 @@ suspend fun invokeModel(): String {
         }
     }
 }
-
-@Serializable
-private data class BedrockResponse(val results: List<Result>)
-
-@Serializable
-private data class Result(val outputText: String)
 
 // snippet-end:[bedrock-runtime.kotlin.InvokeModel_AmazonTitanText]

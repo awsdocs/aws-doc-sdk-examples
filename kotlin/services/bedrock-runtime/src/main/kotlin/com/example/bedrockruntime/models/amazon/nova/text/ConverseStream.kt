@@ -28,7 +28,7 @@ suspend fun converseStream(): String {
     // Create and configure the Bedrock runtime client
     BedrockRuntimeClient { region = "us-east-1" }.use { client ->
 
-        // For the latest available models, see:
+        // Specify the model ID. For the latest available models, see:
         // https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html
         val modelId = "amazon.nova-lite-v1:0"
 

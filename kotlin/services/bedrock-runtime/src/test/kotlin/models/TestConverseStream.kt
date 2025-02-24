@@ -1,6 +1,8 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package models
 
-import com.example.bedrockruntime.models.amazon.nova.text.converseStream
 import java.util.stream.Stream
 
 /**
@@ -14,7 +16,7 @@ class TestConverseStream : AbstractModelTest() {
      */
     override fun modelProvider(): Stream<ModelTest> {
         return listOf(
-            ModelTest("Amazon Nova", ::converseStream)
+            ModelTest("Amazon Nova") { com.example.bedrockruntime.models.amazon.nova.text.converseStream() }
         ).stream()
     }
 }
