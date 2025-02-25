@@ -28,7 +28,6 @@ public class EntityResScenario {
     private static String workflowName = "workflow-"+ UUID.randomUUID();
 
     public static void main(String[] args) throws InterruptedException {
-
         String jsonSchemaMappingName = "jsonschema-" + UUID.randomUUID();
         String jsonSchemaMappingArn = null;
         String csvSchemaMappingName = "csv-" + UUID.randomUUID();
@@ -126,13 +125,14 @@ public class EntityResScenario {
             and uses machine learning to link related entities, enabling a 
             consolidated, accurate view for improved data quality and decision-making.
                         
-            In this example, the schema mapping lines up with the fields in the JSON objects. That is, 
+            In this example, the schema mapping lines up with the fields in the JSON ans CSV objects. That is, 
             it contains these fields: id, name, and email. 
             """);
         waitForInputToContinue(scanner);
         try {
             CreateSchemaMappingResponse response = actions.createSchemaMappingAsync(jsonSchemaMappingName).join();
             jsonSchemaMappingArn = response.schemaArn();
+            logger.info("The JSON schema mapping ARN is "+jsonSchemaMappingArn);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             logger.info("Failed to create JSON schema mapping: " + (cause != null ? cause.getMessage() : ce.getMessage()));
@@ -141,12 +141,11 @@ public class EntityResScenario {
         try {
             CreateSchemaMappingResponse response = actions.createSchemaMappingAsync(csvSchemaMappingName).join();
             csvSchemaMappingArn = response.schemaArn();
+            logger.info("The CSV schema mapping ARN is "+csvSchemaMappingArn);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             logger.info("Failed to create CSV schema mapping: " + (cause != null ? cause.getMessage() : ce.getMessage()));
         }
-
-
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -231,19 +230,19 @@ public class EntityResScenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("8. Delete the AWS Entity Resolution Workflow.");
+        logger.info("8. View the results of the AWS Entity Resolution Workflow.");
         logger.info("""
-            You cannot delete a workflow that is in a running state.  
-            Would you like to wait for the workflow that we started in step 3 to complete.
+            You cannot view the result of the workflow that is in a running state.  
+            In order to view the results, you need to wait for the workflow that we started in step 3 to complete.
             
-            If you choose not to wait, you will need to delete the workflow manually 
-            in the AWS Management Console.
+            If you choose not to wait, you cannot view the results or delete the workflow. You would have to 
+            perform both tasks manually in the AWS Management Console.
            
             This can take up to 30 mins (y/n).
             """);
-        String delAns = scanner.nextLine().trim();
-        if (delAns.equalsIgnoreCase("y")) {
-            logger.info("You selected to delete Entity Resolution Workflow.");
+        String viewAns = scanner.nextLine().trim();
+        if (viewAns.equalsIgnoreCase("y")) {
+            logger.info("You selected to view the Entity Resolution Workflow results.");
             waitForInputToContinue(scanner);
             countdownWithWorkflowCheck(actions, 1800, jobId, workflowName);
             JobMetrics metrics = actions.getJobInfo(workflowName, jobId).join();
@@ -272,30 +271,38 @@ public class EntityResScenario {
                     the confidence level is lower for the differing email addresses.
                     
                     """);
-            try {
-                actions.deleteMatchingWorkflowAsync(workflowName).join();
-                logger.info("Workflow deleted successfully!");
-            } catch (CompletionException ce) {
-                Throwable cause = ce.getCause();
-                logger.info("Failed to delete workflow: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+
+            logger.info("Do you want to delete the resources, including workflow?");
+            String delAns = scanner.nextLine().trim();
+            if (delAns.equalsIgnoreCase("y")) {
+                try {
+                    actions.deleteMatchingWorkflowAsync(workflowName).join();
+                    logger.info("Workflow deleted successfully!");
+                } catch (CompletionException ce) {
+                    Throwable cause = ce.getCause();
+                    logger.info("Failed to delete workflow: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+                }
+                waitForInputToContinue(scanner);
+                logger.info(DASHES);
+                logger.info("""
+                Now we delete the CloudFormation stack, which deletes 
+                the resources that were created at the beginning
+                """);
+                waitForInputToContinue(scanner);
+                logger.info(DASHES);
+                try {
+                    deleteResources();
+                } catch (CompletionException ce) {
+                    Throwable cause = ce.getCause();
+                    logger.error("Failed to delete Glue Table: {}", cause != null ? cause.getMessage() : ce.getMessage());
+                }
+
+            } else {
+                logger.info("You can delete the Workflow later in the AWS Management console.");
             }
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
-
-        logger.info(DASHES);
-        logger.info("""
-                Now we delete the CloudFormation stack, which deletes 
-                the resources that were created at the beginning
-                """);
-        waitForInputToContinue(scanner);
-        logger.info(DASHES);
-        try {
-            deleteResources();
-        } catch (CompletionException ce) {
-            Throwable cause = ce.getCause();
-            logger.error("Failed to delete Glue Table: {}", cause != null ? cause.getMessage() : ce.getMessage());
-        }
 
         logger.info(DASHES);
         logger.info("This concludes the AWS Entity Resolution scenario.");
@@ -336,13 +343,13 @@ public class EntityResScenario {
             // Check workflow status every 60 seconds
             if (secondsElapsed % 60 == 0 || remainingTime <= 0) {
                 if (actions.checkWorkflowStatusCompleteAsync(jobId, workflowName).join()) {
-                    logger.info(""); // Move to the next line after countdown
+                    logger.info(""); // Move to the next line after countdown.
                     logger.info("Countdown complete: Workflow is in SUCCEEDED state!");
                     break;
                 }
             }
 
-            // If countdown reaches zero, reset it for continuous countdown
+            // If countdown reaches zero, reset it for continuous countdown.
             if (remainingTime <= 0) {
                 secondsElapsed = 0;
             }
@@ -352,7 +359,6 @@ public class EntityResScenario {
         CloudFormationHelper.emptyS3Bucket(glueBucketName);
         CloudFormationHelper.destroyCloudFormationStack(STACK_NAME);
         logger.info("Resources deleted successfully!");
-
     }
 }
 // snippet-end:[entityres.java2_scenario.main]
