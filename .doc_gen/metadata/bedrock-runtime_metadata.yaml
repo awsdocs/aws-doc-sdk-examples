@@ -100,6 +100,14 @@ bedrock-runtime_Converse_AmazonNovaText:
             - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
               snippet_tags:
                 - bedrock-runtime.java2.Converse_AmazonNovaText
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
+              snippet_tags:
+                - bedrock-runtime.kotlin.Converse_AmazonNovaText
     .NET:
       versions:
         - sdk_version: 3
@@ -423,6 +431,14 @@ bedrock-runtime_ConverseStream_AmazonNovaText:
             - description: Send a text message to Amazon Nova using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
                 - bedrock-runtime.java2.ConverseStream_AmazonNovaText
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova using Bedrock's Converse API and process the response stream in real-time.
+              snippet_tags:
+                - bedrock-runtime.kotlin.ConverseStream_AmazonNovaText
     .NET:
       versions:
         - sdk_version: 3
@@ -736,7 +752,7 @@ bedrock-runtime_InvokeModel_TitanText:
         - sdk_version: 1
           github: kotlin/services/bedrock-runtime
           excerpts:
-            - description: Use the Invoke Model API to generate a short story.
+            - description: Use the Invoke Model API to send a text message.
               snippet_tags:
                 - bedrock-runtime.kotlin.InvokeModel_AmazonTitanText
     .NET:
@@ -1235,6 +1251,14 @@ bedrock-runtime_InvokeModel_AmazonNovaImageGeneration:
             - description: Create an image with Amazon Nova Canvas.
               snippet_tags:
                 - bedrock-runtime.java2.InvokeModel_AmazonNovaImageGeneration
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/bedrock-runtime
+          excerpts:
+            - description: Create an image with Amazon Nova Canvas.
+              snippet_tags:
+                - bedrock-runtime.kotlin.InvokeModel_AmazonNovaImageGeneration
     .NET:
       versions:
         - sdk_version: 3

@@ -30,9 +30,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 <!--custom.prerequisites.start-->
 > ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.prerequisites.end-->
+### Amazon Nova
+
+- [Converse](src/main/kotlin/com/example/bedrockruntime/models/amazon/nova/text/Converse.kt#L6)
+- [ConverseStream](src/main/kotlin/com/example/bedrockruntime/models/amazon/nova/text/ConverseStream.kt#L6)
+
+### Amazon Nova Canvas
+
+- [InvokeModel](src/main/kotlin/com/example/bedrockruntime/models/amazon/nova/canvas/InvokeModel.kt#L6)
+
 ### Amazon Titan Text
 
-- [InvokeModel](src/main/kotlin/com/example/bedrockruntime/InvokeModel.kt#L6)
+- [InvokeModel](src/main/kotlin/com/example/bedrockruntime/models/amazon/titan/text/InvokeModel.kt#L6)
 
 
 <!--custom.examples.start-->
