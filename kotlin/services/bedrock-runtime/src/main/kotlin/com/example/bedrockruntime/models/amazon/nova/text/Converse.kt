@@ -43,9 +43,9 @@ suspend fun converse(): String {
             this.modelId = modelId
             messages = listOf(message)
             inferenceConfig {
-                maxTokens = 500      // Maximum response length
-                temperature = 0.5F   // Lower values: more focused output
-                // topP = 0.8F       // Alternative to temperature
+                maxTokens = 500 // Maximum response length
+                temperature = 0.5F // Lower values: more focused output
+                // topP = 0.8F // Alternative to temperature
             }
         }
 
@@ -53,7 +53,6 @@ suspend fun converse(): String {
         runCatching {
             val response = client.converse(request)
             return response.output!!.asMessage().content.first().asText()
-
         }.getOrElse { error ->
             error.message?.let { e -> System.err.println("ERROR: Can't invoke '$modelId'. Reason: $e") }
             throw RuntimeException("Failed to generate text with model $modelId", error)

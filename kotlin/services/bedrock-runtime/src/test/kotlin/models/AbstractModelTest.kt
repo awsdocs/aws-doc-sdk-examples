@@ -81,6 +81,6 @@ abstract class AbstractModelTest {
      */
     data class ModelTest(
         val name: String,
-        val function: suspend () -> Any
+        val function: suspend () -> Any,
     )
 }

@@ -65,15 +65,17 @@ suspend fun invokeModel(): ByteArray {
                     "quality": "standard"
                 }
             }
-            """.trimIndent()
+        """.trimIndent()
 
         // Send the request and process the model's response
         runCatching {
             // Send the request to the model
-            val response = client.invokeModel(InvokeModelRequest {
-                this.modelId = modelId
-                body = request.toByteArray()
-            })
+            val response = client.invokeModel(
+                InvokeModelRequest {
+                    this.modelId = modelId
+                    body = request.toByteArray()
+                },
+            )
 
             // Parse the response and extract the generated image
             val jsonResponse = response.body.toString(Charsets.UTF_8)
@@ -82,7 +84,6 @@ suspend fun invokeModel(): ByteArray {
             // Extract the generated image and return it as a byte array for better handling
             val base64Image = parsedResponse.images.first()
             return Base64.getDecoder().decode(base64Image)
-
         }.getOrElse { error ->
             System.err.println("ERROR: Can't invoke '$modelId'. Reason: ${error.message}")
             throw RuntimeException("Failed to generate image with model $modelId", error)

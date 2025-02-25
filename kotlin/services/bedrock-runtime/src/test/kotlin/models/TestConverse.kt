@@ -14,9 +14,7 @@ class TestConverse : AbstractModelTest() {
      * Creates test cases that validate each model's ability to generate
      * and return text responses.
      */
-    override fun modelProvider(): Stream<ModelTest> {
-        return listOf(
-            ModelTest("Amazon Nova") { com.example.bedrockruntime.models.amazon.nova.text.converse() }
-        ).stream()
-    }
+    override fun modelProvider(): Stream<ModelTest> = listOf(
+        ModelTest("Amazon Nova") { com.example.bedrockruntime.models.amazon.nova.text.converse() },
+    ).stream()
 }
