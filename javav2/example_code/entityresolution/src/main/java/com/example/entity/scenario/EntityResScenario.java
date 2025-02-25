@@ -8,6 +8,7 @@ import software.amazon.awssdk.services.entityresolution.model.CreateSchemaMappin
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.services.entityresolution.model.GetSchemaMappingResponse;
 import software.amazon.awssdk.services.entityresolution.model.JobMetrics;
 
 import java.util.Map;
@@ -25,13 +26,12 @@ public class EntityResScenario {
     private static final String JSON_GLUE_TABLE_ARN_KEY = "JsonErGlueTableArn";
     private static final String CSV_GLUE_TABLE_ARN_KEY = "CsvErGlueTableArn";
     private static String glueBucketName;
-    private static String workflowName = "workflow-"+ UUID.randomUUID();
+    private static String workflowName = "workflow-" + UUID.randomUUID();
 
     public static void main(String[] args) throws InterruptedException {
         String jsonSchemaMappingName = "jsonschema-" + UUID.randomUUID();
         String jsonSchemaMappingArn = null;
         String csvSchemaMappingName = "csv-" + UUID.randomUUID();
-        String csvSchemaMappingArn = null;
         String roleARN;
         String csvGlueTableArn;
         String jsonGlueTableArn;
@@ -69,15 +69,15 @@ public class EntityResScenario {
 
         logger.info(DASHES);
         logger.info("""
-                To prepare the AWS resources needed for this scenario application, the next step uploads
-                a CloudFormation template whose resulting stack creates the following resources:
-                - An AWS Glue Data Catalog table
-                - An AWS IAM role
-                - An AWS S3 bucket
-                - An AWS Entity Resolution Schema
-                
-                It can take a couple minutes for the Stack to finish creating the resources.
-                """);
+            To prepare the AWS resources needed for this scenario application, the next step uploads
+            a CloudFormation template whose resulting stack creates the following resources:
+            - An AWS Glue Data Catalog table
+            - An AWS IAM role
+            - An AWS S3 bucket
+            - An AWS Entity Resolution Schema
+                            
+            It can take a couple minutes for the Stack to finish creating the resources.
+            """);
         waitForInputToContinue(scanner);
         logger.info("Generating resources...");
         CloudFormationHelper.deployCloudFormationStack(STACK_NAME);
@@ -95,19 +95,19 @@ public class EntityResScenario {
          Entity Resolution service.
          */
         String json = """
-                {"id":"1","name":"Alice Johnson","email":"alice.johnson@example.com"}
-                {"id":"2","name":"Bob Smith","email":"bob.smith@example.com"}
-                {"id":"3","name":"Charlie Black","email":"charlie.black@example.com"}
-                """;
+            {"id":"1","name":"Alice Johnson","email":"alice.johnson@example.com"}
+            {"id":"2","name":"Bob Smith","email":"bob.smith@example.com"}
+            {"id":"3","name":"Charlie Black","email":"charlie.black@example.com"}
+            """;
         logger.info("Upload the following JSON objects to the {} S3 bucket.", glueBucketName);
         logger.info(json);
         String csv = """
-                id,name,email,phone
-                1,Alice B. Johnson,alice.johnson@example.com,746-876-9846
-                2,Bob Smith Jr.,bob.smith@example.com,987-654-3210
-                3,Charlie Black,charlie.black@company.com,345-567-1234
-                7,Jane E. Doe,jane_doe@company.com,111-222-3333
-                """;
+            id,name,email,phone
+            1,Alice B. Johnson,alice.johnson@example.com,746-876-9846
+            2,Bob Smith Jr.,bob.smith@example.com,987-654-3210
+            3,Charlie Black,charlie.black@company.com,345-567-1234
+            7,Jane E. Doe,jane_doe@company.com,111-222-3333
+            """;
         logger.info("Upload the following CSV data to the {} S3 bucket.", glueBucketName);
         logger.info(csv);
         waitForInputToContinue(scanner);
@@ -131,8 +131,8 @@ public class EntityResScenario {
         waitForInputToContinue(scanner);
         try {
             CreateSchemaMappingResponse response = actions.createSchemaMappingAsync(jsonSchemaMappingName).join();
-            jsonSchemaMappingArn = response.schemaArn();
-            logger.info("The JSON schema mapping ARN is "+jsonSchemaMappingArn);
+            jsonSchemaMappingName = response.schemaName();
+            logger.info("The JSON schema mapping name is " + jsonSchemaMappingName);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             logger.info("Failed to create JSON schema mapping: " + (cause != null ? cause.getMessage() : ce.getMessage()));
@@ -140,8 +140,8 @@ public class EntityResScenario {
 
         try {
             CreateSchemaMappingResponse response = actions.createSchemaMappingAsync(csvSchemaMappingName).join();
-            csvSchemaMappingArn = response.schemaArn();
-            logger.info("The CSV schema mapping ARN is "+csvSchemaMappingArn);
+            csvSchemaMappingName = response.schemaName();
+            logger.info("The CSV schema mapping name is " + csvSchemaMappingName);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             logger.info("Failed to create CSV schema mapping: " + (cause != null ? cause.getMessage() : ce.getMessage()));
@@ -159,13 +159,12 @@ public class EntityResScenario {
             it evaluates attributes like names or emails to detect duplicates
             or relationships, even with variations or inconsistencies. 
             The workflow outputs consolidated, de-duplicated data.
-            
+                        
             We will use the machine learning-based matching technique.
             """);
         waitForInputToContinue(scanner);
         try {
-            String workflowArn = actions.createMatchingWorkflowAsync(roleARN, workflowName, glueBucketName, jsonGlueTableArn
-                                                                     , jsonSchemaMappingName, csvGlueTableArn, csvSchemaMappingName).join();
+            String workflowArn = actions.createMatchingWorkflowAsync(roleARN, workflowName, glueBucketName, jsonGlueTableArn, jsonSchemaMappingName, csvGlueTableArn, csvSchemaMappingName).join();
             logger.info("The workflow ARN is: " + workflowArn);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
@@ -188,7 +187,7 @@ public class EntityResScenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("4. While the matching job is running, let's look at other API methods. First, let's get details for job "+jobId);
+        logger.info("4. While the matching job is running, let's look at other API methods. First, let's get details for job " + jobId);
         waitForInputToContinue(scanner);
         try {
             actions.getMatchingJobAsync(jobId, workflowName).join();
@@ -202,8 +201,9 @@ public class EntityResScenario {
         logger.info("5. Get the schema mapping for the JSON data.");
         waitForInputToContinue(scanner);
         try {
-            actions.getSchemaMappingAsync(jsonSchemaMappingName).join();
-            logger.info("Schema mapping retrieval completed.");
+            GetSchemaMappingResponse response = actions.getSchemaMappingAsync(jsonSchemaMappingName).join();
+            jsonSchemaMappingArn = response.schemaArn();
+            logger.info("Schema mapping ARN is " + jsonSchemaMappingArn);
         } catch (CompletionException ce) {
             logger.info("Error retrieving schema mapping: " + ce.getCause().getMessage());
         }
@@ -234,16 +234,15 @@ public class EntityResScenario {
         logger.info("""
             You cannot view the result of the workflow that is in a running state.  
             In order to view the results, you need to wait for the workflow that we started in step 3 to complete.
-            
+                        
             If you choose not to wait, you cannot view the results or delete the workflow. You would have to 
             perform both tasks manually in the AWS Management Console.
-           
+                       
             This can take up to 30 mins (y/n).
             """);
         String viewAns = scanner.nextLine().trim();
         if (viewAns.equalsIgnoreCase("y")) {
             logger.info("You selected to view the Entity Resolution Workflow results.");
-            waitForInputToContinue(scanner);
             countdownWithWorkflowCheck(actions, 1800, jobId, workflowName);
             JobMetrics metrics = actions.getJobInfo(workflowName, jobId).join();
             logger.info("Number of input records: {}", metrics.inputRecords());
@@ -251,28 +250,28 @@ public class EntityResScenario {
             logger.info("Number of records not processed: {}", metrics.recordsNotProcessed());
             logger.info("Number of total records processed: {}", metrics.totalRecordsProcessed());
             logger.info("""
-                      
-                      The output of the machinelearning-based matching job is a CSV file in the S3 bucket. The following is a sample of the output:
-                      
-                      ------------------------------------------------------------------------------ ----------------- ---- ------------------ --------------------------- -------------- ---------- ---------------------------------------------------\s
-                      InputSourceARN                                                                 ConfidenceLevel   id   name               email                       phone          RecordId   MatchID                                           \s
-                     ------------------------------------------------------------------------------ ----------------- ---- ------------------ --------------------------- -------------- ---------- ---------------------------------------------------\s
-                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable                      7    Jane E. Doe        jane_doe@company.com        111-222-3333   7          036298535ed6471ebfc358fc76e1f51200006472446402560 \s
-                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.90523           2    Bob Smith Jr.      bob.smith@example.com       987-654-3210   2          6ae2d360d6594089837eafc31b20f31600003506806140928 \s
-                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.90523           2    Bob Smith          bob.smith@example.com                      2          6ae2d360d6594089837eafc31b20f31600003506806140928 \s
-                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.89398956        1    Alice B. Johnson   alice.johnson@example.com   746-876-9846   1          34a5075b289247efa1847ab292ed677400009137438953472 \s
-                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.89398956        1    Alice Johnson      alice.johnson@example.com                  1          34a5075b289247efa1847ab292ed677400009137438953472 \s
-                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.605295          3    Charlie Black      charlie.black@company.com   345-567-1234   3          92c8ef3f68b34948a3af998d700ed02700002146028888064 \s
-                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.605295          3    Charlie Black      charlie.black@example.com                  3          92c8ef3f68b34948a3af998d700ed02700002146028888064 \s
-                    
-                    Note that each of the last 3 pairs of records are considered a match even though the 'name' or 'email' differ between the records;
-                    For example 'Bob Smith Jr.' compared to 'Bob Smith'.
-                    The confidence level is a value between 0 and 1, where 1 indicates a perfect match. In the last pair of matched records, 
-                    the confidence level is lower for the differing email addresses.
-                    
-                    """);
+                  
+                  The output of the machinelearning-based matching job is a CSV file in the S3 bucket. The following is a sample of the output:
+                  
+                  ------------------------------------------------------------------------------ ----------------- ---- ------------------ --------------------------- -------------- ---------- ---------------------------------------------------\s
+                  InputSourceARN                                                                 ConfidenceLevel   id   name               email                       phone          RecordId   MatchID                                           \s
+                 ------------------------------------------------------------------------------ ----------------- ---- ------------------ --------------------------- -------------- ---------- ---------------------------------------------------\s
+                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable                      7    Jane E. Doe        jane_doe@company.com        111-222-3333   7          036298535ed6471ebfc358fc76e1f51200006472446402560 \s
+                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.90523           2    Bob Smith Jr.      bob.smith@example.com       987-654-3210   2          6ae2d360d6594089837eafc31b20f31600003506806140928 \s
+                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.90523           2    Bob Smith          bob.smith@example.com                      2          6ae2d360d6594089837eafc31b20f31600003506806140928 \s
+                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.89398956        1    Alice B. Johnson   alice.johnson@example.com   746-876-9846   1          34a5075b289247efa1847ab292ed677400009137438953472 \s
+                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.89398956        1    Alice Johnson      alice.johnson@example.com                  1          34a5075b289247efa1847ab292ed677400009137438953472 \s
+                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.605295          3    Charlie Black      charlie.black@company.com   345-567-1234   3          92c8ef3f68b34948a3af998d700ed02700002146028888064 \s
+                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.605295          3    Charlie Black      charlie.black@example.com                  3          92c8ef3f68b34948a3af998d700ed02700002146028888064 \s
+                                    
+                Note that each of the last 3 pairs of records are considered a match even though the 'name' or 'email' differ between the records;
+                For example 'Bob Smith Jr.' compared to 'Bob Smith'.
+                The confidence level is a value between 0 and 1, where 1 indicates a perfect match. In the last pair of matched records, 
+                the confidence level is lower for the differing email addresses.
+                                    
+                """);
 
-            logger.info("Do you want to delete the resources, including workflow?");
+            logger.info("Do you want to delete the resources, including the workflow?");
             String delAns = scanner.nextLine().trim();
             if (delAns.equalsIgnoreCase("y")) {
                 try {
@@ -282,12 +281,22 @@ public class EntityResScenario {
                     Throwable cause = ce.getCause();
                     logger.info("Failed to delete workflow: " + (cause != null ? cause.getMessage() : ce.getMessage()));
                 }
+
+                try {
+                    // Delete both schema mappings.
+                    actions.deleteSchemaMappingAsync(jsonSchemaMappingName).join();
+                    actions.deleteSchemaMappingAsync(csvSchemaMappingName).join();
+                    logger.info("Both schema mappings were deleted successfully!");
+                } catch (RuntimeException e) {
+                    logger.error("Error deleting schema mapping: {}", e.getMessage());
+                }
+
                 waitForInputToContinue(scanner);
                 logger.info(DASHES);
                 logger.info("""
-                Now we delete the CloudFormation stack, which deletes 
-                the resources that were created at the beginning
-                """);
+                    Now we delete the CloudFormation stack, which deletes 
+                    the resources that were created at the beginning
+                    """);
                 waitForInputToContinue(scanner);
                 logger.info(DASHES);
                 try {
@@ -330,17 +339,17 @@ public class EntityResScenario {
         int secondsElapsed = 0;
 
         while (true) {
-            // Calculate display minutes and seconds
+            // Calculate display minutes and seconds.
             int remainingTime = totalSeconds - secondsElapsed;
             int displayMinutes = remainingTime / 60;
             int displaySeconds = remainingTime % 60;
 
-            // Print the countdown
+            // Print the countdown.
             System.out.printf("\r%02d:%02d", displayMinutes, displaySeconds);
             Thread.sleep(1000); // Wait for 1 second
             secondsElapsed++;
 
-            // Check workflow status every 60 seconds
+            // Check workflow status every 60 seconds.
             if (secondsElapsed % 60 == 0 || remainingTime <= 0) {
                 if (actions.checkWorkflowStatusCompleteAsync(jobId, workflowName).join()) {
                     logger.info(""); // Move to the next line after countdown.
@@ -355,7 +364,8 @@ public class EntityResScenario {
             }
         }
     }
-    private static void deleteResources(){
+
+    private static void deleteResources() {
         CloudFormationHelper.emptyS3Bucket(glueBucketName);
         CloudFormationHelper.destroyCloudFormationStack(STACK_NAME);
         logger.info("Resources deleted successfully!");

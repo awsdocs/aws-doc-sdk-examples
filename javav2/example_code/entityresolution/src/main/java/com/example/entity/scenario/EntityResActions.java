@@ -17,8 +17,8 @@ import software.amazon.awssdk.services.entityresolution.model.CreateMatchingWork
 import software.amazon.awssdk.services.entityresolution.model.CreateSchemaMappingRequest;
 import software.amazon.awssdk.services.entityresolution.model.CreateSchemaMappingResponse;
 import software.amazon.awssdk.services.entityresolution.model.DeleteMatchingWorkflowRequest;
+import software.amazon.awssdk.services.entityresolution.model.DeleteSchemaMappingRequest;
 import software.amazon.awssdk.services.entityresolution.model.GetMatchingJobRequest;
-import software.amazon.awssdk.services.entityresolution.model.GetMatchingJobResponse;
 import software.amazon.awssdk.services.entityresolution.model.GetSchemaMappingRequest;
 import software.amazon.awssdk.services.entityresolution.model.GetSchemaMappingResponse;
 import software.amazon.awssdk.services.entityresolution.model.InputSource;
@@ -41,7 +41,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 
 // snippet-start:[entityres.java2_actions.main]
 public class EntityResActions {
@@ -113,8 +112,28 @@ public class EntityResActions {
         return s3AsyncClient;
     }
 
-    // snippet-start:[entityres.java2_list_mappings.main]
+    // snippet-start:[entityres.java2_delete_mappings.main]
+    /**
+     * Deletes the schema mapping asynchronously.
+     *
+     * @param schemaName the name of the schema to delete
+     * @return a {@link CompletableFuture} that completes when the schema mapping is deleted successfully,
+     *         or throws a {@link RuntimeException} if the deletion fails
+     */
+    public CompletableFuture<Void> deleteSchemaMappingAsync(String schemaName) {
+        DeleteSchemaMappingRequest request = DeleteSchemaMappingRequest.builder()
+            .schemaName(schemaName)
+            .build();
 
+        return getResolutionAsyncClient().deleteSchemaMapping(request)
+            .thenRun(() -> logger.info("Schema mapping '{}' deleted successfully.", schemaName))
+            .exceptionally(ex -> {
+                throw new RuntimeException("Failed to delete schema mapping: " + schemaName, ex);
+            });
+    }
+    // snippet-end:[entityres.java2_delete_mappings.main]
+
+    // snippet-start:[entityres.java2_list_mappings.main]
     /**
      * Lists the schema mappings associated with the current AWS account. This method uses an asynchronous paginator to
      * retrieve the schema mappings, and prints the name of each schema mapping to the console.
@@ -162,7 +181,6 @@ public class EntityResActions {
     // snippet-end:[entityres.java2_delete_matching_workflow.main]
 
     // snippet-start:[entityres.java2_create_schema.main]
-
     /**
      * Creates a schema mapping asynchronously.
      *
@@ -203,7 +221,6 @@ public class EntityResActions {
     // snippet-end:[entityres.java2_create_schema.main]
 
     // snippet-start:[entityres.java2_get_schema_mapping.main]
-
     /**
      * Retrieves the schema mapping asynchronously.
      *
