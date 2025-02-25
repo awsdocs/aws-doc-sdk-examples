@@ -75,11 +75,16 @@ public class EntityResTests {
               }
             ]
             """;
-        if (!actions.doesObjectExist(dataS3bucket)) {
-            actions.uploadInputData(dataS3bucket, json);
-        } else {
-            System.out.println("The JSON exists in " + dataS3bucket);
-        }
+
+        String csv = """
+                id,name,email,phone
+                1,Alice B. Johnson,alice.johnson@example.com,746-876-9846
+                2,Bob Smith Jr.,bob.smith@example.com,987-654-3210
+                3,Charlie Black,charlie.black@company.com,345-567-1234
+                7,Jane E. Doe,jane_doe@company.com,111-222-3333
+                """;
+
+        actions.uploadInputData(dataS3bucket, json, csv);
     }
 
     @Test
@@ -99,7 +104,8 @@ public class EntityResTests {
     @Order(2)
     public void testCreateMappingWorkflow() {
         assertDoesNotThrow(() -> {
-            workflowArn = actions.createMatchingWorkflowAsync(roleARN, workflowName, outputBucket, inputGlueTableArn, schemaName).join();
+            //workflowArn = actions.actions.createMatchingWorkflowAsync(roleARN, workflowName, glueBucketName, jsonGlueTableArn
+            //    , jsonSchemaMappingName, csvGlueTableArn, csvSchemaMappingName).join();
             assertNotNull(workflowArn);
         });
         logger.info("Test 2 passed");
