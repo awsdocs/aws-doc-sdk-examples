@@ -111,7 +111,12 @@ public class EntityResScenario {
         logger.info("Upload the following CSV data to the {} S3 bucket.", glueBucketName);
         logger.info(csv);
         waitForInputToContinue(scanner);
-        actions.uploadInputData(glueBucketName, json, csv);
+        try {
+            actions.uploadInputData(glueBucketName, json, csv);
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            logger.error("Failed to create JSON schema mapping: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+        }
         logger.info("The JSON objects have been uploaded to the S3 bucket.");
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -135,7 +140,7 @@ public class EntityResScenario {
             logger.info("The JSON schema mapping name is " + jsonSchemaMappingName);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            logger.info("Failed to create JSON schema mapping: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+            logger.error("Failed to create JSON schema mapping: " + (cause != null ? cause.getMessage() : ce.getMessage()));
         }
 
         try {
@@ -144,7 +149,7 @@ public class EntityResScenario {
             logger.info("The CSV schema mapping name is " + csvSchemaMappingName);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            logger.info("Failed to create CSV schema mapping: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+            logger.error("Failed to create CSV schema mapping: " + (cause != null ? cause.getMessage() : ce.getMessage()));
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -168,7 +173,8 @@ public class EntityResScenario {
             logger.info("The workflow ARN is: " + workflowArn);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            logger.info("Failed to create workflow: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+            logger.error("Failed to create workflow: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+            return;
         }
         waitForInputToContinue(scanner);
 
@@ -181,7 +187,8 @@ public class EntityResScenario {
             logger.info("The matching job was successfully started.");
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            logger.info("Failed to start matching job: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+            logger.error("Failed to start matching job: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+            return;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -193,7 +200,8 @@ public class EntityResScenario {
             actions.getMatchingJobAsync(jobId, workflowName).join();
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            logger.info("Failed to start matching job: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+            logger.error("Failed to start matching job: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+            return;
         }
         logger.info(DASHES);
 
@@ -205,14 +213,20 @@ public class EntityResScenario {
             jsonSchemaMappingArn = response.schemaArn();
             logger.info("Schema mapping ARN is " + jsonSchemaMappingArn);
         } catch (CompletionException ce) {
-            logger.info("Error retrieving schema mapping: " + ce.getCause().getMessage());
+            logger.error("Error retrieving the specific schema mapping: " + ce.getCause().getMessage());
+            return;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
         logger.info(DASHES);
         logger.info("6. List Schema Mappings.");
-        actions.ListSchemaMappings();
+        try {
+            actions.ListSchemaMappings();
+        } catch (CompletionException ce) {
+            logger.error("Error retrieving schema mapping: " + ce.getCause().getMessage());
+            return;
+        }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -225,7 +239,13 @@ public class EntityResScenario {
             In Entity Resolution, SchemaMapping and MatchingWorkflow can be tagged. For this example, 
             the SchemaMapping is tagged.
                 """);
-        actions.tagEntityResource(jsonSchemaMappingArn).join();
+        try {
+            actions.tagEntityResource(jsonSchemaMappingArn).join();
+        } catch (CompletionException ce) {
+            logger.error("Error tagging the resource: " + ce.getCause().getMessage());
+            return;
+        }
+
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -280,6 +300,7 @@ public class EntityResScenario {
                 } catch (CompletionException ce) {
                     Throwable cause = ce.getCause();
                     logger.info("Failed to delete workflow: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+                    return;
                 }
 
                 try {
@@ -289,6 +310,7 @@ public class EntityResScenario {
                     logger.info("Both schema mappings were deleted successfully!");
                 } catch (RuntimeException e) {
                     logger.error("Error deleting schema mapping: {}", e.getMessage());
+                    return;
                 }
 
                 waitForInputToContinue(scanner);
@@ -304,6 +326,7 @@ public class EntityResScenario {
                 } catch (CompletionException ce) {
                     Throwable cause = ce.getCause();
                     logger.error("Failed to delete Glue Table: {}", cause != null ? cause.getMessage() : ce.getMessage());
+                    return;
                 }
 
             } else {
