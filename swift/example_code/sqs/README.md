@@ -42,6 +42,7 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteMessageBatch](DeleteMessageBatch/Sources/entry.swift#L31)
 - [DeleteQueue](DeleteQueue/Sources/entry.swift#L29)
 - [GetQueueAttributes](GetQueueAttributes/Sources/entry.swift#L29)
+- [ListQueues](basics/Sources/entry.swift#L28)
 - [ReceiveMessage](ReceiveMessage/Sources/entry.swift#L31)
 - [SetQueueAttributes](SetQueueAttributes/Sources/entry.swift#L32)
 

@@ -341,6 +341,15 @@ sqs_ListQueues:
               snippet_tags:
                 - cpp.example_code.sqs.ListQueues.config
                 - cpp.example_code.sqs.ListQueues
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.sqs.ListQueues
   services:
     sqs: {ListQueues}
 sqs_DeleteQueue:
