@@ -1,7 +1,7 @@
-# AWS Entity Resolution Java Program
+# AWS Entity Resolution Program
 
 ## Overview
-This AWS Entity Resolution basic scenario demonstrates how to interact with the AWS Entity Resolution service using an AWS SDK. This Java application demonstrates how to use AWS Entity Resolution to integrate and deduplicate data from multiple sources using machine learning-based matching. The program walks through setting up AWS resources, uploading structured data, defining schema mappings, creating a matching workflow, and running a matching job.
+This AWS Entity Resolution basic scenario demonstrates how to interact with the AWS Entity Resolution service using an AWS SDK. This application demonstrates how to use AWS Entity Resolution to integrate and deduplicate data from multiple sources using machine learning-based matching. The program walks through setting up AWS resources, uploading structured data, defining schema mappings, creating a matching workflow, and running a matching job.
 
 
 **Note:** See the [specification document](SPECIFICATION.md) for a complete list of operations. 
