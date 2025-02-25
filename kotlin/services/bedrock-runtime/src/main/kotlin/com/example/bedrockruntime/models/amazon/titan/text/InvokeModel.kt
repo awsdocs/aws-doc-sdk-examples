@@ -27,10 +27,9 @@ suspend fun main() {
 private data class BedrockResponse(val results: List<Result>) {
     @Serializable
     data class Result(
-        val outputText: String
+        val outputText: String,
     )
 }
-
 
 // Initialize JSON parser with relaxed configuration
 private val json = Json { ignoreUnknownKeys = true }
@@ -55,15 +54,17 @@ suspend fun invokeModel(): String {
                     "temperature": 0.5
                 }
             }
-            """.trimIndent()
+        """.trimIndent()
 
         // Send the request and process the model's response
         runCatching {
             // Send the request to the model
-            val response = client.invokeModel(InvokeModelRequest {
-                this.modelId = modelId
-                body = request.toByteArray()
-            })
+            val response = client.invokeModel(
+                InvokeModelRequest {
+                    this.modelId = modelId
+                    body = request.toByteArray()
+                },
+            )
 
             // Convert the response bytes to a JSON string
             val jsonResponse = response.body.toString(Charsets.UTF_8)
@@ -73,7 +74,6 @@ suspend fun invokeModel(): String {
 
             // Extract and return the generated text
             return parsedResponse.results.firstOrNull()!!.outputText
-
         }.getOrElse { error ->
             error.message?.let { msg ->
                 System.err.println("ERROR: Can't invoke '$modelId'. Reason: $msg")

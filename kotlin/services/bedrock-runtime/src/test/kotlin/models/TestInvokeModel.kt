@@ -14,10 +14,8 @@ class TestInvokeModel : AbstractModelTest() {
      * Creates test cases that validate each model's ability to generate
      * and return text or byte[] responses.
      */
-    override fun modelProvider(): Stream<ModelTest> {
-        return listOf(
-            ModelTest("Amazon Titan Text") { com.example.bedrockruntime.models.amazon.titan.text.invokeModel() },
-            ModelTest("Amazon Nova Canvas") { com.example.bedrockruntime.models.amazon.nova.canvas.invokeModel() }
-        ).stream()
-    }
+    override fun modelProvider(): Stream<ModelTest> = listOf(
+        ModelTest("Amazon Titan Text") { com.example.bedrockruntime.models.amazon.titan.text.invokeModel() },
+        ModelTest("Amazon Nova Canvas") { com.example.bedrockruntime.models.amazon.nova.canvas.invokeModel() },
+    ).stream()
 }
