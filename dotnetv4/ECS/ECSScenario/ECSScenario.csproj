@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.Core" Version="4.0.0-preview.7" />
+    <PackageReference Include="AWSSDK.ECS" Version="4.0.0-preview.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ECSActions\ECSActions.csproj" />
+  </ItemGroup>
+</Project>
