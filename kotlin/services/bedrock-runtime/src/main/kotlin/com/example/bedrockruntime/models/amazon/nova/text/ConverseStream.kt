@@ -6,7 +6,11 @@ package com.example.bedrockruntime.models.amazon.nova.text
 // snippet-start:[bedrock-runtime.kotlin.ConverseStream_AmazonNovaText]
 
 import aws.sdk.kotlin.services.bedrockruntime.BedrockRuntimeClient
-import aws.sdk.kotlin.services.bedrockruntime.model.*
+import aws.sdk.kotlin.services.bedrockruntime.model.ContentBlock
+import aws.sdk.kotlin.services.bedrockruntime.model.ConversationRole
+import aws.sdk.kotlin.services.bedrockruntime.model.ConverseStreamOutput
+import aws.sdk.kotlin.services.bedrockruntime.model.ConverseStreamRequest
+import aws.sdk.kotlin.services.bedrockruntime.model.Message
 
 /**
  * This example demonstrates how to use the Amazon Nova foundation models
@@ -44,9 +48,9 @@ suspend fun converseStream(): String {
             this.modelId = modelId
             messages = listOf(message)
             inferenceConfig {
-                maxTokens = 500      // Maximum response length
-                temperature = 0.5F   // Lower values: more focused output
-                // topP = 0.8F       // Alternative to temperature
+                maxTokens = 500 // Maximum response length
+                temperature = 0.5F // Lower values: more focused output
+                // topP = 0.8F // Alternative to temperature
             }
         }
 
