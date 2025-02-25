@@ -25,7 +25,7 @@ entityresolution_DeleteSchemaMapping:
               snippet_tags:
                 - entityres.java2_delete_mappings.main
   services:
-    entityresolution: {entityresolution_DeleteSchemaMapping}
+    entityresolution: {DeleteSchemaMapping}
 entityresolution_TagEntityResource:
   languages:
     Java:
@@ -159,4 +159,5 @@ entityresolution_Scenario:
               snippet_tags:
                 - entityres.java2_actions.main
   services:
-    entityresolution: {}    
+    entityresolution: {}
+        
