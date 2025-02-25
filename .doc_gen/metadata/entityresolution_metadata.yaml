@@ -14,6 +14,18 @@ entityresolution_Hello:
                 - entityres.java2_hello.main
   services:
     entityresolution: {listMatchingWorkflows}
+entityresolution_DeleteSchemaMapping:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entityres.java2_delete_mappings.main
+  services:
+    entityresolution: {entityresolution_DeleteSchemaMapping}
 entityresolution_TagEntityResource:
   languages:
     Java:

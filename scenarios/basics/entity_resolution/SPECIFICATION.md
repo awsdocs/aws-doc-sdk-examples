@@ -281,6 +281,7 @@ The following table describes the metadata used in this Basics Scenario.
 | `listSchemaMappings`    | entity_metadata.yaml   | entity_ListSchemaMappings     |
 | `tagResource `          | entity_metadata.yaml   | entity_TagResource            |
 | `deleteWorkflow `       | entity_metadata.yaml   | entity_DeleteWorkflow         |
+| `deleteMapping `        | entity_metadata.yaml   | entity_DeleteSchemaMapping    |
 | `listMappingJobs `      | entity_metadata.yaml   | entity_Hello                  |
 | `scenario`              | entity_metadata.yaml   | entity_Scenario               |
 
