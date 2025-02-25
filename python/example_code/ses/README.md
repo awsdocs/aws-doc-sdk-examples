@@ -68,6 +68,7 @@ functions within the same service.
 - [Create a web application to track DynamoDB data](../../cross_service/dynamodb_item_tracker)
 - [Create an Aurora Serverless work item tracker](../../cross_service/aurora_item_tracker)
 - [Detect objects in images](../../cross_service/photo_analyzer)
+- [Detect people and objects in a video](../../example_code/rekognition)
 - [Generate credentials to connect to an SMTP endpoint](ses_generate_smtp_credentials.py)
 - [Verify an email identity and send messages](ses_email.py)
 
@@ -138,6 +139,18 @@ This example shows you how to build an app that uses Amazon Rekognition to detec
 
 <!--custom.scenarios.cross_RekognitionPhotoAnalyzer.start-->
 <!--custom.scenarios.cross_RekognitionPhotoAnalyzer.end-->
+
+#### Detect people and objects in a video
+
+This example shows you how to detect people and objects in a video with Amazon Rekognition.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionVideoDetection.start-->
+<!--custom.scenario_prereqs.cross_RekognitionVideoDetection.end-->
+
+
+<!--custom.scenarios.cross_RekognitionVideoDetection.start-->
+<!--custom.scenarios.cross_RekognitionVideoDetection.end-->
 
 #### Generate credentials to connect to an SMTP endpoint
 

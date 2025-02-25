@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<AssemblyName>AmazonNovaCanvas.$(MSBuildProjectName)</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AWSSDK.BedrockRuntime" Version="3.7.412.14" />
+		<PackageReference Include="AWSSDK.Core" Version="3.7.402.2" />
+	</ItemGroup>
+</Project>

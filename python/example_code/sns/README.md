@@ -54,7 +54,10 @@ functions within the same service.
 
 - [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
 - [Create and publish to a FIFO topic](sns_fifo_topic.py)
+- [Detect people and objects in a video](../../example_code/rekognition)
 - [Publish an SMS text message](sns_basics.py)
+- [Use API Gateway to invoke a Lambda function](../../example_code/lambda)
+- [Use scheduled events to invoke a Lambda function](../../example_code/lambda)
 
 
 <!--custom.examples.start-->
@@ -105,6 +108,18 @@ python sns_fifo_topic.py
 <!--custom.scenarios.sns_PublishFifoTopic.start-->
 <!--custom.scenarios.sns_PublishFifoTopic.end-->
 
+#### Detect people and objects in a video
+
+This example shows you how to detect people and objects in a video with Amazon Rekognition.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionVideoDetection.start-->
+<!--custom.scenario_prereqs.cross_RekognitionVideoDetection.end-->
+
+
+<!--custom.scenarios.cross_RekognitionVideoDetection.start-->
+<!--custom.scenarios.cross_RekognitionVideoDetection.end-->
+
 #### Publish an SMS text message
 
 This example shows you how to publish SMS messages using Amazon SNS.
@@ -122,6 +137,30 @@ python sns_basics.py
 
 <!--custom.scenarios.sns_PublishTextSMS.start-->
 <!--custom.scenarios.sns_PublishTextSMS.end-->
+
+#### Use API Gateway to invoke a Lambda function
+
+This example shows you how to create an AWS Lambda function invoked by Amazon API Gateway.
+
+
+<!--custom.scenario_prereqs.cross_LambdaAPIGateway.start-->
+<!--custom.scenario_prereqs.cross_LambdaAPIGateway.end-->
+
+
+<!--custom.scenarios.cross_LambdaAPIGateway.start-->
+<!--custom.scenarios.cross_LambdaAPIGateway.end-->
+
+#### Use scheduled events to invoke a Lambda function
+
+This example shows you how to create an AWS Lambda function invoked by an Amazon EventBridge scheduled event.
+
+
+<!--custom.scenario_prereqs.cross_LambdaScheduledEvents.start-->
+<!--custom.scenario_prereqs.cross_LambdaScheduledEvents.end-->
+
+
+<!--custom.scenarios.cross_LambdaScheduledEvents.start-->
+<!--custom.scenarios.cross_LambdaScheduledEvents.end-->
 
 ### Tests
 

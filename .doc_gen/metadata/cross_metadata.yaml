@@ -16,7 +16,8 @@ cross_MessageProcessingFrameworkTutorial:
 cross_FSA:
   title: Create an application that analyzes customer feedback and synthesizes audio
   title_abbrev: Create an application to analyze customer feedback
-  synopsis: create an application that analyzes customer comment cards, translates them from their original language, determines
+  synopsis:
+    create an application that analyzes customer comment cards, translates them from their original language, determines
     their sentiment, and generates an audio file from the translated text.
   category: Scenarios
   languages:
@@ -128,7 +129,8 @@ cross_SQSMessageApp:
 cross_RDSDataTracker:
   title: Create an &AUR; Serverless work item tracker
   title_abbrev: Create an &AUR; Serverless work item tracker
-  synopsis: create a web application that tracks work items in an &AURlong; Serverless database and uses &SESlong; (&SES;)
+  synopsis:
+    create a web application that tracks work items in an &AURlong; Serverless database and uses &SESlong; (&SES;)
     to send reports.
   category: Scenarios
   languages:
@@ -242,7 +244,8 @@ cross_DynamoDBDataTracker:
 cross_ApiGatewayDataTracker:
   title: Create an &ABP; REST API to track COVID-19 data
   title_abbrev: Create a REST API to track COVID-19 data
-  synopsis: create a REST API that simulates a system to track daily cases of COVID-19 in the United States, using fictional
+  synopsis:
+    create a REST API that simulates a system to track daily cases of COVID-19 in the United States, using fictional
     data.
   category: Scenarios
   languages:
@@ -276,7 +279,8 @@ cross_ApiGatewayWebsocketChat:
 cross_AuroraRestLendingLibrary:
   title: Create a lending library REST API
   title_abbrev: Create a lending library REST API
-  synopsis: create a lending library where patrons can borrow and return books by using a REST API backed by an &AURlong;
+  synopsis:
+    create a lending library where patrons can borrow and return books by using a REST API backed by an &AURlong;
     database.
   category: Scenarios
   languages:
@@ -318,8 +322,6 @@ cross_TextractExplorer:
       versions:
         - sdk_version: 3
           block_content: cross_TextractExplorer_JavaScript_block.xml
-          add_services:
-            cognito-identity:
     Python:
       versions:
         - sdk_version: 3
@@ -327,6 +329,7 @@ cross_TextractExplorer:
           block_content: cross_TextractExplorer_Python_block.xml
   service_main: textract
   services:
+    cognito-identity:
     s3:
     sns:
     sqs:
@@ -379,16 +382,10 @@ cross_LambdaAPIGateway:
       versions:
         - sdk_version: 2
           block_content: cross_LambdaAPIGateway_Java_block.xml
-          add_services:
-            dynamodb:
-            sns:
     JavaScript:
       versions:
         - sdk_version: 3
           block_content: cross_LambdaAPIGateway_JavaScript_block.xml
-          add_services:
-            dynamodb:
-            sns:
     Python:
       versions:
         - sdk_version: 3
@@ -397,7 +394,9 @@ cross_LambdaAPIGateway:
   service_main: lambda
   services:
     api-gateway:
+    dynamodb:
     lambda:
+    sns:
 cross_LambdaScheduledEvents:
   title: Use scheduled events to invoke a &LAM; function
   title_abbrev: Use scheduled events to invoke a &LAM; function
@@ -408,27 +407,22 @@ cross_LambdaScheduledEvents:
       versions:
         - sdk_version: 2
           block_content: cross_LambdaScheduledEvents_Java_block.xml
-          add_services:
-            dynamodb:
-            sns:
     JavaScript:
       versions:
         - sdk_version: 3
           block_content: cross_LambdaScheduledEvents_JavaScript_block.xml
-          add_services:
-            dynamodb:
-            sns:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/lambda
           block_content: cross_LambdaScheduledEvents_Python_block.xml
-          add_services:
-            cloudwatch-logs:
   service_main: lambda
   services:
+    cloudwatch-logs:
+    dynamodb:
     eventbridge:
     lambda:
+    sns:
 cross_ServerlessWorkflows:
   title: Use &SFN; to invoke &LAM; functions
   title_abbrev: Use &SFN; to invoke &LAM; functions
@@ -520,20 +514,18 @@ cross_RekognitionVideoDetection:
       versions:
         - sdk_version: 2
           block_content: cross_RekognitionVideoAnalyzer_Java_block.xml
-          add_services:
-            s3:
-            ses:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/rekognition
           block_content: cross_RekognitionVideoDetection_Python_block.xml
-          add_services:
-            sns:
-            sqs:
   service_main: rekognition
   services:
     rekognition:
+    s3:
+    ses:
+    sns:
+    sqs:
 cross_DetectFaces:
   title: Detect faces in an image using an &AWS; SDK
   title_abbrev: Detect faces in an image
@@ -608,7 +600,8 @@ cross_LambdaForBrowser:
 cross_ResilientService:
   title: Build and manage a resilient service using an &AWS; SDK
   title_abbrev: Build and manage a resilient service
-  synopsis: create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the
+  synopsis:
+    create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the
     service responds to failures, and how to restructure the service for more resilience when failures occur.
   synopsis_list:
     - Use an &ASlong; group to create &EC2long; (&EC2;) instances based on a launch template and to keep the number of instances
@@ -699,12 +692,38 @@ cross_ResilientService:
               snippet_files:
                 - javascriptv3/example_code/cross-services/wkflw-resilient-service/steps-destroy.js
   services:
-    auto-scaling: {CreateAutoScalingGroup, DescribeAutoScalingGroups, TerminateInstanceInAutoScalingGroup, AttachLoadBalancerTargetGroups,
-                   DeleteAutoScalingGroup, UpdateAutoScalingGroup}
-    ec2: {DescribeIamInstanceProfileAssociations, ReplaceIamInstanceProfileAssociation, RebootInstances, CreateLaunchTemplate,
-          DeleteLaunchTemplate, DescribeAvailabilityZones, DescribeInstances, DescribeVpcs, DescribeSubnets}
-    elastic-load-balancing-v2: {DescribeLoadBalancers, CreateTargetGroup, DescribeTargetGroups, DeleteTargetGroup, CreateLoadBalancer,
-                                CreateListener, DeleteLoadBalancer, DescribeTargetHealth}
+    auto-scaling:
+      {
+        CreateAutoScalingGroup,
+        DescribeAutoScalingGroups,
+        TerminateInstanceInAutoScalingGroup,
+        AttachLoadBalancerTargetGroups,
+        DeleteAutoScalingGroup,
+        UpdateAutoScalingGroup,
+      }
+    ec2:
+      {
+        DescribeIamInstanceProfileAssociations,
+        ReplaceIamInstanceProfileAssociation,
+        RebootInstances,
+        CreateLaunchTemplate,
+        DeleteLaunchTemplate,
+        DescribeAvailabilityZones,
+        DescribeInstances,
+        DescribeVpcs,
+        DescribeSubnets,
+      }
+    elastic-load-balancing-v2:
+      {
+        DescribeLoadBalancers,
+        CreateTargetGroup,
+        DescribeTargetGroups,
+        DeleteTargetGroup,
+        CreateLoadBalancer,
+        CreateListener,
+        DeleteLoadBalancer,
+        DescribeTargetHealth,
+      }
     iam: {CreateInstanceProfile, DeleteInstanceProfile}
 cross_FMPlayground:
   title: Create a sample application that offers playgrounds to interact with &BR; foundation models using an &AWS; SDK
@@ -854,7 +873,8 @@ cross_CognitoAutoConfirmUser:
               snippet_files:
                 - javascriptv3/example_code/cross-services/wkflw-pools-triggers/actions/dynamodb-actions.js
   services:
-    cognito-identity-provider: {UpdateUserPool, SignUp, InitiateAuth, DeleteUser}
+    cognito-identity-provider:
+      {UpdateUserPool, SignUp, InitiateAuth, DeleteUser}
     lambda: {}
 cross_CognitoAutoMigrateUser:
   title: Automatically migrate known &COG; users with a &LAM; function using an &AWS; SDK
@@ -899,7 +919,15 @@ cross_CognitoAutoMigrateUser:
               snippet_tags:
                 - gov2.cognito-identity-provider.Resources.complete
   services:
-    cognito-identity-provider: {UpdateUserPool, SignUp, InitiateAuth, ForgotPassword, ConfirmForgotPassword, DeleteUser}
+    cognito-identity-provider:
+      {
+        UpdateUserPool,
+        SignUp,
+        InitiateAuth,
+        ForgotPassword,
+        ConfirmForgotPassword,
+        DeleteUser,
+      }
     lambda: {}
 cross_CognitoCustomActivityLog:
   title: Write custom activity data with a &LAM; function after &COG; user authentication using an &AWS; SDK
@@ -944,7 +972,14 @@ cross_CognitoCustomActivityLog:
               snippet_tags:
                 - gov2.cognito-identity-provider.Resources.complete
   services:
-    cognito-identity-provider: {UpdateUserPool, InitiateAuth, DeleteUser, AdminCreateUser, AdminSetUserPassword}
+    cognito-identity-provider:
+      {
+        UpdateUserPool,
+        InitiateAuth,
+        DeleteUser,
+        AdminCreateUser,
+        AdminSetUserPassword,
+      }
     lambda: {}
 cross_MonitorDynamoDB:
   title: Monitor performance of &DDBlong; using an &AWS; SDK

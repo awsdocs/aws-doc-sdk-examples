@@ -38,10 +38,31 @@ python -m pip install -r requirements.txt
 > see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 >
 <!--custom.prerequisites.end-->
+
+### Get started
+
+- [Hello Amazon Bedrock Runtime](hello/hello_bedrock_runtime_invoke.py#L5) (`InvokeModel`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
+
 ### AI21 Labs Jurassic-2
 
 - [Converse](models/ai21_labs_jurassic2/converse.py#L4)
 - [InvokeModel](models/ai21_labs_jurassic2/invoke_model.py#L4)
+
+### Amazon Nova
+
+- [Converse](models/amazon_nova/amazon_nova_text/converse.py#L4)
+- [ConverseStream](models/amazon_nova/amazon_nova_text/converse_stream.py#L4)
+
+### Amazon Nova Canvas
+
+- [InvokeModel](models/amazon_nova/amazon_nova_canvas/invoke_model.py#L4)
 
 ### Amazon Titan Image Generator
 
@@ -120,7 +141,32 @@ Mistral AI.
 
 <!--custom.instructions.end-->
 
+#### Hello Amazon Bedrock Runtime
 
+This example shows you how to get started using Amazon Bedrock Runtime.
+
+```
+python hello/hello_bedrock_runtime_invoke.py
+```
+
+
+#### Tool use with the Converse API
+
+This example shows you how to build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input.
+
+
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_ToolUse.start-->
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_ToolUse.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python cross-model-scenarios/tool_use_demo/tool_use_demo.py
+```
+
+
+<!--custom.scenarios.bedrock-runtime_Scenario_ToolUse.start-->
+<!--custom.scenarios.bedrock-runtime_Scenario_ToolUse.end-->
 
 ### Tests
 

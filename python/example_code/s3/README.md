@@ -88,6 +88,7 @@ functions within the same service.
 - [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
 - [Detect entities in text extracted from an image](../../cross_service/textract_comprehend_notebook)
 - [Detect objects in images](../../cross_service/photo_analyzer)
+- [Detect people and objects in a video](../../example_code/rekognition)
 - [Make conditional requests](scenarios/conditional_requests/scenario.py)
 - [Manage versioned objects in batches with a Lambda function](../../example_code/s3/s3_versioning)
 - [Upload or download large files](file_transfer/file_transfer.py)
@@ -190,6 +191,18 @@ This example shows you how to build an app that uses Amazon Rekognition to detec
 
 <!--custom.scenarios.cross_RekognitionPhotoAnalyzer.start-->
 <!--custom.scenarios.cross_RekognitionPhotoAnalyzer.end-->
+
+#### Detect people and objects in a video
+
+This example shows you how to detect people and objects in a video with Amazon Rekognition.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionVideoDetection.start-->
+<!--custom.scenario_prereqs.cross_RekognitionVideoDetection.end-->
+
+
+<!--custom.scenarios.cross_RekognitionVideoDetection.start-->
+<!--custom.scenarios.cross_RekognitionVideoDetection.end-->
 
 #### Make conditional requests
 
