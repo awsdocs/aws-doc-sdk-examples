@@ -22,7 +22,7 @@ import static software.amazon.awssdk.services.bedrockruntime.model.InvokeModelWi
 
 public class InvokeModelWithResponseStream {
 
-    public static String invokeModelWithResponseStream() throws ExecutionException, InterruptedException {
+    public static String invokeModelWithResponseStream() {
 
         // Create a Bedrock Runtime client in the AWS Region you want to use.
         // Replace the DefaultCredentialsProvider with your preferred credentials provider.

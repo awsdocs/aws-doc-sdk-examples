@@ -68,6 +68,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 - [ConverseStream](src/main/java/com/example/bedrockruntime/models/anthropicClaude/ConverseStream.java#L6)
 - [InvokeModel](src/main/java/com/example/bedrockruntime/models/anthropicClaude/InvokeModel.java#L6)
 - [InvokeModelWithResponseStream](src/main/java/com/example/bedrockruntime/models/anthropicClaude/InvokeModelWithResponseStream.java#L6)
+- [Reasoning](src/main/java/com/example/bedrockruntime/models/anthropicClaude/ReasoningAsync.java#L6)
+- [Reasoning with a streaming response](src/main/java/com/example/bedrockruntime/models/anthropicClaude/ReasoningStream.java#L6)
 
 ### Cohere Command
 
