@@ -120,7 +120,7 @@ namespace PartiQL_Batch_Scenario
             int year1,
             int year2)
         {
-            var getBatch = $"SELECT FROM {tableName} WHERE title = ? AND year = ?";
+            var getBatch = $"SELECT * FROM {tableName} WHERE title = ? AND year = ?";
             var statements = new List<BatchStatementRequest>
             {
                 new BatchStatementRequest

@@ -9,8 +9,8 @@
 
 // Separator for the console display.
 var SepBar = new string('-', 80);
-const string tableName = "movie_table";
-const string movieFileName = "moviedata.json";
+const string tableName = "movie_table6";
+const string movieFileName = @"..\..\..\..\..\..\..\..\resources\sample_files\movies.json";
 
 DisplayInstructions();
 
