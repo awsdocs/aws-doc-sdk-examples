@@ -27,7 +27,7 @@ def test_create_table(
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
-            dyn_stubber.stub_create_table, table_name, schema, {"read": 10, "write": 10}
+            dyn_stubber.stub_create_table, table_name, schema
         )
         runner.add(dyn_stubber.stub_describe_table, table_name)
 

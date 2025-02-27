@@ -50,7 +50,7 @@ def create_table(table_name, schema):
                 {"AttributeName": item["name"], "AttributeType": item["type"]}
                 for item in schema
             ],
-            ProvisionedThroughput={"ReadCapacityUnits": 10, "WriteCapacityUnits": 10},
+            BillingMode='PAY_PER_REQUEST',
         )
         table.wait_until_exists()
         logger.info("Created table %s.", table.name)
@@ -194,14 +194,7 @@ def archive_movies(movie_table, movie_data):
             TableName=f"{movie_table.name}-archive",
             KeySchema=movie_table.key_schema,
             AttributeDefinitions=movie_table.attribute_definitions,
-            ProvisionedThroughput={
-                "ReadCapacityUnits": movie_table.provisioned_throughput[
-                    "ReadCapacityUnits"
-                ],
-                "WriteCapacityUnits": movie_table.provisioned_throughput[
-                    "WriteCapacityUnits"
-                ],
-            },
+            BillingMode='PAY_PER_REQUEST',
         )
         logger.info("Table %s created, wait until exists.", archive_table.name)
         archive_table.wait_until_exists()
