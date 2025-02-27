@@ -3,14 +3,10 @@
 
 // snippet-start:[PartiQL.dotnetv3.PartiQLBasicsScenario]
 
-// Before you run this example, download 'movies.json' from
-// https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
-// and put it in the same folder as the example.
-
 // Separator for the console display.
 var SepBar = new string('-', 80);
 const string tableName = "movie_table";
-const string movieFileName = "moviedata.json";
+const string movieFileName = @"..\..\..\..\..\..\..\..\resources\sample_files\movies.json";
 
 var client = new AmazonDynamoDBClient();
 
