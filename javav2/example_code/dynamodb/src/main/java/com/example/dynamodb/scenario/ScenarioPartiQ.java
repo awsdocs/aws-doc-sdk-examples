@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.BillingMode;
 import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
@@ -59,21 +60,7 @@ import java.util.Iterator;
 // snippet-start:[dynamodb.java2.scenario.partiql.main]
 public class ScenarioPartiQ {
     public static void main(String[] args) throws IOException {
-        final String usage = """
-
-                Usage:
-                    <fileName>
-
-                Where:
-                    fileName - The path to the moviedata.json file that you can download from the Amazon DynamoDB Developer Guide.
-                """;
-
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
-
-        String fileName = args[0];
+        String fileName = "../../../resources/sample_files/movies.json";
         String tableName = "MoviesPartiQ";
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
@@ -136,10 +123,7 @@ public class ScenarioPartiQ {
 
         CreateTableRequest request = CreateTableRequest.builder()
                 .keySchema(tableKey)
-                .provisionedThroughput(ProvisionedThroughput.builder()
-                        .readCapacityUnits(new Long(10))
-                        .writeCapacityUnits(new Long(10))
-                        .build())
+            .billingMode(BillingMode.PAY_PER_REQUEST) //  DynamoDB automatically scales based on traffic.
                 .attributeDefinitions(attributeDefinitions)
                 .tableName(tableName)
                 .build();
