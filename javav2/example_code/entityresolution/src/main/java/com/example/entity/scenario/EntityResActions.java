@@ -321,7 +321,6 @@ public class EntityResActions {
                     logger.info("Job status: " + response.status());
                     logger.info("Job details: " + response.toString());
                 } else {
-                    // Handle the case where there is an exception.
                     if (exception == null) {
                         throw new CompletionException("An unknown error occurred while fetching the matching job.", null);
                     }
@@ -358,7 +357,6 @@ public class EntityResActions {
                     String jobId = response.jobId();
                     logger.info("Job ID: " + jobId);
                 } else {
-                    // Ensure exception is not null before accessing its cause.
                     if (exception == null) {
                         throw new CompletionException("An unknown error occurred while starting the job.", null);
                     }
@@ -531,8 +529,6 @@ public class EntityResActions {
                     if (cause instanceof ResourceNotFoundException) {
                         throw new CompletionException("The resource to tag was not found.", cause);
                     }
-
-                    // Wrap other AWS exceptions in a CompletionException.
                     throw new CompletionException("Failed to tag the resource: " + exception.getMessage(), exception);
                 }
             });
@@ -549,19 +545,9 @@ public class EntityResActions {
                     logger.info("Job metrics fetched successfully for jobId: " + jobId);
                 } else {
                     Throwable cause = exception.getCause();
-
-
                     if (cause instanceof ResourceNotFoundException) {
-                        // Handle validation errors if needed
                         throw new CompletionException("Invalid request: Job id was not found.", cause);
                     }
-
-                    if (cause instanceof ConflictException) {
-                        // Handle conflict errors if needed
-                        throw new CompletionException("A conflicting request occurred. Resolve conflicts before proceeding.", cause);
-                    }
-
-                    // Generic failure case
                     throw new CompletionException("Failed to fetch job info: " + exception.getMessage(), exception);
                 }
             })

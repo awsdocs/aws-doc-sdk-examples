@@ -44,6 +44,7 @@ public class EntityResScenario {
     private static Scanner scanner = new Scanner(System.in);
 
     private static EntityResActions actions = new EntityResActions();
+
     public static void main(String[] args) throws InterruptedException {
 
         logger.info("Welcome to the AWS Entity Resolution Scenario.");
@@ -105,6 +106,7 @@ public class EntityResScenario {
             logger.error("An exception happened: " + (cause != null ? cause.getMessage() : ce.getMessage()));
         }
     }
+
     private static void runScenario() throws InterruptedException {
         /*
          This JSON is a valid input for the AWS Entity Resolution service.
@@ -136,18 +138,12 @@ public class EntityResScenario {
 
             if (cause == null) {
                 logger.error("Failed to upload input data: {}", ce.getMessage(), ce);
-                throw ce;
             }
 
             if (cause instanceof ResourceNotFoundException) {
-                logger.error("The S3 bucket could not be found: {}", cause.getMessage(), cause);
-            } else {
-                logger.error("Failed to upload input data: {}", cause.getMessage(), cause);
+                logger.error("Failed to upload input data as the resource was not found: {}", cause.getMessage(), cause);
             }
-
-            // Always wrap checked exceptions in a CompletionException
-            throw (cause instanceof RuntimeException) ? (RuntimeException) cause
-                : new CompletionException("Unhandled checked exception during input data upload", cause);
+            return;
         }
         logger.info("The JSON and CSV objects have been uploaded to the S3 bucket.");
         waitForInputToContinue(scanner);
@@ -174,7 +170,6 @@ public class EntityResScenario {
 
             if (cause == null) {
                 logger.error("Failed to create JSON schema mapping: {}", ce.getMessage(), ce);
-                throw ce;
             }
 
             if (cause instanceof ConflictException) {
@@ -182,10 +177,7 @@ public class EntityResScenario {
             } else {
                 logger.error("Unexpected error while creating schema mapping: {}", cause.getMessage(), cause);
             }
-
-            // Ensure that all exceptions are properly wrapped in a RuntimeException or CompletionException
-            throw (cause instanceof RuntimeException) ? (RuntimeException) cause
-                : new CompletionException("Unhandled checked exception in schema mapping creation", cause);
+            return;
         }
 
         try {
@@ -194,10 +186,8 @@ public class EntityResScenario {
             logger.info("The CSV schema mapping name is " + csvSchemaMappingName);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-
             if (cause == null) {
                 logger.error("Failed to create CSV schema mapping: {}", ce.getMessage(), ce);
-                throw ce;
             }
 
             if (cause instanceof ConflictException) {
@@ -205,10 +195,7 @@ public class EntityResScenario {
             } else {
                 logger.error("Unexpected error while creating CSV schema mapping: {}", cause.getMessage(), cause);
             }
-
-            // Ensure that all exceptions are properly wrapped in a RuntimeException or CompletionException
-            throw (cause instanceof RuntimeException) ? (RuntimeException) cause
-                : new CompletionException("Unhandled checked exception in schema mapping creation", cause);
+            return;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -228,15 +215,16 @@ public class EntityResScenario {
             """);
         waitForInputToContinue(scanner);
         try {
-            String workflowArn = actions.createMatchingWorkflowAsync(roleARN, workflowName, glueBucketName, jsonGlueTableArn, jsonSchemaMappingName, csvGlueTableArn, csvSchemaMappingName).join();
+            String workflowArn = actions.createMatchingWorkflowAsync(
+                roleARN, workflowName, glueBucketName, jsonGlueTableArn,
+                jsonSchemaMappingName, csvGlueTableArn, csvSchemaMappingName).join();
+
             logger.info("The workflow ARN is: " + workflowArn);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
 
             if (cause == null) {
-                // Log the exception and rethrow the CompletionException if no cause is found
                 logger.error("An unexpected error occurred: {}", ce.getMessage(), ce);
-                throw ce;
             }
 
             if (cause instanceof ValidationException) {
@@ -244,18 +232,12 @@ public class EntityResScenario {
             } else if (cause instanceof ConflictException) {
                 logger.error("Workflow conflict detected: {}", cause.getMessage(), cause);
             } else {
-                logger.error("Unexpected error: {}", ce.getMessage(), ce);
+                logger.error("Unexpected error: {}", cause.getMessage(), cause);
             }
-
-            // Rethrow as a RuntimeException if cause is a RuntimeException, else rethrow CompletionException
-            if (cause instanceof RuntimeException) {
-                throw (RuntimeException) cause;
-            } else {
-                throw new CompletionException("Unhandled exception occurred during workflow creation", cause);
-            }
+            return;
         }
-        waitForInputToContinue(scanner);
 
+        waitForInputToContinue(scanner);
         logger.info(DASHES);
         logger.info("3. Start the matching job of the " + workflowName + " workflow.");
         waitForInputToContinue(scanner);
@@ -265,18 +247,12 @@ public class EntityResScenario {
             logger.info("The matching job was successfully started.");
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-
             if (cause instanceof ConflictException) {
                 logger.error("Job conflict detected: {}", cause.getMessage(), cause);
-            } else if (cause instanceof RuntimeException) {
-                // Log and rethrow RuntimeException, ensuring it's captured in the first block
-                logger.error("Runtime error while starting the job: {}", cause.getMessage(), cause);
-                throw (RuntimeException) cause; // Rethrow RuntimeException for the first block to handle
             } else {
                 logger.error("Unexpected error while starting the job: {}", ce.getMessage(), ce);
-                // For other checked exceptions, wrap them in a new CompletionException
-                throw new CompletionException("Unhandled checked exception while starting the job.", cause);
             }
+            return;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -288,8 +264,12 @@ public class EntityResScenario {
             actions.getMatchingJobAsync(jobId, workflowName).join();
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            logger.error("Failed to start matching job: " + (cause != null ? cause.getMessage() : ce.getMessage()));
-            throw ce;
+            if (cause instanceof ResourceNotFoundException) {
+                logger.error("The matching job not found: {}", cause.getMessage(), cause);
+            } else {
+                logger.error("Failed to start matching job: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+            }
+            return;
         }
         logger.info(DASHES);
 
@@ -301,8 +281,13 @@ public class EntityResScenario {
             jsonSchemaMappingArn = response.schemaArn();
             logger.info("Schema mapping ARN is " + jsonSchemaMappingArn);
         } catch (CompletionException ce) {
-            logger.error("Error retrieving the specific schema mapping: " + ce.getCause().getMessage());
-            throw ce;
+            Throwable cause = ce.getCause();
+            if (cause instanceof ResourceNotFoundException) {
+                logger.error("Schema mapping not found: {}", cause.getMessage(), cause);
+            } else {
+                logger.error("Error retrieving the specific schema mapping: " + ce.getCause().getMessage());
+            }
+            return;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -312,8 +297,8 @@ public class EntityResScenario {
         try {
             actions.ListSchemaMappings();
         } catch (CompletionException ce) {
-            logger.error("Error retrieving schema mapping: " + ce.getCause().getMessage());
-            throw ce;
+            logger.error("Error retrieving schema mappings: " + ce.getCause().getMessage());
+            return;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -331,7 +316,7 @@ public class EntityResScenario {
             actions.tagEntityResource(jsonSchemaMappingArn).join();
         } catch (CompletionException ce) {
             logger.error("Error tagging the resource: " + ce.getCause().getMessage());
-            throw ce;
+            return;
         }
 
         waitForInputToContinue(scanner);
@@ -352,32 +337,42 @@ public class EntityResScenario {
         if (viewAns.equalsIgnoreCase("y")) {
             logger.info("You selected to view the Entity Resolution Workflow results.");
             countdownWithWorkflowCheck(actions, 1800, jobId, workflowName);
-            JobMetrics metrics = actions.getJobInfo(workflowName, jobId).join();
-            logger.info("Number of input records: {}", metrics.inputRecords());
-            logger.info("Number of match ids: {}", metrics.matchIDs());
-            logger.info("Number of records not processed: {}", metrics.recordsNotProcessed());
-            logger.info("Number of total records processed: {}", metrics.totalRecordsProcessed());
-            logger.info("""
-                  
-                  The output of the machinelearning-based matching job is a CSV file in the S3 bucket. The following is a sample of the output:
-                  
-                  ------------------------------------------------------------------------------ ----------------- ---- ------------------ --------------------------- -------------- ---------- ---------------------------------------------------\s
-                  InputSourceARN                                                                 ConfidenceLevel   id   name               email                       phone          RecordId   MatchID                                           \s
-                 ------------------------------------------------------------------------------ ----------------- ---- ------------------ --------------------------- -------------- ---------- ---------------------------------------------------\s
-                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable                      7    Jane E. Doe        jane_doe@company.com        111-222-3333   7          036298535ed6471ebfc358fc76e1f51200006472446402560 \s
-                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.90523           2    Bob Smith Jr.      bob.smith@example.com       987-654-3210   2          6ae2d360d6594089837eafc31b20f31600003506806140928 \s
-                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.90523           2    Bob Smith          bob.smith@example.com                      2          6ae2d360d6594089837eafc31b20f31600003506806140928 \s
-                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.89398956        1    Alice B. Johnson   alice.johnson@example.com   746-876-9846   1          34a5075b289247efa1847ab292ed677400009137438953472 \s
-                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.89398956        1    Alice Johnson      alice.johnson@example.com                  1          34a5075b289247efa1847ab292ed677400009137438953472 \s
-                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.605295          3    Charlie Black      charlie.black@company.com   345-567-1234   3          92c8ef3f68b34948a3af998d700ed02700002146028888064 \s
-                  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.605295          3    Charlie Black      charlie.black@example.com                  3          92c8ef3f68b34948a3af998d700ed02700002146028888064 \s
-                                    
-                Note that each of the last 3 pairs of records are considered a match even though the 'name' or 'email' differ between the records;
-                For example 'Bob Smith Jr.' compared to 'Bob Smith'.
-                The confidence level is a value between 0 and 1, where 1 indicates a perfect match. In the last pair of matched records, 
-                the confidence level is lower for the differing email addresses.
-                                    
-                """);
+            try {
+                JobMetrics metrics = actions.getJobInfo(workflowName, jobId).join();
+                logger.info("Number of input records: {}", metrics.inputRecords());
+                logger.info("Number of match ids: {}", metrics.matchIDs());
+                logger.info("Number of records not processed: {}", metrics.recordsNotProcessed());
+                logger.info("Number of total records processed: {}", metrics.totalRecordsProcessed());
+                logger.info("""
+                      
+                      The output of the machinelearning-based matching job is a CSV file in the S3 bucket. The following is a sample of the output:
+                      
+                      ------------------------------------------------------------------------------ ----------------- ---- ------------------ --------------------------- -------------- ---------- ---------------------------------------------------\s
+                      InputSourceARN                                                                 ConfidenceLevel   id   name               email                       phone          RecordId   MatchID                                           \s
+                     ------------------------------------------------------------------------------ ----------------- ---- ------------------ --------------------------- -------------- ---------- ---------------------------------------------------\s
+                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable                      7    Jane E. Doe        jane_doe@company.com        111-222-3333   7          036298535ed6471ebfc358fc76e1f51200006472446402560 \s
+                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.90523           2    Bob Smith Jr.      bob.smith@example.com       987-654-3210   2          6ae2d360d6594089837eafc31b20f31600003506806140928 \s
+                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.90523           2    Bob Smith          bob.smith@example.com                      2          6ae2d360d6594089837eafc31b20f31600003506806140928 \s
+                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.89398956        1    Alice B. Johnson   alice.johnson@example.com   746-876-9846   1          34a5075b289247efa1847ab292ed677400009137438953472 \s
+                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.89398956        1    Alice Johnson      alice.johnson@example.com                  1          34a5075b289247efa1847ab292ed677400009137438953472 \s
+                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.605295          3    Charlie Black      charlie.black@company.com   345-567-1234   3          92c8ef3f68b34948a3af998d700ed02700002146028888064 \s
+                      arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.605295          3    Charlie Black      charlie.black@example.com                  3          92c8ef3f68b34948a3af998d700ed02700002146028888064 \s
+                                        
+                    Note that each of the last 3 pairs of records are considered a match even though the 'name' or 'email' differ between the records;
+                    For example 'Bob Smith Jr.' compared to 'Bob Smith'.
+                    The confidence level is a value between 0 and 1, where 1 indicates a perfect match. In the last pair of matched records, 
+                    the confidence level is lower for the differing email addresses.
+                                        
+                    """);
+            } catch (CompletionException ce) {
+                Throwable cause = ce.getCause();
+                if (cause instanceof ResourceNotFoundException) {
+                    logger.error("The job not found: {}", cause.getMessage(), cause);
+                } else {
+                    logger.error("Error retrieving job information: " + ce.getCause().getMessage());
+                }
+                return;
+            }
 
             logger.info("Do you want to delete the resources, including the workflow? (y/n)");
             String delAns = scanner.nextLine().trim();
