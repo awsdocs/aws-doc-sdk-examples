@@ -38,8 +38,7 @@ The AWS Entity Resolution Basics scenario executes the following operations.
       should be resolved and matched. The method `createMatchingWorkflow` is
       called.
     - Exception Handling: Check to see if a `ConflictException` is thrown, which
-      is thrown if the matching workflow already exists. If so, display the
-      message and end the program.
+      is thrown if the matching workflow already exists. ALso check to see if a `ValidationException` is thrown. If so, display the message and end the program.
 
 3. **Start Matching Workflow**:
     - Description: Initiates a matching workflow by calling the
