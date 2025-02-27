@@ -153,7 +153,10 @@ namespace PartiQL_Batch_Scenario
             {
                 response.Responses.ForEach(r =>
                 {
-                    Console.WriteLine($"{r.Item["title"]}\t{r.Item["year"]}");
+                    if (r.Item.Any())
+                    {
+                        Console.WriteLine($"{r.Item["title"]}\t{r.Item["year"]}");
+                    }
                 });
                 return true;
             }
