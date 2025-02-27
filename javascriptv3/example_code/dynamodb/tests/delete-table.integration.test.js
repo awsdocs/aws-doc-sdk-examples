@@ -28,10 +28,7 @@ describe("delete-table", () => {
           KeyType: "HASH",
         },
       ],
-      ProvisionedThroughput: {
-        ReadCapacityUnits: 1,
-        WriteCapacityUnits: 1,
-      },
+      BillingMode: "PAY_PER_REQUEST",
     });
 
     await client.send(createTableCommand);
