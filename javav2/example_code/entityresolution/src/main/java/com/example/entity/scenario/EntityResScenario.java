@@ -4,12 +4,19 @@
 package com.example.entity.scenario;
 
 
+import software.amazon.awssdk.core.exception.SdkException;
+import software.amazon.awssdk.services.entityresolution.model.AccessDeniedException;
+import software.amazon.awssdk.services.entityresolution.model.ConflictException;
 import software.amazon.awssdk.services.entityresolution.model.CreateSchemaMappingResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.services.entityresolution.model.GetMatchingJobResponse;
 import software.amazon.awssdk.services.entityresolution.model.GetSchemaMappingResponse;
 import software.amazon.awssdk.services.entityresolution.model.JobMetrics;
+import software.amazon.awssdk.services.entityresolution.model.ResourceNotFoundException;
+import software.amazon.awssdk.services.entityresolution.model.ThrottlingException;
+import software.amazon.awssdk.services.entityresolution.model.ValidationException;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -28,16 +35,17 @@ public class EntityResScenario {
     private static String glueBucketName;
     private static String workflowName = "workflow-" + UUID.randomUUID();
 
-    public static void main(String[] args) throws InterruptedException {
-        String jsonSchemaMappingName = "jsonschema-" + UUID.randomUUID();
-        String jsonSchemaMappingArn = null;
-        String csvSchemaMappingName = "csv-" + UUID.randomUUID();
-        String roleARN;
-        String csvGlueTableArn;
-        String jsonGlueTableArn;
+    private static String jsonSchemaMappingName = "jsonschema-" + UUID.randomUUID();
+    private static String jsonSchemaMappingArn = null;
+    private static String csvSchemaMappingName = "csv-" + UUID.randomUUID();
+    private static String roleARN;
+    private static String csvGlueTableArn;
+    private static String jsonGlueTableArn;
+    private static Scanner scanner = new Scanner(System.in);
 
-        EntityResActions actions = new EntityResActions();
-        Scanner scanner = new Scanner(System.in);
+    private static EntityResActions actions = new EntityResActions();
+    public static void main(String[] args) throws InterruptedException {
+
         logger.info("Welcome to the AWS Entity Resolution Scenario.");
         logger.info("""
             AWS Entity Resolution is a fully-managed machine learning service provided by 
@@ -88,6 +96,16 @@ public class EntityResScenario {
         jsonGlueTableArn = outputsMap.get(JSON_GLUE_TABLE_ARN_KEY);
         logger.info(DASHES);
         waitForInputToContinue(scanner);
+
+        try {
+            runScenario();
+
+        } catch (Exception ce) {
+            Throwable cause = ce.getCause();
+            logger.error("An exception happened: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+        }
+    }
+    private static void runScenario() throws InterruptedException {
         /*
          This JSON is a valid input for the AWS Entity Resolution service.
          The JSON represents an array of three objects, each containing an "id", "name", and "email"
@@ -115,9 +133,23 @@ public class EntityResScenario {
             actions.uploadInputData(glueBucketName, json, csv);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            logger.error("Failed to create JSON schema mapping: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+
+            if (cause == null) {
+                logger.error("Failed to upload input data: {}", ce.getMessage(), ce);
+                throw ce;
+            }
+
+            if (cause instanceof ResourceNotFoundException) {
+                logger.error("The S3 bucket could not be found: {}", cause.getMessage(), cause);
+            } else {
+                logger.error("Failed to upload input data: {}", cause.getMessage(), cause);
+            }
+
+            // Always wrap checked exceptions in a CompletionException
+            throw (cause instanceof RuntimeException) ? (RuntimeException) cause
+                : new CompletionException("Unhandled checked exception during input data upload", cause);
         }
-        logger.info("The JSON objects have been uploaded to the S3 bucket.");
+        logger.info("The JSON and CSV objects have been uploaded to the S3 bucket.");
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -133,14 +165,27 @@ public class EntityResScenario {
             In this example, the schema mapping lines up with the fields in the JSON ans CSV objects. That is, 
             it contains these fields: id, name, and email. 
             """);
-        waitForInputToContinue(scanner);
         try {
             CreateSchemaMappingResponse response = actions.createSchemaMappingAsync(jsonSchemaMappingName).join();
             jsonSchemaMappingName = response.schemaName();
             logger.info("The JSON schema mapping name is " + jsonSchemaMappingName);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            logger.error("Failed to create JSON schema mapping: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+
+            if (cause == null) {
+                logger.error("Failed to create JSON schema mapping: {}", ce.getMessage(), ce);
+                throw ce;
+            }
+
+            if (cause instanceof ConflictException) {
+                logger.error("Schema mapping conflict detected: {}", cause.getMessage(), cause);
+            } else {
+                logger.error("Unexpected error while creating schema mapping: {}", cause.getMessage(), cause);
+            }
+
+            // Ensure that all exceptions are properly wrapped in a RuntimeException or CompletionException
+            throw (cause instanceof RuntimeException) ? (RuntimeException) cause
+                : new CompletionException("Unhandled checked exception in schema mapping creation", cause);
         }
 
         try {
@@ -149,7 +194,21 @@ public class EntityResScenario {
             logger.info("The CSV schema mapping name is " + csvSchemaMappingName);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            logger.error("Failed to create CSV schema mapping: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+
+            if (cause == null) {
+                logger.error("Failed to create CSV schema mapping: {}", ce.getMessage(), ce);
+                throw ce;
+            }
+
+            if (cause instanceof ConflictException) {
+                logger.error("Schema mapping conflict detected: {}", cause.getMessage(), cause);
+            } else {
+                logger.error("Unexpected error while creating CSV schema mapping: {}", cause.getMessage(), cause);
+            }
+
+            // Ensure that all exceptions are properly wrapped in a RuntimeException or CompletionException
+            throw (cause instanceof RuntimeException) ? (RuntimeException) cause
+                : new CompletionException("Unhandled checked exception in schema mapping creation", cause);
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -173,8 +232,27 @@ public class EntityResScenario {
             logger.info("The workflow ARN is: " + workflowArn);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            logger.error("Failed to create workflow: " + (cause != null ? cause.getMessage() : ce.getMessage()));
-            return;
+
+            if (cause == null) {
+                // Log the exception and rethrow the CompletionException if no cause is found
+                logger.error("An unexpected error occurred: {}", ce.getMessage(), ce);
+                throw ce;
+            }
+
+            if (cause instanceof ValidationException) {
+                logger.error("Validation error: {}", cause.getMessage(), cause);
+            } else if (cause instanceof ConflictException) {
+                logger.error("Workflow conflict detected: {}", cause.getMessage(), cause);
+            } else {
+                logger.error("Unexpected error: {}", ce.getMessage(), ce);
+            }
+
+            // Rethrow as a RuntimeException if cause is a RuntimeException, else rethrow CompletionException
+            if (cause instanceof RuntimeException) {
+                throw (RuntimeException) cause;
+            } else {
+                throw new CompletionException("Unhandled exception occurred during workflow creation", cause);
+            }
         }
         waitForInputToContinue(scanner);
 
@@ -187,8 +265,18 @@ public class EntityResScenario {
             logger.info("The matching job was successfully started.");
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            logger.error("Failed to start matching job: " + (cause != null ? cause.getMessage() : ce.getMessage()));
-            return;
+
+            if (cause instanceof ConflictException) {
+                logger.error("Job conflict detected: {}", cause.getMessage(), cause);
+            } else if (cause instanceof RuntimeException) {
+                // Log and rethrow RuntimeException, ensuring it's captured in the first block
+                logger.error("Runtime error while starting the job: {}", cause.getMessage(), cause);
+                throw (RuntimeException) cause; // Rethrow RuntimeException for the first block to handle
+            } else {
+                logger.error("Unexpected error while starting the job: {}", ce.getMessage(), ce);
+                // For other checked exceptions, wrap them in a new CompletionException
+                throw new CompletionException("Unhandled checked exception while starting the job.", cause);
+            }
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -201,7 +289,7 @@ public class EntityResScenario {
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             logger.error("Failed to start matching job: " + (cause != null ? cause.getMessage() : ce.getMessage()));
-            return;
+            throw ce;
         }
         logger.info(DASHES);
 
@@ -214,7 +302,7 @@ public class EntityResScenario {
             logger.info("Schema mapping ARN is " + jsonSchemaMappingArn);
         } catch (CompletionException ce) {
             logger.error("Error retrieving the specific schema mapping: " + ce.getCause().getMessage());
-            return;
+            throw ce;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -225,7 +313,7 @@ public class EntityResScenario {
             actions.ListSchemaMappings();
         } catch (CompletionException ce) {
             logger.error("Error retrieving schema mapping: " + ce.getCause().getMessage());
-            return;
+            throw ce;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -243,7 +331,7 @@ public class EntityResScenario {
             actions.tagEntityResource(jsonSchemaMappingArn).join();
         } catch (CompletionException ce) {
             logger.error("Error tagging the resource: " + ce.getCause().getMessage());
-            return;
+            throw ce;
         }
 
         waitForInputToContinue(scanner);
@@ -291,7 +379,7 @@ public class EntityResScenario {
                                     
                 """);
 
-            logger.info("Do you want to delete the resources, including the workflow?");
+            logger.info("Do you want to delete the resources, including the workflow? (y/n)");
             String delAns = scanner.nextLine().trim();
             if (delAns.equalsIgnoreCase("y")) {
                 try {
@@ -374,10 +462,11 @@ public class EntityResScenario {
 
             // Check workflow status every 60 seconds.
             if (secondsElapsed % 60 == 0 || remainingTime <= 0) {
-                if (actions.checkWorkflowStatusCompleteAsync(jobId, workflowName).join()) {
+                GetMatchingJobResponse response = actions.checkWorkflowStatusCompleteAsync(jobId, workflowName).join();
+                if (response != null && "SUCCEEDED".equalsIgnoreCase(String.valueOf(response.status()))) {
                     logger.info(""); // Move to the next line after countdown.
-                    logger.info("Countdown complete: Workflow is in SUCCEEDED state!");
-                    break;
+                    logger.info("Countdown complete: Workflow is in Completed state!");
+                    break; // Break out of the loop if the status is "SUCCEEDED"
                 }
             }
 
