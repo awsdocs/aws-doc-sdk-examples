@@ -33,7 +33,7 @@ def create_dax_table(dyn_resource=None):
             {"AttributeName": "partition_key", "AttributeType": "N"},
             {"AttributeName": "sort_key", "AttributeType": "N"},
         ],
-        "ProvisionedThroughput": {"ReadCapacityUnits": 10, "WriteCapacityUnits": 10},
+        "BillingMode": "PAY_PER_REQUEST",
     }
     table = dyn_resource.create_table(**params)
     print(f"Creating {table_name}...")
