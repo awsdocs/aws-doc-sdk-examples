@@ -28,7 +28,7 @@ async fn create_table(common: &Common) -> Result<(), impl std::error::Error> {
             AttributeDefinition::builder()
                 .attribute_name("Label")
                 .attribute_type(aws_sdk_dynamodb::types::ScalarAttributeType::S),
-                .billing_mode(aws_sdk_dynamodb::types::BillingMode::PayPerRequest
+                .billing_mode(aws_sdk_dynamodb::types::BillingMode::PayPerRequest)
                 .build(),
         )
         .send()
