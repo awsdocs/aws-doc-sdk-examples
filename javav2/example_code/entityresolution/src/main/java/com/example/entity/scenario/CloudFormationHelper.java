@@ -100,7 +100,7 @@ public class CloudFormationHelper {
                     }
                 }).join();
         } else {
-            logger.info("{} stack already exists", CFN_TEMPLATE);
+            logger.info("{} stack already exists", stackName);
         }
     }
 
