@@ -428,20 +428,20 @@ This concludes the AWS Entity Resolution scenario.
 
 The following table describes the metadata used in this Basics Scenario.
 
-| action                 | metadata file                    | metadata key                         |
-|------------------------|----------------------------------|--------------------------------------|
-| `createWorkflow`       | entityresolution_metadata.yaml   |entityresolution_CreateWorkflow       |
-| `createSchemaMapping`  | entityresolution_metadata.yaml   |entityresolution_CreateMapping        |
-| `startMatchingJob`     | entityresolution_metadata.yaml   |entityresolution_StartMatchingJob     |
-| `getMatchingJob`       | entityresolution_metadata.yaml   |entityresolution_GetMatchingJob       |
-| `listMatchingWorkflows`| entityresolution_metadata.yaml   |entityresolution_ListMatchingWorkflows|
-| `getSchemaMapping`     | entityresolution_metadata.yaml   |entityresolution_GetSchemaMapping     |
-| `listSchemaMappings`   | entityresolution_metadata.yaml   |entityresolution_ListSchemaMappings   |
-| `tagResource `         | entityresolution_metadata.yaml   |entityresolution_TagResource          |
-| `deleteWorkflow `      | entityresolution_metadata.yaml   |entityresolution_DeleteWorkflow       |
-| `deleteMapping `       | entityresolution_metadata.yaml   |entityresolution_DeleteSchemaMapping  |
-| `listMappingJobs `     | entityresolution_metadata.yaml   |entityresolution_Hello                |
-| `scenario`             | entityresolution_metadata.yaml   |entityresolution_Scenario             |
+| action                 | metadata file                  | metadata key                               |
+|------------------------|--------------------------------|--------------------------------------------|
+| `createWorkflow`       | entityresolution_metadata.yaml |entityresolution_CreateMatchingWorkflow     |
+| `createSchemaMapping`  | entityresolution_metadata.yaml |entityresolution_CreateSchemaMapping        |
+| `startMatchingJob`     | entityresolution_metadata.yaml |entityresolution_StartMatchingJob           |
+| `getMatchingJob`       | entityresolution_metadata.yaml |entityresolution_GetMatchingJob             |
+| `listMatchingWorkflows`| entityresolution_metadata.yaml |entityresolution_ListMatchingWorkflows      |
+| `getSchemaMapping`     | entityresolution_metadata.yaml |entityresolution_GetSchemaMapping           |
+| `listSchemaMappings`   | entityresolution_metadata.yaml |entityresolution_ListSchemaMappings         |
+| `tagResource `         | entityresolution_metadata.yaml |entityresolution_TagEntityResource          |
+| `deleteWorkflow `      | entityresolution_metadata.yaml |ntityresolution_DeleteMatchingWorkflow      |
+| `deleteMapping `       | entityresolution_metadata.yaml |entityresolution_DeleteSchemaMapping        |
+| `listMappingJobs `     | entityresolution_metadata.yaml |entityresolution_Hello                      |
+| `scenario`             | entityresolution_metadata.yaml |entityresolution_Scenario                   |
 
 
 
