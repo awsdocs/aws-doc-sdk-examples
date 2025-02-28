@@ -108,6 +108,18 @@ With Entity Resolution, organizations can unlock the value of their data,
 improve decision-making, and enhance customer experiences by having a reliable,
 comprehensive view of their key entities.
 
+Enter 'c' followed by <ENTER> to continue:
+c
+
+To prepare the AWS resources needed for this scenario application, the next step uploads
+a CloudFormation template whose resulting stack creates the following resources:
+ - An AWS Glue Data Catalog table
+ - An AWS IAM role
+ - An AWS S3 bucket
+ - An AWS Entity Resolution Schema
+                            
+It can take a couple minutes for the Stack to finish creating the resources.
+
 
 Enter 'c' followed by <ENTER> to continue:
 c
