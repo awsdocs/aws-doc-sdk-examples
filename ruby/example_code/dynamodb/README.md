@@ -104,7 +104,7 @@ This example shows you how to do the following:
 Start the example by running the following at a command prompt:
 
 ```
-ruby scaffold.rb
+ruby ./basics/scenario_getting_started_dynamodb.rb
 ```
 
 <!--custom.basics.dynamodb_Scenario_GettingStartedMovies.start-->

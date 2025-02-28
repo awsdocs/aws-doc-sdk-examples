@@ -8,7 +8,7 @@ use aws_sdk_dynamodb::error::SdkError;
 use aws_sdk_dynamodb::operation::create_table::CreateTableError;
 use aws_sdk_dynamodb::operation::execute_statement::ExecuteStatementError;
 use aws_sdk_dynamodb::types::{
-    AttributeDefinition, AttributeValue, KeySchemaElement, KeyType, ProvisionedThroughput,
+    AttributeDefinition, AttributeValue, KeySchemaElement, KeyType, BillingMode,
     ScalarAttributeType, TableStatus,
 };
 use aws_sdk_dynamodb::{config::Region, meta::PKG_VERSION, Client, Error};
@@ -44,7 +44,7 @@ fn random_string(n: usize) -> String {
         .collect()
 }
 
-/// Create a new table.
+/// Create a new on-demand table.
 // snippet-start:[dynamodb.rust.partiql-make_table]
 async fn make_table(
     client: &Client,
@@ -63,18 +63,12 @@ async fn make_table(
         .build()
         .expect("creating KeySchemaElement");
 
-    let pt = ProvisionedThroughput::builder()
-        .read_capacity_units(10)
-        .write_capacity_units(5)
-        .build()
-        .expect("creating ProvisionedThroughput");
-
     match client
         .create_table()
         .table_name(table)
         .key_schema(ks)
         .attribute_definitions(ad)
-        .provisioned_throughput(pt)
+        .billing_mode(BillingMode::PayPerRequest)
         .send()
         .await
     {

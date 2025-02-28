@@ -5,7 +5,7 @@ use crate::scenario::error::Error;
 use aws_sdk_dynamodb::{
     operation::create_table::builders::CreateTableFluentBuilder,
     types::{
-        AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput, ScalarAttributeType,
+        AttributeDefinition, KeySchemaElement, KeyType, ScalarAttributeType,
         TableStatus, WriteRequest,
     },
     Client,
@@ -13,8 +13,6 @@ use aws_sdk_dynamodb::{
 use futures::future::join_all;
 use std::{collections::HashMap, time::Duration};
 use tracing::{debug, info, trace};
-
-const CAPACITY: i64 = 10;
 
 #[tracing::instrument(level = "trace")]
 pub async fn initialize(client: &Client, table_name: &str) -> Result<(), Error> {
@@ -24,7 +22,7 @@ pub async fn initialize(client: &Client, table_name: &str) -> Result<(), Error> 
         info!("Found existing table {table_name}");
     } else {
         info!("Table does not exist, creating {table_name}");
-        create_table(client, table_name, "year", "title", CAPACITY)?
+        create_table(client, table_name, "year", "title")?
             .send()
             .await?;
         await_table(client, table_name).await?;
@@ -55,9 +53,8 @@ pub fn create_table(
     table_name: &str,
     primary_key: &str,
     sort_key: &str,
-    capacity: i64,
 ) -> Result<CreateTableFluentBuilder, Error> {
-    info!("Creating table: {table_name} with capacity {capacity} and key structure {primary_key}:{sort_key}");
+    info!("Creating table: {table_name} key structure {primary_key}:{sort_key}");
     Ok(client
         .create_table()
         .table_name(table_name)
@@ -89,13 +86,7 @@ pub fn create_table(
                 .build()
                 .expect("Failed to build attribute definition"),
         )
-        .provisioned_throughput(
-            ProvisionedThroughput::builder()
-                .read_capacity_units(capacity)
-                .write_capacity_units(capacity)
-                .build()
-                .expect("Failed to specify ProvisionedThroughput"),
-        ))
+        .billing_mode(aws_sdk_dynamodb::types::BillingMode::PayPerRequest))
 }
 // snippet-end:[dynamodb.rust.movies-create_table_request]
 
