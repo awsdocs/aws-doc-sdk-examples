@@ -49,29 +49,6 @@ public class EntityResolutionCdkStack extends Stack {
             .build();
 
         // 3. Create a Glue table referencing the S3 bucket
-/*        CfnTable glueTable = CfnTable.Builder.create(this, "GlueTable")
-            .catalogId(this.getAccount())
-            .databaseName(glueDatabase.getRef()) // Ensure Glue Table references the database correctly
-            .tableInput(CfnTable.TableInputProperty.builder()
-                .name("entity_resolution") // Fixed table name reference
-                .tableType("EXTERNAL_TABLE")
-                .storageDescriptor(CfnTable.StorageDescriptorProperty.builder()
-                    .columns(List.of(
-                        CfnTable.ColumnProperty.builder().name("id").type("string").build(), // Fixed: id is a string,
-                        CfnTable.ColumnProperty.builder().name("name").type("string").build(),
-                        CfnTable.ColumnProperty.builder().name("email").type("string").build()
-                    ))
-                    .location("s3://" + glueDataBucket.getBucketName() + "/data/") // Append subpath for data
-                    .inputFormat("org.apache.hadoop.mapred.TextInputFormat")
-                    .outputFormat("org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat")
-                    .serdeInfo(CfnTable.SerdeInfoProperty.builder()
-                        .serializationLibrary("org.openx.data.jsonserde.JsonSerDe") // Set JSON SerDe
-                        .parameters(Map.of("serialization.format", "1")) // Optional: Set the format for JSON
-                        .build())
-                    .build())
-                .build())
-            .build();*/
-
         final CfnTable jsonErGlueTable = createGlueTable(jsonGlueTableName
                 , jsonGlueTableName
                 , glueDatabase.getRef()
