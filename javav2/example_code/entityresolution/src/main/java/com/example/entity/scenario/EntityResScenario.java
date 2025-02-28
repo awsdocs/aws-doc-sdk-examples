@@ -3,23 +3,17 @@
 
 package com.example.entity.scenario;
 
-
-import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.services.cloudformation.model.CloudFormationException;
-import software.amazon.awssdk.services.entityresolution.model.AccessDeniedException;
 import software.amazon.awssdk.services.entityresolution.model.ConflictException;
 import software.amazon.awssdk.services.entityresolution.model.CreateSchemaMappingResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.entityresolution.model.GetMatchingJobResponse;
 import software.amazon.awssdk.services.entityresolution.model.GetSchemaMappingResponse;
 import software.amazon.awssdk.services.entityresolution.model.JobMetrics;
 import software.amazon.awssdk.services.entityresolution.model.ResourceNotFoundException;
-import software.amazon.awssdk.services.entityresolution.model.ThrottlingException;
 import software.amazon.awssdk.services.entityresolution.model.ValidationException;
 import software.amazon.awssdk.services.s3.model.S3Exception;
-
 import java.util.Map;
 import java.util.Scanner;
 import java.util.UUID;
@@ -336,9 +330,11 @@ public class EntityResScenario {
             This can take up to 30 mins (y/n).
             """);
         String viewAns = scanner.nextLine().trim();
+        boolean isComplete = false;
         if (viewAns.equalsIgnoreCase("y")) {
             logger.info("You selected to view the Entity Resolution Workflow results.");
             countdownWithWorkflowCheck(actions, 1800, jobId, workflowName);
+            isComplete = true;
             try {
                 JobMetrics metrics = actions.getJobInfo(workflowName, jobId).join();
                 logger.info("Number of input records: {}", metrics.inputRecords());
@@ -395,7 +391,9 @@ public class EntityResScenario {
         String delAns = scanner.nextLine().trim();
         if (delAns.equalsIgnoreCase("y")) {
             try {
-                countdownWithWorkflowCheck(actions, 1800, jobId, workflowName);
+                if (!isComplete) {
+                    countdownWithWorkflowCheck(actions, 1800, jobId, workflowName);
+                }
                 actions.deleteMatchingWorkflowAsync(workflowName).join();
                 logger.info("Workflow deleted successfully!");
             } catch (CompletionException ce) {
