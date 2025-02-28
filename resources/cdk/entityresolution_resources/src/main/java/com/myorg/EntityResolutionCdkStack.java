@@ -35,10 +35,10 @@ public class EntityResolutionCdkStack extends Stack {
         String uniqueId = UUID.randomUUID().toString().replace("-", ""); // Remove dashes to ensure compatibility
 
         Bucket erBucket = Bucket.Builder.create(this, "ErBucket")
-                .bucketName("erbucket" + uniqueId)
-                .versioned(false)
-                .removalPolicy(RemovalPolicy.DESTROY)
-                .build();
+            .bucketName("erbucket" + uniqueId)
+            .versioned(false)
+            .removalPolicy(RemovalPolicy.DESTROY)
+            .build();
 
         // 2. Create a Glue database
         CfnDatabase glueDatabase = CfnDatabase.Builder.create(this, "GlueDatabase")
@@ -50,21 +50,21 @@ public class EntityResolutionCdkStack extends Stack {
 
         // 3. Create a Glue table referencing the S3 bucket
         final CfnTable jsonErGlueTable = createGlueTable(jsonGlueTableName
-                , jsonGlueTableName
-                , glueDatabase.getRef()
-                , Map.of("id", "string", "name", "string", "email", "string")
-                , "s3://" + erBucket.getBucketName() + "/jsonData/"
-                , "org.openx.data.jsonserde.JsonSerDe");
+            , jsonGlueTableName
+            , glueDatabase.getRef()
+            , Map.of("id", "string", "name", "string", "email", "string")
+            , "s3://" + erBucket.getBucketName() + "/jsonData/"
+            , "org.openx.data.jsonserde.JsonSerDe");
 
         // Ensure Glue Table is created after the Database
         jsonErGlueTable.addDependency(glueDatabase);
 
         final CfnTable csvErGlueTable = createGlueTable(csvGlueTableName
-                , csvGlueTableName
-                , glueDatabase.getRef()
-                , Map.of("id", "string", "name", "string", "email", "string", "phone", "string")
-                , "s3://" + erBucket.getBucketName() + "/csvData/"
-                , "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe");
+            , csvGlueTableName
+            , glueDatabase.getRef()
+            , Map.of("id", "string", "name", "string", "email", "string", "phone", "string")
+            , "s3://" + erBucket.getBucketName() + "/csvData/"
+            , "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe");
         // Ensure Glue Table is created after the Database
         csvErGlueTable.addDependency(glueDatabase);
 
@@ -100,9 +100,9 @@ public class EntityResolutionCdkStack extends Stack {
             .build());
 
         new CfnOutput(this, "CsvErGlueTableArn", CfnOutputProps.builder()
-                .value(createGlueTableArn(csvErGlueTable, csvGlueTableName))
-                .description("The ARN of the CSV Glue Table")
-                .build());
+            .value(createGlueTableArn(csvErGlueTable, csvGlueTableName))
+            .description("The ARN of the CSV Glue Table")
+            .build());
 
         new CfnOutput(this, "GlueDataBucketName", CfnOutputProps.builder()
             .value(erBucket.getBucketName()) // Outputs the bucket name
@@ -110,41 +110,42 @@ public class EntityResolutionCdkStack extends Stack {
             .build());
     }
 
-    CfnTable createGlueTable(String id, String tableName, String databaseRef, Map<String, String> schemaMap, String dataLocation, String serializationLib){
+    CfnTable createGlueTable(String id, String tableName, String databaseRef, Map<String, String> schemaMap, String dataLocation, String serializationLib) {
         return CfnTable.Builder.create(this, id)
-                .catalogId(this.getAccount())
-                .databaseName(databaseRef) // Ensure Glue Table references the database correctly
-                .tableInput(CfnTable.TableInputProperty.builder()
-                        .name(tableName) // Fixed table name reference
-                        .tableType("EXTERNAL_TABLE")
-                        .storageDescriptor(CfnTable.StorageDescriptorProperty.builder()
-                                .columns(createColumns(schemaMap))
-                                .location(dataLocation) // Append subpath for data
-                                .inputFormat("org.apache.hadoop.mapred.TextInputFormat")
-                                .outputFormat("org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat")
-                                .serdeInfo(CfnTable.SerdeInfoProperty.builder()
-                                        .serializationLibrary(serializationLib) // Set JSON SerDe
-                                        .parameters(Map.of("serialization.format", "1")) // Optional: Set the format for JSON
-                                        .build())
-                                .build())
+            .catalogId(this.getAccount())
+            .databaseName(databaseRef) // Ensure Glue Table references the database correctly
+            .tableInput(CfnTable.TableInputProperty.builder()
+                .name(tableName) // Fixed table name reference
+                .tableType("EXTERNAL_TABLE")
+                .storageDescriptor(CfnTable.StorageDescriptorProperty.builder()
+                    .columns(createColumns(schemaMap))
+                    .location(dataLocation) // Append subpath for data
+                    .inputFormat("org.apache.hadoop.mapred.TextInputFormat")
+                    .outputFormat("org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat")
+                    .serdeInfo(CfnTable.SerdeInfoProperty.builder()
+                        .serializationLibrary(serializationLib) // Set JSON SerDe
+                        .parameters(Map.of("serialization.format", "1")) // Optional: Set the format for JSON
                         .build())
-                .build();
+                    .build())
+                .build())
+            .build();
     }
+
     List<CfnTable.ColumnProperty> createColumns(Map<String, String> schemaMap) {
         return schemaMap.entrySet().stream()
-                .map(entry -> CfnTable.ColumnProperty.builder()
-                        .name(entry.getKey())
-                        .type(entry.getValue())
-                        .build())
-                .toList();
+            .map(entry -> CfnTable.ColumnProperty.builder()
+                .name(entry.getKey())
+                .type(entry.getValue())
+                .build())
+            .toList();
     }
 
     String createGlueTableArn(CfnTable glueTable, String glueTableName) {
         return String.format("arn:aws:glue:%s:%s:table/%s/%s"
-                , this.getRegion()
-                , this.getAccount()
-                , glueTable.getDatabaseName()
-                , glueTableName
+            , this.getRegion()
+            , this.getAccount()
+            , glueTable.getDatabaseName()
+            , glueTableName
         );
     }
 }
