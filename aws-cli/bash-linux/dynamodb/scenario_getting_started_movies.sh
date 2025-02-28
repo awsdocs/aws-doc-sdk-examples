@@ -1,7 +1,7 @@
 #!/bin/bash
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-# bashsupport disable=BP2002
+# bashsupport disable=BP2002 
 
 ###############################################################################
 #
@@ -65,8 +65,6 @@ function dynamodb_getting_started_movies() {
   get_input
   table_name=$get_input_result
 
-  local provisioned_throughput="ReadCapacityUnits=5,WriteCapacityUnits=5"
-
   echo '[
   {"AttributeName": "year", "KeyType": "HASH"},
    {"AttributeName": "title", "KeyType": "RANGE"}
@@ -78,7 +76,7 @@ function dynamodb_getting_started_movies() {
   ]' >"$attribute_definitions_json_file"
 
   if dynamodb_create_table -n "$table_name" -a "$attribute_definitions_json_file" \
-    -k "$key_schema_json_file" -p "$provisioned_throughput" 1>/dev/null; then
+    -k "$key_schema_json_file" 1>/dev/null; then
     echo "Created a DynamoDB table named $table_name"
   else
     errecho "The table failed to create. This demo will exit."
