@@ -40,18 +40,18 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchGetItem](dynamodb_operations.sh#L902)
-- [BatchWriteItem](dynamodb_operations.sh#L834)
+- [BatchGetItem](dynamodb_operations.sh#L892)
+- [BatchWriteItem](dynamodb_operations.sh#L824)
 - [CreateTable](dynamodb_operations.sh#L17)
-- [DeleteItem](dynamodb_operations.sh#L535)
-- [DeleteTable](dynamodb_operations.sh#L998)
-- [DescribeTable](dynamodb_operations.sh#L183)
-- [GetItem](dynamodb_operations.sh#L439)
-- [ListTables](dynamodb_operations.sh#L969)
-- [PutItem](dynamodb_operations.sh#L257)
-- [Query](dynamodb_operations.sh#L614)
-- [Scan](dynamodb_operations.sh#L724)
-- [UpdateItem](dynamodb_operations.sh#L338)
+- [DeleteItem](dynamodb_operations.sh#L525)
+- [DeleteTable](dynamodb_operations.sh#L988)
+- [DescribeTable](dynamodb_operations.sh#L173)
+- [GetItem](dynamodb_operations.sh#L429)
+- [ListTables](dynamodb_operations.sh#L959)
+- [PutItem](dynamodb_operations.sh#L247)
+- [Query](dynamodb_operations.sh#L604)
+- [Scan](dynamodb_operations.sh#L714)
+- [UpdateItem](dynamodb_operations.sh#L328)
 
 
 <!--custom.examples.start-->
