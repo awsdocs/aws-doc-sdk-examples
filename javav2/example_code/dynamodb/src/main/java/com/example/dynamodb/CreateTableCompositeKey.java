@@ -6,6 +6,7 @@ package com.example.dynamodb;
 // snippet-start:[dynamodb.java2.create_table_composite_key.main]
 // snippet-start:[dynamodb.java2.create_table_composite_key.import]
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.dynamodb.model.BillingMode;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
@@ -74,9 +75,7 @@ public class CreateTableCompositeKey {
                                 .attributeName("Greeting")
                                 .keyType(KeyType.RANGE)
                                 .build())
-                .provisionedThroughput(ProvisionedThroughput.builder()
-                        .readCapacityUnits(10L)
-                        .writeCapacityUnits(10L).build())
+            .billingMode(BillingMode.PAY_PER_REQUEST) //  DynamoDB automatically scales based on traffic.
                 .tableName(tableName)
                 .build();
 
