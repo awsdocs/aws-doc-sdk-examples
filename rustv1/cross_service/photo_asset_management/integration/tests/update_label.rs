@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 use std::collections::HashMap;
 
-use aws_sdk_dynamodb::types::{AttributeDefinition, KeySchemaElement, ProvisionedThroughput};
+use aws_sdk_dynamodb::types::{AttributeDefinition, KeySchemaElement, BillingMode};
 use aws_sdk_rekognition::types::Label;
 use photo_asset_management::{
     common::{init_tracing_subscriber, Common},
@@ -27,13 +27,8 @@ async fn create_table(common: &Common) -> Result<(), impl std::error::Error> {
         .attribute_definitions(
             AttributeDefinition::builder()
                 .attribute_name("Label")
-                .attribute_type(aws_sdk_dynamodb::types::ScalarAttributeType::S)
-                .build(),
-        )
-        .provisioned_throughput(
-            ProvisionedThroughput::builder()
-                .write_capacity_units(1)
-                .read_capacity_units(1)
+                .attribute_type(aws_sdk_dynamodb::types::ScalarAttributeType::S),
+                .billing_mode(aws_sdk_dynamodb::types::BillingMode::PayPerRequest)
                 .build(),
         )
         .send()
