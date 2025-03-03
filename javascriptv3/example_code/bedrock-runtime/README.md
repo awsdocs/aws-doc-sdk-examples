@@ -50,6 +50,15 @@ functions within the same service.
 - [Converse](models/ai21LabsJurassic2/converse.js#L4)
 - [InvokeModel](models/ai21LabsJurassic2/invoke_model.js)
 
+### Amazon Nova
+
+- [Converse](models/amazonTitanText/converse.js#L4)
+- [ConverseStream](models/mistral/converse.js#L4)
+
+### Amazon Nova Canvas
+
+- [InvokeModel](models/amazonNovaCanvas/invokeModel.js#L4)
+
 ### Amazon Titan Text
 
 - [Converse](models/amazonTitanText/converse.js#L4)
