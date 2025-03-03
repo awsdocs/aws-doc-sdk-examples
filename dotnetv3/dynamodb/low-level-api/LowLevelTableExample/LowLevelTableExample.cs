@@ -80,18 +80,12 @@ static class LowLevelTableExample
                     KeyType = KeyType.RANGE //Sort key
                 }
             },
-            ProvisionedThroughput = new ProvisionedThroughput
-            {
-                ReadCapacityUnits = 5,
-                WriteCapacityUnits = 6
-            },
-            TableName = ExampleTableName
+            TableName = ExampleTableName,
+            BillingMode = BillingMode.PAY_PER_REQUEST,
         });
 
         var tableDescription = response.TableDescription;
-        Console.WriteLine($"{tableDescription.TableName}: {tableDescription.TableStatus} \t " +
-                          $"ReadsPerSec: {tableDescription.ProvisionedThroughput.ReadCapacityUnits} \t " +
-                          $"WritesPerSec: {tableDescription.ProvisionedThroughput.WriteCapacityUnits}");
+        Console.WriteLine($"{tableDescription.TableName}: {tableDescription.TableStatus}");
 
         Console.WriteLine($"{ExampleTableName} - {tableDescription.TableStatus}");
 
@@ -136,21 +130,19 @@ static class LowLevelTableExample
         var table = response.Table;
         Console.WriteLine($"Name: {table.TableName}");
         Console.WriteLine($"# of items: {table.ItemCount}");
-        Console.WriteLine($"Provision Throughput (reads/sec): " +
-                          $"{table.ProvisionedThroughput.ReadCapacityUnits}");
-        Console.WriteLine($"Provision Throughput (writes/sec): " +
-                          $"{table.ProvisionedThroughput.WriteCapacityUnits}");
+
     }
     // snippet-end:[dynamodb.dotnetv3.DescribeTableExample]
 
     // snippet-start:[dynamodb.dotnetv3.UpdateExampleTable]
     private static async Task UpdateExampleTable()
     {
-        Console.WriteLine("\n*** Updating table ***");
+        Console.WriteLine("\n*** Updating table billing mode ***");
 
         await Client.UpdateTableAsync(new UpdateTableRequest
         {
             TableName = ExampleTableName,
+            BillingMode = BillingMode.PROVISIONED,
             ProvisionedThroughput = new ProvisionedThroughput
             {
                 ReadCapacityUnits = 6,

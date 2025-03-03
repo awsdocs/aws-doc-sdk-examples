@@ -47,18 +47,18 @@ Code excerpts that show you how to call individual service functions.
 
 - [BatchExecuteStatement](scenarios/PartiQL_Batch_Scenario/PartiQL_Batch_Scenario/PartiQLBatchMethods.cs#L10)
 - [BatchGetItem](low-level-api/LowLevelBatchGet/LowLevelBatchGet.cs#L4)
-- [BatchWriteItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L202)
+- [BatchWriteItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L198)
 - [CreateTable](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L14)
-- [DeleteItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L262)
-- [DeleteTable](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L391)
-- [DescribeTable](low-level-api/LowLevelTableExample/LowLevelTableExample.cs#L126)
+- [DeleteItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L258)
+- [DeleteTable](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L387)
+- [DescribeTable](low-level-api/LowLevelTableExample/LowLevelTableExample.cs#L120)
 - [ExecuteStatement](scenarios/PartiQL_Basics_Scenario/PartiQL_Basics_Scenario/PartiQLMethods.cs#L163)
-- [GetItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L171)
-- [ListTables](low-level-api/LowLevelTableExample/LowLevelTableExample.cs#L102)
-- [PutItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L89)
-- [Query](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L297)
-- [Scan](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L350)
-- [UpdateItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L119)
+- [GetItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L167)
+- [ListTables](low-level-api/LowLevelTableExample/LowLevelTableExample.cs#L96)
+- [PutItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L85)
+- [Query](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L293)
+- [Scan](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L346)
+- [UpdateItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L115)
 
 ### Scenarios
 

@@ -71,26 +71,22 @@ namespace CreateTablesLoadDataExample
             {
                 TableName = tableName,
                 AttributeDefinitions = new List<AttributeDefinition>()
-          {
-            new AttributeDefinition
-            {
-              AttributeName = "Id",
-              AttributeType = ScalarAttributeType.N,
-            },
-          },
-                KeySchema = new List<KeySchemaElement>()
-          {
-            new KeySchemaElement
-            {
-              AttributeName = "Id",
-              KeyType = KeyType.HASH,
-            },
-          },
-                ProvisionedThroughput = new ProvisionedThroughput
+              {
+                new AttributeDefinition
                 {
-                    ReadCapacityUnits = 10,
-                    WriteCapacityUnits = 5,
+                  AttributeName = "Id",
+                  AttributeType = ScalarAttributeType.N,
                 },
+              },
+                KeySchema = new List<KeySchemaElement>()
+              {
+                new KeySchemaElement
+                {
+                  AttributeName = "Id",
+                  KeyType = KeyType.HASH,
+                },
+              },
+                BillingMode = BillingMode.PAY_PER_REQUEST,
             });
 
             var result = await WaitTillTableCreated(client, tableName, response);
@@ -112,26 +108,22 @@ namespace CreateTablesLoadDataExample
             {
                 TableName = tableName,
                 AttributeDefinitions = new List<AttributeDefinition>()
-          {
-            new AttributeDefinition
-            {
-              AttributeName = "Name",
-              AttributeType = ScalarAttributeType.S,
-            },
-          },
-                KeySchema = new List<KeySchemaElement>()
-          {
-            new KeySchemaElement
-            {
-              AttributeName = "Name",
-              KeyType = KeyType.HASH,
-            },
-          },
-                ProvisionedThroughput = new ProvisionedThroughput
+              {
+                new AttributeDefinition
                 {
-                    ReadCapacityUnits = 10,
-                    WriteCapacityUnits = 5,
+                  AttributeName = "Name",
+                  AttributeType = ScalarAttributeType.S,
                 },
+              },
+                KeySchema = new List<KeySchemaElement>()
+              {
+                new KeySchemaElement
+                {
+                  AttributeName = "Name",
+                  KeyType = KeyType.HASH,
+                },
+              },
+                BillingMode = BillingMode.PAY_PER_REQUEST,
             });
 
             var result = await WaitTillTableCreated(client, tableName, response);
@@ -154,36 +146,32 @@ namespace CreateTablesLoadDataExample
             {
                 TableName = tableName,
                 AttributeDefinitions = new List<AttributeDefinition>()
-          {
-            new AttributeDefinition
-            {
-              AttributeName = "ForumName", // Hash attribute.
-              AttributeType = ScalarAttributeType.S,
-            },
-            new AttributeDefinition
-            {
-              AttributeName = "Subject",
-              AttributeType = ScalarAttributeType.S,
-            },
-          },
-                KeySchema = new List<KeySchemaElement>()
-          {
-            new KeySchemaElement
-            {
-              AttributeName = "ForumName", // Hash attribute
-              KeyType = KeyType.HASH,
-            },
-            new KeySchemaElement
-            {
-              AttributeName = "Subject", // Range attribute
-              KeyType = KeyType.RANGE,
-            },
-          },
-                ProvisionedThroughput = new ProvisionedThroughput
+              {
+                new AttributeDefinition
                 {
-                    ReadCapacityUnits = 10,
-                    WriteCapacityUnits = 5,
+                  AttributeName = "ForumName", // Hash attribute.
+                  AttributeType = ScalarAttributeType.S,
                 },
+                new AttributeDefinition
+                {
+                  AttributeName = "Subject",
+                  AttributeType = ScalarAttributeType.S,
+                },
+              },
+                KeySchema = new List<KeySchemaElement>()
+              {
+                new KeySchemaElement
+                {
+                  AttributeName = "ForumName", // Hash attribute
+                  KeyType = KeyType.HASH,
+                },
+                new KeySchemaElement
+                {
+                  AttributeName = "Subject", // Range attribute
+                  KeyType = KeyType.RANGE,
+                },
+              },
+                BillingMode = BillingMode.PAY_PER_REQUEST,
             });
 
             var result = await WaitTillTableCreated(client, tableName, response);
@@ -256,11 +244,7 @@ namespace CreateTablesLoadDataExample
               },
             },
           },
-                ProvisionedThroughput = new ProvisionedThroughput
-                {
-                    ReadCapacityUnits = 10,
-                    WriteCapacityUnits = 5,
-                },
+                BillingMode = BillingMode.PAY_PER_REQUEST,
             });
 
             var result = await WaitTillTableCreated(client, tableName, response);
