@@ -30,7 +30,6 @@ pub async fn create_table(
         .build()
         .map_err(Error::BuildError)?;
 
-
     let create_table_response = client
         .create_table()
         .table_name(table_name)

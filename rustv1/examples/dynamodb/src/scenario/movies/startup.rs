@@ -5,8 +5,8 @@ use crate::scenario::error::Error;
 use aws_sdk_dynamodb::{
     operation::create_table::builders::CreateTableFluentBuilder,
     types::{
-        AttributeDefinition, KeySchemaElement, KeyType, ScalarAttributeType,
-        TableStatus, WriteRequest,
+        AttributeDefinition, KeySchemaElement, KeyType, ScalarAttributeType, TableStatus,
+        WriteRequest,
     },
     Client,
 };
