@@ -125,7 +125,7 @@ public class ScenarioPartiQ {
 
         CreateTableRequest request = CreateTableRequest.builder()
             .keySchema(tableKey)
-            .billingMode(BillingMode.PAY_PER_REQUEST) //  DynamoDB automatically scales based on traffic.
+            .billingMode(BillingMode.PAY_PER_REQUEST) // Scales based on traffic.
             .attributeDefinitions(attributeDefinitions)
             .tableName(tableName)
             .build();
