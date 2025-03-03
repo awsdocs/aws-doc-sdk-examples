@@ -4,6 +4,7 @@
 package com.example.dynamodb.scenario;
 
 // snippet-start:[dynamodb.java2.scenario.partiql.import]
+
 import com.fasterxml.jackson.databind.JsonNode;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
@@ -27,6 +28,7 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,13 +39,13 @@ import java.util.Iterator;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
- *
+ * <p>
  * This Java example performs the following tasks:
- *
+ * <p>
  * 1. Creates the Amazon DynamoDB movie table with a partition and sort key.
  * 2. Puts data into the Amazon DynamoDB table from a JSON document.
  * 3. Adds a new item.
@@ -52,7 +54,7 @@ import java.util.Iterator;
  * 6. Uses a Scan to query items using the Enhanced client.
  * 7. Queries all items where the year is 2013 using the Enhanced Client.
  * 8. Deletes the table.
- *
+ * <p>
  * To see another code example with more options using PartiQL and Batch
  * commands, see the ScenarioPartiQBatch code example.
  */
@@ -64,11 +66,11 @@ public class ScenarioPartiQ {
         String tableName = "MoviesPartiQ";
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         System.out.println(
-                "******* Creating an Amazon DynamoDB table named MoviesPartiQ with a key named year and a sort key named title.");
+            "******* Creating an Amazon DynamoDB table named MoviesPartiQ with a key named year and a sort key named title.");
         createTable(ddb, tableName);
 
         System.out.println("Loading data into the MoviesPartiQ table.");
@@ -97,42 +99,42 @@ public class ScenarioPartiQ {
 
         // Define attributes.
         attributeDefinitions.add(AttributeDefinition.builder()
-                .attributeName("year")
-                .attributeType("N")
-                .build());
+            .attributeName("year")
+            .attributeType("N")
+            .build());
 
         attributeDefinitions.add(AttributeDefinition.builder()
-                .attributeName("title")
-                .attributeType("S")
-                .build());
+            .attributeName("title")
+            .attributeType("S")
+            .build());
 
         ArrayList<KeySchemaElement> tableKey = new ArrayList<>();
         KeySchemaElement key = KeySchemaElement.builder()
-                .attributeName("year")
-                .keyType(KeyType.HASH)
-                .build();
+            .attributeName("year")
+            .keyType(KeyType.HASH)
+            .build();
 
         KeySchemaElement key2 = KeySchemaElement.builder()
-                .attributeName("title")
-                .keyType(KeyType.RANGE) // Sort
-                .build();
+            .attributeName("title")
+            .keyType(KeyType.RANGE) // Sort
+            .build();
 
         // Add KeySchemaElement objects to the list.
         tableKey.add(key);
         tableKey.add(key2);
 
         CreateTableRequest request = CreateTableRequest.builder()
-                .keySchema(tableKey)
+            .keySchema(tableKey)
             .billingMode(BillingMode.PAY_PER_REQUEST) //  DynamoDB automatically scales based on traffic.
-                .attributeDefinitions(attributeDefinitions)
-                .tableName(tableName)
-                .build();
+            .attributeDefinitions(attributeDefinitions)
+            .tableName(tableName)
+            .build();
 
         try {
             CreateTableResponse response = ddb.createTable(request);
             DescribeTableRequest tableRequest = DescribeTableRequest.builder()
-                    .tableName(tableName)
-                    .build();
+                .tableName(tableName)
+                .build();
 
             // Wait until the Amazon DynamoDB table is created.
             WaiterResponse<DescribeTableResponse> waiterResponse = dbWaiter.waitUntilTableExists(tableRequest);
@@ -168,16 +170,16 @@ public class ScenarioPartiQ {
             String info = currentNode.path("info").toString();
 
             AttributeValue att1 = AttributeValue.builder()
-                    .n(String.valueOf(year))
-                    .build();
+                .n(String.valueOf(year))
+                .build();
 
             AttributeValue att2 = AttributeValue.builder()
-                    .s(title)
-                    .build();
+                .s(title)
+                .build();
 
             AttributeValue att3 = AttributeValue.builder()
-                    .s(info)
-                    .build();
+                .s(info)
+                .build();
 
             parameters.add(att1);
             parameters.add(att2);
@@ -199,12 +201,12 @@ public class ScenarioPartiQ {
         String sqlStatement = "SELECT * FROM MoviesPartiQ where year=? and title=?";
         List<AttributeValue> parameters = new ArrayList<>();
         AttributeValue att1 = AttributeValue.builder()
-                .n("2012")
-                .build();
+            .n("2012")
+            .build();
 
         AttributeValue att2 = AttributeValue.builder()
-                .s("The Perks of Being a Wallflower")
-                .build();
+            .s("The Perks of Being a Wallflower")
+            .build();
 
         parameters.add(att1);
         parameters.add(att2);
@@ -226,16 +228,16 @@ public class ScenarioPartiQ {
             List<AttributeValue> parameters = new ArrayList<>();
 
             AttributeValue att1 = AttributeValue.builder()
-                    .n(String.valueOf("2020"))
-                    .build();
+                .n(String.valueOf("2020"))
+                .build();
 
             AttributeValue att2 = AttributeValue.builder()
-                    .s("My Movie")
-                    .build();
+                .s("My Movie")
+                .build();
 
             AttributeValue att3 = AttributeValue.builder()
-                    .s("No Information")
-                    .build();
+                .s("No Information")
+                .build();
 
             parameters.add(att1);
             parameters.add(att2);
@@ -255,12 +257,12 @@ public class ScenarioPartiQ {
         String sqlStatement = "UPDATE MoviesPartiQ SET info = 'directors\":[\"Merian C. Cooper\",\"Ernest B. Schoedsack' where year=? and title=?";
         List<AttributeValue> parameters = new ArrayList<>();
         AttributeValue att1 = AttributeValue.builder()
-                .n(String.valueOf("2013"))
-                .build();
+            .n(String.valueOf("2013"))
+            .build();
 
         AttributeValue att2 = AttributeValue.builder()
-                .s("The East")
-                .build();
+            .s("The East")
+            .build();
 
         parameters.add(att1);
         parameters.add(att2);
@@ -282,8 +284,8 @@ public class ScenarioPartiQ {
 
             List<AttributeValue> parameters = new ArrayList<>();
             AttributeValue att1 = AttributeValue.builder()
-                    .n(String.valueOf("2013"))
-                    .build();
+                .n(String.valueOf("2013"))
+                .build();
             parameters.add(att1);
 
             // Get items in the table and write out the ID value.
@@ -299,8 +301,8 @@ public class ScenarioPartiQ {
     public static void deleteDynamoDBTable(DynamoDbClient ddb, String tableName) {
 
         DeleteTableRequest request = DeleteTableRequest.builder()
-                .tableName(tableName)
-                .build();
+            .tableName(tableName)
+            .build();
 
         try {
             ddb.deleteTable(request);
@@ -313,11 +315,11 @@ public class ScenarioPartiQ {
     }
 
     private static ExecuteStatementResponse executeStatementRequest(DynamoDbClient ddb, String statement,
-            List<AttributeValue> parameters) {
+                                                                    List<AttributeValue> parameters) {
         ExecuteStatementRequest request = ExecuteStatementRequest.builder()
-                .statement(statement)
-                .parameters(parameters)
-                .build();
+            .statement(statement)
+            .parameters(parameters)
+            .build();
 
         return ddb.executeStatement(request);
     }
