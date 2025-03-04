@@ -81,8 +81,19 @@
             <artifactId>entityresolution</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.7.1</version>
+        </dependency>
+        <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>s3</artifactId>
+        </dependency>
+        <!-- JAnsi for Console Table Formatting -->
+        <dependency>
+            <groupId>org.fusesource.jansi</groupId>
+            <artifactId>jansi</artifactId>
+            <version>2.4.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
