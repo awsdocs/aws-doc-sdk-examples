@@ -5,6 +5,7 @@ allow_list:
   - "e9772d140489982e0e3704fea5ee93d536f1e275"
   # Safe look-alikes, mostly tokens and paths that happen to be 40 characters.
   - "/AmazonEventBridgeServiceIntegrationTest"
+  - "erbucketf684533d2680435fa99d24b1bdaf5179"
   - "/ListOrganizationalUnitsForParentExample"
   - "AmazonDataZoneBedrockPermissionsBoundary"
   - "AWSEC2/latest/APIReference/OperationList"
