@@ -3,7 +3,11 @@
 
 package com.example.entity.scenario;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
+import org.fusesource.jansi.AnsiConsole;
 import software.amazon.awssdk.core.async.AsyncRequestBody;
+import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
@@ -40,18 +44,30 @@ import software.amazon.awssdk.services.entityresolution.model.TagResourceRespons
 import software.amazon.awssdk.services.entityresolution.model.ValidationException;
 import software.amazon.awssdk.services.entityresolution.paginators.ListSchemaMappingsPublisher;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
+import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.services.entityresolution.model.TagResourceRequest;
+
+import java.io.IOException;
+import java.io.StringReader;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static org.fusesource.jansi.Ansi.ansi;
 
 // snippet-start:[entityres.java2_actions.main]
 public class EntityResActions {
+
+    private static final String PREFIX = "eroutput/";
     private static final Logger logger = LoggerFactory.getLogger(EntityResActions.class);
 
     private static EntityResolutionAsyncClient entityResolutionAsyncClient;
@@ -594,5 +610,152 @@ public class EntityResActions {
             }).join();
 
     }
-// snippet-end:[entityres.java2_actions.main]
+
+    /**
+     * Finds the latest file in the S3 bucket that starts with "run-" in any depth of subfolders
+     */
+    private CompletableFuture<String> findLatestMatchingFile(String bucketName) {
+        ListObjectsV2Request request = ListObjectsV2Request.builder()
+            .bucket(bucketName)
+            .prefix(PREFIX) // Searches within the given folder
+            .build();
+
+        return getS3AsyncClient().listObjectsV2(request)
+            .thenApply(response -> response.contents().stream()
+                .map(S3Object::key)
+                .filter(key -> key.matches(".*?/run-[0-9a-zA-Z\\-]+")) // Matches files like run-XXXXX in any subfolder
+                .max(String::compareTo) // Gets the latest file
+                .orElse(null))
+            .whenComplete((result, exception) -> {
+                if (exception == null) {
+                    if (result != null) {
+                        logger.info("Latest matching file found: " + result);
+                    } else {
+                        logger.info("No matching files found.");
+                    }
+                } else {
+                    throw new CompletionException("Failed to find latest matching file: " + exception.getMessage(), exception);
+                }
+            });
+    }
+
+    /**
+     * Prints the data located in the file in the S3 bucket that starts with "run-" in any depth of subfolders
+     */
+    public void printData(String bucketName) {
+        try {
+            // Find the latest file with "run-" prefix in any depth of subfolders.
+            String s3Key = findLatestMatchingFile(bucketName).join();
+            if (s3Key == null) {
+                logger.error("No matching files found in S3.");
+                return;
+            }
+
+            logger.info("Downloading file: " + s3Key);
+
+            // Read CSV file as String.
+            String csvContent = readCSVFromS3Async(bucketName, s3Key).join();
+            if (csvContent.isEmpty()) {
+                logger.error("File is empty.");
+                return;
+            }
+
+            // Process CSV content.
+            List<String[]> records = parseCSV(csvContent);
+            printTable(records);
+
+        } catch (RuntimeException | IOException | CsvException e) {
+            logger.error("Error processing CSV file from S3: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Reads a CSV file from S3 and returns it as a String.
+     */
+    private static CompletableFuture<String> readCSVFromS3Async(String bucketName, String s3Key) {
+        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+            .bucket(bucketName)
+            .key(s3Key)
+            .build();
+
+        // Initiating the asynchronous request to get the file as bytes
+        return getS3AsyncClient().getObject(getObjectRequest, AsyncResponseTransformer.toBytes())
+            .thenApply(responseBytes -> responseBytes.asUtf8String()) // Convert bytes to UTF-8 string
+            .whenComplete((result, exception) -> {
+                if (exception != null) {
+                    throw new CompletionException("Failed to read CSV from S3: " + exception.getMessage(), exception);
+                } else {
+                    logger.info("Successfully fetched CSV file content from S3.");
+                }
+            });
+    }
+
+    /**
+     * Parses CSV content from a String into a list of records.
+     */
+    private static List<String[]> parseCSV(String csvContent) throws IOException, CsvException {
+        try (CSVReader csvReader = new CSVReader(new StringReader(csvContent))) {
+            return csvReader.readAll();
+        }
+    }
+
+    /**
+     * Prints the given CSV data in a formatted table
+     */
+    private static void printTable(List<String[]> records) {
+        if (records.isEmpty()) {
+            logger.info("No records found.");
+            return;
+        }
+
+        String[] headers = records.get(0);
+        List<String[]> rows = records.subList(1, records.size());
+
+        // Determine column widths dynamically based on longest content
+        int[] columnWidths = new int[headers.length];
+        for (int i = 0; i < headers.length; i++) {
+            final int columnIndex = i;
+            int maxWidth = Math.max(headers[i].length(), rows.stream()
+                .map(row -> row.length > columnIndex ? row[columnIndex].length() : 0)
+                .max(Integer::compareTo)
+                .orElse(0));
+            columnWidths[i] = Math.min(maxWidth, 25); // Limit max width for better readability
+        }
+
+        // Enable ANSI Console for colored output
+        AnsiConsole.systemInstall();
+
+        // Print table header
+        logger.info(String.valueOf(ansi().fgYellow().a("=== CSV Data from S3 ===").reset()));
+        printRow(headers, columnWidths, true);
+
+        // Print rows
+        rows.forEach(row -> printRow(row, columnWidths, false));
+
+        // Restore console to normal
+        AnsiConsole.systemUninstall();
+    }
+
+    private static void printRow(String[] row, int[] columnWidths, boolean isHeader) {
+        String border = IntStream.range(0, columnWidths.length)
+            .mapToObj(i -> "-".repeat(columnWidths[i] + 2))
+            .collect(Collectors.joining("+", "+", "+"));
+
+        if (isHeader) {
+            logger.info(border);
+        }
+
+        logger.info("|");
+        for (int i = 0; i < columnWidths.length; i++) {
+            String cell = (i < row.length && row[i] != null) ? row[i] : "";
+            logger.info(" %-" + columnWidths[i] + "s |", isHeader ? ansi().fgBrightBlue().a(cell).reset() : cell);
+        }
+        System.out.println();
+
+        if (isHeader) {
+            logger.info(border);
+        }
+    }
 }
+// snippet-end:[entityres.java2_actions.main]
