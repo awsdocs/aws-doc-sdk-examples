@@ -1,0 +1,20 @@
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n"/>
+        </Console>
+    </Appenders>
+
+
+    <Loggers>
+        <Root level="WARN">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Root>
+        <Logger name="software.amazon.awssdk" level="WARN"/>
+        <Logger name="software.amazon.awssdk.request" level="INFO"/>
+        <Logger name="org.apache.http.wire" level="INFO"/>
+         <logger name="com.example.sqs.jms" level="INFO"/>
+        <Logger name="io.netty.handler.logging" level="INFO" />
+        <Logger name="io.netty.handler.codec.http2.Http2FrameLogger" level="INFO" />
+    </Loggers>
+</Configuration>
