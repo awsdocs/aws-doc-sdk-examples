@@ -7,7 +7,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.async.AsyncRequestBody;
+import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
+import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
+import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
+import software.amazon.awssdk.services.ec2.model.AvailabilityZone;
+import software.amazon.awssdk.services.ec2.model.CreateVpcEndpointRequest;
+import software.amazon.awssdk.services.ec2.model.CreateVpcRequest;
+import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesRequest;
+import software.amazon.awssdk.services.ec2.model.DescribeRouteTablesRequest;
+import software.amazon.awssdk.services.ec2.model.DescribeVpcsRequest;
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+import software.amazon.awssdk.services.ec2.model.Filter;
+import software.amazon.awssdk.services.ec2.waiters.Ec2AsyncWaiter;
+import software.amazon.awssdk.services.iam.IamAsyncClient;
+import software.amazon.awssdk.services.iam.model.CreateAccessKeyRequest;
+import software.amazon.awssdk.services.iam.model.CreateAccessKeyResponse;
+import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.BucketInfo;
 import software.amazon.awssdk.services.s3.model.BucketType;
@@ -33,15 +52,68 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.waiters.S3AsyncWaiter;
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
-
+import java.time.Duration;
+import java.util.AbstractMap;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class S3DirectoriesActions {
+
+    private static IamAsyncClient iamAsyncClient;
+
+    private static Ec2AsyncClient ec2AsyncClient;
     private static final Logger logger = LoggerFactory.getLogger(S3DirectoriesActions.class);
 
+    private static IamAsyncClient getIAMAsyncClient() {
+        if (iamAsyncClient == null) {
+            SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
+                .maxConcurrency(100)
+                .connectionTimeout(Duration.ofSeconds(60))
+                .readTimeout(Duration.ofSeconds(60))
+                .writeTimeout(Duration.ofSeconds(60))
+                .build();
+
+            ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
+                .apiCallTimeout(Duration.ofMinutes(2))
+                .apiCallAttemptTimeout(Duration.ofSeconds(90))
+                .retryStrategy(RetryMode.STANDARD)
+                .build();
+
+            iamAsyncClient = IamAsyncClient.builder()
+                .httpClient(httpClient)
+                .overrideConfiguration(overrideConfig)
+                .build();
+        }
+        return iamAsyncClient;
+    }
+
+    private static Ec2AsyncClient getEc2AsyncClient() {
+        if (ec2AsyncClient == null) {
+            SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
+                .maxConcurrency(100)
+                .connectionTimeout(Duration.ofSeconds(60))
+                .readTimeout(Duration.ofSeconds(60))
+                .writeTimeout(Duration.ofSeconds(60))
+                .build();
+
+            ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
+                .apiCallTimeout(Duration.ofMinutes(2))
+                .apiCallAttemptTimeout(Duration.ofSeconds(90))
+                .retryStrategy(RetryMode.STANDARD)
+                .build();
+
+            ec2AsyncClient = Ec2AsyncClient.builder()
+                .httpClient(httpClient)
+                .region(Region.US_WEST_2)
+                .overrideConfiguration(overrideConfig)
+                .build();
+        }
+        return ec2AsyncClient;
+    }
 
     /**
      * Deletes the specified S3 bucket and all the objects within it in an asynchronous manner.
@@ -102,7 +174,6 @@ public class S3DirectoriesActions {
             });
     }
 
-
     /**
      * Lists the objects in an S3 bucket asynchronously using the AWS SDK.
      *
@@ -127,7 +198,6 @@ public class S3DirectoriesActions {
     }
 
     public CompletableFuture<ResponseBytes<GetObjectResponse>> getObjectAsync(S3AsyncClient s3Client, String bucketName, String keyName) {
-        // Create the GetObjectRequest for the asynchronous client
         GetObjectRequest objectRequest = GetObjectRequest.builder()
             .key(keyName)
             .bucket(bucketName)
@@ -213,7 +283,7 @@ public class S3DirectoriesActions {
      * @param zone       The region where the bucket will be created
      * @throws S3Exception if there's an error creating the bucket
      */
-    public static CompletableFuture<Void> createDirectoryBucketAsync(S3AsyncClient s3Client, String bucketName, String zone) {
+    public CompletableFuture<Void> createDirectoryBucketAsync(S3AsyncClient s3Client, String bucketName, String zone) {
         logger.info("Creating bucket: " + bucketName);
 
         CreateBucketConfiguration bucketConfiguration = CreateBucketConfiguration.builder()
@@ -294,5 +364,188 @@ public class S3DirectoriesActions {
                     throw new CompletionException("Failed to upload file", exception);
                 }
             });
+    }
+
+    /**
+     * Creates an AWS IAM access key asynchronously for the specified user name.
+     *
+     * @param userName the name of the IAM user for whom to create the access key
+     * @return a {@link CompletableFuture} that completes with the {@link CreateAccessKeyResponse} containing the created access key
+     */
+    public CompletableFuture<CreateAccessKeyResponse> createAccessKeyAsync(String userName) {
+        CreateAccessKeyRequest request = CreateAccessKeyRequest.builder()
+            .userName(userName)
+            .build();
+
+        return getIAMAsyncClient().createAccessKey(request)
+            .whenComplete((response, exception) -> {
+                if (response != null) {
+                    logger.info("Access Key Created.");
+                } else {
+                    if (exception == null) {
+                        throw new CompletionException("An unknown error occurred while creating access key.", null);
+                    }
+
+                    Throwable cause = exception.getCause();
+                    if (cause instanceof IamException) {
+                        throw new CompletionException("IAM error while creating access key: " + cause.getMessage(), cause);
+                    }
+
+                    throw new CompletionException("Failed to create access key: " + exception.getMessage(), exception);
+                }
+            });
+    }
+
+    /**
+     * Selects an availability zone ID based on the specified AWS region.
+     *
+     * @return A map containing the selected availability zone details, including the zone name, zone ID, region name, and state.
+     */
+    public CompletableFuture<String> selectAvailabilityZoneIdAsync() {
+        // Request available zones
+        DescribeAvailabilityZonesRequest zonesRequest = DescribeAvailabilityZonesRequest.builder()
+            .build();
+
+        return getEc2AsyncClient().describeAvailabilityZones(zonesRequest)
+            .thenCompose(response -> {
+                List<AvailabilityZone> zonesList = response.availabilityZones();
+
+                if (zonesList.isEmpty()) {
+                    logger.info("No availability zones found.");
+                    return CompletableFuture.completedFuture(null); // Return null if no zones are found
+                }
+
+                // Extract zone IDs
+                List<String> zoneIds = zonesList.stream()
+                    .map(AvailabilityZone::zoneId) // Get the zoneId (e.g., "usw2-az1")
+                    .toList();
+
+                // **Prompt user synchronously** and return CompletableFuture
+                return CompletableFuture.supplyAsync(() -> promptUserForZoneSelection(zonesList, zoneIds))
+                    .thenApply(selectedZone -> {
+                        // Return only the selected Zone ID (e.g., "usw2-az1")
+                        return selectedZone.zoneId();
+                    });
+            })
+            .whenComplete((result, exception) -> {
+                if (exception == null) {
+                    if (result != null) {
+                        logger.info("Selected Availability Zone ID: " + result);
+                    } else {
+                        logger.info("No availability zone selected.");
+                    }
+                } else {
+                    Throwable cause = exception.getCause();
+                    if (cause instanceof Ec2Exception) {
+                        throw new CompletionException("EC2 error while selecting availability zone: " + cause.getMessage(), cause);
+                    }
+                    throw new CompletionException("Failed to select availability zone: " + exception.getMessage(), exception);
+                }
+            });
+    }
+
+    /**
+     * Prompts the user to select an availability zone from the given list.
+     *
+     * @param zonesList the list of availability zones
+     * @param zoneIds the list of zone IDs
+     * @return the selected AvailabilityZone
+     */
+    private static AvailabilityZone promptUserForZoneSelection(List<AvailabilityZone> zonesList, List<String> zoneIds) {
+        Scanner scanner = new Scanner(System.in);
+        int index = -1;
+
+        while (index < 0 || index >= zoneIds.size()) {
+            logger.info("Select an availability zone:");
+            IntStream.range(0, zoneIds.size()).forEach(i ->
+                System.out.println(i + ": " + zoneIds.get(i)) // Display Zone IDs
+            );
+
+            logger.info("Enter the number corresponding to your choice: ");
+            if (scanner.hasNextInt()) {
+                index = scanner.nextInt();
+            } else {
+                scanner.next(); // Consume invalid input
+            }
+        }
+
+        AvailabilityZone selectedZone = zonesList.get(index);
+        logger.info("You selected: " + selectedZone.zoneId()); // Log Zone ID
+        return selectedZone;
+    }
+    public CompletableFuture<Void> setupVPCAsync() {
+        String cidr = "10.0.0.0/16";
+        CreateVpcRequest vpcRequest = CreateVpcRequest.builder()
+            .cidrBlock(cidr)
+            .build();
+
+        return getEc2AsyncClient().createVpc(vpcRequest)
+            .thenCompose(vpcResponse -> {
+                String vpcId = vpcResponse.vpc().vpcId();
+
+                // Wait for VPC to be available
+                Ec2AsyncWaiter waiter = ec2AsyncClient.waiter();
+                DescribeVpcsRequest request = DescribeVpcsRequest.builder()
+                    .vpcIds(vpcId)
+                    .build();
+
+                return waiter.waitUntilVpcAvailable(request)
+                    .thenApply(waiterResponse -> vpcId);
+            })
+            .thenCompose(vpcId -> {
+                // Fetch route table for VPC
+                Filter filter = Filter.builder()
+                    .name("vpc-id")
+                    .values(vpcId)
+                    .build();
+
+                DescribeRouteTablesRequest describeRouteTablesRequest = DescribeRouteTablesRequest.builder()
+                    .filters(filter)
+                    .build();
+
+                return ec2AsyncClient.describeRouteTables(describeRouteTablesRequest)
+                    .thenApply(routeTablesResponse -> {
+                        if (routeTablesResponse.routeTables().isEmpty()) {
+                            throw new CompletionException("No route tables found for VPC.", null);
+                        }
+                        return new AbstractMap.SimpleEntry<>(vpcId, routeTablesResponse.routeTables().get(0).routeTableId());
+                    });
+            })
+            .thenCompose(vpcAndRouteTable -> {
+                String vpcId = vpcAndRouteTable.getKey();
+                String routeTableId = vpcAndRouteTable.getValue();
+                Region region = ec2AsyncClient.serviceClientConfiguration().region();
+                String serviceName = String.format("com.amazonaws.%s.s3express", region.id());
+
+                CreateVpcEndpointRequest endpointRequest = CreateVpcEndpointRequest.builder()
+                    .vpcId(vpcId)
+                    .routeTableIds(routeTableId)
+                    .serviceName(serviceName)
+                    .build();
+
+                return ec2AsyncClient.createVpcEndpoint(endpointRequest)
+                    .thenApply(vpcEndpointResponse -> {
+                        String vpcEndpointId = vpcEndpointResponse.vpcEndpoint().vpcEndpointId();
+                        return new AbstractMap.SimpleEntry<>(vpcId, vpcEndpointId);
+                    });
+            })
+            .whenComplete((result, exception) -> {
+                if (result != null) {
+                    logger.info("Created VPC: {}", result.getKey());
+                    logger.info("Created VPC Endpoint: {}", result.getValue());
+                } else {
+                    if (exception == null) {
+                        throw new CompletionException("An unknown error occurred during VPC setup.", null);
+                    }
+
+                    Throwable cause = exception.getCause();
+                    if (cause instanceof Ec2Exception) {
+                        throw new CompletionException("EC2 error during VPC setup: " + cause.getMessage(), cause);
+                    }
+
+                    throw new CompletionException("VPC setup failed: " + exception.getMessage(), exception);
+                }
+            })
+            .thenAccept(v -> {}); // Ensure CompletableFuture<Void> return type
     }
 }
