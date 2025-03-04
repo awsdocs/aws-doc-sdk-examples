@@ -703,9 +703,12 @@ public class EntityResActions {
     /**
      * Prints the given CSV data in a formatted table
      */
+    /**
+     * Prints the given CSV data in a formatted table
+     */
     private static void printTable(List<String[]> records) {
         if (records.isEmpty()) {
-            logger.info("No records found.");
+            System.out.println("No records found.");
             return;
         }
 
@@ -727,7 +730,7 @@ public class EntityResActions {
         AnsiConsole.systemInstall();
 
         // Print table header
-        logger.info(String.valueOf(ansi().fgYellow().a("=== CSV Data from S3 ===").reset()));
+        System.out.println(ansi().fgYellow().a("=== CSV Data from S3 ===").reset());
         printRow(headers, columnWidths, true);
 
         // Print rows
@@ -743,18 +746,18 @@ public class EntityResActions {
             .collect(Collectors.joining("+", "+", "+"));
 
         if (isHeader) {
-            logger.info(border);
+            System.out.println(border);
         }
 
-        logger.info("|");
+        System.out.print("|");
         for (int i = 0; i < columnWidths.length; i++) {
             String cell = (i < row.length && row[i] != null) ? row[i] : "";
-            logger.info(" %-" + columnWidths[i] + "s |", isHeader ? ansi().fgBrightBlue().a(cell).reset() : cell);
+            System.out.printf(" %-" + columnWidths[i] + "s |", isHeader ? ansi().fgBrightBlue().a(cell).reset() : cell);
         }
         System.out.println();
 
         if (isHeader) {
-            logger.info(border);
+            System.out.println(border);
         }
     }
 }
