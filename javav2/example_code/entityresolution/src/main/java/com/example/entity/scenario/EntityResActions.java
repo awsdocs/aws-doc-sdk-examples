@@ -703,9 +703,6 @@ public class EntityResActions {
     /**
      * Prints the given CSV data in a formatted table
      */
-    /**
-     * Prints the given CSV data in a formatted table
-     */
     private static void printTable(List<String[]> records) {
         if (records.isEmpty()) {
             System.out.println("No records found.");
