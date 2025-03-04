@@ -123,7 +123,6 @@ public class S3DirectoriesScenario {
             }
             logger.info("Deleted directory bucket " + mdirectoryBucketName);
             mdirectoryBucketName = null;
-
             if (mregularBucketName != null) {
                 s3DirectoriesActions.deleteBucketAndObjectsAsync(mS3RegularClient, mregularBucketName).join();
             }
@@ -362,17 +361,6 @@ public class S3DirectoriesScenario {
      *
      * @return a {@link UserNames} object containing the names of the created IAM users
      */
-    /**
-     * Creates VPC users for the S3 Express One Zone scenario.
-     * <p>
-     * This method performs the following steps:
-     * <ol>
-     *     <li>Optionally creates a new VPC and VPC Endpoint if the application is running in an EC2 instance in the same Availability Zone as the Directory buckets.</li>
-     *     <li>Creates two IAM users: one with S3 Express One Zone permissions and one without.</li>
-     * </ol>
-     *
-     * @return a {@link UserNames} object containing the names of the created IAM users
-     */
     public static UserNames createVpcUsers() {
         /*
         Optionally create a VPC.
@@ -425,24 +413,6 @@ public class S3DirectoriesScenario {
     }
 
     /**
-     * Sets up a Virtual Private Cloud (VPC) in AWS.
-     * <p>
-     * This method performs the following steps:
-     * <ol>
-     *   <li>Creates a VPC with a CIDR block of "10.0.0.0/16".</li>
-     *   <li>Waits for the VPC to become available.</li>
-     *   <li>Retrieves the route table associated with the VPC.</li>
-     *   <li>Creates a VPC endpoint for the S3 service in the VPC.</li>
-     * </ol>
-     * <p>
-     * The method uses the AWS SDK for Java to interact with the EC2 service.
-     *
-     * @throws RuntimeException if the VPC wait fails
-     * @throws Ec2Exception     if there is an error creating the VPC endpoint
-     */
-
-
-    /**
      * Sets up the necessary clients and buckets for the S3 Express service.
      *
      * @param expressUserName the username for the user with S3 Express permissions
@@ -482,7 +452,6 @@ public class S3DirectoriesScenario {
             return;
         }
 
-
         // Create an additional client using the credentials
         // with S3 Express permissions.
         logger.info("""            
@@ -511,7 +480,6 @@ public class S3DirectoriesScenario {
             (and adhering to least-privilege) is crucial to S3 Express.
             """);
         waitForInputToContinue(locscanner);
-
         logger.info("""
             4. Create two buckets.
             Now we will create a Directory bucket which is the linchpin of the S3 Express One Zone service. Directory buckets 
