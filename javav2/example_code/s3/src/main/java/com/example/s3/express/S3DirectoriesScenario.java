@@ -22,11 +22,13 @@ import software.amazon.awssdk.services.ec2.model.DescribeVpcsRequest;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.Filter;
 import software.amazon.awssdk.services.ec2.waiters.Ec2Waiter;
+import software.amazon.awssdk.services.iam.IamAsyncClient;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.CreateAccessKeyRequest;
 import software.amazon.awssdk.services.iam.model.CreateAccessKeyResponse;
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 
 import java.util.HashMap;
 import java.util.List;
@@ -47,8 +49,6 @@ public class S3DirectoriesScenario {
     private static S3AsyncClient mS3RegularClient;
     private static S3AsyncClient mS3ExpressClient;
 
-    private IamClient iam;
-
     private static String mdirectoryBucketName;
     private static String mregularBucketName;
 
@@ -60,10 +60,14 @@ public class S3DirectoriesScenario {
 
     private static String vpcEndpointId = "";
 
-    private static S3DirectoriesActions s3DirectoriesActions = new S3DirectoriesActions();
+    private static final S3DirectoriesActions s3DirectoriesActions = new S3DirectoriesActions();
 
     public static void main(String[] args) {
-        s3ExpressScenario();
+        try {
+            s3ExpressScenario();
+        } catch (RuntimeException e) {
+            logger.info(e.getMessage());
+        }
     }
 
     // Runs the scenario.
@@ -113,14 +117,23 @@ public class S3DirectoriesScenario {
       Delete resources created by this scenario.
     */
     private static void cleanUp() {
-        if (mdirectoryBucketName != null) {
-            s3DirectoriesActions.deleteBucketAndObjectsAsync(mS3ExpressClient, mdirectoryBucketName).join();
-        }
-        logger.info("Deleted directory bucket " + mdirectoryBucketName);
-        mdirectoryBucketName = null;
+        try {
+            if (mdirectoryBucketName != null) {
+                s3DirectoriesActions.deleteBucketAndObjectsAsync(mS3ExpressClient, mdirectoryBucketName).join();
+            }
+            logger.info("Deleted directory bucket " + mdirectoryBucketName);
+            mdirectoryBucketName = null;
 
-        if (mregularBucketName != null) {
-            s3DirectoriesActions.deleteBucketAndObjectsAsync(mS3RegularClient, mregularBucketName).join();
+            if (mregularBucketName != null) {
+                s3DirectoriesActions.deleteBucketAndObjectsAsync(mS3RegularClient, mregularBucketName).join();
+            }
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof S3Exception) {
+                logger.error("S3Exception occurred: {}", cause.getMessage(), ce);
+            } else {
+                logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+            }
         }
 
         logger.info("Deleted regular bucket " + mregularBucketName);
@@ -277,8 +290,16 @@ public class S3DirectoriesScenario {
                 logger.info("Download " + index + " of " + downloads);
             }
 
-            // Get the object from the normal bucket.
-            s3DirectoriesActions.getObjectAsync(mS3RegularClient, mregularBucketName, bucketObject).join();
+            try {
+                s3DirectoriesActions.getObjectAsync(mS3RegularClient, mregularBucketName, bucketObject).join();
+            } catch (CompletionException ce) {
+                Throwable cause = ce.getCause();
+                if (cause instanceof S3Exception) {
+                    logger.error("S3Exception occurred: {}", cause.getMessage(), ce);
+                } else {
+                    logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+                }
+            }
         }
 
         long normalTimeDifference = System.nanoTime() - normalTimeStart;
@@ -304,12 +325,20 @@ public class S3DirectoriesScenario {
         waitForInputToContinue(scanner);
 
         String bucketObject = "basic-text-object.txt";
-        s3DirectoriesActions.putObjectAsync(mS3RegularClient, mregularBucketName, bucketObject, "Look Ma, I'm a bucket!").join();
-        s3DirectoriesActions.createSessionAsync(mS3ExpressClient, mdirectoryBucketName).join();
+        try {
+            s3DirectoriesActions.putObjectAsync(mS3RegularClient, mregularBucketName, bucketObject, "Look Ma, I'm a bucket!").join();
+            s3DirectoriesActions.createSessionAsync(mS3ExpressClient, mdirectoryBucketName).join();
 
-        // Copy the object to the destination S3 bucket.
-        s3DirectoriesActions.copyObjectAsync(mS3ExpressClient, mregularBucketName, bucketObject, mdirectoryBucketName, bucketObject).join();
-
+            // Copy the object to the destination S3 bucket.
+            s3DirectoriesActions.copyObjectAsync(mS3ExpressClient, mregularBucketName, bucketObject, mdirectoryBucketName, bucketObject).join();
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof S3Exception) {
+                logger.error("S3Exception occurred: {}", cause.getMessage(), ce);
+            } else {
+                logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+            }
+        }
         logger.info(""" 
             It worked! It's important to remember the user permissions when interacting with 
             Directory buckets. Instead of validating permissions on every call as 
@@ -358,10 +387,18 @@ public class S3DirectoriesScenario {
         String endpointAns = scanner.nextLine().trim();
         if (endpointAns.equalsIgnoreCase("y")) {
             logger.info("""
-                    "Great! Let's set up a VPC, retrieve the Route Table from it, and create a VPC Endpoint to connect the S3 Client to."
+                Great! Let's set up a VPC, retrieve the Route Table from it, and create a VPC Endpoint to connect the S3 Client to.
                 """);
-
-            setupVPC();
+            try {
+                s3DirectoriesActions.setupVPCAsync().join();
+            } catch (CompletionException ce) {
+                Throwable cause = ce.getCause();
+                if (cause instanceof Ec2Exception) {
+                    logger.error("IamException occurred: {}", cause.getMessage(), ce);
+                } else {
+                    logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+                }
+            }
             waitForInputToContinue(scanner);
         } else {
             logger.info("Skipping the VPC setup. Don't forget to use this in production!");
@@ -403,62 +440,7 @@ public class S3DirectoriesScenario {
      * @throws RuntimeException if the VPC wait fails
      * @throws Ec2Exception     if there is an error creating the VPC endpoint
      */
-    private static void setupVPC() {
-        /*
-            CIDR (Classless Inter-Domain Routing) is a notation used to
-            define IP address ranges in AWS VPC and EC2 networking.
-            It determines the network size and available IP addresses in a
-            given range.
-         */
-        String cidr = "10.0.0.0/16";
-        CreateVpcRequest vpcRequest = CreateVpcRequest.builder()
-            .cidrBlock(cidr)
-            .build();
 
-        CreateVpcResponse vpcResponse = getEC2Client().createVpc(vpcRequest);
-        vpcId = vpcResponse.vpc().vpcId();
-        try (Ec2Waiter waiter = getEC2Client().waiter()) {
-            DescribeVpcsRequest request = DescribeVpcsRequest.builder()
-                .vpcIds(vpcId)
-                .build();
-
-            waiter.waitUntilVpcAvailable(request);
-            logger.info("Created VPC {}",vpcId);
-        } catch (Ec2Exception ex) {
-            throw new RuntimeException("VPC wait failed: " + ex.getMessage(), ex);
-        }
-
-        try {
-            Filter filter = Filter.builder()
-                .name("vpc-id")
-                .values(vpcId)
-                .build();
-
-            DescribeRouteTablesRequest describeRouteTablesRequest = DescribeRouteTablesRequest.builder()
-                .filters(filter)
-                .build();
-
-            DescribeRouteTablesResponse routeTablesResponse = getEC2Client().describeRouteTables(describeRouteTablesRequest);
-            String routeTableId = routeTablesResponse.routeTables().get(0).routeTableId();
-            Region region = getEC2Client().serviceClientConfiguration().region();
-            String serviceName = String.format("com.amazonaws.%s.s3express", region.id());
-
-            CreateVpcEndpointRequest endpointRequest = CreateVpcEndpointRequest.builder()
-                .vpcId(vpcId)
-                .routeTableIds(routeTableId)
-                .serviceName(serviceName)
-                .build();
-
-            CreateVpcEndpointResponse vpcEndpointResponse = getEC2Client().createVpcEndpoint(endpointRequest);
-            vpcEndpointId = vpcEndpointResponse.vpcEndpoint().vpcEndpointId();
-
-        } catch (Ec2Exception ex) {
-            logger.error(
-                "Couldn't create the vpc endpoint. Here's why: %s",
-                ex.getCause()
-            );
-        }
-    }
 
     /**
      * Sets up the necessary clients and buckets for the S3 Express service.
@@ -467,14 +449,39 @@ public class S3DirectoriesScenario {
      * @param regularUserName the username for the user with regular S3 permissions
      */
     public static void setupClientsAndBuckets(String expressUserName, String regularUserName) {
-        Scanner locscanner = new Scanner(System.in);  // Open the scanner here
-        CreateAccessKeyResponse keyResponse = createAccessKey(regularUserName);
-        String accessKeyIdforRegUser = keyResponse.accessKey().accessKeyId();
-        String secretAccessforRegUser = keyResponse.accessKey().secretAccessKey();
+        Scanner locscanner = new Scanner(System.in);
+        String accessKeyIdforRegUser;
+        String secretAccessforRegUser;
+        try {
+            CreateAccessKeyResponse keyResponse = s3DirectoriesActions.createAccessKeyAsync(regularUserName).join();
+            accessKeyIdforRegUser = keyResponse.accessKey().accessKeyId();
+            secretAccessforRegUser = keyResponse.accessKey().secretAccessKey();
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof IamException) {
+                logger.error("IamException occurred: {}", cause.getMessage(), ce);
+            } else {
+                logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+            }
+            return;
+        }
 
-        CreateAccessKeyResponse keyResponseExpress = createAccessKey(expressUserName);
-        String accessKeyIdforExpressUser = keyResponseExpress.accessKey().accessKeyId();
-        String secretAccessforExpressUser = keyResponseExpress.accessKey().secretAccessKey();
+        String accessKeyIdforExpressUser;
+        String secretAccessforExpressUser;
+        try {
+            CreateAccessKeyResponse keyResponseExpress = s3DirectoriesActions.createAccessKeyAsync(expressUserName).join();
+            accessKeyIdforExpressUser = keyResponseExpress.accessKey().accessKeyId();
+            secretAccessforExpressUser = keyResponseExpress.accessKey().secretAccessKey();
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof IamException) {
+                logger.error("IamException occurred: {}", cause.getMessage(), ce);
+            } else {
+                logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+            }
+            return;
+        }
+
 
         // Create an additional client using the credentials
         // with S3 Express permissions.
@@ -485,13 +492,24 @@ public class S3DirectoriesScenario {
         waitForInputToContinue(locscanner);
 
         // Populate the two S3 data member clients.
-        mS3RegularClient = createS3ClientWithAccessKeyAsync(accessKeyIdforRegUser, secretAccessforRegUser).join();
-        mS3ExpressClient = createS3ClientWithAccessKeyAsync(accessKeyIdforExpressUser, secretAccessforExpressUser).join();
+        try {
+            mS3RegularClient = createS3ClientWithAccessKeyAsync(accessKeyIdforRegUser, secretAccessforRegUser).join();
+            mS3ExpressClient = createS3ClientWithAccessKeyAsync(accessKeyIdforExpressUser, secretAccessforExpressUser).join();
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof S3Exception) {
+                logger.error("S3Exception occurred: {}", cause.getMessage(), ce);
+            } else {
+                logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+            }
+            return;
+        }
+
         logger.info("""
             All the roles and policies were created and attached to the user. Then a new S3 Client were created using 
             that user's credentials. We can now use this client to make calls to S3 Express operations. Keeping permissions in mind
             (and adhering to least-privilege) is crucial to S3 Express.
-              """);
+            """);
         waitForInputToContinue(locscanner);
 
         logger.info("""
@@ -505,88 +523,57 @@ public class S3DirectoriesScenario {
             Now, let's choose an availability zone for the Directory bucket. We'll choose one 
             that is supported.
             """);
-        selectAvailabilityZoneId(String.valueOf(Region.US_EAST_1));
-        String regularBucketName = "reg-bucket-" + System.currentTimeMillis();
-
+        String zoneId;
+        String regularBucketName;
+        try {
+            zoneId = s3DirectoriesActions.selectAvailabilityZoneIdAsync().join();
+            regularBucketName = "reg-bucket-" + System.currentTimeMillis();
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception) {
+                logger.error("EC2Exception occurred: {}", cause.getMessage(), ce);
+            } else {
+                logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+            }
+            return;
+        }
         logger.info("""
             Now, let's create the actual Directory bucket, as well as a regular 
             bucket."
              """);
-        String directoryBucketName = "test-bucket-" + System.currentTimeMillis() + "--usw2-az1--x-s3";
-        String zone = "usw2-az1";
-        s3DirectoriesActions.createDirectoryBucketAsync(mS3ExpressClient, directoryBucketName, zone).join();
-        logger.info("Created directory bucket, " + directoryBucketName);
 
-        // Assign to the data member.
-        mdirectoryBucketName = directoryBucketName;
+        try {
+            String directoryBucketName = "test-bucket-" + System.currentTimeMillis() + "--" + zoneId + "--x-s3";
+            s3DirectoriesActions.createDirectoryBucketAsync(mS3ExpressClient, directoryBucketName, zoneId).join();
+            logger.info("Created directory bucket {}", directoryBucketName);
 
-        s3DirectoriesActions.createBucketAsync(mS3RegularClient, regularBucketName).join();
-        logger.info("Created regular bucket, " + regularBucketName);
-        mregularBucketName = regularBucketName;
+            // Assign to the data member.
+            mdirectoryBucketName = directoryBucketName;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof S3Exception) {
+                logger.error("S3Exception occurred: {}", cause.getMessage(), ce);
+            } else {
+                logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+            }
+            return;
+        }
+
+        try {
+            s3DirectoriesActions.createBucketAsync(mS3RegularClient, regularBucketName).join();
+            logger.info("Created regular bucket {} ", regularBucketName);
+            mregularBucketName = regularBucketName;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof S3Exception) {
+                logger.error("S3Exception occurred: {}", cause.getMessage(), ce);
+            } else {
+                logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+            }
+            return;
+        }
         logger.info("Great! Both buckets were created.");
         waitForInputToContinue(locscanner);
-    }
-
-    /**
-     * Selects an availability zone ID based on the specified AWS region.
-     *
-     * @param region The AWS region to retrieve the availability zones from.
-     * @return A map containing the selected availability zone details, including the zone name, zone ID, region name, and state.
-     */
-    public static Map<String, Object> selectAvailabilityZoneId(String region) {
-        Ec2Client ec2Client = Ec2Client.create();
-
-        // Define filter for region
-        Filter myFilter = Filter.builder()
-            .name("region-name")
-            .values(region)
-            .build();
-
-        // Request available zones
-        DescribeAvailabilityZonesRequest zonesRequest = DescribeAvailabilityZonesRequest.builder()
-            .filters(myFilter)
-            .build();
-        DescribeAvailabilityZonesResponse response = ec2Client.describeAvailabilityZones(zonesRequest);
-        List<AvailabilityZone> zonesList = response.availabilityZones();
-
-        if (zonesList.isEmpty()) {
-            logger.info("No availability zones found.");
-            return null;
-        }
-
-        // Extract zone names
-        List<String> zoneNames = zonesList.stream()
-            .map(AvailabilityZone::zoneName)
-            .toList();
-
-        // Prompt user to select an availability zone
-        Scanner scanner = new Scanner(System.in);
-        int index = -1;
-
-        while (index < 0 || index >= zoneNames.size()) {
-            logger.info("Select an availability zone:");
-            IntStream.range(0, zoneNames.size()).forEach(i ->
-                System.out.println(i + ": " + zoneNames.get(i))
-            );
-
-            logger.info("Enter the number corresponding to your choice: ");
-            if (scanner.hasNextInt()) {
-                index = scanner.nextInt();
-            } else {
-                scanner.next(); // Consume invalid input
-            }
-        }
-
-        AvailabilityZone selectedZone = zonesList.get(index);
-        logger.info("You selected: " + selectedZone.zoneName());
-
-        // Convert selected AvailabilityZone to a Map<String, Object>
-        Map<String, Object> selectedZoneMap = new HashMap<>();
-        selectedZoneMap.put("ZoneName", selectedZone.zoneName());
-        selectedZoneMap.put("ZoneId", selectedZone.zoneId());
-        selectedZoneMap.put("RegionName", selectedZone.regionName());
-        selectedZoneMap.put("State", selectedZone.stateAsString());
-        return selectedZoneMap;
     }
 
     /*
@@ -605,23 +592,6 @@ public class S3DirectoriesScenario {
         });
     }
 
-
-    private static CreateAccessKeyResponse createAccessKey(String userName) {
-        CreateAccessKeyRequest request = CreateAccessKeyRequest.builder()
-            .userName(userName)
-            .build();
-
-        try {
-            return getIAMClient().createAccessKey(request);
-
-        } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        return null;
-    }
-
-
     private static void waitForInputToContinue(Scanner scanner) {
         while (true) {
             logger.info("");
@@ -636,17 +606,5 @@ public class S3DirectoriesScenario {
                 logger.info("Invalid input. Please try again.");
             }
         }
-    }
-
-    private static IamClient getIAMClient() {
-        return IamClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
-    }
-
-    private static Ec2Client getEC2Client() {
-        return Ec2Client.builder()
-            .region(Region.US_EAST_1)
-            .build();
     }
 }
