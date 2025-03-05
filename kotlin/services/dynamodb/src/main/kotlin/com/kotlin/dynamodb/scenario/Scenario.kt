@@ -35,7 +35,7 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 // snippet-start:[dynamodb.kotlin.scenario.main]
-suspend fun main(args: Array<String>) {
+suspend fun main() {
     val tableName = "Movies"
     val fileName = "../../../resources/sample_files/movies.json"
     val partitionAlias = "#a"

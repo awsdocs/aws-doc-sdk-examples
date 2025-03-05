@@ -33,25 +33,10 @@ import kotlin.system.exitProcess
 */
 
 // snippet-start:[dynamodb.kotlin.scenario.partiql.main]
-suspend fun main(args: Array<String>) {
-    val usage = """
-        Usage:
-          <fileName>
-
-        Where:
-           fileName - The path to the moviedata.json file You can download from the Amazon DynamoDB Developer Guide.
-    """
-
-    if (args.size != 1) {
-        println(usage)
-        exitProcess(1)
-    }
-
+suspend fun main() {
     val ddb = DynamoDbClient { region = "us-east-1" }
     val tableName = "MoviesPartiQ"
-
-    // Get the moviedata.json from the Amazon DynamoDB Developer Guide.
-    val fileName = args[0]
+    val fileName = "../../../resources/sample_files/movies.json"
     println("Creating an Amazon DynamoDB table named MoviesPartiQ with a key named id and a sort key named title.")
     createTablePartiQL(ddb, tableName, "year")
     loadDataPartiQL(ddb, fileName)
