@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](src/main/kotlin/com/kotlin/dynamodb/Scenario.kt)
+- [Learn the basics](src/main/kotlin/com/kotlin/dynamodb/scenario/Scenario.kt)
 
 
 ### Single actions
@@ -55,8 +55,8 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Query a table by using batches of PartiQL statements](src/main/kotlin/com/kotlin/dynamodb/ScenarioPartiQLBatch.kt)
-- [Query a table using PartiQL](src/main/kotlin/com/kotlin/dynamodb/ScenarioPartiQ.kt)
+- [Query a table by using batches of PartiQL statements](src/main/kotlin/com/kotlin/dynamodb/scenario/ScenarioPartiQLBatch.kt)
+- [Query a table using PartiQL](src/main/kotlin/com/kotlin/dynamodb/scenario/ScenarioPartiQ.kt)
 
 
 <!--custom.examples.start-->
