@@ -17,6 +17,7 @@ _Amazon Bedrock Runtime is a fully managed service that makes it easy to use fou
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 <!--custom.important.start-->
+### Note: This project uses JDK 21
 <!--custom.important.end-->
 
 ## Code examples
