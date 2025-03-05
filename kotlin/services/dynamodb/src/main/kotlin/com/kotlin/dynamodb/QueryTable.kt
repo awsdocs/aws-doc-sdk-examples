@@ -49,7 +49,7 @@ suspend fun queryDynTable(
     tableNameVal: String,
     partitionKeyName: String,
     partitionKeyVal: String,
-    partitionAlias: String
+    partitionAlias: String,
 ): Int {
     val attrNameAlias = mutableMapOf<String, String>()
     attrNameAlias[partitionAlias] = partitionKeyName

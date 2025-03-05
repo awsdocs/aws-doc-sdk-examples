@@ -44,7 +44,7 @@ suspend fun main(args: Array<String>) {
 suspend fun deleteDynamoDBItem(
     tableNameVal: String,
     keyName: String,
-    keyVal: String
+    keyVal: String,
 ) {
     val keyToGet = mutableMapOf<String, AttributeValue>()
     keyToGet[keyName] = AttributeValue.S(keyVal)

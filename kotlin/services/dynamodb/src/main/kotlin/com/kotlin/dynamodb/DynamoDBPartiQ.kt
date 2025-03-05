@@ -49,7 +49,7 @@ suspend fun main() {
         executeStatementRequest(
             ddb,
             "UPDATE Music SET AwardDetail.Grammys =LIST_APPEND(AwardDetail.Grammys,[2016])  where Artist=? and SongTitle=?",
-            parameters
+            parameters,
         )
     if (response != null) {
         processResults(response)

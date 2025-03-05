@@ -48,7 +48,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[dynamodb.kotlin.create_table.main]
 suspend fun createNewTable(
     tableNameVal: String,
-    key: String
+    key: String,
 ): String? {
     val attDef =
         AttributeDefinition {

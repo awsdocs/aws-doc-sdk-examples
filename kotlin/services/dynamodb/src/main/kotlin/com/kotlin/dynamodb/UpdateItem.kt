@@ -53,7 +53,7 @@ suspend fun updateTableItem(
     keyName: String,
     keyVal: String,
     name: String,
-    updateVal: String
+    updateVal: String,
 ) {
     val itemKey = mutableMapOf<String, AttributeValue>()
     itemKey[keyName] = AttributeValue.S(keyVal)
