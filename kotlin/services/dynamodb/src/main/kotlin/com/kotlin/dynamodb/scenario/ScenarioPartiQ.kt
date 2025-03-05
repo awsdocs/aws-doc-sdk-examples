@@ -59,7 +59,7 @@ suspend fun main() {
 suspend fun createTablePartiQL(
     ddb: DynamoDbClient,
     tableNameVal: String,
-    key: String
+    key: String,
 ) {
     val attDef =
         AttributeDefinition {
@@ -103,7 +103,7 @@ suspend fun createTablePartiQL(
 
 suspend fun loadDataPartiQL(
     ddb: DynamoDbClient,
-    fileName: String
+    fileName: String,
 ) {
     val sqlStatement = "INSERT INTO MoviesPartiQ VALUE {'year':?, 'title' : ?, 'info' : ?}"
     val parser = JsonFactory().createParser(File(fileName))
@@ -186,7 +186,7 @@ suspend fun deleteTablePartiQL(tableNameVal: String) {
 suspend fun executeStatementPartiQL(
     ddb: DynamoDbClient,
     statementVal: String,
-    parametersVal: List<AttributeValue>
+    parametersVal: List<AttributeValue>,
 ): ExecuteStatementResponse {
     val request =
         ExecuteStatementRequest {

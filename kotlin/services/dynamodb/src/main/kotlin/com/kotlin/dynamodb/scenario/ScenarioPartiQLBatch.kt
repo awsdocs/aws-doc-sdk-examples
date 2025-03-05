@@ -49,7 +49,7 @@ suspend fun main() {
 suspend fun createTablePartiQLBatch(
     ddb: DynamoDbClient,
     tableNameVal: String,
-    key: String
+    key: String,
 ) {
     val attDef =
         AttributeDefinition {
