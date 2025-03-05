@@ -57,7 +57,6 @@ public class HelloEntityResoultion {
                 .build();
 
             entityResolutionAsyncClient = EntityResolutionAsyncClient.builder()
-                .region(Region.US_EAST_1)
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
                 .build();
