@@ -13,11 +13,9 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
-
 import com.kotlin.dynamodb.createNewTable
 import com.kotlin.dynamodb.deleteDynamoDBTable
 import com.kotlin.dynamodb.describeDymamoDBTable
@@ -27,7 +25,6 @@ import com.kotlin.dynamodb.putItemInTable
 import com.kotlin.dynamodb.queryDynTable
 import com.kotlin.dynamodb.scanItems
 import com.kotlin.dynamodb.updateTableItem
-
 import com.kotlin.dynamodb.scenario.createScenarioTable
 import com.kotlin.dynamodb.scenario.createTablePartiQL
 import com.kotlin.dynamodb.scenario.createTablePartiQLBatch
