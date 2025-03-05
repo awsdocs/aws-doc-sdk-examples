@@ -45,16 +45,16 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CheckWorkflowStatus](src/main/java/com/example/entity/scenario/EntityResActions.java#L393)
-- [CreateMatchingWorkflow](src/main/java/com/example/entity/scenario/EntityResActions.java#L431)
-- [CreateSchemaMapping](src/main/java/com/example/entity/scenario/EntityResActions.java#L232)
-- [DeleteMatchingWorkflow](src/main/java/com/example/entity/scenario/EntityResActions.java#L198)
-- [DeleteSchemaMapping](src/main/java/com/example/entity/scenario/EntityResActions.java#L139)
-- [GetMatchingJob](src/main/java/com/example/entity/scenario/EntityResActions.java#L319)
-- [GetSchemaMapping](src/main/java/com/example/entity/scenario/EntityResActions.java#L282)
-- [ListSchemaMappings](src/main/java/com/example/entity/scenario/EntityResActions.java#L175)
-- [StartMatchingJob](src/main/java/com/example/entity/scenario/EntityResActions.java#L356)
-- [TagEntityResource](src/main/java/com/example/entity/scenario/EntityResActions.java#L518)
+- [CheckWorkflowStatus](src/main/java/com/example/entity/scenario/EntityResActions.java#L391)
+- [CreateMatchingWorkflow](src/main/java/com/example/entity/scenario/EntityResActions.java#L429)
+- [CreateSchemaMapping](src/main/java/com/example/entity/scenario/EntityResActions.java#L230)
+- [DeleteMatchingWorkflow](src/main/java/com/example/entity/scenario/EntityResActions.java#L196)
+- [DeleteSchemaMapping](src/main/java/com/example/entity/scenario/EntityResActions.java#L137)
+- [GetMatchingJob](src/main/java/com/example/entity/scenario/EntityResActions.java#L317)
+- [GetSchemaMapping](src/main/java/com/example/entity/scenario/EntityResActions.java#L280)
+- [ListSchemaMappings](src/main/java/com/example/entity/scenario/EntityResActions.java#L173)
+- [StartMatchingJob](src/main/java/com/example/entity/scenario/EntityResActions.java#L354)
+- [TagEntityResource](src/main/java/com/example/entity/scenario/EntityResActions.java#L516)
 
 
 <!--custom.examples.start-->
