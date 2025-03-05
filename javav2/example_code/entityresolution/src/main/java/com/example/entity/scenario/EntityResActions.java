@@ -97,7 +97,6 @@ public class EntityResActions {
                 .build();
 
             entityResolutionAsyncClient = EntityResolutionAsyncClient.builder()
-                .region(Region.US_EAST_1)
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
                 .build();
@@ -128,7 +127,6 @@ public class EntityResActions {
                 .build();
 
             s3AsyncClient = S3AsyncClient.builder()
-                .region(Region.US_EAST_1)
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
                 .build();
