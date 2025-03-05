@@ -1,18 +1,18 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.kotlin.dynamodb
+package com.kotlin.dynamodb.scenario
 
 // snippet-start:[dynamodb.kotlin.scenario.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeDefinition
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
+import aws.sdk.kotlin.services.dynamodb.model.BillingMode
 import aws.sdk.kotlin.services.dynamodb.model.CreateTableRequest
 import aws.sdk.kotlin.services.dynamodb.model.DeleteTableRequest
 import aws.sdk.kotlin.services.dynamodb.model.GetItemRequest
 import aws.sdk.kotlin.services.dynamodb.model.KeySchemaElement
 import aws.sdk.kotlin.services.dynamodb.model.KeyType
-import aws.sdk.kotlin.services.dynamodb.model.ProvisionedThroughput
 import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
 import aws.sdk.kotlin.services.dynamodb.model.QueryRequest
 import aws.sdk.kotlin.services.dynamodb.model.ScalarAttributeType
@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import java.io.File
-import kotlin.system.exitProcess
+
 // snippet-end:[dynamodb.kotlin.scenario.import]
 
 /**
@@ -36,22 +36,8 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 // snippet-start:[dynamodb.kotlin.scenario.main]
 suspend fun main(args: Array<String>) {
-    val usage = """
-        Usage:
-          <fileName>
-
-        Where:
-           fileName - The path to the moviedata.json you can download from the Amazon DynamoDB Developer Guide.
-    """
-
-    if (args.size != 1) {
-        println(usage)
-        exitProcess(1)
-    }
-
-    // Get the moviedata.json from the Amazon DynamoDB Developer Guide.
     val tableName = "Movies"
-    val fileName = args[0]
+    val fileName = "../../../resources/sample_files/movies.json"
     val partitionAlias = "#a"
 
     println("Creating an Amazon DynamoDB table named Movies with a key named id and a sort key named title.")
@@ -93,17 +79,11 @@ suspend fun createScenarioTable(
             keyType = KeyType.Range
         }
 
-    val provisionedVal =
-        ProvisionedThroughput {
-            readCapacityUnits = 10
-            writeCapacityUnits = 10
-        }
-
     val request =
         CreateTableRequest {
             attributeDefinitions = listOf(attDef, attDef1)
             keySchema = listOf(keySchemaVal, keySchemaVal1)
-            provisionedThroughput = provisionedVal
+            billingMode = BillingMode.PayPerRequest
             tableName = tableNameVal
         }
 

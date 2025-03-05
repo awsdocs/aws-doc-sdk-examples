@@ -1,19 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.kotlin.dynamodb
+package com.kotlin.dynamodb.scenario
 
 // snippet-start:[dynamodb.kotlin.scenario.partiql.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeDefinition
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
+import aws.sdk.kotlin.services.dynamodb.model.BillingMode
 import aws.sdk.kotlin.services.dynamodb.model.CreateTableRequest
 import aws.sdk.kotlin.services.dynamodb.model.DeleteTableRequest
 import aws.sdk.kotlin.services.dynamodb.model.ExecuteStatementRequest
 import aws.sdk.kotlin.services.dynamodb.model.ExecuteStatementResponse
 import aws.sdk.kotlin.services.dynamodb.model.KeySchemaElement
 import aws.sdk.kotlin.services.dynamodb.model.KeyType
-import aws.sdk.kotlin.services.dynamodb.model.ProvisionedThroughput
 import aws.sdk.kotlin.services.dynamodb.model.ScalarAttributeType
 import aws.sdk.kotlin.services.dynamodb.waiters.waitUntilTableExists
 import com.fasterxml.jackson.core.JsonFactory
@@ -101,17 +101,11 @@ suspend fun createTablePartiQL(
             keyType = KeyType.Range
         }
 
-    val provisionedVal =
-        ProvisionedThroughput {
-            readCapacityUnits = 10
-            writeCapacityUnits = 10
-        }
-
     val request =
         CreateTableRequest {
             attributeDefinitions = listOf(attDef, attDef1)
             keySchema = listOf(keySchemaVal, keySchemaVal1)
-            provisionedThroughput = provisionedVal
+            billingMode = BillingMode.PayPerRequest
             tableName = tableNameVal
         }
 
