@@ -53,7 +53,7 @@ suspend fun main() {
 // snippet-start:[dynamodb.kotlin.scenario.create_table.main]
 suspend fun createScenarioTable(
     tableNameVal: String,
-    key: String,
+    key: String
 ) {
     val attDef =
         AttributeDefinition {
@@ -103,7 +103,7 @@ suspend fun createScenarioTable(
 // Load data into the table.
 suspend fun loadData(
     tableName: String,
-    fileName: String,
+    fileName: String
 ) {
     val parser = JsonFactory().createParser(File(fileName))
     val rootNode = ObjectMapper().readTree<JsonNode>(parser)
@@ -129,7 +129,7 @@ suspend fun putMovie(
     tableNameVal: String,
     year: Int,
     title: String,
-    info: String,
+    info: String
 ) {
     val itemValues = mutableMapOf<String, AttributeValue>()
     val strVal = year.toString()
@@ -155,7 +155,7 @@ suspend fun putMovie(
 suspend fun getMovie(
     tableNameVal: String,
     keyName: String,
-    keyVal: String,
+    keyVal: String
 ) {
     val keyToGet = mutableMapOf<String, AttributeValue>()
     keyToGet[keyName] = AttributeValue.N(keyVal)
@@ -193,7 +193,7 @@ suspend fun deletIssuesTable(tableNameVal: String) {
 suspend fun queryMovieTable(
     tableNameVal: String,
     partitionKeyName: String,
-    partitionAlias: String,
+    partitionAlias: String
 ): Int {
     val attrNameAlias = mutableMapOf<String, String>()
     attrNameAlias[partitionAlias] = "year"
