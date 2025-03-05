@@ -64,7 +64,7 @@ suspend fun putItemInTable(
     awardVal: String,
     songTitle: String,
     songTitleVal: String,
-    ) {
+) {
     val itemValues = mutableMapOf<String, AttributeValue>()
 
     // Add all content to the table.
