@@ -21,7 +21,6 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import java.io.File
-import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.scenario.partiql.import]
 
 /**
