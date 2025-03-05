@@ -13,6 +13,7 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.BatchExecuteStatementRequest;
 import software.amazon.awssdk.services.dynamodb.model.BatchExecuteStatementResponse;
 import software.amazon.awssdk.services.dynamodb.model.BatchStatementRequest;
+import software.amazon.awssdk.services.dynamodb.model.BillingMode;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
@@ -156,10 +157,7 @@ public class ScenarioPartiQLBatch {
 
         CreateTableRequest request = CreateTableRequest.builder()
             .keySchema(tableKey)
-            .provisionedThroughput(ProvisionedThroughput.builder()
-                .readCapacityUnits(10L)
-                .writeCapacityUnits(10L)
-                .build())
+            .billingMode(BillingMode.PAY_PER_REQUEST) //  DynamoDB automatically scales based on traffic.
             .attributeDefinitions(attributeDefinitions)
             .tableName(tableName)
             .build();

@@ -1441,7 +1441,7 @@ GEM
       prettyprint
     prettyprint (0.1.1)
     racc (1.8.1)
-    rack (3.1.10)
+    rack (3.1.11)
     rack-protection (4.1.1)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
@@ -1515,7 +1515,7 @@ GEM
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
-    uri (0.12.2)
+    uri (0.12.4)
     zip (2.0.2)
 
 PLATFORMS
