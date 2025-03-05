@@ -27,7 +27,7 @@ import aws.sdk.kotlin.services.s3control.model.Region
 import aws.sdk.kotlin.services.sts.StsClient
 import aws.sdk.kotlin.services.sts.getCallerIdentity
 import aws.sdk.kotlin.services.sts.model.GetCallerIdentityRequest
-import aws.smithy.kotlin.runtime.auth.awssigning.crt.CrtAwsSigner
+import aws.smithy.kotlin.runtime.auth.awssigning.DefaultAwsSigner
 import aws.smithy.kotlin.runtime.content.ByteStream
 import aws.smithy.kotlin.runtime.content.decodeToString
 import aws.smithy.kotlin.runtime.http.auth.SigV4AsymmetricAuthScheme
@@ -204,10 +204,10 @@ class MrapExample {
     companion object {
         // snippet-start:[s3.kotlin.mrap.create-s3client]
         suspend fun createS3Client(): S3Client {
-            // Configure your S3Client to use the Asymmetric Sigv4 (Sigv4a) signing algorithm.
-            val sigV4AScheme = SigV4AsymmetricAuthScheme(CrtAwsSigner)
+            // Configure your S3Client to use the Asymmetric SigV4 (SigV4a) signing algorithm.
+            val sigV4aScheme = SigV4AsymmetricAuthScheme(DefaultAwsSigner)
             val s3 = S3Client.fromEnvironment {
-                authSchemes = listOf(sigV4AScheme)
+                authSchemes = listOf(sigV4aScheme)
             }
             return s3
         }

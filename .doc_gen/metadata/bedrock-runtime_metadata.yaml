@@ -100,6 +100,14 @@ bedrock-runtime_Converse_AmazonNovaText:
             - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
               snippet_tags:
                 - bedrock-runtime.java2.Converse_AmazonNovaText
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
+              snippet_tags:
+                - javascript.v3.bedrock-runtime.Converse_AmazonTitanText
     .NET:
       versions:
         - sdk_version: 3
@@ -423,6 +431,14 @@ bedrock-runtime_ConverseStream_AmazonNovaText:
             - description: Send a text message to Amazon Nova using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
                 - bedrock-runtime.java2.ConverseStream_AmazonNovaText
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova using Bedrock's Converse API and process the response stream in real-time.
+              snippet_tags:
+                - javascript.v3.bedrock-runtime.Converse_Mistral
     .NET:
       versions:
         - sdk_version: 3
@@ -1273,6 +1289,14 @@ bedrock-runtime_InvokeModel_AmazonNovaImageGeneration:
             - description: Create an image with Amazon Nova Canvas.
               snippet_tags:
                 - bedrock-runtime.java2.InvokeModel_AmazonNovaImageGeneration
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Create an image with Amazon Nova Canvas.
+              snippet_tags:
+                - javascript.v3.bedrock-runtime.InvokeModel_AmazonNovaImageGeneration
     .NET:
       versions:
         - sdk_version: 3

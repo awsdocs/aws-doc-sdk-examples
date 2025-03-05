@@ -51,11 +51,7 @@ namespace DynamoDB_Actions
                         KeyType = KeyType.RANGE,
                     },
                 },
-                ProvisionedThroughput = new ProvisionedThroughput
-                {
-                    ReadCapacityUnits = 5,
-                    WriteCapacityUnits = 5,
-                },
+                BillingMode = BillingMode.PAY_PER_REQUEST,
             });
 
             // Wait until the table is ACTIVE and then report success.
