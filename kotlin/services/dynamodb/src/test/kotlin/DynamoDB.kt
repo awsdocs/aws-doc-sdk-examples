@@ -109,7 +109,7 @@ class DynamoDB {
                 awards,
                 awardVal,
                 songTitle,
-                songTitleVal
+                songTitleVal,
             )
             logger.info("Test 3 passed")
         }
