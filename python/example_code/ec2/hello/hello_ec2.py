@@ -21,7 +21,8 @@ def hello_ec2(ec2_client):
     print("Hello, Amazon EC2! Let's list up to 10 of your security groups:")
     try:
         paginator = ec2_client.get_paginator("describe_security_groups")
-        response_iterator = paginator.paginate(MaxResults=10)
+        response_iterator = paginator.paginate(PaginationConfig={'MaxItems': 10}) # List only 10 security groups.
+        logging.basicConfig(level=logging.INFO) # Enable logging.
         for page in response_iterator:
             for sg in page["SecurityGroups"]:
                 logger.info(f"\t{sg['GroupId']}: {sg['GroupName']}")

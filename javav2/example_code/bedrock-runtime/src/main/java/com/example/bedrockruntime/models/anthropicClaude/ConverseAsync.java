@@ -55,7 +55,7 @@ public class ConverseAsync {
         request.whenComplete((response, error) -> {
             if (error == null) {
                 // Extract the generated text from Bedrock's response object.
-                String responseText = response.output().message().content().get(0).text();
+                String responseText = response.output().message().content().getFirst().text();
                 future.complete(responseText);
             } else {
                 future.completeExceptionally(error);

@@ -1,19 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.kotlin.dynamodb
+package com.kotlin.dynamodb.scenario
 
 // snippet-start:[dynamodb.kotlin.scenario.partiql.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeDefinition
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
+import aws.sdk.kotlin.services.dynamodb.model.BillingMode
 import aws.sdk.kotlin.services.dynamodb.model.CreateTableRequest
 import aws.sdk.kotlin.services.dynamodb.model.DeleteTableRequest
 import aws.sdk.kotlin.services.dynamodb.model.ExecuteStatementRequest
 import aws.sdk.kotlin.services.dynamodb.model.ExecuteStatementResponse
 import aws.sdk.kotlin.services.dynamodb.model.KeySchemaElement
 import aws.sdk.kotlin.services.dynamodb.model.KeyType
-import aws.sdk.kotlin.services.dynamodb.model.ProvisionedThroughput
 import aws.sdk.kotlin.services.dynamodb.model.ScalarAttributeType
 import aws.sdk.kotlin.services.dynamodb.waiters.waitUntilTableExists
 import com.fasterxml.jackson.core.JsonFactory
@@ -21,7 +21,6 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
 import java.io.File
-import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.scenario.partiql.import]
 
 /**
@@ -33,25 +32,10 @@ import kotlin.system.exitProcess
 */
 
 // snippet-start:[dynamodb.kotlin.scenario.partiql.main]
-suspend fun main(args: Array<String>) {
-    val usage = """
-        Usage:
-          <fileName>
-
-        Where:
-           fileName - The path to the moviedata.json file You can download from the Amazon DynamoDB Developer Guide.
-    """
-
-    if (args.size != 1) {
-        println(usage)
-        exitProcess(1)
-    }
-
+suspend fun main() {
     val ddb = DynamoDbClient { region = "us-east-1" }
     val tableName = "MoviesPartiQ"
-
-    // Get the moviedata.json from the Amazon DynamoDB Developer Guide.
-    val fileName = args[0]
+    val fileName = "../../../resources/sample_files/movies.json"
     println("Creating an Amazon DynamoDB table named MoviesPartiQ with a key named id and a sort key named title.")
     createTablePartiQL(ddb, tableName, "year")
     loadDataPartiQL(ddb, fileName)
@@ -101,17 +85,11 @@ suspend fun createTablePartiQL(
             keyType = KeyType.Range
         }
 
-    val provisionedVal =
-        ProvisionedThroughput {
-            readCapacityUnits = 10
-            writeCapacityUnits = 10
-        }
-
     val request =
         CreateTableRequest {
             attributeDefinitions = listOf(attDef, attDef1)
             keySchema = listOf(keySchemaVal, keySchemaVal1)
-            provisionedThroughput = provisionedVal
+            billingMode = BillingMode.PayPerRequest
             tableName = tableNameVal
         }
 
