@@ -6,10 +6,10 @@ package com.kotlin.dynamodb
 // snippet-start:[dynamodb.kotlin.create_table.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeDefinition
+import aws.sdk.kotlin.services.dynamodb.model.BillingMode
 import aws.sdk.kotlin.services.dynamodb.model.CreateTableRequest
 import aws.sdk.kotlin.services.dynamodb.model.KeySchemaElement
 import aws.sdk.kotlin.services.dynamodb.model.KeyType
-import aws.sdk.kotlin.services.dynamodb.model.ProvisionedThroughput
 import aws.sdk.kotlin.services.dynamodb.model.ScalarAttributeType
 import aws.sdk.kotlin.services.dynamodb.waiters.waitUntilTableExists
 import kotlin.system.exitProcess
@@ -62,17 +62,11 @@ suspend fun createNewTable(
             keyType = KeyType.Hash
         }
 
-    val provisionedVal =
-        ProvisionedThroughput {
-            readCapacityUnits = 10
-            writeCapacityUnits = 10
-        }
-
     val request =
         CreateTableRequest {
             attributeDefinitions = listOf(attDef)
             keySchema = listOf(keySchemaVal)
-            provisionedThroughput = provisionedVal
+            billingMode = BillingMode.PayPerRequest
             tableName = tableNameVal
         }
 

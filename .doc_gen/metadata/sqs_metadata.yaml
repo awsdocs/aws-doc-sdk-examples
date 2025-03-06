@@ -481,9 +481,22 @@ sqs_SendMessage:
           github: javav2/example_code/sqs
           sdkguide:
           excerpts:
-            - description:
+            - description: >-
+                Two examples of the <code>SendMessage</code> operation follow:</para>
+                <itemizedlist>
+                    <listitem>
+                        <para>Send a message with a body and a delay</para>
+                    </listitem>
+                    <listitem>
+                        <para>Send a message with a body and message attributes</para>
+                    </listitem>
+                </itemizedlist>
+                <para>Send a message with a body and a delay.
               snippet_tags:
                 - sqs.java2.send_recieve_messages.main
+            - description: Send a message with a body and message attributes.
+              snippet_tags:
+                - sqs.java2.message_attributes.create
     Python:
       versions:
         - sdk_version: 3
@@ -1006,6 +1019,15 @@ sqs_SetQueueAttributes:
             - description:
               snippet_tags:
                 - swift.sqs.SetQueueAttributes
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description: Configure an &SQS; to use server-side encryption (SSE) using a custom KMS key.
+              snippet_tags:
+                - sqs.java2.sqs_sse_example.add-encryption-method
   services:
     sqs: {SetQueueAttributes}
 sqs_Scenario_TopicsAndQueues:
@@ -1091,3 +1113,20 @@ sqs_Scenario_TopicsAndQueues:
   services:
     sns: {CreateTopic, Subscribe, Publish, Unsubscribe, DeleteTopic}
     sqs: {CreateQueue, GetQueueAttributes, SetQueueAttributes, ReceiveMessage, DeleteMessageBatch, DeleteQueue}
+sqs_Scenario_WorkWithTags:
+  title: Work with queue tags and &SQS; using an &AWS; SDK
+  title_abbrev: Work with queue tags
+  synopsis: perform tagging operation with &SQS;
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description: The following example creates tags for a queue, lists tags, and removes a tag.
+              snippet_tags:
+                - sqs.java2.tag-examples
+  services:
+    sqs: {TagQueue, ListQueueTags, UntagQueue}
