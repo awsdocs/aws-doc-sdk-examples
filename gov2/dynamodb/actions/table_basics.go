@@ -74,11 +74,8 @@ func (basics TableBasics) CreateMovieTable(ctx context.Context) (*types.TableDes
 			AttributeName: aws.String("title"),
 			KeyType:       types.KeyTypeRange,
 		}},
-		TableName: aws.String(basics.TableName),
-		ProvisionedThroughput: &types.ProvisionedThroughput{
-			ReadCapacityUnits:  aws.Int64(10),
-			WriteCapacityUnits: aws.Int64(10),
-		},
+		TableName:   aws.String(basics.TableName),
+		BillingMode: types.BillingModePayPerRequest,
 	})
 	if err != nil {
 		log.Printf("Couldn't create table %v. Here's why: %v\n", basics.TableName, err)
@@ -90,6 +87,7 @@ func (basics TableBasics) CreateMovieTable(ctx context.Context) (*types.TableDes
 			log.Printf("Wait for table exists failed. Here's why: %v\n", err)
 		}
 		tableDesc = table.TableDescription
+		log.Printf("Ccreating table test")
 	}
 	return tableDesc, err
 }
