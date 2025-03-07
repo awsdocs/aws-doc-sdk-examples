@@ -5,6 +5,8 @@ import argparse
 import config
 import logging
 import os
+import json
+from collections import defaultdict
 from difflib import unified_diff
 from pathlib import Path
 from typing import Optional
@@ -12,7 +14,7 @@ from typing import Optional
 from render import Renderer, MissingMetadataError, RenderStatus
 from scanner import Scanner
 
-from aws_doc_sdk_examples_tools.doc_gen import DocGen
+from aws_doc_sdk_examples_tools.doc_gen import DocGen, DocGenEncoder
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO").upper(), force=True)
 
@@ -27,6 +29,7 @@ def prepare_scanner(doc_gen: DocGen) -> Optional[Scanner]:
         failed_list = "\n".join(f"DocGen Error: {e}" for e in error_strings)
         print(f"Metadata errors encountered:\n\t{failed_list}")
         return None
+
     scanner = Scanner(doc_gen)
 
     # Preload cross-content examples
@@ -104,9 +107,15 @@ def main():
         return -1
 
     renderer = Renderer(scanner)
+
+    for language_and_version in args.languages:
+        (language, version) = language_and_version.split(":")
+        write_language_json(doc_gen, language)
+
     for service in args.services:
         for language_and_version in args.languages:
             (language, version) = language_and_version.split(":")
+            # write_service_json(doc_gen, service, language)
             id = f"{language}:{version}:{service}"
             try:
                 renderer.set_example(service, language, int(version), args.safe)
@@ -176,3 +185,47 @@ def make_diff(renderer, id):
     expected = renderer.readme_text.split("\n")
     diff = unified_diff(current, expected, f"{id}/current", f"{id}/expected")
     return "\n".join(diff)
+
+
+def write_service_json(doc_gen, service_name, language_name):
+    # Test creating a file
+    filepath = f"example_json/{language_name}_{service_name}_examples_list.json"
+    filepath = filepath.lower()
+    print("Writing serialized versions of DocGen to %s", filepath)
+
+    language_examples = []
+    for example in doc_gen.examples.values():
+        for lang_name, language in example.languages.items():
+            for sdk_version in language.versions:
+                for svc_name in example.services:
+                    if svc_name == service_name and lang_name == language_name:
+                        language_examples.append(example)
+
+    with open(filepath, "w") as example_meta:
+        example_meta.write(
+            json.dumps(
+                {"examples": language_examples},
+                cls=DocGenEncoder, indent="\t"
+            )
+        )
+
+
+def write_language_json(doc_gen, language_name):
+    # Test creating a file
+    filepath = f"example_json/{language_name}_examples_list.json"
+    filepath = filepath.lower()
+    print("Writing serialized versions of DocGen to %s", filepath)
+
+    language_examples = []
+    for example in doc_gen.examples.values():
+        for lang_name, language in example.languages.items():
+            if lang_name == language_name:
+                language_examples.append(example)
+
+    with open(filepath, "w") as example_meta:
+        example_meta.write(
+            json.dumps(
+                {"examples": language_examples},
+                cls=DocGenEncoder, indent="\t"
+            )
+        )
