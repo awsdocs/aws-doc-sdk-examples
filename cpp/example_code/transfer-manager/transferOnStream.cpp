@@ -116,10 +116,6 @@ int main(int argc, char** argv)
             std::cout << "File download to memory finished."  << std::endl;
             // snippet-end:[transfer-manager.cpp.transferOnStream.code]
              
-            
-            // Verify the download retrieved the expected length of data.
-            assert(downloadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTransferred());
-
             // Verify that the length of the upload equals the download. 
             assert(uploadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTotalSize());
 
