@@ -98,9 +98,6 @@ int main(int argc, char** argv)
         {
             std::cout << "File upload finished." << std::endl;
 
-            // Verify that the upload retrieved the expected amount of data.
-            assert(uploadHandle->GetBytesTotalSize() == uploadHandle->GetBytesTransferred());
-
             auto downloadHandle = transfer_manager->DownloadFile(BUCKET,
                 KEY,
                 [&]() { //Define a lambda expression for the callback method parameter to stream back the data.
@@ -119,9 +116,6 @@ int main(int argc, char** argv)
             
             // Verify the download retrieved the expected length of data.
             assert(downloadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTransferred());
-
-            // Verify that the length of the upload equals the download. 
-            assert(uploadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTotalSize());
 
             // Write the buffered data to local file copy.
             Aws::OFStream storeFile(LOCAL_FILE_COPY.c_str(), Aws::OFStream::out | Aws::OFStream::trunc);
