@@ -77,5 +77,4 @@ public class HelloLocation {
         });
         return future;
     }
-
 }
