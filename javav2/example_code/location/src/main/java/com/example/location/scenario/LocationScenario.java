@@ -18,13 +18,27 @@ public class LocationScenario {
     static LocationActions locationActions = new LocationActions() ;
 
     public static void main(String[] args) {
-        String mapName = "ScottMap32";
-        String keyName = "ScottApiKeyName32";
-        String collectionName = "ScottCollection32";
-        String geoId = "geoId32";
-        String trackerName = "geoTracker32";
-        String calculatorName = "ScottRouteCalc32";
-        String deviceId = "iPhone-112356"; // Use the iPhone's identifier from Swift
+        final String usage = """
+
+                Usage:    <mapName> <keyName> <collectionName> <geoId> <trackerName> <calculatorName> <deviceId>
+
+                Where:
+                  mapName - The name of the map to be created (e.g., "AWSMap").
+                  keyName - The name of the API key to be used (e.g., "AWSApiKey").
+                  collectionName - The name of the geofence collection (e.g., "AWSLocationCollection").
+                  geoId - The geographic identifier used for the geofence or map (e.g., "geoId1").
+                  trackerName - The name of the tracker (e.g., "geoTracker1").
+                  calculatorName - The name of the route calculator (e.g., "AWSRouteCalc32").
+                  deviceId - The ID of the device (e.g., "iPhone-112356").
+                """;
+
+        String mapName = "ScottMap33";
+        String keyName = "ScottApiKeyName33";
+        String collectionName = "ScottCollection33";
+        String geoId = "geoId33";
+        String trackerName = "geoTracker33";
+        String calculatorName = "ScottRouteCalc33";
+        String deviceId = "iPhone-111356"; // Use the iPhone's identifier from Swift
 
         logger.info("""
             AWS Location Service is a fully managed service offered by Amazon Web Services (AWS) that
@@ -50,7 +64,6 @@ public class LocationScenario {
             """);
         waitForInputToContinue(scanner);
         logger.info(DASHES);
-
 
         logger.info(DASHES);
         logger.info("1. Create a map");
@@ -124,21 +137,14 @@ public class LocationScenario {
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
-        logger.info(DASHES);
-        logger.info("6. List geofences stored in a given geofence collection.");
-        waitForInputToContinue(scanner);
-        locationActions.listGeofences(collectionName).join();
-        waitForInputToContinue(scanner);
-        logger.info(DASHES);
-
-        logger.info("7. Create a tracker resource which lets you retrieve current and historical location of devices..");
+        logger.info("6. Create a tracker resource which lets you retrieve current and historical location of devices..");
         waitForInputToContinue(scanner);
         locationActions.createTracker(trackerName).join();
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("8. Update the position of a device in the location tracking system.");
+        logger.info("7. Update the position of a device in the location tracking system.");
         logger.info("""
             The AWS location service does not enforce a strict format for deviceId, but it must:
               - Be a string (case-sensitive).
@@ -155,37 +161,41 @@ public class LocationScenario {
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
-        logger.info("9. Retrieve the most recent position update for a specified device..");
+        logger.info("8. Retrieve the most recent position update for a specified device..");
         waitForInputToContinue(scanner);
         locationActions.getDevicePosition(trackerName, deviceId).join();
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
-        logger.info("10. Create a route calculator.");
+        logger.info("9. Create a route calculator.");
         waitForInputToContinue(scanner);
         locationActions.createRouteCalculator(calculatorName).join();
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
-        logger.info("11. Determine the distance between Seattle and Vancouver..");
+        logger.info("10. Determine the distance between Seattle and Vancouver using the route calculator.");
         waitForInputToContinue(scanner);
         locationActions.calcDistanceAsync(calculatorName).join();
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
-        logger.info("12. Delete the AWS Location Services resources.");
+        logger.info("11. Delete the AWS Location Services resources.");
         logger.info("Would you like to delete the AWS Location Services resources? (y/n)");
         String delAns = scanner.nextLine().trim();
         if (delAns.equalsIgnoreCase("y")) {
-            locationActions.createRouteCalculator(calculatorName).join();
+            locationActions.deleteMap(mapName).join();
+            locationActions.deleteKey(keyName).join();
+            locationActions.deleteGeofenceCollectionAsync(collectionName).join();
+            locationActions.deleteTracker(trackerName).join();
+            locationActions.deleteRouteCalculator(calculatorName).join();
         } else {
-            logger.info("The AWS resources will not be deleted");
+            logger.info("The AWS resources will not be deleted.");
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info(" This concluded the AWS Location Service scenario.");
+        logger.info(" This concludes the AWS Location Service scenario.");
         logger.info(DASHES);
     }
 
