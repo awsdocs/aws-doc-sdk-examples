@@ -1,20 +1,17 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.location;
 
-import com.example.location.scenario.LocationActions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.location.LocationAsyncClient;
-import software.amazon.awssdk.services.location.LocationClient;
-import software.amazon.awssdk.services.location.model.DescribeKeyRequest;
-import software.amazon.awssdk.services.location.model.DescribeKeyResponse;
 import software.amazon.awssdk.services.location.model.ListGeofencesRequest;
 import software.amazon.awssdk.services.location.paginators.ListGeofencesPublisher;
-
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
