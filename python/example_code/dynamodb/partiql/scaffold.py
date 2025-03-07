@@ -46,10 +46,7 @@ class Scaffold:
                     {"AttributeName": "year", "AttributeType": "N"},
                     {"AttributeName": "title", "AttributeType": "S"},
                 ],
-                ProvisionedThroughput={
-                    "ReadCapacityUnits": 10,
-                    "WriteCapacityUnits": 10,
-                },
+                BillingMode='PAY_PER_REQUEST',
             )
             self.table.wait_until_exists()
         except ClientError as err:
