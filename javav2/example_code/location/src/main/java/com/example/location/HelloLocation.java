@@ -49,7 +49,21 @@ public class HelloLocation {
     }
 
     public static void main(String[] args) {
-        String colletionName = "ScottCollection30";
+        final String usage = """
+
+            Usage:
+                <colletionName>
+
+            Where:
+                colletionName - The Amazon location collection name. 
+            """;
+
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
+
+        String colletionName = args[0];
         listGeofences(colletionName);
     }
 
