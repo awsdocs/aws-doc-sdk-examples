@@ -30,6 +30,7 @@ public class CreateCustomPolicyRequest {
 
         return CustomSignerRequest.builder()
                 .resourceUrl(cloudFrontUrl)
+                // .resourceUrlPattern("https://*.example.com/*")  // Optional.
                 .privateKey(path)
                 .keyPairId(publicKeyId)
                 .expirationDate(expireDate)
