@@ -18,14 +18,15 @@ import software.amazon.awssdk.services.location.model.CalculateRouteResponse;
 import software.amazon.awssdk.services.location.model.CreateGeofenceCollectionRequest;
 import software.amazon.awssdk.services.location.model.CreateGeofenceCollectionResponse;
 import software.amazon.awssdk.services.location.model.CreateKeyRequest;
-import software.amazon.awssdk.services.location.model.CreateKeyResponse;
 import software.amazon.awssdk.services.location.model.CreateMapRequest;
-import software.amazon.awssdk.services.location.model.CreateMapResponse;
 import software.amazon.awssdk.services.location.model.CreateRouteCalculatorRequest;
 import software.amazon.awssdk.services.location.model.CreateRouteCalculatorResponse;
 import software.amazon.awssdk.services.location.model.CreateTrackerRequest;
-import software.amazon.awssdk.services.location.model.DescribeKeyRequest;
-import software.amazon.awssdk.services.location.model.DescribeKeyResponse;
+import software.amazon.awssdk.services.location.model.DeleteGeofenceCollectionRequest;
+import software.amazon.awssdk.services.location.model.DeleteKeyRequest;
+import software.amazon.awssdk.services.location.model.DeleteMapRequest;
+import software.amazon.awssdk.services.location.model.DeleteRouteCalculatorRequest;
+import software.amazon.awssdk.services.location.model.DeleteTrackerRequest;
 import software.amazon.awssdk.services.location.model.DevicePositionUpdate;
 import software.amazon.awssdk.services.location.model.GeofenceGeometry;
 import software.amazon.awssdk.services.location.model.CreateTrackerResponse;
@@ -75,6 +76,12 @@ public class LocationActions {
         return locationAsyncClient;
     }
 
+    /**
+     * Calculates the distance between two locations asynchronously.
+     *
+     * @param routeCalcName the name of the route calculator to use
+     * @return a {@link CompletableFuture} that will complete with a {@link CalculateRouteResponse} containing the distance and estimated duration of the route
+     */
     public CompletableFuture<CalculateRouteResponse> calcDistanceAsync(String routeCalcName) {
         // Define coordinates for Seattle, WA and Vancouver, BC.
         List<Double> departurePosition = Arrays.asList(-122.3321, 47.6062);
@@ -174,7 +181,7 @@ public class LocationActions {
      * Updates the position of a device in the location tracking system.
      *
      * @param trackerName the name of the tracker associated with the device
-     * @param deviceId the unique identifier of the device
+     * @param deviceId    the unique identifier of the device
      * @throws RuntimeException if an error occurs while updating the device position
      */
     public CompletableFuture<BatchUpdateDevicePositionResponse> updateDevicePosition(String trackerName, String deviceId) {
@@ -213,6 +220,12 @@ public class LocationActions {
             });
     }
 
+    /**
+     * Creates a new tracker resource in your AWS account, which you can use to track the location of devices.
+     *
+     * @param trackerName the name of the tracker to be created
+     * @return a {@link CompletableFuture} that, when completed, will contain the Amazon Resource Name (ARN) of the created tracker
+     */
     public CompletableFuture<String> createTracker(String trackerName) {
         CreateTrackerRequest trackerRequest = CreateTrackerRequest.builder()
             .description("Created using the Java V2 SDK")
@@ -243,19 +256,6 @@ public class LocationActions {
      *
      * @param collectionName the name of the geofence collection to list
      */
-    public CompletableFuture<Void> listGeofences(String collectionName) {
-        ListGeofencesRequest geofencesRequest = ListGeofencesRequest.builder()
-            .collectionName(collectionName)
-            .build();
-
-        ListGeofencesPublisher paginator = locationAsyncClient.listGeofencesPaginator(geofencesRequest);
-        CompletableFuture<Void> future = paginator.subscribe(response -> {
-            response.entries().forEach(geofence ->
-                logger.info("Geofence ID: " + geofence.geofenceId())
-            );
-        });
-        return future;
-    }
 
     /**
      * Adds a new geofence to the specified collection.
@@ -263,7 +263,7 @@ public class LocationActions {
      * @param collectionName the name of the geofence collection to add the geofence to
      * @param geoId          the unique identifier for the geofence
      */
-    CompletableFuture<PutGeofenceResponse> putGeofence(String collectionName, String geoId) {
+    public CompletableFuture<PutGeofenceResponse> putGeofence(String collectionName, String geoId) {
         // Define the geofence geometry (polygon)
         GeofenceGeometry geofenceGeometry = GeofenceGeometry.builder()
             .polygon(List.of(
@@ -283,7 +283,6 @@ public class LocationActions {
             .geometry(geofenceGeometry)
             .build();
 
-        // Call the async API and handle response/exceptions
         return locationAsyncClient.putGeofence(geofenceRequest)
             .whenComplete((response, exception) -> {
                 if (response != null) {
@@ -307,7 +306,7 @@ public class LocationActions {
      *
      * @param collectionName the name of the geofence collection to be created
      */
-    CompletableFuture<CreateGeofenceCollectionResponse> createGeofenceCollection(String collectionName) {
+    public CompletableFuture<CreateGeofenceCollectionResponse> createGeofenceCollection(String collectionName) {
         CreateGeofenceCollectionRequest collectionRequest = CreateGeofenceCollectionRequest.builder()
             .collectionName(collectionName)
             .description("Created by using the AWS SDK for Java")
@@ -331,6 +330,14 @@ public class LocationActions {
             });
     }
 
+    /**
+     * Creates a new API key with the specified name and restrictions.
+     *
+     * @param keyName    the name of the API key to be created
+     * @param mapArn     the Amazon Resource Name (ARN) of the map resource to which the API key will be associated
+     * @return a {@link CompletableFuture} that completes with the Amazon Resource Name (ARN) of the created API key,
+     *         or {@code null} if the operation failed
+     */
     public CompletableFuture<String> createKey(String keyName, String mapArn) {
         ApiKeyRestrictions keyRestrictions = ApiKeyRestrictions.builder()
             .allowActions("geo:GetMap*")
@@ -361,6 +368,18 @@ public class LocationActions {
                 }
             }).thenApply(response -> response != null ? response.keyArn() : null); // Return the key ARN
     }
+
+    /**
+     * Creates a new map with the specified name and default configuration.
+     *
+     * @param mapName the name of the map to create
+     * @return a {@link CompletableFuture} that resolves to the Amazon Resource Name (ARN) of the created map, or
+     *         {@code null} if the map creation failed
+     * @throws CompletionException if an error occurs while creating the map
+     *         - if the requested resource was not found
+     *         - if an unknown error occurred
+     *         - if the map creation failed for any other reason
+     */
     public CompletableFuture<String> createMap(String mapName) {
         MapConfiguration configuration = MapConfiguration.builder()
             .style("VectorEsriNavigation")
@@ -389,4 +408,162 @@ public class LocationActions {
                 }
             }).thenApply(response -> response != null ? response.mapArn() : null); // Return the map ARN
     }
+
+    /**
+     * Deletes a geofence collection asynchronously.
+     *
+     * @param collectionName the name of the geofence collection to be deleted
+     * @return a {@link CompletableFuture} that completes when the geofence collection has been deleted
+     */
+    public CompletableFuture<Void> deleteGeofenceCollectionAsync(String collectionName) {
+        DeleteGeofenceCollectionRequest collectionRequest = DeleteGeofenceCollectionRequest.builder()
+            .collectionName(collectionName)
+            .build();
+
+        return getClient().deleteGeofenceCollection(collectionRequest)
+            .whenComplete((response, exception) -> {
+                if (response != null) {
+                    logger.info("The geofence collection {} was deleted.", collectionName);
+                } else {
+                    if (exception == null) {
+                        throw new CompletionException("An unknown error occurred while deleting the geofence collection.", null);
+                    }
+
+                    Throwable cause = exception.getCause();
+                    if (cause instanceof ResourceNotFoundException) {
+                        throw new CompletionException("The requested geofence collection was not found.", cause);
+                    }
+
+                    throw new CompletionException("Failed to delete geofence collection: " + exception.getMessage(), exception);
+                }
+            }).thenApply(response -> null); // Ensures the method returns CompletableFuture<Void>
+    }
+
+    /**
+     * Deletes the specified key from the key-value store.
+     *
+     * @param keyName the name of the key to be deleted
+     * @return a {@link CompletableFuture} that completes when the key has been deleted
+     * @throws CompletionException if the key was not found or if an error occurred during the deletion process
+     */
+    public CompletableFuture<Void> deleteKey(String keyName) {
+        DeleteKeyRequest keyRequest = DeleteKeyRequest.builder()
+            .keyName(keyName)
+            .build();
+
+        return getClient().deleteKey(keyRequest)
+            .whenComplete((response, exception) -> {
+                if (response != null) {
+                    logger.info("The key {} was deleted.", keyName);
+                } else {
+                    if (exception == null) {
+                        throw new CompletionException("An unknown error occurred while deleting the geofence collection.", null);
+                    }
+
+                    Throwable cause = exception.getCause();
+                    if (cause instanceof ResourceNotFoundException) {
+                        throw new CompletionException("The key was not found.", cause);
+                    }
+
+                    throw new CompletionException("Failed to delete key: " + exception.getMessage(), exception);
+                }
+            }).thenApply(response -> null); // Ensures the method returns CompletableFuture<Void>
+    }
+
+    /**
+     * Deletes a map with the specified name.
+     *
+     * @param mapName the name of the map to be deleted
+     * @return a {@link CompletableFuture} that completes when the map deletion is successful, or throws a {@link CompletionException} if an error occurs
+     */
+    public CompletableFuture<Void> deleteMap(String mapName) {
+        DeleteMapRequest mapRequest = DeleteMapRequest.builder()
+            .mapName(mapName)
+            .build();
+
+        return getClient().deleteMap(mapRequest)
+            .whenComplete((response, exception) -> {
+                if (response != null) {
+                    logger.info("The map {} was deleted.", mapName);
+                } else {
+                    if (exception == null) {
+                        throw new CompletionException("An unknown error occurred while deleting the map.", null);
+                    }
+
+                    Throwable cause = exception.getCause();
+                    if (cause instanceof ResourceNotFoundException) {
+                        throw new CompletionException("The map was not found.", cause);
+                    }
+
+                    throw new CompletionException("Failed to delete map: " + exception.getMessage(), exception);
+                }
+            }).thenApply(response -> null);
+    }
+
+    /**
+     * Deletes a tracker with the specified name.
+     *
+     * @param trackerName the name of the tracker to be deleted
+     * @return a {@link CompletableFuture} that completes when the tracker has been deleted
+     * @throws CompletionException if an error occurs while deleting the tracker
+     *     - if the tracker was not found, a {@link ResourceNotFoundException} is thrown wrapped in the CompletionException
+     *     - if any other error occurs, a generic CompletionException is thrown with the error message
+     */
+    public CompletableFuture<Void> deleteTracker(String trackerName) {
+        DeleteTrackerRequest trackerRequest = DeleteTrackerRequest.builder()
+            .trackerName(trackerName)
+            .build();
+
+        return getClient().deleteTracker(trackerRequest)
+            .whenComplete((response, exception) -> {
+                if (response != null) {
+                    logger.info("The tracker {} was deleted.", trackerName);
+                } else {
+                    if (exception == null) {
+                        throw new CompletionException("An unknown error occurred while deleting the tracker.", null);
+                    }
+
+                    Throwable cause = exception.getCause();
+                    if (cause instanceof ResourceNotFoundException) {
+                        throw new CompletionException("The tracker was not found.", cause);
+                    }
+
+                    throw new CompletionException("Failed to delete the tracker: " + exception.getMessage(), exception);
+                }
+            }).thenApply(response -> null);
+    }
+
+    /**
+     * Deletes a route calculator from the system.
+     *
+     * @param calcName the name of the route calculator to delete
+     * @return a {@link CompletableFuture} that completes when the route calculator has been deleted
+     * @throws CompletionException if an error occurs while deleting the route calculator
+     *                            - If the route calculator was not found, a {@link ResourceNotFoundException} will be thrown
+     *                            - If any other error occurs, a generic {@link CompletionException} will be thrown
+     */
+    public CompletableFuture<Void> deleteRouteCalculator(String calcName) {
+        DeleteRouteCalculatorRequest calculatorRequest = DeleteRouteCalculatorRequest.builder()
+            .calculatorName(calcName)
+            .build();
+
+        return getClient().deleteRouteCalculator(calculatorRequest)
+            .whenComplete((response, exception) -> {
+                if (response != null) {
+                    logger.info("The route calculator {} was deleted.", calcName);
+                } else {
+                    if (exception == null) {
+                        throw new CompletionException("An unknown error occurred while deleting the route calculator.", null);
+                    }
+
+                    Throwable cause = exception.getCause();
+                    if (cause instanceof ResourceNotFoundException) {
+                        throw new CompletionException("The route calculator was not found.", cause);
+                    }
+
+                    throw new CompletionException("Failed to delete the route calculator: " + exception.getMessage(), exception);
+                }
+            }).thenApply(response -> null);
+    }
 }
+
