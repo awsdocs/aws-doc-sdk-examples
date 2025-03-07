@@ -107,7 +107,7 @@ bedrock-runtime_Converse_AmazonNovaText:
           excerpts:
             - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
               snippet_tags:
-                - javascript.v3.bedrock-runtime.Converse_AmazonTitanText
+                - javascript.v3.bedrock-runtime.Converse_AmazonNovaText
     .NET:
       versions:
         - sdk_version: 3
@@ -438,7 +438,7 @@ bedrock-runtime_ConverseStream_AmazonNovaText:
           excerpts:
             - description: Send a text message to Amazon Nova using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
-                - javascript.v3.bedrock-runtime.Converse_Mistral
+                - javascript.v3.bedrock-runtime.ConverseStream_AmazonNovaText
     .NET:
       versions:
         - sdk_version: 3
