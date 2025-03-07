@@ -45,10 +45,7 @@ func StubCreateTable(tableName string, raiseErr *testtools.StubError) testtools.
 				AttributeName: aws.String("title"),
 				KeyType:       types.KeyTypeRange,
 			}},
-			ProvisionedThroughput: &types.ProvisionedThroughput{
-				ReadCapacityUnits:  aws.Int64(10),
-				WriteCapacityUnits: aws.Int64(10),
-			},
+			BillingMode: types.BillingModePayPerRequest,
 		},
 		Output: &dynamodb.CreateTableOutput{TableDescription: &types.TableDescription{
 			TableName: aws.String(tableName)}},

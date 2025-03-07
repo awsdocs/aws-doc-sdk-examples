@@ -46,6 +46,7 @@ Code excerpts that show you how to call individual service functions.
 - [ReceiveMessage](src/main/java/com/example/sqs/SQSExample.java#L151)
 - [SendMessage](src/main/java/com/example/sqs/SendMessages.java#L7)
 - [SendMessageBatch](src/main/java/com/example/sqs/SQSExample.java#L132)
+- [SetQueueAttributes](src/main/java/com/example/sqs/SSEncryptionExample.java#L64)
 
 ### Scenarios
 
@@ -55,6 +56,7 @@ functions within the same service.
 - [Create and publish to a FIFO topic](../sns/src/main/java/com/example/sns/PriceUpdateExample.java)
 - [Process S3 event notifications](../s3/src/main/java/com/example/s3/ProcessS3EventNotification.java)
 - [Publish messages to queues](../../usecases/topics_and_queues/src/main/java/com/example/sns/SNSWorkflow.java)
+- [Work with queue tags](src/main/java/com/example/sqs/TagExamples.java)
 
 
 <!--custom.examples.start-->
@@ -113,6 +115,18 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
 <!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
+
+#### Work with queue tags
+
+This example shows you how to perform tagging operation with Amazon SQS
+
+
+<!--custom.scenario_prereqs.sqs_Scenario_WorkWithTags.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_WorkWithTags.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_WorkWithTags.start-->
+<!--custom.scenarios.sqs_Scenario_WorkWithTags.end-->
 
 ### Tests
 

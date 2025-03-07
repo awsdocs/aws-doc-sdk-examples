@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: Apache-2.0 
 
 ###############################################################################
 #
@@ -24,14 +24,13 @@ source ./awsdocs_general.sh
 #       -n table_name  -- The name of the table to create.
 #       -a attribute_definitions -- JSON file path of a list of attributes and their types.
 #       -k key_schema -- JSON file path of a list of attributes and their key types.
-#       -p provisioned_throughput -- Provisioned throughput settings for the table.
 #
 #  Returns:
 #       0 - If successful.
 #       1 - If it fails.
 ###############################################################################
 function dynamodb_create_table() {
-  local table_name attribute_definitions key_schema provisioned_throughput response
+  local table_name attribute_definitions key_schema response
   local option OPTARG # Required to use getopts command in a function.
 
   #######################################
@@ -39,21 +38,19 @@ function dynamodb_create_table() {
   #######################################
   function usage() {
     echo "function dynamodb_create_table"
-    echo "Creates an Amazon DynamoDB table."
+    echo "Creates an Amazon DynamoDB table with on-demand billing."
     echo " -n table_name  -- The name of the table to create."
     echo " -a attribute_definitions -- JSON file path of a list of attributes and their types."
     echo " -k key_schema -- JSON file path of a list of attributes and their key types."
-    echo " -p provisioned_throughput -- Provisioned throughput settings for the table."
     echo ""
   }
 
   # Retrieve the calling parameters.
-  while getopts "n:a:k:p:h" option; do
+  while getopts "n:a:k:h" option; do
     case "${option}" in
       n) table_name="${OPTARG}" ;;
       a) attribute_definitions="${OPTARG}" ;;
       k) key_schema="${OPTARG}" ;;
-      p) provisioned_throughput="${OPTARG}" ;;
       h)
         usage
         return 0
@@ -85,24 +82,17 @@ function dynamodb_create_table() {
     return 1
   fi
 
-  if [[ -z "$provisioned_throughput" ]]; then
-    errecho "ERROR: You must provide a provisioned throughput json file path the -p parameter."
-    usage
-    return 1
-  fi
-
   iecho "Parameters:\n"
   iecho "    table_name:   $table_name"
   iecho "    attribute_definitions:   $attribute_definitions"
   iecho "    key_schema:   $key_schema"
-  iecho "    provisioned_throughput:   $provisioned_throughput"
   iecho ""
 
   response=$(aws dynamodb create-table \
     --table-name "$table_name" \
     --attribute-definitions file://"$attribute_definitions" \
-    --key-schema file://"$key_schema" \
-    --provisioned-throughput "$provisioned_throughput")
+    --billing-mode PAY_PER_REQUEST \
+    --key-schema file://"$key_schema" )
 
   local error_code=${?}
 

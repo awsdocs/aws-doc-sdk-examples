@@ -85,7 +85,6 @@ function main() {
   iecho "***************SETUP STEPS******************"
   local test_table_name
   test_table_name=$(generate_random_name testcli)
-  local test_provisioned_throughput="ReadCapacityUnits=5,WriteCapacityUnits=5"
   local test_key_schema_json_file="test_dynamodb_key_schema.json"
   local test_attr_definitions_json_file="test_dynamodb_attr_def.json"
   local test_key_json_file="test_dynamodb_key.json"
@@ -111,7 +110,7 @@ function main() {
   ]' >"$test_attr_definitions_json_file"
 
   run_test "Creating table" \
-    "dynamodb_create_table -n $test_table_name -a $test_attr_definitions_json_file -k $test_key_schema_json_file -p $test_provisioned_throughput " \
+    "dynamodb_create_table -n $test_table_name -a $test_attr_definitions_json_file -k $test_key_schema_json_file " \
     0
 
   export exit_on_failure=false
