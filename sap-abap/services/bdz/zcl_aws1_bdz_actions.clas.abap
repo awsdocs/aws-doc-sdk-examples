@@ -54,7 +54,7 @@ CLASS ZCL_AWS1_BDZ_ACTIONS IMPLEMENTATION.
             " Process a Chunk event
             DATA(lv_xstr) = lo_evt->get_chunk( )->get_bytes( ).
             DATA(lv_answer) = /aws1/cl_rt_util=>xstring_to_string( lv_xstr ).
-            WRITE: / lv_answer.
+            " the answer says something like "I chose paper, so you lost"
           ELSEIF lo_evt->get_files( ) IS NOT INITIAL.
             " process a Files event if desired
           ELSEIF lo_evt->get_returncontrol( ) IS NOT INITIAL.
