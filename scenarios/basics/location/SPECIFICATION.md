@@ -1,121 +1,109 @@
-# Specification for the AWS Entity Resolution Service Scenario
+# Specification for the AWS Location Service Scenario
 
 ## Overview
 
-This SDK Basics scenario demonstrates how to interact with AWS Entity Resolution
-using an AWS SDK. It demonstrates various tasks such as creating a schema
-mapping, creating an matching workflow, starting a workflow, and so on. Finally,
-this scenario demonstrates how to clean up resources.
+This SDK Basics scenario demonstrates how to interact with the AWS Location Service
+using an AWS SDK. It demonstrates various tasks such as creating a map, creating a key, creating a tracker, and so on. Finally, this scenario demonstrates how to clean up resources.
 
 ## Resources
 
-This Basics scenario requires an IAM role that has permissions to work with the
-AWS Entity Resolution service, an AWS Glue database and a table, and two S3
-buckets.
-A [CDK script](../../../resources/cdk/entityresolution_resources/README.md
-) is provided to create these resources.
+This Basics scenario requires no additional resources.
 
-## Hello AWS Entity Resolution
+## Hello AWS Location Service
 
-This program is intended for users not familiar with the AWS Entity Resolution
-Service to easily get up and running. The program uses a
-`listMatchingWorkflowsPaginator` to demonstrate how you can read through
-workflow information.
+This program is intended for users not familiar with the AWS Location Service to easily get up and running. The program uses a
+`listGeofencesPaginator` to demonstrate how you can read through
+Geofences information.
 
 ## Basics Scenario Program Flow
 
-The AWS Entity Resolution Basics scenario executes the following operations.
+The AWS Location Service Basics scenario executes the following operations.
 
 1. **Create a schema mapping**:
-    - Description: Creates a schema mapping by invoking the
-      `createSchemaMapping` method.
-    - Exception Handling: Check to see if a `ConflictException` is thrown, which
-      indicates that the schema mapping already exists. If the exception is
-      thrown, display the information and end the program.
+    - Description: Creates a map by invoking the `createMap` method.
+    - Exception Handling: Check to see if a `ServiceQuotaExceededException` is thrown, which
+      indicates that the operation was denied because the request would exceed the maximum quota. If the exception is thrown, display the information and end the program.
 
-2. **Create a Matching Workflow**:
-    - Description: Creates a new matching workflow that defines how entities
-      should be resolved and matched. The method `createMatchingWorkflow` is
-      called.
-    - Exception Handling: Check to see if a `ConflictException` is thrown, which
-      is thrown if the matching workflow already exists. ALso check to see if a `ValidationException` is thrown. If so, display the message and end the program.
+2. **Create an AWS Location API key**:
+    - Description: Creates an API key required to embed a map in a web app or website by invoking the `createKey` method.
+    - Exception Handling: Handle `ThrottlingException`, which occurs when request throttling is detected. If this exception is thrown, display the error message and terminate the program.
 
-3. **Start Matching Workflow**:
-    - Description: Initiates a matching workflow by calling the
-      `startMatchingJob` method to process entity resolution based on predefined
-      configurations.
-    - Exception Handling: Check to see if an `ConflictException` is thrown,
-      which indicates that the matching workflow job is already running. If the
+3. **Display Map URL**:
+    - Description: Show the Syntax of a MAP URL in the console. This uses the map name and key value.
+    - Exception Handling: N/A.
+
+4. **Create a geofence collection**:
+    - Description: Create a geofence collection, which manages and stores geofences
+      by invoking the `createGeofenceCollection` method.
+    - Exception Handling: Check to see if an `ConflictException ` is
+      thrown, which indicates that a conflict occurred. If the
       exception is thrown, display the message and end the program.
 
-4. **Get Workflow Job Details**:
-    - Description: Retrieves details about a specific matching workflow job by
-      calling the `getMatchingJob` method.
-    - Exception Handling: Check to see if an `ResourceNotFoundException` is
-      thrown, which indicates that the workflow cannot be found. If the
-      exception is thrown, display the message and end the program.
+5. **Store a geofence geometry in a given geofence collection**:
+    - Description: Store a geofence geometry in a given geofence collection by invoking the
+      `putGeofence` method. Included in this call is how to constuct a polygon.
+    - Exception Handling: Check to see if a `ValidationException ` is
+      thrown due to an invalid polygon. If so, display the message and end the program.
 
-5. **Get Schema Mapping**:
-    - Description: Returns the `SchemaMapping` of a given name by calling the
-      `getSchemaMapping` method.
-    - Exception Handling: Check to see if a `ResourceNotFoundException` is
-      thrown. If so, display the message and end the program.
-
-6. **List Matching Workflows**:
-    - Description: Lists all matching workflows created within the account by
-      calling the `listMatchingWorkflows` method.
-    - Exception Handling: Check to see if an `CompletionException` is thrown. If
+6. **Create a tracker resource**:
+    - Description: Create a tracker resource which lets you retrieve current and historical location of devices by invoking the `createTracker` method.
+    - Exception Handling: Check to see if an `LocationException` is thrown. If
       so, display the message and end the program.
 
-7. **Tag Resource**:
-    - Description: Adds tags associated with an AWS Entity Resolution resource
-      by calling the`tagResource` method.
-    - Exception Handling: Check to see if a `ResourceNotFoundException` is
+7. **Update the position of a device**:
+    - Description: Update the position of a device in the location tracking system by invoking the`getDevicePosition` method.
+    - Exception Handling: Check to see if a `LocationException` is
       thrown. If so, display the message and end the program
-8. **View the results of the AWS Entity Resolution Workflow**:
-    - Description: View the workflow results by calling the
+
+8. **Retrieve the most recent position**:
+    - Description: Retrieve the most recent position update for a specified device by invoking the
       `getMatchingJob` method.
-    - Exception Handling: Check to see if an `ResourceNotFoundException` is thrown. If
+    - Exception Handling: Check to see if an `LocationException` is thrown. If
       so, display the message and end the program.
 
-9. **Delete the AWS resources**:
-    - Description: Delete the AWS resouces including the workflow and schema mappings by calling the
-      `deleteMatchingWorkflow` and `deleteSchemaMapping` methods.
-    - Exception Handling: Check to see if an `ResourceNotFoundException` is thrown. If
+9. **Create a route calculator**:
+    - Description: Create a route calculator by invoking the
+      `createRouteCalculator` method.
+    - Exception Handling: Check to see if an `LocationException` is thrown. If
       so, display the message and end the program.   
-    - Finally delete the CloudFormation Stack by calling these method:
-       - CloudFormationHelper.emptyS3Bucket(glueBucketName);
-       - CloudFormationHelper.destroyCloudFormationStack     
+
+10. **Determine the distance between two cities and Vancouver**:
+    - Description: Determine the distance between Seattle and Vancouver by invoking the
+      `calculateRoute` method.
+    - Exception Handling: Check to see if an `LocationException` is thrown. If
+      so, display the message and end the program.  
+
+11. **Delete AWS resources**:
+    - Description: Delete the various resources by invoking the corresponding delete methods.
+    - Exception Handling: Check to see if an `ResourceNotFoundException` is thrown. If
+      so, display the message and end the program.        
 
 ### Program execution
 
-The following shows the output of the AWS Entity Resolution Basics scenario in
+The following shows the output of the AWS Location Basics scenario in
 the console.
 
 ```
-Welcome to the AWS Entity Resolution Scenario.
-AWS Entity Resolution is a fully-managed machine learning service provided by
-Amazon Web Services (AWS) that helps organizations extract, link, and
-organize information from multiple data sources. It leverages natural
-language processing and deep learning models to identify and resolve
-entities, such as people, places, organizations, and products,
-across structured and unstructured data.
+AWS Location Service is a fully managed service offered by Amazon Web Services (AWS) that
+provides location-based services for developers. This service simplifies
+the integration of location-based features into applications, making it
+easier to build and deploy location-aware applications.
 
-With Entity Resolution, customers can build robust data integration
-pipelines to combine and reconcile data from multiple systems, databases,
-and documents. The service can handle ambiguous, incomplete, or conflicting
-information, and provide a unified view of entities and their relationships.
-This can be particularly valuable in applications such as customer 360,
-fraud detection, supply chain management, and knowledge management, where
-accurate entity identification is crucial.
+The AWS Location Service offers a range of location-based services,
+including:
 
-The `EntityResolutionAsyncClient` interface in the AWS SDK for Java 2.x
-provides a set of methods to programmatically interact with the AWS Entity
-Resolution service. This allows developers to automate the entity extraction,
-linking, and deduplication process as part of their data processing workflows.
-With Entity Resolution, organizations can unlock the value of their data,
-improve decision-making, and enhance customer experiences by having a reliable,
-comprehensive view of their key entities.
+Maps: The service provides access to high-quality maps, satellite imagery, 
+and geospatial data from various providers, allowing developers to 
+easily embed maps into their applications.
+
+Tracking: The Location Service enables real-time tracking of mobile devices, 
+assets, or other entities, allowing developers to build applications 
+that can monitor the location of people, vehicles, or other objects.
+
+Geocoding: The service provides the ability to convert addresses or 
+location names into geographic coordinates (latitude and longitude), 
+and vice versa, enabling developers to integrate location-based search 
+and routing functionality into their applications.
 
 
 Enter 'c' followed by <ENTER> to continue:
@@ -124,47 +112,19 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-To prepare the AWS resources needed for this scenario application, the next step uploads
-a CloudFormation template whose resulting stack creates the following resources:
-- An AWS Glue Data Catalog table
-- An AWS IAM role
-- An AWS S3 bucket
-- An AWS Entity Resolution Schema
-
-It can take a couple minutes for the Stack to finish creating the resources.
+1. Create a map
+ An AWS Location map can enhance the user experience of your
+ application by providing accurate and personalized location-based
+ features. For example, you could use the geocoding capabilities to
+ allow users to search for and locate businesses, landmarks, or
+ other points of interest within a specific region.
 
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Generating resources...
-Stack creation requested, ARN is arn:aws:cloudformation:us-east-1:814548047983:stack/EntityResolutionCdkStack/858988e0-f604-11ef-916b-0affc298c80f
-Stack created successfully
---------------------------------------------------------------------------------
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-Upload the following JSON objects to the erbucketf684533d2680435fa99d24b1bdaf5179 S3 bucket.
-{"id":"1","name":"Jane Doe","email":"jane.doe@example.com"}
-{"id":"2","name":"John Doe","email":"john.doe@example.com"}
-{"id":"3","name":"Jorge Souza","email":"jorge_souza@example.com"}
-
-Upload the following CSV data to the erbucketf684533d2680435fa99d24b1bdaf5179 S3 bucket.
-id,name,email,phone
-1,Jane B.,Doe,jane.doe@example.com,555-876-9846
-2,John Doe Jr.,john.doe@example.com,555-654-3210
-3,María García,maría_garcia@company.com,555-567-1234
-4,Mary Major,mary_major@company.com,555-222-3333
-
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-The JSON and CSV objects have been uploaded to the S3 bucket.
+The Map ARN is arn:aws:geo:us-east-1:xxxxxxxx7983:map/MyMap
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -172,20 +132,14 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-1. Create Schema Mapping
-Entity Resolution schema mapping aligns and integrates data from
-multiple sources by identifying and matching corresponding entities
-like customers or products. It unifies schemas, resolves conflicts,
-and uses machine learning to link related entities, enabling a
-consolidated, accurate view for improved data quality and decision-making.
+2. Create an AWS Location API key
+When you embed a map in a web app or website, the API key is
+included in the map tile URL to authenticate requests. You can
+restrict API keys to specific AWS Location operations (e.g., only
+maps, not geocoding). API keys can expire, ensuring temporary
+access control.
 
-In this example, the schema mapping lines up with the fields in the JSON and CSV objects. That is,
-it contains these fields: id, name, and email.
-
-[jsonschema-ef86075e-cf5e-4bb1-be50-e0f19743ddb2] schema mapping Created Successfully!
-The JSON schema mapping name is jsonschema-ef86075e-cf5e-4bb1-be50-e0f19743ddb2
-[csv-8d05576d-66bb-4fcf-a29c-8c3de57ce48c] schema mapping Created Successfully!
-The CSV schema mapping name is csv-8d05576d-66bb-4fcf-a29c-8c3de57ce48c
+The API key was successfully created: arn:aws:geo:us-east-1:xxxxxxxx983:api-key/MyLocationKey
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -193,38 +147,28 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-2. Create an AWS Entity Resolution Workflow. 
-An Entity Resolution matching workflow identifies and links records
-across datasets that represent the same real-world entity, such as
-customers or products. Using techniques like schema mapping,
-data profiling, and machine learning algorithms,
-it evaluates attributes like names or emails to detect duplicates
-or relationships, even with variations or inconsistencies.
-The workflow outputs consolidated, de-duplicated data.
+3. Display Map URL
+In order to get the MAP URL, you need to get the API Key value.
+You can get the key value using the AWS Management Console under
+Location Services. This operation cannot be completed using the
+AWS SDK.
 
-We will use the machine learning-based matching technique.
+Embed this URL in your Web app: https://maps.geo.aws.amazon.com/maps/v0/maps/{MapName}/tiles/{z}/{x}/{y}?key={KeyValue}
 
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-Workflow created successfully.
-The workflow ARN is: arn:aws:entityresolution:us-east-1:814548047983:matchingworkflow/workflow-39216b7f-f00b-4896-84ae-cd7edcfc7872
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
 --------------------------------------------------------------------------------
-3. Start the matching job of the workflow-39216b7f-f00b-4896-84ae-cd7edcfc7872 workflow.
+--------------------------------------------------------------------------------
+4. Create a geofence collection, which manages and stores geofences.
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Job ID: f25d2707729646a4af27874d991e22c5
-The matching job was successfully started.
+The ARN is arn:aws:geo:us-east-1:xxxxxxxx7983:geofence-collection/AWSLocationCollection
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -232,62 +176,39 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-4. While the matching job is running, let's look at other API methods. First, let's get details for job f25d2707729646a4af27874d991e22c5
+5. Store a geofence geometry in a given geofence collection.
+An AWS Location geofence is a virtual boundary that defines a geographic area
+on a map. It is a useful feature for tracking the location of
+assets or monitoring the movement of objects within a specific region.
+
+To define a geofence, you need to specify the coordinates of a
+polygon that represents the area of interest. The polygon must be
+defined in a counter-clockwise direction, meaning that the points of
+the polygon must be listed in a counter-clockwise order.
+
+This is a requirement for the AWS Location service to correctly
+interpret the geofence and ensure that the location data is
+accurately processed within the defined area.
+
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Job status: RUNNING
-Job details: GetMatchingJobResponse(JobId=f25d2707729646a4af27874d991e22c5, StartTime=2025-02-28T18:49:14.921Z, Status=RUNNING)
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-5. Get the schema mapping for the JSON data.
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-Attribute Name: id, Attribute Type: UNIQUE_ID
-Attribute Name: name, Attribute Type: NAME
-Attribute Name: email, Attribute Type: EMAIL_ADDRESS
-Schema mapping ARN is arn:aws:entityresolution:us-east-1:814548047983:schemamapping/jsonschema-ef86075e-cf5e-4bb1-be50-e0f19743ddb2
+Successfully created geofence: geoId1
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-6. List Schema Mappings.
-Schema Mapping Name: csv-33f8e392-74e7-4a08-900a-652b94f86250
-Schema Mapping Name: csv-3b68e38b-1d5c-4836-bfc7-92ac7339e5c7
-Schema Mapping Name: csv-4f547deb-56c1-4923-9119-556bc43df08d
-Schema Mapping Name: csv-6fe8bbc3-ebb5-4800-ab49-a89f75a87905
-Schema Mapping Name: csv-812ecad3-3175-49c3-93a5-d3175396d6e7
-Schema Mapping Name: csv-8d05576d-66bb-4fcf-a29c-8c3de57ce48c
-Schema Mapping Name: csv-90a464e1-f050-422c-8f5f-0726541a5858
-Schema Mapping Name: csv-ebad3e3d-27be-4ed4-ae35-7401265e57bd
-Schema Mapping Name: csv-f752d395-857b-4106-b2f2-85e1da5e3040
-Schema Mapping Name: jsonschema-363dc915-0540-406e-8d3f-4f1435e0b942
-Schema Mapping Name: jsonschema-5b1ad3e1-a840-4c4f-b791-5e9e1893fe7e
-Schema Mapping Name: jsonschema-8623e0ec-bb8c-4fe2-a998-609eae08d84d
-Schema Mapping Name: jsonschema-93d5fd04-f10e-4274-a181-489bea7b92db
-Schema Mapping Name: jsonschema-b1653c13-ce77-471d-a3d5-ae4877216a74
-Schema Mapping Name: jsonschema-c09b3414-384c-4e3d-90c8-61e48abde04d
-Schema Mapping Name: jsonschema-d9a6edc0-a9bd-4553-bb71-fbf0d6064ef9
-Schema Mapping Name: jsonschema-ef86075e-cf5e-4bb1-be50-e0f19743ddb2
-Schema Mapping Name: jsonschema-f0a259e0-f4e5-493a-bfd5-32740d2fa24d
-Schema Mapping Name: schema2135
-Schema Mapping Name: schema435
-Schema Mapping Name: schema455
-Schema Mapping Name: schema456
-Schema Mapping Name: schema4648
-Schema Mapping Name: schema4720
-Schema Mapping Name: schema4848
-Schema Mapping Name: schema6758
-Schema Mapping Name: schema8775
-Schema Mapping Name: schemaName100
+6. Create a tracker resource which lets you retrieve current and historical location of devices..
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+The tracker ARN is arn:aws:geo:us-east-1:xxxxxxxx47983:tracker/geoTracker1
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -295,81 +216,77 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-7. Tag the jsonschema-ef86075e-cf5e-4bb1-be50-e0f19743ddb2 resource.
-Tags can help you organize and categorize your Entity Resolution resources.
-You can also use them to scope user permissions by granting a user permission
-to access or change only resources with certain tag values.
-In Entity Resolution, SchemaMapping and MatchingWorkflow can be tagged. For this example,
-the SchemaMapping is tagged.
+7. Update the position of a device in the location tracking system.
+The AWS location service does not enforce a strict format for deviceId, but it must:
+  - Be a string (case-sensitive).
+  - Be 1–100 characters long.
+  - Contain only:
+    - Alphanumeric characters (A-Z, a-z, 0-9)
+    - Underscores (_)
+    - Hyphens (-)
+    - Be the same ID used when sending and retrieving positions.
 
-Successfully tagged the resource.
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+iPhone-112359 was updated in the location tracking system
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
 --------------------------------------------------------------------------------
+8. Retrieve the most recent position update for a specified device..
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+Device Position: [-122.4194, 37.7749]
+Received at: 2025-03-10T14:20:48.173Z
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
 --------------------------------------------------------------------------------
-8. View the results of the AWS Entity Resolution Workflow.
-You cannot view the result of the workflow that is in a running state.
-In order to view the results, you need to wait for the workflow that we started in step 3 to complete.
+9. Create a route calculator.
 
-If you choose not to wait, you cannot view the results. You can perform
-this task manually in the AWS Management Console.
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
 
-This can take up to 30 mins (y/n).
+Route calculator created: arn:aws:geo:us-east-1:xxxxxxxx983:route-calculator/AWSRouteCalc32
 
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+--------------------------------------------------------------------------------
+10. Determine the distance between Seattle and Vancouver using the route calculator.
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+Total Distance: 229.4919562976832 km
+Estimated Duration: 162.17861734523333 minutes
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+--------------------------------------------------------------------------------
+11. Delete the AWS Location Services resources.
+Would you like to delete the AWS Location Services resources? (y/n)
 y
-You selected to view the Entity Resolution Workflow results.
-29:01Job status: RUNNING
-28:01Job status: RUNNING
-27:01Job status: RUNNING
-26:01Job status: RUNNING
-25:01Job status: RUNNING
-24:01Job status: RUNNING
-23:01Job status: RUNNING
-22:01Job status: RUNNING
-21:01Job status: RUNNING
-20:01Job status: RUNNING
-19:01Job status: RUNNING
-18:01Job status: RUNNING
-17:01Job status: RUNNING
-16:01Job status: RUNNING
-15:01Job status: RUNNING
-14:01Job status: RUNNING
-13:01Job status: RUNNING
-12:01Job status: RUNNING
-11:01Job status: RUNNING
-10:01Job status: RUNNING
-09:01Job status: RUNNING
-08:01Job status: RUNNING
-07:01Job status: SUCCEEDED
-
-Countdown complete: Workflow is in Completed state!
-Job metrics fetched successfully for jobId: f25d2707729646a4af27874d991e22c5
-Number of input records: 7
-Number of match ids: 6
-Number of records not processed: 0
-Number of total records processed: 7
-The following explains the output data generated by the Entity Resolution workflow. The output data is stored in the erbucketf684533d2680435fa99d24b1bdaf5179 bucket.
-
-  ------------------------------------------------------------------------------ ----------------- ---- ------------------ --------------------------- -------------- ---------- --------------------------------------------------- 
-  InputSourceARN                                                                 ConfidenceLevel   id   name               email                       phone          RecordId   MatchID                                            
- ------------------------------------------------------------------------------ ----------------- ---- ------------------ --------------------------- -------------- ---------- --------------------------------------------------- 
-  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable                      7    Jane E. Doe        jane_doe@company.com        111-222-3333   7          036298535ed6471ebfc358fc76e1f51200006472446402560  
-  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.90523           2    Bob Smith Jr.      bob.smith@example.com       987-654-3210   2          6ae2d360d6594089837eafc31b20f31600003506806140928  
-  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.90523           2    Bob Smith          bob.smith@example.com                      2          6ae2d360d6594089837eafc31b20f31600003506806140928  
-  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.89398956        1    Alice B. Johnson   alice.johnson@example.com   746-876-9846   1          34a5075b289247efa1847ab292ed677400009137438953472  
-  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.89398956        1    Alice Johnson      alice.johnson@example.com                  1          34a5075b289247efa1847ab292ed677400009137438953472  
-  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/csvgluetable    0.605295          3    Charlie Black      charlie.black@company.com   345-567-1234   3          92c8ef3f68b34948a3af998d700ed02700002146028888064  
-  arn:aws:glue:region:xxxxxxxxxxxx:table/entity_resolution_db/jsongluetable   0.605295          3    Charlie Black      charlie.black@example.com                  3          92c8ef3f68b34948a3af998d700ed02700002146028888064  
-
-Note that each of the last 3 pairs of records are considered a match even though the 'name' or 'email' differ between the records;
-For example 'Bob Smith Jr.' compared to 'Bob Smith'.
-The confidence level is a value between 0 and 1, where 1 indicates a perfect match. In the last pair of matched records,
-the confidence level is lower for the differing email addresses.
-
-
+The map MyMap was deleted.
+The key MyLocationKey was deleted.
+The geofence collection AWSLocationCollection was deleted.
+The tracker geoTracker1 was deleted.
+The route calculator AWSRouteCalc32 was deleted.
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -377,49 +294,7 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-9. Do you want to delete the resources, including the workflow? (y/n)
-You cannot delete the workflow that is in a running state.
-In order to delete the workflow, you need to wait for the workflow to complete.
-
-You can delete the workflow manually in the AWS Management Console at a later time.
-
-If you already waited for the workflow to complete in the previous step,
-the workflow is completed and you can delete it.
-
-If the workflow is not completed, this can take up to 30 mins (y/n).
-
-y
-workflow-39216b7f-f00b-4896-84ae-cd7edcfc7872 was deleted
-Workflow deleted successfully!
-Schema mapping 'jsonschema-ef86075e-cf5e-4bb1-be50-e0f19743ddb2' deleted successfully.
-Schema mapping 'csv-8d05576d-66bb-4fcf-a29c-8c3de57ce48c' deleted successfully.
-Both schema mappings were deleted successfully!
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
---------------------------------------------------------------------------------
-Now we delete the CloudFormation stack, which deletes
-the resources that were created at the beginning of this scenario.
-
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
---------------------------------------------------------------------------------
-Delete stack requested ....
-Stack deleted successfully.
-Resources deleted successfully!
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-This concludes the AWS Entity Resolution scenario.
+ This concludes the AWS Location Service scenario.
 --------------------------------------------------------------------------------
 
 ```
