@@ -4,7 +4,7 @@
 CLASS ltc_zcl_aws1_lmd_scenario DEFINITION DEFERRED.
 CLASS zcl_aws1_lmd_scenario DEFINITION LOCAL FRIENDS ltc_zcl_aws1_lmd_scenario.
 
-CLASS ltc_zcl_aws1_lmd_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL HARMLESS.
+CLASS ltc_zcl_aws1_lmd_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL DANGEROUS.
 
   PRIVATE SECTION.
     CONSTANTS: cv_pfl           TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO',

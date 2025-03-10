@@ -1,6 +1,6 @@
 CLASS ltc_zcl_aws1_bdz_actions DEFINITION FOR TESTING
     DURATION SHORT
-    RISK LEVEL HARMLESS.
+    RISK LEVEL DANGEROUS.
   PROTECTED SECTION.
     METHODS test_invoke_agent FOR TESTING RAISING /aws1/cx_rt_generic cx_uuid_error.
 

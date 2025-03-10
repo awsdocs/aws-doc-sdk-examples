@@ -6,7 +6,7 @@ CLASS zcl_aws1_dyn_actions DEFINITION LOCAL FRIENDS ltc_zcl_aws1_dyn_actions.
 
 CLASS ltc_zcl_aws1_dyn_actions DEFINITION FOR TESTING
   DURATION LONG
-  RISK LEVEL HARMLESS.
+  RISK LEVEL DANGEROUS.
 
   PROTECTED SECTION.
     METHODS: create_table FOR TESTING RAISING /aws1/cx_rt_generic,

@@ -6,7 +6,7 @@ CLASS zcl_aws1_dyn_scenario DEFINITION LOCAL FRIENDS ltc_zcl_aws1_dyn_scenario.
 
 CLASS ltc_zcl_aws1_dyn_scenario DEFINITION FOR TESTING
   DURATION LONG
-  RISK LEVEL HARMLESS.
+  RISK LEVEL DANGEROUS.
 
   PROTECTED SECTION.
     METHODS test_dyn FOR TESTING RAISING /aws1/cx_rt_generic.
