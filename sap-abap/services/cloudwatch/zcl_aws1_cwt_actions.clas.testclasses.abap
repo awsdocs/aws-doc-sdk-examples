@@ -19,7 +19,7 @@ CLASS ltc_zcl_aws1_cwt_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL H
     METHODS enable_alarm_actions FOR TESTING.
     METHODS disable_alarm_actions FOR TESTING.
     METHODS list_metrics FOR TESTING.
-    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
 
 ENDCLASS.       "ltc_Zcl_Aws1_Cwt_Actions
 

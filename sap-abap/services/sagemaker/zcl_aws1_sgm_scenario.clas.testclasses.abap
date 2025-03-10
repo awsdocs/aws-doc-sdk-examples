@@ -17,7 +17,7 @@ CLASS ltc_zcl_aws1_sgm_scenario DEFINITION FOR TESTING DURATION LONG RISK LEVEL 
     DATA av_lrole TYPE /aws1/sgmrolearn.
 
     METHODS getting_started_scenario FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
 
 ENDCLASS.       "ltc_Zcl_Aws1_Sgm_Scenario
 

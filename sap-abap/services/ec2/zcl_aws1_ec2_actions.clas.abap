@@ -149,7 +149,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
         " Create/launch Amazon Elastic Compute Cloud (Amazon EC2) instance. "
         oo_result = lo_ec2->runinstances(                           " oo_result is returned for testing purposes. "
           iv_imageid = iv_ami_id
-          iv_instancetype = 't2.micro'
+          iv_instancetype = 't3.micro'
           iv_maxcount = 1
           iv_mincount = 1
           it_tagspecifications = lt_tagspecifications

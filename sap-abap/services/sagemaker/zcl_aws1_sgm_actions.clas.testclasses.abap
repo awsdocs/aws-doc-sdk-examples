@@ -14,7 +14,7 @@ CLASS ltc_zcl_aws1_sgm_actions DEFINITION FOR TESTING DURATION MEDIUM RISK LEVEL
     DATA av_lrole TYPE /aws1/sgmrolearn.
     DATA av_file_content TYPE /aws1/s3_streamingblob.
 
-    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
     METHODS list_training_jobs FOR TESTING.
     METHODS list_notebook_instances FOR TESTING.
     METHODS list_models FOR TESTING.

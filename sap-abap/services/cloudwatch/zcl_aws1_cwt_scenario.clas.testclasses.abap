@@ -12,7 +12,7 @@ CLASS ltc_zcl_aws1_cwt_scenario DEFINITION FOR TESTING DURATION LONG RISK LEVEL 
     DATA ao_cwt_scenario TYPE REF TO zcl_aws1_cwt_scenario.
 
     METHODS getting_started_with_cwt FOR TESTING.
-    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
 ENDCLASS.       "ltc_Zcl_Aws1_Cwt_Scenario
 
 

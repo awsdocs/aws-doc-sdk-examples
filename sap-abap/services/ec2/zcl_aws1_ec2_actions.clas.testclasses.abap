@@ -32,7 +32,7 @@ CLASS ltc_zcl_aws1_ec2_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL H
       start_instances FOR TESTING RAISING /aws1/cx_rt_generic,
       stop_instances FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
 
     METHODS:
       get_ami_id
@@ -498,7 +498,7 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
   METHOD run_instance.
     DATA(lo_create_result) = ao_ec2->runinstances(
         iv_imageid = get_ami_id( )
-        iv_instancetype = 't2.micro'
+        iv_instancetype = 't3.micro'
         iv_maxcount = 1
         iv_mincount = 1
         iv_subnetid = iv_subnet_id ).

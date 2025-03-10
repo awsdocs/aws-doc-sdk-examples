@@ -16,7 +16,7 @@ CLASS ltc_zcl_aws1_lmd_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL
 
     METHODS getting_started_scenario FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    METHODS: setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic,
+    METHODS: setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC,
       create_code
         RETURNING VALUE(oo_code) TYPE REF TO /aws1/cl_lmdfunctioncode
         RAISING   /aws1/cx_rt_generic,

@@ -23,7 +23,7 @@ CLASS ltc_zcl_aws1_sns_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL 
       publish_to_topic FOR TESTING RAISING /aws1/cx_rt_generic,
       set_topic_attributes FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
 
     METHODS assert_subscription_exists
       IMPORTING

@@ -12,7 +12,7 @@ CLASS ltc_zcl_aws1_tex_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL
     DATA ao_tex_scenario TYPE REF TO zcl_aws1_tex_scenario.
     DATA lv_found TYPE abap_bool VALUE abap_false.
 
-    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
     METHODS getting_started_with_tex FOR TESTING.
 
 ENDCLASS.       "ltc_Zcl_Aws1_Tex_Scenario

@@ -12,7 +12,7 @@ CLASS ltc_zcl_aws1_tex_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL H
     DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     DATA ao_tex_actions TYPE REF TO zcl_aws1_tex_actions.
 
-    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
     METHODS analyze_document FOR TESTING.
     METHODS detect_document_text FOR TESTING.
     METHODS start_document_analysis FOR TESTING.

@@ -22,7 +22,7 @@ CLASS ltc_zcl_aws1_lmd_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL 
       update_function_configuration FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_function FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
 
     METHODS:
       create_code

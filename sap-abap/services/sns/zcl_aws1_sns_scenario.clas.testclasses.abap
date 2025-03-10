@@ -22,15 +22,15 @@ CLASS ltc_zcl_aws1_sns_scenario DEFINITION FOR TESTING DURATION MEDIUM RISK LEVE
 
     METHODS fifo_topic_scenario FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    METHODS: setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic,
-      create_and_configure_queue RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic,
+    METHODS: setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC,
+      create_and_configure_queue RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC,
       verify_message_delivery
         IMPORTING iv_message_id TYPE /aws1/snsmessageid
-        RAISING   /aws1/cx_rt_generic ycx_aws1_mit_generic,
-      delete_queue RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic,
-      assert_subscription_deleted RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic,
-      assert_queue_deleted RAISING   /aws1/cx_rt_generic ycx_aws1_mit_generic,
-      assert_topic_deleted RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+        RAISING   /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC,
+      delete_queue RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC,
+      assert_subscription_deleted RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC,
+      assert_queue_deleted RAISING   /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC,
+      assert_topic_deleted RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
 
 ENDCLASS.
 CLASS ltc_zcl_aws1_sns_scenario IMPLEMENTATION.
