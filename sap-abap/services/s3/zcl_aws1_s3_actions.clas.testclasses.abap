@@ -9,6 +9,8 @@ CLASS ltc_zcl_aws1_s3_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL H
   PRIVATE SECTION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
+
+    DATA av_bucket         TYPE /aws1/s3_bucketname.
     DATA ao_s3 TYPE REF TO /aws1/if_s3.
     DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     DATA ao_s3_actions TYPE REF TO zcl_aws1_s3_actions.
@@ -48,42 +50,43 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
 
   METHOD setup.
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
+
+    DATA(lv_acct) = ao_session->get_account_id( ).
+    av_bucket = |sap-abap-s3-demo-bucket-{ lv_acct }|.
+
     ao_s3 = /aws1/cl_s3_factory=>create( ao_session ).
     ao_s3_actions = NEW zcl_aws1_s3_actions( ).
   ENDMETHOD.
   METHOD create_bucket.
-    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'sap-abap-s3-demo-bucket'.
-    ao_s3_actions->create_bucket( cv_bucket ).
+    ao_s3_actions->create_bucket( av_bucket ).
 
     assert_bucket_exists(
-      iv_bucket = cv_bucket
+      iv_bucket = av_bucket
       iv_exp = abap_true
-      iv_msg = |Bucket { cv_bucket } was not created| ).
+      iv_msg = |Bucket { av_bucket } was not created| ).
 
-    ao_s3->deletebucket( iv_bucket = cv_bucket ).
+    ao_s3->deletebucket( iv_bucket = av_bucket ).
 
   ENDMETHOD.
   METHOD put_object.
-
-    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-put-object'.
     CONSTANTS cv_file TYPE /aws1/s3_objectkey VALUE 'put_object_ex_file'.
-    ao_s3_actions->create_bucket( cv_bucket ).
+    ao_s3_actions->create_bucket( av_bucket ).
 
 
     create_file( cv_file ).
 
     ao_s3_actions->put_object(
-        iv_bucket_name = cv_bucket
+        iv_bucket_name = av_bucket
         iv_file_name = cv_file ).
 
     cl_abap_unit_assert=>assert_equals(
         exp = get_file_data( iv_file = cv_file )
-        act = ao_s3->getobject( iv_bucket = cv_bucket iv_key = cv_file )->get_body( )
+        act = ao_s3->getobject( iv_bucket = av_bucket iv_key = cv_file )->get_body( )
         msg = |Object { cv_file } did not match expected value| ).
 
-    ao_s3->deleteobject( iv_bucket = cv_bucket
+    ao_s3->deleteobject( iv_bucket = av_bucket
                          iv_key = cv_file ).
-    ao_s3->deletebucket( iv_bucket = cv_bucket ).
+    ao_s3->deletebucket( iv_bucket = av_bucket ).
     delete_file( cv_file ).
 
   ENDMETHOD.
@@ -114,22 +117,20 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
       msg = |Could not delete { iv_file }| ).
   ENDMETHOD.
   METHOD get_object.
-
-    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-get-object'.
     CONSTANTS cv_file TYPE /aws1/s3_objectkey VALUE 'get_object_ex_file'.
     DATA lo_result TYPE REF TO /aws1/cl_s3_getobjectoutput.
-    ao_s3_actions->create_bucket( cv_bucket ).
+    ao_s3_actions->create_bucket( av_bucket ).
 
 
     create_file( cv_file ).
 
-    put_file_in_bucket( iv_bucket = cv_bucket
+    put_file_in_bucket( iv_bucket = av_bucket
                         iv_file = cv_file ).
 
 
     ao_s3_actions->get_object(
       EXPORTING
-        iv_bucket_name = cv_bucket
+        iv_bucket_name = av_bucket
         iv_object_key = cv_file
       IMPORTING
         oo_result = lo_result ).
@@ -139,9 +140,9 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
       act = lo_result->get_body( )
       msg = |Object { cv_file } did not match expected value| ).
 
-    ao_s3->deleteobject( iv_bucket = cv_bucket
+    ao_s3->deleteobject( iv_bucket = av_bucket
                          iv_key = cv_file ).
-    ao_s3->deletebucket( iv_bucket = cv_bucket ).
+    ao_s3->deletebucket( iv_bucket = av_bucket ).
     delete_file( cv_file ).
 
   ENDMETHOD.
@@ -187,20 +188,18 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
 
   ENDMETHOD.
   METHOD list_objects.
-
-    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-list-objects'.
-    ao_s3_actions->create_bucket( cv_bucket ).
+    ao_s3_actions->create_bucket( av_bucket ).
 
     CONSTANTS cv_file TYPE /aws1/s3_objectkey VALUE 'list_objects_ex_file1'.
     create_file( cv_file ).
 
-    put_file_in_bucket( iv_bucket = cv_bucket
+    put_file_in_bucket( iv_bucket = av_bucket
                         iv_file = cv_file ).
 
     DATA lo_list TYPE REF TO /aws1/cl_s3_listobjectsoutput.
     ao_s3_actions->list_objects(
       EXPORTING
-        iv_bucket_name = cv_bucket
+        iv_bucket_name = av_bucket
       IMPORTING
         oo_result = lo_list ).
 
@@ -215,27 +214,26 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
       act = lv_found
       msg = |Could not find object { cv_file } in the list| ).
 
-    ao_s3->deleteobject( iv_bucket = cv_bucket
+    ao_s3->deleteobject( iv_bucket = av_bucket
                          iv_key = cv_file ).
-    ao_s3->deletebucket( iv_bucket = cv_bucket ).
+    ao_s3->deletebucket( iv_bucket = av_bucket ).
     delete_file( cv_file ).
 
   ENDMETHOD.
 
   METHOD list_objects_v2.
-    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-list-objects'.
-    ao_s3_actions->create_bucket( cv_bucket ).
+    ao_s3_actions->create_bucket( av_bucket ).
 
     CONSTANTS cv_file TYPE /aws1/s3_objectkey VALUE 'list_objects_ex_file1'.
     create_file( cv_file ).
 
-    put_file_in_bucket( iv_bucket = cv_bucket
+    put_file_in_bucket( iv_bucket = av_bucket
                         iv_file = cv_file ).
 
     DATA lo_list TYPE REF TO /aws1/cl_s3_listobjsv2output.
     ao_s3_actions->list_objects_v2(
       EXPORTING
-        iv_bucket_name = cv_bucket
+        iv_bucket_name = av_bucket
       IMPORTING
         oo_result = lo_list ).
 
@@ -250,51 +248,49 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
       act = lv_found
       msg = |Could not find object { cv_file } in the list| ).
 
-    ao_s3->deleteobject( iv_bucket = cv_bucket
+    ao_s3->deleteobject( iv_bucket = av_bucket
                          iv_key = cv_file ).
-    ao_s3->deletebucket( iv_bucket = cv_bucket ).
+    ao_s3->deletebucket( iv_bucket = av_bucket ).
     delete_file( cv_file ).
 
   ENDMETHOD.
   METHOD delete_object.
-    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-delete-object'.
-    ao_s3_actions->create_bucket( cv_bucket ).
+    ao_s3_actions->create_bucket( av_bucket ).
 
     CONSTANTS cv_file1 TYPE /aws1/s3_objectkey VALUE 'delete_object_ex_file1'.
     CONSTANTS cv_file2 TYPE /aws1/s3_objectkey VALUE 'delete_object_ex_file2'.
     create_file( cv_file1 ).
     create_file( cv_file2 ).
 
-    put_file_in_bucket( iv_bucket = cv_bucket
+    put_file_in_bucket( iv_bucket = av_bucket
                         iv_file = cv_file1 ).
-    put_file_in_bucket( iv_bucket = cv_bucket
+    put_file_in_bucket( iv_bucket = av_bucket
                         iv_file = cv_file2 ).
 
-    ao_s3_actions->delete_object( iv_bucket_name = cv_bucket
+    ao_s3_actions->delete_object( iv_bucket_name = av_bucket
                                   iv_object_key = cv_file1 ).
-    ao_s3_actions->delete_object( iv_bucket_name = cv_bucket
+    ao_s3_actions->delete_object( iv_bucket_name = av_bucket
                                   iv_object_key = cv_file2 ).
 
-    DATA(lo_list) = ao_s3->listobjects( iv_bucket = cv_bucket ).
+    DATA(lo_list) = ao_s3->listobjects( iv_bucket = av_bucket ).
     cl_abap_unit_assert=>assert_equals(
       exp = lines( lo_list->get_contents( ) )
       act = 0
-      msg = |Could not delete all objects in bucket { cv_bucket }| ).
+      msg = |Could not delete all objects in bucket { av_bucket }| ).
 
-    ao_s3->deletebucket( iv_bucket = cv_bucket ).
+    ao_s3->deletebucket( iv_bucket = av_bucket ).
     delete_file( cv_file1 ).
     delete_file( cv_file2 ).
 
   ENDMETHOD.
   METHOD delete_bucket.
-    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'sap-abap-s3-demo-bucket'.
-    ao_s3_actions->create_bucket( cv_bucket ).
-    ao_s3_actions->delete_bucket( cv_bucket ).
+    ao_s3_actions->create_bucket( av_bucket ).
+    ao_s3_actions->delete_bucket( av_bucket ).
 
     assert_bucket_exists(
-      iv_bucket = cv_bucket
+      iv_bucket = av_bucket
       iv_exp = abap_false
-      iv_msg = |Bucket { cv_bucket } should have been deleted| ).
+      iv_msg = |Bucket { av_bucket } should have been deleted| ).
 
   ENDMETHOD.
   METHOD assert_bucket_exists.
