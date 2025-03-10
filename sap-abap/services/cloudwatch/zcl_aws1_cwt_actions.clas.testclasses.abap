@@ -60,7 +60,8 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    ao_s3->createbucket( iv_bucket = lv_bucket_name ).
+    data(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.
@@ -142,7 +143,8 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    ao_s3->createbucket( iv_bucket = lv_bucket_name ).
+    data(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.
@@ -225,7 +227,9 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    ao_s3->createbucket( iv_bucket = lv_bucket_name ).
+
+    data(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.
@@ -310,7 +314,9 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    ao_s3->createbucket( iv_bucket = lv_bucket_name ).
+
+    data(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.
@@ -399,7 +405,9 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    ao_s3->createbucket( iv_bucket = lv_bucket_name ).
+
+    data(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.
@@ -492,7 +500,9 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    ao_s3->createbucket( iv_bucket = lv_bucket_name ).
+
+    data(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.

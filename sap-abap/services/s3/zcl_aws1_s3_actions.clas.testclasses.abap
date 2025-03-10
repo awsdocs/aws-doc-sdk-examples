@@ -52,7 +52,7 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
     ao_s3_actions = NEW zcl_aws1_s3_actions( ).
   ENDMETHOD.
   METHOD create_bucket.
-    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'amzn-s3-demo-bucket'.
+    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'sap-abap-s3-demo-bucket'.
     ao_s3_actions->create_bucket( cv_bucket ).
 
     assert_bucket_exists(
@@ -67,7 +67,7 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
 
     CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-put-object'.
     CONSTANTS cv_file TYPE /aws1/s3_objectkey VALUE 'put_object_ex_file'.
-    ao_s3->createbucket( iv_bucket = cv_bucket ).
+    ao_s3_actions->create_bucket( cv_bucket ).
 
 
     create_file( cv_file ).
@@ -118,7 +118,7 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
     CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-get-object'.
     CONSTANTS cv_file TYPE /aws1/s3_objectkey VALUE 'get_object_ex_file'.
     DATA lo_result TYPE REF TO /aws1/cl_s3_getobjectoutput.
-    ao_s3->createbucket( iv_bucket = cv_bucket ).
+    ao_s3_actions->create_bucket( cv_bucket ).
 
 
     create_file( cv_file ).
@@ -152,14 +152,12 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
           iv_body = get_file_data( iv_file = iv_file ) ).
   ENDMETHOD.
   METHOD copy_object.
-    CONSTANTS cv_src_bucket TYPE /aws1/s3_bucketname VALUE 'amzn-s3-demo-copy-object-src-bucket'.
-    CONSTANTS cv_dest_bucket TYPE /aws1/s3_bucketname VALUE 'amzn-s3-demo-copy-object-dest-bucket'.
+    CONSTANTS cv_src_bucket TYPE /aws1/s3_bucketname VALUE 'sap-abap-s3-demo-copy-object-src-bucket'.
+    CONSTANTS cv_dest_bucket TYPE /aws1/s3_bucketname VALUE 'sap-abap-s3-demo-copy-object-dest-bucket'.
     CONSTANTS cv_src_file TYPE /aws1/s3_objectkey VALUE 'copy_object_ex_file'.
     CONSTANTS cv_dest_file TYPE /aws1/s3_objectkey VALUE 'copied_object_ex_file'.
-    ao_s3->createbucket( iv_bucket = cv_src_bucket ).
-
-    ao_s3->createbucket( iv_bucket = cv_dest_bucket ).
-
+    ao_s3_actions->create_bucket( cv_src_bucket ).
+    ao_s3_actions->create_bucket( cv_dest_bucket ).
 
 
     create_file( cv_src_file ).
@@ -191,7 +189,7 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
   METHOD list_objects.
 
     CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-list-objects'.
-    ao_s3->createbucket( iv_bucket = cv_bucket ).
+    ao_s3_actions->create_bucket( cv_bucket ).
 
     CONSTANTS cv_file TYPE /aws1/s3_objectkey VALUE 'list_objects_ex_file1'.
     create_file( cv_file ).
@@ -226,7 +224,7 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
 
   METHOD list_objects_v2.
     CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-list-objects'.
-    ao_s3->createbucket( iv_bucket = cv_bucket ).
+    ao_s3_actions->create_bucket( cv_bucket ).
 
     CONSTANTS cv_file TYPE /aws1/s3_objectkey VALUE 'list_objects_ex_file1'.
     create_file( cv_file ).
@@ -260,7 +258,7 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
   ENDMETHOD.
   METHOD delete_object.
     CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-delete-object'.
-    ao_s3->createbucket( iv_bucket = cv_bucket ).
+    ao_s3_actions->create_bucket( cv_bucket ).
 
     CONSTANTS cv_file1 TYPE /aws1/s3_objectkey VALUE 'delete_object_ex_file1'.
     CONSTANTS cv_file2 TYPE /aws1/s3_objectkey VALUE 'delete_object_ex_file2'.
@@ -289,8 +287,8 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
 
   ENDMETHOD.
   METHOD delete_bucket.
-    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'amzn-s3-demo-bucket'.
-    ao_s3->createbucket( iv_bucket = cv_bucket ).
+    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'sap-abap-s3-demo-bucket'.
+    ao_s3_actions->create_bucket( cv_bucket ).
     ao_s3_actions->delete_bucket( cv_bucket ).
 
     assert_bucket_exists(
