@@ -20,7 +20,7 @@
   },
   "rules": {
     "7bit_ascii": {
-      "exclude": [],
+      "exclude": [".*"],
       "severity": "Error"
     },
     "abapdoc": {
@@ -171,7 +171,7 @@
       "severity": "Error"
     },
     "commented_code": {
-      "exclude": [],
+      "exclude": [".*"],
       "severity": "Warning",
       "allowIncludeInFugr": true
     },

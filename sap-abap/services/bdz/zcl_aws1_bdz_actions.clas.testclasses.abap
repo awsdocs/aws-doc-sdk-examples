@@ -142,13 +142,11 @@ CLASS ltc_ycl_aws1_mit_bdz IMPLEMENTATION.
     DATA(lv_result) = lo_example->invoke_bedrock_agent(
       io_session      = ao_session
       iv_agentid      = ao_alias->get_agentid( )
-      iv_agentaliasid = ao_alias->get_agentaliasid( )
-    ).
+      iv_agentaliasid = ao_alias->get_agentaliasid( ) ).
     cl_abap_unit_assert=>assert_text_matches(
       text = lv_result
-      pattern =     '.*((rock)|(paper)|(scissors)).*'
-      msg = |Expected "rock", "paper" or "scissors" in the response but got { lv_result }|
-    ).
+      pattern = '.*((rock)|(paper)|(scissors)).*'
+      msg = |Expected "rock", "paper" or "scissors" in the response but got { lv_result }| ).
   ENDMETHOD.
 
 ENDCLASS.

@@ -5,7 +5,7 @@ CLASS ltc_zcl_aws1_sgm_actions DEFINITION FOR TESTING DURATION MEDIUM RISK LEVEL
 
   PRIVATE SECTION.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA ao_sgm TYPE REF TO /aws1/if_sgm.
     DATA ao_s3 TYPE REF TO /aws1/if_s3.
@@ -138,8 +138,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
       |0 0:53 1:5.6 9:1 26:1 189:1 330:1\n| &&
       |1 0:98 1:7.7 8:1 29:1 42:1 330:1\n| &&
       |0 0:76 1:6.7 7:1 28:1 75:1 330:1\n| &&
-      |1 0:74 1:5.3 7:1 28:1 95:1 330:1\n|
-  ).
+      |1 0:74 1:5.3 7:1 28:1 95:1 330:1\n| ).
 
   ENDMETHOD.
 
@@ -147,7 +146,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     DATA lo_result TYPE REF TO /aws1/cl_sgmcreatetrnjobrsp.
     DATA lv_training_job_name TYPE /aws1/sgmtrainingjobname.
-    DATA lv_found TYPE abap_bool.
+
     DATA lv_bucket_name TYPE /aws1/s3_bucketname.
     DATA lv_file_content TYPE /aws1/s3_streamingblob.
     DATA lv_trn_data_s3uri TYPE /aws1/sgms3uri.
@@ -158,29 +157,29 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
     "Define hyperparameters.
-    CONSTANTS cv_hp_max_depth TYPE   /aws1/sgmhyperparametervalue    VALUE '3'.
-    CONSTANTS cv_hp_scale_pos_weight TYPE   /aws1/sgmhyperparametervalue    VALUE '2.0'.
-    CONSTANTS cv_hp_num_round TYPE   /aws1/sgmhyperparametervalue    VALUE '100'.
-    CONSTANTS cv_hp_objective  TYPE  /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
-    CONSTANTS cv_hp_subsample TYPE   /aws1/sgmhyperparametervalue    VALUE '0.5'.
-    CONSTANTS cv_hp_eta TYPE  /aws1/sgmhyperparametervalue    VALUE   '0.1'.
-    CONSTANTS cv_hp_eval_metric TYPE   /aws1/sgmhyperparametervalue    VALUE 'auc'.
+    CONSTANTS cv_hp_max_depth TYPE /aws1/sgmhyperparametervalue    VALUE '3'.
+    CONSTANTS cv_hp_scale_pos_weight TYPE /aws1/sgmhyperparametervalue    VALUE '2.0'.
+    CONSTANTS cv_hp_num_round TYPE /aws1/sgmhyperparametervalue    VALUE '100'.
+    CONSTANTS cv_hp_objective  TYPE /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
+    CONSTANTS cv_hp_subsample TYPE /aws1/sgmhyperparametervalue    VALUE '0.5'.
+    CONSTANTS cv_hp_eta TYPE /aws1/sgmhyperparametervalue    VALUE '0.1'.
+    CONSTANTS cv_hp_eval_metric TYPE /aws1/sgmhyperparametervalue    VALUE 'auc'.
 
     "Define training data.
-    CONSTANTS cv_trn_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_trn_data_s3datadistribution TYPE  /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
-    CONSTANTS cv_trn_data_compressiontype TYPE  /aws1/sgmcompressiontype     VALUE 'None'.
-    CONSTANTS cv_trn_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_trn_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_trn_data_s3datadistribution TYPE /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
+    CONSTANTS cv_trn_data_compressiontype TYPE /aws1/sgmcompressiontype     VALUE 'None'.
+    CONSTANTS cv_trn_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define validation data.
-    CONSTANTS cv_val_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_val_data_s3datadistribution TYPE  /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
-    CONSTANTS cv_val_data_compressiontype TYPE   /aws1/sgmcompressiontype    VALUE 'None'.
-    CONSTANTS cv_val_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_val_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_val_data_s3datadistribution TYPE /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
+    CONSTANTS cv_val_data_compressiontype TYPE /aws1/sgmcompressiontype    VALUE 'None'.
+    CONSTANTS cv_val_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define training parameters.
     CONSTANTS cv_training_image TYPE /aws1/sgmalgorithmimage VALUE '123456789012.abc.ecr.us-east-1.amazonaws.com/sagemaker-xgboost:1.5-1'.
-    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE  'File'.
+    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE 'File'.
     CONSTANTS cv_instance_count TYPE /aws1/sgmtraininginstancecount VALUE '1'.
     CONSTANTS cv_instance_type TYPE /aws1/sgmtraininginstancetype VALUE 'ml.c4.2xlarge'.
     CONSTANTS cv_volume_sizeingb TYPE /aws1/sgmvolumesizeingb VALUE '10'.
@@ -212,14 +211,12 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_train_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     ao_s3->putobject(
           iv_bucket = lv_bucket_name
           iv_key = cv_val_key
-          iv_body = av_file_content
-    ).
+          iv_body = av_file_content ).
 
     "Testing.
     ao_sgm_actions->create_training_job(
@@ -251,18 +248,16 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
         iv_s3_output_path               = lv_s3_output_path
         iv_max_runtime_in_seconds       = cv_max_runtime_in_seconds
       IMPORTING
-       oo_result              = lo_result
-    ).
+       oo_result              = lo_result ).
 
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     IF lo_result->has_trainingjobarn( ) = 'X'.
       lv_found               = abap_true.
     ENDIF.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Training Job cannot be found|
-    ).
+       msg                    = |Training Job cannot be found| ).
 
     "Wait for training job to be completed.
     lo_training_result = ao_sgm->describetrainingjob( iv_trainingjobname = lv_training_job_name ).
@@ -277,22 +272,18 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     "Clean up.
     ao_s3->deleteobject(
       iv_bucket = lv_bucket_name
-      iv_key = cv_train_key
-    ).
+      iv_key = cv_train_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = cv_val_key
-    ).
+        iv_key = cv_val_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = lv_model_key
-    ).
+        iv_key = lv_model_key ).
 
     ao_s3->deletebucket(
-        iv_bucket = lv_bucket_name
-    ).
+        iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
@@ -307,13 +298,13 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lo_val_channel TYPE REF TO /aws1/cl_sgmchannel.
     DATA lo_val_datasource TYPE REF TO /aws1/cl_sgmdatasource.
     DATA lo_val_s3datasource TYPE REF TO /aws1/cl_sgms3datasource.
-    DATA lo_output_data_config TYPE REF TO  /aws1/cl_sgmoutputdataconfig.
+    DATA lo_output_data_config TYPE REF TO /aws1/cl_sgmoutputdataconfig.
     DATA lo_resource_config  TYPE REF TO /aws1/cl_sgmresourceconfig.
     DATA lo_algorithm_specification TYPE REF TO /aws1/cl_sgmalgorithmspec.
     DATA lo_list_result TYPE REF TO /aws1/cl_sgmlisttrnjobsrsp.
-    DATA lo_stopping_condition TYPE REF TO  /aws1/cl_sgmstoppingcondition.
+    DATA lo_stopping_condition TYPE REF TO /aws1/cl_sgmstoppingcondition.
     DATA lv_training_job_name TYPE /aws1/sgmtrainingjobname.
-    DATA lv_found TYPE abap_bool.
+
     DATA lv_bucket_name TYPE /aws1/s3_bucketname.
     DATA lv_file_content TYPE /aws1/s3_streamingblob.
     DATA lv_trn_data_s3uri TYPE /aws1/sgms3uri.
@@ -329,29 +320,29 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     CONSTANTS cv_val_key TYPE /aws1/s3_objectkey VALUE 'sagemaker/validation/validation.libsvm'.
 
     "Define hyperparameters.
-    CONSTANTS cv_hp_max_depth TYPE   /aws1/sgmhyperparametervalue    VALUE '3'.
-    CONSTANTS cv_hp_scale_pos_weight TYPE   /aws1/sgmhyperparametervalue    VALUE '2.0'.
-    CONSTANTS cv_hp_num_round TYPE   /aws1/sgmhyperparametervalue    VALUE '100'.
-    CONSTANTS cv_hp_objective  TYPE  /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
-    CONSTANTS cv_hp_subsample TYPE   /aws1/sgmhyperparametervalue    VALUE '0.5'.
-    CONSTANTS cv_hp_eta TYPE  /aws1/sgmhyperparametervalue    VALUE   '0.1'.
-    CONSTANTS cv_hp_eval_metric TYPE   /aws1/sgmhyperparametervalue    VALUE 'auc'.
+    CONSTANTS cv_hp_max_depth TYPE /aws1/sgmhyperparametervalue    VALUE '3'.
+    CONSTANTS cv_hp_scale_pos_weight TYPE /aws1/sgmhyperparametervalue    VALUE '2.0'.
+    CONSTANTS cv_hp_num_round TYPE /aws1/sgmhyperparametervalue    VALUE '100'.
+    CONSTANTS cv_hp_objective  TYPE /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
+    CONSTANTS cv_hp_subsample TYPE /aws1/sgmhyperparametervalue    VALUE '0.5'.
+    CONSTANTS cv_hp_eta TYPE /aws1/sgmhyperparametervalue    VALUE '0.1'.
+    CONSTANTS cv_hp_eval_metric TYPE /aws1/sgmhyperparametervalue    VALUE 'auc'.
 
     "Define training data.
-    CONSTANTS cv_trn_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_trn_data_s3datadistribution TYPE  /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
-    CONSTANTS cv_trn_data_compressiontype TYPE  /aws1/sgmcompressiontype     VALUE 'None'.
-    CONSTANTS cv_trn_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_trn_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_trn_data_s3datadistribution TYPE /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
+    CONSTANTS cv_trn_data_compressiontype TYPE /aws1/sgmcompressiontype     VALUE 'None'.
+    CONSTANTS cv_trn_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define validation data.
-    CONSTANTS cv_val_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_val_data_s3datadistribution TYPE  /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
-    CONSTANTS cv_val_data_compressiontype TYPE   /aws1/sgmcompressiontype    VALUE 'None'.
-    CONSTANTS cv_val_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_val_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_val_data_s3datadistribution TYPE /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
+    CONSTANTS cv_val_data_compressiontype TYPE /aws1/sgmcompressiontype    VALUE 'None'.
+    CONSTANTS cv_val_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define training parameters.
     CONSTANTS cv_training_image TYPE /aws1/sgmalgorithmimage VALUE '123456789012.abc.ecr.us-east-1.amazonaws.com/sagemaker-xgboost:1.5-1'.
-    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE  'File'.
+    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE 'File'.
     CONSTANTS cv_instance_count TYPE /aws1/sgmtraininginstancecount VALUE '1'.
     CONSTANTS cv_instance_type TYPE /aws1/sgmtraininginstancetype VALUE 'ml.c4.2xlarge'.
     CONSTANTS cv_volume_sizeingb TYPE /aws1/sgmvolumesizeingb VALUE '10'.
@@ -381,100 +372,78 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_train_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     ao_s3->putobject(
           iv_bucket = lv_bucket_name
           iv_key = cv_val_key
-          iv_body = av_file_content
-    ).
+          iv_body = av_file_content ).
 
     "Create ABAP internal table for hyperparameters based on input variables.
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_max_depth.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_max_depth ).
     INSERT VALUE #( key = 'max_depth' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eta.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eta ).
     INSERT VALUE #( key = 'eta' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eval_metric.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eval_metric ).
     INSERT VALUE #( key = 'eval_metric' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_scale_pos_weight.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_scale_pos_weight ).
     INSERT VALUE #( key = 'scale_pos_weight' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_subsample.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_subsample ).
     INSERT VALUE #( key = 'subsample' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_objective.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_objective ).
     INSERT VALUE #( key = 'objective' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_num_round.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_num_round ).
     INSERT VALUE #( key = 'num_round' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
     "Create ABAP objects for data based on input variables.
     "Training data.
-    CREATE OBJECT lo_trn_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_trn_data_s3datatype
-        iv_s3datadistributiontype = cv_trn_data_s3datadistribution
-        iv_s3uri                  = lv_trn_data_s3uri.
+    lo_trn_s3datasource = NEW #( iv_s3datatype = cv_trn_data_s3datatype
+                                 iv_s3datadistributiontype = cv_trn_data_s3datadistribution
+                                 iv_s3uri = lv_trn_data_s3uri ).
 
-    CREATE OBJECT lo_trn_datasource
-      EXPORTING
-        io_s3datasource = lo_trn_s3datasource.
+    lo_trn_datasource = NEW #( io_s3datasource = lo_trn_s3datasource ).
 
-    CREATE OBJECT lo_trn_channel
-      EXPORTING
-        iv_channelname     = 'train'
-        io_datasource      = lo_trn_datasource
-        iv_compressiontype = cv_trn_data_compressiontype
-        iv_contenttype     = cv_trn_data_contenttype.
+    lo_trn_channel = NEW #( iv_channelname = 'train'
+                            io_datasource = lo_trn_datasource
+                            iv_compressiontype = cv_trn_data_compressiontype
+                            iv_contenttype = cv_trn_data_contenttype ).
 
     INSERT lo_trn_channel INTO TABLE lt_input_data_config.
 
     "Validation data.
-    CREATE OBJECT lo_val_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_val_data_s3datatype
-        iv_s3datadistributiontype = cv_val_data_s3datadistribution
-        iv_s3uri                  = lv_val_data_s3uri.
+    lo_val_s3datasource = NEW #( iv_s3datatype = cv_val_data_s3datatype
+                                 iv_s3datadistributiontype = cv_val_data_s3datadistribution
+                                 iv_s3uri = lv_val_data_s3uri ).
 
-    CREATE OBJECT lo_val_datasource
-      EXPORTING
-        io_s3datasource = lo_val_s3datasource.
+    lo_val_datasource = NEW #( io_s3datasource = lo_val_s3datasource ).
 
-    CREATE OBJECT lo_val_channel
-      EXPORTING
-        iv_channelname     = 'validation'
-        io_datasource      = lo_val_datasource
-        iv_compressiontype = cv_val_data_compressiontype
-        iv_contenttype     = cv_val_data_contenttype.
+    lo_val_channel = NEW #( iv_channelname = 'validation'
+                            io_datasource = lo_val_datasource
+                            iv_compressiontype = cv_val_data_compressiontype
+                            iv_contenttype = cv_val_data_contenttype ).
 
     INSERT lo_val_channel INTO TABLE lt_input_data_config.
 
     "Create an ABAP object for algorithm specification based on input variables.
-    CREATE OBJECT lo_algorithm_specification
-      EXPORTING
-        iv_trainingimage     = cv_training_image
-        iv_traininginputmode = cv_training_input_mode.
+    lo_algorithm_specification = NEW #( iv_trainingimage = cv_training_image
+                                        iv_traininginputmode = cv_training_input_mode ).
 
     "Create an ABAP object for resource configuration.
-    CREATE OBJECT lo_resource_config
-      EXPORTING
-        iv_instancecount  = cv_instance_count
-        iv_instancetype   = cv_instance_type
-        iv_volumesizeingb = cv_volume_sizeingb.
+    lo_resource_config = NEW #( iv_instancecount = cv_instance_count
+                                iv_instancetype = cv_instance_type
+                                iv_volumesizeingb = cv_volume_sizeingb ).
 
     "Create an ABAP object for output data configuration.
-    CREATE OBJECT lo_output_data_config
-      EXPORTING
-        iv_s3outputpath = lv_s3_output_path.
+    lo_output_data_config = NEW #( iv_s3outputpath = lv_s3_output_path ).
 
     "Create an ABAP object for stopping condition.
-    CREATE OBJECT lo_stopping_condition
-      EXPORTING
-        iv_maxruntimeinseconds = cv_max_runtime_in_seconds.
+    lo_stopping_condition = NEW #( iv_maxruntimeinseconds = cv_max_runtime_in_seconds ).
 
     "Create a training job.
     ao_sgm->createtrainingjob(
@@ -485,8 +454,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
       io_algorithmspecification    = lo_algorithm_specification
       io_outputdataconfig          = lo_output_data_config
       io_resourceconfig            = lo_resource_config
-      io_stoppingcondition         = lo_stopping_condition
-    ).
+      io_stoppingcondition         = lo_stopping_condition ).
 
     "Testing.
     ao_sgm_actions->list_training_jobs(
@@ -494,11 +462,10 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
         iv_name_contains = lv_training_job_name
         iv_max_results = cv_max_results
       IMPORTING
-        oo_result = lo_list_result
-    ).
+        oo_result = lo_list_result ).
 
     "Validation.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     LOOP AT lo_list_result->get_trainingjobsummaries( ) INTO DATA(lo_job).
       IF lo_job->has_trainingjobname( ) = 'X'.
         lv_found = abap_true.
@@ -507,8 +474,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Training job cannot be found|
-    ).
+      msg = |Training job cannot be found| ).
 
     "Wait for training job to be completed.
     lo_training_result = ao_sgm->describetrainingjob( iv_trainingjobname = lv_training_job_name ).
@@ -523,22 +489,18 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     "Clean up.
     ao_s3->deleteobject(
       iv_bucket = lv_bucket_name
-      iv_key = cv_train_key
-    ).
+      iv_key = cv_train_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = cv_val_key
-    ).
+        iv_key = cv_val_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = lv_model_key
-    ).
+        iv_key = lv_model_key ).
 
     ao_s3->deletebucket(
-        iv_bucket = lv_bucket_name
-    ).
+        iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
@@ -554,12 +516,12 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lo_val_channel TYPE REF TO /aws1/cl_sgmchannel.
     DATA lo_val_datasource TYPE REF TO /aws1/cl_sgmdatasource.
     DATA lo_val_s3datasource TYPE REF TO /aws1/cl_sgms3datasource.
-    DATA lo_stopping_condition TYPE REF TO  /aws1/cl_sgmstoppingcondition.
+    DATA lo_stopping_condition TYPE REF TO /aws1/cl_sgmstoppingcondition.
     DATA lo_algorithm_specification TYPE REF TO /aws1/cl_sgmalgorithmspec.
     DATA lo_resource_config  TYPE REF TO /aws1/cl_sgmresourceconfig.
-    DATA lo_output_data_config TYPE REF TO  /aws1/cl_sgmoutputdataconfig.
+    DATA lo_output_data_config TYPE REF TO /aws1/cl_sgmoutputdataconfig.
     DATA lo_list_result TYPE REF TO /aws1/cl_sgmdescrtrnjobrsp.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lv_bucket_name TYPE /aws1/s3_bucketname.
     DATA lv_file_content TYPE /aws1/s3_streamingblob.
     DATA lv_trn_data_s3uri TYPE /aws1/sgms3uri.
@@ -570,29 +532,29 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
     "Define hyperparameters.
-    CONSTANTS cv_hp_max_depth TYPE   /aws1/sgmhyperparametervalue    VALUE '3'.
-    CONSTANTS cv_hp_scale_pos_weight TYPE   /aws1/sgmhyperparametervalue    VALUE '2.0'.
-    CONSTANTS cv_hp_num_round TYPE   /aws1/sgmhyperparametervalue    VALUE '100'.
-    CONSTANTS cv_hp_objective  TYPE  /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
-    CONSTANTS cv_hp_subsample TYPE   /aws1/sgmhyperparametervalue    VALUE '0.5'.
-    CONSTANTS cv_hp_eta TYPE  /aws1/sgmhyperparametervalue    VALUE   '0.1'.
-    CONSTANTS cv_hp_eval_metric TYPE   /aws1/sgmhyperparametervalue    VALUE 'auc'.
+    CONSTANTS cv_hp_max_depth TYPE /aws1/sgmhyperparametervalue    VALUE '3'.
+    CONSTANTS cv_hp_scale_pos_weight TYPE /aws1/sgmhyperparametervalue    VALUE '2.0'.
+    CONSTANTS cv_hp_num_round TYPE /aws1/sgmhyperparametervalue    VALUE '100'.
+    CONSTANTS cv_hp_objective  TYPE /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
+    CONSTANTS cv_hp_subsample TYPE /aws1/sgmhyperparametervalue    VALUE '0.5'.
+    CONSTANTS cv_hp_eta TYPE /aws1/sgmhyperparametervalue    VALUE '0.1'.
+    CONSTANTS cv_hp_eval_metric TYPE /aws1/sgmhyperparametervalue    VALUE 'auc'.
 
     "Define training data.
-    CONSTANTS cv_trn_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_trn_data_s3datadistribution TYPE  /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
-    CONSTANTS cv_trn_data_compressiontype TYPE  /aws1/sgmcompressiontype     VALUE 'None'.
-    CONSTANTS cv_trn_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_trn_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_trn_data_s3datadistribution TYPE /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
+    CONSTANTS cv_trn_data_compressiontype TYPE /aws1/sgmcompressiontype     VALUE 'None'.
+    CONSTANTS cv_trn_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define validation data.
-    CONSTANTS cv_val_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_val_data_s3datadistribution TYPE  /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
-    CONSTANTS cv_val_data_compressiontype TYPE   /aws1/sgmcompressiontype    VALUE 'None'.
-    CONSTANTS cv_val_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_val_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_val_data_s3datadistribution TYPE /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
+    CONSTANTS cv_val_data_compressiontype TYPE /aws1/sgmcompressiontype    VALUE 'None'.
+    CONSTANTS cv_val_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define training parameters.
     CONSTANTS cv_training_image TYPE /aws1/sgmalgorithmimage VALUE '123456789012.abc.ecr.us-east-1.amazonaws.com/sagemaker-xgboost:1.5-1'.
-    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE  'File'.
+    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE 'File'.
     CONSTANTS cv_instance_count TYPE /aws1/sgmtraininginstancecount VALUE '1'.
     CONSTANTS cv_instance_type TYPE /aws1/sgmtraininginstancetype VALUE 'ml.c4.2xlarge'.
     CONSTANTS cv_volume_sizeingb TYPE /aws1/sgmvolumesizeingb VALUE '10'.
@@ -625,100 +587,78 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_train_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     ao_s3->putobject(
           iv_bucket = lv_bucket_name
           iv_key = cv_val_key
-          iv_body = av_file_content
-    ).
+          iv_body = av_file_content ).
 
     "Create ABAP internal table for hyperparameters based on input variables.
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_max_depth.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_max_depth ).
     INSERT VALUE #( key = 'max_depth' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eta.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eta ).
     INSERT VALUE #( key = 'eta' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eval_metric.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eval_metric ).
     INSERT VALUE #( key = 'eval_metric' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_scale_pos_weight.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_scale_pos_weight ).
     INSERT VALUE #( key = 'scale_pos_weight' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_subsample.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_subsample ).
     INSERT VALUE #( key = 'subsample' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_objective.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_objective ).
     INSERT VALUE #( key = 'objective' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_num_round.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_num_round ).
     INSERT VALUE #( key = 'num_round' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
     "Create ABAP objects for data based on input variables.
     "Training data.
-    CREATE OBJECT lo_trn_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_trn_data_s3datatype
-        iv_s3datadistributiontype = cv_trn_data_s3datadistribution
-        iv_s3uri                  = lv_trn_data_s3uri.
+    lo_trn_s3datasource = NEW #( iv_s3datatype = cv_trn_data_s3datatype
+                                 iv_s3datadistributiontype = cv_trn_data_s3datadistribution
+                                 iv_s3uri = lv_trn_data_s3uri ).
 
-    CREATE OBJECT lo_trn_datasource
-      EXPORTING
-        io_s3datasource = lo_trn_s3datasource.
+    lo_trn_datasource = NEW #( io_s3datasource = lo_trn_s3datasource ).
 
-    CREATE OBJECT lo_trn_channel
-      EXPORTING
-        iv_channelname     = 'train'
-        io_datasource      = lo_trn_datasource
-        iv_compressiontype = cv_trn_data_compressiontype
-        iv_contenttype     = cv_trn_data_contenttype.
+    lo_trn_channel = NEW #( iv_channelname = 'train'
+                            io_datasource = lo_trn_datasource
+                            iv_compressiontype = cv_trn_data_compressiontype
+                            iv_contenttype = cv_trn_data_contenttype ).
 
     INSERT lo_trn_channel INTO TABLE lt_input_data_config.
 
     "Validation data.
-    CREATE OBJECT lo_val_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_val_data_s3datatype
-        iv_s3datadistributiontype = cv_val_data_s3datadistribution
-        iv_s3uri                  = lv_val_data_s3uri.
+    lo_val_s3datasource = NEW #( iv_s3datatype = cv_val_data_s3datatype
+                                 iv_s3datadistributiontype = cv_val_data_s3datadistribution
+                                 iv_s3uri = lv_val_data_s3uri ).
 
-    CREATE OBJECT lo_val_datasource
-      EXPORTING
-        io_s3datasource = lo_val_s3datasource.
+    lo_val_datasource = NEW #( io_s3datasource = lo_val_s3datasource ).
 
-    CREATE OBJECT lo_val_channel
-      EXPORTING
-        iv_channelname     = 'validation'
-        io_datasource      = lo_val_datasource
-        iv_compressiontype = cv_val_data_compressiontype
-        iv_contenttype     = cv_val_data_contenttype.
+    lo_val_channel = NEW #( iv_channelname = 'validation'
+                            io_datasource = lo_val_datasource
+                            iv_compressiontype = cv_val_data_compressiontype
+                            iv_contenttype = cv_val_data_contenttype ).
 
     INSERT lo_val_channel INTO TABLE lt_input_data_config.
 
     "Create an ABAP object for algorithm specification based on input variables.
-    CREATE OBJECT lo_algorithm_specification
-      EXPORTING
-        iv_trainingimage     = cv_training_image
-        iv_traininginputmode = cv_training_input_mode.
+    lo_algorithm_specification = NEW #( iv_trainingimage = cv_training_image
+                                        iv_traininginputmode = cv_training_input_mode ).
 
     "Create an ABAP object for resource configuration.
-    CREATE OBJECT lo_resource_config
-      EXPORTING
-        iv_instancecount  = cv_instance_count
-        iv_instancetype   = cv_instance_type
-        iv_volumesizeingb = cv_volume_sizeingb.
+    lo_resource_config = NEW #( iv_instancecount = cv_instance_count
+                                iv_instancetype = cv_instance_type
+                                iv_volumesizeingb = cv_volume_sizeingb ).
 
     "Create an ABAP object for output data configuration.
-    CREATE OBJECT lo_output_data_config
-      EXPORTING
-        iv_s3outputpath = lv_s3_output_path.
+    lo_output_data_config = NEW #( iv_s3outputpath = lv_s3_output_path ).
 
     "Create an ABAP object for stopping condition.
-    CREATE OBJECT lo_stopping_condition
-      EXPORTING
-        iv_maxruntimeinseconds = cv_max_runtime_in_seconds.
+    lo_stopping_condition = NEW #( iv_maxruntimeinseconds = cv_max_runtime_in_seconds ).
 
     "Create a training job.
     ao_sgm->createtrainingjob(
@@ -729,17 +669,12 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
       io_algorithmspecification    = lo_algorithm_specification
       io_outputdataconfig          = lo_output_data_config
       io_resourceconfig            = lo_resource_config
-      io_stoppingcondition         = lo_stopping_condition
-    ).
+      io_stoppingcondition         = lo_stopping_condition ).
 
     "Testing describe training job method.
-    CALL METHOD ao_sgm_actions->describe_training_job
-      EXPORTING
-        iv_training_job_name = lv_training_job_name
-      IMPORTING
-        oo_result            = lo_list_result.
+    ao_sgm_actions->describe_training_job( EXPORTING iv_training_job_name = lv_training_job_name IMPORTING oo_result = lo_list_result ).
 
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     IF lo_list_result->get_trainingjobstatus( ) = cv_job_status.
       lv_found = abap_true.
@@ -747,8 +682,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Training job status is incorrect|
-    ).
+      msg = |Training job status is incorrect| ).
 
     "Wait for training job to be completed.
     lo_training_result = ao_sgm->describetrainingjob( iv_trainingjobname = lv_training_job_name ).
@@ -763,22 +697,18 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     "Clean up.
     ao_s3->deleteobject(
       iv_bucket = lv_bucket_name
-      iv_key = cv_train_key
-    ).
+      iv_key = cv_train_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = cv_val_key
-    ).
+        iv_key = cv_val_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = lv_model_key
-    ).
+        iv_key = lv_model_key ).
 
     ao_s3->deletebucket(
-        iv_bucket = lv_bucket_name
-    ).
+        iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
@@ -793,13 +723,13 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lo_val_channel TYPE REF TO /aws1/cl_sgmchannel.
     DATA lo_val_datasource TYPE REF TO /aws1/cl_sgmdatasource.
     DATA lo_val_s3datasource TYPE REF TO /aws1/cl_sgms3datasource.
-    DATA lo_output_data_config TYPE REF TO  /aws1/cl_sgmoutputdataconfig.
+    DATA lo_output_data_config TYPE REF TO /aws1/cl_sgmoutputdataconfig.
     DATA lo_resource_config  TYPE REF TO /aws1/cl_sgmresourceconfig.
     DATA lo_algorithm_specification TYPE REF TO /aws1/cl_sgmalgorithmspec.
     DATA lo_list_result TYPE REF TO /aws1/cl_sgmlisttrnjobsrsp.
-    DATA lo_stopping_condition TYPE REF TO  /aws1/cl_sgmstoppingcondition.
+    DATA lo_stopping_condition TYPE REF TO /aws1/cl_sgmstoppingcondition.
     DATA lv_training_job_name TYPE /aws1/sgmtrainingjobname.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lo_result TYPE REF TO /aws1/cl_sgmcreatemodeloutput.
     DATA lv_model_name TYPE /aws1/sgmmodelname.
     DATA lv_model_data_url TYPE /aws1/sgmurl.
@@ -819,29 +749,29 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     CONSTANTS cv_val_key TYPE /aws1/s3_objectkey VALUE 'sagemaker/validation/validation.libsvm'.
 
     "Define hyperparameters.
-    CONSTANTS cv_hp_max_depth TYPE   /aws1/sgmhyperparametervalue    VALUE '3'.
-    CONSTANTS cv_hp_scale_pos_weight TYPE   /aws1/sgmhyperparametervalue    VALUE '2.0'.
-    CONSTANTS cv_hp_num_round TYPE   /aws1/sgmhyperparametervalue    VALUE '100'.
-    CONSTANTS cv_hp_objective  TYPE  /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
-    CONSTANTS cv_hp_subsample TYPE   /aws1/sgmhyperparametervalue    VALUE '0.5'.
-    CONSTANTS cv_hp_eta TYPE  /aws1/sgmhyperparametervalue    VALUE   '0.1'.
-    CONSTANTS cv_hp_eval_metric TYPE   /aws1/sgmhyperparametervalue    VALUE 'auc'.
+    CONSTANTS cv_hp_max_depth TYPE /aws1/sgmhyperparametervalue    VALUE '3'.
+    CONSTANTS cv_hp_scale_pos_weight TYPE /aws1/sgmhyperparametervalue    VALUE '2.0'.
+    CONSTANTS cv_hp_num_round TYPE /aws1/sgmhyperparametervalue    VALUE '100'.
+    CONSTANTS cv_hp_objective  TYPE /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
+    CONSTANTS cv_hp_subsample TYPE /aws1/sgmhyperparametervalue    VALUE '0.5'.
+    CONSTANTS cv_hp_eta TYPE /aws1/sgmhyperparametervalue    VALUE '0.1'.
+    CONSTANTS cv_hp_eval_metric TYPE /aws1/sgmhyperparametervalue    VALUE 'auc'.
 
     "Define training data.
-    CONSTANTS cv_trn_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_trn_data_s3datadistribution TYPE  /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
-    CONSTANTS cv_trn_data_compressiontype TYPE  /aws1/sgmcompressiontype     VALUE 'None'.
-    CONSTANTS cv_trn_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_trn_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_trn_data_s3datadistribution TYPE /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
+    CONSTANTS cv_trn_data_compressiontype TYPE /aws1/sgmcompressiontype     VALUE 'None'.
+    CONSTANTS cv_trn_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define validation data.
-    CONSTANTS cv_val_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_val_data_s3datadistribution TYPE  /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
-    CONSTANTS cv_val_data_compressiontype TYPE   /aws1/sgmcompressiontype    VALUE 'None'.
-    CONSTANTS cv_val_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_val_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_val_data_s3datadistribution TYPE /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
+    CONSTANTS cv_val_data_compressiontype TYPE /aws1/sgmcompressiontype    VALUE 'None'.
+    CONSTANTS cv_val_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define training parameters.
     CONSTANTS cv_training_image TYPE /aws1/sgmalgorithmimage VALUE '123456789012.abc.ecr.us-east-1.amazonaws.com/sagemaker-xgboost:1.5-1'.
-    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE  'File'.
+    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE 'File'.
     CONSTANTS cv_instance_count TYPE /aws1/sgmtraininginstancecount VALUE '1'.
     CONSTANTS cv_instance_type TYPE /aws1/sgmtraininginstancetype VALUE 'ml.c4.2xlarge'.
     CONSTANTS cv_volume_sizeingb TYPE /aws1/sgmvolumesizeingb VALUE '10'.
@@ -877,100 +807,78 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_train_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     ao_s3->putobject(
           iv_bucket = lv_bucket_name
           iv_key = cv_val_key
-          iv_body = av_file_content
-    ).
+          iv_body = av_file_content ).
 
     "Create ABAP internal table for hyperparameters based on input variables.
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_max_depth.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_max_depth ).
     INSERT VALUE #( key = 'max_depth' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eta.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eta ).
     INSERT VALUE #( key = 'eta' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eval_metric.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eval_metric ).
     INSERT VALUE #( key = 'eval_metric' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_scale_pos_weight.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_scale_pos_weight ).
     INSERT VALUE #( key = 'scale_pos_weight' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_subsample.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_subsample ).
     INSERT VALUE #( key = 'subsample' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_objective.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_objective ).
     INSERT VALUE #( key = 'objective' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_num_round.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_num_round ).
     INSERT VALUE #( key = 'num_round' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
     "Create ABAP objects for data based on input variables.
     "Training data.
-    CREATE OBJECT lo_trn_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_trn_data_s3datatype
-        iv_s3datadistributiontype = cv_trn_data_s3datadistribution
-        iv_s3uri                  = lv_trn_data_s3uri.
+    lo_trn_s3datasource = NEW #( iv_s3datatype = cv_trn_data_s3datatype
+                                 iv_s3datadistributiontype = cv_trn_data_s3datadistribution
+                                 iv_s3uri = lv_trn_data_s3uri ).
 
-    CREATE OBJECT lo_trn_datasource
-      EXPORTING
-        io_s3datasource = lo_trn_s3datasource.
+    lo_trn_datasource = NEW #( io_s3datasource = lo_trn_s3datasource ).
 
-    CREATE OBJECT lo_trn_channel
-      EXPORTING
-        iv_channelname     = 'train'
-        io_datasource      = lo_trn_datasource
-        iv_compressiontype = cv_trn_data_compressiontype
-        iv_contenttype     = cv_trn_data_contenttype.
+    lo_trn_channel = NEW #( iv_channelname = 'train'
+                            io_datasource = lo_trn_datasource
+                            iv_compressiontype = cv_trn_data_compressiontype
+                            iv_contenttype = cv_trn_data_contenttype ).
 
     INSERT lo_trn_channel INTO TABLE lt_input_data_config.
 
     "Validation data.
-    CREATE OBJECT lo_val_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_val_data_s3datatype
-        iv_s3datadistributiontype = cv_val_data_s3datadistribution
-        iv_s3uri                  = lv_val_data_s3uri.
+    lo_val_s3datasource = NEW #( iv_s3datatype = cv_val_data_s3datatype
+                                 iv_s3datadistributiontype = cv_val_data_s3datadistribution
+                                 iv_s3uri = lv_val_data_s3uri ).
 
-    CREATE OBJECT lo_val_datasource
-      EXPORTING
-        io_s3datasource = lo_val_s3datasource.
+    lo_val_datasource = NEW #( io_s3datasource = lo_val_s3datasource ).
 
-    CREATE OBJECT lo_val_channel
-      EXPORTING
-        iv_channelname     = 'validation'
-        io_datasource      = lo_val_datasource
-        iv_compressiontype = cv_val_data_compressiontype
-        iv_contenttype     = cv_val_data_contenttype.
+    lo_val_channel = NEW #( iv_channelname = 'validation'
+                            io_datasource = lo_val_datasource
+                            iv_compressiontype = cv_val_data_compressiontype
+                            iv_contenttype = cv_val_data_contenttype ).
 
     INSERT lo_val_channel INTO TABLE lt_input_data_config.
 
     "Create an ABAP object for algorithm specification based on input variables.
-    CREATE OBJECT lo_algorithm_specification
-      EXPORTING
-        iv_trainingimage     = cv_training_image
-        iv_traininginputmode = cv_training_input_mode.
+    lo_algorithm_specification = NEW #( iv_trainingimage = cv_training_image
+                                        iv_traininginputmode = cv_training_input_mode ).
 
     "Create an ABAP object for resource configuration.
-    CREATE OBJECT lo_resource_config
-      EXPORTING
-        iv_instancecount  = cv_instance_count
-        iv_instancetype   = cv_instance_type
-        iv_volumesizeingb = cv_volume_sizeingb.
+    lo_resource_config = NEW #( iv_instancecount = cv_instance_count
+                                iv_instancetype = cv_instance_type
+                                iv_volumesizeingb = cv_volume_sizeingb ).
 
     "Create an ABAP object for output data configuration.
-    CREATE OBJECT lo_output_data_config
-      EXPORTING
-        iv_s3outputpath = lv_s3_output_path.
+    lo_output_data_config = NEW #( iv_s3outputpath = lv_s3_output_path ).
 
     "Create an ABAP object for stopping condition.
-    CREATE OBJECT lo_stopping_condition
-      EXPORTING
-        iv_maxruntimeinseconds = cv_max_runtime_in_seconds.
+    lo_stopping_condition = NEW #( iv_maxruntimeinseconds = cv_max_runtime_in_seconds ).
 
     "Create a training job.
     ao_sgm->createtrainingjob(
@@ -981,8 +889,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
       io_algorithmspecification    = lo_algorithm_specification
       io_outputdataconfig          = lo_output_data_config
       io_resourceconfig            = lo_resource_config
-      io_stoppingcondition         = lo_stopping_condition
-    ).
+      io_stoppingcondition         = lo_stopping_condition ).
 
     "Wait for training job to be completed.
     lo_training_result = ao_sgm->describetrainingjob( iv_trainingjobname = lv_training_job_name ).
@@ -995,16 +902,12 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ENDWHILE.
 
     "Test the create_model method.
-    CALL METHOD ao_sgm_actions->create_model
-      EXPORTING
-        iv_model_name         = lv_model_name
-        iv_execution_role_arn = av_lrole
-        iv_model_data_url     = lv_model_data_url
-        iv_container_image    = cv_container_image
-      IMPORTING
-        oo_result             = lo_result.
+    ao_sgm_actions->create_model( EXPORTING iv_model_name = lv_model_name
+                                            iv_execution_role_arn = av_lrole
+                                            iv_model_data_url = lv_model_data_url
+                                            iv_container_image = cv_container_image IMPORTING oo_result = lo_result ).
 
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     IF lo_result->has_modelarn( ) = 'X'.
       lv_found               = abap_true.
@@ -1012,32 +915,26 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Model cannot be found|
-    ).
+       msg                    = |Model cannot be found| ).
 
     "Clean up.
     ao_sgm->deletemodel(
-        iv_modelname = lv_model_name
-    ).
+        iv_modelname = lv_model_name ).
 
     ao_s3->deleteobject(
       iv_bucket = lv_bucket_name
-      iv_key = cv_train_key
-    ).
+      iv_key = cv_train_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = cv_val_key
-    ).
+        iv_key = cv_val_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = lv_model_key
-    ).
+        iv_key = lv_model_key ).
 
     ao_s3->deletebucket(
-        iv_bucket = lv_bucket_name
-    ).
+        iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
@@ -1052,13 +949,13 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lo_val_channel TYPE REF TO /aws1/cl_sgmchannel.
     DATA lo_val_datasource TYPE REF TO /aws1/cl_sgmdatasource.
     DATA lo_val_s3datasource TYPE REF TO /aws1/cl_sgms3datasource.
-    DATA lo_output_data_config TYPE REF TO  /aws1/cl_sgmoutputdataconfig.
+    DATA lo_output_data_config TYPE REF TO /aws1/cl_sgmoutputdataconfig.
     DATA lo_resource_config  TYPE REF TO /aws1/cl_sgmresourceconfig.
     DATA lo_algorithm_specification TYPE REF TO /aws1/cl_sgmalgorithmspec.
     DATA lo_list_result TYPE REF TO /aws1/cl_sgmlisttrnjobsrsp.
-    DATA lo_stopping_condition TYPE REF TO  /aws1/cl_sgmstoppingcondition.
+    DATA lo_stopping_condition TYPE REF TO /aws1/cl_sgmstoppingcondition.
     DATA lv_training_job_name TYPE /aws1/sgmtrainingjobname.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lo_result TYPE REF TO /aws1/cl_sgmcreatemodeloutput.
     DATA lv_model_name TYPE /aws1/sgmmodelname.
     DATA lv_model_data_url TYPE /aws1/sgmurl.
@@ -1080,29 +977,29 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     CONSTANTS cv_val_key TYPE /aws1/s3_objectkey VALUE 'sagemaker/validation/validation.libsvm'.
 
     "Define hyperparameters.
-    CONSTANTS cv_hp_max_depth TYPE   /aws1/sgmhyperparametervalue    VALUE '3'.
-    CONSTANTS cv_hp_scale_pos_weight TYPE   /aws1/sgmhyperparametervalue    VALUE '2.0'.
-    CONSTANTS cv_hp_num_round TYPE   /aws1/sgmhyperparametervalue    VALUE '100'.
-    CONSTANTS cv_hp_objective  TYPE  /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
-    CONSTANTS cv_hp_subsample TYPE   /aws1/sgmhyperparametervalue    VALUE '0.5'.
-    CONSTANTS cv_hp_eta TYPE  /aws1/sgmhyperparametervalue    VALUE   '0.1'.
-    CONSTANTS cv_hp_eval_metric TYPE   /aws1/sgmhyperparametervalue    VALUE 'auc'.
+    CONSTANTS cv_hp_max_depth TYPE /aws1/sgmhyperparametervalue    VALUE '3'.
+    CONSTANTS cv_hp_scale_pos_weight TYPE /aws1/sgmhyperparametervalue    VALUE '2.0'.
+    CONSTANTS cv_hp_num_round TYPE /aws1/sgmhyperparametervalue    VALUE '100'.
+    CONSTANTS cv_hp_objective  TYPE /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
+    CONSTANTS cv_hp_subsample TYPE /aws1/sgmhyperparametervalue    VALUE '0.5'.
+    CONSTANTS cv_hp_eta TYPE /aws1/sgmhyperparametervalue    VALUE '0.1'.
+    CONSTANTS cv_hp_eval_metric TYPE /aws1/sgmhyperparametervalue    VALUE 'auc'.
 
     "Define training data.
-    CONSTANTS cv_trn_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_trn_data_s3datadistribution TYPE  /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
-    CONSTANTS cv_trn_data_compressiontype TYPE  /aws1/sgmcompressiontype     VALUE 'None'.
-    CONSTANTS cv_trn_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_trn_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_trn_data_s3datadistribution TYPE /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
+    CONSTANTS cv_trn_data_compressiontype TYPE /aws1/sgmcompressiontype     VALUE 'None'.
+    CONSTANTS cv_trn_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define validation data.
-    CONSTANTS cv_val_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_val_data_s3datadistribution TYPE  /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
-    CONSTANTS cv_val_data_compressiontype TYPE   /aws1/sgmcompressiontype    VALUE 'None'.
-    CONSTANTS cv_val_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_val_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_val_data_s3datadistribution TYPE /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
+    CONSTANTS cv_val_data_compressiontype TYPE /aws1/sgmcompressiontype    VALUE 'None'.
+    CONSTANTS cv_val_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define training parameters.
     CONSTANTS cv_training_image TYPE /aws1/sgmalgorithmimage VALUE '123456789012.abc.ecr.us-east-1.amazonaws.com/sagemaker-xgboost:1.5-1'.
-    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE  'File'.
+    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE 'File'.
     CONSTANTS cv_instance_count TYPE /aws1/sgmtraininginstancecount VALUE '1'.
     CONSTANTS cv_instance_type TYPE /aws1/sgmtraininginstancetype VALUE 'ml.c4.2xlarge'.
     CONSTANTS cv_volume_sizeingb TYPE /aws1/sgmvolumesizeingb VALUE '10'.
@@ -1137,100 +1034,78 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_train_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     ao_s3->putobject(
           iv_bucket = lv_bucket_name
           iv_key = cv_val_key
-          iv_body = av_file_content
-    ).
+          iv_body = av_file_content ).
 
     "Create ABAP internal table for hyperparameters based on input variables.
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_max_depth.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_max_depth ).
     INSERT VALUE #( key = 'max_depth' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eta.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eta ).
     INSERT VALUE #( key = 'eta' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eval_metric.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eval_metric ).
     INSERT VALUE #( key = 'eval_metric' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_scale_pos_weight.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_scale_pos_weight ).
     INSERT VALUE #( key = 'scale_pos_weight' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_subsample.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_subsample ).
     INSERT VALUE #( key = 'subsample' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_objective.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_objective ).
     INSERT VALUE #( key = 'objective' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_num_round.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_num_round ).
     INSERT VALUE #( key = 'num_round' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
     "Create ABAP objects for data based on input variables.
     "Training data.
-    CREATE OBJECT lo_trn_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_trn_data_s3datatype
-        iv_s3datadistributiontype = cv_trn_data_s3datadistribution
-        iv_s3uri                  = lv_trn_data_s3uri.
+    lo_trn_s3datasource = NEW #( iv_s3datatype = cv_trn_data_s3datatype
+                                 iv_s3datadistributiontype = cv_trn_data_s3datadistribution
+                                 iv_s3uri = lv_trn_data_s3uri ).
 
-    CREATE OBJECT lo_trn_datasource
-      EXPORTING
-        io_s3datasource = lo_trn_s3datasource.
+    lo_trn_datasource = NEW #( io_s3datasource = lo_trn_s3datasource ).
 
-    CREATE OBJECT lo_trn_channel
-      EXPORTING
-        iv_channelname     = 'train'
-        io_datasource      = lo_trn_datasource
-        iv_compressiontype = cv_trn_data_compressiontype
-        iv_contenttype     = cv_trn_data_contenttype.
+    lo_trn_channel = NEW #( iv_channelname = 'train'
+                            io_datasource = lo_trn_datasource
+                            iv_compressiontype = cv_trn_data_compressiontype
+                            iv_contenttype = cv_trn_data_contenttype ).
 
     INSERT lo_trn_channel INTO TABLE lt_input_data_config.
 
     "Validation data.
-    CREATE OBJECT lo_val_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_val_data_s3datatype
-        iv_s3datadistributiontype = cv_val_data_s3datadistribution
-        iv_s3uri                  = lv_val_data_s3uri.
+    lo_val_s3datasource = NEW #( iv_s3datatype = cv_val_data_s3datatype
+                                 iv_s3datadistributiontype = cv_val_data_s3datadistribution
+                                 iv_s3uri = lv_val_data_s3uri ).
 
-    CREATE OBJECT lo_val_datasource
-      EXPORTING
-        io_s3datasource = lo_val_s3datasource.
+    lo_val_datasource = NEW #( io_s3datasource = lo_val_s3datasource ).
 
-    CREATE OBJECT lo_val_channel
-      EXPORTING
-        iv_channelname     = 'validation'
-        io_datasource      = lo_val_datasource
-        iv_compressiontype = cv_val_data_compressiontype
-        iv_contenttype     = cv_val_data_contenttype.
+    lo_val_channel = NEW #( iv_channelname = 'validation'
+                            io_datasource = lo_val_datasource
+                            iv_compressiontype = cv_val_data_compressiontype
+                            iv_contenttype = cv_val_data_contenttype ).
 
     INSERT lo_val_channel INTO TABLE lt_input_data_config.
 
     "Create an ABAP object for algorithm specification based on input variables.
-    CREATE OBJECT lo_algorithm_specification
-      EXPORTING
-        iv_trainingimage     = cv_training_image
-        iv_traininginputmode = cv_training_input_mode.
+    lo_algorithm_specification = NEW #( iv_trainingimage = cv_training_image
+                                        iv_traininginputmode = cv_training_input_mode ).
 
     "Create an ABAP object for resource configuration.
-    CREATE OBJECT lo_resource_config
-      EXPORTING
-        iv_instancecount  = cv_instance_count
-        iv_instancetype   = cv_instance_type
-        iv_volumesizeingb = cv_volume_sizeingb.
+    lo_resource_config = NEW #( iv_instancecount = cv_instance_count
+                                iv_instancetype = cv_instance_type
+                                iv_volumesizeingb = cv_volume_sizeingb ).
 
     "Create an ABAP object for output data configuration.
-    CREATE OBJECT lo_output_data_config
-      EXPORTING
-        iv_s3outputpath = lv_s3_output_path.
+    lo_output_data_config = NEW #( iv_s3outputpath = lv_s3_output_path ).
 
     "Create an ABAP object for stopping condition.
-    CREATE OBJECT lo_stopping_condition
-      EXPORTING
-        iv_maxruntimeinseconds = cv_max_runtime_in_seconds.
+    lo_stopping_condition = NEW #( iv_maxruntimeinseconds = cv_max_runtime_in_seconds ).
 
     "Run method to create a training job.
     ao_sgm->createtrainingjob(
@@ -1241,8 +1116,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
       io_algorithmspecification    = lo_algorithm_specification
       io_outputdataconfig          = lo_output_data_config
       io_resourceconfig            = lo_resource_config
-      io_stoppingcondition         = lo_stopping_condition
-    ).
+      io_stoppingcondition         = lo_stopping_condition ).
 
     "Wait for training job to be completed.
     lo_training_result = ao_sgm->describetrainingjob( iv_trainingjobname = lv_training_job_name ).
@@ -1255,26 +1129,18 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ENDWHILE.
 
     "Create an ABAP internal table for the container image based on input variables.
-    CREATE OBJECT lo_primarycontainer
-      EXPORTING
-        iv_image        = cv_container_image
-        iv_modeldataurl = lv_model_data_url.
+    lo_primarycontainer = NEW #( iv_image = cv_container_image
+                                 iv_modeldataurl = lv_model_data_url ).
 
     "Create a new model via so_sgm.
-    CALL METHOD ao_sgm->createmodel
-      EXPORTING
-        iv_modelname        = lv_model_name
-        iv_executionrolearn = av_lrole
-        io_primarycontainer = lo_primarycontainer.
+    ao_sgm->createmodel( iv_modelname = lv_model_name
+                                   iv_executionrolearn = av_lrole
+                                   io_primarycontainer = lo_primarycontainer ).
 
     "Call list_models via so_sgm_actions.
-    CALL METHOD ao_sgm_actions->list_models
-      EXPORTING
-        iv_name_contains = lv_model_name
-      IMPORTING
-        oo_result        = lo_model_list_result.
+    ao_sgm_actions->list_models( EXPORTING iv_name_contains = lv_model_name IMPORTING oo_result = lo_model_list_result ).
 
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     LOOP AT lo_model_list_result->get_models( ) INTO DATA(lo_models).
       IF lo_models->get_modelname( ) = lv_model_name.
@@ -1284,32 +1150,26 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Model cannot be found|
-    ).
+      msg = |Model cannot be found| ).
 
     "Clean up.
     ao_sgm->deletemodel(
-        iv_modelname = lv_model_name
-    ).
+        iv_modelname = lv_model_name ).
 
     ao_s3->deleteobject(
       iv_bucket = lv_bucket_name
-      iv_key = cv_train_key
-    ).
+      iv_key = cv_train_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = cv_val_key
-    ).
+        iv_key = cv_val_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = lv_model_key
-    ).
+        iv_key = lv_model_key ).
 
     ao_s3->deletebucket(
-        iv_bucket = lv_bucket_name
-    ).
+        iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
@@ -1324,13 +1184,13 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lo_val_channel TYPE REF TO /aws1/cl_sgmchannel.
     DATA lo_val_datasource TYPE REF TO /aws1/cl_sgmdatasource.
     DATA lo_val_s3datasource TYPE REF TO /aws1/cl_sgms3datasource.
-    DATA lo_output_data_config TYPE REF TO  /aws1/cl_sgmoutputdataconfig.
+    DATA lo_output_data_config TYPE REF TO /aws1/cl_sgmoutputdataconfig.
     DATA lo_resource_config  TYPE REF TO /aws1/cl_sgmresourceconfig.
     DATA lo_algorithm_specification TYPE REF TO /aws1/cl_sgmalgorithmspec.
     DATA lo_list_result TYPE REF TO /aws1/cl_sgmlisttrnjobsrsp.
-    DATA lo_stopping_condition TYPE REF TO  /aws1/cl_sgmstoppingcondition.
+    DATA lo_stopping_condition TYPE REF TO /aws1/cl_sgmstoppingcondition.
     DATA lv_training_job_name TYPE /aws1/sgmtrainingjobname.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lo_result TYPE REF TO /aws1/cl_sgmcreatemodeloutput.
     DATA lv_model_name TYPE /aws1/sgmmodelname.
     DATA lv_model_data_url TYPE /aws1/sgmurl.
@@ -1352,29 +1212,29 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     CONSTANTS cv_val_key TYPE /aws1/s3_objectkey VALUE 'sagemaker/validation/validation.libsvm'.
 
     "Define hyperparameters.
-    CONSTANTS cv_hp_max_depth TYPE   /aws1/sgmhyperparametervalue    VALUE '3'.
-    CONSTANTS cv_hp_scale_pos_weight TYPE   /aws1/sgmhyperparametervalue    VALUE '2.0'.
-    CONSTANTS cv_hp_num_round TYPE   /aws1/sgmhyperparametervalue    VALUE '100'.
-    CONSTANTS cv_hp_objective  TYPE  /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
-    CONSTANTS cv_hp_subsample TYPE   /aws1/sgmhyperparametervalue    VALUE '0.5'.
-    CONSTANTS cv_hp_eta TYPE  /aws1/sgmhyperparametervalue    VALUE   '0.1'.
-    CONSTANTS cv_hp_eval_metric TYPE   /aws1/sgmhyperparametervalue    VALUE 'auc'.
+    CONSTANTS cv_hp_max_depth TYPE /aws1/sgmhyperparametervalue    VALUE '3'.
+    CONSTANTS cv_hp_scale_pos_weight TYPE /aws1/sgmhyperparametervalue    VALUE '2.0'.
+    CONSTANTS cv_hp_num_round TYPE /aws1/sgmhyperparametervalue    VALUE '100'.
+    CONSTANTS cv_hp_objective  TYPE /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
+    CONSTANTS cv_hp_subsample TYPE /aws1/sgmhyperparametervalue    VALUE '0.5'.
+    CONSTANTS cv_hp_eta TYPE /aws1/sgmhyperparametervalue    VALUE '0.1'.
+    CONSTANTS cv_hp_eval_metric TYPE /aws1/sgmhyperparametervalue    VALUE 'auc'.
 
     "Define training data.
-    CONSTANTS cv_trn_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_trn_data_s3datadistribution TYPE  /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
-    CONSTANTS cv_trn_data_compressiontype TYPE  /aws1/sgmcompressiontype     VALUE 'None'.
-    CONSTANTS cv_trn_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_trn_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_trn_data_s3datadistribution TYPE /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
+    CONSTANTS cv_trn_data_compressiontype TYPE /aws1/sgmcompressiontype     VALUE 'None'.
+    CONSTANTS cv_trn_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define validation data.
-    CONSTANTS cv_val_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_val_data_s3datadistribution TYPE  /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
-    CONSTANTS cv_val_data_compressiontype TYPE   /aws1/sgmcompressiontype    VALUE 'None'.
-    CONSTANTS cv_val_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_val_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_val_data_s3datadistribution TYPE /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
+    CONSTANTS cv_val_data_compressiontype TYPE /aws1/sgmcompressiontype    VALUE 'None'.
+    CONSTANTS cv_val_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define training parameters.
     CONSTANTS cv_training_image TYPE /aws1/sgmalgorithmimage VALUE '123456789012.abc.ecr.us-east-1.amazonaws.com/sagemaker-xgboost:1.5-1'.
-    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE  'File'.
+    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE 'File'.
     CONSTANTS cv_instance_count TYPE /aws1/sgmtraininginstancecount VALUE '1'.
     CONSTANTS cv_instance_type TYPE /aws1/sgmtraininginstancetype VALUE 'ml.c4.2xlarge'.
     CONSTANTS cv_volume_sizeingb TYPE /aws1/sgmvolumesizeingb VALUE '10'.
@@ -1409,100 +1269,78 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_train_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     ao_s3->putobject(
           iv_bucket = lv_bucket_name
           iv_key = cv_val_key
-          iv_body = av_file_content
-    ).
+          iv_body = av_file_content ).
 
     "Create ABAP internal table for hyperparameters based on input variables.
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_max_depth.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_max_depth ).
     INSERT VALUE #( key = 'max_depth' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eta.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eta ).
     INSERT VALUE #( key = 'eta' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eval_metric.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eval_metric ).
     INSERT VALUE #( key = 'eval_metric' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_scale_pos_weight.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_scale_pos_weight ).
     INSERT VALUE #( key = 'scale_pos_weight' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_subsample.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_subsample ).
     INSERT VALUE #( key = 'subsample' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_objective.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_objective ).
     INSERT VALUE #( key = 'objective' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_num_round.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_num_round ).
     INSERT VALUE #( key = 'num_round' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
     "Create ABAP objects for data based on input variables.
     "Training data.
-    CREATE OBJECT lo_trn_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_trn_data_s3datatype
-        iv_s3datadistributiontype = cv_trn_data_s3datadistribution
-        iv_s3uri                  = lv_trn_data_s3uri.
+    lo_trn_s3datasource = NEW #( iv_s3datatype = cv_trn_data_s3datatype
+                                 iv_s3datadistributiontype = cv_trn_data_s3datadistribution
+                                 iv_s3uri = lv_trn_data_s3uri ).
 
-    CREATE OBJECT lo_trn_datasource
-      EXPORTING
-        io_s3datasource = lo_trn_s3datasource.
+    lo_trn_datasource = NEW #( io_s3datasource = lo_trn_s3datasource ).
 
-    CREATE OBJECT lo_trn_channel
-      EXPORTING
-        iv_channelname     = 'train'
-        io_datasource      = lo_trn_datasource
-        iv_compressiontype = cv_trn_data_compressiontype
-        iv_contenttype     = cv_trn_data_contenttype.
+    lo_trn_channel = NEW #( iv_channelname = 'train'
+                            io_datasource = lo_trn_datasource
+                            iv_compressiontype = cv_trn_data_compressiontype
+                            iv_contenttype = cv_trn_data_contenttype ).
 
     INSERT lo_trn_channel INTO TABLE lt_input_data_config.
 
     "Validation data.
-    CREATE OBJECT lo_val_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_val_data_s3datatype
-        iv_s3datadistributiontype = cv_val_data_s3datadistribution
-        iv_s3uri                  = lv_val_data_s3uri.
+    lo_val_s3datasource = NEW #( iv_s3datatype = cv_val_data_s3datatype
+                                 iv_s3datadistributiontype = cv_val_data_s3datadistribution
+                                 iv_s3uri = lv_val_data_s3uri ).
 
-    CREATE OBJECT lo_val_datasource
-      EXPORTING
-        io_s3datasource = lo_val_s3datasource.
+    lo_val_datasource = NEW #( io_s3datasource = lo_val_s3datasource ).
 
-    CREATE OBJECT lo_val_channel
-      EXPORTING
-        iv_channelname     = 'validation'
-        io_datasource      = lo_val_datasource
-        iv_compressiontype = cv_val_data_compressiontype
-        iv_contenttype     = cv_val_data_contenttype.
+    lo_val_channel = NEW #( iv_channelname = 'validation'
+                            io_datasource = lo_val_datasource
+                            iv_compressiontype = cv_val_data_compressiontype
+                            iv_contenttype = cv_val_data_contenttype ).
 
     INSERT lo_val_channel INTO TABLE lt_input_data_config.
 
     "Create an ABAP object for algorithm specification based on input variables.
-    CREATE OBJECT lo_algorithm_specification
-      EXPORTING
-        iv_trainingimage     = cv_training_image
-        iv_traininginputmode = cv_training_input_mode.
+    lo_algorithm_specification = NEW #( iv_trainingimage = cv_training_image
+                                        iv_traininginputmode = cv_training_input_mode ).
 
     "Create an ABAP object for resource configuration.
-    CREATE OBJECT lo_resource_config
-      EXPORTING
-        iv_instancecount  = cv_instance_count
-        iv_instancetype   = cv_instance_type
-        iv_volumesizeingb = cv_volume_sizeingb.
+    lo_resource_config = NEW #( iv_instancecount = cv_instance_count
+                                iv_instancetype = cv_instance_type
+                                iv_volumesizeingb = cv_volume_sizeingb ).
 
     "Create an ABAP object for output data configuration.
-    CREATE OBJECT lo_output_data_config
-      EXPORTING
-        iv_s3outputpath = lv_s3_output_path.
+    lo_output_data_config = NEW #( iv_s3outputpath = lv_s3_output_path ).
 
     "Create an ABAP object for stopping condition.
-    CREATE OBJECT lo_stopping_condition
-      EXPORTING
-        iv_maxruntimeinseconds = cv_max_runtime_in_seconds.
+    lo_stopping_condition = NEW #( iv_maxruntimeinseconds = cv_max_runtime_in_seconds ).
 
     "Create a training job.
     ao_sgm->createtrainingjob(
@@ -1513,8 +1351,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
       io_algorithmspecification    = lo_algorithm_specification
       io_outputdataconfig          = lo_output_data_config
       io_resourceconfig            = lo_resource_config
-      io_stoppingcondition         = lo_stopping_condition
-    ).
+      io_stoppingcondition         = lo_stopping_condition ).
 
     "Wait for training job to be completed.
     lo_training_result = ao_sgm->describetrainingjob( iv_trainingjobname = lv_training_job_name ).
@@ -1527,29 +1364,22 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ENDWHILE.
 
     "Create an ABAP internal table for the container image based on input variables.
-    CREATE OBJECT lo_primarycontainer
-      EXPORTING
-        iv_image        = cv_container_image
-        iv_modeldataurl = lv_model_data_url.
+    lo_primarycontainer = NEW #( iv_image = cv_container_image
+                                 iv_modeldataurl = lv_model_data_url ).
 
     "Create a new model via so_sgm.
-    CALL METHOD ao_sgm->createmodel
-      EXPORTING
-        iv_modelname        = lv_model_name
-        iv_executionrolearn = av_lrole
-        io_primarycontainer = lo_primarycontainer.
+    ao_sgm->createmodel( iv_modelname = lv_model_name
+                                   iv_executionrolearn = av_lrole
+                                   io_primarycontainer = lo_primarycontainer ).
 
     "Test the ao_sgm_actions delete_model method.
-    CALL METHOD ao_sgm_actions->delete_model
-      EXPORTING
-        iv_model_name = lv_model_name.
+    ao_sgm_actions->delete_model( lv_model_name ).
 
     "List the deleted model via so_sgm.
     lo_model_list_result = ao_sgm->listmodels(
-      iv_namecontains = lv_model_name
-    ).
+      iv_namecontains = lv_model_name ).
 
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     "The model should be deleted.
     LOOP AT lo_model_list_result->get_models( ) INTO DATA(lo_models).
@@ -1560,28 +1390,23 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_false(
       act = lv_found
-      msg = |Model was not deleted|
-    ).
+      msg = |Model was not deleted| ).
 
     "Clean up.
     ao_s3->deleteobject(
       iv_bucket = lv_bucket_name
-      iv_key = cv_train_key
-    ).
+      iv_key = cv_train_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = cv_val_key
-    ).
+        iv_key = cv_val_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = lv_model_key
-    ).
+        iv_key = lv_model_key ).
 
     ao_s3->deletebucket(
-        iv_bucket = lv_bucket_name
-    ).
+        iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
@@ -1596,13 +1421,13 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lo_val_channel TYPE REF TO /aws1/cl_sgmchannel.
     DATA lo_val_datasource TYPE REF TO /aws1/cl_sgmdatasource.
     DATA lo_val_s3datasource TYPE REF TO /aws1/cl_sgms3datasource.
-    DATA lo_output_data_config TYPE REF TO  /aws1/cl_sgmoutputdataconfig.
+    DATA lo_output_data_config TYPE REF TO /aws1/cl_sgmoutputdataconfig.
     DATA lo_resource_config  TYPE REF TO /aws1/cl_sgmresourceconfig.
     DATA lo_algorithm_specification TYPE REF TO /aws1/cl_sgmalgorithmspec.
     DATA lo_list_result TYPE REF TO /aws1/cl_sgmlisttrnjobsrsp.
-    DATA lo_stopping_condition TYPE REF TO  /aws1/cl_sgmstoppingcondition.
+    DATA lo_stopping_condition TYPE REF TO /aws1/cl_sgmstoppingcondition.
     DATA lv_training_job_name TYPE /aws1/sgmtrainingjobname.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lo_result TYPE REF TO /aws1/cl_sgmcreatemodeloutput.
     DATA lv_model_name TYPE /aws1/sgmmodelname.
     DATA lv_model_data_url TYPE /aws1/sgmurl.
@@ -1629,29 +1454,29 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     CONSTANTS cv_val_key TYPE /aws1/s3_objectkey VALUE 'sagemaker/validation/validation.libsvm'.
 
     "Define hyperparameters.
-    CONSTANTS cv_hp_max_depth TYPE   /aws1/sgmhyperparametervalue    VALUE '3'.
-    CONSTANTS cv_hp_scale_pos_weight TYPE   /aws1/sgmhyperparametervalue    VALUE '2.0'.
-    CONSTANTS cv_hp_num_round TYPE   /aws1/sgmhyperparametervalue    VALUE '100'.
-    CONSTANTS cv_hp_objective  TYPE  /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
-    CONSTANTS cv_hp_subsample TYPE   /aws1/sgmhyperparametervalue    VALUE '0.5'.
-    CONSTANTS cv_hp_eta TYPE  /aws1/sgmhyperparametervalue    VALUE   '0.1'.
-    CONSTANTS cv_hp_eval_metric TYPE   /aws1/sgmhyperparametervalue    VALUE 'auc'.
+    CONSTANTS cv_hp_max_depth TYPE /aws1/sgmhyperparametervalue    VALUE '3'.
+    CONSTANTS cv_hp_scale_pos_weight TYPE /aws1/sgmhyperparametervalue    VALUE '2.0'.
+    CONSTANTS cv_hp_num_round TYPE /aws1/sgmhyperparametervalue    VALUE '100'.
+    CONSTANTS cv_hp_objective  TYPE /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
+    CONSTANTS cv_hp_subsample TYPE /aws1/sgmhyperparametervalue    VALUE '0.5'.
+    CONSTANTS cv_hp_eta TYPE /aws1/sgmhyperparametervalue    VALUE '0.1'.
+    CONSTANTS cv_hp_eval_metric TYPE /aws1/sgmhyperparametervalue    VALUE 'auc'.
 
     "Define training data.
-    CONSTANTS cv_trn_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_trn_data_s3datadistribution TYPE  /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
-    CONSTANTS cv_trn_data_compressiontype TYPE  /aws1/sgmcompressiontype     VALUE 'None'.
-    CONSTANTS cv_trn_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_trn_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_trn_data_s3datadistribution TYPE /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
+    CONSTANTS cv_trn_data_compressiontype TYPE /aws1/sgmcompressiontype     VALUE 'None'.
+    CONSTANTS cv_trn_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define validation data.
-    CONSTANTS cv_val_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_val_data_s3datadistribution TYPE  /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
-    CONSTANTS cv_val_data_compressiontype TYPE   /aws1/sgmcompressiontype    VALUE 'None'.
-    CONSTANTS cv_val_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_val_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_val_data_s3datadistribution TYPE /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
+    CONSTANTS cv_val_data_compressiontype TYPE /aws1/sgmcompressiontype    VALUE 'None'.
+    CONSTANTS cv_val_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define training parameters.
     CONSTANTS cv_training_image TYPE /aws1/sgmalgorithmimage VALUE '123456789012.abc.ecr.us-east-1.amazonaws.com/sagemaker-xgboost:1.5-1'.
-    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE  'File'.
+    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE 'File'.
     CONSTANTS cv_instance_count TYPE /aws1/sgmtraininginstancecount VALUE '1'.
     CONSTANTS cv_instance_type TYPE /aws1/sgmtraininginstancetype VALUE 'ml.c4.2xlarge'.
     CONSTANTS cv_volume_sizeingb TYPE /aws1/sgmvolumesizeingb VALUE '10'.
@@ -1659,8 +1484,8 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     CONSTANTS cv_max_results TYPE /aws1/sgmmaxresults VALUE '1'.
 
     "Define endpoint parameters.
-    CONSTANTS cv_ep_instance_type TYPE  /aws1/sgminstancetype VALUE 'ml.m4.xlarge'.
-    CONSTANTS cv_ep_initial_instance_count  TYPE  /aws1/sgminitialtaskcount VALUE  '1'.
+    CONSTANTS cv_ep_instance_type TYPE /aws1/sgminstancetype VALUE 'ml.m4.xlarge'.
+    CONSTANTS cv_ep_initial_instance_count  TYPE /aws1/sgminitialtaskcount VALUE '1'.
 
     "Define role ARN.
     DATA(lt_roles) = ao_session->get_configuration( )->get_logical_iam_roles( ).
@@ -1678,8 +1503,8 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     "Define endpoint name.
     lv_endpoint_name = 'code-example-endpoint-' && lv_uuid_16.
-    lv_endpoint_config_name =  'code-example-endpoint-cfg-' && lv_uuid_16.
-    lv_endpoint_variant_name =  'code-example-endpoint-variant-' && lv_uuid_16.
+    lv_endpoint_config_name = 'code-example-endpoint-cfg-' && lv_uuid_16.
+    lv_endpoint_variant_name = 'code-example-endpoint-variant-' && lv_uuid_16.
 
     "Create training data in Amazon S3.
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
@@ -1695,100 +1520,78 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_train_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     ao_s3->putobject(
           iv_bucket = lv_bucket_name
           iv_key = cv_val_key
-          iv_body = av_file_content
-    ).
+          iv_body = av_file_content ).
 
     "Create ABAP internal table for hyperparameters based on input variables.
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_max_depth.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_max_depth ).
     INSERT VALUE #( key = 'max_depth' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eta.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eta ).
     INSERT VALUE #( key = 'eta' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eval_metric.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eval_metric ).
     INSERT VALUE #( key = 'eval_metric' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_scale_pos_weight.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_scale_pos_weight ).
     INSERT VALUE #( key = 'scale_pos_weight' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_subsample.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_subsample ).
     INSERT VALUE #( key = 'subsample' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_objective.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_objective ).
     INSERT VALUE #( key = 'objective' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_num_round.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_num_round ).
     INSERT VALUE #( key = 'num_round' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
     "Create ABAP objects for data based on input variables.
     "Training data.
-    CREATE OBJECT lo_trn_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_trn_data_s3datatype
-        iv_s3datadistributiontype = cv_trn_data_s3datadistribution
-        iv_s3uri                  = lv_trn_data_s3uri.
+    lo_trn_s3datasource = NEW #( iv_s3datatype = cv_trn_data_s3datatype
+                                 iv_s3datadistributiontype = cv_trn_data_s3datadistribution
+                                 iv_s3uri = lv_trn_data_s3uri ).
 
-    CREATE OBJECT lo_trn_datasource
-      EXPORTING
-        io_s3datasource = lo_trn_s3datasource.
+    lo_trn_datasource = NEW #( io_s3datasource = lo_trn_s3datasource ).
 
-    CREATE OBJECT lo_trn_channel
-      EXPORTING
-        iv_channelname     = 'train'
-        io_datasource      = lo_trn_datasource
-        iv_compressiontype = cv_trn_data_compressiontype
-        iv_contenttype     = cv_trn_data_contenttype.
+    lo_trn_channel = NEW #( iv_channelname = 'train'
+                            io_datasource = lo_trn_datasource
+                            iv_compressiontype = cv_trn_data_compressiontype
+                            iv_contenttype = cv_trn_data_contenttype ).
 
     INSERT lo_trn_channel INTO TABLE lt_input_data_config.
 
     "Validation data.
-    CREATE OBJECT lo_val_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_val_data_s3datatype
-        iv_s3datadistributiontype = cv_val_data_s3datadistribution
-        iv_s3uri                  = lv_val_data_s3uri.
+    lo_val_s3datasource = NEW #( iv_s3datatype = cv_val_data_s3datatype
+                                 iv_s3datadistributiontype = cv_val_data_s3datadistribution
+                                 iv_s3uri = lv_val_data_s3uri ).
 
-    CREATE OBJECT lo_val_datasource
-      EXPORTING
-        io_s3datasource = lo_val_s3datasource.
+    lo_val_datasource = NEW #( io_s3datasource = lo_val_s3datasource ).
 
-    CREATE OBJECT lo_val_channel
-      EXPORTING
-        iv_channelname     = 'validation'
-        io_datasource      = lo_val_datasource
-        iv_compressiontype = cv_val_data_compressiontype
-        iv_contenttype     = cv_val_data_contenttype.
+    lo_val_channel = NEW #( iv_channelname = 'validation'
+                            io_datasource = lo_val_datasource
+                            iv_compressiontype = cv_val_data_compressiontype
+                            iv_contenttype = cv_val_data_contenttype ).
 
     INSERT lo_val_channel INTO TABLE lt_input_data_config.
 
     "Create an ABAP object for algorithm specification based on input variables.
-    CREATE OBJECT lo_algorithm_specification
-      EXPORTING
-        iv_trainingimage     = cv_training_image
-        iv_traininginputmode = cv_training_input_mode.
+    lo_algorithm_specification = NEW #( iv_trainingimage = cv_training_image
+                                        iv_traininginputmode = cv_training_input_mode ).
 
     "Create an ABAP object for resource configuration.
-    CREATE OBJECT lo_resource_config
-      EXPORTING
-        iv_instancecount  = cv_instance_count
-        iv_instancetype   = cv_instance_type
-        iv_volumesizeingb = cv_volume_sizeingb.
+    lo_resource_config = NEW #( iv_instancecount = cv_instance_count
+                                iv_instancetype = cv_instance_type
+                                iv_volumesizeingb = cv_volume_sizeingb ).
 
     "Create an ABAP object for output data configuration.
-    CREATE OBJECT lo_output_data_config
-      EXPORTING
-        iv_s3outputpath = lv_s3_output_path.
+    lo_output_data_config = NEW #( iv_s3outputpath = lv_s3_output_path ).
 
     "Create an ABAP object for stopping condition.
-    CREATE OBJECT lo_stopping_condition
-      EXPORTING
-        iv_maxruntimeinseconds = cv_max_runtime_in_seconds.
+    lo_stopping_condition = NEW #( iv_maxruntimeinseconds = cv_max_runtime_in_seconds ).
 
     "Run method to create a training job.
     ao_sgm->createtrainingjob(
@@ -1799,8 +1602,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
       io_algorithmspecification    = lo_algorithm_specification
       io_outputdataconfig          = lo_output_data_config
       io_resourceconfig            = lo_resource_config
-      io_stoppingcondition         = lo_stopping_condition
-    ).
+      io_stoppingcondition         = lo_stopping_condition ).
 
     "Wait for training job to be completed.
     lo_training_result = ao_sgm->describetrainingjob( iv_trainingjobname = lv_training_job_name ).
@@ -1813,31 +1615,23 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ENDWHILE.
 
     "Create an ABAP internal table for the container image based on input variables.
-    CREATE OBJECT lo_primarycontainer
-      EXPORTING
-        iv_image        = cv_container_image
-        iv_modeldataurl = lv_model_data_url.
+    lo_primarycontainer = NEW #( iv_image = cv_container_image
+                                 iv_modeldataurl = lv_model_data_url ).
 
     "Create a new model via so_sgm.
-    CALL METHOD ao_sgm->createmodel
-      EXPORTING
-        iv_modelname        = lv_model_name
-        iv_executionrolearn = av_lrole
-        io_primarycontainer = lo_primarycontainer.
+    ao_sgm->createmodel( iv_modelname = lv_model_name
+                                   iv_executionrolearn = av_lrole
+                                   io_primarycontainer = lo_primarycontainer ).
 
     "Test the create_endpoint method.
-    CALL METHOD ao_sgm_actions->create_endpoint
-      EXPORTING
-        iv_model_name             = lv_model_name
-        iv_endpoint_config_name   = lv_endpoint_config_name
-        iv_endpoint_name          = lv_endpoint_name
-        iv_instance_type          = cv_ep_instance_type
-        iv_variant_name           = lv_endpoint_variant_name
-        iv_initial_instance_count = cv_ep_initial_instance_count
-      IMPORTING
-        oo_result                 = lo_endpoint_output.
+    ao_sgm_actions->create_endpoint( EXPORTING iv_model_name = lv_model_name
+                                               iv_endpoint_config_name = lv_endpoint_config_name
+                                               iv_endpoint_name = lv_endpoint_name
+                                               iv_instance_type = cv_ep_instance_type
+                                               iv_variant_name = lv_endpoint_variant_name
+                                               iv_initial_instance_count = cv_ep_initial_instance_count IMPORTING oo_result = lo_endpoint_output ).
 
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     IF lo_endpoint_output->has_endpointarn( ) = 'X'.
       lv_found               = abap_true.
@@ -1845,8 +1639,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Endpoint not found|
-    ).
+      msg = |Endpoint not found| ).
 
     "Wait for endpoint creation to be completed.
     lo_endpoint_result = ao_sgm->describeendpoint( iv_endpointname = lv_endpoint_name ).
@@ -1860,35 +1653,28 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     "Clean up.
     ao_sgm->deleteendpoint(
-        iv_endpointname = lv_endpoint_name
-    ).
+        iv_endpointname = lv_endpoint_name ).
 
     ao_sgm->deleteendpointconfig(
-      iv_endpointconfigname = lv_endpoint_config_name
-    ).
+      iv_endpointconfigname = lv_endpoint_config_name ).
 
     ao_sgm->deletemodel(
-        iv_modelname = lv_model_name
-    ).
+        iv_modelname = lv_model_name ).
 
     ao_s3->deleteobject(
       iv_bucket = lv_bucket_name
-      iv_key = cv_train_key
-    ).
+      iv_key = cv_train_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = cv_val_key
-    ).
+        iv_key = cv_val_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = lv_model_key
-    ).
+        iv_key = lv_model_key ).
 
     ao_s3->deletebucket(
-        iv_bucket = lv_bucket_name
-    ).
+        iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
@@ -1903,13 +1689,13 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lo_val_channel TYPE REF TO /aws1/cl_sgmchannel.
     DATA lo_val_datasource TYPE REF TO /aws1/cl_sgmdatasource.
     DATA lo_val_s3datasource TYPE REF TO /aws1/cl_sgms3datasource.
-    DATA lo_output_data_config TYPE REF TO  /aws1/cl_sgmoutputdataconfig.
+    DATA lo_output_data_config TYPE REF TO /aws1/cl_sgmoutputdataconfig.
     DATA lo_resource_config  TYPE REF TO /aws1/cl_sgmresourceconfig.
     DATA lo_algorithm_specification TYPE REF TO /aws1/cl_sgmalgorithmspec.
     DATA lo_list_result TYPE REF TO /aws1/cl_sgmlisttrnjobsrsp.
-    DATA lo_stopping_condition TYPE REF TO  /aws1/cl_sgmstoppingcondition.
+    DATA lo_stopping_condition TYPE REF TO /aws1/cl_sgmstoppingcondition.
     DATA lv_training_job_name TYPE /aws1/sgmtrainingjobname.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lo_result TYPE REF TO /aws1/cl_sgmcreatemodeloutput.
     DATA lv_model_name TYPE /aws1/sgmmodelname.
     DATA lv_model_data_url TYPE /aws1/sgmurl.
@@ -1937,29 +1723,29 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     CONSTANTS cv_val_key TYPE /aws1/s3_objectkey VALUE 'sagemaker/validation/validation.libsvm'.
 
     "Define hyperparameters.
-    CONSTANTS cv_hp_max_depth TYPE   /aws1/sgmhyperparametervalue    VALUE '3'.
-    CONSTANTS cv_hp_scale_pos_weight TYPE   /aws1/sgmhyperparametervalue    VALUE '2.0'.
-    CONSTANTS cv_hp_num_round TYPE   /aws1/sgmhyperparametervalue    VALUE '100'.
-    CONSTANTS cv_hp_objective  TYPE  /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
-    CONSTANTS cv_hp_subsample TYPE   /aws1/sgmhyperparametervalue    VALUE '0.5'.
-    CONSTANTS cv_hp_eta TYPE  /aws1/sgmhyperparametervalue    VALUE   '0.1'.
-    CONSTANTS cv_hp_eval_metric TYPE   /aws1/sgmhyperparametervalue    VALUE 'auc'.
+    CONSTANTS cv_hp_max_depth TYPE /aws1/sgmhyperparametervalue    VALUE '3'.
+    CONSTANTS cv_hp_scale_pos_weight TYPE /aws1/sgmhyperparametervalue    VALUE '2.0'.
+    CONSTANTS cv_hp_num_round TYPE /aws1/sgmhyperparametervalue    VALUE '100'.
+    CONSTANTS cv_hp_objective  TYPE /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
+    CONSTANTS cv_hp_subsample TYPE /aws1/sgmhyperparametervalue    VALUE '0.5'.
+    CONSTANTS cv_hp_eta TYPE /aws1/sgmhyperparametervalue    VALUE '0.1'.
+    CONSTANTS cv_hp_eval_metric TYPE /aws1/sgmhyperparametervalue    VALUE 'auc'.
 
     "Define training data.
-    CONSTANTS cv_trn_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_trn_data_s3datadistribution TYPE  /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
-    CONSTANTS cv_trn_data_compressiontype TYPE  /aws1/sgmcompressiontype     VALUE 'None'.
-    CONSTANTS cv_trn_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_trn_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_trn_data_s3datadistribution TYPE /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
+    CONSTANTS cv_trn_data_compressiontype TYPE /aws1/sgmcompressiontype     VALUE 'None'.
+    CONSTANTS cv_trn_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define validation data.
-    CONSTANTS cv_val_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_val_data_s3datadistribution TYPE  /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
-    CONSTANTS cv_val_data_compressiontype TYPE   /aws1/sgmcompressiontype    VALUE 'None'.
-    CONSTANTS cv_val_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_val_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_val_data_s3datadistribution TYPE /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
+    CONSTANTS cv_val_data_compressiontype TYPE /aws1/sgmcompressiontype    VALUE 'None'.
+    CONSTANTS cv_val_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define training parameters.
     CONSTANTS cv_training_image TYPE /aws1/sgmalgorithmimage VALUE '123456789012.abc.ecr.us-east-1.amazonaws.com/sagemaker-xgboost:1.5-1'.
-    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE  'File'.
+    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE 'File'.
     CONSTANTS cv_instance_count TYPE /aws1/sgmtraininginstancecount VALUE '1'.
     CONSTANTS cv_instance_type TYPE /aws1/sgmtraininginstancetype VALUE 'ml.c4.2xlarge'.
     CONSTANTS cv_volume_sizeingb TYPE /aws1/sgmvolumesizeingb VALUE '10'.
@@ -1967,8 +1753,8 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     CONSTANTS cv_max_results TYPE /aws1/sgmmaxresults VALUE '1'.
 
     "Define endpoint parameters.
-    CONSTANTS cv_ep_instance_type TYPE  /aws1/sgminstancetype VALUE 'ml.m4.xlarge'.
-    CONSTANTS cv_ep_initial_instance_count  TYPE  /aws1/sgminitialtaskcount VALUE  '1'.
+    CONSTANTS cv_ep_instance_type TYPE /aws1/sgminstancetype VALUE 'ml.m4.xlarge'.
+    CONSTANTS cv_ep_initial_instance_count  TYPE /aws1/sgminitialtaskcount VALUE '1'.
 
     "Define role ARN.
     DATA(lt_roles) = ao_session->get_configuration( )->get_logical_iam_roles( ).
@@ -1986,8 +1772,8 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     "Define endpoint name.
     lv_endpoint_name = 'code-example-endpoint-' && lv_uuid_16.
-    lv_endpoint_config_name =  'code-example-endpoint-cfg-' && lv_uuid_16.
-    lv_endpoint_variant_name =  'code-example-endpoint-variant-' && lv_uuid_16.
+    lv_endpoint_config_name = 'code-example-endpoint-cfg-' && lv_uuid_16.
+    lv_endpoint_variant_name = 'code-example-endpoint-variant-' && lv_uuid_16.
 
     "Create training data in Amazon S3.
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
@@ -2003,100 +1789,78 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_train_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     ao_s3->putobject(
           iv_bucket = lv_bucket_name
           iv_key = cv_val_key
-          iv_body = av_file_content
-    ).
+          iv_body = av_file_content ).
 
     "Create ABAP internal table for hyperparameters based on input variables.
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_max_depth.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_max_depth ).
     INSERT VALUE #( key = 'max_depth' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eta.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eta ).
     INSERT VALUE #( key = 'eta' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eval_metric.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eval_metric ).
     INSERT VALUE #( key = 'eval_metric' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_scale_pos_weight.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_scale_pos_weight ).
     INSERT VALUE #( key = 'scale_pos_weight' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_subsample.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_subsample ).
     INSERT VALUE #( key = 'subsample' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_objective.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_objective ).
     INSERT VALUE #( key = 'objective' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_num_round.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_num_round ).
     INSERT VALUE #( key = 'num_round' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
     "Create ABAP objects for data based on input variables.
     "Training data.
-    CREATE OBJECT lo_trn_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_trn_data_s3datatype
-        iv_s3datadistributiontype = cv_trn_data_s3datadistribution
-        iv_s3uri                  = lv_trn_data_s3uri.
+    lo_trn_s3datasource = NEW #( iv_s3datatype = cv_trn_data_s3datatype
+                                 iv_s3datadistributiontype = cv_trn_data_s3datadistribution
+                                 iv_s3uri = lv_trn_data_s3uri ).
 
-    CREATE OBJECT lo_trn_datasource
-      EXPORTING
-        io_s3datasource = lo_trn_s3datasource.
+    lo_trn_datasource = NEW #( io_s3datasource = lo_trn_s3datasource ).
 
-    CREATE OBJECT lo_trn_channel
-      EXPORTING
-        iv_channelname     = 'train'
-        io_datasource      = lo_trn_datasource
-        iv_compressiontype = cv_trn_data_compressiontype
-        iv_contenttype     = cv_trn_data_contenttype.
+    lo_trn_channel = NEW #( iv_channelname = 'train'
+                            io_datasource = lo_trn_datasource
+                            iv_compressiontype = cv_trn_data_compressiontype
+                            iv_contenttype = cv_trn_data_contenttype ).
 
     INSERT lo_trn_channel INTO TABLE lt_input_data_config.
 
     "Validation data.
-    CREATE OBJECT lo_val_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_val_data_s3datatype
-        iv_s3datadistributiontype = cv_val_data_s3datadistribution
-        iv_s3uri                  = lv_val_data_s3uri.
+    lo_val_s3datasource = NEW #( iv_s3datatype = cv_val_data_s3datatype
+                                 iv_s3datadistributiontype = cv_val_data_s3datadistribution
+                                 iv_s3uri = lv_val_data_s3uri ).
 
-    CREATE OBJECT lo_val_datasource
-      EXPORTING
-        io_s3datasource = lo_val_s3datasource.
+    lo_val_datasource = NEW #( io_s3datasource = lo_val_s3datasource ).
 
-    CREATE OBJECT lo_val_channel
-      EXPORTING
-        iv_channelname     = 'validation'
-        io_datasource      = lo_val_datasource
-        iv_compressiontype = cv_val_data_compressiontype
-        iv_contenttype     = cv_val_data_contenttype.
+    lo_val_channel = NEW #( iv_channelname = 'validation'
+                            io_datasource = lo_val_datasource
+                            iv_compressiontype = cv_val_data_compressiontype
+                            iv_contenttype = cv_val_data_contenttype ).
 
     INSERT lo_val_channel INTO TABLE lt_input_data_config.
 
     "Create an ABAP object for algorithm specification based on input variables.
-    CREATE OBJECT lo_algorithm_specification
-      EXPORTING
-        iv_trainingimage     = cv_training_image
-        iv_traininginputmode = cv_training_input_mode.
+    lo_algorithm_specification = NEW #( iv_trainingimage = cv_training_image
+                                        iv_traininginputmode = cv_training_input_mode ).
 
     "Create an ABAP object for resource configuration.
-    CREATE OBJECT lo_resource_config
-      EXPORTING
-        iv_instancecount  = cv_instance_count
-        iv_instancetype   = cv_instance_type
-        iv_volumesizeingb = cv_volume_sizeingb.
+    lo_resource_config = NEW #( iv_instancecount = cv_instance_count
+                                iv_instancetype = cv_instance_type
+                                iv_volumesizeingb = cv_volume_sizeingb ).
 
     "Create an ABAP object for output data configuration.
-    CREATE OBJECT lo_output_data_config
-      EXPORTING
-        iv_s3outputpath = lv_s3_output_path.
+    lo_output_data_config = NEW #( iv_s3outputpath = lv_s3_output_path ).
 
     "Create an ABAP object for stopping condition.
-    CREATE OBJECT lo_stopping_condition
-      EXPORTING
-        iv_maxruntimeinseconds = cv_max_runtime_in_seconds.
+    lo_stopping_condition = NEW #( iv_maxruntimeinseconds = cv_max_runtime_in_seconds ).
 
     "Run method to create a training job.
     ao_sgm->createtrainingjob(
@@ -2107,8 +1871,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
       io_algorithmspecification    = lo_algorithm_specification
       io_outputdataconfig          = lo_output_data_config
       io_resourceconfig            = lo_resource_config
-      io_stoppingcondition         = lo_stopping_condition
-    ).
+      io_stoppingcondition         = lo_stopping_condition ).
 
     "Wait for training job to be completed.
     lo_training_result = ao_sgm->describetrainingjob( iv_trainingjobname = lv_training_job_name ).
@@ -2121,17 +1884,13 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ENDWHILE.
 
     "Create an ABAP internal table for the container image based on input variables.
-    CREATE OBJECT lo_primarycontainer
-      EXPORTING
-        iv_image        = cv_container_image
-        iv_modeldataurl = lv_model_data_url.
+    lo_primarycontainer = NEW #( iv_image = cv_container_image
+                                 iv_modeldataurl = lv_model_data_url ).
 
     "Create a new model via so_sgm.
-    CALL METHOD ao_sgm->createmodel
-      EXPORTING
-        iv_modelname        = lv_model_name
-        iv_executionrolearn = av_lrole
-        io_primarycontainer = lo_primarycontainer.
+    ao_sgm->createmodel( iv_modelname = lv_model_name
+                                   iv_executionrolearn = av_lrole
+                                   io_primarycontainer = lo_primarycontainer ).
 
     "Create an endpoint.
     DATA lt_production_variants TYPE /aws1/cl_sgmproductionvariant=>tt_productionvariantlist.
@@ -2139,28 +1898,24 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lo_ep_config_result TYPE REF TO /aws1/cl_sgmcreateendptcfgout.
 
 
-    CREATE OBJECT lo_production_variants
-      EXPORTING
-        iv_variantname          = lv_endpoint_variant_name
-        iv_modelname            = lv_model_name
-        iv_initialinstancecount = cv_ep_initial_instance_count
-        iv_instancetype         = cv_ep_instance_type.
+    lo_production_variants = NEW #( iv_variantname = lv_endpoint_variant_name
+                                    iv_modelname = lv_model_name
+                                    iv_initialinstancecount = cv_ep_initial_instance_count
+                                    iv_instancetype = cv_ep_instance_type ).
 
     INSERT lo_production_variants INTO TABLE lt_production_variants.
 
     "Create an endpoint configuration.
     lo_ep_config_result = ao_sgm->createendpointconfig(
       iv_endpointconfigname = lv_endpoint_config_name
-      it_productionvariants = lt_production_variants
-    ).
+      it_productionvariants = lt_production_variants ).
 
     "Create an endpoint.
     lo_endpoint_output = ao_sgm->createendpoint(
         iv_endpointconfigname = lv_endpoint_config_name
-        iv_endpointname = lv_endpoint_name
-    ).
+        iv_endpointname = lv_endpoint_name ).
 
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     IF lo_endpoint_output->has_endpointarn( ) = 'X'.
       lv_found               = abap_true.
@@ -2168,8 +1923,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Endpoint not found|
-    ).
+      msg = |Endpoint not found| ).
 
     "Wait for endpoint creation to be completed.
     lo_endpoint_result = ao_sgm->describeendpoint( iv_endpointname = lv_endpoint_name ).
@@ -2184,15 +1938,13 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     "Testing.
     ao_sgm_actions->delete_endpoint(
         iv_endpoint_name = lv_endpoint_name
-        iv_endpoint_config_name = lv_endpoint_config_name
-    ).
+        iv_endpoint_config_name = lv_endpoint_config_name ).
 
     WAIT UP TO 30 SECONDS.
 
     "Check if endpoint exists.
     lo_endpoint_list_result = ao_sgm->listendpoints(
-      iv_namecontains = lv_endpoint_name
-    ).
+      iv_namecontains = lv_endpoint_name ).
 
     lv_found = abap_false.
 
@@ -2205,32 +1957,26 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_false(
       act = lv_found
-      msg = |Endpoint was not deleted|
-    ).
+      msg = |Endpoint was not deleted| ).
 
     "Cleaning up via ao_sgm.
     ao_sgm->deletemodel(
-        iv_modelname = lv_model_name
-    ).
+        iv_modelname = lv_model_name ).
 
     ao_s3->deleteobject(
       iv_bucket = lv_bucket_name
-      iv_key = cv_train_key
-    ).
+      iv_key = cv_train_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = cv_val_key
-    ).
+        iv_key = cv_val_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = lv_model_key
-    ).
+        iv_key = lv_model_key ).
 
     ao_s3->deletebucket(
-        iv_bucket = lv_bucket_name
-    ).
+        iv_bucket = lv_bucket_name ).
 
 
   ENDMETHOD.
@@ -2240,7 +1986,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lo_list_result TYPE REF TO /aws1/cl_sgmlstnotebookinsts01.
     DATA lv_notebook_name TYPE /aws1/sgmnotebookinstancename.
     DATA lo_notebook_result TYPE REF TO /aws1/cl_sgmdscnotebookinstout.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
     CONSTANTS cv_instancetype TYPE /aws1/sgminstancetype VALUE 'ml.t3.medium'.
@@ -2252,15 +1998,13 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     "Define notebook name.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
-    lv_notebook_name =  'code-example-sgm-notebook-' && lv_uuid_16.
+    lv_notebook_name = 'code-example-sgm-notebook-' && lv_uuid_16.
 
     "Create a notebook instance.
     ao_sgm->createnotebookinstance(
-      EXPORTING
-        iv_notebookinstancename = lv_notebook_name
+      iv_notebookinstancename = lv_notebook_name
         iv_instancetype         = cv_instancetype
-        iv_rolearn              = av_lrole
-    ).
+        iv_rolearn              = av_lrole ).
 
     "Waiter.
     lo_notebook_result = ao_sgm->describenotebookinstance( iv_notebookinstancename = lv_notebook_name ).
@@ -2277,10 +2021,9 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
       EXPORTING
         iv_name_contains = lv_notebook_name
       IMPORTING
-        oo_result = lo_list_result
-    ).
+        oo_result = lo_list_result ).
 
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     LOOP AT lo_list_result->get_notebookinstances( ) INTO DATA(lo_notebook).
       IF lo_notebook->get_notebookinstancename( ) = lv_notebook_name.
@@ -2290,13 +2033,11 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Notebook cannot be found|
-    ).
+      msg = |Notebook cannot be found| ).
 
     "Stop notebook instance before deletion.
     ao_sgm->stopnotebookinstance(
-        iv_notebookinstancename = lv_notebook_name
-        ).
+        iv_notebookinstancename = lv_notebook_name ).
 
     "Waiter.
     lo_notebook_result = ao_sgm->describenotebookinstance( iv_notebookinstancename = lv_notebook_name ).
@@ -2310,8 +2051,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     "Delete notebook.
     ao_sgm->deletenotebookinstance(
-       iv_notebookinstancename = lv_notebook_name
-        ).
+       iv_notebookinstancename = lv_notebook_name ).
 
   ENDMETHOD.
 
@@ -2326,13 +2066,13 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lo_val_channel TYPE REF TO /aws1/cl_sgmchannel.
     DATA lo_val_datasource TYPE REF TO /aws1/cl_sgmdatasource.
     DATA lo_val_s3datasource TYPE REF TO /aws1/cl_sgms3datasource.
-    DATA lo_output_data_config TYPE REF TO  /aws1/cl_sgmoutputdataconfig.
+    DATA lo_output_data_config TYPE REF TO /aws1/cl_sgmoutputdataconfig.
     DATA lo_resource_config  TYPE REF TO /aws1/cl_sgmresourceconfig.
     DATA lo_algorithm_specification TYPE REF TO /aws1/cl_sgmalgorithmspec.
     DATA lo_list_result TYPE REF TO /aws1/cl_sgmlisttrnjobsrsp.
-    DATA lo_stopping_condition TYPE REF TO  /aws1/cl_sgmstoppingcondition.
+    DATA lo_stopping_condition TYPE REF TO /aws1/cl_sgmstoppingcondition.
     DATA lv_training_job_name TYPE /aws1/sgmtrainingjobname.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lo_result TYPE REF TO /aws1/cl_sgmcreatemodeloutput.
     DATA lv_model_name TYPE /aws1/sgmmodelname.
     DATA lv_model_data_url TYPE /aws1/sgmurl.
@@ -2348,7 +2088,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lo_model_list_result TYPE REF TO /aws1/cl_sgmlistmodelsoutput.
     DATA lo_tf_result TYPE REF TO /aws1/cl_sgmcretransformjobrsp.
     DATA lv_transform_job_name TYPE /aws1/sgmtransformjobname.
-    DATA lv_transform_data_s3uri TYPE   /aws1/sgms3uri.
+    DATA lv_transform_data_s3uri TYPE /aws1/sgms3uri.
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
     "Define Amazon S3 parameters.
@@ -2359,29 +2099,29 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     CONSTANTS cv_val_key TYPE /aws1/s3_objectkey VALUE 'sagemaker/validation/validation.libsvm'.
 
     "Define hyperparameters.
-    CONSTANTS cv_hp_max_depth TYPE   /aws1/sgmhyperparametervalue    VALUE '3'.
-    CONSTANTS cv_hp_scale_pos_weight TYPE   /aws1/sgmhyperparametervalue    VALUE '2.0'.
-    CONSTANTS cv_hp_num_round TYPE   /aws1/sgmhyperparametervalue    VALUE '100'.
-    CONSTANTS cv_hp_objective  TYPE  /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
-    CONSTANTS cv_hp_subsample TYPE   /aws1/sgmhyperparametervalue    VALUE '0.5'.
-    CONSTANTS cv_hp_eta TYPE  /aws1/sgmhyperparametervalue    VALUE   '0.1'.
-    CONSTANTS cv_hp_eval_metric TYPE   /aws1/sgmhyperparametervalue    VALUE 'auc'.
+    CONSTANTS cv_hp_max_depth TYPE /aws1/sgmhyperparametervalue    VALUE '3'.
+    CONSTANTS cv_hp_scale_pos_weight TYPE /aws1/sgmhyperparametervalue    VALUE '2.0'.
+    CONSTANTS cv_hp_num_round TYPE /aws1/sgmhyperparametervalue    VALUE '100'.
+    CONSTANTS cv_hp_objective  TYPE /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
+    CONSTANTS cv_hp_subsample TYPE /aws1/sgmhyperparametervalue    VALUE '0.5'.
+    CONSTANTS cv_hp_eta TYPE /aws1/sgmhyperparametervalue    VALUE '0.1'.
+    CONSTANTS cv_hp_eval_metric TYPE /aws1/sgmhyperparametervalue    VALUE 'auc'.
 
     "Define training data.
-    CONSTANTS cv_trn_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_trn_data_s3datadistribution TYPE  /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
-    CONSTANTS cv_trn_data_compressiontype TYPE  /aws1/sgmcompressiontype     VALUE 'None'.
-    CONSTANTS cv_trn_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_trn_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_trn_data_s3datadistribution TYPE /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
+    CONSTANTS cv_trn_data_compressiontype TYPE /aws1/sgmcompressiontype     VALUE 'None'.
+    CONSTANTS cv_trn_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define validation data.
-    CONSTANTS cv_val_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_val_data_s3datadistribution TYPE  /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
-    CONSTANTS cv_val_data_compressiontype TYPE   /aws1/sgmcompressiontype    VALUE 'None'.
-    CONSTANTS cv_val_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_val_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_val_data_s3datadistribution TYPE /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
+    CONSTANTS cv_val_data_compressiontype TYPE /aws1/sgmcompressiontype    VALUE 'None'.
+    CONSTANTS cv_val_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define training parameters.
     CONSTANTS cv_training_image TYPE /aws1/sgmalgorithmimage VALUE '123456789012.abc.ecr.us-east-1.amazonaws.com/sagemaker-xgboost:1.5-1'.
-    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE  'File'.
+    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE 'File'.
     CONSTANTS cv_instance_count TYPE /aws1/sgmtraininginstancecount VALUE '1'.
     CONSTANTS cv_instance_type TYPE /aws1/sgmtraininginstancetype VALUE 'ml.c4.2xlarge'.
     CONSTANTS cv_volume_sizeingb TYPE /aws1/sgmvolumesizeingb VALUE '10'.
@@ -2389,9 +2129,9 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     CONSTANTS cv_max_results TYPE /aws1/sgmmaxresults VALUE '1'.
 
     "Define transform data.
-    CONSTANTS cv_tf_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_tf_data_compressiontype TYPE  /aws1/sgmcompressiontype     VALUE 'None'.
-    CONSTANTS cv_tf_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_tf_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_tf_data_compressiontype TYPE /aws1/sgmcompressiontype     VALUE 'None'.
+    CONSTANTS cv_tf_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define transform parameters.
     CONSTANTS cv_tf_instance_count TYPE /aws1/sgmtraininginstancecount VALUE '1'.
@@ -2431,106 +2171,83 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_train_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     ao_s3->putobject(
           iv_bucket = lv_bucket_name
           iv_key = cv_val_key
-          iv_body = av_file_content
-    ).
+          iv_body = av_file_content ).
 
     ao_s3->putobject(
           iv_bucket = lv_bucket_name
           iv_key = cv_transform_key
-          iv_body = av_file_content
-    ).
+          iv_body = av_file_content ).
 
     "Create ABAP internal table for hyperparameters based on input variables.
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_max_depth.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_max_depth ).
     INSERT VALUE #( key = 'max_depth' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eta.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eta ).
     INSERT VALUE #( key = 'eta' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_eval_metric.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_eval_metric ).
     INSERT VALUE #( key = 'eval_metric' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_scale_pos_weight.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_scale_pos_weight ).
     INSERT VALUE #( key = 'scale_pos_weight' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_subsample.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_subsample ).
     INSERT VALUE #( key = 'subsample' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_objective.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_objective ).
     INSERT VALUE #( key = 'objective' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
-    CREATE OBJECT lo_hyperparameters_w EXPORTING iv_value = cv_hp_num_round.
+    lo_hyperparameters_w = NEW #( iv_value = cv_hp_num_round ).
     INSERT VALUE #( key = 'num_round' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
     "Create ABAP internal table for data based on input variables.
     "Training data.
-    CREATE OBJECT lo_trn_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_trn_data_s3datatype
-        iv_s3datadistributiontype = cv_trn_data_s3datadistribution
-        iv_s3uri                  = lv_trn_data_s3uri.
+    lo_trn_s3datasource = NEW #( iv_s3datatype = cv_trn_data_s3datatype
+                                 iv_s3datadistributiontype = cv_trn_data_s3datadistribution
+                                 iv_s3uri = lv_trn_data_s3uri ).
 
-    CREATE OBJECT lo_trn_datasource
-      EXPORTING
-        io_s3datasource = lo_trn_s3datasource.
+    lo_trn_datasource = NEW #( io_s3datasource = lo_trn_s3datasource ).
 
-    CREATE OBJECT lo_trn_channel
-      EXPORTING
-        iv_channelname     = 'train'
-        io_datasource      = lo_trn_datasource
-        iv_compressiontype = cv_trn_data_compressiontype
-        iv_contenttype     = cv_trn_data_contenttype.
+    lo_trn_channel = NEW #( iv_channelname = 'train'
+                            io_datasource = lo_trn_datasource
+                            iv_compressiontype = cv_trn_data_compressiontype
+                            iv_contenttype = cv_trn_data_contenttype ).
 
     INSERT lo_trn_channel INTO TABLE lt_input_data_config.
 
     "Validation data.
-    CREATE OBJECT lo_val_s3datasource
-      EXPORTING
-        iv_s3datatype             = cv_val_data_s3datatype
-        iv_s3datadistributiontype = cv_val_data_s3datadistribution
-        iv_s3uri                  = lv_val_data_s3uri.
+    lo_val_s3datasource = NEW #( iv_s3datatype = cv_val_data_s3datatype
+                                 iv_s3datadistributiontype = cv_val_data_s3datadistribution
+                                 iv_s3uri = lv_val_data_s3uri ).
 
-    CREATE OBJECT lo_val_datasource
-      EXPORTING
-        io_s3datasource = lo_val_s3datasource.
+    lo_val_datasource = NEW #( io_s3datasource = lo_val_s3datasource ).
 
-    CREATE OBJECT lo_val_channel
-      EXPORTING
-        iv_channelname     = 'validation'
-        io_datasource      = lo_val_datasource
-        iv_compressiontype = cv_val_data_compressiontype
-        iv_contenttype     = cv_val_data_contenttype.
+    lo_val_channel = NEW #( iv_channelname = 'validation'
+                            io_datasource = lo_val_datasource
+                            iv_compressiontype = cv_val_data_compressiontype
+                            iv_contenttype = cv_val_data_contenttype ).
 
     INSERT lo_val_channel INTO TABLE lt_input_data_config.
 
     "Create an ABAP object for algorithm specification based on input variables.
-    CREATE OBJECT lo_algorithm_specification
-      EXPORTING
-        iv_trainingimage     = cv_training_image
-        iv_traininginputmode = cv_training_input_mode.
+    lo_algorithm_specification = NEW #( iv_trainingimage = cv_training_image
+                                        iv_traininginputmode = cv_training_input_mode ).
 
     "Create an ABAP object for resource configuration.
-    CREATE OBJECT lo_resource_config
-      EXPORTING
-        iv_instancecount  = cv_instance_count
-        iv_instancetype   = cv_instance_type
-        iv_volumesizeingb = cv_volume_sizeingb.
+    lo_resource_config = NEW #( iv_instancecount = cv_instance_count
+                                iv_instancetype = cv_instance_type
+                                iv_volumesizeingb = cv_volume_sizeingb ).
 
     "Create an ABAP object for output data configuration.
-    CREATE OBJECT lo_output_data_config
-      EXPORTING
-        iv_s3outputpath = lv_s3_output_path.
+    lo_output_data_config = NEW #( iv_s3outputpath = lv_s3_output_path ).
 
     "Create an ABAP object for stopping condition.
-    CREATE OBJECT lo_stopping_condition
-      EXPORTING
-        iv_maxruntimeinseconds = cv_max_runtime_in_seconds.
+    lo_stopping_condition = NEW #( iv_maxruntimeinseconds = cv_max_runtime_in_seconds ).
 
     "Create a training job.
     ao_sgm->createtrainingjob(
@@ -2541,8 +2258,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
       io_algorithmspecification    = lo_algorithm_specification
       io_outputdataconfig          = lo_output_data_config
       io_resourceconfig            = lo_resource_config
-      io_stoppingcondition         = lo_stopping_condition
-    ).
+      io_stoppingcondition         = lo_stopping_condition ).
 
     "Wait for training job to be completed.
     lo_training_result = ao_sgm->describetrainingjob( iv_trainingjobname = lv_training_job_name ).
@@ -2555,17 +2271,13 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     ENDWHILE.
 
     "Create an ABAP object for the container image based on input variables.
-    CREATE OBJECT lo_primarycontainer
-      EXPORTING
-        iv_image        = cv_container_image
-        iv_modeldataurl = lv_model_data_url.
+    lo_primarycontainer = NEW #( iv_image = cv_container_image
+                                 iv_modeldataurl = lv_model_data_url ).
 
     "Create a new model.
-    CALL METHOD ao_sgm->createmodel
-      EXPORTING
-        iv_modelname        = lv_model_name
-        iv_executionrolearn = av_lrole
-        io_primarycontainer = lo_primarycontainer.
+    ao_sgm->createmodel( iv_modelname = lv_model_name
+                                   iv_executionrolearn = av_lrole
+                                   io_primarycontainer = lo_primarycontainer ).
 
     ao_sgm_actions->create_transform_job(
       EXPORTING
@@ -2579,10 +2291,9 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
         iv_instance_type            = cv_tf_instance_type
         iv_s3_output_path           = lv_s3_transform_output_path
       IMPORTING
-       oo_result              = lo_tf_result
-    ).
+       oo_result              = lo_tf_result ).
 
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     IF lo_tf_result->has_transformjobarn( ) = 'X'.
       lv_found               = abap_true.
@@ -2590,39 +2301,32 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Transform Job cannot be found|
-    ).
+       msg                    = |Transform Job cannot be found| ).
 
     "Transform jobs and logs cannot be deleted and are retained indefinitely.
 
     "Clean up.
     ao_sgm->deletemodel(
-        iv_modelname = lv_model_name
-    ).
+        iv_modelname = lv_model_name ).
 
     ao_s3->deleteobject(
       iv_bucket = lv_bucket_name
-      iv_key = cv_train_key
-    ).
+      iv_key = cv_train_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = cv_val_key
-    ).
+        iv_key = cv_val_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = cv_transform_key
-    ).
+        iv_key = cv_transform_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = lv_model_key
-    ).
+        iv_key = lv_model_key ).
 
     ao_s3->deletebucket(
-        iv_bucket = lv_bucket_name
-    ).
+        iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
@@ -2631,9 +2335,9 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lv_algorithm_name TYPE /aws1/sgmentityname.
     DATA lo_trainingspecification  TYPE REF TO /aws1/cl_sgmtrainingspec.
     DATA lo_sgmchannelspec TYPE REF TO /aws1/cl_sgmchannelspec.
-    DATA lt_sgmchannelspec  TYPE  /aws1/cl_sgmchannelspec=>tt_channelspecifications.
+    DATA lt_sgmchannelspec  TYPE /aws1/cl_sgmchannelspec=>tt_channelspecifications.
     DATA lo_sgmtrninstancetypes_w TYPE REF TO /aws1/cl_sgmtrninstancetypes_w.
-    DATA lt_supportedtrninstancetypes TYPE  /aws1/cl_sgmtrninstancetypes_w=>tt_traininginstancetypes.
+    DATA lt_supportedtrninstancetypes TYPE /aws1/cl_sgmtrninstancetypes_w=>tt_traininginstancetypes.
     DATA lo_algorithms_result TYPE REF TO /aws1/cl_sgmlistalgsoutput.
     DATA lv_instance_type TYPE /aws1/sgmtraininginstancetype.
     DATA lo_sgmcontenttypes_w TYPE REF TO /aws1/cl_sgmcontenttypes_w.
@@ -2643,7 +2347,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     DATA lo_supportedinputmodes TYPE REF TO /aws1/cl_sgminputmodes_w.
     DATA lt_supportedinputmodes TYPE /aws1/cl_sgminputmodes_w=>tt_inputmodes.
     DATA lo_des_algorithm_result TYPE REF TO /aws1/cl_sgmdescribealgoutput.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
     CONSTANTS cv_container_image TYPE /aws1/sgmcontainerimage VALUE '123456789012.abc.ecr.us-east-1.amazonaws.com/sagemaker-xgboost:1.5-1'.
@@ -2654,50 +2358,44 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
     TRANSLATE lv_algorithm_name TO LOWER CASE.
 
     "Define training specification.
-    CREATE OBJECT lo_sgmtrninstancetypes_w EXPORTING iv_value = 'ml.m5.large'.
+    lo_sgmtrninstancetypes_w = NEW #( iv_value = 'ml.m5.large' ).
     INSERT lo_sgmtrninstancetypes_w  INTO TABLE lt_supportedtrninstancetypes.
 
-    CREATE OBJECT lo_sgmcontenttypes_w EXPORTING iv_value = 'S3Prefix'.
+    lo_sgmcontenttypes_w = NEW #( iv_value = 'S3Prefix' ).
     INSERT lo_sgmcontenttypes_w  INTO TABLE lt_supportedcontenttypes.
 
-    CREATE OBJECT lo_sgmcompressiontypes_w EXPORTING iv_value = 'None'.
+    lo_sgmcompressiontypes_w = NEW #( iv_value = 'None' ).
     INSERT lo_sgmcompressiontypes_w  INTO TABLE lt_supportedcompressiontypes.
 
-    CREATE OBJECT lo_supportedinputmodes EXPORTING iv_value = 'File'.
-    INSERT lo_supportedinputmodes  INTO TABLE lt_supportedinputmodes .
+    lo_supportedinputmodes = NEW #( iv_value = 'File' ).
+    INSERT lo_supportedinputmodes  INTO TABLE lt_supportedinputmodes.
 
-    CREATE OBJECT lo_sgmchannelspec
-      EXPORTING
-        iv_name                      = 'train'
-        it_supportedcontenttypes     = lt_supportedcontenttypes
-        it_supportedcompressiontypes = lt_supportedcompressiontypes
-        it_supportedinputmodes       = lt_supportedinputmodes
-        iv_isrequired                = ' '.
+    lo_sgmchannelspec = NEW #( iv_name = 'train'
+                               it_supportedcontenttypes = lt_supportedcontenttypes
+                               it_supportedcompressiontypes = lt_supportedcompressiontypes
+                               it_supportedinputmodes = lt_supportedinputmodes
+                               iv_isrequired = ' ' ).
 
     INSERT lo_sgmchannelspec INTO TABLE lt_sgmchannelspec.
 
-    CREATE OBJECT lo_trainingspecification
-      EXPORTING
-        iv_trainingimage             = cv_container_image
-        it_supportedtrninstancetypes = lt_supportedtrninstancetypes
-        it_trainingchannels          = lt_sgmchannelspec.
+    lo_trainingspecification = NEW #( iv_trainingimage = cv_container_image
+                                      it_supportedtrninstancetypes = lt_supportedtrninstancetypes
+                                      it_trainingchannels = lt_sgmchannelspec ).
 
     "Create algorithm.
     ao_sgm->createalgorithm(
           iv_algorithmname           = lv_algorithm_name
-          io_trainingspecification   = lo_trainingspecification
-      ).
+          io_trainingspecification   = lo_trainingspecification ).
 
     "Testing list algorithm.
     ao_sgm_actions->list_algorithms(
-     EXPORTING
+      EXPORTING
       iv_name_contains       = lv_algorithm_name
-     IMPORTING
-      oo_result             = lo_algorithms_result
-      ).
+      IMPORTING
+      oo_result             = lo_algorithms_result ).
 
     "Validation.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     LOOP AT lo_algorithms_result->get_algorithmsummarylist( ) INTO DATA(lo_algorithms).
       IF lo_algorithms->get_algorithmname( ) = lv_algorithm_name.
@@ -2707,8 +2405,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Algorithm cannot be found|
-    ).
+      msg = |Algorithm cannot be found| ).
 
     "Waiter.
     lo_des_algorithm_result = ao_sgm->describealgorithm( iv_algorithmname = lv_algorithm_name ).
@@ -2722,9 +2419,7 @@ CLASS ltc_zcl_aws1_sgm_actions IMPLEMENTATION.
 
     "Clean up.
     ao_sgm->deletealgorithm(
-     EXPORTING
-      iv_algorithmname       = lv_algorithm_name
-      ).
+      iv_algorithmname       = lv_algorithm_name ).
 
   ENDMETHOD.
 

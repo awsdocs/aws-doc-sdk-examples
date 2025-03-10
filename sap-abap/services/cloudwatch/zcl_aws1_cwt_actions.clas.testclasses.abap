@@ -35,7 +35,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
 
   METHOD put_metric_alarm.
 
-    DATA lv_alarm_name  TYPE  /aws1/cwtalarmname.
+    DATA lv_alarm_name  TYPE /aws1/cwtalarmname.
     DATA lt_alarmnames TYPE /aws1/cl_cwtalarmnames_w=>tt_alarmnames.
     DATA lo_alarmname TYPE REF TO /aws1/cl_cwtalarmnames_w.
     DATA lt_dimensions TYPE /aws1/cl_cwtdimension=>tt_dimensions.
@@ -44,14 +44,14 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     DATA lv_bucket_name TYPE /aws1/s3_bucketname.
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
-    CONSTANTS cv_metric_name  TYPE  /aws1/cwtmetricname VALUE 'NumberOfObjects'.
-    CONSTANTS cv_namespace  TYPE  /aws1/cwtnamespace VALUE 'AWS/S3'.
-    CONSTANTS cv_comparison_operator  TYPE  /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
-    CONSTANTS cv_statistic  TYPE  /aws1/cwtstatistic VALUE 'Average'.
-    CONSTANTS cv_threshold  TYPE  /aws1/rt_double_as_string VALUE 10.
-    CONSTANTS cv_alarm_description  TYPE  /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
-    CONSTANTS cv_actions_enabled  TYPE  /aws1/cwtactionsenabled VALUE ' '.
-    CONSTANTS cv_evaluation_periods TYPE  /aws1/cwtevaluationperiods VALUE 1.
+    CONSTANTS cv_metric_name  TYPE /aws1/cwtmetricname VALUE 'NumberOfObjects'.
+    CONSTANTS cv_namespace  TYPE /aws1/cwtnamespace VALUE 'AWS/S3'.
+    CONSTANTS cv_comparison_operator  TYPE /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
+    CONSTANTS cv_statistic  TYPE /aws1/cwtstatistic VALUE 'Average'.
+    CONSTANTS cv_threshold  TYPE /aws1/rt_double_as_string VALUE 10.
+    CONSTANTS cv_alarm_description  TYPE /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
+    CONSTANTS cv_actions_enabled  TYPE /aws1/cwtactionsenabled VALUE ' '.
+    CONSTANTS cv_evaluation_periods TYPE /aws1/cwtevaluationperiods VALUE 1.
     CONSTANTS cv_unit TYPE /aws1/cwtstandardunit VALUE 'Percent'.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
@@ -67,21 +67,16 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
     "Create Amazon S3 dimensions.
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'StorageType'
-        iv_value = 'AllStorageTypes'.
+    lo_dimensions = NEW #( iv_name = 'StorageType'
+                           iv_value = 'AllStorageTypes' ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'BucketName'
-        iv_value = lv_bucket_name.
+    lo_dimensions = NEW #( iv_name = 'BucketName'
+                           iv_value = lv_bucket_name ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
     ao_cwt_actions->put_metric_alarm(
-      EXPORTING
-        iv_alarm_name          = lv_alarm_name
+      iv_alarm_name          = lv_alarm_name
         iv_metric_name         = cv_metric_name
         iv_namespace           = cv_namespace
         iv_comparison_operator = cv_comparison_operator
@@ -92,8 +87,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
         iv_evaluation_periods  = cv_evaluation_periods
         it_dimensions          = lt_dimensions
         iv_unit                = cv_unit
-        iv_period              = cv_period
-        ).
+        iv_period              = cv_period ).
 
     "Describe alarm.
     lo_alarm_list_result = ao_cwt->describealarms( it_alarmnames = lt_alarmnames ).
@@ -108,25 +102,22 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Alarm not found|
-    ).
+      msg = |Alarm not found| ).
 
     "Clean up.
-    CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
+    lo_alarmname = NEW #( iv_value = lv_alarm_name ).
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
-    ao_cwt->deletealarms( it_alarmnames = lt_alarmnames
-    ).
+    ao_cwt->deletealarms( it_alarmnames = lt_alarmnames ).
 
     ao_s3->deletebucket(
-      iv_bucket = lv_bucket_name
-    ).
+      iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
   METHOD delete_alarms.
 
-    DATA lv_alarm_name  TYPE  /aws1/cwtalarmname.
+    DATA lv_alarm_name  TYPE /aws1/cwtalarmname.
     DATA lt_alarmnames TYPE /aws1/cl_cwtalarmnames_w=>tt_alarmnames.
     DATA lo_alarmname TYPE REF TO /aws1/cl_cwtalarmnames_w.
     DATA lt_dimensions TYPE /aws1/cl_cwtdimension=>tt_dimensions.
@@ -135,14 +126,14 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     DATA lv_bucket_name TYPE /aws1/s3_bucketname.
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
-    CONSTANTS cv_metric_name  TYPE  /aws1/cwtmetricname VALUE 'NumberOfObjects'.
-    CONSTANTS cv_namespace  TYPE  /aws1/cwtnamespace VALUE 'AWS/S3'.
-    CONSTANTS cv_comparison_operator  TYPE  /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
-    CONSTANTS cv_statistic  TYPE  /aws1/cwtstatistic VALUE 'Average'.
-    CONSTANTS cv_threshold  TYPE  /aws1/rt_double_as_string VALUE 10.
-    CONSTANTS cv_alarm_description  TYPE  /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
-    CONSTANTS cv_actions_enabled  TYPE  /aws1/cwtactionsenabled VALUE ' '.
-    CONSTANTS cv_evaluation_periods TYPE  /aws1/cwtevaluationperiods VALUE 1.
+    CONSTANTS cv_metric_name  TYPE /aws1/cwtmetricname VALUE 'NumberOfObjects'.
+    CONSTANTS cv_namespace  TYPE /aws1/cwtnamespace VALUE 'AWS/S3'.
+    CONSTANTS cv_comparison_operator  TYPE /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
+    CONSTANTS cv_statistic  TYPE /aws1/cwtstatistic VALUE 'Average'.
+    CONSTANTS cv_threshold  TYPE /aws1/rt_double_as_string VALUE 10.
+    CONSTANTS cv_alarm_description  TYPE /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
+    CONSTANTS cv_actions_enabled  TYPE /aws1/cwtactionsenabled VALUE ' '.
+    CONSTANTS cv_evaluation_periods TYPE /aws1/cwtevaluationperiods VALUE 1.
     CONSTANTS cv_unit TYPE /aws1/cwtstandardunit VALUE 'Percent'.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
@@ -158,21 +149,16 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
     "Create Amazon S3 dimensions.
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'StorageType'
-        iv_value = 'AllStorageTypes'.
+    lo_dimensions = NEW #( iv_name = 'StorageType'
+                           iv_value = 'AllStorageTypes' ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'BucketName'
-        iv_value = lv_bucket_name.
+    lo_dimensions = NEW #( iv_name = 'BucketName'
+                           iv_value = lv_bucket_name ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
     ao_cwt->putmetricalarm(
-      EXPORTING
-        iv_alarmname          = lv_alarm_name
+      iv_alarmname          = lv_alarm_name
         iv_metricname         = cv_metric_name
         iv_namespace           = cv_namespace
         iv_comparisonoperator = cv_comparison_operator
@@ -183,14 +169,13 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
         iv_evaluationperiods  = cv_evaluation_periods
         iv_unit                = cv_unit
         iv_period              = cv_period
-        it_dimensions          = lt_dimensions
-        ).
+        it_dimensions          = lt_dimensions ).
 
     "Test delete_alarm.
-    CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
+    lo_alarmname = NEW #( iv_value = lv_alarm_name ).
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
-    ao_cwt_actions->delete_alarms( it_alarm_names = lt_alarmnames ).
+    ao_cwt_actions->delete_alarms( lt_alarmnames ).
 
     "Describe alarm.
     lo_alarm_list_result = ao_cwt->describealarms( it_alarmnames = lt_alarmnames ).
@@ -205,19 +190,17 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_false(
       act = lv_found
-      msg = |Alarm not deleted|
-    ).
+      msg = |Alarm not deleted| ).
 
     "Clean up.
     ao_s3->deletebucket(
-      iv_bucket = lv_bucket_name
-    ).
+      iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
   METHOD describe_alarms.
 
-    DATA lv_alarm_name  TYPE  /aws1/cwtalarmname.
+    DATA lv_alarm_name  TYPE /aws1/cwtalarmname.
     DATA lt_alarmnames TYPE /aws1/cl_cwtalarmnames_w=>tt_alarmnames.
     DATA lo_alarmname TYPE REF TO /aws1/cl_cwtalarmnames_w.
     DATA lt_dimensions TYPE /aws1/cl_cwtdimension=>tt_dimensions.
@@ -226,14 +209,14 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     DATA lv_bucket_name TYPE /aws1/s3_bucketname.
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
-    CONSTANTS cv_metric_name  TYPE  /aws1/cwtmetricname VALUE 'NumberOfObjects'.
-    CONSTANTS cv_namespace  TYPE  /aws1/cwtnamespace VALUE 'AWS/S3'.
-    CONSTANTS cv_comparison_operator  TYPE  /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
-    CONSTANTS cv_statistic  TYPE  /aws1/cwtstatistic VALUE 'Average'.
-    CONSTANTS cv_threshold  TYPE  /aws1/rt_double_as_string VALUE 10.
-    CONSTANTS cv_alarm_description  TYPE  /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
-    CONSTANTS cv_actions_enabled  TYPE  /aws1/cwtactionsenabled VALUE ' '.
-    CONSTANTS cv_evaluation_periods TYPE  /aws1/cwtevaluationperiods VALUE 1.
+    CONSTANTS cv_metric_name  TYPE /aws1/cwtmetricname VALUE 'NumberOfObjects'.
+    CONSTANTS cv_namespace  TYPE /aws1/cwtnamespace VALUE 'AWS/S3'.
+    CONSTANTS cv_comparison_operator  TYPE /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
+    CONSTANTS cv_statistic  TYPE /aws1/cwtstatistic VALUE 'Average'.
+    CONSTANTS cv_threshold  TYPE /aws1/rt_double_as_string VALUE 10.
+    CONSTANTS cv_alarm_description  TYPE /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
+    CONSTANTS cv_actions_enabled  TYPE /aws1/cwtactionsenabled VALUE ' '.
+    CONSTANTS cv_evaluation_periods TYPE /aws1/cwtevaluationperiods VALUE 1.
     CONSTANTS cv_unit TYPE /aws1/cwtstandardunit VALUE 'Percent'.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
@@ -249,21 +232,16 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
     "Create Amazon S3 dimensions.
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'StorageType'
-        iv_value = 'AllStorageTypes'.
+    lo_dimensions = NEW #( iv_name = 'StorageType'
+                           iv_value = 'AllStorageTypes' ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'BucketName'
-        iv_value = lv_bucket_name.
+    lo_dimensions = NEW #( iv_name = 'BucketName'
+                           iv_value = lv_bucket_name ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
     ao_cwt->putmetricalarm(
-      EXPORTING
-        iv_alarmname          = lv_alarm_name
+      iv_alarmname          = lv_alarm_name
         iv_metricname         = cv_metric_name
         iv_namespace           = cv_namespace
         iv_comparisonoperator = cv_comparison_operator
@@ -274,17 +252,15 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
         iv_evaluationperiods  = cv_evaluation_periods
         iv_unit                = cv_unit
         iv_period              = cv_period
-        it_dimensions          = lt_dimensions
-        ).
+        it_dimensions          = lt_dimensions ).
 
     "Test describe_alarms.
-    CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
+    lo_alarmname = NEW #( iv_value = lv_alarm_name ).
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
     ao_cwt_actions->describe_alarms(
       EXPORTING it_alarm_names = lt_alarmnames
-      IMPORTING oo_result = lo_alarm_list_result
-    ).
+      IMPORTING oo_result = lo_alarm_list_result ).
 
     "Validation.
     lv_found = abap_false.
@@ -297,22 +273,19 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Alarm not found|
-    ).
+      msg = |Alarm not found| ).
 
     "Clean up.
-    ao_cwt->deletealarms( it_alarmnames = lt_alarmnames
-    ).
+    ao_cwt->deletealarms( it_alarmnames = lt_alarmnames ).
 
     ao_s3->deletebucket(
-      iv_bucket = lv_bucket_name
-    ).
+      iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
   METHOD enable_alarm_actions.
 
-    DATA lv_alarm_name  TYPE  /aws1/cwtalarmname.
+    DATA lv_alarm_name  TYPE /aws1/cwtalarmname.
     DATA lt_alarmnames TYPE /aws1/cl_cwtalarmnames_w=>tt_alarmnames.
     DATA lo_alarmname TYPE REF TO /aws1/cl_cwtalarmnames_w.
     DATA lt_dimensions TYPE /aws1/cl_cwtdimension=>tt_dimensions.
@@ -321,14 +294,14 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     DATA lv_bucket_name TYPE /aws1/s3_bucketname.
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
-    CONSTANTS cv_metric_name  TYPE  /aws1/cwtmetricname VALUE 'NumberOfObjects'.
-    CONSTANTS cv_namespace  TYPE  /aws1/cwtnamespace VALUE 'AWS/S3'.
-    CONSTANTS cv_comparison_operator  TYPE  /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
-    CONSTANTS cv_statistic  TYPE  /aws1/cwtstatistic VALUE 'Average'.
-    CONSTANTS cv_threshold  TYPE  /aws1/rt_double_as_string VALUE 10.
-    CONSTANTS cv_alarm_description  TYPE  /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
-    CONSTANTS cv_actions_enabled  TYPE  /aws1/cwtactionsenabled VALUE ' '.
-    CONSTANTS cv_evaluation_periods TYPE  /aws1/cwtevaluationperiods VALUE 1.
+    CONSTANTS cv_metric_name  TYPE /aws1/cwtmetricname VALUE 'NumberOfObjects'.
+    CONSTANTS cv_namespace  TYPE /aws1/cwtnamespace VALUE 'AWS/S3'.
+    CONSTANTS cv_comparison_operator  TYPE /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
+    CONSTANTS cv_statistic  TYPE /aws1/cwtstatistic VALUE 'Average'.
+    CONSTANTS cv_threshold  TYPE /aws1/rt_double_as_string VALUE 10.
+    CONSTANTS cv_alarm_description  TYPE /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
+    CONSTANTS cv_actions_enabled  TYPE /aws1/cwtactionsenabled VALUE ' '.
+    CONSTANTS cv_evaluation_periods TYPE /aws1/cwtevaluationperiods VALUE 1.
     CONSTANTS cv_unit TYPE /aws1/cwtstandardunit VALUE 'Percent'.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
@@ -344,21 +317,16 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
     "Create Amazon S3 dimensions.
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'StorageType'
-        iv_value = 'AllStorageTypes'.
+    lo_dimensions = NEW #( iv_name = 'StorageType'
+                           iv_value = 'AllStorageTypes' ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'BucketName'
-        iv_value = lv_bucket_name.
+    lo_dimensions = NEW #( iv_name = 'BucketName'
+                           iv_value = lv_bucket_name ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
     ao_cwt->putmetricalarm(
-      EXPORTING
-        iv_alarmname          = lv_alarm_name
+      iv_alarmname          = lv_alarm_name
         iv_metricname         = cv_metric_name
         iv_namespace           = cv_namespace
         iv_comparisonoperator = cv_comparison_operator
@@ -369,19 +337,17 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
         iv_evaluationperiods  = cv_evaluation_periods
         iv_unit                = cv_unit
         iv_period              = cv_period
-        it_dimensions          = lt_dimensions
-        ).
+        it_dimensions          = lt_dimensions ).
 
     "Testing enable_alarm_actions.
-    CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
+    lo_alarmname = NEW #( iv_value = lv_alarm_name ).
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
-    ao_cwt_actions->enable_alarm_actions( it_alarm_names = lt_alarmnames ).
+    ao_cwt_actions->enable_alarm_actions( lt_alarmnames ).
 
     "Validation.
     lo_alarm_list_result = ao_cwt->describealarms(
-      EXPORTING it_alarmnames = lt_alarmnames
-    ).
+      it_alarmnames = lt_alarmnames ).
 
     lv_found = abap_false.
 
@@ -393,25 +359,22 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Alarm actions not enabled|
-    ).
+      msg = |Alarm actions not enabled| ).
 
     "Clean up.
-    CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
+    lo_alarmname = NEW #( iv_value = lv_alarm_name ).
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
-    ao_cwt->deletealarms( it_alarmnames = lt_alarmnames
-    ).
+    ao_cwt->deletealarms( it_alarmnames = lt_alarmnames ).
 
     ao_s3->deletebucket(
-      iv_bucket = lv_bucket_name
-    ).
+      iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
   METHOD disable_alarm_actions.
 
-    DATA lv_alarm_name  TYPE  /aws1/cwtalarmname.
+    DATA lv_alarm_name  TYPE /aws1/cwtalarmname.
     DATA lt_alarmnames TYPE /aws1/cl_cwtalarmnames_w=>tt_alarmnames.
     DATA lo_alarmname TYPE REF TO /aws1/cl_cwtalarmnames_w.
     DATA lt_dimensions TYPE /aws1/cl_cwtdimension=>tt_dimensions.
@@ -420,14 +383,14 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     DATA lv_bucket_name TYPE /aws1/s3_bucketname.
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
-    CONSTANTS cv_metric_name  TYPE  /aws1/cwtmetricname VALUE 'NumberOfObjects'.
-    CONSTANTS cv_namespace  TYPE  /aws1/cwtnamespace VALUE 'AWS/S3'.
-    CONSTANTS cv_comparison_operator  TYPE  /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
-    CONSTANTS cv_statistic  TYPE  /aws1/cwtstatistic VALUE 'Average'.
-    CONSTANTS cv_threshold  TYPE  /aws1/rt_double_as_string VALUE 10.
-    CONSTANTS cv_alarm_description  TYPE  /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
-    CONSTANTS cv_actions_enabled  TYPE  /aws1/cwtactionsenabled VALUE 'X'.
-    CONSTANTS cv_evaluation_periods TYPE  /aws1/cwtevaluationperiods VALUE 1.
+    CONSTANTS cv_metric_name  TYPE /aws1/cwtmetricname VALUE 'NumberOfObjects'.
+    CONSTANTS cv_namespace  TYPE /aws1/cwtnamespace VALUE 'AWS/S3'.
+    CONSTANTS cv_comparison_operator  TYPE /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
+    CONSTANTS cv_statistic  TYPE /aws1/cwtstatistic VALUE 'Average'.
+    CONSTANTS cv_threshold  TYPE /aws1/rt_double_as_string VALUE 10.
+    CONSTANTS cv_alarm_description  TYPE /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
+    CONSTANTS cv_actions_enabled  TYPE /aws1/cwtactionsenabled VALUE 'X'.
+    CONSTANTS cv_evaluation_periods TYPE /aws1/cwtevaluationperiods VALUE 1.
     CONSTANTS cv_unit TYPE /aws1/cwtstandardunit VALUE 'Percent'.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
@@ -443,21 +406,16 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
     "Create Amazon S3 dimensions.
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'StorageType'
-        iv_value = 'AllStorageTypes'.
+    lo_dimensions = NEW #( iv_name = 'StorageType'
+                           iv_value = 'AllStorageTypes' ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'BucketName'
-        iv_value = lv_bucket_name.
+    lo_dimensions = NEW #( iv_name = 'BucketName'
+                           iv_value = lv_bucket_name ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
     ao_cwt->putmetricalarm(
-      EXPORTING
-        iv_alarmname          = lv_alarm_name
+      iv_alarmname          = lv_alarm_name
         iv_metricname         = cv_metric_name
         iv_namespace           = cv_namespace
         iv_comparisonoperator = cv_comparison_operator
@@ -468,19 +426,17 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
         iv_evaluationperiods  = cv_evaluation_periods
         iv_unit                = cv_unit
         iv_period              = cv_period
-        it_dimensions          = lt_dimensions
-        ).
+        it_dimensions          = lt_dimensions ).
 
     "Testing disable_alarm_actions.
-    CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
+    lo_alarmname = NEW #( iv_value = lv_alarm_name ).
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
-    ao_cwt_actions->disable_alarm_actions( it_alarm_names = lt_alarmnames ).
+    ao_cwt_actions->disable_alarm_actions( lt_alarmnames ).
 
     "Validation.
     lo_alarm_list_result = ao_cwt->describealarms(
-      EXPORTING it_alarmnames = lt_alarmnames
-    ).
+      it_alarmnames = lt_alarmnames ).
 
     lv_found = abap_false.
 
@@ -492,25 +448,22 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Alarm actions not disabled|
-    ).
+      msg = |Alarm actions not disabled| ).
 
     "Clean up.
-    CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
+    lo_alarmname = NEW #( iv_value = lv_alarm_name ).
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
-    ao_cwt->deletealarms( it_alarmnames = lt_alarmnames
-    ).
+    ao_cwt->deletealarms( it_alarmnames = lt_alarmnames ).
 
     ao_s3->deletebucket(
-      iv_bucket = lv_bucket_name
-    ).
+      iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
   METHOD list_metrics.
 
-    DATA lv_alarm_name  TYPE  /aws1/cwtalarmname.
+    DATA lv_alarm_name  TYPE /aws1/cwtalarmname.
     DATA lt_alarmnames TYPE /aws1/cl_cwtalarmnames_w=>tt_alarmnames.
     DATA lo_alarmname TYPE REF TO /aws1/cl_cwtalarmnames_w.
     DATA lt_dimensions TYPE /aws1/cl_cwtdimension=>tt_dimensions.
@@ -523,14 +476,14 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     DATA lt_metrics TYPE /aws1/cl_cwtmetric=>tt_metrics.
     DATA lo_metrics TYPE REF TO /aws1/cl_cwtmetric.
 
-    CONSTANTS cv_metric_name  TYPE  /aws1/cwtmetricname VALUE 'NumberOfObjects'.
-    CONSTANTS cv_namespace  TYPE  /aws1/cwtnamespace VALUE 'AWS/S3'.
-    CONSTANTS cv_comparison_operator  TYPE  /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
-    CONSTANTS cv_statistic  TYPE  /aws1/cwtstatistic VALUE 'Average'.
-    CONSTANTS cv_threshold  TYPE  /aws1/rt_double_as_string VALUE 10.
-    CONSTANTS cv_alarm_description  TYPE  /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
-    CONSTANTS cv_actions_enabled  TYPE  /aws1/cwtactionsenabled VALUE 'X'.
-    CONSTANTS cv_evaluation_periods TYPE  /aws1/cwtevaluationperiods VALUE 1.
+    CONSTANTS cv_metric_name  TYPE /aws1/cwtmetricname VALUE 'NumberOfObjects'.
+    CONSTANTS cv_namespace  TYPE /aws1/cwtnamespace VALUE 'AWS/S3'.
+    CONSTANTS cv_comparison_operator  TYPE /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
+    CONSTANTS cv_statistic  TYPE /aws1/cwtstatistic VALUE 'Average'.
+    CONSTANTS cv_threshold  TYPE /aws1/rt_double_as_string VALUE 10.
+    CONSTANTS cv_alarm_description  TYPE /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
+    CONSTANTS cv_actions_enabled  TYPE /aws1/cwtactionsenabled VALUE 'X'.
+    CONSTANTS cv_evaluation_periods TYPE /aws1/cwtevaluationperiods VALUE 1.
     CONSTANTS cv_unit TYPE /aws1/cwtstandardunit VALUE 'Percent'.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
@@ -546,21 +499,16 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
     "Create Amazon S3 dimensions.
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'StorageType'
-        iv_value = 'AllStorageTypes'.
+    lo_dimensions = NEW #( iv_name = 'StorageType'
+                           iv_value = 'AllStorageTypes' ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'BucketName'
-        iv_value = lv_bucket_name.
+    lo_dimensions = NEW #( iv_name = 'BucketName'
+                           iv_value = lv_bucket_name ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
     ao_cwt->putmetricalarm(
-      EXPORTING
-        iv_alarmname           = lv_alarm_name
+      iv_alarmname           = lv_alarm_name
         iv_metricname          = cv_metric_name
         iv_namespace           = cv_namespace
         iv_comparisonoperator  = cv_comparison_operator
@@ -571,8 +519,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
         iv_evaluationperiods   = cv_evaluation_periods
         iv_unit                = cv_unit
         iv_period              = cv_period
-        it_dimensions          = lt_dimensions
-        ).
+        it_dimensions          = lt_dimensions ).
 
     "Testing list_metrics.
     ao_cwt_actions->list_metrics( EXPORTING iv_namespace = 'AWS/S3' IMPORTING oo_result = lo_list_metrics_result ).
@@ -589,19 +536,16 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |No metric found|
-    ).
+      msg = |No metric found| ).
 
     "Clean up.
-    CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
+    lo_alarmname = NEW #( iv_value = lv_alarm_name ).
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
 
-    ao_cwt->deletealarms( it_alarmnames = lt_alarmnames
-    ).
+    ao_cwt->deletealarms( it_alarmnames = lt_alarmnames ).
 
     ao_s3->deletebucket(
-      iv_bucket = lv_bucket_name
-    ).
+      iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 

@@ -1,87 +1,87 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 
-class ZCL_AWS1_EC2_ACTIONS definition
-  public
-  final
-  create public .
+CLASS zcl_aws1_ec2_actions DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
-protected section.
-private section.
+  PUBLIC SECTION.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
 
-  methods ALLOCATE_ADDRESS
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_EC2ALLOCATEADDRESSRS .
-  methods CREATE_INSTANCE
-    importing
-      !IV_AMI_ID type /AWS1/EC2IMAGEID
-      !IV_TAG_VALUE type /AWS1/EC2STRING
-      !IV_SUBNET_ID type /AWS1/EC2SUBNETID
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_EC2RESERVATION .
-  methods CREATE_KEY_PAIR
-    importing
-      !IV_KEY_NAME type /AWS1/EC2STRING
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_EC2KEYPAIR .
-  methods CREATE_SECURITY_GROUP
-    importing
-      !IV_SECURITY_GROUP_NAME type /AWS1/EC2STRING
-      !IV_VPC_ID type /AWS1/EC2VPCID
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_EC2CREATESECGROUPRSLT .
-  methods DELETE_SECURITY_GROUP
-    importing
-      !IV_SECURITY_GROUP_ID type /AWS1/EC2SECURITYGROUPID .
-  methods DELETE_KEY_PAIR
-    importing
-      !IV_KEY_NAME type /AWS1/EC2KEYPAIRNAME .
-  methods DESCRIBE_ADDRESSES
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_EC2DESCRADDRESSESRSLT .
-  methods DESCRIBE_INSTANCES
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_EC2DESCRINSTSRESULT .
-  methods DESCRIBE_KEY_PAIRS
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_EC2DESCRKEYPAIRSRSLT .
-  methods DESCRIBE_REGIONS
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_EC2DESCRREGIONSRESULT .
-  methods DESCRIBE_SECURITY_GROUPS
-    importing
-      !IV_GROUP_ID type /AWS1/EC2SECURITYGROUPID
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_EC2DESCRSECGROUPSRSLT .
-  methods MONITOR_INSTANCE
-    importing
-      !IV_INSTANCE_ID type /AWS1/EC2INSTANCEID .
-  methods REBOOT_INSTANCE
-    importing
-      !IV_INSTANCE_ID type /AWS1/EC2INSTANCEID .
-  methods RELEASE_ADDRESS
-    importing
-      !IV_ALLOCATION_ID type /AWS1/EC2ALLOCATIONID .
-  methods START_INSTANCE
-    importing
-      !IV_INSTANCE_ID type /AWS1/EC2INSTANCEID
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_EC2STARTINSTSRESULT .
-  methods STOP_INSTANCE
-    importing
-      !IV_INSTANCE_ID type /AWS1/EC2INSTANCEID
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_EC2STOPINSTSRESULT .
-  methods ASSOCIATE_ADDRESS
-    importing
-      !IV_INSTANCE_ID type /AWS1/EC2INSTANCEID
-      !IV_ALLOCATION_ID type /AWS1/EC2ALLOCATIONID
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_EC2ASSOCADDRESSRESULT .
-  methods DESCRIBE_AVAILABILITY_ZONES
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_EC2DESCRIBEAZSRESULT .
+    METHODS allocate_address
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_ec2allocateaddressrs .
+    METHODS create_instance
+      IMPORTING
+      !iv_ami_id TYPE /aws1/ec2imageid
+      !iv_tag_value TYPE /aws1/ec2string
+      !iv_subnet_id TYPE /aws1/ec2subnetid
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_ec2reservation .
+    METHODS create_key_pair
+      IMPORTING
+      !iv_key_name TYPE /aws1/ec2string
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_ec2keypair .
+    METHODS create_security_group
+      IMPORTING
+      !iv_security_group_name TYPE /aws1/ec2string
+      !iv_vpc_id TYPE /aws1/ec2vpcid
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_ec2createsecgrouprslt .
+    METHODS delete_security_group
+      IMPORTING
+      !iv_security_group_id TYPE /aws1/ec2securitygroupid .
+    METHODS delete_key_pair
+      IMPORTING
+      !iv_key_name TYPE /aws1/ec2keypairname .
+    METHODS describe_addresses
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_ec2descraddressesrslt .
+    METHODS describe_instances
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_ec2descrinstsresult .
+    METHODS describe_key_pairs
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_ec2descrkeypairsrslt .
+    METHODS describe_regions
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_ec2descrregionsresult .
+    METHODS describe_security_groups
+      IMPORTING
+      !iv_group_id TYPE /aws1/ec2securitygroupid
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_ec2descrsecgroupsrslt .
+    METHODS monitor_instance
+      IMPORTING
+      !iv_instance_id TYPE /aws1/ec2instanceid .
+    METHODS reboot_instance
+      IMPORTING
+      !iv_instance_id TYPE /aws1/ec2instanceid .
+    METHODS release_address
+      IMPORTING
+      !iv_allocation_id TYPE /aws1/ec2allocationid .
+    METHODS start_instance
+      IMPORTING
+      !iv_instance_id TYPE /aws1/ec2instanceid
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_ec2startinstsresult .
+    METHODS stop_instance
+      IMPORTING
+      !iv_instance_id TYPE /aws1/ec2instanceid
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_ec2stopinstsresult .
+    METHODS associate_address
+      IMPORTING
+      !iv_instance_id TYPE /aws1/ec2instanceid
+      !iv_allocation_id TYPE /aws1/ec2allocationid
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_ec2assocaddressresult .
+    METHODS describe_availability_zones
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_ec2describeazsresult .
 ENDCLASS.
 
 
@@ -90,7 +90,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD allocate_address.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
@@ -108,7 +108,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD associate_address.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
@@ -117,8 +117,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
     TRY.
         oo_result = lo_ec2->associateaddress(                         " oo_result is returned for testing purposes. "
             iv_allocationid = iv_allocation_id
-            iv_instanceid = iv_instance_id
-        ).
+            iv_instanceid = iv_instance_id ).
         MESSAGE 'Associated an Elastic IP address with an EC2 instance.' TYPE 'I'.
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
@@ -129,7 +128,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD create_instance.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
@@ -139,12 +138,11 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
     " Create tags for resource created during instance launch. "
     DATA lt_tagspecifications TYPE /aws1/cl_ec2tagspecification=>tt_tagspecificationlist.
     DATA ls_tagspecifications LIKE LINE OF lt_tagspecifications.
-    ls_tagspecifications =  NEW /aws1/cl_ec2tagspecification(
+    ls_tagspecifications = NEW /aws1/cl_ec2tagspecification(
       iv_resourcetype = 'instance'
       it_tags = VALUE /aws1/cl_ec2tag=>tt_taglist(
         ( NEW /aws1/cl_ec2tag( iv_key = 'Name' iv_value = iv_tag_value ) )
-      )
-    ).
+      ) ).
     APPEND ls_tagspecifications TO lt_tagspecifications.
 
     TRY.
@@ -155,8 +153,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
           iv_maxcount = 1
           iv_mincount = 1
           it_tagspecifications = lt_tagspecifications
-          iv_subnetid = iv_subnet_id
-        ).
+          iv_subnetid = iv_subnet_id ).
         MESSAGE 'EC2 instance created.' TYPE 'I'.
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
@@ -167,7 +164,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD create_key_pair.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
@@ -185,7 +182,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD create_security_group.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
@@ -195,8 +192,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
         oo_result = lo_ec2->createsecuritygroup(                 " oo_result is returned for testing purposes. "
           iv_description = 'Security group example'
           iv_groupname = iv_security_group_name
-          iv_vpcid = iv_vpc_id
-        ).
+          iv_vpcid = iv_vpc_id ).
         MESSAGE 'Security group created.' TYPE 'I'.
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
@@ -207,7 +203,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD delete_key_pair.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
@@ -225,7 +221,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD delete_security_group.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
@@ -243,14 +239,14 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD describe_addresses.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
 
     " snippet-start:[ec2.abapv1.describe_addresses]
     TRY.
-        oo_result = lo_ec2->describeaddresses( ) .                        " oo_result is returned for testing purposes. "
+        oo_result = lo_ec2->describeaddresses( ).                        " oo_result is returned for testing purposes. "
         DATA(lt_addresses) = oo_result->get_addresses( ).
         MESSAGE 'Retrieved information about Elastic IP addresses.' TYPE 'I'.
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
@@ -262,14 +258,14 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD describe_availability_zones.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
 
     " snippet-start:[ec2.abapv1.describe_availability_zones]
     TRY.
-        oo_result = lo_ec2->describeavailabilityzones( ) .                        " oo_result is returned for testing purposes. "
+        oo_result = lo_ec2->describeavailabilityzones( ).                        " oo_result is returned for testing purposes. "
         DATA(lt_zones) = oo_result->get_availabilityzones( ).
         MESSAGE 'Retrieved information about Availability Zones.' TYPE 'I'.
 
@@ -283,14 +279,14 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD describe_instances.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
 
     " snippet-start:[ec2.abapv1.describe_instances]
     TRY.
-        oo_result = lo_ec2->describeinstances( ) .                        " oo_result is returned for testing purposes. "
+        oo_result = lo_ec2->describeinstances( ).                        " oo_result is returned for testing purposes. "
 
         " Retrieving details of EC2 instances. "
         DATA: lv_istance_id    TYPE /aws1/ec2string,
@@ -300,7 +296,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
         LOOP AT oo_result->get_reservations( ) INTO DATA(lo_reservation).
           LOOP AT lo_reservation->get_instances( ) INTO DATA(lo_instance).
             lv_istance_id = lo_instance->get_instanceid( ).
-            lv_status =  lo_instance->get_state( )->get_name( ).
+            lv_status = lo_instance->get_state( )->get_name( ).
             lv_instance_type = lo_instance->get_instancetype( ).
             lv_image_id = lo_instance->get_imageid( ).
           ENDLOOP.
@@ -315,14 +311,14 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD describe_key_pairs.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
 
     " snippet-start:[ec2.abapv1.describe_key_pairs]
     TRY.
-        oo_result = lo_ec2->describekeypairs( ) .                        " oo_result is returned for testing purposes. "
+        oo_result = lo_ec2->describekeypairs( ).                        " oo_result is returned for testing purposes. "
         DATA(lt_key_pairs) = oo_result->get_keypairs( ).
         MESSAGE 'Retrieved information about key pairs.' TYPE 'I'.
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
@@ -334,14 +330,14 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD describe_regions.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
 
     " snippet-start:[ec2.abapv1.describe_regions]
     TRY.
-        oo_result = lo_ec2->describeregions( ) .                        " oo_result is returned for testing purposes. "
+        oo_result = lo_ec2->describeregions( ).                        " oo_result is returned for testing purposes. "
         DATA(lt_regions) = oo_result->get_regions( ).
         MESSAGE 'Retrieved information about Regions.' TYPE 'I'.
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
@@ -354,7 +350,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD describe_security_groups.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
@@ -375,7 +371,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD monitor_instance.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
@@ -390,8 +386,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
         " DryRun is set to true. This checks for the required permissions to monitor the instance without actually making the request. "
         lo_ec2->monitorinstances(
           it_instanceids = lt_instance_ids
-          iv_dryrun = abap_true
-        ).
+          iv_dryrun = abap_true ).
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         " If the error code returned is `DryRunOperation`, then you have the required permissions to monitor this instance. "
         IF lo_exception->av_err_code = 'DryRunOperation'.
@@ -399,8 +394,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
           " DryRun is set to false to enable detailed monitoring. "
           lo_ec2->monitorinstances(
             it_instanceids = lt_instance_ids
-            iv_dryrun = abap_false
-          ).
+            iv_dryrun = abap_false ).
           MESSAGE 'Detailed monitoring enabled.' TYPE 'I'.
           " If the error code returned is `UnauthorizedOperation`, then you don't have the required permissions to monitor this instance. "
         ELSEIF lo_exception->av_err_code = 'UnauthorizedOperation'.
@@ -415,7 +409,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD reboot_instance.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
@@ -429,8 +423,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
         " DryRun is set to true. This checks for the required permissions to reboot the instance without actually making the request. "
         lo_ec2->rebootinstances(
           it_instanceids = lt_instance_ids
-          iv_dryrun = abap_true
-        ).
+          iv_dryrun = abap_true ).
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         " If the error code returned is `DryRunOperation`, then you have the required permissions to reboot this instance. "
         IF lo_exception->av_err_code = 'DryRunOperation'.
@@ -438,8 +431,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
           " DryRun is set to false to make a reboot request. "
           lo_ec2->rebootinstances(
              it_instanceids = lt_instance_ids
-             iv_dryrun = abap_false
-           ).
+             iv_dryrun = abap_false ).
           MESSAGE 'Instance rebooted.' TYPE 'I'.
           " If the error code returned is `UnauthorizedOperation`, then you don't have the required permissions to reboot this instance. "
         ELSEIF lo_exception->av_err_code = 'UnauthorizedOperation'.
@@ -454,7 +446,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD release_address.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
@@ -471,8 +463,8 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD START_INSTANCE.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+  METHOD start_instance.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
@@ -487,8 +479,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
         " DryRun is set to true. This checks for the required permissions to start the instance without actually making the request. "
         lo_ec2->startinstances(
           it_instanceids = lt_instance_ids
-          iv_dryrun = abap_true
-        ).
+          iv_dryrun = abap_true ).
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         " If the error code returned is `DryRunOperation`, then you have the required permissions to start this instance. "
         IF lo_exception->av_err_code = 'DryRunOperation'.
@@ -496,8 +487,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
           " DryRun is set to false to start instance. "
           oo_result = lo_ec2->startinstances(           " oo_result is returned for testing purposes. "
             it_instanceids = lt_instance_ids
-            iv_dryrun = abap_false
-          ).
+            iv_dryrun = abap_false ).
           MESSAGE 'Successfully started the EC2 instance.' TYPE 'I'.
           " If the error code returned is `UnauthorizedOperation`, then you don't have the required permissions to start this instance. "
         ELSEIF lo_exception->av_err_code = 'UnauthorizedOperation'.
@@ -512,7 +502,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
 
 
   METHOD stop_instance.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_ec2) = /aws1/cl_ec2_factory=>create( lo_session ).
@@ -527,8 +517,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
         " DryRun is set to true. This checks for the required permissions to stop the instance without actually making the request. "
         lo_ec2->stopinstances(
           it_instanceids = lt_instance_ids
-          iv_dryrun = abap_true
-        ).
+          iv_dryrun = abap_true ).
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         " If the error code returned is `DryRunOperation`, then you have the required permissions to stop this instance. "
         IF lo_exception->av_err_code = 'DryRunOperation'.
@@ -536,8 +525,7 @@ CLASS ZCL_AWS1_EC2_ACTIONS IMPLEMENTATION.
           " DryRun is set to false to stop instance. "
           oo_result = lo_ec2->stopinstances(           " oo_result is returned for testing purposes. "
             it_instanceids = lt_instance_ids
-            iv_dryrun = abap_false
-          ).
+            iv_dryrun = abap_false ).
           MESSAGE 'Successfully stopped the EC2 instance.' TYPE 'I'.
           " If the error code returned is `UnauthorizedOperation`, then you don't have the required permissions to stop this instance. "
         ELSEIF lo_exception->av_err_code = 'UnauthorizedOperation'.

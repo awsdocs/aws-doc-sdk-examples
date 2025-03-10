@@ -5,15 +5,15 @@ CLASS ltc_zcl_aws1_kns_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL
 
   PRIVATE SECTION.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA ao_kns TYPE REF TO /aws1/if_kns.
     DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     DATA ao_kns_scenario TYPE REF TO zcl_aws1_kns_scenario.
     DATA lv_found TYPE abap_bool VALUE abap_false.
 
-    METHODS: getting_started_with_kns FOR TESTING.
-    METHODS: setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS getting_started_with_kns FOR TESTING.
+    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
 
 ENDCLASS.       "ltc_Zcl_Aws1_Kns_Scenario
 
@@ -33,7 +33,7 @@ CLASS ltc_zcl_aws1_kns_scenario IMPLEMENTATION.
     DATA lv_record_data TYPE /aws1/knsdata.
     DATA lv_stream_name TYPE /aws1/knsstreamname.
     DATA lv_shardid TYPE /aws1/knsshardid.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA(lv_data) = /aws1/cl_rt_util=>string_to_xstring(
       `{`  &&
         `"word": "This",`  &&
@@ -41,8 +41,7 @@ CLASS ltc_zcl_aws1_kns_scenario IMPLEMENTATION.
         `"word": "a"` &&
         `"word": "code"` &&
         `"word": "example"` &&
-      `}`
-    ).
+      `}` ).
 
     CONSTANTS cv_shard_count TYPE /aws1/knspositiveintegerobject VALUE 1.
     CONSTANTS cv_partition_key TYPE /aws1/knspartitionkey VALUE '123'.
@@ -61,8 +60,7 @@ CLASS ltc_zcl_aws1_kns_scenario IMPLEMENTATION.
         iv_sharditeratortype  = cv_sharditeratortype
         iv_data               = lv_data
       IMPORTING
-        oo_result = lo_get_record_output
-      ).
+        oo_result = lo_get_record_output ).
 
     lt_record_list = lo_get_record_output->get_records( ).
 
@@ -72,23 +70,21 @@ CLASS ltc_zcl_aws1_kns_scenario IMPLEMENTATION.
     ENDLOOP.
 
     IF lv_record_data = lv_data.
-      lv_found = abap_true.
+      DATA(lv_found) = abap_true.
     ENDIF.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Record not found|
-    ).
+       msg                    = |Record not found| ).
 
     lv_found = abap_true.
-    IF  ao_kns->liststreams( iv_exclusivestartstreamname = lv_stream_name )->has_streamnames( ) = 'X'.
+    IF ao_kns->liststreams( iv_exclusivestartstreamname = lv_stream_name )->has_streamnames( ) = 'X'.
       lv_found = abap_false.
     ENDIF.
 
     cl_abap_unit_assert=>assert_false(
        act                    = lv_found
-       msg                    = |Stream not deleted|
-    ).
+       msg                    = |Stream not deleted| ).
   ENDMETHOD.
 
 ENDCLASS.
