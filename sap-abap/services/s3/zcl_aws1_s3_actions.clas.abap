@@ -84,9 +84,20 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[s3.abapv1.create_bucket]
     TRY.
+        " determine our region from our session
+        DATA(lv_region) = CONV /aws1/s3_bucketlocationcnstrnt( lo_session->get_region( ) ).
+        DATA lo_constraint TYPE REF TO /aws1/cl_s3_createbucketconf.
+        " When in the us-east-1 region, you must not specify a constraint
+        " In all other regions, specify the region as the constraint
+        IF lv_region = 'us-east-1'.
+          CLEAR lo_constraint.
+        ELSE.
+          lo_constraint = NEW /aws1/cl_s3_createbucketconf( lv_region ).
+        ENDIF.
+
         lo_s3->createbucket(
             iv_bucket = iv_bucket_name
-        ).
+            io_createbucketconfiguration  = lo_constraint ).
         MESSAGE 'S3 bucket created.' TYPE 'I'.
       CATCH /aws1/cx_s3_bucketalrdyexists.
         MESSAGE 'Bucket name already exists.' TYPE 'E'.
