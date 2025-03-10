@@ -15,6 +15,7 @@ import software.amazon.awssdk.services.location.model.BatchUpdateDevicePositionR
 import software.amazon.awssdk.services.location.model.BatchUpdateDevicePositionResponse;
 import software.amazon.awssdk.services.location.model.CalculateRouteRequest;
 import software.amazon.awssdk.services.location.model.CalculateRouteResponse;
+import software.amazon.awssdk.services.location.model.ConflictException;
 import software.amazon.awssdk.services.location.model.CreateGeofenceCollectionRequest;
 import software.amazon.awssdk.services.location.model.CreateGeofenceCollectionResponse;
 import software.amazon.awssdk.services.location.model.CreateKeyRequest;
@@ -38,6 +39,9 @@ import software.amazon.awssdk.services.location.model.MapConfiguration;
 import software.amazon.awssdk.services.location.model.PutGeofenceRequest;
 import software.amazon.awssdk.services.location.model.PutGeofenceResponse;
 import software.amazon.awssdk.services.location.model.ResourceNotFoundException;
+import software.amazon.awssdk.services.location.model.ServiceQuotaExceededException;
+import software.amazon.awssdk.services.location.model.ThrottlingException;
+import software.amazon.awssdk.services.location.model.ValidationException;
 import software.amazon.awssdk.services.location.paginators.ListGeofencesPublisher;
 import java.time.Duration;
 import java.time.Instant;
@@ -293,7 +297,7 @@ public class LocationActions {
                     }
 
                     Throwable cause = exception.getCause();
-                    if (cause instanceof LocationException) {
+                    if (cause instanceof ValidationException) {
                         throw new CompletionException("AWS Location Service error: " + cause.getMessage(), cause);
                     }
                     throw new CompletionException("Error creating geofence: " + exception.getMessage(), exception);
@@ -322,8 +326,8 @@ public class LocationActions {
                     }
 
                     Throwable cause = exception.getCause();
-                    if (cause instanceof ResourceNotFoundException) {
-                        throw new CompletionException("The requested resource was not found while creating the geofence collection.", cause);
+                    if (cause instanceof ConflictException) {
+                        throw new CompletionException("The geofence collection was not created due to a conflict. ", cause);
                     }
                     throw new CompletionException("Failed to create geofence collection: " + exception.getMessage(), exception);
                 }
@@ -354,15 +358,15 @@ public class LocationActions {
             .whenComplete((response, exception) -> {
                 if (response != null) {
                     String keyArn = response.keyArn();
-                    logger.info("API Key Created: " + keyArn);
+                    logger.info("The API key was successfully created: " + keyArn);
                 } else {
                     if (exception == null) {
                         throw new CompletionException("An unknown error occurred while creating the API key.", null);
                     }
 
                     Throwable cause = exception.getCause();
-                    if (cause instanceof ResourceNotFoundException) {
-                        throw new CompletionException("The requested resource was not found while creating the API key.", cause);
+                    if (cause instanceof ThrottlingException) {
+                        throw new CompletionException("Request throttling was detected.", cause);
                     }
                     throw new CompletionException("Failed to create API key: " + exception.getMessage(), exception);
                 }
@@ -370,15 +374,11 @@ public class LocationActions {
     }
 
     /**
-     * Creates a new map with the specified name and default configuration.
+     * Creates a new map with the specified name and configuration.
      *
-     * @param mapName the name of the map to create
-     * @return a {@link CompletableFuture} that resolves to the Amazon Resource Name (ARN) of the created map, or
-     *         {@code null} if the map creation failed
-     * @throws CompletionException if an error occurs while creating the map
-     *         - if the requested resource was not found
-     *         - if an unknown error occurred
-     *         - if the map creation failed for any other reason
+     * @param mapName the name of the map to be created
+     * @return a {@link CompletableFuture} that, when completed, will contain the Amazon Resource Name (ARN) of the created map
+     * @throws CompletionException if an error occurs while creating the map, such as exceeding the service quota
      */
     public CompletableFuture<String> createMap(String mapName) {
         MapConfiguration configuration = MapConfiguration.builder()
@@ -401,8 +401,8 @@ public class LocationActions {
                     }
 
                     Throwable cause = exception.getCause();
-                    if (cause instanceof ResourceNotFoundException) {
-                        throw new CompletionException("The requested resource was not found while creating the map.", cause);
+                    if (cause instanceof ServiceQuotaExceededException) {
+                        throw new CompletionException("The operation was denied because the request would exceed the maximum quota.", cause);
                     }
                     throw new CompletionException("Failed to create map: " + exception.getMessage(), exception);
                 }
