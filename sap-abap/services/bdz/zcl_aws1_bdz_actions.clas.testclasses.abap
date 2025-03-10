@@ -1,4 +1,4 @@
-CLASS ltc_ycl_aws1_mit_bdz DEFINITION FOR TESTING
+CLASS ltc_ZCL_AWS1_BDZ_ACTIONS DEFINITION FOR TESTING
     DURATION SHORT
     RISK LEVEL HARMLESS.
   PROTECTED SECTION.
@@ -44,21 +44,21 @@ ENDCLASS.
 
 
 
-CLASS ltc_ycl_aws1_mit_bdz IMPLEMENTATION.
+CLASS ltc_ZCL_AWS1_BDZ_ACTIONS IMPLEMENTATION.
 
   METHOD setup.
     ao_session = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     ao_bda = /aws1/cl_bda_factory=>create( ao_session ).
     av_bdz_rolearn = ao_session->resolve_lresource( cv_bdz_lrole ).
 
-    DATA(lv_random_string) = ycl_aws1_mit_utils=>get_random_string( ).
+    DATA(lv_random_string) = zcl_aws1_ex_utils=>get_random_string( ).
 
     DATA(lv_instruction) = |You are an agent that plays "rock, paper, scissors". Choose rock, | &&
                            |paper, or scissors.. When the human prompts you with | &&
                            |their choice, reveal your choice and declare the winner. |.
 
     DATA(lo_agent) = ao_bda->createagent(
-      iv_agentname = |{ ycl_aws1_mit_s3_test_utils=>cv_asset_prefix }-bdragt-{ lv_random_string }|
+      iv_agentname = |{ zcl_aws1_ex_utils=>cv_asset_prefix }-bdragt-{ lv_random_string }|
       iv_foundationmodel = cv_foundationmodel
       iv_agentresourcerolearn = av_bdz_rolearn
       iv_instruction = lv_instruction )->get_agent( ).
