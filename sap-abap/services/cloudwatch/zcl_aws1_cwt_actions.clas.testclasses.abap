@@ -19,7 +19,7 @@ CLASS ltc_zcl_aws1_cwt_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL H
     METHODS enable_alarm_actions FOR TESTING.
     METHODS disable_alarm_actions FOR TESTING.
     METHODS list_metrics FOR TESTING.
-    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
+    METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
 
 ENDCLASS.       "ltc_Zcl_Aws1_Cwt_Actions
 
@@ -60,7 +60,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    data(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    DATA(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
     lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.
@@ -143,7 +143,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    data(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    DATA(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
     lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.
@@ -228,7 +228,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
 
-    data(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    DATA(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
     lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.
@@ -315,7 +315,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
 
-    data(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    DATA(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
     lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.
@@ -406,7 +406,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
 
-    data(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    DATA(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
     lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.
@@ -501,7 +501,7 @@ CLASS ltc_zcl_aws1_cwt_actions IMPLEMENTATION.
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
 
-    data(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    DATA(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
     lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.

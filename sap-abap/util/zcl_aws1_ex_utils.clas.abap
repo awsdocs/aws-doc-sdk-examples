@@ -1,15 +1,15 @@
-class ZCL_AWS1_EX_UTILS definition
-  public
-  final
-  create public .
+CLASS zcl_aws1_ex_utils DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  constants CV_ASSET_PREFIX type STRING value 'aws-example' ##NO_TEXT.
+    CONSTANTS cv_asset_prefix TYPE string VALUE 'aws-example' ##NO_TEXT.
 
-  class-methods GET_RANDOM_STRING
-    returning
-      value(OV_STR) type STRING .
+    CLASS-METHODS get_random_string
+      RETURNING
+      VALUE(ov_str) TYPE string .
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.

@@ -32,7 +32,7 @@ CLASS ltc_zcl_aws1_ec2_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL H
       start_instances FOR TESTING RAISING /aws1/cx_rt_generic,
       stop_instances FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
+    METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
 
     METHODS:
       get_ami_id

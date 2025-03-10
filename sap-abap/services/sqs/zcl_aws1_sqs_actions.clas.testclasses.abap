@@ -22,7 +22,7 @@ CLASS ltc_zcl_aws1_sqs_actions DEFINITION FOR TESTING DURATION MEDIUM RISK LEVEL
       long_polling_on_msg_receipt FOR TESTING RAISING /aws1/cx_rt_generic,
       long_polling_on_create_queue FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
+    METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
 
     METHODS assert_queue_exists
       IMPORTING

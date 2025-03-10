@@ -19,7 +19,7 @@ CLASS ltc_zcl_aws1_s3_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL 
 
     METHODS getting_started_scenario FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
+    METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
 
 ENDCLASS.
 

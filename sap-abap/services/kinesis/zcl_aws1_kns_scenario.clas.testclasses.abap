@@ -13,7 +13,7 @@ CLASS ltc_zcl_aws1_kns_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL
     DATA lv_found TYPE abap_bool VALUE abap_false.
 
     METHODS getting_started_with_kns FOR TESTING.
-    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
+    METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
 
 ENDCLASS.       "ltc_Zcl_Aws1_Kns_Scenario
 

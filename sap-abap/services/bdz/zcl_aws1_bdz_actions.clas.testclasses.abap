@@ -1,4 +1,4 @@
-CLASS ltc_ZCL_AWS1_BDZ_ACTIONS DEFINITION FOR TESTING
+CLASS ltc_zcl_aws1_bdz_actions DEFINITION FOR TESTING
     DURATION SHORT
     RISK LEVEL HARMLESS.
   PROTECTED SECTION.
@@ -17,15 +17,15 @@ CLASS ltc_ZCL_AWS1_BDZ_ACTIONS DEFINITION FOR TESTING
     DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     DATA av_bdz_rolearn TYPE /aws1/bdaagentrolearn.
 
-    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
-    METHODS teardown RAISING /aws1/cx_rt_service_generic /aws1/cx_rt_technical_generic /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
+    METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
+    METHODS teardown RAISING /aws1/cx_rt_service_generic /aws1/cx_rt_technical_generic /aws1/cx_rt_generic zcx_aws1_ex_generic.
 
     METHODS wait_for_agent_status
       IMPORTING iv_agentid      TYPE string
                 iv_status       TYPE string
       RETURNING VALUE(oo_agent) TYPE REF TO /aws1/cl_bdaagent
       RAISING   /aws1/cx_rt_generic
-                ZCX_AWS1_EX_GENERIC.
+                zcx_aws1_ex_generic.
 
     METHODS    wait_for_agent_alias_status
       IMPORTING iv_agentid      TYPE string
@@ -33,12 +33,12 @@ CLASS ltc_ZCL_AWS1_BDZ_ACTIONS DEFINITION FOR TESTING
                 iv_status       TYPE string
       RETURNING VALUE(oo_alias) TYPE REF TO /aws1/cl_bdaagentalias
       RAISING   /aws1/cx_rt_generic
-                ZCX_AWS1_EX_GENERIC.
+                zcx_aws1_ex_generic.
 
     METHODS prepare
       IMPORTING iv_agentid      TYPE string
       RETURNING VALUE(oo_agent) TYPE REF TO /aws1/cl_bdaagent
-      RAISING   /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
+      RAISING   /aws1/cx_rt_generic zcx_aws1_ex_generic.
 
 ENDCLASS.
 
@@ -89,7 +89,7 @@ CLASS ltc_ZCL_AWS1_BDZ_ACTIONS IMPLEMENTATION.
     WHILE oo_agent->get_agentstatus( ) <> iv_status.
       WAIT UP TO 2 SECONDS.
       IF sy-index > 20.
-        RAISE EXCEPTION TYPE ZCX_AWS1_EX_GENERIC
+        RAISE EXCEPTION TYPE zcx_aws1_ex_generic
           EXPORTING
             av_msg = |Bedrock agent { iv_agentid } never reached status { iv_status }|.
       ENDIF.
@@ -103,7 +103,7 @@ CLASS ltc_ZCL_AWS1_BDZ_ACTIONS IMPLEMENTATION.
     WHILE oo_alias->get_agentaliasstatus( ) <> iv_status.
       WAIT UP TO 2 SECONDS.
       IF sy-index > 20.
-        RAISE EXCEPTION TYPE ZCX_AWS1_EX_GENERIC
+        RAISE EXCEPTION TYPE zcx_aws1_ex_generic
           EXPORTING
             av_msg = |Bedrock agent alias { iv_aliasid } never reached status { iv_status }|.
       ENDIF.

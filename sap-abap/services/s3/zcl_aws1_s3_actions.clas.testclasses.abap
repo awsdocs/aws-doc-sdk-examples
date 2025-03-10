@@ -24,7 +24,7 @@ CLASS ltc_zcl_aws1_s3_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL H
       delete_object FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_bucket FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
+    METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
 
     METHODS assert_bucket_exists
       IMPORTING

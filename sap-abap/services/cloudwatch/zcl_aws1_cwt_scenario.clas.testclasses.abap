@@ -12,7 +12,7 @@ CLASS ltc_zcl_aws1_cwt_scenario DEFINITION FOR TESTING DURATION LONG RISK LEVEL 
     DATA ao_cwt_scenario TYPE REF TO zcl_aws1_cwt_scenario.
 
     METHODS getting_started_with_cwt FOR TESTING.
-    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
+    METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
 ENDCLASS.       "ltc_Zcl_Aws1_Cwt_Scenario
 
 
@@ -55,7 +55,7 @@ CLASS ltc_zcl_aws1_cwt_scenario IMPLEMENTATION.
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
 
-    data(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    DATA(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
     lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.

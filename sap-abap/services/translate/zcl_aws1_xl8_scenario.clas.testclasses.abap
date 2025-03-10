@@ -15,7 +15,7 @@ CLASS ltc_zcl_aws1_xl8_scenario DEFINITION FOR TESTING DURATION LONG RISK LEVEL 
     DATA av_file_content TYPE /aws1/s3_streamingblob.
 
     METHODS getting_started_with_xl8 FOR TESTING.
-    METHODS setup RAISING /aws1/cx_rt_generic ZCX_AWS1_EX_GENERIC.
+    METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
 
 
 ENDCLASS.       "ltc_Zcl_Aws1_Xl8_Scenario
