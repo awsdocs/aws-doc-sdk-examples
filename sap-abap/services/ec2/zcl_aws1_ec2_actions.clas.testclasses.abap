@@ -4,7 +4,7 @@
 CLASS ltc_zcl_aws1_ec2_actions DEFINITION DEFERRED.
 CLASS zcl_aws1_ec2_actions DEFINITION LOCAL FRIENDS ltc_zcl_aws1_ec2_actions.
 
-CLASS ltc_zcl_aws1_ec2_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL HARMLESS.
+CLASS ltc_zcl_aws1_ec2_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
 
   PRIVATE SECTION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
@@ -12,6 +12,8 @@ CLASS ltc_zcl_aws1_ec2_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL H
     DATA ao_ec2 TYPE REF TO /aws1/if_ec2.
     DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     DATA ao_ec2_actions TYPE REF TO zcl_aws1_ec2_actions.
+    DATA av_vpc_id TYPE /aws1/ec2string.
+    DATA av_subnet_id TYPE /aws1/ec2string.
 
     METHODS: allocate_address FOR TESTING RAISING /aws1/cx_rt_generic,
       associate_address FOR TESTING RAISING /aws1/cx_rt_generic,
@@ -33,6 +35,8 @@ CLASS ltc_zcl_aws1_ec2_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL H
       stop_instances FOR TESTING RAISING /aws1/cx_rt_generic.
 
     METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
+    METHODS teardown RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
+
 
     METHODS:
       get_ami_id
@@ -59,8 +63,17 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_ec2 = /aws1/cl_ec2_factory=>create( ao_session ).
     ao_ec2_actions = NEW zcl_aws1_ec2_actions( ).
+    av_vpc_id = ao_ec2->createvpc( iv_cidrblock  = '10.10.0.0/16' )->get_vpc( )->get_vpcid( ).
+    av_subnet_id = ao_ec2->createsubnet( iv_vpcid = av_vpc_id
+                                               iv_cidrblock = '10.10.0.0/24' )->get_subnet( )->get_subnetid( ).
 
   ENDMETHOD.
+
+  METHOD teardown.
+    ao_ec2->deletesubnet( iv_subnetid = av_subnet_id ).
+    ao_ec2->deletevpc( iv_vpcid = av_vpc_id ).
+  ENDMETHOD.
+
   METHOD allocate_address.
     DATA(lo_result) = ao_ec2_actions->allocate_address( ).
 
@@ -72,13 +85,10 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
 
   ENDMETHOD.
   METHOD associate_address.
-    DATA(lv_vpc_id) = ao_ec2->createvpc( iv_cidrblock  = '10.10.0.0/16' )->get_vpc( )->get_vpcid( ).
-    DATA(lv_subnet_id) = ao_ec2->createsubnet( iv_vpcid = lv_vpc_id
-                                               iv_cidrblock = '10.10.0.0/24' )->get_subnet( )->get_subnetid( ).
     DATA(lv_internet_gateway_id) = ao_ec2->createinternetgateway( )->get_internetgateway( )->get_internetgatewayid( ).
     ao_ec2->attachinternetgateway( iv_internetgatewayid = lv_internet_gateway_id
-                                   iv_vpcid = lv_vpc_id ).
-    DATA(lv_instance_id) = run_instance( lv_subnet_id ).
+                                   iv_vpcid = av_vpc_id ).
+    DATA(lv_instance_id) = run_instance( av_subnet_id ).
     wait_until_status_change( iv_instance_id = lv_instance_id
                               iv_required_status = 'running' ).
     DATA(lv_allocation_id) = ao_ec2->allocateaddress( iv_domain = 'vpc' )->get_allocationid( ).
@@ -95,19 +105,14 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
     ao_ec2->releaseaddress( iv_allocationid = lv_allocation_id ).
     terminate_instance( lv_instance_id ).
     ao_ec2->detachinternetgateway( iv_internetgatewayid = lv_internet_gateway_id
-                                   iv_vpcid = lv_vpc_id ).
+                                   iv_vpcid = av_vpc_id ).
     ao_ec2->deleteinternetgateway( iv_internetgatewayid = lv_internet_gateway_id ).
-    ao_ec2->deletesubnet( iv_subnetid = lv_subnet_id ).
-    ao_ec2->deletevpc( iv_vpcid = lv_vpc_id ).
   ENDMETHOD.
   METHOD describe_addresses.
-    DATA(lv_vpc_id) = ao_ec2->createvpc( iv_cidrblock  = '10.11.0.0/16' )->get_vpc( )->get_vpcid( ).
-    DATA(lv_subnet_id) = ao_ec2->createsubnet( iv_vpcid = lv_vpc_id
-                                               iv_cidrblock = '10.11.0.0/24' )->get_subnet( )->get_subnetid( ).
     DATA(lv_internet_gateway_id) = ao_ec2->createinternetgateway( )->get_internetgateway( )->get_internetgatewayid( ).
     ao_ec2->attachinternetgateway( iv_internetgatewayid = lv_internet_gateway_id
-                                   iv_vpcid = lv_vpc_id ).
-    DATA(lv_instance_id) = run_instance( lv_subnet_id ).
+                                   iv_vpcid = av_vpc_id ).
+    DATA(lv_instance_id) = run_instance( av_subnet_id ).
     wait_until_status_change( iv_instance_id = lv_instance_id
                               iv_required_status = 'running' ).
 
@@ -131,19 +136,14 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
     ao_ec2->releaseaddress( iv_allocationid = lo_allocate_result->get_allocationid( ) ).
     terminate_instance( lv_instance_id ).
     ao_ec2->detachinternetgateway( iv_internetgatewayid = lv_internet_gateway_id
-                                   iv_vpcid = lv_vpc_id ).
+                                   iv_vpcid = av_vpc_id ).
     ao_ec2->deleteinternetgateway( iv_internetgatewayid = lv_internet_gateway_id ).
-    ao_ec2->deletesubnet( iv_subnetid = lv_subnet_id ).
-    ao_ec2->deletevpc( iv_vpcid = lv_vpc_id ).
   ENDMETHOD.
   METHOD release_address.
-    DATA(lv_vpc_id) = ao_ec2->createvpc( iv_cidrblock  = '10.12.0.0/16' )->get_vpc( )->get_vpcid( ).
-    DATA(lv_subnet_id) = ao_ec2->createsubnet( iv_vpcid = lv_vpc_id
-                                               iv_cidrblock = '10.12.0.0/24' )->get_subnet( )->get_subnetid( ).
     DATA(lv_internet_gateway_id) = ao_ec2->createinternetgateway( )->get_internetgateway( )->get_internetgatewayid( ).
     ao_ec2->attachinternetgateway( iv_internetgatewayid = lv_internet_gateway_id
-                                   iv_vpcid = lv_vpc_id ).
-    DATA(lv_instance_id) = run_instance( lv_subnet_id ).
+                                   iv_vpcid = av_vpc_id ).
+    DATA(lv_instance_id) = run_instance( av_subnet_id ).
     wait_until_status_change( iv_instance_id = lv_instance_id
                               iv_required_status = 'running' ).
 
@@ -168,20 +168,14 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
 
     terminate_instance( lv_instance_id ).
     ao_ec2->detachinternetgateway( iv_internetgatewayid = lv_internet_gateway_id
-                                   iv_vpcid = lv_vpc_id ).
+                                   iv_vpcid = av_vpc_id ).
     ao_ec2->deleteinternetgateway( iv_internetgatewayid = lv_internet_gateway_id ).
-    ao_ec2->deletesubnet( iv_subnetid = lv_subnet_id ).
-    ao_ec2->deletevpc( iv_vpcid = lv_vpc_id ).
   ENDMETHOD.
   METHOD create_instance.
-    DATA(lv_vpc_id) = ao_ec2->createvpc( iv_cidrblock  = '10.4.0.0/16' )->get_vpc( )->get_vpcid( ).
-    DATA(lv_subnet_id) = ao_ec2->createsubnet( iv_vpcid = lv_vpc_id
-                                               iv_cidrblock = '10.4.0.0/24' )->get_subnet( )->get_subnetid( ).
-
     DATA(lo_create_result) = ao_ec2_actions->create_instance(
         iv_ami_id = get_ami_id( )
         iv_tag_value = 'code-example-create-instance'
-        iv_subnet_id = lv_subnet_id ).
+        iv_subnet_id = av_subnet_id ).
     READ TABLE lo_create_result->get_instances( ) INTO DATA(lo_instance) INDEX 1.
     DATA(lv_current_status) = wait_until_status_change( iv_instance_id = lo_instance->get_instanceid( )
                                                         iv_required_status = 'running' ).
@@ -192,14 +186,9 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
       msg = |EC2 instance { lo_instance->get_instanceid( ) } should have been in 'running' state| ).
 
     terminate_instance( lo_instance->get_instanceid( ) ).
-    ao_ec2->deletesubnet( iv_subnetid = lv_subnet_id ).
-    ao_ec2->deletevpc( iv_vpcid = lv_vpc_id ).
   ENDMETHOD.
   METHOD monitor_instance.
-    DATA(lv_vpc_id) = ao_ec2->createvpc( iv_cidrblock  = '10.6.0.0/16' )->get_vpc( )->get_vpcid( ).
-    DATA(lv_subnet_id) = ao_ec2->createsubnet( iv_vpcid = lv_vpc_id
-                                               iv_cidrblock = '10.6.0.0/24' )->get_subnet( )->get_subnetid( ).
-    DATA(lv_instance_id) = run_instance( lv_subnet_id ).
+    DATA(lv_instance_id) = run_instance( av_subnet_id ).
     ao_ec2_actions->monitor_instance( lv_instance_id ).
     WAIT UP TO 5 SECONDS.
     DATA(lo_describe_result) = ao_ec2->describeinstances(
@@ -214,14 +203,9 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
           msg = |Detailed monitoring should have been enabled| ).
 
     terminate_instance( lv_instance_id ).
-    ao_ec2->deletesubnet( iv_subnetid = lv_subnet_id ).
-    ao_ec2->deletevpc( iv_vpcid = lv_vpc_id ).
   ENDMETHOD.
   METHOD reboot_instance.
-    DATA(lv_vpc_id) = ao_ec2->createvpc( iv_cidrblock  = '10.7.0.0/16' )->get_vpc( )->get_vpcid( ).
-    DATA(lv_subnet_id) = ao_ec2->createsubnet( iv_vpcid = lv_vpc_id
-                                               iv_cidrblock = '10.7.0.0/24' )->get_subnet( )->get_subnetid( ).
-    DATA(lv_instance_id) = run_instance( lv_subnet_id ).
+    DATA(lv_instance_id) = run_instance( av_subnet_id ).
     wait_until_status_change( iv_instance_id = lv_instance_id
                               iv_required_status = 'running' ).
     ao_ec2_actions->reboot_instance( lv_instance_id ).
@@ -234,14 +218,9 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
           msg = |Failed to reboot the specified instance| ).
 
     terminate_instance( lv_instance_id ).
-    ao_ec2->deletesubnet( iv_subnetid = lv_subnet_id ).
-    ao_ec2->deletevpc( iv_vpcid = lv_vpc_id ).
   ENDMETHOD.
   METHOD start_instances.
-    DATA(lv_vpc_id) = ao_ec2->createvpc( iv_cidrblock  = '10.8.0.0/16' )->get_vpc( )->get_vpcid( ).
-    DATA(lv_subnet_id) = ao_ec2->createsubnet( iv_vpcid = lv_vpc_id
-                                               iv_cidrblock = '10.8.0.0/24' )->get_subnet( )->get_subnetid( ).
-    DATA(lv_instance_id) = run_instance( lv_subnet_id ).
+    DATA(lv_instance_id) = run_instance( av_subnet_id ).
     wait_until_status_change( iv_instance_id = lv_instance_id
                               iv_required_status = 'running' ).
 
@@ -267,14 +246,9 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
           msg = |Failed to start a stopped instance| ).
 
     terminate_instance( lv_instance_id ).
-    ao_ec2->deletesubnet( iv_subnetid = lv_subnet_id ).
-    ao_ec2->deletevpc( iv_vpcid = lv_vpc_id ).
   ENDMETHOD.
   METHOD stop_instances.
-    DATA(lv_vpc_id) = ao_ec2->createvpc( iv_cidrblock  = '10.5.0.0/16' )->get_vpc( )->get_vpcid( ).
-    DATA(lv_subnet_id) = ao_ec2->createsubnet( iv_vpcid = lv_vpc_id
-                                               iv_cidrblock = '10.5.0.0/24' )->get_subnet( )->get_subnetid( ).
-    DATA(lv_instance_id) = run_instance( lv_subnet_id ).
+    DATA(lv_instance_id) = run_instance( av_subnet_id ).
     wait_until_status_change( iv_instance_id = lv_instance_id
                               iv_required_status = 'running' ).
     DATA(lo_stop_result) = ao_ec2_actions->stop_instance( lv_instance_id ).
@@ -292,22 +266,15 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
           msg = |Failed to stop a running instance| ).
 
     terminate_instance( lv_instance_id ).
-    ao_ec2->deletesubnet( iv_subnetid = lv_subnet_id ).
-    ao_ec2->deletevpc( iv_vpcid = lv_vpc_id ).
   ENDMETHOD.
   METHOD describe_instances.
-    DATA(lv_vpc_id) = ao_ec2->createvpc( iv_cidrblock  = '10.9.0.0/16' )->get_vpc( )->get_vpcid( ).
-    DATA(lv_subnet_id) = ao_ec2->createsubnet( iv_vpcid = lv_vpc_id
-                                               iv_cidrblock = '10.9.0.0/24' )->get_subnet( )->get_subnetid( ).
-    DATA(lv_instance_id) = run_instance( lv_subnet_id ).
+    DATA(lv_instance_id) = run_instance( av_subnet_id ).
     DATA(lo_describe_result) = ao_ec2_actions->describe_instances( ).
     READ TABLE lo_describe_result->get_reservations( ) INTO DATA(lo_reservation) INDEX 1.
     cl_abap_unit_assert=>assert_not_initial(
           act = lo_reservation->get_instances( )
           msg = |Instance List should not be empty| ).
     terminate_instance( lv_instance_id ).
-    ao_ec2->deletesubnet( iv_subnetid = lv_subnet_id ).
-    ao_ec2->deletevpc( iv_vpcid = lv_vpc_id ).
   ENDMETHOD.
   METHOD create_key_pair.
     CONSTANTS cv_key_name TYPE /aws1/ec2string VALUE 'code-example-create-key-pair'.
@@ -375,9 +342,8 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
   ENDMETHOD.
   METHOD create_security_group.
     CONSTANTS cv_security_group_name TYPE /aws1/ec2string VALUE 'code-example-create-security-group'.
-    DATA(lv_vpc_id) = ao_ec2->createvpc( iv_cidrblock  = '10.1.0.0/16' )->get_vpc( )->get_vpcid( ).
     DATA(lo_create_result) = ao_ec2_actions->create_security_group( iv_security_group_name = cv_security_group_name
-                                                                    iv_vpc_id = lv_vpc_id ).
+                                                                    iv_vpc_id = av_vpc_id ).
     DATA(lo_describe_result) = ao_ec2->describesecuritygroups(
       it_groupids = VALUE /aws1/cl_ec2groupidstrlist_w=>tt_groupidstringlist(
                       ( NEW /aws1/cl_ec2groupidstrlist_w( lo_create_result->get_groupid( ) ) )
@@ -395,22 +361,20 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
       msg = |Failed to create security group { cv_security_group_name }| ).
 
     ao_ec2->deletesecuritygroup( iv_groupid = lo_create_result->get_groupid( ) ).
-    ao_ec2->deletevpc( iv_vpcid = lv_vpc_id ).
   ENDMETHOD.
   METHOD delete_security_group.
     CONSTANTS cv_security_group_name TYPE /aws1/ec2string VALUE 'code-example-delete-security-group'.
-    DATA(lv_vpc_id) = ao_ec2->createvpc( iv_cidrblock  = '10.2.0.0/16' )->get_vpc( )->get_vpcid( ).
     DATA(lo_create_result) = ao_ec2->createsecuritygroup(
         iv_groupname = cv_security_group_name
         iv_description = |security group for delete_security_group test|
-        iv_vpcid = lv_vpc_id ).
+        iv_vpcid = av_vpc_id ).
     ao_ec2_actions->delete_security_group( lo_create_result->get_groupid( ) ).
     DATA(lo_describe_result) = ao_ec2->describesecuritygroups(
       it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
                       ( NEW /aws1/cl_ec2filter(
                         iv_name = 'vpc-id'
                         it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
-                          ( NEW /aws1/cl_ec2valuestringlist_w( lv_vpc_id ) )
+                          ( NEW /aws1/cl_ec2valuestringlist_w( av_vpc_id ) )
                         )
                       ) )
                     ) ).
@@ -426,15 +390,13 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
       act = lv_found
       msg = |Security Group { cv_security_group_name } should have been deleted| ).
 
-    ao_ec2->deletevpc( iv_vpcid = lv_vpc_id ).
   ENDMETHOD.
   METHOD describe_security_groups.
     CONSTANTS cv_security_group_name TYPE /aws1/ec2string VALUE 'code-example-describe-security-groups'.
-    DATA(lv_vpc_id) = ao_ec2->createvpc( iv_cidrblock  = '10.3.0.0/16' )->get_vpc( )->get_vpcid( ).
     DATA(lo_create_result) = ao_ec2->createsecuritygroup(
         iv_groupname = cv_security_group_name
         iv_description = |security group for describe_security_groups test|
-        iv_vpcid = lv_vpc_id ).
+        iv_vpcid = av_vpc_id ).
 
     DATA(lo_describe_result) = ao_ec2_actions->describe_security_groups( lo_create_result->get_groupid( ) ).
 
@@ -449,7 +411,6 @@ CLASS ltc_zcl_aws1_ec2_actions IMPLEMENTATION.
       msg = |Security Group { cv_security_group_name } should have been included in security group list| ).
 
     ao_ec2->deletesecuritygroup( iv_groupid = lo_create_result->get_groupid( ) ).
-    ao_ec2->deletevpc( iv_vpcid = lv_vpc_id ).
   ENDMETHOD.
   METHOD get_ami_id.
     CONSTANTS: cv_ami_name     TYPE string VALUE 'amzn2-ami-kernel-5.10-hvm*',
