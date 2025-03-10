@@ -1403,6 +1403,24 @@ bedrock-runtime_InvokeModel_StableDiffusion:
   services:
     bedrock-runtime: {InvokeModel}
 
+# Video Generation Models
+bedrock-runtime_Scenario_AmazonNova_TextToVideo:
+  title: Use Amazon Nova Reel to generate a video from a text prompt
+  title_abbrev: "Text-to-video"
+  synopsis: use Amazon Nova Reel to generate a video from a text prompt.
+  category: Amazon Nova Reel
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Use Amazon Nova Reel to generate a video from a text prompt.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.Scenario_AmazonNova_TextToVideo
+  services:
+    bedrock-runtime: {GetAsyncInvoke, StartAsyncInvoke}
+
 # Embedding Models
 bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings:
   title: Invoke Amazon Titan Text Embeddings on &BR;
