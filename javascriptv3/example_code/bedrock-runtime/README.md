@@ -52,8 +52,8 @@ functions within the same service.
 
 ### Amazon Nova
 
-- [Converse](models/amazonTitanText/converse.js#L4)
-- [ConverseStream](models/mistral/converse.js#L4)
+- [Converse](models/amazonNovaText/converse.js#L4)
+- [ConverseStream](models/amazonNovaText/converseStream.js#L4)
 
 ### Amazon Nova Canvas
 
