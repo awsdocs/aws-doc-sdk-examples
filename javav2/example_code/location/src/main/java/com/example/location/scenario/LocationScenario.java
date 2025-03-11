@@ -36,12 +36,12 @@ public class LocationScenario {
         //    System.exit(1);
        // }
 
-        String mapName = "MyMap" ; //args[0];
-        String keyName = "MyLocationKey" ; //args[1];
-        String collectionName = "AWSLocationCollection" ; //args[2];
-        String geoId = "geoId1"; //args[4];
-        String trackerName = "geoTracker1"; //args[5];
-        String calculatorName = "AWSRouteCalc32"; //args[6];
+        String mapName = "MyMap40" ; //args[0];
+        String keyName = "MyLocationKey40" ; //args[1];
+        String collectionName = "AWSLocationCollection40" ; //args[2];
+        String geoId = "geoId40"; //args[4];
+        String trackerName = "geoTracker40"; //args[5];
+        String calculatorName = "AWSRouteCalc40"; //args[6];
         String deviceId = "iPhone-112359" ; //args[7];
 
         logger.info("""
@@ -183,7 +183,30 @@ public class LocationScenario {
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
-        logger.info("11. Delete the AWS Location Services resources.");
+        logger.info("11. AWS Location Services exposes higher level APIs to perform additional operations.");
+        logger.info("""
+        This scenario will show use of the GeoPlacesClient that enables  
+        location search and geocoding capabilities for your applications.\s
+        
+        We are going to use this client to perform these tasks:
+         - Reverse Geocoding (reverseGeocode): Converts geographic coordinates into addresses.
+         - Place Search (searchText): Finds places based on search queries.
+         - Nearby Search (searchNearby): Finds places near a specific location.
+        """);
+
+        logger.info("First we will perform a Reverse Geocoding operation");
+        waitForInputToContinue(scanner);
+        locationActions.reverseGeocode();
+        logger.info("Now we are going to perform a text search using coffee shop.");
+        waitForInputToContinue(scanner);
+        locationActions.searchText("coffee shop");
+
+        logger.info("Now we are going to perform a nearby Search.");
+        waitForInputToContinue(scanner);
+        locationActions.searchNearBy();
+        logger.info(DASHES);
+
+        logger.info("12. Delete the AWS Location Services resources.");
         logger.info("Would you like to delete the AWS Location Services resources? (y/n)");
         String delAns = scanner.nextLine().trim();
         if (delAns.equalsIgnoreCase("y")) {
