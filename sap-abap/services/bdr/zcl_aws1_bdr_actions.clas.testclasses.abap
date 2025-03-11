@@ -4,7 +4,7 @@
 CLASS ltc_zcl_aws1_bdr_actions DEFINITION DEFERRED.
 CLASS zcl_aws1_bdr_actions DEFINITION LOCAL FRIENDS ltc_zcl_aws1_bdr_actions.
 
-CLASS ltc_zcl_aws1_bdr_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL HARMLESS.
+CLASS ltc_zcl_aws1_bdr_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
 
   PRIVATE SECTION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
