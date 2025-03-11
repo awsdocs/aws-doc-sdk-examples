@@ -5,10 +5,18 @@ package com.example.location.scenario;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.services.geoplaces.GeoPlacesAsyncClient;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
+import software.amazon.awssdk.services.geoplaces.model.GetPlaceRequest;
+import software.amazon.awssdk.services.geoplaces.model.ReverseGeocodeRequest;
+import software.amazon.awssdk.services.geoplaces.model.ReverseGeocodeResponse;
+import software.amazon.awssdk.services.geoplaces.model.SearchNearbyRequest;
+import software.amazon.awssdk.services.geoplaces.model.SearchNearbyResponse;
+import software.amazon.awssdk.services.geoplaces.model.SearchTextRequest;
+import software.amazon.awssdk.services.geoplaces.model.SearchTextResponse;
 import software.amazon.awssdk.services.location.LocationAsyncClient;
 import software.amazon.awssdk.services.location.model.ApiKeyRestrictions;
 import software.amazon.awssdk.services.location.model.BatchUpdateDevicePositionRequest;
@@ -45,14 +53,18 @@ import software.amazon.awssdk.services.location.model.ValidationException;
 import software.amazon.awssdk.services.location.paginators.ListGeofencesPublisher;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
+// snippet-start:[location.java2.actions.main]
 public class LocationActions {
 
     private static LocationAsyncClient locationAsyncClient;
+
+    private static GeoPlacesAsyncClient geoPlacesAsyncClient;
     private static final Logger logger = LoggerFactory.getLogger(LocationActions.class);
 
     // This Singleton pattern ensures that only one `LocationClient`
@@ -80,6 +92,140 @@ public class LocationActions {
         return locationAsyncClient;
     }
 
+    private static GeoPlacesAsyncClient getGeoPlacesClient() {
+        if (geoPlacesAsyncClient == null) {
+            SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
+                .maxConcurrency(100)
+                .connectionTimeout(Duration.ofSeconds(60))
+                .readTimeout(Duration.ofSeconds(60))
+                .writeTimeout(Duration.ofSeconds(60))
+                .build();
+
+            ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
+                .apiCallTimeout(Duration.ofMinutes(2))
+                .apiCallAttemptTimeout(Duration.ofSeconds(90))
+                .retryStrategy(RetryMode.STANDARD)
+                .build();
+
+            geoPlacesAsyncClient = GeoPlacesAsyncClient.builder()
+                .httpClient(httpClient)
+                .overrideConfiguration(overrideConfig)
+                .build();
+        }
+        return geoPlacesAsyncClient;
+    }
+
+    public void searchNearBy() {
+        double latitude = 37.7749;  // San Francisco
+        double longitude = -122.4194;
+        List<Double> queryPosition = List.of(longitude, latitude);
+
+        // Set up the request for searching nearby places
+        SearchNearbyRequest request = SearchNearbyRequest.builder()
+            .queryPosition(queryPosition)  // Set the position (latitude, longitude)
+            .queryRadius(1000L)  // Radius in meters (1000 meters = 1 km)
+            .build();
+
+        CompletableFuture<SearchNearbyResponse> futureResponse = getGeoPlacesClient().searchNearby(request);
+
+        futureResponse.whenComplete((response, exception) -> {
+            if (exception != null) {
+                throw new RuntimeException("Error performing nearby search", exception);
+            }
+
+            // Process the response and print the results
+            response.resultItems().forEach(result -> {
+                System.out.println("Place Name: " + result.placeType().name());
+                System.out.println("Address: " + result.address().label());
+                System.out.println("Distance: " + result.distance() + " meters");
+                System.out.println("-------------------------");
+            });
+        }).join(); // Ensures the main thread waits for completion
+    }
+
+
+    public void searchText(String searchQuery) {
+        double latitude = 37.7749;  // San Francisco
+        double longitude = -122.4194;
+        List<Double> queryPosition = List.of(longitude, latitude);
+
+        SearchTextRequest request = SearchTextRequest.builder()
+            .queryText(searchQuery)  // Search for "coffee shop"
+            .biasPosition(queryPosition)
+            .build();
+
+        // Asynchronous search request
+        CompletableFuture<SearchTextResponse> futureResponse = getGeoPlacesClient().searchText(request);
+
+        futureResponse.whenComplete((response, exception) -> {
+            if (exception != null) {
+                throw new RuntimeException("Error performing place search", exception);
+            }
+
+            // Process the response and fetch detailed information about the place
+            response.resultItems().stream().findFirst().ifPresent(result -> {
+                String placeId = result.placeId(); // Get Place ID
+                System.out.println("Found Place with id: " + placeId);
+
+                // Fetch detailed info using getPlace()
+                GetPlaceRequest getPlaceRequest = GetPlaceRequest.builder()
+                    .placeId(placeId)
+                    .build();
+
+                getGeoPlacesClient().getPlace(getPlaceRequest)
+                    .whenComplete((placeResponse, placeException) -> {
+                        if (placeException != null) {
+                            throw new CompletionException("Error fetching place details", placeException);
+                        }
+
+                        // Print detailed place information
+                        System.out.println("Detailed Place Information:");
+                        System.out.println("Name: " + placeResponse.placeType().name());
+                        System.out.println("Address: " + placeResponse.address().label());
+
+                        // Print each food type (if any)
+                        if (placeResponse.foodTypes() != null && !placeResponse.foodTypes().isEmpty()) {
+                            System.out.println("Food Types:");
+                            placeResponse.foodTypes().forEach(foodType -> {
+                                System.out.println("  - " + foodType);
+                            });
+                        } else {
+                            System.out.println("No food types available.");
+                        }
+
+                        System.out.println("-------------------------");
+                    }).join(); // Waits for getPlace response
+            });
+        }).join(); // Ensures main thread waits for completion
+    }
+
+
+    public void reverseGeocode() {
+        double latitude = 37.7749;  // San Francisco
+        double longitude = -122.4194;
+        System.out.println("Use latitude 37.7749 and longitude -122.4194");
+
+        // AWS expects [longitude, latitude]
+        List<Double> queryPosition = List.of(longitude, latitude);
+        ReverseGeocodeRequest request = ReverseGeocodeRequest.builder()
+            .queryPosition(queryPosition)
+            .build();
+        CompletableFuture<ReverseGeocodeResponse> futureResponse =
+            getGeoPlacesClient().reverseGeocode(request);
+
+        futureResponse.whenComplete((response, exception) -> {
+            if (exception != null) {
+                throw new CompletionException("Error performing reverse geocoding", exception);
+            }
+
+            response.resultItems().forEach(result ->
+                System.out.println("The address is: " + result.address().label())
+            );
+        }).join(); // Ensures main thread waits for completion
+    }
+
+
+    // snippet-start:[location.java2.calc.distance.main]
     /**
      * Calculates the distance between two locations asynchronously.
      *
@@ -103,7 +249,7 @@ public class LocationActions {
             .whenComplete((response, exception) -> {
                 if (response != null) {
                     logger.info("Total Distance: " + response.summary().distance() + " km");
-                    logger.info("Estimated Duration: " + response.summary().durationSeconds() / 60 + " minutes");
+                    logger.info("Estimated Duration by car is: " + response.summary().durationSeconds() / 60 + " minutes");
                 } else {
                     if (exception == null) {
                         throw new CompletionException("An unknown error occurred while calculating route.", null);
@@ -118,7 +264,9 @@ public class LocationActions {
                 }
             });
     }
+    // snippet-end:[location.java2.calc.distance.main]
 
+    // snippet-start:[location.java2.create.calculator.main]
     /**
      * Creates a new route calculator with the specified name and data source.
      *
@@ -148,7 +296,9 @@ public class LocationActions {
                 }
             });
     }
+    // snippet-end:[location.java2.create.calculator.main]
 
+    // snippet-start:[location.java2.get.device.position.main]
     /**
      * Retrieves the position of a device using the provided LocationClient.
      *
@@ -180,7 +330,9 @@ public class LocationActions {
                 }
             });
     }
+    // snippet-end:[location.java2.get.device.position.main]
 
+    // snippet-start:[location.java2.update.device.position.main]
     /**
      * Updates the position of a device in the location tracking system.
      *
@@ -223,7 +375,9 @@ public class LocationActions {
                 }
             });
     }
+    // snippet-end:[location.java2.update.device.position.main]
 
+    // snippet-start:[location.java2.create.tracker.main]
     /**
      * Creates a new tracker resource in your AWS account, which you can use to track the location of devices.
      *
@@ -254,13 +408,9 @@ public class LocationActions {
                 }
             }).thenApply(CreateTrackerResponse::trackerArn); // Return tracker ARN
     }
+    // snippet-start:[location.java2.create.tracker.main]
 
-    /**
-     * Lists the geofences in the specified collection.
-     *
-     * @param collectionName the name of the geofence collection to list
-     */
-
+    // snippet-start:[location.java2.put.geo.main]
     /**
      * Adds a new geofence to the specified collection.
      *
@@ -304,7 +454,9 @@ public class LocationActions {
                 }
             });
     }
+    // snippet-end:[location.java2.put.geo.main]
 
+    // snippet-start:[location.java2.create.collection.main]
     /**
      * Creates a new geofence collection.
      *
@@ -333,7 +485,9 @@ public class LocationActions {
                 }
             });
     }
+    // snippet-end:[location.java2.create.collection.main]
 
+    // snippet-start:[location.java2.create.key.main]
     /**
      * Creates a new API key with the specified name and restrictions.
      *
@@ -372,7 +526,9 @@ public class LocationActions {
                 }
             }).thenApply(response -> response != null ? response.keyArn() : null); // Return the key ARN
     }
+    // snippet-end:[location.java2.create.key.main]
 
+    // snippet-start:[location.java2.create.map.main]
     /**
      * Creates a new map with the specified name and configuration.
      *
@@ -408,7 +564,9 @@ public class LocationActions {
                 }
             }).thenApply(response -> response != null ? response.mapArn() : null); // Return the map ARN
     }
+    // snippet-end:[location.java2.create.map.main]
 
+    // snippet-start:[location.java2.delete.collection.main]
     /**
      * Deletes a geofence collection asynchronously.
      *
@@ -438,7 +596,9 @@ public class LocationActions {
                 }
             }).thenApply(response -> null); // Ensures the method returns CompletableFuture<Void>
     }
+    // snippet-end:[location.java2.delete.collection.main]
 
+    // snippet-start:[location.java2.delete.key.main]
     /**
      * Deletes the specified key from the key-value store.
      *
@@ -469,7 +629,9 @@ public class LocationActions {
                 }
             }).thenApply(response -> null); // Ensures the method returns CompletableFuture<Void>
     }
+    // snippet-end:[location.java2.delete.key.main]
 
+    // snippet-start:[location.java2.delete.map.main]
     /**
      * Deletes a map with the specified name.
      *
@@ -499,7 +661,9 @@ public class LocationActions {
                 }
             }).thenApply(response -> null);
     }
+    // snippet-end:[location.java2.delete.map.main]
 
+    // snippet-start:[location.java2.delete.tracker.main]
     /**
      * Deletes a tracker with the specified name.
      *
@@ -532,7 +696,9 @@ public class LocationActions {
                 }
             }).thenApply(response -> null);
     }
+    // snippet-end:[location.java2.delete.tracker.main]
 
+    // snippet-start:[location.java2.delete.calculator.main]
     /**
      * Deletes a route calculator from the system.
      *
@@ -565,5 +731,6 @@ public class LocationActions {
                 }
             }).thenApply(response -> null);
     }
+    // snippet-end:[location.java2.delete.calculator.main]
 }
-
+// snippet-end:[location.java2.actions.main]
