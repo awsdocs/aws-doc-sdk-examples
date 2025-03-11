@@ -1,25 +1,25 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 
-class ZCL_AWS1_LMD_SCENARIO definition
-  public
-  final
-  create public .
+CLASS zcl_aws1_lmd_scenario DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
-protected section.
-private section.
+  PUBLIC SECTION.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
 
-  methods GETTING_STARTED_WITH_FUNCTIONS
-    importing
-      !IV_ROLE_NAME type /AWS1/IAMROLENAMETYPE
-      !IV_FUNCTION_NAME type /AWS1/LMDFUNCTIONNAME
-      !IV_HANDLER type /AWS1/LMDHANDLER
-      !IO_INITIAL_ZIP_FILE type ref to /AWS1/CL_LMDFUNCTIONCODE
-      !IO_UPDATED_ZIP_FILE type /AWS1/LMDBLOB
-    exporting
-      !OV_UPDATED_INVOKE_PAYLOAD type /AWS1/LMDBLOB
-      !OV_INITIAL_INVOKE_PAYLOAD type /AWS1/LMDBLOB .
+    METHODS getting_started_with_functions
+      IMPORTING
+      !iv_role_name TYPE /aws1/iamrolenametype
+      !iv_function_name TYPE /aws1/lmdfunctionname
+      !iv_handler TYPE /aws1/lmdhandler
+      !io_initial_zip_file TYPE REF TO /aws1/cl_lmdfunctioncode
+      !io_updated_zip_file TYPE /aws1/lmdblob
+      EXPORTING
+      !ov_updated_invoke_payload TYPE /aws1/lmdblob
+      !ov_initial_invoke_payload TYPE /aws1/lmdblob .
 ENDCLASS.
 
 
@@ -29,7 +29,7 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
 
   METHOD getting_started_with_functions.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_iam) = /aws1/cl_iam_factory=>create( lo_session ).
@@ -57,15 +57,16 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
                   `]` &&
                 `}`.
         TRY.
-            DATA(lo_create_role_output) =  lo_iam->createrole(
+            DATA(lo_create_role_output) = lo_iam->createrole(
                     iv_rolename = iv_role_name
                     iv_assumerolepolicydocument = lv_policy_document
-                    iv_description = 'Grant lambda permission to write to logs'
-                ).
+                    iv_description = 'Grant lambda permission to write to logs' ).
+            DATA(lv_role_arn) = lo_create_role_output->get_role( )->get_arn( ).
             MESSAGE 'IAM role created.' TYPE 'I'.
             WAIT UP TO 10 SECONDS.            " Make sure that the IAM role is ready for use. "
           CATCH /aws1/cx_iamentityalrdyexex.
-            MESSAGE 'IAM role already exists.' TYPE 'E'.
+            DATA(lo_role) = lo_iam->getrole( iv_rolename = iv_role_name ).
+            lv_role_arn = lo_role->get_role( )->get_arn( ).
           CATCH /aws1/cx_iaminvalidinputex.
             MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
           CATCH /aws1/cx_iammalformedplydocex.
@@ -75,8 +76,7 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
         TRY.
             lo_iam->attachrolepolicy(
                 iv_rolename  = iv_role_name
-                iv_policyarn = 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
-            ).
+                iv_policyarn = 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole' ).
             MESSAGE 'Attached policy to the IAM role.' TYPE 'I'.
           CATCH /aws1/cx_iaminvalidinputex.
             MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
@@ -94,11 +94,10 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
             lo_lmd->createfunction(
                  iv_functionname = iv_function_name
                  iv_runtime = `python3.9`
-                 iv_role = lo_create_role_output->get_role( )->get_arn( )
+                 iv_role = lv_role_arn
                  iv_handler = iv_handler
                  io_code = io_initial_zip_file
-                 iv_description = 'AWS Lambda code example'
-             ).
+                 iv_description = 'AWS Lambda code example' ).
             MESSAGE 'Lambda function created.' TYPE 'I'.
           CATCH /aws1/cx_lmdcodestorageexcdex.
             MESSAGE 'Maximum total code size per account exceeded.' TYPE 'E'.
@@ -122,12 +121,10 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
               `{`  &&
                 `"action": "increment",`  &&
                 `"number": 10` &&
-              `}`
-            ).
-            DATA(lo_initial_invoke_output) =  lo_lmd->invoke(
+              `}` ).
+            DATA(lo_initial_invoke_output) = lo_lmd->invoke(
                        iv_functionname = iv_function_name
-                       iv_payload = lv_json
-                   ).
+                       iv_payload = lv_json ).
             ov_initial_invoke_payload = lo_initial_invoke_output->get_payload( ).           " ov_initial_invoke_payload is returned for testing purposes. "
             DATA(lo_writer_json) = cl_sxml_string_writer=>create( type = if_sxml=>co_xt_json ).
             CALL TRANSFORMATION id SOURCE XML ov_initial_invoke_payload RESULT XML lo_writer_json.
@@ -148,8 +145,7 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
         TRY.
             lo_lmd->updatefunctioncode(
                   iv_functionname = iv_function_name
-                  iv_zipfile = io_updated_zip_file
-              ).
+                  iv_zipfile = io_updated_zip_file ).
             WAIT UP TO 10 SECONDS.            " Make sure that the update is completed. "
             MESSAGE 'Lambda function code updated.' TYPE 'I'.
           CATCH /aws1/cx_lmdcodestorageexcdex.
@@ -169,8 +165,7 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
 
             lo_lmd->updatefunctionconfiguration(
                   iv_functionname = iv_function_name
-                  io_environment = NEW /aws1/cl_lmdenvironment( it_variables = lt_variables )
-              ).
+                  io_environment = NEW /aws1/cl_lmdenvironment( it_variables = lt_variables ) ).
             WAIT UP TO 10 SECONDS.            " Make sure that the update is completed. "
             MESSAGE 'Lambda function configuration/settings updated.' TYPE 'I'.
           CATCH /aws1/cx_lmdinvparamvalueex.
@@ -187,12 +182,10 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
               `{`  &&
                 `"action": "decrement",`  &&
                 `"number": 10` &&
-              `}`
-            ).
-            DATA(lo_updated_invoke_output) =  lo_lmd->invoke(
+              `}` ).
+            DATA(lo_updated_invoke_output) = lo_lmd->invoke(
                        iv_functionname = iv_function_name
-                       iv_payload = lv_json
-                   ).
+                       iv_payload = lv_json ).
             ov_updated_invoke_payload = lo_updated_invoke_output->get_payload( ).           " ov_updated_invoke_payload is returned for testing purposes. "
             lo_writer_json = cl_sxml_string_writer=>create( type = if_sxml=>co_xt_json ).
             CALL TRANSFORMATION id SOURCE XML ov_updated_invoke_payload RESULT XML lo_writer_json.
@@ -224,20 +217,19 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
           CATCH /aws1/cx_lmdinvparamvalueex.
             MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
           CATCH /aws1/cx_lmdresourcenotfoundex.
-            MESSAGE 'The requested resource does not exist.' TYPE 'E'.
+            MESSAGE 'The requested resource does not exist.' TYPE 'W'.
         ENDTRY.
 
         " Detach role policy. "
         TRY.
             lo_iam->detachrolepolicy(
                 iv_rolename  = iv_role_name
-                iv_policyarn = 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
-            ).
+                iv_policyarn = 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole' ).
             MESSAGE 'Detached policy from the IAM role.' TYPE 'I'.
           CATCH /aws1/cx_iaminvalidinputex.
             MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
           CATCH /aws1/cx_iamnosuchentityex.
-            MESSAGE 'The requested resource entity does not exist.' TYPE 'E'.
+            MESSAGE 'The requested resource entity does not exist.' TYPE 'W'.
           CATCH /aws1/cx_iamplynotattachableex.
             MESSAGE 'Service role policies can only be attached to the service-linked role for their service.' TYPE 'E'.
           CATCH /aws1/cx_iamunmodableentityex.
@@ -249,7 +241,7 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
             lo_iam->deleterole( iv_rolename = iv_role_name ).
             MESSAGE 'IAM role deleted.' TYPE 'I'.
           CATCH /aws1/cx_iamnosuchentityex.
-            MESSAGE 'The requested resource entity does not exist.' TYPE 'E'.
+            MESSAGE 'The requested resource entity does not exist.' TYPE 'W'.
           CATCH /aws1/cx_iamunmodableentityex.
             MESSAGE 'Service that depends on the service-linked role is not modifiable.' TYPE 'E'.
         ENDTRY.

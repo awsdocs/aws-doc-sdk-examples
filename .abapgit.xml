@@ -8,6 +8,7 @@
    <IGNORE>
     <item>/sap-abap/README.md</item>
     <item>/sap-abap/services/bdr/README.md</item>
+    <item>/sap-abap/services/bdz/README.md</item>
     <item>/sap-abap/services/cloudwatch/README.md</item>
     <item>/sap-abap/services/dyn/README.md</item>
     <item>/sap-abap/services/ec2/README.md</item>

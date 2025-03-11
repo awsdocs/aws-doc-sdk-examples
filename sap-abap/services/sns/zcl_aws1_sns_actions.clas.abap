@@ -1,54 +1,54 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 
-class ZCL_AWS1_SNS_ACTIONS definition
-  public
-  final
-  create public .
+CLASS zcl_aws1_sns_actions DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  methods CREATE_TOPIC
-    importing
-      !IV_TOPIC_NAME type /AWS1/SNSTOPICNAME
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_SNSCREATETOPICRSP .
-  methods DELETE_TOPIC
-    importing
-      !IV_TOPIC_ARN type /AWS1/SNSTOPICARN .
-  methods GET_TOPIC_ATTRIBUTES
-    importing
-      !IV_TOPIC_ARN type /AWS1/SNSTOPICARN
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_SNSGETTOPICATTRSRSP .
-  methods SUBSCRIBE_EMAIL
-    importing
-      !IV_TOPIC_ARN type /AWS1/SNSTOPICARN
-      !IV_EMAIL_ADDRESS type /AWS1/SNSENDPOINT2
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_SNSSUBSCRIBERESPONSE .
-  methods UNSUBSCRIBE
-    importing
-      !IV_SUBSCRIPTION_ARN type /AWS1/SNSSUBSCRIPTIONARN .
-  methods LIST_SUBSCRIPTIONS
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_SNSLSTSUBSCRIPTIONS01 .
-  methods LIST_TOPICS
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_SNSLISTTOPICSRESPONSE .
-  methods PUBLISH_TO_TOPIC
-    importing
-      !IV_TOPIC_ARN type /AWS1/SNSSTRING
-      !IV_MESSAGE type /AWS1/SNSMESSAGE
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_SNSPUBLISHRESPONSE .
-  methods SET_TOPIC_ATTRIBUTES
-    importing
-      !IV_TOPIC_ARN type /AWS1/SNSTOPICARN
-      !IV_ATTRIBUTE_NAME type /AWS1/SNSATTRIBUTENAME
-      !IV_ATTRIBUTE_VALUE type /AWS1/SNSATTRIBUTEVALUE .
-protected section.
-private section.
+    METHODS create_topic
+      IMPORTING
+      !iv_topic_name TYPE /aws1/snstopicname
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_snscreatetopicrsp .
+    METHODS delete_topic
+      IMPORTING
+      !iv_topic_arn TYPE /aws1/snstopicarn .
+    METHODS get_topic_attributes
+      IMPORTING
+      !iv_topic_arn TYPE /aws1/snstopicarn
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_snsgettopicattrsrsp .
+    METHODS subscribe_email
+      IMPORTING
+      !iv_topic_arn TYPE /aws1/snstopicarn
+      !iv_email_address TYPE /aws1/snsendpoint2
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_snssubscriberesponse .
+    METHODS unsubscribe
+      IMPORTING
+      !iv_subscription_arn TYPE /aws1/snssubscriptionarn .
+    METHODS list_subscriptions
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_snslstsubscriptions01 .
+    METHODS list_topics
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_snslisttopicsresponse .
+    METHODS publish_to_topic
+      IMPORTING
+      !iv_topic_arn TYPE /aws1/snsstring
+      !iv_message TYPE /aws1/snsmessage
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_snspublishresponse .
+    METHODS set_topic_attributes
+      IMPORTING
+      !iv_topic_arn TYPE /aws1/snstopicarn
+      !iv_attribute_name TYPE /aws1/snsattributename
+      !iv_attribute_value TYPE /aws1/snsattributevalue .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
 ENDCLASS.
 
 
@@ -57,7 +57,7 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
 
   METHOD create_topic.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sns) = /aws1/cl_sns_factory=>create( lo_session ).
@@ -74,7 +74,7 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
 
   METHOD delete_topic.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sns) = /aws1/cl_sns_factory=>create( lo_session ).
@@ -91,7 +91,7 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
 
   METHOD get_topic_attributes.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sns) = /aws1/cl_sns_factory=>create( lo_session ).
@@ -109,7 +109,7 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
 
   METHOD list_subscriptions.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sns) = /aws1/cl_sns_factory=>create( lo_session ).
@@ -127,7 +127,7 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
 
   METHOD list_topics.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sns) = /aws1/cl_sns_factory=>create( lo_session ).
@@ -145,7 +145,7 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
 
   METHOD publish_to_topic.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sns) = /aws1/cl_sns_factory=>create( lo_session ).
@@ -154,8 +154,7 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
     TRY.
         oo_result = lo_sns->publish(              " oo_result is returned for testing purposes. "
           iv_topicarn = iv_topic_arn
-          iv_message = iv_message
-        ).
+          iv_message = iv_message ).
         MESSAGE 'Message published to SNS topic.' TYPE 'I'.
       CATCH /aws1/cx_snsnotfoundexception.
         MESSAGE 'Topic does not exist.' TYPE 'E'.
@@ -165,7 +164,7 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
 
   METHOD set_topic_attributes.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sns) = /aws1/cl_sns_factory=>create( lo_session ).
@@ -175,8 +174,7 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
         lo_sns->settopicattributes(
             iv_topicarn = iv_topic_arn
             iv_attributename  = iv_attribute_name
-            iv_attributevalue = iv_attribute_value
-        ).
+            iv_attributevalue = iv_attribute_value ).
         MESSAGE 'Set/updated SNS topic attributes.' TYPE 'I'.
       CATCH /aws1/cx_snsnotfoundexception.
         MESSAGE 'Topic does not exist.' TYPE 'E'.
@@ -186,7 +184,7 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
 
   METHOD subscribe_email.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sns) = /aws1/cl_sns_factory=>create( lo_session ).
@@ -197,8 +195,7 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
                 iv_topicarn = iv_topic_arn
                 iv_protocol = 'email'
                 iv_endpoint = iv_email_address
-                iv_returnsubscriptionarn = abap_true
-            ).
+                iv_returnsubscriptionarn = abap_true ).
         MESSAGE 'Email address subscribed to SNS topic.' TYPE 'I'.
       CATCH /aws1/cx_snsnotfoundexception.
         MESSAGE 'Topic does not exist.' TYPE 'E'.
@@ -210,7 +207,7 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
 
   METHOD unsubscribe.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sns) = /aws1/cl_sns_factory=>create( lo_session ).

@@ -6,7 +6,7 @@ CLASS zcl_aws1_dyn_scenario DEFINITION LOCAL FRIENDS ltc_zcl_aws1_dyn_scenario.
 
 CLASS ltc_zcl_aws1_dyn_scenario DEFINITION FOR TESTING
   DURATION LONG
-  RISK LEVEL HARMLESS.
+  RISK LEVEL DANGEROUS.
 
   PROTECTED SECTION.
     METHODS test_dyn FOR TESTING RAISING /aws1/cx_rt_generic.
@@ -38,7 +38,7 @@ CLASS ltc_zcl_aws1_dyn_scenario IMPLEMENTATION.
   METHOD test_dyn.
     DATA(av_table_name) = |code-example-getting-startted-with-tables|.
     ao_dyn_scenario->getting_started_with_tables( av_table_name ).
-    assert_table_not_exist( iv_table_name = av_table_name ).
+    assert_table_not_exist( av_table_name ).
   ENDMETHOD.
 
   METHOD assert_table_not_exist.
