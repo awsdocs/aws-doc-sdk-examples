@@ -19,7 +19,7 @@ Geofences information.
 
 The AWS Location Service Basics scenario executes the following operations.
 
-1. **Create a schema mapping**:
+1. **Create a map**:
     - Description: Creates a map by invoking the `createMap` method.
     - Exception Handling: Check to see if a `ServiceQuotaExceededException` is thrown, which
       indicates that the operation was denied because the request would exceed the maximum quota. If the exception is thrown, display the information and end the program.
