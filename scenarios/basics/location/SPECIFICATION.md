@@ -422,27 +422,27 @@ Continuing with the program...
 
 The following table describes the metadata used in this Basics Scenario.
 
-| action                 | metadata file                  metadata key                               |
-|------------------------|---------------------------|--------------------------------------------|
-| `createKey`            | location_metadata.yaml    |location_CreateKey                          |
-| `createMap`            | location_metadata.yaml    |location_CreateMap                          |
-| `createCollection`     | location_metadata.yaml    |location_CreateGeofenceCollection           |
-| `putGeofence   `       | location_metadata.yaml    |location_PutGeofence                        |
-| `createTracker`        | location_metadata.yaml    |location_CreateTracker                      |
-| `updateDevicePosition` | location_metadata.yaml    |location_UpdateDevicePosition               |
-| `getDevicePosition`    | location_metadata.yaml    |location_GetDevicePosition                  |
-| `createRouteCalculator`| location_metadata.yaml    |location_CreateRouteCalculator              |
-| `calcDistance `        | location_metadata.yaml    |location_CalcuateDistance                   |
-| `deleteMap`            | location_metadata.yaml    |location_DeleteMap                          |
-| `deleteKey`            | location_metadata.yaml    |location_DeleteKey                          |
-| `deleteKey`            | location_metadata.yaml    |location_DeleteKey                          |
-| `deleteKey`            | location_metadata.yaml    |location_DeleteKey                          |
-| `deleteCollection`     | location_metadata.yaml    |location_deleteCollection                   |
-| `deleteTracker`        | location_metadata.yaml    |location_DeleteTracker                      |
-| `deleteTracker`        | location_metadata.yaml    |location_DeleteTracker                      |
-| `deleteCalculator`     | location_metadata.yaml    |location_DeleteCalculator                   |
-| `scenario`             | location_metadata.yaml    |location_Scenario                           |
-| `hello`                |  location_metadata.yaml   |location_Hello                              |
+| action                 | metadata file             |     metadata key                    |
+|------------------------|---------------------------|-------------------------------------|
+| `createKey`            | location_metadata.yaml    |location_CreateKey                   |
+| `createMap`            | location_metadata.yaml    |location_CreateMap                   |
+| `createCollection`     | location_metadata.yaml    |location_CreateGeofenceCollection    |
+| `putGeofence   `       | location_metadata.yaml    |location_PutGeofence                 |
+| `createTracker`        | location_metadata.yaml    |location_CreateTracker               |
+| `updateDevicePosition` | location_metadata.yaml    |location_UpdateDevicePosition        |
+| `getDevicePosition`    | location_metadata.yaml    |location_GetDevicePosition           |
+| `createRouteCalculator`| location_metadata.yaml    |location_CreateRouteCalculator       |
+| `calcDistance `        | location_metadata.yaml    |location_CalcuateDistance            |
+| `deleteMap`            | location_metadata.yaml    |location_DeleteMap                   |
+| `deleteKey`            | location_metadata.yaml    |location_DeleteKey                   |
+| `deleteKey`            | location_metadata.yaml    |location_DeleteKey                   |
+| `deleteKey`            | location_metadata.yaml    |location_DeleteKey                   |
+| `deleteCollection`     | location_metadata.yaml    |location_deleteCollection            |
+| `deleteTracker`        | location_metadata.yaml    |location_DeleteTracker               |
+| `deleteTracker`        | location_metadata.yaml    |location_DeleteTracker               |
+| `deleteCalculator`     | location_metadata.yaml    |location_DeleteCalculator            |
+| `scenario`             | location_metadata.yaml    |location_Scenario                    |
+| `hello`                |  location_metadata.yaml   |location_Hello                       |
 
 
 
