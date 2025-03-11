@@ -115,19 +115,27 @@ public class LocationActions {
         return geoPlacesAsyncClient;
     }
 
+    // snippet-start:[geoplaces.java2.search.near.main]
+    /**
+     * Performs a nearby places search based on the provided geographic coordinates (latitude and longitude).
+     * The method sends an asynchronous request to search for places within a 1-kilometer radius of the specified location.
+     * The results are processed and printed once the search completes successfully.
+     *
+     * The search is conducted using the specified latitude and longitude for San Francisco, with the search radius
+     * set to 1000 meters (1 kilometer).
+     */
     public void searchNearBy() {
         double latitude = 37.7749;  // San Francisco
         double longitude = -122.4194;
         List<Double> queryPosition = List.of(longitude, latitude);
 
-        // Set up the request for searching nearby places
+        // Set up the request for searching nearby places.
         SearchNearbyRequest request = SearchNearbyRequest.builder()
-            .queryPosition(queryPosition)  // Set the position (latitude, longitude)
+            .queryPosition(queryPosition)  // Set the position
             .queryRadius(1000L)  // Radius in meters (1000 meters = 1 km)
             .build();
 
         CompletableFuture<SearchNearbyResponse> futureResponse = getGeoPlacesClient().searchNearby(request);
-
         futureResponse.whenComplete((response, exception) -> {
             if (exception != null) {
                 throw new RuntimeException("Error performing nearby search", exception);
@@ -140,29 +148,33 @@ public class LocationActions {
                 System.out.println("Distance: " + result.distance() + " meters");
                 System.out.println("-------------------------");
             });
-        }).join(); // Ensures the main thread waits for completion
+        }).join();
     }
+    // snippet-end:[geoplaces.java2.search.near.main]
 
-
+    // snippet-start:[geoplaces.java2.search.text.main]
+    /**
+     * Searches for a place using the provided search query and prints the detailed information of the first result.
+     *
+     * @param searchQuery the search query to be used for the place search (ex, coffee shop)
+     */
     public void searchText(String searchQuery) {
         double latitude = 37.7749;  // San Francisco
         double longitude = -122.4194;
         List<Double> queryPosition = List.of(longitude, latitude);
 
         SearchTextRequest request = SearchTextRequest.builder()
-            .queryText(searchQuery)  // Search for "coffee shop"
+            .queryText(searchQuery)
             .biasPosition(queryPosition)
             .build();
 
-        // Asynchronous search request
         CompletableFuture<SearchTextResponse> futureResponse = getGeoPlacesClient().searchText(request);
-
         futureResponse.whenComplete((response, exception) -> {
             if (exception != null) {
                 throw new RuntimeException("Error performing place search", exception);
             }
 
-            // Process the response and fetch detailed information about the place
+            // Process the response and fetch detailed information about the place.
             response.resultItems().stream().findFirst().ifPresent(result -> {
                 String placeId = result.placeId(); // Get Place ID
                 System.out.println("Found Place with id: " + placeId);
@@ -178,12 +190,12 @@ public class LocationActions {
                             throw new CompletionException("Error fetching place details", placeException);
                         }
 
-                        // Print detailed place information
+                        // Print detailed place information.
                         System.out.println("Detailed Place Information:");
                         System.out.println("Name: " + placeResponse.placeType().name());
                         System.out.println("Address: " + placeResponse.address().label());
 
-                        // Print each food type (if any)
+                        // Print each food type (if any).
                         if (placeResponse.foodTypes() != null && !placeResponse.foodTypes().isEmpty()) {
                             System.out.println("Food Types:");
                             placeResponse.foodTypes().forEach(foodType -> {
@@ -194,18 +206,24 @@ public class LocationActions {
                         }
 
                         System.out.println("-------------------------");
-                    }).join(); // Waits for getPlace response
+                    }).join();
             });
-        }).join(); // Ensures main thread waits for completion
+        }).join();
     }
+    // snippet-end:[geoplaces.java2.search.text.main]
 
-
+    // snippet-start:[geoplaces.java2.geocode.main]
+    /**
+     * Performs reverse geocoding using the AWS Geo Places API.
+     * Reverse geocoding is the process of converting geographic coordinates (latitude and longitude) to a human-readable address.
+     * This method uses the latitude and longitude of San Francisco as the input, and prints the resulting address.
+     */
     public void reverseGeocode() {
         double latitude = 37.7749;  // San Francisco
         double longitude = -122.4194;
         System.out.println("Use latitude 37.7749 and longitude -122.4194");
 
-        // AWS expects [longitude, latitude]
+        // AWS expects [longitude, latitude].
         List<Double> queryPosition = List.of(longitude, latitude);
         ReverseGeocodeRequest request = ReverseGeocodeRequest.builder()
             .queryPosition(queryPosition)
@@ -221,9 +239,9 @@ public class LocationActions {
             response.resultItems().forEach(result ->
                 System.out.println("The address is: " + result.address().label())
             );
-        }).join(); // Ensures main thread waits for completion
+        }).join();
     }
-
+    // snippet-end:[geoplaces.java2.geocode.main]
 
     // snippet-start:[location.java2.calc.distance.main]
     /**
