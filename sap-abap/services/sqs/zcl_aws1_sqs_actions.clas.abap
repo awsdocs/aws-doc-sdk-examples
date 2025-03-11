@@ -158,7 +158,7 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
     TRY.
         oo_result = lo_sqs->receivemessage(           " oo_result is returned for testing purposes. "
                 iv_queueurl = iv_queue_url
-                iv_waittimeseconds = iv_wait_time     " Time in seconds for long polling, such as how long the call waits for a message to arrive in the queue before returning. " ).
+                iv_waittimeseconds = iv_wait_time ).    " Time in seconds for long polling, such as how long the call waits for a message to arrive in the queue before returning. " ).
         DATA(lt_messages) = oo_result->get_messages( ).
         MESSAGE 'Message received from SQS queue.' TYPE 'I'.
       CATCH /aws1/cx_sqsoverlimit.

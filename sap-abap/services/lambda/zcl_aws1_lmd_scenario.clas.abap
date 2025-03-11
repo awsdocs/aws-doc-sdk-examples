@@ -61,10 +61,12 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
                     iv_rolename = iv_role_name
                     iv_assumerolepolicydocument = lv_policy_document
                     iv_description = 'Grant lambda permission to write to logs' ).
+            data(lv_role_arn) = lo_create_role_output->get_role( )->get_arn( ).
             MESSAGE 'IAM role created.' TYPE 'I'.
             WAIT UP TO 10 SECONDS.            " Make sure that the IAM role is ready for use. "
           CATCH /aws1/cx_iamentityalrdyexex.
-            MESSAGE 'IAM role already exists.' TYPE 'E'.
+            data(lo_role) = lo_iam->getrole( iv_rolename = iv_role_name ).
+            lv_role_arn = lo_role->get_role( )->get_arn( ).
           CATCH /aws1/cx_iaminvalidinputex.
             MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
           CATCH /aws1/cx_iammalformedplydocex.
@@ -92,7 +94,7 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
             lo_lmd->createfunction(
                  iv_functionname = iv_function_name
                  iv_runtime = `python3.9`
-                 iv_role = lo_create_role_output->get_role( )->get_arn( )
+                 iv_role = lv_role_arn
                  iv_handler = iv_handler
                  io_code = io_initial_zip_file
                  iv_description = 'AWS Lambda code example' ).
@@ -215,7 +217,7 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
           CATCH /aws1/cx_lmdinvparamvalueex.
             MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
           CATCH /aws1/cx_lmdresourcenotfoundex.
-            MESSAGE 'The requested resource does not exist.' TYPE 'E'.
+            MESSAGE 'The requested resource does not exist.' TYPE 'W'.
         ENDTRY.
 
         " Detach role policy. "
@@ -227,7 +229,7 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
           CATCH /aws1/cx_iaminvalidinputex.
             MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
           CATCH /aws1/cx_iamnosuchentityex.
-            MESSAGE 'The requested resource entity does not exist.' TYPE 'E'.
+            MESSAGE 'The requested resource entity does not exist.' TYPE 'W'.
           CATCH /aws1/cx_iamplynotattachableex.
             MESSAGE 'Service role policies can only be attached to the service-linked role for their service.' TYPE 'E'.
           CATCH /aws1/cx_iamunmodableentityex.
@@ -239,7 +241,7 @@ CLASS ZCL_AWS1_LMD_SCENARIO IMPLEMENTATION.
             lo_iam->deleterole( iv_rolename = iv_role_name ).
             MESSAGE 'IAM role deleted.' TYPE 'I'.
           CATCH /aws1/cx_iamnosuchentityex.
-            MESSAGE 'The requested resource entity does not exist.' TYPE 'E'.
+            MESSAGE 'The requested resource entity does not exist.' TYPE 'W'.
           CATCH /aws1/cx_iamunmodableentityex.
             MESSAGE 'Service that depends on the service-linked role is not modifiable.' TYPE 'E'.
         ENDTRY.

@@ -17,6 +17,8 @@ CLASS ltc_zcl_aws1_lmd_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL
     METHODS getting_started_scenario FOR TESTING RAISING /aws1/cx_rt_generic.
 
     METHODS: setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic,
+      teardown RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic,
+
       create_code
         RETURNING VALUE(oo_code) TYPE REF TO /aws1/cl_lmdfunctioncode
         RAISING   /aws1/cx_rt_generic,
@@ -39,6 +41,13 @@ CLASS ltc_zcl_aws1_lmd_scenario IMPLEMENTATION.
     ao_lmd_scenario = NEW zcl_aws1_lmd_scenario( ).
 
   ENDMETHOD.
+  METHOD teardown.
+    TRY.
+        ao_lmd->deletefunction( iv_functionname = cv_function_name ).
+      CATCH cx_root.
+    ENDTRY.
+  ENDMETHOD.
+
   METHOD getting_started_scenario.
     DATA lv_initial_invoke_payload TYPE /aws1/lmdblob.
     DATA lv_updated_invoke_payload TYPE /aws1/lmdblob.
