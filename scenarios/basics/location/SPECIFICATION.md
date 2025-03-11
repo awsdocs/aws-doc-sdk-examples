@@ -442,8 +442,9 @@ The following table describes the metadata used in this Basics Scenario.
 | `deleteTracker`        | location_metadata.yaml    |location_DeleteTracker               |
 | `deleteCalculator`     | location_metadata.yaml    |location_DeleteCalculator            |
 | `scenario`             | location_metadata.yaml    |location_Scenario                    |
-| `hello`                |  location_metadata.yaml   |location_Hello                       |
-
-
+| `hello`                | location_metadata.yaml    |location_Hello                       |
+| `reverseGeocode`       | geoplaces_metadata.yaml   |geoplaces_ReverseGeocode             |
+| `searchNearby`         | geoplaces_metadata.yaml   |geoplaces_SearchNearby               |
+| `searchText`           | geoplaces_metadata.yaml   |geoplaces_SearchText                 |
 
 
