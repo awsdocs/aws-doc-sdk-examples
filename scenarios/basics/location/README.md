@@ -1,42 +1,37 @@
-# AWS Entity Resolution Program
+# AWS Location Program
 
 ## Overview
-This AWS Entity Resolution basic scenario demonstrates how to interact with the AWS Entity Resolution service using an AWS SDK. This application demonstrates how to use AWS Entity Resolution to integrate and deduplicate data from multiple sources using machine learning-based matching. The program walks through setting up AWS resources, uploading structured data, defining schema mappings, creating a matching workflow, and running a matching job.
+
+This AWS Location service basic scenario demonstrates how to interact with the AWS Location service using an AWS SDK. This application demonstrates how to use AWS Location to perform tasks like creating a map, creating a tracker, and how to perform location searches. The program walks through various operations and then how to clean up the created AWS resources.
 
 
 **Note:** See the [specification document](SPECIFICATION.md) for a complete list of operations. 
 
 ## Features
 
-1. Uses AWS CloudFormation to create necessary resources:
+1. Creates a map 
 
-- AWS Glue Data Catalog table
+2. Create an AWS Location API key
 
-- AWS IAM role
+3. Display Map URL
 
-- AWS S3 bucket
+4. Create a geofence collection
 
-- AWS Entity Resolution Schema
+5. Store a geofence geometry in a given geofence collection
 
-2. Uploads sample JSON and CSV data to S3
+6. Create a tracker resource
 
-3. Creates schema mappings for JSON and CSV datasets
+7. Update the position of a device in the location tracking
 
-4. Creates and starts an Entity Resolution matching workflow
+8. Retrieve the most recent position
 
-5. Retrieves job details and schema mappings
+9. Create a route calculator.
 
-6. Lists available schema mappings
+10. Determine the distance between Seattle and Vancouver
 
-7. Tags AWS resources for better organization
+11. Perform search and geocoding tasks.
 
-8. Views the results of the workflow
-
-## Resources
-
-This Basics scenario requires an IAM role that has permissions to work with the AWS Entity Resolution service, 
-an AWS Glue database, and an S3 bucket. A CDK script is provided to create these resources. 
-See the resources [Readme](../../../resources/cdk/entityresolution_resources/README.md) file.
+12. Clean up AWS resources.
 
 ## Implementations
 
@@ -48,6 +43,6 @@ This scenario example will be implemented in the following languages:
 
 ## Additional Reading
 
-- [AWS Entity Resolution Documentation](https://docs.aws.amazon.com/entityresolution/latest/userguide/what-is-service.html)
+- [AWS Location Documentation](https://docs.aws.amazon.com/location/latest/developerguide/dev-sdks.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
