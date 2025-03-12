@@ -35,10 +35,7 @@ try {
                 'KeyType' => 'HASH'  //Partition key
             ]
         ],
-        'ProvisionedThroughput' => [
-            'ReadCapacityUnits'    => 5,
-            'WriteCapacityUnits' => 6
-        ]
+        'BillingMode' => 'PAY_PER_REQUEST'  // Use on-demand billing mode
     ]);
 
     $dynamodb->waitUntil('TableExists', [
