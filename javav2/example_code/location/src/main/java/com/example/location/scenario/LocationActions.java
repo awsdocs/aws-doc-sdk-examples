@@ -41,7 +41,6 @@ import software.amazon.awssdk.services.location.model.GeofenceGeometry;
 import software.amazon.awssdk.services.location.model.CreateTrackerResponse;
 import software.amazon.awssdk.services.location.model.GetDevicePositionRequest;
 import software.amazon.awssdk.services.location.model.GetDevicePositionResponse;
-import software.amazon.awssdk.services.location.model.ListGeofencesRequest;
 import software.amazon.awssdk.services.location.model.LocationException;
 import software.amazon.awssdk.services.location.model.MapConfiguration;
 import software.amazon.awssdk.services.location.model.PutGeofenceRequest;
@@ -50,10 +49,8 @@ import software.amazon.awssdk.services.location.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.location.model.ServiceQuotaExceededException;
 import software.amazon.awssdk.services.location.model.ThrottlingException;
 import software.amazon.awssdk.services.location.model.ValidationException;
-import software.amazon.awssdk.services.location.paginators.ListGeofencesPublisher;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -143,10 +140,10 @@ public class LocationActions {
 
             // Process the response and print the results
             response.resultItems().forEach(result -> {
-                System.out.println("Place Name: " + result.placeType().name());
-                System.out.println("Address: " + result.address().label());
-                System.out.println("Distance: " + result.distance() + " meters");
-                System.out.println("-------------------------");
+                logger.info("Place Name: " + result.placeType().name());
+                logger.info("Address: " + result.address().label());
+                logger.info("Distance: " + result.distance() + " meters");
+                logger.info("-------------------------");
             });
         }).join();
     }
@@ -177,7 +174,7 @@ public class LocationActions {
             // Process the response and fetch detailed information about the place.
             response.resultItems().stream().findFirst().ifPresent(result -> {
                 String placeId = result.placeId(); // Get Place ID
-                System.out.println("Found Place with id: " + placeId);
+                logger.info("Found Place with id: " + placeId);
 
                 // Fetch detailed info using getPlace.
                 GetPlaceRequest getPlaceRequest = GetPlaceRequest.builder()
@@ -191,21 +188,21 @@ public class LocationActions {
                         }
 
                         // Print detailed place information.
-                        System.out.println("Detailed Place Information:");
-                        System.out.println("Name: " + placeResponse.placeType().name());
-                        System.out.println("Address: " + placeResponse.address().label());
+                        logger.info("Detailed Place Information:");
+                        logger.info("Name: " + placeResponse.placeType().name());
+                        logger.info("Address: " + placeResponse.address().label());
 
                         // Print each food type (if any).
                         if (placeResponse.foodTypes() != null && !placeResponse.foodTypes().isEmpty()) {
-                            System.out.println("Food Types:");
+                            logger.info("Food Types:");
                             placeResponse.foodTypes().forEach(foodType -> {
-                                System.out.println("  - " + foodType);
+                                logger.info("  - " + foodType);
                             });
                         } else {
-                            System.out.println("No food types available.");
+                            logger.info("No food types available.");
                         }
 
-                        System.out.println("-------------------------");
+                        logger.info("-------------------------");
                     }).join();
             });
         }).join();
@@ -221,7 +218,7 @@ public class LocationActions {
     public void reverseGeocode() {
         double latitude = 37.7749;  // San Francisco
         double longitude = -122.4194;
-        System.out.println("Use latitude 37.7749 and longitude -122.4194");
+        logger.info("Use latitude 37.7749 and longitude -122.4194");
 
         // AWS expects [longitude, latitude].
         List<Double> queryPosition = List.of(longitude, latitude);
@@ -237,7 +234,7 @@ public class LocationActions {
             }
 
             response.resultItems().forEach(result ->
-                System.out.println("The address is: " + result.address().label())
+                logger.info("The address is: " + result.address().label())
             );
         }).join();
     }
