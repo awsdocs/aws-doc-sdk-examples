@@ -23,7 +23,7 @@ import java.util.Scanner
  * this program will not successfully run. For more information including how to create the local
  * image, see:
  *
- * /getting_started_scenarios/ecr_scenario/README
+ * /scenarios/basics/ecr/README
  *
  */
 

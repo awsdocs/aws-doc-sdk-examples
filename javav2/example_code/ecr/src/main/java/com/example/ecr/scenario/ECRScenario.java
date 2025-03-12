@@ -27,7 +27,7 @@ import java.util.Scanner;
  * this Java program will not successfully run. For more information including how to create the local
  * image, see:
  *
- * /getting_started_scenarios/ecr_scenario/README
+ * /scenarios/basics/ecr/README
  *
  */
 public class ECRScenario {
