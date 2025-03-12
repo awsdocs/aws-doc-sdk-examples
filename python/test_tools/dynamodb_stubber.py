@@ -77,12 +77,9 @@ class DynamoStubber(ExampleStubber):
                 out_item[key] = {value_type: out_val}
         return out_item
 
-    def stub_create_table(self, table_name, schema, throughput, error_code=None):
+    def stub_create_table(self, table_name, schema, error_code=None):
         table_input = {
-            "ProvisionedThroughput": {
-                "ReadCapacityUnits": throughput["read"],
-                "WriteCapacityUnits": throughput["write"],
-            }
+            "BillingMode": "PAY_PER_REQUEST",
         }
         self._add_table_schema(table_input, table_name, schema)
 
