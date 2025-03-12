@@ -4,12 +4,11 @@
 
 This AWS Location service basic scenario demonstrates how to interact with the AWS Location service using an AWS SDK. This application demonstrates how to use AWS Location to perform tasks like creating a map, creating a tracker, and how to perform location searches. The program walks through various operations and then how to clean up the created AWS resources.
 
-
 **Note:** See the [specification document](SPECIFICATION.md) for a complete list of operations. 
 
 ## Features
 
-1. Creates a map 
+1. Create a map 
 
 2. Create an AWS Location API key
 
