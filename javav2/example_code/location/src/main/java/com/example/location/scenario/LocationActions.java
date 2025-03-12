@@ -179,7 +179,7 @@ public class LocationActions {
                 String placeId = result.placeId(); // Get Place ID
                 System.out.println("Found Place with id: " + placeId);
 
-                // Fetch detailed info using getPlace()
+                // Fetch detailed info using getPlace.
                 GetPlaceRequest getPlaceRequest = GetPlaceRequest.builder()
                     .placeId(placeId)
                     .build();
