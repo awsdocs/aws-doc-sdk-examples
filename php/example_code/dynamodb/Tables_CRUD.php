@@ -32,10 +32,10 @@ try {
         'KeySchema' => [
             [
                 'AttributeName' => 'Id',
-                'KeyType' => 'HASH'  //Partition key
+                'KeyType' => 'HASH'  //Partition key.
             ]
         ],
-        'BillingMode' => 'PAY_PER_REQUEST'  // Use on-demand billing mode
+        'BillingMode' => 'PAY_PER_REQUEST'  // Use on-demand billing mode.
     ]);
 
     $dynamodb->waitUntil('TableExists', [
