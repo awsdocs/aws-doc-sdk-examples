@@ -1,7 +1,7 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 
-CLASS ltc_zcl_aws1_tex_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL HARMLESS.
+CLASS ltc_zcl_aws1_tex_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL DANGEROUS.
 
   PRIVATE SECTION.
 
@@ -12,7 +12,7 @@ CLASS ltc_zcl_aws1_tex_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL
     DATA ao_tex_scenario TYPE REF TO zcl_aws1_tex_scenario.
     DATA lv_found TYPE abap_bool VALUE abap_false.
 
-    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
     METHODS getting_started_with_tex FOR TESTING.
 
 ENDCLASS.       "ltc_Zcl_Aws1_Tex_Scenario

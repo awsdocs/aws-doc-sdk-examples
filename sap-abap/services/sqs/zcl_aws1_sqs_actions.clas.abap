@@ -1,54 +1,54 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 
-class ZCL_AWS1_SQS_ACTIONS definition
-  public
-  final
-  create public .
+CLASS zcl_aws1_sqs_actions DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
-protected section.
-private section.
+  PUBLIC SECTION.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
 
-  methods CREATE_QUEUE
-    importing
-      !IV_QUEUE_NAME type /AWS1/SQSSTRING
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_SQSCREATEQUEUERESULT .
-  methods DELETE_QUEUE
-    importing
-      !IV_QUEUE_URL type /AWS1/SQSSTRING .
-  methods SEND_MESSAGE
-    importing
-      !IV_QUEUE_URL type /AWS1/SQSSTRING
-      !IV_MESSAGE type /AWS1/SQSSTRING
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_SQSSENDMESSAGERESULT .
-  methods RECEIVE_MESSAGE
-    importing
-      !IV_QUEUE_URL type /AWS1/SQSSTRING
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_SQSRECEIVEMSGRESULT .
-  methods GET_QUEUE_URL
-    importing
-      !IV_QUEUE_NAME type /AWS1/SQSSTRING
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_SQSGETQUEUEURLRESULT .
-  methods LIST_QUEUES
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_SQSLISTQUEUESRESULT .
-  methods LONG_POLLING_ON_MSG_RECEIPT
-    importing
-      !IV_QUEUE_URL type /AWS1/SQSSTRING
-      !IV_WAIT_TIME type /AWS1/SQSINTEGER
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_SQSRECEIVEMSGRESULT .
-  methods LONG_POLLING_ON_CREATE_QUEUE
-    importing
-      !IV_QUEUE_NAME type /AWS1/SQSSTRING
-      !IV_WAIT_TIME type /AWS1/SQSSTRING
-    returning
-      value(OO_RESULT) type ref to /AWS1/CL_SQSCREATEQUEUERESULT .
+    METHODS create_queue
+      IMPORTING
+      !iv_queue_name TYPE /aws1/sqsstring
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_sqscreatequeueresult .
+    METHODS delete_queue
+      IMPORTING
+      !iv_queue_url TYPE /aws1/sqsstring .
+    METHODS send_message
+      IMPORTING
+      !iv_queue_url TYPE /aws1/sqsstring
+      !iv_message TYPE /aws1/sqsstring
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_sqssendmessageresult .
+    METHODS receive_message
+      IMPORTING
+      !iv_queue_url TYPE /aws1/sqsstring
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_sqsreceivemsgresult .
+    METHODS get_queue_url
+      IMPORTING
+      !iv_queue_name TYPE /aws1/sqsstring
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_sqsgetqueueurlresult .
+    METHODS list_queues
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_sqslistqueuesresult .
+    METHODS long_polling_on_msg_receipt
+      IMPORTING
+      !iv_queue_url TYPE /aws1/sqsstring
+      !iv_wait_time TYPE /aws1/sqsinteger
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_sqsreceivemsgresult .
+    METHODS long_polling_on_create_queue
+      IMPORTING
+      !iv_queue_name TYPE /aws1/sqsstring
+      !iv_wait_time TYPE /aws1/sqsstring
+      RETURNING
+      VALUE(oo_result) TYPE REF TO /aws1/cl_sqscreatequeueresult .
 ENDCLASS.
 
 
@@ -57,7 +57,7 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
 
   METHOD create_queue.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sqs) = /aws1/cl_sqs_factory=>create( lo_session ).
@@ -76,7 +76,7 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
 
   METHOD delete_queue.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sqs) = /aws1/cl_sqs_factory=>create( lo_session ).
@@ -91,7 +91,7 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
 
   METHOD get_queue_url.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sqs) = /aws1/cl_sqs_factory=>create( lo_session ).
@@ -108,7 +108,7 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
 
   METHOD list_queues.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sqs) = /aws1/cl_sqs_factory=>create( lo_session ).
@@ -123,7 +123,7 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
 
   METHOD long_polling_on_create_queue.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sqs) = /aws1/cl_sqs_factory=>create( lo_session ).
@@ -137,8 +137,7 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
         INSERT ls_attribute INTO TABLE lt_attributes.
         oo_result = lo_sqs->createqueue(                  " oo_result is returned for testing purposes. "
                 iv_queuename = iv_queue_name
-                it_attributes = lt_attributes
-            ).
+                it_attributes = lt_attributes ).
         MESSAGE 'SQS queue created.' TYPE 'I'.
       CATCH /aws1/cx_sqsqueuedeldrecently.
         MESSAGE 'After deleting a queue, wait 60 seconds before creating another queue with the same name.' TYPE 'E'.
@@ -150,7 +149,7 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
 
   METHOD long_polling_on_msg_receipt.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sqs) = /aws1/cl_sqs_factory=>create( lo_session ).
@@ -159,8 +158,7 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
     TRY.
         oo_result = lo_sqs->receivemessage(           " oo_result is returned for testing purposes. "
                 iv_queueurl = iv_queue_url
-                iv_waittimeseconds = iv_wait_time     " Time in seconds for long polling, such as how long the call waits for a message to arrive in the queue before returning. "
-            ).
+                iv_waittimeseconds = iv_wait_time ).    " Time in seconds for long polling, such as how long the call waits for a message to arrive in the queue before returning. " ).
         DATA(lt_messages) = oo_result->get_messages( ).
         MESSAGE 'Message received from SQS queue.' TYPE 'I'.
       CATCH /aws1/cx_sqsoverlimit.
@@ -171,7 +169,7 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
 
   METHOD receive_message.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sqs) = /aws1/cl_sqs_factory=>create( lo_session ).
@@ -189,7 +187,7 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
 
 
   METHOD send_message.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sqs) = /aws1/cl_sqs_factory=>create( lo_session ).
@@ -198,8 +196,7 @@ CLASS ZCL_AWS1_SQS_ACTIONS IMPLEMENTATION.
     TRY.
         oo_result = lo_sqs->sendmessage(              " oo_result is returned for testing purposes. "
            iv_queueurl = iv_queue_url
-           iv_messagebody = iv_message
-        ).
+           iv_messagebody = iv_message ).
         MESSAGE 'Message sent to SQS queue.' TYPE 'I'.
       CATCH /aws1/cx_sqsinvalidmsgconts.
         MESSAGE 'Message contains non-valid characters.' TYPE 'E'.

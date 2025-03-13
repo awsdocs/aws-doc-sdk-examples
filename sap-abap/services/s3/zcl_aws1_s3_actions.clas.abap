@@ -53,7 +53,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
 
 
   METHOD copy_object.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_s3) = /aws1/cl_s3_factory=>create( lo_session ).
@@ -63,8 +63,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
         lo_s3->copyobject(
           iv_bucket = iv_dest_bucket
           iv_key = iv_dest_object
-          iv_copysource = |{ iv_src_bucket }/{ iv_src_object }|
-        ).
+          iv_copysource = |{ iv_src_bucket }/{ iv_src_object }| ).
         MESSAGE 'Object copied to another bucket.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
         MESSAGE 'Bucket does not exist.' TYPE 'E'.
@@ -77,16 +76,27 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
 
   METHOD create_bucket.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_s3) = /aws1/cl_s3_factory=>create( lo_session ).
 
     " snippet-start:[s3.abapv1.create_bucket]
     TRY.
+        " determine our region from our session
+        DATA(lv_region) = CONV /aws1/s3_bucketlocationcnstrnt( lo_session->get_region( ) ).
+        DATA lo_constraint TYPE REF TO /aws1/cl_s3_createbucketconf.
+        " When in the us-east-1 region, you must not specify a constraint
+        " In all other regions, specify the region as the constraint
+        IF lv_region = 'us-east-1'.
+          CLEAR lo_constraint.
+        ELSE.
+          lo_constraint = NEW /aws1/cl_s3_createbucketconf( lv_region ).
+        ENDIF.
+
         lo_s3->createbucket(
             iv_bucket = iv_bucket_name
-        ).
+            io_createbucketconfiguration  = lo_constraint ).
         MESSAGE 'S3 bucket created.' TYPE 'I'.
       CATCH /aws1/cx_s3_bucketalrdyexists.
         MESSAGE 'Bucket name already exists.' TYPE 'E'.
@@ -99,7 +109,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
 
   METHOD delete_bucket.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_s3) = /aws1/cl_s3_factory=>create( lo_session ).
@@ -108,8 +118,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
     TRY.
 
         lo_s3->deletebucket(
-            iv_bucket = iv_bucket_name
-        ).
+            iv_bucket = iv_bucket_name ).
         MESSAGE 'Deleted S3 bucket.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
         MESSAGE 'Bucket does not exist.' TYPE 'E'.
@@ -120,7 +129,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
 
 
   METHOD delete_object.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_s3) = /aws1/cl_s3_factory=>create( lo_session ).
@@ -129,8 +138,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
     TRY.
         lo_s3->deleteobject(
             iv_bucket = iv_bucket_name
-            iv_key = iv_object_key
-        ).
+            iv_key = iv_object_key ).
         MESSAGE 'Object deleted from S3 bucket.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
         MESSAGE 'Bucket does not exist.' TYPE 'E'.
@@ -140,7 +148,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
 
 
   METHOD get_object.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_s3) = /aws1/cl_s3_factory=>create( lo_session ).
@@ -149,8 +157,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
     TRY.
         oo_result = lo_s3->getobject(           " oo_result is returned for testing purposes. "
                   iv_bucket = iv_bucket_name
-                  iv_key = iv_object_key
-               ).
+                  iv_key = iv_object_key ).
         DATA(lv_object_data) = oo_result->get_body( ).
         MESSAGE 'Object retrieved from S3 bucket.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
@@ -164,7 +171,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
 
 
   METHOD list_objects.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_s3) = /aws1/cl_s3_factory=>create( lo_session ).
@@ -172,8 +179,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
     "snippet-start:[s3.abapv1.list_objects]
     TRY.
         oo_result = lo_s3->listobjects(         " oo_result is returned for testing purposes. "
-          iv_bucket = iv_bucket_name
-        ).
+          iv_bucket = iv_bucket_name ).
         MESSAGE 'Retrieved list of objects in S3 bucket.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
         MESSAGE 'Bucket does not exist.' TYPE 'E'.
@@ -183,7 +189,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
 
 
   METHOD list_objects_v2.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_s3) = /aws1/cl_s3_factory=>create( lo_session ).
@@ -191,8 +197,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
     "snippet-start:[s3.abapv1.list_objects_v2]
     TRY.
         oo_result = lo_s3->listobjectsv2(         " oo_result is returned for testing purposes. "
-          iv_bucket = iv_bucket_name
-        ).
+          iv_bucket = iv_bucket_name ).
         MESSAGE 'Retrieved list of objects in S3 bucket.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
         MESSAGE 'Bucket does not exist.' TYPE 'E'.
@@ -203,7 +208,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
 
   METHOD put_object.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_s3) = /aws1/cl_s3_factory=>create( lo_session ).
@@ -221,8 +226,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
         lo_s3->putobject(
             iv_bucket = iv_bucket_name
             iv_key = iv_file_name
-            iv_body = lv_body
-        ).
+            iv_body = lv_body ).
         MESSAGE 'Object uploaded to S3 bucket.' TYPE 'I'.
       CATCH /aws1/cx_s3_nosuchbucket.
         MESSAGE 'Bucket does not exist.' TYPE 'E'.

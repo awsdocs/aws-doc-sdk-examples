@@ -1,18 +1,18 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 
-CLASS ltc_zcl_aws1_cwt_scenario DEFINITION FOR TESTING DURATION LONG RISK LEVEL HARMLESS.
+CLASS ltc_zcl_aws1_cwt_scenario DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
 
   PRIVATE SECTION.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA ao_cwt TYPE REF TO /aws1/if_cwt.
     DATA ao_s3 TYPE REF TO /aws1/if_s3.
     DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     DATA ao_cwt_scenario TYPE REF TO zcl_aws1_cwt_scenario.
 
-    METHODS: getting_started_with_cwt FOR TESTING.
-    METHODS: setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS getting_started_with_cwt FOR TESTING.
+    METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
 ENDCLASS.       "ltc_Zcl_Aws1_Cwt_Scenario
 
 
@@ -27,7 +27,7 @@ CLASS ltc_zcl_aws1_cwt_scenario IMPLEMENTATION.
 
   METHOD getting_started_with_cwt.
 
-    DATA lv_alarm_name  TYPE  /aws1/cwtalarmname.
+    DATA lv_alarm_name  TYPE /aws1/cwtalarmname.
     DATA lt_alarmnames TYPE /aws1/cl_cwtalarmnames_w=>tt_alarmnames.
     DATA lo_alarmname TYPE REF TO /aws1/cl_cwtalarmnames_w.
     DATA lt_dimensions TYPE /aws1/cl_cwtdimension=>tt_dimensions.
@@ -36,16 +36,16 @@ CLASS ltc_zcl_aws1_cwt_scenario IMPLEMENTATION.
     DATA lv_bucket_name TYPE /aws1/s3_bucketname.
     DATA lv_uuid_16 TYPE sysuuid_x16.
     DATA lo_result TYPE REF TO /aws1/cl_cwtdescralarmsoutput.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
 
-    CONSTANTS cv_metric_name  TYPE  /aws1/cwtmetricname VALUE 'NumberOfObjects'.
-    CONSTANTS cv_namespace  TYPE  /aws1/cwtnamespace VALUE 'AWS/S3'.
-    CONSTANTS cv_comparison_operator  TYPE  /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
-    CONSTANTS cv_statistic  TYPE  /aws1/cwtstatistic VALUE 'Average'.
-    CONSTANTS cv_threshold  TYPE  /aws1/rt_double_as_string VALUE 10.
-    CONSTANTS cv_alarm_description  TYPE  /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
-    CONSTANTS cv_actions_enabled  TYPE  /aws1/cwtactionsenabled VALUE ' '.
-    CONSTANTS cv_evaluation_periods TYPE  /aws1/cwtevaluationperiods VALUE 1.
+
+    CONSTANTS cv_metric_name  TYPE /aws1/cwtmetricname VALUE 'NumberOfObjects'.
+    CONSTANTS cv_namespace  TYPE /aws1/cwtnamespace VALUE 'AWS/S3'.
+    CONSTANTS cv_comparison_operator  TYPE /aws1/cwtcomparisonoperator VALUE 'GreaterThanThreshold'.
+    CONSTANTS cv_statistic  TYPE /aws1/cwtstatistic VALUE 'Average'.
+    CONSTANTS cv_threshold  TYPE /aws1/rt_double_as_string VALUE 10.
+    CONSTANTS cv_alarm_description  TYPE /aws1/cwtalarmdescription VALUE 'Alarm when number of objects exceeds 10'.
+    CONSTANTS cv_actions_enabled  TYPE /aws1/cwtactionsenabled VALUE ' '.
+    CONSTANTS cv_evaluation_periods TYPE /aws1/cwtevaluationperiods VALUE 1.
     CONSTANTS cv_unit TYPE /aws1/cwtstandardunit VALUE 'Percent'.
     CONSTANTS cv_period TYPE /aws1/cwtperiod VALUE 86400.
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-cwt-'.
@@ -54,23 +54,21 @@ CLASS ltc_zcl_aws1_cwt_scenario IMPLEMENTATION.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    ao_s3->createbucket( iv_bucket = lv_bucket_name ).
+
+    DATA(lo_s3_actions) = NEW zcl_aws1_s3_actions( ).
+    lo_s3_actions->create_bucket( lv_bucket_name ).
 
     "Define alarm name.
     lv_alarm_name = 'code-example-cwt-s3-alarm-' && lv_uuid_16.
     TRANSLATE lv_alarm_name TO LOWER CASE.
 
     "Create Amazon S3 dimensions.
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'StorageType'
-        iv_value = 'AllStorageTypes'.
+    lo_dimensions = NEW #( iv_name = 'StorageType'
+                           iv_value = 'AllStorageTypes' ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
-    CREATE OBJECT lo_dimensions
-      EXPORTING
-        iv_name  = 'BucketName'
-        iv_value = lv_bucket_name.
+    lo_dimensions = NEW #( iv_name = 'BucketName'
+                           iv_value = lv_bucket_name ).
     INSERT lo_dimensions INTO TABLE lt_dimensions.
 
     ao_cwt_scenario->getting_started_with_cwt(
@@ -88,11 +86,10 @@ CLASS ltc_zcl_aws1_cwt_scenario IMPLEMENTATION.
         iv_unit                = cv_unit
         iv_period              = cv_period
       IMPORTING
-        oo_result              = lo_result
-        ).
+        oo_result              = lo_result ).
 
     "Validation.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     LOOP AT lo_result->get_metricalarms( ) INTO DATA(lo_alarms).
       IF lo_alarms->get_actionsenabled( ) = ' '.
@@ -102,10 +99,9 @@ CLASS ltc_zcl_aws1_cwt_scenario IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Alarm actions not disabled|
-    ).
+      msg = |Alarm actions not disabled| ).
 
-    CREATE OBJECT lo_alarmname EXPORTING iv_value = lv_alarm_name.
+    lo_alarmname = NEW #( iv_value = lv_alarm_name ).
     INSERT lo_alarmname INTO TABLE lt_alarmnames.
     lo_alarm_list_result = ao_cwt->describealarms( it_alarmnames = lt_alarmnames ).
     lv_found = abap_false.
@@ -117,12 +113,10 @@ CLASS ltc_zcl_aws1_cwt_scenario IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_false(
       act = lv_found
-      msg = |Alarm not deleted|
-    ).
+      msg = |Alarm not deleted| ).
 
     ao_s3->deletebucket(
-      iv_bucket = lv_bucket_name
-    ).
+      iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 ENDCLASS.
