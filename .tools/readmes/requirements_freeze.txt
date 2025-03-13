@@ -6,7 +6,7 @@ click==8.1.8
 flake8==6.1.0
 idna==3.10
 iniconfig==2.0.0
-Jinja2==3.1.4
+Jinja2==3.1.6
 markdown-it-py==3.0.0
 MarkupSafe==3.0.2
 mccabe==0.7.0
