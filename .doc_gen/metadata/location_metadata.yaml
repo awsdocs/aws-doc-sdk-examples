@@ -13,7 +13,7 @@ location_Hello:
           excerpts:
             - description:
               snippet_tags:
-                - iotsitewise.hello.main
+                - location.java2.hello.main
   services:
     location: {ListGeofencesPaginator}
 location_createMap:

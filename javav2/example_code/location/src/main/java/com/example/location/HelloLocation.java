@@ -15,6 +15,7 @@ import software.amazon.awssdk.services.location.paginators.ListGeofencesPublishe
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
+// snippet-start:[location.java2.hello.main]
 public class HelloLocation {
 
     private static LocationAsyncClient locationAsyncClient;
@@ -78,3 +79,4 @@ public class HelloLocation {
         return future;
     }
 }
+// snippet-end:[location.java2.hello.main]
