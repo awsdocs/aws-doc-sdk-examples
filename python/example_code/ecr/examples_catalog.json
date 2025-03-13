@@ -1,0 +1,1248 @@
+{
+	"examples": [
+		{
+			"id": "ecr_Hello",
+			"file": "ecr_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.kotlin_hello.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.java2_hello.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ecr.Hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Hello &ECR;",
+			"title_abbrev": "Hello &ECR;",
+			"synopsis": "get started using &ECR;.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ecr": {
+					"__set__": [
+						"listImages"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_Hello_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_ecr_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ecr_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ecr_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_SetRepositoryPolicy",
+			"file": "ecr_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.kotlin.set.repo.policy.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.java2.set.repo.policy.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ecr.ECRWrapper.decl",
+										"python.example_code.ecr.ECRWrapper.SetRepositoryPolicy"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Example that grants an IAM role download access.",
+									"snippet_tags": [
+										"python.example_code.ecr.grant_role_download_access"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ecr": {
+					"__set__": [
+						"SetRepositoryPolicy"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_SetRepositoryPolicy_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_GetRepositoryPolicy",
+			"file": "ecr_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.kotlin.get.repo.policy.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.java2.get.repo.policy.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ecr.ECRWrapper.decl",
+										"python.example_code.ecr.ECRWrapper.GetRepositoryPolicy"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ecr": {
+					"__set__": [
+						"GetRepositoryPolicy"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_GetRepositoryPolicy_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_GetAuthorizationToken",
+			"file": "ecr_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.kotlin.get.token.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.java2.get.token.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ecr.ECRWrapper.decl",
+										"python.example_code.ecr.ECRWrapper.GetAuthorizationToken"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ecr": {
+					"__set__": [
+						"GetAuthorizationToken"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_GetAuthorizationToken_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_PutLifeCyclePolicy",
+			"file": "ecr_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ecr.ECRWrapper.decl",
+										"python.example_code.ecr.ECRWrapper.PutLifeCyclePolicy"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Example that puts an expiration date policy.",
+									"snippet_tags": [
+										"python.example_code.ecr.put_expiration_policy"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ecr": {
+					"__set__": [
+						"PutLifeCyclePolicy"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_PutLifeCyclePolicy_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_DescribeImages",
+			"file": "ecr_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.kotlin.verify.image.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.java2.verify.image.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ecr.ECRWrapper.decl",
+										"python.example_code.ecr.ECRWrapper.DescribeImages"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ecr": {
+					"__set__": [
+						"DescribeImages"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_DescribeImages_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_DeleteRepository",
+			"file": "ecr_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.kotlin.delete.repo.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.java2.delete.repo.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ecr.ECRWrapper.decl",
+										"python.example_code.ecr.ECRWrapper.DeleteRepository"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ecr": {
+					"__set__": [
+						"DeleteRepository"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_DeleteRepository_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_CreateRepository",
+			"file": "ecr_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.kotlin.create.repo.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.java2.create.repo.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ecr.ECRWrapper.decl",
+										"python.example_code.ecr.ECRWrapper.CreateRepository"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ecr": {
+					"__set__": [
+						"CreateRepository"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_CreateRepository_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_DescribeRepositories",
+			"file": "ecr_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.kotlin.describe.policy.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.java2.describe.policy.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ecr.rust.describe-repos"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ecr.ECRWrapper.decl",
+										"python.example_code.ecr.ECRWrapper.DescribeRepositories"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ecr": {
+					"__set__": [
+						"DescribeRepositories"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_DescribeRepositories_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ecr_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_Scenario_RepositoryManagement",
+			"file": "ecr_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run an interactive scenario demonstrating &ECR; features.",
+									"snippet_tags": [
+										"ecr.kotlin_scenario.parent.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "A wrapper class for &ECR; SDK methods.",
+									"snippet_tags": [
+										"ecr.kotlin_scenario.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run an interactive scenario demonstrating &ECR; features.",
+									"snippet_tags": [
+										"ecr.java2_scenario.parent.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "A wrapper class for &ECR; SDK methods.",
+									"snippet_tags": [
+										"ecr.java2_scenario.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run an interactive scenario at a command prompt.",
+									"snippet_tags": [
+										"python.example_code.ecr.BasicsScenario"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								},
+								{
+									"description": "ECRWrapper class that wraps &ECR; actions.",
+									"snippet_tags": [
+										"python.example_code.ecr.ECRWrapper.class"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ecr",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ecr": {
+					"__set__": [
+						"StartLifecyclePolicyPreview",
+						"DeleteRepository",
+						"DescribeImages",
+						"SetRepositoryPolicy",
+						"GetAuthorizationToken",
+						"GetRepositoryPolicy",
+						"DescribeRepositories",
+						"CreateRepository"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_Scenario_RepositoryManagement_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_ecr_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ecr_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ecr_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Create an &ECR; repository.",
+				"Set repository policies.",
+				"Retrieve repository URIs.",
+				"Get &ECR; authorization tokens.",
+				"Set lifecycle policies for &ECR; repositories.",
+				"Push a Docker image to an &ECR; repository.",
+				"Verify the existence of an image in an &ECR; repository.",
+				"List &ECR; repositories for your account and get details about them.",
+				"Delete &ECR; repositories."
+			],
+			"source_key": null
+		}
+	]
+}

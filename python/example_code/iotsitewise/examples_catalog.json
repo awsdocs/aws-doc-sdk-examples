@@ -1,0 +1,1880 @@
+{
+	"examples": [
+		{
+			"id": "iotsitewise_Hello",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.hello.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.Hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Hello &ITSWlong;",
+			"title_abbrev": "Hello &ITSW;",
+			"synopsis": "get started using &ITSW;.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"ListAssetModels"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_Hello_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_DescribeGateway",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sitewise.java2.describe.gateway.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.decl",
+										"python.example_code.iotsitewise.DescribeGateway"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.describeGateway"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"DescribeGateway"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DescribeGateway_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_DeleteGateway",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sitewise.java2.delete.gateway.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.decl",
+										"python.example_code.iotsitewise.DeleteGateway"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.deleteGateway"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"DeleteGateway"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DeleteGateway_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_CreateGateway",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sitewise.java2.create.gateway.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.decl",
+										"python.example_code.iotsitewise.CreateGateway"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.createGateway"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"CreateGateway"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_CreateGateway_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_DescribePortal",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sitewise.java2.describe.portal.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.decl",
+										"python.example_code.iotsitewise.CreateGateway"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.describePortal"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"DescribePortal"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DescribePortal_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_ListAssetModels",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sitewise.java2.list.asset.model.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.decl",
+										"python.example_code.iotsitewise.ListAssetModels"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.listAssetModels"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"ListAssetModels"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_ListAssetModels_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_DeletePortal",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sitewise.java2.delete.portal.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.decl",
+										"python.example_code.iotsitewise.DeletePortal"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.deletePortal"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"DeletePortal"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DeletePortal_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_CreatePortal",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sitewise.java2.create.portal.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.decl",
+										"python.example_code.iotsitewise.CreatePortal"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.createPortal"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"CreatePortal"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_CreatePortal_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_DeleteAssetModel",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sitewise.java2.delete.asset.model.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.decl",
+										"python.example_code.iotsitewise.DeleteAssetModel"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.deleteAssetModel"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"DeleteAssetModel"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DeleteAssetModel_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_DeleteAsset",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sitewise.java2.delete.asset.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.decl",
+										"python.example_code.iotsitewise.DeleteAsset"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.deleteAsset"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"DeleteAsset"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DeleteAsset_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_GetAssetPropertyValue",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sitewise.java2_get_property.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.decl",
+										"python.example_code.iotsitewise.GetAssetPropertyValue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.getAssetPropertyValue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"GetAssetPropertyValue"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_GetAssetPropertyValue_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_BatchPutAssetPropertyValue",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sitewise.java2_put_batch_property.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.decl",
+										"python.example_code.iotsitewise.BatchPutAssetPropertyValue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "A helper function to generate the entries parameter from a values list.\n",
+									"snippet_tags": [
+										"python.example_code.iotsitewise.BatchPutAssetPropertyValue.properties_to_values"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Here is an example of a values list to pass to the helper function.\n",
+									"snippet_tags": [
+										"python.example_code.iotsitewise.BatchPutAssetPropertyValue.values"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.batchPutAssetPropertyValue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"BatchPutAssetPropertyValue"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_BatchPutAssetPropertyValue_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_CreateAsset",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sitewise.java2_create_asset.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.decl",
+										"python.example_code.iotsitewise.CreateAsset"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.createAsset"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"CreateAsset"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_CreateAsset_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_CreateAssetModel",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sitewise.java2_create_asset_model.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.decl",
+										"python.example_code.iotsitewise.CreateAssetModel"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Here is an example of a properties list to pass to the function.\n",
+									"snippet_tags": [
+										"python.example_code.iotsitewise.CreateAssetModel.properties"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.createAssetModel"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": [
+						"CreateAssetModel"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_CreateAssetModel_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_Scenario",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run an interactive scenario demonstrating &ITSW; features.",
+									"snippet_tags": [
+										"iotsitewise.java2.scenario.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "A wrapper class for &ITSW; SDK methods.",
+									"snippet_tags": [
+										"iotsitewise.java2.actions.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run an interactive scenario at a command prompt.",
+									"snippet_tags": [
+										"python.example_code.iotsitewise.FeatureScenario"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								},
+								{
+									"description": "IoTSitewiseWrapper class that wraps &ITSW; actions.",
+									"snippet_tags": [
+										"python.example_code.iotsitewise.IoTSitewiseWrapper.class"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"iotsitewise.JavaScript.Basics.scenario"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/iotsitewise",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"iotsitewise": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_Scenario_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_iotsitewise_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_iotsitewise_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_iotsitewise_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Create an &ITSWlong; Asset Model.",
+				"Create an &ITSWlong; Asset.",
+				"Retrieve the property ID values.",
+				"Send data to an &ITSWlong; Asset.",
+				"Retrieve the value of the &ITSWlong; Asset property.",
+				"Create an &ITSWlong; Portal.",
+				"Create an &ITSWlong; Gateway.",
+				"Describe the &ITSWlong; Gateway.",
+				"Delete the &ITSWlong; Assets."
+			],
+			"source_key": null
+		}
+	]
+}

@@ -1,0 +1,186 @@
+{
+	"examples": [
+		{
+			"id": "route53-recovery-cluster_GetRoutingControlState",
+			"file": "route53-recovery-cluster_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"route53_rec.java2.get_routing.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/route53recoverycluster",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.route53-recovery-cluster.helper.get_recovery_client",
+										"python.example_code.route53-recovery-cluster.GetRoutingControlState"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/route53-recovery-cluster",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"route53-recovery-cluster": {
+					"__set__": [
+						"GetRoutingControlState"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"route53-recovery-cluster": "https://docs.aws.amazon.com/code-library/latest/ug/route53-recovery-cluster_example_route53-recovery-cluster_GetRoutingControlState_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"route53-recovery-cluster": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_route53-recovery-cluster_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"route53-recovery-cluster": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_route53-recovery-cluster_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "route53-recovery-cluster_UpdateRoutingControlState",
+			"file": "route53-recovery-cluster_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"route53_rec.java2.update_routing_state.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/route53recoverycluster",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.route53-recovery-cluster.helper.get_recovery_client",
+										"python.example_code.route53-recovery-cluster.UpdateRoutingControlState"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/route53-recovery-cluster",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"route53-recovery-cluster": {
+					"__set__": [
+						"UpdateRoutingControlState"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"route53-recovery-cluster": "https://docs.aws.amazon.com/code-library/latest/ug/route53-recovery-cluster_example_route53-recovery-cluster_UpdateRoutingControlState_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"route53-recovery-cluster": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_route53-recovery-cluster_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"route53-recovery-cluster": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_route53-recovery-cluster_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

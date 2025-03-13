@@ -1,0 +1,1154 @@
+{
+	"examples": [
+		{
+			"id": "transcribe_StartTranscriptionJob",
+			"file": "transcribe_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Transcribe.dotnetv3.StartTranscriptionJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.transcribe.StartTranscriptionJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Start a transcription job.",
+									"snippet_tags": [
+										"transcribe.JavaScript.jobs.createJobV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the client.",
+									"snippet_tags": [
+										"transcribe.JavaScript.createclientv3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/transcribe",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/transcribe-examples-section.html#transcribe-start-transcription",
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"transcribe": {
+					"__set__": [
+						"StartTranscriptionJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_StartTranscriptionJob_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "transcribe_ListTranscriptionJobs",
+			"file": "transcribe_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"transcribe.java-list-jobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Transcribe.dotnetv3.ListTranscriptionJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.transcribe.ListTranscriptionJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "List transcription jobs.",
+									"snippet_tags": [
+										"transcribe.JavaScript.jobs.listJobsV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the client.",
+									"snippet_tags": [
+										"transcribe.JavaScript.createclientv3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/transcribe",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/transcribe-examples-section.html#transcribe-list-jobs",
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"transcribe": {
+					"__set__": [
+						"ListTranscriptionJobs"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_ListTranscriptionJobs_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "transcribe_GetTranscriptionJob",
+			"file": "transcribe_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Transcribe.dotnetv3.GetTranscriptionJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.transcribe.GetTranscriptionJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"transcribe": {
+					"__set__": [
+						"GetTranscriptionJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_GetTranscriptionJob_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "transcribe_DeleteTranscriptionJob",
+			"file": "transcribe_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Transcribe.dotnetv3.DeleteTranscriptionJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.transcribe.DeleteTranscriptionJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Delete a transcription job.",
+									"snippet_tags": [
+										"transcribe.JavaScript.jobs.deleteJobV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the client.",
+									"snippet_tags": [
+										"transcribe.JavaScript.createclientv3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/transcribe",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/transcribe-examples-section.html#transcribe-delete-job",
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"transcribe": {
+					"__set__": [
+						"DeleteTranscriptionJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_DeleteTranscriptionJob_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "transcribe_CreateVocabulary",
+			"file": "transcribe_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Transcribe.dotnetv3.CreateVocabularyAsync"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.transcribe.CreateVocabulary"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"transcribe": {
+					"__set__": [
+						"CreateVocabulary"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_CreateVocabulary_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "transcribe_ListVocabularies",
+			"file": "transcribe_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Transcribe.dotnetv3.ListCustomVocabularies"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.transcribe.ListVocabularies"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"transcribe": {
+					"__set__": [
+						"ListVocabularies"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_ListVocabularies_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "transcribe_GetVocabulary",
+			"file": "transcribe_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Transcribe.dotnetv3.GetVocabularyAsync"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.transcribe.GetVocabulary"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"transcribe": {
+					"__set__": [
+						"GetVocabulary"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_GetVocabulary_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "transcribe_UpdateVocabulary",
+			"file": "transcribe_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Transcribe.dotnetv3.UpdateCustomVocabulary"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.transcribe.UpdateVocabulary"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"transcribe": {
+					"__set__": [
+						"UpdateVocabulary"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_UpdateVocabulary_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "transcribe_DeleteVocabulary",
+			"file": "transcribe_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Transcribe.dotnetv3.DeleteVocabularyAsync"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.transcribe.DeleteVocabulary"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"transcribe": {
+					"__set__": [
+						"DeleteVocabulary"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_DeleteVocabulary_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_transcribe_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "transcribe_Scenario_GettingStartedTranscriptionJobs",
+			"file": "transcribe_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Transcribes a PCM file.",
+									"snippet_tags": [
+										"transcribe.java-streaming-demo-file.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Transcribes streaming audio from your computer's microphone.",
+									"snippet_tags": [
+										"transcribe.java-streaming-demo"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"transcribe.python.start-transcription-job"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Transcribe audio and get job data with &TSC; using an &AWS; SDK",
+			"title_abbrev": "Transcribe audio and get job data",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": {
+				"title": "Getting started with &TSC;",
+				"url": "transcribe/latest/dg/getting-started.html"
+			},
+			"service_main": null,
+			"services": {
+				"transcribe": {
+					"__set__": [
+						"StartTranscriptionJob",
+						"GetTranscriptionJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_Scenario_GettingStartedTranscriptionJobs_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_transcribe_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_transcribe_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Start a transcription job with &TSC;.",
+				"Wait for the job to complete.",
+				"Get the URI where the transcript is stored."
+			],
+			"source_key": null
+		},
+		{
+			"id": "transcribe_Scenario_CustomVocabulary",
+			"file": "transcribe_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Transcribe an audio file that contains a reading of Jabberwocky by Lewis Carroll. Start by creating functions that wrap &TSC; actions.",
+									"snippet_tags": [
+										"python.example_code.transcribe.StartTranscriptionJob",
+										"python.example_code.transcribe.GetTranscriptionJob",
+										"python.example_code.transcribe.DeleteTranscriptionJob",
+										"python.example_code.transcribe.CreateVocabulary",
+										"python.example_code.transcribe.GetVocabulary",
+										"python.example_code.transcribe.UpdateVocabulary",
+										"python.example_code.transcribe.ListVocabularies",
+										"python.example_code.transcribe.DeleteVocabulary"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Call the wrapper functions to transcribe audio without a custom vocabulary and then with different versions of a custom vocabulary to see improved results.",
+									"snippet_tags": [
+										"python.example_code.transcribe.Scenario_CustomVocabulary"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/transcribe",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Create and refine an &TSC; custom vocabulary using an &AWS; SDK",
+			"title_abbrev": "Create and refine a custom vocabulary",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"transcribe": {
+					"__set__": [
+						"GetVocabulary",
+						"CreateVocabulary",
+						"DeleteTranscriptionJob",
+						"DeleteVocabulary",
+						"UpdateVocabulary",
+						"StartTranscriptionJob",
+						"ListVocabularies",
+						"GetTranscriptionJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_Scenario_CustomVocabulary_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_transcribe_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Upload an audio file to &S3;.",
+				"Run an &TSC; job to transcribe the file and get the results.",
+				"Create and refine a custom vocabulary to improve transcription accuracy.",
+				"Run jobs with custom vocabularies and get the results."
+			],
+			"source_key": null
+		}
+	]
+}

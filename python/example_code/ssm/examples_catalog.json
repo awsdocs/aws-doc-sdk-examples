@@ -1,0 +1,1541 @@
+{
+	"examples": [
+		{
+			"id": "ssm_Hello",
+			"file": "ssm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.java2.hello.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.JavaScript.Basics.hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ssm.Hello"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Hello &SYS;",
+			"title_abbrev": "Hello &SYS;",
+			"synopsis": "get started using &SYS;.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ssm": {
+					"__set__": [
+						"ListDocuments"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_Hello_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ssm_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ssm_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ssm_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_CreateOpsItem",
+			"file": "ssm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.java2.create_ops.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.JavaScript.Basics.createOpsItem"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ssm.OpsItemWrapper.decl",
+										"python.example_code.ssm.CreateOpsItem"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ssm": {
+					"__set__": [
+						"CreateOpsItem"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_CreateOpsItem_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_UpdateMaintenanceWindow",
+			"file": "ssm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.java2.update_window.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.JavaScript.Basics.updateMaintenanceWindow"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ssm.MaintenanceWindowWrapper.decl",
+										"python.example_code.ssm.UpdateMaintenanceWindow"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ssm": {
+					"__set__": [
+						"UpdateMaintenanceWindow"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_UpdateMaintenanceWindow_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_CreateMaintenanceWindow",
+			"file": "ssm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.java2.create_window.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.JavaScript.Basics.createMaintenanceWindow"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ssm.MaintenanceWindowWrapper.decl",
+										"python.example_code.ssm.CreateMaintenanceWindow"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ssm": {
+					"__set__": [
+						"CreateMaintenanceWindow"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_CreateMaintenanceWindow_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_SendCommand",
+			"file": "ssm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.Java2.send_command.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.JavaScript.Basics.sendCommand"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ssm.DocumentWrapper.decl",
+										"python.example_code.ssm.SendCommand"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ssm": {
+					"__set__": [
+						"SendCommand"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_SendCommand_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_ListCommandInvocations",
+			"file": "ssm_metadata.yaml",
+			"languages": {
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.JavaScript.Basics.listCommandInvocations"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ssm.DocumentWrapper.decl",
+										"python.example_code.ssm.ListCommandInvocations"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ssm": {
+					"__set__": [
+						"ListCommandInvocations"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_ListCommandInvocations_section.html"
+				},
+				"sdk_pages": {
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_CreateDocument",
+			"file": "ssm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.java2.create_doc.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.JavaScript.Basics.createDocument"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ssm.DocumentWrapper.decl",
+										"python.example_code.ssm.CreateDocument"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ssm": {
+					"__set__": [
+						"CreateDocument"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_CreateDocument_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_DescribeOpsItems",
+			"file": "ssm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.java2.describe_ops.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.JavaScript.Basics.describeOpsItems"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ssm.OpsItemWrapper.decl",
+										"python.example_code.ssm.DescribeOpsItem"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ssm": {
+					"__set__": [
+						"DescribeOpsItems"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_DescribeOpsItems_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_DeleteOpsItem",
+			"file": "ssm_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ssm.OpsItemWrapper.decl",
+										"python.example_code.ssm.DeleteOpsItem"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ssm": {
+					"__set__": [
+						"DeleteOpsItem"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_DeleteOpsItem_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_DeleteMaintenanceWindow",
+			"file": "ssm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.java2.delete_window.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.JavaScript.Basics.deleteMaintenanceWindow"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ssm.MaintenanceWindowWrapper.decl",
+										"python.example_code.ssm.DeleteMaintenanceWindow"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ssm": {
+					"__set__": [
+						"DeleteMaintenanceWindow"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_DeleteMaintenanceWindow_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_DeleteDocument",
+			"file": "ssm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.Java2.delete_doc.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.JavaScript.Basics.deleteDocument"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ssm.DocumentWrapper.decl",
+										"python.example_code.ssm.DeleteDocument"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ssm": {
+					"__set__": [
+						"DeleteDocument"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_DeleteDocument_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_UpdateOpsItem",
+			"file": "ssm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.Java2.resolve_ops.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.JavaScript.Basics.updateOpsItem"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ssm.OpsItemWrapper.decl",
+										"python.example_code.ssm.UpdateOpsItem"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ssm": {
+					"__set__": [
+						"UpdateOpsItem"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_UpdateOpsItem_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ssm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_Scenario",
+			"file": "ssm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.java2.scenario.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "A wrapper class for &SYS; SDK methods.",
+									"snippet_tags": [
+										"ssm.java2.actions.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ssm.JavaScript.Basics.scenario"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "javascriptv3/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run an interactive scenario at a command prompt.",
+									"snippet_tags": [
+										"python.example_code.ssm.Scenario_GetStartedSSM"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								},
+								{
+									"description": "Define a class that wraps document and command actions.",
+									"snippet_tags": [
+										"python.example_code.ssm.DocumentWrapper.class"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								},
+								{
+									"description": "Define a class that wraps ops item actions.",
+									"snippet_tags": [
+										"python.example_code.ssm.OpsItemWrapper.class"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								},
+								{
+									"description": "Define a class that wraps maintenance window actions.",
+									"snippet_tags": [
+										"python.example_code.ssm.MaintenanceWindowWrapper.class"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/ssm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ssm": {
+					"__set__": [
+						"CreateOpsItem",
+						"ListCommandInvocations",
+						"DeleteMaintenanceWindow",
+						"SendCommand",
+						"CreateDocument",
+						"UpdateOpsItem",
+						"CreateMaintenanceWindow"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_Scenario_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ssm_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ssm_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ssm_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Create a maintenance window.",
+				"Modify the maintenance window schedule.",
+				"Create a document.",
+				"Send a command to a specified EC2 instance.",
+				"Create an OpsItem.",
+				"Update and resolve the OpsItem.",
+				"Delete the maintenance window, OpsItem, and document."
+			],
+			"source_key": null
+		}
+	]
+}

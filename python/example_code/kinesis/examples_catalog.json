@@ -1,0 +1,770 @@
+{
+	"examples": [
+		{
+			"id": "kinesis_CreateStream",
+			"file": "kinesis_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Kinesis.dotnetv3.CreateStreamExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"kinesis.java2.create.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.kinesis.KinesisStream.class",
+										"python.example_code.kinesis.CreateStream"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"kinesis.rust.create-stream"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"kns.abapv1.create_stream"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"kinesis": {
+					"__set__": [
+						"CreateStream"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis_example_kinesis_CreateStream_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis_DescribeStream",
+			"file": "kinesis_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.kinesis.KinesisStream.class",
+										"python.example_code.kinesis.DescribeStream"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"kinesis.rust.describe-stream"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"kns.abapv1.describe_stream"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"kinesis": {
+					"__set__": [
+						"DescribeStream"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis_example_kinesis_DescribeStream_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis_DeleteStream",
+			"file": "kinesis_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Kinesis.dotnetv3.DeleteStreamExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"kinesis.java2.delete.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.kinesis.KinesisStream.class",
+										"python.example_code.kinesis.DeleteStream"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"kinesis.rust.delete-stream"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"kns.abapv1.delete_stream"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"kinesis": {
+					"__set__": [
+						"DeleteStream"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis_example_kinesis_DeleteStream_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis_PutRecord",
+			"file": "kinesis_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"kinesis.java2.putrecord.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.kinesis.KinesisStream.class",
+										"python.example_code.kinesis.PutRecord"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"kinesis.rust.put-record"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"kns.abapv1.put_record"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"kinesis": {
+					"__set__": [
+						"PutRecord"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis_example_kinesis_PutRecord_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis_GetRecords",
+			"file": "kinesis_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"kinesis.java2.getrecord.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.kinesis.KinesisStream.class",
+										"python.example_code.kinesis.GetRecords",
+										"python.example_code.kinesis.DescribeStream"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"kns.abapv1.get_records"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/kinesis",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"kinesis": {
+					"__set__": [
+						"GetRecords"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis_example_kinesis_GetRecords_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_kinesis_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

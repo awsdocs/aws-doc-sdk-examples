@@ -1,0 +1,768 @@
+{
+	"examples": [
+		{
+			"id": "scheduler_hello",
+			"file": "scheduler_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"scheduler.javav2.hello.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Scheduler.dotnetv3.HelloScheduler"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "dotnetv3/EventBridge Scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.scheduler.Hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Hello &EVS;",
+			"title_abbrev": "Hello &EVS;",
+			"synopsis": "get started using &EVS;.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"scheduler": {
+					"__set__": [
+						"ListSchedules"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_hello_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_scheduler_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_scheduler_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_scheduler_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "scheduler_CreateSchedule",
+			"file": "scheduler_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"scheduler.javav2.create.schedule.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Scheduler.dotnetv3.CreateSchedule"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/EventBridge Scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.scheduler.EventSchedulerWrapper.decl",
+										"python.example_code.scheduler.CreateSchedule"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"scheduler": {
+					"__set__": [
+						"CreateSchedule"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_CreateSchedule_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_scheduler_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_scheduler_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_scheduler_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "scheduler_CreateScheduleGroup",
+			"file": "scheduler_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"scheduler.javav2.create.schedule.group.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Scheduler.dotnetv3.CreateScheduleGroup"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/EventBridge Scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.scheduler.EventSchedulerWrapper.decl",
+										"python.example_code.scheduler.CreateScheduleGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"scheduler": {
+					"__set__": [
+						"CreateScheduleGroup"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_CreateScheduleGroup_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_scheduler_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_scheduler_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_scheduler_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "scheduler_DeleteSchedule",
+			"file": "scheduler_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Scheduler.dotnetv3.DeleteSchedule"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/EventBridge Scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.scheduler.EventSchedulerWrapper.decl",
+										"python.example_code.scheduler.DeleteSchedule"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"scheduler.javav2.delete.schedule.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"scheduler": {
+					"__set__": [
+						"DeleteSchedule"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_DeleteSchedule_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_scheduler_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_scheduler_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_scheduler_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "scheduler_DeleteScheduleGroup",
+			"file": "scheduler_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"scheduler.javav2.delete.schedule.group.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Scheduler.dotnetv3.DeleteScheduleGroup"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/EventBridge Scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.scheduler.EventSchedulerWrapper.decl",
+										"python.example_code.scheduler.DeleteScheduleGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"scheduler": {
+					"__set__": [
+						"DeleteScheduleGroup"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_DeleteScheduleGroup_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_scheduler_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_scheduler_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_scheduler_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "scheduler_ScheduledEventsScenario",
+			"file": "scheduler_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run the scenario.",
+									"snippet_tags": [
+										"scheduler.javav2.scenario.main"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								},
+								{
+									"description": "Wrapper for service operations.",
+									"snippet_tags": [
+										"scheduler.javav2.actions.main"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "javav2/example_code/scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run the scenario.",
+									"snippet_tags": [
+										"Scheduler.dotnetv3.SchedulerWorkflow"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								},
+								{
+									"description": "Wrapper for service operations.",
+									"snippet_tags": [
+										"Scheduler.dotnetv3.SchedulerWrapper"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/EventBridge Scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run an interactive scenario at a command prompt.",
+									"snippet_tags": [
+										"python.example_code.scheduler.FeatureScenario"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								},
+								{
+									"description": "SchedulerWrapper class that wraps &EVlong; Scheduler actions.",
+									"snippet_tags": [
+										"python.example_code.scheduler.EventSchedulerWrapper.class"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "python/example_code/scheduler",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "A complete &EVS; Scheduled Events scenario using an &AWS; SDK",
+			"title_abbrev": "Scheduled Events",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"scheduler": {
+					"__set__": [
+						"DeleteScheduleGroups",
+						"CreateScheduleGroup",
+						"CreateSchedule",
+						"DeleteSchedule"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_ScheduledEventsScenario_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_scheduler_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_scheduler_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_scheduler_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Deploy a &CFN; stack with required resources.",
+				"Create a &EVS; schedule group.",
+				"Create a one-time &EVS; schedule with a flexible time window.",
+				"Create a recurring &EVS; schedule with a specified rate.",
+				"Delete &EVS; the schedule and schedule group.",
+				"Clean up resources and delete the stack."
+			],
+			"source_key": null
+		}
+	]
+}

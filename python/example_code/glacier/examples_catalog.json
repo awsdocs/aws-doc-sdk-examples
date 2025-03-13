@@ -1,0 +1,1362 @@
+{
+	"examples": [
+		{
+			"id": "glacier_CreateVault",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glacier.dotnetv3.GlacierActions.CreateVault"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glacier.java2.create.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.CreateVault"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create the client.",
+									"snippet_tags": [
+										"glacier.JavaScript.createclientv3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the vault.",
+									"snippet_tags": [
+										"glacier.JavaScript.vault.createVaultV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glacier",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/glacier-example-creating-a-vault.html",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glacier.JavaScript.vault.createVault"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/glacier",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/glacier-example-creating-a-vault.html",
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"CreateVault"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_CreateVault_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_ListVaults",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glacier.dotnetv3.GlacierActions.ListVaults"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glacier.java2.list_vaults.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.ListVaults"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"ListVaults"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_ListVaults_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_UploadArchive",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glacier.dotnetv3.GlacierActions.ArchiveTransferManager.Upload"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glacier.java2.upload.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.UploadArchive"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create the client.",
+									"snippet_tags": [
+										"glacier.JavaScript.createclientv3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Upload the archive.",
+									"snippet_tags": [
+										"glacier.JavaScript.upload.uploadArchiveV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glacier",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/glacier-example-uploadarchive.html",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glacier.JavaScript.upload.uploadArchive"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/glacier",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/glacier-example-uploadrchive.html",
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"UploadArchive"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_UploadArchive_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_InitiateJob",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Retrieve a vault inventory.",
+									"snippet_tags": [
+										"glacier.java2.download.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Retrieve an archive from a vault. This example uses the ArchiveTransferManager class. For API details see <ulink type=\"documentation\" url=\"sdkfornet/v3/apidocs/items/Glacier/TArchiveTransferManager\">ArchiveTransferManager</ulink>.",
+									"snippet_tags": [
+										"Glacier.dotnetv3.GlacierActions.ArchiveTransferManager.Download"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Retrieve a vault inventory.",
+									"snippet_tags": [
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.InitiateJob.InventoryRetrieval"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Retrieve an archive from a vault.",
+									"snippet_tags": [
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.InitiateJob.ArchiveRetrieval"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"InitiateJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_InitiateJob_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_ListJobs",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glacier.dotnetv3.GlacierActions.ListJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.ListJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"ListJobs"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_ListJobs_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_DeleteVault",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glacier.java2.delete.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.DeleteVault"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"DeleteVault"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_DeleteVault_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_DeleteArchive",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glacier.java2.delete.archive.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.DeleteArchive"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"DeleteArchive"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_DeleteArchive_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_DescribeJob",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.DescribeJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"DescribeJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_DescribeJob_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_GetJobOutput",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.GetJobOutput"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"GetJobOutput"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_GetJobOutput_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_SetVaultNotifications",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.SetVaultNotifications"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"SetVaultNotifications"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_SetVaultNotifications_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_GetVaultNotifications",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.GetVaultNotifications"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"GetVaultNotifications"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_GetVaultNotifications_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_DeleteVaultNotifications",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.DeleteVaultNotifications"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"DeleteVaultNotifications"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_DeleteVaultNotifications_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_Usage_UploadNotifyInitiate",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create a class that wraps &GLshort; operations.",
+									"snippet_tags": [
+										"python.example_code.glacier.imports",
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.CreateVault",
+										"python.example_code.glacier.ListVaults",
+										"python.example_code.glacier.UploadArchive",
+										"python.example_code.glacier.InitiateJob.ArchiveRetrieval",
+										"python.example_code.glacier.ListJobs",
+										"python.example_code.glacier.SetVaultNotifications"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Call functions on the wrapper class to create a vault and upload a file, then configure the vault to publish notifications and initiate a job to retrieve the archive.",
+									"snippet_tags": [
+										"python.example_code.glacier.usage.upload_demo"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Archive a file to &GLlong;, get notifications, and initiate a job using an &AWS; SDK",
+			"title_abbrev": "Archive a file, get notifications, and initiate a job",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"ListVaults",
+						"UploadArchive",
+						"SetVaultNotifications",
+						"CreateVault",
+						"InitiateJob",
+						"ListJobs"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_Usage_UploadNotifyInitiate_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Create an &GLlong; vault.",
+				"Configure the vault to publish notifications to an &SNS; topic.",
+				"Upload an archive file to the vault.",
+				"Initiate an archive retrieval job."
+			],
+			"source_key": null
+		},
+		{
+			"id": "glacier_Usage_RetrieveDelete",
+			"file": "glacier_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create a class that wraps &GLshort; operations.",
+									"snippet_tags": [
+										"python.example_code.glacier.imports",
+										"python.example_code.glacier.GlacierWrapper",
+										"python.example_code.glacier.ListJobs",
+										"python.example_code.glacier.GetJobOutput",
+										"python.example_code.glacier.DeleteArchive",
+										"python.example_code.glacier.DeleteVault"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Call functions on the wrapper class to get archive content from a completed job, then delete the archive.",
+									"snippet_tags": [
+										"python.example_code.glacier.usage.retrieve_demo"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glacier",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Get &GLlong; archive content and delete the archive using an &AWS; SDK",
+			"title_abbrev": "Get archive content and delete the archive",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glacier": {
+					"__set__": [
+						"DeleteArchive",
+						"DeleteVault",
+						"GetJobOutput",
+						"ListJobs"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_Usage_RetrieveDelete_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glacier_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"List jobs for an &GLlong; vault and get job status.",
+				"Get the output of a completed archive retrieval job.",
+				"Delete an archive.",
+				"Delete a vault."
+			],
+			"source_key": null
+		}
+	]
+}

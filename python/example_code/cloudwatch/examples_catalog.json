@@ -1,0 +1,2342 @@
+{
+	"examples": [
+		{
+			"id": "cloudwatch_DeleteAlarms",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.kotlin.scenario.del.alarm.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"CloudWatch.dotnetv3.DeleteAlarms"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/CloudWatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.java2.delete_alarm.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cloudwatch.CloudWatchWrapper",
+										"python.example_code.cloudwatch.DeleteAlarms"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Include the required files.",
+									"snippet_tags": [
+										"cw.cpp.delete_alarm.inc"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Delete the alarm.",
+									"snippet_tags": [
+										"cw.cpp.delete_alarm.code"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Import the SDK and client modules and call the API.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.actions.DeleteAlarms"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the client in a separate module and export it.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.client"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-deleting",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Import the SDK and client modules and call the API.",
+									"snippet_tags": [
+										"cw.JavaScript.alarms.deleteAlarms"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-deleting",
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cwt.abapv1.delete_alarms"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cloudwatch": {
+					"__set__": [
+						"DeleteAlarms"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_DeleteAlarms_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_DescribeAlarmsForMetric",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"CloudWatch.dotnetv3.DescribeAlarmsForMetric"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/CloudWatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.kotlin.scenario.check.met.alarm.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.java2.scenario.check.met.alarm.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cloudwatch.CloudWatchWrapper",
+										"python.example_code.cloudwatch.DescribeAlarmsForMetric"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.Ruby.displayMetricInfo"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Include the required files.",
+									"snippet_tags": [
+										"cw.cpp.describe_alarms.inc"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Describe the alarms.",
+									"snippet_tags": [
+										"cw.cpp.describe_alarms.code"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Import the SDK and client modules and call the API.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.actions.DescribeAlarms"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the client in a separate module and export it.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.client"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-describing",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cw.JavaScript.alarms.describeAlarms"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-describing",
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cloudwatch": {
+					"__set__": [
+						"DescribeAlarmsForMetric"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_DescribeAlarmsForMetric_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_DisableAlarmActions",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.kotlin.disable_alarm_actions.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"CloudWatch.dotnetv3.DisableAlarmActions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/CloudWatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.java2.disable_alarm_actions.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cloudwatch.CloudWatchWrapper",
+										"python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.Ruby.disableAnAlarm"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cwt.abapv1.disable_alarm_actions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Include the required files.",
+									"snippet_tags": [
+										"cw.cpp.disable_alarm_actions.inc"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Disable the alarm actions.",
+									"snippet_tags": [
+										"cw.cpp.disable_alarm_actions.code"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Import the SDK and client modules and call the API.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.actions.DisableAlarmActions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the client in a separate module and export it.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.client"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-disabling",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Import the SDK and client modules and call the API.",
+									"snippet_tags": [
+										"cw.JavaScript.alarms.disableAlarmActions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-disabling",
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cloudwatch": {
+					"__set__": [
+						"DisableAlarmActions"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_DisableAlarmActions_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_EnableAlarmActions",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"CloudWatch.dotnetv3.EnableAlarmActions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/CloudWatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.kotlin.enable_alarm_actions.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.java2.enable_alarm_actions.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cloudwatch.CloudWatchWrapper",
+										"python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cwt.abapv1.enable_alarm_actions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Include the required files.",
+									"snippet_tags": [
+										"cw.cpp.enable_alarm_actions.inc"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Enable the alarm actions.",
+									"snippet_tags": [
+										"cw.cpp.enable_alarm_actions.code"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Import the SDK and client modules and call the API.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.actions.EnableAlarmActions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the client in a separate module and export it.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.client"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-enabling",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Import the SDK and client modules and call the API.",
+									"snippet_tags": [
+										"cw.JavaScript.alarms.enableAlarmActions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/cloudwatch-examples-using-alarm-actions.html#cloudwatch-examples-using-alarm-actions-enabling",
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cloudwatch": {
+					"__set__": [
+						"EnableAlarmActions"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_EnableAlarmActions_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_GetMetricStatistics",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.kotlin.scenario.display.metrics.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.java2.scenario.display.metrics.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"CloudWatch.dotnetv3.GetMetricStatisticsSetup",
+										"CloudWatch.dotnetv3.GetMetricStatistics"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/CloudWatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cloudwatch.CloudWatchWrapper",
+										"python.example_code.cloudwatch.GetMetricStatistics"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cloudwatch": {
+					"__set__": [
+						"GetMetricStatistics"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_GetMetricStatistics_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_ListMetrics",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.kotlin.scenario.list.metrics.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"CloudWatch.dotnetv3.ListMetrics"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/CloudWatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.java2.list_metrics.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cloudwatch.CloudWatchWrapper",
+										"python.example_code.cloudwatch.ListMetrics"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.Ruby.listMetrics"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cwt.abapv1.list_metrics"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Include the required files.",
+									"snippet_tags": [
+										"cw.cpp.list_metrics.inc"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "List the metrics.",
+									"snippet_tags": [
+										"cw.cpp.list_metrics.code"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Import the SDK and client modules and call the API.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.actions.ListMetrics"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the client in a separate module and export it.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.client"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/cloudwatch-examples-getting-metrics.html#cloudwatch-examples-getting-metrics-listing",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cw.JavaScript.metrics.listMetrics"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/cloudwatch-examples-getting-metrics.html#cloudwatch-examples-getting-metrics-listing",
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cloudwatch": {
+					"__set__": [
+						"ListMetrics"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_ListMetrics_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_PutMetricAlarm",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.java2.scenario.create.alarm.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"CloudWatch.dotnetv3.PutMetricAlarm"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/CloudWatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.kotlin.put_metric_alarm.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cloudwatch.CloudWatchWrapper",
+										"python.example_code.cloudwatch.PutMetricAlarm"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.Ruby.PutMetricAlarm"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cwt.abapv1.put_metric_alarm"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Include the required files.",
+									"snippet_tags": [
+										"cw.cpp.put_metric_alarm.inc"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the alarm to watch the metric.",
+									"snippet_tags": [
+										"cw.cpp.put_metric_alarm.code"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Import the SDK and client modules and call the API.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.actions.PutMetricAlarm"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the client in a separate module and export it.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.client"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-putmetricalarm",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cw.JavaScript.alarms.putMetricAlarm"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/cloudwatch-examples-creating-alarms.html#cloudwatch-examples-creating-alarms-putmetricalarm",
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cloudwatch": {
+					"__set__": [
+						"PutMetricAlarm"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_PutMetricAlarm_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_PutMetricData",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"CloudWatch.dotnetv3.PutMetricDataSetup",
+										"CloudWatch.dotnetv3.PutMetricData"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/CloudWatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.kotlin.scenario.add.met.alarm.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.java2.scenario.add.met.alarm.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cloudwatch.CloudWatchWrapper",
+										"python.example_code.cloudwatch.PutMetricData"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Put a set of data into a &CW; metric.",
+									"snippet_tags": [
+										"python.example_code.cloudwatch.CloudWatchWrapper",
+										"python.example_code.cloudwatch.PutMetricData_DataSet"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cloudwatch.Ruby.addDataPoint"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Include the required files.",
+									"snippet_tags": [
+										"cw.cpp.put_metric_data.inc"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Put data into the metric.",
+									"snippet_tags": [
+										"cw.cpp.put_metric_data.code"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Import the SDK and client modules and call the API.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.actions.PutMetricData"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the client in a separate module and export it.",
+									"snippet_tags": [
+										"javascript.v3.cloudwatch.client"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/cloudwatch-examples-getting-metrics.html#cloudwatch-examples-getting-metrics-publishing-custom",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cw.JavaScript.metrics.putMetricData"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/cloudwatch",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/cloudwatch-examples-getting-metrics.html#cloudwatch-examples-getting-metrics-publishing-custom",
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cloudwatch": {
+					"__set__": [
+						"PutMetricData"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_PutMetricData_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_cloudwatch_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_Usage_MetricsAlarms",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create a class that wraps &CW; operations.",
+									"snippet_tags": [
+										"python.example_code.cloudwatch.imports",
+										"python.example_code.cloudwatch.CloudWatchWrapper",
+										"python.example_code.cloudwatch.PutMetricData_DataSet",
+										"python.example_code.cloudwatch.PutMetricAlarm",
+										"python.example_code.cloudwatch.PutMetricData",
+										"python.example_code.cloudwatch.GetMetricStatistics",
+										"python.example_code.cloudwatch.DescribeAlarmsForMetric",
+										"python.example_code.cloudwatch.DeleteAlarms"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Use the wrapper class to put data in a metric, trigger an alarm that watches the metric, and get data from the alarm.",
+									"snippet_tags": [
+										"python.example_code.cloudwatch.Usage_MetricsAlarms"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cloudwatch",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Manage &CW; metrics and alarms using an &AWS; SDK",
+			"title_abbrev": "Manage metrics and alarms",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cloudwatch": {
+					"__set__": [
+						"PutMetricAlarm",
+						"ListMetrics",
+						"DescribeAlarmsForMetric",
+						"GetMetricStatistics",
+						"DisableAlarmActions",
+						"PutMetricData",
+						"EnableAlarmActions",
+						"DeleteAlarms"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_Usage_MetricsAlarms_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudwatch_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Create an alarm to watch a &CW; metric.",
+				"Put data into a metric and trigger the alarm.",
+				"Get data from the alarm.",
+				"Delete the alarm."
+			],
+			"source_key": null
+		}
+	]
+}
