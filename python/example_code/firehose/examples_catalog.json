@@ -1,0 +1,316 @@
+{
+	"examples": [
+		{
+			"id": "firehose_PutRecord",
+			"file": "firehose_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"firehose.java2.put_record.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/firehose",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.firehose.init",
+										"python.example_code.firehose.put_record"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/firehose",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"firehose": {
+					"__set__": [
+						"PutRecord"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"firehose": "https://docs.aws.amazon.com/code-library/latest/ug/firehose_example_firehose_PutRecord_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"firehose": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_firehose_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"firehose": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_firehose_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "firehose_PutRecordBatch",
+			"file": "firehose_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"firehose.java2.put_batch_records.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/firehose",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"firehose.rust.put_record_batch"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/firehose",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.firehose.init",
+										"python.example_code.firehose.put_record_batch"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/firehose",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"firehose": {
+					"__set__": [
+						"PutRecordBatch"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"firehose": "https://docs.aws.amazon.com/code-library/latest/ug/firehose_example_firehose_PutRecordBatch_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"firehose": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_firehose_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"firehose": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_firehose_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"firehose": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_firehose_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "firehose_Scenario_PutRecords",
+			"file": "firehose_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "This example puts individual and batch records to &FH;.",
+									"snippet_tags": [
+										"firehose.java2.scenario.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/firehose",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "This script puts individual and batch records to &FH;.",
+									"snippet_tags": [],
+									"snippet_files": [
+										"python/example_code/firehose/scenarios/firehose-put-actions/firehose.py"
+									],
+									"genai": "none"
+								},
+								{
+									"description": "This file contains config for the above script.",
+									"snippet_tags": [],
+									"snippet_files": [
+										"python/example_code/firehose/scenarios/firehose-put-actions/config.py"
+									],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/firehose/scenarios/firehose-put-actions",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Use &FHlong; to process individual and batch records",
+			"title_abbrev": "Put records to &FH;",
+			"synopsis": "use &FH; to process individual and batch records.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"firehose": {
+					"__set__": [
+						"PutRecord",
+						"PutRecordBatch"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"firehose": "https://docs.aws.amazon.com/code-library/latest/ug/firehose_example_firehose_Scenario_PutRecords_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"firehose": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_firehose_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"firehose": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_firehose_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

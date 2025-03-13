@@ -1,0 +1,1315 @@
+{
+	"examples": [
+		{
+			"id": "acm_DescribeCertificate",
+			"file": "acm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"acm.java2.describe_cert.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ACM.dotnetv3.DescribeCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/ACM",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.acm.AcmCertificate",
+										"python.example_code.acm.DescribeCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.acm.DescribeCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"acm": {
+					"__set__": [
+						"DescribeCertificate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_DescribeCertificate_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "acm_GetCertificate",
+			"file": "acm_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.acm.AcmCertificate",
+										"python.example_code.acm.GetCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.acm.GetCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"acm": {
+					"__set__": [
+						"GetCertificate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_GetCertificate_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "acm_ListCertificates",
+			"file": "acm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"acm.java2.list_certs.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ACM.dotnetv3.ListCertificates"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/ACM",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.acm.AcmCertificate",
+										"python.example_code.acm.ListCertificates"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.acm.ListCertificates"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"acm": {
+					"__set__": [
+						"ListCertificates"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_ListCertificates_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "acm_ImportCertificate",
+			"file": "acm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"acm.java2.import_cert.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.acm.AcmCertificate",
+										"python.example_code.acm.ImportCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.acm.ImportCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"acm": {
+					"__set__": [
+						"ImportCertificate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_ImportCertificate_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "acm_DeleteCertificate",
+			"file": "acm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"acm.java2.del_cert.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.acm.AcmCertificate",
+										"python.example_code.acm.DeleteCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.acm.DeleteCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"acm": {
+					"__set__": [
+						"DeleteCertificate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_DeleteCertificate_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "acm_AddTagsToCertificate",
+			"file": "acm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"acm.java2.add_tags.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.acm.AcmCertificate",
+										"python.example_code.acm.AddTagsToCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.acm.AddTagsToCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"acm": {
+					"__set__": [
+						"AddTagsToCertificate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_AddTagsToCertificate_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "acm_ListTagsForCertificate",
+			"file": "acm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"acm.java2.list_cert_tags.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.acm.AcmCertificate",
+										"python.example_code.acm.ListTagsForCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.acm.ListTagsForCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"acm": {
+					"__set__": [
+						"ListTagsForCertificate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_ListTagsForCertificate_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "acm_RemoveTagsFromCertificate",
+			"file": "acm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"acm.java2.remove_tags.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.acm.AcmCertificate",
+										"python.example_code.acm.RemoveTagsFromCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.acm.RemoveTagsFromCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"acm": {
+					"__set__": [
+						"RemoveTagsFromCertificate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_RemoveTagsFromCertificate_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "acm_RequestCertificate",
+			"file": "acm_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"acm.java2.request_cert.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.acm.AcmCertificate",
+										"python.example_code.acm.RequestCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.acm.RequestCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"acm": {
+					"__set__": [
+						"RequestCertificate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_RequestCertificate_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "acm_ResendValidationEmail",
+			"file": "acm_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.acm.AcmCertificate",
+										"python.example_code.acm.ResendValidationEmail"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.acm.ResendValidationEmail"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"acm": {
+					"__set__": [
+						"ResendValidationEmail"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_ResendValidationEmail_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_acm_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "acm_Usage_ImportListRemove",
+			"file": "acm_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create a class that wraps &ACM; operations.",
+									"snippet_tags": [
+										"python.example_code.acm.imports",
+										"python.example_code.acm.AcmCertificate",
+										"python.example_code.acm.RequestCertificate",
+										"python.example_code.acm.ImportCertificate",
+										"python.example_code.acm.ListCertificates",
+										"python.example_code.acm.DescribeCertificate",
+										"python.example_code.acm.GetCertificate",
+										"python.example_code.acm.AddTagsToCertificate",
+										"python.example_code.acm.ListTagsForCertificate",
+										"python.example_code.acm.RemoveTagsFromCertificate",
+										"python.example_code.acm.DeleteCertificate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Use the wrapper class to manage certificates for your account.",
+									"snippet_tags": [
+										"python.example_code.acm.Usage_ImportListRemove"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/acm",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"acm": {
+					"__set__": [
+						"ListCertificates",
+						"AddTagsToCertificate",
+						"RequestCertificate",
+						"GetCertificate",
+						"DeleteCertificate",
+						"ImportCertificate",
+						"ListTagsForCertificate",
+						"RemoveTagsFromCertificate",
+						"DescribeCertificate",
+						"ResendValidationEmail"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_Usage_ImportListRemove_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"acm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_acm_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Request a certificate from &ACM;.",
+				"Import a self-signed certificate.",
+				"List and describe certificates.",
+				"Remove certificates."
+			],
+			"source_key": null
+		}
+	]
+}

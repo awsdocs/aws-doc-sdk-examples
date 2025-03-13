@@ -1,0 +1,513 @@
+{
+	"examples": [
+		{
+			"id": "organizations_CreatePolicy",
+			"file": "organizations_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Organizations.dotnetv3.CreatePolicyExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Organizations",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.organizations.CreatePolicy"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/organizations",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"organizations": {
+					"__set__": [
+						"CreatePolicy"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/organizations_example_organizations_CreatePolicy_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_organizations_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_organizations_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "organizations_ListPolicies",
+			"file": "organizations_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Organizations.dotnetv3.ListPoliciesExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Organizations",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.organizations.ListPolicies"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/organizations",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"organizations": {
+					"__set__": [
+						"ListPolicies"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/organizations_example_organizations_ListPolicies_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_organizations_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_organizations_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "organizations_DescribePolicy",
+			"file": "organizations_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.organizations.DescribePolicy"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/organizations",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"organizations": {
+					"__set__": [
+						"DescribePolicy"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/organizations_example_organizations_DescribePolicy_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_organizations_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "organizations_AttachPolicy",
+			"file": "organizations_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Organizations.dotnetv3.AttachPolicyExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Organizations",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.organizations.AttachPolicy"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/organizations",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"organizations": {
+					"__set__": [
+						"AttachPolicy"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/organizations_example_organizations_AttachPolicy_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_organizations_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_organizations_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "organizations_DetachPolicy",
+			"file": "organizations_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Organizations.dotnetv3.DetachPolicyExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Organizations",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.organizations.DetachPolicy"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/organizations",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"organizations": {
+					"__set__": [
+						"DetachPolicy"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/organizations_example_organizations_DetachPolicy_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_organizations_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_organizations_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "organizations_DeletePolicy",
+			"file": "organizations_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Organizations.dotnetv3.DeletePolicyExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Organizations",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.organizations.DeletePolicy"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/organizations",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"organizations": {
+					"__set__": [
+						"DeletePolicy"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/organizations_example_organizations_DeletePolicy_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_organizations_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_organizations_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

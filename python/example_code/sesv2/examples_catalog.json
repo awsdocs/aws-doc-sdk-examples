@@ -1,0 +1,1643 @@
+{
+	"examples": [
+		{
+			"id": "sesv2_CreateContactList",
+			"file": "sesv2_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SESWorkflow.dotnetv3.SESv2Wrapper.CreateContactList"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/SESv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.rust.create-contact-list"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "rustv1/examples/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.java2.newsletter.CreateContactList"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sesv2.SESv2Workflow.main",
+										"python.example_code.sesv2.SESv2Workflow.decl",
+										"python.example_code.sesv2.CreateContactList"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "python/example_code/sesv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sesv2": {
+					"__set__": [
+						"CreateContactList"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_CreateContactList_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_CreateContact",
+			"file": "sesv2_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SESWorkflow.dotnetv3.SESv2Wrapper.CreateContact"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/SESv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.rust.create-contact"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.java2.newsletter.CreateContact"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sesv2.SESv2Workflow.main",
+										"python.example_code.sesv2.SESv2Workflow.decl",
+										"python.example_code.sesv2.CreateContact"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "python/example_code/sesv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sesv2": {
+					"__set__": [
+						"CreateContact"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_CreateContact_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_ListContacts",
+			"file": "sesv2_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SESWorkflow.dotnetv3.SESv2Wrapper.ListContacts"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/SESv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.rust.list-contacts"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.java2.newsletter.ListContacts"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sesv2.SESv2Workflow.main",
+										"python.example_code.sesv2.SESv2Workflow.decl",
+										"python.example_code.sesv2.ListContacts"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "python/example_code/sesv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sesv2": {
+					"__set__": [
+						"ListContacts"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_ListContacts_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_SendEmail",
+			"file": "sesv2_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SESWorkflow.dotnetv3.SESv2Wrapper.SendEmail"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/SESv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Sends a message.",
+									"snippet_tags": [
+										"ses.java2.sendmessage.sesv2.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Sends a message using a template.",
+									"snippet_tags": [
+										"sesv2.java2.newsletter.SendEmail.template"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Sends a message to all members of the contact list.",
+									"snippet_tags": [
+										"ses.rust.send-email"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Sends a message to all members of the contact list using a template.",
+									"snippet_tags": [
+										"sesv2.rust.send-email.template"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.ses.v2.send_email"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/ses/v2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Sends a message to all members of the contact list.",
+									"snippet_tags": [
+										"python.example_code.sesv2.SESv2Workflow.main",
+										"python.example_code.sesv2.SESv2Workflow.decl",
+										"python.example_code.sesv2.SendEmail.simple"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								},
+								{
+									"description": "Sends a message to all members of the contact list using a template.",
+									"snippet_tags": [
+										"python.example_code.sesv2.SESv2Workflow.main",
+										"python.example_code.sesv2.SESv2Workflow.decl",
+										"python.example_code.sesv2.SendEmail.template"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "python/example_code/sesv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sesv2": {
+					"__set__": [
+						"SendEmail"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_SendEmail_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_CreateEmailIdentity",
+			"file": "sesv2_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SESWorkflow.dotnetv3.SESv2Wrapper.CreateEmailIdentity"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/SESv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.java2.newsletter.CreateEmailIdentity"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sesv2.SESv2Workflow.main",
+										"python.example_code.sesv2.SESv2Workflow.decl",
+										"python.example_code.sesv2.CreateEmailIdentity"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "python/example_code/sesv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.rust.create-email-identity"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "rustv1/examples/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sesv2": {
+					"__set__": [
+						"CreateEmailIdentity"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_CreateEmailIdentity_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_CreateEmailTemplate",
+			"file": "sesv2_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SESWorkflow.dotnetv3.SESv2Wrapper.CreateEmailTemplate"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/SESv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.java2.newsletter.CreateEmailTemplate"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sesv2.SESv2Workflow.main",
+										"python.example_code.sesv2.SESv2Workflow.decl",
+										"python.example_code.sesv2.CreateEmailTemplate"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "python/example_code/sesv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.rust.create-email-template"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "rustv1/examples/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sesv2": {
+					"__set__": [
+						"CreateEmailTemplate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_CreateEmailTemplate_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_DeleteContactList",
+			"file": "sesv2_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SESWorkflow.dotnetv3.SESv2Wrapper.DeleteContactList"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/SESv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.java2.newsletter.DeleteContactList"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sesv2.SESv2Workflow.main",
+										"python.example_code.sesv2.SESv2Workflow.decl",
+										"python.example_code.sesv2.DeleteContactList"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "python/example_code/sesv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.rust.delete-contact-list"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "rustv1/examples/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sesv2": {
+					"__set__": [
+						"DeleteContactList"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_DeleteContactList_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_DeleteEmailIdentity",
+			"file": "sesv2_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SESWorkflow.dotnetv3.SESv2Wrapper.DeleteEmailIdentity"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/SESv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.java2.newsletter.DeleteEmailIdentity"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sesv2.SESv2Workflow.main",
+										"python.example_code.sesv2.SESv2Workflow.decl",
+										"python.example_code.sesv2.DeleteEmailIdentity"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "python/example_code/sesv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.rust.delete-email-identity"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "rustv1/examples/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sesv2": {
+					"__set__": [
+						"DeleteEmailIdentity"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_DeleteEmailIdentity_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_DeleteEmailTemplate",
+			"file": "sesv2_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SESWorkflow.dotnetv3.SESv2Wrapper.DeleteEmailTemplate"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/SESv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.java2.newsletter.DeleteEmailTemplate"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sesv2.SESv2Workflow.main",
+										"python.example_code.sesv2.SESv2Workflow.decl",
+										"python.example_code.sesv2.DeleteEmailTemplate"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "python/example_code/sesv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.rust.delete-email-template"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "rustv1/examples/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sesv2": {
+					"__set__": [
+						"DeleteEmailTemplate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_DeleteEmailTemplate_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_sesv2_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_NewsletterWorkflow",
+			"file": "sesv2_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run the scenario.",
+									"snippet_tags": [
+										"SESWorkflow.dotnetv3.NewsletterWorkflow"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								},
+								{
+									"description": "Wrapper for service operations.",
+									"snippet_tags": [
+										"SESWorkflow.dotnetv3.SESv2Wrapper"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "dotnetv3/SESv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.java2.newsletter.CreateContactList",
+										"sesv2.java2.newsletter.CreateContact",
+										"sesv2.java2.newsletter.ListContacts",
+										"sesv2.java2.newsletter.SendEmail.template",
+										"sesv2.java2.newsletter.CreateEmailIdentity",
+										"sesv2.java2.newsletter.CreateEmailTemplate",
+										"sesv2.java2.newsletter.DeleteContactList",
+										"sesv2.java2.newsletter.DeleteEmailIdentity",
+										"sesv2.java2.newsletter.DeleteEmailTemplate"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sesv2.SESv2Workflow.main",
+										"python.example_code.sesv2.SESv2Workflow.decl",
+										"python.example_code.sesv2.CreateContactList",
+										"python.example_code.sesv2.CreateContact",
+										"python.example_code.sesv2.ListContacts",
+										"python.example_code.sesv2.SendEmail.simple",
+										"python.example_code.sesv2.SendEmail.template",
+										"python.example_code.sesv2.CreateEmailIdentity",
+										"python.example_code.sesv2.CreateEmailTemplate",
+										"python.example_code.sesv2.DeleteContactList",
+										"python.example_code.sesv2.DeleteEmailIdentity",
+										"python.example_code.sesv2.DeleteEmailTemplate"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "python/example_code/sesv2",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sesv2.rust.create-contact-list",
+										"sesv2.rust.create-contact",
+										"sesv2.rust.list-contacts",
+										"sesv2.rust.send-email.template",
+										"sesv2.rust.create-email-identity",
+										"sesv2.rust.create-email-template",
+										"sesv2.rust.delete-contact-list",
+										"sesv2.rust.delete-email-identity",
+										"sesv2.rust.delete-email-template"
+									],
+									"snippet_files": [],
+									"genai": "most"
+								}
+							],
+							"github": "rustv1/examples/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "A complete &SESv2; Newsletter scenario using an &AWS; SDK",
+			"title_abbrev": "Newsletter scenario",
+			"synopsis": "run the &SESv2; newsletter scenario.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sesv2": {
+					"__set__": [
+						"SendEmail.template",
+						"ListContacts",
+						"CreateContactList",
+						"CreateContact",
+						"SendEmail.simple",
+						"DeleteEmailTemplate",
+						"DeleteEmailIdentity",
+						"DeleteContactList",
+						"CreateEmailTemplate",
+						"CreateEmailIdentity"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_NewsletterWorkflow_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sesv2_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sesv2_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sesv2_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_sesv2_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

@@ -41,8 +41,10 @@ def prepare_scanner(doc_gen: DocGen) -> Optional[Scanner]:
 def main():
     # Load all examples immediately for cross references. Trades correctness for speed.
     doc_gen = DocGen.from_root(Path(__file__).parent.parent.parent, incremental=True)
+    # To get the complete list, fill the missing fields.
+    doc_gen.fill_missing_fields()
 
-    languages = doc_gen.languages()
+    languages = ['Python:3']  # Currently enabled only for Python version 3.
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--languages",
@@ -59,11 +61,7 @@ def main():
         help="The targeted service. Choose from: %(choices)s.",
         default=["all"],
     )
-    parser.add_argument(
-        "--safe",
-        action="store_true",
-        help=f"Save a copy of the original README as the 'saved_readme' value specified in config.py ({config.saved_readme}).",
-    )
+
     parser.add_argument(
         "--verbose",
         action="store_true",
@@ -98,9 +96,8 @@ def main():
     skipped = []
     failed = []
     written = []
-    non_writeme = []
     unchanged = []
-    no_folder = []
+
 
     scanner = prepare_scanner(doc_gen)
     if scanner is None:
@@ -108,40 +105,25 @@ def main():
 
     renderer = Renderer(scanner)
 
-    for language_and_version in args.languages:
-        (language, version) = language_and_version.split(":")
-        write_language_json(doc_gen, language)
-
     for service in args.services:
         for language_and_version in args.languages:
             (language, version) = language_and_version.split(":")
-            # write_service_json(doc_gen, service, language)
             id = f"{language}:{version}:{service}"
             try:
-                renderer.set_example(service, language, int(version), args.safe)
+                renderer.set_example(service, language, int(version), False)
+                service_folder_path = renderer.lang_config["service_folder"]
+                logging.debug("Cataloging %s", id)
+                catalog_status = write_catalog_json(doc_gen, service, language, service_folder_path, args.dry_run)
+                logging.debug("Status %s", catalog_status)
 
-                logging.debug("Rendering %s", id)
-                render_status = renderer.render()
-                logging.debug("Status %s", render_status)
-
-                if render_status == RenderStatus.UPDATED:
+                if catalog_status == RenderStatus.UPDATED:
                     if args.dry_run:
                         diff = None
-                        if args.diff:
-                            diff = make_diff(renderer, id)
                         failed.append((id, diff))
                     else:
-                        renderer.write()
                         written.append(id)
-                elif render_status == RenderStatus.UNCHANGED:
+                elif catalog_status == RenderStatus.UNCHANGED:
                     unchanged.append(id)
-                elif render_status == RenderStatus.UNMANAGED:
-                    non_writeme.append(id)
-                elif render_status == RenderStatus.NO_EXAMPLES:
-                    skipped.append(id)
-                elif render_status == RenderStatus.NO_FOLDER:
-                    no_folder.append(id)
-                elif render_status == RenderStatus.UNIMPLEMENTED:
                     pass
             except FileNotFoundError as fnfe:
                 logging.debug(fnfe, exc_info=True)
@@ -158,12 +140,6 @@ def main():
     if unchanged:
         unchanged_list = "\n".join(f"Unchanged {f}" for f in sorted(unchanged))
         print(unchanged_list)
-    if non_writeme:
-        non_writeme_list = "\n".join(f"Non-WRITEME: {f}" for f in sorted(non_writeme))
-        print(non_writeme_list)
-    if no_folder:
-        no_folder_list = "\n".join(f"No folder: {f}" for f in sorted(no_folder))
-        print(no_folder_list)
     if not args.dry_run:
         done_list = "\n".join(f"Wrote {f}" for f in sorted(written))
         print(done_list or "(None Written)")
@@ -175,39 +151,45 @@ def main():
         else:
             failed_list = "\n".join(f"Incorrect: {f[0]}" for f in sorted(failed))
         print(failed_list)
-        print("Rerun writeme.py to update README links and sections.")
-    print("WRITEME Run completed.")
+        print("Rerun catalog.py to update the example catalog list.")
+    print("Catalog Run completed.")
     return len(failed)
 
 
-def make_diff(renderer, id):
-    current = renderer.read_current().split("\n")
-    expected = renderer.readme_text.split("\n")
-    diff = unified_diff(current, expected, f"{id}/current", f"{id}/expected")
-    return "\n".join(diff)
-
-
-def write_service_json(doc_gen, service_name, language_name):
-    # Test creating a file
-    filepath = f"example_json/{language_name}_{service_name}_examples_list.json"
-    filepath = filepath.lower()
-    print("Writing serialized versions of DocGen to %s", filepath)
+def write_catalog_json(doc_gen, service_name, language_name, folder_path, is_dry_run):
+    filepath = (
+            Path(__file__).parent.parent.parent
+            / folder_path
+            / 'examples_catalog.json'
+    )
 
     language_examples = []
     for example in doc_gen.examples.values():
         for lang_name, language in example.languages.items():
-            for sdk_version in language.versions:
-                for svc_name in example.services:
-                    if svc_name == service_name and lang_name == language_name:
-                        language_examples.append(example)
+            for svc_name in example.services:
+                if svc_name == service_name and lang_name == language_name:
+                    language_examples.append(example)
 
-    with open(filepath, "w") as example_meta:
-        example_meta.write(
-            json.dumps(
-                {"examples": language_examples},
-                cls=DocGenEncoder, indent="\t"
-            )
-        )
+    new_catalog = json.dumps(
+        {"examples": language_examples},
+        cls=DocGenEncoder, indent="\t"
+    )
+
+    # If the file already exists, read it to compare contents.
+    try:
+        with open(filepath, "r", encoding="utf-8") as example_meta:
+            old_catalog = example_meta.read()
+    except FileNotFoundError:
+        old_catalog = ""
+
+    if old_catalog == new_catalog:
+        return RenderStatus.UNCHANGED
+    else:
+        if not is_dry_run:
+            print(f"Writing serialized versions of DocGen to {filepath}")
+            with open(filepath, "w", encoding="utf-8") as example_meta:
+                example_meta.write(new_catalog)
+        return RenderStatus.UPDATED
 
 
 def write_language_json(doc_gen, language_name):

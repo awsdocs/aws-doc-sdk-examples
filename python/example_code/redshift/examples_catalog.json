@@ -1,0 +1,1297 @@
+{
+	"examples": [
+		{
+			"id": "redshift_Hello",
+			"file": "redshift_metadata.yaml",
+			"languages": {
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.redshift.Hello"
+									],
+									"snippet_files": [],
+									"genai": "some"
+								}
+							],
+							"github": "gov2/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"redshift.java2.hello.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.redshift.Hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Hello &RS;",
+			"title_abbrev": "Hello &RS;",
+			"synopsis": "get started using &RS;.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"redshift": {
+					"__set__": [
+						"DescribeClusters"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_Hello_section.html"
+				},
+				"sdk_pages": {
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_redshift_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_redshift_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_redshift_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_CreateCluster",
+			"file": "redshift_metadata.yaml",
+			"languages": {
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.redshift.Imports",
+										"gov2.redshift.ActionsStruct",
+										"gov2.redshift.CreateCluster"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create the cluster.",
+									"snippet_tags": [
+										"redshift.kotlin.create_cluster.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create the cluster.",
+									"snippet_tags": [
+										"redshift.java2.create_cluster.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create the client.",
+									"snippet_tags": [
+										"redshift.JavaScript.createclientv3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the cluster.",
+									"snippet_tags": [
+										"redshift.javascript.redshift-create-clusterV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.redshift.RedshiftWrapper",
+										"python.example_code.redshift.CreateCluster"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "The following code instantiates the RedshiftWrapper object.\n",
+									"snippet_tags": [
+										"python.example_code.redshift.RedshiftWrapper.instantiation"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"redshift": {
+					"__set__": [
+						"CreateCluster"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_CreateCluster_section.html"
+				},
+				"sdk_pages": {
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_DeleteCluster",
+			"file": "redshift_metadata.yaml",
+			"languages": {
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.redshift.Imports",
+										"gov2.redshift.ActionsStruct",
+										"gov2.redshift.DeleteCluster"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Delete the cluster.",
+									"snippet_tags": [
+										"redshift.kotlin.delete_cluster.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Delete the cluster.",
+									"snippet_tags": [
+										"redshift.java2.delete_cluster.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create the client.",
+									"snippet_tags": [
+										"redshift.JavaScript.createclientv3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create the cluster.",
+									"snippet_tags": [
+										"redshift.javascript.redshift-delete-clusterV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.redshift.RedshiftWrapper",
+										"python.example_code.redshift.DeleteCluster"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "The following code instantiates the RedshiftWrapper object.\n",
+									"snippet_tags": [
+										"python.example_code.redshift.RedshiftWrapper.instantiation"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"redshift": {
+					"__set__": [
+						"DeleteCluster"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_DeleteCluster_section.html"
+				},
+				"sdk_pages": {
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_DescribeClusters",
+			"file": "redshift_metadata.yaml",
+			"languages": {
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.redshift.Imports",
+										"gov2.redshift.ActionsStruct",
+										"gov2.redshift.DescribeClusters"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Describe the cluster.",
+									"snippet_tags": [
+										"redshift.kotlin.describe_cluster.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Describe the cluster.",
+									"snippet_tags": [
+										"redshift.java2.describe_cluster.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create the client.",
+									"snippet_tags": [
+										"redshift.JavaScript.createclientv3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Describe your clusters.",
+									"snippet_tags": [
+										"redshift.javascript.redshift-describe-clustersV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.redshift.RedshiftWrapper",
+										"python.example_code.redshift.DescribeClusters"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "The following code instantiates the RedshiftWrapper object.\n",
+									"snippet_tags": [
+										"python.example_code.redshift.RedshiftWrapper.instantiation"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"redshift": {
+					"__set__": [
+						"DescribeClusters"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_DescribeClusters_section.html"
+				},
+				"sdk_pages": {
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_ModifyCluster",
+			"file": "redshift_metadata.yaml",
+			"languages": {
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.redshift.Imports",
+										"gov2.redshift.ActionsStruct",
+										"gov2.redshift.ModifyCluster"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Modify a cluster.",
+									"snippet_tags": [
+										"redshift.kotlin.mod_cluster.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Modify a cluster.",
+									"snippet_tags": [
+										"redshift.java2.mod_cluster.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create the client.",
+									"snippet_tags": [
+										"redshift.JavaScript.createclientv3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Modify a cluster.",
+									"snippet_tags": [
+										"redshift.javascript.redshift-modify-clustersV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.redshift.RedshiftWrapper",
+										"python.example_code.redshift.ModifyCluster"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "The following code instantiates the RedshiftWrapper object.\n",
+									"snippet_tags": [
+										"python.example_code.redshift.RedshiftWrapper.instantiation"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"redshift": {
+					"__set__": [
+						"ModifyCluster"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_ModifyCluster_section.html"
+				},
+				"sdk_pages": {
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_DescribeStatement",
+			"file": "redshift_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"redshiftdata.java2.checkstatement.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.redshift_data.RedshiftDataWrapper",
+										"python.example_code.redshift_data.DescribeStatement"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "The following code instantiates the RedshiftDataWrapper object.\n",
+									"snippet_tags": [
+										"python.example_code.redshift_data.RedshiftDataWrapper.instantiation"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"redshift": {
+					"__set__": [
+						"DescribeStatement"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_DescribeStatement_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_GetStatementResult",
+			"file": "redshift_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Check the statement result.",
+									"snippet_tags": [
+										"redshiftdata.java2.getresults.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.redshift_data.RedshiftDataWrapper",
+										"python.example_code.redshift_data.GetStatementResult"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "The following code instantiates the RedshiftDataWrapper object.\n",
+									"snippet_tags": [
+										"python.example_code.redshift_data.RedshiftDataWrapper.instantiation"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"redshift": {
+					"__set__": [
+						"GetStatementResult"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_GetStatementResult_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_redshift_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_Scenario",
+			"file": "redshift_metadata.yaml",
+			"languages": {
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.redshift.BasicsScenario"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run an interactive scenario demonstrating &RS; features.",
+									"snippet_tags": [
+										"redshift.java2.scenario.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "A wrapper class for &RS; SDK methods.",
+									"snippet_tags": [
+										"redshift.java2.actions.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.redshift.redshift_scenario.RedshiftScenario"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Main function showing scenario implementation.",
+									"snippet_tags": [
+										"python.example_code.redshift.redshift_scenario.RedshiftScenario.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "The wrapper functions used in the scenario.\n",
+									"snippet_tags": [
+										"python.example_code.redshift.CreateCluster",
+										"python.example_code.redshift.DescribeClusters",
+										"python.example_code.redshift_data.ExecuteStatement",
+										"python.example_code.redshift_data.DescribeStatement",
+										"python.example_code.redshift_data.GetStatementResult",
+										"python.example_code.redshift.ModifyCluster",
+										"python.example_code.redshift_data.ListDatabases",
+										"python.example_code.redshift.DeleteCluster"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/redshift",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"redshift": {
+					"__set__": [
+						"ListDatabasesPaginator",
+						"ExecuteStatement",
+						"DescribeStatement",
+						"DescribeClusters",
+						"CreateCluster",
+						"ModifyCluster",
+						"GetStatementResult"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_Scenario_section.html"
+				},
+				"sdk_pages": {
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_redshift_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_redshift_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_redshift_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Create a Redshift cluster.",
+				"List databases in the cluster.",
+				"Create a table named Movies.",
+				"Populate the Movies table.",
+				"Query the Movies table by year.",
+				"Modify the Redshift cluster.",
+				"Delete the Amazon Redshift cluster."
+			],
+			"source_key": null
+		}
+	]
+}

@@ -1,0 +1,3560 @@
+{
+	"examples": [
+		{
+			"id": "cross_RDSDataTracker",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_RDSDataTracker_Net_block.xml",
+							"excerpts": [],
+							"github": "dotnetv3/cross-service/AuroraItemTracker",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": "cross_RDSDataTracker_Java_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": "cross_RDSDataTracker_Kotlin_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_RDSDataTracker_PHP_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_RDSDataTracker_Python_block.xml",
+							"excerpts": [],
+							"github": "python/cross_service/aurora_item_tracker",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_RDSDataTracker_JavaScriptV3_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": "cross_RDSDataTracker_cpp_block.xml",
+							"excerpts": [],
+							"github": "cpp/example_code/cross-service/serverless-aurora",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Create an &AUR; Serverless work item tracker",
+			"title_abbrev": "Create an &AUR; Serverless work item tracker",
+			"synopsis": "create a web application that tracks work items in an &AURlong; Serverless database and uses &SESlong; (&SES;) to send reports.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "aurora",
+			"services": {
+				"aurora": {
+					"__set__": []
+				},
+				"rds": {
+					"__set__": []
+				},
+				"rds-data": {
+					"__set__": []
+				},
+				"ses": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_RDSDataTracker_section.html",
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_cross_RDSDataTracker_section.html",
+					"rds-data": "https://docs.aws.amazon.com/code-library/latest/ug/rds-data_example_cross_RDSDataTracker_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RDSDataTracker_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_csharp_3_topic.html"
+							}
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_java_2_topic.html"
+							}
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_kotlin_1_topic.html"
+							}
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_php_3_topic.html"
+							}
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_python_3_topic.html"
+							}
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_javascript_3_topic.html"
+							}
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_cpp_1_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_DynamoDBDataTracker",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": "cross_DynamoDBDataTracker_Java_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_DynamoDBDataTracker_Net_block.xml",
+							"excerpts": [],
+							"github": "dotnetv3/cross-service/DynamoDbItemTracker",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": "cross_DynamoDBDataTracker_Kotlin_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_DynamoDBDataTracker_Python_block.xml",
+							"excerpts": [],
+							"github": "python/cross_service/dynamodb_item_tracker",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Create a web application to track &DDB; data",
+			"title_abbrev": "Create a web application to track &DDB; data",
+			"synopsis": "create a web application that tracks work items in an &DDBlong; table and uses &SESlong; (&SES;) to send reports.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "dynamodb",
+			"services": {
+				"dynamodb": {
+					"__set__": []
+				},
+				"ses": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_DynamoDBDataTracker_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_DynamoDBDataTracker_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_DynamoDBDataTracker_java_2_topic.html"
+							}
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_DynamoDBDataTracker_csharp_3_topic.html"
+							}
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_DynamoDBDataTracker_kotlin_1_topic.html"
+							}
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_DynamoDBDataTracker_python_3_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionPhotoAnalyzer",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": "cross_RekognitionPhotoAnalyzer_Kotlin_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": "cross_RekognitionPhotoAnalyzer_Java_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_RekognitionPhotoAnalyzer_Net_block.xml",
+							"excerpts": [],
+							"github": "dotnetv3/cross-service/PhotoAnalyzerApp",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_RekognitionPhotoAnalyzer_JavaScript_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_RekognitionPhotoAnalyzer_Python_block.xml",
+							"excerpts": [],
+							"github": "python/cross_service/photo_analyzer",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Detect objects in images with &REK; using an &AWS; SDK",
+			"title_abbrev": "Detect objects in images",
+			"synopsis": "build an app that uses &REK; to detect objects by category in images.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": {
+				"rekognition": {
+					"__set__": []
+				},
+				"s3": {
+					"__set__": []
+				},
+				"ses": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionPhotoAnalyzer_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionPhotoAnalyzer_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionPhotoAnalyzer_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionPhotoAnalyzer_kotlin_1_topic.html"
+							}
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionPhotoAnalyzer_java_2_topic.html"
+							}
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionPhotoAnalyzer_csharp_3_topic.html"
+							}
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionPhotoAnalyzer_javascript_3_topic.html"
+							}
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionPhotoAnalyzer_python_3_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionVideoDetection",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": "cross_RekognitionVideoAnalyzer_Java_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_RekognitionVideoDetection_Python_block.xml",
+							"excerpts": [],
+							"github": "python/example_code/rekognition",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Detect people and objects in a video with &REK; using an &AWS; SDK",
+			"title_abbrev": "Detect people and objects in a video",
+			"synopsis": "detect people and objects in a video with &REK;.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": {
+				"rekognition": {
+					"__set__": []
+				},
+				"s3": {
+					"__set__": []
+				},
+				"ses": {
+					"__set__": []
+				},
+				"sns": {
+					"__set__": []
+				},
+				"sqs": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionVideoDetection_java_2_topic.html"
+							}
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionVideoDetection_python_3_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_SendEmail",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SES.dotnetv3.SendEmailAsync"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/SES",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.java2.sendmessage.request.main",
+										"ses.java2.sendmessageattachment.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesMailSender",
+										"python.example_code.ses.SendEmail"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.email.sendEmailV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.SendEmail"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.ses.v1.send_email"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/ses/v1",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"SendEmail"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_SendEmail_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_SendTemplatedEmail",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SES.dotnetv3.SendTemplateEmailAsync"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/SES",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.java2.sendmessage.template.sesv2.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesMailSender",
+										"python.example_code.ses.SendTemplatedEmail"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.email.sendTemplatedEmailV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.SendTemplatedEmail"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"SendTemplatedEmail"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_SendTemplatedEmail_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_VerifyDomainIdentity",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesIdentity",
+										"python.example_code.ses.VerifyDomainIdentity"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.identities.verifyDomainIdentityV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"VerifyDomainIdentity"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_VerifyDomainIdentity_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_VerifyEmailIdentity",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SES.dotnetv3.VerifyEmailIdentityAsync"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/SES",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesIdentity",
+										"python.example_code.ses.VerifyEmailIdentity"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.identities.verifyEmailIdentityV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.VerifyEmailIdentity"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.ses.v1.send_verification"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/ses/v1",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"VerifyEmailIdentity"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_VerifyEmailIdentity_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_GetIdentityVerificationAttributes",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SES.dotnetv3.GetIdentityStatusAsync"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/SES",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesIdentity",
+										"python.example_code.ses.GetIdentityVerificationAttributes"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.ses.v1.list_identities"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/ses/v1",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"GetIdentityVerificationAttributes"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_GetIdentityVerificationAttributes_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_DeleteIdentity",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SES.dotnetv3.DeleteIdentityAsync"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/SES",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesIdentity",
+										"python.example_code.ses.DeleteIdentity"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.identities.deleteIdentityV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.DeleteIdentity"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"DeleteIdentity"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_DeleteIdentity_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_ListIdentities",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SES.dotnetv3.ListIdentitiesAsync"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/SES",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.java2.identities.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.identities.listIdentitiesV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesIdentity",
+										"python.example_code.ses.ListIdentities"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.ses.v1.list_identities"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/ses/v1",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.ListIdentities"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"ListIdentities"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_ListIdentities_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_CreateReceiptFilter",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesReceiptHandler",
+										"python.example_code.ses.CreateReceiptFilter"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.filters.createReceiptFilterV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.CreateReceiptFilter"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"CreateReceiptFilter"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_CreateReceiptFilter_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_ListReceiptFilters",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesReceiptHandler",
+										"python.example_code.ses.ListReceiptFilters"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.filters.listReceiptFiltersV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.ListReceiptFilters"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"ListReceiptFilters"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_ListReceiptFilters_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_DeleteReceiptFilter",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesReceiptHandler",
+										"python.example_code.ses.DeleteReceiptFilter"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.filters.deleteReceiptFilterV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.DeleteReceiptFilter"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"DeleteReceiptFilter"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_DeleteReceiptFilter_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_CreateReceiptRuleSet",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesReceiptHandler",
+										"python.example_code.ses.CreateReceiptRuleSet"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.rules.createReceiptRuleSetV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.CreateReceiptRuleSet"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"CreateReceiptRuleSet"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_CreateReceiptRuleSet_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_CreateReceiptRule",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create an &S3; bucket where &SES; can put copies of incoming emails and create a rule that copies incoming email to the bucket for a specific list of recipients.",
+									"snippet_tags": [
+										"python.example_code.ses.SesReceiptHandler",
+										"python.example_code.ses.helper.create_bucket_for_copy",
+										"python.example_code.ses.CreateReceiptRule"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.rules.createReceiptRuleV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.CreateReceiptRule"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"CreateReceiptRule"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_CreateReceiptRule_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_DescribeReceiptRuleSet",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesReceiptHandler",
+										"python.example_code.ses.DescribeReceiptRuleSet"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"DescribeReceiptRuleSet"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_DescribeReceiptRuleSet_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_DeleteReceiptRule",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesReceiptHandler",
+										"python.example_code.ses.DeleteReceiptRule"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.rules.deleteReceiptRuleV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.DeleteReceiptRule"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"DeleteReceiptRule"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_DeleteReceiptRule_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_DeleteReceiptRuleSet",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesReceiptHandler",
+										"python.example_code.ses.DeleteReceiptRuleSet"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.rules.deleteReceiptRuleSetV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.DeleteReceiptRuleSet"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"DeleteReceiptRuleSet"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_DeleteReceiptRuleSet_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_CreateTemplate",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SES.dotnetv3.CreateEmailTemplateAsync"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/SES",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesTemplate",
+										"python.example_code.ses.CreateTemplate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.templates.createTemplateV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.CreateTemplate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"CreateTemplate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_CreateTemplate_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_DeleteTemplate",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SES.dotnetv3.DeleteEmailTemplateAsync"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/SES",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesTemplate",
+										"python.example_code.ses.DeleteTemplate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.templates.deleteTemplateV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.DeleteTemplate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"DeleteTemplate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_DeleteTemplate_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_GetTemplate",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesTemplate",
+										"python.example_code.ses.GetTemplate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.templates.getTemplateV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.GetTemplate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"GetTemplate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_GetTemplate_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_ListTemplates",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SES.dotnetv3.ListEmailTemplatesAsync"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/SES",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.java2.list.templates.sesv2.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesTemplate",
+										"python.example_code.ses.ListTemplates"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.templates.listTemplatesV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"ListTemplates"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_ListTemplates_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_UpdateTemplate",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.ses.SesTemplate",
+										"python.example_code.ses.UpdateTemplate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.JavaScript.templates.updateTemplateV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.ses.UpdateTemplate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"UpdateTemplate"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_UpdateTemplate_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_ses_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_Scenario_GenerateSmtpCredentials",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.python.ses_generate_smtp_credentials.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Generate credentials to connect to an &SES; SMTP endpoint",
+			"title_abbrev": "Generate credentials to connect to an SMTP endpoint",
+			"synopsis": "generate credentials to connect to an &SES; SMTP endpoint.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_Scenario_GenerateSmtpCredentials_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_Scenario_SendEmail",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Verify an email address with &SES; and send messages.",
+									"snippet_tags": [
+										"python.example_code.ses.Scenario_SendEmail"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create functions to wrap &SES; identity actions.",
+									"snippet_tags": [
+										"python.example_code.ses.SesIdentity",
+										"python.example_code.ses.VerifyDomainIdentity",
+										"python.example_code.ses.VerifyEmailIdentity",
+										"python.example_code.ses.helper.wait_until_identity_exists",
+										"python.example_code.ses.GetIdentityVerificationAttributes",
+										"python.example_code.ses.DeleteIdentity",
+										"python.example_code.ses.ListIdentities"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create functions to wrap &SES; template actions.",
+									"snippet_tags": [
+										"python.example_code.ses.SesTemplate",
+										"python.example_code.ses.CreateTemplate",
+										"python.example_code.ses.DeleteTemplate",
+										"python.example_code.ses.GetTemplate",
+										"python.example_code.ses.ListTemplates",
+										"python.example_code.ses.UpdateTemplate"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create functions to wrap &SES; email actions.",
+									"snippet_tags": [
+										"python.example_code.ses.SesDestination",
+										"python.example_code.ses.SesMailSender",
+										"python.example_code.ses.SendEmail",
+										"python.example_code.ses.SendTemplatedEmail"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Verify an email identity and send messages with &SES;  using an &AWS; SDK",
+			"title_abbrev": "Verify an email identity and send messages",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"VerifyEmailIdentity",
+						"CreateTemplate",
+						"DeleteTemplate",
+						"ListIdentities",
+						"UpdateTemplate",
+						"VerifyDomainIdentity",
+						"ListTemplates",
+						"SendTemplatedEmail",
+						"SendEmail",
+						"DeleteIdentity",
+						"GetTemplate",
+						"GetIdentityVerificationAttributes"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_Scenario_SendEmail_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Add and verify an email address with &SES;.",
+				"Send a standard email message.",
+				"Create a template and send a templated email message.",
+				"Send a message by using an &SES; SMTP server."
+			],
+			"source_key": null
+		},
+		{
+			"id": "ses_Scenario_ReplicateIdentities",
+			"file": "ses_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ses.python.ses_replicateidentities.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/ses",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Copy &SES; email and domain identities from one &AWS; Region to another using an &AWS; SDK",
+			"title_abbrev": "Copy email and domain identities across Regions",
+			"synopsis": "copy &SES; email and domain identities from one &AWS; Region to another. When domain identities are managed by &R53;, verification records are copied to the domain for the destination Region.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"ses": {
+					"__set__": [
+						"VerifyEmailIdentity",
+						"ListIdentities",
+						"VerifyDomainIdentity",
+						"SetIdentityNotificationTopic",
+						"VerifyDomainDkim"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_Scenario_ReplicateIdentities_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"ses": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_ses_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

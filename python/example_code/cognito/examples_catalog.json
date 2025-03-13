@@ -1,0 +1,2793 @@
+{
+	"examples": [
+		{
+			"id": "cognito-identity-provider_Hello",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.cognito-identity-provider.hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.java2.hello.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Code for the CMakeLists.txt CMake file.",
+									"snippet_tags": [
+										"cpp.example_code.cognito.hello_cognito.cmake"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Code for the hello_cognito.cpp source file.",
+									"snippet_tags": [
+										"cpp.example_code.cognito.hello_cognito"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cognito/hello_cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.cognito.hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cognito-idp.HelloCognito"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.hello_cognito.list_user_pools"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Hello &COG;",
+			"title_abbrev": "Hello &COG;",
+			"synopsis": "get started using &COG;.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"ListUserPools"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_Hello_section.html"
+				},
+				"sdk_pages": {
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_cognito-identity-provider_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cognito-identity-provider_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cognito-identity-provider_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_cognito-identity-provider_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_SignUp",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Cognito.dotnetv3.SignUp"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.cognito-identity-provider.CognitoActions.struct",
+										"gov2.cognito-identity-provider.SignUp"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.kotlin.signup.mvp.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.java2.signup.mvp.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl",
+										"python.example_code.cognito-idp.SignUp"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.cognito-idp.actions.SignUp"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.cognito.client_configuration",
+										"cpp.example_code.cognito.cognito_client",
+										"cpp.example_code.cognito.signup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"SignUp"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_SignUp_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_AdminGetUser",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Cognito.dotnetv3.GetAdminUser"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.kotlin.confirm.getuser.mvp.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.java2.confirm.getuser.mvp.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl",
+										"python.example_code.cognito-idp.SignUp"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.cognito-idp.actions.AdminGetUser"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider/",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.cognito.client_configuration",
+										"cpp.example_code.cognito.cognito_client",
+										"cpp.example_code.cognito.admin_get_user"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"AdminGetUser"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_AdminGetUser_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_ResendConfirmationCode",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Cognito.dotnetv3.ResendConfirmationCode"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.kotlin.confirm.resend.mvp.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.java2.confirm.resend.mvp.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl",
+										"python.example_code.cognito-idp.ResendConfirmationCode"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.cognito-idp.actions.ResendConfirmationCode"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.cognito.client_configuration",
+										"cpp.example_code.cognito.cognito_client",
+										"cpp.example_code.cognito.resend_confirmation"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"ResendConfirmationCode"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_ResendConfirmationCode_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_ConfirmSignUp",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Cognito.dotnetv3.ConfirmSignUp"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.kotlin.confirm.signup.mvp.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.java2.confirm.signup.mvp.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl",
+										"python.example_code.cognito-idp.ConfirmSignUp"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.cognito-idp.actions.ConfirmSignUp"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.cognito.client_configuration",
+										"cpp.example_code.cognito.cognito_client",
+										"cpp.example_code.cognito.confirm_signup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"ConfirmSignUp"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_ConfirmSignUp_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_ListUsers",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Cognito.dotnetv3.ListUsers"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.kotlin.ListUsers.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.java2.ListUsers.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl",
+										"python.example_code.cognito-idp.ListUsers"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.cognito-idp.actions.ListUsers"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"ListUsers"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_ListUsers_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_AdminInitiateAuth",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Cognito.dotnetv3.AdminInitiateAuth"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.kotlin.initiateauth.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.java2.initiateauth.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl",
+										"python.example_code.cognito-idp.AdminInitiateAuth"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.cognito-idp.actions.AdminInitiateAuth"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider/",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.cognito.client_configuration",
+										"cpp.example_code.cognito.cognito_client",
+										"cpp.example_code.cognito.admin_initiate_auth"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"AdminInitiateAuth"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_AdminInitiateAuth_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_AssociateSoftwareToken",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Cognito.dotnetv3.AssociateSoftwareToken"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.kotlin.token.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.java2.token.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl",
+										"python.example_code.cognito-idp.AssociateSoftwareToken"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.cognito-idp.actions.AssociateSoftwareToken"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.cognito.client_configuration",
+										"cpp.example_code.cognito.cognito_client",
+										"cpp.example_code.cognito.associate_software_token"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"AssociateSoftwareToken"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_AssociateSoftwareToken_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_VerifySoftwareToken",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Cognito.dotnetv3.VerifySoftwareToken"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.kotlin.token.verify.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.java2.token.verify.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl",
+										"python.example_code.cognito-idp.VerifySoftwareToken"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.cognito-idp.actions.VerifySoftwareToken"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.cognito.client_configuration",
+										"cpp.example_code.cognito.cognito_client",
+										"cpp.example_code.cognito.verify_software_token"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"VerifySoftwareToken"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_VerifySoftwareToken_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_AdminRespondToAuthChallenge",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Cognito.dotnetv3.AdminRespondToAuthChallenge"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.kotlin.verify.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.java2.verify.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Respond to an MFA challenge by providing a code generated by an associated MFA application.",
+									"snippet_tags": [
+										"python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl",
+										"python.example_code.cognito-idp.AdminRespondToAuthChallenge"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.cognito-idp.actions.AdminRespondToAuthChallenge"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.cognito.client_configuration",
+										"cpp.example_code.cognito.cognito_client",
+										"cpp.example_code.cognito.admin_respond_to_auth_challenge"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"AdminRespondToAuthChallenge"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_AdminRespondToAuthChallenge_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_ConfirmDevice",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Cognito.dotnetv3.ConfirmDevice"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl",
+										"python.example_code.cognito-idp.ConfirmDevice"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.cognito-idp.actions.ConfirmDevice"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"ConfirmDevice"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_ConfirmDevice_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_InitiateAuth",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Cognito.dotnetv3.InitiateAuth"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.cognito-identity-provider.CognitoActions.struct",
+										"gov2.cognito-identity-provider.InitiateAuth"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "This example shows you how to start authentication with a tracked device. To complete sign-in, the client must respond correctly to Secure Remote Password (SRP) challenges.",
+									"snippet_tags": [
+										"python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl",
+										"python.example_code.cognito-idp.InitiateAuth"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.cognito-idp.actions.InitiateAuth"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"InitiateAuth"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_InitiateAuth_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_RespondToAuthChallenge",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Sign in with a tracked device. To complete sign-in, the client must respond correctly to Secure Remote Password (SRP) challenges.",
+									"snippet_tags": [
+										"python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl",
+										"python.example_code.cognito-idp.RespondToAuthChallenge"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.cognito-idp.actions.RespondToAuthChallenge"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"RespondToAuthChallenge"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_RespondToAuthChallenge_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_Scenario_SignUpUserWithMfa",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Cognito.dotnetv3.Main",
+										"Cognito.dotnetv3.CognitoWrapper"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.kotlin.mvp.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cognito.java2.mvp.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create a class that wraps &COG; functions used in the scenario.",
+									"snippet_tags": [
+										"python.example_code.cognito-idp.CognitoIdentityProviderWrapper.full"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create a class that runs the scenario. This example also registers an MFA device to be tracked by &COG; and shows you how to sign in by using a password and information from the tracked device. This avoids the need to enter a new MFA code.",
+									"snippet_tags": [
+										"python.example_code.cognito-idp.Scenario_SignUpUserWithMfa"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "For the best experience, clone the GitHub repository and run this example. The following code represents a sample of the full example application.",
+									"snippet_tags": [
+										"javascript.v3.cognito-idp.scenarios.basic.SignUpHandler",
+										"javascript.v3.cognito-idp.actions.SignUp",
+										"javascript.v3.cognito-idp.scenarios.basic.ConfirmSignUpHandler",
+										"javascript.v3.cognito-idp.actions.ConfirmSignUp",
+										"javascript.v3.cognito-idp.scenarios.basic.AdminInitiateAuthHandler",
+										"javascript.v3.cognito-idp.actions.AdminInitiateAuth",
+										"javascript.v3.cognito-idp.scenarios.basic.AdminRespondToAuthChallengeHandler",
+										"javascript.v3.cognito-idp.actions.RespondToAuthChallenge",
+										"javascript.v3.cognito-idp.scenarios.basic.VerifySoftwareTokenHandler",
+										"javascript.v3.cognito-idp.actions.VerifySoftwareToken"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/cognito-identity-provider/scenarios/basic",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.cognito.client_configuration",
+										"cpp.example_code.getting_started_with_user_pools"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cognito",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Sign up a user with an &COG; user pool that requires MFA using an &AWS; SDK",
+			"title_abbrev": "Sign up a user with a user pool that requires MFA",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"cognito-identity-provider": {
+					"__set__": [
+						"AdminGetUser",
+						"AssociateSoftwareToken",
+						"ListUsers",
+						"ConfirmDevice",
+						"InitiateAuth",
+						"ConfirmSignUp",
+						"VerifySoftwareToken",
+						"AdminRespondToAuthChallenge",
+						"ResendConfirmationCode",
+						"SignUp",
+						"AdminInitiateAuth",
+						"RespondToAuthChallenge"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_cognito-identity-provider_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_cognito-identity-provider_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cognito-identity-provider_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cognito-identity-provider_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cognito-identity-provider_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_cognito-identity-provider_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Sign up and confirm a user with a username, password, and email address.",
+				"Set up multi-factor authentication by associating an MFA application with the user.",
+				"Sign in by using a password and an MFA code."
+			],
+			"source_key": null
+		}
+	]
+}
