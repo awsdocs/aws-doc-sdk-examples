@@ -423,7 +423,7 @@ public class LocationActions {
                 }
             }).thenApply(CreateTrackerResponse::trackerArn); // Return tracker ARN
     }
-    // snippet-start:[location.java2.create.tracker.main]
+    // snippet-end:[location.java2.create.tracker.main]
 
     // snippet-start:[location.java2.put.geo.main]
     /**
