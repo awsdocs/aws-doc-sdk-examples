@@ -2,7 +2,7 @@
 location_Hello:
   title: Hello &ALlong;
   title_abbrev: Hello &ALshort;
-  synopsis: get started using ALlong;.
+  synopsis: get started using &ALlong;.
   category: Hello
   languages:
     Java:
