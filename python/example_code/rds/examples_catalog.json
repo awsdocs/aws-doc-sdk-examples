@@ -1,0 +1,3244 @@
+{
+	"examples": [
+		{
+			"id": "cross_RDSDataTracker",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_RDSDataTracker_Net_block.xml",
+							"excerpts": [],
+							"github": "dotnetv3/cross-service/AuroraItemTracker",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": "cross_RDSDataTracker_Java_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": "cross_RDSDataTracker_Kotlin_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_RDSDataTracker_PHP_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_RDSDataTracker_Python_block.xml",
+							"excerpts": [],
+							"github": "python/cross_service/aurora_item_tracker",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_RDSDataTracker_JavaScriptV3_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": "cross_RDSDataTracker_cpp_block.xml",
+							"excerpts": [],
+							"github": "cpp/example_code/cross-service/serverless-aurora",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Create an &AUR; Serverless work item tracker",
+			"title_abbrev": "Create an &AUR; Serverless work item tracker",
+			"synopsis": "create a web application that tracks work items in an &AURlong; Serverless database and uses &SESlong; (&SES;) to send reports.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "aurora",
+			"services": {
+				"aurora": {
+					"__set__": []
+				},
+				"rds": {
+					"__set__": []
+				},
+				"rds-data": {
+					"__set__": []
+				},
+				"ses": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_RDSDataTracker_section.html",
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_cross_RDSDataTracker_section.html",
+					"rds-data": "https://docs.aws.amazon.com/code-library/latest/ug/rds-data_example_cross_RDSDataTracker_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RDSDataTracker_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_csharp_3_topic.html"
+							}
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_java_2_topic.html"
+							}
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_kotlin_1_topic.html"
+							}
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_php_3_topic.html"
+							}
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_python_3_topic.html"
+							}
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_javascript_3_topic.html"
+							}
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RDSDataTracker_cpp_1_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_Hello",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.java2.describe_instances.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"RDS.dotnetv3.HelloRds"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.rds.Hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Code for the CMakeLists.txt CMake file.",
+									"snippet_tags": [
+										"cpp.example_code.rds.hello_rds.cmake"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Code for the hello_rds.cpp source file.",
+									"snippet_tags": [
+										"cpp.example_code.rds.hello_rds"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds/hello_rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.rds.hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.hello-rds.list_instances"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Hello &RDS;",
+			"title_abbrev": "Hello &RDS;",
+			"synopsis": "get started using &RDS;.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"DescribeDBInstances"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_Hello_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rds_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_rds_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_CreateDBInstance",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"RDS.dotnetv3.CreateDBInstance"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.rds.DbInstances.struct",
+										"gov2.rds.CreateDBInstance"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.kotlin.create_instance.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.java2.create_instance.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.rds.helper.InstanceWrapper_decl",
+										"python.example_code.rds.CreateDBInstance"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.rds.client_configuration",
+										"cpp.example_code.rds.client",
+										"cpp.example_code.rds.CreateDBInstance"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.rds.createDBInstance.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"CreateDBInstance"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_CreateDBInstance_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_DeleteDBInstance",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"RDS.dotnetv3.DeleteDBInstance"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.rds.DbInstances.struct",
+										"gov2.rds.DeleteDBInstance"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.kotlin.delete_instance.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.java2.delete_instance.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.rds.helper.InstanceWrapper_decl",
+										"python.example_code.rds.DeleteDBInstance"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.rds.client_configuration",
+										"cpp.example_code.rds.client",
+										"cpp.example_code.rds.DeleteDBInstance"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.rds.deleteDBInstance.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"DeleteDBInstance"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_DeleteDBInstance_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_DescribeDBInstances",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"RDS.dotnetv3.DescribeDbInstances"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.rds.DbInstances.struct",
+										"gov2.rds.DescribeDBInstances"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.kotlin.describe_instances.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.java2.describe_instances.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.rds.helper.InstanceWrapper_decl",
+										"python.example_code.rds.DescribeDBInstances"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.ruby.listAllInstances"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.rds.client_configuration",
+										"cpp.example_code.rds.client",
+										"cpp.example_code.rds.DescribeDBInstances"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.rds.describeDBInstances.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"DescribeDBInstances"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_DescribeDBInstances_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_DescribeDBParameterGroups",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.java2.scenario.desc_para_groups.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"RDS.dotnetv3.DescribeDBParameterGroups"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.rds.DbInstances.struct",
+										"gov2.rds.DescribeDBParameterGroups"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.rds.helper.InstanceWrapper_decl",
+										"python.example_code.rds.DescribeDBParameterGroups"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.ruby.listParameterGroups"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.rds.client_configuration",
+										"cpp.example_code.rds.client",
+										"cpp.example_code.rds.DescribeDBParameterGroups1",
+										"cpp.example_code.rds.DescribeDBParameterGroups2"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"DescribeDBParameterGroups"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_DescribeDBParameterGroups_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_CreateDBParameterGroup",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.java2.scenario.create_para_group.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"RDS.dotnetv3.CreateDBParameterGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.rds.DbInstances.struct",
+										"gov2.rds.CreateDBParameterGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.rds.helper.InstanceWrapper_decl",
+										"python.example_code.rds.CreateDBParameterGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.rds.client_configuration",
+										"cpp.example_code.rds.client",
+										"cpp.example_code.rds.CreateDBParameterGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"CreateDBParameterGroup"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_CreateDBParameterGroup_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_DeleteDBParameterGroup",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.java2.scenario.del_paragroup.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"RDS.dotnetv3.DeleteDBParameterGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.rds.DbInstances.struct",
+										"gov2.rds.DeleteDBParameterGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.rds.helper.InstanceWrapper_decl",
+										"python.example_code.rds.DeleteDBParameterGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.rds.client_configuration",
+										"cpp.example_code.rds.client",
+										"cpp.example_code.rds.DeleteDBParameterGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"DeleteDBParameterGroup"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_DeleteDBParameterGroup_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_DescribeDBParameters",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.java2.scenario.get_paras.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"RDS.dotnetv3.DescribeDBParameters"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.rds.DbInstances.struct",
+										"gov2.rds.DescribeDBParameters"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.rds.helper.InstanceWrapper_decl",
+										"python.example_code.rds.DescribeDBParameters"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.ruby.listParameterGroups"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.rds.client_configuration",
+										"cpp.example_code.rds.client",
+										"cpp.example_code.rds.DescribeDBParameters"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"DescribeDBParameters"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_DescribeDBParameters_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_ModifyDBParameterGroup",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.java2.scenario.mod_paras.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"RDS.dotnetv3.ModifyDBParameterGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.rds.DbInstances.struct",
+										"gov2.rds.ModifyDBParameterGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.rds.helper.InstanceWrapper_decl",
+										"python.example_code.rds.ModifyDBParameterGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.rds.client_configuration",
+										"cpp.example_code.rds.client",
+										"cpp.example_code.rds.ModifyDBParameterGroup"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"ModifyDBParameterGroup"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_ModifyDBParameterGroup_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_CreateDBSnapshot",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.java2.scenario.create_snapshot.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"RDS.dotnetv3.CreateDBSnapshot"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.rds.DbInstances.struct",
+										"gov2.rds.CreateDBSnapshot"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.rds.helper.InstanceWrapper_decl",
+										"python.example_code.rds.CreateDBSnapshot"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.ruby.createDatabaseSnapshot"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.rds.client_configuration",
+										"cpp.example_code.rds.client",
+										"cpp.example_code.rds.CreateDBSnapshot"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.rds.createDBSnapshot.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"CreateDBSnapshot"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_CreateDBSnapshot_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_DescribeDBSnapshots",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"RDS.dotnetv3.DescribeDBSnapshots"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.rds.DbInstances.struct",
+										"gov2.rds.DescribeDBSnapshots"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.rds.helper.InstanceWrapper_decl",
+										"python.example_code.rds.DescribeDBSnapshots"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.ruby.listInstanceSnapshots"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.rds.client_configuration",
+										"cpp.example_code.rds.client",
+										"cpp.example_code.rds.DescribeDBSnapshots"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"DescribeDBSnapshots"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_DescribeDBSnapshots_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_DescribeDBEngineVersions",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.java2.scenario_desc_engine.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"RDS.dotnetv3.DescribeDBEngineVersions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.rds.DbInstances.struct",
+										"gov2.rds.DescribeDBEngineVersions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.rds.helper.InstanceWrapper_decl",
+										"python.example_code.rds.DescribeDBEngineVersions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.rds.client_configuration",
+										"cpp.example_code.rds.client",
+										"cpp.example_code.rds.DescribeDBEngineVersions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"DescribeDBEngineVersions"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_DescribeDBEngineVersions_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_DescribeOrderableDBInstanceOptions",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"RDS.dotnetv3.DescribeOrderableDBInstanceOptions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.rds.DbInstances.struct",
+										"gov2.rds.DescribeOrderableDBInstanceOptions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.rds.helper.InstanceWrapper_decl",
+										"python.example_code.rds.DescribeOrderableDBInstanceOptions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.rds.client_configuration",
+										"cpp.example_code.rds.client",
+										"cpp.example_code.rds.DescribeOrderableDBInstanceOptions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"DescribeOrderableDBInstanceOptions"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_DescribeOrderableDBInstanceOptions_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rds_Scenario_GetStartedInstances",
+			"file": "rds_metadata.yaml",
+			"languages": {
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rds.kotlin.scenario.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run multiple operations.",
+									"snippet_tags": [
+										"rds.java2.scenario.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run an interactive scenario at a command prompt.",
+									"snippet_tags": [
+										"RDS.dotnetv3.RdsInstanceScenario"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Wrapper methods used by the scenario for DB instance actions.",
+									"snippet_tags": [
+										"RDS.dotnetv3.RdsInstanceWrapper"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Wrapper methods used by the scenario for DB parameter groups.",
+									"snippet_tags": [
+										"RDS.dotnetv3.RdsInstanceWrapperParameterGroups"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Wrapper methods used by the scenario for DB snapshot actions.",
+									"snippet_tags": [
+										"RDS.dotnetv3.RdsInstanceWrapperSnapshots"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/RDS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run an interactive scenario at a command prompt.",
+									"snippet_tags": [
+										"gov2.rds.Scenario_GetStartedInstances"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Define functions that are called by the scenario to manage &RDS; actions.",
+									"snippet_tags": [
+										"gov2.rds.DbInstances.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Run an interactive scenario at a command prompt.",
+									"snippet_tags": [
+										"python.example_code.rds.Scenario_GetStartedInstances"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Define functions that are called by the scenario to manage &RDS; actions.",
+									"snippet_tags": [
+										"python.example_code.rds.helper.InstanceWrapper_full"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.rds.client_configuration",
+										"cpp.example_code.rds.get_started_instances"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/rds",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"rds": {
+					"__set__": [
+						"DeleteDBInstance",
+						"DescribeDBParameterGroups",
+						"CreateDBSnapshot",
+						"DescribeDBSnapshots",
+						"ModifyDBParameterGroup",
+						"DeleteDBParameterGroup",
+						"CreateDBParameterGroup",
+						"DescribeDBEngineVersions",
+						"DescribeOrderableDBInstanceOptions",
+						"DescribeDBInstances",
+						"CreateDBInstance",
+						"DescribeDBParameters"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_Scenario_GetStartedInstances_section.html"
+				},
+				"sdk_pages": {
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rds_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rds_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rds_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_rds_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rds_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"rds": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rds_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Create a custom DB parameter group and set parameter values.",
+				"Create a DB instance that's configured to use the parameter group. The DB instance also contains a database.",
+				"Take a snapshot of the instance.",
+				"Delete the instance and parameter group."
+			],
+			"source_key": null
+		}
+	]
+}

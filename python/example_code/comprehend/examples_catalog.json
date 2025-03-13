@@ -1,0 +1,1676 @@
+{
+	"examples": [
+		{
+			"id": "comprehend_CreateDocumentClassifier",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"comprehend.java2.classifier.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendClassifier",
+										"python.example_code.comprehend.CreateDocumentClassifier"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"CreateDocumentClassifier"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_CreateDocumentClassifier_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DescribeDocumentClassifier",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendClassifier",
+										"python.example_code.comprehend.DescribeDocumentClassifier"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"DescribeDocumentClassifier"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DescribeDocumentClassifier_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_ListDocumentClassifiers",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendClassifier",
+										"python.example_code.comprehend.ListDocumentClassifiers"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"ListDocumentClassifiers"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_ListDocumentClassifiers_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DeleteDocumentClassifier",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendClassifier",
+										"python.example_code.comprehend.DeleteDocumentClassifier"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"DeleteDocumentClassifier"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DeleteDocumentClassifier_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_StartDocumentClassificationJob",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendClassifier",
+										"python.example_code.comprehend.StartDocumentClassificationJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"StartDocumentClassificationJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_StartDocumentClassificationJob_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DescribeDocumentClassificationJob",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendClassifier",
+										"python.example_code.comprehend.DescribeDocumentClassificationJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"DescribeDocumentClassificationJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DescribeDocumentClassificationJob_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_ListDocumentClassificationJobs",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendClassifier",
+										"python.example_code.comprehend.ListDocumentClassificationJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"ListDocumentClassificationJobs"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_ListDocumentClassificationJobs_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_Usage_ComprehendClassifier",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create a wrapper class to call &CMP; document classifier actions.",
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendClassifier",
+										"python.example_code.comprehend.CreateDocumentClassifier",
+										"python.example_code.comprehend.DescribeDocumentClassifier",
+										"python.example_code.comprehend.ListDocumentClassifiers",
+										"python.example_code.comprehend.DeleteDocumentClassifier",
+										"python.example_code.comprehend.StartDocumentClassificationJob",
+										"python.example_code.comprehend.DescribeDocumentClassificationJob",
+										"python.example_code.comprehend.ListDocumentClassificationJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create a class to help run the scenario.",
+									"snippet_tags": [
+										"python.example_code.comprehend.helper.ClassifierDemo_class"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Train a classifier on a set of GitHub issues with known labels, then send a second set of GitHub issues to the classifier so that they can be labeled.",
+									"snippet_tags": [
+										"python.example_code.comprehend.Scenario_CustomClassifier"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Train a custom &CMP; classifier and classify documents using an &AWS; SDK",
+			"title_abbrev": "Train a custom classifier and classify documents",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"ListDocumentClassificationJobs",
+						"ListDocumentClassifiers",
+						"DeleteDocumentClassifier",
+						"DescribeDocumentClassificationJob",
+						"StartDocumentClassificationJob",
+						"CreateDocumentClassifier",
+						"DescribeDocumentClassifier"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_Usage_ComprehendClassifier_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Create an &CMP; multi-label classifier.",
+				"Train the classifier on sample data.",
+				"Run a classification job on a second set of data.",
+				"Extract the job output data from &S3;."
+			],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DetectDominantLanguage",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Comprehend.dotnetv3.DetectDominantLanguageExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Comprehend/",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"comprehend.java2.detect_language.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendDetect",
+										"python.example_code.comprehend.DetectDominantLanguage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"DetectDominantLanguage"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DetectDominantLanguage_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DetectEntities",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Comprehend.dotnetv3.DetectEntitiesExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Comprehend/",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"comprehend.java2.detect_entities.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendDetect",
+										"python.example_code.comprehend.DetectEntities"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"DetectEntities"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DetectEntities_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DetectKeyPhrases",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Comprehend.dotnetv3.DetectingKeyPhraseExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Comprehend/",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"comprehend.java2.detect_keyphrases.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendDetect",
+										"python.example_code.comprehend.DetectKeyPhrases"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"DetectKeyPhrases"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DetectKeyPhrases_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DetectPiiEntities",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Comprehend.dotnetv3.DetectingPIIExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Comprehend/",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendDetect",
+										"python.example_code.comprehend.DetectPiiEntities"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"DetectPiiEntities"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DetectPiiEntities_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DetectSentiment",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Comprehend.dotnetv3.DetectingSentimentExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Comprehend/",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"comprehend.java2.detect_sentiment.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendDetect",
+										"python.example_code.comprehend.DetectSentiment"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"DetectSentiment"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DetectSentiment_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DetectSyntax",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Comprehend.dotnetv3.DetectingSyntaxExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Comprehend/",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"comprehend.java2.detect_syntax.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendDetect",
+										"python.example_code.comprehend.DetectSyntax"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"DetectSyntax"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DetectSyntax_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_Usage_DetectApis",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create a class that wraps &CMPlong; actions.",
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendDetect_imports",
+										"python.example_code.comprehend.ComprehendDetect",
+										"python.example_code.comprehend.DetectDominantLanguage",
+										"python.example_code.comprehend.DetectEntities",
+										"python.example_code.comprehend.DetectKeyPhrases",
+										"python.example_code.comprehend.DetectPiiEntities",
+										"python.example_code.comprehend.DetectSentiment",
+										"python.example_code.comprehend.DetectSyntax"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Call functions on the wrapper class to detect entities, phrases, and more in a document.",
+									"snippet_tags": [
+										"python.example_code.comprehend.Usage_DetectApis"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Detect document elements with &CMP; and an &AWS; SDK",
+			"title_abbrev": "Detect document elements",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"DetectSentiment",
+						"DetectKeyPhrases",
+						"DetectDominantLanguage",
+						"DetectSyntax",
+						"DetectEntities",
+						"DetectPiiEntities"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_Usage_DetectApis_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Detect languages, entities, and key phrases in a document.",
+				"Detect personally identifiable information (PII) in a document.",
+				"Detect the sentiment of a document.",
+				"Detect syntax elements in a document."
+			],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_StartTopicsDetectionJob",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Comprehend.dotnetv3.TopicModelingExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Comprehend/",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendTopicModeler",
+										"python.example_code.comprehend.StartTopicsDetectionJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"StartTopicsDetectionJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_StartTopicsDetectionJob_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DescribeTopicsDetectionJob",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendTopicModeler",
+										"python.example_code.comprehend.DescribeTopicsDetectionJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"DescribeTopicsDetectionJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DescribeTopicsDetectionJob_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_ListTopicsDetectionJobs",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendTopicModeler",
+										"python.example_code.comprehend.ListTopicsDetectionJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"ListTopicsDetectionJobs"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_ListTopicsDetectionJobs_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_Usage_TopicModeler",
+			"file": "comprehend_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create a wrapper class to call &CMP; topic modeling actions.",
+									"snippet_tags": [
+										"python.example_code.comprehend.ComprehendTopicModeler",
+										"python.example_code.comprehend.StartTopicsDetectionJob",
+										"python.example_code.comprehend.DescribeTopicsDetectionJob",
+										"python.example_code.comprehend.ListTopicsDetectionJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Use the wrapper class to run a topic modeling job and get job data.",
+									"snippet_tags": [
+										"python.example_code.comprehend.Scenario_TopicModeler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/comprehend",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Run an &CMP; topic modeling job on sample data using an &AWS; SDK",
+			"title_abbrev": "Run a topic modeling job on sample data",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"comprehend": {
+					"__set__": [
+						"StartTopicsDetectionJob",
+						"ListTopicsDetectionJobs",
+						"DescribeTopicsDetectionJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_Usage_TopicModeler_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_comprehend_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Run an &CMP; topic modeling job on sample data.",
+				"Get information about the job.",
+				"Extract job output data from &S3;."
+			],
+			"source_key": null
+		},
+		{
+			"id": "cross_TextractComprehendDetectEntities",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_TextractComprehendDetectEntities_Python_block.xml",
+							"excerpts": [],
+							"github": "python/cross_service/textract_comprehend_notebook",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Detect entities in text extracted from an image using an &AWS; SDK",
+			"title_abbrev": "Detect entities in text extracted from an image",
+			"synopsis": "use &CMP; to detect entities in text extracted by &TEXTRACT; from an image that is stored in &S3;.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "textract",
+			"services": {
+				"comprehend": {
+					"__set__": []
+				},
+				"s3": {
+					"__set__": []
+				},
+				"textract": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_cross_TextractComprehendDetectEntities_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractComprehendDetectEntities_section.html",
+					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractComprehendDetectEntities_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_TextractComprehendDetectEntities_python_3_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

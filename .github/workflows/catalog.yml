@@ -1,4 +1,4 @@
-name: Validate WRITEMEs
+name: Validate Catalogs
 
 # Controls when the action will run.
 on:  # yamllint disable-line rule:truthy
@@ -15,7 +15,7 @@ on:  # yamllint disable-line rule:truthy
 jobs:
   # This workflow contains a single job called "build"
   build:
-    name: Validate WRITEMEs
+    name: Validate Catalogs
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -29,7 +29,7 @@ jobs:
           python-version: 3.11  # install the python needed
       - name: Install dependencies
         run: >-
-          python3 -m pip install -r .tools/readmes/requirements.txt
+          python3 -m pip install -r .tools/scanners/requirements.txt
       - name: Check WRITEMEs
         run: >-
-          python3 .tools/scanners/writeme.py --check --diff
+          python3 .tools/scanners/catalog.py --check --diff

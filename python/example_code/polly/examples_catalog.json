@@ -1,0 +1,945 @@
+{
+	"examples": [
+		{
+			"id": "polly_DescribeVoices",
+			"file": "polly_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"polly.java2.describe_voice.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Polly.dotnetv3.DescribeVoicesExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"polly.rust.describe-voices"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.polly.helper.PollyWrapper",
+										"python.example_code.polly.DescribeVoices"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"polly.ruby.describeVoices"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"polly": {
+					"__set__": [
+						"DescribeVoices"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_DescribeVoices_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "polly_GetLexicon",
+			"file": "polly_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Polly.dotnetv3.GetLexiconExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.polly.helper.PollyWrapper",
+										"python.example_code.polly.GetLexicon"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"polly": {
+					"__set__": [
+						"GetLexicon"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_GetLexicon_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "polly_ListLexicons",
+			"file": "polly_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"polly.java2.list_icons.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Polly.dotnetv3.ListLexiconsExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.polly.helper.PollyWrapper",
+										"python.example_code.polly.ListLexicons"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"polly.rust.list-lexicons"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"polly.ruby.listLexicons"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"polly": {
+					"__set__": [
+						"ListLexicons"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_ListLexicons_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "polly_PutLexicon",
+			"file": "polly_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Polly.dotnetv3.PutLexiconExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.polly.helper.PollyWrapper",
+										"python.example_code.polly.PutLexicon"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"polly.rust.put-lexicon"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"polly": {
+					"__set__": [
+						"PutLexicon"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_PutLexicon_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "polly_SynthesizeSpeech",
+			"file": "polly_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"polly.java2.demo.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Polly.dotnetv3.SynthesizeSpeechExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Synthesize speech from text using speech marks with &POL; using an &AWS; SDK.",
+									"snippet_tags": [
+										"Polly.dotnetv3.SynthesizeSpeechMarksExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.polly.helper.PollyWrapper",
+										"python.example_code.polly.Synthesize"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"polly.ruby.synthesizeSpeech"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"polly.rust.synthesize-speech"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"polly": {
+					"__set__": [
+						"SynthesizeSpeech"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_SynthesizeSpeech_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "polly_GetSpeechSynthesisTask",
+			"file": "polly_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.polly.helper.PollyWrapper",
+										"python.example_code.polly.GetSpeechSynthesisTask"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"polly": {
+					"__set__": [
+						"GetSpeechSynthesisTask"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_GetSpeechSynthesisTask_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "polly_StartSpeechSynthesisTask",
+			"file": "polly_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.polly.helper.PollyWrapper",
+										"python.example_code.polly.StartSpeechSynthesisTask"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"polly": {
+					"__set__": [
+						"StartSpeechSynthesisTask"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_StartSpeechSynthesisTask_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_polly_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "polly_LipSync",
+			"file": "polly_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "scenario_PollyLipSync_Python_block.xml",
+							"excerpts": [],
+							"github": "python/example_code/polly",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Create a lip-sync application with &POL; using an &AWS; SDK",
+			"title_abbrev": "Create a lip-sync application",
+			"synopsis": "create a lip-sync application with &POL;.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"polly": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_LipSync_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"polly": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_polly_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

@@ -1,0 +1,4626 @@
+{
+	"examples": [
+		{
+			"id": "glue_Hello",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.java2.hello.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.HelloGlue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.list_jobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Code for the CMakeLists.txt CMake file.",
+									"snippet_tags": [
+										"cpp.example_code.glue.hello_glue.cmake"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Code for the hello_glue.cpp source file.",
+									"snippet_tags": [
+										"cpp.example_code.glue.hello_glue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue/hello_glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example.hello_glue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.glue.HelloGlue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Hello &GLU;",
+			"title_abbrev": "Hello &GLU;",
+			"synopsis": "get started using &GLU;.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"ListJobs"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_Hello_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_GetCrawler",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.GetCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.kotlin.get_crawler.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.java2.get_crawler.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.getCrawler",
+										"php.example_code.glue.service.getCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.GetCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.GetCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.GetCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.client_configuration",
+										"cpp.example_code.glue.glue_client",
+										"cpp.example_code.glue.GetCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.get_crawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"GetCrawler"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetCrawler_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_CreateCrawler",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.CreateCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.kotlin.create_crawler.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.java2.create_crawler.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.crawlerName",
+										"php.example_code.glue.basics.getRole",
+										"php.example_code.glue.basics.createCrawler",
+										"php.example_code.glue.service.createCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.CreateCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.CreateCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.CreateCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.client_configuration",
+										"cpp.example_code.glue.glue_client",
+										"cpp.example_code.glue.CreateCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.create_crawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"CreateCrawler"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_CreateCrawler_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_StartCrawler",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.StartCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.kotlin.start_crawler.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.java2.start_crawler.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.crawlerName",
+										"php.example_code.glue.basics.databaseName",
+										"php.example_code.glue.basics.startCrawler",
+										"php.example_code.glue.service.startCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.StartCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.StartCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.StartCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.client_configuration",
+										"cpp.example_code.glue.glue_client",
+										"cpp.example_code.glue.StartCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.start_crawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"StartCrawler"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_StartCrawler_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_GetDatabase",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.GetDatabase"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.kotlin.get_database.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.java2.get_database.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.databaseName",
+										"php.example_code.glue.basics.getDatabase",
+										"php.example_code.glue.service.getDatabase"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.GetDatabase"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.GetDatabase"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.GetDatabase"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.client_configuration",
+										"cpp.example_code.glue.glue_client",
+										"cpp.example_code.glue.GetDatabase"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.get_database"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"GetDatabase"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetDatabase_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_GetTables",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.GetTables"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.java2.get_table.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.databaseName",
+										"php.example_code.glue.basics.getTables",
+										"php.example_code.glue.service.getTables"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.GetTables"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.GetTables"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.GetTables"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.client_configuration",
+										"cpp.example_code.glue.glue_client",
+										"cpp.example_code.glue.GetTables"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.get_tables"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"GetTables"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetTables_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_CreateJob",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.java2.create_job.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.CreateJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.getRole",
+										"php.example_code.glue.basics.jobName",
+										"php.example_code.glue.basics.createJob",
+										"php.example_code.glue.service.createJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.CreateJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.CreateJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.CreateJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.client_configuration",
+										"cpp.example_code.glue.glue_client",
+										"cpp.example_code.glue.CreateJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.create_job"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"CreateJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_CreateJob_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_StartJobRun",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.java2.start.job.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.StartJobRun"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.jobName",
+										"php.example_code.glue.basics.databaseName",
+										"php.example_code.glue.basics.getTables",
+										"php.example_code.glue.basics.startJobRun",
+										"php.example_code.glue.service.startJobRun"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.StartJobRun"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.StartJobRun"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.StartJobRun"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.client_configuration",
+										"cpp.example_code.glue.glue_client",
+										"cpp.example_code.glue.StartJobRun"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.start_job_run"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"StartJobRun"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_StartJobRun_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_ListJobs",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.ListJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.listJobs",
+										"php.example_code.glue.service.listJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.ListJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.ListJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.ListJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.client_configuration",
+										"cpp.example_code.glue.glue_client",
+										"cpp.example_code.glue.ListJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.list_jobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"ListJobs"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_ListJobs_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_GetJobRuns",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.GetJobRuns"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.java2.get_job.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.jobName",
+										"php.example_code.glue.basics.getJobRuns",
+										"php.example_code.glue.service.getJobRuns"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.GetJobRuns"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.GetJobRuns"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.GetJobRuns"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.client_configuration",
+										"cpp.example_code.glue.glue_client",
+										"cpp.example_code.glue.GetJobRuns"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"GetJobRuns"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetJobRuns_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_GetJobRun",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.GetJobRun"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.jobName",
+										"php.example_code.glue.basics.startJobRun",
+										"php.example_code.glue.basics.getJobRun",
+										"php.example_code.glue.service.getJobRun"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.GetJobRun"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.GetJobRun"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.GetJobRun"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.client_configuration",
+										"cpp.example_code.glue.glue_client",
+										"cpp.example_code.glue.GetJobRun"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.get_job_run"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"GetJobRun"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetJobRun_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_DeleteJob",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.java2.delete_job.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.DeleteJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.deleteJob",
+										"php.example_code.glue.service.deleteJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.DeleteJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.DeleteJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.DeleteJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.client_configuration",
+										"cpp.example_code.glue.glue_client",
+										"cpp.example_code.glue.DeleteJob"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.delete_job"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"DeleteJob"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_DeleteJob_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_DeleteTable",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.DeleteTable"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.deleteTable",
+										"php.example_code.glue.service.deleteTable"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.DeleteTable"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.DeleteTable"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.DeleteTable"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.delete_table"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"DeleteTable"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_DeleteTable_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_DeleteDatabase",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.java2.delete_database.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.DeleteDatabase"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.deleteDatabase",
+										"php.example_code.glue.service.deleteDatabase"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.DeleteDatabase"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.DeleteDatabase"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.DeleteDatabase"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.client_configuration",
+										"cpp.example_code.glue.glue_client",
+										"cpp.example_code.glue.DeleteDatabase"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.delete_database"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"DeleteDatabase"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_DeleteDatabase_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_DeleteCrawler",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.java2.delete_crawler.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Glue.dotnetv3.DeleteCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.deleteCrawler",
+										"php.example_code.glue.service.deleteCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.decl",
+										"python.example_code.glue.DeleteCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.decl",
+										"ruby.example_code.glue.DeleteCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.glue.actions.DeleteCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.client_configuration",
+										"cpp.example_code.glue.glue_client",
+										"cpp.example_code.glue.DeleteCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"rust.glue.delete_crawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"DeleteCrawler"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_DeleteCrawler_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_Scenario_GetStartedCrawlersJobs",
+			"file": "glue_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create a class that wraps &GLU; functions that are used in the scenario.",
+									"snippet_tags": [
+										"Glue.dotnetv3.GlueWrapper"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create a class that runs the scenario.",
+									"snippet_tags": [
+										"Glue.dotnetv3.GlueBasics.GlobalUsings",
+										"Glue.dotnetv3.GlueBasics.Main",
+										"Glue.dotnetv3.GlueBasics.UiWrapper"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.kotlin.scenario.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"glue.java2.scenario.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.glue.basics.scenario",
+										"php.example_code.glue.service"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create a class that wraps &GLU; functions used in the scenario.",
+									"snippet_tags": [
+										"python.example_code.glue.GlueWrapper.full"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create a class that runs the scenario.",
+									"snippet_tags": [
+										"python.example_code.glue.Scenario_GetStartedCrawlersJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create an ETL script that is used by &GLU; to extract, transform, and load data during job runs.",
+									"snippet_tags": [
+										"python.example_code.glue.Scenario_GetStartedCrawlersJobs.job_script"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create a class that wraps &GLU; functions used in the scenario.",
+									"snippet_tags": [
+										"ruby.example_code.glue.GlueWrapper.full"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create a class that runs the scenario.",
+									"snippet_tags": [
+										"ruby.example_code.glue.Scenario_GetStartedCrawlersJobs"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create an ETL script that is used by &GLU; to extract, transform, and load data during job runs.",
+									"snippet_tags": [
+										"ruby.example_code.glue.Scenario_GetStartedCrawlersJobs.job_script"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create and run a crawler that crawls a public &S3long; (&S3;) bucket and generates a metadata database that describes the CSV-formatted data it finds.",
+									"snippet_tags": [
+										"javascript.v3.glue.actions.CreateCrawler",
+										"javascript.v3.glue.actions.GetCrawler",
+										"javascript.v3.glue.actions.StartCrawler",
+										"javascript.v3.glue.scenarios.basic.CreateCrawlerStep",
+										"javascript.v3.glue.scenarios.basic.StartCrawlerStep"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "List information about databases and tables in your &GLUDCLong;.",
+									"snippet_tags": [
+										"javascript.v3.glue.actions.GetDatabase",
+										"javascript.v3.glue.actions.GetTables",
+										"javascript.v3.glue.scenarios.basic.GetDatabaseStep",
+										"javascript.v3.glue.scenarios.basic.GetTablesStep"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create and run a job that extracts CSV data from the source &S3; bucket, transforms it by removing and renaming fields, and loads JSON-formatted output into another &S3; bucket.",
+									"snippet_tags": [
+										"javascript.v3.glue.actions.CreateJob",
+										"javascript.v3.glue.actions.StartJobRun",
+										"javascript.v3.glue.scenarios.basic.CreateJobStep",
+										"javascript.v3.glue.scenarios.basic.StartJobRunStep"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "List information about job runs and view some of the transformed data.",
+									"snippet_tags": [
+										"javascript.v3.glue.actions.GetJobRuns",
+										"javascript.v3.glue.actions.GetJobRun",
+										"javascript.v3.glue.scenarios.basic.PickJobRunStep"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Delete all resources created by the demo.",
+									"snippet_tags": [
+										"javascript.v3.glue.actions.DeleteJob",
+										"javascript.v3.glue.actions.DeleteTable",
+										"javascript.v3.glue.actions.DeleteDatabase",
+										"javascript.v3.glue.actions.DeleteCrawler",
+										"javascript.v3.glue.scenarios.basic.CleanUpJobsStep",
+										"javascript.v3.glue.scenarios.basic.CleanUpTablesStep",
+										"javascript.v3.glue.scenarios.basic.CleanUpDatabasesStep",
+										"javascript.v3.glue.scenarios.basic.CleanUpCrawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.glue.glue_getting_started_scenario"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create and run a crawler that crawls a public &S3long; (&S3;) bucket and generates a metadata database that describes the CSV-formatted data it finds.",
+									"snippet_tags": [
+										"rust.glue.create_crawler",
+										"rust.glue.start_crawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "List information about databases and tables in your &GLUDCLong;.",
+									"snippet_tags": [
+										"rust.glue.get_database",
+										"rust.glue.get_tables"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create and run a job that extracts CSV data from the source &S3; bucket, transforms it by removing and renaming fields, and loads JSON-formatted output into another &S3; bucket.",
+									"snippet_tags": [
+										"rust.glue.create_job",
+										"rust.glue.start_job_run"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Delete all resources created by the demo.",
+									"snippet_tags": [
+										"rust.glue.delete_job",
+										"rust.glue.delete_table",
+										"rust.glue.delete_database",
+										"rust.glue.delete_crawler"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/glue",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": {
+				"title": "Tutorial: Getting started with &GLU; Studio",
+				"url": "glue/latest/ug/tutorial-create-job.html"
+			},
+			"service_main": null,
+			"services": {
+				"glue": {
+					"__set__": [
+						"GetDatabases",
+						"GetJobRun",
+						"CreateCrawler",
+						"GetJobRuns",
+						"StartCrawler",
+						"DeleteTable",
+						"DeleteCrawler",
+						"GetCrawler",
+						"StartJobRun",
+						"GetTables",
+						"CreateJob",
+						"DeleteDatabase",
+						"GetDatabase",
+						"DeleteJob",
+						"GetJob",
+						"ListJobs"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_Scenario_GetStartedCrawlersJobs_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"glue": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_glue_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Create a crawler that crawls a public &S3; bucket and generates a database of CSV-formatted metadata.",
+				"List information about databases and tables in your &GLUDCLong;.",
+				"Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another S3 bucket.",
+				"List information about job runs, view transformed data, and clean up resources."
+			],
+			"source_key": null
+		}
+	]
+}

@@ -1,0 +1,290 @@
+{
+	"examples": [
+		{
+			"id": "pinpoint_SendMessages",
+			"file": "pinpoint_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Send an email message.",
+									"snippet_tags": [
+										"pinpoint.dotnet.pinpoint_send_email_message_api.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Send an SMS message.",
+									"snippet_tags": [
+										"pinpoint.dotnet.pinpoint_send_sms_message_api.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Pinpoint",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"pinpoint.kotlin.send_email.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/pinpoint",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Send an email message.",
+									"snippet_tags": [
+										"pinpoint.java2.send_email.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Send an email message with CC values.",
+									"snippet_tags": [
+										"pinpoint.java2.send_emailcc.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Send an SMS message.",
+									"snippet_tags": [
+										"pinpoint.java2.sendmsg.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Send batch SMS messages.",
+									"snippet_tags": [
+										"pinpoint.java2.sendmsg.batch.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/pinpoint",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Send an email message.",
+									"snippet_tags": [
+										"pinpoint.python.pinpoint_send_email_message_api.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Send an SMS message.",
+									"snippet_tags": [
+										"pinpoint.python.pinpoint_send_sms_message_api.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Send an email message with an existing email template.",
+									"snippet_tags": [
+										"pinpoint.python.pinpoint_send_templated_email_message.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Send a text message with an existing SMS template.",
+									"snippet_tags": [
+										"pinpoint.python.pinpoint_send_templated_sms_message.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/pinpoint",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create the client in a separate module and export it.",
+									"snippet_tags": [
+										"pinpoint.JavaScript.createclientv3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Send an email message.",
+									"snippet_tags": [
+										"pinpoint.javascript.pinpoint_send_email_message_v3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Send an SMS message.",
+									"snippet_tags": [
+										"pinpoint.javascript.pinpoint_send_sms_message_V3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/pinpoint",
+							"sdkguide": null,
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Send an email message.",
+									"snippet_tags": [
+										"pinpoint.javascript.pinpoint_send_email_message_api.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Send an SMS message.",
+									"snippet_tags": [
+										"pinpoint.javascript.pinpoint_send_sms_message_api.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/pinpoint",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"pinpoint": {
+					"__set__": [
+						"SendMessages"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"pinpoint": "https://docs.aws.amazon.com/code-library/latest/ug/pinpoint_example_pinpoint_SendMessages_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"pinpoint": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_pinpoint_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"pinpoint": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_pinpoint_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"pinpoint": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_pinpoint_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"pinpoint": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_pinpoint_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"pinpoint": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_pinpoint_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"pinpoint": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_pinpoint_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

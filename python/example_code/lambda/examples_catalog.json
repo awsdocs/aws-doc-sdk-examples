@@ -1,0 +1,3967 @@
+{
+	"examples": [
+		{
+			"id": "cross_ApiGatewayDataTracker",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_ApiGatewayDataTracker_Python_block.xml",
+							"excerpts": [],
+							"github": "python/cross_service/apigateway_covid-19_tracker",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Create an &ABP; REST API to track COVID-19 data",
+			"title_abbrev": "Create a REST API to track COVID-19 data",
+			"synopsis": "create a REST API that simulates a system to track daily cases of COVID-19 in the United States, using fictional data.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "api-gateway",
+			"services": {
+				"api-gateway": {
+					"__set__": []
+				},
+				"cloudformation": {
+					"__set__": []
+				},
+				"dynamodb": {
+					"__set__": []
+				},
+				"lambda": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_ApiGatewayDataTracker_section.html",
+					"cloudformation": "https://docs.aws.amazon.com/code-library/latest/ug/cloudformation_example_cross_ApiGatewayDataTracker_section.html",
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_ApiGatewayDataTracker_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_ApiGatewayDataTracker_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_ApiGatewayDataTracker_python_3_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_ApiGatewayWebsocketChat",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_ApiGatewayWebsocketChat_Python_block.xml",
+							"excerpts": [],
+							"github": "python/cross_service/apigateway_websocket_chat",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Create a websocket chat application with &ABP;",
+			"title_abbrev": "Create a websocket chat application",
+			"synopsis": "create a chat application that is served by a websocket API built on &ABPlong;.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "api-gateway",
+			"services": {
+				"api-gateway": {
+					"__set__": []
+				},
+				"dynamodb": {
+					"__set__": []
+				},
+				"lambda": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_ApiGatewayWebsocketChat_section.html",
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_ApiGatewayWebsocketChat_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_ApiGatewayWebsocketChat_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_ApiGatewayWebsocketChat_python_3_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_AuroraRestLendingLibrary",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_AuroraRestLendingLibrary_Python_block.xml",
+							"excerpts": [],
+							"github": "python/cross_service/aurora_rest_lending_library",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Create a lending library REST API",
+			"title_abbrev": "Create a lending library REST API",
+			"synopsis": "create a lending library where patrons can borrow and return books by using a REST API backed by an &AURlong; database.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "aurora",
+			"services": {
+				"api-gateway": {
+					"__set__": []
+				},
+				"aurora": {
+					"__set__": []
+				},
+				"lambda": {
+					"__set__": []
+				},
+				"secrets-manager": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_AuroraRestLendingLibrary_section.html",
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_AuroraRestLendingLibrary_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_AuroraRestLendingLibrary_section.html",
+					"secrets-manager": "https://docs.aws.amazon.com/code-library/latest/ug/secrets-manager_example_cross_AuroraRestLendingLibrary_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_AuroraRestLendingLibrary_python_3_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_StepFunctionsMessenger",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_StepFunctionsMessenger_Python_block.xml",
+							"excerpts": [],
+							"github": "python/cross_service/stepfunctions_messenger",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Create a messenger application with &SFN;",
+			"title_abbrev": "Create a messenger application",
+			"synopsis": "create an &SFNlong; messenger application that retrieves message records from a database table.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "sfn",
+			"services": {
+				"dynamodb": {
+					"__set__": []
+				},
+				"lambda": {
+					"__set__": []
+				},
+				"sqs": {
+					"__set__": []
+				},
+				"sfn": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_StepFunctionsMessenger_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_StepFunctionsMessenger_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_StepFunctionsMessenger_section.html",
+					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_StepFunctionsMessenger_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_StepFunctionsMessenger_python_3_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_LambdaAPIGateway",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": "cross_LambdaAPIGateway_Java_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_LambdaAPIGateway_JavaScript_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_LambdaAPIGateway_Python_block.xml",
+							"excerpts": [],
+							"github": "python/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Use &ABP; to invoke a &LAM; function",
+			"title_abbrev": "Use &ABP; to invoke a &LAM; function",
+			"synopsis": "create an &LAMlong; function invoked by &ABPlong;.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "lambda",
+			"services": {
+				"api-gateway": {
+					"__set__": []
+				},
+				"dynamodb": {
+					"__set__": []
+				},
+				"lambda": {
+					"__set__": []
+				},
+				"sns": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_LambdaAPIGateway_section.html",
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_LambdaAPIGateway_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaAPIGateway_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaAPIGateway_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_LambdaAPIGateway_java_2_topic.html"
+							}
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_LambdaAPIGateway_javascript_3_topic.html"
+							}
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_LambdaAPIGateway_python_3_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_LambdaScheduledEvents",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": "cross_LambdaScheduledEvents_Java_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_LambdaScheduledEvents_JavaScript_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_LambdaScheduledEvents_Python_block.xml",
+							"excerpts": [],
+							"github": "python/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Use scheduled events to invoke a &LAM; function",
+			"title_abbrev": "Use scheduled events to invoke a &LAM; function",
+			"synopsis": "create an &LAMlong; function invoked by an &EVlong; scheduled event.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "lambda",
+			"services": {
+				"cloudwatch-logs": {
+					"__set__": []
+				},
+				"dynamodb": {
+					"__set__": []
+				},
+				"eventbridge": {
+					"__set__": []
+				},
+				"lambda": {
+					"__set__": []
+				},
+				"sns": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch-logs_example_cross_LambdaScheduledEvents_section.html",
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_LambdaScheduledEvents_section.html",
+					"eventbridge": "https://docs.aws.amazon.com/code-library/latest/ug/eventbridge_example_cross_LambdaScheduledEvents_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaScheduledEvents_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaScheduledEvents_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_LambdaScheduledEvents_java_2_topic.html"
+							}
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_LambdaScheduledEvents_javascript_3_topic.html"
+							}
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_LambdaScheduledEvents_python_3_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_Hello",
+			"file": "lambda_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.java2.list.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Lambda.dotnetv3.LambdaActions.HelloLambda"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.lambda.Hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Code for the CMakeLists.txt CMake file.",
+									"snippet_tags": [
+										"cpp.example_code.lambda.hello_lambda.cmake"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Code for the hello_lambda.cpp source file.",
+									"snippet_tags": [
+										"cpp.example_code.lambda.hello_lambda"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/lambda/hello_lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.lambda.hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example.hello_lambda"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.lambda.Hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Hello &LAM;",
+			"title_abbrev": "Hello &LAM;",
+			"synopsis": "get started using &LAM;.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"lambda": {
+					"__set__": [
+						"ListFunctions"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_Hello_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_CreateFunction",
+			"file": "lambda_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Lambda.dotnetv3.LambdaActions.CreateLambdaFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.lambda.FunctionWrapper.struct",
+										"gov2.lambda.CreateFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.kotlin.create.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.java2.create.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.lambda.actions.CreateFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.lambda.service.createFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.python.LambdaWrapper.decl",
+										"python.example_code.lambda.CreateFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.ruby.LambdaWrapper.decl",
+										"ruby.example_code.lambda.CreateFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lmd.abapv1.create_function"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.lambda.lambda_configuration",
+										"cpp.example_code.lambda.lambda_client",
+										"cpp.example_code.lambda.CreateFunction",
+										"cpp.example_code.lambda.create_function2"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.rust.scenario.create_function",
+										"lambda.rust.scenario.prepare_function"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Swift": {
+					"name": "Swift",
+					"property": "swift",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"swift.lambda-basics.imports",
+										"swift.lambda-basics.CreateFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "swift/example_code/lambda/basics",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"lambda": {
+					"__set__": [
+						"CreateFunction"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_CreateFunction_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"swift": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/swift_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_DeleteFunction",
+			"file": "lambda_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Lambda.dotnetv3.LambdaActions.DeleteLambdaFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.lambda.FunctionWrapper.struct",
+										"gov2.lambda.DeleteFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.kotlin.delete.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.lambda.actions.DeleteFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.java2.delete.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.lambda.service.deleteFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.python.LambdaWrapper.decl",
+										"python.example_code.lambda.DeleteFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.ruby.LambdaWrapper.decl",
+										"ruby.example_code.lambda.DeleteFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lmd.abapv1.delete_function"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.lambda.lambda_configuration",
+										"cpp.example_code.lambda.lambda_client",
+										"cpp.example_code.lambda.DeleteFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.rust.scenario.delete_function"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"lambda": {
+					"__set__": [
+						"DeleteFunction"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_DeleteFunction_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_Invoke",
+			"file": "lambda_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Lambda.dotnetv3.LambdaActions.InvokeFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.lambda.FunctionWrapper.struct",
+										"gov2.lambda.Invoke"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.kotlin.invoke.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.java2.invoke.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.lambda.actions.Invoke"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.lambda.service.invoke"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.python.LambdaWrapper.decl",
+										"python.example_code.lambda.Invoke"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.ruby.LambdaWrapper.decl",
+										"ruby.example_code.lambda.Invoke"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lmd.abapv1.invoke_function"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.lambda.lambda_configuration",
+										"cpp.example_code.lambda.lambda_client",
+										"cpp.example_code.lambda.Invoke",
+										"cpp.example_code.lambda.invoke_function2"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.rust.scenario.invoke",
+										"lambda.rust.scenario.log_invoke_output"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Swift": {
+					"name": "Swift",
+					"property": "swift",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"swift.lambda-basics.imports",
+										"swift.lambda-basics.Invoke"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "swift/example_code/lambda/basics",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"lambda": {
+					"__set__": [
+						"Invoke"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_Invoke_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"swift": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/swift_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_GetFunction",
+			"file": "lambda_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.java2.get.function.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Lambda.dotnetv3.LambdaActions.GetFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.lambda.FunctionWrapper.struct",
+										"gov2.lambda.GetFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.lambda.service.getFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.python.LambdaWrapper.decl",
+										"python.example_code.lambda.GetFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.ruby.LambdaWrapper.decl",
+										"ruby.example_code.lambda.GetFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.lambda.actions.GetFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lmd.abapv1.get_function"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.lambda.lambda_configuration",
+										"cpp.example_code.lambda.lambda_client",
+										"cpp.example_code.lambda.GetFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.rust.scenario.get_function"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Swift": {
+					"name": "Swift",
+					"property": "swift",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"swift.lambda-basics.imports",
+										"swift.lambda-basics.GetFunctionInput"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "swift/example_code/lambda/basics",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"lambda": {
+					"__set__": [
+						"GetFunction"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_GetFunction_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"swift": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/swift_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_UpdateFunctionCode",
+			"file": "lambda_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.java2.get.function.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Lambda.dotnetv3.LambdaActions.UpdateFunctionCode"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.lambda.FunctionWrapper.struct",
+										"gov2.lambda.UpdateFunctionCode"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.lambda.service.updateFunctionCode"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.python.LambdaWrapper.decl",
+										"python.example_code.lambda.UpdateFunctionCode"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.ruby.LambdaWrapper.decl",
+										"ruby.example_code.lambda.UpdateFunctionCode"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lmd.abapv1.update_function_code"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.lambda.actions.UpdateFunctionCode"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.lambda.lambda_configuration",
+										"cpp.example_code.lambda.lambda_client",
+										"cpp.example_code.lambda.UpdateFunctionCode"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.rust.scenario.update_function_code",
+										"lambda.rust.scenario.prepare_function"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Swift": {
+					"name": "Swift",
+					"property": "swift",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"swift.lambda-basics.imports",
+										"swift.lambda-basics.UpdateFunctionCode"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "swift/example_code/lambda/basics",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"lambda": {
+					"__set__": [
+						"UpdateFunctionCode"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_UpdateFunctionCode_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"swift": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/swift_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_UpdateFunctionConfiguration",
+			"file": "lambda_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.java2.update.config.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Lambda.dotnetv3.LambdaActions.UpdateFunctionConfiguration"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.lambda.FunctionWrapper.struct",
+										"gov2.lambda.UpdateFunctionConfiguration"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.lambda.service.updateFunctionConfiguration"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.python.LambdaWrapper.decl",
+										"python.example_code.lambda.UpdateFunctionConfiguration"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.ruby.LambdaWrapper.decl",
+										"ruby.example_code.lambda.UpdateFunctionConfiguration"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lmd.abapv1.update_function_configuration"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.lambda.actions.UpdateFunctionConfiguration"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.lambda.lambda_configuration",
+										"cpp.example_code.lambda.lambda_client",
+										"cpp.example_code.lambda.UpdateFunctionConfiguration",
+										"cpp.example_code.lambda.update_function_configuration2"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.rust.scenario.update_function_configuration"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"lambda": {
+					"__set__": [
+						"UpdateFunctionConfiguration"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_UpdateFunctionConfiguration_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_ListFunctions",
+			"file": "lambda_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"Lambda.dotnetv3.LambdaActions.ListFunctions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.lambda.FunctionWrapper.struct",
+										"gov2.lambda.ListFunctions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.lambda.service.listFunctions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.python.LambdaWrapper.decl",
+										"python.example_code.lambda.ListFunctions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.ruby.LambdaWrapper.decl",
+										"ruby.example_code.lambda.ListFunctions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lmd.abapv1.list_functions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"javascript.v3.lambda.actions.ListFunctions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.lambda.lambda_configuration",
+										"cpp.example_code.lambda.lambda_client",
+										"cpp.example_code.lambda.ListFunctions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.rust.scenario.list_functions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Swift": {
+					"name": "Swift",
+					"property": "swift",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"swift.lambda-basics.imports",
+										"swift.lambda-basics.ListFunctionsPaginated"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "swift/example_code/lambda/basics",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"lambda": {
+					"__set__": [
+						"ListFunctions"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_ListFunctions_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"swift": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/swift_1_lambda_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_Scenario_GettingStartedFunctions",
+			"file": "lambda_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create methods that perform &LAM; actions.",
+									"snippet_tags": [
+										"Lambda.dotnetv3.LambdaActions.LambdaWrapper"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create a function that runs the scenario.",
+									"snippet_tags": [
+										"Lambda.dotnetv3.LambdaBasics.Usings",
+										"Lambda.dotnetv3.LambdaBasics",
+										"Lambda.dotnetv3.LambdaActions.LambdaRoleWrapper",
+										"Lambda.dotnetv3.LambdaScenarioCommon.UIWrapper"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Define a &LAM; handler that increments a number.",
+									"snippet_tags": [
+										"lambda.dotnetv3.handler.increment"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Define a second &LAM; handler that performs arithmetic operations.",
+									"snippet_tags": [
+										"lambda.dotnetv3.handler.arithmetic"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/Lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create an interactive scenario that shows you how to get started with &LAM; functions.",
+									"snippet_tags": [
+										"gov2.lambda.Scenario_GetStartedFunctions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create a struct that wraps individual &LAM; actions.",
+									"snippet_tags": [
+										"gov2.lambda.FunctionWrapper.complete"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Define a &LAM; handler that increments a number.",
+									"snippet_tags": [
+										"gov2.lambda.handlers.increment"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Define a second &LAM; handler that performs arithmetic operations.",
+									"snippet_tags": [
+										"gov2.lambda.handlers.arithmetic"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.kotlin.scenario.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lambda.javav2.scenario.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"PHP": {
+					"name": "PHP",
+					"property": "php",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"php.example_code.lambda.basics.scenario"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "php/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Define a &LAM; handler that increments a number.",
+									"snippet_tags": [
+										"python.example_code.lambda.handler.increment"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Define a second &LAM; handler that performs arithmetic operations.",
+									"snippet_tags": [
+										"python.example_code.lambda.handler.arithmetic"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create functions that wrap &LAM; actions.",
+									"snippet_tags": [
+										"python.example_code.python.LambdaWrapper.full"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create a function that runs the scenario.",
+									"snippet_tags": [
+										"python.example_code.lambda.Scenario_GettingStartedFunctions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Set up pre-requisite IAM permissions for a Lambda function capable of writing logs.",
+									"snippet_tags": [
+										"ruby.example_code.lambda.setup_iam"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Define a &LAM; handler that increments a number provided as an invocation parameter.",
+									"snippet_tags": [
+										"ruby.example_code.lambda.handler.increment"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Zip your &LAM; function into a deployment package.",
+									"snippet_tags": [
+										"ruby.example_code.lambda.create_deployment_package"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create a new &LAM; function.",
+									"snippet_tags": [
+										"ruby.example_code.lambda.CreateFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Invoke your &LAM; function with optional runtime parameters.",
+									"snippet_tags": [
+										"ruby.example_code.lambda.Invoke"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Update your &LAM; function's configuration to inject a new environment variable.",
+									"snippet_tags": [
+										"ruby.example_code.lambda.UpdateFunctionConfiguration"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Update your &LAM; function's code with a different deployment package containing different code.",
+									"snippet_tags": [
+										"ruby.example_code.lambda.UpdateFunctionCode"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "List all existing &LAM; functions using the built-in paginator.",
+									"snippet_tags": [
+										"ruby.example_code.lambda.ListFunctions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Delete a specific &LAM; function.",
+									"snippet_tags": [
+										"ruby.example_code.lambda.DeleteFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"lmd.abapv1.getting_started_with_functions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create an &IAMlong; (&IAM;) role that grants Lambda permission to write to logs.",
+									"snippet_tags": [
+										"javascript.v3.lambda.scenarios.basic.CreateRole",
+										"javascript.v3.iam.actions.AttachRolePolicy"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create a &LAM; function and upload handler code.",
+									"snippet_tags": [
+										"javascript.v3.lambda.actions.CreateFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Invoke the function with a single parameter and get results.",
+									"snippet_tags": [
+										"javascript.v3.lambda.actions.Invoke"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Update the function code and configure its &LAM; environment with an environment variable.",
+									"snippet_tags": [
+										"javascript.v3.lambda.actions.UpdateFunctionCode",
+										"javascript.v3.lambda.actions.UpdateFunctionConfiguration"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "List the functions for your account.",
+									"snippet_tags": [
+										"javascript.v3.lambda.actions.ListFunctions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Delete the &IAM; role and the &LAM; function.",
+									"snippet_tags": [
+										"javascript.v3.iam.actions.DeleteRole",
+										"javascript.v3.lambda.actions.DeleteFunction"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/lambda/scenarios/basic",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.lambda.get_started_with_functions"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "The Cargo.toml with dependencies used in this scenario.",
+									"snippet_tags": [],
+									"snippet_files": [
+										"rustv1/examples/lambda/Cargo.toml"
+									],
+									"genai": "none"
+								},
+								{
+									"description": "A collection of utilities that streamline calling Lambda for this scenario. This file is src/ations.rs in the crate.",
+									"snippet_tags": [],
+									"snippet_files": [
+										"rustv1/examples/lambda/src/actions.rs"
+									],
+									"genai": "none"
+								},
+								{
+									"description": "A binary to run the scenario from front to end, using command line flags to control some behavior. This file is src/bin/scenario.rs in the crate.",
+									"snippet_tags": [],
+									"snippet_files": [
+										"rustv1/examples/lambda/src/bin/scenario.rs"
+									],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/lambda",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Swift": {
+					"name": "Swift",
+					"property": "swift",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Define the first &LAM; function, which simply increments the specified value.",
+									"snippet_tags": [],
+									"snippet_files": [
+										"swift/example_code/lambda/basics/increment/Package.swift",
+										"swift/example_code/lambda/basics/increment/Sources/increment.swift"
+									],
+									"genai": "none"
+								},
+								{
+									"description": "Define the second &LAM; function, which performs an arithmetic operation on two numbers.",
+									"snippet_tags": [],
+									"snippet_files": [
+										"swift/example_code/lambda/basics/calculator/Package.swift",
+										"swift/example_code/lambda/basics/calculator/Sources/calculator.swift"
+									],
+									"genai": "none"
+								},
+								{
+									"description": "Define the main program that will invoke the two &LAM; functions.",
+									"snippet_tags": [],
+									"snippet_files": [
+										"swift/example_code/lambda/basics/lambda-basics/Package.swift",
+										"swift/example_code/lambda/basics/lambda-basics/Sources/entry.swift",
+										"swift/example_code/lambda/basics/lambda-basics/Sources/ExampleError.swift"
+									],
+									"genai": "none"
+								}
+							],
+							"github": "swift/example_code/lambda/basics",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": {
+				"title": "Create a &LAM; function with the console",
+				"url": "lambda/latest/dg/getting-started-create-function.html"
+			},
+			"service_main": null,
+			"services": {
+				"lambda": {
+					"__set__": [
+						"CreateFunction",
+						"UpdateFunctionCode",
+						"ListFunctions",
+						"DeleteFunction",
+						"Invoke",
+						"GetFunction",
+						"UpdateFunctionConfiguration"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_Scenario_GettingStartedFunctions_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"php": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"swift": {
+						"1": {
+							"actions_scenarios": {
+								"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/swift_1_lambda_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Create an &IAM; role and &LAM; function, then upload handler code.",
+				"Invoke the function with a single parameter and get results.",
+				"Update the function code and configure with an environment variable.",
+				"Invoke the function with new parameters and get results. Display the returned execution log.",
+				"List the functions for your account, then clean up resources."
+			],
+			"source_key": null
+		}
+	]
+}

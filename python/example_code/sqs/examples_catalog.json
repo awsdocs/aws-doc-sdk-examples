@@ -1,0 +1,3137 @@
+{
+	"examples": [
+		{
+			"id": "cross_StepFunctionsMessenger",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_StepFunctionsMessenger_Python_block.xml",
+							"excerpts": [],
+							"github": "python/cross_service/stepfunctions_messenger",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Create a messenger application with &SFN;",
+			"title_abbrev": "Create a messenger application",
+			"synopsis": "create an &SFNlong; messenger application that retrieves message records from a database table.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "sfn",
+			"services": {
+				"dynamodb": {
+					"__set__": []
+				},
+				"lambda": {
+					"__set__": []
+				},
+				"sqs": {
+					"__set__": []
+				},
+				"sfn": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_StepFunctionsMessenger_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_StepFunctionsMessenger_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_StepFunctionsMessenger_section.html",
+					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_StepFunctionsMessenger_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_StepFunctionsMessenger_python_3_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_TextractExplorer",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_TextractExplorer_JavaScript_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_TextractExplorer_Python_block.xml",
+							"excerpts": [],
+							"github": "python/cross_service/textract_explorer",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Create an &TEXTRACT; explorer application",
+			"title_abbrev": "Create an &TEXTRACT; explorer application",
+			"synopsis": "explore &TEXTRACTlong; output through an interactive application.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "textract",
+			"services": {
+				"cognito-identity": {
+					"__set__": []
+				},
+				"s3": {
+					"__set__": []
+				},
+				"sns": {
+					"__set__": []
+				},
+				"sqs": {
+					"__set__": []
+				},
+				"textract": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractExplorer_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_TextractExplorer_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
+					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
+				},
+				"sdk_pages": {
+					"javascript": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_TextractExplorer_javascript_3_topic.html"
+							}
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_TextractExplorer_python_3_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionVideoDetection",
+			"file": "cross_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": "cross_RekognitionVideoAnalyzer_Java_block.xml",
+							"excerpts": [],
+							"github": null,
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": "cross_RekognitionVideoDetection_Python_block.xml",
+							"excerpts": [],
+							"github": "python/example_code/rekognition",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Detect people and objects in a video with &REK; using an &AWS; SDK",
+			"title_abbrev": "Detect people and objects in a video",
+			"synopsis": "detect people and objects in a video with &REK;.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": {
+				"rekognition": {
+					"__set__": []
+				},
+				"s3": {
+					"__set__": []
+				},
+				"ses": {
+					"__set__": []
+				},
+				"sns": {
+					"__set__": []
+				},
+				"sqs": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionVideoDetection_java_2_topic.html"
+							}
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": null,
+							"cross_service": {
+								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionVideoDetection_python_3_topic.html"
+							}
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sns_PublishFifoTopic",
+			"file": "sns_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "This example</para> <itemizedlist>\n <listitem>\n   <para>creates an &SNS; FIFO topic, two &SQS; FIFO queues, and one Standard queue.</para>\n  </listitem>\n  <listitem>\n   <para>subscribes the queues to the topic and publishes a message to the topic.</para>\n  </listitem>\n</itemizedlist>\n <para>The <ulink\n   url=\"https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/test/java/com/example/sns/PriceUpdateExampleTest.java\"\n   >test</ulink> verifies the receipt of the message to each queue. The <ulink\n   url=\"https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/PriceUpdateExample.java\"\n   >complete example</ulink> also shows the addition of access policies and deletes the resources at\n  the end.",
+									"snippet_tags": [
+										"sns.java2.PriceUpdateExample.display"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/sns",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create an &SNS; FIFO topic, subscribe &SQS; FIFO and standard queues to the topic, and publish a message to the topic.",
+									"snippet_tags": [
+										"python.example_code.sns.Scenario_SubscribeFifoTopic",
+										"python.example_code.sns.FifoTopicWrapper"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/sns",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create a FIFO topic, subscribe an &SQS; FIFO queue to the topic, and publish a message to an &SNS; topic.",
+									"snippet_tags": [
+										"sns.abapv1.publish_message_to_fifo_queue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/sns",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Create and publish to a FIFO &SNS; topic using an &AWS; SDK",
+			"title_abbrev": "Create and publish to a FIFO topic",
+			"synopsis": "create and publish to a FIFO &SNS; topic.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sns": {
+					"__set__": [
+						"CreateTopic",
+						"Subscribe",
+						"Publish"
+					]
+				},
+				"sqs": {
+					"__set__": []
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_PublishFifoTopic_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sns_PublishFifoTopic_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sns": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sns_code_examples.html#scenarios",
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sqs_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sns": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sns_code_examples.html#scenarios",
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sqs_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_sns_code_examples.html#scenarios",
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_sqs_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_CreateQueue",
+			"file": "sqs_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create a queue with a specific name.",
+									"snippet_tags": [
+										"TopicsAndQueues.dotnetv3.CreateQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create an &SQS; queue and send a message to it.",
+									"snippet_tags": [
+										"SQS.dotnetv3.CreateSendExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/cross-service/TopicsAndQueues",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.sqs.SqsActions.struct",
+										"gov2.sqs.CreateQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/workflows/topics_and_queues",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.kotlin.create_queue.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.java2.sqs_example.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sqs.CreateQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.sqs.CreateQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create an &SQS; standard queue.",
+									"snippet_tags": [
+										"sqs.abapv1.create_queue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create an &SQS; queue that waits for a message to arrive.",
+									"snippet_tags": [
+										"sqs.abapv1.long_polling_on_create_queue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create an &SQS; standard queue.",
+									"snippet_tags": [
+										"sqs.JavaScript.queues.createQueueV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create an &SQS; queue with long polling.",
+									"snippet_tags": [
+										"sqs.JavaScript.longPoll.createQueueV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/sqs",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-create-queue",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create an &SQS; standard queue.",
+									"snippet_tags": [
+										"sqs.JavaScript.queues.createQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Create an &SQS; queue that waits for a message to arrive.",
+									"snippet_tags": [
+										"sqs.JavaScript.longPoll.createQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/sqs",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-create-queue",
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.sqs.CreateQueue.config",
+										"cpp.example_code.sqs.CreateQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Swift": {
+					"name": "Swift",
+					"property": "swift",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"swift.sqs.CreateQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "swift/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sqs": {
+					"__set__": [
+						"CreateQueue"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_CreateQueue_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"swift": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/swift_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_GetQueueUrl",
+			"file": "sqs_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"SQS.dotnetv3.GetQueueUrlExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/SQS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.java2.sqs_example.get_queue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sqs.GetQueueUrl"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.abapv1.get_queue_url"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Get the URL for an &SQS; queue.",
+									"snippet_tags": [
+										"sqs.JavaScript.queues.getQueueUrlV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/sqs",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-get-queue-url",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Get the URL for an &SQS; queue.",
+									"snippet_tags": [
+										"sqs.JavaScript.queues.getQueueUrl"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/sqs",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-get-queue-url",
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.sqs.GetQueueUrl.config",
+										"cpp.example_code.sqs.GetQueueUrl"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sqs": {
+					"__set__": [
+						"GetQueueUrl"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_GetQueueUrl_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_ListQueues",
+			"file": "sqs_metadata.yaml",
+			"languages": {
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.sqs.Hello"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.kotlin.list_queues.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.java2.sqs_example.list_queues"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sqs.ListQueues"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.sqs.ShowQueues"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Retrieve the first &SQS; queue listed in the Region.",
+									"snippet_tags": [
+										"sqs.rust.sqs-list-first"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.abapv1.list_queues"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "List your &SQS; queues.",
+									"snippet_tags": [
+										"sqs.JavaScript.queues.listQueuesV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/sqs",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-listing-queues",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "List your &SQS; queues.",
+									"snippet_tags": [
+										"sqs.JavaScript.queues.listQueues"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/sqs",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-listing-queues",
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.sqs.ListQueues.config",
+										"cpp.example_code.sqs.ListQueues"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Swift": {
+					"name": "Swift",
+					"property": "swift",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"swift.sqs.ListQueues"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "swift/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sqs": {
+					"__set__": [
+						"ListQueues"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_ListQueues_section.html"
+				},
+				"sdk_pages": {
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"swift": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/swift_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_DeleteQueue",
+			"file": "sqs_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Delete a queue by using its URL.",
+									"snippet_tags": [
+										"TopicsAndQueues.dotnetv3.DeleteQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/cross-service/TopicsAndQueues",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.sqs.SqsActions.struct",
+										"gov2.sqs.DeleteQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/workflows/topics_and_queues",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.kotlin.del_messages.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.java2.sqs_example.delete_queue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sqs.DeleteQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.sqs.DeleteQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.abapv1.delete_queue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Delete an &SQS; queue.",
+									"snippet_tags": [
+										"sqs.JavaScript.queues.deleteQueueV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/sqs",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-delete-queue",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Delete an &SQS; queue.",
+									"snippet_tags": [
+										"sqs.JavaScript.queues.deleteQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/sqs",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-delete-queue",
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.sqs.DeleteQueue.config",
+										"cpp.example_code.sqs.DeleteQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Swift": {
+					"name": "Swift",
+					"property": "swift",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"swift.sqs.DeleteQueue"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "swift/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sqs": {
+					"__set__": [
+						"DeleteQueue"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_DeleteQueue_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"swift": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/swift_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_SendMessage",
+			"file": "sqs_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create an &SQS; queue and send a message to it.",
+									"snippet_tags": [
+										"SQS.dotnetv3.CreateSendExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/SQS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.kotlin.send_messages.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Two examples of the <code>SendMessage</code> operation follow:</para> <itemizedlist>\n    <listitem>\n        <para>Send a message with a body and a delay</para>\n    </listitem>\n    <listitem>\n        <para>Send a message with a body and message attributes</para>\n    </listitem>\n</itemizedlist> <para>Send a message with a body and a delay.",
+									"snippet_tags": [
+										"sqs.java2.send_recieve_messages.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Send a message with a body and message attributes.",
+									"snippet_tags": [
+										"sqs.java2.message_attributes.create"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sqs.SendMessage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.sqs.SendMessage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.rust.sqs-send"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.abapv1.send_message"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Send a message to an &SQS; queue.",
+									"snippet_tags": [
+										"sqs.JavaScript.messages.sendMessageV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/sqs",
+							"sdkguide": "sdk-for-javascript/v3/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-sending",
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Send a message to an &SQS; queue.",
+									"snippet_tags": [
+										"sqs.JavaScript.messages.sendMessage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/sqs",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-sending",
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.sqs.SendMessage.config",
+										"cpp.example_code.sqs.SendMessage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sqs": {
+					"__set__": [
+						"SendMessage"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_SendMessage_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_SendMessageBatch",
+			"file": "sqs_metadata.yaml",
+			"languages": {
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.java2.sqs_example.send__multiple_messages"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sqs.SendMessageBatch"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.sqs.SendMessageBatch"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sqs": {
+					"__set__": [
+						"SendMessageBatch"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_SendMessageBatch_section.html"
+				},
+				"sdk_pages": {
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_ReceiveMessage",
+			"file": "sqs_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Receive messages from a queue by using its URL.",
+									"snippet_tags": [
+										"TopicsAndQueues.dotnetv3.ReceiveMessage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Receive a message from an &SQS; queue, and then delete the message.",
+									"snippet_tags": [
+										"SQS.dotnetv3.ReceiveDeleteExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/cross-service/TopicsAndQueues",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.sqs.SqsActions.struct",
+										"gov2.sqs.ReceiveMessage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/workflows/topics_and_queues",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.kotlin.get_messages.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.java2.sqs_example.retrieve_messages"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sqs.ReceiveMessage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Ruby": {
+					"name": "Ruby",
+					"property": "ruby",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"ruby.example_code.sqs.ReceiveMessages"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "ruby/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Rust": {
+					"name": "Rust",
+					"property": "rust",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.rust.sqs-receive"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "rustv1/examples/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"SAP ABAP": {
+					"name": "SAP ABAP",
+					"property": "sap-abap",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Receive a message from an &SQS; queue.",
+									"snippet_tags": [
+										"sqs.abapv1.receive_message"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Receive a message from an &SQS; queue using long-poll support.",
+									"snippet_tags": [
+										"sqs.abapv1.long_polling_on_msg_receipt"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "sap-abap/services/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Receive a message from an &SQS; queue.",
+									"snippet_tags": [
+										"sqs.JavaScript.messages.receiveMessageV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Receive a message from an &SQS; queue using long-poll support.",
+									"snippet_tags": [
+										"sqs.JavaScript.longPoll.receiveMessageV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Receive a message from an  &SQS; queue using long-poll support.",
+									"snippet_tags": [
+										"sqs.JavaScript.longPoll.receiveMessage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/sqs",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-message",
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.sqs.ReceiveMessage.config",
+										"cpp.example_code.sqs.ReceiveMessage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Swift": {
+					"name": "Swift",
+					"property": "swift",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"swift.sqs.ReceiveMessage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "swift/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sqs": {
+					"__set__": [
+						"ReceiveMessage"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_ReceiveMessage_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"ruby": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"rust": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"sap-abap": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"swift": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/swift_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_DeleteMessage",
+			"file": "sqs_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Receive a message from an &SQS; queue and then delete the message.",
+									"snippet_tags": [
+										"SQS.dotnetv3.ReceiveDeleteExample"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/SQS",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Kotlin": {
+					"name": "Kotlin",
+					"property": "kotlin",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.kotlin.del_messages.main"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "kotlin/services/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Java": {
+					"name": "Java",
+					"property": "java",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.java2.sqs_example.delete_message"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javav2/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sqs.DeleteMessage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Receive and delete &SQS; messages.",
+									"snippet_tags": [
+										"sqs.JavaScript.messages.receiveMessageV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						},
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Receive and delete &SQS; messages.",
+									"snippet_tags": [
+										"sqs.JavaScript.messages.receiveMessage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascript/example_code/sqs",
+							"sdkguide": "sdk-for-javascript/v2/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-receiving",
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.sqs.DeleteMessage.config",
+										"cpp.example_code.sqs.DeleteMessage"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sqs": {
+					"__set__": [
+						"DeleteMessage"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_DeleteMessage_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"kotlin": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"java": {
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						},
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_DeleteMessageBatch",
+			"file": "sqs_metadata.yaml",
+			"languages": {
+				".NET": {
+					"name": ".NET",
+					"property": "csharp",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"TopicsAndQueues.dotnetv3.DeleteMessageBatch"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "dotnetv3/cross-service/TopicsAndQueues",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Go": {
+					"name": "Go",
+					"property": "go",
+					"versions": [
+						{
+							"sdk_version": 2,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"gov2.sqs.SqsActions.struct",
+										"gov2.sqs.DeleteMessageBatch"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "gov2/workflows/topics_and_queues",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"python.example_code.sqs.DeleteMessageBatch"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"C++": {
+					"name": "C++",
+					"property": "cpp",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"cpp.example_code.cross-service.topics_and_queues.config",
+										"cpp.example_code.cross-service.topics_and_queues.sqs_client",
+										"cpp.example_code.cross-service.topics_and_queues.sqs.DeleteMessageBatch"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "cpp/example_code/cross-service/topics_and_queues",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"JavaScript": {
+					"name": "JavaScript",
+					"property": "javascript",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"sqs.JavaScript.messages.receiveMessageV3"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "javascriptv3/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				},
+				"Swift": {
+					"name": "Swift",
+					"property": "swift",
+					"versions": [
+						{
+							"sdk_version": 1,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": null,
+									"snippet_tags": [
+										"swift.sqs.DeleteMessageBatch"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "swift/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sqs": {
+					"__set__": [
+						"DeleteMessageBatch"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_DeleteMessageBatch_section.html"
+				},
+				"sdk_pages": {
+					"csharp": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"go": {
+						"2": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"cpp": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"javascript": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					},
+					"swift": {
+						"1": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/swift_1_sqs_code_examples.html#actions"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_Scenario_SendReceiveBatch",
+			"file": "sqs_metadata.yaml",
+			"languages": {
+				"Python": {
+					"name": "Python",
+					"property": "python",
+					"versions": [
+						{
+							"sdk_version": 3,
+							"block_content": null,
+							"excerpts": [
+								{
+									"description": "Create functions to wrap &SQS; message functions.",
+									"snippet_tags": [
+										"python.example_code.sqs.message_wrapper_imports",
+										"python.example_code.sqs.SendMessageBatch",
+										"python.example_code.sqs.ReceiveMessage",
+										"python.example_code.sqs.DeleteMessageBatch"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								},
+								{
+									"description": "Use the wrapper functions to send and receive messages in batches.",
+									"snippet_tags": [
+										"python.example_code.sqs.Scenario_SendReceiveBatch"
+									],
+									"snippet_files": [],
+									"genai": "none"
+								}
+							],
+							"github": "python/example_code/sqs",
+							"sdkguide": null,
+							"more_info": []
+						}
+					]
+				}
+			},
+			"title": "Send and receive batches of messages with &SQS; using an &AWS; SDK",
+			"title_abbrev": "Send and receive batches of messages",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": {
+				"sqs": {
+					"__set__": [
+						"DeleteQueue",
+						"DeleteMessageBatch",
+						"ReceiveMessage",
+						"CreateQueue",
+						"SendMessageBatch"
+					]
+				}
+			},
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_Scenario_SendReceiveBatch_section.html"
+				},
+				"sdk_pages": {
+					"python": {
+						"3": {
+							"actions_scenarios": {
+								"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_sqs_code_examples.html#scenarios"
+							},
+							"cross_service": null
+						}
+					}
+				}
+			},
+			"synopsis_list": [
+				"Create an &SQS; queue.",
+				"Send batches of messages to the queue.",
+				"Receive batches of messages from the queue.",
+				"Delete batches of messages from the queue."
+			],
+			"source_key": null
+		}
+	]
+}
