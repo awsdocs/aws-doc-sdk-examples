@@ -217,7 +217,6 @@ public class LoadBalancer {
                     .defaultActions(action)
                     .port(port)
                     .protocol(protocol)
-                    .defaultActions(action)
                     .build();
 
             getLoadBalancerClient().createListener(listenerRequest);
