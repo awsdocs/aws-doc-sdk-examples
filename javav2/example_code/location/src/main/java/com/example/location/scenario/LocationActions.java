@@ -406,7 +406,7 @@ public class LocationActions {
             .positionFiltering("TimeBased") // Options: TimeBased, DistanceBased, AccuracyBased
             .build();
 
-        return locationAsyncClient.createTracker(trackerRequest)
+        return getClient().createTracker(trackerRequest)
             .whenComplete((response, exception) -> {
                 if (response != null) {
                     logger.info("The tracker ARN is " + response.trackerArn());
@@ -452,7 +452,7 @@ public class LocationActions {
             .geometry(geofenceGeometry)
             .build();
 
-        return locationAsyncClient.putGeofence(geofenceRequest)
+        return getClient().putGeofence(geofenceRequest)
             .whenComplete((response, exception) -> {
                 if (response != null) {
                     logger.info("Successfully created geofence: " + geoId);
