@@ -90,8 +90,9 @@ public class PriceUpdateExample {
         try {
             // Create a FIFO topic by using the SNS service client.
             Map<String, String> topicAttributes = Map.of(
-                    "FifoTopic", "true",
-                    "ContentBasedDeduplication", "false");
+                "FifoTopic", "true",
+                "ContentBasedDeduplication", "false",
+                "FifoThroughputScope", "MessageGroup");
 
             CreateTopicRequest topicRequest = CreateTopicRequest.builder()
                     .name(topicName)
