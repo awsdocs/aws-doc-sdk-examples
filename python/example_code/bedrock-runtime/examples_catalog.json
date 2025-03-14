@@ -3,128 +3,19 @@
 		{
 			"id": "bedrock-runtime_Hello",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Go": {
-					"name": "Go",
-					"property": "go",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"gov2.bedrock-runtime.Hello"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "gov2/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/bedrock-runtime/hello.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a prompt to a model with the InvokeModel operation.",
-									"snippet_tags": [
-										"bedrock-runtime.example_code.hello_bedrock_invoke.complete"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Send a user message to a model with the Converse operation.",
-									"snippet_tags": [
-										"bedrock-runtime.example_code.hello_bedrock_converse.complete"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Hello &BR;",
-			"title_abbrev": "Hello &BR;",
-			"synopsis": "get started using &BR;.",
+			"languages": [],
+			"title": "Hello Amazon Bedrock",
+			"title_abbrev": "Hello Amazon Bedrock",
+			"synopsis": "get started using Amazon Bedrock.",
 			"category": "Hello",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Hello_section.html"
 				},
-				"sdk_pages": {
-					"go": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -132,159 +23,19 @@
 		{
 			"id": "bedrock-runtime_Converse_Ai21LabsJurassic2",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to AI21 Labs Jurassic-2, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.Converse_Ai21LabsJurassic2"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Send a text message to AI21 Labs Jurassic-2, using Bedrock's Converse API with the async Java client.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.ConverseAsync_Ai21LabsJurassic2"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to AI21 Labs Jurassic-2, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.Converse_Ai21LabsJurassic2"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to AI21 Labs Jurassic-2, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.Converse_Ai21LabsJurassic2"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to AI21 Labs Jurassic-2, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.Converse_Ai21LabsJurassic2"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke AI21 Labs Jurassic-2 on &BR; using Bedrock's Converse API",
+			"languages": [],
+			"title": "Invoke AI21 Labs Jurassic-2 on Amazon Bedrock using Bedrock's Converse API",
 			"title_abbrev": "Converse",
 			"synopsis": "send a text message to AI21 Labs Jurassic-2, using Bedrock's Converse API.",
 			"category": "AI21 Labs Jurassic-2",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"Converse"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_Ai21LabsJurassic2_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -292,167 +43,19 @@
 		{
 			"id": "bedrock-runtime_Converse_AmazonNovaText",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Nova using Bedrock's Converse API with the async Java client.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.ConverseAsync_AmazonNovaText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Send a text message to Amazon Nova, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.Converse_AmazonNovaText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Nova, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.Converse_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Nova, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.Converse_AmazonNovaText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Send a conversation of messages to Amazon Nova using Bedrock's Converse API with a tool configuration.",
-									"snippet_tags": [
-										"Bedrock.ConverseTool.dotnetv3.SendConverseRequest"
-									],
-									"snippet_files": [],
-									"genai": "some"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Nova, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.Converse_AmazonNovaText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Amazon Nova on &BR; using Bedrock's Converse API",
+			"languages": [],
+			"title": "Invoke Amazon Nova on Amazon Bedrock using Bedrock's Converse API",
 			"title_abbrev": "Converse",
 			"synopsis": "send a text message to Amazon Nova, using Bedrock's Converse API.",
 			"category": "Amazon Nova",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"Converse"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_AmazonNovaText_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -460,159 +63,19 @@
 		{
 			"id": "bedrock-runtime_Converse_AmazonTitanText",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Titan Text, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.Converse_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Send a text message to Amazon Titan Text, using Bedrock's Converse API with the async Java client.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.ConverseAsync_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Titan Text, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.Converse_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Titan Text, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.Converse_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Titan Text, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.Converse_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Amazon Titan Text on &BR; using Bedrock's Converse API",
+			"languages": [],
+			"title": "Invoke Amazon Titan Text on Amazon Bedrock using Bedrock's Converse API",
 			"title_abbrev": "Converse",
 			"synopsis": "send a text message to Amazon Titan Text, using Bedrock's Converse API.",
 			"category": "Amazon Titan Text",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"Converse"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_AmazonTitanText_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -620,168 +83,19 @@
 		{
 			"id": "bedrock-runtime_Scenario_ToolUse",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "The primary execution of the scenario flow. This scenario orchestrates the conversation between the user, the &BR; Converse API, and a weather tool.",
-									"snippet_tags": [
-										"Bedrock.ConverseTool.dotnetv3.Scenario"
-									],
-									"snippet_files": [],
-									"genai": "some"
-								},
-								{
-									"description": "The weather tool used by the demo. This file defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API.",
-									"snippet_tags": [
-										"Bedrock.ConverseTool.dotnetv3.WeatherTool"
-									],
-									"snippet_files": [],
-									"genai": "some"
-								},
-								{
-									"description": "The Converse API action with a tool configuration.",
-									"snippet_tags": [
-										"Bedrock.ConverseTool.dotnetv3.SendConverseRequest"
-									],
-									"snippet_files": [],
-									"genai": "some"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime/Scenarios/ConverseToolScenario",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "The primary execution script of the demo. This script orchestrates the conversation between the user, the &BR; Converse API, and a weather tool.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"python/example_code/bedrock-runtime/cross-model-scenarios/tool_use_demo/tool_use_demo.py"
-									],
-									"genai": "none"
-								},
-								{
-									"description": "The weather tool used by the demo. This script defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"python/example_code/bedrock-runtime/cross-model-scenarios/tool_use_demo/weather_tool.py"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Rust": {
-					"name": "Rust",
-					"property": "rust",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "The primary scenario and logic for the demo. This orchestrates the conversation between the user, the &BR; Converse API, and a weather tool.",
-									"snippet_tags": [
-										"rust.bedrock-runtime.Converse_AnthropicClaude.tool-use"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "The weather tool used by the demo. This script defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API.",
-									"snippet_tags": [
-										"rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.weather-tool"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Utilities to print the Message Content Blocks.",
-									"snippet_tags": [
-										"rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.user-interface"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Use statements, Error utility, and constants.",
-									"snippet_tags": [
-										"rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.supporting"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "rustv1/examples/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "A tool use example illustrating how to connect AI models on &BR; with a custom tool or API",
+			"languages": [],
+			"title": "A tool use example illustrating how to connect AI models on Amazon Bedrock with a custom tool or API",
 			"title_abbrev": "Tool use with the Converse API",
 			"synopsis": "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"Converse"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Scenario_ToolUse_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"rust": {
-						"1": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -789,198 +103,19 @@
 		{
 			"id": "bedrock-runtime_Converse_AnthropicClaude",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Anthropic Claude, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.Converse_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Send a text message to Anthropic Claude, using Bedrock's Converse API with the async Java client.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.ConverseAsync_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Anthropic Claude, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.Converse_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Anthropic Claude, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.Converse_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Anthropic Claude, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.Converse_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Rust": {
-					"name": "Rust",
-					"property": "rust",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Anthropic Claude, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"rust.bedrock-runtime.Converse_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Use statements, Error utility, and constants.",
-									"snippet_tags": [
-										"rust.bedrock-runtime.Converse_AnthropicClaude.supporting"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "rustv1/examples/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Anthropic Claude on &BR; using Bedrock's Converse API",
+			"languages": [],
+			"title": "Invoke Anthropic Claude on Amazon Bedrock using Bedrock's Converse API",
 			"title_abbrev": "Converse",
 			"synopsis": "send a text message to Anthropic Claude, using Bedrock's Converse API.",
 			"category": "Anthropic Claude",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"Converse"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_AnthropicClaude_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"rust": {
-						"1": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -988,159 +123,19 @@
 		{
 			"id": "bedrock-runtime_Converse_CohereCommand",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Cohere Command, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.Converse_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Send a text message to Cohere Command, using Bedrock's Converse API with the async Java client.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.ConverseAsync_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Cohere Command, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.Converse_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Cohere Command, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.Converse_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Cohere Command, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.Converse_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Cohere Command on &BR; using Bedrock's Converse API",
+			"languages": [],
+			"title": "Invoke Cohere Command on Amazon Bedrock using Bedrock's Converse API",
 			"title_abbrev": "Converse",
 			"synopsis": "send a text message to Cohere Command, using Bedrock's Converse API.",
 			"category": "Cohere Command",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"Converse"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_CohereCommand_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1148,159 +143,19 @@
 		{
 			"id": "bedrock-runtime_Converse_MetaLlama",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Meta Llama, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.Converse_MetaLlama"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Send a text message to Meta Llama, using Bedrock's Converse API with the async Java client.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.ConverseAsync_MetaLlama"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Meta Llama, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.Converse_MetaLlama"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Meta Llama, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.Converse_MetaLlama"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Meta Llama, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.Converse_MetaLlama"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Meta Llama on &BR; using Bedrock's Converse API",
+			"languages": [],
+			"title": "Invoke Meta Llama on Amazon Bedrock using Bedrock's Converse API",
 			"title_abbrev": "Converse",
 			"synopsis": "send a text message to Meta Llama, using Bedrock's Converse API.",
 			"category": "Meta Llama",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"Converse"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_MetaLlama_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1308,159 +163,19 @@
 		{
 			"id": "bedrock-runtime_Converse_Mistral",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Mistral, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.Converse_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Send a text message to Mistral, using Bedrock's Converse API with the async Java client.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.ConverseAsync_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Mistral, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.Converse_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Mistral, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.Converse_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Mistral, using Bedrock's Converse API.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.Converse_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Mistral on &BR; using Bedrock's Converse API",
+			"languages": [],
+			"title": "Invoke Mistral on Amazon Bedrock using Bedrock's Converse API",
 			"title_abbrev": "Converse",
 			"synopsis": "send a text message to Mistral, using Bedrock's Converse API.",
 			"category": "Mistral AI",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"Converse"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_Mistral_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1468,151 +183,19 @@
 		{
 			"id": "bedrock-runtime_ConverseStream_AmazonNovaText",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Nova using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.ConverseStream_AmazonNovaText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Nova using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.Converse_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Nova, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.ConverseStream_AmazonNovaText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Nova, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.ConverseStream_AmazonNovaText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Amazon Nova on &BR; using Bedrock's Converse API with a response stream",
+			"languages": [],
+			"title": "Invoke Amazon Nova on Amazon Bedrock using Bedrock's Converse API with a response stream",
 			"title_abbrev": "ConverseStream",
 			"synopsis": "send a text message to Amazon Nova, using Bedrock's Converse API and process the response stream in real-time.",
 			"category": "Amazon Nova",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"ConverseStream"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_AmazonNovaText_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1620,151 +203,19 @@
 		{
 			"id": "bedrock-runtime_ConverseStream_AmazonTitanText",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Titan Text, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.ConverseStream_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Titan Text, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.ConverseStream_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Titan Text, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.ConverseStream_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Amazon Titan Text, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.ConverseStream_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Amazon Titan Text on &BR; using Bedrock's Converse API with a response stream",
+			"languages": [],
+			"title": "Invoke Amazon Titan Text on Amazon Bedrock using Bedrock's Converse API with a response stream",
 			"title_abbrev": "ConverseStream",
 			"synopsis": "send a text message to Amazon Titan Text, using Bedrock's Converse API and process the response stream in real-time.",
 			"category": "Amazon Titan Text",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"ConverseStream"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_AmazonTitanText_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1772,190 +223,19 @@
 		{
 			"id": "bedrock-runtime_ConverseStream_AnthropicClaude",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Anthropic Claude, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.ConverseStream_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Anthropic Claude, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.ConverseStream_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Anthropic Claude, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.ConverseStream_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Anthropic Claude, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.ConverseStream_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Rust": {
-					"name": "Rust",
-					"property": "rust",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Anthropic Claude and stream reply tokens, using Bedrock's ConverseStream API.",
-									"snippet_tags": [
-										"rust.bedrock-runtime.ConverseStream_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Use statements, Error utility, and constants.",
-									"snippet_tags": [
-										"rust.bedrock-runtime.ConverseStream_AnthropicClaude.supporting"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "rustv1/examples/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Anthropic Claude on &BR; using Bedrock's Converse API with a response stream",
+			"languages": [],
+			"title": "Invoke Anthropic Claude on Amazon Bedrock using Bedrock's Converse API with a response stream",
 			"title_abbrev": "ConverseStream",
 			"synopsis": "send a text message to Anthropic Claude, using Bedrock's Converse API and process the response stream in real-time.",
 			"category": "Anthropic Claude",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"ConverseStream"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_AnthropicClaude_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"rust": {
-						"1": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1963,151 +243,19 @@
 		{
 			"id": "bedrock-runtime_ConverseStream_CohereCommand",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Cohere Command, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.ConverseStream_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Cohere Command, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.ConverseStream_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Cohere Command, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.ConverseStream_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Cohere Command, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.ConverseStream_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Cohere Command on &BR; using Bedrock's Converse API with a response stream",
+			"languages": [],
+			"title": "Invoke Cohere Command on Amazon Bedrock using Bedrock's Converse API with a response stream",
 			"title_abbrev": "ConverseStream",
 			"synopsis": "send a text message to Cohere Command, using Bedrock's Converse API and process the response stream in real-time.",
 			"category": "Cohere Command",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"ConverseStream"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_CohereCommand_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2115,151 +263,19 @@
 		{
 			"id": "bedrock-runtime_ConverseStream_MetaLlama",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Meta Llama, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.ConverseStream_MetaLlama"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Meta Llama, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.ConverseStream_MetaLlama"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Meta Llama, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.ConverseStream_MetaLlama"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Meta Llama, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.ConverseStream_MetaLlama"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Meta Llama on &BR; using Bedrock's Converse API with a response stream",
+			"languages": [],
+			"title": "Invoke Meta Llama on Amazon Bedrock using Bedrock's Converse API with a response stream",
 			"title_abbrev": "ConverseStream",
 			"synopsis": "send a text message to Meta Llama, using Bedrock's Converse API and process the response stream in real-time.",
 			"category": "Meta Llama",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"ConverseStream"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_MetaLlama_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2267,151 +283,19 @@
 		{
 			"id": "bedrock-runtime_ConverseStream_Mistral",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Mistral, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.ConverseStream_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Mistral, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.ConverseStream_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Mistral, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.ConverseStream_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Send a text message to Mistral, using Bedrock's Converse API and process the response stream in real-time.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.ConverseStream_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Mistral on &BR; using Bedrock's Converse API with a response stream",
+			"languages": [],
+			"title": "Invoke Mistral on Amazon Bedrock using Bedrock's Converse API with a response stream",
 			"title_abbrev": "ConverseStream",
 			"synopsis": "send a text message to Mistral, using Bedrock's Converse API and process the response stream in real-time.",
 			"category": "Mistral AI",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"ConverseStream"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_Mistral_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2419,214 +303,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModel_Ai21LabsJurassic2",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModel_Ai21LabsJurassic2"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModel_Ai21LabsJurassic2"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModel_Ai21LabsJurassic2"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Go": {
-					"name": "Go",
-					"property": "go",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"gov2.bedrock-runtime.InvokeModelWrapper.struct",
-										"gov2.bedrock-runtime.InvokeJurassic2"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "gov2/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/bedrock-runtime/models/ai21LabsJurassic2/invoke_model.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"php.example_code.bedrock-runtime.service.invokeJurassic2"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke AI21 Labs Jurassic-2 models on &BR; using the Invoke Model API",
+			"languages": [],
+			"title": "Invoke AI21 Labs Jurassic-2 models on Amazon Bedrock using the Invoke Model API",
 			"title_abbrev": "InvokeModel",
 			"synopsis": "send a text message to AI21 Labs Jurassic-2, using the Invoke Model API.",
 			"category": "AI21 Labs Jurassic-2",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_Ai21LabsJurassic2_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"go": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2634,214 +323,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModel_TitanText",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModel_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to generate a short story.",
-									"snippet_tags": [
-										"bedrock-runtime.kotlin.InvokeModel_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModel_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModel_TitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/bedrock-runtime/models/amazonTitanText/invoke_model.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Go": {
-					"name": "Go",
-					"property": "go",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"gov2.bedrock-runtime.InvokeModelWrapper.struct",
-										"gov2.bedrock-runtime.InvokeTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "gov2/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Amazon Titan Text models on &BR; using the Invoke Model API",
+			"languages": [],
+			"title": "Invoke Amazon Titan Text models on Amazon Bedrock using the Invoke Model API",
 			"title_abbrev": "InvokeModel",
 			"synopsis": "send a text message to Amazon Titan Text, using the Invoke Model API.",
 			"category": "Amazon Titan Text",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_TitanText_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"go": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2849,261 +343,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModel_AnthropicClaude",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModel_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModel_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModel_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/bedrock-runtime/models/anthropicClaude/invoke_claude_3.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Go": {
-					"name": "Go",
-					"property": "go",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Invoke the Anthropic Claude 2 foundation model to generate text.",
-									"snippet_tags": [
-										"gov2.bedrock-runtime.InvokeModelWrapper.struct",
-										"gov2.bedrock-runtime.InvokeClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "gov2/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Invoke the Anthropic Claude 2 foundation model to generate text.",
-									"snippet_tags": [
-										"php.example_code.bedrock-runtime.service.invokeClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"SAP ABAP": {
-					"name": "SAP ABAP",
-					"property": "sap-abap",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Invoke the Anthropic Claude 2 foundation model to generate text. This example uses features of /US2/CL_JSON which might not be available on some NetWeaver versions.",
-									"snippet_tags": [
-										"bdr.abapv1.invokemodel_claude_v2"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Invoke the Anthropic Claude 2 foundation model to generate text using L2 high level client.",
-									"snippet_tags": [
-										"bdr.abapv1.invokemodel_l2_claude_v2"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Invoke the Anthropic Claude 3 foundation model to generate text using L2 high level client.",
-									"snippet_tags": [
-										"bdr.abapv1.invokemodel_l2_claude_v3"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "sap-abap/services/bdr",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Anthropic Claude on &BR; using the Invoke Model API",
+			"languages": [],
+			"title": "Invoke Anthropic Claude on Amazon Bedrock using the Invoke Model API",
 			"title_abbrev": "InvokeModel",
 			"synopsis": "send a text message to Anthropic Claude, using the Invoke Model API.",
 			"category": "Anthropic Claude",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_AnthropicClaude_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"go": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"sap-abap": {
-						"1": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3111,120 +363,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModel_CohereCommand",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModel_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModel_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModel_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Cohere Command on &BR; using the Invoke Model API",
+			"languages": [],
+			"title": "Invoke Cohere Command on Amazon Bedrock using the Invoke Model API",
 			"title_abbrev": "InvokeModel: Command and Command Light",
 			"synopsis": "send a text message to Cohere Command, using the Invoke Model API.",
 			"category": "Cohere Command",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_CohereCommand_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3232,120 +383,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModel_CohereCommandR",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModel_CohereCommandR"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModel_CohereCommandR"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModel_CohereCommandR"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Cohere Command R and R+ on &BR; using the Invoke Model API",
+			"languages": [],
+			"title": "Invoke Cohere Command R and R+ on Amazon Bedrock using the Invoke Model API",
 			"title_abbrev": "InvokeModel: Command R and R+",
 			"synopsis": "send a text message to Cohere Command R and R+, using the Invoke Model API.",
 			"category": "Cohere Command",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_CohereCommandR_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3353,151 +403,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModel_MetaLlama3",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModel_MetaLlama3"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModel_MetaLlama3"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModel_MetaLlama3"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.InvokeModel_Llama3_Quickstart"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Meta Llama 3 on &BR; using the Invoke Model API",
+			"languages": [],
+			"title": "Invoke Meta Llama 3 on Amazon Bedrock using the Invoke Model API",
 			"title_abbrev": "InvokeModel: Llama 3",
 			"synopsis": "send a text message to Meta Llama 3, using the Invoke Model API.",
 			"category": "Meta Llama",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_MetaLlama3_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3505,151 +423,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModel_MistralAi",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModel_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModel_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModel_MistralAi"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/bedrock-runtime/models/mistral/invoke_mistral_7b.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Mistral AI models on &BR; using the Invoke Model API",
+			"languages": [],
+			"title": "Invoke Mistral AI models on Amazon Bedrock using the Invoke Model API",
 			"title_abbrev": "InvokeModel",
 			"synopsis": "send a text message to Mistral models, using the Invoke Model API.",
 			"category": "Mistral AI",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_MistralAi_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3657,120 +443,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModelWithResponseStream_TitanText",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModelWithResponseStream_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_AmazonTitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModelWithResponseStream_TitanText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Amazon Titan Text models on &BR; using the Invoke Model API with a response stream",
+			"languages": [],
+			"title": "Invoke Amazon Titan Text models on Amazon Bedrock using the Invoke Model API with a response stream",
 			"title_abbrev": "InvokeModelWithResponseStream",
 			"synopsis": "send a text message to Amazon Titan Text models, using the Invoke Model API, and print the response stream.",
 			"category": "Amazon Titan Text",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModelWithResponseStream"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_TitanText_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3778,183 +463,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModelWithResponseStream_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModelWithResponseStream_AnthropicClaude"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Go": {
-					"name": "Go",
-					"property": "go",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"gov2.bedrock-runtime.InvokeModelWithResponseStreamWrapper.struct",
-										"gov2.bedrock-runtime.InvokeModelWithResponseStream"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "gov2/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/bedrock-runtime/models/anthropicClaude/invoke_claude_3.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Anthropic Claude models on &BR; using the Invoke Model API with a response stream",
+			"languages": [],
+			"title": "Invoke Anthropic Claude models on Amazon Bedrock using the Invoke Model API with a response stream",
 			"title_abbrev": "InvokeModelWithResponseStream",
 			"synopsis": "send a text message to Anthropic Claude models, using the Invoke Model API, and print the response stream.",
 			"category": "Anthropic Claude",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModelWithResponseStream"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"go": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3962,120 +483,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModelWithResponseStream_CohereCommand",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModelWithResponseStream_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModelWithResponseStream_CohereCommand"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Cohere Command on &BR; using the Invoke Model API with a response stream",
+			"languages": [],
+			"title": "Invoke Cohere Command on Amazon Bedrock using the Invoke Model API with a response stream",
 			"title_abbrev": "InvokeModelWithResponseStream: Command and Command Light",
 			"synopsis": "send a text message to Cohere Command, using the Invoke Model API with a response stream.",
 			"category": "Cohere Command",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_CohereCommand_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -4083,120 +503,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModelWithResponseStream_CohereCommandR",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModelWithResponseStream_CohereCommandR"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_CohereCommandR"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModelWithResponseStream_CohereCommandR"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Cohere Command R and R+ on &BR; using the Invoke Model API with a response stream",
+			"languages": [],
+			"title": "Invoke Cohere Command R and R+ on Amazon Bedrock using the Invoke Model API with a response stream",
 			"title_abbrev": "InvokeModelWithResponseStream: Command R and R+",
 			"synopsis": "send a text message to Cohere Command, using the Invoke Model API with a response stream.",
 			"category": "Cohere Command",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_CohereCommandR_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -4204,151 +523,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModelWithResponseStream_MetaLlama3",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModelWithResponseStream_MetaLlama3"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_MetaLlama3"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MetaLlama3"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.InvokeModelWithResponseStream_Llama3_Quickstart"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Meta Llama 3 on &BR; using the Invoke Model API with a response stream",
+			"languages": [],
+			"title": "Invoke Meta Llama 3 on Amazon Bedrock using the Invoke Model API with a response stream",
 			"title_abbrev": "InvokeModelWithResponseStream: Llama 3",
 			"synopsis": "send a text message to Meta Llama 3, using the Invoke Model API, and print the response stream.",
 			"category": "Meta Llama",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModelWithResponseStream"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_MetaLlama3_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -4356,120 +543,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModelWithResponseStream_MistralAi",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModelWithResponseStream_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_Mistral"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use the Invoke Model API to send a text message and process the response stream in real-time.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MistralAi"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Mistral AI models on &BR; using the Invoke Model API with a response stream",
+			"languages": [],
+			"title": "Invoke Mistral AI models on Amazon Bedrock using the Invoke Model API with a response stream",
 			"title_abbrev": "InvokeModelWithResponseStream",
 			"synopsis": "send a text message to Mistral AI models, using the Invoke Model API, and print the response stream.",
 			"category": "Mistral AI",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModelWithResponseStream"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_MistralAi_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -4477,151 +563,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModel_AmazonNovaImageGeneration",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an image with Amazon Nova Canvas.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModel_AmazonNovaImageGeneration"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an image with Amazon Nova Canvas.",
-									"snippet_tags": [
-										"javascript.v3.bedrock-runtime.InvokeModel_AmazonNovaImageGeneration"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an image with Amazon Nova Canvas.",
-									"snippet_tags": [
-										"BedrockRuntime.dotnetv3.InvokeModel_AmazonNovaImageGeneration"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an image with the Amazon Nova Canvas.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModel_AmazonNovaImageGeneration"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Amazon Nova Canvas on &BR; to generate an image",
+			"languages": [],
+			"title": "Invoke Amazon Nova Canvas on Amazon Bedrock to generate an image",
 			"title_abbrev": "InvokeModel",
-			"synopsis": "invoke Amazon Nova Canvas on &BR; to generate an image.",
+			"synopsis": "invoke Amazon Nova Canvas on Amazon Bedrock to generate an image.",
 			"category": "Amazon Nova Canvas",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_AmazonNovaImageGeneration_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -4629,152 +583,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModel_TitanImageGenerator",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an image with the Amazon Titan Image Generator.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModel_AmazonTitanImage"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an image with the Amazon Titan Image Generator.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModel_TitanImageGenerator"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Go": {
-					"name": "Go",
-					"property": "go",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an image with the Amazon Titan Image Generator.",
-									"snippet_tags": [
-										"gov2.bedrock-runtime.InvokeModelWrapper.struct",
-										"gov2.bedrock-runtime.InvokeTitanImage"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "gov2/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an image with the Amazon Titan Image Generator.",
-									"snippet_tags": [
-										"php.example_code.bedrock-runtime.service.invokeTitanImage"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Amazon Titan Image on &BR; to generate an image",
+			"languages": [],
+			"title": "Invoke Amazon Titan Image on Amazon Bedrock to generate an image",
 			"title_abbrev": "InvokeModel",
-			"synopsis": "invoke Amazon Titan Image on &BR; to generate an image.",
+			"synopsis": "invoke Amazon Titan Image on Amazon Bedrock to generate an image.",
 			"category": "Amazon Titan Image Generator",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_TitanImageGenerator_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"go": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/go_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -4782,159 +603,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModel_StableDiffusion",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an image with Stable Diffusion.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModel_StableDiffusion"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an image with Stable Diffusion.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModel_StableDiffusion"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an image with Stable Diffusion.",
-									"snippet_tags": [
-										"php.example_code.bedrock-runtime.service.invokeStableDiffusion"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"SAP ABAP": {
-					"name": "SAP ABAP",
-					"property": "sap-abap",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an image with Stable Diffusion.",
-									"snippet_tags": [
-										"bdr.abapv1.invokemodel_stable_diffusion"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Invoke the Stability.ai Stable Diffusion XL foundation model to generate images using L2 high level client.",
-									"snippet_tags": [
-										"bdr.abapv1.invokemodel_l2_stable_diffusion"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "sap-abap/services/bdr",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Stability.ai Stable Diffusion XL on &BR; to generate an image",
+			"languages": [],
+			"title": "Invoke Stability.ai Stable Diffusion XL on Amazon Bedrock to generate an image",
 			"title_abbrev": "InvokeModel",
-			"synopsis": "invoke Stability.ai Stable Diffusion XL on &BR; to generate an image.",
+			"synopsis": "invoke Stability.ai Stable Diffusion XL on Amazon Bedrock to generate an image.",
 			"category": "Stable Diffusion",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_StableDiffusion_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"sap-abap": {
-						"1": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -4942,97 +623,19 @@
 		{
 			"id": "bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create your first embedding with Titan Text Embeddings V2.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModel_TitanTextEmbeddings"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Invoke Titan Text Embeddings V2 configuring the number of dimensions and normalization.",
-									"snippet_tags": [
-										"bedrock-runtime.java2.InvokeModel_TitanTextEmbeddings_AdditionalFields"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create your first embedding with Amazon Titan Text Embeddings.",
-									"snippet_tags": [
-										"python.example_code.bedrock-runtime.InvokeModel_TitanTextEmbeddings"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Invoke Amazon Titan Text Embeddings on &BR;",
+			"languages": [],
+			"title": "Invoke Amazon Titan Text Embeddings on Amazon Bedrock",
 			"title_abbrev": "InvokeModel",
 			"synopsis": "",
 			"category": "Amazon Titan Text Embeddings",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"InvokeModel"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [
 				"Get started creating your first embedding.",
@@ -5043,121 +646,19 @@
 		{
 			"id": "bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "The primary execution script of the demo. This script orchestrates the conversation between the user, the &BR; Converse API, and a weather tool.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"python/example_code/bedrock-runtime/cross-model-scenarios/tool_use_demo/tool_use_demo.py"
-									],
-									"genai": "none"
-								},
-								{
-									"description": "The weather tool used by the demo. This script defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"python/example_code/bedrock-runtime/cross-model-scenarios/tool_use_demo/weather_tool.py"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Rust": {
-					"name": "Rust",
-					"property": "rust",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "The primary scenario and logic for the demo. This orchestrates the conversation between the user, the &BR; Converse API, and a weather tool.",
-									"snippet_tags": [
-										"rust.bedrock-runtime.Converse_AnthropicClaude.tool-use"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "The weather tool used by the demo. This script defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API.",
-									"snippet_tags": [
-										"rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.weather-tool"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Utilities to print the Message Content Blocks.",
-									"snippet_tags": [
-										"rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.user-interface"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Use statements, Error utility, and constants.",
-									"snippet_tags": [
-										"rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.supporting"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "rustv1/examples/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "A tool use demo illustrating how to connect AI models on &BR; with a custom tool or API",
+			"languages": [],
+			"title": "A tool use demo illustrating how to connect AI models on Amazon Bedrock with a custom tool or API",
 			"title_abbrev": "Scenario: Tool use with the Converse API",
 			"synopsis": "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input.",
 			"category": "Anthropic Claude",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"Converse"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"rust": {
-						"1": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -5165,66 +666,19 @@
 		{
 			"id": "bedrock-runtime_Scenario_ToolUseDemo_CohereCommand",
 			"file": "bedrock-runtime_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "The primary execution script of the demo. This script orchestrates the conversation between the user, the &BR; Converse API, and a weather tool.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"python/example_code/bedrock-runtime/cross-model-scenarios/tool_use_demo/tool_use_demo.py"
-									],
-									"genai": "none"
-								},
-								{
-									"description": "The weather tool used by the demo. This script defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"python/example_code/bedrock-runtime/cross-model-scenarios/tool_use_demo/weather_tool.py"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-runtime",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "A tool use demo illustrating how to connect AI models on &BR; with a custom tool or API",
+			"languages": [],
+			"title": "A tool use demo illustrating how to connect AI models on Amazon Bedrock with a custom tool or API",
 			"title_abbrev": "Scenario: Tool use with the Converse API",
 			"synopsis": "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input.",
 			"category": "Cohere Command",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-runtime": {
-					"__set__": [
-						"Converse"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Scenario_ToolUseDemo_CohereCommand_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-runtime_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -5232,91 +686,19 @@
 		{
 			"id": "cross_FMPlayground",
 			"file": "cross_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_FMPlayground_NetV3_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": "cross_FMPlayground_Java_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_FMPlayground_Python_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Create a sample application that offers playgrounds to interact with &BR; foundation models using an &AWS; SDK",
-			"title_abbrev": "Create a playground application to interact with &BR; foundation models",
-			"synopsis": "create playgrounds to interact with &BR; foundation models through different modalities.",
+			"languages": [],
+			"title": "Create a sample application that offers playgrounds to interact with Amazon Bedrock foundation models using an AWS SDK",
+			"title_abbrev": "Create a playground application to interact with Amazon Bedrock foundation models",
+			"synopsis": "create playgrounds to interact with Amazon Bedrock foundation models through different modalities.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": "bedrock-runtime",
-			"services": {
-				"bedrock-runtime": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_cross_FMPlayground_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_FMPlayground_csharp_3_topic.html"
-							}
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_FMPlayground_java_2_topic.html"
-							}
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_FMPlayground_python_3_topic.html"
-							}
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -5324,45 +706,14 @@
 		{
 			"id": "cross_ServerlessPromptChaining",
 			"file": "cross_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_ServerlessPromptChaining_Python_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Build and orchestrate generative AI applications with &BR; and &SFN;",
-			"title_abbrev": "Orchestrate generative AI applications with &SFN;",
-			"synopsis": "build and orchestrate generative AI applications with &BR; and &SFN;.",
+			"languages": [],
+			"title": "Build and orchestrate generative AI applications with Amazon Bedrock and Step Functions",
+			"title_abbrev": "Orchestrate generative AI applications with Step Functions",
+			"synopsis": "build and orchestrate generative AI applications with Amazon Bedrock and Step Functions.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": "bedrock",
-			"services": {
-				"bedrock": {
-					"__set__": []
-				},
-				"bedrock-runtime": {
-					"__set__": []
-				},
-				"bedrock-agent": {
-					"__set__": []
-				},
-				"bedrock-agent-runtime": {
-					"__set__": []
-				},
-				"sfn": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock_example_cross_ServerlessPromptChaining_section.html",
@@ -5371,16 +722,7 @@
 					"bedrock-agent-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent-runtime_example_cross_ServerlessPromptChaining_section.html",
 					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_ServerlessPromptChaining_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_ServerlessPromptChaining_python_3_topic.html"
-							}
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null

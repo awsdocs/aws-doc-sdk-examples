@@ -3,66 +3,19 @@
 		{
 			"id": "auditmanager_Scenario_CreateAssessmentReport",
 			"file": "auditmanager_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.auditmanager.Scenario_CreateAssessmentReport"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/auditmanager",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Create an &AM; assessment report that contains one day of evidence using an &AWS; SDK",
+			"languages": [],
+			"title": "Create an Audit Manager assessment report that contains one day of evidence using an AWS SDK",
 			"title_abbrev": "Create an assessment report",
-			"synopsis": "create an &AM; assessment report that contains one day of evidence.",
+			"synopsis": "create an Audit Manager assessment report that contains one day of evidence.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"auditmanager": {
-					"__set__": [
-						"GetAssessment",
-						"GetEvidenceByEvidenceFolder",
-						"BatchDisassociateAssessmentReportEvidence",
-						"DisassociateAssessmentReportEvidenceFolder",
-						"GetEvidenceFoldersByAssessment",
-						"GetAssessmentReportUrl",
-						"AssociateAssessmentReportEvidenceFolder",
-						"ListAssessmentReports",
-						"CreateAssessmentReport"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"auditmanager": "https://docs.aws.amazon.com/code-library/latest/ug/auditmanager_example_auditmanager_Scenario_CreateAssessmentReport_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"auditmanager": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_auditmanager_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -70,128 +23,47 @@
 		{
 			"id": "auditmanager_Scenario_CustomFrameworkFromConformancePack",
 			"file": "auditmanager_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.auditmanager.Scenario_CustomFrameworkFromConformancePack"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/auditmanager",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Create an &AM; custom framework from an &CC; conformance pack using an &AWS; SDK",
-			"title_abbrev": "Create a custom framework from an &CC; conformance pack",
+			"languages": [],
+			"title": "Create an Audit Manager custom framework from an AWS Config conformance pack using an AWS SDK",
+			"title_abbrev": "Create a custom framework from an AWS Config conformance pack",
 			"synopsis": "",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"auditmanager": {
-					"__set__": [
-						"CreateControl",
-						"CreateAssessmentFramework"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"auditmanager": "https://docs.aws.amazon.com/code-library/latest/ug/auditmanager_example_auditmanager_Scenario_CustomFrameworkFromConformancePack_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"auditmanager": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_auditmanager_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [
-				"Get a list of &CC; conformance packs.",
-				"Create an &AM; custom control for each managed rule in a conformance pack.",
-				"Create an &AM; custom framework that contains the controls."
+				"Get a list of AWS Config conformance packs.",
+				"Create an Audit Manager custom control for each managed rule in a conformance pack.",
+				"Create an Audit Manager custom framework that contains the controls."
 			],
 			"source_key": null
 		},
 		{
 			"id": "auditmanager_Scenario_CustomFrameworkFromSecurityHub",
 			"file": "auditmanager_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.auditmanager.Scenario_CustomFrameworkFromSecurityHub"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/auditmanager",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Create an &AM; custom framework that contains &ASH; controls using an &AWS; SDK",
-			"title_abbrev": "Create a custom framework that contains &ASH; controls",
+			"languages": [],
+			"title": "Create an Audit Manager custom framework that contains Security Hub controls using an AWS SDK",
+			"title_abbrev": "Create a custom framework that contains Security Hub controls",
 			"synopsis": "",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"auditmanager": {
-					"__set__": [
-						"CreateAssessmentFramework",
-						"ListControls",
-						"GetControl"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"auditmanager": "https://docs.aws.amazon.com/code-library/latest/ug/auditmanager_example_auditmanager_Scenario_CustomFrameworkFromSecurityHub_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"auditmanager": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_auditmanager_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [
-				"Get a list of all standard controls that have &ASH; as their data source.",
-				"Create an &AM; custom framework that contains the controls."
+				"Get a list of all standard controls that have Security Hub as their data source.",
+				"Create an Audit Manager custom framework that contains the controls."
 			],
 			"source_key": null
 		}

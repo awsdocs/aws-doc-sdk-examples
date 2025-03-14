@@ -3,89 +3,19 @@
 		{
 			"id": "bedrock-agent_CreateAgent",
 			"file": "bedrock-agent_metadata.yaml",
-			"languages": {
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an agent.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/bedrock-agent/actions/create-agent.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an agent.",
-									"snippet_tags": [
-										"python.example_code.bedrock-agent.CreateAgent"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateAgent",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-agent": {
-					"__set__": [
-						"CreateAgent"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_CreateAgent_section.html"
 				},
-				"sdk_pages": {
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -93,58 +23,19 @@
 		{
 			"id": "bedrock-agent_CreateAgentActionGroup",
 			"file": "bedrock-agent_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an agent action group.",
-									"snippet_tags": [
-										"python.example_code.bedrock-agent.CreateAgentActionGroup"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateAgentActionGroup",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-agent": {
-					"__set__": [
-						"CreateAgentActionGroup"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_CreateAgentActionGroup_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -152,58 +43,19 @@
 		{
 			"id": "bedrock-agent_CreateAgentAlias",
 			"file": "bedrock-agent_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create an agent alias.",
-									"snippet_tags": [
-										"python.example_code.bedrock-agent.CreateAgentAlias"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateAgentAlias",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-agent": {
-					"__set__": [
-						"CreateAgentAlias"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_CreateAgentAlias_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -211,89 +63,19 @@
 		{
 			"id": "bedrock-agent_DeleteAgent",
 			"file": "bedrock-agent_metadata.yaml",
-			"languages": {
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Delete an agent.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/bedrock-agent/actions/delete-agent.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Delete an agent.",
-									"snippet_tags": [
-										"python.example_code.bedrock-agent.DeleteAgent"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DeleteAgent",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-agent": {
-					"__set__": [
-						"DeleteAgent"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_DeleteAgent_section.html"
 				},
-				"sdk_pages": {
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -301,58 +83,19 @@
 		{
 			"id": "bedrock-agent_DeleteAgentAlias",
 			"file": "bedrock-agent_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Delete an agent alias.",
-									"snippet_tags": [
-										"python.example_code.bedrock-agent.DeleteAgentAlias"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DeleteAgentAlias",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-agent": {
-					"__set__": [
-						"DeleteAgentAlias"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_DeleteAgentAlias_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -360,89 +103,19 @@
 		{
 			"id": "bedrock-agent_GetAgent",
 			"file": "bedrock-agent_metadata.yaml",
-			"languages": {
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Get an agent.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/bedrock-agent/actions/get-agent.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Get an agent.",
-									"snippet_tags": [
-										"python.example_code.bedrock-agent.GetAgent"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "GetAgent",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-agent": {
-					"__set__": [
-						"GetAgent"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_GetAgent_section.html"
 				},
-				"sdk_pages": {
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -450,89 +123,19 @@
 		{
 			"id": "bedrock-agent_ListAgents",
 			"file": "bedrock-agent_metadata.yaml",
-			"languages": {
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "List the agents belonging to an account.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/bedrock-agent/actions/list-agents.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "List the agents belonging to an account.",
-									"snippet_tags": [
-										"python.example_code.bedrock-agent.ListAgents"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListAgents",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-agent": {
-					"__set__": [
-						"ListAgents"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_ListAgents_section.html"
 				},
-				"sdk_pages": {
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -540,89 +143,19 @@
 		{
 			"id": "bedrock-agent_ListAgentActionGroups",
 			"file": "bedrock-agent_metadata.yaml",
-			"languages": {
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "List the action groups for an agent.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/bedrock-agent/actions/list-agent-action-groups.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "List the action groups for an agent.",
-									"snippet_tags": [
-										"python.example_code.bedrock-agent.ListAgentActionGroups"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListAgentActionGroups",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-agent": {
-					"__set__": [
-						"ListAgentActionGroups"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_ListAgentActionGroups_section.html"
 				},
-				"sdk_pages": {
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -630,58 +163,19 @@
 		{
 			"id": "bedrock-agent_ListAgentKnowledgeBases",
 			"file": "bedrock-agent_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "List the knowledge bases associated with an agent.",
-									"snippet_tags": [
-										"python.example_code.bedrock-agent.ListAgentKnowledgeBases"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListAgentKnowledgeBases",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-agent": {
-					"__set__": [
-						"ListAgentKnowledgeBases"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_ListAgentKnowledgeBases_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -689,58 +183,19 @@
 		{
 			"id": "bedrock-agent_PrepareAgent",
 			"file": "bedrock-agent_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Prepare an agent for internal testing.",
-									"snippet_tags": [
-										"python.example_code.bedrock-agent.PrepareAgent"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "PrepareAgent",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-agent": {
-					"__set__": [
-						"PrepareAgent"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_PrepareAgent_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-agent_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -748,67 +203,19 @@
 		{
 			"id": "bedrock-agent_GettingStartedWithBedrockAgents",
 			"file": "bedrock-agent_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create and invoke an agent.",
-									"snippet_tags": [
-										"python.example_code.bedrock-agent.Scenario_GettingStartedBedrockAgents"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/bedrock-agent",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "An end-to-end example showing how to create and invoke &BRA; using an &AWS; SDK",
+			"languages": [],
+			"title": "An end-to-end example showing how to create and invoke Amazon Bedrock Agents using an AWS SDK",
 			"title_abbrev": "Create and invoke an agent",
 			"synopsis": "",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"bedrock-agent": {
-					"__set__": [
-						"CreateAgent",
-						"ListAgents",
-						"ListAgentKnowledgeBases",
-						"DeleteAgent",
-						"ListAgentActionGroups",
-						"CreateAgentAlias",
-						"CreateAgentActionGroup",
-						"DeleteAgentAlias",
-						"PrepareAgent",
-						"GetAgent"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_GettingStartedWithBedrockAgents_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_bedrock-agent_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [
 				"Create an execution role for the agent.",
@@ -824,45 +231,14 @@
 		{
 			"id": "cross_ServerlessPromptChaining",
 			"file": "cross_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_ServerlessPromptChaining_Python_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Build and orchestrate generative AI applications with &BR; and &SFN;",
-			"title_abbrev": "Orchestrate generative AI applications with &SFN;",
-			"synopsis": "build and orchestrate generative AI applications with &BR; and &SFN;.",
+			"languages": [],
+			"title": "Build and orchestrate generative AI applications with Amazon Bedrock and Step Functions",
+			"title_abbrev": "Orchestrate generative AI applications with Step Functions",
+			"synopsis": "build and orchestrate generative AI applications with Amazon Bedrock and Step Functions.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": "bedrock",
-			"services": {
-				"bedrock": {
-					"__set__": []
-				},
-				"bedrock-runtime": {
-					"__set__": []
-				},
-				"bedrock-agent": {
-					"__set__": []
-				},
-				"bedrock-agent-runtime": {
-					"__set__": []
-				},
-				"sfn": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock_example_cross_ServerlessPromptChaining_section.html",
@@ -871,16 +247,7 @@
 					"bedrock-agent-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent-runtime_example_cross_ServerlessPromptChaining_section.html",
 					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_ServerlessPromptChaining_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_ServerlessPromptChaining_python_3_topic.html"
-							}
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
