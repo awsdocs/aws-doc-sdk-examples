@@ -69,23 +69,20 @@ public class DeleteDirectoryBucketObjects {
         logger.info("Deleting objects from bucket: {}", bucketName);
 
         try {
-            // Create a list of ObjectIdentifier
+            // Create a list of ObjectIdentifier.
             List<ObjectIdentifier> identifiers = objectKeys.stream()
                     .map(key -> ObjectIdentifier.builder().key(key).build())
                     .toList();
 
-            // Create a Delete object
             Delete delete = Delete.builder()
                     .objects(identifiers)
                     .build();
 
-            // Create a DeleteObjectsRequest
             DeleteObjectsRequest deleteObjectsRequest = DeleteObjectsRequest.builder()
                     .bucket(bucketName)
                     .delete(delete)
                     .build();
 
-            // Delete the objects
             DeleteObjectsResponse deleteObjectsResponse = s3Client.deleteObjects(deleteObjectsRequest);
             deleteObjectsResponse.deleted().forEach(deleted -> logger.info("Deleted object: {}", deleted.key()));
 
