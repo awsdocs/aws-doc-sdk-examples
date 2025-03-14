@@ -421,7 +421,7 @@ public class LocationActions {
                     }
                     throw new CompletionException("Error creating tracker: " + exception.getMessage(), exception);
                 }
-            }).thenApply(CreateTrackerResponse::trackerArn); // Return tracker ARN
+            }).thenApply(CreateTrackerResponse::trackerArn);
     }
     // snippet-end:[location.java2.create.tracker.main]
 
