@@ -3,89 +3,19 @@
 		{
 			"id": "cloudwatch-logs_GetQueryResults",
 			"file": "cloudwatch-logs_metadata.yaml",
-			"languages": {
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javascript.v3.cloudwatch-logs.actions.GetQueryResults"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/cloudwatch-logs",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.cloudwatch_logs.get_query_results"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/cloudwatch-logs",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "GetQueryResults",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"cloudwatch-logs": {
-					"__set__": [
-						"GetQueryResults"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch-logs_example_cloudwatch-logs_GetQueryResults_section.html"
 				},
-				"sdk_pages": {
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cloudwatch-logs_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudwatch-logs_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -93,89 +23,19 @@
 		{
 			"id": "cloudwatch-logs_StartQuery",
 			"file": "cloudwatch-logs_metadata.yaml",
-			"languages": {
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javascript.v3.cloudwatch-logs.actions.StartQuery"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/cloudwatch-logs",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.cloudwatch_logs.start_query"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/cloudwatch-logs",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "StartQuery",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"cloudwatch-logs": {
-					"__set__": [
-						"StartQuery"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch-logs_example_cloudwatch-logs_StartQuery_section.html"
 				},
-				"sdk_pages": {
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cloudwatch-logs_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudwatch-logs_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -183,118 +43,19 @@
 		{
 			"id": "cloudwatch-logs_Scenario_BigQuery",
 			"file": "cloudwatch-logs_metadata.yaml",
-			"languages": {
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "This is the entry point.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/index.js"
-									],
-									"genai": "none"
-								},
-								{
-									"description": "This is a class that splits queries into multiple steps if necessary.",
-									"snippet_tags": [],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": null,
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/cloudwatch-logs/scenarios/large-query/cloud-watch-query.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/cloudwatch-logs/scenarios/large-query",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "This file invokes an example module for managing CloudWatch queries exceeding 10,000 results.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"python/example_code/cloudwatch-logs/scenarios/large-query/exec.py"
-									],
-									"genai": "none"
-								},
-								{
-									"description": "This module processes CloudWatch queries exceeding 10,000 results.",
-									"snippet_tags": [],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": null,
-									"snippet_tags": [],
-									"snippet_files": [
-										"python/example_code/cloudwatch-logs/scenarios/large-query/cloudwatch_query.py"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/cloudwatch-logs/scenarios/large-query",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Use &CWL; to run a large query",
+			"languages": [],
+			"title": "Use CloudWatch Logs to run a large query",
 			"title_abbrev": "Run a large query",
-			"synopsis": "use &CWL; to query more than 10,000 records.",
+			"synopsis": "use CloudWatch Logs to query more than 10,000 records.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"cloudwatch-logs": {
-					"__set__": [
-						"GetQueryResults",
-						"StartQuery"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch-logs_example_cloudwatch-logs_Scenario_BigQuery_section.html"
 				},
-				"sdk_pages": {
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_cloudwatch-logs_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudwatch-logs_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -302,73 +63,14 @@
 		{
 			"id": "cross_LambdaScheduledEvents",
 			"file": "cross_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": "cross_LambdaScheduledEvents_Java_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_LambdaScheduledEvents_JavaScript_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_LambdaScheduledEvents_Python_block.xml",
-							"excerpts": [],
-							"github": "python/example_code/lambda",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Use scheduled events to invoke a &LAM; function",
-			"title_abbrev": "Use scheduled events to invoke a &LAM; function",
-			"synopsis": "create an &LAMlong; function invoked by an &EVlong; scheduled event.",
+			"languages": [],
+			"title": "Use scheduled events to invoke a Lambda function",
+			"title_abbrev": "Use scheduled events to invoke a Lambda function",
+			"synopsis": "create an AWS Lambda function invoked by an Amazon EventBridge scheduled event.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": "lambda",
-			"services": {
-				"cloudwatch-logs": {
-					"__set__": []
-				},
-				"dynamodb": {
-					"__set__": []
-				},
-				"eventbridge": {
-					"__set__": []
-				},
-				"lambda": {
-					"__set__": []
-				},
-				"sns": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch-logs_example_cross_LambdaScheduledEvents_section.html",
@@ -377,32 +79,7 @@
 					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaScheduledEvents_section.html",
 					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaScheduledEvents_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_LambdaScheduledEvents_java_2_topic.html"
-							}
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_LambdaScheduledEvents_javascript_3_topic.html"
-							}
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_LambdaScheduledEvents_python_3_topic.html"
-							}
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null

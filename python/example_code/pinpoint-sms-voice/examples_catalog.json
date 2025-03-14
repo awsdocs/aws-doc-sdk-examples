@@ -3,120 +3,19 @@
 		{
 			"id": "pinpoint-sms-voice_SendVoiceMessage",
 			"file": "pinpoint-sms-voice_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"pinpoint.java2.send_voice_message.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/pinpoint",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"pinpoint.python.pinpoint_send_voice_message_sms_voice_api.complete"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/pinpoint-sms-voice",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"pinpoint.javascript.pinpoint_send_voice_message_sms_voice_api.complete"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascript/example_code/pinpoint-sms-voice",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "SendVoiceMessage",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"pinpoint-sms-voice": {
-					"__set__": [
-						"SendVoiceMessage"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"pinpoint-sms-voice": "https://docs.aws.amazon.com/code-library/latest/ug/pinpoint-sms-voice_example_pinpoint-sms-voice_SendVoiceMessage_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"pinpoint-sms-voice": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_pinpoint-sms-voice_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"pinpoint-sms-voice": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_pinpoint-sms-voice_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"2": {
-							"actions_scenarios": {
-								"pinpoint-sms-voice": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_2_pinpoint-sms-voice_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null

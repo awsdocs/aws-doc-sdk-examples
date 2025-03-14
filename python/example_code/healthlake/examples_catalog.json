@@ -3,67 +3,19 @@
 		{
 			"id": "healthlake_CreateFHIRDatastore",
 			"file": "healthlake_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.healthlake.HealthLakeWrapper.decl",
-										"python.example_code.healthlake.CreateFHIRDatastore"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "The following code shows an example of parameters for a SMART on FHIR-enabled HealthLake data store.\n",
-									"snippet_tags": [
-										"python.example_code.healthlake.CreateFHIRDatastore.smart"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/healthlake",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateFHIRDatastore",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"healthlake": {
-					"__set__": [
-						"CreateFHIRDatastore"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_CreateFHIRDatastore_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_healthlake_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -71,59 +23,19 @@
 		{
 			"id": "healthlake_DescribeFHIRDatastore",
 			"file": "healthlake_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.healthlake.HealthLakeWrapper.decl",
-										"python.example_code.healthlake.DescribeFHIRDatastore"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/healthlake",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DescribeFHIRDatastore",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"healthlake": {
-					"__set__": [
-						"DescribeFHIRDatastore"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_DescribeFHIRDatastore_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_healthlake_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -131,59 +43,19 @@
 		{
 			"id": "healthlake_ListFHIRDatastores",
 			"file": "healthlake_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.healthlake.HealthLakeWrapper.decl",
-										"python.example_code.healthlake.ListFHIRDatastores"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/healthlake",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListFHIRDatastores",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"healthlake": {
-					"__set__": [
-						"ListFHIRDatastores"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_ListFHIRDatastores_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_healthlake_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -191,59 +63,19 @@
 		{
 			"id": "healthlake_DeleteFHIRDatastore",
 			"file": "healthlake_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.healthlake.HealthLakeWrapper.decl",
-										"python.example_code.healthlake.DeleteFHIRDatastore"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/healthlake",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DeleteFHIRDatastore",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"healthlake": {
-					"__set__": [
-						"DeleteFHIRDatastore"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_DeleteFHIRDatastore_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_healthlake_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -251,59 +83,19 @@
 		{
 			"id": "healthlake_StartFHIRImportJob",
 			"file": "healthlake_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.healthlake.HealthLakeWrapper.decl",
-										"python.example_code.healthlake.StartFHIRImportJob"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/healthlake",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "StartFHIRImportJob",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"healthlake": {
-					"__set__": [
-						"StartFHIRImportJob"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_StartFHIRImportJob_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_healthlake_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -311,59 +103,19 @@
 		{
 			"id": "healthlake_DescribeFHIRImportJob",
 			"file": "healthlake_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.healthlake.HealthLakeWrapper.decl",
-										"python.example_code.healthlake.DescribeFHIRImportJob"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/healthlake",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DescribeFHIRImportJob",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"healthlake": {
-					"__set__": [
-						"DescribeFHIRImportJob"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_DescribeFHIRImportJob_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_healthlake_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -371,59 +123,19 @@
 		{
 			"id": "healthlake_ListFHIRImportJobs",
 			"file": "healthlake_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.healthlake.HealthLakeWrapper.decl",
-										"python.example_code.healthlake.ListFHIRImportJobs"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/healthlake",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListFHIRImportJobs",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"healthlake": {
-					"__set__": [
-						"ListFHIRImportJobs"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_ListFHIRImportJobs_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_healthlake_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -431,59 +143,19 @@
 		{
 			"id": "healthlake_StartFHIRExportJob",
 			"file": "healthlake_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.healthlake.HealthLakeWrapper.decl",
-										"python.example_code.healthlake.StartFHIRExportJob"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/healthlake",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "StartFHIRExportJob",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"healthlake": {
-					"__set__": [
-						"StartFHIRExportJob"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_StartFHIRExportJob_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_healthlake_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -491,59 +163,19 @@
 		{
 			"id": "healthlake_DescribeFHIRExportJob",
 			"file": "healthlake_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.healthlake.HealthLakeWrapper.decl",
-										"python.example_code.healthlake.DescribeFHIRExportJob"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/healthlake",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DescribeFHIRExportJob",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"healthlake": {
-					"__set__": [
-						"DescribeFHIRExportJob"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_DescribeFHIRExportJob_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_healthlake_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -551,59 +183,19 @@
 		{
 			"id": "healthlake_ListFHIRExportJobs",
 			"file": "healthlake_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.healthlake.HealthLakeWrapper.decl",
-										"python.example_code.healthlake.ListFHIRExportJobs"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/healthlake",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListFHIRExportJobs",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"healthlake": {
-					"__set__": [
-						"ListFHIRExportJobs"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_ListFHIRExportJobs_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_healthlake_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -611,59 +203,19 @@
 		{
 			"id": "healthlake_TagResource",
 			"file": "healthlake_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.healthlake.HealthLakeWrapper.decl",
-										"python.example_code.healthlake.TagResource"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/healthlake",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "TagResource",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"healthlake": {
-					"__set__": [
-						"TagResource"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_TagResource_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_healthlake_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -671,59 +223,19 @@
 		{
 			"id": "healthlake_ListTagsForResource",
 			"file": "healthlake_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.healthlake.HealthLakeWrapper.decl",
-										"python.example_code.healthlake.ListTagsForResource"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/healthlake",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListTagsForResource",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"healthlake": {
-					"__set__": [
-						"ListTagsForResource"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_ListTagsForResource_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_healthlake_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -731,59 +243,19 @@
 		{
 			"id": "healthlake_UntagResource",
 			"file": "healthlake_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.healthlake.HealthLakeWrapper.decl",
-										"python.example_code.healthlake.UntagResource"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/healthlake",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "UntagResource",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"healthlake": {
-					"__set__": [
-						"UntagResource"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_UntagResource_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_healthlake_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null

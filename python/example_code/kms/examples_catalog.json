@@ -3,121 +3,19 @@
 		{
 			"id": "kms_TagResource",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_tag.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyManager.decl",
-										"python.example_code.kms.TagResource"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.tagResource"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "TagResource",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"TagResource"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_TagResource_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -125,121 +23,19 @@
 		{
 			"id": "kms_Sign",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_sign.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyEncrypt.decl",
-										"python.example_code.kms.Sign"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.sign"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "Sign",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"Sign"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_Sign_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -247,59 +43,19 @@
 		{
 			"id": "kms_Verify",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyEncrypt.decl",
-										"python.example_code.kms.Verify"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "Verify",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"Verify"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_Verify_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -307,245 +63,19 @@
 		{
 			"id": "kms_CreateKey",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.kotlin_create_key.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_create_key.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.createKey"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyManager.decl",
-										"python.example_code.kms.CreateKey"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Ruby": {
-					"name": "Ruby",
-					"property": "ruby",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.ruby.createKey"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "ruby/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"KMS.dotnetv3.CreateKeyExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/KMS",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Rust": {
-					"name": "Rust",
-					"property": "rust",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.rust.create-key"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "rustv1/examples/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateKey",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"CreateKey"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_CreateKey_section.html"
 				},
-				"sdk_pages": {
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"ruby": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"rust": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -553,214 +83,19 @@
 		{
 			"id": "kms_Decrypt",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.kotlin_encrypt_data.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_decrypt_data.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.decrypt"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyEncrypt.decl",
-										"python.example_code.kms.Decrypt"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Ruby": {
-					"name": "Ruby",
-					"property": "ruby",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.ruby.decryptBlob"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "ruby/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Rust": {
-					"name": "Rust",
-					"property": "rust",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.rust.decrypt"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "rustv1/examples/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "Decrypt",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"Decrypt"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_Decrypt_section.html"
 				},
-				"sdk_pages": {
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"ruby": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"rust": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -768,214 +103,19 @@
 		{
 			"id": "kms_Encrypt",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.kotlin_encrypt_data.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_encrypt_data.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.encrypt"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyEncrypt.decl",
-										"python.example_code.kms.Encrypt"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Ruby": {
-					"name": "Ruby",
-					"property": "ruby",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.ruby.encryptBlob"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "ruby/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Rust": {
-					"name": "Rust",
-					"property": "rust",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.rust.encrypt"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "rustv1/examples/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "Encrypt",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"Encrypt"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_Encrypt_section.html"
 				},
-				"sdk_pages": {
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"ruby": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"rust": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -983,90 +123,19 @@
 		{
 			"id": "kms_GenerateDataKey",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyManager.decl",
-										"python.example_code.kms.GenerateDataKey"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Rust": {
-					"name": "Rust",
-					"property": "rust",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.rust.generate-data-key"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "rustv1/examples/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "GenerateDataKey",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"GenerateDataKey"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_GenerateDataKey_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"rust": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1074,214 +143,19 @@
 		{
 			"id": "kms_ListKeys",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.kotlin_list_keys.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_list_keys.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"KMS.dotnetv3.ListKeysExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/KMS",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.listKeys"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyManager.decl",
-										"python.example_code.kms.ListKeys"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Rust": {
-					"name": "Rust",
-					"property": "rust",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.rust.list-keys"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "rustv1/examples/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListKeys",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"ListKeys"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_ListKeys_section.html"
 				},
-				"sdk_pages": {
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"rust": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1289,121 +163,19 @@
 		{
 			"id": "kms_ReEncrypt",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyEncrypt.decl",
-										"python.example_code.kms.ReEncrypt"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Rust": {
-					"name": "Rust",
-					"property": "rust",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.rust.reencrypt-data"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "rustv1/examples/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Ruby": {
-					"name": "Ruby",
-					"property": "ruby",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.ruby.reEncryptData"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "ruby/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ReEncrypt",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"ReEncrypt"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_ReEncrypt_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"rust": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"ruby": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/ruby_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1411,183 +183,19 @@
 		{
 			"id": "kms_CreateAlias",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.kotlin_create_alias.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2._create_alias.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.dotnetv3.CreateAliasExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/KMS",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.createAlias"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.AliasManager.decl",
-										"python.example_code.kms.CreateAlias"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateAlias",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"CreateAlias"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_CreateAlias_section.html"
 				},
-				"sdk_pages": {
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1595,183 +203,19 @@
 		{
 			"id": "kms_CreateGrant",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.kotlin_create_grant.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_create_grant.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"KMS.dotnetv3.CreateGrantExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/KMS",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.createGrant"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.GrantManager.decl",
-										"python.example_code.kms.CreateGrant"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateGrant",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"CreateGrant"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_CreateGrant_section.html"
 				},
-				"sdk_pages": {
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1779,183 +223,19 @@
 		{
 			"id": "kms_DescribeKey",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.kotlin_describe_key.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_describe_key.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"KMS.dotnetv3.DescribeKeyExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/KMS",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.describeKey"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyManager.decl",
-										"python.example_code.kms.DescribeKey"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DescribeKey",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"DescribeKey"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_DescribeKey_section.html"
 				},
-				"sdk_pages": {
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1963,183 +243,19 @@
 		{
 			"id": "kms_DisableKey",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.kotlin_disable_key.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_disable_key.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"KMS.dotnetv3.DisableKeyExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/KMS",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.disableKey"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyManager.decl",
-										"python.example_code.kms.DisableKey"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DisableKey",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"DisableKey"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_DisableKey_section.html"
 				},
-				"sdk_pages": {
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2147,183 +263,19 @@
 		{
 			"id": "kms_EnableKey",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.kotlin_enable_key.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_enable_key.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"KMS.dotnetv3.EnableKeyExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/KMS",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.enableKey"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyManager.decl",
-										"python.example_code.kms.EnableKey"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "EnableKey",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"EnableKey"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_EnableKey_section.html"
 				},
-				"sdk_pages": {
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2331,121 +283,19 @@
 		{
 			"id": "kms_ScheduleKeyDeletion",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_delete_key.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.scheduleKeyDeletion"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyManager.decl",
-										"python.example_code.kms.ScheduleKeyDeletion"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ScheduleKeyDeletion",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"ScheduleKeyDeletion"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_ScheduleKeyDeletion_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2453,183 +303,19 @@
 		{
 			"id": "kms_ListAliases",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.kotlin_list_aliases.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_list_aliases.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"KMS.dotnetv3.ListAliasesExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/KMS",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.listAliases"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.AliasManager.decl",
-										"python.example_code.kms.ListAliases"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListAliases",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"ListAliases"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_ListAliases_section.html"
 				},
-				"sdk_pages": {
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2637,59 +323,19 @@
 		{
 			"id": "kms_UpdateAlias",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.AliasManager.decl",
-										"python.example_code.kms.UpdateAlias"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "UpdateAlias",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"UpdateAlias"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_UpdateAlias_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2697,121 +343,19 @@
 		{
 			"id": "kms_DeleteAlias",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_delete_alias.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.deleteAlias"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.AliasManager.decl",
-										"python.example_code.kms.DeleteAlias"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DeleteAlias",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"DeleteAlias"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_DeleteAlias_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2819,183 +363,19 @@
 		{
 			"id": "kms_ListGrants",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.kotlin_list_grant.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_list_grant.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"KMS.dotnetv3.ListGrantsExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/KMS",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.listGrants"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.GrantManager.decl",
-										"python.example_code.kms.ListGrants"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListGrants",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"ListGrants"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_ListGrants_section.html"
 				},
-				"sdk_pages": {
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3003,59 +383,19 @@
 		{
 			"id": "kms_RetireGrant",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.GrantManager.decl",
-										"python.example_code.kms.RetireGrant"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "RetireGrant",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"RetireGrant"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_RetireGrant_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3063,121 +403,19 @@
 		{
 			"id": "kms_RevokeGrant",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_revoke_grant.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.revokeGrant"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.GrantManager.decl",
-										"python.example_code.kms.RevokeGrant"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "RevokeGrant",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"RevokeGrant"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_RevokeGrant_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3185,90 +423,19 @@
 		{
 			"id": "kms_ListKeyPolicies",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"kms.java2_get_policy.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyPolicy.decl",
-										"python.example_code.kms.ListKeyPolicies"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListKeyPolicies",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"ListKeyPolicies"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_ListKeyPolicies_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3276,59 +443,19 @@
 		{
 			"id": "kms_GetKeyPolicy",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyPolicy.decl",
-										"python.example_code.kms.GetKeyPolicy"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "GetKeyPolicy",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"GetKeyPolicy"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_GetKeyPolicy_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3336,90 +463,19 @@
 		{
 			"id": "kms_PutKeyPolicy",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.service.putKeyPolicy"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyPolicy.decl",
-										"python.example_code.kms.PutKeyPolicy"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "PutKeyPolicy",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"PutKeyPolicy"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_PutKeyPolicy_section.html"
 				},
-				"sdk_pages": {
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3427,59 +483,19 @@
 		{
 			"id": "kms_EnableKeyRotation",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.KeyManager.decl",
-										"python.example_code.kms.EnableKeyRotation"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "EnableKeyRotation",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"EnableKeyRotation"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_EnableKeyRotation_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -3487,211 +503,28 @@
 		{
 			"id": "kms_Scenario_Basics",
 			"file": "kms_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Run a scenario at a command prompt.",
-									"snippet_tags": [
-										"kms.java2_scenario.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Define a class that wraps KMS actions.",
-									"snippet_tags": [
-										"kms.java2_actions.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.kms.kms_basics"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Wrapper class and methods for &kms-key; management.",
-									"snippet_tags": [
-										"python.example_code.kms.KeyManager.decl",
-										"python.example_code.kms.CreateKey",
-										"python.example_code.kms.DescribeKey",
-										"python.example_code.kms.EnableKeyRotation",
-										"python.example_code.kms.CreateAsymmetricKey",
-										"python.example_code.kms.TagResource",
-										"python.example_code.kms.ScheduleKeyDeletion"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Wrapper class and methods for &kms-key; aliases.\n",
-									"snippet_tags": [
-										"python.example_code.kms.AliasManager.decl",
-										"python.example_code.kms.CreateAlias",
-										"python.example_code.kms.ListAliases",
-										"python.example_code.kms.DeleteAlias"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Wrapper class and methods for &kms-key; encryption.\n",
-									"snippet_tags": [
-										"python.example_code.kms.KeyEncrypt.decl",
-										"python.example_code.kms.Encrypt",
-										"python.example_code.kms.Decrypt",
-										"python.example_code.kms.Sign",
-										"python.example_code.kms.Verify"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Wrapper class and methods for &kms-key; grants.\n",
-									"snippet_tags": [
-										"python.example_code.kms.GrantManager.decl",
-										"python.example_code.kms.CreateGrant",
-										"python.example_code.kms.ListGrants",
-										"python.example_code.kms.RevokeGrant"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Wrapper class and methods for &kms-key; policies.\n",
-									"snippet_tags": [
-										"python.example_code.kms.KeyPolicy.decl",
-										"python.example_code.kms.set_new_policy",
-										"python.example_code.kms.GetKeyPolicy"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"php.example_code.kms.Basics",
-										"php.example_code.kms.service.KmsService"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/kms",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "Learn the basics",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Basics",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"kms": {
-					"__set__": [
-						"CreateGrant",
-						"Decrypt",
-						"Sign",
-						"ScheduleKeyDeletion",
-						"ListAliases",
-						"Encrypt",
-						"ListKeys",
-						"GetKeyPolicy",
-						"TagResource",
-						"EnableKey",
-						"CreateKey",
-						"DisableKey",
-						"CreateAlias",
-						"DescribeKey",
-						"ListGrants",
-						"RevokeGrant"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_Scenario_Basics_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_kms_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_kms_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"kms": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_kms_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [
-				"Create a &kms-key;.",
-				"List &kms-keys; for your account and get details about them.",
-				"Enable and disable &kms-keys;.",
+				"Create a KMS key.",
+				"List KMS keys for your account and get details about them.",
+				"Enable and disable KMS keys.",
 				"Generate a symmetric data key that can be used for client-side encryption.",
 				"Generate an asymmetric key used to digitally sign data.",
 				"Tag keys.",
-				"Delete &kms-keys;."
+				"Delete KMS keys."
 			],
 			"source_key": null
 		}

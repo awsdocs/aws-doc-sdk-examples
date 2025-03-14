@@ -3,59 +3,19 @@
 		{
 			"id": "cloudfront_ListDistributions",
 			"file": "cloudfront_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.cloudfront.CloudFrontWrapper",
-										"python.example_code.cloudfront.ListDistributions"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/cloudfront",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListDistributions",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"cloudfront": {
-					"__set__": [
-						"ListDistributions"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"cloudfront": "https://docs.aws.amazon.com/code-library/latest/ug/cloudfront_example_cloudfront_ListDistributions_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"cloudfront": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudfront_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -63,59 +23,19 @@
 		{
 			"id": "cloudfront_GetDistributionConfig",
 			"file": "cloudfront_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.cloudfront.CloudFrontWrapper",
-										"python.example_code.cloudfront.UpdateDistribution"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/cloudfront",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "GetDistributionConfig",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"cloudfront": {
-					"__set__": [
-						"GetDistributionConfig"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"cloudfront": "https://docs.aws.amazon.com/code-library/latest/ug/cloudfront_example_cloudfront_GetDistributionConfig_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"cloudfront": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudfront_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -123,90 +43,19 @@
 		{
 			"id": "cloudfront_UpdateDistribution",
 			"file": "cloudfront_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"cloudfront.java2.mod.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/cloudfront",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.cloudfront.CloudFrontWrapper",
-										"python.example_code.cloudfront.UpdateDistribution"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/cloudfront",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "UpdateDistribution",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"cloudfront": {
-					"__set__": [
-						"UpdateDistribution"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"cloudfront": "https://docs.aws.amazon.com/code-library/latest/ug/cloudfront_example_cloudfront_UpdateDistribution_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"cloudfront": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_cloudfront_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"cloudfront": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_cloudfront_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
