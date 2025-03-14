@@ -3,91 +3,19 @@
 		{
 			"id": "api-gateway_CreateDeployment",
 			"file": "api-gateway_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"apigateway.java2.create_deployment.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/apigateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.api-gateway.ApiGatewayToService.class",
-										"python.example_code.api-gateway.CreateDeployment",
-										"python.example_code.api-gateway.Helper.ApiUrl"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/api-gateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateDeployment",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"api-gateway": {
-					"__set__": [
-						"CreateDeployment"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_api-gateway_CreateDeployment_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -95,59 +23,19 @@
 		{
 			"id": "api-gateway_CreateResource",
 			"file": "api-gateway_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.api-gateway.ApiGatewayToService.class",
-										"python.example_code.api-gateway.CreateResource"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/api-gateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateResource",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"api-gateway": {
-					"__set__": [
-						"CreateResource"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_api-gateway_CreateResource_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -155,90 +43,19 @@
 		{
 			"id": "api-gateway_CreateRestApi",
 			"file": "api-gateway_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"apigateway.java2.create_api.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/apigateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.api-gateway.ApiGatewayToService.class",
-										"python.example_code.api-gateway.CreateRestApi"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/api-gateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateRestApi",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"api-gateway": {
-					"__set__": [
-						"CreateRestApi"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_api-gateway_CreateRestApi_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -246,90 +63,19 @@
 		{
 			"id": "api-gateway_DeleteRestApi",
 			"file": "api-gateway_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"apigateway.java2.delete_api.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/apigateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.api-gateway.ApiGatewayToService.class",
-										"python.example_code.api-gateway.DeleteRestApi"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/api-gateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DeleteRestApi",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"api-gateway": {
-					"__set__": [
-						"DeleteRestApi"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_api-gateway_DeleteRestApi_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -337,59 +83,19 @@
 		{
 			"id": "api-gateway_GetResources",
 			"file": "api-gateway_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.api-gateway.ApiGatewayToService.class",
-										"python.example_code.api-gateway.CreateRestApi"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/api-gateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "GetResources",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"api-gateway": {
-					"__set__": [
-						"GetResources"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_api-gateway_GetResources_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -397,90 +103,19 @@
 		{
 			"id": "api-gateway_GetRestApis",
 			"file": "api-gateway_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.api-gateway.ApiGatewayToService.class",
-										"python.example_code.api-gateway.GetRestApis"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/api-gateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Rust": {
-					"name": "Rust",
-					"property": "rust",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Displays the Amazon API Gateway REST APIs in the Region.",
-									"snippet_tags": [
-										"apigateway.rust.get_rest_apis"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "rustv1/examples/apigateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "GetRestApis",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"api-gateway": {
-					"__set__": [
-						"GetRestApis"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_api-gateway_GetRestApis_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"rust": {
-						"1": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/rust_1_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -488,59 +123,19 @@
 		{
 			"id": "api-gateway_PutIntegration",
 			"file": "api-gateway_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.api-gateway.ApiGatewayToService.class",
-										"python.example_code.api-gateway.PutIntegration"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/api-gateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "PutIntegration",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"api-gateway": {
-					"__set__": [
-						"PutIntegration"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_api-gateway_PutIntegration_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -548,59 +143,19 @@
 		{
 			"id": "api-gateway_PutIntegrationResponse",
 			"file": "api-gateway_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.api-gateway.ApiGatewayToService.class",
-										"python.example_code.api-gateway.PutIntegration"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/api-gateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "PutIntegrationResponse",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"api-gateway": {
-					"__set__": [
-						"PutIntegrationResponse"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_api-gateway_PutIntegrationResponse_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -608,59 +163,19 @@
 		{
 			"id": "api-gateway_PutMethod",
 			"file": "api-gateway_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.api-gateway.ApiGatewayToService.class",
-										"python.example_code.api-gateway.PutIntegration"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/api-gateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "PutMethod",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"api-gateway": {
-					"__set__": [
-						"PutMethod"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_api-gateway_PutMethod_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -668,59 +183,19 @@
 		{
 			"id": "api-gateway_PutMethodResponse",
 			"file": "api-gateway_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.api-gateway.ApiGatewayToService.class",
-										"python.example_code.api-gateway.PutIntegration"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/api-gateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "PutMethodResponse",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"api-gateway": {
-					"__set__": [
-						"PutMethodResponse"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_api-gateway_PutMethodResponse_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_api-gateway_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -728,86 +203,24 @@
 		{
 			"id": "api-gateway_Usage_CreateDeployRest",
 			"file": "api-gateway_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create a class that wraps &ABP; operations.",
-									"snippet_tags": [
-										"python.example_code.api-gateway.imports",
-										"python.example_code.api-gateway.ApiGatewayToService.class",
-										"python.example_code.api-gateway.CreateRestApi",
-										"python.example_code.api-gateway.CreateResource",
-										"python.example_code.api-gateway.PutIntegration",
-										"python.example_code.api-gateway.CreateDeployment",
-										"python.example_code.api-gateway.Helper.ApiUrl"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Deploy a REST API and call it with the Requests package.",
-									"snippet_tags": [
-										"python.example_code.api-gateway.Usage_CreateDeployRest"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/api-gateway",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Create and deploy a REST API using an &AWS; SDK",
+			"languages": [],
+			"title": "Create and deploy a REST API using an AWS SDK",
 			"title_abbrev": "Create and deploy a REST API",
 			"synopsis": "",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"api-gateway": {
-					"__set__": [
-						"CreateResource",
-						"GetRestApis",
-						"PutMethod",
-						"PutMethodResponse",
-						"PutIntegration",
-						"GetResources",
-						"DeleteRestApi",
-						"PutIntegrationResponse",
-						"CreateRestApi",
-						"CreateDeployment"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_api-gateway_Usage_CreateDeployRest_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_api-gateway_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [
-				"Create a REST API served by &ABP;.",
+				"Create a REST API served by API Gateway.",
 				"Add resources to the REST API to represent a user profile.",
-				"Add integration methods so that the REST API uses a &DDB; table to store user profile data.",
+				"Add integration methods so that the REST API uses a DynamoDB table to store user profile data.",
 				"Send HTTP requests to the REST API to add and retrieve user profiles."
 			],
 			"source_key": null
@@ -815,42 +228,14 @@
 		{
 			"id": "cross_ApiGatewayDataTracker",
 			"file": "cross_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_ApiGatewayDataTracker_Python_block.xml",
-							"excerpts": [],
-							"github": "python/cross_service/apigateway_covid-19_tracker",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Create an &ABP; REST API to track COVID-19 data",
+			"languages": [],
+			"title": "Create an API Gateway REST API to track COVID-19 data",
 			"title_abbrev": "Create a REST API to track COVID-19 data",
 			"synopsis": "create a REST API that simulates a system to track daily cases of COVID-19 in the United States, using fictional data.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": "api-gateway",
-			"services": {
-				"api-gateway": {
-					"__set__": []
-				},
-				"cloudformation": {
-					"__set__": []
-				},
-				"dynamodb": {
-					"__set__": []
-				},
-				"lambda": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_ApiGatewayDataTracker_section.html",
@@ -858,16 +243,7 @@
 					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_ApiGatewayDataTracker_section.html",
 					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_ApiGatewayDataTracker_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_ApiGatewayDataTracker_python_3_topic.html"
-							}
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -875,55 +251,21 @@
 		{
 			"id": "cross_ApiGatewayWebsocketChat",
 			"file": "cross_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_ApiGatewayWebsocketChat_Python_block.xml",
-							"excerpts": [],
-							"github": "python/cross_service/apigateway_websocket_chat",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Create a websocket chat application with &ABP;",
+			"languages": [],
+			"title": "Create a websocket chat application with API Gateway",
 			"title_abbrev": "Create a websocket chat application",
-			"synopsis": "create a chat application that is served by a websocket API built on &ABPlong;.",
+			"synopsis": "create a chat application that is served by a websocket API built on Amazon API Gateway.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": "api-gateway",
-			"services": {
-				"api-gateway": {
-					"__set__": []
-				},
-				"dynamodb": {
-					"__set__": []
-				},
-				"lambda": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_ApiGatewayWebsocketChat_section.html",
 					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_ApiGatewayWebsocketChat_section.html",
 					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_ApiGatewayWebsocketChat_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_ApiGatewayWebsocketChat_python_3_topic.html"
-							}
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -931,42 +273,14 @@
 		{
 			"id": "cross_AuroraRestLendingLibrary",
 			"file": "cross_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_AuroraRestLendingLibrary_Python_block.xml",
-							"excerpts": [],
-							"github": "python/cross_service/aurora_rest_lending_library",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
+			"languages": [],
 			"title": "Create a lending library REST API",
 			"title_abbrev": "Create a lending library REST API",
-			"synopsis": "create a lending library where patrons can borrow and return books by using a REST API backed by an &AURlong; database.",
+			"synopsis": "create a lending library where patrons can borrow and return books by using a REST API backed by an Amazon Aurora database.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": "aurora",
-			"services": {
-				"api-gateway": {
-					"__set__": []
-				},
-				"aurora": {
-					"__set__": []
-				},
-				"lambda": {
-					"__set__": []
-				},
-				"secrets-manager": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_AuroraRestLendingLibrary_section.html",
@@ -974,16 +288,7 @@
 					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_AuroraRestLendingLibrary_section.html",
 					"secrets-manager": "https://docs.aws.amazon.com/code-library/latest/ug/secrets-manager_example_cross_AuroraRestLendingLibrary_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_AuroraRestLendingLibrary_python_3_topic.html"
-							}
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -991,70 +296,14 @@
 		{
 			"id": "cross_LambdaAPIGateway",
 			"file": "cross_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": "cross_LambdaAPIGateway_Java_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_LambdaAPIGateway_JavaScript_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_LambdaAPIGateway_Python_block.xml",
-							"excerpts": [],
-							"github": "python/example_code/lambda",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Use &ABP; to invoke a &LAM; function",
-			"title_abbrev": "Use &ABP; to invoke a &LAM; function",
-			"synopsis": "create an &LAMlong; function invoked by &ABPlong;.",
+			"languages": [],
+			"title": "Use API Gateway to invoke a Lambda function",
+			"title_abbrev": "Use API Gateway to invoke a Lambda function",
+			"synopsis": "create an AWS Lambda function invoked by Amazon API Gateway.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": "lambda",
-			"services": {
-				"api-gateway": {
-					"__set__": []
-				},
-				"dynamodb": {
-					"__set__": []
-				},
-				"lambda": {
-					"__set__": []
-				},
-				"sns": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_LambdaAPIGateway_section.html",
@@ -1062,32 +311,7 @@
 					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaAPIGateway_section.html",
 					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaAPIGateway_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_LambdaAPIGateway_java_2_topic.html"
-							}
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_LambdaAPIGateway_javascript_3_topic.html"
-							}
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_LambdaAPIGateway_python_3_topic.html"
-							}
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null

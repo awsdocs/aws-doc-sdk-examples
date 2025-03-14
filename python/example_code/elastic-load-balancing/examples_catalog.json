@@ -3,269 +3,14 @@
 		{
 			"id": "cross_ResilientService",
 			"file": "cross_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Run the interactive scenario at a command prompt.",
-									"snippet_tags": [
-										"ResilientService.dotnetv3.Scenario"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create a class that wraps &AS; and &EC2; actions.",
-									"snippet_tags": [
-										"ResilientService.dotnetv3.AutoScalerWrapper"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create a class that wraps &ELB; actions.",
-									"snippet_tags": [
-										"ResilientService.dotnetv3.ELB.ElasticLoadBalancerWrapper"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create a class that uses &DDB; to simulate a recommendation service.",
-									"snippet_tags": [
-										"ResilientService.dotnetv3.RecommendationService"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create a class that wraps &SYS; actions.",
-									"snippet_tags": [
-										"ResilientService.dotnetv3.SmParameterWrapper"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/cross-service/ResilientService",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Run the interactive scenario at a command prompt.",
-									"snippet_tags": [
-										"javav2.example_code.workflow.ResilientService_Runner"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create a class that wraps &AS; and &EC2; actions.",
-									"snippet_tags": [
-										"javav2.example_code.workflow.ResilientService_AutoScaler"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create a class that wraps &ELB; actions.",
-									"snippet_tags": [
-										"javav2.example_code.workflow.ResilientService_LoadBalancer"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create a class that uses &DDB; to simulate a recommendation service.",
-									"snippet_tags": [
-										"javav2.example_code.workflow.ResilientService_RecommendationService"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create a class that wraps &SYS; actions.",
-									"snippet_tags": [
-										"javav2.example_code.workflow.ResilientService_ParameterHelper"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/usecases/resilient_service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Run the interactive scenario at a command prompt.",
-									"snippet_tags": [
-										"python.example_code.workflow.ResilientService_Runner"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create a class that wraps &AS; and &EC2; actions.",
-									"snippet_tags": [
-										"python.example_code.workflow.ResilientService_AutoScaler"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create a class that wraps &ELB; actions.",
-									"snippet_tags": [
-										"python.example_code.workflow.ResilientService_LoadBalancer"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create a class that uses &DDB; to simulate a recommendation service.",
-									"snippet_tags": [
-										"python.example_code.workflow.ResilientService_RecommendationService"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create a class that wraps &SYS; actions.",
-									"snippet_tags": [
-										"python.example_code.workflow.ResilientService_ParameterHelper"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/cross_service/resilient_service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Run the interactive scenario at a command prompt.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/cross-services/wkflw-resilient-service/index.js"
-									],
-									"genai": "none"
-								},
-								{
-									"description": "Create steps to deploy all of the resources.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/cross-services/wkflw-resilient-service/steps-deploy.js"
-									],
-									"genai": "none"
-								},
-								{
-									"description": "Create steps to run the demo.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/cross-services/wkflw-resilient-service/steps-demo.js"
-									],
-									"genai": "none"
-								},
-								{
-									"description": "Create steps to destroy all of the resources.",
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/cross-services/wkflw-resilient-service/steps-destroy.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/cross-services/wkflw-resilient-service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Build and manage a resilient service using an &AWS; SDK",
+			"languages": [],
+			"title": "Build and manage a resilient service using an AWS SDK",
 			"title_abbrev": "Build and manage a resilient service",
 			"synopsis": "create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"auto-scaling": {
-					"__set__": [
-						"UpdateAutoScalingGroup",
-						"AttachLoadBalancerTargetGroups",
-						"TerminateInstanceInAutoScalingGroup",
-						"CreateAutoScalingGroup",
-						"DeleteAutoScalingGroup",
-						"DescribeAutoScalingGroups"
-					]
-				},
-				"ec2": {
-					"__set__": [
-						"CreateLaunchTemplate",
-						"DeleteLaunchTemplate",
-						"DescribeVpcs",
-						"ReplaceIamInstanceProfileAssociation",
-						"DescribeIamInstanceProfileAssociations",
-						"RebootInstances",
-						"DescribeAvailabilityZones",
-						"DescribeSubnets",
-						"DescribeInstances"
-					]
-				},
-				"elastic-load-balancing-v2": {
-					"__set__": [
-						"DescribeTargetGroups",
-						"DescribeLoadBalancers",
-						"CreateLoadBalancer",
-						"DeleteLoadBalancer",
-						"CreateListener",
-						"DeleteTargetGroup",
-						"DescribeTargetHealth",
-						"CreateTargetGroup"
-					]
-				},
-				"iam": {
-					"__set__": [
-						"CreateInstanceProfile",
-						"DeleteInstanceProfile"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_cross_ResilientService_section.html",
@@ -273,168 +18,34 @@
 					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_cross_ResilientService_section.html",
 					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_cross_ResilientService_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_ResilientService_csharp_3_topic.html"
-							}
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_ResilientService_java_2_topic.html"
-							}
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_ResilientService_python_3_topic.html"
-							}
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_ResilientService_javascript_3_topic.html"
-							}
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [
-				"Use an &ASlong; group to create &EC2long; (&EC2;) instances based on a launch template and to keep the number of instances in a specified range.",
-				"Handle and distribute HTTP requests with &ELBlong;.",
+				"Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.",
+				"Handle and distribute HTTP requests with Elastic Load Balancing.",
 				"Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.",
 				"Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.",
-				"Simulate a recommendation service with an &DDBlong; table.",
-				"Control web server response to requests and health checks by updating &SYSlong; parameters."
+				"Simulate a recommendation service with an Amazon DynamoDB table.",
+				"Control web server response to requests and health checks by updating AWS Systems Manager parameters."
 			],
 			"source_key": null
 		},
 		{
 			"id": "elastic-load-balancing-v2_Hello",
 			"file": "elastic-load-balancing-v2_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javav2.example_code.elbv2.Hello"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/usecases/resilient_service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.elbv2.Hello"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/elastic-load-balancing",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/elastic-load-balancing-v2/hello.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/elastic-load-balancing-v2",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Hello &ELB;",
-			"title_abbrev": "Hello &ELB;",
-			"synopsis": "get started using &ELB;.",
+			"languages": [],
+			"title": "Hello Elastic Load Balancing",
+			"title_abbrev": "Hello Elastic Load Balancing",
+			"synopsis": "get started using Elastic Load Balancing.",
 			"category": "Hello",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"elastic-load-balancing-v2": {
-					"__set__": [
-						"DescribeLoadBalancers"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_elastic-load-balancing-v2_Hello_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_elastic-load-balancing-v2_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_elastic-load-balancing-v2_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_elastic-load-balancing-v2_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -442,121 +53,19 @@
 		{
 			"id": "elastic-load-balancing-v2_DescribeLoadBalancers",
 			"file": "elastic-load-balancing-v2_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"ResilientService.dotnetv3.ELB.DescribeLoadBalancers"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.cross_service.resilient_service.LoadBalancer.decl",
-										"python.cross_service.resilient_service.elbv2.DescribeLoadBalancers"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/elastic-load-balancing",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [],
-									"snippet_files": [
-										"javascriptv3/example_code/elastic-load-balancing-v2/hello.js"
-									],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/elastic-load-balancing-v2",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DescribeLoadBalancers",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"elastic-load-balancing-v2": {
-					"__set__": [
-						"DescribeLoadBalancers"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_elastic-load-balancing-v2_DescribeLoadBalancers_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -564,152 +73,19 @@
 		{
 			"id": "elastic-load-balancing-v2_CreateTargetGroup",
 			"file": "elastic-load-balancing-v2_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"ResilientService.dotnetv3.ELB.CreateTargetGroup"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javav2.cross_service.resilient_service.elbv2.CreateTargetGroup"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/usecases/resilient_service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javascript.v3.wkflw.resilient.CreateTargetGroup"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/cross-services/wkflw-resilient-service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.cross_service.resilient_service.LoadBalancer.decl",
-										"python.cross_service.resilient_service.elbv2.CreateTargetGroup"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/elastic-load-balancing",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateTargetGroup",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"elastic-load-balancing-v2": {
-					"__set__": [
-						"CreateTargetGroup"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_elastic-load-balancing-v2_CreateTargetGroup_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -717,152 +93,19 @@
 		{
 			"id": "elastic-load-balancing-v2_DeleteTargetGroup",
 			"file": "elastic-load-balancing-v2_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"ResilientService.dotnetv3.ELB.DeleteTargetGroup"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javav2.cross_service.resilient_service.elbv2.DeleteTargetGroup"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/usecases/resilient_service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.cross_service.resilient_service.LoadBalancer.decl",
-										"python.cross_service.resilient_service.elbv2.DeleteTargetGroup"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/elastic-load-balancing",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javascript.v3.wkflw.resilient.DeleteTargetGroup"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/cross-services/wkflw-resilient-service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DeleteTargetGroup",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"elastic-load-balancing-v2": {
-					"__set__": [
-						"DeleteTargetGroup"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_elastic-load-balancing-v2_DeleteTargetGroup_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -870,152 +113,19 @@
 		{
 			"id": "elastic-load-balancing-v2_CreateLoadBalancer",
 			"file": "elastic-load-balancing-v2_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"ResilientService.dotnetv3.ELB.CreateLoadBalancer"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javav2.cross_service.resilient_service.elbv2.CreateLoadBalancer"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/usecases/resilient_service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.cross_service.resilient_service.LoadBalancer.decl",
-										"python.cross_service.resilient_service.elbv2.CreateLoadBalancer"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/elastic-load-balancing",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javascript.v3.wkflw.resilient.CreateLoadBalancer"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/cross-services/wkflw-resilient-service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateLoadBalancer",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"elastic-load-balancing-v2": {
-					"__set__": [
-						"CreateLoadBalancer"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_elastic-load-balancing-v2_CreateLoadBalancer_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1023,152 +133,19 @@
 		{
 			"id": "elastic-load-balancing-v2_CreateListener",
 			"file": "elastic-load-balancing-v2_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"ResilientService.dotnetv3.ELB.CreateListener"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javav2.cross_service.resilient_service.elbv2.CreateListener"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/usecases/resilient_service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.cross_service.resilient_service.LoadBalancer.decl",
-										"python.cross_service.resilient_service.elbv2.CreateListener"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/elastic-load-balancing",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javascript.v3.wkflw.resilient.CreateListener"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/cross-services/wkflw-resilient-service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateListener",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"elastic-load-balancing-v2": {
-					"__set__": [
-						"CreateListener"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_elastic-load-balancing-v2_CreateListener_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1176,152 +153,19 @@
 		{
 			"id": "elastic-load-balancing-v2_DeleteLoadBalancer",
 			"file": "elastic-load-balancing-v2_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"ResilientService.dotnetv3.ELB.DeleteLoadBalancer"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javav2.cross_service.resilient_service.elbv2.DeleteLoadBalancer"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/usecases/resilient_service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.cross_service.resilient_service.LoadBalancer.decl",
-										"python.cross_service.resilient_service.elbv2.DeleteLoadBalancer"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/elastic-load-balancing",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javascript.v3.wkflw.resilient.DeleteLoadBalancer"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/cross-services/wkflw-resilient-service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DeleteLoadBalancer",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"elastic-load-balancing-v2": {
-					"__set__": [
-						"DeleteLoadBalancer"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_elastic-load-balancing-v2_DeleteLoadBalancer_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1329,152 +173,19 @@
 		{
 			"id": "elastic-load-balancing-v2_DescribeTargetHealth",
 			"file": "elastic-load-balancing-v2_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"ResilientService.dotnetv3.ELB.DescribeTargetHealth"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/cross-service/ResilientService/ElasticLoadBalancerActions",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javav2.cross_service.resilient_service.elbv2.DescribeTargetHealth"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/usecases/resilient_service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.cross_service.resilient_service.LoadBalancer.decl",
-										"python.cross_service.resilient_service.elbv2.DescribeTargetHealth"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/elastic-load-balancing",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"javascript.v3.wkflw.resilient.DescribeTargetHealth"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javascriptv3/example_code/cross-services/wkflw-resilient-service",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DescribeTargetHealth",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"elastic-load-balancing-v2": {
-					"__set__": [
-						"DescribeTargetHealth"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_elastic-load-balancing-v2_DescribeTargetHealth_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": {
-								"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/javascript_3_elastic-load-balancing-v2_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null

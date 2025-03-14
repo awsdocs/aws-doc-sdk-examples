@@ -3,59 +3,14 @@
 		{
 			"id": "cross_TextractExplorer",
 			"file": "cross_metadata.yaml",
-			"languages": {
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_TextractExplorer_JavaScript_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_TextractExplorer_Python_block.xml",
-							"excerpts": [],
-							"github": "python/cross_service/textract_explorer",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Create an &TEXTRACT; explorer application",
-			"title_abbrev": "Create an &TEXTRACT; explorer application",
-			"synopsis": "explore &TEXTRACTlong; output through an interactive application.",
+			"languages": [],
+			"title": "Create an Amazon Textract explorer application",
+			"title_abbrev": "Create an Amazon Textract explorer application",
+			"synopsis": "explore Amazon Textract output through an interactive application.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": "textract",
-			"services": {
-				"cognito-identity": {
-					"__set__": []
-				},
-				"s3": {
-					"__set__": []
-				},
-				"sns": {
-					"__set__": []
-				},
-				"sqs": {
-					"__set__": []
-				},
-				"textract": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
@@ -64,24 +19,7 @@
 					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
 					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
 				},
-				"sdk_pages": {
-					"javascript": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_TextractExplorer_javascript_3_topic.html"
-							}
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_TextractExplorer_python_3_topic.html"
-							}
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -89,55 +27,21 @@
 		{
 			"id": "cross_TextractComprehendDetectEntities",
 			"file": "cross_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_TextractComprehendDetectEntities_Python_block.xml",
-							"excerpts": [],
-							"github": "python/cross_service/textract_comprehend_notebook",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Detect entities in text extracted from an image using an &AWS; SDK",
+			"languages": [],
+			"title": "Detect entities in text extracted from an image using an AWS SDK",
 			"title_abbrev": "Detect entities in text extracted from an image",
-			"synopsis": "use &CMP; to detect entities in text extracted by &TEXTRACT; from an image that is stored in &S3;.",
+			"synopsis": "use Amazon Comprehend to detect entities in text extracted by Amazon Textract from an image that is stored in Amazon S3.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": "textract",
-			"services": {
-				"comprehend": {
-					"__set__": []
-				},
-				"s3": {
-					"__set__": []
-				},
-				"textract": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_cross_TextractComprehendDetectEntities_section.html",
 					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractComprehendDetectEntities_section.html",
 					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractComprehendDetectEntities_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_TextractComprehendDetectEntities_python_3_topic.html"
-							}
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -145,121 +49,19 @@
 		{
 			"id": "textract_AnalyzeDocument",
 			"file": "textract_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"textract.java2._analyze_doc.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/textract",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.textract.TextractWrapper",
-										"python.example_code.textract.AnalyzeDocument"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/textract",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"SAP ABAP": {
-					"name": "SAP ABAP",
-					"property": "sap-abap",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"tex.abapv1.analyze_document"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "sap-abap/services/textract",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "AnalyzeDocument",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"textract": {
-					"__set__": [
-						"AnalyzeDocument"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_textract_AnalyzeDocument_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"textract": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_textract_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"textract": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_textract_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"sap-abap": {
-						"1": {
-							"actions_scenarios": {
-								"textract": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_textract_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -267,129 +69,19 @@
 		{
 			"id": "textract_DetectDocumentText",
 			"file": "textract_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Detect text from an input document.",
-									"snippet_tags": [
-										"textract.java2._detect_doc_text.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Detect text from a document located in an &S3; bucket.",
-									"snippet_tags": [
-										"textract.java2._detect_s3_text.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/textract",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.textract.TextractWrapper",
-										"python.example_code.textract.DetectDocumentText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/textract",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"SAP ABAP": {
-					"name": "SAP ABAP",
-					"property": "sap-abap",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"tex.abapv1.detect_document_text"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "sap-abap/services/textract",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DetectDocumentText",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"textract": {
-					"__set__": [
-						"DetectDocumentText"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_textract_DetectDocumentText_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"textract": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_textract_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"textract": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_textract_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"sap-abap": {
-						"1": {
-							"actions_scenarios": {
-								"textract": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_textract_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -397,121 +89,19 @@
 		{
 			"id": "textract_StartDocumentAnalysis",
 			"file": "textract_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"textract.java2._start_doc_analysis.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/textract",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Start an asynchronous job to analyze a document.",
-									"snippet_tags": [
-										"python.example_code.textract.TextractWrapper",
-										"python.example_code.textract.StartDocumentAnalysis"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/textract",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"SAP ABAP": {
-					"name": "SAP ABAP",
-					"property": "sap-abap",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"tex.abapv1.start_document_analysis"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "sap-abap/services/textract",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "StartDocumentAnalysis",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"textract": {
-					"__set__": [
-						"StartDocumentAnalysis"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_textract_StartDocumentAnalysis_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"textract": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_textract_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"textract": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_textract_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"sap-abap": {
-						"1": {
-							"actions_scenarios": {
-								"textract": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_textract_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -519,90 +109,19 @@
 		{
 			"id": "textract_StartDocumentTextDetection",
 			"file": "textract_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Start an asynchronous job to detect text in a document.",
-									"snippet_tags": [
-										"python.example_code.textract.TextractWrapper",
-										"python.example_code.textract.StartDocumentTextDetection"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/textract",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"SAP ABAP": {
-					"name": "SAP ABAP",
-					"property": "sap-abap",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"tex.abapv1.start_document_text_detection"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "sap-abap/services/textract",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "StartDocumentTextDetection",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"textract": {
-					"__set__": [
-						"StartDocumentTextDetection"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_textract_StartDocumentTextDetection_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"textract": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_textract_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"sap-abap": {
-						"1": {
-							"actions_scenarios": {
-								"textract": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_textract_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -610,90 +129,19 @@
 		{
 			"id": "textract_GetDocumentAnalysis",
 			"file": "textract_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.textract.TextractWrapper",
-										"python.example_code.textract.GetDocumentAnalysis"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/textract",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"SAP ABAP": {
-					"name": "SAP ABAP",
-					"property": "sap-abap",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"tex.abapv1.get_document_analysis"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "sap-abap/services/textract",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "GetDocumentAnalysis",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"textract": {
-					"__set__": [
-						"GetDocumentAnalysis"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_textract_GetDocumentAnalysis_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"textract": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_textract_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"sap-abap": {
-						"1": {
-							"actions_scenarios": {
-								"textract": "https://docs.aws.amazon.com/code-library/latest/ug/sap-abap_1_textract_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null

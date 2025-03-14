@@ -6,14 +6,15 @@ import config
 import logging
 import os
 import json
-from collections import defaultdict
-from difflib import unified_diff
+
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict
+from copy import deepcopy
 
 from render import Renderer, MissingMetadataError, RenderStatus
 from scanner import Scanner
 
+from aws_doc_sdk_examples_tools.entities import expand_all_entities
 from aws_doc_sdk_examples_tools.doc_gen import DocGen, DocGenEncoder
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO").upper(), force=True)
@@ -72,7 +73,7 @@ def main():
         action="store_true",
         dest="dry_run",
         help="In dry run, compare current vs generated and exit with failure if they do not match.",
-        default=False,  # Change this to default false when we're ready to use this generally.
+        default=False,
     )
     parser.add_argument("--no-dry-run", dest="dry_run", action="store_false")
     parser.add_argument("--check", dest="dry_run", action="store_true")
@@ -97,7 +98,6 @@ def main():
     failed = []
     written = []
     unchanged = []
-
 
     scanner = prepare_scanner(doc_gen)
     if scanner is None:
@@ -166,14 +166,28 @@ def write_catalog_json(doc_gen, service_name, language_name, folder_path, is_dry
     language_examples = []
     for example in doc_gen.examples.values():
         for lang_name, language in example.languages.items():
-            for svc_name in example.services:
-                if svc_name == service_name and lang_name == language_name:
-                    language_examples.append(example)
+            if lang_name == language_name and service_name in example.services:
+                example.title = sanitize_example_title(example, service_name)
+                # Add to the catalog.
+                language_examples.append(deepcopy(example))
+
+    for example in language_examples:
+        # Remove the lists that aren't needed.
+        example.languages = []
+        example.doc_filenames.sdk_pages = []
+        example.services = []
 
     new_catalog = json.dumps(
         {"examples": language_examples},
         cls=DocGenEncoder, indent="\t"
     )
+
+    # Expand all of the entity text.
+    [text, errors] = expand_all_entities(new_catalog, doc_gen.entities)
+    if errors:
+        print(errors)
+        return RenderStatus.UNCHANGED
+    new_catalog = text
 
     # If the file already exists, read it to compare contents.
     try:
@@ -192,22 +206,16 @@ def write_catalog_json(doc_gen, service_name, language_name, folder_path, is_dry
         return RenderStatus.UPDATED
 
 
-def write_language_json(doc_gen, language_name):
-    # Test creating a file
-    filepath = f"example_json/{language_name}_examples_list.json"
-    filepath = filepath.lower()
-    print("Writing serialized versions of DocGen to %s", filepath)
+def sanitize_example_title(example, service) -> [str, None]:
+    """Clean up the text in an example."""
+    # API examples use the API name.
+    if example.category == 'Api':
+        return sorted(example.services[service])[0]
+    # Basics use a standard title.
+    if example.category == 'Basics':
+        return 'Learn the basics'
+    # Otherwise use the title with the code tags removed.
+    s = example.title
+    return s.replace("<code>", "")\
+        .replace("</code>", "")\
 
-    language_examples = []
-    for example in doc_gen.examples.values():
-        for lang_name, language in example.languages.items():
-            if lang_name == language_name:
-                language_examples.append(example)
-
-    with open(filepath, "w") as example_meta:
-        example_meta.write(
-            json.dumps(
-                {"examples": language_examples},
-                cls=DocGenEncoder, indent="\t"
-            )
-        )

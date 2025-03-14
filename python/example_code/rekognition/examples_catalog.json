@@ -3,143 +3,21 @@
 		{
 			"id": "cross_RekognitionPhotoAnalyzer",
 			"file": "cross_metadata.yaml",
-			"languages": {
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": "cross_RekognitionPhotoAnalyzer_Kotlin_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": "cross_RekognitionPhotoAnalyzer_Java_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_RekognitionPhotoAnalyzer_Net_block.xml",
-							"excerpts": [],
-							"github": "dotnetv3/cross-service/PhotoAnalyzerApp",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"JavaScript": {
-					"name": "JavaScript",
-					"property": "javascript",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_RekognitionPhotoAnalyzer_JavaScript_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_RekognitionPhotoAnalyzer_Python_block.xml",
-							"excerpts": [],
-							"github": "python/cross_service/photo_analyzer",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Detect objects in images with &REK; using an &AWS; SDK",
+			"languages": [],
+			"title": "Detect objects in images with Amazon Rekognition using an AWS SDK",
 			"title_abbrev": "Detect objects in images",
-			"synopsis": "build an app that uses &REK; to detect objects by category in images.",
+			"synopsis": "build an app that uses Amazon Rekognition to detect objects by category in images.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": "rekognition",
-			"services": {
-				"rekognition": {
-					"__set__": []
-				},
-				"s3": {
-					"__set__": []
-				},
-				"ses": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionPhotoAnalyzer_section.html",
 					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionPhotoAnalyzer_section.html",
 					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionPhotoAnalyzer_section.html"
 				},
-				"sdk_pages": {
-					"kotlin": {
-						"1": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionPhotoAnalyzer_kotlin_1_topic.html"
-							}
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionPhotoAnalyzer_java_2_topic.html"
-							}
-						}
-					},
-					"csharp": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionPhotoAnalyzer_csharp_3_topic.html"
-							}
-						}
-					},
-					"javascript": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionPhotoAnalyzer_javascript_3_topic.html"
-							}
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionPhotoAnalyzer_python_3_topic.html"
-							}
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -147,59 +25,14 @@
 		{
 			"id": "cross_RekognitionVideoDetection",
 			"file": "cross_metadata.yaml",
-			"languages": {
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": "cross_RekognitionVideoAnalyzer_Java_block.xml",
-							"excerpts": [],
-							"github": null,
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": "cross_RekognitionVideoDetection_Python_block.xml",
-							"excerpts": [],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Detect people and objects in a video with &REK; using an &AWS; SDK",
+			"languages": [],
+			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
 			"title_abbrev": "Detect people and objects in a video",
-			"synopsis": "detect people and objects in a video with &REK;.",
+			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": "rekognition",
-			"services": {
-				"rekognition": {
-					"__set__": []
-				},
-				"s3": {
-					"__set__": []
-				},
-				"ses": {
-					"__set__": []
-				},
-				"sns": {
-					"__set__": []
-				},
-				"sqs": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
@@ -208,24 +41,7 @@
 					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
 					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
 				},
-				"sdk_pages": {
-					"java": {
-						"2": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionVideoDetection_java_2_topic.html"
-							}
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": null,
-							"cross_service": {
-								"cross": "https://docs.aws.amazon.com/code-library/latest/ug/cross_RekognitionVideoDetection_python_3_topic.html"
-							}
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -233,102 +49,8 @@
 		{
 			"id": "rekognition_DescribeCollection",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.DescribeCollectionExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.kotlin.describe_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.describe_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionCollection",
-										"python.example_code.rekognition.DescribeCollection"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DescribeCollection",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -337,51 +59,12 @@
 				"url": "rekognition/latest/dg/describe-collection-procedure.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"DescribeCollection"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_DescribeCollection_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -389,102 +72,8 @@
 		{
 			"id": "rekognition_DeleteCollection",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.DeleteCollectionExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.kotlin.delete_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.delete_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionCollection",
-										"python.example_code.rekognition.DeleteCollection"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DeleteCollection",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -493,51 +82,12 @@
 				"url": "rekognition/latest/dg/delete-collection-procedure.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"DeleteCollection"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_DeleteCollection_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -545,102 +95,8 @@
 		{
 			"id": "rekognition_IndexFaces",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.AddFacesExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.kotlin.add_faces_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.add_faces_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionCollection",
-										"python.example_code.rekognition.IndexFaces"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "IndexFaces",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -649,51 +105,12 @@
 				"url": "rekognition/latest/dg/add-faces-to-collection-procedure.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"IndexFaces"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_IndexFaces_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -701,102 +118,8 @@
 		{
 			"id": "rekognition_ListFaces",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.ListFacesExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.kotlin.list_faces_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.list_faces_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionCollection",
-										"python.example_code.rekognition.ListFaces"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListFaces",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -805,51 +128,12 @@
 				"url": "rekognition/latest/dg/list-faces-in-collection-procedure.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"ListFaces"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_ListFaces_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -857,79 +141,8 @@
 		{
 			"id": "rekognition_SearchFacesByImage",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.SearchFacesMatchingImageExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.match_faces_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionCollection",
-										"python.example_code.rekognition.SearchFacesByImage"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "SearchFacesByImage",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -938,43 +151,12 @@
 				"url": "rekognition/latest/dg/search-face-with-image-procedure.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"SearchFacesByImage"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_SearchFacesByImage_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -982,79 +164,8 @@
 		{
 			"id": "rekognition_SearchFaces",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.SearchFacesMatchingIdExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.search_faces_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionCollection",
-										"python.example_code.rekognition.SearchFaces"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "SearchFaces",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -1063,43 +174,12 @@
 				"url": "rekognition/latest/dg/search-face-with-id-procedure.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"SearchFaces"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_SearchFaces_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1107,102 +187,8 @@
 		{
 			"id": "rekognition_DeleteFaces",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.DeleteFacesExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.kotlin.delete_faces_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.delete_faces_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionCollection",
-										"python.example_code.rekognition.DeleteFaces"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DeleteFaces",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -1211,51 +197,12 @@
 				"url": "rekognition/latest/dg/delete-faces-procedure.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"DeleteFaces"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_DeleteFaces_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1263,102 +210,8 @@
 		{
 			"id": "rekognition_CreateCollection",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.CreateCollectionExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.kotlin.create_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.create_collection.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionCollectionManager",
-										"python.example_code.rekognition.CreateCollection"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateCollection",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -1367,51 +220,12 @@
 				"url": "rekognition/latest/dg/create-collection-procedure.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"CreateCollection"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_CreateCollection_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1419,102 +233,8 @@
 		{
 			"id": "rekognition_ListCollections",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.ListCollectionsExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.kotlin.list_collections.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.list_collections.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionCollectionManager",
-										"python.example_code.rekognition.ListCollections"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "ListCollections",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -1523,51 +243,12 @@
 				"url": "rekognition/latest/dg/list-collection-procedure.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"ListCollections"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_ListCollections_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1575,54 +256,8 @@
 		{
 			"id": "rekognition_Usage_FindFacesInCollection",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create classes that wrap &REKlong; functions.",
-									"snippet_tags": [
-										"python.example_code.rekognition.collection.imports",
-										"python.example_code.rekognition.RekognitionImage",
-										"python.example_code.rekognition.RekognitionImage.from_file",
-										"python.example_code.rekognition.RekognitionCollectionManager",
-										"python.example_code.rekognition.CreateCollection",
-										"python.example_code.rekognition.ListCollections",
-										"python.example_code.rekognition.RekognitionCollection",
-										"python.example_code.rekognition.helper.to_dict",
-										"python.example_code.rekognition.DescribeCollection",
-										"python.example_code.rekognition.DeleteCollection",
-										"python.example_code.rekognition.IndexFaces",
-										"python.example_code.rekognition.ListFaces",
-										"python.example_code.rekognition.SearchFaces",
-										"python.example_code.rekognition.SearchFacesByImage",
-										"python.example_code.rekognition.helper.RekognitionFace"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Use the wrapper classes to build a collection of faces from a set of images and then search for faces in the collection.",
-									"snippet_tags": [
-										"python.example_code.rekognition.Usage_FindFacesInCollection"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Build an &REK; collection and find faces in it using an &AWS; SDK",
+			"languages": [],
+			"title": "Build an Amazon Rekognition collection and find faces in it using an AWS SDK",
 			"title_abbrev": "Build a collection and find faces in it",
 			"synopsis": "",
 			"category": "Scenarios",
@@ -1631,28 +266,15 @@
 				"url": "rekognition/latest/dg/collections.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_Usage_FindFacesInCollection_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [
-				"Create an &REK; collection.",
+				"Create an Amazon Rekognition collection.",
 				"Add images to the collection and detect faces in it.",
 				"Search the collection for faces that match a reference image.",
 				"Delete a collection."
@@ -1662,110 +284,8 @@
 		{
 			"id": "rekognition_DetectFaces",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.DetectFacesExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Display bounding box information for all faces in an image.",
-									"snippet_tags": [
-										"Rekognition.dotnetv3.ImageOrientationBoundingBox"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.kotlin.detect_faces.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.detect_faces.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionImage",
-										"python.example_code.rekognition.DetectFaces"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DetectFaces",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -1774,51 +294,12 @@
 				"url": "rekognition/latest/dg/faces-detect-images.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"DetectFaces"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_DetectFaces_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1826,102 +307,8 @@
 		{
 			"id": "rekognition_CompareFaces",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.CompareFacesExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.kotlin.compare_faces.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.compare_faces.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionImage",
-										"python.example_code.rekognition.CompareFaces"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CompareFaces",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -1930,51 +317,12 @@
 				"url": "rekognition/latest/dg/faces-comparefaces.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"CompareFaces"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_CompareFaces_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -1982,133 +330,8 @@
 		{
 			"id": "rekognition_DetectLabels",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.DetectLabelsExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Detect labels in an image file stored on your computer.",
-									"snippet_tags": [
-										"Rekognition.dotnetv3.DetectLabelsLocalFile"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.kotlin.detect_labels.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.detect_labels.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionImage",
-										"python.example_code.rekognition.DetectLabels"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"C++": {
-					"name": "C++",
-					"property": "cpp",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"cpp.example_code.rekognition.DetectLabels"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "cpp/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DetectLabels",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -2117,59 +340,12 @@
 				"url": "rekognition/latest/dg/labels-detect-labels-image.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"DetectLabels"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_DetectLabels_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"cpp": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/cpp_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2177,102 +353,8 @@
 		{
 			"id": "rekognition_DetectModerationLabels",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.DetectModerationLabelsExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.kotlin.detect_mod_labels.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.detect_mod_labels.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionImage",
-										"python.example_code.rekognition.DetectModerationLabels"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DetectModerationLabels",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -2281,51 +363,12 @@
 				"url": "rekognition/latest/dg/procedure-moderate-images.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"DetectModerationLabels"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_DetectModerationLabels_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2333,102 +376,8 @@
 		{
 			"id": "rekognition_DetectText",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.DetectTextExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.kotlin.detect_text.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.detect_text.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionImage",
-										"python.example_code.rekognition.DetectText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "DetectText",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -2437,51 +386,12 @@
 				"url": "rekognition/latest/dg/text-detecting-text-procedure.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"DetectText"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_DetectText_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2489,102 +399,8 @@
 		{
 			"id": "rekognition_RecognizeCelebrities",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				".NET": {
-					"name": ".NET",
-					"property": "csharp",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"Rekognition.dotnetv3.CelebritiesInImageExample"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "dotnetv3/Rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Kotlin": {
-					"name": "Kotlin",
-					"property": "kotlin",
-					"versions": [
-						{
-							"sdk_version": 1,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.kotlin.recognize_celebs.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "kotlin/services/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Java": {
-					"name": "Java",
-					"property": "java",
-					"versions": [
-						{
-							"sdk_version": 2,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"rekognition.java2.recognize_celebs.main"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "javav2/example_code/rekognition/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.rekognition.RekognitionImage",
-										"python.example_code.rekognition.RecognizeCelebrities"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "RecognizeCelebrities",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -2593,51 +409,12 @@
 				"url": "rekognition/latest/dg/celebrities-procedure-image.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": [
-						"RecognizeCelebrities"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_RecognizeCelebrities_section.html"
 				},
-				"sdk_pages": {
-					"csharp": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/csharp_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"kotlin": {
-						"1": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/kotlin_1_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"java": {
-						"2": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/java_2_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -2645,72 +422,8 @@
 		{
 			"id": "rekognition_Usage_DetectAndDisplayImage",
 			"file": "rekognition_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Create classes to wrap &REKlong; functions.",
-									"snippet_tags": [
-										"python.example_code.rekognition.image_detection_imports",
-										"python.example_code.rekognition.RekognitionImage",
-										"python.example_code.rekognition.RekognitionImage.from_file",
-										"python.example_code.rekognition.RekognitionImage.from_bucket",
-										"python.example_code.rekognition.DetectFaces",
-										"python.example_code.rekognition.DetectLabels",
-										"python.example_code.rekognition.RecognizeCelebrities",
-										"python.example_code.rekognition.CompareFaces",
-										"python.example_code.rekognition.DetectModerationLabels",
-										"python.example_code.rekognition.DetectText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create helper functions to draw bounding boxes and polygons.",
-									"snippet_tags": [
-										"python.example_code.rekognition.helper.imports",
-										"python.example_code.rekognition.helper.show_bounding_boxes",
-										"python.example_code.rekognition.helper.show_polygons"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Create classes to parse objects returned by &REK;.",
-									"snippet_tags": [
-										"python.example_code.rekognition.helper.RekognitionFace",
-										"python.example_code.rekognition.helper.RekognitionCelebrity",
-										"python.example_code.rekognition.helper.RekognitionPerson",
-										"python.example_code.rekognition.helper.RekognitionLabel",
-										"python.example_code.rekognition.helper.RekognitionModerationLabel",
-										"python.example_code.rekognition.helper.RekognitionText"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "Use the wrapper classes to detect elements in images and display their bounding boxes. The images used in this example can be found on GitHub along with instructions and more code.",
-									"snippet_tags": [
-										"python.example_code.rekognition.Usage_ImageDetection"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/rekognition",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Detect and display elements in images with &REK; using an &AWS; SDK",
+			"languages": [],
+			"title": "Detect and display elements in images with Amazon Rekognition using an AWS SDK",
 			"title_abbrev": "Detect and display elements in images",
 			"synopsis": "",
 			"category": "Scenarios",
@@ -2719,28 +432,15 @@
 				"url": "rekognition/latest/dg/images-displaying-bounding-boxes.html"
 			},
 			"service_main": null,
-			"services": {
-				"rekognition": {
-					"__set__": []
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_Usage_DetectAndDisplayImage_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_rekognition_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [
-				"Detect elements in images by using &REK;.",
+				"Detect elements in images by using Amazon Rekognition.",
 				"Display images and draw bounding boxes around detected elements."
 			],
 			"source_key": null

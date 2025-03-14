@@ -3,59 +3,19 @@
 		{
 			"id": "device-farm_Scenario_BrowserTesting",
 			"file": "device-farm_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Use PyTest and Selenium to browse to specified websites, take screenshots, and compare actual website content with expected content.",
-									"snippet_tags": [
-										"python.example_code.device-farm.Scenario_BrowserTesting"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/devicefarm/browser_testing",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Run browser tests with &ATP; and take screenshots using an &AWS; SDK",
+			"languages": [],
+			"title": "Run browser tests with Device Farm and take screenshots using an AWS SDK",
 			"title_abbrev": "Run browser tests and take screenshots",
-			"synopsis": "run browser tests with &ATP; and take screenshots.",
+			"synopsis": "run browser tests with Device Farm and take screenshots.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"device-farm": {
-					"__set__": [
-						"CreateTestGridUrl",
-						"GetTestGridSession"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"device-farm": "https://docs.aws.amazon.com/code-library/latest/ug/device-farm_example_device-farm_Scenario_BrowserTesting_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"device-farm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_device-farm_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -63,66 +23,19 @@
 		{
 			"id": "device-farm_Scenario_DeviceTesting",
 			"file": "device-farm_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Upload compiled Android application and test packages to &ATP;, start a test, wait for test completion, and report the results.",
-									"snippet_tags": [
-										"python.example_code.device-farm.Scenario_DeviceTesting"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/devicefarm/device_testing",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "Upload and test mobile device packages with &ATP; using an &AWS; SDK",
+			"languages": [],
+			"title": "Upload and test mobile device packages with Device Farm using an AWS SDK",
 			"title_abbrev": "Upload and test device packages",
-			"synopsis": "upload and test mobile device packages with &ATP;.",
+			"synopsis": "upload and test mobile device packages with Device Farm.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"device-farm": {
-					"__set__": [
-						"ListSuites",
-						"ListTests",
-						"ScheduleRun",
-						"StopRun",
-						"ListArtifacts",
-						"GetUpload",
-						"GetRun",
-						"CreateUpload",
-						"ListJobs"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"device-farm": "https://docs.aws.amazon.com/code-library/latest/ug/device-farm_example_device-farm_Scenario_DeviceTesting_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"device-farm": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_device-farm_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null

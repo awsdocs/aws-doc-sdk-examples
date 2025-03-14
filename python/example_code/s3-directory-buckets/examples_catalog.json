@@ -3,59 +3,19 @@
 		{
 			"id": "s3-directory-buckets_CreateSession",
 			"file": "s3-directory-buckets_metadata.yaml",
-			"languages": {
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": null,
-									"snippet_tags": [
-										"python.example_code.s3_directory.S3ExpressWrapper.decl",
-										"python.example_code.s3_directory.CreateSession"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/s3-directory-buckets",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "CreateSession",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"s3-directory-buckets": {
-					"__set__": [
-						"CreateSession"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"s3-directory-buckets": "https://docs.aws.amazon.com/code-library/latest/ug/s3-directory-buckets_example_s3-directory-buckets_CreateSession_section.html"
 				},
-				"sdk_pages": {
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"s3-directory-buckets": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_s3-directory-buckets_code_examples.html#actions"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [],
 			"source_key": null
@@ -63,104 +23,19 @@
 		{
 			"id": "s3-directory-buckets_Scenario_ExpressBasics",
 			"file": "s3-directory-buckets_metadata.yaml",
-			"languages": {
-				"PHP": {
-					"name": "PHP",
-					"property": "php",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Run a scenario demonstrating the basics of &S3; directory buckets and S3 Express One Zone.",
-									"snippet_tags": [
-										"php.example_code.s3.ExpressBasics",
-										"php.example_code.s3.service.S3Service"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "php/example_code/s3/express",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				},
-				"Python": {
-					"name": "Python",
-					"property": "python",
-					"versions": [
-						{
-							"sdk_version": 3,
-							"block_content": null,
-							"excerpts": [
-								{
-									"description": "Run a scenario demonstrating the basics of &S3; directory buckets and S3 Express One Zone.\n",
-									"snippet_tags": [
-										"python.example_code.s3.s3_express_basics"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								},
-								{
-									"description": "A wrapper class for &S3; Express SDK functions.",
-									"snippet_tags": [
-										"python.example_code.s3_directory.S3ExpressWrapper.class"
-									],
-									"snippet_files": [],
-									"genai": "none"
-								}
-							],
-							"github": "python/example_code/s3-directory-buckets/",
-							"sdkguide": null,
-							"more_info": []
-						}
-					]
-				}
-			},
-			"title": "",
+			"languages": [],
+			"title": "Learn the basics",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Basics",
 			"guide_topic": null,
 			"service_main": null,
-			"services": {
-				"s3-directory-buckets": {
-					"__set__": [
-						"DeleteObject",
-						"ListObjects",
-						"DeleteBucket",
-						"GetObject",
-						"CopyObject",
-						"PutObject",
-						"CreateBucket"
-					]
-				}
-			},
+			"services": [],
 			"doc_filenames": {
 				"service_pages": {
 					"s3-directory-buckets": "https://docs.aws.amazon.com/code-library/latest/ug/s3-directory-buckets_example_s3-directory-buckets_Scenario_ExpressBasics_section.html"
 				},
-				"sdk_pages": {
-					"php": {
-						"3": {
-							"actions_scenarios": {
-								"s3-directory-buckets": "https://docs.aws.amazon.com/code-library/latest/ug/php_3_s3-directory-buckets_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					},
-					"python": {
-						"3": {
-							"actions_scenarios": {
-								"s3-directory-buckets": "https://docs.aws.amazon.com/code-library/latest/ug/python_3_s3-directory-buckets_code_examples.html#scenarios"
-							},
-							"cross_service": null
-						}
-					}
-				}
+				"sdk_pages": []
 			},
 			"synopsis_list": [
 				"Set up a VPC and VPC Endpoint.",
