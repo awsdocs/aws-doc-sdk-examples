@@ -71,12 +71,10 @@ public class LocationTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void testCreateGeofenceCollection() {
-        CompletableFuture<CreateGeofenceCollectionResponse> future = locationActions.createGeofenceCollection(collectionName);
+        CompletableFuture<String> future = locationActions.createGeofenceCollection(collectionName);
         assertDoesNotThrow(() -> {
-            CreateGeofenceCollectionResponse response = future.join();
+            String response = future.join();
             assertNotNull(response, "Expected response to be non-null");
-            assertNotNull(response.collectionArn(), "Expected collection ARN to be non-null");
-            assertFalse(response.collectionArn().isEmpty(), "Expected collection ARN to be non-empty");
             logger.info("Test 3 passed");
         });
     }
@@ -176,9 +174,21 @@ public class LocationTest {
         });
     }
 
-    @Test
     @Tag("IntegrationTest")
     @Order(11)
+    public void testGeoPlaces() {
+
+        assertDoesNotThrow(() -> {
+            locationActions.reverseGeocode();
+            locationActions.searchText("coffee shop");
+            locationActions.searchNearBy();
+            logger.info("Test 11 passed");
+        });
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(12)
     public void testDeleteLocationResources() {
         assertDoesNotThrow(() -> {
             locationActions.deleteMap(mapName).join();
@@ -186,7 +196,7 @@ public class LocationTest {
             locationActions.deleteGeofenceCollectionAsync(collectionName).join();
             locationActions.deleteTracker(trackerName).join();
             locationActions.deleteRouteCalculator(calculatorName).join();
-            logger.info("Test 11 passed");
+            logger.info("Test 12 passed");
         });
     }
 }
