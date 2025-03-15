@@ -18,6 +18,7 @@ import software.amazon.awssdk.services.geoplaces.model.SearchNearbyResponse;
 import software.amazon.awssdk.services.geoplaces.model.SearchTextRequest;
 import software.amazon.awssdk.services.geoplaces.model.SearchTextResponse;
 import software.amazon.awssdk.services.location.LocationAsyncClient;
+import software.amazon.awssdk.services.location.model.AccessDeniedException;
 import software.amazon.awssdk.services.location.model.ApiKeyRestrictions;
 import software.amazon.awssdk.services.location.model.BatchUpdateDevicePositionRequest;
 import software.amazon.awssdk.services.location.model.BatchUpdateDevicePositionResponse;
@@ -25,7 +26,6 @@ import software.amazon.awssdk.services.location.model.CalculateRouteRequest;
 import software.amazon.awssdk.services.location.model.CalculateRouteResponse;
 import software.amazon.awssdk.services.location.model.ConflictException;
 import software.amazon.awssdk.services.location.model.CreateGeofenceCollectionRequest;
-import software.amazon.awssdk.services.location.model.CreateGeofenceCollectionResponse;
 import software.amazon.awssdk.services.location.model.CreateKeyRequest;
 import software.amazon.awssdk.services.location.model.CreateMapRequest;
 import software.amazon.awssdk.services.location.model.CreateRouteCalculatorRequest;
@@ -41,13 +41,11 @@ import software.amazon.awssdk.services.location.model.GeofenceGeometry;
 import software.amazon.awssdk.services.location.model.CreateTrackerResponse;
 import software.amazon.awssdk.services.location.model.GetDevicePositionRequest;
 import software.amazon.awssdk.services.location.model.GetDevicePositionResponse;
-import software.amazon.awssdk.services.location.model.LocationException;
 import software.amazon.awssdk.services.location.model.MapConfiguration;
 import software.amazon.awssdk.services.location.model.PutGeofenceRequest;
 import software.amazon.awssdk.services.location.model.PutGeofenceResponse;
 import software.amazon.awssdk.services.location.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.location.model.ServiceQuotaExceededException;
-import software.amazon.awssdk.services.location.model.ThrottlingException;
 import software.amazon.awssdk.services.location.model.ValidationException;
 import java.time.Duration;
 import java.time.Instant;
@@ -117,11 +115,8 @@ public class LocationActions {
      * Performs a nearby places search based on the provided geographic coordinates (latitude and longitude).
      * The method sends an asynchronous request to search for places within a 1-kilometer radius of the specified location.
      * The results are processed and printed once the search completes successfully.
-     *
-     * The search is conducted using the specified latitude and longitude for San Francisco, with the search radius
-     * set to 1000 meters (1 kilometer).
      */
-    public void searchNearBy() {
+    public CompletableFuture<SearchNearbyResponse> searchNearBy() {
         double latitude = 37.7749;  // San Francisco
         double longitude = -122.4194;
         List<Double> queryPosition = List.of(longitude, latitude);
@@ -132,20 +127,24 @@ public class LocationActions {
             .queryRadius(1000L)  // Radius in meters (1000 meters = 1 km)
             .build();
 
-        CompletableFuture<SearchNearbyResponse> futureResponse = getGeoPlacesClient().searchNearby(request);
-        futureResponse.whenComplete((response, exception) -> {
-            if (exception != null) {
-                throw new RuntimeException("Error performing nearby search", exception);
-            }
+        return getGeoPlacesClient().searchNearby(request)
+            .whenComplete((response, exception) -> {
+                if (exception != null) {
+                    Throwable cause = exception.getCause();
+                    if (cause instanceof software.amazon.awssdk.services.geoplaces.model.ValidationException) {
+                        throw new CompletionException("A validation error occurred: " + cause.getMessage(), cause);
+                    }
+                    throw new CompletionException("Error performing place search", exception);
+                }
 
-            // Process the response and print the results
-            response.resultItems().forEach(result -> {
-                logger.info("Place Name: " + result.placeType().name());
-                logger.info("Address: " + result.address().label());
-                logger.info("Distance: " + result.distance() + " meters");
-                logger.info("-------------------------");
+                // Process the response and print the results
+                response.resultItems().forEach(result -> {
+                    logger.info("Place Name: " + result.placeType().name());
+                    logger.info("Address: " + result.address().label());
+                    logger.info("Distance: " + result.distance() + " meters");
+                    logger.info("-------------------------");
+                });
             });
-        }).join();
     }
     // snippet-end:[geoplaces.java2.search.near.main]
 
@@ -155,7 +154,7 @@ public class LocationActions {
      *
      * @param searchQuery the search query to be used for the place search (ex, coffee shop)
      */
-    public void searchText(String searchQuery) {
+    public CompletableFuture<SearchTextResponse> searchText(String searchQuery) {
         double latitude = 37.7749;  // San Francisco
         double longitude = -122.4194;
         List<Double> queryPosition = List.of(longitude, latitude);
@@ -165,47 +164,55 @@ public class LocationActions {
             .biasPosition(queryPosition)
             .build();
 
-        CompletableFuture<SearchTextResponse> futureResponse = getGeoPlacesClient().searchText(request);
-        futureResponse.whenComplete((response, exception) -> {
-            if (exception != null) {
-                throw new RuntimeException("Error performing place search", exception);
-            }
+        return getGeoPlacesClient().searchText(request)
+            .whenComplete((response, exception) -> {
+                if (exception != null) {
+                    Throwable cause = exception.getCause();
+                    if (cause instanceof software.amazon.awssdk.services.geoplaces.model.ValidationException) {
+                        throw new CompletionException("A validation error occurred: " + cause.getMessage(), cause);
+                    }
+                    throw new CompletionException("Error performing place search", exception);
+                }
 
-            // Process the response and fetch detailed information about the place.
-            response.resultItems().stream().findFirst().ifPresent(result -> {
-                String placeId = result.placeId(); // Get Place ID
-                logger.info("Found Place with id: " + placeId);
+                // Process the response and fetch detailed information about the place.
+                response.resultItems().stream().findFirst().ifPresent(result -> {
+                    String placeId = result.placeId(); // Get Place ID
+                    logger.info("Found Place with id: " + placeId);
 
-                // Fetch detailed info using getPlace.
-                GetPlaceRequest getPlaceRequest = GetPlaceRequest.builder()
-                    .placeId(placeId)
-                    .build();
+                    // Fetch detailed info using getPlace.
+                    GetPlaceRequest getPlaceRequest = GetPlaceRequest.builder()
+                        .placeId(placeId)
+                        .build();
 
-                getGeoPlacesClient().getPlace(getPlaceRequest)
-                    .whenComplete((placeResponse, placeException) -> {
-                        if (placeException != null) {
-                            throw new CompletionException("Error fetching place details", placeException);
-                        }
+                    getGeoPlacesClient().getPlace(getPlaceRequest)
+                        .whenComplete((placeResponse, placeException) -> {
+                            if (placeException != null) {
+                                Throwable cause = placeException.getCause();
+                                if (cause instanceof software.amazon.awssdk.services.geoplaces.model.ValidationException) {
+                                    throw new CompletionException("A validation error occurred: " + cause.getMessage(), cause);
+                                }
+                                throw new CompletionException("Error fetching place details", placeException);
+                            }
 
-                        // Print detailed place information.
-                        logger.info("Detailed Place Information:");
-                        logger.info("Name: " + placeResponse.placeType().name());
-                        logger.info("Address: " + placeResponse.address().label());
+                            // Print detailed place information.
+                            logger.info("Detailed Place Information:");
+                            logger.info("Name: " + placeResponse.placeType().name());
+                            logger.info("Address: " + placeResponse.address().label());
 
-                        // Print each food type (if any).
-                        if (placeResponse.foodTypes() != null && !placeResponse.foodTypes().isEmpty()) {
-                            logger.info("Food Types:");
-                            placeResponse.foodTypes().forEach(foodType -> {
-                                logger.info("  - " + foodType);
-                            });
-                        } else {
-                            logger.info("No food types available.");
-                        }
+                            // Print each food type (if any).
+                            if (placeResponse.foodTypes() != null && !placeResponse.foodTypes().isEmpty()) {
+                                logger.info("Food Types:");
+                                placeResponse.foodTypes().forEach(foodType -> {
+                                    logger.info("  - " + foodType);
+                                });
+                            } else {
+                                logger.info("No food types available.");
+                            }
 
-                        logger.info("-------------------------");
-                    }).join();
+                            logger.info("-------------------------");
+                        });
+                });
             });
-        }).join();
     }
     // snippet-end:[geoplaces.java2.search.text.main]
 
@@ -215,7 +222,7 @@ public class LocationActions {
      * Reverse geocoding is the process of converting geographic coordinates (latitude and longitude) to a human-readable address.
      * This method uses the latitude and longitude of San Francisco as the input, and prints the resulting address.
      */
-    public void reverseGeocode() {
+    public CompletableFuture<ReverseGeocodeResponse> reverseGeocode() {
         double latitude = 37.7749;  // San Francisco
         double longitude = -122.4194;
         logger.info("Use latitude 37.7749 and longitude -122.4194");
@@ -228,15 +235,19 @@ public class LocationActions {
         CompletableFuture<ReverseGeocodeResponse> futureResponse =
             getGeoPlacesClient().reverseGeocode(request);
 
-        futureResponse.whenComplete((response, exception) -> {
+        return futureResponse.whenComplete((response, exception) -> {
             if (exception != null) {
+                Throwable cause = exception.getCause();
+                if (cause instanceof software.amazon.awssdk.services.geoplaces.model.ValidationException) {
+                    throw new CompletionException("A validation error occurred: " + cause.getMessage(), cause);
+                }
                 throw new CompletionException("Error performing reverse geocoding", exception);
             }
 
             response.resultItems().forEach(result ->
                 logger.info("The address is: " + result.address().label())
             );
-        }).join();
+        });
     }
     // snippet-end:[geoplaces.java2.geocode.main]
 
@@ -262,23 +273,20 @@ public class LocationActions {
 
         return getClient().calculateRoute(request)
             .whenComplete((response, exception) -> {
-                if (response != null) {
-                    logger.info("Total Distance: " + response.summary().distance() + " km");
-                    logger.info("Estimated Duration by car is: " + response.summary().durationSeconds() / 60 + " minutes");
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while calculating route.", null);
-                    }
-
+                if (exception != null) {
                     Throwable cause = exception.getCause();
-                    if (cause instanceof LocationException) {
-                        throw new CompletionException("AWS Location Service error: " + cause.getMessage(), cause);
+                    if (cause instanceof ResourceNotFoundException) {
+                        throw new CompletionException("The AWS resource was not found: " + cause.getMessage(), cause);
                     }
-
                     throw new CompletionException("Failed to calculate route: " + exception.getMessage(), exception);
+                }
+
+                if (response == null) {
+                    throw new CompletionException("No response received while calculating route.", null);
                 }
             });
     }
+
     // snippet-end:[location.java2.calc.distance.main]
 
     // snippet-start:[location.java2.create.calculator.main]
@@ -296,21 +304,20 @@ public class LocationActions {
 
         return getClient().createRouteCalculator(request)
             .whenComplete((response, exception) -> {
-                if (response != null) {
-                    logger.info("Route calculator created: " + response.calculatorArn());
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while creating route calculator.", null);
-                    }
-
+                if (exception != null) {
                     Throwable cause = exception.getCause();
-                    if (cause instanceof LocationException) {
-                        throw new CompletionException("AWS Location Service error: " + cause.getMessage(), cause);
+                    if (cause instanceof ConflictException) {
+                        throw new CompletionException("A conflict error occurred: " + cause.getMessage(), cause);
                     }
                     throw new CompletionException("Failed to create route calculator: " + exception.getMessage(), exception);
                 }
+
+                if (response == null) {
+                    throw new CompletionException("No response received while creating route calculator.", null);
+                }
             });
     }
+
     // snippet-end:[location.java2.create.calculator.main]
 
     // snippet-start:[location.java2.get.device.position.main]
@@ -329,22 +336,20 @@ public class LocationActions {
 
         return getClient().getDevicePosition(request)
             .whenComplete((response, exception) -> {
-                if (response != null) {
-                    logger.info("Device Position: " + response.position());
-                    logger.info("Received at: " + response.receivedTime());
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while fetching device position.", null);
-                    }
-
+                if (exception != null) {
                     Throwable cause = exception.getCause();
-                    if (cause instanceof LocationException) {
-                        throw new CompletionException("AWS Location Service error: " + cause.getMessage(), cause);
+                    if (cause instanceof ResourceNotFoundException) {
+                        throw new CompletionException("The AWS resource was not found: " + cause.getMessage(), cause);
                     }
                     throw new CompletionException("Error fetching device position: " + exception.getMessage(), exception);
                 }
+
+                if (response == null) {
+                    throw new CompletionException("No response received while fetching device position.", null);
+                }
             });
     }
+
     // snippet-end:[location.java2.get.device.position.main]
 
     // snippet-start:[location.java2.update.device.position.main]
@@ -370,26 +375,25 @@ public class LocationActions {
             .updates(positionUpdate)
             .build();
 
-        return getClient().batchUpdateDevicePosition(request)
-            .whenComplete((response, exception) -> {
-                if (response != null) {
-                    logger.info(deviceId + " was updated in the location tracking system");
-                    if (!response.errors().isEmpty()) {
-                        logger.error("Errors updating position: " + response.errors());
-                    }
+        CompletableFuture<BatchUpdateDevicePositionResponse> futureResponse = getClient().batchUpdateDevicePosition(request);
+        return futureResponse.whenComplete((response, exception) -> {
+            if (exception != null) {
+                // Handle exceptions but do not log them here
+                Throwable cause = exception.getCause();
+                if (cause instanceof ResourceNotFoundException) {
+                    throw new CompletionException("The resource was not found: " + cause.getMessage(), cause);
                 } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while updating device position.", null);
-                    }
-
-                    Throwable cause = exception.getCause();
-                    if (cause instanceof LocationException) {
-                        throw new CompletionException("AWS Location Service error: " + cause.getMessage(), cause);
-                    }
                     throw new CompletionException("Error updating device position: " + exception.getMessage(), exception);
                 }
-            });
+            } else {
+                // If response is valid, return the response to calling code for success logging
+                if (response == null) {
+                    throw new CompletionException("No response received when updating device position for " + deviceId, null);
+                }
+            }
+        });
     }
+
     // snippet-end:[location.java2.update.device.position.main]
 
     // snippet-start:[location.java2.create.tracker.main]
@@ -408,21 +412,23 @@ public class LocationActions {
 
         return getClient().createTracker(trackerRequest)
             .whenComplete((response, exception) -> {
-                if (response != null) {
-                    logger.info("The tracker ARN is " + response.trackerArn());
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while creating tracker.", null);
-                    }
-
+                if (exception != null) {
+                    // Handle the exception but do not log it here
                     Throwable cause = exception.getCause();
-                    if (cause instanceof LocationException) {
-                        throw new CompletionException("AWS Location Service error: " + cause.getMessage(), cause);
+                    if (cause instanceof ConflictException) {
+                        throw new CompletionException("Conflict occurred while creating tracker: " + cause.getMessage(), cause);
                     }
                     throw new CompletionException("Error creating tracker: " + exception.getMessage(), exception);
                 }
-            }).thenApply(CreateTrackerResponse::trackerArn);
+
+                // If response is null, throw an exception (although this should not happen with a successful creation)
+                if (response == null) {
+                    throw new CompletionException("No response received when creating tracker.", null);
+                }
+            })
+            .thenApply(CreateTrackerResponse::trackerArn); // Return only the tracker ARN
     }
+
     // snippet-end:[location.java2.create.tracker.main]
 
     // snippet-start:[location.java2.put.geo.main]
@@ -433,7 +439,7 @@ public class LocationActions {
      * @param geoId          the unique identifier for the geofence
      */
     public CompletableFuture<PutGeofenceResponse> putGeofence(String collectionName, String geoId) {
-        // Define the geofence geometry (polygon)
+        // Define the geofence geometry (polygon).
         GeofenceGeometry geofenceGeometry = GeofenceGeometry.builder()
             .polygon(List.of(
                 List.of(
@@ -447,28 +453,28 @@ public class LocationActions {
             .build();
 
         PutGeofenceRequest geofenceRequest = PutGeofenceRequest.builder()
-            .collectionName(collectionName) // Specify the collection
-            .geofenceId(geoId) // Unique ID for the geofence
+            .collectionName(collectionName) // Specify the collection.
+            .geofenceId(geoId) // Unique ID for the geofence.
             .geometry(geofenceGeometry)
             .build();
 
         return getClient().putGeofence(geofenceRequest)
             .whenComplete((response, exception) -> {
-                if (response != null) {
-                    logger.info("Successfully created geofence: " + geoId);
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while creating geofence.", null);
-                    }
-
+                if (exception != null) {
+                    // Handle exception but do not log it here
                     Throwable cause = exception.getCause();
                     if (cause instanceof ValidationException) {
-                        throw new CompletionException("AWS Location Service error: " + cause.getMessage(), cause);
+                        throw new CompletionException("Validation error while creating geofence: " + cause.getMessage(), cause);
                     }
                     throw new CompletionException("Error creating geofence: " + exception.getMessage(), exception);
                 }
+                // If response is null, throw an exception
+                if (response == null) {
+                    throw new CompletionException("No response received when creating geofence: " + geoId, null);
+                }
             });
     }
+
     // snippet-end:[location.java2.put.geo.main]
 
     // snippet-start:[location.java2.create.collection.main]
@@ -477,7 +483,7 @@ public class LocationActions {
      *
      * @param collectionName the name of the geofence collection to be created
      */
-    public CompletableFuture<CreateGeofenceCollectionResponse> createGeofenceCollection(String collectionName) {
+    public CompletableFuture<String> createGeofenceCollection(String collectionName) {
         CreateGeofenceCollectionRequest collectionRequest = CreateGeofenceCollectionRequest.builder()
             .collectionName(collectionName)
             .description("Created by using the AWS SDK for Java")
@@ -485,21 +491,22 @@ public class LocationActions {
 
         return getClient().createGeofenceCollection(collectionRequest)
             .whenComplete((response, exception) -> {
-                if (response != null) {
-                    logger.info("The ARN is " + response.collectionArn());
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while creating the geofence collection.", null);
-                    }
-
+                if (exception != null) {
                     Throwable cause = exception.getCause();
                     if (cause instanceof ConflictException) {
-                        throw new CompletionException("The geofence collection was not created due to a conflict. ", cause);
+                        throw new CompletionException("The geofence collection was not created due to ConflictException.", cause);
                     }
                     throw new CompletionException("Failed to create geofence collection: " + exception.getMessage(), exception);
                 }
-            });
+                // If response is null, throw an exception
+                if (response == null) {
+                    throw new CompletionException("No response received when creating the geofence collection for " + collectionName, null);
+                }
+            })
+            .thenApply(response -> response.collectionArn()); // Return only the ARN
     }
+
+
     // snippet-end:[location.java2.create.collection.main]
 
     // snippet-start:[location.java2.create.key.main]
@@ -525,22 +532,21 @@ public class LocationActions {
 
         return getClient().createKey(request)
             .whenComplete((response, exception) -> {
-                if (response != null) {
-                    String keyArn = response.keyArn();
-                    logger.info("The API key was successfully created: " + keyArn);
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while creating the API key.", null);
-                    }
-
+                if (exception != null) {
                     Throwable cause = exception.getCause();
-                    if (cause instanceof ThrottlingException) {
-                        throw new CompletionException("Request throttling was detected.", cause);
+                    if (cause instanceof AccessDeniedException) {
+                        throw new CompletionException("The request was denied because of insufficient access or permissions.", cause);
                     }
                     throw new CompletionException("Failed to create API key: " + exception.getMessage(), exception);
                 }
-            }).thenApply(response -> response != null ? response.keyArn() : null); // Return the key ARN
+                // If response is null, throw an exception
+                if (response == null) {
+                    throw new CompletionException("No response received when creating the API key for " + keyName, null);
+                }
+            })
+            .thenApply(response -> response.keyArn()); // This will never return null if the response reaches here
     }
+
     // snippet-end:[location.java2.create.key.main]
 
     // snippet-start:[location.java2.create.map.main]
@@ -564,21 +570,20 @@ public class LocationActions {
 
         return getClient().createMap(mapRequest)
             .whenComplete((response, exception) -> {
-                if (response != null) {
-                    logger.info("The Map ARN is " + response.mapArn());
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while creating the map.", null);
-                    }
-
+                if (exception != null) {
                     Throwable cause = exception.getCause();
                     if (cause instanceof ServiceQuotaExceededException) {
                         throw new CompletionException("The operation was denied because the request would exceed the maximum quota.", cause);
                     }
                     throw new CompletionException("Failed to create map: " + exception.getMessage(), exception);
                 }
-            }).thenApply(response -> response != null ? response.mapArn() : null); // Return the map ARN
+                if (response == null) {
+                    throw new CompletionException("No response received when creating the map: " + mapName, null);
+                }
+            })
+            .thenApply(response -> response.mapArn()); // This will never return null if the response reaches here
     }
+
     // snippet-end:[location.java2.create.map.main]
 
     // snippet-start:[location.java2.delete.collection.main]
@@ -671,7 +676,6 @@ public class LocationActions {
                     if (cause instanceof ResourceNotFoundException) {
                         throw new CompletionException("The map was not found.", cause);
                     }
-
                     throw new CompletionException("Failed to delete map: " + exception.getMessage(), exception);
                 }
             }).thenApply(response -> null);
