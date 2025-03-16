@@ -309,7 +309,7 @@ public class LocationScenario {
             This scenario will show use of the GeoPlacesClient that enables  
             location search and geocoding capabilities for your applications.\s
                     
-            We are going to use this client to perform these tasks:
+            We are going to use this client to perform these AWS Location tasks:
              - Reverse Geocoding (reverseGeocode): Converts geographic coordinates into addresses.
              - Place Search (searchText): Finds places based on search queries.
              - Nearby Search (searchNearby): Finds places near a specific location.
