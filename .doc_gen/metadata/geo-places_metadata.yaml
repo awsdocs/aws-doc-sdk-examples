@@ -1,5 +1,5 @@
 # zexi 0.4.0
-geo-places_reverseGeocode:
+geo-places_ReverseGeocode:
   languages:
     Java:
       versions:
@@ -12,7 +12,7 @@ geo-places_reverseGeocode:
                 - geoplaces.java2.geocode.main
   services:
     geo-places: {ReverseGeocode}
-geo-places_searchText:
+geo-places_SearchText:
   languages:
     Java:
       versions:
@@ -25,7 +25,7 @@ geo-places_searchText:
                 - geoplaces.java2.search.text.main
   services:
     geo-places: {SearchText}
-geo-places_searchNearby:
+geo-places_SearchNearby:
   languages:
     Java:
       versions:
