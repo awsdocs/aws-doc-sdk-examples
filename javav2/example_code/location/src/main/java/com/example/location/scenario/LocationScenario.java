@@ -43,18 +43,18 @@ public class LocationScenario {
               deviceId - The ID of the device (e.g., "iPhone-112356").
             """;
 
-        //if (args.length != 7) {
-        //    logger.info(usage);
-        //    return;
-        //}
+        if (args.length != 7) {
+            logger.info(usage);
+            return;
+        }
 
-        String mapName = "MyMap43"; //args[0];
-        String keyName = "MyLocationKey43"; //args[1];
-        String collectionName = "AWSLocationCollection43"; //args[2];
-        String geoId = "geoId43"; //args[4];
-        String trackerName = "geoTracker43"; //args[5];
-        String calculatorName = "AWSRouteCalc43"; //args[6];
-        String deviceId = "iPhone-112359"; //args[7];
+        String mapName = args[0];
+        String keyName = args[1];
+        String collectionName = args[2];
+        String geoId = args[4];
+        String trackerName = args[5];
+        String calculatorName = args[6];
+        String deviceId = args[7];
 
         logger.info("""
             AWS Location Service is a fully managed service offered by Amazon Web Services (AWS) that

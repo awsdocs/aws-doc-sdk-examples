@@ -178,7 +178,7 @@ public class LocationTest {
     }
 
     @Tag("IntegrationTest")
-    @Order(11)
+    @Order(12)
     public void testGeoPlaces() {
 
         assertDoesNotThrow(() -> {
