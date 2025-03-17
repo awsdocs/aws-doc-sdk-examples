@@ -38,4 +38,3 @@ geo-places_SearchNearby:
                 - geoplaces.java2.search.near.main
   services:
     geo-places: {SearchNearby}
- 
