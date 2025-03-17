@@ -16,7 +16,7 @@ location_Hello:
                 - location.java2.hello.main
   services:
     location: {ListGeofencesPaginator}
-location_createMap:
+location_CreateMap:
   languages:
     Java:
       versions:
@@ -29,7 +29,7 @@ location_createMap:
                 - location.java2.create.map.main
   services:
     location: {CreateMap}
-location_createKey:
+location_CreateKey:
   languages:
     Java:
       versions:
@@ -42,7 +42,7 @@ location_createKey:
                 - location.java2.create.key.main
   services:
     location: {CreateKey}
-location_createGeofenceCollection:
+location_CreateGeofenceCollection:
   languages:
     Java:
       versions:
@@ -55,7 +55,7 @@ location_createGeofenceCollection:
                 - location.java2.create.collection.main
   services:
     location: {CreateGeofenceCollection}
-location_putGeofence:
+location_PutGeofence:
   languages:
     Java:
       versions:
@@ -68,7 +68,7 @@ location_putGeofence:
                 - location.java2.put.geo.main
   services:
     location: {PutGeofence}
-location_createTracker:
+location_CreateTracker:
   languages:
     Java:
       versions:
@@ -81,7 +81,7 @@ location_createTracker:
                 - location.java2.create.tracker.main
   services:
     location: {CreateTracker}
-location_batchUpdateDevicePosition:
+location_BatchUpdateDevicePosition:
   languages:
     Java:
       versions:
@@ -94,7 +94,7 @@ location_batchUpdateDevicePosition:
                 - location.java2.update.device.position.main
   services:
     location: {BatchUpdateDevicePosition}
-location_getDevicePosition:
+location_GetDevicePosition:
   languages:
     Java:
       versions:
@@ -107,7 +107,7 @@ location_getDevicePosition:
                 - location.java2.get.device.position.main
   services:
     location: {GetDevicePosition}
-location_createRouteCalculator:
+location_CreateRouteCalculator:
   languages:
     Java:
       versions:
@@ -120,7 +120,7 @@ location_createRouteCalculator:
                 - location.java2.create.calculator.main
   services:
     location: {CreateRouteCalculator}
-location_calculateRoute:
+location_CalculateRoute:
   languages:
     Java:
       versions:
@@ -133,7 +133,7 @@ location_calculateRoute:
                 - location.java2.calc.distance.main
   services:
     location: {CalculateRoute}
-location_deleteMap:
+location_DeleteMap:
   languages:
     Java:
       versions:
@@ -146,7 +146,7 @@ location_deleteMap:
                 - location.java2.delete.map.main
   services:
     location: {DeleteMap}    
-location_deleteTracker:
+location_DeleteTracker:
   languages:
     Java:
       versions:
@@ -159,7 +159,7 @@ location_deleteTracker:
                 - location.java2.delete.tracker.main
   services:
     location: {DeleteTracker} 
-location_deleteRouteCalculator:
+location_DeleteRouteCalculator:
   languages:
     Java:
       versions:
@@ -172,7 +172,7 @@ location_deleteRouteCalculator:
                 - location.java2.delete.calculator.main
   services:
     location: {DeleteRouteCalculator} 
-location_deleteGeofenceCollection:
+location_DeleteGeofenceCollection:
   languages:
     Java:
       versions:
