@@ -76,8 +76,8 @@ public class S3DirectoriesScenario {
         logger.info("Welcome to the Amazon S3 Express Basics demo using AWS SDK for Java V2");
         logger.info("""
             Let's get started! First, please note that S3 Express One Zone works best when working within the AWS infrastructure,
-            specifically when working in the same Availability Zone. To see the best results in this example and when you implement
-            Directory buckets into your infrastructure, it is best to put your compute resources in the same AZ as your Directory
+            specifically when working in the same Availability Zone (AZ). To see the best results in this example and when you implement
+            directory buckets into your infrastructure, it is best to put your compute resources in the same AZ as your directory
             bucket.
             """);
         waitForInputToContinue(scanner);
@@ -143,10 +143,10 @@ public class S3DirectoriesScenario {
     private static void showLexicographicalDifferences(String bucketObject) {
         logger.info("""
             7. Populate the buckets to show the lexicographical difference.
-            Now let's explore how Directory buckets store objects in a different 
+            Now let's explore how directory buckets store objects in a different 
             manner to regular buckets. The key is in the name 
             "Directory". Where regular buckets store their key/value pairs in a 
-            flat manner, Directory buckets use actual directories/folders. 
+            flat manner, directory buckets use actual directories/folders. 
             This allows for more rapid indexing, traversing, and therefore 
             retrieval times! 
                         
@@ -223,10 +223,10 @@ public class S3DirectoriesScenario {
      * @param bucketObject the name of the object to download
      */
     private static void demonstratePerformance(String bucketObject) {
-        logger.info("6. Demonstrate performance difference.");
+        logger.info("6. Demonstrate the performance difference.");
         logger.info("""
             Now, let's do a performance test. We'll download the same object from each 
-            bucket 'downloads' times and compare the total time needed. Note: 
+            bucket repeatedly and compare the total time needed. Note: 
             the performance difference will be much more pronounced if this
             example is run in an EC2 instance in the same Availability Zone as 
             the bucket.
@@ -262,8 +262,8 @@ public class S3DirectoriesScenario {
         } else {
             logger.info("No changes made. Using default downloads: {}", downloads);
         }
-        // Simulating the download process for the Directory bucket.
-        logger.info("Downloading from the Directory bucket.");
+        // Simulating the download process for the directory bucket.
+        logger.info("Downloading from the directory bucket.");
         long directoryTimeStart = System.nanoTime();
         for (int index = 0; index < downloads; index++) {
             if (index % 10 == 0) {
@@ -271,7 +271,7 @@ public class S3DirectoriesScenario {
             }
 
             try {
-                // Get the object from the Directory bucket.
+                // Get the object from the directory bucket.
                 s3DirectoriesActions.getObjectAsync(mS3ExpressClient, mdirectoryBucketName, bucketObject).join();
             } catch (CompletionException e) {
                 logger.error("Async operation failed: {} ", e.getCause().getMessage());
@@ -315,11 +315,11 @@ public class S3DirectoriesScenario {
 
     private static String createSessionAddObjects() {
         logger.info("""    
-            5. Create an object and copy it over.
+            5. Create an object and copy it.
             We'll create a basic object consisting of some text and upload it to the 
             normal bucket. 
-            Next we'll copy the object into the Directory bucket using the regular client. 
-            This works fine because copy operations are not restricted for Directory buckets.
+            Next we'll copy the object into the directory bucket using the regular client. 
+            This works fine because copy operations are not restricted for directory buckets.
             """);
         waitForInputToContinue(scanner);
 
@@ -340,8 +340,8 @@ public class S3DirectoriesScenario {
         }
         logger.info(""" 
             It worked! It's important to remember the user permissions when interacting with 
-            Directory buckets. Instead of validating permissions on every call as 
-            normal buckets do, Directory buckets utilize the user credentials and session 
+            directory buckets. Instead of validating permissions on every call as 
+            normal buckets do, directory buckets utilize the user credentials and session 
             token to validate. This allows for much faster connection speeds on every call. 
             For single calls, this is low, but for many concurrent calls 
             this adds up to a lot of time saved.
@@ -355,7 +355,7 @@ public class S3DirectoriesScenario {
      * <p>
      * This method performs the following steps:
      * <ol>
-     *     <li>Optionally creates a new VPC and VPC Endpoint if the application is running in an EC2 instance in the same Availability Zone as the Directory buckets.</li>
+     *     <li>Optionally creates a new VPC and VPC Endpoint if the application is running in an EC2 instance in the same Availability Zone as the directory buckets.</li>
      *     <li>Creates two IAM users: one with S3 Express One Zone permissions and one without.</li>
      * </ol>
      *
@@ -368,7 +368,7 @@ public class S3DirectoriesScenario {
         */
         logger.info("""
             1. First, we'll set up a new VPC and VPC Endpoint if this program is running in an EC2 instance in the same AZ as your\s
-            Directory buckets will be. Are you running this in an EC2 instance located in the same AZ as your intended Directory buckets?
+            directory buckets will be. Are you running this in an EC2 instance located in the same AZ as your intended directory buckets?
             """);
 
         logger.info("Do you want to setup a VPC Endpoint? (y/n)");
@@ -392,17 +392,15 @@ public class S3DirectoriesScenario {
             logger.info("Skipping the VPC setup. Don't forget to use this in production!");
         }
         logger.info("""            
-            2. Policies, users, and roles with CDK.
-            Now, we'll set up some policies, roles, and a user. This user will 
-            only have permissions to do S3 Express One Zone actions.
+            2. Create a RegularUser and ExpressUser by using the AWS CDK.
+            One IAM User, named RegularUser, will have permissions to work only 
+            with regular buckets and one IAM user, named ExpressUser, will have 
+            permissions to work only with directory buckets.
             """);
-
         waitForInputToContinue(scanner);
-        logger.info("Use AWS CloudFormation to create IAM roles that is required for this scenario.");
-        CloudFormationHelper.deployCloudFormationStack(stackName);
-        Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputsAsync(stackName).join();
 
         // Create two users required for this scenario.
+        Map<String, String> stackOutputs = createUsersUsingCDK();
         regularUser = stackOutputs.get("RegularUser");
         expressUser = stackOutputs.get("ExpressUser");
 
@@ -410,6 +408,18 @@ public class S3DirectoriesScenario {
         names.setRegularUserName(regularUser);
         names.setExpressUserName(expressUser);
         return names;
+    }
+
+    /**
+     * Creates users using AWS CloudFormation.
+     *
+     * @return a {@link Map} of String keys and String values representing the stack outputs,
+     * which may include user-related information such as user names and IDs.
+     */
+    public static  Map<String, String> createUsersUsingCDK() {
+        logger.info("We'll use an AWS CloudFormation template to create the IAM users and policies.");
+        CloudFormationHelper.deployCloudFormationStack(stackName);
+        return CloudFormationHelper.getStackOutputsAsync(stackName).join();
     }
 
     /**
@@ -452,15 +462,11 @@ public class S3DirectoriesScenario {
             return;
         }
 
-        // Create an additional client using the credentials
-        // with S3 Express permissions.
         logger.info("""            
-            3. Create an additional client using the credentials with S3 Express permissions. This client is created with the 
-            credentials associated with the user account with the S3 Express policy attached, so it can perform S3 Express operations.
+            3. Create 2 S3Clients; one uses the ExpressUser's credentials and one uses the RegularUser's credentials.
+            The 2 S3Clients will use different credentials.
             """);
         waitForInputToContinue(locscanner);
-
-        // Populate the two S3 data member clients.
         try {
             mS3RegularClient = createS3ClientWithAccessKeyAsync(accessKeyIdforRegUser, secretAccessforRegUser).join();
             mS3ExpressClient = createS3ClientWithAccessKeyAsync(accessKeyIdforExpressUser, secretAccessforExpressUser).join();
@@ -475,20 +481,18 @@ public class S3DirectoriesScenario {
         }
 
         logger.info("""
-            All the roles and policies were created and attached to the user. Then a new S3 Client were created using 
-            that user's credentials. We can now use this client to make calls to S3 Express operations. Keeping permissions in mind
-            (and adhering to least-privilege) is crucial to S3 Express.
+            We can now use the ExpressUser client to make calls to S3 Express operations. 
             """);
         waitForInputToContinue(locscanner);
         logger.info("""
             4. Create two buckets.
-            Now we will create a Directory bucket which is the linchpin of the S3 Express One Zone service. Directory buckets 
+            Now we will create a directory bucket which is the linchpin of the S3 Express One Zone service. Directory buckets 
             behave in different ways from regular S3 buckets which we will explore here. We'll also create a normal bucket, put 
-            an object into the normal bucket, and copy it over to the Directory bucket.
+            an object into the normal bucket, and copy it over to the directory bucket.
             """);
 
         logger.info("""
-            Now, let's choose an availability zone for the Directory bucket. We'll choose one 
+            Now, let's choose an availability zone for the directory bucket. We'll choose one 
             that is supported.
             """);
         String zoneId;
@@ -506,7 +510,7 @@ public class S3DirectoriesScenario {
             return;
         }
         logger.info("""
-            Now, let's create the actual Directory bucket, as well as a regular 
+            Now, let's create the actual directory bucket, as well as a regular 
             bucket."
              """);
 
