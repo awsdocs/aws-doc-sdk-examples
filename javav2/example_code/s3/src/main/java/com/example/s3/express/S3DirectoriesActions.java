@@ -33,7 +33,9 @@ import software.amazon.awssdk.services.s3.model.BucketType;
 import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
 import software.amazon.awssdk.services.s3.model.CreateBucketConfiguration;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
+import software.amazon.awssdk.services.s3.model.CreateBucketResponse;
 import software.amazon.awssdk.services.s3.model.CreateSessionRequest;
+import software.amazon.awssdk.services.s3.model.CreateSessionResponse;
 import software.amazon.awssdk.services.s3.model.DataRedundancy;
 import software.amazon.awssdk.services.s3.model.Delete;
 import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
@@ -116,7 +118,7 @@ public class S3DirectoriesActions {
     }
 
     /**
-     * Deletes the specified S3 bucket and all the objects within it in an asynchronous manner.
+     * Deletes the specified S3 bucket and all the objects within it asynchronously.
      *
      * @param s3AsyncClient the S3 asynchronous client to use for the operations
      * @param bucketName the name of the S3 bucket to be deleted
@@ -175,10 +177,10 @@ public class S3DirectoriesActions {
     }
 
     /**
-     * Lists the objects in an S3 bucket asynchronously using the AWS SDK.
+     *  Lists the objects in an S3 bucket asynchronously.
      *
-     * @param s3Client    the S3 async client to use for the operation
-     * @param bucketName the name of the S3 bucket to list objects from
+     * @param s3Client the S3 async client to use for the operation
+     * @param bucketName the name of the the S3 bucket containing the objects to list
      * @return a {@link CompletableFuture} that contains the list of object keys in the specified bucket
      */
     public CompletableFuture<List<String>> listObjectsAsync(S3AsyncClient s3Client, String bucketName) {
@@ -197,6 +199,14 @@ public class S3DirectoriesActions {
             });
     }
 
+    /**
+     * Retrieves an object from an Amazon S3 bucket asynchronously.
+     *
+     * @param s3Client   the S3 async client to use for the operation
+     * @param bucketName the name of the S3 bucket containing the object
+     * @param keyName    the unique identifier (key) of the object to retrieve
+     * @return a {@link CompletableFuture} that, when completed, contains the object's content as a {@link ResponseBytes} of {@link GetObjectResponse}
+     */
     public CompletableFuture<ResponseBytes<GetObjectResponse>> getObjectAsync(S3AsyncClient s3Client, String bucketName, String keyName) {
         GetObjectRequest objectRequest = GetObjectRequest.builder()
             .key(keyName)
@@ -206,7 +216,6 @@ public class S3DirectoriesActions {
         // Get the object asynchronously and transform it into a byte array
         return s3Client.getObject(objectRequest, AsyncResponseTransformer.toBytes())
             .exceptionally(exception -> {
-                // Handle the exception by checking the cause
                 Throwable cause = exception.getCause();
                 if (cause instanceof S3Exception) {
                     throw new CompletionException("Failed to get the object. Reason: " + ((S3Exception) cause).awsErrorDetails().errorMessage(), cause);
@@ -218,6 +227,7 @@ public class S3DirectoriesActions {
                 return response;
             });
     }
+
     /**
      * Asynchronously copies an object from one S3 bucket to another.
      *
@@ -250,20 +260,19 @@ public class S3DirectoriesActions {
     }
 
     /**
-     * Creates an asynchronous session for the specified S3 bucket.
+     * Asynchronously creates a session for the specified S3 bucket.
      *
-     * @param s3Client the S3 asynchronous client to use for creating the session
+     * @param s3Client   the S3 asynchronous client to use for creating the session
      * @param bucketName the name of the S3 bucket for which to create the session
      * @return a {@link CompletableFuture} that completes when the session is created, or throws a {@link CompletionException} if an error occurs
      */
-    public CompletableFuture<Void> createSessionAsync(S3AsyncClient s3Client, String bucketName) {
+    public CompletableFuture<CreateSessionResponse> createSessionAsync(S3AsyncClient s3Client, String bucketName) {
         CreateSessionRequest request = CreateSessionRequest.builder()
             .bucket(bucketName)
             .build();
 
         return s3Client.createSession(request)
-            .thenRun(() -> logger.info("Created session for bucket: " + bucketName))
-            .whenComplete((ignored, exception) -> {
+            .whenComplete((response, exception) -> {
                 if (exception != null) {
                     Throwable cause = exception.getCause();
                     if (cause instanceof S3Exception) {
@@ -271,19 +280,21 @@ public class S3DirectoriesActions {
                     }
                     throw new CompletionException("Unexpected error occurred while creating session", exception);
                 }
+                logger.info("Created session for bucket: " + bucketName);
             });
+
     }
 
     /**
      * Creates a new S3 directory bucket in a specified Zone (For example, a
      * specified Availability Zone in this code example).
      *
-     * @param s3Client   The S3 client used to create the bucket
+     * @param s3Client   The asynchronous S3 client used to create the bucket
      * @param bucketName The name of the bucket to be created
-     * @param zone       The region where the bucket will be created
-     * @throws S3Exception if there's an error creating the bucket
+     * @param zone       The Availability Zone where the bucket will be created
+     * @throws CompletionException if there's an error creating the bucket
      */
-    public CompletableFuture<Void> createDirectoryBucketAsync(S3AsyncClient s3Client, String bucketName, String zone) {
+    public CompletableFuture<CreateBucketResponse> createDirectoryBucketAsync(S3AsyncClient s3Client, String bucketName, String zone) {
         logger.info("Creating bucket: " + bucketName);
 
         CreateBucketConfiguration bucketConfiguration = CreateBucketConfiguration.builder()
@@ -303,8 +314,7 @@ public class S3DirectoriesActions {
             .build();
 
         return s3Client.createBucket(bucketRequest)
-            .thenAccept(response -> logger.info("Bucket created successfully with location: " + response.location()))
-            .whenComplete((ignored, exception) -> {
+            .whenComplete((response, exception) -> {
                 if (exception != null) {
                     Throwable cause = exception.getCause();
                     if (cause instanceof S3Exception) {
@@ -312,8 +322,10 @@ public class S3DirectoriesActions {
                     }
                     throw new CompletionException("Unexpected error occurred while creating bucket", exception);
                 }
+                logger.info("Bucket created successfully with location: " + response.location());
             });
     }
+
     /**
      * Creates an S3 bucket asynchronously.
      *
@@ -348,7 +360,7 @@ public class S3DirectoriesActions {
      * Uploads an object to an Amazon S3 bucket asynchronously.
      *
      * @param s3Client     the S3 async client to use for the upload
-     * @param bucketName   the name of the S3 bucket to upload the object to
+     * @param bucketName   the destination S3 bucket name
      * @param bucketObject the name of the object to be uploaded
      * @param text         the content to be uploaded as the object
      */
@@ -397,12 +409,12 @@ public class S3DirectoriesActions {
     }
 
     /**
-     * Selects an availability zone ID based on the specified AWS region.
+     * Asynchronously selects an Availability Zone ID from the available EC2 zones.
      *
-     * @return A map containing the selected availability zone details, including the zone name, zone ID, region name, and state.
+     * @return A {@link CompletableFuture} that resolves to the selected Availability Zone ID.
+     * @throws CompletionException if an error occurs during the request or processing.
      */
     public CompletableFuture<String> selectAvailabilityZoneIdAsync() {
-        // Request available zones
         DescribeAvailabilityZonesRequest zonesRequest = DescribeAvailabilityZonesRequest.builder()
             .build();
 
@@ -415,15 +427,13 @@ public class S3DirectoriesActions {
                     return CompletableFuture.completedFuture(null); // Return null if no zones are found
                 }
 
-                // Extract zone IDs
                 List<String> zoneIds = zonesList.stream()
                     .map(AvailabilityZone::zoneId) // Get the zoneId (e.g., "usw2-az1")
                     .toList();
 
-                // **Prompt user synchronously** and return CompletableFuture
                 return CompletableFuture.supplyAsync(() -> promptUserForZoneSelection(zonesList, zoneIds))
                     .thenApply(selectedZone -> {
-                        // Return only the selected Zone ID (e.g., "usw2-az1")
+                        // Return only the selected Zone ID (e.g., "usw2-az1").
                         return selectedZone.zoneId();
                     });
             })
@@ -445,7 +455,7 @@ public class S3DirectoriesActions {
     }
 
     /**
-     * Prompts the user to select an availability zone from the given list.
+     * Prompts the user to select an Availability Zone from the given list.
      *
      * @param zonesList the list of availability zones
      * @param zoneIds the list of zone IDs
@@ -458,21 +468,30 @@ public class S3DirectoriesActions {
         while (index < 0 || index >= zoneIds.size()) {
             logger.info("Select an availability zone:");
             IntStream.range(0, zoneIds.size()).forEach(i ->
-                System.out.println(i + ": " + zoneIds.get(i)) // Display Zone IDs
+                logger.info(i + ": " + zoneIds.get(i))
             );
 
             logger.info("Enter the number corresponding to your choice: ");
             if (scanner.hasNextInt()) {
                 index = scanner.nextInt();
             } else {
-                scanner.next(); // Consume invalid input
+                scanner.next();
             }
         }
 
         AvailabilityZone selectedZone = zonesList.get(index);
-        logger.info("You selected: " + selectedZone.zoneId()); // Log Zone ID
+        logger.info("You selected: " + selectedZone.zoneId());
         return selectedZone;
     }
+
+    /**
+     * Asynchronously sets up an AWS VPC, including creating a VPC, waiting for it to be available,
+     * retrieving its associated route table, and creating a VPC endpoint for S3 Express.
+     *
+     * @return A {@link CompletableFuture} that completes when the VPC setup is finished.
+     *         If an error occurs, a {@link CompletionException} is thrown.
+     * @throws CompletionException if an EC2-related error occurs or if required resources are missing.
+     */
     public CompletableFuture<Void> setupVPCAsync() {
         String cidr = "10.0.0.0/16";
         CreateVpcRequest vpcRequest = CreateVpcRequest.builder()
@@ -483,7 +502,6 @@ public class S3DirectoriesActions {
             .thenCompose(vpcResponse -> {
                 String vpcId = vpcResponse.vpc().vpcId();
 
-                // Wait for VPC to be available
                 Ec2AsyncWaiter waiter = ec2AsyncClient.waiter();
                 DescribeVpcsRequest request = DescribeVpcsRequest.builder()
                     .vpcIds(vpcId)
@@ -493,7 +511,6 @@ public class S3DirectoriesActions {
                     .thenApply(waiterResponse -> vpcId);
             })
             .thenCompose(vpcId -> {
-                // Fetch route table for VPC
                 Filter filter = Filter.builder()
                     .name("vpc-id")
                     .values(vpcId)
@@ -546,6 +563,6 @@ public class S3DirectoriesActions {
                     throw new CompletionException("VPC setup failed: " + exception.getMessage(), exception);
                 }
             })
-            .thenAccept(v -> {}); // Ensure CompletableFuture<Void> return type
+            .thenAccept(v -> {});
     }
 }
