@@ -12,9 +12,10 @@ config = Config(
     read_timeout=1000,
 )
 # Create a Bedrock Runtime client in the AWS Region you want to use.
-session = boto3.session.Session(region_name='us-west-2')
+session = boto3.session.Session(region_name='us-east-1')
 bedrock_runtime = session.client(service_name = 'bedrock-runtime', 
                                  config=config)
+pdf_path = input("Enter the path to the PDF file: ")
 prompt = """
 Please analyze this PDF document and provide the following information:
 
@@ -29,8 +30,8 @@ Format your response in a clear, structured way.
 
 # Set the model ID
 
-SONNET_V2_MODEL_ID = "anthropic.claude-3-5-sonnet-20241022-v2:0"
-    
+#SONNET_V2_MODEL_ID = "anthropic.claude-3-5-sonnet-20241022-v2:0"
+SONNET_V2_MODEL_ID = "us.anthropic.claude-3-5-sonnet-20241022-v2:0"   
 def optimize_reel_prompt(user_prompt,ref_image):
     # open PDF
     with open(ref_image, "rb") as f:
@@ -74,5 +75,5 @@ def optimize_reel_prompt(user_prompt,ref_image):
     return text
 
 if __name__ == "__main__":
-    txt = optimize_reel_prompt(prompt,"/Path/To/your.pdf")
+    txt = optimize_reel_prompt(prompt,pdf_path)
     print(txt)
