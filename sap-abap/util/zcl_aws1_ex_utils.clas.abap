@@ -1,3 +1,5 @@
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
 CLASS zcl_aws1_ex_utils DEFINITION
   PUBLIC
   FINAL
