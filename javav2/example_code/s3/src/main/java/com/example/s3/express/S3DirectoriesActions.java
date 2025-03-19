@@ -63,6 +63,7 @@ import java.util.concurrent.CompletionException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+// snippet-start:[s3.java2.directories.actions.main]
 public class S3DirectoriesActions {
 
     private static IamAsyncClient iamAsyncClient;
@@ -566,3 +567,4 @@ public class S3DirectoriesActions {
             .thenAccept(v -> {});
     }
 }
+// snippet-end:[s3.java2.directories.actions.main]

@@ -8,37 +8,19 @@ import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.ec2.Ec2Client;
-import software.amazon.awssdk.services.ec2.model.AvailabilityZone;
-import software.amazon.awssdk.services.ec2.model.CreateVpcEndpointRequest;
-import software.amazon.awssdk.services.ec2.model.CreateVpcEndpointResponse;
-import software.amazon.awssdk.services.ec2.model.CreateVpcRequest;
-import software.amazon.awssdk.services.ec2.model.CreateVpcResponse;
-import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesRequest;
-import software.amazon.awssdk.services.ec2.model.DescribeAvailabilityZonesResponse;
-import software.amazon.awssdk.services.ec2.model.DescribeRouteTablesRequest;
-import software.amazon.awssdk.services.ec2.model.DescribeRouteTablesResponse;
-import software.amazon.awssdk.services.ec2.model.DescribeVpcsRequest;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
-import software.amazon.awssdk.services.ec2.model.Filter;
-import software.amazon.awssdk.services.ec2.waiters.Ec2Waiter;
-import software.amazon.awssdk.services.iam.IamAsyncClient;
-import software.amazon.awssdk.services.iam.IamClient;
-import software.amazon.awssdk.services.iam.model.CreateAccessKeyRequest;
 import software.amazon.awssdk.services.iam.model.CreateAccessKeyResponse;
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.S3Exception;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
-import java.util.stream.IntStream;
 
+// snippet-start:[s3.java2.directories.scenario.main]
 public class S3DirectoriesScenario {
 
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -587,3 +569,4 @@ public class S3DirectoriesScenario {
         }
     }
 }
+// snippet-end:[s3.java2.directories.scenario.main]

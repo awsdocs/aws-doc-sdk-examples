@@ -418,6 +418,18 @@ s3-directory-buckets_Scenario_ExpressBasics:
     - Prompt the user to see if they want to clean up the resources.
   category: Basics
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &S3; features.
+              snippet_tags:
+                - s3.java2.directories.scenario.main
+            - description: A wrapper class for &S3; SDK methods.
+              snippet_tags:
+                - s3.java2.directories.actions.main 
     PHP:
       versions:
         - sdk_version: 3
