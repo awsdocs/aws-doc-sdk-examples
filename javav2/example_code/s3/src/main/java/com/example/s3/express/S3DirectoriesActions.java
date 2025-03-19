@@ -28,6 +28,7 @@ import software.amazon.awssdk.services.iam.model.CreateAccessKeyRequest;
 import software.amazon.awssdk.services.iam.model.CreateAccessKeyResponse;
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
+import software.amazon.awssdk.services.s3.model.BucketAlreadyExistsException;
 import software.amazon.awssdk.services.s3.model.BucketInfo;
 import software.amazon.awssdk.services.s3.model.BucketType;
 import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
@@ -47,6 +48,8 @@ import software.amazon.awssdk.services.s3.model.HeadBucketResponse;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.LocationInfo;
 import software.amazon.awssdk.services.s3.model.LocationType;
+import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
+import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 import software.amazon.awssdk.services.s3.model.ObjectIdentifier;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Object;
@@ -181,7 +184,7 @@ public class S3DirectoriesActions {
      *  Lists the objects in an S3 bucket asynchronously.
      *
      * @param s3Client the S3 async client to use for the operation
-     * @param bucketName the name of the the S3 bucket containing the objects to list
+     * @param bucketName the name of the S3 bucket containing the objects to list
      * @return a {@link CompletableFuture} that contains the list of object keys in the specified bucket
      */
     public CompletableFuture<List<String>> listObjectsAsync(S3AsyncClient s3Client, String bucketName) {
@@ -218,14 +221,10 @@ public class S3DirectoriesActions {
         return s3Client.getObject(objectRequest, AsyncResponseTransformer.toBytes())
             .exceptionally(exception -> {
                 Throwable cause = exception.getCause();
-                if (cause instanceof S3Exception) {
+                if (cause instanceof NoSuchKeyException) {
                     throw new CompletionException("Failed to get the object. Reason: " + ((S3Exception) cause).awsErrorDetails().errorMessage(), cause);
                 }
                 throw new CompletionException("Failed to get the object", exception);
-            })
-            .thenApply(response -> {
-                logger.info("Successfully obtained bytes from an S3 object");
-                return response;
             });
     }
 
@@ -318,8 +317,8 @@ public class S3DirectoriesActions {
             .whenComplete((response, exception) -> {
                 if (exception != null) {
                     Throwable cause = exception.getCause();
-                    if (cause instanceof S3Exception) {
-                        throw new CompletionException("Error creating bucket: " + ((S3Exception) cause).awsErrorDetails().errorMessage(), cause);
+                    if (cause instanceof BucketAlreadyExistsException) {
+                        throw new CompletionException("The bucket already exists: " + ((S3Exception) cause).awsErrorDetails().errorMessage(), cause);
                     }
                     throw new CompletionException("Unexpected error occurred while creating bucket", exception);
                 }
@@ -351,7 +350,12 @@ public class S3DirectoriesActions {
             })
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    throw new CompletionException("Error creating bucket: " + bucketName, exception);
+                    Throwable cause = exception.getCause();
+                    if (cause instanceof BucketAlreadyExistsException) {
+                        throw new CompletionException("The S3 bucket exists: " + cause.getMessage(), cause);
+                    } else {
+                        throw new CompletionException("Failed to create access key: " + exception.getMessage(), exception);
+                    }
                 }
                 logger.info(bucketName + " is ready");
             });
@@ -374,7 +378,12 @@ public class S3DirectoriesActions {
         return s3Client.putObject(objectRequest, AsyncRequestBody.fromString(text))
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    throw new CompletionException("Failed to upload file", exception);
+                    Throwable cause = exception.getCause();
+                    if (cause instanceof NoSuchBucketException) {
+                        throw new CompletionException("The S3 bucket does not exist: " + cause.getMessage(), cause);
+                    } else {
+                        throw new CompletionException("Failed to create access key: " + exception.getMessage(), exception);
+                    }
                 }
             });
     }
@@ -396,15 +405,13 @@ public class S3DirectoriesActions {
                     logger.info("Access Key Created.");
                 } else {
                     if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while creating access key.", null);
+                        Throwable cause = exception.getCause();
+                        if (cause instanceof IamException) {
+                            throw new CompletionException("IAM error while creating access key: " + cause.getMessage(), cause);
+                        } else {
+                            throw new CompletionException("Failed to create access key: " + exception.getMessage(), exception);
+                        }
                     }
-
-                    Throwable cause = exception.getCause();
-                    if (cause instanceof IamException) {
-                        throw new CompletionException("IAM error while creating access key: " + cause.getMessage(), cause);
-                    }
-
-                    throw new CompletionException("Failed to create access key: " + exception.getMessage(), exception);
                 }
             });
     }
@@ -422,7 +429,6 @@ public class S3DirectoriesActions {
         return getEc2AsyncClient().describeAvailabilityZones(zonesRequest)
             .thenCompose(response -> {
                 List<AvailabilityZone> zonesList = response.availabilityZones();
-
                 if (zonesList.isEmpty()) {
                     logger.info("No availability zones found.");
                     return CompletableFuture.completedFuture(null); // Return null if no zones are found
@@ -458,9 +464,9 @@ public class S3DirectoriesActions {
     /**
      * Prompts the user to select an Availability Zone from the given list.
      *
-     * @param zonesList the list of availability zones
+     * @param zonesList the list of Availability Zones
      * @param zoneIds the list of zone IDs
-     * @return the selected AvailabilityZone
+     * @return the selected Availability Zone
      */
     private static AvailabilityZone promptUserForZoneSelection(List<AvailabilityZone> zonesList, List<String> zoneIds) {
         Scanner scanner = new Scanner(System.in);
@@ -486,14 +492,13 @@ public class S3DirectoriesActions {
     }
 
     /**
-     * Asynchronously sets up an AWS VPC, including creating a VPC, waiting for it to be available,
-     * retrieving its associated route table, and creating a VPC endpoint for S3 Express.
+     * Asynchronously sets up a new VPC, including creating the VPC, finding the associated route table, and
+     * creating a VPC endpoint for the S3 service.
      *
-     * @return A {@link CompletableFuture} that completes when the VPC setup is finished.
-     *         If an error occurs, a {@link CompletionException} is thrown.
-     * @throws CompletionException if an EC2-related error occurs or if required resources are missing.
+     * @return a {@link CompletableFuture} that, when completed, contains a AbstractMap with the
+     *         VPC ID and VPC endpoint ID.
      */
-    public CompletableFuture<Void> setupVPCAsync() {
+    public CompletableFuture<AbstractMap.SimpleEntry<String, String>> setupVPCAsync() {
         String cidr = "10.0.0.0/16";
         CreateVpcRequest vpcRequest = CreateVpcRequest.builder()
             .cidrBlock(cidr)
@@ -502,8 +507,9 @@ public class S3DirectoriesActions {
         return getEc2AsyncClient().createVpc(vpcRequest)
             .thenCompose(vpcResponse -> {
                 String vpcId = vpcResponse.vpc().vpcId();
+                logger.info("VPC Created: {}", vpcId);
 
-                Ec2AsyncWaiter waiter = ec2AsyncClient.waiter();
+                Ec2AsyncWaiter waiter = getEc2AsyncClient().waiter();
                 DescribeVpcsRequest request = DescribeVpcsRequest.builder()
                     .vpcIds(vpcId)
                     .build();
@@ -521,18 +527,20 @@ public class S3DirectoriesActions {
                     .filters(filter)
                     .build();
 
-                return ec2AsyncClient.describeRouteTables(describeRouteTablesRequest)
+                return getEc2AsyncClient().describeRouteTables(describeRouteTablesRequest)
                     .thenApply(routeTablesResponse -> {
                         if (routeTablesResponse.routeTables().isEmpty()) {
-                            throw new CompletionException("No route tables found for VPC.", null);
+                            throw new CompletionException("No route tables found for VPC: " + vpcId, null);
                         }
-                        return new AbstractMap.SimpleEntry<>(vpcId, routeTablesResponse.routeTables().get(0).routeTableId());
+                        String routeTableId = routeTablesResponse.routeTables().get(0).routeTableId();
+                        logger.info("Route table found: {}", routeTableId);
+                        return new AbstractMap.SimpleEntry<>(vpcId, routeTableId);
                     });
             })
             .thenCompose(vpcAndRouteTable -> {
                 String vpcId = vpcAndRouteTable.getKey();
                 String routeTableId = vpcAndRouteTable.getValue();
-                Region region = ec2AsyncClient.serviceClientConfiguration().region();
+                Region region = getEc2AsyncClient().serviceClientConfiguration().region();
                 String serviceName = String.format("com.amazonaws.%s.s3express", region.id());
 
                 CreateVpcEndpointRequest endpointRequest = CreateVpcEndpointRequest.builder()
@@ -541,30 +549,24 @@ public class S3DirectoriesActions {
                     .serviceName(serviceName)
                     .build();
 
-                return ec2AsyncClient.createVpcEndpoint(endpointRequest)
+                return getEc2AsyncClient().createVpcEndpoint(endpointRequest)
                     .thenApply(vpcEndpointResponse -> {
                         String vpcEndpointId = vpcEndpointResponse.vpcEndpoint().vpcEndpointId();
+                        logger.info("VPC Endpoint created: {}", vpcEndpointId);
                         return new AbstractMap.SimpleEntry<>(vpcId, vpcEndpointId);
                     });
             })
-            .whenComplete((result, exception) -> {
-                if (result != null) {
-                    logger.info("Created VPC: {}", result.getKey());
-                    logger.info("Created VPC Endpoint: {}", result.getValue());
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred during VPC setup.", null);
-                    }
-
-                    Throwable cause = exception.getCause();
-                    if (cause instanceof Ec2Exception) {
-                        throw new CompletionException("EC2 error during VPC setup: " + cause.getMessage(), cause);
-                    }
-
-                    throw new CompletionException("VPC setup failed: " + exception.getMessage(), exception);
+            .exceptionally(exception -> {
+                Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
+                if (cause instanceof Ec2Exception) {
+                    logger.error("EC2 error during VPC setup: {}", cause.getMessage(), cause);
+                    throw new CompletionException("EC2 error during VPC setup: " + cause.getMessage(), cause);
                 }
-            })
-            .thenAccept(v -> {});
+
+                logger.error("VPC setup failed: {}", cause.getMessage(), cause);
+                throw new CompletionException("VPC setup failed: " + cause.getMessage(), cause);
+            });
     }
+
 }
 // snippet-end:[s3.java2.directories.actions.main]
