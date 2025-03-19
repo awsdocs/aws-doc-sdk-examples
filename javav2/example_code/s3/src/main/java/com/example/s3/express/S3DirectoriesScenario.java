@@ -73,7 +73,7 @@ public class S3DirectoriesScenario {
     // Runs the scenario.
     private static void s3ExpressScenario() {
         logger.info(DASHES);
-        logger.info("Welcome to the Amazon S3 Express Basics demo using AWS SDK for Java V2");
+        logger.info("Welcome to the Amazon S3 Express Basics demo using AWS SDK for Java V2.");
         logger.info("""
             Let's get started! First, please note that S3 Express One Zone works best when working within the AWS infrastructure,
             specifically when working in the same Availability Zone (AZ). To see the best results in this example and when you implement
@@ -93,7 +93,7 @@ public class S3DirectoriesScenario {
         setupClientsAndBuckets(expressUserName, regularUserName);
 
         // Create an S3 session for the express S3 client and add objects to the buckets.
-        logger.info("Create an S3 session for the express S3 client and add objects to the buckets");
+        logger.info("Now let's add some objects to our buckets and demonstrate how to work with S3 Sessions.");
         waitForInputToContinue(scanner);
         String bucketObject = createSessionAddObjects();
 
@@ -104,7 +104,7 @@ public class S3DirectoriesScenario {
         // regular and express buckets.
         showLexicographicalDifferences(bucketObject);
 
-        logger.info("");
+        logger.info(DASHES);
         logger.info("That's it for our tour of the basic operations for S3 Express One Zone.");
         logger.info("Would you like to cleanUp the AWS resources? (y/n): ");
         String response = scanner.next().trim().toLowerCase();
@@ -141,10 +141,11 @@ public class S3DirectoriesScenario {
     }
 
     private static void showLexicographicalDifferences(String bucketObject) {
+        logger.info(DASHES);
         logger.info("""
-            7. Populate the buckets to show the lexicographical difference.
-            Now let's explore how directory buckets store objects in a different 
-            manner to regular buckets. The key is in the name 
+            7. Populate the buckets to show the lexicographical (alphabetical) difference 
+            when object names are listed. Now let's explore how directory buckets store 
+            objects in a different manner to regular buckets. The key is in the name 
             "Directory". Where regular buckets store their key/value pairs in a 
             flat manner, directory buckets use actual directories/folders. 
             This allows for more rapid indexing, traversing, and therefore 
@@ -152,9 +153,9 @@ public class S3DirectoriesScenario {
                         
             The more segmented your bucket is, with lots of 
             directories, sub-directories, and objects, the more efficient it becomes. 
-            This structural difference also causes ListObjects to behave differently, 
-            which can cause unexpected results. Let's add a few more 
-            objects with layered directories to see how the output of 
+            This structural difference also causes `ListObject` operations to behave 
+            differently, which can cause unexpected results. Let's add a few more 
+            objects in subdirectories directories to see how the output of 
             ListObjects changes.
             """);
 
@@ -199,8 +200,8 @@ public class S3DirectoriesScenario {
         }
 
         logger.info("""
-            Notice how the normal bucket lists objects in lexicographical order, while the directory bucket does not. This is 
-            because the normal bucket considers the whole "key" to be the object identifier, while the directory bucket actually 
+            Notice how the regular bucket lists objects in lexicographical order, while the directory bucket does not. This is 
+            because the regular bucket considers the whole "key" to be the object identifier, while the directory bucket actually 
             creates directories and uses the object "key" as a path to the object.
             """);
         waitForInputToContinue(scanner);
@@ -223,6 +224,7 @@ public class S3DirectoriesScenario {
      * @param bucketObject the name of the object to download
      */
     private static void demonstratePerformance(String bucketObject) {
+        logger.info(DASHES);
         logger.info("6. Demonstrate the performance difference.");
         logger.info("""
             Now, let's do a performance test. We'll download the same object from each 
@@ -233,11 +235,11 @@ public class S3DirectoriesScenario {
             """);
         waitForInputToContinue(scanner);
 
-        int downloads = 1000; // Default value
-        logger.info("The number of downloads of the same object for this example is set at " + downloads + ".");
+        int downloads = 1000; // Default value.
+        logger.info("The default number of downloads of the same object for this example is set at " + downloads + ".");
 
         // Ask if the user wants to download a different number.
-        logger.info("Would you like to download a different number? (y/n): ");
+        logger.info("Would you like to download the file a different number of times? (y/n): ");
         String response = scanner.next().trim().toLowerCase();
         if (response.equals("y")) {
             int maxDownloads = 1_000_000;
@@ -266,7 +268,7 @@ public class S3DirectoriesScenario {
         logger.info("Downloading from the directory bucket.");
         long directoryTimeStart = System.nanoTime();
         for (int index = 0; index < downloads; index++) {
-            if (index % 10 == 0) {
+            if (index % 50 == 0) {
                 logger.info("Download " + index + " of " + downloads);
             }
 
@@ -281,11 +283,11 @@ public class S3DirectoriesScenario {
 
         long directoryTimeDifference = System.nanoTime() - directoryTimeStart;
 
-        // Simulating the download process for the normal bucket.
+        // Download from the regular bucket.
         logger.info("Downloading from the regular bucket.");
         long normalTimeStart = System.nanoTime();
         for (int index = 0; index < downloads; index++) {
-            if (index % 10 == 0) {
+            if (index % 50 == 0) {
                 logger.info("Download " + index + " of " + downloads);
             }
 
@@ -302,7 +304,7 @@ public class S3DirectoriesScenario {
         }
 
         long normalTimeDifference = System.nanoTime() - normalTimeStart;
-        logger.info("The directory bucket took " + directoryTimeDifference + " nanoseconds, while the normal bucket took " + normalTimeDifference + " nanoseconds.");
+        logger.info("The directory bucket took " + directoryTimeDifference + " nanoseconds, while the regular bucket took " + normalTimeDifference + " nanoseconds.");
         long difference = normalTimeDifference - directoryTimeDifference;
         logger.info("That's a difference of " + difference + " nanoseconds, or");
         logger.info(difference / 1_000_000_000.0 + " seconds.");
@@ -314,10 +316,11 @@ public class S3DirectoriesScenario {
     }
 
     private static String createSessionAddObjects() {
+        logger.info(DASHES);
         logger.info("""    
             5. Create an object and copy it.
             We'll create a basic object consisting of some text and upload it to the 
-            normal bucket. 
+            regular bucket. 
             Next we'll copy the object into the directory bucket using the regular client. 
             This works fine because copy operations are not restricted for directory buckets.
             """);
@@ -341,7 +344,7 @@ public class S3DirectoriesScenario {
         logger.info(""" 
             It worked! It's important to remember the user permissions when interacting with 
             directory buckets. Instead of validating permissions on every call as 
-            normal buckets do, directory buckets utilize the user credentials and session 
+            regular buckets do, directory buckets utilize the user credentials and session 
             token to validate. This allows for much faster connection speeds on every call. 
             For single calls, this is low, but for many concurrent calls 
             this adds up to a lot of time saved.
@@ -366,6 +369,7 @@ public class S3DirectoriesScenario {
         Optionally create a VPC.
         Create two IAM users, one with S3 Express One Zone permissions and one without.
         */
+        logger.info(DASHES);
         logger.info("""
             1. First, we'll set up a new VPC and VPC Endpoint if this program is running in an EC2 instance in the same AZ as your\s
             directory buckets will be. Are you running this in an EC2 instance located in the same AZ as your intended directory buckets?
@@ -391,6 +395,7 @@ public class S3DirectoriesScenario {
         } else {
             logger.info("Skipping the VPC setup. Don't forget to use this in production!");
         }
+        logger.info(DASHES);
         logger.info("""            
             2. Create a RegularUser and ExpressUser by using the AWS CDK.
             One IAM User, named RegularUser, will have permissions to work only 
@@ -416,7 +421,7 @@ public class S3DirectoriesScenario {
      * @return a {@link Map} of String keys and String values representing the stack outputs,
      * which may include user-related information such as user names and IDs.
      */
-    public static  Map<String, String> createUsersUsingCDK() {
+    public static Map<String, String> createUsersUsingCDK() {
         logger.info("We'll use an AWS CloudFormation template to create the IAM users and policies.");
         CloudFormationHelper.deployCloudFormationStack(stackName);
         return CloudFormationHelper.getStackOutputsAsync(stackName).join();
@@ -462,6 +467,7 @@ public class S3DirectoriesScenario {
             return;
         }
 
+        logger.info(DASHES);
         logger.info("""            
             3. Create 2 S3Clients; one uses the ExpressUser's credentials and one uses the RegularUser's credentials.
             The 2 S3Clients will use different credentials.
@@ -484,16 +490,17 @@ public class S3DirectoriesScenario {
             We can now use the ExpressUser client to make calls to S3 Express operations. 
             """);
         waitForInputToContinue(locscanner);
+        logger.info(DASHES);
         logger.info("""
             4. Create two buckets.
             Now we will create a directory bucket which is the linchpin of the S3 Express One Zone service. Directory buckets 
-            behave in different ways from regular S3 buckets which we will explore here. We'll also create a normal bucket, put 
-            an object into the normal bucket, and copy it over to the directory bucket.
+            behave differently from regular S3 buckets which we will explore here. We'll also create a regular bucket, put 
+            an object into the regular bucket, and copy it to the directory bucket.
             """);
 
         logger.info("""
-            Now, let's choose an availability zone for the directory bucket. We'll choose one 
-            that is supported.
+            Now, let's choose an availability zone (AZ) for the directory bucket. 
+            We'll choose one that is supported.
             """);
         String zoneId;
         String regularBucketName;

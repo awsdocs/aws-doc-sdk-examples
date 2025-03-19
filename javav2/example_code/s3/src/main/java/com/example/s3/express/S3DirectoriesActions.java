@@ -191,7 +191,7 @@ public class S3DirectoriesActions {
         return s3Client.listObjectsV2(request)
             .thenApply(response -> response.contents().stream()
                 .map(S3Object::key)
-                .collect(Collectors.toList()))
+                .toList())
             .whenComplete((result, exception) -> {
                 if (exception != null) {
                     throw new CompletionException("Couldn't list objects in bucket: " + bucketName, exception);
