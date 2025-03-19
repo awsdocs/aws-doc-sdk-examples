@@ -12,7 +12,11 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.iam.model.CreateAccessKeyResponse;
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
+import software.amazon.awssdk.services.s3.model.BucketAlreadyExistsException;
+import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
+import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 import software.amazon.awssdk.services.s3.model.S3Exception;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -71,7 +75,7 @@ public class S3DirectoriesScenario {
         String regularUserName = userNames.getRegularUserName();
 
         //  Set up two S3 clients, one regular and one express,
-        //  and two buckets, one regular and one express.
+        //  and two buckets, one regular and one directory.
         setupClientsAndBuckets(expressUserName, regularUserName);
 
         // Create an S3 session for the express S3 client and add objects to the buckets.
@@ -79,7 +83,7 @@ public class S3DirectoriesScenario {
         waitForInputToContinue(scanner);
         String bucketObject = createSessionAddObjects();
 
-        // Demonstrate performance differences between regular and express buckets.
+        // Demonstrate performance differences between regular and directory buckets.
         demonstratePerformance(bucketObject);
 
         // Populate the buckets to show the lexicographical difference between
@@ -91,14 +95,14 @@ public class S3DirectoriesScenario {
         logger.info("Would you like to cleanUp the AWS resources? (y/n): ");
         String response = scanner.next().trim().toLowerCase();
         if (response.equals("y")) {
-            cleanUp();
+            cleanUp(stackName);
         }
     }
 
     /*
       Delete resources created by this scenario.
     */
-    private static void cleanUp() {
+    public static void cleanUp(String stackName) {
         try {
             if (mdirectoryBucketName != null) {
                 s3DirectoriesActions.deleteBucketAndObjectsAsync(mS3ExpressClient, mdirectoryBucketName).join();
@@ -137,7 +141,7 @@ public class S3DirectoriesScenario {
             directories, sub-directories, and objects, the more efficient it becomes. 
             This structural difference also causes `ListObject` operations to behave 
             differently, which can cause unexpected results. Let's add a few more 
-            objects in subdirectories directories to see how the output of 
+            objects in sub-directories to see how the output of 
             ListObjects changes.
             """);
 
@@ -157,8 +161,13 @@ public class S3DirectoriesScenario {
             s3DirectoriesActions.putObjectAsync(mS3RegularClient, mregularBucketName, otherAltObject, "").join();
             s3DirectoriesActions.putObjectAsync(mS3ExpressClient, mdirectoryBucketName, otherAltObject, "").join();
 
-        } catch (CompletionException e) {
-            logger.error("Async operation failed: {} ", e.getCause().getMessage());
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof NoSuchBucketException) {
+                logger.error("S3Exception occurred: {}", cause.getMessage(), ce);
+            } else {
+                logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+            }
             return;
         }
 
@@ -210,8 +219,9 @@ public class S3DirectoriesScenario {
         logger.info("6. Demonstrate the performance difference.");
         logger.info("""
             Now, let's do a performance test. We'll download the same object from each 
-            bucket repeatedly and compare the total time needed. Note: 
-            the performance difference will be much more pronounced if this
+            bucket repeatedly and compare the total time needed. 
+                        
+            Note: the performance difference will be much more pronounced if this
             example is run in an EC2 instance in the same Availability Zone as 
             the bucket.
             """);
@@ -257,12 +267,16 @@ public class S3DirectoriesScenario {
             try {
                 // Get the object from the directory bucket.
                 s3DirectoriesActions.getObjectAsync(mS3ExpressClient, mdirectoryBucketName, bucketObject).join();
-            } catch (CompletionException e) {
-                logger.error("Async operation failed: {} ", e.getCause().getMessage());
+            } catch (CompletionException ce) {
+                Throwable cause = ce.getCause();
+                if (cause instanceof NoSuchKeyException) {
+                    logger.error("S3Exception occurred: {}", cause.getMessage(), ce);
+                } else {
+                    logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+                }
                 return;
             }
         }
-
         long directoryTimeDifference = System.nanoTime() - directoryTimeStart;
 
         // Download from the regular bucket.
@@ -277,11 +291,12 @@ public class S3DirectoriesScenario {
                 s3DirectoriesActions.getObjectAsync(mS3RegularClient, mregularBucketName, bucketObject).join();
             } catch (CompletionException ce) {
                 Throwable cause = ce.getCause();
-                if (cause instanceof S3Exception) {
+                if (cause instanceof NoSuchKeyException) {
                     logger.error("S3Exception occurred: {}", cause.getMessage(), ce);
                 } else {
                     logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
                 }
+                return;
             }
         }
 
@@ -301,10 +316,8 @@ public class S3DirectoriesScenario {
         logger.info(DASHES);
         logger.info("""    
             5. Create an object and copy it.
-            We'll create a basic object consisting of some text and upload it to the 
+            We'll create an object consisting of some text and upload it to the 
             regular bucket. 
-            Next we'll copy the object into the directory bucket using the regular client. 
-            This works fine because copy operations are not restricted for directory buckets.
             """);
         waitForInputToContinue(scanner);
 
@@ -324,7 +337,11 @@ public class S3DirectoriesScenario {
             }
         }
         logger.info(""" 
-            It worked! It's important to remember the user permissions when interacting with 
+            It worked! This is because the S3Client that performed the copy operation 
+            is the expressClient using the credentials for the user with permission to 
+            work with directory buckets. 
+                        
+            It's important to remember the user permissions when interacting with 
             directory buckets. Instead of validating permissions on every call as 
             regular buckets do, directory buckets utilize the user credentials and session 
             token to validate. This allows for much faster connection speeds on every call. 
@@ -387,7 +404,7 @@ public class S3DirectoriesScenario {
         waitForInputToContinue(scanner);
 
         // Create two users required for this scenario.
-        Map<String, String> stackOutputs = createUsersUsingCDK();
+        Map<String, String> stackOutputs = createUsersUsingCDK(stackName);
         regularUser = stackOutputs.get("RegularUser");
         expressUser = stackOutputs.get("ExpressUser");
 
@@ -403,7 +420,7 @@ public class S3DirectoriesScenario {
      * @return a {@link Map} of String keys and String values representing the stack outputs,
      * which may include user-related information such as user names and IDs.
      */
-    public static Map<String, String> createUsersUsingCDK() {
+    public static Map<String, String> createUsersUsingCDK(String stackName) {
         logger.info("We'll use an AWS CloudFormation template to create the IAM users and policies.");
         CloudFormationHelper.deployCloudFormationStack(stackName);
         return CloudFormationHelper.getStackOutputsAsync(stackName).join();
@@ -460,8 +477,8 @@ public class S3DirectoriesScenario {
             mS3ExpressClient = createS3ClientWithAccessKeyAsync(accessKeyIdforExpressUser, secretAccessforExpressUser).join();
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            if (cause instanceof S3Exception) {
-                logger.error("S3Exception occurred: {}", cause.getMessage(), ce);
+            if (cause instanceof IllegalArgumentException) {
+                logger.error("An illegal argument exception occurred: {}", cause.getMessage(), ce);
             } else {
                 logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
             }
@@ -499,52 +516,57 @@ public class S3DirectoriesScenario {
             return;
         }
         logger.info("""
-            Now, let's create the actual directory bucket, as well as a regular 
-            bucket."
+            Now, let's create the actual directory bucket, as well as a regular bucket."
              """);
 
+        String directoryBucketName = "test-bucket-" + System.currentTimeMillis() + "--" + zoneId + "--x-s3";
         try {
-            String directoryBucketName = "test-bucket-" + System.currentTimeMillis() + "--" + zoneId + "--x-s3";
             s3DirectoriesActions.createDirectoryBucketAsync(mS3ExpressClient, directoryBucketName, zoneId).join();
             logger.info("Created directory bucket {}", directoryBucketName);
-
-            // Assign to the data member.
-            mdirectoryBucketName = directoryBucketName;
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            if (cause instanceof S3Exception) {
-                logger.error("S3Exception occurred: {}", cause.getMessage(), ce);
+            if (cause instanceof BucketAlreadyExistsException) {
+                logger.error("The bucket already exists. Moving on: {}", cause.getMessage(), ce);
             } else {
                 logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+                return;
             }
-            return;
         }
 
+        // Assign to the data member.
+        mdirectoryBucketName = directoryBucketName;
         try {
             s3DirectoriesActions.createBucketAsync(mS3RegularClient, regularBucketName).join();
             logger.info("Created regular bucket {} ", regularBucketName);
             mregularBucketName = regularBucketName;
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            if (cause instanceof S3Exception) {
-                logger.error("S3Exception occurred: {}", cause.getMessage(), ce);
+            if (cause instanceof BucketAlreadyExistsException) {
+                logger.error("The bucket already exists. Moving on: {}", cause.getMessage(), ce);
             } else {
                 logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
+                return;
             }
-            return;
         }
         logger.info("Great! Both buckets were created.");
         waitForInputToContinue(locscanner);
     }
 
-    /*
-        Creates an S3 client with access key credentials.
-        :param access_key: The access key for the user.
-        :return: The S3 Express One Zone client.
-
+    /**
+     * Creates an asynchronous S3 client with the specified access key and secret access key.
+     *
+     * @param accessKeyId     the AWS access key ID
+     * @param secretAccessKey the AWS secret access key
+     * @return a {@link CompletableFuture} that asynchronously creates the S3 client
+     * @throws IllegalArgumentException if the access key ID or secret access key is null
      */
-    private static CompletableFuture<S3AsyncClient> createS3ClientWithAccessKeyAsync(String accessKeyId, String secretAccessKey) {
+    public static CompletableFuture<S3AsyncClient> createS3ClientWithAccessKeyAsync(String accessKeyId, String secretAccessKey) {
         return CompletableFuture.supplyAsync(() -> {
+            // Validate input parameters
+            if (accessKeyId == null || accessKeyId.isBlank() || secretAccessKey == null || secretAccessKey.isBlank()) {
+                throw new IllegalArgumentException("Access Key ID and Secret Access Key must not be null or empty");
+            }
+
             AwsBasicCredentials awsCredentials = AwsBasicCredentials.create(accessKeyId, secretAccessKey);
             return S3AsyncClient.builder()
                 .credentialsProvider(StaticCredentialsProvider.create(awsCredentials))
