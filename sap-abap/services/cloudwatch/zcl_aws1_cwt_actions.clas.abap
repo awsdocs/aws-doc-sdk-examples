@@ -1,48 +1,48 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 
-class ZCL_AWS1_CWT_ACTIONS definition
-  public
-  final
-  create public .
+CLASS zcl_aws1_cwt_actions DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  methods DELETE_ALARMS
-    importing
-      !IT_ALARM_NAMES type /AWS1/CL_CWTALARMNAMES_W=>TT_ALARMNAMES .
-  methods DESCRIBE_ALARMS
-    importing
-      !IT_ALARM_NAMES type /AWS1/CL_CWTALARMNAMES_W=>TT_ALARMNAMES
-    exporting
-      !OO_RESULT type ref to /AWS1/CL_CWTDESCRALARMSOUTPUT .
-  methods DISABLE_ALARM_ACTIONS
-    importing
-      !IT_ALARM_NAMES type /AWS1/CL_CWTALARMNAMES_W=>TT_ALARMNAMES .
-  methods ENABLE_ALARM_ACTIONS
-    importing
-      !IT_ALARM_NAMES type /AWS1/CL_CWTALARMNAMES_W=>TT_ALARMNAMES .
-  methods LIST_METRICS
-    importing
-      !IV_NAMESPACE type /AWS1/CWTNAMESPACE
-    exporting
-      !OO_RESULT type ref to /AWS1/CL_CWTLISTMETRICSOUTPUT .
-  methods PUT_METRIC_ALARM
-    importing
-      !IV_ALARM_NAME type /AWS1/CWTALARMNAME
-      !IV_METRIC_NAME type /AWS1/CWTMETRICNAME
-      !IV_NAMESPACE type /AWS1/CWTNAMESPACE
-      !IV_COMPARISON_OPERATOR type /AWS1/CWTCOMPARISONOPERATOR
-      !IV_STATISTIC type /AWS1/CWTSTATISTIC
-      !IV_THRESHOLD type /AWS1/RT_DOUBLE_AS_STRING
-      !IV_ALARM_DESCRIPTION type /AWS1/CWTALARMDESCRIPTION
-      !IV_ACTIONS_ENABLED type /AWS1/CWTACTIONSENABLED
-      !IV_EVALUATION_PERIODS type /AWS1/CWTEVALUATIONPERIODS
-      !IT_DIMENSIONS type /AWS1/CL_CWTDIMENSION=>TT_DIMENSIONS
-      !IV_UNIT type /AWS1/CWTSTANDARDUNIT
-      !IV_PERIOD type /AWS1/CWTPERIOD .
-protected section.
-private section.
+    METHODS delete_alarms
+      IMPORTING
+      !it_alarm_names TYPE /aws1/cl_cwtalarmnames_w=>tt_alarmnames .
+    METHODS describe_alarms
+      IMPORTING
+      !it_alarm_names TYPE /aws1/cl_cwtalarmnames_w=>tt_alarmnames
+      EXPORTING
+      !oo_result TYPE REF TO /aws1/cl_cwtdescralarmsoutput .
+    METHODS disable_alarm_actions
+      IMPORTING
+      !it_alarm_names TYPE /aws1/cl_cwtalarmnames_w=>tt_alarmnames .
+    METHODS enable_alarm_actions
+      IMPORTING
+      !it_alarm_names TYPE /aws1/cl_cwtalarmnames_w=>tt_alarmnames .
+    METHODS list_metrics
+      IMPORTING
+      !iv_namespace TYPE /aws1/cwtnamespace
+      EXPORTING
+      !oo_result TYPE REF TO /aws1/cl_cwtlistmetricsoutput .
+    METHODS put_metric_alarm
+      IMPORTING
+      !iv_alarm_name TYPE /aws1/cwtalarmname
+      !iv_metric_name TYPE /aws1/cwtmetricname
+      !iv_namespace TYPE /aws1/cwtnamespace
+      !iv_comparison_operator TYPE /aws1/cwtcomparisonoperator
+      !iv_statistic TYPE /aws1/cwtstatistic
+      !iv_threshold TYPE /aws1/rt_double_as_string
+      !iv_alarm_description TYPE /aws1/cwtalarmdescription
+      !iv_actions_enabled TYPE /aws1/cwtactionsenabled
+      !iv_evaluation_periods TYPE /aws1/cwtevaluationperiods
+      !it_dimensions TYPE /aws1/cl_cwtdimension=>tt_dimensions
+      !iv_unit TYPE /aws1/cwtstandardunit
+      !iv_period TYPE /aws1/cwtperiod .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
 ENDCLASS.
 
 
@@ -52,7 +52,7 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
 
   METHOD delete_alarms.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_cwt) = /aws1/cl_cwt_factory=>create( lo_session ).
@@ -60,10 +60,9 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
     "snippet-start:[cwt.abapv1.delete_alarms]
     TRY.
         lo_cwt->deletealarms(
-          it_alarmnames = it_alarm_names
-        ).
+          it_alarmnames = it_alarm_names ).
         MESSAGE 'Alarms deleted.' TYPE 'I'.
-      CATCH /aws1/cx_cwtresourcenotfound .
+      CATCH /aws1/cx_cwtresourcenotfound.
         MESSAGE 'Resource being accessed is not found.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[cwt.abapv1.delete_alarms]
@@ -73,7 +72,7 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
 
   METHOD describe_alarms.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_cwt) = /aws1/cl_cwt_factory=>create( lo_session ).
@@ -81,8 +80,7 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
     "snippet-start:[cwt.abapv1.describe_alarms]
     TRY.
         oo_result = lo_cwt->describealarms(                 " oo_result is returned for testing purposes. "
-          it_alarmnames = it_alarm_names
-        ).
+          it_alarmnames = it_alarm_names ).
         MESSAGE 'Alarms retrieved.' TYPE 'I'.
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
@@ -95,7 +93,7 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
 
   METHOD disable_alarm_actions.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_cwt) = /aws1/cl_cwt_factory=>create( lo_session ).
@@ -105,8 +103,7 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
     "Disables actions on the specified alarm. "
     TRY.
         lo_cwt->disablealarmactions(
-          it_alarmnames = it_alarm_names
-        ).
+          it_alarmnames = it_alarm_names ).
         MESSAGE 'Alarm actions disabled.' TYPE 'I'.
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
@@ -119,7 +116,7 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
 
   METHOD enable_alarm_actions.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_cwt) = /aws1/cl_cwt_factory=>create( lo_session ).
@@ -129,8 +126,7 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
     "Enable actions on the specified alarm."
     TRY.
         lo_cwt->enablealarmactions(
-          it_alarmnames = it_alarm_names
-        ).
+          it_alarmnames = it_alarm_names ).
         MESSAGE 'Alarm actions enabled.' TYPE 'I'.
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
@@ -143,7 +139,7 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
 
   METHOD list_metrics.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_cwt) = /aws1/cl_cwt_factory=>create( lo_session ).
@@ -152,11 +148,10 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
     "The following list-metrics example displays the metrics for Amazon CloudWatch."
     TRY.
         oo_result = lo_cwt->listmetrics(            " oo_result is returned for testing purposes. "
-          iv_namespace = iv_namespace
-        ).
+          iv_namespace = iv_namespace ).
         DATA(lt_metrics) = oo_result->get_metrics( ).
         MESSAGE 'Metrics retrieved.' TYPE 'I'.
-      CATCH /aws1/cx_cwtinvparamvalueex .
+      CATCH /aws1/cx_cwtinvparamvalueex.
         MESSAGE 'The specified argument was not valid.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[cwt.abapv1.list_metrics]
@@ -166,7 +161,7 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
 
   METHOD put_metric_alarm.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_cwt) = /aws1/cl_cwt_factory=>create( lo_session ).
@@ -185,8 +180,7 @@ CLASS ZCL_AWS1_CWT_ACTIONS IMPLEMENTATION.
           iv_alarmdescription          = iv_alarm_description
           iv_unit                      = iv_unit
           iv_period                    = iv_period
-          it_dimensions                = it_dimensions
-        ).
+          it_dimensions                = it_dimensions ).
         MESSAGE 'Alarm created.' TYPE 'I'.
       CATCH /aws1/cx_cwtlimitexceededfault.
         MESSAGE 'The request processing has exceeded the limit' TYPE 'E'.
