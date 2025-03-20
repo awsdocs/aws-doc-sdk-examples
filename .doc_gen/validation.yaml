@@ -213,6 +213,7 @@ allow_list:
   - "src/main/java/com/example/acm/ImportCert"
   - "EnablePropagateAdditionalUserContextData"
   - "StopQueryWorkloadInsightsTopContributors"
+  - "com/location/latest/APIReference/Welcome"
 sample_files:
   - "README.md"
   - "chat_sfn_state_machine.json"
