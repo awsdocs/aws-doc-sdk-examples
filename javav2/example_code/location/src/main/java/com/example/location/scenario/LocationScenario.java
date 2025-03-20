@@ -34,27 +34,27 @@ public class LocationScenario {
             Usage:    <mapName> <keyName> <collectionName> <geoId> <trackerName> <calculatorName> <deviceId>
 
             Where:
-              mapName - The name of the map to be created (e.g., "AWSMap").
-              keyName - The name of the API key to be used (e.g., "AWSApiKey").
+              mapName - The name of the map to be create (e.g., "AWSMap").
+              keyName - The name of the API key to create (e.g., "AWSApiKey").
               collectionName - The name of the geofence collection (e.g., "AWSLocationCollection").
-              geoId - The geographic identifier used for the geofence or map (e.g., "geoId1").
-              trackerName - The name of the tracker (e.g., "geoTracker1").
-              calculatorName - The name of the route calculator (e.g., "AWSRouteCalc32").
+              geoId - The geographic identifier used for the geofence or map (e.g., "geoId").
+              trackerName - The name of the tracker (e.g., "geoTracker").
+              calculatorName - The name of the route calculator (e.g., "AWSRouteCalc").
               deviceId - The ID of the device (e.g., "iPhone-112356").
             """;
 
-        if (args.length != 7) {
-            logger.info(usage);
-            return;
-        }
+       // if (args.length != 7) {
+       //     logger.info(usage);
+       //     return;
+       // }
 
-        String mapName = args[0];
-        String keyName = args[1];
-        String collectionName = args[2];
-        String geoId = args[4];
-        String trackerName = args[5];
-        String calculatorName = args[6];
-        String deviceId = args[7];
+        String mapName = "AWSMap101" ; //args[0];
+        String keyName = "Key101" ; //args[1];
+        String collectionName = "Collection101" ; //args[2];
+        String geoId = "geoId101"; //args[4];
+        String trackerName = "geoTracker101" ; // args[5];
+        String calculatorName = "AWSRouteCalc101c" ; //args[6];
+        String deviceId = "iPhone-112356" ; //args[7];
 
         logger.info("""
             AWS Location Service is a fully managed service offered by Amazon Web Services (AWS) that
@@ -322,6 +322,7 @@ public class LocationScenario {
             logger.info("Now we are going to perform a text search using coffee shop.");
             waitForInputToContinue(scanner);
             locationActions.searchText("coffee shop").join();
+            waitForInputToContinue(scanner);
 
             logger.info("Now we are going to perform a nearby Search.");
             waitForInputToContinue(scanner);

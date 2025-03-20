@@ -45,19 +45,19 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchUpdateDevicePosition](src/main/java/com/example/location/scenario/LocationActions.java#L355)
-- [CalculateRoute](src/main/java/com/example/location/scenario/LocationActions.java#L254)
-- [CreateGeofenceCollection](src/main/java/com/example/location/scenario/LocationActions.java#L480)
-- [CreateKey](src/main/java/com/example/location/scenario/LocationActions.java#L512)
-- [CreateMap](src/main/java/com/example/location/scenario/LocationActions.java#L552)
+- [BatchUpdateDevicePosition](src/main/java/com/example/location/scenario/LocationActions.java#L347)
+- [CalculateRoute](src/main/java/com/example/location/scenario/LocationActions.java#L258)
+- [CreateGeofenceCollection](src/main/java/com/example/location/scenario/LocationActions.java#L456)
+- [CreateKey](src/main/java/com/example/location/scenario/LocationActions.java#L485)
+- [CreateMap](src/main/java/com/example/location/scenario/LocationActions.java#L522)
 - [CreateRouteCalculator](src/main/java/com/example/location/scenario/LocationActions.java#L292)
-- [CreateTracker](src/main/java/com/example/location/scenario/LocationActions.java#L399)
-- [DeleteGeofenceCollection](src/main/java/com/example/location/scenario/LocationActions.java#L589)
-- [DeleteMap](src/main/java/com/example/location/scenario/LocationActions.java#L654)
-- [DeleteRouteCalculator](src/main/java/com/example/location/scenario/LocationActions.java#L720)
-- [DeleteTracker](src/main/java/com/example/location/scenario/LocationActions.java#L685)
-- [GetDevicePosition](src/main/java/com/example/location/scenario/LocationActions.java#L323)
-- [PutGeofence](src/main/java/com/example/location/scenario/LocationActions.java#L434)
+- [CreateTracker](src/main/java/com/example/location/scenario/LocationActions.java#L385)
+- [DeleteGeofenceCollection](src/main/java/com/example/location/scenario/LocationActions.java#L557)
+- [DeleteMap](src/main/java/com/example/location/scenario/LocationActions.java#L615)
+- [DeleteRouteCalculator](src/main/java/com/example/location/scenario/LocationActions.java#L674)
+- [DeleteTracker](src/main/java/com/example/location/scenario/LocationActions.java#L643)
+- [GetDevicePosition](src/main/java/com/example/location/scenario/LocationActions.java#L319)
+- [PutGeofence](src/main/java/com/example/location/scenario/LocationActions.java#L415)
 
 
 <!--custom.examples.start-->

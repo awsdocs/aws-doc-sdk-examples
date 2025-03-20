@@ -47,6 +47,7 @@ import software.amazon.awssdk.services.location.model.PutGeofenceResponse;
 import software.amazon.awssdk.services.location.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.location.model.ServiceQuotaExceededException;
 import software.amazon.awssdk.services.location.model.ValidationException;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
@@ -111,6 +112,7 @@ public class LocationActions {
     }
 
     // snippet-start:[geoplaces.java2.search.near.main]
+
     /**
      * Performs a nearby places search based on the provided geographic coordinates (latitude and longitude).
      * The method sends an asynchronous request to search for places within a 1-kilometer radius of the specified location.
@@ -124,7 +126,7 @@ public class LocationActions {
         // Set up the request for searching nearby places.
         SearchNearbyRequest request = SearchNearbyRequest.builder()
             .queryPosition(queryPosition)  // Set the position
-            .queryRadius(1000L)  // Radius in meters (1000 meters = 1 km)
+            .queryRadius(1000L)  // Radius in meters (1000 meters = 1 km).
             .build();
 
         return getGeoPlacesClient().searchNearby(request)
@@ -137,7 +139,7 @@ public class LocationActions {
                     throw new CompletionException("Error performing place search", exception);
                 }
 
-                // Process the response and print the results
+                // Process the response and print the results.
                 response.resultItems().forEach(result -> {
                     logger.info("Place Name: " + result.placeType().name());
                     logger.info("Address: " + result.address().label());
@@ -149,6 +151,7 @@ public class LocationActions {
     // snippet-end:[geoplaces.java2.search.near.main]
 
     // snippet-start:[geoplaces.java2.search.text.main]
+
     /**
      * Searches for a place using the provided search query and prints the detailed information of the first result.
      *
@@ -217,6 +220,7 @@ public class LocationActions {
     // snippet-end:[geoplaces.java2.search.text.main]
 
     // snippet-start:[geoplaces.java2.geocode.main]
+
     /**
      * Performs reverse geocoding using the AWS Geo Places API.
      * Reverse geocoding is the process of converting geographic coordinates (latitude and longitude) to a human-readable address.
@@ -252,6 +256,7 @@ public class LocationActions {
     // snippet-end:[geoplaces.java2.geocode.main]
 
     // snippet-start:[location.java2.calc.distance.main]
+
     /**
      * Calculates the distance between two locations asynchronously.
      *
@@ -280,16 +285,12 @@ public class LocationActions {
                     }
                     throw new CompletionException("Failed to calculate route: " + exception.getMessage(), exception);
                 }
-
-                if (response == null) {
-                    throw new CompletionException("No response received while calculating route.", null);
-                }
             });
     }
-
     // snippet-end:[location.java2.calc.distance.main]
 
     // snippet-start:[location.java2.create.calculator.main]
+
     /**
      * Creates a new route calculator with the specified name and data source.
      *
@@ -311,16 +312,12 @@ public class LocationActions {
                     }
                     throw new CompletionException("Failed to create route calculator: " + exception.getMessage(), exception);
                 }
-
-                if (response == null) {
-                    throw new CompletionException("No response received while creating route calculator.", null);
-                }
             });
     }
-
     // snippet-end:[location.java2.create.calculator.main]
 
     // snippet-start:[location.java2.get.device.position.main]
+
     /**
      * Retrieves the position of a device using the provided LocationClient.
      *
@@ -343,16 +340,12 @@ public class LocationActions {
                     }
                     throw new CompletionException("Error fetching device position: " + exception.getMessage(), exception);
                 }
-
-                if (response == null) {
-                    throw new CompletionException("No response received while fetching device position.", null);
-                }
             });
     }
-
     // snippet-end:[location.java2.get.device.position.main]
 
     // snippet-start:[location.java2.update.device.position.main]
+
     /**
      * Updates the position of a device in the location tracking system.
      *
@@ -378,25 +371,19 @@ public class LocationActions {
         CompletableFuture<BatchUpdateDevicePositionResponse> futureResponse = getClient().batchUpdateDevicePosition(request);
         return futureResponse.whenComplete((response, exception) -> {
             if (exception != null) {
-                // Handle exceptions but do not log them here
                 Throwable cause = exception.getCause();
                 if (cause instanceof ResourceNotFoundException) {
                     throw new CompletionException("The resource was not found: " + cause.getMessage(), cause);
                 } else {
                     throw new CompletionException("Error updating device position: " + exception.getMessage(), exception);
                 }
-            } else {
-                // If response is valid, return the response to calling code for success logging
-                if (response == null) {
-                    throw new CompletionException("No response received when updating device position for " + deviceId, null);
-                }
             }
         });
     }
-
     // snippet-end:[location.java2.update.device.position.main]
 
     // snippet-start:[location.java2.create.tracker.main]
+
     /**
      * Creates a new tracker resource in your AWS account, which you can use to track the location of devices.
      *
@@ -413,17 +400,11 @@ public class LocationActions {
         return getClient().createTracker(trackerRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    // Handle the exception but do not log it here
                     Throwable cause = exception.getCause();
                     if (cause instanceof ConflictException) {
                         throw new CompletionException("Conflict occurred while creating tracker: " + cause.getMessage(), cause);
                     }
                     throw new CompletionException("Error creating tracker: " + exception.getMessage(), exception);
-                }
-
-                // If response is null, throw an exception (although this should not happen with a successful creation)
-                if (response == null) {
-                    throw new CompletionException("No response received when creating tracker.", null);
                 }
             })
             .thenApply(CreateTrackerResponse::trackerArn); // Return only the tracker ARN
@@ -432,6 +413,7 @@ public class LocationActions {
     // snippet-end:[location.java2.create.tracker.main]
 
     // snippet-start:[location.java2.put.geo.main]
+
     /**
      * Adds a new geofence to the specified collection.
      *
@@ -461,23 +443,18 @@ public class LocationActions {
         return getClient().putGeofence(geofenceRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    // Handle exception but do not log it here
                     Throwable cause = exception.getCause();
                     if (cause instanceof ValidationException) {
                         throw new CompletionException("Validation error while creating geofence: " + cause.getMessage(), cause);
                     }
                     throw new CompletionException("Error creating geofence: " + exception.getMessage(), exception);
                 }
-                // If response is null, throw an exception
-                if (response == null) {
-                    throw new CompletionException("No response received when creating geofence: " + geoId, null);
-                }
             });
     }
-
     // snippet-end:[location.java2.put.geo.main]
 
     // snippet-start:[location.java2.create.collection.main]
+
     /**
      * Creates a new geofence collection.
      *
@@ -498,10 +475,6 @@ public class LocationActions {
                     }
                     throw new CompletionException("Failed to create geofence collection: " + exception.getMessage(), exception);
                 }
-                // If response is null, throw an exception
-                if (response == null) {
-                    throw new CompletionException("No response received when creating the geofence collection for " + collectionName, null);
-                }
             })
             .thenApply(response -> response.collectionArn()); // Return only the ARN
     }
@@ -510,13 +483,14 @@ public class LocationActions {
     // snippet-end:[location.java2.create.collection.main]
 
     // snippet-start:[location.java2.create.key.main]
+
     /**
      * Creates a new API key with the specified name and restrictions.
      *
-     * @param keyName    the name of the API key to be created
-     * @param mapArn     the Amazon Resource Name (ARN) of the map resource to which the API key will be associated
+     * @param keyName the name of the API key to be created
+     * @param mapArn  the Amazon Resource Name (ARN) of the map resource to which the API key will be associated
      * @return a {@link CompletableFuture} that completes with the Amazon Resource Name (ARN) of the created API key,
-     *         or {@code null} if the operation failed
+     * or {@code null} if the operation failed
      */
     public CompletableFuture<String> createKey(String keyName, String mapArn) {
         ApiKeyRestrictions keyRestrictions = ApiKeyRestrictions.builder()
@@ -539,10 +513,6 @@ public class LocationActions {
                     }
                     throw new CompletionException("Failed to create API key: " + exception.getMessage(), exception);
                 }
-                // If response is null, throw an exception
-                if (response == null) {
-                    throw new CompletionException("No response received when creating the API key for " + keyName, null);
-                }
             })
             .thenApply(response -> response.keyArn()); // This will never return null if the response reaches here
     }
@@ -550,6 +520,7 @@ public class LocationActions {
     // snippet-end:[location.java2.create.key.main]
 
     // snippet-start:[location.java2.create.map.main]
+
     /**
      * Creates a new map with the specified name and configuration.
      *
@@ -577,16 +548,14 @@ public class LocationActions {
                     }
                     throw new CompletionException("Failed to create map: " + exception.getMessage(), exception);
                 }
-                if (response == null) {
-                    throw new CompletionException("No response received when creating the map: " + mapName, null);
-                }
             })
-            .thenApply(response -> response.mapArn()); // This will never return null if the response reaches here
+            .thenApply(response -> response.mapArn()); // Return the map ARN
     }
 
     // snippet-end:[location.java2.create.map.main]
 
     // snippet-start:[location.java2.delete.collection.main]
+
     /**
      * Deletes a geofence collection asynchronously.
      *
@@ -600,25 +569,22 @@ public class LocationActions {
 
         return getClient().deleteGeofenceCollection(collectionRequest)
             .whenComplete((response, exception) -> {
-                if (response != null) {
-                    logger.info("The geofence collection {} was deleted.", collectionName);
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while deleting the geofence collection.", null);
-                    }
-
+                if (exception != null) {
                     Throwable cause = exception.getCause();
                     if (cause instanceof ResourceNotFoundException) {
                         throw new CompletionException("The requested geofence collection was not found.", cause);
                     }
-
                     throw new CompletionException("Failed to delete geofence collection: " + exception.getMessage(), exception);
                 }
-            }).thenApply(response -> null); // Ensures the method returns CompletableFuture<Void>
+                logger.info("The geofence collection {} was deleted.", collectionName);
+            })
+            .thenApply(response -> null);
     }
+
     // snippet-end:[location.java2.delete.collection.main]
 
     // snippet-start:[location.java2.delete.key.main]
+
     /**
      * Deletes the specified key from the key-value store.
      *
@@ -633,25 +599,21 @@ public class LocationActions {
 
         return getClient().deleteKey(keyRequest)
             .whenComplete((response, exception) -> {
-                if (response != null) {
-                    logger.info("The key {} was deleted.", keyName);
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while deleting the geofence collection.", null);
-                    }
-
+                if (exception != null) {
                     Throwable cause = exception.getCause();
                     if (cause instanceof ResourceNotFoundException) {
                         throw new CompletionException("The key was not found.", cause);
                     }
-
                     throw new CompletionException("Failed to delete key: " + exception.getMessage(), exception);
                 }
-            }).thenApply(response -> null); // Ensures the method returns CompletableFuture<Void>
+                logger.info("The key {} was deleted.", keyName);
+            })
+            .thenApply(response -> null);
     }
     // snippet-end:[location.java2.delete.key.main]
 
     // snippet-start:[location.java2.delete.map.main]
+
     /**
      * Deletes a map with the specified name.
      *
@@ -665,32 +627,29 @@ public class LocationActions {
 
         return getClient().deleteMap(mapRequest)
             .whenComplete((response, exception) -> {
-                if (response != null) {
-                    logger.info("The map {} was deleted.", mapName);
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while deleting the map.", null);
-                    }
-
+                if (exception != null) {
                     Throwable cause = exception.getCause();
                     if (cause instanceof ResourceNotFoundException) {
                         throw new CompletionException("The map was not found.", cause);
                     }
                     throw new CompletionException("Failed to delete map: " + exception.getMessage(), exception);
                 }
-            }).thenApply(response -> null);
+                logger.info("The map {} was deleted.", mapName);
+            })
+            .thenApply(response -> null);
     }
     // snippet-end:[location.java2.delete.map.main]
 
     // snippet-start:[location.java2.delete.tracker.main]
+
     /**
      * Deletes a tracker with the specified name.
      *
      * @param trackerName the name of the tracker to be deleted
      * @return a {@link CompletableFuture} that completes when the tracker has been deleted
      * @throws CompletionException if an error occurs while deleting the tracker
-     *     - if the tracker was not found, a {@link ResourceNotFoundException} is thrown wrapped in the CompletionException
-     *     - if any other error occurs, a generic CompletionException is thrown with the error message
+     *                             - if the tracker was not found, a {@link ResourceNotFoundException} is thrown wrapped in the CompletionException
+     *                             - if any other error occurs, a generic CompletionException is thrown with the error message
      */
     public CompletableFuture<Void> deleteTracker(String trackerName) {
         DeleteTrackerRequest trackerRequest = DeleteTrackerRequest.builder()
@@ -699,33 +658,29 @@ public class LocationActions {
 
         return getClient().deleteTracker(trackerRequest)
             .whenComplete((response, exception) -> {
-                if (response != null) {
-                    logger.info("The tracker {} was deleted.", trackerName);
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while deleting the tracker.", null);
-                    }
-
+                if (exception != null) {
                     Throwable cause = exception.getCause();
                     if (cause instanceof ResourceNotFoundException) {
                         throw new CompletionException("The tracker was not found.", cause);
                     }
-
                     throw new CompletionException("Failed to delete the tracker: " + exception.getMessage(), exception);
                 }
-            }).thenApply(response -> null);
+                logger.info("The tracker {} was deleted.", trackerName);
+            })
+            .thenApply(response -> null); // Ensures CompletableFuture<Void>
     }
     // snippet-end:[location.java2.delete.tracker.main]
 
     // snippet-start:[location.java2.delete.calculator.main]
+
     /**
      * Deletes a route calculator from the system.
      *
      * @param calcName the name of the route calculator to delete
      * @return a {@link CompletableFuture} that completes when the route calculator has been deleted
      * @throws CompletionException if an error occurs while deleting the route calculator
-     *                            - If the route calculator was not found, a {@link ResourceNotFoundException} will be thrown
-     *                            - If any other error occurs, a generic {@link CompletionException} will be thrown
+     *                             - If the route calculator was not found, a {@link ResourceNotFoundException} will be thrown
+     *                             - If any other error occurs, a generic {@link CompletionException} will be thrown
      */
     public CompletableFuture<Void> deleteRouteCalculator(String calcName) {
         DeleteRouteCalculatorRequest calculatorRequest = DeleteRouteCalculatorRequest.builder()
@@ -734,21 +689,16 @@ public class LocationActions {
 
         return getClient().deleteRouteCalculator(calculatorRequest)
             .whenComplete((response, exception) -> {
-                if (response != null) {
-                    logger.info("The route calculator {} was deleted.", calcName);
-                } else {
-                    if (exception == null) {
-                        throw new CompletionException("An unknown error occurred while deleting the route calculator.", null);
-                    }
-
+                if (exception != null) {
                     Throwable cause = exception.getCause();
                     if (cause instanceof ResourceNotFoundException) {
                         throw new CompletionException("The route calculator was not found.", cause);
                     }
-
                     throw new CompletionException("Failed to delete the route calculator: " + exception.getMessage(), exception);
                 }
-            }).thenApply(response -> null);
+                logger.info("The route calculator {} was deleted.", calcName);
+            })
+            .thenApply(response -> null);
     }
     // snippet-end:[location.java2.delete.calculator.main]
 }
