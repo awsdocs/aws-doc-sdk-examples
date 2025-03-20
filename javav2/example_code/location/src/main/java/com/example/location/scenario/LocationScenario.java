@@ -51,10 +51,10 @@ public class LocationScenario {
         String mapName = args[0];
         String keyName = args[1];
         String collectionName = args[2];
-        String geoId = args[4];
-        String trackerName = args[5];
-        String calculatorName = args[6];
-        String deviceId = args[7];
+        String geoId = args[3];
+        String trackerName = args[4];
+        String calculatorName = args[5];
+        String deviceId = args[6];
 
         logger.info("""
             AWS Location Service is a fully managed service offered by Amazon Web Services (AWS) that
