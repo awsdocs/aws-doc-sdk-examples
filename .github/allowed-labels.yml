@@ -27,6 +27,9 @@
 - name: Bug
   color: f5f7f9
   description: "An update to fix incorrect code or typos."
+- name: dependencies
+  color: f5f7f9
+  description: "Pull request that updates a dependency file."
 
 # Labels for general which aren't tracked
 - name: Scout

@@ -68,7 +68,7 @@ class Scaffold
         { attribute_name: 'year', attribute_type: 'N' },
         { attribute_name: 'title', attribute_type: 'S' }
       ],
-      provisioned_throughput: { read_capacity_units: 10, write_capacity_units: 10 }
+      billing_mode: 'PAY_PER_REQUEST'
     )
     @dynamo_resource.client.wait_until(:table_exists, table_name: table_name)
     @table

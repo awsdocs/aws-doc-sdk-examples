@@ -48,7 +48,7 @@ public class Converse {
                             .topP(0.9F)));
 
             // Retrieve the generated text from Bedrock's response object.
-            var responseText = response.output().message().content().get(0).text();
+            var responseText = response.output().message().content().getFirst().text();
             System.out.println(responseText);
 
             return responseText;

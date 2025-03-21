@@ -109,7 +109,8 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
           io_bdr = lo_bdr
           iv_model_id = 'anthropic.claude-3-sonnet-20240229-v1:0' ).  " choosing Claude v3 Sonnet
         " iv_prompt can contain a prompt like 'tell me a joke about Java programmers'.
-        DATA(lv_answer) = lo_bdr_l2_claude->prompt_for_text( iv_prompt = iv_prompt iv_max_tokens = 100 ).
+        DATA(lv_answer) = lo_bdr_l2_claude->prompt_for_text( iv_prompt = iv_prompt
+                                                             iv_max_tokens = 100 ).
       CATCH /aws1/cx_bdraccessdeniedex INTO DATA(lo_ex).
         WRITE / lo_ex->get_text( ).
         WRITE / |Don't forget to enable model access at https://console.aws.amazon.com/bedrock/home?#/modelaccess|.

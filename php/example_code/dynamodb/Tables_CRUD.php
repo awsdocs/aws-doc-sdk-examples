@@ -32,13 +32,10 @@ try {
         'KeySchema' => [
             [
                 'AttributeName' => 'Id',
-                'KeyType' => 'HASH'  //Partition key
+                'KeyType' => 'HASH'  //Partition key.
             ]
         ],
-        'ProvisionedThroughput' => [
-            'ReadCapacityUnits'    => 5,
-            'WriteCapacityUnits' => 6
-        ]
+        'BillingMode' => 'PAY_PER_REQUEST'  // Use on-demand billing mode.
     ]);
 
     $dynamodb->waitUntil('TableExists', [
@@ -60,36 +57,9 @@ try {
 ####################################################################
 # Updating the table
 
-echo "# Updating the provisioned throughput of table $tableName.\n";
-try {
-    $response = $dynamodb->updateTable([
-    'TableName' => $tableName,
-    'ProvisionedThroughput'    => [
-        'ReadCapacityUnits'    => 6,
-        'WriteCapacityUnits' => 7
-    ]
-    ]);
+// No need to update provisioned throughput as we are using PAY_PER_REQUEST mode.
 
-    $dynamodb->waitUntil('TableExists', [
-    'TableName' => $tableName,
-    '@waiter' => [
-        'delay'       => 5,
-        'maxAttempts' => 20
-    ]
-    ]);
-
-    echo "New provisioned throughput settings:\n";
-
-    $response = $dynamodb->describeTable(['TableName' => $tableName]);
-
-    echo "Read capacity units: " .
-    $response['Table']['ProvisionedThroughput']['ReadCapacityUnits'] . "\n";
-    echo "Write capacity units: " .
-    $response['Table']['ProvisionedThroughput']['WriteCapacityUnits'] . "\n";
-} catch (DynamoDbException $e) {
-    echo $e->getMessage() . "\n";
-    exit("Unable to update table $tableName\n");
-}
+echo "# Skipping table update for throughput settings (not needed for PAY_PER_REQUEST).\n";
 
 ####################################################################
 # Deleting the table

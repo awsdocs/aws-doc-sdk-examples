@@ -4,11 +4,11 @@
 use crate::scenario::error::Error;
 use aws_sdk_dynamodb::operation::create_table::CreateTableOutput;
 use aws_sdk_dynamodb::types::{
-    AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput, ScalarAttributeType,
+    AttributeDefinition, BillingMode, KeySchemaElement, KeyType, ScalarAttributeType,
 };
 use aws_sdk_dynamodb::Client;
 
-// Create a table.
+// Create an on-demand table.
 // snippet-start:[dynamodb.rust.create-table]
 pub async fn create_table(
     client: &Client,
@@ -30,18 +30,12 @@ pub async fn create_table(
         .build()
         .map_err(Error::BuildError)?;
 
-    let pt = ProvisionedThroughput::builder()
-        .read_capacity_units(10)
-        .write_capacity_units(5)
-        .build()
-        .map_err(Error::BuildError)?;
-
     let create_table_response = client
         .create_table()
         .table_name(table_name)
         .key_schema(ks)
         .attribute_definitions(ad)
-        .provisioned_throughput(pt)
+        .billing_mode(BillingMode::PayPerRequest)
         .send()
         .await;
 

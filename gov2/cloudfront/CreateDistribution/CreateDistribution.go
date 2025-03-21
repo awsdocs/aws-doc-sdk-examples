@@ -46,10 +46,6 @@ func (c *CFDistributionAPIImpl) CreateDistribution(ctx context.Context, bucketNa
 	}
 	originDomain := bucketName + ".s3." + string(locationOutput.LocationConstraint) + ".amazonaws.com"
 
-	if err != nil {
-		return nil, err
-	}
-
 	originAccessIdentityID, err := c.createoriginAccessIdentity(ctx, domain)
 	if err != nil {
 		return nil, err

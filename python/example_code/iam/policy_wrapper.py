@@ -33,8 +33,8 @@ def create_policy(name, description, actions, resource_arn):
                     form of service:action, such as s3:PutObject.
     :param resource_arn: The Amazon Resource Name (ARN) of the resource this policy
                          applies to. This ARN can contain wildcards, such as
-                         'arn:aws:s3:::my-bucket/*' to allow actions on all objects
-                         in the bucket named 'my-bucket'.
+                         'arn:aws:s3:::amzn-s3-demo-bucket/*' to allow actions on all objects
+                         in the bucket named 'amzn-s3-demo-bucket'.
     :return: The newly created policy.
     """
     policy_doc = {
@@ -269,7 +269,7 @@ def usage_demo():
         "Policies let you define sets of permissions that can be attached to "
         "other IAM resources, like users and roles."
     )
-    bucket_arn = f"arn:aws:s3:::made-up-bucket-name"
+    bucket_arn = f"arn:aws:s3:::amzn-s3-demo-bucket"
     policy = create_policy(
         "demo-iam-policy",
         "Policy for IAM demonstration.",

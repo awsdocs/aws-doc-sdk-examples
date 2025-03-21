@@ -5,7 +5,7 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_dynamodb::types::{
-    AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput, ScalarAttributeType,
+    AttributeDefinition, BillingMode, KeySchemaElement, KeyType, ScalarAttributeType,
 };
 use aws_sdk_dynamodb::{config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
@@ -47,18 +47,12 @@ async fn create_table(client: &Client) -> Result<(), Error> {
         .build()
         .expect("creating AttributeDefinition");
 
-    let pt = ProvisionedThroughput::builder()
-        .write_capacity_units(10)
-        .read_capacity_units(10)
-        .build()
-        .expect("creating ProvisionedThroughput");
-
     let new_table = client
         .create_table()
         .table_name("test-table")
         .key_schema(ks)
         .attribute_definitions(ad)
-        .provisioned_throughput(pt)
+        .billing_mode(BillingMode::PayPerRequest)
         .send()
         .await?;
     println!(
