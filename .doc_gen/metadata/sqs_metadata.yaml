@@ -1143,7 +1143,7 @@ sqs_Scenario_UseJMS:
           sdkguide:
           excerpts:
             - description: >-
-                The following examples work with standard &SQS queues and include:</para>
+                The following examples work with standard &SQS; queues and include:</para>
                 <itemizedlist>
                     <listitem>
                         <para>Sending a text message.</para>
