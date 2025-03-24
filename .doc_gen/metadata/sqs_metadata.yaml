@@ -1167,6 +1167,8 @@ sqs_Scenario_UseJMS:
                         <para>A utility class that provides common methods used by the other examples.</para>
                     </listitem>
                 </itemizedlist>
+                <para>For more information on using JMS with &SQS;, see the </para>
+                <ulink type="documentation" url="AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-java-message-service-jms-client.html">&SQS; Developer Guide</ulink>.
                 <para>Sending a text message.
               snippet_tags:
                 - sqs-jms.java2.send-text-message
