@@ -478,7 +478,7 @@ public class S3DirectoriesScenario {
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof IllegalArgumentException) {
-                logger.error("An illegal argument exception occurred: {}", cause.getMessage(), ce);
+                logger.error("An invalid argument exception occurred: {}", cause.getMessage(), ce);
             } else {
                 logger.error("An unexpected error occurred: {}", cause.getMessage(), ce);
             }
