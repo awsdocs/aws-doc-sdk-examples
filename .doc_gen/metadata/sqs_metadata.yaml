@@ -1169,7 +1169,7 @@ sqs_Scenario_UseJMS:
                 </itemizedlist>
                 <para>For more information on using JMS with &SQS;, see the 
                 <ulink type="documentation" url="AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-java-message-service-jms-client.html">&SQS; Developer Guide</ulink>.
-                </para>Sending a text message.
+                </para><para>Sending a text message.
               snippet_tags:
                 - sqs-jms.java2.send-text-message
             - description: Receiving messages synchronously.
