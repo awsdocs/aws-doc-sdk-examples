@@ -468,7 +468,7 @@ public class S3DirectoriesScenario {
 
         logger.info(DASHES);
         logger.info("""            
-            3. Create 2 S3Clients; one uses the ExpressUser's credentials and one uses the RegularUser's credentials.
+            3. Create two S3Clients; one uses the ExpressUser's credentials and one uses the RegularUser's credentials.
             The 2 S3Clients will use different credentials.
             """);
         waitForInputToContinue(locscanner);
