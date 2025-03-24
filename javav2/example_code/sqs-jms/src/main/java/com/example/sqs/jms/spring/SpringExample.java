@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class SpringExample {
     private static final Integer POLLING_SECONDS = 15;
-    private static final String SPRING_XML_CONFIG_FILE = "SpringExampleConfiguration.xml";
+    private static final String SPRING_XML_CONFIG_FILE = "SpringExampleConfiguration.xml.txt";
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringExample.class);
 
     /**
