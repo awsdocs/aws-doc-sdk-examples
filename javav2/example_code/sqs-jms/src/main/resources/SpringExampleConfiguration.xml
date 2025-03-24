@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- snippet-start:[sqs-jms.java2.spring-config-xml]-->
 <beans
         xmlns="http://www.springframework.org/schema/beans"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -43,3 +44,4 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
         <constructor-arg value="SQSJMSClientExampleQueue"/>
     </bean>
 </beans>
+<!-- snippet-end:[sqs-jms.java2.spring-config-xml]-->
