@@ -1186,8 +1186,8 @@ sqs_Scenario_UseJMS:
               snippet_tags:
                 - sqs-jms.java2.spring
             - description: Spring bean definitions.
-              snippet_tags:
-                - sqs-jms.java2.spring-config-xml
+              snippet_files:
+                - javav2/example_code/sqs-jms/src/main/resources/SpringExampleConfiguration.xml.txt
             - description: A utility class that provides common methods used by the other examples.
               snippet_files:
                 - javav2/example_code/sqs-jms/src/main/java/com/example/sqs/jms/SqsJmsExampleUtils.java
