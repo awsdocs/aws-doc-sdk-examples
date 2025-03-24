@@ -1139,7 +1139,7 @@ sqs_Scenario_UseJMS:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/sqs-jms
+          github: javav2/example_code/sqs
           sdkguide:
           excerpts:
             - description: >-
