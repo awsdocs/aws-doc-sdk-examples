@@ -1,7 +1,7 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 
-CLASS ltc_zcl_aws1_kns_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL HARMLESS.
+CLASS ltc_zcl_aws1_kns_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
 
   PRIVATE SECTION.
 
@@ -37,7 +37,7 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
     DATA lo_stream_describe_result TYPE REF TO /aws1/cl_knsdescrstreamoutput.
     DATA lo_stream_description TYPE REF TO /aws1/cl_knsstreamdescription.
     DATA lv_stream_status TYPE /aws1/knsstreamstatus.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
     CONSTANTS cv_shard_count TYPE /aws1/knspositiveintegerobject VALUE 1.
@@ -50,8 +50,7 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
     "Testing.
     ao_kns_actions->create_stream(
         iv_stream_name        = lv_stream_name
-        iv_shard_count        = cv_shard_count
-      ).
+        iv_shard_count        = cv_shard_count ).
 
     "Wait for stream to become active.
     lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
@@ -62,11 +61,11 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
       ENDIF.
       WAIT UP TO 10 SECONDS.
       lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
-      lo_stream_description =  lo_stream_describe_result->get_streamdescription( ).
+      lo_stream_description = lo_stream_describe_result->get_streamdescription( ).
     ENDWHILE.
 
     "Testing.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     IF lo_stream_description->get_streamstatus( ) = 'ACTIVE'.
       lv_found = abap_true.
     ENDIF.
@@ -74,8 +73,7 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
     "Validation.
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Stream cannot be found|
-    ).
+       msg                    = |Stream cannot be found| ).
 
     "Clean up.
     ao_kns->deletestream(
@@ -91,7 +89,7 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
     DATA lo_stream_list_result TYPE REF TO /aws1/cl_knsliststreamsoutput.
     DATA lo_stream_description TYPE REF TO /aws1/cl_knsstreamdescription.
     DATA lv_stream_status TYPE /aws1/knsstreamstatus.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
     CONSTANTS cv_shard_count TYPE /aws1/knspositiveintegerobject VALUE 1.
@@ -103,10 +101,8 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
 
     "Create stream.
     ao_kns->createstream(
-      EXPORTING
-        iv_streamname        = lv_stream_name
-        iv_shardcount        = cv_shard_count
-      ).
+      iv_streamname        = lv_stream_name
+        iv_shardcount        = cv_shard_count ).
 
     "Wait for stream to become active.
     lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
@@ -122,22 +118,19 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
 
     "Testing.
     ao_kns_actions->delete_stream(
-      EXPORTING
-        iv_stream_name        = lv_stream_name
-    ).
+      lv_stream_name ).
 
     "Confirm deletion.
-    lv_found = abap_true.
+    DATA(lv_found) = abap_true.
     lo_stream_list_result = ao_kns->liststreams( iv_exclusivestartstreamname = lv_stream_name ).
 
-    IF  lo_stream_list_result->has_streamnames( ) = 'X'.
+    IF lo_stream_list_result->has_streamnames( ) = 'X'.
       lv_found = abap_false.
     ENDIF.
 
     cl_abap_unit_assert=>assert_false(
        act                    = lv_found
-       msg                    = |Stream not deleted|
-    ).
+       msg                    = |Stream not deleted| ).
 
     "Nothing to clean up.
 
@@ -150,7 +143,7 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
     DATA lo_stream_description TYPE REF TO /aws1/cl_knsstreamdescription.
     DATA lo_stream_list_result TYPE REF TO /aws1/cl_knsliststreamsoutput.
     DATA lv_stream_status TYPE /aws1/knsstreamstatus.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
     CONSTANTS cv_shard_count TYPE /aws1/knspositiveintegerobject VALUE 1.
@@ -163,10 +156,8 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
 
     "Create stream.
     ao_kns->createstream(
-      EXPORTING
-        iv_streamname        = lv_stream_name
-        iv_shardcount        = cv_shard_count
-      ).
+      iv_streamname        = lv_stream_name
+        iv_shardcount        = cv_shard_count ).
 
     "Wait for stream to become active.
     lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
@@ -177,33 +168,26 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
       ENDIF.
       WAIT UP TO 10 SECONDS.
       lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
-      lo_stream_description =  lo_stream_describe_result->get_streamdescription( ).
+      lo_stream_description = lo_stream_describe_result->get_streamdescription( ).
     ENDWHILE.
 
     "Testing.
-    CALL METHOD ao_kns_actions->list_streams(
-      EXPORTING
-        iv_limit  = cv_limit
-      IMPORTING
-        oo_result = lo_stream_list_result
-                    ).
+    ao_kns_actions->list_streams( EXPORTING iv_limit = cv_limit IMPORTING oo_result = lo_stream_list_result ).
 
     "Validation.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
-    IF  lo_stream_list_result->has_streamnames( ) = 'X'.
+    IF lo_stream_list_result->has_streamnames( ) = 'X'.
       lv_found = abap_true.
     ENDIF.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Stream not found|
-    ).
+       msg                    = |Stream not found| ).
 
     "Clean up.
     ao_kns->deletestream(
-        iv_streamname = lv_stream_name
-        ).
+        iv_streamname = lv_stream_name ).
 
   ENDMETHOD.
 
@@ -214,7 +198,7 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
     DATA lo_stream_description TYPE REF TO /aws1/cl_knsstreamdescription.
     DATA lo_stream_list_result TYPE REF TO /aws1/cl_knsliststreamsoutput.
     DATA lv_stream_status TYPE /aws1/knsstreamstatus.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lv_uuid_16 TYPE sysuuid_x16.
 
     CONSTANTS cv_shard_count TYPE /aws1/knspositiveintegerobject VALUE 1.
@@ -226,10 +210,8 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
 
     "Create stream.
     ao_kns->createstream(
-      EXPORTING
-        iv_streamname        = lv_stream_name
-        iv_shardcount        = cv_shard_count
-      ).
+      iv_streamname        = lv_stream_name
+        iv_shardcount        = cv_shard_count ).
 
     "Wait for stream to become active.
     lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
@@ -240,35 +222,28 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
       ENDIF.
       WAIT UP TO 10 SECONDS.
       lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
-      lo_stream_description =  lo_stream_describe_result->get_streamdescription( ).
+      lo_stream_description = lo_stream_describe_result->get_streamdescription( ).
     ENDWHILE.
 
     "Testing.
-    CALL METHOD ao_kns_actions->describe_stream(
-      EXPORTING
-        iv_stream_name = lv_stream_name
-      IMPORTING
-        oo_result      = lo_stream_describe_result
-                         ).
+    ao_kns_actions->describe_stream( EXPORTING iv_stream_name = lv_stream_name IMPORTING oo_result = lo_stream_describe_result ).
 
     "Validation.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
     lo_stream_description = lo_stream_describe_result->get_streamdescription( ).
-    IF  lo_stream_description->get_streamstatus( ) = 'ACTIVE'.
+    IF lo_stream_description->get_streamstatus( ) = 'ACTIVE'.
       lv_found = abap_true.
     ENDIF.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Stream not found|
-    ).
+       msg                    = |Stream not found| ).
 
     "Clean up.
     ao_kns->deletestream(
-        iv_streamname = lv_stream_name
-        ).
+        iv_streamname = lv_stream_name ).
 
   ENDMETHOD.
 
@@ -284,7 +259,7 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
     DATA lv_record_data TYPE /aws1/knsdata.
     DATA lv_stream_name TYPE /aws1/knsstreamname.
     DATA lv_shardid TYPE /aws1/knsshardid.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lv_uuid_16 TYPE sysuuid_x16.
     DATA(lv_data) = /aws1/cl_rt_util=>string_to_xstring(
       `{`  &&
@@ -293,8 +268,7 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
         `"word": "a"` &&
         `"word": "code"` &&
         `"word": "example"` &&
-      `}`
-    ).
+      `}` ).
 
     CONSTANTS cv_shard_count TYPE /aws1/knspositiveintegerobject VALUE 1.
     CONSTANTS cv_partition_key TYPE /aws1/knspartitionkey VALUE '123'.
@@ -307,10 +281,8 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
 
     "Create stream.
     ao_kns->createstream(
-      EXPORTING
-        iv_streamname        = lv_stream_name
-        iv_shardcount        = cv_shard_count
-      ).
+      iv_streamname        = lv_stream_name
+        iv_shardcount        = cv_shard_count ).
 
     "Wait for stream to become active.
     lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
@@ -321,18 +293,13 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
       ENDIF.
       WAIT UP TO 10 SECONDS.
       lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
-      lo_stream_description =  lo_stream_describe_result->get_streamdescription( ).
+      lo_stream_description = lo_stream_describe_result->get_streamdescription( ).
     ENDWHILE.
 
     "Testing.
-    CALL METHOD ao_kns_actions->put_record(
-      EXPORTING
-        iv_stream_name   = lv_stream_name
-        iv_data          = lv_data
-        iv_partition_key = cv_partition_key
-      IMPORTING
-        oo_result        = lo_put_record_output
-                           ).
+    ao_kns_actions->put_record( EXPORTING iv_stream_name = lv_stream_name
+                                          iv_data = lv_data
+                                          iv_partition_key = cv_partition_key IMPORTING oo_result = lo_put_record_output ).
 
     "Get the shard ID.
     lv_shardid = lo_put_record_output->get_shardid( ).
@@ -341,13 +308,11 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
     lo_sharditerator = ao_kns->getsharditerator(
         iv_shardid = lv_shardid
         iv_sharditeratortype = cv_sharditeratortype
-        iv_streamname = lv_stream_name
-    ).
+        iv_streamname = lv_stream_name ).
 
     "Get the record using the shard iterator.
     lo_get_record_output = ao_kns->getrecords(
-        iv_sharditerator   = lo_sharditerator->get_sharditerator( )
-    ).
+        iv_sharditerator   = lo_sharditerator->get_sharditerator( ) ).
 
     lt_record_list = lo_get_record_output->get_records( ).
     LOOP AT lt_record_list INTO DATA(lo_record).
@@ -355,7 +320,7 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
     ENDLOOP.
 
     "Validation.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     IF lv_record_data = lv_data.
       lv_found = abap_true.
@@ -363,13 +328,11 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Record not found|
-    ).
+       msg                    = |Record not found| ).
 
     "Clean up.
     ao_kns->deletestream(
-        iv_streamname = lv_stream_name
-        ).
+        iv_streamname = lv_stream_name ).
 
   ENDMETHOD.
 
@@ -385,7 +348,7 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
     DATA lv_record_data TYPE /aws1/knsdata.
     DATA lv_stream_name TYPE /aws1/knsstreamname.
     DATA lv_shardid TYPE /aws1/knsshardid.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lv_uuid_16 TYPE sysuuid_x16.
     DATA(lv_data) = /aws1/cl_rt_util=>string_to_xstring(
       `{`  &&
@@ -394,8 +357,7 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
         `"word": "a"` &&
         `"word": "code"` &&
         `"word": "example"` &&
-      `}`
-    ).
+      `}` ).
 
     CONSTANTS cv_shard_count TYPE /aws1/knspositiveintegerobject VALUE 1.
     CONSTANTS cv_partition_key TYPE /aws1/knspartitionkey VALUE '123'.
@@ -408,10 +370,8 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
 
     "Create stream.
     ao_kns->createstream(
-      EXPORTING
-        iv_streamname        = lv_stream_name
-        iv_shardcount        = cv_shard_count
-      ).
+      iv_streamname        = lv_stream_name
+        iv_shardcount        = cv_shard_count ).
 
     "Wait for stream to become active.
     lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
@@ -423,16 +383,14 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
       ENDIF.
       WAIT UP TO 10 SECONDS.
       lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
-      lo_stream_description =  lo_stream_describe_result->get_streamdescription( ).
+      lo_stream_description = lo_stream_describe_result->get_streamdescription( ).
     ENDWHILE.
 
     "Create a record.
     lo_put_record_output = ao_kns->putrecord(
-
-        iv_streamname   = lv_stream_name
+      iv_streamname   = lv_stream_name
         iv_data          = lv_data
-        iv_partitionkey = cv_partition_key
-    ).
+        iv_partitionkey = cv_partition_key ).
 
     "Get the shard ID.
     lv_shardid = lo_put_record_output->get_shardid( ).
@@ -441,16 +399,10 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
     lo_sharditerator = ao_kns->getsharditerator(
         iv_shardid = lv_shardid
         iv_sharditeratortype = cv_sharditeratortype
-        iv_streamname = lv_stream_name
-    ).
+        iv_streamname = lv_stream_name ).
 
     "Testing.
-    CALL METHOD ao_kns_actions->get_records(
-      EXPORTING
-        iv_shard_iterator = lo_sharditerator->get_sharditerator( )
-      IMPORTING
-        oo_result         = lo_get_record_output
-                            ).
+    ao_kns_actions->get_records( EXPORTING iv_shard_iterator = lo_sharditerator->get_sharditerator( ) IMPORTING oo_result = lo_get_record_output ).
 
     "Get records.
     lt_record_list = lo_get_record_output->get_records( ).
@@ -460,20 +412,18 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
     ENDLOOP.
 
     "Validation.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     IF lv_record_data = lv_data.
       lv_found = abap_true.
     ENDIF.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Record not found|
-    ).
+       msg                    = |Record not found| ).
 
     "Clean up.
     ao_kns->deletestream(
-        iv_streamname = lv_stream_name
-        ).
+        iv_streamname = lv_stream_name ).
 
   ENDMETHOD.
 
@@ -492,7 +442,7 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
     DATA lv_consumer_name TYPE /aws1/knsconsumername.
     DATA lv_shardid TYPE /aws1/knsshardid.
     DATA lv_stream_arn TYPE /aws1/knsstreamarn.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lo_knsliststreamconsout TYPE REF TO /aws1/cl_knsliststreamconsout.
     DATA lo_knsconsumer TYPE REF TO /aws1/cl_knsconsumer.
     DATA lv_uuid_16 TYPE sysuuid_x16.
@@ -508,8 +458,7 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
         `"word": "a"` &&
         `"word": "code"` &&
         `"word": "example"` &&
-      `}`
-    ).
+      `}` ).
 
     "Define name.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
@@ -520,10 +469,8 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
 
     "Create stream.
     ao_kns->createstream(
-      EXPORTING
-        iv_streamname        = lv_stream_name
-        iv_shardcount        = cv_shard_count
-      ).
+      iv_streamname        = lv_stream_name
+        iv_shardcount        = cv_shard_count ).
 
     "Wait for stream to become active.
     lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
@@ -534,27 +481,21 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
       ENDIF.
       WAIT UP TO 10 SECONDS.
       lo_stream_describe_result = ao_kns->describestream( iv_streamname = lv_stream_name ).
-      lo_stream_description =  lo_stream_describe_result->get_streamdescription( ).
+      lo_stream_description = lo_stream_describe_result->get_streamdescription( ).
     ENDWHILE.
 
     "Get stream Amazon Resource Name (ARN).
     lv_stream_arn = lo_stream_description->get_streamarn( ).
 
     "Testing.
-    CALL METHOD ao_kns_actions->register_stream_consumer(
-      EXPORTING
-        iv_consumer_name = lv_consumer_name
-        iv_stream_arn    = lv_stream_arn
-      IMPORTING
-        oo_result        = lo_knsregstreamconsout
-                           ).
+    ao_kns_actions->register_stream_consumer( EXPORTING iv_consumer_name = lv_consumer_name
+                                                        iv_stream_arn = lv_stream_arn IMPORTING oo_result = lo_knsregstreamconsout ).
 
     "Validation.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     lo_knsliststreamconsout = ao_kns->liststreamconsumers(
-        iv_streamarn    = lv_stream_arn
-    ).
+        iv_streamarn    = lv_stream_arn ).
     lo_knsconsumer = lo_knsregstreamconsout->get_consumer( ).
 
     IF lo_knsconsumer->get_consumername( ) = lv_consumer_name.
@@ -563,18 +504,15 @@ CLASS ltc_zcl_aws1_kns_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Record not found|
-    ).
+       msg                    = |Record not found| ).
 
     "Clean up.
     ao_kns->deregisterstreamconsumer(
         iv_streamarn    = lv_stream_arn
-        iv_consumername = lv_consumer_name
-        ).
+        iv_consumername = lv_consumer_name ).
 
     ao_kns->deletestream(
-        iv_streamname = lv_stream_name
-        ).
+        iv_streamname = lv_stream_name ).
   ENDMETHOD.
 
 ENDCLASS.

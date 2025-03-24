@@ -49,7 +49,7 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteFunction](src/main/java/com/example/lambda/scenario/LambdaScenario.java#L338)
 - [GetFunction](src/main/java/com/example/lambda/scenario/LambdaScenario.java#L196)
 - [Invoke](src/main/java/com/example/lambda/scenario/LambdaScenario.java#L242)
-- [UpdateFunctionCode](src/main/java/com/example/lambda/scenario/LambdaScenario.java#L196)
+- [UpdateFunctionCode](src/main/java/com/example/lambda/scenario/LambdaScenario.java#L274)
 - [UpdateFunctionConfiguration](src/main/java/com/example/lambda/scenario/LambdaScenario.java#L311)
 
 

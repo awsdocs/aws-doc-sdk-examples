@@ -191,6 +191,7 @@ language = {
             "sdk_api_ref": 'https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/{{service["name"]}}/index.html',
             "service_folder_overrides": {
                 "bedrock-runtime": "sap-abap/services/bdr",
+                "bedrock-agent-runtime": "sap-abap/services/bdz",
                 "dynamodb": "sap-abap/services/dyn",
             },
         }

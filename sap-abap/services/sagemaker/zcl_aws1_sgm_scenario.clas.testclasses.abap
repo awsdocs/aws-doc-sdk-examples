@@ -4,11 +4,11 @@
 CLASS ltc_zcl_aws1_sgm_scenario DEFINITION DEFERRED.
 CLASS zcl_aws1_sgm_scenario DEFINITION LOCAL FRIENDS ltc_zcl_aws1_sgm_scenario.
 
-CLASS ltc_zcl_aws1_sgm_scenario DEFINITION FOR TESTING DURATION LONG RISK LEVEL HARMLESS.
+CLASS ltc_zcl_aws1_sgm_scenario DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
 
   PRIVATE SECTION.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA ao_sgm TYPE REF TO /aws1/if_sgm.
     DATA ao_s3 TYPE REF TO /aws1/if_s3.
@@ -17,7 +17,7 @@ CLASS ltc_zcl_aws1_sgm_scenario DEFINITION FOR TESTING DURATION LONG RISK LEVEL 
     DATA av_lrole TYPE /aws1/sgmrolearn.
 
     METHODS getting_started_scenario FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
 
 ENDCLASS.       "ltc_Zcl_Aws1_Sgm_Scenario
 
@@ -35,7 +35,7 @@ CLASS ltc_zcl_aws1_sgm_scenario IMPLEMENTATION.
 
     "This test case runs a training job for sales prediction using the built-in algorithm XGBoost.
 
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     DATA lv_timestamp TYPE timestamp.
     DATA lo_ep_output TYPE REF TO /aws1/cl_sgmcreateendptoutput.
     DATA lv_endpoint_name TYPE /aws1/sgmendpointname.
@@ -53,30 +53,30 @@ CLASS ltc_zcl_aws1_sgm_scenario IMPLEMENTATION.
     CONSTANTS cv_training_job_name TYPE /aws1/sgmtrainingjobname VALUE 'code-example-trn-job-'.
 
     "Define hyperparameters.
-    CONSTANTS cv_hp_max_depth TYPE   /aws1/sgmhyperparametervalue    VALUE '3'.
-    CONSTANTS cv_hp_scale_pos_weight TYPE   /aws1/sgmhyperparametervalue    VALUE '2.0'.
-    CONSTANTS cv_hp_num_round TYPE   /aws1/sgmhyperparametervalue    VALUE '100'.
-    CONSTANTS cv_hp_objective	TYPE  /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
-    CONSTANTS cv_hp_subsample TYPE   /aws1/sgmhyperparametervalue    VALUE '0.5'.
-    CONSTANTS cv_hp_eta TYPE  /aws1/sgmhyperparametervalue    VALUE	 '0.1'.
-    CONSTANTS cv_hp_eval_metric TYPE   /aws1/sgmhyperparametervalue    VALUE 'auc'.
+    CONSTANTS cv_hp_max_depth TYPE /aws1/sgmhyperparametervalue    VALUE '3'.
+    CONSTANTS cv_hp_scale_pos_weight TYPE /aws1/sgmhyperparametervalue    VALUE '2.0'.
+    CONSTANTS cv_hp_num_round TYPE /aws1/sgmhyperparametervalue    VALUE '100'.
+    CONSTANTS cv_hp_objective TYPE /aws1/sgmhyperparametervalue     VALUE 'binary:logistic'.
+    CONSTANTS cv_hp_subsample TYPE /aws1/sgmhyperparametervalue    VALUE '0.5'.
+    CONSTANTS cv_hp_eta TYPE /aws1/sgmhyperparametervalue    VALUE '0.1'.
+    CONSTANTS cv_hp_eval_metric TYPE /aws1/sgmhyperparametervalue    VALUE 'auc'.
 
     "Define training data.
-    CONSTANTS cv_trn_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_trn_data_s3datadistribution TYPE  /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
-    CONSTANTS cv_trn_data_compressiontype TYPE  /aws1/sgmcompressiontype     VALUE 'None'.
-    CONSTANTS cv_trn_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_trn_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_trn_data_s3datadistribution TYPE /aws1/sgms3datadistribution        VALUE 'FullyReplicated'.
+    CONSTANTS cv_trn_data_compressiontype TYPE /aws1/sgmcompressiontype     VALUE 'None'.
+    CONSTANTS cv_trn_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define validation data.
-    CONSTANTS cv_val_data_s3datatype TYPE  /aws1/sgms3datatype       VALUE 'S3Prefix'.
-    CONSTANTS cv_val_data_s3datadistribution TYPE  /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
-    CONSTANTS cv_val_data_compressiontype TYPE   /aws1/sgmcompressiontype    VALUE 'None'.
-    CONSTANTS cv_val_data_contenttype TYPE   /aws1/sgmcontenttype    VALUE 'libsvm'.
+    CONSTANTS cv_val_data_s3datatype TYPE /aws1/sgms3datatype       VALUE 'S3Prefix'.
+    CONSTANTS cv_val_data_s3datadistribution TYPE /aws1/sgms3datadistribution      VALUE 'FullyReplicated'.
+    CONSTANTS cv_val_data_compressiontype TYPE /aws1/sgmcompressiontype    VALUE 'None'.
+    CONSTANTS cv_val_data_contenttype TYPE /aws1/sgmcontenttype    VALUE 'libsvm'.
 
     "Define training parameters.
     "SGM public training image ref to https://docs.aws.amazon.com/sagemaker/latest/dg/ecr-us-east-1.html#xgboost-us-east-1.title
     CONSTANTS cv_training_image TYPE /aws1/sgmalgorithmimage VALUE '123456789012.abc.ecr.us-east-1.amazonaws.com/sagemaker-xgboost:1.5-1'.
-    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE  'File'.
+    CONSTANTS cv_training_input_mode TYPE /aws1/sgmtraininginputmode VALUE 'File'.
     CONSTANTS cv_instance_count TYPE /aws1/sgmtraininginstancecount VALUE '1'.
     CONSTANTS cv_instance_type TYPE /aws1/sgmtraininginstancetype VALUE 'ml.c4.2xlarge'.
     CONSTANTS cv_volume_sizeingb TYPE /aws1/sgmvolumesizeingb VALUE '10'.
@@ -88,9 +88,9 @@ CLASS ltc_zcl_aws1_sgm_scenario IMPLEMENTATION.
     "Define endpoint parameters.
     CONSTANTS cv_endpoint_name TYPE /aws1/sgmendpointname VALUE 'code-example-endpoint-'.
     CONSTANTS cv_endpoint_config_name TYPE /aws1/sgmendpointconfigname VALUE 'code-example-endpoint-cfg-'.
-    CONSTANTS cv_endpoint_variant_name TYPE /aws1/sgmvariantname VALUE  'code-example-endpoint-variant-'.
-    CONSTANTS cv_ep_instance_type TYPE  /aws1/sgminstancetype VALUE 'ml.m4.xlarge'.
-    CONSTANTS cv_ep_initial_instance_count  TYPE  /aws1/sgminitialtaskcount VALUE  '1'.
+    CONSTANTS cv_endpoint_variant_name TYPE /aws1/sgmvariantname VALUE 'code-example-endpoint-variant-'.
+    CONSTANTS cv_ep_instance_type TYPE /aws1/sgminstancetype VALUE 'ml.m4.xlarge'.
+    CONSTANTS cv_ep_initial_instance_count  TYPE /aws1/sgminitialtaskcount VALUE '1'.
 
     "Create training data in Amazon Simple Storage Service (Amazon S3).
     CONSTANTS cv_bucket_name TYPE /aws1/s3_bucketname VALUE 'code-example-sgm-'.
@@ -99,14 +99,16 @@ CLASS ltc_zcl_aws1_sgm_scenario IMPLEMENTATION.
 
     "Define role Amazon Resource Name (ARN).
     DATA(lt_roles) = ao_session->get_configuration( )->get_logical_iam_roles( ).
-    READ TABLE lt_roles WITH KEY profile_id = cv_pfl INTO DATA(lo_role).
+    READ TABLE lt_roles INDEX 1 INTO DATA(lo_role).  " take first role from the logical role mapping
     av_lrole = lo_role-iam_role_arn.
 
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
 
-    ao_s3->createbucket( iv_bucket = lv_bucket_name ).
+    zcl_aws1_ex_utils=>create_bucket( iv_bucket = lv_bucket_name
+                                      io_s3 = ao_s3
+                                      io_session = ao_session ).
 
     lv_trn_data_s3uri = 's3://' && lv_bucket_name && '/' && cv_train_key.
     lv_val_data_s3uri = 's3://' && lv_bucket_name && '/' && cv_val_key.
@@ -225,20 +227,17 @@ CLASS ltc_zcl_aws1_sgm_scenario IMPLEMENTATION.
         |0 0:53 1:5.6 9:1 26:1 189:1 330:1\n| &&
         |1 0:98 1:7.7 8:1 29:1 42:1 330:1\n| &&
         |0 0:76 1:6.7 7:1 28:1 75:1 330:1\n| &&
-        |1 0:74 1:5.3 7:1 28:1 95:1 330:1\n|
-    ).
+        |1 0:74 1:5.3 7:1 28:1 95:1 330:1\n| ).
 
     ao_s3->putobject(
             iv_bucket = lv_bucket_name
             iv_key = cv_train_key
-            iv_body = lv_file_content
-    ).
+            iv_body = lv_file_content ).
 
     ao_s3->putobject(
             iv_bucket = lv_bucket_name
             iv_key = cv_val_key
-            iv_body = lv_file_content
-    ).
+            iv_body = lv_file_content ).
 
     ao_sgm_scenario->getting_started_with_sgm(
       EXPORTING
@@ -275,10 +274,9 @@ CLASS ltc_zcl_aws1_sgm_scenario IMPLEMENTATION.
         iv_ep_cfg_name                  = lv_endpoint_config_name
         iv_ep_variant_name              = lv_endpoint_variant_name
       IMPORTING
-        oo_ep_output = lo_ep_output
-    ).
+        oo_ep_output = lo_ep_output ).
 
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
 
     IF lo_ep_output->has_endpointarn( ) = 'X'.
       lv_found               = abap_true.
@@ -286,12 +284,10 @@ CLASS ltc_zcl_aws1_sgm_scenario IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Endpoint not found|
-    ).
+      msg = |Endpoint not found| ).
 
     DATA(lo_model_list_result) = ao_sgm->listmodels(
-         iv_namecontains = lv_model_name
-       ).
+         iv_namecontains = lv_model_name ).
     lv_found = abap_false.
 
     "The model should be deleted.
@@ -303,27 +299,22 @@ CLASS ltc_zcl_aws1_sgm_scenario IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_false(
       act = lv_found
-      msg = |Model was not deleted|
-    ).
+      msg = |Model was not deleted| ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = cv_train_key
-    ).
+        iv_key = cv_train_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = cv_val_key
-    ).
+        iv_key = cv_val_key ).
 
     ao_s3->deleteobject(
         iv_bucket = lv_bucket_name
-        iv_key = lv_model_key
-    ).
+        iv_key = lv_model_key ).
 
     ao_s3->deletebucket(
-        iv_bucket = lv_bucket_name
-    ).
+        iv_bucket = lv_bucket_name ).
 
   ENDMETHOD.
 
