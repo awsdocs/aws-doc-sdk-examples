@@ -157,7 +157,7 @@ public class LocationScenario {
             You can get the key value using the AWS Management Console under
             Location Services. This operation cannot be completed using the
             AWS SDK. For more information about getting the key value, see 
-            https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html.
+            the AWS Location Documentation.
             """);
         String mapUrl = "https://maps.geo.aws.amazon.com/maps/v0/maps/"+mapName+"/tiles/{z}/{x}/{y}?key={KeyValue}";
         logger.info("Embed this URL in your Web app: " + mapUrl);
