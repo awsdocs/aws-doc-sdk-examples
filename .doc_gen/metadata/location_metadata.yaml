@@ -198,19 +198,6 @@ location_DeleteRouteCalculator:
                 - location.java2.delete.calculator.main
   services:
     location: {DeleteRouteCalculator} 
-location_DeleteGeofenceCollection:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/location
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - location.java2.delete.collection.main
-  services:
-    location: {DeleteGeofenceCollection} 
 location_Scenario:
   synopsis_list:
     - Create an &ALshort; map.
