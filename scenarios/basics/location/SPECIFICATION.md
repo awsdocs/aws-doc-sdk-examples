@@ -2,7 +2,7 @@
 
 ## Overview
 
-This SDK Basics scenario demonstrates how to interact with the AWS Location Service using an AWS SDK. It demonstrates various AWS Location tasks such as creating a map, creating a key, creating a tracker, and so on using `LocationAsyncClient`. 
+This SDK Basics scenario showcases how to interact with the AWS Location Service using the AWS SDK. It covers a range of tasks, including creating a map, setting up an API key, configuring a tracker, and more. These examples illustrate fundamental operations for working with the AWS Location Service in a programmatic way using `LocationAsyncClient`. 
 
 This scenario uses the higher level `GeoPlacesAsyncClient` to perform additional location search and geocoding capabilities. Finally, it demonstrates how to clean up resources.
 
@@ -21,12 +21,11 @@ The AWS Location Service Basics scenario executes the following operations.
 
 1. **Create a map**:
     - Description: Creates a map by invoking the `createMap` method.
-    - Exception Handling: Check to see if a `ServiceQuotaExceededException` is thrown, which
-      indicates that the operation was denied because the request would exceed the maximum quota. If the exception is thrown, display the information and end the program.
+    - Exception Handling: Check to see if a `ServiceQuotaExceededException` is thrown, which indicates that the operation was denied because the request would exceed the maximum quota. If the exception is thrown, display the information and end the program.
 
 2. **Create an AWS Location API key**:
     - Description: Creates an API key required to embed a map in a web app or website by invoking the `createKey` method.
-    - Exception Handling: Handle `ThrottlingException`, which occurs when request throttling is detected. If this exception is thrown, display the error message and terminate the program.
+    - Exception Handling: Handle `AccessDeniedException`, which occurs when there is insufficient access or permissions. If this exception is thrown, display the error message and terminate the program.
 
 3. **Display Map URL**:
     - Description: Show the syntax of a MAP URL in the console. This uses the map name and key value.
@@ -45,36 +44,34 @@ The AWS Location Service Basics scenario executes the following operations.
 
 6. **Create a tracker resource**:
     - Description: Create a tracker resource which lets you retrieve current and historical location of devices by invoking the `createTracker` method.
-    - Exception Handling: Check to see if an `LocationException` is thrown. If
-      so, display the message and end the program.
+    - Exception Handling: Check to see if an `ConflictException` is thrown. If so, display the message and end the program.
 
 7. **Update the position of a device**:
     - Description: Update the position of a device in the location tracking system by invoking the`getDevicePosition` method.
-    - Exception Handling: Check to see if a `LocationException` is
+    - Exception Handling: Check to see if a `ResourceNotFoundException` is
       thrown. If so, display the message and end the program
 
 8. **Retrieve the most recent position**:
     - Description: Retrieve the most recent position update for a specified device by invoking the
       `getMatchingJob` method.
-    - Exception Handling: Check to see if an `LocationException` is thrown. If
-      so, display the message and end the program.
+    - Exception Handling: Check to see if an `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
 9. **Create a route calculator**:
     - Description: Create a route calculator by invoking the
       `createRouteCalculator` method.
-    - Exception Handling: Check to see if an `LocationException` is thrown. If
+    - Exception Handling: Check to see if an `ConflictException` is thrown. If
       so, display the message and end the program.   
 
 10. **Determine the distance between two cities and Vancouver**:
     - Description: Determine the distance between Seattle and Vancouver by invoking the `calculateRoute` method.
-    - Exception Handling: Check to see if an `LocationException` is thrown. If so, display the message and end the program.  
+    - Exception Handling: Check to see if an `ResourceNotFoundException` is thrown. If so, display the message and end the program.  
 
 11. **Use AWS Location Services higher level API**
     - Description: Use the `GeoPlacesAsyncClient`client to perform these tasks:
          - Reverse Geocoding (reverseGeocode): Converts geographic coordinates into addresses.
          - Place Search (searchText): Finds places based on search queries.
          - Nearby Search (searchNearby): Finds places near a specific location. 
-    - Exception Handling: Check to see if an `GeoPlacesException` is thrown. If so, display the message and end the program.      
+    - Exception Handling: Check to see if an `ValidationException` is thrown. If so, display the message and end the program.      
 
 12. **Delete AWS resources**:
     - Description: Delete the various resources by invoking the corresponding delete methods.
@@ -113,7 +110,6 @@ c
 Continuing with the program...
 
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------
 1. Create a map
  An AWS Location map can enhance the user experience of your
  application by providing accurate and personalized location-based
@@ -126,7 +122,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The Map ARN is arn:aws:geo:us-east-1:814548047983:map/MyMap40
+The Map ARN is: arn:aws:geo:us-east-1:814548047983:map/AWSMap200
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -141,7 +137,7 @@ restrict API keys to specific AWS Location operations (e.g., only
 maps, not geocoding). API keys can expire, ensuring temporary
 access control.
 
-The API key was successfully created: arn:aws:geo:us-east-1:814548047983:api-key/MyLocationKey40
+The API key was successfully created: arn:aws:geo:us-east-1:814548047983:api-key/AWSApiKey200
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -153,9 +149,10 @@ Continuing with the program...
 In order to get the MAP URL, you need to get the API Key value.
 You can get the key value using the AWS Management Console under
 Location Services. This operation cannot be completed using the
-AWS SDK.
+AWS SDK. For more information about getting the key value, see
+https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html.
 
-Embed this URL in your Web app: https://maps.geo.aws.amazon.com/maps/v0/maps/{MapName}/tiles/{z}/{x}/{y}?key={KeyValue}
+Embed this URL in your Web app: https://maps.geo.aws.amazon.com/maps/v0/maps/AWSMap200/tiles/{z}/{x}/{y}?key={KeyValue}
 
 
 Enter 'c' followed by <ENTER> to continue:
@@ -170,7 +167,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The ARN is arn:aws:geo:us-east-1:814548047983:geofence-collection/AWSLocationCollection40
+The geofence collection was successfully created: arn:aws:geo:us-east-1:814548047983:geofence-collection/AWSLocationCollection200
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -197,7 +194,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Successfully created geofence: geoId40
+Successfully created geofence: geoId200
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -210,7 +207,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The tracker ARN is arn:aws:geo:us-east-1:814548047983:tracker/geoTracker40
+Successfully created tracker. ARN: arn:aws:geo:us-east-1:814548047983:tracker/geoTracker200
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -233,7 +230,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-iPhone-112359 was updated in the location tracking system
+iPhone-112356 was successfully updated in the location tracking system.
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -246,8 +243,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Device Position: [-122.4194, 37.7749]
-Received at: 2025-03-11T18:02:27.401Z
+Successfully fetched device position: [-122.4194, 37.7749]
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -260,7 +256,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Route calculator created: arn:aws:geo:us-east-1:814548047983:route-calculator/AWSRouteCalc40
+Route calculator created successfully: arn:aws:geo:us-east-1:814548047983:route-calculator/AWSRouteCalc200
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -273,19 +269,18 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Total Distance: 229.4919562976832 km
-Estimated Duration by car is: 162.17861734523333 minutes
+Successfully calculated route. The distance in kilometers is 229.4919562976832
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
 --------------------------------------------------------------------------------
-11. AWS Location Services exposes higher level APIs to perform additional operations.
+11. Use the GeoPlacesAsyncClient to perform additional operations.
 This scenario will show use of the GeoPlacesClient that enables
 location search and geocoding capabilities for your applications. 
 
-We are going to use this client to perform these tasks:
+We are going to use this client to perform these AWS Location tasks:
  - Reverse Geocoding (reverseGeocode): Converts geographic coordinates into addresses.
  - Place Search (searchText): Finds places based on search queries.
  - Nearby Search (searchNearby): Finds places near a specific location.
@@ -311,12 +306,12 @@ Address: Cafe Creme, 50 Oak St, San Francisco, CA 94102-6011, United States
 Food Types:
   - FoodType(LocalizedName=Thai, Id=thai, Primary=true)
 -------------------------
-Now we are going to perform a nearby Search.
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
+Now we are going to perform a nearby Search.
 Place Name: POINT_OF_INTEREST
 Address: Limpar Cleaning Services, Market St, San Francisco, CA 94103, United States
 Distance: 2 meters
@@ -378,6 +373,10 @@ Address: Book My Limo Trip, Market St, San Francisco, CA 94103, United States
 Distance: 3 meters
 -------------------------
 Place Name: POINT_OF_INTEREST
+Address: ABC Locksmith Service, Market St, San Francisco, CA 94103, United States
+Distance: 3 meters
+-------------------------
+Place Name: POINT_OF_INTEREST
 Address: Cardona Landscaping, Market St, San Francisco, CA 94103, United States
 Distance: 3 meters
 -------------------------
@@ -393,19 +392,20 @@ Place Name: POINT_OF_INTEREST
 Address: Ripertonwest Consulting, Market St, San Francisco, CA 94103, United States
 Distance: 3 meters
 -------------------------
-Place Name: POINT_OF_INTEREST
-Address: FedEx Office, 1967 Market St, San Francisco, CA 94103, United States
-Distance: 4 meters
--------------------------
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
 --------------------------------------------------------------------------------
 12. Delete the AWS Location Services resources.
 Would you like to delete the AWS Location Services resources? (y/n)
 y
-The map MyMap40 was deleted.
-The key MyLocationKey40 was deleted.
-The geofence collection AWSLocationCollection40 was deleted.
-The tracker geoTracker40 was deleted.
-The route calculator AWSRouteCalc40 was deleted.
+The map AWSMap200 was deleted.
+The key AWSApiKey200 was deleted.
+The geofence collection AWSLocationCollection200 was deleted.
+The tracker geoTracker200 was deleted.
+The route calculator AWSRouteCalc200 was deleted.
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -422,29 +422,26 @@ Continuing with the program...
 
 The following table describes the metadata used in this Basics Scenario.
 
-| action                 | metadata file             |     metadata key                    |
-|------------------------|---------------------------|-------------------------------------|
-| `createKey`            | location_metadata.yaml    |location_CreateKey                   |
-| `createMap`            | location_metadata.yaml    |location_CreateMap                   |
-| `createCollection`     | location_metadata.yaml    |location_CreateGeofenceCollection    |
-| `putGeofence   `       | location_metadata.yaml    |location_PutGeofence                 |
-| `createTracker`        | location_metadata.yaml    |location_CreateTracker               |
-| `updateDevicePosition` | location_metadata.yaml    |location_UpdateDevicePosition        |
-| `getDevicePosition`    | location_metadata.yaml    |location_GetDevicePosition           |
-| `createRouteCalculator`| location_metadata.yaml    |location_CreateRouteCalculator       |
-| `calcDistance `        | location_metadata.yaml    |location_CalcuateDistance            |
-| `deleteMap`            | location_metadata.yaml    |location_DeleteMap                   |
-| `deleteKey`            | location_metadata.yaml    |location_DeleteKey                   |
-| `deleteKey`            | location_metadata.yaml    |location_DeleteKey                   |
-| `deleteKey`            | location_metadata.yaml    |location_DeleteKey                   |
-| `deleteCollection`     | location_metadata.yaml    |location_deleteCollection            |
-| `deleteTracker`        | location_metadata.yaml    |location_DeleteTracker               |
-| `deleteTracker`        | location_metadata.yaml    |location_DeleteTracker               |
-| `deleteCalculator`     | location_metadata.yaml    |location_DeleteCalculator            |
-| `scenario`             | location_metadata.yaml    |location_Scenario                    |
-| `hello`                | location_metadata.yaml    |location_Hello                       |
-| `reverseGeocode`       | geoplaces_metadata.yaml   |geoplaces_ReverseGeocode             |
-| `searchNearby`         | geoplaces_metadata.yaml   |geoplaces_SearchNearby               |
-| `searchText`           | geoplaces_metadata.yaml   |geoplaces_SearchText                 |
+| action                    | metadata file             |     metadata key                    |
+|---------------------------|---------------------------|-------------------------------------|
+|`createKey`                | location_metadata.yaml    |location_CreateKey                   |
+|`createMap`                | location_metadata.yaml    |location_CreateMap                   |
+|`createCollection`         | location_metadata.yaml    |location_CreateGeofenceCollection    |
+|`putGeofence   `           | location_metadata.yaml    |location_PutGeofence                 |
+|`createTracker`            | location_metadata.yaml    |location_CreateTracker               |
+|`batchUpdateDevicePosition`| location_metadata.yaml    |location_BatchUpdateDevicePosition   |
+|`getDevicePosition`        | location_metadata.yaml    |location_GetDevicePosition           |
+|`createRouteCalculator`    | location_metadata.yaml    |location_CreateRouteCalculator       |
+|`calculateRoute`           | location_metadata.yaml    |location_CalculateRoute              |
+|`deleteMap`                | location_metadata.yaml    |location_DeleteMap                   |
+|`deleteKey`                | location_metadata.yaml    |location_DeleteKey                   |
+|`deleteGeofenceCollection` | location_metadata.yaml    |location_DeleteGeofenceCollection    |
+|`deleteTracker`            | location_metadata.yaml    |location_DeleteTracker               |
+|`deleteCalculator`         | location_metadata.yaml    |location_DeleteRouteCalculator       |
+|`scenario`                 | location_metadata.yaml    |location_Scenario                    |
+|`hello`                    | location_metadata.yaml    |location_Hello                       |
+|`reverseGeocode`           | geo-places_metadata.yaml  |geo-places_ReverseGeocode            |
+|`searchNearby`             | geo-places_metadata.yaml  |geo-places_SearchNearby              |
+|`searchText`               | geo-places_metadata.yaml  |geo-places_SearchText                |
 
 
