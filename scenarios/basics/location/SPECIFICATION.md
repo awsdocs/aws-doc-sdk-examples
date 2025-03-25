@@ -149,8 +149,8 @@ Continuing with the program...
 In order to get the MAP URL, you need to get the API Key value.
 You can get the key value using the AWS Management Console under
 Location Services. This operation cannot be completed using the
-AWS SDK. For more information about getting the key value, see
-https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html.
+AWS SDK. For more information about getting the key value, see 
+the AWS Location Documentation.
 
 Embed this URL in your Web app: https://maps.geo.aws.amazon.com/maps/v0/maps/AWSMap200/tiles/{z}/{x}/{y}?key={KeyValue}
 
