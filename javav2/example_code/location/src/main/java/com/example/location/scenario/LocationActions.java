@@ -16,7 +16,6 @@ import software.amazon.awssdk.services.geoplaces.model.ReverseGeocodeResponse;
 import software.amazon.awssdk.services.geoplaces.model.SearchNearbyRequest;
 import software.amazon.awssdk.services.geoplaces.model.SearchNearbyResponse;
 import software.amazon.awssdk.services.geoplaces.model.SearchTextRequest;
-import software.amazon.awssdk.services.geoplaces.model.SearchTextResponse;
 import software.amazon.awssdk.services.location.LocationAsyncClient;
 import software.amazon.awssdk.services.location.model.AccessDeniedException;
 import software.amazon.awssdk.services.location.model.ApiKeyRestrictions;
@@ -157,66 +156,58 @@ public class LocationActions {
      *
      * @param searchQuery the search query to be used for the place search (ex, coffee shop)
      */
-    public CompletableFuture<SearchTextResponse> searchText(String searchQuery) {
+    public CompletableFuture<Void> searchText(String searchQuery) {
         double latitude = 37.7749;  // San Francisco
         double longitude = -122.4194;
         List<Double> queryPosition = List.of(longitude, latitude);
 
         SearchTextRequest request = SearchTextRequest.builder()
-            .queryText(searchQuery)
-            .biasPosition(queryPosition)
-            .build();
+                .queryText(searchQuery)
+                .biasPosition(queryPosition)
+                .build();
 
         return getGeoPlacesClient().searchText(request)
-            .whenComplete((response, exception) -> {
-                if (exception != null) {
+                .thenCompose(response -> {
+                    if (response.resultItems().isEmpty()) {
+                        logger.info("No places found.");
+                        return CompletableFuture.completedFuture(null);
+                    }
+
+                    // Get the first place ID
+                    String placeId = response.resultItems().get(0).placeId();
+                    logger.info("Found Place with id: " + placeId);
+
+                    // Fetch detailed info using getPlace
+                    GetPlaceRequest getPlaceRequest = GetPlaceRequest.builder()
+                            .placeId(placeId)
+                            .build();
+
+                    return getGeoPlacesClient().getPlace(getPlaceRequest)
+                            .thenAccept(placeResponse -> {
+                                logger.info("Detailed Place Information:");
+                                logger.info("Name: " + placeResponse.placeType().name());
+                                logger.info("Address: " + placeResponse.address().label());
+
+                                if (placeResponse.foodTypes() != null && !placeResponse.foodTypes().isEmpty()) {
+                                    logger.info("Food Types:");
+                                    placeResponse.foodTypes().forEach(foodType -> {
+                                        logger.info("  - " + foodType);
+                                    });
+                                } else {
+                                    logger.info("No food types available.");
+                                }
+                                logger.info("-------------------------");
+                            });
+                })
+                .exceptionally(exception -> {
                     Throwable cause = exception.getCause();
                     if (cause instanceof software.amazon.awssdk.services.geoplaces.model.ValidationException) {
                         throw new CompletionException("A validation error occurred: " + cause.getMessage(), cause);
                     }
                     throw new CompletionException("Error performing place search", exception);
-                }
-
-                // Process the response and fetch detailed information about the place.
-                response.resultItems().stream().findFirst().ifPresent(result -> {
-                    String placeId = result.placeId(); // Get Place ID
-                    logger.info("Found Place with id: " + placeId);
-
-                    // Fetch detailed info using getPlace.
-                    GetPlaceRequest getPlaceRequest = GetPlaceRequest.builder()
-                        .placeId(placeId)
-                        .build();
-
-                    getGeoPlacesClient().getPlace(getPlaceRequest)
-                        .whenComplete((placeResponse, placeException) -> {
-                            if (placeException != null) {
-                                Throwable cause = placeException.getCause();
-                                if (cause instanceof software.amazon.awssdk.services.geoplaces.model.ValidationException) {
-                                    throw new CompletionException("A validation error occurred: " + cause.getMessage(), cause);
-                                }
-                                throw new CompletionException("Error fetching place details", placeException);
-                            }
-
-                            // Print detailed place information.
-                            logger.info("Detailed Place Information:");
-                            logger.info("Name: " + placeResponse.placeType().name());
-                            logger.info("Address: " + placeResponse.address().label());
-
-                            // Print each food type (if any).
-                            if (placeResponse.foodTypes() != null && !placeResponse.foodTypes().isEmpty()) {
-                                logger.info("Food Types:");
-                                placeResponse.foodTypes().forEach(foodType -> {
-                                    logger.info("  - " + foodType);
-                                });
-                            } else {
-                                logger.info("No food types available.");
-                            }
-
-                            logger.info("-------------------------");
-                        });
                 });
-            });
     }
+
     // snippet-end:[geoplaces.java2.search.text.main]
 
     // snippet-start:[geoplaces.java2.geocode.main]

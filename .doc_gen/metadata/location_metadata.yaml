@@ -133,6 +133,32 @@ location_CalculateRoute:
                 - location.java2.calc.distance.main
   services:
     location: {CalculateRoute}
+location_DeleteGeofenceCollection:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.delete.collection.main
+  services:
+    location: {DeleteGeofenceCollection}    
+location_DeleteKey:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.delete.key.main
+  services:
+    location: {DeleteKey}  
 location_DeleteMap:
   languages:
     Java:

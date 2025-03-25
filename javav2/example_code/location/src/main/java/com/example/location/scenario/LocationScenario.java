@@ -19,6 +19,15 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 // snippet-start:[location.java2.scenario.main]
+/*
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ */
 public class LocationScenario {
 
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -43,18 +52,18 @@ public class LocationScenario {
               deviceId - The ID of the device (e.g., "iPhone-112356").
             """;
 
-        if (args.length != 7) {
-            logger.info(usage);
-            return;
-        }
+        //if (args.length != 7) {
+        //    logger.info(usage);
+        //    return;
+       // }
 
-        String mapName = args[0];
-        String keyName = args[1];
-        String collectionName = args[2];
-        String geoId = args[3];
-        String trackerName = args[4];
-        String calculatorName = args[5];
-        String deviceId = args[6];
+        String mapName = "AWSMap200" ; //args[0];
+        String keyName = "AWSApiKey200" ; //args[1];
+        String collectionName = "AWSLocationCollection200" ; //args[2];
+        String geoId = "geoId200" ; //args[3];
+        String trackerName = "geoTracker200" ; //args[4];
+        String calculatorName = "AWSRouteCalc200" ; //args[5];
+        String deviceId = "iPhone-112356" ; //args[6];
 
         logger.info("""
             AWS Location Service is a fully managed service offered by Amazon Web Services (AWS) that
@@ -82,6 +91,8 @@ public class LocationScenario {
         try {
             runScenario(mapName, keyName, collectionName, geoId, trackerName, calculatorName, deviceId);
         } catch (RuntimeException e) {
+            // Clean up AWS Resources.
+            cleanUp(mapName, keyName, collectionName, trackerName, calculatorName);
             logger.info(e.getMessage());
         }
     }
@@ -145,9 +156,10 @@ public class LocationScenario {
             In order to get the MAP URL, you need to get the API Key value.
             You can get the key value using the AWS Management Console under
             Location Services. This operation cannot be completed using the
-            AWS SDK.
+            AWS SDK. For more information about getting the key value, see 
+            https://docs.aws.amazon.com/location/latest/developerguide/using-apikeys.html.
             """);
-        String mapUrl = "https://maps.geo.aws.amazon.com/maps/v0/maps/{MapName}/tiles/{z}/{x}/{y}?key={KeyValue}";
+        String mapUrl = "https://maps.geo.aws.amazon.com/maps/v0/maps/"+mapName+"/tiles/{z}/{x}/{y}?key={KeyValue}";
         logger.info("Embed this URL in your Web app: " + mapUrl);
         logger.info("");
         waitForInputToContinue(scanner);
@@ -291,7 +303,7 @@ public class LocationScenario {
         waitForInputToContinue(scanner);
         try {
             CalculateRouteResponse response = locationActions.calcDistanceAsync(calculatorName).join();
-            logger.info("Successfully calculated route. The distance is {}", response.summary().distance());
+            logger.info("Successfully calculated route. The distance in kilometers is {}", response.summary().distance());
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof ResourceNotFoundException) {
@@ -325,7 +337,7 @@ public class LocationScenario {
             waitForInputToContinue(scanner);
 
             logger.info("Now we are going to perform a nearby Search.");
-            waitForInputToContinue(scanner);
+            //waitForInputToContinue(scanner);
             locationActions.searchNearBy().join();
             waitForInputToContinue(scanner);
         } catch (CompletionException ce) {
@@ -343,21 +355,7 @@ public class LocationScenario {
         logger.info("Would you like to delete the AWS Location Services resources? (y/n)");
         String delAns = scanner.nextLine().trim();
         if (delAns.equalsIgnoreCase("y")) {
-            try {
-                locationActions.deleteMap(mapName).join();
-                locationActions.deleteKey(keyName).join();
-                locationActions.deleteGeofenceCollectionAsync(collectionName).join();
-                locationActions.deleteTracker(trackerName).join();
-                locationActions.deleteRouteCalculator(calculatorName).join();
-            } catch (CompletionException ce) {
-                Throwable cause = ce.getCause();
-                if (cause instanceof ResourceNotFoundException) {
-                    logger.info("The resource was not found: {}", cause.getMessage(), cause);
-                } else {
-                    logger.info("An unexpected error occurred: {}", cause.getMessage(), cause);
-                }
-                return;
-            }
+            cleanUp(mapName, keyName, collectionName, trackerName, calculatorName);
         } else {
             logger.info("The AWS resources will not be deleted.");
         }
@@ -367,6 +365,33 @@ public class LocationScenario {
         logger.info(DASHES);
         logger.info(" This concludes the AWS Location Service scenario.");
         logger.info(DASHES);
+    }
+
+    /**
+     * Cleans up resources by deleting the specified map, key, geofence collection, tracker, and route calculator.
+     *
+     * @param mapName The name of the map to delete.
+     * @param keyName The name of the key to delete.
+     * @param collectionName The name of the geofence collection to delete.
+     * @param trackerName The name of the tracker to delete.
+     * @param calculatorName The name of the route calculator to delete.
+     */
+    private static void cleanUp(String mapName, String keyName, String collectionName, String trackerName, String calculatorName) {
+        try {
+            locationActions.deleteMap(mapName).join();
+            locationActions.deleteKey(keyName).join();
+            locationActions.deleteGeofenceCollectionAsync(collectionName).join();
+            locationActions.deleteTracker(trackerName).join();
+            locationActions.deleteRouteCalculator(calculatorName).join();
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof ResourceNotFoundException) {
+                logger.info("The resource was not found: {}", cause.getMessage(), cause);
+            } else {
+                logger.info("An unexpected error occurred: {}", cause.getMessage(), cause);
+            }
+            return;
+        }
     }
 
     private static void waitForInputToContinue(Scanner scanner) {
