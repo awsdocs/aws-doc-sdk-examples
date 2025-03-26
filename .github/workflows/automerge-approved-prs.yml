@@ -9,7 +9,7 @@ jobs:
       contents: write
       pull-requests: write
       id-token: write
-    if: ${{ github.event.review.state == 'approved' && github.repository == 'awsdocs/aws-doc-sdk-examples' && (github.event.review.author_association == 'OWNER' || github.event.review.author_association == 'MEMBER' || github.event.review.user.login == 'aws-sdk-osds') }}
+    if: ${{ github.event.review.state == 'approved' && github.event.repository == 'awsdocs/aws-doc-sdk-examples' && (github.event.review.author_association == 'OWNER' || github.event.review.author_association == 'MEMBER' || github.event.review.user.login == 'aws-sdk-osds') }}
     runs-on: ubuntu-latest
     steps:
       - name: Configure AWS credentials
