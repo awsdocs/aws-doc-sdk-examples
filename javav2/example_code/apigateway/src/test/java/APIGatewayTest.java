@@ -3,7 +3,6 @@
 
 import com.example.gateway.*;
 import com.google.gson.Gson;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.apigateway.ApiGatewayClient;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.regions.Region;
@@ -45,35 +44,6 @@ public class APIGatewayTest {
         httpMethod = values.getHttpMethod();
         restApiName = values.getRestApiName() + randomNum;
         stageName = values.getStageName();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * APIGatewayTest.class.getClassLoader().getResourceAsStream("config.properties"
-         * )) {
-         * 
-         * Properties prop = new Properties();
-         * 
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * //load a properties file from class path, inside static method
-         * prop.load(input);
-         * 
-         * // Populate the data members required for all tests
-         * restApiId = prop.getProperty("restApiId");
-         * resourceId = prop.getProperty("resourceId");
-         * httpMethod = prop.getProperty("httpMethod");
-         * restApiName = prop.getProperty("restApiName");
-         * stageName = prop.getProperty("stageName");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -116,7 +86,6 @@ public class APIGatewayTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/apigateway";
 
