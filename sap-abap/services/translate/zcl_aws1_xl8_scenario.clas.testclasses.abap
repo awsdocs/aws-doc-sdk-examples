@@ -1,11 +1,11 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 
-CLASS ltc_zcl_aws1_xl8_scenario DEFINITION FOR TESTING DURATION LONG RISK LEVEL HARMLESS.
+CLASS ltc_zcl_aws1_xl8_scenario DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
 
   PRIVATE SECTION.
 
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA ao_xl8 TYPE REF TO /aws1/if_xl8.
     DATA ao_s3 TYPE REF TO /aws1/if_s3.
@@ -15,7 +15,7 @@ CLASS ltc_zcl_aws1_xl8_scenario DEFINITION FOR TESTING DURATION LONG RISK LEVEL 
     DATA av_file_content TYPE /aws1/s3_streamingblob.
 
     METHODS getting_started_with_xl8 FOR TESTING.
-    METHODS setup RAISING /aws1/cx_rt_generic ycx_aws1_mit_generic.
+    METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
 
 
 ENDCLASS.       "ltc_Zcl_Aws1_Xl8_Scenario
@@ -38,8 +38,7 @@ CLASS ltc_zcl_aws1_xl8_scenario IMPLEMENTATION.
       |Obtenez plus de flexibilité et de valeur à partir de vos investissements SAP grâce à l'infrastructure cloud la plus sécurisée, | &&
       |fiable et évolutive au monde, aux plus de 200 services AWS qui vous permettent d'innover, | &&
       |et aux outils d'automatisation de SAP spécialement conçus, | &&
-      |afin de réduire les risques et de simplifier les opérations. |
-    ).
+      |afin de réduire les risques et de simplifier les opérations. | ).
   ENDMETHOD.
 
   METHOD getting_started_with_xl8.
@@ -50,7 +49,7 @@ CLASS ltc_zcl_aws1_xl8_scenario IMPLEMENTATION.
     DATA lv_input_data_s3uri TYPE /aws1/xl8s3uri.
     DATA lv_output_data_s3uri TYPE /aws1/xl8s3uri.
     DATA lv_output_folder TYPE /aws1/xl8s3uri.
-    DATA lv_found TYPE abap_bool.
+
     DATA lv_jobid TYPE /aws1/xl8jobid.
     DATA lo_des_translation_result TYPE REF TO /aws1/cl_xl8dsctextxlatjobrsp.
     DATA lv_out_key1 TYPE /aws1/s3_objectkey.
@@ -74,7 +73,7 @@ CLASS ltc_zcl_aws1_xl8_scenario IMPLEMENTATION.
 
     "Define role Amazon Resource Name (ARN).
     DATA(lt_roles) = ao_session->get_configuration( )->get_logical_iam_roles( ).
-    READ TABLE lt_roles WITH KEY profile_id = cv_pfl INTO DATA(lo_role).
+    READ TABLE lt_roles INDEX 1 INTO DATA(lo_role).  " take first role from the logical role mapping
     av_lrole = lo_role-iam_role_arn.
 
     "Define job name.
@@ -85,16 +84,16 @@ CLASS ltc_zcl_aws1_xl8_scenario IMPLEMENTATION.
     "Create training data in Amazon Simple Storage Service (Amazon S3).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    ao_s3->createbucket( iv_bucket = lv_bucket_name ).
-
+    zcl_aws1_ex_utils=>create_bucket( iv_bucket = lv_bucket_name
+                                      io_s3 = ao_s3
+                                      io_session = ao_session ).
     lv_input_data_s3uri = 's3://' && lv_bucket_name && '/' && cv_input_folder.
     lv_output_data_s3uri = 's3://' && lv_bucket_name && '/' && cv_output_folder.
 
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_input_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     "Testing.
     ao_xl8_scenario->getting_started_with_xl8(
@@ -107,27 +106,24 @@ CLASS ltc_zcl_aws1_xl8_scenario IMPLEMENTATION.
         iv_sourcelanguagecode              = cv_sourcelanguagecode
         iv_targetlanguagecode              = cv_targetlanguagecode
       IMPORTING
-       oo_result                           = lo_des_translation_result
-    ).
+       oo_result                           = lo_des_translation_result ).
 
     "Validation.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     IF lo_des_translation_result->get_textxlationjobproperties( )->get_jobstatus( ) = 'COMPLETED'.
       lv_found               = abap_true.
     ENDIF.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Describe job failed|
-    ).
+       msg                    = |Describe job failed| ).
 
     "Clean up.
     DATA(lo_list) = ao_s3->listobjectsv2( iv_bucket = lv_bucket_name ).
     LOOP AT lo_list->get_contents( ) INTO DATA(lo_object).
       ao_s3->deleteobject(
           iv_bucket = lv_bucket_name
-          iv_key = lo_object->get_key( )
-      ).
+          iv_key = lo_object->get_key( ) ).
     ENDLOOP.
 
     ao_s3->deletebucket( iv_bucket = lv_bucket_name ).
