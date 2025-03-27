@@ -26,20 +26,16 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ECRTest {
-
     private static EcrClient ecrClient;
-
     private static String repoName = "";
-
     private static String newRepoName = "";
     private static String iamRole = "" ;
-
     private static ECRActions ecrActions;
+
     @BeforeAll
     public static void setUp() {
         ecrClient = EcrClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
         ecrActions = new ECRActions();
@@ -90,7 +86,6 @@ public class ECRTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
         String secretName = "test/ecr";
 
