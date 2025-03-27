@@ -35,7 +35,6 @@ public class EMRTest {
     public static void setUp() throws IOException {
         emrClient = EmrClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -48,31 +47,6 @@ public class EMRTest {
         logUri = values.getLogUri();
         name = values.getName();
         existingClusterId = values.getExistingClusterId();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         *
-         * try (InputStream input =
-         * EMRTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * jar = prop.getProperty("jar");
-         * myClass = prop.getProperty("myClass");
-         * keys = prop.getProperty("keys");
-         * logUri = prop.getProperty("logUri");
-         * name = prop.getProperty("name");
-         * existingClusterId= prop.getProperty("existingClusterId");
-         *
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -123,7 +97,6 @@ public class EMRTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
         String secretName = "text/emr";
 
