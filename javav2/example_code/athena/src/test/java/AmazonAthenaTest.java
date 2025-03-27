@@ -23,7 +23,6 @@ public class AmazonAthenaTest {
     public static void setUp() throws IOException {
         athenaClient = AthenaClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
         try (InputStream input = AmazonAthenaTest.class.getClassLoader().getResourceAsStream("config.properties")) {
