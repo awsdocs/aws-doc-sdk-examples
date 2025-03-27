@@ -67,7 +67,6 @@ public class DynamoDBTest {
         Region region = Region.US_EAST_1;
         ddb = DynamoDbClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -85,37 +84,6 @@ public class DynamoDBTest {
         songTitle = values.getSongTitleVal();
         songTitleVal = values.getSongTitleVal();
         tableName2 = "Movies";
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * DynamoDBTest.class.getClassLoader().getResourceAsStream("config.properties"))
-         * {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * tableName = prop.getProperty("tableName");
-         * fileName = prop.getProperty("fileName");
-         * key = prop.getProperty("key");
-         * keyVal = prop.getProperty("keyValue");
-         * albumTitle = prop.getProperty("albumTitle");
-         * albumTitleValue = prop.getProperty("AlbumTitleValue");
-         * awards = prop.getProperty("Awards");
-         * awardVal = prop.getProperty("AwardVal");
-         * songTitle = prop.getProperty("SongTitle");
-         * songTitleVal = prop.getProperty("SongTitleVal");
-         * tableName2 = "Movies";
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -215,9 +183,7 @@ public class DynamoDBTest {
     @Tag("IntegrationTest")
     @Order(11)
     public void updateTable() {
-        Long readCapacity = Long.parseLong("16");
-        Long writeCapacity = Long.parseLong("10");
-        assertDoesNotThrow(() -> UpdateTable.updateDynamoDBTable(ddb, tableName, readCapacity, writeCapacity));
+        assertDoesNotThrow(() -> UpdateTable.updateDynamoDBTable(ddb, tableName));
         System.out.println("\n Test 11 passed");
     }
 
@@ -267,7 +233,6 @@ public class DynamoDBTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/dynamodb";
 
