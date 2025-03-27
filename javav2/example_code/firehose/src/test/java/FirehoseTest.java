@@ -38,7 +38,6 @@ public class FirehoseTest {
     public static void setUp() throws IOException {
         firehoseClient = FirehoseClient.builder()
                 .region(Region.US_WEST_2)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -49,30 +48,7 @@ public class FirehoseTest {
         roleARN = values.getRoleARN();
         newStream = values.getNewStream() + java.util.UUID.randomUUID();
         textValue = values.getTextValue();
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * FirehoseTest.class.getClassLoader().getResourceAsStream("config.properties"))
-         * {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * bucketARN = prop.getProperty("bucketARN");
-         * roleARN = prop.getProperty("roleARN");
-         * newStream = prop.getProperty("newStream")+java.util.UUID.randomUUID();
-         * textValue = prop.getProperty("textValue");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
+
     }
 
     @Test
@@ -124,7 +100,6 @@ public class FirehoseTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/firehose";
 
