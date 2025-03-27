@@ -36,7 +36,6 @@ public class AppSyncTest {
         reg = region.toString();
         appSyncClient = AppSyncClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -47,29 +46,6 @@ public class AppSyncTest {
         dsName = values.getDsName();
         dsRole = values.getDsRole();
         tableName = values.getTableName();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * AppSyncTest.class.getClassLoader().getResourceAsStream("config.properties"))
-         * {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * prop.load(input);
-         * apiId = prop.getProperty("apiId");
-         * dsName = prop.getProperty("dsName");
-         * dsRole= prop.getProperty("dsRole");
-         * tableName= prop.getProperty("tableName");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -133,7 +109,6 @@ public class AppSyncTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/appsync";
 

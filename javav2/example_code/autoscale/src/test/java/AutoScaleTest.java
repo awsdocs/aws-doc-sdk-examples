@@ -3,7 +3,8 @@
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.example.autoscaling.AutoScalingScenario;
+
+import com.example.autoscaling.scenario.AutoScalingScenario;
 import com.example.autoscaling.CreateAutoScalingGroup;
 import com.example.autoscaling.DeleteAutoScalingGroup;
 import com.example.autoscaling.DescribeAutoScalingInstances;
@@ -17,10 +18,11 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.autoscaling.AutoScalingClient;
+
 import java.io.IOException;
 import java.util.Random;
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
@@ -45,7 +47,6 @@ public class AutoScaleTest {
     public static void setUp() throws IOException {
         autoScalingClient = AutoScalingClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         Random random = new Random();
@@ -58,68 +59,10 @@ public class AutoScaleTest {
         launchTemplateName = myValues.getLaunchTemplateName();
         vpcZoneId = myValues.getVpcZoneId();
         groupNameSc = myValues.getGroupNameSc() + randomNum;
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for the tests.
-        /*
-         * try (InputStream input =
-         * AutoScaleTest.class.getClassLoader().getResourceAsStream("config.properties")
-         * ) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * prop.load(input);
-         * groupName = prop.getProperty("groupName")+randomNum;
-         * launchTemplateName = prop.getProperty("launchTemplateName");
-         * vpcZoneId = prop.getProperty("vpcZoneId");
-         * groupNameSc = prop.getProperty("groupNameSc")+randomNum;
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
     @Order(1)
-    public void createAutoScalingGroup() {
-        assertDoesNotThrow(() -> CreateAutoScalingGroup.createAutoScalingGroup(autoScalingClient, groupName,
-                launchTemplateName, vpcZoneId));
-        System.out.println("Test 1 passed");
-    }
-
-    @Test
-    @Order(2)
-    public void describeAutoScalingInstances() throws InterruptedException {
-        System.out.println("Wait 1 min for the resources");
-        Thread.sleep(60000);
-        instanceId2 = DescribeAutoScalingInstances.getAutoScaling(autoScalingClient, groupName);
-        assertFalse(instanceId2.isEmpty());
-        System.out.println(instanceId2);
-        System.out.println("Test 2 passed");
-    }
-
-    @Test
-    @Order(3)
-    public void detachInstances() throws InterruptedException {
-        System.out.println("Wait 1 min for the resources, including the instance");
-        Thread.sleep(60000);
-        assertDoesNotThrow(() -> DetachInstances.detachInstance(autoScalingClient, groupName, instanceId2));
-        System.out.println("Test 3 passed");
-    }
-
-    @Test
-    @Order(4)
-    public void deleteAutoScalingGroup() {
-        assertDoesNotThrow(() -> DeleteAutoScalingGroup.deleteAutoScalingGroup(autoScalingClient, groupName));
-        System.out.println("Test 4 passed");
-    }
-
-    @Test
-    @Order(5)
     public void autoScalingScenario() throws InterruptedException {
         System.out.println("**** Create an Auto Scaling group named " + groupName);
         AutoScalingScenario.createAutoScalingGroup(autoScalingClient, groupNameSc, launchTemplateName, vpcZoneId);
@@ -173,7 +116,6 @@ public class AutoScaleTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/autoscale";
 
