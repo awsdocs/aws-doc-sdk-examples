@@ -4,7 +4,6 @@
 import com.example.cognito.*;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
@@ -54,17 +53,14 @@ public class AmazonCognitoTest {
         // Run tests on Real AWS Resources
         cognitoclient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         cognitoIdclient = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         cognitoIdentityProviderClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         Gson gson = new Gson();
@@ -89,50 +85,6 @@ public class AmazonCognitoTest {
         userNameMVP = values.getUserNameMVP();
         passwordMVP = values.getPasswordMVP();
         emailMVP = values.getEmailMVP();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * AmazonCognitoTest.class.getClassLoader().getResourceAsStream(
-         * "config.properties")) {
-         * 
-         * Properties prop = new Properties();
-         * 
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * //load a properties file from class path, inside static method
-         * prop.load(input);
-         * 
-         * // Populate the data members required for all tests
-         * userPoolName = prop.getProperty("userPoolName");
-         * username= prop.getProperty("username")+"_"+ java.util.UUID.randomUUID();
-         * email= prop.getProperty("email");
-         * clientName = prop.getProperty("clientName");
-         * identityPoolName = prop.getProperty("identityPoolName");
-         * identityId = prop.getProperty("identityId"); // used in the
-         * GetIdentityCredentials test
-         * appId = prop.getProperty("appId");
-         * existingUserPoolId = prop.getProperty("existingUserPoolId");
-         * existingIdentityPoolId = prop.getProperty("existingIdentityPoolId");
-         * providerName = prop.getProperty("providerName");
-         * existingPoolName = prop.getProperty("existingPoolName");
-         * clientId = prop.getProperty("clientId");
-         * secretkey = prop.getProperty("secretkey");
-         * password = prop.getProperty("password");
-         * poolIdMVP = prop.getProperty("poolIdMVP");
-         * clientIdMVP = prop.getProperty("clientIdMVP");
-         * userNameMVP = prop.getProperty("userNameMVP");
-         * passwordMVP = prop.getProperty("passwordMVP");
-         * emailMVP = prop.getProperty("emailMVP");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -254,7 +206,6 @@ public class AmazonCognitoTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/cognito";
 

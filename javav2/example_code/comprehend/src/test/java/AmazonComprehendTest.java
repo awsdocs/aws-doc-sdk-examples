@@ -32,7 +32,6 @@ public class AmazonComprehendTest {
     public static void setUp() throws IOException {
         comClient = ComprehendClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -42,33 +41,6 @@ public class AmazonComprehendTest {
         dataAccessRoleArn = values.getDataAccessRoleArn();
         s3Uri = values.getS3Uri();
         documentClassifierName = values.getDocumentClassifier();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * AmazonComprehendTest.class.getClassLoader().getResourceAsStream(
-         * "config.properties")) {
-         * 
-         * Properties prop = new Properties();
-         * 
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * //load a properties file from class path, inside static method
-         * prop.load(input);
-         * 
-         * // Populate the data members required for all tests
-         * dataAccessRoleArn = prop.getProperty("dataAccessRoleArn");
-         * s3Uri = prop.getProperty("s3Uri");
-         * documentClassifierName = prop.getProperty("documentClassifier");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -119,7 +91,6 @@ public class AmazonComprehendTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/comprehend";
 
