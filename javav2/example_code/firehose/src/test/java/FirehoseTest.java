@@ -136,5 +136,4 @@ public class FirehoseTest {
             return textValue;
         }
     }
-
 }

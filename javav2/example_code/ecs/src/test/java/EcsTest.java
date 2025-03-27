@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecs.EcsClient;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
