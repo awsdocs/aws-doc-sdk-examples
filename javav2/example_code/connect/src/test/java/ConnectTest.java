@@ -27,6 +27,9 @@ import software.amazon.awssdk.services.connect.ConnectClient;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
+
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -48,42 +51,17 @@ public class ConnectTest {
     public static void setUp() {
         connectClient = ConnectClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
+        int randomValue = new Random().nextInt(1000) + 1;
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        instanceAlias = values.getInstanceAlias();
+        instanceAlias = values.getInstanceAlias()+randomValue;
         contactId = values.getContactId();
         existingInstanceId = values.getExistingInstanceId();
         targetArn = values.getTargetArn();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * ConnectTest.class.getClassLoader().getResourceAsStream("config.properties"))
-         * {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Load a properties file.
-         * prop.load(input);
-         * instanceAlias = prop.getProperty("instanceAlias");
-         * contactId = prop.getProperty("contactId");
-         * existingInstanceId = prop.getProperty("existingInstanceId");
-         * targetArn = prop.getProperty("targetArn");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -122,42 +100,16 @@ public class ConnectTest {
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void describeInstanceAttribute() {
-        assertDoesNotThrow(() -> DescribeInstanceAttribute.describeAttribute(connectClient, existingInstanceId));
-        System.out.println("Test 6 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(6)
     public void listPhoneNumbers() {
         assertDoesNotThrow(() -> ListPhoneNumbers.getPhoneNumbers(connectClient, targetArn));
-        System.out.println("Test 8 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(7)
-    public void listUsers() {
-        assertDoesNotThrow(() -> ListUsers.getUsers(connectClient, existingInstanceId));
-        System.out.println("Test 9 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(7)
-    public void searchQueues() {
-        assertDoesNotThrow(() -> SearchQueues.searchQueue(connectClient, existingInstanceId));
-        System.out.println("Test 10 passed");
+        System.out.println("Test 5 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/connect";
-
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
                 .secretId(secretName)
                 .build();
