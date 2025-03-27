@@ -7,6 +7,7 @@ import logging
 import os
 import json
 
+from difflib import unified_diff
 from pathlib import Path
 from typing import Optional, Dict
 from copy import deepcopy
@@ -21,6 +22,11 @@ logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO").upper(), force=True
 
 
 def prepare_scanner(doc_gen: DocGen) -> Optional[Scanner]:
+    """
+    Processes the metadata for the scanner.
+    :param doc_gen: The documentation generator
+    :return: The populated scanner.
+    """
     for path in (doc_gen.root / ".doc_gen/metadata").glob("*_metadata.yaml"):
         doc_gen.process_metadata(path)
     doc_gen.collect_snippets()
@@ -32,20 +38,22 @@ def prepare_scanner(doc_gen: DocGen) -> Optional[Scanner]:
         return None
 
     scanner = Scanner(doc_gen)
-
     # Preload cross-content examples
     scanner.load_crosses()
-
     return scanner
 
 
 def main():
-    # Load all examples immediately for cross references. Trades correctness for speed.
+    """
+    Main entry point of the catalog generation.
+    """
+    # Load all examples immediately for cross-references. Trades correctness for speed.
     doc_gen = DocGen.from_root(Path(__file__).parent.parent.parent, incremental=True)
     # To get the complete list, fill the missing fields.
     doc_gen.fill_missing_fields()
 
-    languages = ['Python:3']  # Currently enabled only for Python version 3.
+    # Currently enabled only for Python version 3. Add more languages to enable catalog generation.
+    languages = ['Python:3']
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--languages",
@@ -111,20 +119,24 @@ def main():
             id = f"{language}:{version}:{service}"
             try:
                 renderer.set_example(service, language, int(version), False)
-                service_folder_path = renderer.lang_config["service_folder"]
-                logging.debug("Cataloging %s", id)
-                catalog_status = write_catalog_json(doc_gen, service, language, service_folder_path, args.dry_run)
-                logging.debug("Status %s", catalog_status)
-
-                if catalog_status == RenderStatus.UPDATED:
-                    if args.dry_run:
-                        diff = None
-                        failed.append((id, diff))
-                    else:
-                        written.append(id)
-                elif catalog_status == RenderStatus.UNCHANGED:
+                # Ignore folders that are duplicates due to service folder overrides.
+                if service in renderer.lang_config["service_folder_ignores"]:
+                    logging.debug("Ignoring %s", id)
                     unchanged.append(id)
-                    pass
+                else:
+                    service_folder_path = renderer.lang_config["service_folder"]
+                    logging.debug("Cataloging %s", id)
+                    catalog_status = write_catalog_json(doc_gen, service, language, service_folder_path, args.dry_run)
+                    logging.debug("Status %s", catalog_status)
+
+                    if catalog_status == RenderStatus.UPDATED:
+                        if args.dry_run:
+                            failed.append(id)
+                        else:
+                            written.append(id)
+                    elif catalog_status == RenderStatus.UNCHANGED:
+                        unchanged.append(id)
+                        pass
             except FileNotFoundError as fnfe:
                 logging.debug(fnfe, exc_info=True)
                 skipped.append(id)
@@ -144,12 +156,7 @@ def main():
         done_list = "\n".join(f"Wrote {f}" for f in sorted(written))
         print(done_list or "(None Written)")
     if failed:
-        if args.diff:
-            failed_list = "\n".join(
-                f"Diff: {f[1]}" for f in sorted(failed, key=lambda f: f[0])
-            )
-        else:
-            failed_list = "\n".join(f"Incorrect: {f[0]}" for f in sorted(failed))
+        failed_list = "\n".join(f"Incorrect: {f}" for f in sorted(failed))
         print(failed_list)
         print("Rerun catalog.py to update the example catalog list.")
     print("Catalog Run completed.")
@@ -157,10 +164,19 @@ def main():
 
 
 def write_catalog_json(doc_gen, service_name, language_name, folder_path, is_dry_run):
+    """
+    Writes or checks the catalog json file for the language/service combination.
+    :param doc_gen: The documentation generator.
+    :param service_name: Service name for the catalog.
+    :param language_name: Language name for the catalog.
+    :param folder_path: Folder path for the resulting file.
+    :param is_dry_run: True to compare only.
+    :return: A render status of UNCHANGED, or UPDATED.
+    """
     filepath = (
             Path(__file__).parent.parent.parent
             / folder_path
-            / 'examples_catalog.json'
+            / config.catalog_filename
     )
 
     language_examples = []
@@ -194,7 +210,10 @@ def write_catalog_json(doc_gen, service_name, language_name, folder_path, is_dry
         with open(filepath, "r", encoding="utf-8") as example_meta:
             old_catalog = example_meta.read()
     except FileNotFoundError:
-        old_catalog = ""
+        old_catalog = ''
+        # If the list is empty or the folder does not exist do not expect a file.
+        if len(language_examples) == 0 or not os.path.exists(folder_path):
+            return RenderStatus.UNCHANGED
 
     if old_catalog == new_catalog:
         return RenderStatus.UNCHANGED
@@ -203,11 +222,34 @@ def write_catalog_json(doc_gen, service_name, language_name, folder_path, is_dry
             print(f"Writing serialized versions of DocGen to {filepath}")
             with open(filepath, "w", encoding="utf-8") as example_meta:
                 example_meta.write(new_catalog)
+        else:
+            diff = make_catalog_diff(new_catalog, old_catalog, service_name)
+            print('diff:')
+            print(diff)
         return RenderStatus.UPDATED
 
 
+def make_catalog_diff(new_catalog, current_catalog, service):
+    """
+    Generate a diff text for the old and new catalogs.
+    :param new_catalog: The newly updated catalog.
+    :param current_catalog: The current catalog file contents.
+    :param service: The service to catalog.
+    :return: The diff text.
+    """
+    current = current_catalog.split("\n")
+    expected = new_catalog.split("\n")
+    diff = unified_diff(current, expected, f"{service}/current", f"{service}/expected")
+    return "\n".join(diff)
+
+
 def sanitize_example_title(example, service) -> [str, None]:
-    """Clean up the text in an example."""
+    """
+    Clean up the title text for an example.
+    :param example: The example to update.
+    :param service: The service name.
+    :return: The cleaned title string.
+    """
     # API examples use the API name.
     if example.category == 'Api':
         return sorted(example.services[service])[0]
