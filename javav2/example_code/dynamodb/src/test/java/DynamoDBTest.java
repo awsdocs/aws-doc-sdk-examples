@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
@@ -49,8 +48,8 @@ public class DynamoDBTest {
 
     // Define the data members required for the test.
     private static String tableName = "";
-    private static String itemVal = "";
-    private static String updatedVal = "";
+  //  private static String itemVal = "";
+   // private static String updatedVal = "";
     private static String key = "";
     private static String keyVal = "";
     private static String albumTitle = "";
@@ -192,8 +191,7 @@ public class DynamoDBTest {
     @Order(12)
     public void deleteTable() {
         try {
-            // Wait 15 secs for table to update based on test 10
-            TimeUnit.SECONDS.sleep(15);
+            TimeUnit.SECONDS.sleep(30);
             assertDoesNotThrow(() -> DeleteTable.deleteDynamoDBTable(ddb, tableName));
         } catch (InterruptedException e) {
             System.err.println(e.getMessage());
