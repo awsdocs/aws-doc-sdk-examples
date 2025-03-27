@@ -37,7 +37,6 @@ public class CodeDeployTest {
         Region region = Region.US_EAST_1;
         deployClient = CodeDeployClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         Gson gson = new Gson();
@@ -53,36 +52,6 @@ public class CodeDeployTest {
         serviceRoleArn = values.getServiceRoleArn();
         tagKey = values.getTagKey();
         tagValue = values.getTagValue();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * CodeDeployTest.class.getClassLoader().getResourceAsStream("config.properties"
-         * )) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * appName = prop.getProperty("appName");
-         * existingApp = prop.getProperty("existingApp");
-         * existingDeployment = prop.getProperty("existingDeployment");
-         * bucketName = prop.getProperty("bucketName");
-         * key = prop.getProperty("key");
-         * bundleType = prop.getProperty("bundleType");
-         * newDeploymentGroupName = prop.getProperty("newDeploymentGroupName");
-         * serviceRoleArn = prop.getProperty("serviceRoleArn");
-         * tagKey = prop.getProperty("tagKey");
-         * tagValue = prop.getProperty("tagValue");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -156,7 +125,6 @@ public class CodeDeployTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/codedeploy";
 
