@@ -30,6 +30,6 @@ jobs:
       - name: Install dependencies
         run: >-
           python3 -m pip install -r .tools/scanners/requirements.txt
-      - name: Check WRITEMEs
+      - name: Check Catalogs
         run: >-
           python3 .tools/scanners/catalog.py --check --diff
