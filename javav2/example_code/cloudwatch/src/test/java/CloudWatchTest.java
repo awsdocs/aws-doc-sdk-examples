@@ -56,7 +56,6 @@ public class CloudWatchTest {
     public static void setUp() throws IOException {
         cw = CloudWatchClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -89,7 +88,7 @@ public class CloudWatchTest {
             ArrayList<String> list = future.join();
             assertFalse(list.isEmpty());
         });
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
 
@@ -266,7 +265,6 @@ public class CloudWatchTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/cloudwatch";
 
