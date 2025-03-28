@@ -4,7 +4,7 @@
 
 The code examples in this topic show you how to use the AWS SDK for Go V1 with AWS.
 If you're looking for examples of how to use the SDK for Go V2, see the 
-[README for SDK for Go V2 examples](../gov2/README.md) in this repo. 
+[README for SDK for Go V2 examples](../gov2/README.md) in this repo.  
 
 ⚠️ AWS SDK for Go V1 will enter maintenance mode on July 31, 2024 and reach end-of-support 
 on July 31, 2025. For more information, see 
