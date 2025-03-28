@@ -23,7 +23,6 @@ public class EventBridgeTest {
     public static void setUp() throws IOException {
         eventBrClient = EventBridgeClient.builder()
                 .region(Region.US_WEST_2)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
     }
 

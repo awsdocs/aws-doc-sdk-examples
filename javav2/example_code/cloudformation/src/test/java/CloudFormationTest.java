@@ -30,7 +30,6 @@ public class CloudFormationTest {
     public static void setUp() {
         cfClient = CloudFormationClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -42,31 +41,6 @@ public class CloudFormationTest {
         location = values.getLocation();
         key = values.getKey();
         value = values.getValue();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * CloudFormationTest.class.getClassLoader().getResourceAsStream(
-         * "config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * stackName = prop.getProperty("stackName");
-         * roleARN = prop.getProperty("roleARN");
-         * location = prop.getProperty("location");
-         * key = prop.getProperty("key");
-         * value = prop.getProperty("value");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -104,7 +78,6 @@ public class CloudFormationTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/cloudformation";
 

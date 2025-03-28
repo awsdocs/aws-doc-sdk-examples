@@ -13,8 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CodeCommitTest {
-
-
     private static String branchCommitId =""; // needs to be updated to use latest for each test - required for PutFile test
     private static CodeCommitClient codeCommitClient ;
     private static String newRepoName ="";

@@ -27,8 +27,7 @@ public class CloudTrailTest {
     public static void setUp() {
         cloudTrailClient = CloudTrailClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -39,25 +38,6 @@ public class CloudTrailTest {
 
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * CloudTrailTest.class.getClassLoader().getResourceAsStream("config.properties"
-         * )) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * trailName = prop.getProperty("trailName");
-         * s3BucketName = prop.getProperty("s3BucketName");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -135,7 +115,7 @@ public class CloudTrailTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                //.credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/cloudtrail";
 

@@ -59,28 +59,6 @@ public class IoTTests {
         SecretValues values = gson.fromJson(json, SecretValues.class);
         roleARN = values.getRoleARN();
         snsAction = values.getSnsAction();
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-
-        /*
-        try (InputStream input = IoTTests.class.getClassLoader().getResourceAsStream("config.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-            prop.load(input);
-            thingName = prop.getProperty("thingName");
-            roleARN = prop.getProperty("roleARN");
-            ruleName = prop.getProperty("ruleName");
-            snsAction = prop.getProperty("snsAction");
-            queryString = "thingName:"+thingName+"";
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        */
     }
 
     @Test
@@ -149,7 +127,6 @@ public class IoTTests {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
         String secretName = "test/iot";
 

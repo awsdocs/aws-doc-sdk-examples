@@ -82,7 +82,6 @@ public class IotActions {
                 .region(Region.US_EAST_1)
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         }
         return iotAsyncDataPlaneClient;
@@ -110,7 +109,6 @@ public class IotActions {
                 .region(Region.US_EAST_1)
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         }
         return iotAsyncClient;

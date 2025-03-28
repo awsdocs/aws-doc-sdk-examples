@@ -35,7 +35,6 @@ public class ForecastTest {
         int randomNum = rand.nextInt((10000 - 1) + 1) + 1;
         forecast = ForecastClient.builder()
                 .region(Region.US_WEST_2)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -110,7 +109,6 @@ public class ForecastTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/forecast";
 

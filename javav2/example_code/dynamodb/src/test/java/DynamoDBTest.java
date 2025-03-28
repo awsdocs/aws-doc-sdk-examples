@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
@@ -49,8 +48,8 @@ public class DynamoDBTest {
 
     // Define the data members required for the test.
     private static String tableName = "";
-    private static String itemVal = "";
-    private static String updatedVal = "";
+  //  private static String itemVal = "";
+   // private static String updatedVal = "";
     private static String key = "";
     private static String keyVal = "";
     private static String albumTitle = "";
@@ -67,7 +66,6 @@ public class DynamoDBTest {
         Region region = Region.US_EAST_1;
         ddb = DynamoDbClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -85,37 +83,6 @@ public class DynamoDBTest {
         songTitle = values.getSongTitleVal();
         songTitleVal = values.getSongTitleVal();
         tableName2 = "Movies";
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * DynamoDBTest.class.getClassLoader().getResourceAsStream("config.properties"))
-         * {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * tableName = prop.getProperty("tableName");
-         * fileName = prop.getProperty("fileName");
-         * key = prop.getProperty("key");
-         * keyVal = prop.getProperty("keyValue");
-         * albumTitle = prop.getProperty("albumTitle");
-         * albumTitleValue = prop.getProperty("AlbumTitleValue");
-         * awards = prop.getProperty("Awards");
-         * awardVal = prop.getProperty("AwardVal");
-         * songTitle = prop.getProperty("SongTitle");
-         * songTitleVal = prop.getProperty("SongTitleVal");
-         * tableName2 = "Movies";
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -215,9 +182,7 @@ public class DynamoDBTest {
     @Tag("IntegrationTest")
     @Order(11)
     public void updateTable() {
-        Long readCapacity = Long.parseLong("16");
-        Long writeCapacity = Long.parseLong("10");
-        assertDoesNotThrow(() -> UpdateTable.updateDynamoDBTable(ddb, tableName, readCapacity, writeCapacity));
+        assertDoesNotThrow(() -> UpdateTable.updateDynamoDBTable(ddb, tableName));
         System.out.println("\n Test 11 passed");
     }
 
@@ -226,8 +191,7 @@ public class DynamoDBTest {
     @Order(12)
     public void deleteTable() {
         try {
-            // Wait 15 secs for table to update based on test 10
-            TimeUnit.SECONDS.sleep(15);
+            TimeUnit.SECONDS.sleep(30);
             assertDoesNotThrow(() -> DeleteTable.deleteDynamoDBTable(ddb, tableName));
         } catch (InterruptedException e) {
             System.err.println(e.getMessage());
@@ -267,7 +231,6 @@ public class DynamoDBTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/dynamodb";
 

@@ -10,9 +10,11 @@ import software.amazon.awssdk.services.glacier.GlacierClient;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -33,7 +35,6 @@ public class GlacierTest {
     @BeforeAll
     public static void setUp() {
         glacier = GlacierClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(Region.US_EAST_1)
                 .build();
 
@@ -46,31 +47,6 @@ public class GlacierTest {
         downloadVault = values.getDownloadVault();
         accountId = values.getAccountId();
         emptyVault = values.getEmptyVault();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * GlacierTest.class.getClassLoader().getResourceAsStream("config.properties"))
-         * {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * vaultName = prop.getProperty("vaultName");
-         * strPath = prop.getProperty("strPath");
-         * downloadVault= prop.getProperty("downloadVault");
-         * accountId= prop.getProperty("accountId");
-         * emptyVault= prop.getProperty("emptyVault");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -135,7 +111,6 @@ public class GlacierTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/glacier";
 

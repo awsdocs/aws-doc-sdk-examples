@@ -20,7 +20,6 @@ public class ElasticBeanstalkTest {
         Region region = Region.US_EAST_1;
         beanstalkClient = ElasticBeanstalkClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
     }
 

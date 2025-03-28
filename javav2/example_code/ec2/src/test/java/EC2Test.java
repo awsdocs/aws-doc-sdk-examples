@@ -26,7 +26,6 @@ import software.amazon.awssdk.services.ssm.model.Parameter;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EC2Test {
-
     private static String keyName = "";
     private static String groupName = "";
     private static String groupDesc = "";
@@ -291,7 +290,6 @@ public class EC2Test {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/ec2";
 

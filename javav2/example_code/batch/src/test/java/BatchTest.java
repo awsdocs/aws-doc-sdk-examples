@@ -28,8 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BatchTest {
-    private static String computeEnvironmentName = "my-compute-environment" ;
-    private static String jobQueueName = "my-job-queue";
+    private static String computeEnvironmentName = "my-compute-environment12" ;
+    private static String jobQueueName = "my-job-queue12";
     private static String jobDefinitionName = "my-job-definition";
     private static String dockerImage = "dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text";
     private static String subnet = "" ;
@@ -206,7 +206,6 @@ public class BatchTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
         String secretName = "test/batch";
 

@@ -39,7 +39,6 @@ public class MediaStoreTest {
         Region region = Region.US_EAST_1;
         mediaStoreClient = MediaStoreClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -51,32 +50,6 @@ public class MediaStoreTest {
         completePath = values.getCompletePath();
         existingContainer = values.getExistingContainer();
         savePath = values.getSavePath();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * MediaStoreTest.class.getClassLoader().getResourceAsStream("config.properties"
-         * )) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests
-         * prop.load(input);
-         * containerName = prop.getProperty("containerName")+
-         * java.util.UUID.randomUUID();
-         * filePath = prop.getProperty("filePath");
-         * completePath = prop.getProperty("completePath");
-         * existingContainer = prop.getProperty("existingContainer");
-         * savePath = prop.getProperty("savePath");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
 
         URI uri = new URI(PutObject.getEndpoint(existingContainer));
         mediaStoreData = MediaStoreDataClient.builder()
@@ -146,7 +119,6 @@ public class MediaStoreTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/mediastore";
 

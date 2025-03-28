@@ -4,7 +4,6 @@
 import com.example.kinesis.CreateDataStream;
 import com.example.kinesis.DescribeLimits;
 import org.junit.jupiter.api.*;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
 import com.example.kinesis.*;
@@ -21,7 +20,6 @@ public class KinTest {
     public static void setUp() {
         kinesisClient = KinesisClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         streamName = "streamName" + java.util.UUID.randomUUID();
     }

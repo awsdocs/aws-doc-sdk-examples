@@ -31,7 +31,6 @@ public class GuarddutyTest {
         Region region = Region.US_EAST_1;
         guardDutyClient = GuardDutyClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -40,28 +39,6 @@ public class GuarddutyTest {
         SecretValues values = gson.fromJson(json, SecretValues.class);
         detectorId = values.getDetectorId();
         findingId = values.getFindingId();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * GuarddutyTest.class.getClassLoader().getResourceAsStream("config.properties")
-         * ) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * detectorId = prop.getProperty("detectorId");
-         * findingId = prop.getProperty("findingId");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -92,7 +69,6 @@ public class GuarddutyTest {
         // Get the Amazon RDS creds from Secrets Manager.
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/guarduty";
 

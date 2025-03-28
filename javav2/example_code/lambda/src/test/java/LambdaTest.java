@@ -42,8 +42,7 @@ public class LambdaTest {
     @BeforeAll
     public static void setUp() {
         awsLambda = LambdaClient.builder()
-                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -103,7 +102,6 @@ public class LambdaTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/lambda";
 

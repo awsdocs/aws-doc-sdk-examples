@@ -45,7 +45,6 @@ public class CloudFrontTest {
         region = Region.AWS_GLOBAL;
         cloudFrontClient = CloudFrontClient.builder()
                 .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
         try (InputStream input = CloudFrontTest.class.getClassLoader().getResourceAsStream("config.properties")) {
 

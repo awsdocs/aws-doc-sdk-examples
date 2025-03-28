@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonLexTest {
-
     private static LexModelBuildingClient lexClient;
     private static String botName = "";
     private static String intentName = "";
@@ -30,7 +29,6 @@ public class AmazonLexTest {
     public static void setUp() {
         lexClient = LexModelBuildingClient.builder()
                 .region(Region.US_WEST_2)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -40,30 +38,6 @@ public class AmazonLexTest {
         botName = values.getBotName();
         intentName = values.getIntentName();
         intentVersion = values.getIntentVersion();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * AmazonLexTest.class.getClassLoader().getResourceAsStream("config.properties")
-         * ) {
-         * Properties prop = new Properties();
-         * 
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * prop.load(input);
-         * botName = prop.getProperty("botName");
-         * intentName = prop.getProperty("intentName");
-         * intentVersion = prop.getProperty("intentVersion");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -117,7 +91,6 @@ public class AmazonLexTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/lex";
 
