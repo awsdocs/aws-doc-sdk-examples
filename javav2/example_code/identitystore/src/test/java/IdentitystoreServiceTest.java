@@ -2,13 +2,19 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.identitystore.*;
+import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.identitystore.IdentitystoreClient;
 import software.amazon.awssdk.services.identitystore.model.IdentitystoreException;
 import software.amazon.awssdk.services.identitystore.model.Group;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 
 import java.io.*;
 import java.util.*;
@@ -34,197 +40,242 @@ public class IdentitystoreServiceTest {
         identitystore = IdentitystoreClient.builder()
                 .build();
 
-        try (InputStream input = IdentitystoreServiceTest.class.getClassLoader()
-                .getResourceAsStream("config.properties")) {
+        Gson gson = new Gson();
+        String json = getSecretValues();
+        SecretValues values = gson.fromJson(json, SecretValues.class);
 
-            Properties prop = new Properties();
-            prop.load(input);
-            // Populate the data members required for all tests
-            identitystoreId = prop.getProperty("identitystoreId");
-            groupName = prop.getProperty("groupName");
-            groupDesc = prop.getProperty("groupDesc");
-            groupId = prop.getProperty("groupId");
-            userName = prop.getProperty("userName");
-            givenName = prop.getProperty("givenName");
-            familyName = prop.getProperty("familyName");
-            userId = prop.getProperty("userId");
-            membershipId = prop.getProperty("membershipId");
-
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-                return;
-            }
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        // Populate the data members required for all tests
+        identitystoreId = values.getIdentitystoreId();
+        groupName = values.getGroupName();
+        groupDesc = values.getGroupDesc();
+        userName = values.getUserName();
+        givenName = values.getGivenName();
+        familyName = values.getFamilyName();
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(1)
-    public void whenInitializingAWSService_thenNotNull() {
-        assertNotNull(identitystore);
-        System.out.printf("\n Test 1 passed");
-    }
-
-    @Test
-    @Order(2)
     public void CreateGroup() {
         String result2 = CreateGroup.createGroup(identitystore, identitystoreId, groupName, groupDesc);
         assertTrue(!result2.isEmpty());
+        System.out.println("\n Test 1 passed");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(2)
+    public void GetGroupId() {
+        groupId = GetGroupId.getGroupId(identitystore, identitystoreId, "DisplayName", groupName);
+        assertTrue(!groupId.isEmpty());
         System.out.println("\n Test 2 passed");
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(3)
-    public void GetGroupId() {
-        groupId = GetGroupId.getGroupId(identitystore, identitystoreId, "DisplayName", groupName);
-        assertTrue(!groupId.isEmpty());
+    public void DescribeGroup() {
+        String result4 = DescribeGroup.describeGroup(identitystore, identitystoreId, groupId);
+        assertTrue(!result4.isEmpty());
         System.out.println("\n Test 3 passed");
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(4)
-    public void DescribeGroup() {
-        String result4 = DescribeGroup.describeGroup(identitystore, identitystoreId, groupId);
-        assertTrue(!result4.isEmpty());
-        System.out.println("\n Test 4 passed");
-    }
-
-    @Test
-    @Order(5)
     public void UpdateGroup() {
         String result5 = UpdateGroup.updateGroup(identitystore, identitystoreId, groupId, "Description",
                 "TestingUpdateAPI");
         assertTrue(!result5.isEmpty());
+        System.out.println("\n Test 4 passed");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(5)
+    public void ListGroups() {
+        int result6 = ListGroups.listGroups(identitystore, identitystoreId);
+        assertTrue(result6 >= 0);
         System.out.println("\n Test 5 passed");
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(6)
-    public void ListGroups() {
-        int result6 = ListGroups.listGroups(identitystore, identitystoreId);
-        assertTrue(result6 >= 0);
+    public void CreateUser() {
+        String result7 = CreateUser.createUser(identitystore, identitystoreId, userName, givenName, familyName);
+        assertTrue(!result7.isEmpty());
         System.out.println("\n Test 6 passed");
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(7)
-    public void CreateUser() {
-        String result7 = CreateUser.createUser(identitystore, identitystoreId, userName, givenName, familyName);
-        assertTrue(!result7.isEmpty());
+    public void GetUserId() {
+        userId = GetUserId.getUserId(identitystore, identitystoreId, "UserName", userName);
+        assertTrue(!userId.isEmpty());
         System.out.println("\n Test 7 passed");
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(8)
-    public void GetUserId() {
-        userId = GetUserId.getUserId(identitystore, identitystoreId, "UserName", userName);
-        assertTrue(!userId.isEmpty());
+    public void DescribeUser() {
+        String result9 = DescribeUser.describeUser(identitystore, identitystoreId, userId);
+        assertTrue(!result9.isEmpty());
         System.out.println("\n Test 8 passed");
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(9)
-    public void DescribeUser() {
-        String result9 = DescribeUser.describeUser(identitystore, identitystoreId, userId);
-        assertTrue(!result9.isEmpty());
-        System.out.println("\n Test 9 passed");
-    }
-
-    @Test
-    @Order(10)
     public void UpdateUser() {
         String result10 = UpdateUser.updateUser(identitystore, identitystoreId, userId, "displayName",
                 "TestingUpdateAPI");
         assertTrue(!result10.isEmpty());
+        System.out.println("\n Test 9 passed");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(10)
+    public void ListUsers() {
+        int result11 = ListUsers.listUsers(identitystore, identitystoreId);
+        assertTrue(result11 >= 0);
         System.out.println("\n Test 10 passed");
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(11)
-    public void ListUsers() {
-        int result11 = ListUsers.listUsers(identitystore, identitystoreId);
-        assertTrue(result11 >= 0);
+    public void CreateGroupMembership() {
+        String result12 = CreateGroupMembership.createGroupMembership(identitystore, identitystoreId, groupId, userId);
+        assertTrue(!result12.isEmpty());
         System.out.println("\n Test 11 passed");
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(12)
-    public void CreateGroupMembership() {
-        String result12 = CreateGroupMembership.createGroupMembership(identitystore, identitystoreId, groupId, userId);
-        assertTrue(!result12.isEmpty());
+    public void GetGroupMembershipId() {
+        membershipId = GetGroupMembershipId.getGroupMembershipId(identitystore, identitystoreId, groupId, userId);
+        assertTrue(!membershipId.isEmpty());
         System.out.println("\n Test 12 passed");
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(13)
-    public void GetGroupMembershipId() {
-        membershipId = GetGroupMembershipId.getGroupMembershipId(identitystore, identitystoreId, groupId, userId);
-        assertTrue(!membershipId.isEmpty());
-        System.out.println("\n Test 13 passed");
-    }
-
-    @Test
-    @Order(14)
     public void DescribeGroupMembership() {
         String result14 = DescribeGroupMembership.describeGroupMembershipId(identitystore, identitystoreId,
                 membershipId);
         assertTrue(!result14.isEmpty());
-        System.out.println("\n Test 14 passed");
+        System.out.println("\n Test 13 passed");
     }
 
     @Test
-    @Order(15)
+    @Tag("IntegrationTest")
+    @Order(14)
     public void IsMemberInGroups() {
         List<String> groupIdList = new ArrayList<>();
         groupIdList.add(groupId);
         String result15 = IsMemberInGroups.isMemberInGroups(identitystore, identitystoreId, userId, groupIdList);
         assertTrue(!result15.isEmpty());
+        System.out.println("\n Test 14 passed");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(15)
+    public void ListGroupMemberships() {
+        int result16 = ListGroupMemberships.listGroupMemberships(identitystore, identitystoreId, groupId);
+        assertTrue(result16 >= 0);
         System.out.println("\n Test 15 passed");
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(16)
-    public void ListGroupMemberships() {
-        int result16 = ListGroupMemberships.listGroupMemberships(identitystore, identitystoreId, groupId);
-        assertTrue(result16 >= 0);
-        System.out.println("\n Test 16 passed");
-    }
-
-    @Test
-    @Order(17)
     public void ListGroupMembershipsForMember() {
         int result17 = ListGroupMembershipsForMember.listGroupMembershipsForMember(identitystore, identitystoreId,
                 userId);
         assertTrue(result17 >= 0);
+        System.out.println("\n Test 16 passed");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(17)
+    public void DeleteGroupMembership() {
+        String result18 = DeleteGroupMembership.deleteGroupMembership(identitystore, identitystoreId, membershipId);
+        assertTrue(!result18.isEmpty());
         System.out.println("\n Test 17 passed");
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(18)
-    public void DeleteGroupMembership() {
-        String result18 = DeleteGroupMembership.deleteGroupMembership(identitystore, identitystoreId, membershipId);
-        assertTrue(!result18.isEmpty());
+    public void DeleteUser() {
+        String result19 = DeleteUser.deleteUser(identitystore, identitystoreId, userId);
+        assertTrue(!result19.isEmpty());
         System.out.println("\n Test 18 passed");
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(19)
-    public void DeleteUser() {
-
-        String result19 = DeleteUser.deleteUser(identitystore, identitystoreId, userId);
-        assertTrue(!result19.isEmpty());
+    public void DeleteGroup() {
+        String result20 = DeleteGroup.deleteGroup(identitystore, identitystoreId, groupId);
+        assertTrue(!result20.isEmpty());
         System.out.println("\n Test 19 passed");
     }
 
-    @Test
-    @Order(20)
-    public void DeleteGroup() {
+    private static String getSecretValues() {
+        SecretsManagerClient secretClient = SecretsManagerClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
+        String secretName = "test/identitystore";
 
-        String result20 = DeleteGroup.deleteGroup(identitystore, identitystoreId, groupId);
-        assertTrue(!result20.isEmpty());
-        System.out.println("\n Test 20 passed");
+        GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
+                .secretId(secretName)
+                .build();
+
+        GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
+        return valueResponse.secretString();
     }
 
+    @Nested
+    @DisplayName("A class used to get test values from test/firehose (an AWS Secrets Manager secret)")
+    class SecretValues {
+        private String identitystoreId;
+        private String groupName;
+        private String groupDesc;
+        private String userName;
+        private String givenName;
+        private String familyName;
+
+        public String getIdentitystoreId() {
+            return identitystoreId;
+        }
+
+        public String getGroupName() {
+            return groupName;
+        }
+
+        public String getGroupDesc() {
+            return groupDesc;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public String getGivenName() {
+            return givenName;
+        }
+
+        public String getFamilyName() {
+            return familyName;
+        }
+    }
 }
