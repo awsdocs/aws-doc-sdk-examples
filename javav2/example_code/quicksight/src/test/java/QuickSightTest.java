@@ -30,9 +30,8 @@ public class QuickSightTest {
     @BeforeAll
     public static void setUp() {
         qsClient = QuickSightClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -44,31 +43,6 @@ public class QuickSightTest {
         templateId = values.getTemplateId();
         dataSetArn = values.getDataSetArn();
         analysisArn = values.getAnalysisArn();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * QuickSightTest.class.getClassLoader().getResourceAsStream("config.properties"
-         * )) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * prop.load(input);
-         * account = prop.getProperty("account");
-         * analysisId = prop.getProperty("analysisId");
-         * dashboardId = prop.getProperty("dashboardId");
-         * templateId = prop.getProperty("templateId");
-         * dataSetArn = prop.getProperty("dataSetArn");
-         * analysisArn = prop.getProperty("analysisArn");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -138,9 +112,8 @@ public class QuickSightTest {
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
         String secretName = "test/quicksight";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
