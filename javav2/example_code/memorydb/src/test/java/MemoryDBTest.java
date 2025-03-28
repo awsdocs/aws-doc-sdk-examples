@@ -32,7 +32,6 @@ public class MemoryDBTest {
         Region region = Region.US_EAST_1;
         memoryDbClient = MemoryDbClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         Random random = new Random();
@@ -47,30 +46,6 @@ public class MemoryDBTest {
         subnetGroupName = values.getSubnetGroupName();
         aclName = values.getAclName();
         snapShotName = values.getSnapShotName() + randomNum;
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * MemoryDBTest.class.getClassLoader().getResourceAsStream("config.properties"))
-         * {
-         * 
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * prop.load(input);
-         * clusterName = prop.getProperty("clusterName")+ java.util.UUID.randomUUID();
-         * nodeType = prop.getProperty("nodeType");
-         * subnetGroupName = prop.getProperty("subnetGroupName");
-         * aclName = prop.getProperty("aclName");
-         * snapShotName= prop.getProperty("snapShotName");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -126,7 +101,6 @@ public class MemoryDBTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/memorydb";
 
