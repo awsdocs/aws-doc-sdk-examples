@@ -17,7 +17,7 @@ export class PoolsAndTriggersStack extends Stack {
 
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
-    this.createFunction("autoConfirmHandler");
+    this.createFunction("AutoConfirmHandler");
     this.poolsAndTriggersBase.outputs(this);
   }
 
