@@ -45,7 +45,6 @@ public class IAMServiceTest {
         Region region = Region.AWS_GLOBAL;
         iam = IamClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -62,37 +61,6 @@ public class IAMServiceTest {
         roleSessionName = values.getRoleName() + UUID.randomUUID();;
         fileLocationSc = values.getFileLocationSc();
         bucketNameSc = values.getBucketNameSc();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * IAMServiceTest.class.getClassLoader().getResourceAsStream("config.properties"
-         * )) {
-         * Properties prop = new Properties();
-         * prop.load(input);
-         * userName = prop.getProperty("userName");
-         * policyName= prop.getProperty("policyName");
-         * policyARN= prop.getProperty("policyARN");
-         * roleName=prop.getProperty("roleName");
-         * accountAlias=prop.getProperty("accountAlias");
-         * usernameSc=prop.getProperty("usernameSc");
-         * policyNameSc=prop.getProperty("policyNameSc");
-         * roleNameSc=prop.getProperty("roleNameSc");
-         * roleSessionName=prop.getProperty("roleSessionName");
-         * fileLocationSc=prop.getProperty("fileLocationSc");
-         * bucketNameSc=prop.getProperty("bucketNameSc");
-         * 
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -121,10 +89,6 @@ public class IAMServiceTest {
         assertFalse(keyId.isEmpty());
         System.out.println("Test 3 passed");
     }
-
-
-
-
 
     @Test
     @Tag("IntegrationTest")
@@ -254,7 +218,6 @@ public class IAMServiceTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/iam";
 
