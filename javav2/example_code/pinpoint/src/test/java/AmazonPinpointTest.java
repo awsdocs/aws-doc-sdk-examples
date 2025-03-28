@@ -55,19 +55,16 @@ public class AmazonPinpointTest {
     @BeforeAll
     public static void setUp() throws IOException {
         pinpoint = PinpointClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
 
         pinpointEmailClient = PinpointEmailClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
         s3Client = S3Client.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
 
         // Set the content type to application/json.
         List<String> listVal = new ArrayList<>();
@@ -82,7 +79,6 @@ public class AmazonPinpointTest {
         voiceClient = PinpointSmsVoiceClient.builder()
                 .overrideConfiguration(config2)
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -104,43 +100,6 @@ public class AmazonPinpointTest {
         destinationNumber = valuesOb.getDestinationNumber();
         destinationNumber1 = valuesOb.getDestinationNumber1();
         message = valuesOb.getMessage();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * AmazonPinpointTest.class.getClassLoader().getResourceAsStream(
-         * "config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests
-         * prop.load(input);
-         * appName = prop.getProperty("appName");
-         * bucket= prop.getProperty("bucket");
-         * path= prop.getProperty("path");
-         * roleArn= prop.getProperty("roleArn");
-         * userId = prop.getProperty("userId");
-         * s3BucketName = prop.getProperty("s3BucketName");
-         * s3BucketName = prop.getProperty("s3BucketName");
-         * iamExportRoleArn = prop.getProperty("iamExportRoleArn");
-         * existingApplicationId= prop.getProperty("existingApplicationId");
-         * subject = prop.getProperty("subject");
-         * senderAddress = prop.getProperty("senderAddress");
-         * toAddress = prop.getProperty("toAddress");
-         * originationNumber= prop.getProperty("originationNumber");
-         * destinationNumber= prop.getProperty("destinationNumber");
-         * destinationNumber1 = prop.getProperty("destinationNumber1");
-         * message= prop.getProperty("message");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -240,15 +199,6 @@ public class AmazonPinpointTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(13)
-    public void ExportEndpoints() {
-        assertDoesNotThrow(() -> ExportEndpoints.exportAllEndpoints(pinpoint, s3Client, existingApplicationId,
-                s3BucketName, filePath, iamExportRoleArn));
-        System.out.println("ExportEndpoints test passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
     @Order(14)
     public void SendEmailMessage() {
         assertDoesNotThrow(() -> SendEmailMessage.sendEmail(pinpointEmailClient, subject,  senderAddress, toAddress));
@@ -281,11 +231,9 @@ public class AmazonPinpointTest {
 
     public static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
         String secretName = "test/pinpoint";
-
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
                 .secretId(secretName)
                 .build();

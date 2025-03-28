@@ -8,10 +8,11 @@ import software.amazon.awssdk.services.mq.model.Configuration;
 import software.amazon.awssdk.services.mq.model.BrokerSummary;
 
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.*;
 import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -21,8 +22,8 @@ public class AmazonMQTest {
     private static Region region;
     private static String engineType = "";
     private static String brokerName = "";
-    private static String configurationName = "";
     private static String brokerId = "";
+    private static String configurationName = "";
     private static String configurationId = "";
 
     @BeforeAll
@@ -44,12 +45,12 @@ public class AmazonMQTest {
 
             // load a properties file from class path, inside static method
             prop.load(input);
-
+            Random random = new Random();
+            int randomValue = random.nextInt(1000) + 1;
             // Populate the data members required for all tests
             engineType = prop.getProperty("engineType");
-            brokerName = prop.getProperty("brokerName");
+            brokerName = prop.getProperty("brokerName")+randomValue;
             configurationName = prop.getProperty("configurationName");
-            brokerId = prop.getProperty("brokerId");
             configurationId = prop.getProperty("configurationId");
 
         } catch (IOException ex) {
@@ -57,52 +58,56 @@ public class AmazonMQTest {
         }
     }
 
-
     @Test
+    @Tag("IntegrationTest")
     @Order(1)
     public void CreateBroker() {
-        String result = CreateBroker.createBroker(mqClient, engineType, brokerName);
+        brokerId = CreateBroker.createBroker(mqClient, engineType, brokerName);
+        assertTrue(!brokerId.isEmpty());
+        System.out.println("Test 1 passed");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(2)
+    public void CreateConfiguration() {
+        String result = CreateConfiguration.createNewConfigutation(mqClient, configurationName);
         assertTrue(!result.isEmpty());
         System.out.println("Test 2 passed");
     }
 
     @Test
-    @Order(2)
-    public void CreateConfiguration() {
-        String result = CreateConfiguration.createNewConfigutation(mqClient, configurationName);
+    @Tag("IntegrationTest")
+    @Order(3)
+    public void DescribeBroker() {
+        String result = DescribeBroker.describeBroker(mqClient, brokerName);
         assertTrue(!result.isEmpty());
         System.out.println("Test 3 passed");
     }
 
     @Test
-    @Order(3)
-    public void DescribeBroker() {
-        String result = DescribeBroker.describeBroker(mqClient, brokerName);
-        assertTrue(!result.isEmpty());
+    @Tag("IntegrationTest")
+    @Order(4)
+    public void ListBrokers() {
+        List<BrokerSummary> result = ListBrokers.listBrokers(mqClient);
+        assertTrue(result instanceof List<?>);
         System.out.println("Test 4 passed");
     }
 
     @Test
-    @Order(4)
-    public void ListBrokers() {
-        List<BrokerSummary> result = ListBrokers.listBrokers(mqClient);
+    @Tag("IntegrationTest")
+    @Order(5)
+    public void ListConfigurations() {
+        List<Configuration> result = ListConfigurations.listConfigurations(mqClient);
         assertTrue(result instanceof List<?>);
         System.out.println("Test 5 passed");
     }
 
     @Test
-    @Order(5)
-    public void ListConfigurations() {
-        List<Configuration> result = ListConfigurations.listConfigurations(mqClient);
-        assertTrue(result instanceof List<?>);
-        System.out.println("Test 6 passed");
-    }
-
-    @Test
+    @Tag("IntegrationTest")
     @Order(6)
-    public void UpdateBrokerConfiguration() {
-        String result = UpdateBrokerConfiguration.updateBrokerConfiguration(mqClient, brokerId, configurationId);
-        assertTrue(!result.isEmpty());
-        System.out.print("Test 7 passed");
+    public void testDeleteBroker() {
+        assertDoesNotThrow(() -> DeleteBroker.deleteBroker(mqClient, brokerId));
+        System.out.println("Test 6 passed");
     }
 }

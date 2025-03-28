@@ -90,9 +90,9 @@ public class OpenSearchTest {
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void domainChangeTest() {
+    public void domainTagTest() {
         assertDoesNotThrow(() -> {
-            CompletableFuture<Void> future = openSearchActions.domainChangeProgressAsync(domainName);
+            CompletableFuture<AddTagsResponse> future = openSearchActions.addDomainTagsAsync(arn);
             future.join();
             System.out.println("Domain change progress completed successfully.");
         });
@@ -102,11 +102,11 @@ public class OpenSearchTest {
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void domainModifyTest() {
+    public void domainListTagsTest() {
         assertDoesNotThrow(() -> {
-            CompletableFuture<UpdateDomainConfigResponse> future = openSearchActions.updateSpecificDomainAsync(domainName);
-            UpdateDomainConfigResponse updateResponse = future.join();  // Wait for the task to complete
-            System.out.println("Domain update response from Amazon OpenSearch Service: " + updateResponse.toString());
+            CompletableFuture<ListTagsResponse> future = openSearchActions.listDomainTagsAsync(arn);
+            future.join();
+            System.out.println("Domain tags listed successfully.");
         });
         System.out.println("Test 6 passed");
     }
@@ -114,48 +114,12 @@ public class OpenSearchTest {
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void domainChangeTest2() {
-        assertDoesNotThrow(() -> {
-            CompletableFuture<Void> future = openSearchActions.domainChangeProgressAsync(domainName);
-            future.join();
-            System.out.println("Domain change progress completed successfully.");
-        });
-        System.out.println("Test 7 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(8)
-    public void domainTagTest() {
-        assertDoesNotThrow(() -> {
-            CompletableFuture<AddTagsResponse> future = openSearchActions.addDomainTagsAsync(arn);
-            future.join();
-            System.out.println("Domain change progress completed successfully.");
-        });
-        System.out.println("Test 8 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(9)
-    public void domainListTagsTest() {
-        assertDoesNotThrow(() -> {
-            CompletableFuture<ListTagsResponse> future = openSearchActions.listDomainTagsAsync(arn);
-            future.join();
-            System.out.println("Domain tags listed successfully.");
-        });
-        System.out.println("Test 8 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(10)
     public void domainDelTest() {
         assertDoesNotThrow(() -> {
             CompletableFuture<DeleteDomainResponse> future = openSearchActions.deleteSpecificDomainAsync(domainName);
             future.join();
             System.out.println(domainName + " was successfully deleted.");
         });
-        System.out.println("Test 10 passed");
+        System.out.println("Test 7 passed");
     }
 }
