@@ -1,0 +1,204 @@
+{
+	"examples": [
+		{
+			"id": "sesv2_CreateContactList",
+			"file": "sesv2_metadata.yaml",
+			"languages": [],
+			"title": "CreateContactList",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_CreateContactList_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_CreateContact",
+			"file": "sesv2_metadata.yaml",
+			"languages": [],
+			"title": "CreateContact",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_CreateContact_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_ListContacts",
+			"file": "sesv2_metadata.yaml",
+			"languages": [],
+			"title": "ListContacts",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_ListContacts_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_SendEmail",
+			"file": "sesv2_metadata.yaml",
+			"languages": [],
+			"title": "SendEmail",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_SendEmail_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_CreateEmailIdentity",
+			"file": "sesv2_metadata.yaml",
+			"languages": [],
+			"title": "CreateEmailIdentity",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_CreateEmailIdentity_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_CreateEmailTemplate",
+			"file": "sesv2_metadata.yaml",
+			"languages": [],
+			"title": "CreateEmailTemplate",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_CreateEmailTemplate_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_DeleteContactList",
+			"file": "sesv2_metadata.yaml",
+			"languages": [],
+			"title": "DeleteContactList",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_DeleteContactList_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_DeleteEmailIdentity",
+			"file": "sesv2_metadata.yaml",
+			"languages": [],
+			"title": "DeleteEmailIdentity",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_DeleteEmailIdentity_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_DeleteEmailTemplate",
+			"file": "sesv2_metadata.yaml",
+			"languages": [],
+			"title": "DeleteEmailTemplate",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_DeleteEmailTemplate_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_NewsletterWorkflow",
+			"file": "sesv2_metadata.yaml",
+			"languages": [],
+			"title": "A complete Amazon SES v2 API Newsletter scenario using an AWS SDK",
+			"title_abbrev": "Newsletter scenario",
+			"synopsis": "run the Amazon SES v2 API newsletter scenario.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_NewsletterWorkflow_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

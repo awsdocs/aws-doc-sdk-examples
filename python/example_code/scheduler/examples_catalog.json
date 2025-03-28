@@ -1,0 +1,131 @@
+{
+	"examples": [
+		{
+			"id": "scheduler_hello",
+			"file": "scheduler_metadata.yaml",
+			"languages": [],
+			"title": "Hello EventBridge Scheduler",
+			"title_abbrev": "Hello EventBridge Scheduler",
+			"synopsis": "get started using EventBridge Scheduler.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "scheduler_CreateSchedule",
+			"file": "scheduler_metadata.yaml",
+			"languages": [],
+			"title": "CreateSchedule",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_CreateSchedule_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "scheduler_CreateScheduleGroup",
+			"file": "scheduler_metadata.yaml",
+			"languages": [],
+			"title": "CreateScheduleGroup",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_CreateScheduleGroup_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "scheduler_DeleteSchedule",
+			"file": "scheduler_metadata.yaml",
+			"languages": [],
+			"title": "DeleteSchedule",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_DeleteSchedule_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "scheduler_DeleteScheduleGroup",
+			"file": "scheduler_metadata.yaml",
+			"languages": [],
+			"title": "DeleteScheduleGroup",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_DeleteScheduleGroup_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "scheduler_ScheduledEventsScenario",
+			"file": "scheduler_metadata.yaml",
+			"languages": [],
+			"title": "A complete EventBridge Scheduler Scheduled Events scenario using an AWS SDK",
+			"title_abbrev": "Scheduled Events",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_ScheduledEventsScenario_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Deploy a CloudFormation stack with required resources.",
+				"Create a EventBridge Scheduler schedule group.",
+				"Create a one-time EventBridge Scheduler schedule with a flexible time window.",
+				"Create a recurring EventBridge Scheduler schedule with a specified rate.",
+				"Delete EventBridge Scheduler the schedule and schedule group.",
+				"Clean up resources and delete the stack."
+			],
+			"source_key": null
+		}
+	]
+}

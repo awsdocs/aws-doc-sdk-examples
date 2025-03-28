@@ -1,0 +1,532 @@
+{
+	"examples": [
+		{
+			"id": "kms_TagResource",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "TagResource",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_TagResource_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_Sign",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "Sign",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_Sign_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_Verify",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "Verify",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_Verify_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_CreateKey",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "CreateKey",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_CreateKey_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_Decrypt",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "Decrypt",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_Decrypt_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_Encrypt",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "Encrypt",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_Encrypt_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_GenerateDataKey",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "GenerateDataKey",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_GenerateDataKey_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_ListKeys",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "ListKeys",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_ListKeys_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_ReEncrypt",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "ReEncrypt",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_ReEncrypt_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_CreateAlias",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "CreateAlias",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_CreateAlias_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_CreateGrant",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "CreateGrant",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_CreateGrant_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_DescribeKey",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "DescribeKey",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_DescribeKey_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_DisableKey",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "DisableKey",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_DisableKey_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_EnableKey",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "EnableKey",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_EnableKey_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_ScheduleKeyDeletion",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "ScheduleKeyDeletion",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_ScheduleKeyDeletion_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_ListAliases",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "ListAliases",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_ListAliases_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_UpdateAlias",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "UpdateAlias",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_UpdateAlias_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_DeleteAlias",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "DeleteAlias",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_DeleteAlias_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_ListGrants",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "ListGrants",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_ListGrants_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_RetireGrant",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "RetireGrant",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_RetireGrant_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_RevokeGrant",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "RevokeGrant",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_RevokeGrant_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_ListKeyPolicies",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "ListKeyPolicies",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_ListKeyPolicies_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_GetKeyPolicy",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "GetKeyPolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_GetKeyPolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_PutKeyPolicy",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "PutKeyPolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_PutKeyPolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_EnableKeyRotation",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "EnableKeyRotation",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_EnableKeyRotation_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kms_Scenario_Basics",
+			"file": "kms_metadata.yaml",
+			"languages": [],
+			"title": "Learn the basics",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kms": "https://docs.aws.amazon.com/code-library/latest/ug/kms_example_kms_Scenario_Basics_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create a KMS key.",
+				"List KMS keys for your account and get details about them.",
+				"Enable and disable KMS keys.",
+				"Generate a symmetric data key that can be used for client-side encryption.",
+				"Generate an asymmetric key used to digitally sign data.",
+				"Tag keys.",
+				"Delete KMS keys."
+			],
+			"source_key": null
+		}
+	]
+}

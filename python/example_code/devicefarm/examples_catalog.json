@@ -1,0 +1,44 @@
+{
+	"examples": [
+		{
+			"id": "device-farm_Scenario_BrowserTesting",
+			"file": "device-farm_metadata.yaml",
+			"languages": [],
+			"title": "Run browser tests with Device Farm and take screenshots using an AWS SDK",
+			"title_abbrev": "Run browser tests and take screenshots",
+			"synopsis": "run browser tests with Device Farm and take screenshots.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"device-farm": "https://docs.aws.amazon.com/code-library/latest/ug/device-farm_example_device-farm_Scenario_BrowserTesting_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "device-farm_Scenario_DeviceTesting",
+			"file": "device-farm_metadata.yaml",
+			"languages": [],
+			"title": "Upload and test mobile device packages with Device Farm using an AWS SDK",
+			"title_abbrev": "Upload and test device packages",
+			"synopsis": "upload and test mobile device packages with Device Farm.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"device-farm": "https://docs.aws.amazon.com/code-library/latest/ug/device-farm_example_device-farm_Scenario_DeviceTesting_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

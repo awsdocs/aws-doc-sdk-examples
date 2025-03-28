@@ -2,17 +2,19 @@
 
 ## Overview
 
-Describes WRITEME, a tool to automatically generate service-level READMEs from
-metadata and Jinja templates.
+Describes a set of scanners to generate documents from the example metadata in this repository.
 
-This is an internal tool intended for use only by the AWS code examples team.
+- [writeme.py](#WRITEME) - generates READMEs from metadata. Enabled for all SDK languages.
+- [catalog.py](#Catalog) - generates catalog files with example listings. Currently enabled for Python only.
+
+### General Information
 
 ## Prerequisites
 
-We recommend a virtual environment to run this tool.
+We recommend a virtual environment to run these tools.
 
 ```
-cd .tools/readmes
+cd .tools/scanners
 python -m venv .venv
 
 # Windows
@@ -26,14 +28,55 @@ Depending on how you have Python installed and on your operating system,
 the commands might vary slightly. For example, on Windows, use `py` in place of
 `python` and uses backslashes in the `venv` path.
 
+### Parameters
+
+- `--languages` must match a top-level language:version in sdks.yaml.
+- `--services` must match a top-level service in services.yaml.
+- `--safe` (optional) when specified, the existing README.md is renamed to the
+  `saved_readme` value in config.py (such as README.old.md).
+- `--verbose` When set, output verbose debugging info.
+- `--dry-run`, `--no-dry-run` In dry run, compare current vs generated and exit with failure if they do not match.
+- `--check` Verifies whether the existing generated file matches the generated content.
+  (but does not write a new file). This is the same check that is run by the GitHub action.
+
+You can get inline usage info by using the `-h` flag:
+
+```
+python -m writeme -h
+```
+
+### Configuration
+
+Additional configuration is kept in `config.py`.
+
+- `entities` is a dictionary of entities that are not otherwise defined in
+  services.yaml.
+- `catalog_filename` is the base name for generated catalog files.
+- `language` is a dictionary of language and version for each SDK. Fields are:
+  - `base_folder` the root folder for the SDK version.
+  - `service_folder` a Jinja template of the service folder for the SDK version.
+    This might not work in all cases. If not, use the `--svc_folder` override.
+  - `sdk_api_ref` a Jinja template of the SDK API Reference topic for the SDK version.
+    This is used to create the link to the reference page in the Additional Resources
+    section, such as to the Boto3 S3 reference page for Python. This is a best effort,
+    and if the generated link is wrong, you can update it manually. On subsequent runs
+    of WRITEME, the existing link is kept.
+
+
+### WRITEME
+WRITEME is a tool to automatically generate service-level READMEs from
+metadata and Jinja templates.
+
+This is an internal tool intended for use only by the AWS code examples team.
+
 ## Generate a README
 
-> These instructions assume you're running the commands from the `.tools/readmes`
+> These instructions assume you're running the commands from the `.tools/scanners`
 > directory, using the venv installed there.
 
 WRITEME creates content primarily from metadata you have already
 authored for the SOS project. After you have authored metadata and snippet tags
-for your examples, run the following command in the `.tools/readmes` folder:
+for your examples, run the following command in the `.tools/scanners` folder:
 
 ```
 python -m writeme --languages <language>:<version> --services <service>
@@ -50,38 +93,6 @@ python -m writeme --languages Python:3 --services s3
 
 This creates a README.md file in the `python/example_code/s3` folder.
 
-### Parameters
-
-- `--languages` must match a top-level language:version in sdks.yaml.
-- `--services` must match a top-level service in services.yaml.
-- `--safe` (optional) when specified, the existing README.md is renamed to the
-  `saved_readme` value in config.py (such as README.old.md).
-- `--verbose` When set, output verbose debugging info.
-- `--dry-run`, `--no-dry-run` In dry run, compare current vs generated and exit with failure if they do not match.
-- `--check` Verifies whether the existing README.md matches the proposed new README.md
-  (but does not write a new README.md). This is the same check that is run by the GitHub action.
-
-You can get inline usage info by using the `-h` flag:
-
-```
-python -m writeme -h
-```
-
-### Configuration
-
-Additional configuration is kept in `config.py`.
-
-- `entities` is a dictionary of entities that are not otherwise defined in
-  services.yaml.
-- `language` is a dictionary of language and version for each SDK. Fields are:
-  - `base_folder` the root folder for the SDK version.
-  - `service_folder` a Jinja template of the service folder for the SDK version.
-    This might not work in all cases. If not, use the `--svc_folder` override.
-  - `sdk_api_ref` a Jinja template of the SDK API Reference topic for the SDK version.
-    This is used to create the link to the reference page in the Additional Resources
-    section, such as to the Boto3 S3 reference page for Python. This is a best effort,
-    and if the generated link is wrong, you can update it manually. On subsequent runs
-    of WRITEME, the existing link is kept.
 
 ### Custom content
 
@@ -114,13 +125,13 @@ empty if you don't need custom content.
 versions, and services.
 
 ```
-python .tools/readmes/writeme.py --languages <language1>:<version> <language2>:<version> --service <service1> <service2>
+python .tools/scanners/writeme.py --languages <language1>:<version> <language2>:<version> --service <service1> <service2>
 ```
 
 For example, to generate S3 and STS READMEs for Python sdk version 3 and Go sdk version 2:
 
 ```
-python .tools/readmes/writeme.py --languages Python:3 Go:2 --services s3 sts
+python .tools/scanners/writeme.py --languages Python:3 Go:2 --services s3 sts
 ```
 
 This creates the README.md files in `python/example_code/s3` and other folders.
@@ -147,3 +158,32 @@ And yes, building all readmes for all languages after changing metadata or templ
 ```
 python -m writeme
 ```
+
+### Catalog
+Catalog.py is a tool to automatically generate service-level example catalogs (examples_catalog.json) from metadata using shared document generation tools.
+
+This is an internal tool intended for use only by the AWS code examples team.
+
+## Generate a Catalog
+
+> These instructions assume you're running the commands from the `.tools/scanners`
+> directory, using the venv installed there.
+
+WRITEME creates content primarily from metadata you have already
+authored for the SOS project. After you have authored metadata and snippet tags
+for your examples, run the following command in the `.tools/scanners` folder:
+
+```
+python -m catalog --languages <language>:<version> --services <service>
+```
+
+Catalog.py reads metadata and config data and generates listings of examples in the service
+folder for the specified languages and versions. The file will not be generated if no examples exist.
+
+For example, to generate an S3 README for Python:
+
+```
+python -m catalog --languages Python:3 --services s3
+```
+
+This creates an `examples_catalog.json` file in the `python/example_code/s3` folder.

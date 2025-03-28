@@ -1,0 +1,64 @@
+{
+	"examples": [
+		{
+			"id": "config-service_PutConfigRule",
+			"file": "config-service_metadata.yaml",
+			"languages": [],
+			"title": "PutConfigRule",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"config-service": "https://docs.aws.amazon.com/code-library/latest/ug/config-service_example_config-service_PutConfigRule_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "config-service_DescribeConfigRules",
+			"file": "config-service_metadata.yaml",
+			"languages": [],
+			"title": "DescribeConfigRules",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"config-service": "https://docs.aws.amazon.com/code-library/latest/ug/config-service_example_config-service_DescribeConfigRules_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "config-service_DeleteConfigRule",
+			"file": "config-service_metadata.yaml",
+			"languages": [],
+			"title": "DeleteConfigRule",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"config-service": "https://docs.aws.amazon.com/code-library/latest/ug/config-service_example_config-service_DeleteConfigRule_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

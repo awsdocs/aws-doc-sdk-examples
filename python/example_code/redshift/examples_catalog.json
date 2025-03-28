@@ -1,0 +1,172 @@
+{
+	"examples": [
+		{
+			"id": "redshift_Hello",
+			"file": "redshift_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon Redshift",
+			"title_abbrev": "Hello Amazon Redshift",
+			"synopsis": "get started using Amazon Redshift.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_CreateCluster",
+			"file": "redshift_metadata.yaml",
+			"languages": [],
+			"title": "CreateCluster",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_CreateCluster_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_DeleteCluster",
+			"file": "redshift_metadata.yaml",
+			"languages": [],
+			"title": "DeleteCluster",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_DeleteCluster_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_DescribeClusters",
+			"file": "redshift_metadata.yaml",
+			"languages": [],
+			"title": "DescribeClusters",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_DescribeClusters_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_ModifyCluster",
+			"file": "redshift_metadata.yaml",
+			"languages": [],
+			"title": "ModifyCluster",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_ModifyCluster_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_DescribeStatement",
+			"file": "redshift_metadata.yaml",
+			"languages": [],
+			"title": "DescribeStatement",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_DescribeStatement_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_GetStatementResult",
+			"file": "redshift_metadata.yaml",
+			"languages": [],
+			"title": "GetStatementResult",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_GetStatementResult_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_Scenario",
+			"file": "redshift_metadata.yaml",
+			"languages": [],
+			"title": "Learn the basics",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_Scenario_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create a Redshift cluster.",
+				"List databases in the cluster.",
+				"Create a table named Movies.",
+				"Populate the Movies table.",
+				"Query the Movies table by year.",
+				"Modify the Redshift cluster.",
+				"Delete the Amazon Redshift cluster."
+			],
+			"source_key": null
+		}
+	]
+}

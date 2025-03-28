@@ -1,0 +1,256 @@
+{
+	"examples": [
+		{
+			"id": "bedrock-agent_CreateAgent",
+			"file": "bedrock-agent_metadata.yaml",
+			"languages": [],
+			"title": "CreateAgent",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_CreateAgent_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-agent_CreateAgentActionGroup",
+			"file": "bedrock-agent_metadata.yaml",
+			"languages": [],
+			"title": "CreateAgentActionGroup",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_CreateAgentActionGroup_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-agent_CreateAgentAlias",
+			"file": "bedrock-agent_metadata.yaml",
+			"languages": [],
+			"title": "CreateAgentAlias",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_CreateAgentAlias_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-agent_DeleteAgent",
+			"file": "bedrock-agent_metadata.yaml",
+			"languages": [],
+			"title": "DeleteAgent",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_DeleteAgent_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-agent_DeleteAgentAlias",
+			"file": "bedrock-agent_metadata.yaml",
+			"languages": [],
+			"title": "DeleteAgentAlias",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_DeleteAgentAlias_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-agent_GetAgent",
+			"file": "bedrock-agent_metadata.yaml",
+			"languages": [],
+			"title": "GetAgent",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_GetAgent_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-agent_ListAgents",
+			"file": "bedrock-agent_metadata.yaml",
+			"languages": [],
+			"title": "ListAgents",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_ListAgents_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-agent_ListAgentActionGroups",
+			"file": "bedrock-agent_metadata.yaml",
+			"languages": [],
+			"title": "ListAgentActionGroups",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_ListAgentActionGroups_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-agent_ListAgentKnowledgeBases",
+			"file": "bedrock-agent_metadata.yaml",
+			"languages": [],
+			"title": "ListAgentKnowledgeBases",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_ListAgentKnowledgeBases_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-agent_PrepareAgent",
+			"file": "bedrock-agent_metadata.yaml",
+			"languages": [],
+			"title": "PrepareAgent",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_PrepareAgent_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-agent_GettingStartedWithBedrockAgents",
+			"file": "bedrock-agent_metadata.yaml",
+			"languages": [],
+			"title": "An end-to-end example showing how to create and invoke Amazon Bedrock Agents using an AWS SDK",
+			"title_abbrev": "Create and invoke an agent",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_GettingStartedWithBedrockAgents_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create an execution role for the agent.",
+				"Create the agent and deploy a DRAFT version.",
+				"Create a Lambda function that implements the agent's capabilities.",
+				"Create an action group that connects the agent to the Lambda function.",
+				"Deploy the fully configured agent.",
+				"Invoke the agent with user-provided prompts.",
+				"Delete all created resources."
+			],
+			"source_key": null
+		},
+		{
+			"id": "cross_ServerlessPromptChaining",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Build and orchestrate generative AI applications with Amazon Bedrock and Step Functions",
+			"title_abbrev": "Orchestrate generative AI applications with Step Functions",
+			"synopsis": "build and orchestrate generative AI applications with Amazon Bedrock and Step Functions.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "bedrock",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock_example_cross_ServerlessPromptChaining_section.html",
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_cross_ServerlessPromptChaining_section.html",
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_cross_ServerlessPromptChaining_section.html",
+					"bedrock-agent-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent-runtime_example_cross_ServerlessPromptChaining_section.html",
+					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_ServerlessPromptChaining_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

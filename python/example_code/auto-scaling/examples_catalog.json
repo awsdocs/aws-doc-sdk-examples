@@ -1,0 +1,301 @@
+{
+	"examples": [
+		{
+			"id": "auto-scaling_Hello",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "Hello Auto Scaling",
+			"title_abbrev": "Hello Auto Scaling",
+			"synopsis": "get started using Auto Scaling.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_CreateAutoScalingGroup",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "CreateAutoScalingGroup",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_CreateAutoScalingGroup_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_DeleteAutoScalingGroup",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "DeleteAutoScalingGroup",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_DeleteAutoScalingGroup_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_DescribeAutoScalingGroups",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "DescribeAutoScalingGroups",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_DescribeAutoScalingGroups_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_UpdateAutoScalingGroup",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "UpdateAutoScalingGroup",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_UpdateAutoScalingGroup_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_TerminateInstanceInAutoScalingGroup",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "TerminateInstanceInAutoScalingGroup",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_TerminateInstanceInAutoScalingGroup_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_SetDesiredCapacity",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "SetDesiredCapacity",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_SetDesiredCapacity_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_DescribeAutoScalingInstances",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "DescribeAutoScalingInstances",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_DescribeAutoScalingInstances_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_DescribeScalingActivities",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "DescribeScalingActivities",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_DescribeScalingActivities_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_EnableMetricsCollection",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "EnableMetricsCollection",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_EnableMetricsCollection_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_DisableMetricsCollection",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "DisableMetricsCollection",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_DisableMetricsCollection_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_AttachLoadBalancerTargetGroups",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "AttachLoadBalancerTargetGroups",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_AttachLoadBalancerTargetGroups_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_Scenario_GroupsAndInstances",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "Learn the basics",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_Scenario_GroupsAndInstances_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create an Amazon EC2 Auto Scaling group with a launch template and Availability Zones, and get information about running instances.",
+				"Enable Amazon CloudWatch metrics collection.",
+				"Update the group's desired capacity and wait for an instance to start.",
+				"Terminate an instance in the group.",
+				"List scaling activities that occur in response to user requests and capacity changes.",
+				"Get statistics for CloudWatch metrics, then clean up resources."
+			],
+			"source_key": null
+		},
+		{
+			"id": "cross_ResilientService",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Build and manage a resilient service using an AWS SDK",
+			"title_abbrev": "Build and manage a resilient service",
+			"synopsis": "create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_cross_ResilientService_section.html",
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_cross_ResilientService_section.html",
+					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_cross_ResilientService_section.html",
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_cross_ResilientService_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.",
+				"Handle and distribute HTTP requests with Elastic Load Balancing.",
+				"Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.",
+				"Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.",
+				"Simulate a recommendation service with an Amazon DynamoDB table.",
+				"Control web server response to requests and health checks by updating AWS Systems Manager parameters."
+			],
+			"source_key": null
+		}
+	]
+}

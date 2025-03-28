@@ -1,0 +1,404 @@
+{
+	"examples": [
+		{
+			"id": "kinesis-analytics-v2_CreateApplication",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "CreateApplication",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_CreateApplication_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DeleteApplication",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "DeleteApplication",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DeleteApplication_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DescribeApplication",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "DescribeApplication",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DescribeApplication_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DescribeApplicationSnapshot",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "DescribeApplicationSnapshot",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DescribeApplicationSnapshot_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DiscoverInputSchema",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "DiscoverInputSchema",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DiscoverInputSchema_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_AddApplicationInput",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "AddApplicationInput",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_AddApplicationInput_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_AddApplicationOutput",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "AddApplicationOutput",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_AddApplicationOutput_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_UpdateApplication",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "UpdateApplication",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_UpdateApplication_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_StartApplication",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "StartApplication",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_StartApplication_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_StopApplication",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "StopApplication",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_StopApplication_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DataGenerator_Anomaly",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "Generate a Kinesis stream with heart rate anomalies using an AWS SDK",
+			"title_abbrev": "Generate a stream with heart rate anomalies",
+			"synopsis": "generate a Kinesis stream with heart rate anomalies.",
+			"category": "Data generator",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DataGenerator_Anomaly_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DataGenerator_AnomalyEx",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "Generate a Kinesis stream with blood pressure anomalies using an AWS SDK",
+			"title_abbrev": "Generate a stream with blood pressure anomalies",
+			"synopsis": "generate a Kinesis stream with blood pressure anomalies.",
+			"category": "Data generator",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DataGenerator_AnomalyEx_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DataGenerator_ColumnLog",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "Generate a Kinesis stream with data in columns using an AWS SDK",
+			"title_abbrev": "Generate a stream with data in columns",
+			"synopsis": "generate a Kinesis stream with data in columns.",
+			"category": "Data generator",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DataGenerator_ColumnLog_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DataGenerator_Hotspots",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "Generate a Kinesis stream with hotspots using an AWS SDK",
+			"title_abbrev": "Generate a stream with hotspots",
+			"synopsis": "generate a Kinesis stream with hotspots.",
+			"category": "Data generator",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DataGenerator_Hotspots_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DataGenerator_Referrer",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "Generate a Kinesis stream with a referrer using an AWS SDK",
+			"title_abbrev": "Generate a stream with a referrer",
+			"synopsis": "generate a Kinesis stream with a referrer.",
+			"category": "Data generator",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DataGenerator_Referrer_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DataGenerator_RegexLog",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "Generate a Kinesis stream with log entries using an AWS SDK",
+			"title_abbrev": "Generate a stream with log entries",
+			"synopsis": "generate a Kinesis stream with log entries.",
+			"category": "Data generator",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DataGenerator_RegexLog_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DataGenerator_Stagger",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "Generate a Kinesis stream with stagger data using an AWS SDK",
+			"title_abbrev": "Generate a stream with stagger data",
+			"synopsis": "generate a Kinesis stream with stagger data.",
+			"category": "Data generator",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DataGenerator_Stagger_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DataGenerator_StockTicker",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "Generate a Kinesis stream with stock ticker data using an AWS SDK",
+			"title_abbrev": "Generate a stream with stock ticker data",
+			"synopsis": "generate a Kinesis stream with stock ticker data.",
+			"category": "Data generator",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DataGenerator_StockTicker_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DataGenerator_TwoRecordTypes",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "Generate a Kinesis stream with two data types using an AWS SDK",
+			"title_abbrev": "Generate a stream with two data types",
+			"synopsis": "generate a Kinesis stream with two data types.",
+			"category": "Data generator",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DataGenerator_TwoRecordTypes_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DataGenerator_WebLog",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "Generate a Kinesis stream with web log data using an AWS SDK",
+			"title_abbrev": "Generate a stream with web log data",
+			"synopsis": "generate a Kinesis stream with web log data.",
+			"category": "Data generator",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DataGenerator_WebLog_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

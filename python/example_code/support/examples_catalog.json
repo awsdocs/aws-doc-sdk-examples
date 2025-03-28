@@ -1,0 +1,232 @@
+{
+	"examples": [
+		{
+			"id": "support_Hello",
+			"file": "support_metadata.yaml",
+			"languages": [],
+			"title": "Hello Support",
+			"title_abbrev": "Hello Support",
+			"synopsis": "get started using Support.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"support": "https://docs.aws.amazon.com/code-library/latest/ug/support_example_support_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "support_AddAttachmentsToSet",
+			"file": "support_metadata.yaml",
+			"languages": [],
+			"title": "AddAttachmentsToSet",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"support": "https://docs.aws.amazon.com/code-library/latest/ug/support_example_support_AddAttachmentsToSet_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "support_AddCommunicationToCase",
+			"file": "support_metadata.yaml",
+			"languages": [],
+			"title": "AddCommunicationToCase",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"support": "https://docs.aws.amazon.com/code-library/latest/ug/support_example_support_AddCommunicationToCase_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "support_CreateCase",
+			"file": "support_metadata.yaml",
+			"languages": [],
+			"title": "CreateCase",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"support": "https://docs.aws.amazon.com/code-library/latest/ug/support_example_support_CreateCase_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "support_DescribeAttachment",
+			"file": "support_metadata.yaml",
+			"languages": [],
+			"title": "DescribeAttachment",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"support": "https://docs.aws.amazon.com/code-library/latest/ug/support_example_support_DescribeAttachment_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "support_DescribeCases",
+			"file": "support_metadata.yaml",
+			"languages": [],
+			"title": "DescribeCases",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"support": "https://docs.aws.amazon.com/code-library/latest/ug/support_example_support_DescribeCases_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "support_DescribeCommunications",
+			"file": "support_metadata.yaml",
+			"languages": [],
+			"title": "DescribeCommunications",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"support": "https://docs.aws.amazon.com/code-library/latest/ug/support_example_support_DescribeCommunications_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "support_DescribeServices",
+			"file": "support_metadata.yaml",
+			"languages": [],
+			"title": "DescribeServices",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"support": "https://docs.aws.amazon.com/code-library/latest/ug/support_example_support_DescribeServices_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "support_DescribeSeverityLevels",
+			"file": "support_metadata.yaml",
+			"languages": [],
+			"title": "DescribeSeverityLevels",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"support": "https://docs.aws.amazon.com/code-library/latest/ug/support_example_support_DescribeSeverityLevels_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "support_ResolveCase",
+			"file": "support_metadata.yaml",
+			"languages": [],
+			"title": "ResolveCase",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"support": "https://docs.aws.amazon.com/code-library/latest/ug/support_example_support_ResolveCase_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "support_Scenario_GetStartedSupportCases",
+			"file": "support_metadata.yaml",
+			"languages": [],
+			"title": "Learn the basics",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"support": "https://docs.aws.amazon.com/code-library/latest/ug/support_example_support_Scenario_GetStartedSupportCases_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Get and display available services and severity levels for cases.",
+				"Create a support case using a selected service, category, and severity level.",
+				"Get and display a list of open cases for the current day.",
+				"Add an attachment set and a communication to the new case.",
+				"Describe the new attachment and communication for the case.",
+				"Resolve the case.",
+				"Get and display a list of resolved cases for the current day."
+			],
+			"source_key": null
+		}
+	]
+}

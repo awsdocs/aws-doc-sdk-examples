@@ -1,0 +1,189 @@
+{
+	"examples": [
+		{
+			"id": "cloudwatch_DeleteAlarms",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": [],
+			"title": "DeleteAlarms",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_DeleteAlarms_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_DescribeAlarmsForMetric",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": [],
+			"title": "DescribeAlarmsForMetric",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_DescribeAlarmsForMetric_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_DisableAlarmActions",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": [],
+			"title": "DisableAlarmActions",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_DisableAlarmActions_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_EnableAlarmActions",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": [],
+			"title": "EnableAlarmActions",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_EnableAlarmActions_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_GetMetricStatistics",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": [],
+			"title": "GetMetricStatistics",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_GetMetricStatistics_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_ListMetrics",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": [],
+			"title": "ListMetrics",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_ListMetrics_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_PutMetricAlarm",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": [],
+			"title": "PutMetricAlarm",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_PutMetricAlarm_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_PutMetricData",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": [],
+			"title": "PutMetricData",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_PutMetricData_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch_Usage_MetricsAlarms",
+			"file": "cloudwatch_metadata.yaml",
+			"languages": [],
+			"title": "Manage CloudWatch metrics and alarms using an AWS SDK",
+			"title_abbrev": "Manage metrics and alarms",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch_example_cloudwatch_Usage_MetricsAlarms_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create an alarm to watch a CloudWatch metric.",
+				"Put data into a metric and trigger the alarm.",
+				"Get data from the alarm.",
+				"Delete the alarm."
+			],
+			"source_key": null
+		}
+	]
+}

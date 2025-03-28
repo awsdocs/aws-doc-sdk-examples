@@ -1,0 +1,214 @@
+{
+	"examples": [
+		{
+			"id": "ecr_Hello",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon ECR",
+			"title_abbrev": "Hello Amazon ECR",
+			"synopsis": "get started using Amazon ECR.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_SetRepositoryPolicy",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "SetRepositoryPolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_SetRepositoryPolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_GetRepositoryPolicy",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "GetRepositoryPolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_GetRepositoryPolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_GetAuthorizationToken",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "GetAuthorizationToken",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_GetAuthorizationToken_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_PutLifeCyclePolicy",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "PutLifeCyclePolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_PutLifeCyclePolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_DescribeImages",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "DescribeImages",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_DescribeImages_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_DeleteRepository",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "DeleteRepository",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_DeleteRepository_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_CreateRepository",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "CreateRepository",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_CreateRepository_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_DescribeRepositories",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "DescribeRepositories",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_DescribeRepositories_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_Scenario_RepositoryManagement",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "Learn the basics",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_Scenario_RepositoryManagement_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create an Amazon ECR repository.",
+				"Set repository policies.",
+				"Retrieve repository URIs.",
+				"Get Amazon ECR authorization tokens.",
+				"Set lifecycle policies for Amazon ECR repositories.",
+				"Push a Docker image to an Amazon ECR repository.",
+				"Verify the existence of an image in an Amazon ECR repository.",
+				"List Amazon ECR repositories for your account and get details about them.",
+				"Delete Amazon ECR repositories."
+			],
+			"source_key": null
+		}
+	]
+}
