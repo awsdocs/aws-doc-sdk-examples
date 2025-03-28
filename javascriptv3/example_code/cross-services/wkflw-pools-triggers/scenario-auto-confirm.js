@@ -53,7 +53,7 @@ const greeting = new ScenarioOutput(
   "greeting",
   (/** @type {State} */ state) => `This demo will populate some users into the \
 database created as part of the "${state.stackName}" stack. \
-Then the autoConfirmHandler will be linked to the PreSignUp \
+Then the AutoConfirmHandler will be linked to the PreSignUp \
 trigger from Cognito. Finally, you will choose a user to sign up.`,
   { skipWhen: skipWhenErrors },
 );
