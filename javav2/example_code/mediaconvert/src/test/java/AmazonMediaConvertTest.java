@@ -35,7 +35,6 @@ public class AmazonMediaConvertTest {
         region = Region.US_WEST_2;
         mc = MediaConvertClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -44,27 +43,6 @@ public class AmazonMediaConvertTest {
         SecretValues values = gson.fromJson(json, SecretValues.class);
         mcRoleARN = values.getMcRoleARN();
         fileInput = values.getFileInput();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * AmazonMediaConvertTest.class.getClassLoader().getResourceAsStream(
-         * "config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * prop.load(input);
-         * mcRoleARN = prop.getProperty("mcRoleARN");
-         * fileInput = prop.getProperty("fileInput");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -95,7 +73,6 @@ public class AmazonMediaConvertTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/mediaconvert";
 
@@ -112,15 +89,11 @@ public class AmazonMediaConvertTest {
     class SecretValues {
         private String mcRoleARN;
         private String fileInput;
-
         public String getMcRoleARN() {
             return mcRoleARN;
         }
-
         public String getFileInput() {
             return fileInput;
         }
-
     }
-
 }
