@@ -37,7 +37,6 @@ public class KendraTest {
     public static void setUp() {
         kendra = KendraClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -52,36 +51,6 @@ public class KendraTest {
         dataSourceDescription = values.getDataSourceDescription();
         dataSourceRoleArn = values.getDataSourceRoleArn();
         text = values.getText();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * KendraTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Load a properties file from the class path.
-         * prop.load(input);
-         * 
-         * // Populate the data members required for all tests.
-         * indexName = prop.getProperty("indexName")+ java.util.UUID.randomUUID();
-         * indexRoleArn = prop.getProperty("indexRoleArn");
-         * indexDescription = prop.getProperty("indexDescription");
-         * s3BucketName = prop.getProperty("s3BucketName");
-         * dataSourceName = prop.getProperty("dataSourceName");
-         * dataSourceDescription = prop.getProperty("dataSourceDescription");
-         * dataSourceRoleArn = prop.getProperty("dataSourceRoleArn");
-         * text = prop.getProperty("text");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -146,7 +115,6 @@ public class KendraTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/kendra";
 

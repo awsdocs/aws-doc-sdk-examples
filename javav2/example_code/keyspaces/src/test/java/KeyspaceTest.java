@@ -25,7 +25,6 @@ public class KeyspaceTest {
         Region region = Region.US_EAST_1;
         keyClient = KeyspacesClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
     }
 
