@@ -50,7 +50,7 @@ public class CreateConfiguration {
         try {
             CreateConfigurationRequest configurationRequest = CreateConfigurationRequest.builder()
                     .name(configurationName)
-                    .engineVersion("5.15.14")
+                    .engineVersion("5.18")
                     .engineType("ACTIVEMQ")
                     .authenticationStrategy("SIMPLE")
                     .build();

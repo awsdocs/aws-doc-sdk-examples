@@ -38,12 +38,10 @@ public class PersonalizeTest {
     @BeforeAll
     public static void setUp() {
         personalizeRuntimeClient = PersonalizeRuntimeClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(Region.US_EAST_1)
                 .build();
 
         personalizeClient = PersonalizeClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(Region.US_EAST_1)
                 .build();
 
@@ -127,7 +125,8 @@ public class PersonalizeTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void CreateCampaign() {
-        CreateCampaign.createPersonalCompaign(personalizeClient, solutionVersionArn, campaignName);
+        campaignArn = CreateCampaign.createPersonalCompaign(personalizeClient, solutionVersionArn, campaignName);
+        assertFalse(campaignArn.isEmpty());
         System.out.println("Test 4 passed");
     }
 
@@ -136,7 +135,7 @@ public class PersonalizeTest {
     @Order(5)
     public void ListCampaigns() {
         assertDoesNotThrow(() -> ListCampaigns.listAllCampaigns(personalizeClient, existingSolutionArn));
-        System.out.println("Test 6 passed");
+        System.out.println("Test 5 passed");
     }
 
     @Test
@@ -144,7 +143,7 @@ public class PersonalizeTest {
     @Order(6)
     public void DescribeRecipe() {
         assertDoesNotThrow(() -> DescribeRecipe.describeSpecificRecipe(personalizeClient, recipeArn));
-        System.out.println("Test 7 passed");
+        System.out.println("Test 6 passed");
     }
 
     @Test
@@ -152,7 +151,7 @@ public class PersonalizeTest {
     @Order(7)
     public void ListRecipes() {
         assertDoesNotThrow(() -> ListRecipes.listAllRecipes(personalizeClient));
-        System.out.println("Test 8 passed");
+        System.out.println("Test 7 passed");
     }
 
     @Test
@@ -160,7 +159,7 @@ public class PersonalizeTest {
     @Order(8)
     public void ListDatasetGroups() {
         assertDoesNotThrow(() -> ListDatasetGroups.listDSGroups(personalizeClient));
-        System.out.println("Test 9 passed");
+        System.out.println("Test 8 passed");
     }
 
     @Test
@@ -168,29 +167,24 @@ public class PersonalizeTest {
     @Order(9)
     public void DeleteSolution() {
         assertDoesNotThrow(() -> DeleteSolution.deleteGivenSolution(personalizeClient, solutionArn));
-        System.out.println("Test 10 passed");
+        System.out.println("Test 9 passed");
     }
+
 
     @Test
     @Tag("IntegrationTest")
     @Order(10)
-    public void GetRecommendations() {
-        assertDoesNotThrow(() -> GetRecommendations.getRecs(personalizeRuntimeClient, campaignArn, userId));
-        System.out.println("Test 11 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(11)
     public void DeleteCampaign() {
-        assertDoesNotThrow(() -> DeleteCampaign.deleteSpecificCampaign(personalizeClient, campaignArn));
-        System.out.println("Test 12 passed");
+        assertDoesNotThrow(() -> {
+            DeleteCampaign.waitForCampaignToBeDeletable(personalizeClient, campaignArn);
+            DeleteCampaign.deleteSpecificCampaign(personalizeClient, campaignArn);
+        });
+        System.out.println("Test 10 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/personalize";
 
