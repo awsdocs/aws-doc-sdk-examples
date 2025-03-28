@@ -47,7 +47,6 @@ public class GlueTest {
     public static void setUp() {
         glueClient = GlueClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -199,7 +198,6 @@ public class GlueTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
         String secretName = "test/glue";
 
