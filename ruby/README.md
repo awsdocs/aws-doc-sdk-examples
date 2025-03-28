@@ -11,7 +11,7 @@ The AWS SDK for Ruby Version 3 provides a Ruby API for AWS infrastructure servic
 
 * **Cross-service examples** - Sample applications that work across multiple AWS services.
 
-### Finding code examples
+### Finding code examples 
 
 Single-service actions and scenarios are organized by AWS service in the 
 [example_code folder](example_code). A README in each folder lists and describes how 
