@@ -56,6 +56,7 @@ functions within the same service.
 - [Create and publish to a FIFO topic](../sns/src/main/java/com/example/sns/PriceUpdateExample.java)
 - [Process S3 event notifications](../s3/src/main/java/com/example/s3/ProcessS3EventNotification.java)
 - [Publish messages to queues](../../usecases/topics_and_queues/src/main/java/com/example/sns/SNSWorkflow.java)
+- [Use the Amazon SQS Java Messaging Library to work with the JMS interface](../sqs-jms/src/main/java/com/example/sqs/jms/stdqueue/TextMessageSender.java)
 - [Work with queue tags](src/main/java/com/example/sqs/TagExamples.java)
 
 
@@ -116,9 +117,21 @@ This example shows you how to do the following:
 <!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
 <!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
 
+#### Use the Amazon SQS Java Messaging Library to work with the JMS interface
+
+This example shows you how to use the Amazon SQS Java Messaging Library to work with the JMS interface.
+
+
+<!--custom.scenario_prereqs.sqs_Scenario_UseJMS.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_UseJMS.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_UseJMS.start-->
+<!--custom.scenarios.sqs_Scenario_UseJMS.end-->
+
 #### Work with queue tags
 
-This example shows you how to perform tagging operation with Amazon SQS
+This example shows you how to perform tagging operation with Amazon SQS.
 
 
 <!--custom.scenario_prereqs.sqs_Scenario_WorkWithTags.start-->

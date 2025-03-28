@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        ">
+    <!-- Define the AWS Region -->
+    <bean id="region" class="software.amazon.awssdk.regions.Region" factory-method="of">
+        <constructor-arg value="us-east-1"/>
+    </bean>
+
+    <bean id="credentialsProviderBean" class="software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider"
+          factory-method="create"/>
+
+    <bean id="clientBuilder" class="software.amazon.awssdk.services.sqs.SqsClient" factory-method="builder"/>
+
+    <bean id="regionSetClientBuilder" factory-bean="clientBuilder" factory-method="region">
+        <constructor-arg ref="region"/>
+    </bean>
+
+    <!-- Configure the Builder with Credentials Provider -->
+    <bean id="sqsClient" factory-bean="regionSetClientBuilder" factory-method="credentialsProvider">
+        <constructor-arg ref="credentialsProviderBean"/>
+    </bean>
+
+    <bean id="providerConfiguration" class="com.amazon.sqs.javamessaging.ProviderConfiguration">
+        <property name="numberOfMessagesToPrefetch" value="5"/>
+    </bean>
+
+    <bean id="connectionFactory" class="com.amazon.sqs.javamessaging.SQSConnectionFactory">
+        <constructor-arg ref="providerConfiguration"/>
+        <constructor-arg ref="clientBuilder"/>
+    </bean>
+
+    <bean id="connection"
+          factory-bean="connectionFactory"
+          factory-method="createConnection"
+          init-method="start"
+          destroy-method="close"/>
+
+    <bean id="queueName" class="java.lang.String">
+        <constructor-arg value="SQSJMSClientExampleQueue"/>
+    </bean>
+</beans>
