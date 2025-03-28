@@ -48,9 +48,8 @@ public class AmazonRDSTest {
     @BeforeAll
     public static void setUp() throws IOException {
         rdsClient = RdsClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .build();
 
         Random rand = new Random();
         int randomNum = rand.nextInt((10000 - 1) + 1) + 1;
@@ -72,43 +71,6 @@ public class AmazonRDSTest {
         dbParameterGroupFamily = values.getDbParameterGroupFamily();
         dbInstanceClusterIdentifier = values.getDbInstanceClusterIdentifier();
         secretDBName = values.getSecretName();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * AmazonRDSTest.class.getClassLoader().getResourceAsStream("config.properties")
-         * ) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * prop.load(input);
-         * dbInstanceIdentifier = prop.getProperty("dbInstanceIdentifier")+
-         * java.util.UUID.randomUUID();
-         * dbSnapshotIdentifier = prop.getProperty("dbSnapshotIdentifier")+
-         * java.util.UUID.randomUUID();
-         * dbName = prop.getProperty("dbName")+ randomNum;
-         * masterUsername = prop.getProperty("masterUsername");
-         * masterUserPassword = prop.getProperty("masterUserPassword");
-         * newMasterUserPassword = prop.getProperty("newMasterUserPassword");
-         * dbGroupNameSc = prop.getProperty("dbGroupNameSc")+
-         * java.util.UUID.randomUUID();;
-         * dbParameterGroupFamilySc = prop.getProperty("dbParameterGroupFamilySc");
-         * dbInstanceIdentifierSc = prop.getProperty("dbInstanceIdentifierSc")+
-         * java.util.UUID.randomUUID();;
-         * masterUsernameSc = prop.getProperty("masterUsernameSc");
-         * masterUserPasswordSc = prop.getProperty("masterUserPasswordSc");
-         * dbSnapshotIdentifierSc = prop.getProperty("dbSnapshotIdentifierSc")+
-         * java.util.UUID.randomUUID();;
-         * dbNameSc = prop.getProperty("dbNameSc")+ randomNum ;
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -250,11 +212,9 @@ public class AmazonRDSTest {
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
         String secretName = "test/rds";
-
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
                 .secretId(secretName)
                 .build();

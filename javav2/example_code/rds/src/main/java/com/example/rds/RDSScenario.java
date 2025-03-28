@@ -206,9 +206,8 @@ public class RDSScenario {
     private static SecretsManagerClient getSecretClient() {
         Region region = Region.US_WEST_2;
         return SecretsManagerClient.builder()
-                .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(region)
+            .build();
     }
 
     public static String getSecretValues(String secretName) {

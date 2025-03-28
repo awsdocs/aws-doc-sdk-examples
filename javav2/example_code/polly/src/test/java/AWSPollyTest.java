@@ -24,7 +24,6 @@ public class AWSPollyTest {
     public static void setUp() {
         polly = PollyClient.builder()
             .region(Region.US_WEST_2)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
     }
 
