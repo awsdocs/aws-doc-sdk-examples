@@ -36,4 +36,4 @@ kotlin/services/**/build/
 kotlin/services/**/gradle/
 kotlin/services/**/gradlew
 kotlin/services/**/gradlew.bat
-/.tools/readmes/example_json
+kotlin/services/**/.kotlin/

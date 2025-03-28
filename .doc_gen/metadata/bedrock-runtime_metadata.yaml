@@ -107,7 +107,15 @@ bedrock-runtime_Converse_AmazonNovaText:
           excerpts:
             - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
               snippet_tags:
-                - javascript.v3.bedrock-runtime.Converse_AmazonTitanText
+                - javascript.v3.bedrock-runtime.Converse_AmazonNovaText
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
+              snippet_tags:
+                - bedrock-runtime.kotlin.Converse_AmazonNovaText
     .NET:
       versions:
         - sdk_version: 3
@@ -438,7 +446,15 @@ bedrock-runtime_ConverseStream_AmazonNovaText:
           excerpts:
             - description: Send a text message to Amazon Nova using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
-                - javascript.v3.bedrock-runtime.Converse_Mistral
+                - javascript.v3.bedrock-runtime.ConverseStream_AmazonNovaText
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova using Bedrock's Converse API and process the response stream in real-time.
+              snippet_tags:
+                - bedrock-runtime.kotlin.ConverseStream_AmazonNovaText
     .NET:
       versions:
         - sdk_version: 3
@@ -1402,6 +1418,24 @@ bedrock-runtime_InvokeModel_StableDiffusion:
                 - bdr.abapv1.invokemodel_l2_stable_diffusion
   services:
     bedrock-runtime: {InvokeModel}
+
+# Video Generation Models
+bedrock-runtime_Scenario_AmazonNova_TextToVideo:
+  title: Use Amazon Nova Reel to generate a video from a text prompt
+  title_abbrev: "Text-to-video"
+  synopsis: use Amazon Nova Reel to generate a video from a text prompt.
+  category: Amazon Nova Reel
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Use Amazon Nova Reel to generate a video from a text prompt.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.Scenario_AmazonNova_TextToVideo
+  services:
+    bedrock-runtime: {GetAsyncInvoke, StartAsyncInvoke}
 
 # Embedding Models
 bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings:

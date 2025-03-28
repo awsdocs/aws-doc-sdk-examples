@@ -52,18 +52,18 @@ Code excerpts that show you how to call individual service functions.
 
 - [BatchExecuteStatement](partiql/scenario_partiql_batch.py#L44)
 - [BatchGetItem](batching/dynamo_batching.py#L64)
-- [BatchWriteItem](GettingStarted/scenario_getting_started_movies.py#L164)
+- [BatchWriteItem](GettingStarted/scenario_getting_started_movies.py#L161)
 - [CreateTable](GettingStarted/scenario_getting_started_movies.py#L100)
-- [DeleteItem](GettingStarted/scenario_getting_started_movies.py#L342)
-- [DeleteTable](GettingStarted/scenario_getting_started_movies.py#L363)
+- [DeleteItem](GettingStarted/scenario_getting_started_movies.py#L339)
+- [DeleteTable](GettingStarted/scenario_getting_started_movies.py#L360)
 - [DescribeTable](GettingStarted/scenario_getting_started_movies.py#L70)
 - [ExecuteStatement](partiql/scenario_partiql_single.py#L43)
-- [GetItem](GettingStarted/scenario_getting_started_movies.py#L223)
-- [ListTables](GettingStarted/scenario_getting_started_movies.py#L140)
-- [PutItem](GettingStarted/scenario_getting_started_movies.py#L193)
-- [Query](GettingStarted/scenario_getting_started_movies.py#L280)
-- [Scan](GettingStarted/scenario_getting_started_movies.py#L303)
-- [UpdateItem](GettingStarted/scenario_getting_started_movies.py#L248)
+- [GetItem](GettingStarted/scenario_getting_started_movies.py#L220)
+- [ListTables](GettingStarted/scenario_getting_started_movies.py#L137)
+- [PutItem](GettingStarted/scenario_getting_started_movies.py#L190)
+- [Query](GettingStarted/scenario_getting_started_movies.py#L277)
+- [Scan](GettingStarted/scenario_getting_started_movies.py#L300)
+- [UpdateItem](GettingStarted/scenario_getting_started_movies.py#L245)
 
 ### Scenarios
 

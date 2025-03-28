@@ -513,7 +513,7 @@ lambda_UpdateFunctionCode:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.java2.get.function.main
+                - lambda.java2.update.main
     .NET:
       versions:
         - sdk_version: 3

@@ -64,6 +64,10 @@ functions within the same service.
 
 - [InvokeModel](models/amazon_nova/amazon_nova_canvas/invoke_model.py#L4)
 
+### Amazon Nova Reel
+
+- [Text-to-video](models/amazon_nova/amazon_nova_reel/text_to_video.py#L4)
+
 ### Amazon Titan Image Generator
 
 - [InvokeModel](models/amazon_titan_image_generator/invoke_model.py#L4)
