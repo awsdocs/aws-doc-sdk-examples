@@ -32,27 +32,19 @@ import java.util.concurrent.TimeUnit;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonRedshiftTest {
     private static RedshiftClient redshiftClient;
-
     private static RedshiftDataClient redshiftDataClient;
-
     static RedshiftActions redshiftActions = new RedshiftActions();
     private static String clusterId = "";
-
     private static String fileNameSc = "";
-
     private static String userName = "";
-
     private static String userPassword = "" ;
-
     private static String databaseName = "" ;
-
     private static String id;
 
     @BeforeAll
     public static void setUp() {
         redshiftClient = RedshiftClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
         redshiftDataClient = RedshiftDataClient.builder()
@@ -71,7 +63,6 @@ public class AmazonRedshiftTest {
         userName = values.getUserName();
         userPassword = values.getPassword();
         fileNameSc = values.getFileName();
-
     }
 
     @Test
@@ -202,7 +193,6 @@ public class AmazonRedshiftTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
         String secretName = "test/red";
 

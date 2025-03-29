@@ -24,11 +24,11 @@ public class CreateCollection {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:    <collectionName>\s
+            Usage: <collectionName>\s
 
-                Where:
-                   collectionName - The name of the collection.\s
-                """;
+            Where:
+                collectionName - The name of the collection.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -36,7 +36,7 @@ public class CreateCollection {
         }
 
         String collectionId = args[0];
-        Region region = Region.US_EAST_1;
+        Region region = Region.US_WEST_2;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
@@ -46,6 +46,12 @@ public class CreateCollection {
         rekClient.close();
     }
 
+    /**
+     * Creates a new Amazon Rekognition collection.
+     *
+     * @param rekClient    the Amazon Rekognition client used to interact with the Rekognition service
+     * @param collectionId the unique identifier for the collection to be created
+     */
     public static void createMyCollection(RekognitionClient rekClient, String collectionId) {
         try {
             CreateCollectionRequest collectionRequest = CreateCollectionRequest.builder()

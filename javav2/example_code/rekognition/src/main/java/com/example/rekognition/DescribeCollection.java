@@ -23,12 +23,11 @@ import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 public class DescribeCollection {
     public static void main(String[] args) {
         final String usage = """
+            Usage:    <collectionName>
 
-                Usage:    <collectionName>
-
-                Where:
-                   collectionName - The name of the Amazon Rekognition collection.\s
-                """;
+            Where:
+                collectionName - The name of the Amazon Rekognition collection.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -45,6 +44,14 @@ public class DescribeCollection {
         rekClient.close();
     }
 
+    /**
+     * Describes an Amazon Rekognition collection.
+     *
+     * @param rekClient         The Amazon Rekognition client used to make the request.
+     * @param collectionName    The name of the collection to describe.
+     *
+     * @throws RekognitionException If an error occurs while describing the collection.
+     */
     public static void describeColl(RekognitionClient rekClient, String collectionName) {
         try {
             DescribeCollectionRequest describeCollectionRequest = DescribeCollectionRequest.builder()

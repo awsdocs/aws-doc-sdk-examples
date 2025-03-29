@@ -106,7 +106,6 @@ public class VideoCelebrityDetection {
     }
 
     public static void getCelebrityDetectionResults(RekognitionClient rekClient) {
-
         try {
             String paginationToken = null;
             GetCelebrityRecognitionResponse recognitionResponse = null;
