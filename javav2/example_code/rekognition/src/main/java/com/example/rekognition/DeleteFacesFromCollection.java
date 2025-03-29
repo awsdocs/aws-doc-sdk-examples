@@ -22,16 +22,14 @@ import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 public class DeleteFacesFromCollection {
     public static void main(String[] args) {
         final String usage = """
+            Usage: <collectionId> <faceId>\s
 
-                Usage:    <collectionId> <faceId>\s
+            Where:
+                collectionId - The id of the collection from which faces are deleted.\s
+                faceId - The id of the face to delete.\s
+           """;
 
-                Where:
-                   collectionId - The id of the collection from which faces are deleted.\s
-
-                   faceId - The id of the face to delete.\s
-                """;
-
-        if (args.length != 1) {
+        if (args.length != 2) {
             System.out.println(usage);
             System.exit(1);
         }
@@ -48,6 +46,14 @@ public class DeleteFacesFromCollection {
         rekClient.close();
     }
 
+    /**
+     * Deletes a face from the specified Amazon Rekognition collection.
+     *
+     * @param rekClient     an instance of the Amazon Rekognition client
+     * @param collectionId  the ID of the collection from which the face should be deleted
+     * @param faceId        the ID of the face to be deleted
+     * @throws RekognitionException if an error occurs while deleting the face
+     */
     public static void deleteFacesCollection(RekognitionClient rekClient,
             String collectionId,
             String faceId) {

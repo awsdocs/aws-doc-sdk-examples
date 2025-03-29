@@ -8,13 +8,7 @@ package com.example.rekognition;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
-import software.amazon.awssdk.services.rekognition.model.RekognitionException;
-import software.amazon.awssdk.services.rekognition.model.Image;
-import software.amazon.awssdk.services.rekognition.model.CompareFacesRequest;
-import software.amazon.awssdk.services.rekognition.model.CompareFacesResponse;
-import software.amazon.awssdk.services.rekognition.model.CompareFacesMatch;
-import software.amazon.awssdk.services.rekognition.model.ComparedFace;
-import software.amazon.awssdk.services.rekognition.model.BoundingBox;
+import software.amazon.awssdk.services.rekognition.model.*;
 import software.amazon.awssdk.core.SdkBytes;
 
 import java.io.FileInputStream;
@@ -34,73 +28,88 @@ import java.util.List;
 public class CompareFaces {
     public static void main(String[] args) {
         final String usage = """
-
-            Usage:    <pathSource> <pathTarget>
-
+            Usage: <bucketName> <sourceKey> <targetKey>
+           
             Where:
-               pathSource - The path to the source image (for example, C:\\AWS\\pic1.png).\s
-                pathTarget - The path to the target image (for example, C:\\AWS\\pic2.png).\s
-            """;
+                bucketName - The name of the S3 bucket where the images are stored.
+                sourceKey  - The S3 key (file name) for the source image.
+                targetKey  - The S3 key (file name) for the target image.
+           """;
 
-        if (args.length != 2) {
+        if (args.length != 3) {
             System.out.println(usage);
             System.exit(1);
         }
 
-        Float similarityThreshold = 70F;
-        String sourceImage = args[0];
-        String targetImage = args[1];
-        Region region = Region.US_EAST_1;
+        String bucketName = args[0];
+        String sourceKey = args[1];
+        String targetKey = args[2];
+
+        Region region = Region.US_WEST_2;
         RekognitionClient rekClient = RekognitionClient.builder()
-            .region(region)
-            .build();
+                .region(region)
+                .build();
+        compareTwoFaces(rekClient, bucketName, sourceKey, targetKey);
+     }
 
-        compareTwoFaces(rekClient, similarityThreshold, sourceImage, targetImage);
-        rekClient.close();
-    }
-
-    public static void compareTwoFaces(RekognitionClient rekClient, Float similarityThreshold, String sourceImage,
-                                       String targetImage) {
+    /**
+     * Compares two faces from images stored in an Amazon S3 bucket using AWS Rekognition.
+     *
+     * <p>This method takes two image keys from an S3 bucket and compares the faces within them.
+     * It prints out the confidence level of matched faces and reports the number of unmatched faces.</p>
+     *
+     * @param rekClient   The {@link RekognitionClient} used to call AWS Rekognition.
+     * @param bucketName  The name of the S3 bucket containing the images.
+     * @param sourceKey   The object key (file path) for the source image in the S3 bucket.
+     * @param targetKey   The object key (file path) for the target image in the S3 bucket.
+     * @throws RuntimeException If the Rekognition service returns an error.
+     */
+    public static void compareTwoFaces(RekognitionClient rekClient, String bucketName, String sourceKey, String targetKey) {
         try {
-            InputStream sourceStream = new FileInputStream(sourceImage);
-            InputStream tarStream = new FileInputStream(targetImage);
-            SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
-            SdkBytes targetBytes = SdkBytes.fromInputStream(tarStream);
+            Float similarityThreshold = 70F;
+            S3Object s3ObjectSource = S3Object.builder()
+                    .bucket(bucketName)
+                    .name(sourceKey)
+                    .build();
 
-            // Create an Image object for the source image.
-            Image souImage = Image.builder()
-                .bytes(sourceBytes)
-                .build();
+            Image sourceImage = Image.builder()
+                    .s3Object(s3ObjectSource)
+                    .build();
 
-            Image tarImage = Image.builder()
-                .bytes(targetBytes)
-                .build();
+            S3Object s3ObjectTarget = S3Object.builder()
+                    .bucket(bucketName)
+                    .name(targetKey)
+                    .build();
+
+            Image targetImage = Image.builder()
+                    .s3Object(s3ObjectTarget)
+                    .build();
 
             CompareFacesRequest facesRequest = CompareFacesRequest.builder()
-                .sourceImage(souImage)
-                .targetImage(tarImage)
-                .similarityThreshold(similarityThreshold)
-                .build();
+                    .sourceImage(sourceImage)
+                    .targetImage(targetImage)
+                    .similarityThreshold(similarityThreshold)
+                    .build();
 
             // Compare the two images.
             CompareFacesResponse compareFacesResult = rekClient.compareFaces(facesRequest);
             List<CompareFacesMatch> faceDetails = compareFacesResult.faceMatches();
+
             for (CompareFacesMatch match : faceDetails) {
                 ComparedFace face = match.face();
                 BoundingBox position = face.boundingBox();
                 System.out.println("Face at " + position.left().toString()
-                    + " " + position.top()
-                    + " matches with " + face.confidence().toString()
-                    + "% confidence.");
-
+                        + " " + position.top()
+                        + " matches with " + face.confidence().toString()
+                        + "% confidence.");
             }
-            List<ComparedFace> uncompared = compareFacesResult.unmatchedFaces();
-            System.out.println("There was " + uncompared.size() + " face(s) that did not match");
-            System.out.println("Source image rotation: " + compareFacesResult.sourceImageOrientationCorrection());
-            System.out.println("target image rotation: " + compareFacesResult.targetImageOrientationCorrection());
 
-        } catch (RekognitionException | FileNotFoundException e) {
-            e.printStackTrace();
+            List<ComparedFace> unmatchedFaces = compareFacesResult.unmatchedFaces();
+            System.out.println("There were " + unmatchedFaces.size() + " face(s) that did not match.");
+
+        } catch (RekognitionException e) {
+            System.err.println("Error comparing faces: " + e.awsErrorDetails().errorMessage());
+            throw new RuntimeException(e);
         }
     }
 }
