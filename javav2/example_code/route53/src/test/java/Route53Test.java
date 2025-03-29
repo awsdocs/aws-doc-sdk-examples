@@ -55,12 +55,10 @@ public class Route53Test {
     public static void setUp() {
         route53Client = Route53Client.builder()
                 .region(Region.AWS_GLOBAL)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         route53DomainsClient = Route53DomainsClient.builder()
                 .region(Region.AWS_GLOBAL)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -181,7 +179,6 @@ public class Route53Test {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/route53";
 

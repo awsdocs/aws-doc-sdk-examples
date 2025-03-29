@@ -39,7 +39,6 @@ public class SageMakerTest {
         Region region = Region.US_WEST_2;
         sageMakerClient = SageMakerClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -58,40 +57,6 @@ public class SageMakerTest {
         channelName = values.getChannelName();
         trainingImage = values.getTrainingImage();
         existingModel = values.getModelName();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * SageMakerTest.class.getClassLoader().getResourceAsStream("config.properties")
-         * ) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests
-         * prop.load(input);
-         * image = prop.getProperty("image");
-         * modelDataUrl = prop.getProperty("modelDataUrl");
-         * executionRoleArn = prop.getProperty("executionRoleArn");
-         * modelName = prop.getProperty("modelName")+ java.util.UUID.randomUUID();
-         * s3UriData = prop.getProperty("s3UriData");
-         * s3Uri = prop.getProperty("s3Uri");
-         * roleArn = prop.getProperty("roleArn");
-         * trainingJobName = prop.getProperty("trainingJobName")+
-         * java.util.UUID.randomUUID();
-         * s3OutputPath = prop.getProperty("s3OutputPath");
-         * channelName = prop.getProperty("channelName");
-         * trainingImage = prop.getProperty("trainingImage");
-         * existingModel = prop.getProperty("existingModel");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -155,7 +120,6 @@ public class SageMakerTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/sagemaker";
 

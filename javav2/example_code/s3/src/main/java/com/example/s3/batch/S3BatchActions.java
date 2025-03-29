@@ -111,7 +111,6 @@ public class S3BatchActions {
                 .region(Region.US_EAST_1)
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         }
         return asyncClient;
@@ -136,7 +135,6 @@ public class S3BatchActions {
                 .region(Region.US_EAST_1)
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         }
         return s3AsyncClient;
