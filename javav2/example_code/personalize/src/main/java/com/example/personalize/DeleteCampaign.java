@@ -82,6 +82,7 @@ public class DeleteCampaign {
         }
     }
 
+    // snippet-start:[personalize.java2.delete_campaign.main]
     public static void deleteSpecificCampaign(PersonalizeClient personalizeClient, String campaignArn) {
         try {
             DeleteCampaignRequest campaignRequest = DeleteCampaignRequest.builder()
