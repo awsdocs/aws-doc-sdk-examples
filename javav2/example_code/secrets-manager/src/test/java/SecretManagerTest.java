@@ -26,7 +26,6 @@ public class SecretManagerTest {
         Region region = Region.US_EAST_1;
         secretsClient = SecretsManagerClient.builder()
                 .region(region)
-                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
     }
 

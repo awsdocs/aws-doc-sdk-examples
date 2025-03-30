@@ -28,7 +28,6 @@ import software.amazon.awssdk.services.sesv2.SesV2Client;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AWSSesTest {
-
     private static SesClient client;
     private static SesV2Client sesv2Client;
     private static String sender = "";
@@ -48,12 +47,10 @@ public class AWSSesTest {
     public static void setUp() throws IOException, URISyntaxException {
         client = SesClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         sesv2Client = SesV2Client.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -65,30 +62,6 @@ public class AWSSesTest {
         subject = values.getSubject();
         fileLocation = values.getFileLocation();
         templateName = values.getTemplateName();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * 
-         * try (InputStream input =
-         * AWSSesTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * prop.load(input);
-         * sender = prop.getProperty("sender");
-         * recipient = prop.getProperty("recipient");
-         * subject = prop.getProperty("subject");
-         * fileLocation= prop.getProperty("fileLocation");
-         * templateName = prop.getProperty("templateName");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -142,7 +115,6 @@ public class AWSSesTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/ses";
 
