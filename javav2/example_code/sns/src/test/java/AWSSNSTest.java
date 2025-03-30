@@ -37,7 +37,6 @@ public class AWSSNSTest {
 
         snsClient = SnsClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         Random random = new Random();
@@ -53,30 +52,6 @@ public class AWSSNSTest {
         lambdaarn = myValues.getLambdaarn();
         phone = myValues.getPhone();
         message = myValues.getMessage();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * AWSSNSTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * prop.load(input);
-         * topicName = prop.getProperty("topicName");
-         * attributeName= prop.getProperty("attributeName");
-         * attributeValue = prop.getProperty("attributeValue");
-         * email= prop.getProperty("email");
-         * lambdaarn = prop.getProperty("lambdaarn");
-         * phone = prop.getProperty("phone");
-         * message = prop.getProperty("message");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -212,7 +187,6 @@ public class AWSSNSTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/sns";
 

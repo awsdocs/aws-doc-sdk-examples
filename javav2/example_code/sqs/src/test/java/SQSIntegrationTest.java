@@ -26,9 +26,7 @@ import com.example.sqs.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SQSIntegrationTest {
-
     private static SqsClient sqsClient;
-
     private static String queueName = "";
     private static String queueUrl = "";
     private static String message = "";
@@ -41,7 +39,6 @@ public class SQSIntegrationTest {
         int randomNum = random.nextInt((10000 - 1) + 1) + 1;
         sqsClient = SqsClient.builder()
                 .region(Region.US_WEST_2)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -51,29 +48,6 @@ public class SQSIntegrationTest {
         queueName = queueMessage.getQueueName() + randomNum;
         dlqueueName = queueMessage.getDLQueueName();
         message = queueMessage.getMessage();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * SQSIntegrationTest.class.getClassLoader().getResourceAsStream(
-         * "config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * queueName = prop.getProperty("QueueName");
-         * message = prop.getProperty("Message");
-         * dlqueueName=prop.getProperty("DLQueueName");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -145,7 +119,6 @@ public class SQSIntegrationTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/sqs";
 
