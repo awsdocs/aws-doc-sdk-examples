@@ -4,6 +4,8 @@
 import com.example.kendra.*;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kendra.KendraClient;
@@ -20,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
 public class KendraTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(KendraTest.class);
     private static KendraClient kendra;
     private static String indexName = "";
     private static String indexDescription = "";
@@ -59,7 +61,7 @@ public class KendraTest {
     public void CreateIndex() {
         indexId = CreateIndexAndDataSourceExample.createIndex(kendra, indexDescription, indexName, indexRoleArn);
         assertFalse(indexId.isEmpty());
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -69,7 +71,7 @@ public class KendraTest {
         dataSourceId = CreateIndexAndDataSourceExample.createDataSource(kendra, s3BucketName, dataSourceName,
                 dataSourceDescription, indexId, dataSourceRoleArn);
         assertFalse(dataSourceId.isEmpty());
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -77,7 +79,7 @@ public class KendraTest {
     @Order(3)
     public void SyncDataSource() {
         assertDoesNotThrow(() -> CreateIndexAndDataSourceExample.startDataSource(kendra, indexId, dataSourceId));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -85,7 +87,7 @@ public class KendraTest {
     @Order(4)
     public void ListSyncJobs() {
         assertDoesNotThrow(() -> ListDataSourceSyncJobs.listSyncJobs(kendra, indexId, dataSourceId));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -93,7 +95,7 @@ public class KendraTest {
     @Order(5)
     public void QueryIndex() {
         assertDoesNotThrow(() -> QueryIndex.querySpecificIndex(kendra, indexId, text));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -101,7 +103,7 @@ public class KendraTest {
     @Order(6)
     public void DeleteDataSource() {
         assertDoesNotThrow(() -> DeleteDataSource.deleteSpecificDataSource(kendra, indexId, dataSourceId));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
@@ -109,7 +111,7 @@ public class KendraTest {
     @Order(7)
     public void DeleteIndex() {
         assertDoesNotThrow(() -> DeleteIndex.deleteSpecificIndex(kendra, indexId));
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 
     private static String getSecretValues() {
