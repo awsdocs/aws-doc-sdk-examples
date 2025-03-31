@@ -1,26 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "aurora_Hello",
-			"file": "aurora_metadata.yaml",
-			"languages": [],
-			"title": "Hello Aurora",
-			"title_abbrev": "Hello Aurora",
-			"synopsis": "get started using Aurora.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "aurora_DescribeDBClusterParameterGroups",
 			"file": "aurora_metadata.yaml",
 			"languages": [],
@@ -343,6 +323,26 @@
 				"Create a DB instance that contains a database.",
 				"Take a snapshot of the DB cluster, then clean up resources."
 			],
+			"source_key": null
+		},
+		{
+			"id": "aurora_Hello",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "Hello Aurora",
+			"title_abbrev": "Hello Aurora",
+			"synopsis": "get started using Aurora.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		},
 		{

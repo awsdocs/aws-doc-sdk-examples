@@ -1,26 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "ssm_Hello",
-			"file": "ssm_metadata.yaml",
-			"languages": [],
-			"title": "Hello Systems Manager",
-			"title_abbrev": "Hello Systems Manager",
-			"synopsis": "get started using Systems Manager.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "ssm_CreateOpsItem",
 			"file": "ssm_metadata.yaml",
 			"languages": [],
@@ -266,6 +246,26 @@
 				"Update and resolve the OpsItem.",
 				"Delete the maintenance window, OpsItem, and document."
 			],
+			"source_key": null
+		},
+		{
+			"id": "ssm_Hello",
+			"file": "ssm_metadata.yaml",
+			"languages": [],
+			"title": "Hello Systems Manager",
+			"title_abbrev": "Hello Systems Manager",
+			"synopsis": "get started using Systems Manager.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		}
 	]

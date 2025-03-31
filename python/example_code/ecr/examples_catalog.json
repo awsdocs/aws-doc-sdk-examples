@@ -1,26 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "ecr_Hello",
-			"file": "ecr_metadata.yaml",
-			"languages": [],
-			"title": "Hello Amazon ECR",
-			"title_abbrev": "Hello Amazon ECR",
-			"synopsis": "get started using Amazon ECR.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "ecr_SetRepositoryPolicy",
 			"file": "ecr_metadata.yaml",
 			"languages": [],
@@ -208,6 +188,26 @@
 				"List Amazon ECR repositories for your account and get details about them.",
 				"Delete Amazon ECR repositories."
 			],
+			"source_key": null
+		},
+		{
+			"id": "ecr_Hello",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon ECR",
+			"title_abbrev": "Hello Amazon ECR",
+			"synopsis": "get started using Amazon ECR.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		}
 	]

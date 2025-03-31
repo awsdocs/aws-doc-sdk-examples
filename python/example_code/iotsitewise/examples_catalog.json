@@ -1,26 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "iotsitewise_Hello",
-			"file": "iot_sitewise_metadata.yaml",
-			"languages": [],
-			"title": "Hello AWS IoT SiteWise",
-			"title_abbrev": "Hello AWS IoT SiteWise",
-			"synopsis": "get started using AWS IoT SiteWise.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "iotsitewise_DescribeGateway",
 			"file": "iot_sitewise_metadata.yaml",
 			"languages": [],
@@ -308,6 +288,26 @@
 				"Describe the AWS IoT SiteWise Gateway.",
 				"Delete the AWS IoT SiteWise Assets."
 			],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_Hello",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": [],
+			"title": "Hello AWS IoT SiteWise",
+			"title_abbrev": "Hello AWS IoT SiteWise",
+			"synopsis": "get started using AWS IoT SiteWise.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		}
 	]

@@ -1,49 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "cross_RDSDataTracker",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create an Aurora Serverless work item tracker",
-			"title_abbrev": "Create an Aurora Serverless work item tracker",
-			"synopsis": "create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "aurora",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_RDSDataTracker_section.html",
-					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_cross_RDSDataTracker_section.html",
-					"rds-data": "https://docs.aws.amazon.com/code-library/latest/ug/rds-data_example_cross_RDSDataTracker_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RDSDataTracker_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "rds_Hello",
-			"file": "rds_metadata.yaml",
-			"languages": [],
-			"title": "Hello Amazon RDS",
-			"title_abbrev": "Hello Amazon RDS",
-			"synopsis": "get started using Amazon RDS.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "rds_CreateDBInstance",
 			"file": "rds_metadata.yaml",
 			"languages": [],
@@ -306,6 +263,49 @@
 				"Take a snapshot of the instance.",
 				"Delete the instance and parameter group."
 			],
+			"source_key": null
+		},
+		{
+			"id": "rds_Hello",
+			"file": "rds_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon RDS",
+			"title_abbrev": "Hello Amazon RDS",
+			"synopsis": "get started using Amazon RDS.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_rds_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RDSDataTracker",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create an Aurora Serverless work item tracker",
+			"title_abbrev": "Create an Aurora Serverless work item tracker",
+			"synopsis": "create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "aurora",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_RDSDataTracker_section.html",
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_cross_RDSDataTracker_section.html",
+					"rds-data": "https://docs.aws.amazon.com/code-library/latest/ug/rds-data_example_cross_RDSDataTracker_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RDSDataTracker_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		}
 	]

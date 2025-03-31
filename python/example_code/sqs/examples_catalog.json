@@ -1,98 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "cross_StepFunctionsMessenger",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create a messenger application with Step Functions",
-			"title_abbrev": "Create a messenger application",
-			"synopsis": "create an AWS Step Functions messenger application that retrieves message records from a database table.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "sfn",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_StepFunctionsMessenger_section.html",
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_StepFunctionsMessenger_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_StepFunctionsMessenger_section.html",
-					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_StepFunctionsMessenger_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_TextractExplorer",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create an Amazon Textract explorer application",
-			"title_abbrev": "Create an Amazon Textract explorer application",
-			"synopsis": "explore Amazon Textract output through an interactive application.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "textract",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractExplorer_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_TextractExplorer_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
-					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_RekognitionVideoDetection",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
-			"title_abbrev": "Detect people and objects in a video",
-			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "rekognition",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sns_PublishFifoTopic",
-			"file": "sns_metadata.yaml",
-			"languages": [],
-			"title": "Create and publish to a FIFO Amazon SNS topic using an AWS SDK",
-			"title_abbrev": "Create and publish to a FIFO topic",
-			"synopsis": "create and publish to a FIFO Amazon SNS topic.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_PublishFifoTopic_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sns_PublishFifoTopic_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "sqs_CreateQueue",
 			"file": "sqs_metadata.yaml",
 			"languages": [],
@@ -266,6 +174,98 @@
 			"doc_filenames": {
 				"service_pages": {
 					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_DeleteMessageBatch_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_StepFunctionsMessenger",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create a messenger application with Step Functions",
+			"title_abbrev": "Create a messenger application",
+			"synopsis": "create an AWS Step Functions messenger application that retrieves message records from a database table.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "sfn",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_StepFunctionsMessenger_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_StepFunctionsMessenger_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_StepFunctionsMessenger_section.html",
+					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_StepFunctionsMessenger_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_TextractExplorer",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create an Amazon Textract explorer application",
+			"title_abbrev": "Create an Amazon Textract explorer application",
+			"synopsis": "explore Amazon Textract output through an interactive application.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "textract",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractExplorer_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_TextractExplorer_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
+					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionVideoDetection",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
+			"title_abbrev": "Detect people and objects in a video",
+			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sns_PublishFifoTopic",
+			"file": "sns_metadata.yaml",
+			"languages": [],
+			"title": "Create and publish to a FIFO Amazon SNS topic using an AWS SDK",
+			"title_abbrev": "Create and publish to a FIFO topic",
+			"synopsis": "create and publish to a FIFO Amazon SNS topic.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_PublishFifoTopic_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sns_PublishFifoTopic_section.html"
 				},
 				"sdk_pages": []
 			},

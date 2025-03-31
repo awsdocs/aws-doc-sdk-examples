@@ -1,164 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "cross_ApiGatewayDataTracker",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create an API Gateway REST API to track COVID-19 data",
-			"title_abbrev": "Create a REST API to track COVID-19 data",
-			"synopsis": "create a REST API that simulates a system to track daily cases of COVID-19 in the United States, using fictional data.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "api-gateway",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_ApiGatewayDataTracker_section.html",
-					"cloudformation": "https://docs.aws.amazon.com/code-library/latest/ug/cloudformation_example_cross_ApiGatewayDataTracker_section.html",
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_ApiGatewayDataTracker_section.html",
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_ApiGatewayDataTracker_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_ApiGatewayWebsocketChat",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create a websocket chat application with API Gateway",
-			"title_abbrev": "Create a websocket chat application",
-			"synopsis": "create a chat application that is served by a websocket API built on Amazon API Gateway.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "api-gateway",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_ApiGatewayWebsocketChat_section.html",
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_ApiGatewayWebsocketChat_section.html",
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_ApiGatewayWebsocketChat_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_AuroraRestLendingLibrary",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create a lending library REST API",
-			"title_abbrev": "Create a lending library REST API",
-			"synopsis": "create a lending library where patrons can borrow and return books by using a REST API backed by an Amazon Aurora database.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "aurora",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_AuroraRestLendingLibrary_section.html",
-					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_AuroraRestLendingLibrary_section.html",
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_AuroraRestLendingLibrary_section.html",
-					"secrets-manager": "https://docs.aws.amazon.com/code-library/latest/ug/secrets-manager_example_cross_AuroraRestLendingLibrary_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_StepFunctionsMessenger",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create a messenger application with Step Functions",
-			"title_abbrev": "Create a messenger application",
-			"synopsis": "create an AWS Step Functions messenger application that retrieves message records from a database table.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "sfn",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_StepFunctionsMessenger_section.html",
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_StepFunctionsMessenger_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_StepFunctionsMessenger_section.html",
-					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_StepFunctionsMessenger_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_LambdaAPIGateway",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Use API Gateway to invoke a Lambda function",
-			"title_abbrev": "Use API Gateway to invoke a Lambda function",
-			"synopsis": "create an AWS Lambda function invoked by Amazon API Gateway.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "lambda",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_LambdaAPIGateway_section.html",
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_LambdaAPIGateway_section.html",
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaAPIGateway_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaAPIGateway_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_LambdaScheduledEvents",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Use scheduled events to invoke a Lambda function",
-			"title_abbrev": "Use scheduled events to invoke a Lambda function",
-			"synopsis": "create an AWS Lambda function invoked by an Amazon EventBridge scheduled event.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "lambda",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch-logs_example_cross_LambdaScheduledEvents_section.html",
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_LambdaScheduledEvents_section.html",
-					"eventbridge": "https://docs.aws.amazon.com/code-library/latest/ug/eventbridge_example_cross_LambdaScheduledEvents_section.html",
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaScheduledEvents_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaScheduledEvents_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lambda_Hello",
-			"file": "lambda_metadata.yaml",
-			"languages": [],
-			"title": "Hello Lambda",
-			"title_abbrev": "Hello Lambda",
-			"synopsis": "get started using Lambda.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "lambda_CreateFunction",
 			"file": "lambda_metadata.yaml",
 			"languages": [],
@@ -325,6 +167,164 @@
 				"Invoke the function with new parameters and get results. Display the returned execution log.",
 				"List the functions for your account, then clean up resources."
 			],
+			"source_key": null
+		},
+		{
+			"id": "lambda_Hello",
+			"file": "lambda_metadata.yaml",
+			"languages": [],
+			"title": "Hello Lambda",
+			"title_abbrev": "Hello Lambda",
+			"synopsis": "get started using Lambda.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_ApiGatewayDataTracker",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create an API Gateway REST API to track COVID-19 data",
+			"title_abbrev": "Create a REST API to track COVID-19 data",
+			"synopsis": "create a REST API that simulates a system to track daily cases of COVID-19 in the United States, using fictional data.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "api-gateway",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_ApiGatewayDataTracker_section.html",
+					"cloudformation": "https://docs.aws.amazon.com/code-library/latest/ug/cloudformation_example_cross_ApiGatewayDataTracker_section.html",
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_ApiGatewayDataTracker_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_ApiGatewayDataTracker_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_ApiGatewayWebsocketChat",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create a websocket chat application with API Gateway",
+			"title_abbrev": "Create a websocket chat application",
+			"synopsis": "create a chat application that is served by a websocket API built on Amazon API Gateway.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "api-gateway",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_ApiGatewayWebsocketChat_section.html",
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_ApiGatewayWebsocketChat_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_ApiGatewayWebsocketChat_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_AuroraRestLendingLibrary",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create a lending library REST API",
+			"title_abbrev": "Create a lending library REST API",
+			"synopsis": "create a lending library where patrons can borrow and return books by using a REST API backed by an Amazon Aurora database.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "aurora",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_AuroraRestLendingLibrary_section.html",
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_AuroraRestLendingLibrary_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_AuroraRestLendingLibrary_section.html",
+					"secrets-manager": "https://docs.aws.amazon.com/code-library/latest/ug/secrets-manager_example_cross_AuroraRestLendingLibrary_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_StepFunctionsMessenger",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create a messenger application with Step Functions",
+			"title_abbrev": "Create a messenger application",
+			"synopsis": "create an AWS Step Functions messenger application that retrieves message records from a database table.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "sfn",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_StepFunctionsMessenger_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_StepFunctionsMessenger_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_StepFunctionsMessenger_section.html",
+					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_StepFunctionsMessenger_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_LambdaAPIGateway",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Use API Gateway to invoke a Lambda function",
+			"title_abbrev": "Use API Gateway to invoke a Lambda function",
+			"synopsis": "create an AWS Lambda function invoked by Amazon API Gateway.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "lambda",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_LambdaAPIGateway_section.html",
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_LambdaAPIGateway_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaAPIGateway_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaAPIGateway_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_LambdaScheduledEvents",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Use scheduled events to invoke a Lambda function",
+			"title_abbrev": "Use scheduled events to invoke a Lambda function",
+			"synopsis": "create an AWS Lambda function invoked by an Amazon EventBridge scheduled event.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "lambda",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch-logs_example_cross_LambdaScheduledEvents_section.html",
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_LambdaScheduledEvents_section.html",
+					"eventbridge": "https://docs.aws.amazon.com/code-library/latest/ug/eventbridge_example_cross_LambdaScheduledEvents_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaScheduledEvents_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaScheduledEvents_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		}
 	]

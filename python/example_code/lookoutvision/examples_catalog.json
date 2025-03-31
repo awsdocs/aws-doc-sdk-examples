@@ -24,29 +24,6 @@
 			"source_key": null
 		},
 		{
-			"id": "lookoutvision_Scenario_CreateManifestFile",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "Create a Lookout for Vision manifest file using an AWS SDK",
-			"title_abbrev": "Create a manifest file",
-			"synopsis": "create a Lookout for Vision manifest file and upload it to Amazon S3.",
-			"category": "Scenarios",
-			"guide_topic": {
-				"title": "Creating a manifest file",
-				"url": "lookout-for-vision/latest/developer-guide/manifest-files.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_CreateManifestFile_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "lookoutvision_DeleteDataset",
 			"file": "lookoutvision_metadata.yaml",
 			"languages": [],
@@ -93,52 +70,6 @@
 			"source_key": null
 		},
 		{
-			"id": "lookoutvision_Scenario_FindTagInProjects",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "Find a Lookout for Vision project with a specific tag using an AWS SDK",
-			"title_abbrev": "Find a project with a specific tag",
-			"synopsis": "find a Lookout for Vision project with a specific tag.",
-			"category": "Scenarios",
-			"guide_topic": {
-				"title": "Tagging models",
-				"url": "lookout-for-vision/latest/developer-guide/tagging-model.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_FindTagInProjects_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_Scenario_ExportDatasets",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "Export the datasets from a Lookout for Vision project using an AWS SDK",
-			"title_abbrev": "Export the datasets from a project",
-			"synopsis": "export the datasets from a Lookout for Vision project.",
-			"category": "Scenarios",
-			"guide_topic": {
-				"title": "Exporting datasets from a project (SDK)",
-				"url": "lookout-for-vision/latest/developer-guide/export-dataset-sdk.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_ExportDatasets_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "lookoutvision_StartModel",
 			"file": "lookoutvision_metadata.yaml",
 			"languages": [],
@@ -178,26 +109,6 @@
 			"doc_filenames": {
 				"service_pages": {
 					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_StopModel_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_Scenario_ListHostedModels",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "List Lookout for Vision models that are currently hosted using an AWS SDK",
-			"title_abbrev": "List models that are currently hosted",
-			"synopsis": "list Lookout for Vision models that are currently hosted.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_ListHostedModels_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -402,6 +313,95 @@
 			"doc_filenames": {
 				"service_pages": {
 					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_Scenario_CreateManifestFile",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "Create a Lookout for Vision manifest file using an AWS SDK",
+			"title_abbrev": "Create a manifest file",
+			"synopsis": "create a Lookout for Vision manifest file and upload it to Amazon S3.",
+			"category": "Scenarios",
+			"guide_topic": {
+				"title": "Creating a manifest file",
+				"url": "lookout-for-vision/latest/developer-guide/manifest-files.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_CreateManifestFile_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_Scenario_FindTagInProjects",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "Find a Lookout for Vision project with a specific tag using an AWS SDK",
+			"title_abbrev": "Find a project with a specific tag",
+			"synopsis": "find a Lookout for Vision project with a specific tag.",
+			"category": "Scenarios",
+			"guide_topic": {
+				"title": "Tagging models",
+				"url": "lookout-for-vision/latest/developer-guide/tagging-model.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_FindTagInProjects_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_Scenario_ExportDatasets",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "Export the datasets from a Lookout for Vision project using an AWS SDK",
+			"title_abbrev": "Export the datasets from a project",
+			"synopsis": "export the datasets from a Lookout for Vision project.",
+			"category": "Scenarios",
+			"guide_topic": {
+				"title": "Exporting datasets from a project (SDK)",
+				"url": "lookout-for-vision/latest/developer-guide/export-dataset-sdk.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_ExportDatasets_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_Scenario_ListHostedModels",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "List Lookout for Vision models that are currently hosted using an AWS SDK",
+			"title_abbrev": "List models that are currently hosted",
+			"synopsis": "list Lookout for Vision models that are currently hosted.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_ListHostedModels_section.html"
 				},
 				"sdk_pages": []
 			},

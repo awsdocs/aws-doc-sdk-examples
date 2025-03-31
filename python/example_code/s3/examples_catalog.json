@@ -1,118 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "cross_TextractExplorer",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create an Amazon Textract explorer application",
-			"title_abbrev": "Create an Amazon Textract explorer application",
-			"synopsis": "explore Amazon Textract output through an interactive application.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "textract",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractExplorer_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_TextractExplorer_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
-					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_TextractComprehendDetectEntities",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect entities in text extracted from an image using an AWS SDK",
-			"title_abbrev": "Detect entities in text extracted from an image",
-			"synopsis": "use Amazon Comprehend to detect entities in text extracted by Amazon Textract from an image that is stored in Amazon S3.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "textract",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_cross_TextractComprehendDetectEntities_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractComprehendDetectEntities_section.html",
-					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractComprehendDetectEntities_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_RekognitionPhotoAnalyzer",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect objects in images with Amazon Rekognition using an AWS SDK",
-			"title_abbrev": "Detect objects in images",
-			"synopsis": "build an app that uses Amazon Rekognition to detect objects by category in images.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "rekognition",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionPhotoAnalyzer_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionPhotoAnalyzer_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionPhotoAnalyzer_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_RekognitionVideoDetection",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
-			"title_abbrev": "Detect people and objects in a video",
-			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "rekognition",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "s3_Hello",
-			"file": "s3_metadata.yaml",
-			"languages": [],
-			"title": "Hello Amazon S3",
-			"title_abbrev": "Hello Amazon S3",
-			"synopsis": "get started using Amazon S3.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "s3_CreateBucket",
 			"file": "s3_metadata.yaml",
 			"languages": [],
@@ -673,6 +561,144 @@
 			"source_key": null
 		},
 		{
+			"id": "s3_Scenario_GettingStarted",
+			"file": "s3_metadata.yaml",
+			"languages": [],
+			"title": "Learn the basics",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Scenario_GettingStarted_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create a bucket and upload a file to it.",
+				"Download an object from a bucket.",
+				"Copy an object to a subfolder in a bucket.",
+				"List the objects in a bucket.",
+				"Delete the bucket objects and the bucket."
+			],
+			"source_key": null
+		},
+		{
+			"id": "s3_Hello",
+			"file": "s3_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon S3",
+			"title_abbrev": "Hello Amazon S3",
+			"synopsis": "get started using Amazon S3.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_TextractExplorer",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create an Amazon Textract explorer application",
+			"title_abbrev": "Create an Amazon Textract explorer application",
+			"synopsis": "explore Amazon Textract output through an interactive application.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "textract",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractExplorer_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_TextractExplorer_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
+					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_TextractComprehendDetectEntities",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect entities in text extracted from an image using an AWS SDK",
+			"title_abbrev": "Detect entities in text extracted from an image",
+			"synopsis": "use Amazon Comprehend to detect entities in text extracted by Amazon Textract from an image that is stored in Amazon S3.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "textract",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_cross_TextractComprehendDetectEntities_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractComprehendDetectEntities_section.html",
+					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractComprehendDetectEntities_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionPhotoAnalyzer",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect objects in images with Amazon Rekognition using an AWS SDK",
+			"title_abbrev": "Detect objects in images",
+			"synopsis": "build an app that uses Amazon Rekognition to detect objects by category in images.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionPhotoAnalyzer_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionPhotoAnalyzer_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionPhotoAnalyzer_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionVideoDetection",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
+			"title_abbrev": "Detect people and objects in a video",
+			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "s3_Scenario_UsingLargeFiles",
 			"file": "s3_metadata.yaml",
 			"languages": [],
@@ -758,32 +784,6 @@
 				"Roll an object back to a previous version.",
 				"Delete and restore a versioned object.",
 				"Permanently delete all versions of an object."
-			],
-			"source_key": null
-		},
-		{
-			"id": "s3_Scenario_GettingStarted",
-			"file": "s3_metadata.yaml",
-			"languages": [],
-			"title": "Learn the basics",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Basics",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Scenario_GettingStarted_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Create a bucket and upload a file to it.",
-				"Download an object from a bucket.",
-				"Copy an object to a subfolder in a bucket.",
-				"List the objects in a bucket.",
-				"Delete the bucket objects and the bucket."
 			],
 			"source_key": null
 		},

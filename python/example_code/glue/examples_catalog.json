@@ -1,26 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "glue_Hello",
-			"file": "glue_metadata.yaml",
-			"languages": [],
-			"title": "Hello AWS Glue",
-			"title_abbrev": "Hello AWS Glue",
-			"synopsis": "get started using AWS Glue.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "glue_GetCrawler",
 			"file": "glue_metadata.yaml",
 			"languages": [],
@@ -326,6 +306,26 @@
 				"Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another S3 bucket.",
 				"List information about job runs, view transformed data, and clean up resources."
 			],
+			"source_key": null
+		},
+		{
+			"id": "glue_Hello",
+			"file": "glue_metadata.yaml",
+			"languages": [],
+			"title": "Hello AWS Glue",
+			"title_abbrev": "Hello AWS Glue",
+			"synopsis": "get started using AWS Glue.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		}
 	]

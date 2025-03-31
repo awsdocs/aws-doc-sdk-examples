@@ -1,29 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "cross_AuroraRestLendingLibrary",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create a lending library REST API",
-			"title_abbrev": "Create a lending library REST API",
-			"synopsis": "create a lending library where patrons can borrow and return books by using a REST API backed by an Amazon Aurora database.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "aurora",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_AuroraRestLendingLibrary_section.html",
-					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_AuroraRestLendingLibrary_section.html",
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_AuroraRestLendingLibrary_section.html",
-					"secrets-manager": "https://docs.aws.amazon.com/code-library/latest/ug/secrets-manager_example_cross_AuroraRestLendingLibrary_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "secrets-manager_GetSecretValue",
 			"file": "secrets-manager_metadata.yaml",
 			"languages": [],
@@ -57,6 +34,29 @@
 			"doc_filenames": {
 				"service_pages": {
 					"secrets-manager": "https://docs.aws.amazon.com/code-library/latest/ug/secrets-manager_example_secrets-manager_BatchGetSecretValue_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_AuroraRestLendingLibrary",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create a lending library REST API",
+			"title_abbrev": "Create a lending library REST API",
+			"synopsis": "create a lending library where patrons can borrow and return books by using a REST API backed by an Amazon Aurora database.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "aurora",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_AuroraRestLendingLibrary_section.html",
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_AuroraRestLendingLibrary_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_AuroraRestLendingLibrary_section.html",
+					"secrets-manager": "https://docs.aws.amazon.com/code-library/latest/ug/secrets-manager_example_cross_AuroraRestLendingLibrary_section.html"
 				},
 				"sdk_pages": []
 			},

@@ -141,31 +141,6 @@
 			"source_key": null
 		},
 		{
-			"id": "comprehend_Usage_ComprehendClassifier",
-			"file": "comprehend_metadata.yaml",
-			"languages": [],
-			"title": "Train a custom Amazon Comprehend classifier and classify documents using an AWS SDK",
-			"title_abbrev": "Train a custom classifier and classify documents",
-			"synopsis": "",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_Usage_ComprehendClassifier_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Create an Amazon Comprehend multi-label classifier.",
-				"Train the classifier on sample data.",
-				"Run a classification job on a second set of data.",
-				"Extract the job output data from Amazon S3."
-			],
-			"source_key": null
-		},
-		{
 			"id": "comprehend_DetectDominantLanguage",
 			"file": "comprehend_metadata.yaml",
 			"languages": [],
@@ -286,31 +261,6 @@
 			"source_key": null
 		},
 		{
-			"id": "comprehend_Usage_DetectApis",
-			"file": "comprehend_metadata.yaml",
-			"languages": [],
-			"title": "Detect document elements with Amazon Comprehend and an AWS SDK",
-			"title_abbrev": "Detect document elements",
-			"synopsis": "",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_Usage_DetectApis_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Detect languages, entities, and key phrases in a document.",
-				"Detect personally identifiable information (PII) in a document.",
-				"Detect the sentiment of a document.",
-				"Detect syntax elements in a document."
-			],
-			"source_key": null
-		},
-		{
 			"id": "comprehend_StartTopicsDetectionJob",
 			"file": "comprehend_metadata.yaml",
 			"languages": [],
@@ -368,6 +318,56 @@
 				"sdk_pages": []
 			},
 			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_Usage_ComprehendClassifier",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "Train a custom Amazon Comprehend classifier and classify documents using an AWS SDK",
+			"title_abbrev": "Train a custom classifier and classify documents",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_Usage_ComprehendClassifier_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create an Amazon Comprehend multi-label classifier.",
+				"Train the classifier on sample data.",
+				"Run a classification job on a second set of data.",
+				"Extract the job output data from Amazon S3."
+			],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_Usage_DetectApis",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "Detect document elements with Amazon Comprehend and an AWS SDK",
+			"title_abbrev": "Detect document elements",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_Usage_DetectApis_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Detect languages, entities, and key phrases in a document.",
+				"Detect personally identifiable information (PII) in a document.",
+				"Detect the sentiment of a document.",
+				"Detect syntax elements in a document."
+			],
 			"source_key": null
 		},
 		{

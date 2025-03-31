@@ -1,26 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "cognito-identity-provider_Hello",
-			"file": "cognito-identity-provider_metadata.yaml",
-			"languages": [],
-			"title": "Hello Amazon Cognito",
-			"title_abbrev": "Hello Amazon Cognito",
-			"synopsis": "get started using Amazon Cognito.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "cognito-identity-provider_SignUp",
 			"file": "cognito-identity-provider_metadata.yaml",
 			"languages": [],
@@ -254,6 +234,26 @@
 			"doc_filenames": {
 				"service_pages": {
 					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_RespondToAuthChallenge_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_Hello",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon Cognito",
+			"title_abbrev": "Hello Amazon Cognito",
+			"synopsis": "get started using Amazon Cognito.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_Hello_section.html"
 				},
 				"sdk_pages": []
 			},

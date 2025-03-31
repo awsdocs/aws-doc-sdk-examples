@@ -1,52 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "cross_RekognitionPhotoAnalyzer",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect objects in images with Amazon Rekognition using an AWS SDK",
-			"title_abbrev": "Detect objects in images",
-			"synopsis": "build an app that uses Amazon Rekognition to detect objects by category in images.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "rekognition",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionPhotoAnalyzer_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionPhotoAnalyzer_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionPhotoAnalyzer_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_RekognitionVideoDetection",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
-			"title_abbrev": "Detect people and objects in a video",
-			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "rekognition",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "rekognition_DescribeCollection",
 			"file": "rekognition_metadata.yaml",
 			"languages": [],
@@ -254,34 +208,6 @@
 			"source_key": null
 		},
 		{
-			"id": "rekognition_Usage_FindFacesInCollection",
-			"file": "rekognition_metadata.yaml",
-			"languages": [],
-			"title": "Build an Amazon Rekognition collection and find faces in it using an AWS SDK",
-			"title_abbrev": "Build a collection and find faces in it",
-			"synopsis": "",
-			"category": "Scenarios",
-			"guide_topic": {
-				"title": "Searching faces in a collection",
-				"url": "rekognition/latest/dg/collections.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_Usage_FindFacesInCollection_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Create an Amazon Rekognition collection.",
-				"Add images to the collection and detect faces in it.",
-				"Search the collection for faces that match a reference image.",
-				"Delete a collection."
-			],
-			"source_key": null
-		},
-		{
 			"id": "rekognition_DetectFaces",
 			"file": "rekognition_metadata.yaml",
 			"languages": [],
@@ -417,6 +343,80 @@
 				"sdk_pages": []
 			},
 			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionPhotoAnalyzer",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect objects in images with Amazon Rekognition using an AWS SDK",
+			"title_abbrev": "Detect objects in images",
+			"synopsis": "build an app that uses Amazon Rekognition to detect objects by category in images.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionPhotoAnalyzer_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionPhotoAnalyzer_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionPhotoAnalyzer_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionVideoDetection",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
+			"title_abbrev": "Detect people and objects in a video",
+			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "rekognition_Usage_FindFacesInCollection",
+			"file": "rekognition_metadata.yaml",
+			"languages": [],
+			"title": "Build an Amazon Rekognition collection and find faces in it using an AWS SDK",
+			"title_abbrev": "Build a collection and find faces in it",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": {
+				"title": "Searching faces in a collection",
+				"url": "rekognition/latest/dg/collections.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_rekognition_Usage_FindFacesInCollection_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create an Amazon Rekognition collection.",
+				"Add images to the collection and detect faces in it.",
+				"Search the collection for faces that match a reference image.",
+				"Delete a collection."
+			],
 			"source_key": null
 		},
 		{

@@ -1,101 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "cross_TextractExplorer",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create an Amazon Textract explorer application",
-			"title_abbrev": "Create an Amazon Textract explorer application",
-			"synopsis": "explore Amazon Textract output through an interactive application.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "textract",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractExplorer_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_TextractExplorer_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
-					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_LambdaAPIGateway",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Use API Gateway to invoke a Lambda function",
-			"title_abbrev": "Use API Gateway to invoke a Lambda function",
-			"synopsis": "create an AWS Lambda function invoked by Amazon API Gateway.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "lambda",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_LambdaAPIGateway_section.html",
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_LambdaAPIGateway_section.html",
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaAPIGateway_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaAPIGateway_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_LambdaScheduledEvents",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Use scheduled events to invoke a Lambda function",
-			"title_abbrev": "Use scheduled events to invoke a Lambda function",
-			"synopsis": "create an AWS Lambda function invoked by an Amazon EventBridge scheduled event.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "lambda",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch-logs_example_cross_LambdaScheduledEvents_section.html",
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_LambdaScheduledEvents_section.html",
-					"eventbridge": "https://docs.aws.amazon.com/code-library/latest/ug/eventbridge_example_cross_LambdaScheduledEvents_section.html",
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaScheduledEvents_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaScheduledEvents_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_RekognitionVideoDetection",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
-			"title_abbrev": "Detect people and objects in a video",
-			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "rekognition",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "sns_ListSubscriptions",
 			"file": "sns_metadata.yaml",
 			"languages": [],
@@ -196,26 +101,6 @@
 			"source_key": null
 		},
 		{
-			"id": "sns_PublishTextSMS",
-			"file": "sns_metadata.yaml",
-			"languages": [],
-			"title": "Publish an Amazon SNS SMS text message using an AWS SDK",
-			"title_abbrev": "Publish an SMS text message",
-			"synopsis": "publish SMS messages using Amazon SNS.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_PublishTextSMS_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "sns_SetSubscriptionAttributes",
 			"file": "sns_metadata.yaml",
 			"languages": [],
@@ -269,6 +154,121 @@
 			"doc_filenames": {
 				"service_pages": {
 					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_Unsubscribe_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_TextractExplorer",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create an Amazon Textract explorer application",
+			"title_abbrev": "Create an Amazon Textract explorer application",
+			"synopsis": "explore Amazon Textract output through an interactive application.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "textract",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractExplorer_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_TextractExplorer_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
+					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_LambdaAPIGateway",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Use API Gateway to invoke a Lambda function",
+			"title_abbrev": "Use API Gateway to invoke a Lambda function",
+			"synopsis": "create an AWS Lambda function invoked by Amazon API Gateway.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "lambda",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_LambdaAPIGateway_section.html",
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_LambdaAPIGateway_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaAPIGateway_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaAPIGateway_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_LambdaScheduledEvents",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Use scheduled events to invoke a Lambda function",
+			"title_abbrev": "Use scheduled events to invoke a Lambda function",
+			"synopsis": "create an AWS Lambda function invoked by an Amazon EventBridge scheduled event.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "lambda",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch-logs_example_cross_LambdaScheduledEvents_section.html",
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_LambdaScheduledEvents_section.html",
+					"eventbridge": "https://docs.aws.amazon.com/code-library/latest/ug/eventbridge_example_cross_LambdaScheduledEvents_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaScheduledEvents_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaScheduledEvents_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionVideoDetection",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
+			"title_abbrev": "Detect people and objects in a video",
+			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sns_PublishTextSMS",
+			"file": "sns_metadata.yaml",
+			"languages": [],
+			"title": "Publish an Amazon SNS SMS text message using an AWS SDK",
+			"title_abbrev": "Publish an SMS text message",
+			"synopsis": "publish SMS messages using Amazon SNS.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_PublishTextSMS_section.html"
 				},
 				"sdk_pages": []
 			},

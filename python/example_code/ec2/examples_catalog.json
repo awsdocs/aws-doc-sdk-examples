@@ -1,56 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "cross_ResilientService",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Build and manage a resilient service using an AWS SDK",
-			"title_abbrev": "Build and manage a resilient service",
-			"synopsis": "create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_cross_ResilientService_section.html",
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_cross_ResilientService_section.html",
-					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_cross_ResilientService_section.html",
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_cross_ResilientService_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.",
-				"Handle and distribute HTTP requests with Elastic Load Balancing.",
-				"Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.",
-				"Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.",
-				"Simulate a recommendation service with an Amazon DynamoDB table.",
-				"Control web server response to requests and health checks by updating AWS Systems Manager parameters."
-			],
-			"source_key": null
-		},
-		{
-			"id": "ec2_Hello",
-			"file": "ec2_metadata.yaml",
-			"languages": [],
-			"title": "Hello Amazon EC2",
-			"title_abbrev": "Hello Amazon EC2",
-			"synopsis": "get started using Amazon EC2.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "ec2_CreateKeyPair",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
@@ -693,6 +643,56 @@
 				"Stop and restart the instance.",
 				"Associate an Elastic IP address with your instance.",
 				"Connect to your instance with SSH, then clean up resources."
+			],
+			"source_key": null
+		},
+		{
+			"id": "ec2_Hello",
+			"file": "ec2_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon EC2",
+			"title_abbrev": "Hello Amazon EC2",
+			"synopsis": "get started using Amazon EC2.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_ResilientService",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Build and manage a resilient service using an AWS SDK",
+			"title_abbrev": "Build and manage a resilient service",
+			"synopsis": "create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_cross_ResilientService_section.html",
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_cross_ResilientService_section.html",
+					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_cross_ResilientService_section.html",
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_cross_ResilientService_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.",
+				"Handle and distribute HTTP requests with Elastic Load Balancing.",
+				"Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.",
+				"Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.",
+				"Simulate a recommendation service with an Amazon DynamoDB table.",
+				"Control web server response to requests and health checks by updating AWS Systems Manager parameters."
 			],
 			"source_key": null
 		}

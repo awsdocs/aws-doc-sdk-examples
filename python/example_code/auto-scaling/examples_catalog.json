@@ -1,26 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "auto-scaling_Hello",
-			"file": "auto-scaling_metadata.yaml",
-			"languages": [],
-			"title": "Hello Auto Scaling",
-			"title_abbrev": "Hello Auto Scaling",
-			"synopsis": "get started using Auto Scaling.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "auto-scaling_CreateAutoScalingGroup",
 			"file": "auto-scaling_metadata.yaml",
 			"languages": [],
@@ -265,6 +245,26 @@
 				"List scaling activities that occur in response to user requests and capacity changes.",
 				"Get statistics for CloudWatch metrics, then clean up resources."
 			],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_Hello",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "Hello Auto Scaling",
+			"title_abbrev": "Hello Auto Scaling",
+			"synopsis": "get started using Auto Scaling.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		},
 		{

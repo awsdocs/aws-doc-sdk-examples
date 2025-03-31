@@ -1,26 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "keyspaces_Hello",
-			"file": "keyspaces_metadata.yaml",
-			"languages": [],
-			"title": "Hello Amazon Keyspaces",
-			"title_abbrev": "Hello Amazon Keyspaces",
-			"synopsis": "get started using Amazon Keyspaces.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "keyspaces_CreateKeyspace",
 			"file": "keyspaces_metadata.yaml",
 			"languages": [],
@@ -244,6 +224,26 @@
 				"Update the table. Add a column to track watched movies.",
 				"Restore the table to its previous state and clean up resources."
 			],
+			"source_key": null
+		},
+		{
+			"id": "keyspaces_Hello",
+			"file": "keyspaces_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon Keyspaces",
+			"title_abbrev": "Hello Amazon Keyspaces",
+			"synopsis": "get started using Amazon Keyspaces.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		}
 	]

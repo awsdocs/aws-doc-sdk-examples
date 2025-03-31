@@ -1,96 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "cross_RDSDataTracker",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create an Aurora Serverless work item tracker",
-			"title_abbrev": "Create an Aurora Serverless work item tracker",
-			"synopsis": "create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "aurora",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_RDSDataTracker_section.html",
-					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_cross_RDSDataTracker_section.html",
-					"rds-data": "https://docs.aws.amazon.com/code-library/latest/ug/rds-data_example_cross_RDSDataTracker_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RDSDataTracker_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_DynamoDBDataTracker",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create a web application to track DynamoDB data",
-			"title_abbrev": "Create a web application to track DynamoDB data",
-			"synopsis": "create a web application that tracks work items in an Amazon DynamoDB table and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "dynamodb",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_DynamoDBDataTracker_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_DynamoDBDataTracker_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_RekognitionPhotoAnalyzer",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect objects in images with Amazon Rekognition using an AWS SDK",
-			"title_abbrev": "Detect objects in images",
-			"synopsis": "build an app that uses Amazon Rekognition to detect objects by category in images.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "rekognition",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionPhotoAnalyzer_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionPhotoAnalyzer_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionPhotoAnalyzer_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_RekognitionVideoDetection",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
-			"title_abbrev": "Detect people and objects in a video",
-			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "rekognition",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "ses_SendEmail",
 			"file": "ses_metadata.yaml",
 			"languages": [],
@@ -484,6 +394,96 @@
 			"doc_filenames": {
 				"service_pages": {
 					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_UpdateTemplate_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RDSDataTracker",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create an Aurora Serverless work item tracker",
+			"title_abbrev": "Create an Aurora Serverless work item tracker",
+			"synopsis": "create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "aurora",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_RDSDataTracker_section.html",
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_cross_RDSDataTracker_section.html",
+					"rds-data": "https://docs.aws.amazon.com/code-library/latest/ug/rds-data_example_cross_RDSDataTracker_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RDSDataTracker_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_DynamoDBDataTracker",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create a web application to track DynamoDB data",
+			"title_abbrev": "Create a web application to track DynamoDB data",
+			"synopsis": "create a web application that tracks work items in an Amazon DynamoDB table and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "dynamodb",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_DynamoDBDataTracker_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_DynamoDBDataTracker_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionPhotoAnalyzer",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect objects in images with Amazon Rekognition using an AWS SDK",
+			"title_abbrev": "Detect objects in images",
+			"synopsis": "build an app that uses Amazon Rekognition to detect objects by category in images.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionPhotoAnalyzer_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionPhotoAnalyzer_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionPhotoAnalyzer_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionVideoDetection",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
+			"title_abbrev": "Detect people and objects in a video",
+			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
 				},
 				"sdk_pages": []
 			},

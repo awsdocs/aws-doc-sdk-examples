@@ -1,56 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "cross_ResilientService",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Build and manage a resilient service using an AWS SDK",
-			"title_abbrev": "Build and manage a resilient service",
-			"synopsis": "create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_cross_ResilientService_section.html",
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_cross_ResilientService_section.html",
-					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_cross_ResilientService_section.html",
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_cross_ResilientService_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.",
-				"Handle and distribute HTTP requests with Elastic Load Balancing.",
-				"Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.",
-				"Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.",
-				"Simulate a recommendation service with an Amazon DynamoDB table.",
-				"Control web server response to requests and health checks by updating AWS Systems Manager parameters."
-			],
-			"source_key": null
-		},
-		{
-			"id": "iam_Hello",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "Hello IAM",
-			"title_abbrev": "Hello IAM",
-			"synopsis": "get started using IAM.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "iam_CreateAccountAlias",
 			"file": "iam_metadata.yaml",
 			"languages": [],
@@ -231,31 +181,6 @@
 			"source_key": null
 		},
 		{
-			"id": "iam_Scenario_AccountManagement",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "Manage your IAM account using an AWS SDK",
-			"title_abbrev": "Manage your account",
-			"synopsis": "",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_AccountManagement_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Get and update the account alias.",
-				"Generate a report of users and credentials.",
-				"Get a summary of account usage.",
-				"Get details for all users, groups, roles, and policies in your account, including their relationships to each other."
-			],
-			"source_key": null
-		},
-		{
 			"id": "iam_CreateAccessKey",
 			"file": "iam_metadata.yaml",
 			"languages": [],
@@ -353,30 +278,6 @@
 				"sdk_pages": []
 			},
 			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_Scenario_ManageAccessKeys",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "Manage IAM access keys using an AWS SDK",
-			"title_abbrev": "Manage access keys",
-			"synopsis": "manage access keys. ",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_ManageAccessKeys_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Create and list access keys.",
-				"Find out when and how an access key was last used.",
-				"Update and delete access keys."
-			],
 			"source_key": null
 		},
 		{
@@ -500,31 +401,6 @@
 			"source_key": null
 		},
 		{
-			"id": "iam_Scenario_RollbackPolicyVersion",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "Roll back an IAM policy version using an AWS SDK",
-			"title_abbrev": "Roll back a policy version",
-			"synopsis": "",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_RollbackPolicyVersion_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Get the list of policy versions in order by date.",
-				"Find the default policy version.",
-				"Make the previous policy version the default.",
-				"Delete the old default version."
-			],
-			"source_key": null
-		},
-		{
 			"id": "iam_AttachRolePolicy",
 			"file": "iam_metadata.yaml",
 			"languages": [],
@@ -582,31 +458,6 @@
 				"sdk_pages": []
 			},
 			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_Scenario_PolicyManagement",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "Manage IAM policies using an AWS SDK",
-			"title_abbrev": "Manage policies",
-			"synopsis": "",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_PolicyManagement_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Create and list policies.",
-				"Create and get policy versions.",
-				"Roll back a policy to a previous version.",
-				"Delete policies."
-			],
 			"source_key": null
 		},
 		{
@@ -707,30 +558,6 @@
 				"sdk_pages": []
 			},
 			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_Scenario_RoleManagement",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "Manage IAM roles using an AWS SDK",
-			"title_abbrev": "Manage roles",
-			"synopsis": "",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_RoleManagement_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Create an IAM role.",
-				"Attach and detach policies for a role.",
-				"Delete a role."
-			],
 			"source_key": null
 		},
 		{
@@ -854,31 +681,6 @@
 			"source_key": null
 		},
 		{
-			"id": "iam_Scenario_UserPolicies",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "Create read-only and read-write IAM users using an AWS SDK",
-			"title_abbrev": "Create read-only and read-write users",
-			"synopsis": "create users and attach policies to them. ",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_UserPolicies_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Create two IAM users.",
-				"Attach a policy for one user to get and put objects in an Amazon S3 bucket.",
-				"Attach a policy for the second user to get objects from the bucket.",
-				"Get different permissions to the bucket based on user credentials."
-			],
-			"source_key": null
-		},
-		{
 			"id": "iam_ListGroups",
 			"file": "iam_metadata.yaml",
 			"languages": [],
@@ -980,6 +782,204 @@
 				"Create a role that grants permission to list Amazon S3 buckets for the account.",
 				"Add a policy to let the user assume the role.",
 				"Assume the role and list S3 buckets using temporary credentials, then clean up resources."
+			],
+			"source_key": null
+		},
+		{
+			"id": "iam_Hello",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "Hello IAM",
+			"title_abbrev": "Hello IAM",
+			"synopsis": "get started using IAM.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_ResilientService",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Build and manage a resilient service using an AWS SDK",
+			"title_abbrev": "Build and manage a resilient service",
+			"synopsis": "create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_cross_ResilientService_section.html",
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_cross_ResilientService_section.html",
+					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_cross_ResilientService_section.html",
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_cross_ResilientService_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.",
+				"Handle and distribute HTTP requests with Elastic Load Balancing.",
+				"Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.",
+				"Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.",
+				"Simulate a recommendation service with an Amazon DynamoDB table.",
+				"Control web server response to requests and health checks by updating AWS Systems Manager parameters."
+			],
+			"source_key": null
+		},
+		{
+			"id": "iam_Scenario_AccountManagement",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "Manage your IAM account using an AWS SDK",
+			"title_abbrev": "Manage your account",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_AccountManagement_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Get and update the account alias.",
+				"Generate a report of users and credentials.",
+				"Get a summary of account usage.",
+				"Get details for all users, groups, roles, and policies in your account, including their relationships to each other."
+			],
+			"source_key": null
+		},
+		{
+			"id": "iam_Scenario_ManageAccessKeys",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "Manage IAM access keys using an AWS SDK",
+			"title_abbrev": "Manage access keys",
+			"synopsis": "manage access keys. ",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_ManageAccessKeys_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create and list access keys.",
+				"Find out when and how an access key was last used.",
+				"Update and delete access keys."
+			],
+			"source_key": null
+		},
+		{
+			"id": "iam_Scenario_RollbackPolicyVersion",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "Roll back an IAM policy version using an AWS SDK",
+			"title_abbrev": "Roll back a policy version",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_RollbackPolicyVersion_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Get the list of policy versions in order by date.",
+				"Find the default policy version.",
+				"Make the previous policy version the default.",
+				"Delete the old default version."
+			],
+			"source_key": null
+		},
+		{
+			"id": "iam_Scenario_PolicyManagement",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "Manage IAM policies using an AWS SDK",
+			"title_abbrev": "Manage policies",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_PolicyManagement_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create and list policies.",
+				"Create and get policy versions.",
+				"Roll back a policy to a previous version.",
+				"Delete policies."
+			],
+			"source_key": null
+		},
+		{
+			"id": "iam_Scenario_RoleManagement",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "Manage IAM roles using an AWS SDK",
+			"title_abbrev": "Manage roles",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_RoleManagement_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create an IAM role.",
+				"Attach and detach policies for a role.",
+				"Delete a role."
+			],
+			"source_key": null
+		},
+		{
+			"id": "iam_Scenario_UserPolicies",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "Create read-only and read-write IAM users using an AWS SDK",
+			"title_abbrev": "Create read-only and read-write users",
+			"synopsis": "create users and attach policies to them. ",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_UserPolicies_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create two IAM users.",
+				"Attach a policy for one user to get and put objects in an Amazon S3 bucket.",
+				"Attach a policy for the second user to get objects from the bucket.",
+				"Get different permissions to the bucket based on user credentials."
 			],
 			"source_key": null
 		}
