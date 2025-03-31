@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.firehose.FirehoseClient;
@@ -28,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class FirehoseTest {
+    private static final Logger logger = LoggerFactory.getLogger(FirehoseTest.class);
     private static FirehoseClient firehoseClient;
     private static String bucketARN = "";
     private static String roleARN = "";
@@ -59,7 +62,7 @@ public class FirehoseTest {
             CreateDeliveryStream.createStream(firehoseClient, bucketARN, roleARN, newStream);
             CreateDeliveryStream.waitForStreamToBecomeActive(firehoseClient, newStream);
         });
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -79,7 +82,7 @@ public class FirehoseTest {
                 System.err.println("Error processing record: " + e.getMessage());
             }
         });
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
    @Test
@@ -87,7 +90,7 @@ public class FirehoseTest {
     @Order(3)
     public void ListDeliveryStreams() {
         assertDoesNotThrow(() -> ListDeliveryStreams.listStreams(firehoseClient));
-        System.out.println("Test 4 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -95,7 +98,7 @@ public class FirehoseTest {
     @Order(4)
     public void DeleteStream() {
         assertDoesNotThrow(() -> DeleteStream.delStream(firehoseClient, newStream));
-        System.out.println("Test 5 passed");
+        logger.info("Test 4 passed");
     }
 
     private static String getSecretValues() {

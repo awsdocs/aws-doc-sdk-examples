@@ -43,7 +43,7 @@ public class FirehoseScenario {
             System.out.println(usage);
             return;
         }
-        
+
         String deliveryStreamName = args[0];
 
         try {
