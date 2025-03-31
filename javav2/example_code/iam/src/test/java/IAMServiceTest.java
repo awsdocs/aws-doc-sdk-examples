@@ -6,6 +6,9 @@ import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
@@ -25,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class IAMServiceTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(IAMServiceTest.class);
     private static IamClient iam;
     private static String userName = "";
     private static String policyName = "";
@@ -69,7 +72,7 @@ public class IAMServiceTest {
     public void CreatUser() {
         String result = CreateUser.createIAMUser(iam, userName);
         assertFalse(result.isEmpty());
-        System.out.println("\n Test 1 passed");
+        logger.info("\n Test 1 passed");
     }
 
     @Test
@@ -78,7 +81,7 @@ public class IAMServiceTest {
     public void CreatePolicy() {
         policyARN = CreatePolicy.createIAMPolicy(iam, policyName);
         assertFalse(policyARN.isEmpty());
-        System.out.println("\n Test 2 passed");
+        logger.info("\n Test 2 passed");
     }
 
     @Test
@@ -87,7 +90,7 @@ public class IAMServiceTest {
     public void CreateAccessKey() {
         keyId = CreateAccessKey.createIAMAccessKey(iam, userName);
         assertFalse(keyId.isEmpty());
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -95,7 +98,7 @@ public class IAMServiceTest {
     @Order(4)
     public void GetPolicy() {
         assertDoesNotThrow(() -> GetPolicy.getIAMPolicy(iam, policyARN));
-        System.out.println("Test 6 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -103,7 +106,7 @@ public class IAMServiceTest {
     @Order(5)
     public void ListAccessKeys() {
         assertDoesNotThrow(() -> ListAccessKeys.listKeys(iam, userName));
-        System.out.println("Test 7 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -111,7 +114,7 @@ public class IAMServiceTest {
     @Order(6)
     public void ListUsers() {
         assertDoesNotThrow(() -> ListUsers.listAllUsers(iam));
-        System.out.println("Test 8 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
@@ -119,7 +122,7 @@ public class IAMServiceTest {
     @Order(7)
     public void CreateAccountAlias() {
         assertDoesNotThrow(() -> CreateAccountAlias.createIAMAccountAlias(iam, accountAlias));
-        System.out.println("Test 9 passed");
+        logger.info("Test 7 passed");
     }
 
     @Test
@@ -127,7 +130,7 @@ public class IAMServiceTest {
     @Order(8)
     public void DeleteAccountAlias() {
         assertDoesNotThrow(() -> DeleteAccountAlias.deleteIAMAccountAlias(iam, accountAlias));
-        System.out.println("Test 10 passed");
+        logger.info("Test 8 passed");
     }
 
     @Test
@@ -135,7 +138,7 @@ public class IAMServiceTest {
     @Order(9)
     public void DeletePolicy() {
         assertDoesNotThrow(() -> DeletePolicy.deleteIAMPolicy(iam, policyARN));
-        System.out.println("Test 12 passed");
+        logger.info("Test 9 passed");
     }
 
     @Test
@@ -143,7 +146,7 @@ public class IAMServiceTest {
     @Order(10)
     public void DeleteAccessKey() {
         assertDoesNotThrow(() -> DeleteAccessKey.deleteKey(iam, userName, keyId));
-        System.out.println("Test 12 passed");
+        logger.info("Test 10 passed");
     }
 
     @Test
@@ -151,7 +154,7 @@ public class IAMServiceTest {
     @Order(11)
     public void DeleteUser() {
         assertDoesNotThrow(() -> DeleteUser.deleteIAMUser(iam, userName));
-        System.out.println("Test 13 passed");
+        logger.info("Test 11 passed");
     }
 
     @Test
@@ -213,6 +216,7 @@ public class IAMServiceTest {
         IAMScenario.deleteRole(iam, roleNameSc, polArn);
         IAMScenario.deleteIAMUser(iam, usernameSc);
         System.out.println(DASHES);
+        logger.info("Test 12 passed");
     }
 
     private static String getSecretValues() {
