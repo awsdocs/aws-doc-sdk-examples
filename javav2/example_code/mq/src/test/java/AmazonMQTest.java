@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.mq.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mq.MqClient;
 import software.amazon.awssdk.services.mq.model.Configuration;
@@ -17,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonMQTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(AmazonMQTest.class);
     private static MqClient mqClient;
     private static Region region;
     private static String engineType = "";
@@ -28,7 +30,6 @@ public class AmazonMQTest {
 
     @BeforeAll
     public static void setUp() throws IOException {
-
         region = Region.US_WEST_2;
         mqClient = MqClient.builder()
                 .region(region)
@@ -64,7 +65,7 @@ public class AmazonMQTest {
     public void CreateBroker() {
         brokerId = CreateBroker.createBroker(mqClient, engineType, brokerName);
         assertTrue(!brokerId.isEmpty());
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -73,7 +74,7 @@ public class AmazonMQTest {
     public void CreateConfiguration() {
         String result = CreateConfiguration.createNewConfigutation(mqClient, configurationName);
         assertTrue(!result.isEmpty());
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -82,7 +83,7 @@ public class AmazonMQTest {
     public void DescribeBroker() {
         String result = DescribeBroker.describeBroker(mqClient, brokerName);
         assertTrue(!result.isEmpty());
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -91,7 +92,7 @@ public class AmazonMQTest {
     public void ListBrokers() {
         List<BrokerSummary> result = ListBrokers.listBrokers(mqClient);
         assertTrue(result instanceof List<?>);
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -100,7 +101,7 @@ public class AmazonMQTest {
     public void ListConfigurations() {
         List<Configuration> result = ListConfigurations.listConfigurations(mqClient);
         assertTrue(result instanceof List<?>);
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -108,6 +109,6 @@ public class AmazonMQTest {
     @Order(6)
     public void testDeleteBroker() {
         assertDoesNotThrow(() -> DeleteBroker.deleteBroker(mqClient, brokerId));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 }
