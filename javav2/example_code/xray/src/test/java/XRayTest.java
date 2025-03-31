@@ -32,7 +32,6 @@ public class XRayTest {
         Region region = Region.US_EAST_1;
         xRayClient = XRayClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         Random random = new Random();
@@ -45,30 +44,6 @@ public class XRayTest {
         groupName = values.getGroupName();
         newGroupName = values.getNewGroupName() + randomNum;
         ruleName = values.getRuleName() + randomNum;
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * XRayTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * Random rand = new Random();
-         * int randomNum = rand.nextInt((10000 - 1) + 1) + 1;
-         * prop.load(input);
-         * groupName = prop.getProperty("groupName");
-         * newGroupName = prop.getProperty("newGroupName")+randomNum;
-         * ruleName= prop.getProperty("ruleName")+ randomNum;
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -114,7 +89,6 @@ public class XRayTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/xray";
 

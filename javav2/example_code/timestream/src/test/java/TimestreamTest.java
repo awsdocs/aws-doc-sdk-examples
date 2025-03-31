@@ -28,21 +28,22 @@ public class TimestreamTest {
     private static String newTable = "";
 
     // TODO Change database name in this string.
-    private static String queryString = "SELECT\n" +
-            "    truck_id,\n" +
-            "    fleet,\n" +
-            "    fuel_capacity,\n" +
-            "    model,\n" +
-            "    load_capacity,\n" +
-            "    make,\n" +
-            "    measure_name\n" +
-            "FROM \"ScottTimeDB\".IoTMulti";
+    private static String queryString = """
+    SELECT
+        truck_id,
+        fleet,
+        fuel_capacity,
+        model,
+        load_capacity,
+        make,
+        measure_name
+    FROM "ScottTimeDB".IoTMulti
+    """;
 
     @BeforeAll
     public static void setUp() throws IOException {
         timestreamWriteClient = TimestreamWriteClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         queryClient = TimestreamQueryClient.builder()
@@ -56,29 +57,6 @@ public class TimestreamTest {
         SecretValues values = gson.fromJson(json, SecretValues.class);
         dbName = values.getDbName() + java.util.UUID.randomUUID();
         newTable = values.getNewTable() + java.util.UUID.randomUUID();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * TimestreamTest.class.getClassLoader().getResourceAsStream("config.properties"
-         * )) {
-         * Properties prop = new Properties();
-         * 
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * prop.load(input);
-         * dbName = prop.getProperty("dbName")+ java.util.UUID.randomUUID();;
-         * newTable = prop.getProperty("newTable")+ java.util.UUID.randomUUID();;
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         * 
-         */
     }
 
     @Test
@@ -164,7 +142,6 @@ public class TimestreamTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/timestream";
 

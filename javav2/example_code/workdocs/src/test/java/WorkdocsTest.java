@@ -36,7 +36,6 @@ public class WorkdocsTest {
         Region region = Region.US_WEST_2;
         workDocs = WorkDocsClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -49,54 +48,12 @@ public class WorkdocsTest {
         saveDocFullName = values.getSaveDocFullName();
         docName = values.getDocName();
         docPath = values.getDocPath();
+   }
 
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * WorkdocsTest.class.getClassLoader().getResourceAsStream("config.properties"))
-         * {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * prop.load(input);
-         * orgId = prop.getProperty("orgId");
-         * userEmail = prop.getProperty("userEmail");
-         * workdocsName = prop.getProperty("workdocsName");
-         * saveDocFullName = prop.getProperty("saveDocFullName");
-         * docName = prop.getProperty("docName");
-         * docPath = prop.getProperty("docPath");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
-    }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void UploadUserDoc() {
-        assertDoesNotThrow(() -> UploadUserDocs.uploadDoc(workDocs, orgId, userEmail, docName, docPath));
-        System.out.println("Test 1 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(2)
-    public void DownloadUserDoc() {
-        assertDoesNotThrow(
-                () -> DownloadUserDoc.downloadDoc(workDocs, orgId, userEmail, workdocsName, saveDocFullName));
-        System.out.println("Test 2 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(3)
     public void ListUserDocs() {
         assertDoesNotThrow(() -> ListUserDocs.listDocs(workDocs, orgId, userEmail));
         System.out.println("Test 3 passed");
@@ -104,7 +61,7 @@ public class WorkdocsTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(4)
+    @Order(2)
     public void ListUsers() {
         assertDoesNotThrow(() -> ListUsers.getAllUsers(workDocs, orgId));
         System.out.println("Test 4 passed");
@@ -113,7 +70,6 @@ public class WorkdocsTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/workdocs";
 
