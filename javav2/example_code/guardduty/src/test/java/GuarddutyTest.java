@@ -5,6 +5,8 @@ import com.example.guardduty.GetDetector;
 import com.example.guardduty.GetFindings;
 import com.example.guardduty.ListDetectors;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.guardduty.GuardDutyClient;
@@ -22,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class GuarddutyTest {
+    private static final Logger logger = LoggerFactory.getLogger(GuarddutyTest.class);
     private static GuardDutyClient guardDutyClient;
     private static String detectorId = "";
     private static String findingId = "";
@@ -46,7 +49,7 @@ public class GuarddutyTest {
     @Order(1)
     public void GetDetector() {
         assertDoesNotThrow(() -> GetDetector.getSpecificDetector(guardDutyClient, detectorId));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -54,7 +57,7 @@ public class GuarddutyTest {
     @Order(2)
     public void GetFindings() {
         assertDoesNotThrow(() -> GetFindings.getSpecificFinding(guardDutyClient, findingId, detectorId));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -62,7 +65,7 @@ public class GuarddutyTest {
     @Order(3)
     public void ListDetectors() {
         assertDoesNotThrow(() -> ListDetectors.listAllDetectors(guardDutyClient));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     private static String getSecretValues() {
