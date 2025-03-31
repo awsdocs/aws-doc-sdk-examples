@@ -68,7 +68,7 @@ public class EMRTest {
     @Order(3)
     public void createEmrFleetTest() {
         assertDoesNotThrow(() -> CreateEmrFleet.createFleet(emrClient));
-        System.out.println("Test 4 passed");
+        System.out.println("Test 3 passed");
     }
 
 
@@ -76,14 +76,14 @@ public class EMRTest {
     @Order(4)
     public void createSparkClusterTest() {
         assertDoesNotThrow(() -> CreateSparkCluster.createCluster(emrClient, jar, myClass, keys, logUri, name));
-        System.out.println("Test 6 passed");
+        System.out.println("Test 4 passed");
     }
 
     @Test
     @Order(5)
     public void createHiveClusterTest() {
         assertDoesNotThrow(() -> CreateHiveCluster.createCluster(emrClient, jar, myClass, keys, logUri, name));
-        System.out.println("Test 7 passed");
+        System.out.println("Test 5 passed");
 
     }
 
@@ -91,7 +91,7 @@ public class EMRTest {
     @Order(6)
     public void customEmrfsMaterialsTest() {
         assertDoesNotThrow(() -> CustomEmrfsMaterials.createEmrfsCluster(emrClient, jar, myClass, keys, logUri, name));
-        System.out.println("Test 8 passed");
+        System.out.println("Test 6 passed");
     }
 
     private static String getSecretValues() {
