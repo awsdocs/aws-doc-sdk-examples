@@ -4,6 +4,8 @@
 import com.example.search.scenario.OpenSearchActions;
 import com.example.search.scenario.OpenSearchScenario;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.opensearch.OpenSearchClient;
@@ -24,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class OpenSearchTest {
+    private static final Logger logger = LoggerFactory.getLogger(OpenSearchTest.class);
 
     private static OpenSearchActions openSearchActions;
     private static String domainName = "";
@@ -46,7 +49,7 @@ public class OpenSearchTest {
             CompletableFuture<Void> future = HelloOpenSearch.listVersionsAsync();
             future.join();
         });
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -56,9 +59,9 @@ public class OpenSearchTest {
         assertDoesNotThrow(() -> {
             CompletableFuture<String> future = openSearchActions.createNewDomainAsync(domainName);
             String domainId = future.join();
-            System.out.println("Domain successfully created with ID: " + domainId);
+            logger.info("Domain successfully created with ID: " + domainId);
         });
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
 
@@ -70,7 +73,7 @@ public class OpenSearchTest {
             CompletableFuture<String> future = openSearchActions.describeDomainAsync(domainName);
             arn = future.join();
         });
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -81,10 +84,10 @@ public class OpenSearchTest {
             CompletableFuture<List<DomainInfo>> future = openSearchActions.listAllDomainsAsync();
             List<DomainInfo> domainInfoList = future.join();
             for (DomainInfo domain : domainInfoList) {
-                System.out.println("Domain name is: " + domain.domainName());
+                logger.info("Domain name is: " + domain.domainName());
             }
         });
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -94,9 +97,9 @@ public class OpenSearchTest {
         assertDoesNotThrow(() -> {
             CompletableFuture<AddTagsResponse> future = openSearchActions.addDomainTagsAsync(arn);
             future.join();
-            System.out.println("Domain change progress completed successfully.");
+            logger.info("Domain change progress completed successfully.");
         });
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -106,9 +109,9 @@ public class OpenSearchTest {
         assertDoesNotThrow(() -> {
             CompletableFuture<ListTagsResponse> future = openSearchActions.listDomainTagsAsync(arn);
             future.join();
-            System.out.println("Domain tags listed successfully.");
+            logger.info("Domain tags listed successfully.");
         });
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
@@ -118,8 +121,8 @@ public class OpenSearchTest {
         assertDoesNotThrow(() -> {
             CompletableFuture<DeleteDomainResponse> future = openSearchActions.deleteSpecificDomainAsync(domainName);
             future.join();
-            System.out.println(domainName + " was successfully deleted.");
+            logger.info(domainName + " was successfully deleted.");
         });
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 }
