@@ -621,6 +621,26 @@
 			"source_key": null
 		},
 		{
+			"id": "bedrock-runtime_Scenario_AmazonNova_TextToVideo",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Use Amazon Nova Reel to generate a video from a text prompt",
+			"title_abbrev": "Text-to-video",
+			"synopsis": "use Amazon Nova Reel to generate a video from a text prompt.",
+			"category": "Amazon Nova Reel",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Scenario_AmazonNova_TextToVideo_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings",
 			"file": "bedrock-runtime_metadata.yaml",
 			"languages": [],
