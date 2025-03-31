@@ -7,6 +7,8 @@ import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import org.junit.jupiter.api.TestInstance;
@@ -30,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LambdaTest {
+    private static final Logger logger = LoggerFactory.getLogger(LambdaTest.class);
     private static LambdaClient awsLambda;
     private static String functionName = "";
     private static String functionNameSc = "";
@@ -63,7 +66,7 @@ public class LambdaTest {
     @Order(1)
     public void GetAccountSettings() {
         assertDoesNotThrow(() -> GetAccountSettings.getSettings(awsLambda));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -97,6 +100,7 @@ public class LambdaTest {
 
         System.out.println("Delete the AWS Lambda function.");
         assertDoesNotThrow(() -> LambdaScenario.deleteLambdaFunction(awsLambda, functionNameSc));
+        logger.info("Test 2 passed");
     }
 
     private static String getSecretValues() {
