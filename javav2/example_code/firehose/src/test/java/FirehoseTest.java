@@ -37,7 +37,7 @@ public class FirehoseTest {
     @BeforeAll
     public static void setUp() throws IOException {
         firehoseClient = FirehoseClient.builder()
-                .region(Region.US_WEST_2)
+                .region(Region.US_EAST_1)
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -55,7 +55,10 @@ public class FirehoseTest {
     @Tag("IntegrationTest")
     @Order(1)
     public void CreateDeliveryStream() {
-        assertDoesNotThrow(() -> CreateDeliveryStream.createStream(firehoseClient, bucketARN, roleARN, newStream));
+        assertDoesNotThrow(() -> {
+            CreateDeliveryStream.createStream(firehoseClient, bucketARN, roleARN, newStream);
+            CreateDeliveryStream.waitForStreamToBecomeActive(firehoseClient, newStream);
+        });
         System.out.println("Test 1 passed");
     }
 
@@ -63,8 +66,6 @@ public class FirehoseTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void PutRecord() throws IOException, InterruptedException {
-        System.out.println("Wait 10 mins for resource to become available.");
-        TimeUnit.MINUTES.sleep(10);
         String jsonContent = FirehoseScenario.readJsonFile("sample_records.json");
         ObjectMapper objectMapper = new ObjectMapper();
         List<Map<String, Object>> sampleData = objectMapper.readValue(jsonContent, new TypeReference<>() {});
