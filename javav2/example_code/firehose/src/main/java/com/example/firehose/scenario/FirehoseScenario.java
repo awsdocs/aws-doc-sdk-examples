@@ -39,11 +39,12 @@ public class FirehoseScenario {
                     deliveryStreamName - The Firehose delivery stream name.
                 """;
 
-      //  if (args.length != 1) {
-       //     System.out.println(usage);
-      //      return;
-      //  }
-        String deliveryStreamName = "scottstocks" ; //args[0];
+        if (args.length != 1) {
+            System.out.println(usage);
+            return;
+        }
+        
+        String deliveryStreamName = args[0];
 
         try {
             // Read and parse sample data.
