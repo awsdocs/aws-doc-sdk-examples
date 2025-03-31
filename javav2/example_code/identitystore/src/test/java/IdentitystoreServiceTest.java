@@ -8,22 +8,20 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.identitystore.IdentitystoreClient;
-import software.amazon.awssdk.services.identitystore.model.IdentitystoreException;
-import software.amazon.awssdk.services.identitystore.model.Group;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
-
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class IdentitystoreServiceTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(IdentitystoreServiceTest.class);
     private static IdentitystoreClient identitystore;
     private static String identitystoreId = "";
     private static String groupName = "";
@@ -59,7 +57,7 @@ public class IdentitystoreServiceTest {
     public void CreateGroup() {
         String result2 = CreateGroup.createGroup(identitystore, identitystoreId, groupName, groupDesc);
         assertTrue(!result2.isEmpty());
-        System.out.println("\n Test 1 passed");
+        logger.info("\n Test 1 passed");
     }
 
     @Test
@@ -68,7 +66,7 @@ public class IdentitystoreServiceTest {
     public void GetGroupId() {
         groupId = GetGroupId.getGroupId(identitystore, identitystoreId, "DisplayName", groupName);
         assertTrue(!groupId.isEmpty());
-        System.out.println("\n Test 2 passed");
+        logger.info("\n Test 2 passed");
     }
 
     @Test
@@ -77,7 +75,7 @@ public class IdentitystoreServiceTest {
     public void DescribeGroup() {
         String result4 = DescribeGroup.describeGroup(identitystore, identitystoreId, groupId);
         assertTrue(!result4.isEmpty());
-        System.out.println("\n Test 3 passed");
+        logger.info("\n Test 3 passed");
     }
 
     @Test
@@ -87,7 +85,7 @@ public class IdentitystoreServiceTest {
         String result5 = UpdateGroup.updateGroup(identitystore, identitystoreId, groupId, "Description",
                 "TestingUpdateAPI");
         assertTrue(!result5.isEmpty());
-        System.out.println("\n Test 4 passed");
+        logger.info("\n Test 4 passed");
     }
 
     @Test
@@ -96,7 +94,7 @@ public class IdentitystoreServiceTest {
     public void ListGroups() {
         int result6 = ListGroups.listGroups(identitystore, identitystoreId);
         assertTrue(result6 >= 0);
-        System.out.println("\n Test 5 passed");
+        logger.info("\n Test 5 passed");
     }
 
     @Test
@@ -105,7 +103,7 @@ public class IdentitystoreServiceTest {
     public void CreateUser() {
         String result7 = CreateUser.createUser(identitystore, identitystoreId, userName, givenName, familyName);
         assertTrue(!result7.isEmpty());
-        System.out.println("\n Test 6 passed");
+        logger.info("\n Test 6 passed");
     }
 
     @Test
@@ -114,7 +112,7 @@ public class IdentitystoreServiceTest {
     public void GetUserId() {
         userId = GetUserId.getUserId(identitystore, identitystoreId, "UserName", userName);
         assertTrue(!userId.isEmpty());
-        System.out.println("\n Test 7 passed");
+        logger.info("\n Test 7 passed");
     }
 
     @Test
@@ -123,7 +121,7 @@ public class IdentitystoreServiceTest {
     public void DescribeUser() {
         String result9 = DescribeUser.describeUser(identitystore, identitystoreId, userId);
         assertTrue(!result9.isEmpty());
-        System.out.println("\n Test 8 passed");
+        logger.info("\n Test 8 passed");
     }
 
     @Test
@@ -133,7 +131,7 @@ public class IdentitystoreServiceTest {
         String result10 = UpdateUser.updateUser(identitystore, identitystoreId, userId, "displayName",
                 "TestingUpdateAPI");
         assertTrue(!result10.isEmpty());
-        System.out.println("\n Test 9 passed");
+        logger.info("\n Test 9 passed");
     }
 
     @Test
@@ -142,7 +140,7 @@ public class IdentitystoreServiceTest {
     public void ListUsers() {
         int result11 = ListUsers.listUsers(identitystore, identitystoreId);
         assertTrue(result11 >= 0);
-        System.out.println("\n Test 10 passed");
+        logger.info("\n Test 10 passed");
     }
 
     @Test
@@ -151,7 +149,7 @@ public class IdentitystoreServiceTest {
     public void CreateGroupMembership() {
         String result12 = CreateGroupMembership.createGroupMembership(identitystore, identitystoreId, groupId, userId);
         assertTrue(!result12.isEmpty());
-        System.out.println("\n Test 11 passed");
+        logger.info("\n Test 11 passed");
     }
 
     @Test
@@ -160,7 +158,7 @@ public class IdentitystoreServiceTest {
     public void GetGroupMembershipId() {
         membershipId = GetGroupMembershipId.getGroupMembershipId(identitystore, identitystoreId, groupId, userId);
         assertTrue(!membershipId.isEmpty());
-        System.out.println("\n Test 12 passed");
+        logger.info("\n Test 12 passed");
     }
 
     @Test
@@ -170,7 +168,7 @@ public class IdentitystoreServiceTest {
         String result14 = DescribeGroupMembership.describeGroupMembershipId(identitystore, identitystoreId,
                 membershipId);
         assertTrue(!result14.isEmpty());
-        System.out.println("\n Test 13 passed");
+        logger.info("\n Test 13 passed");
     }
 
     @Test
@@ -181,7 +179,7 @@ public class IdentitystoreServiceTest {
         groupIdList.add(groupId);
         String result15 = IsMemberInGroups.isMemberInGroups(identitystore, identitystoreId, userId, groupIdList);
         assertTrue(!result15.isEmpty());
-        System.out.println("\n Test 14 passed");
+        logger.info("\n Test 14 passed");
     }
 
     @Test
@@ -190,7 +188,7 @@ public class IdentitystoreServiceTest {
     public void ListGroupMemberships() {
         int result16 = ListGroupMemberships.listGroupMemberships(identitystore, identitystoreId, groupId);
         assertTrue(result16 >= 0);
-        System.out.println("\n Test 15 passed");
+        logger.info("\n Test 15 passed");
     }
 
     @Test
@@ -200,7 +198,7 @@ public class IdentitystoreServiceTest {
         int result17 = ListGroupMembershipsForMember.listGroupMembershipsForMember(identitystore, identitystoreId,
                 userId);
         assertTrue(result17 >= 0);
-        System.out.println("\n Test 16 passed");
+        logger.info("\n Test 16 passed");
     }
 
     @Test
@@ -209,7 +207,7 @@ public class IdentitystoreServiceTest {
     public void DeleteGroupMembership() {
         String result18 = DeleteGroupMembership.deleteGroupMembership(identitystore, identitystoreId, membershipId);
         assertTrue(!result18.isEmpty());
-        System.out.println("\n Test 17 passed");
+        logger.info("\n Test 17 passed");
     }
 
     @Test
@@ -218,7 +216,7 @@ public class IdentitystoreServiceTest {
     public void DeleteUser() {
         String result19 = DeleteUser.deleteUser(identitystore, identitystoreId, userId);
         assertTrue(!result19.isEmpty());
-        System.out.println("\n Test 18 passed");
+        logger.info("\n Test 18 passed");
     }
 
     @Test
@@ -227,7 +225,7 @@ public class IdentitystoreServiceTest {
     public void DeleteGroup() {
         String result20 = DeleteGroup.deleteGroup(identitystore, identitystoreId, groupId);
         assertTrue(!result20.isEmpty());
-        System.out.println("\n Test 19 passed");
+        logger.info("\n Test 19 passed");
     }
 
     private static String getSecretValues() {
