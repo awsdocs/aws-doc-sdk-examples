@@ -61,26 +61,6 @@
 			"source_key": null
 		},
 		{
-			"id": "redshift_ModifyCluster",
-			"file": "redshift_metadata.yaml",
-			"languages": [],
-			"title": "ModifyCluster",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_ModifyCluster_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "redshift_DescribeStatement",
 			"file": "redshift_metadata.yaml",
 			"languages": [],
@@ -121,6 +101,46 @@
 			"source_key": null
 		},
 		{
+			"id": "redshift_Hello",
+			"file": "redshift_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon Redshift",
+			"title_abbrev": "Hello Amazon Redshift",
+			"synopsis": "get started using Amazon Redshift.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "redshift_ModifyCluster",
+			"file": "redshift_metadata.yaml",
+			"languages": [],
+			"title": "ModifyCluster",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_ModifyCluster_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "redshift_Scenario",
 			"file": "redshift_metadata.yaml",
 			"languages": [],
@@ -146,26 +166,6 @@
 				"Modify the Redshift cluster.",
 				"Delete the Amazon Redshift cluster."
 			],
-			"source_key": null
-		},
-		{
-			"id": "redshift_Hello",
-			"file": "redshift_metadata.yaml",
-			"languages": [],
-			"title": "Hello Amazon Redshift",
-			"title_abbrev": "Hello Amazon Redshift",
-			"synopsis": "get started using Amazon Redshift.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"redshift": "https://docs.aws.amazon.com/code-library/latest/ug/redshift_example_redshift_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
 			"source_key": null
 		}
 	]

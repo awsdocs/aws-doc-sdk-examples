@@ -1,26 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "cloudfront_ListDistributions",
-			"file": "cloudfront_metadata.yaml",
-			"languages": [],
-			"title": "ListDistributions",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"cloudfront": "https://docs.aws.amazon.com/code-library/latest/ug/cloudfront_example_cloudfront_ListDistributions_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "cloudfront_GetDistributionConfig",
 			"file": "cloudfront_metadata.yaml",
 			"languages": [],
@@ -34,6 +14,26 @@
 			"doc_filenames": {
 				"service_pages": {
 					"cloudfront": "https://docs.aws.amazon.com/code-library/latest/ug/cloudfront_example_cloudfront_GetDistributionConfig_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudfront_ListDistributions",
+			"file": "cloudfront_metadata.yaml",
+			"languages": [],
+			"title": "ListDistributions",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudfront": "https://docs.aws.amazon.com/code-library/latest/ug/cloudfront_example_cloudfront_ListDistributions_section.html"
 				},
 				"sdk_pages": []
 			},

@@ -1,195 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "lambda_CreateFunction",
-			"file": "lambda_metadata.yaml",
-			"languages": [],
-			"title": "CreateFunction",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_CreateFunction_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lambda_DeleteFunction",
-			"file": "lambda_metadata.yaml",
-			"languages": [],
-			"title": "DeleteFunction",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_DeleteFunction_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lambda_Invoke",
-			"file": "lambda_metadata.yaml",
-			"languages": [],
-			"title": "Invoke",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_Invoke_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lambda_GetFunction",
-			"file": "lambda_metadata.yaml",
-			"languages": [],
-			"title": "GetFunction",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_GetFunction_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lambda_UpdateFunctionCode",
-			"file": "lambda_metadata.yaml",
-			"languages": [],
-			"title": "UpdateFunctionCode",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_UpdateFunctionCode_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lambda_UpdateFunctionConfiguration",
-			"file": "lambda_metadata.yaml",
-			"languages": [],
-			"title": "UpdateFunctionConfiguration",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_UpdateFunctionConfiguration_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lambda_ListFunctions",
-			"file": "lambda_metadata.yaml",
-			"languages": [],
-			"title": "ListFunctions",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_ListFunctions_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lambda_Scenario_GettingStartedFunctions",
-			"file": "lambda_metadata.yaml",
-			"languages": [],
-			"title": "Learn the basics",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Basics",
-			"guide_topic": {
-				"title": "Create a Lambda function with the console",
-				"url": "lambda/latest/dg/getting-started-create-function.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_Scenario_GettingStartedFunctions_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Create an IAM role and Lambda function, then upload handler code.",
-				"Invoke the function with a single parameter and get results.",
-				"Update the function code and configure with an environment variable.",
-				"Invoke the function with new parameters and get results. Display the returned execution log.",
-				"List the functions for your account, then clean up resources."
-			],
-			"source_key": null
-		},
-		{
-			"id": "lambda_Hello",
-			"file": "lambda_metadata.yaml",
-			"languages": [],
-			"title": "Hello Lambda",
-			"title_abbrev": "Hello Lambda",
-			"synopsis": "get started using Lambda.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "cross_ApiGatewayDataTracker",
 			"file": "cross_metadata.yaml",
 			"languages": [],
@@ -258,29 +69,6 @@
 			"source_key": null
 		},
 		{
-			"id": "cross_StepFunctionsMessenger",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create a messenger application with Step Functions",
-			"title_abbrev": "Create a messenger application",
-			"synopsis": "create an AWS Step Functions messenger application that retrieves message records from a database table.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "sfn",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_StepFunctionsMessenger_section.html",
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_StepFunctionsMessenger_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_StepFunctionsMessenger_section.html",
-					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_StepFunctionsMessenger_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "cross_LambdaAPIGateway",
 			"file": "cross_metadata.yaml",
 			"languages": [],
@@ -321,6 +109,218 @@
 					"eventbridge": "https://docs.aws.amazon.com/code-library/latest/ug/eventbridge_example_cross_LambdaScheduledEvents_section.html",
 					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaScheduledEvents_section.html",
 					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaScheduledEvents_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_StepFunctionsMessenger",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create a messenger application with Step Functions",
+			"title_abbrev": "Create a messenger application",
+			"synopsis": "create an AWS Step Functions messenger application that retrieves message records from a database table.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "sfn",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_StepFunctionsMessenger_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_StepFunctionsMessenger_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_StepFunctionsMessenger_section.html",
+					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_StepFunctionsMessenger_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_CreateFunction",
+			"file": "lambda_metadata.yaml",
+			"languages": [],
+			"title": "CreateFunction",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_CreateFunction_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_DeleteFunction",
+			"file": "lambda_metadata.yaml",
+			"languages": [],
+			"title": "DeleteFunction",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_DeleteFunction_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_GetFunction",
+			"file": "lambda_metadata.yaml",
+			"languages": [],
+			"title": "GetFunction",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_GetFunction_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_Hello",
+			"file": "lambda_metadata.yaml",
+			"languages": [],
+			"title": "Hello Lambda",
+			"title_abbrev": "Hello Lambda",
+			"synopsis": "get started using Lambda.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_Invoke",
+			"file": "lambda_metadata.yaml",
+			"languages": [],
+			"title": "Invoke",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_Invoke_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_ListFunctions",
+			"file": "lambda_metadata.yaml",
+			"languages": [],
+			"title": "ListFunctions",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_ListFunctions_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_Scenario_GettingStartedFunctions",
+			"file": "lambda_metadata.yaml",
+			"languages": [],
+			"title": "Learn the basics",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": {
+				"title": "Create a Lambda function with the console",
+				"url": "lambda/latest/dg/getting-started-create-function.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_Scenario_GettingStartedFunctions_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create an IAM role and Lambda function, then upload handler code.",
+				"Invoke the function with a single parameter and get results.",
+				"Update the function code and configure with an environment variable.",
+				"Invoke the function with new parameters and get results. Display the returned execution log.",
+				"List the functions for your account, then clean up resources."
+			],
+			"source_key": null
+		},
+		{
+			"id": "lambda_UpdateFunctionCode",
+			"file": "lambda_metadata.yaml",
+			"languages": [],
+			"title": "UpdateFunctionCode",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_UpdateFunctionCode_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lambda_UpdateFunctionConfiguration",
+			"file": "lambda_metadata.yaml",
+			"languages": [],
+			"title": "UpdateFunctionConfiguration",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_lambda_UpdateFunctionConfiguration_section.html"
 				},
 				"sdk_pages": []
 			},

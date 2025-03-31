@@ -1,66 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "bedrock-runtime_Converse_Ai21LabsJurassic2",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke AI21 Labs Jurassic-2 on Amazon Bedrock using Bedrock's Converse API",
-			"title_abbrev": "Converse",
-			"synopsis": "send a text message to AI21 Labs Jurassic-2, using Bedrock's Converse API.",
-			"category": "AI21 Labs Jurassic-2",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_Ai21LabsJurassic2_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_InvokeModel_Ai21LabsJurassic2",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke AI21 Labs Jurassic-2 models on Amazon Bedrock using the Invoke Model API",
-			"title_abbrev": "InvokeModel",
-			"synopsis": "send a text message to AI21 Labs Jurassic-2, using the Invoke Model API.",
-			"category": "AI21 Labs Jurassic-2",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_Ai21LabsJurassic2_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_Converse_AmazonNovaText",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Amazon Nova on Amazon Bedrock using Bedrock's Converse API",
-			"title_abbrev": "Converse",
-			"synopsis": "send a text message to Amazon Nova, using Bedrock's Converse API.",
-			"category": "Amazon Nova",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_AmazonNovaText_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "bedrock-runtime_ConverseStream_AmazonNovaText",
 			"file": "bedrock-runtime_metadata.yaml",
 			"languages": [],
@@ -74,86 +14,6 @@
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_AmazonNovaText_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_InvokeModel_AmazonNovaImageGeneration",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Amazon Nova Canvas on Amazon Bedrock to generate an image",
-			"title_abbrev": "InvokeModel",
-			"synopsis": "invoke Amazon Nova Canvas on Amazon Bedrock to generate an image.",
-			"category": "Amazon Nova Canvas",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_AmazonNovaImageGeneration_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_Scenario_AmazonNova_TextToVideo",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Use Amazon Nova Reel to generate a video from a text prompt",
-			"title_abbrev": "Text-to-video",
-			"synopsis": "use Amazon Nova Reel to generate a video from a text prompt.",
-			"category": "Amazon Nova Reel",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Scenario_AmazonNova_TextToVideo_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_InvokeModel_TitanImageGenerator",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Amazon Titan Image on Amazon Bedrock to generate an image",
-			"title_abbrev": "InvokeModel",
-			"synopsis": "invoke Amazon Titan Image on Amazon Bedrock to generate an image.",
-			"category": "Amazon Titan Image Generator",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_TitanImageGenerator_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_Converse_AmazonTitanText",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Amazon Titan Text on Amazon Bedrock using Bedrock's Converse API",
-			"title_abbrev": "Converse",
-			"synopsis": "send a text message to Amazon Titan Text, using Bedrock's Converse API.",
-			"category": "Amazon Titan Text",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_AmazonTitanText_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -181,19 +41,339 @@
 			"source_key": null
 		},
 		{
-			"id": "bedrock-runtime_InvokeModel_TitanText",
+			"id": "bedrock-runtime_ConverseStream_AnthropicClaude",
 			"file": "bedrock-runtime_metadata.yaml",
 			"languages": [],
-			"title": "Invoke Amazon Titan Text models on Amazon Bedrock using the Invoke Model API",
-			"title_abbrev": "InvokeModel",
-			"synopsis": "send a text message to Amazon Titan Text, using the Invoke Model API.",
+			"title": "Invoke Anthropic Claude on Amazon Bedrock using Bedrock's Converse API with a response stream",
+			"title_abbrev": "ConverseStream",
+			"synopsis": "send a text message to Anthropic Claude, using Bedrock's Converse API and process the response stream in real-time.",
+			"category": "Anthropic Claude",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_AnthropicClaude_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_ConverseStream_CohereCommand",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Cohere Command on Amazon Bedrock using Bedrock's Converse API with a response stream",
+			"title_abbrev": "ConverseStream",
+			"synopsis": "send a text message to Cohere Command, using Bedrock's Converse API and process the response stream in real-time.",
+			"category": "Cohere Command",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_CohereCommand_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_ConverseStream_MetaLlama",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Meta Llama on Amazon Bedrock using Bedrock's Converse API with a response stream",
+			"title_abbrev": "ConverseStream",
+			"synopsis": "send a text message to Meta Llama, using Bedrock's Converse API and process the response stream in real-time.",
+			"category": "Meta Llama",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_MetaLlama_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_ConverseStream_Mistral",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Mistral on Amazon Bedrock using Bedrock's Converse API with a response stream",
+			"title_abbrev": "ConverseStream",
+			"synopsis": "send a text message to Mistral, using Bedrock's Converse API and process the response stream in real-time.",
+			"category": "Mistral AI",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_Mistral_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_Converse_Ai21LabsJurassic2",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke AI21 Labs Jurassic-2 on Amazon Bedrock using Bedrock's Converse API",
+			"title_abbrev": "Converse",
+			"synopsis": "send a text message to AI21 Labs Jurassic-2, using Bedrock's Converse API.",
+			"category": "AI21 Labs Jurassic-2",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_Ai21LabsJurassic2_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_Converse_AmazonNovaText",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Amazon Nova on Amazon Bedrock using Bedrock's Converse API",
+			"title_abbrev": "Converse",
+			"synopsis": "send a text message to Amazon Nova, using Bedrock's Converse API.",
+			"category": "Amazon Nova",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_AmazonNovaText_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_Converse_AmazonTitanText",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Amazon Titan Text on Amazon Bedrock using Bedrock's Converse API",
+			"title_abbrev": "Converse",
+			"synopsis": "send a text message to Amazon Titan Text, using Bedrock's Converse API.",
 			"category": "Amazon Titan Text",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_TitanText_section.html"
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_AmazonTitanText_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_Converse_AnthropicClaude",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Anthropic Claude on Amazon Bedrock using Bedrock's Converse API",
+			"title_abbrev": "Converse",
+			"synopsis": "send a text message to Anthropic Claude, using Bedrock's Converse API.",
+			"category": "Anthropic Claude",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_AnthropicClaude_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_Converse_CohereCommand",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Cohere Command on Amazon Bedrock using Bedrock's Converse API",
+			"title_abbrev": "Converse",
+			"synopsis": "send a text message to Cohere Command, using Bedrock's Converse API.",
+			"category": "Cohere Command",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_CohereCommand_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_Converse_MetaLlama",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Meta Llama on Amazon Bedrock using Bedrock's Converse API",
+			"title_abbrev": "Converse",
+			"synopsis": "send a text message to Meta Llama, using Bedrock's Converse API.",
+			"category": "Meta Llama",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_MetaLlama_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_Converse_Mistral",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Mistral on Amazon Bedrock using Bedrock's Converse API",
+			"title_abbrev": "Converse",
+			"synopsis": "send a text message to Mistral, using Bedrock's Converse API.",
+			"category": "Mistral AI",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_Mistral_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_Hello",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon Bedrock",
+			"title_abbrev": "Hello Amazon Bedrock",
+			"synopsis": "get started using Amazon Bedrock.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Anthropic Claude models on Amazon Bedrock using the Invoke Model API with a response stream",
+			"title_abbrev": "InvokeModelWithResponseStream",
+			"synopsis": "send a text message to Anthropic Claude models, using the Invoke Model API, and print the response stream.",
+			"category": "Anthropic Claude",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_InvokeModelWithResponseStream_CohereCommand",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Cohere Command on Amazon Bedrock using the Invoke Model API with a response stream",
+			"title_abbrev": "InvokeModelWithResponseStream: Command and Command Light",
+			"synopsis": "send a text message to Cohere Command, using the Invoke Model API with a response stream.",
+			"category": "Cohere Command",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_CohereCommand_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_InvokeModelWithResponseStream_CohereCommandR",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Cohere Command R and R+ on Amazon Bedrock using the Invoke Model API with a response stream",
+			"title_abbrev": "InvokeModelWithResponseStream: Command R and R+",
+			"synopsis": "send a text message to Cohere Command, using the Invoke Model API with a response stream.",
+			"category": "Cohere Command",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_CohereCommandR_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_InvokeModelWithResponseStream_MetaLlama3",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Meta Llama 3 on Amazon Bedrock using the Invoke Model API with a response stream",
+			"title_abbrev": "InvokeModelWithResponseStream: Llama 3",
+			"synopsis": "send a text message to Meta Llama 3, using the Invoke Model API, and print the response stream.",
+			"category": "Meta Llama",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_MetaLlama3_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_InvokeModelWithResponseStream_MistralAi",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Mistral AI models on Amazon Bedrock using the Invoke Model API with a response stream",
+			"title_abbrev": "InvokeModelWithResponseStream",
+			"synopsis": "send a text message to Mistral AI models, using the Invoke Model API, and print the response stream.",
+			"category": "Mistral AI",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_MistralAi_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -244,19 +424,19 @@
 			"source_key": null
 		},
 		{
-			"id": "bedrock-runtime_Converse_AnthropicClaude",
+			"id": "bedrock-runtime_InvokeModel_Ai21LabsJurassic2",
 			"file": "bedrock-runtime_metadata.yaml",
 			"languages": [],
-			"title": "Invoke Anthropic Claude on Amazon Bedrock using Bedrock's Converse API",
-			"title_abbrev": "Converse",
-			"synopsis": "send a text message to Anthropic Claude, using Bedrock's Converse API.",
-			"category": "Anthropic Claude",
+			"title": "Invoke AI21 Labs Jurassic-2 models on Amazon Bedrock using the Invoke Model API",
+			"title_abbrev": "InvokeModel",
+			"synopsis": "send a text message to AI21 Labs Jurassic-2, using the Invoke Model API.",
+			"category": "AI21 Labs Jurassic-2",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_AnthropicClaude_section.html"
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_Ai21LabsJurassic2_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -264,19 +444,19 @@
 			"source_key": null
 		},
 		{
-			"id": "bedrock-runtime_ConverseStream_AnthropicClaude",
+			"id": "bedrock-runtime_InvokeModel_AmazonNovaImageGeneration",
 			"file": "bedrock-runtime_metadata.yaml",
 			"languages": [],
-			"title": "Invoke Anthropic Claude on Amazon Bedrock using Bedrock's Converse API with a response stream",
-			"title_abbrev": "ConverseStream",
-			"synopsis": "send a text message to Anthropic Claude, using Bedrock's Converse API and process the response stream in real-time.",
-			"category": "Anthropic Claude",
+			"title": "Invoke Amazon Nova Canvas on Amazon Bedrock to generate an image",
+			"title_abbrev": "InvokeModel",
+			"synopsis": "invoke Amazon Nova Canvas on Amazon Bedrock to generate an image.",
+			"category": "Amazon Nova Canvas",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_AnthropicClaude_section.html"
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_AmazonNovaImageGeneration_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -297,86 +477,6 @@
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_AnthropicClaude_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Anthropic Claude models on Amazon Bedrock using the Invoke Model API with a response stream",
-			"title_abbrev": "InvokeModelWithResponseStream",
-			"synopsis": "send a text message to Anthropic Claude models, using the Invoke Model API, and print the response stream.",
-			"category": "Anthropic Claude",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "A tool use demo illustrating how to connect AI models on Amazon Bedrock with a custom tool or API",
-			"title_abbrev": "Scenario: Tool use with the Converse API",
-			"synopsis": "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input.",
-			"category": "Anthropic Claude",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_Converse_CohereCommand",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Cohere Command on Amazon Bedrock using Bedrock's Converse API",
-			"title_abbrev": "Converse",
-			"synopsis": "send a text message to Cohere Command, using Bedrock's Converse API.",
-			"category": "Cohere Command",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_CohereCommand_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_ConverseStream_CohereCommand",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Cohere Command on Amazon Bedrock using Bedrock's Converse API with a response stream",
-			"title_abbrev": "ConverseStream",
-			"synopsis": "send a text message to Cohere Command, using Bedrock's Converse API and process the response stream in real-time.",
-			"category": "Cohere Command",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_CohereCommand_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -424,126 +524,6 @@
 			"source_key": null
 		},
 		{
-			"id": "bedrock-runtime_InvokeModelWithResponseStream_CohereCommand",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Cohere Command on Amazon Bedrock using the Invoke Model API with a response stream",
-			"title_abbrev": "InvokeModelWithResponseStream: Command and Command Light",
-			"synopsis": "send a text message to Cohere Command, using the Invoke Model API with a response stream.",
-			"category": "Cohere Command",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_CohereCommand_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_InvokeModelWithResponseStream_CohereCommandR",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Cohere Command R and R+ on Amazon Bedrock using the Invoke Model API with a response stream",
-			"title_abbrev": "InvokeModelWithResponseStream: Command R and R+",
-			"synopsis": "send a text message to Cohere Command, using the Invoke Model API with a response stream.",
-			"category": "Cohere Command",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_CohereCommandR_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_Scenario_ToolUseDemo_CohereCommand",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "A tool use demo illustrating how to connect AI models on Amazon Bedrock with a custom tool or API",
-			"title_abbrev": "Scenario: Tool use with the Converse API",
-			"synopsis": "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input.",
-			"category": "Cohere Command",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Scenario_ToolUseDemo_CohereCommand_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_Hello",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Hello Amazon Bedrock",
-			"title_abbrev": "Hello Amazon Bedrock",
-			"synopsis": "get started using Amazon Bedrock.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_Converse_MetaLlama",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Meta Llama on Amazon Bedrock using Bedrock's Converse API",
-			"title_abbrev": "Converse",
-			"synopsis": "send a text message to Meta Llama, using Bedrock's Converse API.",
-			"category": "Meta Llama",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_MetaLlama_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_ConverseStream_MetaLlama",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Meta Llama on Amazon Bedrock using Bedrock's Converse API with a response stream",
-			"title_abbrev": "ConverseStream",
-			"synopsis": "send a text message to Meta Llama, using Bedrock's Converse API and process the response stream in real-time.",
-			"category": "Meta Llama",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_MetaLlama_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "bedrock-runtime_InvokeModel_MetaLlama3",
 			"file": "bedrock-runtime_metadata.yaml",
 			"languages": [],
@@ -557,66 +537,6 @@
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_MetaLlama3_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_InvokeModelWithResponseStream_MetaLlama3",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Meta Llama 3 on Amazon Bedrock using the Invoke Model API with a response stream",
-			"title_abbrev": "InvokeModelWithResponseStream: Llama 3",
-			"synopsis": "send a text message to Meta Llama 3, using the Invoke Model API, and print the response stream.",
-			"category": "Meta Llama",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_MetaLlama3_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_Converse_Mistral",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Mistral on Amazon Bedrock using Bedrock's Converse API",
-			"title_abbrev": "Converse",
-			"synopsis": "send a text message to Mistral, using Bedrock's Converse API.",
-			"category": "Mistral AI",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Converse_Mistral_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_ConverseStream_Mistral",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Mistral on Amazon Bedrock using Bedrock's Converse API with a response stream",
-			"title_abbrev": "ConverseStream",
-			"synopsis": "send a text message to Mistral, using Bedrock's Converse API and process the response stream in real-time.",
-			"category": "Mistral AI",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_ConverseStream_Mistral_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -644,19 +564,79 @@
 			"source_key": null
 		},
 		{
-			"id": "bedrock-runtime_InvokeModelWithResponseStream_MistralAi",
+			"id": "bedrock-runtime_InvokeModel_StableDiffusion",
 			"file": "bedrock-runtime_metadata.yaml",
 			"languages": [],
-			"title": "Invoke Mistral AI models on Amazon Bedrock using the Invoke Model API with a response stream",
-			"title_abbrev": "InvokeModelWithResponseStream",
-			"synopsis": "send a text message to Mistral AI models, using the Invoke Model API, and print the response stream.",
-			"category": "Mistral AI",
+			"title": "Invoke Stability.ai Stable Diffusion XL on Amazon Bedrock to generate an image",
+			"title_abbrev": "InvokeModel",
+			"synopsis": "invoke Stability.ai Stable Diffusion XL on Amazon Bedrock to generate an image.",
+			"category": "Stable Diffusion",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_MistralAi_section.html"
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_StableDiffusion_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_InvokeModel_TitanImageGenerator",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Amazon Titan Image on Amazon Bedrock to generate an image",
+			"title_abbrev": "InvokeModel",
+			"synopsis": "invoke Amazon Titan Image on Amazon Bedrock to generate an image.",
+			"category": "Amazon Titan Image Generator",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_TitanImageGenerator_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_InvokeModel_TitanText",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Invoke Amazon Titan Text models on Amazon Bedrock using the Invoke Model API",
+			"title_abbrev": "InvokeModel",
+			"synopsis": "send a text message to Amazon Titan Text, using the Invoke Model API.",
+			"category": "Amazon Titan Text",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_TitanText_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_Scenario_AmazonNova_TextToVideo",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "Use Amazon Nova Reel to generate a video from a text prompt",
+			"title_abbrev": "Text-to-video",
+			"synopsis": "use Amazon Nova Reel to generate a video from a text prompt.",
+			"category": "Amazon Nova Reel",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Scenario_AmazonNova_TextToVideo_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -677,6 +657,46 @@
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Scenario_ToolUse_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "A tool use demo illustrating how to connect AI models on Amazon Bedrock with a custom tool or API",
+			"title_abbrev": "Scenario: Tool use with the Converse API",
+			"synopsis": "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input.",
+			"category": "Anthropic Claude",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock-runtime_Scenario_ToolUseDemo_CohereCommand",
+			"file": "bedrock-runtime_metadata.yaml",
+			"languages": [],
+			"title": "A tool use demo illustrating how to connect AI models on Amazon Bedrock with a custom tool or API",
+			"title_abbrev": "Scenario: Tool use with the Converse API",
+			"synopsis": "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input.",
+			"category": "Cohere Command",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_Scenario_ToolUseDemo_CohereCommand_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -721,26 +741,6 @@
 					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_cross_ServerlessPromptChaining_section.html",
 					"bedrock-agent-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent-runtime_example_cross_ServerlessPromptChaining_section.html",
 					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_ServerlessPromptChaining_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-runtime_InvokeModel_StableDiffusion",
-			"file": "bedrock-runtime_metadata.yaml",
-			"languages": [],
-			"title": "Invoke Stability.ai Stable Diffusion XL on Amazon Bedrock to generate an image",
-			"title_abbrev": "InvokeModel",
-			"synopsis": "invoke Stability.ai Stable Diffusion XL on Amazon Bedrock to generate an image.",
-			"category": "Stable Diffusion",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_bedrock-runtime_InvokeModel_StableDiffusion_section.html"
 				},
 				"sdk_pages": []
 			},

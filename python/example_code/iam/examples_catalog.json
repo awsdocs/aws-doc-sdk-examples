@@ -1,10 +1,40 @@
 {
 	"examples": [
 		{
-			"id": "iam_CreateAccountAlias",
+			"id": "cross_ResilientService",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Build and manage a resilient service using an AWS SDK",
+			"title_abbrev": "Build and manage a resilient service",
+			"synopsis": "create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_cross_ResilientService_section.html",
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_cross_ResilientService_section.html",
+					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_cross_ResilientService_section.html",
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_cross_ResilientService_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.",
+				"Handle and distribute HTTP requests with Elastic Load Balancing.",
+				"Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.",
+				"Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.",
+				"Simulate a recommendation service with an Amazon DynamoDB table.",
+				"Control web server response to requests and health checks by updating AWS Systems Manager parameters."
+			],
+			"source_key": null
+		},
+		{
+			"id": "iam_AttachRolePolicy",
 			"file": "iam_metadata.yaml",
 			"languages": [],
-			"title": "CreateAccountAlias",
+			"title": "AttachRolePolicy",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -13,7 +43,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_CreateAccountAlias_section.html"
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_AttachRolePolicy_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -21,10 +51,10 @@
 			"source_key": null
 		},
 		{
-			"id": "iam_DeleteAccountAlias",
+			"id": "iam_AttachUserPolicy",
 			"file": "iam_metadata.yaml",
 			"languages": [],
-			"title": "DeleteAccountAlias",
+			"title": "AttachUserPolicy",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -33,147 +63,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DeleteAccountAlias_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_ListAccountAliases",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "ListAccountAliases",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_ListAccountAliases_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_GetAccountAuthorizationDetails",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "GetAccountAuthorizationDetails",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GetAccountAuthorizationDetails_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_GetAccountSummary",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "GetAccountSummary",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GetAccountSummary_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_GenerateCredentialReport",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "GenerateCredentialReport",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GenerateCredentialReport_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_GetCredentialReport",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "GetCredentialReport",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GetCredentialReport_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_GetAccountPasswordPolicy",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "GetAccountPasswordPolicy",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GetAccountPasswordPolicy_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_ListSAMLProviders",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "ListSAMLProviders",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_ListSAMLProviders_section.html"
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_AttachUserPolicy_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -201,10 +91,10 @@
 			"source_key": null
 		},
 		{
-			"id": "iam_DeleteAccessKey",
+			"id": "iam_CreateAccountAlias",
 			"file": "iam_metadata.yaml",
 			"languages": [],
-			"title": "DeleteAccessKey",
+			"title": "CreateAccountAlias",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -213,7 +103,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DeleteAccessKey_section.html"
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_CreateAccountAlias_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -221,10 +111,10 @@
 			"source_key": null
 		},
 		{
-			"id": "iam_GetAccessKeyLastUsed",
+			"id": "iam_CreateInstanceProfile",
 			"file": "iam_metadata.yaml",
 			"languages": [],
-			"title": "GetAccessKeyLastUsed",
+			"title": "CreateInstanceProfile",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -233,47 +123,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GetAccessKeyLastUsed_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_ListAccessKeys",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "ListAccessKeys",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_ListAccessKeys_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_UpdateAccessKey",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "UpdateAccessKey",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_UpdateAccessKey_section.html"
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_CreateInstanceProfile_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -301,26 +151,6 @@
 			"source_key": null
 		},
 		{
-			"id": "iam_DeletePolicy",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "DeletePolicy",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DeletePolicy_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "iam_CreatePolicyVersion",
 			"file": "iam_metadata.yaml",
 			"languages": [],
@@ -341,10 +171,10 @@
 			"source_key": null
 		},
 		{
-			"id": "iam_ListPolicies",
+			"id": "iam_CreateRole",
 			"file": "iam_metadata.yaml",
 			"languages": [],
-			"title": "ListPolicies",
+			"title": "CreateRole",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -353,7 +183,327 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_ListPolicies_section.html"
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_CreateRole_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_CreateServiceLinkedRole",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "CreateServiceLinkedRole",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_CreateServiceLinkedRole_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_CreateUser",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "CreateUser",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_CreateUser_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_DeleteAccessKey",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "DeleteAccessKey",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DeleteAccessKey_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_DeleteAccountAlias",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "DeleteAccountAlias",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DeleteAccountAlias_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_DeleteInstanceProfile",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "DeleteInstanceProfile",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DeleteInstanceProfile_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_DeletePolicy",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "DeletePolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DeletePolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_DeleteRole",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "DeleteRole",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DeleteRole_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_DeleteUser",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "DeleteUser",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DeleteUser_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_DetachRolePolicy",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "DetachRolePolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DetachRolePolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_DetachUserPolicy",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "DetachUserPolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DetachUserPolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_GenerateCredentialReport",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "GenerateCredentialReport",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GenerateCredentialReport_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_GetAccessKeyLastUsed",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "GetAccessKeyLastUsed",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GetAccessKeyLastUsed_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_GetAccountAuthorizationDetails",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "GetAccountAuthorizationDetails",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GetAccountAuthorizationDetails_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_GetAccountPasswordPolicy",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "GetAccountPasswordPolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GetAccountPasswordPolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_GetAccountSummary",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "GetAccountSummary",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GetAccountSummary_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_GetCredentialReport",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "GetCredentialReport",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GetCredentialReport_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -401,10 +551,10 @@
 			"source_key": null
 		},
 		{
-			"id": "iam_AttachRolePolicy",
+			"id": "iam_GetRole",
 			"file": "iam_metadata.yaml",
 			"languages": [],
-			"title": "AttachRolePolicy",
+			"title": "GetRole",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -413,7 +563,67 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_AttachRolePolicy_section.html"
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GetRole_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_Hello",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "Hello IAM",
+			"title_abbrev": "Hello IAM",
+			"synopsis": "get started using IAM.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_ListAccessKeys",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "ListAccessKeys",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_ListAccessKeys_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_ListAccountAliases",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "ListAccountAliases",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_ListAccountAliases_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -441,10 +651,10 @@
 			"source_key": null
 		},
 		{
-			"id": "iam_DetachRolePolicy",
+			"id": "iam_ListGroups",
 			"file": "iam_metadata.yaml",
 			"languages": [],
-			"title": "DetachRolePolicy",
+			"title": "ListGroups",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -453,7 +663,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DetachRolePolicy_section.html"
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_ListGroups_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -461,10 +671,10 @@
 			"source_key": null
 		},
 		{
-			"id": "iam_CreateRole",
+			"id": "iam_ListPolicies",
 			"file": "iam_metadata.yaml",
 			"languages": [],
-			"title": "CreateRole",
+			"title": "ListPolicies",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -473,67 +683,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_CreateRole_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_ListRoles",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "ListRoles",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_ListRoles_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_GetRole",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "GetRole",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_GetRole_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_DeleteRole",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "DeleteRole",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DeleteRole_section.html"
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_ListPolicies_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -561,10 +711,10 @@
 			"source_key": null
 		},
 		{
-			"id": "iam_CreateUser",
+			"id": "iam_ListRoles",
 			"file": "iam_metadata.yaml",
 			"languages": [],
-			"title": "CreateUser",
+			"title": "ListRoles",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -573,7 +723,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_CreateUser_section.html"
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_ListRoles_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -581,10 +731,10 @@
 			"source_key": null
 		},
 		{
-			"id": "iam_DeleteUser",
+			"id": "iam_ListSAMLProviders",
 			"file": "iam_metadata.yaml",
 			"languages": [],
-			"title": "DeleteUser",
+			"title": "ListSAMLProviders",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -593,7 +743,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DeleteUser_section.html"
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_ListSAMLProviders_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -618,221 +768,6 @@
 				"sdk_pages": []
 			},
 			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_UpdateUser",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "UpdateUser",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_UpdateUser_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_AttachUserPolicy",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "AttachUserPolicy",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_AttachUserPolicy_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_DetachUserPolicy",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "DetachUserPolicy",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DetachUserPolicy_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_ListGroups",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "ListGroups",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_ListGroups_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_CreateServiceLinkedRole",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "CreateServiceLinkedRole",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_CreateServiceLinkedRole_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_CreateInstanceProfile",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "CreateInstanceProfile",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_CreateInstanceProfile_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_DeleteInstanceProfile",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "DeleteInstanceProfile",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_DeleteInstanceProfile_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iam_Scenario_CreateUserAssumeRole",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "Learn the basics",
-			"title_abbrev": "",
-			"synopsis": "create a user and assume a role. ",
-			"category": "Basics",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_CreateUserAssumeRole_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Create a user with no permissions.",
-				"Create a role that grants permission to list Amazon S3 buckets for the account.",
-				"Add a policy to let the user assume the role.",
-				"Assume the role and list S3 buckets using temporary credentials, then clean up resources."
-			],
-			"source_key": null
-		},
-		{
-			"id": "iam_Hello",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "Hello IAM",
-			"title_abbrev": "Hello IAM",
-			"synopsis": "get started using IAM.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_ResilientService",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Build and manage a resilient service using an AWS SDK",
-			"title_abbrev": "Build and manage a resilient service",
-			"synopsis": "create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_cross_ResilientService_section.html",
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_cross_ResilientService_section.html",
-					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_cross_ResilientService_section.html",
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_cross_ResilientService_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.",
-				"Handle and distribute HTTP requests with Elastic Load Balancing.",
-				"Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.",
-				"Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.",
-				"Simulate a recommendation service with an Amazon DynamoDB table.",
-				"Control web server response to requests and health checks by updating AWS Systems Manager parameters."
-			],
 			"source_key": null
 		},
 		{
@@ -861,6 +796,31 @@
 			"source_key": null
 		},
 		{
+			"id": "iam_Scenario_CreateUserAssumeRole",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "Learn the basics",
+			"title_abbrev": "",
+			"synopsis": "create a user and assume a role. ",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_CreateUserAssumeRole_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create a user with no permissions.",
+				"Create a role that grants permission to list Amazon S3 buckets for the account.",
+				"Add a policy to let the user assume the role.",
+				"Assume the role and list S3 buckets using temporary credentials, then clean up resources."
+			],
+			"source_key": null
+		},
+		{
 			"id": "iam_Scenario_ManageAccessKeys",
 			"file": "iam_metadata.yaml",
 			"languages": [],
@@ -881,31 +841,6 @@
 				"Create and list access keys.",
 				"Find out when and how an access key was last used.",
 				"Update and delete access keys."
-			],
-			"source_key": null
-		},
-		{
-			"id": "iam_Scenario_RollbackPolicyVersion",
-			"file": "iam_metadata.yaml",
-			"languages": [],
-			"title": "Roll back an IAM policy version using an AWS SDK",
-			"title_abbrev": "Roll back a policy version",
-			"synopsis": "",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_RollbackPolicyVersion_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Get the list of policy versions in order by date.",
-				"Find the default policy version.",
-				"Make the previous policy version the default.",
-				"Delete the old default version."
 			],
 			"source_key": null
 		},
@@ -959,6 +894,31 @@
 			"source_key": null
 		},
 		{
+			"id": "iam_Scenario_RollbackPolicyVersion",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "Roll back an IAM policy version using an AWS SDK",
+			"title_abbrev": "Roll back a policy version",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_Scenario_RollbackPolicyVersion_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Get the list of policy versions in order by date.",
+				"Find the default policy version.",
+				"Make the previous policy version the default.",
+				"Delete the old default version."
+			],
+			"source_key": null
+		},
+		{
 			"id": "iam_Scenario_UserPolicies",
 			"file": "iam_metadata.yaml",
 			"languages": [],
@@ -981,6 +941,46 @@
 				"Attach a policy for the second user to get objects from the bucket.",
 				"Get different permissions to the bucket based on user credentials."
 			],
+			"source_key": null
+		},
+		{
+			"id": "iam_UpdateAccessKey",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "UpdateAccessKey",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_UpdateAccessKey_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iam_UpdateUser",
+			"file": "iam_metadata.yaml",
+			"languages": [],
+			"title": "UpdateUser",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_iam_UpdateUser_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		}
 	]

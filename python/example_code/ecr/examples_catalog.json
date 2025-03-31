@@ -1,10 +1,10 @@
 {
 	"examples": [
 		{
-			"id": "ecr_SetRepositoryPolicy",
+			"id": "ecr_CreateRepository",
 			"file": "ecr_metadata.yaml",
 			"languages": [],
-			"title": "SetRepositoryPolicy",
+			"title": "CreateRepository",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -13,87 +13,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_SetRepositoryPolicy_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ecr_GetRepositoryPolicy",
-			"file": "ecr_metadata.yaml",
-			"languages": [],
-			"title": "GetRepositoryPolicy",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_GetRepositoryPolicy_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ecr_GetAuthorizationToken",
-			"file": "ecr_metadata.yaml",
-			"languages": [],
-			"title": "GetAuthorizationToken",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_GetAuthorizationToken_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ecr_PutLifeCyclePolicy",
-			"file": "ecr_metadata.yaml",
-			"languages": [],
-			"title": "PutLifeCyclePolicy",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_PutLifeCyclePolicy_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ecr_DescribeImages",
-			"file": "ecr_metadata.yaml",
-			"languages": [],
-			"title": "DescribeImages",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_DescribeImages_section.html"
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_CreateRepository_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -121,10 +41,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ecr_CreateRepository",
+			"id": "ecr_DescribeImages",
 			"file": "ecr_metadata.yaml",
 			"languages": [],
-			"title": "CreateRepository",
+			"title": "DescribeImages",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -133,7 +53,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_CreateRepository_section.html"
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_DescribeImages_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -154,6 +74,86 @@
 			"doc_filenames": {
 				"service_pages": {
 					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_DescribeRepositories_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_GetAuthorizationToken",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "GetAuthorizationToken",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_GetAuthorizationToken_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_GetRepositoryPolicy",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "GetRepositoryPolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_GetRepositoryPolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_Hello",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon ECR",
+			"title_abbrev": "Hello Amazon ECR",
+			"synopsis": "get started using Amazon ECR.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ecr_PutLifeCyclePolicy",
+			"file": "ecr_metadata.yaml",
+			"languages": [],
+			"title": "PutLifeCyclePolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_PutLifeCyclePolicy_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -191,19 +191,19 @@
 			"source_key": null
 		},
 		{
-			"id": "ecr_Hello",
+			"id": "ecr_SetRepositoryPolicy",
 			"file": "ecr_metadata.yaml",
 			"languages": [],
-			"title": "Hello Amazon ECR",
-			"title_abbrev": "Hello Amazon ECR",
-			"synopsis": "get started using Amazon ECR.",
-			"category": "Hello",
+			"title": "SetRepositoryPolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_Hello_section.html"
+					"ecr": "https://docs.aws.amazon.com/code-library/latest/ug/ecr_example_ecr_SetRepositoryPolicy_section.html"
 				},
 				"sdk_pages": []
 			},

@@ -1,6 +1,52 @@
 {
 	"examples": [
 		{
+			"id": "cross_TextractComprehendDetectEntities",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect entities in text extracted from an image using an AWS SDK",
+			"title_abbrev": "Detect entities in text extracted from an image",
+			"synopsis": "use Amazon Comprehend to detect entities in text extracted by Amazon Textract from an image that is stored in Amazon S3.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "textract",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_cross_TextractComprehendDetectEntities_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractComprehendDetectEntities_section.html",
+					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractComprehendDetectEntities_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_TextractExplorer",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create an Amazon Textract explorer application",
+			"title_abbrev": "Create an Amazon Textract explorer application",
+			"synopsis": "explore Amazon Textract output through an interactive application.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "textract",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractExplorer_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_TextractExplorer_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
+					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "textract_AnalyzeDocument",
 			"file": "textract_metadata.yaml",
 			"languages": [],
@@ -41,6 +87,26 @@
 			"source_key": null
 		},
 		{
+			"id": "textract_GetDocumentAnalysis",
+			"file": "textract_metadata.yaml",
+			"languages": [],
+			"title": "GetDocumentAnalysis",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_textract_GetDocumentAnalysis_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "textract_StartDocumentAnalysis",
 			"file": "textract_metadata.yaml",
 			"languages": [],
@@ -74,72 +140,6 @@
 			"doc_filenames": {
 				"service_pages": {
 					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_textract_StartDocumentTextDetection_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "textract_GetDocumentAnalysis",
-			"file": "textract_metadata.yaml",
-			"languages": [],
-			"title": "GetDocumentAnalysis",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_textract_GetDocumentAnalysis_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_TextractExplorer",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create an Amazon Textract explorer application",
-			"title_abbrev": "Create an Amazon Textract explorer application",
-			"synopsis": "explore Amazon Textract output through an interactive application.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "textract",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractExplorer_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_TextractExplorer_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
-					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_TextractComprehendDetectEntities",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect entities in text extracted from an image using an AWS SDK",
-			"title_abbrev": "Detect entities in text extracted from an image",
-			"synopsis": "use Amazon Comprehend to detect entities in text extracted by Amazon Textract from an image that is stored in Amazon S3.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "textract",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_cross_TextractComprehendDetectEntities_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractComprehendDetectEntities_section.html",
-					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractComprehendDetectEntities_section.html"
 				},
 				"sdk_pages": []
 			},

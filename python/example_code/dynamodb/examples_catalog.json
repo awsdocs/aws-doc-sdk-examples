@@ -1,354 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "dynamodb_CreateTable",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "CreateTable",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_CreateTable_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_BatchGetItem",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "BatchGetItem",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_BatchGetItem_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_DescribeTable",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "DescribeTable",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_DescribeTable_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_BatchWriteItem",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "BatchWriteItem",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_BatchWriteItem_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_DeleteTable",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "DeleteTable",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_DeleteTable_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_PutItem",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "PutItem",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_PutItem_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_GetItem",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "GetItem",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_GetItem_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_UpdateItem",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "UpdateItem",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_UpdateItem_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_DeleteItem",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "DeleteItem",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_DeleteItem_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_ListTables",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "ListTables",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_ListTables_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_Query",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "Query",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_Query_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_Scan",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "Scan",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_Scan_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_ExecuteStatement",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "ExecuteStatement",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_ExecuteStatement_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_BatchExecuteStatement",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "BatchExecuteStatement",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_BatchExecuteStatement_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_Scenario_GettingStartedMovies",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "Learn the basics",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Basics",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_Scenario_GettingStartedMovies_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Create a table that can hold movie data.",
-				"Put, get, and update a single movie in the table.",
-				"Write movie data to the table from a sample JSON file.",
-				"Query for movies that were released in a given year.",
-				"Scan for movies that were released in a range of years.",
-				"Delete a movie from the table, then delete the table."
-			],
-			"source_key": null
-		},
-		{
-			"id": "dynamodb_Hello",
-			"file": "dynamodb_metadata.yaml",
-			"languages": [],
-			"title": "Hello DynamoDB",
-			"title_abbrev": "Hello DynamoDB",
-			"synopsis": "get started using DynamoDB.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_DynamoDBDataTracker",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create a web application to track DynamoDB data",
-			"title_abbrev": "Create a web application to track DynamoDB data",
-			"synopsis": "create a web application that tracks work items in an Amazon DynamoDB table and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "dynamodb",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_DynamoDBDataTracker_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_DynamoDBDataTracker_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "cross_ApiGatewayDataTracker",
 			"file": "cross_metadata.yaml",
 			"languages": [],
@@ -394,22 +46,20 @@
 			"source_key": null
 		},
 		{
-			"id": "cross_StepFunctionsMessenger",
+			"id": "cross_DynamoDBDataTracker",
 			"file": "cross_metadata.yaml",
 			"languages": [],
-			"title": "Create a messenger application with Step Functions",
-			"title_abbrev": "Create a messenger application",
-			"synopsis": "create an AWS Step Functions messenger application that retrieves message records from a database table.",
+			"title": "Create a web application to track DynamoDB data",
+			"title_abbrev": "Create a web application to track DynamoDB data",
+			"synopsis": "create a web application that tracks work items in an Amazon DynamoDB table and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.",
 			"category": "Scenarios",
 			"guide_topic": null,
-			"service_main": "sfn",
+			"service_main": "dynamodb",
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_StepFunctionsMessenger_section.html",
-					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_StepFunctionsMessenger_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_StepFunctionsMessenger_section.html",
-					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_StepFunctionsMessenger_section.html"
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_DynamoDBDataTracker_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_DynamoDBDataTracker_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -464,28 +114,357 @@
 			"source_key": null
 		},
 		{
-			"id": "dynamodb_Usage_DaxDemo",
+			"id": "cross_StepFunctionsMessenger",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create a messenger application with Step Functions",
+			"title_abbrev": "Create a messenger application",
+			"synopsis": "create an AWS Step Functions messenger application that retrieves message records from a database table.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "sfn",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_StepFunctionsMessenger_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_StepFunctionsMessenger_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_StepFunctionsMessenger_section.html",
+					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_StepFunctionsMessenger_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_BatchExecuteStatement",
 			"file": "dynamodb_metadata.yaml",
 			"languages": [],
-			"title": "Accelerate DynamoDB reads with DynamoDB Accelerator using an AWS SDK",
-			"title_abbrev": "Accelerate reads with DynamoDB Accelerator",
+			"title": "BatchExecuteStatement",
+			"title_abbrev": "",
 			"synopsis": "",
-			"category": "Scenarios",
-			"guide_topic": {
-				"title": "Developing with the DynamoDB Accelerator Client",
-				"url": "amazondynamodb/latest/developerguide/DAX.client.html"
-			},
+			"category": "Api",
+			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_Usage_DaxDemo_section.html"
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_BatchExecuteStatement_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_BatchGetItem",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "BatchGetItem",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_BatchGetItem_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_BatchWriteItem",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "BatchWriteItem",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_BatchWriteItem_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_CreateTable",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "CreateTable",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_CreateTable_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_DeleteItem",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "DeleteItem",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_DeleteItem_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_DeleteTable",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "DeleteTable",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_DeleteTable_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_DescribeTable",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "DescribeTable",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_DescribeTable_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_ExecuteStatement",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "ExecuteStatement",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_ExecuteStatement_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_GetItem",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "GetItem",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_GetItem_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_Hello",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "Hello DynamoDB",
+			"title_abbrev": "Hello DynamoDB",
+			"synopsis": "get started using DynamoDB.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_ListTables",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "ListTables",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_ListTables_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_PutItem",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "PutItem",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_PutItem_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_Query",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "Query",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_Query_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_Scan",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "Scan",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_Scan_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_Scenario_GettingStartedMovies",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "Learn the basics",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_Scenario_GettingStartedMovies_section.html"
 				},
 				"sdk_pages": []
 			},
 			"synopsis_list": [
-				"Create and write data to a table with both the DynamoDB Accelerator and SDK clients.",
-				"Get, query, and scan the table with both clients and compare their performance."
+				"Create a table that can hold movie data.",
+				"Put, get, and update a single movie in the table.",
+				"Write movie data to the table from a sample JSON file.",
+				"Query for movies that were released in a given year.",
+				"Scan for movies that were released in a range of years.",
+				"Delete a movie from the table, then delete the table."
+			],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_Scenario_PartiQLBatch",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "Query a DynamoDB table by using batches of PartiQL statements and an AWS SDK",
+			"title_abbrev": "Query a table by using batches of PartiQL statements",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_Scenario_PartiQLBatch_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Get a batch of items by running multiple SELECT statements.",
+				"Add a batch of items by running multiple INSERT statements.",
+				"Update a batch of items by running multiple UPDATE statements.",
+				"Delete a batch of items by running multiple DELETE statements."
 			],
 			"source_key": null
 		},
@@ -515,27 +494,48 @@
 			"source_key": null
 		},
 		{
-			"id": "dynamodb_Scenario_PartiQLBatch",
+			"id": "dynamodb_UpdateItem",
 			"file": "dynamodb_metadata.yaml",
 			"languages": [],
-			"title": "Query a DynamoDB table by using batches of PartiQL statements and an AWS SDK",
-			"title_abbrev": "Query a table by using batches of PartiQL statements",
+			"title": "UpdateItem",
+			"title_abbrev": "",
 			"synopsis": "",
-			"category": "Scenarios",
+			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_Scenario_PartiQLBatch_section.html"
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_UpdateItem_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "dynamodb_Usage_DaxDemo",
+			"file": "dynamodb_metadata.yaml",
+			"languages": [],
+			"title": "Accelerate DynamoDB reads with DynamoDB Accelerator using an AWS SDK",
+			"title_abbrev": "Accelerate reads with DynamoDB Accelerator",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": {
+				"title": "Developing with the DynamoDB Accelerator Client",
+				"url": "amazondynamodb/latest/developerguide/DAX.client.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_dynamodb_Usage_DaxDemo_section.html"
 				},
 				"sdk_pages": []
 			},
 			"synopsis_list": [
-				"Get a batch of items by running multiple SELECT statements.",
-				"Add a batch of items by running multiple INSERT statements.",
-				"Update a batch of items by running multiple UPDATE statements.",
-				"Delete a batch of items by running multiple DELETE statements."
+				"Create and write data to a table with both the DynamoDB Accelerator and SDK clients.",
+				"Get, query, and scan the table with both clients and compare their performance."
 			],
 			"source_key": null
 		}

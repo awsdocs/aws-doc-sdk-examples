@@ -21,46 +21,6 @@
 			"source_key": null
 		},
 		{
-			"id": "comprehend_DescribeDocumentClassifier",
-			"file": "comprehend_metadata.yaml",
-			"languages": [],
-			"title": "DescribeDocumentClassifier",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DescribeDocumentClassifier_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "comprehend_ListDocumentClassifiers",
-			"file": "comprehend_metadata.yaml",
-			"languages": [],
-			"title": "ListDocumentClassifiers",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_ListDocumentClassifiers_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "comprehend_DeleteDocumentClassifier",
 			"file": "comprehend_metadata.yaml",
 			"languages": [],
@@ -74,26 +34,6 @@
 			"doc_filenames": {
 				"service_pages": {
 					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DeleteDocumentClassifier_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "comprehend_StartDocumentClassificationJob",
-			"file": "comprehend_metadata.yaml",
-			"languages": [],
-			"title": "StartDocumentClassificationJob",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_StartDocumentClassificationJob_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -121,10 +61,10 @@
 			"source_key": null
 		},
 		{
-			"id": "comprehend_ListDocumentClassificationJobs",
+			"id": "comprehend_DescribeDocumentClassifier",
 			"file": "comprehend_metadata.yaml",
 			"languages": [],
-			"title": "ListDocumentClassificationJobs",
+			"title": "DescribeDocumentClassifier",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -133,7 +73,27 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_ListDocumentClassificationJobs_section.html"
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DescribeDocumentClassifier_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DescribeTopicsDetectionJob",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "DescribeTopicsDetectionJob",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DescribeTopicsDetectionJob_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -261,10 +221,10 @@
 			"source_key": null
 		},
 		{
-			"id": "comprehend_StartTopicsDetectionJob",
+			"id": "comprehend_ListDocumentClassificationJobs",
 			"file": "comprehend_metadata.yaml",
 			"languages": [],
-			"title": "StartTopicsDetectionJob",
+			"title": "ListDocumentClassificationJobs",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -273,7 +233,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_StartTopicsDetectionJob_section.html"
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_ListDocumentClassificationJobs_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -281,10 +241,10 @@
 			"source_key": null
 		},
 		{
-			"id": "comprehend_DescribeTopicsDetectionJob",
+			"id": "comprehend_ListDocumentClassifiers",
 			"file": "comprehend_metadata.yaml",
 			"languages": [],
-			"title": "DescribeTopicsDetectionJob",
+			"title": "ListDocumentClassifiers",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -293,7 +253,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DescribeTopicsDetectionJob_section.html"
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_ListDocumentClassifiers_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -314,6 +274,46 @@
 			"doc_filenames": {
 				"service_pages": {
 					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_ListTopicsDetectionJobs_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_StartDocumentClassificationJob",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "StartDocumentClassificationJob",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_StartDocumentClassificationJob_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_StartTopicsDetectionJob",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "StartTopicsDetectionJob",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_StartTopicsDetectionJob_section.html"
 				},
 				"sdk_pages": []
 			},

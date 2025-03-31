@@ -121,23 +121,31 @@
 			"source_key": null
 		},
 		{
-			"id": "bedrock-agent_ListAgents",
+			"id": "bedrock-agent_GettingStartedWithBedrockAgents",
 			"file": "bedrock-agent_metadata.yaml",
 			"languages": [],
-			"title": "ListAgents",
-			"title_abbrev": "",
+			"title": "An end-to-end example showing how to create and invoke Amazon Bedrock Agents using an AWS SDK",
+			"title_abbrev": "Create and invoke an agent",
 			"synopsis": "",
-			"category": "Api",
+			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_ListAgents_section.html"
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_GettingStartedWithBedrockAgents_section.html"
 				},
 				"sdk_pages": []
 			},
-			"synopsis_list": [],
+			"synopsis_list": [
+				"Create an execution role for the agent.",
+				"Create the agent and deploy a DRAFT version.",
+				"Create a Lambda function that implements the agent's capabilities.",
+				"Create an action group that connects the agent to the Lambda function.",
+				"Deploy the fully configured agent.",
+				"Invoke the agent with user-provided prompts.",
+				"Delete all created resources."
+			],
 			"source_key": null
 		},
 		{
@@ -181,6 +189,26 @@
 			"source_key": null
 		},
 		{
+			"id": "bedrock-agent_ListAgents",
+			"file": "bedrock-agent_metadata.yaml",
+			"languages": [],
+			"title": "ListAgents",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_ListAgents_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "bedrock-agent_PrepareAgent",
 			"file": "bedrock-agent_metadata.yaml",
 			"languages": [],
@@ -198,34 +226,6 @@
 				"sdk_pages": []
 			},
 			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "bedrock-agent_GettingStartedWithBedrockAgents",
-			"file": "bedrock-agent_metadata.yaml",
-			"languages": [],
-			"title": "An end-to-end example showing how to create and invoke Amazon Bedrock Agents using an AWS SDK",
-			"title_abbrev": "Create and invoke an agent",
-			"synopsis": "",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_bedrock-agent_GettingStartedWithBedrockAgents_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Create an execution role for the agent.",
-				"Create the agent and deploy a DRAFT version.",
-				"Create a Lambda function that implements the agent's capabilities.",
-				"Create an action group that connects the agent to the Lambda function.",
-				"Deploy the fully configured agent.",
-				"Invoke the agent with user-provided prompts.",
-				"Delete all created resources."
-			],
 			"source_key": null
 		},
 		{

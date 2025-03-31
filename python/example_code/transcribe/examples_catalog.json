@@ -1,10 +1,10 @@
 {
 	"examples": [
 		{
-			"id": "transcribe_StartTranscriptionJob",
+			"id": "transcribe_CreateVocabulary",
 			"file": "transcribe_metadata.yaml",
 			"languages": [],
-			"title": "StartTranscriptionJob",
+			"title": "CreateVocabulary",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -13,47 +13,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_StartTranscriptionJob_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "transcribe_ListTranscriptionJobs",
-			"file": "transcribe_metadata.yaml",
-			"languages": [],
-			"title": "ListTranscriptionJobs",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_ListTranscriptionJobs_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "transcribe_GetTranscriptionJob",
-			"file": "transcribe_metadata.yaml",
-			"languages": [],
-			"title": "GetTranscriptionJob",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_GetTranscriptionJob_section.html"
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_CreateVocabulary_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -81,10 +41,10 @@
 			"source_key": null
 		},
 		{
-			"id": "transcribe_CreateVocabulary",
+			"id": "transcribe_DeleteVocabulary",
 			"file": "transcribe_metadata.yaml",
 			"languages": [],
-			"title": "CreateVocabulary",
+			"title": "DeleteVocabulary",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -93,7 +53,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_CreateVocabulary_section.html"
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_DeleteVocabulary_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -101,10 +61,10 @@
 			"source_key": null
 		},
 		{
-			"id": "transcribe_ListVocabularies",
+			"id": "transcribe_GetTranscriptionJob",
 			"file": "transcribe_metadata.yaml",
 			"languages": [],
-			"title": "ListVocabularies",
+			"title": "GetTranscriptionJob",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -113,7 +73,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_ListVocabularies_section.html"
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_GetTranscriptionJob_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -141,10 +101,10 @@
 			"source_key": null
 		},
 		{
-			"id": "transcribe_UpdateVocabulary",
+			"id": "transcribe_ListTranscriptionJobs",
 			"file": "transcribe_metadata.yaml",
 			"languages": [],
-			"title": "UpdateVocabulary",
+			"title": "ListTranscriptionJobs",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -153,7 +113,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_UpdateVocabulary_section.html"
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_ListTranscriptionJobs_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -161,10 +121,10 @@
 			"source_key": null
 		},
 		{
-			"id": "transcribe_DeleteVocabulary",
+			"id": "transcribe_ListVocabularies",
 			"file": "transcribe_metadata.yaml",
 			"languages": [],
-			"title": "DeleteVocabulary",
+			"title": "ListVocabularies",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -173,11 +133,36 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_DeleteVocabulary_section.html"
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_ListVocabularies_section.html"
 				},
 				"sdk_pages": []
 			},
 			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "transcribe_Scenario_CustomVocabulary",
+			"file": "transcribe_metadata.yaml",
+			"languages": [],
+			"title": "Create and refine an Amazon Transcribe custom vocabulary using an AWS SDK",
+			"title_abbrev": "Create and refine a custom vocabulary",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_Scenario_CustomVocabulary_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Upload an audio file to Amazon S3.",
+				"Run an Amazon Transcribe job to transcribe the file and get the results.",
+				"Create and refine a custom vocabulary to improve transcription accuracy.",
+				"Run jobs with custom vocabularies and get the results."
+			],
 			"source_key": null
 		},
 		{
@@ -208,28 +193,43 @@
 			"source_key": null
 		},
 		{
-			"id": "transcribe_Scenario_CustomVocabulary",
+			"id": "transcribe_StartTranscriptionJob",
 			"file": "transcribe_metadata.yaml",
 			"languages": [],
-			"title": "Create and refine an Amazon Transcribe custom vocabulary using an AWS SDK",
-			"title_abbrev": "Create and refine a custom vocabulary",
+			"title": "StartTranscriptionJob",
+			"title_abbrev": "",
 			"synopsis": "",
-			"category": "Scenarios",
+			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_Scenario_CustomVocabulary_section.html"
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_StartTranscriptionJob_section.html"
 				},
 				"sdk_pages": []
 			},
-			"synopsis_list": [
-				"Upload an audio file to Amazon S3.",
-				"Run an Amazon Transcribe job to transcribe the file and get the results.",
-				"Create and refine a custom vocabulary to improve transcription accuracy.",
-				"Run jobs with custom vocabularies and get the results."
-			],
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "transcribe_UpdateVocabulary",
+			"file": "transcribe_metadata.yaml",
+			"languages": [],
+			"title": "UpdateVocabulary",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"transcribe": "https://docs.aws.amazon.com/code-library/latest/ug/transcribe_example_transcribe_UpdateVocabulary_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		}
 	]

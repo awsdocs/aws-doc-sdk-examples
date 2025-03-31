@@ -21,26 +21,6 @@
 			"source_key": null
 		},
 		{
-			"id": "bedrock_ListFoundationModels",
-			"file": "bedrock_metadata.yaml",
-			"languages": [],
-			"title": "ListFoundationModels",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"bedrock": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock_example_bedrock_ListFoundationModels_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "bedrock_Hello",
 			"file": "bedrock_metadata.yaml",
 			"languages": [],
@@ -54,6 +34,26 @@
 			"doc_filenames": {
 				"service_pages": {
 					"bedrock": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock_example_bedrock_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock_ListFoundationModels",
+			"file": "bedrock_metadata.yaml",
+			"languages": [],
+			"title": "ListFoundationModels",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock_example_bedrock_ListFoundationModels_section.html"
 				},
 				"sdk_pages": []
 			},

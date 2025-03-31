@@ -1,206 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "iotsitewise_DescribeGateway",
-			"file": "iot_sitewise_metadata.yaml",
-			"languages": [],
-			"title": "DescribeGateway",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DescribeGateway_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iotsitewise_DeleteGateway",
-			"file": "iot_sitewise_metadata.yaml",
-			"languages": [],
-			"title": "DeleteGateway",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DeleteGateway_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iotsitewise_CreateGateway",
-			"file": "iot_sitewise_metadata.yaml",
-			"languages": [],
-			"title": "CreateGateway",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_CreateGateway_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iotsitewise_DescribePortal",
-			"file": "iot_sitewise_metadata.yaml",
-			"languages": [],
-			"title": "DescribePortal",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DescribePortal_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iotsitewise_ListAssetModels",
-			"file": "iot_sitewise_metadata.yaml",
-			"languages": [],
-			"title": "ListAssetModels",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_ListAssetModels_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iotsitewise_DeletePortal",
-			"file": "iot_sitewise_metadata.yaml",
-			"languages": [],
-			"title": "DeletePortal",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DeletePortal_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iotsitewise_CreatePortal",
-			"file": "iot_sitewise_metadata.yaml",
-			"languages": [],
-			"title": "CreatePortal",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_CreatePortal_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iotsitewise_DeleteAssetModel",
-			"file": "iot_sitewise_metadata.yaml",
-			"languages": [],
-			"title": "DeleteAssetModel",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DeleteAssetModel_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iotsitewise_DeleteAsset",
-			"file": "iot_sitewise_metadata.yaml",
-			"languages": [],
-			"title": "DeleteAsset",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DeleteAsset_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "iotsitewise_GetAssetPropertyValue",
-			"file": "iot_sitewise_metadata.yaml",
-			"languages": [],
-			"title": "GetAssetPropertyValue",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_GetAssetPropertyValue_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "iotsitewise_BatchPutAssetPropertyValue",
 			"file": "iot_sitewise_metadata.yaml",
 			"languages": [],
@@ -261,6 +61,226 @@
 			"source_key": null
 		},
 		{
+			"id": "iotsitewise_CreateGateway",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": [],
+			"title": "CreateGateway",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_CreateGateway_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_CreatePortal",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": [],
+			"title": "CreatePortal",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_CreatePortal_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_DeleteAsset",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": [],
+			"title": "DeleteAsset",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DeleteAsset_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_DeleteAssetModel",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": [],
+			"title": "DeleteAssetModel",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DeleteAssetModel_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_DeleteGateway",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": [],
+			"title": "DeleteGateway",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DeleteGateway_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_DeletePortal",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": [],
+			"title": "DeletePortal",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DeletePortal_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_DescribeGateway",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": [],
+			"title": "DescribeGateway",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DescribeGateway_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_DescribePortal",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": [],
+			"title": "DescribePortal",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_DescribePortal_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_GetAssetPropertyValue",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": [],
+			"title": "GetAssetPropertyValue",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_GetAssetPropertyValue_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_Hello",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": [],
+			"title": "Hello AWS IoT SiteWise",
+			"title_abbrev": "Hello AWS IoT SiteWise",
+			"synopsis": "get started using AWS IoT SiteWise.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "iotsitewise_ListAssetModels",
+			"file": "iot_sitewise_metadata.yaml",
+			"languages": [],
+			"title": "ListAssetModels",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_ListAssetModels_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "iotsitewise_Scenario",
 			"file": "iot_sitewise_metadata.yaml",
 			"languages": [],
@@ -288,26 +308,6 @@
 				"Describe the AWS IoT SiteWise Gateway.",
 				"Delete the AWS IoT SiteWise Assets."
 			],
-			"source_key": null
-		},
-		{
-			"id": "iotsitewise_Hello",
-			"file": "iot_sitewise_metadata.yaml",
-			"languages": [],
-			"title": "Hello AWS IoT SiteWise",
-			"title_abbrev": "Hello AWS IoT SiteWise",
-			"synopsis": "get started using AWS IoT SiteWise.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"iotsitewise": "https://docs.aws.amazon.com/code-library/latest/ug/iotsitewise_example_iotsitewise_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
 			"source_key": null
 		}
 	]

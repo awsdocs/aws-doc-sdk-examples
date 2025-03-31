@@ -24,6 +24,52 @@
 			"source_key": null
 		},
 		{
+			"id": "lookoutvision_CreateModel",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "CreateModel",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": {
+				"title": "Training your model",
+				"url": "lookout-for-vision/latest/developer-guide/model-train.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_CreateModel_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_CreateProject",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "CreateProject",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": {
+				"title": "Creating your project",
+				"url": "lookout-for-vision/latest/developer-guide/model-create-project.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_CreateProject_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "lookoutvision_DeleteDataset",
 			"file": "lookoutvision_metadata.yaml",
 			"languages": [],
@@ -47,6 +93,52 @@
 			"source_key": null
 		},
 		{
+			"id": "lookoutvision_DeleteModel",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "DeleteModel",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": {
+				"title": "Deleting a model",
+				"url": "lookout-for-vision/latest/developer-guide/delete-model.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_DeleteModel_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_DeleteProject",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "DeleteProject",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": {
+				"title": "Deleting a project",
+				"url": "lookout-for-vision/latest/developer-guide/delete-project.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_DeleteProject_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "lookoutvision_DescribeDataset",
 			"file": "lookoutvision_metadata.yaml",
 			"languages": [],
@@ -63,6 +155,227 @@
 			"doc_filenames": {
 				"service_pages": {
 					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_DescribeDataset_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_DescribeModel",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "DescribeModel",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": {
+				"title": "Viewing your models",
+				"url": "lookout-for-vision/latest/developer-guide/view-models.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_DescribeModel_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_DetectAnomalies",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "DetectAnomalies",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": {
+				"title": "Detecting anomalies in an image",
+				"url": "lookout-for-vision/latest/developer-guide/inference-detect-anomalies.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_DetectAnomalies_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_Hello",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "Hello Lookout for Vision",
+			"title_abbrev": "Hello Lookout for Vision",
+			"synopsis": "get started using Lookout for Vision.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_ListModels",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "ListModels",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": {
+				"title": "Viewing your models",
+				"url": "lookout-for-vision/latest/developer-guide/view-models.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_ListModels_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_ListProjects",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "ListProjects",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": {
+				"title": "Viewing your projects",
+				"url": "lookout-for-vision/latest/developer-guide/view-projects.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_ListProjects_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_Scenario_CreateManifestFile",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "Create a Lookout for Vision manifest file using an AWS SDK",
+			"title_abbrev": "Create a manifest file",
+			"synopsis": "create a Lookout for Vision manifest file and upload it to Amazon S3.",
+			"category": "Scenarios",
+			"guide_topic": {
+				"title": "Creating a manifest file",
+				"url": "lookout-for-vision/latest/developer-guide/manifest-files.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_CreateManifestFile_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_Scenario_CreateTrainStartModel",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "Create, train, and start a Lookout for Vision model using an AWS SDK",
+			"title_abbrev": "Create, train, and start a model",
+			"synopsis": "create, train, and start a Lookout for Vision model.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_CreateTrainStartModel_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_Scenario_ExportDatasets",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "Export the datasets from a Lookout for Vision project using an AWS SDK",
+			"title_abbrev": "Export the datasets from a project",
+			"synopsis": "export the datasets from a Lookout for Vision project.",
+			"category": "Scenarios",
+			"guide_topic": {
+				"title": "Exporting datasets from a project (SDK)",
+				"url": "lookout-for-vision/latest/developer-guide/export-dataset-sdk.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_ExportDatasets_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_Scenario_FindTagInProjects",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "Find a Lookout for Vision project with a specific tag using an AWS SDK",
+			"title_abbrev": "Find a project with a specific tag",
+			"synopsis": "find a Lookout for Vision project with a specific tag.",
+			"category": "Scenarios",
+			"guide_topic": {
+				"title": "Tagging models",
+				"url": "lookout-for-vision/latest/developer-guide/tagging-model.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_FindTagInProjects_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "lookoutvision_Scenario_ListHostedModels",
+			"file": "lookoutvision_metadata.yaml",
+			"languages": [],
+			"title": "List Lookout for Vision models that are currently hosted using an AWS SDK",
+			"title_abbrev": "List models that are currently hosted",
+			"synopsis": "list Lookout for Vision models that are currently hosted.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_ListHostedModels_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -109,319 +422,6 @@
 			"doc_filenames": {
 				"service_pages": {
 					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_StopModel_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_DetectAnomalies",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "DetectAnomalies",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": {
-				"title": "Detecting anomalies in an image",
-				"url": "lookout-for-vision/latest/developer-guide/inference-detect-anomalies.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_DetectAnomalies_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_CreateModel",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "CreateModel",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": {
-				"title": "Training your model",
-				"url": "lookout-for-vision/latest/developer-guide/model-train.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_CreateModel_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_DescribeModel",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "DescribeModel",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": {
-				"title": "Viewing your models",
-				"url": "lookout-for-vision/latest/developer-guide/view-models.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_DescribeModel_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_ListModels",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "ListModels",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": {
-				"title": "Viewing your models",
-				"url": "lookout-for-vision/latest/developer-guide/view-models.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_ListModels_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_DeleteModel",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "DeleteModel",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": {
-				"title": "Deleting a model",
-				"url": "lookout-for-vision/latest/developer-guide/delete-model.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_DeleteModel_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_CreateProject",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "CreateProject",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": {
-				"title": "Creating your project",
-				"url": "lookout-for-vision/latest/developer-guide/model-create-project.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_CreateProject_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_DeleteProject",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "DeleteProject",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": {
-				"title": "Deleting a project",
-				"url": "lookout-for-vision/latest/developer-guide/delete-project.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_DeleteProject_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_ListProjects",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "ListProjects",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": {
-				"title": "Viewing your projects",
-				"url": "lookout-for-vision/latest/developer-guide/view-projects.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_ListProjects_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_Hello",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "Hello Lookout for Vision",
-			"title_abbrev": "Hello Lookout for Vision",
-			"synopsis": "get started using Lookout for Vision.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_Scenario_CreateManifestFile",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "Create a Lookout for Vision manifest file using an AWS SDK",
-			"title_abbrev": "Create a manifest file",
-			"synopsis": "create a Lookout for Vision manifest file and upload it to Amazon S3.",
-			"category": "Scenarios",
-			"guide_topic": {
-				"title": "Creating a manifest file",
-				"url": "lookout-for-vision/latest/developer-guide/manifest-files.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_CreateManifestFile_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_Scenario_FindTagInProjects",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "Find a Lookout for Vision project with a specific tag using an AWS SDK",
-			"title_abbrev": "Find a project with a specific tag",
-			"synopsis": "find a Lookout for Vision project with a specific tag.",
-			"category": "Scenarios",
-			"guide_topic": {
-				"title": "Tagging models",
-				"url": "lookout-for-vision/latest/developer-guide/tagging-model.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_FindTagInProjects_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_Scenario_ExportDatasets",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "Export the datasets from a Lookout for Vision project using an AWS SDK",
-			"title_abbrev": "Export the datasets from a project",
-			"synopsis": "export the datasets from a Lookout for Vision project.",
-			"category": "Scenarios",
-			"guide_topic": {
-				"title": "Exporting datasets from a project (SDK)",
-				"url": "lookout-for-vision/latest/developer-guide/export-dataset-sdk.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_ExportDatasets_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_Scenario_ListHostedModels",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "List Lookout for Vision models that are currently hosted using an AWS SDK",
-			"title_abbrev": "List models that are currently hosted",
-			"synopsis": "list Lookout for Vision models that are currently hosted.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_ListHostedModels_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "lookoutvision_Scenario_CreateTrainStartModel",
-			"file": "lookoutvision_metadata.yaml",
-			"languages": [],
-			"title": "Create, train, and start a Lookout for Vision model using an AWS SDK",
-			"title_abbrev": "Create, train, and start a model",
-			"synopsis": "create, train, and start a Lookout for Vision model.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"lookoutvision": "https://docs.aws.amazon.com/code-library/latest/ug/lookoutvision_example_lookoutvision_Scenario_CreateTrainStartModel_section.html"
 				},
 				"sdk_pages": []
 			},

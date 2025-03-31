@@ -41,6 +41,46 @@
 			"source_key": null
 		},
 		{
+			"id": "polly_GetSpeechSynthesisTask",
+			"file": "polly_metadata.yaml",
+			"languages": [],
+			"title": "GetSpeechSynthesisTask",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_GetSpeechSynthesisTask_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "polly_LipSync",
+			"file": "polly_metadata.yaml",
+			"languages": [],
+			"title": "Create a lip-sync application with Amazon Polly using an AWS SDK",
+			"title_abbrev": "Create a lip-sync application",
+			"synopsis": "create a lip-sync application with Amazon Polly.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_LipSync_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "polly_ListLexicons",
 			"file": "polly_metadata.yaml",
 			"languages": [],
@@ -81,46 +121,6 @@
 			"source_key": null
 		},
 		{
-			"id": "polly_SynthesizeSpeech",
-			"file": "polly_metadata.yaml",
-			"languages": [],
-			"title": "SynthesizeSpeech",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_SynthesizeSpeech_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "polly_GetSpeechSynthesisTask",
-			"file": "polly_metadata.yaml",
-			"languages": [],
-			"title": "GetSpeechSynthesisTask",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_GetSpeechSynthesisTask_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "polly_StartSpeechSynthesisTask",
 			"file": "polly_metadata.yaml",
 			"languages": [],
@@ -141,19 +141,19 @@
 			"source_key": null
 		},
 		{
-			"id": "polly_LipSync",
+			"id": "polly_SynthesizeSpeech",
 			"file": "polly_metadata.yaml",
 			"languages": [],
-			"title": "Create a lip-sync application with Amazon Polly using an AWS SDK",
-			"title_abbrev": "Create a lip-sync application",
-			"synopsis": "create a lip-sync application with Amazon Polly.",
-			"category": "Scenarios",
+			"title": "SynthesizeSpeech",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_LipSync_section.html"
+					"polly": "https://docs.aws.amazon.com/code-library/latest/ug/polly_example_polly_SynthesizeSpeech_section.html"
 				},
 				"sdk_pages": []
 			},

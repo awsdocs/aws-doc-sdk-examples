@@ -1,26 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "glue_GetCrawler",
-			"file": "glue_metadata.yaml",
-			"languages": [],
-			"title": "GetCrawler",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetCrawler_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "glue_CreateCrawler",
 			"file": "glue_metadata.yaml",
 			"languages": [],
@@ -34,66 +14,6 @@
 			"doc_filenames": {
 				"service_pages": {
 					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_CreateCrawler_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "glue_StartCrawler",
-			"file": "glue_metadata.yaml",
-			"languages": [],
-			"title": "StartCrawler",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_StartCrawler_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "glue_GetDatabase",
-			"file": "glue_metadata.yaml",
-			"languages": [],
-			"title": "GetDatabase",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetDatabase_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "glue_GetTables",
-			"file": "glue_metadata.yaml",
-			"languages": [],
-			"title": "GetTables",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetTables_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -121,10 +41,10 @@
 			"source_key": null
 		},
 		{
-			"id": "glue_StartJobRun",
+			"id": "glue_DeleteCrawler",
 			"file": "glue_metadata.yaml",
 			"languages": [],
-			"title": "StartJobRun",
+			"title": "DeleteCrawler",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -133,7 +53,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_StartJobRun_section.html"
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_DeleteCrawler_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -141,10 +61,10 @@
 			"source_key": null
 		},
 		{
-			"id": "glue_ListJobs",
+			"id": "glue_DeleteDatabase",
 			"file": "glue_metadata.yaml",
 			"languages": [],
-			"title": "ListJobs",
+			"title": "DeleteDatabase",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -153,47 +73,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_ListJobs_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "glue_GetJobRuns",
-			"file": "glue_metadata.yaml",
-			"languages": [],
-			"title": "GetJobRuns",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetJobRuns_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "glue_GetJobRun",
-			"file": "glue_metadata.yaml",
-			"languages": [],
-			"title": "GetJobRun",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetJobRun_section.html"
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_DeleteDatabase_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -241,10 +121,10 @@
 			"source_key": null
 		},
 		{
-			"id": "glue_DeleteDatabase",
+			"id": "glue_GetCrawler",
 			"file": "glue_metadata.yaml",
 			"languages": [],
-			"title": "DeleteDatabase",
+			"title": "GetCrawler",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -253,7 +133,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_DeleteDatabase_section.html"
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetCrawler_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -261,10 +141,10 @@
 			"source_key": null
 		},
 		{
-			"id": "glue_DeleteCrawler",
+			"id": "glue_GetDatabase",
 			"file": "glue_metadata.yaml",
 			"languages": [],
-			"title": "DeleteCrawler",
+			"title": "GetDatabase",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -273,7 +153,107 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_DeleteCrawler_section.html"
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetDatabase_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_GetJobRun",
+			"file": "glue_metadata.yaml",
+			"languages": [],
+			"title": "GetJobRun",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetJobRun_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_GetJobRuns",
+			"file": "glue_metadata.yaml",
+			"languages": [],
+			"title": "GetJobRuns",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetJobRuns_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_GetTables",
+			"file": "glue_metadata.yaml",
+			"languages": [],
+			"title": "GetTables",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_GetTables_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_Hello",
+			"file": "glue_metadata.yaml",
+			"languages": [],
+			"title": "Hello AWS Glue",
+			"title_abbrev": "Hello AWS Glue",
+			"synopsis": "get started using AWS Glue.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_ListJobs",
+			"file": "glue_metadata.yaml",
+			"languages": [],
+			"title": "ListJobs",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_ListJobs_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -309,19 +289,39 @@
 			"source_key": null
 		},
 		{
-			"id": "glue_Hello",
+			"id": "glue_StartCrawler",
 			"file": "glue_metadata.yaml",
 			"languages": [],
-			"title": "Hello AWS Glue",
-			"title_abbrev": "Hello AWS Glue",
-			"synopsis": "get started using AWS Glue.",
-			"category": "Hello",
+			"title": "StartCrawler",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_Hello_section.html"
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_StartCrawler_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glue_StartJobRun",
+			"file": "glue_metadata.yaml",
+			"languages": [],
+			"title": "StartJobRun",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glue": "https://docs.aws.amazon.com/code-library/latest/ug/glue_example_glue_StartJobRun_section.html"
 				},
 				"sdk_pages": []
 			},

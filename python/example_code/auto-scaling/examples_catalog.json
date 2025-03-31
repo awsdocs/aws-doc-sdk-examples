@@ -1,6 +1,26 @@
 {
 	"examples": [
 		{
+			"id": "auto-scaling_AttachLoadBalancerTargetGroups",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "AttachLoadBalancerTargetGroups",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_AttachLoadBalancerTargetGroups_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "auto-scaling_CreateAutoScalingGroup",
 			"file": "auto-scaling_metadata.yaml",
 			"languages": [],
@@ -61,66 +81,6 @@
 			"source_key": null
 		},
 		{
-			"id": "auto-scaling_UpdateAutoScalingGroup",
-			"file": "auto-scaling_metadata.yaml",
-			"languages": [],
-			"title": "UpdateAutoScalingGroup",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_UpdateAutoScalingGroup_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "auto-scaling_TerminateInstanceInAutoScalingGroup",
-			"file": "auto-scaling_metadata.yaml",
-			"languages": [],
-			"title": "TerminateInstanceInAutoScalingGroup",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_TerminateInstanceInAutoScalingGroup_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "auto-scaling_SetDesiredCapacity",
-			"file": "auto-scaling_metadata.yaml",
-			"languages": [],
-			"title": "SetDesiredCapacity",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_SetDesiredCapacity_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "auto-scaling_DescribeAutoScalingInstances",
 			"file": "auto-scaling_metadata.yaml",
 			"languages": [],
@@ -161,26 +121,6 @@
 			"source_key": null
 		},
 		{
-			"id": "auto-scaling_EnableMetricsCollection",
-			"file": "auto-scaling_metadata.yaml",
-			"languages": [],
-			"title": "EnableMetricsCollection",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_EnableMetricsCollection_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "auto-scaling_DisableMetricsCollection",
 			"file": "auto-scaling_metadata.yaml",
 			"languages": [],
@@ -201,10 +141,10 @@
 			"source_key": null
 		},
 		{
-			"id": "auto-scaling_AttachLoadBalancerTargetGroups",
+			"id": "auto-scaling_EnableMetricsCollection",
 			"file": "auto-scaling_metadata.yaml",
 			"languages": [],
-			"title": "AttachLoadBalancerTargetGroups",
+			"title": "EnableMetricsCollection",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -213,7 +153,27 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_AttachLoadBalancerTargetGroups_section.html"
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_EnableMetricsCollection_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_Hello",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "Hello Auto Scaling",
+			"title_abbrev": "Hello Auto Scaling",
+			"synopsis": "get started using Auto Scaling.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_Hello_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -248,19 +208,59 @@
 			"source_key": null
 		},
 		{
-			"id": "auto-scaling_Hello",
+			"id": "auto-scaling_SetDesiredCapacity",
 			"file": "auto-scaling_metadata.yaml",
 			"languages": [],
-			"title": "Hello Auto Scaling",
-			"title_abbrev": "Hello Auto Scaling",
-			"synopsis": "get started using Auto Scaling.",
-			"category": "Hello",
+			"title": "SetDesiredCapacity",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_Hello_section.html"
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_SetDesiredCapacity_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_TerminateInstanceInAutoScalingGroup",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "TerminateInstanceInAutoScalingGroup",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_TerminateInstanceInAutoScalingGroup_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "auto-scaling_UpdateAutoScalingGroup",
+			"file": "auto-scaling_metadata.yaml",
+			"languages": [],
+			"title": "UpdateAutoScalingGroup",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_auto-scaling_UpdateAutoScalingGroup_section.html"
 				},
 				"sdk_pages": []
 			},

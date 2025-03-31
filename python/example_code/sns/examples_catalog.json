@@ -1,190 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "sns_ListSubscriptions",
-			"file": "sns_metadata.yaml",
-			"languages": [],
-			"title": "ListSubscriptions",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_ListSubscriptions_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sns_ListTopics",
-			"file": "sns_metadata.yaml",
-			"languages": [],
-			"title": "ListTopics",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_ListTopics_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sns_CreateTopic",
-			"file": "sns_metadata.yaml",
-			"languages": [],
-			"title": "CreateTopic",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_CreateTopic_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sns_DeleteTopic",
-			"file": "sns_metadata.yaml",
-			"languages": [],
-			"title": "DeleteTopic",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_DeleteTopic_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sns_Publish",
-			"file": "sns_metadata.yaml",
-			"languages": [],
-			"title": "Publish",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_Publish_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sns_SetSubscriptionAttributes",
-			"file": "sns_metadata.yaml",
-			"languages": [],
-			"title": "SetSubscriptionAttributes",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_SetSubscriptionAttributes_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sns_Subscribe",
-			"file": "sns_metadata.yaml",
-			"languages": [],
-			"title": "Subscribe",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_Subscribe_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sns_Unsubscribe",
-			"file": "sns_metadata.yaml",
-			"languages": [],
-			"title": "Unsubscribe",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_Unsubscribe_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_TextractExplorer",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create an Amazon Textract explorer application",
-			"title_abbrev": "Create an Amazon Textract explorer application",
-			"synopsis": "explore Amazon Textract output through an interactive application.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "textract",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractExplorer_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_TextractExplorer_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
-					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "cross_LambdaAPIGateway",
 			"file": "cross_metadata.yaml",
 			"languages": [],
@@ -256,19 +72,123 @@
 			"source_key": null
 		},
 		{
-			"id": "sns_PublishTextSMS",
+			"id": "cross_TextractExplorer",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create an Amazon Textract explorer application",
+			"title_abbrev": "Create an Amazon Textract explorer application",
+			"synopsis": "explore Amazon Textract output through an interactive application.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "textract",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractExplorer_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_TextractExplorer_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
+					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sns_CreateTopic",
 			"file": "sns_metadata.yaml",
 			"languages": [],
-			"title": "Publish an Amazon SNS SMS text message using an AWS SDK",
-			"title_abbrev": "Publish an SMS text message",
-			"synopsis": "publish SMS messages using Amazon SNS.",
-			"category": "Scenarios",
+			"title": "CreateTopic",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_PublishTextSMS_section.html"
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_CreateTopic_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sns_DeleteTopic",
+			"file": "sns_metadata.yaml",
+			"languages": [],
+			"title": "DeleteTopic",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_DeleteTopic_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sns_ListSubscriptions",
+			"file": "sns_metadata.yaml",
+			"languages": [],
+			"title": "ListSubscriptions",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_ListSubscriptions_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sns_ListTopics",
+			"file": "sns_metadata.yaml",
+			"languages": [],
+			"title": "ListTopics",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_ListTopics_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sns_Publish",
+			"file": "sns_metadata.yaml",
+			"languages": [],
+			"title": "Publish",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_Publish_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -290,6 +210,86 @@
 				"service_pages": {
 					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_PublishFifoTopic_section.html",
 					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sns_PublishFifoTopic_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sns_PublishTextSMS",
+			"file": "sns_metadata.yaml",
+			"languages": [],
+			"title": "Publish an Amazon SNS SMS text message using an AWS SDK",
+			"title_abbrev": "Publish an SMS text message",
+			"synopsis": "publish SMS messages using Amazon SNS.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_PublishTextSMS_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sns_SetSubscriptionAttributes",
+			"file": "sns_metadata.yaml",
+			"languages": [],
+			"title": "SetSubscriptionAttributes",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_SetSubscriptionAttributes_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sns_Subscribe",
+			"file": "sns_metadata.yaml",
+			"languages": [],
+			"title": "Subscribe",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_Subscribe_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sns_Unsubscribe",
+			"file": "sns_metadata.yaml",
+			"languages": [],
+			"title": "Unsubscribe",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_Unsubscribe_section.html"
 				},
 				"sdk_pages": []
 			},

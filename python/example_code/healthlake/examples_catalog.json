@@ -21,46 +21,6 @@
 			"source_key": null
 		},
 		{
-			"id": "healthlake_DescribeFHIRDatastore",
-			"file": "healthlake_metadata.yaml",
-			"languages": [],
-			"title": "DescribeFHIRDatastore",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_DescribeFHIRDatastore_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "healthlake_ListFHIRDatastores",
-			"file": "healthlake_metadata.yaml",
-			"languages": [],
-			"title": "ListFHIRDatastores",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_ListFHIRDatastores_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "healthlake_DeleteFHIRDatastore",
 			"file": "healthlake_metadata.yaml",
 			"languages": [],
@@ -81,10 +41,10 @@
 			"source_key": null
 		},
 		{
-			"id": "healthlake_StartFHIRImportJob",
+			"id": "healthlake_DescribeFHIRDatastore",
 			"file": "healthlake_metadata.yaml",
 			"languages": [],
-			"title": "StartFHIRImportJob",
+			"title": "DescribeFHIRDatastore",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -93,67 +53,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_StartFHIRImportJob_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "healthlake_DescribeFHIRImportJob",
-			"file": "healthlake_metadata.yaml",
-			"languages": [],
-			"title": "DescribeFHIRImportJob",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_DescribeFHIRImportJob_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "healthlake_ListFHIRImportJobs",
-			"file": "healthlake_metadata.yaml",
-			"languages": [],
-			"title": "ListFHIRImportJobs",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_ListFHIRImportJobs_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "healthlake_StartFHIRExportJob",
-			"file": "healthlake_metadata.yaml",
-			"languages": [],
-			"title": "StartFHIRExportJob",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_StartFHIRExportJob_section.html"
+					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_DescribeFHIRDatastore_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -181,6 +81,46 @@
 			"source_key": null
 		},
 		{
+			"id": "healthlake_DescribeFHIRImportJob",
+			"file": "healthlake_metadata.yaml",
+			"languages": [],
+			"title": "DescribeFHIRImportJob",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_DescribeFHIRImportJob_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "healthlake_ListFHIRDatastores",
+			"file": "healthlake_metadata.yaml",
+			"languages": [],
+			"title": "ListFHIRDatastores",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_ListFHIRDatastores_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "healthlake_ListFHIRExportJobs",
 			"file": "healthlake_metadata.yaml",
 			"languages": [],
@@ -201,10 +141,10 @@
 			"source_key": null
 		},
 		{
-			"id": "healthlake_TagResource",
+			"id": "healthlake_ListFHIRImportJobs",
 			"file": "healthlake_metadata.yaml",
 			"languages": [],
-			"title": "TagResource",
+			"title": "ListFHIRImportJobs",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -213,7 +153,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_TagResource_section.html"
+					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_ListFHIRImportJobs_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -234,6 +174,66 @@
 			"doc_filenames": {
 				"service_pages": {
 					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_ListTagsForResource_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "healthlake_StartFHIRExportJob",
+			"file": "healthlake_metadata.yaml",
+			"languages": [],
+			"title": "StartFHIRExportJob",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_StartFHIRExportJob_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "healthlake_StartFHIRImportJob",
+			"file": "healthlake_metadata.yaml",
+			"languages": [],
+			"title": "StartFHIRImportJob",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_StartFHIRImportJob_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "healthlake_TagResource",
+			"file": "healthlake_metadata.yaml",
+			"languages": [],
+			"title": "TagResource",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"healthlake": "https://docs.aws.amazon.com/code-library/latest/ug/healthlake_example_healthlake_TagResource_section.html"
 				},
 				"sdk_pages": []
 			},

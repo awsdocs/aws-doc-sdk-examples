@@ -194,7 +194,7 @@ def write_catalog_json(doc_gen, service_name, language_name, folder_path, is_dry
         example.services = []
 
     # Order the examples by id.
-    language_examples.sort(key=lambda x: x.category)
+    language_examples.sort(key=lambda x: x.id)
 
     new_catalog = json.dumps(
         {"examples": language_examples},

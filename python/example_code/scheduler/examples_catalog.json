@@ -81,26 +81,6 @@
 			"source_key": null
 		},
 		{
-			"id": "scheduler_hello",
-			"file": "scheduler_metadata.yaml",
-			"languages": [],
-			"title": "Hello EventBridge Scheduler",
-			"title_abbrev": "Hello EventBridge Scheduler",
-			"synopsis": "get started using EventBridge Scheduler.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "scheduler_ScheduledEventsScenario",
 			"file": "scheduler_metadata.yaml",
 			"languages": [],
@@ -125,6 +105,26 @@
 				"Delete EventBridge Scheduler the schedule and schedule group.",
 				"Clean up resources and delete the stack."
 			],
+			"source_key": null
+		},
+		{
+			"id": "scheduler_hello",
+			"file": "scheduler_metadata.yaml",
+			"languages": [],
+			"title": "Hello EventBridge Scheduler",
+			"title_abbrev": "Hello EventBridge Scheduler",
+			"synopsis": "get started using EventBridge Scheduler.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"scheduler": "https://docs.aws.amazon.com/code-library/latest/ug/scheduler_example_scheduler_hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		}
 	]

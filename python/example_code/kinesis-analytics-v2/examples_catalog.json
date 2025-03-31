@@ -1,106 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "kinesis-analytics-v2_CreateApplication",
-			"file": "kinesis-analytics-v2_metadata.yaml",
-			"languages": [],
-			"title": "CreateApplication",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_CreateApplication_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "kinesis-analytics-v2_DeleteApplication",
-			"file": "kinesis-analytics-v2_metadata.yaml",
-			"languages": [],
-			"title": "DeleteApplication",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DeleteApplication_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "kinesis-analytics-v2_DescribeApplication",
-			"file": "kinesis-analytics-v2_metadata.yaml",
-			"languages": [],
-			"title": "DescribeApplication",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DescribeApplication_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "kinesis-analytics-v2_DescribeApplicationSnapshot",
-			"file": "kinesis-analytics-v2_metadata.yaml",
-			"languages": [],
-			"title": "DescribeApplicationSnapshot",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DescribeApplicationSnapshot_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "kinesis-analytics-v2_DiscoverInputSchema",
-			"file": "kinesis-analytics-v2_metadata.yaml",
-			"languages": [],
-			"title": "DiscoverInputSchema",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DiscoverInputSchema_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "kinesis-analytics-v2_AddApplicationInput",
 			"file": "kinesis-analytics-v2_metadata.yaml",
 			"languages": [],
@@ -141,10 +41,10 @@
 			"source_key": null
 		},
 		{
-			"id": "kinesis-analytics-v2_UpdateApplication",
+			"id": "kinesis-analytics-v2_CreateApplication",
 			"file": "kinesis-analytics-v2_metadata.yaml",
 			"languages": [],
-			"title": "UpdateApplication",
+			"title": "CreateApplication",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -153,47 +53,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_UpdateApplication_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "kinesis-analytics-v2_StartApplication",
-			"file": "kinesis-analytics-v2_metadata.yaml",
-			"languages": [],
-			"title": "StartApplication",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_StartApplication_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "kinesis-analytics-v2_StopApplication",
-			"file": "kinesis-analytics-v2_metadata.yaml",
-			"languages": [],
-			"title": "StopApplication",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_StopApplication_section.html"
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_CreateApplication_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -394,6 +254,146 @@
 			"doc_filenames": {
 				"service_pages": {
 					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DataGenerator_WebLog_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DeleteApplication",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "DeleteApplication",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DeleteApplication_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DescribeApplication",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "DescribeApplication",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DescribeApplication_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DescribeApplicationSnapshot",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "DescribeApplicationSnapshot",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DescribeApplicationSnapshot_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_DiscoverInputSchema",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "DiscoverInputSchema",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_DiscoverInputSchema_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_StartApplication",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "StartApplication",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_StartApplication_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_StopApplication",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "StopApplication",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_StopApplication_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis-analytics-v2_UpdateApplication",
+			"file": "kinesis-analytics-v2_metadata.yaml",
+			"languages": [],
+			"title": "UpdateApplication",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis-analytics-v2": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis-analytics-v2_example_kinesis-analytics-v2_UpdateApplication_section.html"
 				},
 				"sdk_pages": []
 			},

@@ -1,10 +1,10 @@
 {
 	"examples": [
 		{
-			"id": "ssm_CreateOpsItem",
+			"id": "ssm_CreateDocument",
 			"file": "ssm_metadata.yaml",
 			"languages": [],
-			"title": "CreateOpsItem",
+			"title": "CreateDocument",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -13,27 +13,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_CreateOpsItem_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ssm_UpdateMaintenanceWindow",
-			"file": "ssm_metadata.yaml",
-			"languages": [],
-			"title": "UpdateMaintenanceWindow",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_UpdateMaintenanceWindow_section.html"
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_CreateDocument_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -61,10 +41,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ssm_SendCommand",
+			"id": "ssm_CreateOpsItem",
 			"file": "ssm_metadata.yaml",
 			"languages": [],
-			"title": "SendCommand",
+			"title": "CreateOpsItem",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -73,107 +53,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_SendCommand_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ssm_ListCommandInvocations",
-			"file": "ssm_metadata.yaml",
-			"languages": [],
-			"title": "ListCommandInvocations",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_ListCommandInvocations_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ssm_CreateDocument",
-			"file": "ssm_metadata.yaml",
-			"languages": [],
-			"title": "CreateDocument",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_CreateDocument_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ssm_DescribeOpsItems",
-			"file": "ssm_metadata.yaml",
-			"languages": [],
-			"title": "DescribeOpsItems",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_DescribeOpsItems_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ssm_DeleteOpsItem",
-			"file": "ssm_metadata.yaml",
-			"languages": [],
-			"title": "DeleteOpsItem",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_DeleteOpsItem_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ssm_DeleteMaintenanceWindow",
-			"file": "ssm_metadata.yaml",
-			"languages": [],
-			"title": "DeleteMaintenanceWindow",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_DeleteMaintenanceWindow_section.html"
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_CreateOpsItem_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -201,10 +81,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ssm_UpdateOpsItem",
+			"id": "ssm_DeleteMaintenanceWindow",
 			"file": "ssm_metadata.yaml",
 			"languages": [],
-			"title": "UpdateOpsItem",
+			"title": "DeleteMaintenanceWindow",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -213,7 +93,87 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_UpdateOpsItem_section.html"
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_DeleteMaintenanceWindow_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_DeleteOpsItem",
+			"file": "ssm_metadata.yaml",
+			"languages": [],
+			"title": "DeleteOpsItem",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_DeleteOpsItem_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_DescribeOpsItems",
+			"file": "ssm_metadata.yaml",
+			"languages": [],
+			"title": "DescribeOpsItems",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_DescribeOpsItems_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_Hello",
+			"file": "ssm_metadata.yaml",
+			"languages": [],
+			"title": "Hello Systems Manager",
+			"title_abbrev": "Hello Systems Manager",
+			"synopsis": "get started using Systems Manager.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_ListCommandInvocations",
+			"file": "ssm_metadata.yaml",
+			"languages": [],
+			"title": "ListCommandInvocations",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_ListCommandInvocations_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -249,19 +209,59 @@
 			"source_key": null
 		},
 		{
-			"id": "ssm_Hello",
+			"id": "ssm_SendCommand",
 			"file": "ssm_metadata.yaml",
 			"languages": [],
-			"title": "Hello Systems Manager",
-			"title_abbrev": "Hello Systems Manager",
-			"synopsis": "get started using Systems Manager.",
-			"category": "Hello",
+			"title": "SendCommand",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_Hello_section.html"
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_SendCommand_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_UpdateMaintenanceWindow",
+			"file": "ssm_metadata.yaml",
+			"languages": [],
+			"title": "UpdateMaintenanceWindow",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_UpdateMaintenanceWindow_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ssm_UpdateOpsItem",
+			"file": "ssm_metadata.yaml",
+			"languages": [],
+			"title": "UpdateOpsItem",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ssm": "https://docs.aws.amazon.com/code-library/latest/ug/ssm_example_ssm_UpdateOpsItem_section.html"
 				},
 				"sdk_pages": []
 			},

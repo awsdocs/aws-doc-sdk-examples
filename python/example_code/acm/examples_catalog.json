@@ -1,6 +1,46 @@
 {
 	"examples": [
 		{
+			"id": "acm_AddTagsToCertificate",
+			"file": "acm_metadata.yaml",
+			"languages": [],
+			"title": "AddTagsToCertificate",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_AddTagsToCertificate_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "acm_DeleteCertificate",
+			"file": "acm_metadata.yaml",
+			"languages": [],
+			"title": "DeleteCertificate",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_DeleteCertificate_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "acm_DescribeCertificate",
 			"file": "acm_metadata.yaml",
 			"languages": [],
@@ -41,26 +81,6 @@
 			"source_key": null
 		},
 		{
-			"id": "acm_ListCertificates",
-			"file": "acm_metadata.yaml",
-			"languages": [],
-			"title": "ListCertificates",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_ListCertificates_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "acm_ImportCertificate",
 			"file": "acm_metadata.yaml",
 			"languages": [],
@@ -81,10 +101,10 @@
 			"source_key": null
 		},
 		{
-			"id": "acm_DeleteCertificate",
+			"id": "acm_ListCertificates",
 			"file": "acm_metadata.yaml",
 			"languages": [],
-			"title": "DeleteCertificate",
+			"title": "ListCertificates",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -93,27 +113,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_DeleteCertificate_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "acm_AddTagsToCertificate",
-			"file": "acm_metadata.yaml",
-			"languages": [],
-			"title": "AddTagsToCertificate",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_AddTagsToCertificate_section.html"
+					"acm": "https://docs.aws.amazon.com/code-library/latest/ug/acm_example_acm_ListCertificates_section.html"
 				},
 				"sdk_pages": []
 			},

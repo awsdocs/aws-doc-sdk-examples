@@ -1,6 +1,26 @@
 {
 	"examples": [
 		{
+			"id": "medical-imaging_CopyImageSet",
+			"file": "medical-imaging_metadata.yaml",
+			"languages": [],
+			"title": "CopyImageSet",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_CopyImageSet_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "medical-imaging_CreateDatastore",
 			"file": "medical-imaging_metadata.yaml",
 			"languages": [],
@@ -41,10 +61,10 @@
 			"source_key": null
 		},
 		{
-			"id": "medical-imaging_ListDatastores",
+			"id": "medical-imaging_DeleteImageSet",
 			"file": "medical-imaging_metadata.yaml",
 			"languages": [],
-			"title": "ListDatastores",
+			"title": "DeleteImageSet",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -53,47 +73,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_ListDatastores_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "medical-imaging_GetDatastore",
-			"file": "medical-imaging_metadata.yaml",
-			"languages": [],
-			"title": "GetDatastore",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_GetDatastore_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "medical-imaging_StartDICOMImportJob",
-			"file": "medical-imaging_metadata.yaml",
-			"languages": [],
-			"title": "StartDICOMImportJob",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_StartDICOMImportJob_section.html"
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_DeleteImageSet_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -121,10 +101,10 @@
 			"source_key": null
 		},
 		{
-			"id": "medical-imaging_ListDICOMImportJobs",
+			"id": "medical-imaging_GetDatastore",
 			"file": "medical-imaging_metadata.yaml",
 			"languages": [],
-			"title": "ListDICOMImportJobs",
+			"title": "GetDatastore",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -133,7 +113,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_ListDICOMImportJobs_section.html"
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_GetDatastore_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -141,10 +121,10 @@
 			"source_key": null
 		},
 		{
-			"id": "medical-imaging_SearchImageSets",
+			"id": "medical-imaging_GetImageFrame",
 			"file": "medical-imaging_metadata.yaml",
 			"languages": [],
-			"title": "SearchImageSets",
+			"title": "GetImageFrame",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -153,7 +133,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_SearchImageSets_section.html"
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_GetImageFrame_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -201,10 +181,30 @@
 			"source_key": null
 		},
 		{
-			"id": "medical-imaging_GetImageFrame",
+			"id": "medical-imaging_Hello",
 			"file": "medical-imaging_metadata.yaml",
 			"languages": [],
-			"title": "GetImageFrame",
+			"title": "Hello HealthImaging",
+			"title_abbrev": "Hello HealthImaging",
+			"synopsis": "get started using HealthImaging.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "medical-imaging_ListDICOMImportJobs",
+			"file": "medical-imaging_metadata.yaml",
+			"languages": [],
+			"title": "ListDICOMImportJobs",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -213,7 +213,27 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_GetImageFrame_section.html"
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_ListDICOMImportJobs_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "medical-imaging_ListDatastores",
+			"file": "medical-imaging_metadata.yaml",
+			"languages": [],
+			"title": "ListDatastores",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_ListDatastores_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -241,10 +261,10 @@
 			"source_key": null
 		},
 		{
-			"id": "medical-imaging_UpdateImageSetMetadata",
+			"id": "medical-imaging_ListTagsForResource",
 			"file": "medical-imaging_metadata.yaml",
 			"languages": [],
-			"title": "UpdateImageSetMetadata",
+			"title": "ListTagsForResource",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -253,7 +273,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_UpdateImageSetMetadata_section.html"
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_ListTagsForResource_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -261,19 +281,46 @@
 			"source_key": null
 		},
 		{
-			"id": "medical-imaging_CopyImageSet",
+			"id": "medical-imaging_Scenario_ImageSetsAndFrames",
 			"file": "medical-imaging_metadata.yaml",
 			"languages": [],
-			"title": "CopyImageSet",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
+			"title": "Get started with HealthImaging image sets and image frames using an AWS SDK",
+			"title_abbrev": "Get started with image sets and image frames",
+			"synopsis": "import DICOM files and download image frames in HealthImaging.</para>\n <para>The implementation is structured as a command-line\n application.\n",
+			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_CopyImageSet_section.html"
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_Scenario_ImageSetsAndFrames_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Set up resources for a DICOM import.",
+				"Import DICOM files into a data store.",
+				"Retrieve the image set IDs for the import job.",
+				"Retrieve the image frame IDs for the image sets.",
+				"Download, decode and verify the image frames.",
+				"Clean up resources."
+			],
+			"source_key": null
+		},
+		{
+			"id": "medical-imaging_Scenario_TaggingDataStores",
+			"file": "medical-imaging_metadata.yaml",
+			"languages": [],
+			"title": "Tagging a HealthImaging data store using an AWS SDK",
+			"title_abbrev": "Tagging a data store",
+			"synopsis": "tag a HealthImaging data store.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_Scenario_TaggingDataStores_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -281,10 +328,30 @@
 			"source_key": null
 		},
 		{
-			"id": "medical-imaging_DeleteImageSet",
+			"id": "medical-imaging_Scenario_TaggingImageSets",
 			"file": "medical-imaging_metadata.yaml",
 			"languages": [],
-			"title": "DeleteImageSet",
+			"title": "Tagging a HealthImaging image set using an AWS SDK",
+			"title_abbrev": "Tagging an image set",
+			"synopsis": "tag a HealthImaging image set.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_Scenario_TaggingImageSets_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "medical-imaging_SearchImageSets",
+			"file": "medical-imaging_metadata.yaml",
+			"languages": [],
+			"title": "SearchImageSets",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -293,7 +360,27 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_DeleteImageSet_section.html"
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_SearchImageSets_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "medical-imaging_StartDICOMImportJob",
+			"file": "medical-imaging_metadata.yaml",
+			"languages": [],
+			"title": "StartDICOMImportJob",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_StartDICOMImportJob_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -341,10 +428,10 @@
 			"source_key": null
 		},
 		{
-			"id": "medical-imaging_ListTagsForResource",
+			"id": "medical-imaging_UpdateImageSetMetadata",
 			"file": "medical-imaging_metadata.yaml",
 			"languages": [],
-			"title": "ListTagsForResource",
+			"title": "UpdateImageSetMetadata",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -353,98 +440,11 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_ListTagsForResource_section.html"
+					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_UpdateImageSetMetadata_section.html"
 				},
 				"sdk_pages": []
 			},
 			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "medical-imaging_Hello",
-			"file": "medical-imaging_metadata.yaml",
-			"languages": [],
-			"title": "Hello HealthImaging",
-			"title_abbrev": "Hello HealthImaging",
-			"synopsis": "get started using HealthImaging.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "medical-imaging_Scenario_TaggingDataStores",
-			"file": "medical-imaging_metadata.yaml",
-			"languages": [],
-			"title": "Tagging a HealthImaging data store using an AWS SDK",
-			"title_abbrev": "Tagging a data store",
-			"synopsis": "tag a HealthImaging data store.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_Scenario_TaggingDataStores_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "medical-imaging_Scenario_TaggingImageSets",
-			"file": "medical-imaging_metadata.yaml",
-			"languages": [],
-			"title": "Tagging a HealthImaging image set using an AWS SDK",
-			"title_abbrev": "Tagging an image set",
-			"synopsis": "tag a HealthImaging image set.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_Scenario_TaggingImageSets_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "medical-imaging_Scenario_ImageSetsAndFrames",
-			"file": "medical-imaging_metadata.yaml",
-			"languages": [],
-			"title": "Get started with HealthImaging image sets and image frames using an AWS SDK",
-			"title_abbrev": "Get started with image sets and image frames",
-			"synopsis": "import DICOM files and download image frames in HealthImaging.</para>\n <para>The implementation is structured as a command-line\n application.\n",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"medical-imaging": "https://docs.aws.amazon.com/code-library/latest/ug/medical-imaging_example_medical-imaging_Scenario_ImageSetsAndFrames_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [
-				"Set up resources for a DICOM import.",
-				"Import DICOM files into a data store.",
-				"Retrieve the image set IDs for the import job.",
-				"Retrieve the image frame IDs for the image sets.",
-				"Download, decode and verify the image frames.",
-				"Clean up resources."
-			],
 			"source_key": null
 		}
 	]

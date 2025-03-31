@@ -21,46 +21,6 @@
 			"source_key": null
 		},
 		{
-			"id": "keyspaces_GetKeyspace",
-			"file": "keyspaces_metadata.yaml",
-			"languages": [],
-			"title": "GetKeyspace",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_GetKeyspace_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "keyspaces_ListKeyspaces",
-			"file": "keyspaces_metadata.yaml",
-			"languages": [],
-			"title": "ListKeyspaces",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_ListKeyspaces_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "keyspaces_CreateTable",
 			"file": "keyspaces_metadata.yaml",
 			"languages": [],
@@ -81,10 +41,10 @@
 			"source_key": null
 		},
 		{
-			"id": "keyspaces_GetTable",
+			"id": "keyspaces_DeleteKeyspace",
 			"file": "keyspaces_metadata.yaml",
 			"languages": [],
-			"title": "GetTable",
+			"title": "DeleteKeyspace",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -93,67 +53,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_GetTable_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "keyspaces_ListTables",
-			"file": "keyspaces_metadata.yaml",
-			"languages": [],
-			"title": "ListTables",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_ListTables_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "keyspaces_UpdateTable",
-			"file": "keyspaces_metadata.yaml",
-			"languages": [],
-			"title": "UpdateTable",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_UpdateTable_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "keyspaces_RestoreTable",
-			"file": "keyspaces_metadata.yaml",
-			"languages": [],
-			"title": "RestoreTable",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_RestoreTable_section.html"
+					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_DeleteKeyspace_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -181,10 +81,10 @@
 			"source_key": null
 		},
 		{
-			"id": "keyspaces_DeleteKeyspace",
+			"id": "keyspaces_GetKeyspace",
 			"file": "keyspaces_metadata.yaml",
 			"languages": [],
-			"title": "DeleteKeyspace",
+			"title": "GetKeyspace",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -193,7 +93,107 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_DeleteKeyspace_section.html"
+					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_GetKeyspace_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "keyspaces_GetTable",
+			"file": "keyspaces_metadata.yaml",
+			"languages": [],
+			"title": "GetTable",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_GetTable_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "keyspaces_Hello",
+			"file": "keyspaces_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon Keyspaces",
+			"title_abbrev": "Hello Amazon Keyspaces",
+			"synopsis": "get started using Amazon Keyspaces.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "keyspaces_ListKeyspaces",
+			"file": "keyspaces_metadata.yaml",
+			"languages": [],
+			"title": "ListKeyspaces",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_ListKeyspaces_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "keyspaces_ListTables",
+			"file": "keyspaces_metadata.yaml",
+			"languages": [],
+			"title": "ListTables",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_ListTables_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "keyspaces_RestoreTable",
+			"file": "keyspaces_metadata.yaml",
+			"languages": [],
+			"title": "RestoreTable",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_RestoreTable_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -227,19 +227,19 @@
 			"source_key": null
 		},
 		{
-			"id": "keyspaces_Hello",
+			"id": "keyspaces_UpdateTable",
 			"file": "keyspaces_metadata.yaml",
 			"languages": [],
-			"title": "Hello Amazon Keyspaces",
-			"title_abbrev": "Hello Amazon Keyspaces",
-			"synopsis": "get started using Amazon Keyspaces.",
-			"category": "Hello",
+			"title": "UpdateTable",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_Hello_section.html"
+					"keyspaces": "https://docs.aws.amazon.com/code-library/latest/ug/keyspaces_example_keyspaces_UpdateTable_section.html"
 				},
 				"sdk_pages": []
 			},

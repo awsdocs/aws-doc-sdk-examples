@@ -1,123 +1,33 @@
 {
 	"examples": [
 		{
-			"id": "ec2_CreateKeyPair",
-			"file": "ec2_metadata.yaml",
+			"id": "cross_ResilientService",
+			"file": "cross_metadata.yaml",
 			"languages": [],
-			"title": "CreateKeyPair",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
+			"title": "Build and manage a resilient service using an AWS SDK",
+			"title_abbrev": "Build and manage a resilient service",
+			"synopsis": "create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.",
+			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_CreateKeyPair_section.html"
+					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_cross_ResilientService_section.html",
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_cross_ResilientService_section.html",
+					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_cross_ResilientService_section.html",
+					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_cross_ResilientService_section.html"
 				},
 				"sdk_pages": []
 			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ec2_DescribeKeyPairs",
-			"file": "ec2_metadata.yaml",
-			"languages": [],
-			"title": "DescribeKeyPairs",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeKeyPairs_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ec2_CreateSecurityGroup",
-			"file": "ec2_metadata.yaml",
-			"languages": [],
-			"title": "CreateSecurityGroup",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_CreateSecurityGroup_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ec2_RunInstances",
-			"file": "ec2_metadata.yaml",
-			"languages": [],
-			"title": "RunInstances",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_RunInstances_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ec2_StartInstances",
-			"file": "ec2_metadata.yaml",
-			"languages": [],
-			"title": "StartInstances",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_StartInstances_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ec2_StopInstances",
-			"file": "ec2_metadata.yaml",
-			"languages": [],
-			"title": "StopInstances",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_StopInstances_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
+			"synopsis_list": [
+				"Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.",
+				"Handle and distribute HTTP requests with Elastic Load Balancing.",
+				"Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.",
+				"Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.",
+				"Simulate a recommendation service with an Amazon DynamoDB table.",
+				"Control web server response to requests and health checks by updating AWS Systems Manager parameters."
+			],
 			"source_key": null
 		},
 		{
@@ -161,46 +71,6 @@
 			"source_key": null
 		},
 		{
-			"id": "ec2_DisassociateAddress",
-			"file": "ec2_metadata.yaml",
-			"languages": [],
-			"title": "DisassociateAddress",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DisassociateAddress_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ec2_ReleaseAddress",
-			"file": "ec2_metadata.yaml",
-			"languages": [],
-			"title": "ReleaseAddress",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_ReleaseAddress_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "ec2_AuthorizeSecurityGroupIngress",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
@@ -214,6 +84,106 @@
 			"doc_filenames": {
 				"service_pages": {
 					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_AuthorizeSecurityGroupIngress_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ec2_CreateKeyPair",
+			"file": "ec2_metadata.yaml",
+			"languages": [],
+			"title": "CreateKeyPair",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_CreateKeyPair_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ec2_CreateLaunchTemplate",
+			"file": "ec2_metadata.yaml",
+			"languages": [],
+			"title": "CreateLaunchTemplate",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_CreateLaunchTemplate_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ec2_CreateSecurityGroup",
+			"file": "ec2_metadata.yaml",
+			"languages": [],
+			"title": "CreateSecurityGroup",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_CreateSecurityGroup_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ec2_CreateVpc",
+			"file": "ec2_metadata.yaml",
+			"languages": [],
+			"title": "CreateVpc",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_CreateVpc_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ec2_CreateVpcEndpoint",
+			"file": "ec2_metadata.yaml",
+			"languages": [],
+			"title": "CreateVpcEndpoint",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_CreateVpcEndpoint_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -241,10 +211,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ec2_DescribeSecurityGroups",
+			"id": "ec2_DeleteLaunchTemplate",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
-			"title": "DescribeSecurityGroups",
+			"title": "DeleteLaunchTemplate",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -253,7 +223,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeSecurityGroups_section.html"
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DeleteLaunchTemplate_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -281,10 +251,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ec2_TerminateInstances",
+			"id": "ec2_DeleteVpc",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
-			"title": "TerminateInstances",
+			"title": "DeleteVpc",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -293,7 +263,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_TerminateInstances_section.html"
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DeleteVpc_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -301,10 +271,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ec2_DescribeInstances",
+			"id": "ec2_DeleteVpcEndpoints",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
-			"title": "DescribeInstances",
+			"title": "DeleteVpcEndpoints",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -313,7 +283,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeInstances_section.html"
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DeleteVpcEndpoints_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -321,10 +291,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ec2_DescribeRouteTables",
+			"id": "ec2_DescribeAvailabilityZones",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
-			"title": "DescribeRouteTables",
+			"title": "DescribeAvailabilityZones",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -333,7 +303,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeRouteTables_section.html"
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeAvailabilityZones_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -341,10 +311,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ec2_RebootInstances",
+			"id": "ec2_DescribeIamInstanceProfileAssociations",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
-			"title": "RebootInstances",
+			"title": "DescribeIamInstanceProfileAssociations",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -353,7 +323,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_RebootInstances_section.html"
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeIamInstanceProfileAssociations_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -401,10 +371,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ec2_DescribeAvailabilityZones",
+			"id": "ec2_DescribeInstances",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
-			"title": "DescribeAvailabilityZones",
+			"title": "DescribeInstances",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -413,7 +383,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeAvailabilityZones_section.html"
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeInstances_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -421,10 +391,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ec2_CreateVpc",
+			"id": "ec2_DescribeKeyPairs",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
-			"title": "CreateVpc",
+			"title": "DescribeKeyPairs",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -433,7 +403,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_CreateVpc_section.html"
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeKeyPairs_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -441,10 +411,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ec2_DeleteVpc",
+			"id": "ec2_DescribeRouteTables",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
-			"title": "DeleteVpc",
+			"title": "DescribeRouteTables",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -453,7 +423,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DeleteVpc_section.html"
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeRouteTables_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -461,10 +431,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ec2_CreateVpcEndpoint",
+			"id": "ec2_DescribeSecurityGroups",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
-			"title": "CreateVpcEndpoint",
+			"title": "DescribeSecurityGroups",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -473,7 +443,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_CreateVpcEndpoint_section.html"
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeSecurityGroups_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -481,10 +451,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ec2_DeleteVpcEndpoints",
+			"id": "ec2_DescribeSubnets",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
-			"title": "DeleteVpcEndpoints",
+			"title": "DescribeSubnets",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -493,87 +463,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DeleteVpcEndpoints_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ec2_DescribeIamInstanceProfileAssociations",
-			"file": "ec2_metadata.yaml",
-			"languages": [],
-			"title": "DescribeIamInstanceProfileAssociations",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeIamInstanceProfileAssociations_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ec2_ReplaceIamInstanceProfileAssociation",
-			"file": "ec2_metadata.yaml",
-			"languages": [],
-			"title": "ReplaceIamInstanceProfileAssociation",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_ReplaceIamInstanceProfileAssociation_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ec2_CreateLaunchTemplate",
-			"file": "ec2_metadata.yaml",
-			"languages": [],
-			"title": "CreateLaunchTemplate",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_CreateLaunchTemplate_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "ec2_DeleteLaunchTemplate",
-			"file": "ec2_metadata.yaml",
-			"languages": [],
-			"title": "DeleteLaunchTemplate",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DeleteLaunchTemplate_section.html"
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeSubnets_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -601,10 +491,10 @@
 			"source_key": null
 		},
 		{
-			"id": "ec2_DescribeSubnets",
+			"id": "ec2_DisassociateAddress",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
-			"title": "DescribeSubnets",
+			"title": "DisassociateAddress",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -613,7 +503,107 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DescribeSubnets_section.html"
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_DisassociateAddress_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ec2_Hello",
+			"file": "ec2_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon EC2",
+			"title_abbrev": "Hello Amazon EC2",
+			"synopsis": "get started using Amazon EC2.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ec2_RebootInstances",
+			"file": "ec2_metadata.yaml",
+			"languages": [],
+			"title": "RebootInstances",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_RebootInstances_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ec2_ReleaseAddress",
+			"file": "ec2_metadata.yaml",
+			"languages": [],
+			"title": "ReleaseAddress",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_ReleaseAddress_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ec2_ReplaceIamInstanceProfileAssociation",
+			"file": "ec2_metadata.yaml",
+			"languages": [],
+			"title": "ReplaceIamInstanceProfileAssociation",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_ReplaceIamInstanceProfileAssociation_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ec2_RunInstances",
+			"file": "ec2_metadata.yaml",
+			"languages": [],
+			"title": "RunInstances",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_RunInstances_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -647,19 +637,19 @@
 			"source_key": null
 		},
 		{
-			"id": "ec2_Hello",
+			"id": "ec2_StartInstances",
 			"file": "ec2_metadata.yaml",
 			"languages": [],
-			"title": "Hello Amazon EC2",
-			"title_abbrev": "Hello Amazon EC2",
-			"synopsis": "get started using Amazon EC2.",
-			"category": "Hello",
+			"title": "StartInstances",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_Hello_section.html"
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_StartInstances_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -667,33 +657,43 @@
 			"source_key": null
 		},
 		{
-			"id": "cross_ResilientService",
-			"file": "cross_metadata.yaml",
+			"id": "ec2_StopInstances",
+			"file": "ec2_metadata.yaml",
 			"languages": [],
-			"title": "Build and manage a resilient service using an AWS SDK",
-			"title_abbrev": "Build and manage a resilient service",
-			"synopsis": "create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.",
-			"category": "Scenarios",
+			"title": "StopInstances",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"auto-scaling": "https://docs.aws.amazon.com/code-library/latest/ug/auto-scaling_example_cross_ResilientService_section.html",
-					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_cross_ResilientService_section.html",
-					"elastic-load-balancing-v2": "https://docs.aws.amazon.com/code-library/latest/ug/elastic-load-balancing-v2_example_cross_ResilientService_section.html",
-					"iam": "https://docs.aws.amazon.com/code-library/latest/ug/iam_example_cross_ResilientService_section.html"
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_StopInstances_section.html"
 				},
 				"sdk_pages": []
 			},
-			"synopsis_list": [
-				"Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.",
-				"Handle and distribute HTTP requests with Elastic Load Balancing.",
-				"Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.",
-				"Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.",
-				"Simulate a recommendation service with an Amazon DynamoDB table.",
-				"Control web server response to requests and health checks by updating AWS Systems Manager parameters."
-			],
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ec2_TerminateInstances",
+			"file": "ec2_metadata.yaml",
+			"languages": [],
+			"title": "TerminateInstances",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ec2": "https://docs.aws.amazon.com/code-library/latest/ug/ec2_example_ec2_TerminateInstances_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		}
 	]

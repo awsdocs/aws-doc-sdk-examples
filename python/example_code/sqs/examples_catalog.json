@@ -1,179 +1,23 @@
 {
 	"examples": [
 		{
-			"id": "sqs_CreateQueue",
-			"file": "sqs_metadata.yaml",
+			"id": "cross_RekognitionVideoDetection",
+			"file": "cross_metadata.yaml",
 			"languages": [],
-			"title": "CreateQueue",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
+			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
+			"title_abbrev": "Detect people and objects in a video",
+			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
+			"category": "Scenarios",
 			"guide_topic": null,
-			"service_main": null,
+			"service_main": "rekognition",
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_CreateQueue_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sqs_GetQueueUrl",
-			"file": "sqs_metadata.yaml",
-			"languages": [],
-			"title": "GetQueueUrl",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_GetQueueUrl_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sqs_ListQueues",
-			"file": "sqs_metadata.yaml",
-			"languages": [],
-			"title": "ListQueues",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_ListQueues_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sqs_DeleteQueue",
-			"file": "sqs_metadata.yaml",
-			"languages": [],
-			"title": "DeleteQueue",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_DeleteQueue_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sqs_SendMessage",
-			"file": "sqs_metadata.yaml",
-			"languages": [],
-			"title": "SendMessage",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_SendMessage_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sqs_SendMessageBatch",
-			"file": "sqs_metadata.yaml",
-			"languages": [],
-			"title": "SendMessageBatch",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_SendMessageBatch_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sqs_ReceiveMessage",
-			"file": "sqs_metadata.yaml",
-			"languages": [],
-			"title": "ReceiveMessage",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_ReceiveMessage_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sqs_DeleteMessage",
-			"file": "sqs_metadata.yaml",
-			"languages": [],
-			"title": "DeleteMessage",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_DeleteMessage_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sqs_DeleteMessageBatch",
-			"file": "sqs_metadata.yaml",
-			"languages": [],
-			"title": "DeleteMessageBatch",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_DeleteMessageBatch_section.html"
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -228,30 +72,6 @@
 			"source_key": null
 		},
 		{
-			"id": "cross_RekognitionVideoDetection",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
-			"title_abbrev": "Detect people and objects in a video",
-			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "rekognition",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "sns_PublishFifoTopic",
 			"file": "sns_metadata.yaml",
 			"languages": [],
@@ -266,6 +86,146 @@
 				"service_pages": {
 					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_sns_PublishFifoTopic_section.html",
 					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sns_PublishFifoTopic_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_CreateQueue",
+			"file": "sqs_metadata.yaml",
+			"languages": [],
+			"title": "CreateQueue",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_CreateQueue_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_DeleteMessage",
+			"file": "sqs_metadata.yaml",
+			"languages": [],
+			"title": "DeleteMessage",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_DeleteMessage_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_DeleteMessageBatch",
+			"file": "sqs_metadata.yaml",
+			"languages": [],
+			"title": "DeleteMessageBatch",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_DeleteMessageBatch_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_DeleteQueue",
+			"file": "sqs_metadata.yaml",
+			"languages": [],
+			"title": "DeleteQueue",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_DeleteQueue_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_GetQueueUrl",
+			"file": "sqs_metadata.yaml",
+			"languages": [],
+			"title": "GetQueueUrl",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_GetQueueUrl_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_ListQueues",
+			"file": "sqs_metadata.yaml",
+			"languages": [],
+			"title": "ListQueues",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_ListQueues_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_ReceiveMessage",
+			"file": "sqs_metadata.yaml",
+			"languages": [],
+			"title": "ReceiveMessage",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_ReceiveMessage_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -295,6 +255,46 @@
 				"Receive batches of messages from the queue.",
 				"Delete batches of messages from the queue."
 			],
+			"source_key": null
+		},
+		{
+			"id": "sqs_SendMessage",
+			"file": "sqs_metadata.yaml",
+			"languages": [],
+			"title": "SendMessage",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_SendMessage_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sqs_SendMessageBatch",
+			"file": "sqs_metadata.yaml",
+			"languages": [],
+			"title": "SendMessageBatch",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_sqs_SendMessageBatch_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
 			"source_key": null
 		}
 	]

@@ -1,19 +1,91 @@
 {
 	"examples": [
 		{
-			"id": "s3_CreateBucket",
-			"file": "s3_metadata.yaml",
+			"id": "cross_RekognitionPhotoAnalyzer",
+			"file": "cross_metadata.yaml",
 			"languages": [],
-			"title": "CreateBucket",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
+			"title": "Detect objects in images with Amazon Rekognition using an AWS SDK",
+			"title_abbrev": "Detect objects in images",
+			"synopsis": "build an app that uses Amazon Rekognition to detect objects by category in images.",
+			"category": "Scenarios",
 			"guide_topic": null,
-			"service_main": null,
+			"service_main": "rekognition",
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_CreateBucket_section.html"
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionPhotoAnalyzer_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionPhotoAnalyzer_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionPhotoAnalyzer_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionVideoDetection",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
+			"title_abbrev": "Detect people and objects in a video",
+			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_TextractComprehendDetectEntities",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect entities in text extracted from an image using an AWS SDK",
+			"title_abbrev": "Detect entities in text extracted from an image",
+			"synopsis": "use Amazon Comprehend to detect entities in text extracted by Amazon Textract from an image that is stored in Amazon S3.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "textract",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_cross_TextractComprehendDetectEntities_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractComprehendDetectEntities_section.html",
+					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractComprehendDetectEntities_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_TextractExplorer",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create an Amazon Textract explorer application",
+			"title_abbrev": "Create an Amazon Textract explorer application",
+			"synopsis": "explore Amazon Textract output through an interactive application.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "textract",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractExplorer_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_TextractExplorer_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
+					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -34,6 +106,86 @@
 			"doc_filenames": {
 				"service_pages": {
 					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_CopyObject_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "s3_CreateBucket",
+			"file": "s3_metadata.yaml",
+			"languages": [],
+			"title": "CreateBucket",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_CreateBucket_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "s3_DeleteBucket",
+			"file": "s3_metadata.yaml",
+			"languages": [],
+			"title": "DeleteBucket",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_DeleteBucket_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "s3_DeleteBucketCors",
+			"file": "s3_metadata.yaml",
+			"languages": [],
+			"title": "DeleteBucketCors",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_DeleteBucketCors_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "s3_DeleteBucketLifecycle",
+			"file": "s3_metadata.yaml",
+			"languages": [],
+			"title": "DeleteBucketLifecycle",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_DeleteBucketLifecycle_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -101,10 +253,10 @@
 			"source_key": null
 		},
 		{
-			"id": "s3_GetObjectAcl",
+			"id": "s3_GetBucketAcl",
 			"file": "s3_metadata.yaml",
 			"languages": [],
-			"title": "GetObjectAcl",
+			"title": "GetBucketAcl",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -113,7 +265,47 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_GetObjectAcl_section.html"
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_GetBucketAcl_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "s3_GetBucketCors",
+			"file": "s3_metadata.yaml",
+			"languages": [],
+			"title": "GetBucketCors",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_GetBucketCors_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "s3_GetBucketLifecycleConfiguration",
+			"file": "s3_metadata.yaml",
+			"languages": [],
+			"title": "GetBucketLifecycleConfiguration",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_GetBucketLifecycleConfiguration_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -161,10 +353,10 @@
 			"source_key": null
 		},
 		{
-			"id": "s3_GetBucketLifecycleConfiguration",
+			"id": "s3_GetObjectAcl",
 			"file": "s3_metadata.yaml",
 			"languages": [],
-			"title": "GetBucketLifecycleConfiguration",
+			"title": "GetObjectAcl",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -173,7 +365,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_GetBucketLifecycleConfiguration_section.html"
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_GetObjectAcl_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -221,10 +413,10 @@
 			"source_key": null
 		},
 		{
-			"id": "s3_PutBucketLifecycleConfiguration",
+			"id": "s3_HeadBucket",
 			"file": "s3_metadata.yaml",
 			"languages": [],
-			"title": "PutBucketLifecycleConfiguration",
+			"title": "HeadBucket",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -233,7 +425,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_PutBucketLifecycleConfiguration_section.html"
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_HeadBucket_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -241,10 +433,30 @@
 			"source_key": null
 		},
 		{
-			"id": "s3_DeleteBucketLifecycle",
+			"id": "s3_Hello",
 			"file": "s3_metadata.yaml",
 			"languages": [],
-			"title": "DeleteBucketLifecycle",
+			"title": "Hello Amazon S3",
+			"title_abbrev": "Hello Amazon S3",
+			"synopsis": "get started using Amazon S3.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "s3_ListBuckets",
+			"file": "s3_metadata.yaml",
+			"languages": [],
+			"title": "ListBuckets",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -253,7 +465,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_DeleteBucketLifecycle_section.html"
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_ListBuckets_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -281,10 +493,10 @@
 			"source_key": null
 		},
 		{
-			"id": "s3_PutObject",
+			"id": "s3_PutBucketAcl",
 			"file": "s3_metadata.yaml",
 			"languages": [],
-			"title": "PutObject",
+			"title": "PutBucketAcl",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -293,47 +505,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_PutObject_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "s3_DeleteBucket",
-			"file": "s3_metadata.yaml",
-			"languages": [],
-			"title": "DeleteBucket",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_DeleteBucket_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "s3_GetBucketCors",
-			"file": "s3_metadata.yaml",
-			"languages": [],
-			"title": "GetBucketCors",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_GetBucketCors_section.html"
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_PutBucketAcl_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -361,10 +533,10 @@
 			"source_key": null
 		},
 		{
-			"id": "s3_DeleteBucketCors",
+			"id": "s3_PutBucketLifecycleConfiguration",
 			"file": "s3_metadata.yaml",
 			"languages": [],
-			"title": "DeleteBucketCors",
+			"title": "PutBucketLifecycleConfiguration",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -373,47 +545,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_DeleteBucketCors_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "s3_GetBucketAcl",
-			"file": "s3_metadata.yaml",
-			"languages": [],
-			"title": "GetBucketAcl",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_GetBucketAcl_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "s3_PutBucketAcl",
-			"file": "s3_metadata.yaml",
-			"languages": [],
-			"title": "PutBucketAcl",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_PutBucketAcl_section.html"
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_PutBucketLifecycleConfiguration_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -441,10 +573,10 @@
 			"source_key": null
 		},
 		{
-			"id": "s3_HeadBucket",
+			"id": "s3_PutObject",
 			"file": "s3_metadata.yaml",
 			"languages": [],
-			"title": "HeadBucket",
+			"title": "PutObject",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -453,27 +585,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_HeadBucket_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "s3_ListBuckets",
-			"file": "s3_metadata.yaml",
-			"languages": [],
-			"title": "ListBuckets",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_ListBuckets_section.html"
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_PutObject_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -561,6 +673,46 @@
 			"source_key": null
 		},
 		{
+			"id": "s3_Scenario_BatchObjectVersioning",
+			"file": "s3_metadata.yaml",
+			"languages": [],
+			"title": "Manage versioned Amazon S3 objects in batches with a Lambda function using an AWS SDK",
+			"title_abbrev": "Manage versioned objects in batches with a Lambda function",
+			"synopsis": "manage versioned S3 objects in batches with a Lambda function.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Scenario_BatchObjectVersioning_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "s3_Scenario_ConditionalRequests",
+			"file": "s3_metadata.yaml",
+			"languages": [],
+			"title": "Make Amazon S3 conditional requests using an AWS SDK",
+			"title_abbrev": "Make conditional requests",
+			"synopsis": "add preconditions to Amazon S3 requests.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Scenario_ConditionalRequests_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "s3_Scenario_GettingStarted",
 			"file": "s3_metadata.yaml",
 			"languages": [],
@@ -584,181 +736,6 @@
 				"List the objects in a bucket.",
 				"Delete the bucket objects and the bucket."
 			],
-			"source_key": null
-		},
-		{
-			"id": "s3_Hello",
-			"file": "s3_metadata.yaml",
-			"languages": [],
-			"title": "Hello Amazon S3",
-			"title_abbrev": "Hello Amazon S3",
-			"synopsis": "get started using Amazon S3.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_TextractExplorer",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Create an Amazon Textract explorer application",
-			"title_abbrev": "Create an Amazon Textract explorer application",
-			"synopsis": "explore Amazon Textract output through an interactive application.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "textract",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"cognito-identity": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity_example_cross_TextractExplorer_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractExplorer_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_TextractExplorer_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_TextractExplorer_section.html",
-					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractExplorer_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_TextractComprehendDetectEntities",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect entities in text extracted from an image using an AWS SDK",
-			"title_abbrev": "Detect entities in text extracted from an image",
-			"synopsis": "use Amazon Comprehend to detect entities in text extracted by Amazon Textract from an image that is stored in Amazon S3.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "textract",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_cross_TextractComprehendDetectEntities_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractComprehendDetectEntities_section.html",
-					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractComprehendDetectEntities_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_RekognitionPhotoAnalyzer",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect objects in images with Amazon Rekognition using an AWS SDK",
-			"title_abbrev": "Detect objects in images",
-			"synopsis": "build an app that uses Amazon Rekognition to detect objects by category in images.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "rekognition",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionPhotoAnalyzer_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionPhotoAnalyzer_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionPhotoAnalyzer_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "cross_RekognitionVideoDetection",
-			"file": "cross_metadata.yaml",
-			"languages": [],
-			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
-			"title_abbrev": "Detect people and objects in a video",
-			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": "rekognition",
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
-					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
-					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
-					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "s3_Scenario_UsingLargeFiles",
-			"file": "s3_metadata.yaml",
-			"languages": [],
-			"title": "Upload or download large files to and from Amazon S3 using an AWS SDK",
-			"title_abbrev": "Upload or download large files",
-			"synopsis": "upload or download large files to and from Amazon S3.",
-			"category": "Scenarios",
-			"guide_topic": {
-				"title": "Uploading an object using multipart upload",
-				"url": "AmazonS3/latest/userguide/mpu-upload-object.html"
-			},
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Scenario_UsingLargeFiles_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "s3_Scenario_BatchObjectVersioning",
-			"file": "s3_metadata.yaml",
-			"languages": [],
-			"title": "Manage versioned Amazon S3 objects in batches with a Lambda function using an AWS SDK",
-			"title_abbrev": "Manage versioned objects in batches with a Lambda function",
-			"synopsis": "manage versioned S3 objects in batches with a Lambda function.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Scenario_BatchObjectVersioning_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "s3_Scenario_PresignedUrl",
-			"file": "s3_metadata.yaml",
-			"languages": [],
-			"title": "Create a presigned URL for Amazon S3 using an AWS SDK",
-			"title_abbrev": "Create a presigned URL",
-			"synopsis": "create a presigned URL for Amazon S3 and upload an object.",
-			"category": "Scenarios",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Scenario_PresignedUrl_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
 			"source_key": null
 		},
 		{
@@ -788,19 +765,42 @@
 			"source_key": null
 		},
 		{
-			"id": "s3_Scenario_ConditionalRequests",
+			"id": "s3_Scenario_PresignedUrl",
 			"file": "s3_metadata.yaml",
 			"languages": [],
-			"title": "Make Amazon S3 conditional requests using an AWS SDK",
-			"title_abbrev": "Make conditional requests",
-			"synopsis": "add preconditions to Amazon S3 requests.",
+			"title": "Create a presigned URL for Amazon S3 using an AWS SDK",
+			"title_abbrev": "Create a presigned URL",
+			"synopsis": "create a presigned URL for Amazon S3 and upload an object.",
 			"category": "Scenarios",
 			"guide_topic": null,
 			"service_main": null,
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Scenario_ConditionalRequests_section.html"
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Scenario_PresignedUrl_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "s3_Scenario_UsingLargeFiles",
+			"file": "s3_metadata.yaml",
+			"languages": [],
+			"title": "Upload or download large files to and from Amazon S3 using an AWS SDK",
+			"title_abbrev": "Upload or download large files",
+			"synopsis": "upload or download large files to and from Amazon S3.",
+			"category": "Scenarios",
+			"guide_topic": {
+				"title": "Uploading an object using multipart upload",
+				"url": "AmazonS3/latest/userguide/mpu-upload-object.html"
+			},
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_s3_Scenario_UsingLargeFiles_section.html"
 				},
 				"sdk_pages": []
 			},

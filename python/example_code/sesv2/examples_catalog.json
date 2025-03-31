@@ -1,26 +1,6 @@
 {
 	"examples": [
 		{
-			"id": "sesv2_CreateContactList",
-			"file": "sesv2_metadata.yaml",
-			"languages": [],
-			"title": "CreateContactList",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_CreateContactList_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
 			"id": "sesv2_CreateContact",
 			"file": "sesv2_metadata.yaml",
 			"languages": [],
@@ -41,10 +21,10 @@
 			"source_key": null
 		},
 		{
-			"id": "sesv2_ListContacts",
+			"id": "sesv2_CreateContactList",
 			"file": "sesv2_metadata.yaml",
 			"languages": [],
-			"title": "ListContacts",
+			"title": "CreateContactList",
 			"title_abbrev": "",
 			"synopsis": "",
 			"category": "Api",
@@ -53,27 +33,7 @@
 			"services": [],
 			"doc_filenames": {
 				"service_pages": {
-					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_ListContacts_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
-			"source_key": null
-		},
-		{
-			"id": "sesv2_SendEmail",
-			"file": "sesv2_metadata.yaml",
-			"languages": [],
-			"title": "SendEmail",
-			"title_abbrev": "",
-			"synopsis": "",
-			"category": "Api",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_SendEmail_section.html"
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_CreateContactList_section.html"
 				},
 				"sdk_pages": []
 			},
@@ -181,6 +141,26 @@
 			"source_key": null
 		},
 		{
+			"id": "sesv2_ListContacts",
+			"file": "sesv2_metadata.yaml",
+			"languages": [],
+			"title": "ListContacts",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_ListContacts_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "sesv2_NewsletterWorkflow",
 			"file": "sesv2_metadata.yaml",
 			"languages": [],
@@ -194,6 +174,26 @@
 			"doc_filenames": {
 				"service_pages": {
 					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_NewsletterWorkflow_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "sesv2_SendEmail",
+			"file": "sesv2_metadata.yaml",
+			"languages": [],
+			"title": "SendEmail",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"sesv2": "https://docs.aws.amazon.com/code-library/latest/ug/sesv2_example_sesv2_SendEmail_section.html"
 				},
 				"sdk_pages": []
 			},

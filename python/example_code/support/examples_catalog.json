@@ -161,6 +161,26 @@
 			"source_key": null
 		},
 		{
+			"id": "support_Hello",
+			"file": "support_metadata.yaml",
+			"languages": [],
+			"title": "Hello Support",
+			"title_abbrev": "Hello Support",
+			"synopsis": "get started using Support.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"support": "https://docs.aws.amazon.com/code-library/latest/ug/support_example_support_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
 			"id": "support_ResolveCase",
 			"file": "support_metadata.yaml",
 			"languages": [],
@@ -206,26 +226,6 @@
 				"Resolve the case.",
 				"Get and display a list of resolved cases for the current day."
 			],
-			"source_key": null
-		},
-		{
-			"id": "support_Hello",
-			"file": "support_metadata.yaml",
-			"languages": [],
-			"title": "Hello Support",
-			"title_abbrev": "Hello Support",
-			"synopsis": "get started using Support.",
-			"category": "Hello",
-			"guide_topic": null,
-			"service_main": null,
-			"services": [],
-			"doc_filenames": {
-				"service_pages": {
-					"support": "https://docs.aws.amazon.com/code-library/latest/ug/support_example_support_Hello_section.html"
-				},
-				"sdk_pages": []
-			},
-			"synopsis_list": [],
 			"source_key": null
 		}
 	]
