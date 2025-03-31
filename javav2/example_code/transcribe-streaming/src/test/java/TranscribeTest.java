@@ -37,5 +37,6 @@ public class TranscribeTest {
     @Order(2)
     public void BidirectionalStreaming() throws Exception {
         BidirectionalStreaming.convertAudio(client);
+        System.out.println("Test 2 passed");
     }
  }

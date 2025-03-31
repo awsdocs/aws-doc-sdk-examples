@@ -38,7 +38,6 @@ public class TranslateTest {
         region = Region.US_WEST_2;
         translateClient = TranslateClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -49,31 +48,6 @@ public class TranslateTest {
         s3UriOut = values.getS3UriOut();
         jobName = values.getJobName() + java.util.UUID.randomUUID();
         dataAccessRoleArn = values.getDataAccessRoleArn();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * TranslateTest.class.getClassLoader().getResourceAsStream("config.properties")
-         * ) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * s3Uri = prop.getProperty("s3Uri");
-         * s3UriOut = prop.getProperty("s3UriOut");
-         * jobName = prop.getProperty("jobName")+ java.util.UUID.randomUUID();
-         * dataAccessRoleArn = prop.getProperty("dataAccessRoleArn");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
-
     }
 
     @Test
@@ -112,7 +86,6 @@ public class TranslateTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/translate";
 

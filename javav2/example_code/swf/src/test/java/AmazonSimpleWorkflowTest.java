@@ -37,7 +37,6 @@ public class AmazonSimpleWorkflowTest {
         Region region = software.amazon.awssdk.regions.Region.US_EAST_1;
         swf = SwfClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -51,32 +50,6 @@ public class AmazonSimpleWorkflowTest {
         activity = values.getActivity();
         activityVersion = values.getActivityVersion();
 
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * AmazonSimpleWorkflowTest.class.getClassLoader().getResourceAsStream(
-         * "config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * // Populate the data members required for all tests
-         * prop.load(input);
-         * domain = prop.getProperty("domain")+ java.util.UUID.randomUUID();
-         * taskList = prop.getProperty("taskList");
-         * workflow = prop.getProperty("workflow");
-         * workflowVersion = prop.getProperty("workflowVersion");
-         * activity = prop.getProperty("activity");
-         * activityVersion = prop.getProperty("activityVersion");
-         * 
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         * 
-         */
     }
 
     @Test
@@ -132,7 +105,6 @@ public class AmazonSimpleWorkflowTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/swf";
 

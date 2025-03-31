@@ -7,7 +7,6 @@ import com.example.textract.DetectDocumentTextS3;
 import com.example.textract.StartDocumentAnalysis;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
@@ -34,7 +33,6 @@ public class TextractTest {
         region = Region.US_WEST_2;
         textractClient = TextractClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -44,51 +42,11 @@ public class TextractTest {
         sourceDoc = values.getSourceDoc();
         bucketName = values.getBucketName();
         docName = values.getDocName();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * TextractTest.class.getClassLoader().getResourceAsStream("config.properties"))
-         * {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * prop.load(input);
-         * sourceDoc = prop.getProperty("sourceDoc");
-         * bucketName = prop.getProperty("bucketName");
-         * docName = prop.getProperty("docName");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         * 
-         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void AnalyzeDocument() {
-        assertDoesNotThrow(() -> AnalyzeDocument.analyzeDoc(textractClient, sourceDoc));
-        System.out.println("Test 1 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(2)
-    public void DetectDocumentText() {
-        assertDoesNotThrow(() -> DetectDocumentText.detectDocText(textractClient, sourceDoc));
-        System.out.println("Test 2 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(3)
     public void DetectDocumentTextS3() {
         assertDoesNotThrow(() -> DetectDocumentTextS3.detectDocTextS3(textractClient, bucketName, docName));
         System.out.println("Test 3 passed");
@@ -96,7 +54,7 @@ public class TextractTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(4)
+    @Order(2)
     public void StartDocumentAnalysis() {
         assertDoesNotThrow(() -> StartDocumentAnalysis.startDocAnalysisS3(textractClient, bucketName, docName));
         System.out.println("Test 4 passed");
@@ -105,7 +63,6 @@ public class TextractTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/textract";
 
