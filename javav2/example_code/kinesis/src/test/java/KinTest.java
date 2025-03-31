@@ -4,6 +4,8 @@
 import com.example.kinesis.CreateDataStream;
 import com.example.kinesis.DescribeLimits;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
 import com.example.kinesis.*;
@@ -13,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class KinTest {
+    private static final Logger logger = LoggerFactory.getLogger(KinTest.class);
     private static KinesisClient kinesisClient;
     private static String streamName = "";
 
@@ -29,7 +32,7 @@ public class KinTest {
     @Order(1)
     public void CreateDataStream() {
         assertDoesNotThrow(() -> CreateDataStream.createStream(kinesisClient, streamName));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -37,7 +40,7 @@ public class KinTest {
     @Order(2)
     public void DescribeLimits() {
         assertDoesNotThrow(() -> DescribeLimits.describeKinLimits(kinesisClient));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -52,7 +55,7 @@ public class KinTest {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -60,7 +63,7 @@ public class KinTest {
     @Order(4)
     public void PutRecords() {
         assertDoesNotThrow(() -> StockTradesWriter.setStockData(kinesisClient, streamName));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -68,7 +71,7 @@ public class KinTest {
     @Order(5)
     public void GetRecords() {
         assertDoesNotThrow(() -> GetRecords.getStockTrades(kinesisClient, streamName));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -76,6 +79,6 @@ public class KinTest {
     @Order(6)
     public void DeleteDataStreem() {
         assertDoesNotThrow(() -> DeleteDataStream.deleteStream(kinesisClient, streamName));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 }
