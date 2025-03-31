@@ -37,7 +37,7 @@ public class SSMScenario {
         String title = "Disk Space Alert" ;
         String source = "EC2" ;
         String category = "Availability" ;
-        String severity = "2" ; 
+        String severity = "2" ;
 
         System.out.println(DASHES);
         System.out.println("""
