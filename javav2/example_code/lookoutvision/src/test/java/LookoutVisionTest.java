@@ -8,6 +8,9 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.lookoutvision.LookoutVisionClient;
 import software.amazon.awssdk.services.lookoutvision.model.DatasetDescription;
 import software.amazon.awssdk.services.lookoutvision.model.DatasetStatus;
@@ -22,6 +25,7 @@ import java.util.Properties;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LookoutVisionTest {
+    private static final Logger logger = LoggerFactory.getLogger(LookoutVisionTest.class);
     private static LookoutVisionClient lfvClient;
     private static String projectName = "";
     private static String modelVersion = "";
@@ -65,7 +69,7 @@ public class LookoutVisionTest {
     public void createProjectPanel_thenNotNull() throws IOException, LookoutVisionException {
         ProjectMetadata project = Projects.createProject(lfvClient, projectName);
         assertEquals(projectName, project.projectName());
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -74,7 +78,7 @@ public class LookoutVisionTest {
     public void listProjects_thenNotNull() throws IOException, LookoutVisionException {
         List<ProjectMetadata> projects = Projects.listProjects(lfvClient);
         assertNotNull(projects);
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -90,7 +94,7 @@ public class LookoutVisionTest {
 
         } catch (LookoutVisionException e) {
             assertEquals("ResourceNotFoundException", e.awsErrorDetails().errorCode());
-            System.out.println("Test 3 passed");
+            logger.info("Test 3 passed");
         }
     }
 
@@ -108,7 +112,7 @@ public class LookoutVisionTest {
         List<String> jsonLines = Datasets.listDatasetEntries(lfvClient, projectName, datasetType, sourceRef,
                 classification, labeled, beforeCreationDate, afterCreationDate);
         assertNotNull(jsonLines);
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -122,7 +126,7 @@ public class LookoutVisionTest {
         // type.
         assertEquals(datasetDescription.projectName(), projectName);
         assertEquals(datasetDescription.datasetType(), datasetType);
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -132,7 +136,7 @@ public class LookoutVisionTest {
         // Describe a model.
         List<ModelMetadata> models = Models.listModels(lfvClient, projectName);
         assertNotNull(models);
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
 
@@ -149,7 +153,7 @@ public class LookoutVisionTest {
         } catch (LookoutVisionException e) {
 
             assertEquals("ResourceNotFoundException", e.awsErrorDetails().errorCode());
-            System.out.println("Test 7 passed");
+            logger.info("Test 7 passed");
         }
     }
 
@@ -165,6 +169,7 @@ public class LookoutVisionTest {
         } catch (LookoutVisionException e) {
             assertEquals("ResourceNotFoundException", e.awsErrorDetails().errorCode());
         }
+        logger.info("Test 8 passed");
     }
 
     @Test
@@ -177,7 +182,7 @@ public class LookoutVisionTest {
             Projects.describeProject(lfvClient, projectName);
         } catch (LookoutVisionException e) {
             assertEquals("ResourceNotFoundException", e.awsErrorDetails().errorCode());
-            System.out.println("Test 9 passed");
+            logger.info("Test 9 passed");
         }
     }
 }
