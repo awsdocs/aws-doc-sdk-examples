@@ -3,6 +3,8 @@
 
 import com.example.memorydb.*;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.regions.Region;
@@ -20,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MemoryDBTest {
+    private static final Logger logger = LoggerFactory.getLogger(MemoryDBTest.class);
     private static MemoryDbClient memoryDbClient;
     private static String clusterName = "";
     private static String nodeType = "";
@@ -54,7 +57,7 @@ public class MemoryDBTest {
     public void createCluster() {
         assertDoesNotThrow(() -> CreateCluster.createSingleCluster(memoryDbClient, clusterName, nodeType,
                 subnetGroupName, aclName));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -62,7 +65,7 @@ public class MemoryDBTest {
     @Order(2)
     public void describeSpecificCluster() {
         assertDoesNotThrow(() -> DescribeSpecificCluster.checkIfAvailable(memoryDbClient, clusterName));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -70,7 +73,7 @@ public class MemoryDBTest {
     @Order(3)
     public void createSnapshot() {
         assertDoesNotThrow(() -> CreateSnapshot.createSpecificSnapshot(memoryDbClient, clusterName, snapShotName));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -78,7 +81,7 @@ public class MemoryDBTest {
     @Order(4)
     public void describeSnapshot() {
         assertDoesNotThrow(() -> DescribeSnapshots.describeALlSnapshots(memoryDbClient, clusterName));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -87,7 +90,7 @@ public class MemoryDBTest {
     public void describeAllClusters() {
         assertDoesNotThrow(() -> DescribeClusters.getClusters(memoryDbClient));
         assertDoesNotThrow(() -> DescribeSpecificCluster.checkIfAvailable(memoryDbClient, clusterName));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -95,7 +98,7 @@ public class MemoryDBTest {
     @Order(6)
     public void deleteCluster() {
         assertDoesNotThrow(() -> DeleteCluster.deleteSpecificCluster(memoryDbClient, clusterName));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     private static String getSecretValues() {

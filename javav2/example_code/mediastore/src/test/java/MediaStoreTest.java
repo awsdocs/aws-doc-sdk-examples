@@ -3,6 +3,8 @@
 
 import com.example.mediastore.*;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
 import software.amazon.awssdk.services.mediastore.model.DescribeContainerRequest;
@@ -26,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MediaStoreTest {
+    private static final Logger logger = LoggerFactory.getLogger(MediaStoreTest.class);
     private static MediaStoreClient mediaStoreClient;
     private static MediaStoreDataClient mediaStoreData;
     private static String containerName = "";
@@ -63,7 +66,7 @@ public class MediaStoreTest {
     @Order(1)
     public void CreateContainer() {
         assertDoesNotThrow(() -> CreateContainer.createMediaContainer(mediaStoreClient, containerName));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -71,7 +74,7 @@ public class MediaStoreTest {
     @Order(2)
     public void DescribeContainer() {
         assertDoesNotThrow(() -> DescribeContainer.checkContainer(mediaStoreClient, containerName));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -79,7 +82,7 @@ public class MediaStoreTest {
     @Order(3)
     public void ListContainers() {
         assertDoesNotThrow(() -> ListContainers.listAllContainers(mediaStoreClient));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -87,7 +90,7 @@ public class MediaStoreTest {
     @Order(4)
     public void ListItems() {
         assertDoesNotThrow(() -> ListItems.listAllItems(mediaStoreData, containerName));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
 
@@ -99,7 +102,7 @@ public class MediaStoreTest {
         TimeUnit.MINUTES.sleep(1);
         assertDoesNotThrow(
                 () -> assertDoesNotThrow(() -> DeleteContainer.deleteMediaContainer(mediaStoreClient, containerName)));
-        System.out.println("Test 7 passed");
+        logger.info("Test 5 passed");
     }
 
     private static String getEndpoint(String containerName) {
