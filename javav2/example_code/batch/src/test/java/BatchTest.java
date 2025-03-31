@@ -23,12 +23,14 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadLocalRandom;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BatchTest {
-    private static String computeEnvironmentName = "my-compute-environment12" ;
+    private static String computeEnvironmentName = "my-compute-environment" ;
     private static String jobQueueName = "my-job-queue12";
     private static String jobDefinitionName = "my-job-definition";
     private static String dockerImage = "dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text";
@@ -56,6 +58,8 @@ public class BatchTest {
 
         dockerImage = accId[0]+"."+dockerImage;
 
+        int randomValue = ThreadLocalRandom.current().nextInt(1, 1001);
+        computeEnvironmentName += randomValue;
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
         String json = getSecretValues();
