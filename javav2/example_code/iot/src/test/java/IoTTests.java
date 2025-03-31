@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iot.IotClient;
@@ -29,15 +31,12 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class IoTTests {
-
+    private static final Logger logger = LoggerFactory.getLogger(IoTTests.class);
     private static IotClient iotClient;
     private static String thingName = "foo" ;
     private static String queryString = "thingName:" ;
-
     private static String ruleName = "rule";
-
     private static String roleARN = "" ;
-
     private static String snsAction = "" ;
 
     @BeforeAll
@@ -67,7 +66,7 @@ public class IoTTests {
     public void testHello() {
         assertDoesNotThrow(() -> HelloIoT.listAllThings(iotClient),
             "Failed to list your things.");
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -75,7 +74,6 @@ public class IoTTests {
     @Order(2)
     public void testIotScenario() throws InterruptedException {
         IotActions iotActions = new IotActions();
-
         assertDoesNotThrow(() -> iotActions.createIoTThing(thingName),
             "Failed to create your thing in the scenario.");
 
@@ -121,7 +119,7 @@ public class IoTTests {
         assertDoesNotThrow(() ->  iotActions.deleteIoTThing(thingName),
             "Failed to delete your thing in the scenario.");
 
-        System.out.println("Scenario test passed");
+        logger.info("Scenario IoT test passed");
     }
 
     private static String getSecretValues() {
