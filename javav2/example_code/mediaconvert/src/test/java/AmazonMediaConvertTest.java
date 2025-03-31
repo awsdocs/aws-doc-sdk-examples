@@ -6,6 +6,8 @@ import com.example.mediaconvert.GetJob;
 import com.example.mediaconvert.ListJobs;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.mediaconvert.MediaConvertClient;
@@ -24,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonMediaConvertTest {
+    private static final Logger logger = LoggerFactory.getLogger(AmazonMediaConvertTest.class);
     private static MediaConvertClient mc;
     private static Region region;
     private static String mcRoleARN = "";
@@ -51,7 +54,7 @@ public class AmazonMediaConvertTest {
     public void CreateJob() {
         jobId = CreateJob.createMediaJob(mc, mcRoleARN, fileInput);
         assertFalse(jobId.isEmpty());
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -59,7 +62,7 @@ public class AmazonMediaConvertTest {
     @Order(2)
     public void ListJobs() {
         assertDoesNotThrow(() -> ListJobs.listCompleteJobs(mc));
-        System.out.println("Test 3 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -67,7 +70,7 @@ public class AmazonMediaConvertTest {
     @Order(3)
     public void GetJob() {
         assertDoesNotThrow(() -> GetJob.getSpecificJob(mc, jobId));
-        System.out.println("Test 4 passed");
+        logger.info("Test 3 passed");
     }
 
     private static String getSecretValues() {
