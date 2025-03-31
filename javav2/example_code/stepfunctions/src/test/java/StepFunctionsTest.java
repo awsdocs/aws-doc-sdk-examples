@@ -35,7 +35,6 @@ public class StepFunctionsTest {
         Region region = Region.US_EAST_1;
         sfnClient = SfnClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -93,7 +92,6 @@ public class StepFunctionsTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/stepfunctions";
 
