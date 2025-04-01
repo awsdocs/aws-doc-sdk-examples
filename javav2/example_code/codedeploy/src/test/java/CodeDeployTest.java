@@ -3,6 +3,8 @@
 
 import com.example.deploy.*;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import org.junit.jupiter.api.*;
@@ -19,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CodeDeployTest {
+    private static final Logger logger = LoggerFactory.getLogger(CodeDeployTest.class);
     private static CodeDeployClient deployClient;
     private static String appName = "";
     private static String existingApp = "";
@@ -57,69 +60,69 @@ public class CodeDeployTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateApplication() {
+    public void testCreateApplication() {
         assertDoesNotThrow(() -> CreateApplication.createApp(deployClient, appName));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void ListApplications() {
+    public void testListApplications() {
         assertDoesNotThrow(() -> ListApplications.listApps(deployClient));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void DeployApplication() {
+    public void testDeployApplication() {
         deploymentId = DeployApplication.createAppDeployment(deployClient, existingApp, bucketName, bundleType, key,
                 existingDeployment);
         assertFalse(deploymentId.isEmpty());
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void CreateDeploymentGroup() {
+    public void testCreateDeploymentGroup() {
         assertDoesNotThrow(() -> CreateDeploymentGroup.createNewDeploymentGroup(deployClient, newDeploymentGroupName,
                 appName, serviceRoleArn, tagKey, tagValue));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ListDeploymentGroups() {
+    public void testListDeploymentGroups() {
         assertDoesNotThrow(() -> ListDeploymentGroups.listDeployGroups(deployClient, appName));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void GetDeployment() {
+    public void testGetDeployment() {
         assertDoesNotThrow(() -> GetDeployment.getSpecificDeployment(deployClient, deploymentId));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void DeleteDeploymentGroup() {
+    public void testDeleteDeploymentGroup() {
         assertDoesNotThrow(
                 () -> DeleteDeploymentGroup.delDeploymentGroup(deployClient, appName, newDeploymentGroupName));
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void DeleteApplication() {
+    public void testDeleteApplication() {
         assertDoesNotThrow(() -> DeleteApplication.delApplication(deployClient, appName));
-        System.out.println("Test 8 passed");
+        logger.info("Test 8 passed");
     }
 
     private static String getSecretValues() {
