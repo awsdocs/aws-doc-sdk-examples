@@ -64,7 +64,7 @@ public class MediaStoreTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateContainer() {
+    public void testCreateContainer() {
         assertDoesNotThrow(() -> CreateContainer.createMediaContainer(mediaStoreClient, containerName));
         logger.info("Test 1 passed");
     }
@@ -72,7 +72,7 @@ public class MediaStoreTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void DescribeContainer() {
+    public void testDescribeContainer() {
         assertDoesNotThrow(() -> DescribeContainer.checkContainer(mediaStoreClient, containerName));
         logger.info("Test 2 passed");
     }
@@ -80,7 +80,7 @@ public class MediaStoreTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void ListContainers() {
+    public void testListContainers() {
         assertDoesNotThrow(() -> ListContainers.listAllContainers(mediaStoreClient));
         logger.info("Test 3 passed");
     }
@@ -88,7 +88,7 @@ public class MediaStoreTest {
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void ListItems() {
+    public void testListItems() {
         assertDoesNotThrow(() -> ListItems.listAllItems(mediaStoreData, containerName));
         logger.info("Test 5 passed");
     }
@@ -97,7 +97,7 @@ public class MediaStoreTest {
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void DeleteContainer() throws InterruptedException {
+    public void testDeleteContainer() throws InterruptedException {
         System.out.println("Wait 1 min to delete container");
         TimeUnit.MINUTES.sleep(1);
         assertDoesNotThrow(
