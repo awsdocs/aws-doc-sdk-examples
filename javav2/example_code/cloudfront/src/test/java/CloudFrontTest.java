@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
@@ -22,13 +24,12 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CloudFrontTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(CloudFrontTest.class);
     private static CloudFrontClient cloudFrontClient ;
     private static Region region;
     private static String functionName = "";
@@ -73,7 +74,7 @@ public class CloudFrontTest {
         functionName = "FunctionUploadedByJava" + UUID.randomUUID();
         funcARN =  CreateFunction.createNewFunction(cloudFrontClient, functionName, functionFileName);
         assertTrue(!funcARN.isEmpty());
-        System.out.println("Test 2 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -81,28 +82,34 @@ public class CloudFrontTest {
     public void DescribeFunction() {
         eTagVal = DescribeFunction.describeFunction(cloudFrontClient, functionName);
         assertTrue(!eTagVal.isEmpty());
-        System.out.println("Test 3 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Order(3)
-    public void ListFunctions(){
-        ListFunctions.listAllFunctions(cloudFrontClient);
-        System.out.println("Test 4 passed");
+    public void testListFunctions(){
+        assertDoesNotThrow(() -> {
+            ListFunctions.listAllFunctions(cloudFrontClient);
+        });
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Order(4)
-   public void GetDistribution() {
-        GetDistributions.getCFDistributions(cloudFrontClient);
-        System.out.println("Test 5 passed");
+   public void testGetDistribution() {
+       assertDoesNotThrow(() -> {
+            GetDistributions.getCFDistributions(cloudFrontClient);
+        });
+        logger.info("Test 4 passed");
    }
 
     @Test
     @Order(5)
-   public void DeleteFunction(){
-       DeleteFunction.deleteSpecificFunction(cloudFrontClient, functionName, eTagVal);
-       System.out.println("Test 7 passed");
+   public void testDeleteFunction(){
+       assertDoesNotThrow(() -> {
+           DeleteFunction.deleteSpecificFunction(cloudFrontClient, functionName, eTagVal);
+       });
+       logger.info("Test 5 passed");
     }
 }
 
