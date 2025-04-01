@@ -13,6 +13,8 @@ import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.route53.Route53Client;
 import org.junit.jupiter.api.TestInstance;
@@ -37,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class Route53Test {
-    public static final String DASHES = new String(new char[80]).replace("\0", "-");
+    private static final Logger logger = LoggerFactory.getLogger(Route53Test.class);
     private static String domainName = "";
     private static String healthCheckId = "";
     private static String hostedZoneId = "";
@@ -73,59 +75,30 @@ public class Route53Test {
         firstNameSc = values.getFirstNameSc();
         lastNameSc = values.getLastNameSc();
         citySc = values.getCitySc();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * Route53Test.class.getClassLoader().getResourceAsStream("config.properties"))
-         * {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests
-         * prop.load(input);
-         * domainName = prop.getProperty("domainName");
-         * domainSuggestionSc = prop.getProperty("domainSuggestionSc");
-         * domainTypeSc = prop.getProperty("domainTypeSc");
-         * phoneNumerSc = prop.getProperty("phoneNumerSc");
-         * emailSc = prop.getProperty("emailSc");
-         * firstNameSc = prop.getProperty("firstNameSc");
-         * lastNameSc = prop.getProperty("lastNameSc");
-         * citySc = prop.getProperty("citySc");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void createHealthCheck() {
+    public void testCreateHealthCheck() {
         healthCheckId = CreateHealthCheck.createCheck(route53Client, domainName);
         assertFalse(healthCheckId.isEmpty());
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void createHostedZone() {
+    public void testCreateHostedZone() {
         hostedZoneId = CreateHostedZone.createZone(route53Client, domainName);
         assertFalse(hostedZoneId.isEmpty());
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void getHealthCheckStatus() {
+    public void testGetHealthCheckStatus() {
         try {
             TimeUnit.SECONDS.sleep(20); // wait for the new health check
             assertDoesNotThrow(() -> GetHealthCheckStatus.getHealthStatus(route53Client, healthCheckId));
@@ -133,47 +106,47 @@ public class Route53Test {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void listHealthChecks() {
+    public void testListHealthChecks() {
         assertDoesNotThrow(() -> ListHealthChecks.listAllHealthChecks(route53Client));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void updateHealthCheck() {
+    public void testUpdateHealthCheck() {
         assertDoesNotThrow(() -> UpdateHealthCheck.updateSpecificHealthCheck(route53Client, healthCheckId));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void listHostedZones() {
+    public void testListHostedZones() {
         assertDoesNotThrow(() -> ListHostedZones.listZones(route53Client));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void deleteHealthCheck() {
+    public void testDeleteHealthCheck() {
         assertDoesNotThrow(() -> DeleteHealthCheck.delHealthCheck(route53Client, healthCheckId));
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void deleteHostedZone() {
+    public void testDeleteHostedZone() {
         assertDoesNotThrow(() -> DeleteHostedZone.delHostedZone(route53Client, hostedZoneId));
-        System.out.println("Test 8 passed");
+        logger.info("Test 8 passed");
     }
 
     private static String getSecretValues() {
