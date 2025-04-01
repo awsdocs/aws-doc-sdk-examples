@@ -1,7 +1,7 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 
-CLASS ltc_zcl_aws1_xl8_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL HARMLESS.
+CLASS ltc_zcl_aws1_xl8_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
 
   PRIVATE SECTION.
 
@@ -37,6 +37,7 @@ CLASS ltc_zcl_aws1_xl8_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL H
                 iv_jobstatus TYPE /aws1/xl8jobstatus
       RAISING   /aws1/cx_rt_generic.
 
+
 ENDCLASS.       "ltc_Zcl_Aws1_Xl8_Actions
 
 CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
@@ -56,12 +57,11 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
       |Obtenez plus de flexibilité et de valeur à partir de vos investissements SAP grâce à l'infrastructure cloud la plus sécurisée, | &&
       |fiable et évolutive au monde, aux plus de 200 services AWS qui vous permettent d'innover, | &&
       |et aux outils d'automatisation de SAP spécialement conçus, | &&
-      |afin de réduire les risques et de simplifier les opérations. |
-    ).
+      |afin de réduire les risques et de simplifier les opérations. | ).
 
     "Define role Amazon Resource Name (ARN).
     DATA(lt_roles) = ao_session->get_configuration( )->get_logical_iam_roles( ).
-    READ TABLE lt_roles WITH KEY profile_id = cv_pfl INTO DATA(lo_role).
+    READ TABLE lt_roles INDEX 1 INTO DATA(lo_role).  " take first role from the logical role mapping
     av_lrole = lo_role-iam_role_arn.
 
   ENDMETHOD.
@@ -72,8 +72,7 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     LOOP AT lo_list->get_contents( ) INTO DATA(lo_object).
       ao_s3->deleteobject(
           iv_bucket = iv_bucket_name
-          iv_key = lo_object->get_key( )
-      ).
+          iv_key = lo_object->get_key( ) ).
     ENDLOOP.
 
     ao_s3->deletebucket( iv_bucket = iv_bucket_name ).
@@ -86,10 +85,10 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
 
     lo_des_translation_result = ao_xl8->describetexttranslationjob( iv_jobid = iv_jobid ).
     WHILE lo_des_translation_result->get_textxlationjobproperties( )->get_jobstatus( ) <> iv_jobstatus.
-      IF sy-index = 60.
-        EXIT.               "Maximum 900 seconds.
+      IF sy-index = 15.
+        EXIT.               "Maximum 50 minutes
       ENDIF.
-      WAIT UP TO 15 SECONDS.
+      WAIT UP TO 60 SECONDS.
       lo_des_translation_result = ao_xl8->describetexttranslationjob( iv_jobid = iv_jobid ).
     ENDWHILE.
   ENDMETHOD.
@@ -98,9 +97,9 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
 
     DATA lo_output TYPE REF TO /aws1/cl_xl8translatetextrsp.
     DATA lv_translatedtext TYPE /aws1/xl8string.
-    DATA lv_found TYPE abap_bool VALUE abap_false.
 
-    CONSTANTS cv_text TYPE  /aws1/xl8boundedlengthstring VALUE 'AWS accélère la croissance de la France'.
+
+    CONSTANTS cv_text TYPE /aws1/xl8boundedlengthstring VALUE 'AWS accélère la croissance de la France'.
 
     "Translate text.
     ao_xl8_actions->translate_text(
@@ -109,19 +108,17 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
         iv_sourcelanguagecode = cv_sourcelanguagecode
         iv_targetlanguagecode = cv_targetlanguagecode
       IMPORTING
-        oo_result           = lo_output
-      ).
+        oo_result           = lo_output ).
 
     "Validation check.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     IF lo_output->get_translatedtext( ) = 'AWS accelerates growth in France'.
       lv_found = abap_true.
     ENDIF.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Translation failed|
-    ).
+      msg = |Translation failed| ).
 
     "Nothing to clean up.
 
@@ -136,7 +133,7 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     DATA lv_output_data_s3uri TYPE /aws1/xl8s3uri.
     DATA lv_output_folder TYPE /aws1/xl8s3uri.
     DATA lo_result TYPE REF TO /aws1/cl_xl8strttextxlatjobrsp.
-    DATA lv_found TYPE abap_bool.
+
     DATA lv_jobid TYPE /aws1/xl8jobid.
     DATA lo_des_translation_result TYPE REF TO /aws1/cl_xl8dsctextxlatjobrsp.
 
@@ -148,7 +145,9 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     "Create training data in Amazon Simple Storage Service (Amazon S3).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    ao_s3->createbucket( iv_bucket = lv_bucket_name ).
+    zcl_aws1_ex_utils=>create_bucket( iv_bucket = lv_bucket_name
+                                      io_s3 = ao_s3
+                                      io_session = ao_session ).
 
     lv_input_data_s3uri = 's3://' && lv_bucket_name && '/' && cv_input_folder.
     lv_output_data_s3uri = 's3://' && lv_bucket_name && '/' && cv_output_folder.
@@ -156,8 +155,7 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_input_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     "Testing.
     ao_xl8_actions->start_text_translation_job(
@@ -170,31 +168,27 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
         iv_sourcelanguagecode              = cv_sourcelanguagecode
         iv_targetlanguagecode              = cv_targetlanguagecode
       IMPORTING
-       oo_result                           = lo_result
-    ).
+       oo_result                           = lo_result ).
 
     "Validation.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     IF lo_result->has_jobstatus( ) = 'X'.
       lv_found               = abap_true.
     ENDIF.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Translation job cannot be found|
-    ).
+       msg                    = |Translation job cannot be found| ).
 
     "Get the job ID.
     lv_jobid = lo_result->get_jobid( ).
 
     "Wait for translate job to complete
-    CALL METHOD job_waiter
-      EXPORTING
-        iv_jobid     = lv_jobid
-        iv_jobstatus = 'COMPLETED'.
+    job_waiter( iv_jobid = lv_jobid
+                          iv_jobstatus = 'COMPLETED' ).
 
     "Clean up.
-    CALL METHOD cleanup_s3 EXPORTING iv_bucket_name = lv_bucket_name.
+    cleanup_s3( lv_bucket_name ).
 
   ENDMETHOD.
 
@@ -207,7 +201,7 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     DATA lv_output_data_s3uri TYPE /aws1/xl8s3uri.
     DATA lv_output_folder TYPE /aws1/xl8s3uri.
     DATA lo_result TYPE REF TO /aws1/cl_xl8strttextxlatjobrsp.
-    DATA lv_found TYPE abap_bool.
+
     DATA lv_jobid TYPE /aws1/xl8jobid.
     DATA lo_list_translation_result TYPE REF TO /aws1/cl_xl8lsttextxlatjobsrsp.
     DATA lo_inputdataconfig  TYPE REF TO /aws1/cl_xl8inputdataconfig.
@@ -224,7 +218,10 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     "Create training data in Amazon S3.
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    ao_s3->createbucket( iv_bucket = lv_bucket_name ).
+    zcl_aws1_ex_utils=>create_bucket( iv_bucket = lv_bucket_name
+                                      io_s3 = ao_s3
+                                      io_session = ao_session ).
+
 
     lv_input_data_s3uri = 's3://' && lv_bucket_name && '/' && cv_input_folder.
     lv_output_data_s3uri = 's3://' && lv_bucket_name && '/' && cv_output_folder.
@@ -232,36 +229,27 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_input_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     "Create an ABAP object for the input data config.
-    CREATE OBJECT lo_inputdataconfig
-      EXPORTING
-        iv_s3uri       = lv_input_data_s3uri
-        iv_contenttype = cv_input_data_contenttype.
+    lo_inputdataconfig = NEW #( iv_s3uri = lv_input_data_s3uri
+                                iv_contenttype = cv_input_data_contenttype ).
 
     "Create an ABAP object for the output data config.
-    CREATE OBJECT lo_outputdataconfig
-      EXPORTING
-        iv_s3uri = lv_output_data_s3uri.
+    lo_outputdataconfig = NEW #( iv_s3uri = lv_output_data_s3uri ).
 
     "Create an internal table for target languages.
-    CREATE OBJECT lo_targetlanguagecodes
-      EXPORTING
-        iv_value = cv_targetlanguagecode.
+    lo_targetlanguagecodes = NEW #( iv_value = cv_targetlanguagecode ).
     INSERT lo_targetlanguagecodes  INTO TABLE lt_targetlanguagecodes.
 
     "Create a translate job.
     lo_result = ao_xl8->starttexttranslationjob(
-      EXPORTING
-        io_inputdataconfig = lo_inputdataconfig
+      io_inputdataconfig = lo_inputdataconfig
         io_outputdataconfig = lo_outputdataconfig
         it_targetlanguagecodes = lt_targetlanguagecodes
         iv_dataaccessrolearn = av_lrole
         iv_jobname = lv_translate_job_name
-        iv_sourcelanguagecode = cv_sourcelanguagecode
-    ).
+        iv_sourcelanguagecode = cv_sourcelanguagecode ).
 
     "Get the job ID.
     lv_jobid = lo_result->get_jobid( ).
@@ -270,17 +258,14 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
 
     "Testing list_text_translation_job.
     ao_xl8_actions->stop_text_translation_job(
-      EXPORTING iv_jobid = lv_jobid
-    ).
+      lv_jobid ).
 
     "Wait for translate job to stop.
-    CALL METHOD job_waiter
-      EXPORTING
-        iv_jobid     = lv_jobid
-        iv_jobstatus = 'STOPPED'.
+    job_waiter( iv_jobid = lv_jobid
+                          iv_jobstatus = 'STOPPED' ).
 
     "Validation.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     lo_des_translation_result = ao_xl8->describetexttranslationjob( iv_jobid = lv_jobid ).
     IF lo_des_translation_result->get_textxlationjobproperties( )->get_jobstatus( ) = 'STOPPED'.
       lv_found               = abap_true.
@@ -288,11 +273,10 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Stop text translation job failed|
-    ).
+       msg                    = |Stop text translation job failed| ).
 
     "Clean up.
-    CALL METHOD cleanup_s3 EXPORTING iv_bucket_name = lv_bucket_name.
+    cleanup_s3( lv_bucket_name ).
 
   ENDMETHOD.
 
@@ -305,7 +289,7 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     DATA lv_output_data_s3uri TYPE /aws1/xl8s3uri.
     DATA lv_output_folder TYPE /aws1/xl8s3uri.
     DATA lo_result TYPE REF TO /aws1/cl_xl8strttextxlatjobrsp.
-    DATA lv_found TYPE abap_bool.
+
     DATA lv_jobid TYPE /aws1/xl8jobid.
     DATA lo_des_translation_result TYPE REF TO /aws1/cl_xl8dsctextxlatjobrsp.
     DATA lo_inputdataconfig  TYPE REF TO /aws1/cl_xl8inputdataconfig.
@@ -321,7 +305,10 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     "Create training data in Amazon S3.
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    ao_s3->createbucket( iv_bucket = lv_bucket_name ).
+    zcl_aws1_ex_utils=>create_bucket( iv_bucket = lv_bucket_name
+                                      io_s3 = ao_s3
+                                      io_session = ao_session ).
+
 
     lv_input_data_s3uri = 's3://' && lv_bucket_name && '/' && cv_input_folder.
     lv_output_data_s3uri = 's3://' && lv_bucket_name && '/' && cv_output_folder.
@@ -329,36 +316,27 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_input_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     "Create an ABAP object for the input data config.
-    CREATE OBJECT lo_inputdataconfig
-      EXPORTING
-        iv_s3uri       = lv_input_data_s3uri
-        iv_contenttype = cv_input_data_contenttype.
+    lo_inputdataconfig = NEW #( iv_s3uri = lv_input_data_s3uri
+                                iv_contenttype = cv_input_data_contenttype ).
 
     "Create an ABAP object for the output data config.
-    CREATE OBJECT lo_outputdataconfig
-      EXPORTING
-        iv_s3uri = lv_output_data_s3uri.
+    lo_outputdataconfig = NEW #( iv_s3uri = lv_output_data_s3uri ).
 
     "Create an internal table for target languages.
-    CREATE OBJECT lo_targetlanguagecodes
-      EXPORTING
-        iv_value = cv_targetlanguagecode.
+    lo_targetlanguagecodes = NEW #( iv_value = cv_targetlanguagecode ).
     INSERT lo_targetlanguagecodes  INTO TABLE lt_targetlanguagecodes.
 
     "Create a translate job.
     lo_result = ao_xl8->starttexttranslationjob(
-      EXPORTING
-        io_inputdataconfig = lo_inputdataconfig
+      io_inputdataconfig = lo_inputdataconfig
         io_outputdataconfig = lo_outputdataconfig
         it_targetlanguagecodes = lt_targetlanguagecodes
         iv_dataaccessrolearn = av_lrole
         iv_jobname = lv_translate_job_name
-        iv_sourcelanguagecode = cv_sourcelanguagecode
-    ).
+        iv_sourcelanguagecode = cv_sourcelanguagecode ).
 
     "Get the job ID.
     lv_jobid = lo_result->get_jobid( ).
@@ -366,26 +344,25 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     "Testing.
     ao_xl8_actions->describe_text_translation_job( EXPORTING iv_jobid = lv_jobid IMPORTING oo_result = lo_des_translation_result ).
     WHILE lo_des_translation_result->get_textxlationjobproperties( )->get_jobstatus( ) <> 'COMPLETED'.
-      IF sy-index = 90.
-        EXIT.               "maximum 1350 seconds
+      IF sy-index = 30.
+        EXIT.               "maximum 30 minutes
       ENDIF.
-      WAIT UP TO 15 SECONDS.
+      WAIT UP TO 60 SECONDS.
       ao_xl8_actions->describe_text_translation_job( EXPORTING iv_jobid = lv_jobid IMPORTING oo_result = lo_des_translation_result ).
     ENDWHILE.
 
     "Validation.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     IF lo_des_translation_result->get_textxlationjobproperties( )->get_jobstatus( ) = 'COMPLETED'.
       lv_found               = abap_true.
     ENDIF.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |Describe job failed|
-    ).
+       msg                    = |Describe job failed| ).
 
     "Clean up.
-    CALL METHOD cleanup_s3 EXPORTING iv_bucket_name = lv_bucket_name.
+    cleanup_s3( lv_bucket_name ).
 
   ENDMETHOD.
 
@@ -398,7 +375,7 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     DATA lv_output_data_s3uri TYPE /aws1/xl8s3uri.
     DATA lv_output_folder TYPE /aws1/xl8s3uri.
     DATA lo_result TYPE REF TO /aws1/cl_xl8strttextxlatjobrsp.
-    DATA lv_found TYPE abap_bool.
+
     DATA lv_jobid TYPE /aws1/xl8jobid.
     DATA lo_list_translation_result TYPE REF TO /aws1/cl_xl8lsttextxlatjobsrsp.
     DATA lo_inputdataconfig  TYPE REF TO /aws1/cl_xl8inputdataconfig.
@@ -415,7 +392,10 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     "Create training data in Amazon S3.
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
-    ao_s3->createbucket( iv_bucket = lv_bucket_name ).
+    zcl_aws1_ex_utils=>create_bucket( iv_bucket = lv_bucket_name
+                                      io_s3 = ao_s3
+                                      io_session = ao_session ).
+
 
     lv_input_data_s3uri = 's3://' && lv_bucket_name && '/' && cv_input_folder.
     lv_output_data_s3uri = 's3://' && lv_bucket_name && '/' && cv_output_folder.
@@ -423,36 +403,27 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     ao_s3->putobject(
       iv_bucket = lv_bucket_name
       iv_key = cv_input_key
-      iv_body = av_file_content
-    ).
+      iv_body = av_file_content ).
 
     "Create an ABAP object for the input data config.
-    CREATE OBJECT lo_inputdataconfig
-      EXPORTING
-        iv_s3uri       = lv_input_data_s3uri
-        iv_contenttype = cv_input_data_contenttype.
+    lo_inputdataconfig = NEW #( iv_s3uri = lv_input_data_s3uri
+                                iv_contenttype = cv_input_data_contenttype ).
 
     "Create an ABAP object for the output data config.
-    CREATE OBJECT lo_outputdataconfig
-      EXPORTING
-        iv_s3uri = lv_output_data_s3uri.
+    lo_outputdataconfig = NEW #( iv_s3uri = lv_output_data_s3uri ).
 
     "Create an internal table for target languages.
-    CREATE OBJECT lo_targetlanguagecodes
-      EXPORTING
-        iv_value = cv_targetlanguagecode.
+    lo_targetlanguagecodes = NEW #( iv_value = cv_targetlanguagecode ).
     INSERT lo_targetlanguagecodes  INTO TABLE lt_targetlanguagecodes.
 
     "Create a translate job.
     lo_result = ao_xl8->starttexttranslationjob(
-      EXPORTING
-        io_inputdataconfig = lo_inputdataconfig
+      io_inputdataconfig = lo_inputdataconfig
         io_outputdataconfig = lo_outputdataconfig
         it_targetlanguagecodes = lt_targetlanguagecodes
         iv_dataaccessrolearn = av_lrole
         iv_jobname = lv_translate_job_name
-        iv_sourcelanguagecode = cv_sourcelanguagecode
-    ).
+        iv_sourcelanguagecode = cv_sourcelanguagecode ).
 
     "Get the job ID.
     lv_jobid = lo_result->get_jobid( ).
@@ -460,28 +431,24 @@ CLASS ltc_zcl_aws1_xl8_actions IMPLEMENTATION.
     "Testing list_text_translation_job.
     ao_xl8_actions->list_text_translation_jobs(
       EXPORTING iv_jobname = lv_translate_job_name
-      IMPORTING oo_result = lo_list_translation_result
-    ).
+      IMPORTING oo_result = lo_list_translation_result ).
 
     "Validation.
-    lv_found = abap_false.
+    DATA(lv_found) = abap_false.
     IF lo_list_translation_result->has_textxlationjobprpslist( ) = 'X'.
       lv_found               = abap_true.
     ENDIF.
 
     cl_abap_unit_assert=>assert_true(
        act                    = lv_found
-       msg                    = |List job failed|
-    ).
+       msg                    = |List job failed| ).
 
     "Wait for translate job to complete.
-    CALL METHOD job_waiter
-      EXPORTING
-        iv_jobid     = lv_jobid
-        iv_jobstatus = 'COMPLETED'.
+    job_waiter( iv_jobid = lv_jobid
+                          iv_jobstatus = 'COMPLETED' ).
 
     "Clean up.
-    CALL METHOD cleanup_s3 EXPORTING iv_bucket_name = lv_bucket_name.
+    cleanup_s3( lv_bucket_name ).
 
   ENDMETHOD.
 

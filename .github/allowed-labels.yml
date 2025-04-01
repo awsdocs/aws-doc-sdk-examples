@@ -30,6 +30,9 @@
 - name: dependencies
   color: f5f7f9
   description: "Pull request that updates a dependency file."
+- name: Single action example
+  color: f5f7f9
+  description: "A new (or significant update to a) small example, "
 
 # Labels for general which aren't tracked
 - name: Scout

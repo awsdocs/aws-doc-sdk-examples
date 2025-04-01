@@ -9,6 +9,7 @@ These examples demonstrate how to perform several operations using the AWS SDK f
 - We recommend that you grant this code least privilege, or at most the minimum permissions required to perform the task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the AWS Identity and Access Management User Guide.
 - This code has not been tested in all AWS Regions. Some AWS services are available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account.
+- The included unit tests have been marked as `DANGEROUS` and will create and delete AWS assets. Only run these in a suitable test AWS account.
 
 ## Examples Layout
 
@@ -18,7 +19,7 @@ Examples show how to use the AWS SDK for SAP-ABAP using single actions and servi
 
 ## Running the code examples
 
-Each example has one or more examples that can be executed with `SE38`.
+Each example has one or more examples that can be executed with `SE24`.
 See the individual readme files in each service directory for information about specific code examples for that service.
 
 ### Prerequisites

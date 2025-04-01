@@ -9,6 +9,10 @@ on:  # yamllint disable-line rule:truthy
       - reopened
       - labeled
       - unlabeled
+  workflow_run:
+    workflows: [Keep PRs Updated from Main]
+    types:
+      - completed
 
 jobs:
   check_oncall_labels:
@@ -26,5 +30,5 @@ jobs:
     steps:
       - uses: docker://agilepathway/pull-request-label-checker:latest
         with:
-          one_of: Application,MVP,Feature Scenario,Task,Bug,Basics,dependencies
+          one_of: Application,MVP,Feature Scenario,Task,Bug,Basics,dependencies,Single action example
           repo_token: ${{ secrets.GITHUB_TOKEN }}

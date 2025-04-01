@@ -74,14 +74,11 @@ public class MovieTable {
                     DynamoDBClientTypes.AttributeDefinition(attributeName: "year", attributeType: .n),
                     DynamoDBClientTypes.AttributeDefinition(attributeName: "title", attributeType: .s)
                 ],
+                billingMode: DynamoDBClientTypes.BillingMode.payPerRequest,
                 keySchema: [
                     DynamoDBClientTypes.KeySchemaElement(attributeName: "year", keyType: .hash),
                     DynamoDBClientTypes.KeySchemaElement(attributeName: "title", keyType: .range)
                 ],
-                provisionedThroughput: DynamoDBClientTypes.ProvisionedThroughput(
-                    readCapacityUnits: 10,
-                    writeCapacityUnits: 10
-                ),
                 tableName: self.tableName
             )
             let output = try await client.createTable(input: input)
