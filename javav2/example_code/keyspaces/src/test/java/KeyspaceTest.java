@@ -33,7 +33,7 @@ public class KeyspaceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void KeyspaceTest() {
+    public void testKeyspaceTest() {
         assertDoesNotThrow(() -> HelloKeyspaces.listKeyspaces(keyClient),
             "Failed to list namespaces.");
         logger.info("Test 1 passed");

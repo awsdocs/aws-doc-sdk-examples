@@ -30,7 +30,7 @@ public class KinTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateDataStream() {
+    public void testCreateDataStream() {
         assertDoesNotThrow(() -> CreateDataStream.createStream(kinesisClient, streamName));
         logger.info("Test 1 passed");
     }
@@ -38,7 +38,7 @@ public class KinTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void DescribeLimits() {
+    public void testDescribeLimits() {
         assertDoesNotThrow(() -> DescribeLimits.describeKinLimits(kinesisClient));
         logger.info("Test 2 passed");
     }
@@ -46,7 +46,7 @@ public class KinTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void ListShards() {
+    public void testListShards() {
         try {
             // Wait 60 secs for table to complete
             TimeUnit.SECONDS.sleep(60);
@@ -61,7 +61,7 @@ public class KinTest {
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void PutRecords() {
+    public void testPutRecords() {
         assertDoesNotThrow(() -> StockTradesWriter.setStockData(kinesisClient, streamName));
         logger.info("Test 4 passed");
     }
@@ -69,7 +69,7 @@ public class KinTest {
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void GetRecords() {
+    public void testGetRecords() {
         assertDoesNotThrow(() -> GetRecords.getStockTrades(kinesisClient, streamName));
         logger.info("Test 5 passed");
     }
@@ -77,7 +77,7 @@ public class KinTest {
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void DeleteDataStreem() {
+    public void testDeleteDataStreem() {
         assertDoesNotThrow(() -> DeleteDataStream.deleteStream(kinesisClient, streamName));
         logger.info("Test 6 passed");
     }
