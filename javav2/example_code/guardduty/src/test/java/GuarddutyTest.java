@@ -47,7 +47,7 @@ public class GuarddutyTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void GetDetector() {
+    public void testGetDetector() {
         assertDoesNotThrow(() -> GetDetector.getSpecificDetector(guardDutyClient, detectorId));
         logger.info("Test 1 passed");
     }
@@ -55,7 +55,7 @@ public class GuarddutyTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void GetFindings() {
+    public void testGetFindings() {
         assertDoesNotThrow(() -> GetFindings.getSpecificFinding(guardDutyClient, findingId, detectorId));
         logger.info("Test 2 passed");
     }
@@ -63,7 +63,7 @@ public class GuarddutyTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void ListDetectors() {
+    public void testListDetectors() {
         assertDoesNotThrow(() -> ListDetectors.listAllDetectors(guardDutyClient));
         logger.info("Test 3 passed");
     }
