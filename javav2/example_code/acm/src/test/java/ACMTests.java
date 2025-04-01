@@ -11,6 +11,8 @@ import com.example.acm.RemoveTagsFromCert;
 import com.example.acm.RequestCert;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
@@ -24,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ACMTests {
+    private static final Logger logger = LoggerFactory.getLogger(ACMTests.class);
     private static String certificatePath = "";
     private static String privateKeyPath = "";
     private static String bucketName = "";
@@ -47,6 +50,7 @@ public class ACMTests {
             certificateArn = ImportCert.importCertificate(bucketName, certificatePath, privateKeyPath);
             assertNotNull(certificateArn);
         });
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -56,6 +60,7 @@ public class ACMTests {
         assertDoesNotThrow(() -> {
             AddTagsToCertificate.addTags(certificateArn);
         });
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -65,6 +70,7 @@ public class ACMTests {
         assertDoesNotThrow(() -> {
             DescribeCert.describeCertificate(certificateArn);
         });
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -74,6 +80,7 @@ public class ACMTests {
         assertDoesNotThrow(() -> {
             RemoveTagsFromCert.removeTags(certificateArn);
         });
+        logger.info("Test 4 passed");
     }
 
 
@@ -84,6 +91,7 @@ public class ACMTests {
         assertDoesNotThrow(() -> {
             RequestCert.requestCertificate();
         });
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -93,6 +101,7 @@ public class ACMTests {
         assertDoesNotThrow(() -> {
             DeleteCert.deleteCertificate(certificateArn);
         });
+        logger.info("Test 6 passed");
     }
 
 
