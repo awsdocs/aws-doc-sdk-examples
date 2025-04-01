@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.quicksight.QuickSightClient;
 import org.junit.jupiter.api.*;
@@ -19,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class QuickSightTest {
+    private static final Logger logger = LoggerFactory.getLogger(QuickSightTest.class);
     private static QuickSightClient qsClient;
     private static String account = "";
     private static String analysisId = "";
@@ -50,7 +53,7 @@ public class QuickSightTest {
     @Order(1)
     public void DescribeAnalysis() {
         assertDoesNotThrow(() -> DescribeAnalysis.describeSpecificAnalysis(qsClient, account, analysisId));
-        System.out.println("DescribeAnalysis test passed");
+        logger.info("DescribeAnalysis test passed");
     }
 
     @Test
@@ -58,7 +61,7 @@ public class QuickSightTest {
     @Order(2)
     public void DescribeDashboard() {
         assertDoesNotThrow(() -> DescribeDashboard.describeSpecificDashboard(qsClient, account, dashboardId));
-        System.out.println("DescribeDashboard test passed");
+        logger.info("DescribeDashboard test passed");
     }
 
     @Test
@@ -66,7 +69,7 @@ public class QuickSightTest {
     @Order(3)
     public void DescribeTemplate() {
         assertDoesNotThrow(() -> DescribeTemplate.describeSpecificTemplate(qsClient, account, templateId));
-        System.out.println("DescribeTemplate test passed");
+        logger.info("DescribeTemplate test passed");
     }
 
     @Test
@@ -74,7 +77,7 @@ public class QuickSightTest {
     @Order(4)
     public void ListThemes() {
         assertDoesNotThrow(() -> ListThemes.listAllThemes(qsClient, account));
-        System.out.println("ListThemes test passed");
+        logger.info("ListThemes test passed");
     }
 
     @Test
@@ -82,7 +85,7 @@ public class QuickSightTest {
     @Order(6)
     public void ListAnalyses() {
         assertDoesNotThrow(() -> ListAnalyses.listAllAnAnalyses(qsClient, account));
-        System.out.println("ListAnalyses test passed");
+        logger.info("ListAnalyses test passed");
     }
 
     @Test
@@ -90,7 +93,7 @@ public class QuickSightTest {
     @Order(7)
     public void ListDashboards() {
         assertDoesNotThrow(() -> ListDashboards.listAllDashboards(qsClient, account));
-        System.out.println("ListDashboards test passed");
+        logger.info("ListDashboards test passed");
     }
 
     @Test
@@ -98,7 +101,7 @@ public class QuickSightTest {
     @Order(8)
     public void ListTemplates() {
         assertDoesNotThrow(() -> ListTemplates.listAllTemplates(qsClient, account));
-        System.out.println("ListTemplates test passed");
+        logger.info("ListTemplates test passed");
     }
 
     @Test
@@ -107,7 +110,7 @@ public class QuickSightTest {
     public void UpdateDashboard() {
         assertDoesNotThrow(
                 () -> UpdateDashboard.updateSpecificDashboard(qsClient, account, dashboardId, dataSetArn, analysisArn));
-        System.out.println("UpdateDashboard test passed");
+        logger.info("UpdateDashboard test passed");
     }
 
     private static String getSecretValues() {
