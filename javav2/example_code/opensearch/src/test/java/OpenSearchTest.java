@@ -44,7 +44,7 @@ public class OpenSearchTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void helloTest() {
+    public void testHello() {
         assertDoesNotThrow(() -> {
             CompletableFuture<Void> future = HelloOpenSearch.listVersionsAsync();
             future.join();
@@ -55,7 +55,7 @@ public class OpenSearchTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void createDomain() {
+    public void testCreateDomain() {
         assertDoesNotThrow(() -> {
             CompletableFuture<String> future = openSearchActions.createNewDomainAsync(domainName);
             String domainId = future.join();
@@ -68,7 +68,7 @@ public class OpenSearchTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void describeDomainTest() {
+    public void testDescribeDomainTest() {
         assertDoesNotThrow(() -> {
             CompletableFuture<String> future = openSearchActions.describeDomainAsync(domainName);
             arn = future.join();
@@ -79,7 +79,7 @@ public class OpenSearchTest {
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void listDomains() {
+    public void testListDomains() {
         assertDoesNotThrow(() -> {
             CompletableFuture<List<DomainInfo>> future = openSearchActions.listAllDomainsAsync();
             List<DomainInfo> domainInfoList = future.join();
@@ -93,7 +93,7 @@ public class OpenSearchTest {
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void domainTagTest() {
+    public void testDomainTagTest() {
         assertDoesNotThrow(() -> {
             CompletableFuture<AddTagsResponse> future = openSearchActions.addDomainTagsAsync(arn);
             future.join();
@@ -105,7 +105,7 @@ public class OpenSearchTest {
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void domainListTagsTest() {
+    public void testDomainListTagsTest() {
         assertDoesNotThrow(() -> {
             CompletableFuture<ListTagsResponse> future = openSearchActions.listDomainTagsAsync(arn);
             future.join();
@@ -117,7 +117,7 @@ public class OpenSearchTest {
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void domainDelTest() {
+    public void testDomainDelTest() {
         assertDoesNotThrow(() -> {
             CompletableFuture<DeleteDomainResponse> future = openSearchActions.deleteSpecificDomainAsync(domainName);
             future.join();
