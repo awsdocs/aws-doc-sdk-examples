@@ -4,6 +4,8 @@
 import com.example.glacier.*;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glacier.GlacierClient;
@@ -24,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class GlacierTest {
+    private static final Logger logger = LoggerFactory.getLogger(GlacierTest.class);
     private static GlacierClient glacier;
     private static String vaultName = "";
     private static String strPath = "";
@@ -52,60 +55,60 @@ public class GlacierTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateVault() {
+    public void testCreateVault() {
         assertDoesNotThrow(() -> CreateVault.createGlacierVault(glacier, vaultName));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void DescribeVault() {
+    public void testDescribeVault() {
         assertDoesNotThrow(() -> DescribeVault.describeGlacierVault(glacier, vaultName));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void ListVaults() {
+    public void testListVaults() {
         assertDoesNotThrow(() -> ListVaults.listAllVault(glacier));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void UploadArchive() {
+    public void testUploadArchive() {
         File myFile = new File(strPath);
         Path path = Paths.get(strPath);
         archiveId = UploadArchive.uploadContent(glacier, path, vaultName, myFile);
         assertFalse(archiveId.isEmpty());
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ArchiveDownload() {
+    public void testArchiveDownload() {
         assertDoesNotThrow(() -> ArchiveDownload.createJob(glacier, downloadVault, accountId));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void DeleteArchive() {
+    public void testDeleteArchive() {
         assertDoesNotThrow(() -> DeleteArchive.deleteGlacierArchive(glacier, vaultName, accountId, archiveId));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void DeleteVault() {
+    public void testDeleteVault() {
         assertDoesNotThrow(() -> DeleteVault.deleteGlacierVault(glacier, emptyVault));
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 
     private static String getSecretValues() {
