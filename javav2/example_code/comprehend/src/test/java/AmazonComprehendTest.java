@@ -4,6 +4,8 @@
 import com.example.comprehend.*;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.comprehend.ComprehendClient;
@@ -20,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonComprehendTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(AmazonComprehendTest.class);
     private static ComprehendClient comClient;
     private static String text = "Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle - based companies are Starbucks and Boeing";
     private static String frText = "Il pleut aujourd'hui à Seattle";
@@ -47,45 +49,45 @@ public class AmazonComprehendTest {
     @Tag("weathertop")
     @Tag("IntegrationTest")
     @Order(1)
-    public void DetectEntities() {
+    public void testDetectEntities() {
         assertDoesNotThrow(() -> DetectEntities.detectAllEntities(comClient, text));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("weathertop")
     @Tag("IntegrationTest")
     @Order(2)
-    public void DetectKeyPhrases() {
+    public void testDetectKeyPhrases() {
         assertDoesNotThrow(() -> DetectKeyPhrases.detectAllKeyPhrases(comClient, text));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("weathertop")
     @Tag("IntegrationTest")
     @Order(3)
-    public void DetectLanguage() {
+    public void testDetectLanguage() {
         assertDoesNotThrow(() -> DetectLanguage.detectTheDominantLanguage(comClient, frText));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("weathertop")
     @Tag("IntegrationTest")
     @Order(4)
-    public void DetectSentiment() {
+    public void testDetectSentiment() {
         assertDoesNotThrow(() -> DetectSentiment.detectSentiments(comClient, text));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("weathertop")
     @Tag("IntegrationTest")
     @Order(5)
-    public void DetectSyntax() {
+    public void testDetectSyntax() {
         assertDoesNotThrow(() -> DetectSyntax.detectAllSyntax(comClient, text));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     private static String getSecretValues() {
