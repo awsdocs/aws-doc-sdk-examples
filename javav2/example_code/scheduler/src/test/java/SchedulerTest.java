@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,19 +22,14 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SchedulerTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(SchedulerTest.class);
     private static final String STACK_NAME = "workflow-stack-name23";
-
     private static String emailAddress = "foo@example.com";
-
     private static String scheduleGroupName = "myScheduleGroup";
     private static String roleArn = "";
     private static String snsTopicArn = "";
-
     private static String oneTimeScheduleName = "testOneTime1";
-
     private static String recurringScheduleName = "recurringSchedule1";
-
     private static final EventbridgeSchedulerActions eventbridgeActions = new EventbridgeSchedulerActions();
 
     @BeforeAll
@@ -50,6 +47,7 @@ public class SchedulerTest {
         assertDoesNotThrow(() -> {
             eventbridgeActions.createScheduleGroup(scheduleGroupName).join();
         });
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -71,6 +69,7 @@ public class SchedulerTest {
                 true,
                 true).join();
         });
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -90,6 +89,7 @@ public class SchedulerTest {
                 true,
                 true).join();
         });
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -98,8 +98,8 @@ public class SchedulerTest {
     public void testDeleteScheduleGroup() {
         assertDoesNotThrow(() -> {
         eventbridgeActions.deleteScheduleGroupAsync(scheduleGroupName).join();
-
         });
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -108,8 +108,8 @@ public class SchedulerTest {
     public void testDelOneTimeSchedule() {
         assertDoesNotThrow(() -> {
             eventbridgeActions.deleteScheduleAsync(oneTimeScheduleName, scheduleGroupName).join();
-
         });
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -119,6 +119,7 @@ public class SchedulerTest {
         assertDoesNotThrow(() -> {
             eventbridgeActions.deleteScheduleAsync(recurringScheduleName, scheduleGroupName).join();
         });
+        logger.info("Test 6 passed");
     }
 
     @Test
@@ -128,5 +129,6 @@ public class SchedulerTest {
         assertDoesNotThrow(() -> {
             CloudFormationHelper.destroyCloudFormationStack(STACK_NAME);
         });
+        logger.info("Test 7 passed");
     }
 }
