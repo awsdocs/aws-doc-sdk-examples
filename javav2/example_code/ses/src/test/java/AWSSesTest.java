@@ -10,6 +10,8 @@ import com.example.sesv2.SendEmail;
 import com.example.sesv2.SendEmailTemplate;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import java.io.*;
@@ -28,6 +30,7 @@ import software.amazon.awssdk.services.sesv2.SesV2Client;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AWSSesTest {
+    private static final Logger logger = LoggerFactory.getLogger(AWSSesTest.class);
     private static SesClient client;
     private static SesV2Client sesv2Client;
     private static String sender = "";
@@ -67,41 +70,41 @@ public class AWSSesTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void SendMessage() {
+    public void testSendMessage() {
         assertDoesNotThrow(() -> SendMessage.send(client, sender, recipient, subject, bodyText, bodyHTML));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void SendMessageV2() {
+    public void testSendMessageV2() {
         assertDoesNotThrow(() -> SendEmail.send(sesv2Client, sender, recipient, subject, bodyHTML));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void SendMessageTemplateV2() {
+    public void testSendMessageTemplateV2() {
         assertDoesNotThrow(() -> SendEmailTemplate.send(sesv2Client, sender, recipient, templateName));
-        System.out.println("Test 5 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void ListIdentities() {
+    public void testListIdentities() {
         assertDoesNotThrow(() -> ListIdentities.listSESIdentities(client));
-        System.out.println("Test 6 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ListEmailIdentities() {
+    public void testListEmailIdentities() {
         assertDoesNotThrow(() -> ListEmailIdentities.listSESIdentities(sesv2Client));
-        System.out.println("Test 7 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -109,7 +112,7 @@ public class AWSSesTest {
     @Order(6)
     public void ListEmailTemplates() {
         assertDoesNotThrow(() -> ListTemplates.listAllTemplates(sesv2Client));
-        System.out.println("Test 8 passed");
+        logger.info("Test 6 passed");
     }
 
     private static String getSecretValues() {
