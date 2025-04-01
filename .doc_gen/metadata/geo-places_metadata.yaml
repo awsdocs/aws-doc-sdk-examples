@@ -1,0 +1,40 @@
+# zexi 0.4.0
+geo-places_ReverseGeocode:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - geoplaces.java2.geocode.main
+  services:
+    geo-places: {ReverseGeocode}
+geo-places_SearchText:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - geoplaces.java2.search.text.main
+  services:
+    geo-places: {SearchText}
+geo-places_SearchNearby:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - geoplaces.java2.search.near.main
+  services:
+    geo-places: {SearchNearby}
