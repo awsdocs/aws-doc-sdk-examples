@@ -64,7 +64,7 @@ public class LambdaTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void GetAccountSettings() {
+    public void testGetAccountSettings() {
         assertDoesNotThrow(() -> GetAccountSettings.getSettings(awsLambda));
         logger.info("Test 1 passed");
     }
@@ -72,7 +72,7 @@ public class LambdaTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void LambdaScenario() throws InterruptedException {
+    public void testLambdaScenario() throws InterruptedException {
         String funArn = LambdaScenario.createLambdaFunction(awsLambda, functionNameSc, key, bucketName, role, handler);
         assertFalse(funArn.isEmpty());
         System.out.println("The function ARN is " + funArn);

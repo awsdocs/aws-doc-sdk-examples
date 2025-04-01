@@ -51,7 +51,7 @@ public class AmazonMediaConvertTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateJob() {
+    public void testCreateJob() {
         jobId = CreateJob.createMediaJob(mc, mcRoleARN, fileInput);
         assertFalse(jobId.isEmpty());
         logger.info("Test 1 passed");
@@ -60,7 +60,7 @@ public class AmazonMediaConvertTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void ListJobs() {
+    public void testListJobs() {
         assertDoesNotThrow(() -> ListJobs.listCompleteJobs(mc));
         logger.info("Test 2 passed");
     }
@@ -68,7 +68,7 @@ public class AmazonMediaConvertTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void GetJob() {
+    public void testGetJob() {
         assertDoesNotThrow(() -> GetJob.getSpecificJob(mc, jobId));
         logger.info("Test 3 passed");
     }
