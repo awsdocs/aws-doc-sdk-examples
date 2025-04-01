@@ -57,7 +57,7 @@ public class FirehoseTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateDeliveryStream() {
+    public void testCreateDeliveryStream() {
         assertDoesNotThrow(() -> {
             CreateDeliveryStream.createStream(firehoseClient, bucketARN, roleARN, newStream);
             CreateDeliveryStream.waitForStreamToBecomeActive(firehoseClient, newStream);
@@ -68,7 +68,7 @@ public class FirehoseTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void PutRecord() throws IOException, InterruptedException {
+    public void testPutRecord() throws IOException, InterruptedException {
         String jsonContent = FirehoseScenario.readJsonFile("sample_records.json");
         ObjectMapper objectMapper = new ObjectMapper();
         List<Map<String, Object>> sampleData = objectMapper.readValue(jsonContent, new TypeReference<>() {});
@@ -88,7 +88,7 @@ public class FirehoseTest {
    @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void ListDeliveryStreams() {
+    public void testListDeliveryStreams() {
         assertDoesNotThrow(() -> ListDeliveryStreams.listStreams(firehoseClient));
         logger.info("Test 3 passed");
     }
@@ -96,7 +96,7 @@ public class FirehoseTest {
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void DeleteStream() {
+    public void testDeleteStream() {
         assertDoesNotThrow(() -> DeleteStream.delStream(firehoseClient, newStream));
         logger.info("Test 4 passed");
     }
