@@ -3,6 +3,8 @@
 
 import com.example.secrets.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import org.junit.jupiter.api.*;
@@ -18,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SecretManagerTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(SecretManagerTest.class);
     private static SecretsManagerClient secretsClient;
 
     @BeforeAll
@@ -31,8 +33,8 @@ public class SecretManagerTest {
 
     @Test
     @Order(1)
-    public void GetSecretValue() {
+    public void testGetSecretValue() {
         assertDoesNotThrow(() -> GetSecretValue.getValue(secretsClient, "mysecret"));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 }
