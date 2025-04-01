@@ -54,7 +54,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateGroup() {
+    public void testCreateGroup() {
         String result2 = CreateGroup.createGroup(identitystore, identitystoreId, groupName, groupDesc);
         assertTrue(!result2.isEmpty());
         logger.info("\n Test 1 passed");
@@ -63,7 +63,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void GetGroupId() {
+    public void testGetGroupId() {
         groupId = GetGroupId.getGroupId(identitystore, identitystoreId, "DisplayName", groupName);
         assertTrue(!groupId.isEmpty());
         logger.info("\n Test 2 passed");
@@ -72,7 +72,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void DescribeGroup() {
+    public void testDescribeGroup() {
         String result4 = DescribeGroup.describeGroup(identitystore, identitystoreId, groupId);
         assertTrue(!result4.isEmpty());
         logger.info("\n Test 3 passed");
@@ -81,7 +81,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void UpdateGroup() {
+    public void testUpdateGroup() {
         String result5 = UpdateGroup.updateGroup(identitystore, identitystoreId, groupId, "Description",
                 "TestingUpdateAPI");
         assertTrue(!result5.isEmpty());
@@ -91,7 +91,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ListGroups() {
+    public void testListGroups() {
         int result6 = ListGroups.listGroups(identitystore, identitystoreId);
         assertTrue(result6 >= 0);
         logger.info("\n Test 5 passed");
@@ -100,7 +100,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void CreateUser() {
+    public void testCreateUser() {
         String result7 = CreateUser.createUser(identitystore, identitystoreId, userName, givenName, familyName);
         assertTrue(!result7.isEmpty());
         logger.info("\n Test 6 passed");
@@ -109,7 +109,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void GetUserId() {
+    public void testGetUserId() {
         userId = GetUserId.getUserId(identitystore, identitystoreId, "UserName", userName);
         assertTrue(!userId.isEmpty());
         logger.info("\n Test 7 passed");
@@ -118,7 +118,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void DescribeUser() {
+    public void testDescribeUser() {
         String result9 = DescribeUser.describeUser(identitystore, identitystoreId, userId);
         assertTrue(!result9.isEmpty());
         logger.info("\n Test 8 passed");
@@ -127,7 +127,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-    public void UpdateUser() {
+    public void testUpdateUser() {
         String result10 = UpdateUser.updateUser(identitystore, identitystoreId, userId, "displayName",
                 "TestingUpdateAPI");
         assertTrue(!result10.isEmpty());
@@ -137,7 +137,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(10)
-    public void ListUsers() {
+    public void testListUsers() {
         int result11 = ListUsers.listUsers(identitystore, identitystoreId);
         assertTrue(result11 >= 0);
         logger.info("\n Test 10 passed");
@@ -146,7 +146,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(11)
-    public void CreateGroupMembership() {
+    public void testCreateGroupMembership() {
         String result12 = CreateGroupMembership.createGroupMembership(identitystore, identitystoreId, groupId, userId);
         assertTrue(!result12.isEmpty());
         logger.info("\n Test 11 passed");
@@ -155,7 +155,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(12)
-    public void GetGroupMembershipId() {
+    public void testGetGroupMembershipId() {
         membershipId = GetGroupMembershipId.getGroupMembershipId(identitystore, identitystoreId, groupId, userId);
         assertTrue(!membershipId.isEmpty());
         logger.info("\n Test 12 passed");
@@ -164,7 +164,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(13)
-    public void DescribeGroupMembership() {
+    public void testDescribeGroupMembership() {
         String result14 = DescribeGroupMembership.describeGroupMembershipId(identitystore, identitystoreId,
                 membershipId);
         assertTrue(!result14.isEmpty());
@@ -174,7 +174,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(14)
-    public void IsMemberInGroups() {
+    public void testIsMemberInGroups() {
         List<String> groupIdList = new ArrayList<>();
         groupIdList.add(groupId);
         String result15 = IsMemberInGroups.isMemberInGroups(identitystore, identitystoreId, userId, groupIdList);
@@ -185,7 +185,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(15)
-    public void ListGroupMemberships() {
+    public void testListGroupMemberships() {
         int result16 = ListGroupMemberships.listGroupMemberships(identitystore, identitystoreId, groupId);
         assertTrue(result16 >= 0);
         logger.info("\n Test 15 passed");
@@ -194,7 +194,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(16)
-    public void ListGroupMembershipsForMember() {
+    public void testListGroupMembershipsForMember() {
         int result17 = ListGroupMembershipsForMember.listGroupMembershipsForMember(identitystore, identitystoreId,
                 userId);
         assertTrue(result17 >= 0);
@@ -204,7 +204,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(17)
-    public void DeleteGroupMembership() {
+    public void testDeleteGroupMembership() {
         String result18 = DeleteGroupMembership.deleteGroupMembership(identitystore, identitystoreId, membershipId);
         assertTrue(!result18.isEmpty());
         logger.info("\n Test 17 passed");
@@ -213,7 +213,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(18)
-    public void DeleteUser() {
+    public void testDeleteUser() {
         String result19 = DeleteUser.deleteUser(identitystore, identitystoreId, userId);
         assertTrue(!result19.isEmpty());
         logger.info("\n Test 18 passed");
@@ -222,7 +222,7 @@ public class IdentitystoreServiceTest {
     @Test
     @Tag("IntegrationTest")
     @Order(19)
-    public void DeleteGroup() {
+    public void testDeleteGroup() {
         String result20 = DeleteGroup.deleteGroup(identitystore, identitystoreId, groupId);
         assertTrue(!result20.isEmpty());
         logger.info("\n Test 19 passed");
