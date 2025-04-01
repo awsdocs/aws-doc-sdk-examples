@@ -25,12 +25,15 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import java.io.IOException;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,11 +46,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DynamoDBTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(DynamoDBTest.class);
     private static DynamoDbClient ddb;
 
     // Define the data members required for the test.
-    private static String tableName = "";
+    private static String tableName = "Music";
   //  private static String itemVal = "";
    // private static String updatedVal = "";
     private static String key = "";
@@ -72,7 +75,9 @@ public class DynamoDBTest {
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        tableName = values.getTableName();
+        Random random = new Random();
+        int randomValue = random.nextInt(1000) + 1;
+        tableName = tableName + randomValue;
         fileName = values.getFileName();
         key = values.getKey();
         keyVal = values.getKeyValue();
@@ -88,24 +93,24 @@ public class DynamoDBTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void createTable() {
+    public void testCreateTable() {
         String result = CreateTable.createTable(ddb, tableName, key);
         assertFalse(result.isEmpty());
-        System.out.println("\n Test 1 passed");
+        logger.info("\n Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void describeTable() {
+    public void testDescribeTable() {
         assertDoesNotThrow(() -> DescribeTable.describeDymamoDBTable(ddb, tableName));
-        System.out.println("\n Test 2 passed");
+        logger.info("\n Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void putItem() {
+    public void testPutItem() {
         assertDoesNotThrow(() -> PutItem.putItemInTable(ddb,
                 tableName,
                 key,
@@ -116,80 +121,80 @@ public class DynamoDBTest {
                 awardVal,
                 songTitle,
                 songTitleVal));
-        System.out.println("\n Test 3 passed");
+        logger.info("\n Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void listTables() {
+    public void testListTables() {
         assertDoesNotThrow(() -> ListTables.listAllTables(ddb));
-        System.out.println("\n Test 4 passed");
+        logger.info("\n Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void queryTable() {
+    public void testQueryTable() {
         int response = Query.queryTable(ddb, tableName, key, keyVal, "#a");
         assertEquals(response, 1);
-        System.out.println("\n Test 5 passed");
+        logger.info("\n Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void updateItem() {
+    public void testUpdateItem() {
         assertDoesNotThrow(() -> UpdateItem.updateTableItem(ddb, tableName, key, keyVal, awards, "40"));
-        System.out.println("\n Test 6 passed");
+        logger.info("\n Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void getItem() {
+    public void testGetItem() {
         assertDoesNotThrow(() -> GetItem.getDynamoDBItem(ddb, tableName, key, keyVal));
-        System.out.println("\n Test 7 passed");
+        logger.info("\n Test 7 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void scanItems() {
+    public void testScanItems() {
         assertDoesNotThrow(() -> DynamoDBScanItems.scanItems(ddb, tableName));
-        System.out.println("\n Test 8 passed");
+        logger.info("\n Test 8 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-    public void deleteItem() {
+    public void testDeleteItem() {
         assertDoesNotThrow(() -> DeleteItem.deleteDynamoDBItem(ddb, tableName, key, keyVal));
-        System.out.println("\n Test 9 passed");
+        logger.info("\n Test 9 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(10)
-    public void sycnPagination() {
+    public void testSycnPagination() {
         assertDoesNotThrow(() -> SyncPagination.manualPagination(ddb));
         assertDoesNotThrow(() -> SyncPagination.autoPagination(ddb));
         assertDoesNotThrow(() -> SyncPagination.autoPaginationWithResume(ddb));
-        System.out.println("\n Test 10 passed");
+        logger.info("\n Test 10 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(11)
-    public void updateTable() {
+    public void testUpdateTable() {
         assertDoesNotThrow(() -> UpdateTable.updateDynamoDBTable(ddb, tableName));
-        System.out.println("\n Test 11 passed");
+        logger.info("\n Test 11 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(12)
-    public void deleteTable() {
+    public void testDeleteTable() {
         try {
             TimeUnit.SECONDS.sleep(30);
             assertDoesNotThrow(() -> DeleteTable.deleteDynamoDBTable(ddb, tableName));
@@ -197,13 +202,13 @@ public class DynamoDBTest {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        System.out.println("\n Test 12 passed");
+        logger.info("\n Test 12 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(13)
-    public void testScenario() throws IOException {
+    public void testTestScenario() throws IOException {
         assertDoesNotThrow(() -> Scenario.createTable(ddb, tableName2));
         assertDoesNotThrow(() -> Scenario.loadData(ddb, tableName2, fileName));
         assertDoesNotThrow(() -> Scenario.getItem(ddb));
@@ -212,7 +217,7 @@ public class DynamoDBTest {
         assertDoesNotThrow(() -> Scenario.scanMovies(ddb, tableName2));
         assertDoesNotThrow(() -> Scenario.queryTable(ddb));
         assertDoesNotThrow(() -> Scenario.deleteDynamoDBTable(ddb, tableName2));
-        System.out.println("\n Test 13 passed");
+        logger.info("\n Test 13 passed");
     }
 
     @Test
@@ -226,6 +231,7 @@ public class DynamoDBTest {
         assertDoesNotThrow(() -> ScenarioPartiQ.updateTableItem(ddb));
         assertDoesNotThrow(() -> ScenarioPartiQ.queryTable(ddb));
         assertDoesNotThrow(() -> ScenarioPartiQ.deleteDynamoDBTable(ddb, "MoviesPartiQ"));
+        logger.info("\n Test 14 passed");
     }
 
     private static String getSecretValues() {
