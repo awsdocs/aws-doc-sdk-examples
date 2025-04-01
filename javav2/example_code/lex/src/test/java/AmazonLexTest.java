@@ -46,7 +46,7 @@ public class AmazonLexTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void PutBot() {
+    public void testPutBot() {
         assertDoesNotThrow(() -> PutBot.createBot(lexClient, botName, intentName, intentVersion));
         logger.info("Test 1 passed");
     }
@@ -54,7 +54,7 @@ public class AmazonLexTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void GetBots() {
+    public void testGetBots() {
         assertDoesNotThrow(() -> GetBots.getAllBots(lexClient));
         logger.info("Test 2 passed");
     }
@@ -62,7 +62,7 @@ public class AmazonLexTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void GetIntent() {
+    public void testGetIntent() {
         assertDoesNotThrow(() -> GetIntent.getSpecificIntent(lexClient, intentName, intentVersion));
         logger.info("Test 3 passed");
     }
@@ -70,7 +70,7 @@ public class AmazonLexTest {
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void GetSlotTypes() {
+    public void testGetSlotTypes() {
         assertDoesNotThrow(() -> GetSlotTypes.getSlotsInfo(lexClient));
         logger.info("Test 4 passed");
     }
@@ -78,7 +78,7 @@ public class AmazonLexTest {
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void GetBotStatus() {
+    public void testGetBotStatus() {
         assertDoesNotThrow(() -> GetBotStatus.getStatus(lexClient, botName));
         logger.info("Test 5 passed");
     }
@@ -86,7 +86,7 @@ public class AmazonLexTest {
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void DeleteBot() {
+    public void testDeleteBot() {
         assertDoesNotThrow(() -> DeleteBot.deleteSpecificBot(lexClient, botName));
         logger.info("Test 6 passed");
     }
