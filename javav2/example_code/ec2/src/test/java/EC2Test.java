@@ -5,6 +5,8 @@ import com.example.ec2.scenario.EC2Actions;
 import com.example.ec2.scenario.EC2Scenario;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -26,6 +28,7 @@ import software.amazon.awssdk.services.ssm.model.Parameter;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EC2Test {
+    private static final Logger logger = LoggerFactory.getLogger(EC2Test.class);
     private static String keyName = "";
     private static String groupName = "";
     private static String groupDesc = "";
@@ -59,7 +62,7 @@ public class EC2Test {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void createKeyPair() {
+    public void testCreateKeyPair() {
         try {
             CompletableFuture<CreateKeyPairResponse> future = ec2Actions.createKeyPairAsync(keyNameSc, fileNameSc);
             CreateKeyPairResponse response = future.join();
@@ -70,21 +73,21 @@ public class EC2Test {
             // Assert specific properties of the response
             Assertions.assertNotNull(response.keyFingerprint(), "The key fingerprint should not be null");
             Assertions.assertFalse(response.keyFingerprint().isEmpty(), "The key fingerprint should not be empty");
-            System.out.println("Key Pair successfully created. Key Fingerprint: " + response.keyFingerprint());
+
 
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
             Assertions.fail("Test failed due to an unexpected exception: " + rte.getMessage());
         }
 
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void createInstance() {
+    public void testCreateInstance() {
         try {
             CompletableFuture<String> future = ec2Actions.createSecurityGroupAsync(groupName, groupDesc, vpcIdSc, myIpAddressSc);
             groupId = future.join();
@@ -170,14 +173,14 @@ public class EC2Test {
             Assertions.fail("Test failed due to an unexpected exception while running instance: " + rte.getMessage());
         }
 
-        System.out.println("\n Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void describeKeyPair() {
+    public void testDescribeKeyPair() {
         try {
             CompletableFuture<DescribeKeyPairsResponse> future = ec2Actions.describeKeysAsync();
             DescribeKeyPairsResponse response = future.join();
@@ -202,13 +205,13 @@ public class EC2Test {
             Assertions.fail("Test failed due to an unexpected exception while describing key pairs: " + rte.getMessage());
         }
 
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void deleteKeyPair() {
+    public void testDeleteKeyPair() {
         try {
             CompletableFuture<DeleteKeyPairResponse> future = ec2Actions.deleteKeysAsync(keyNameSc);
             DeleteKeyPairResponse response = future.join();
@@ -222,13 +225,13 @@ public class EC2Test {
             Assertions.fail("Test failed due to an unexpected exception while deleting key pair: " + rte.getMessage());
         }
 
-        System.out.println("\n Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void describeSecurityGroup() {
+    public void testDescribeSecurityGroup() {
         try {
             CompletableFuture<String> future = ec2Actions.describeSecurityGroupArnByNameAsync(groupName);
             groupId = future.join();
@@ -241,14 +244,14 @@ public class EC2Test {
             Assertions.fail("Test failed due to an unexpected exception while describing security groups: " + rte.getMessage());
         }
 
-        System.out.println("\n Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void describeInstances() {
+    public void testDescribeInstances() {
         try {
             CompletableFuture<String> future = ec2Actions.describeEC2InstancesAsync(newInstanceId);
             String publicIp = future.join();
@@ -262,13 +265,13 @@ public class EC2Test {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
             Assertions.fail("Test failed due to an unexpected exception while describing EC2 instances: " + rte.getMessage());
         }
-        System.out.println("\n Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
-    @Order(8)
-    public void terminateInstance() {
+    @Order(7)
+    public void testTerminateInstance() {
         try {
             System.out.println("Instance ID is: " + newInstanceId);
             CompletableFuture<Object> future = ec2Actions.terminateEC2Async(newInstanceId);
@@ -284,7 +287,7 @@ public class EC2Test {
         }
 
         // Confirm that the test passed
-        System.out.println("\n Test 8 passed");
+        logger.info("Test 7 passed");
     }
 
     private static String getSecretValues() {
