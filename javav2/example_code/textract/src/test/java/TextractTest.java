@@ -7,6 +7,8 @@ import com.example.textract.DetectDocumentTextS3;
 import com.example.textract.StartDocumentAnalysis;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
@@ -22,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TextractTest {
+    private static final Logger logger = LoggerFactory.getLogger(TextractTest.class);
     private static TextractClient textractClient;
     private static Region region;
     private static String sourceDoc = "";
@@ -47,17 +50,17 @@ public class TextractTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void DetectDocumentTextS3() {
+    public void testDetectDocumentTextS3() {
         assertDoesNotThrow(() -> DetectDocumentTextS3.detectDocTextS3(textractClient, bucketName, docName));
-        System.out.println("Test 3 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void StartDocumentAnalysis() {
+    public void testStartDocumentAnalysis() {
         assertDoesNotThrow(() -> StartDocumentAnalysis.startDocAnalysisS3(textractClient, bucketName, docName));
-        System.out.println("Test 4 passed");
+        logger.info("Test 2 passed");
     }
 
     private static String getSecretValues() {
@@ -65,7 +68,6 @@ public class TextractTest {
                 .region(Region.US_EAST_1)
                 .build();
         String secretName = "test/textract";
-
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
                 .secretId(secretName)
                 .build();
