@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { describe, test, expect } from "vitest";
-import { PreSignUpHandler } from "../lib/stack.autoConfirmHandler";
+import { PreSignUpHandler } from "../lib/stack.AutoConfirmHandler";
 import type { UserRepository } from "../lib/user-repository";
 import type { PreSignUpTriggerEvent } from "aws-lambda";
 

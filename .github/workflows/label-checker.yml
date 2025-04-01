@@ -9,6 +9,10 @@ on:  # yamllint disable-line rule:truthy
       - reopened
       - labeled
       - unlabeled
+  workflow_run:
+    workflows: [Keep PRs Updated from Main]
+    types:
+      - completed
 
 jobs:
   check_oncall_labels:
