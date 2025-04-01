@@ -62,7 +62,7 @@ public class AmazonMQTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateBroker() {
+    public void testCreateBroker() {
         brokerId = CreateBroker.createBroker(mqClient, engineType, brokerName);
         assertTrue(!brokerId.isEmpty());
         logger.info("Test 1 passed");
@@ -71,7 +71,7 @@ public class AmazonMQTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void CreateConfiguration() {
+    public void testCreateConfiguration() {
         String result = CreateConfiguration.createNewConfigutation(mqClient, configurationName);
         assertTrue(!result.isEmpty());
         logger.info("Test 2 passed");
@@ -80,7 +80,7 @@ public class AmazonMQTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void DescribeBroker() {
+    public void testDescribeBroker() {
         String result = DescribeBroker.describeBroker(mqClient, brokerName);
         assertTrue(!result.isEmpty());
         logger.info("Test 3 passed");
@@ -89,7 +89,7 @@ public class AmazonMQTest {
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void ListBrokers() {
+    public void testListBrokers() {
         List<BrokerSummary> result = ListBrokers.listBrokers(mqClient);
         assertTrue(result instanceof List<?>);
         logger.info("Test 4 passed");
@@ -98,7 +98,7 @@ public class AmazonMQTest {
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ListConfigurations() {
+    public void testListConfigurations() {
         List<Configuration> result = ListConfigurations.listConfigurations(mqClient);
         assertTrue(result instanceof List<?>);
         logger.info("Test 5 passed");
