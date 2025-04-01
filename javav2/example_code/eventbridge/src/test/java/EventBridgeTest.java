@@ -8,6 +8,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Order;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
@@ -16,7 +18,7 @@ import java.io.IOException;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EventBridgeTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(EventBridgeTest.class);
     private static EventBridgeClient eventBrClient;
 
     @BeforeAll
@@ -28,9 +30,8 @@ public class EventBridgeTest {
 
     @Test
     @Order(1)
-    public void helloEventBridge() {
+    public void testHelloEventBridge() {
         HelloEventBridge.listBuses(eventBrClient);
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
-
 }
