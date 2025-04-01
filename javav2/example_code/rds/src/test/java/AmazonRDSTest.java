@@ -3,6 +3,8 @@
 
 import com.example.rds.*;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.rds.RdsClient;
 import org.junit.jupiter.api.*;
@@ -22,7 +24,7 @@ import java.util.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonRDSTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(AmazonRDSTest.class);
     private static RdsClient rdsClient;
 
     private static String dbInstanceIdentifier = "";
@@ -76,67 +78,67 @@ public class AmazonRDSTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateDBInstance() {
+    public void testCreateDBInstance() {
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(RDSScenario.getSecretValues(secretDBName)), User.class);
         assertDoesNotThrow(() -> CreateDBInstance.createDatabaseInstance(rdsClient, dbInstanceIdentifier, dbName,
                 user.getUsername(), user.getPassword()));
-        System.out.println("CreateDBInstance test passed");
+        logger.info("CreateDBInstance test passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void waitForInstanceReady() {
+    public void testWaitForInstanceReady() {
         assertDoesNotThrow(() -> CreateDBInstance.waitForInstanceReady(rdsClient, dbInstanceIdentifier));
-        System.out.println("waitForInstanceReady test passed");
+        logger.info("waitForInstanceReady test passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void DescribeAccountAttributes() {
+    public void testDescribeAccountAttributes() {
         assertDoesNotThrow(() -> DescribeAccountAttributes.getAccountAttributes(rdsClient));
-        System.out.println("DescribeAccountAttributes test passed");
+        logger.info("DescribeAccountAttributes test passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void DescribeDBInstances() {
+    public void testDescribeDBInstances() {
         assertDoesNotThrow(() -> DescribeDBInstances.describeInstances(rdsClient));
-        System.out.println("DescribeDBInstances test passed");
+        logger.info("DescribeDBInstances test passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ModifyDBInstance() {
+    public void testModifyDBInstance() {
         assertDoesNotThrow(
                 () -> ModifyDBInstance.updateIntance(rdsClient, dbInstanceIdentifier, newMasterUserPassword));
-        System.out.println("ModifyDBInstance test passed");
+        logger.info("ModifyDBInstance test passed");
     }
 
     @Test
     @Order(6)
-    public void CreateDBSnapshot() {
+    public void testCreateDBSnapshot() {
         assertDoesNotThrow(
                 () -> CreateDBSnapshot.createSnapshot(rdsClient, dbInstanceIdentifier, dbSnapshotIdentifier));
-        System.out.println("CreateDBSnapshot test passed");
+        logger.info("CreateDBSnapshot test passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void DeleteDBInstance() {
+    public void testDeleteDBInstance() {
         assertDoesNotThrow(() -> DeleteDBInstance.deleteDatabaseInstance(rdsClient, dbInstanceIdentifier));
-        System.out.println("DeleteDBInstance test passed");
+        logger.info("DeleteDBInstance test passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void TestRDSScenario() {
+    public void testRDSScenario() {
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(RDSScenario.getSecretValues(secretDBName)), User.class);
         assertDoesNotThrow(() -> RDSScenario.describeDBEngines(rdsClient));
@@ -163,7 +165,7 @@ public class AmazonRDSTest {
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-    public void TestAuroraScenario() throws InterruptedException {
+    public void testAuroraScenario() throws InterruptedException {
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(RDSScenario.getSecretValues(secretDBName)), User.class);
         System.out.println("1. Return a list of the available DB engines");

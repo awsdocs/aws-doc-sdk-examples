@@ -7,6 +7,9 @@ import com.example.redshift.scenario.RedshiftScenario;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshift.RedshiftClient;
@@ -31,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonRedshiftTest {
+    private static final Logger logger = LoggerFactory.getLogger(AmazonRedshiftTest.class);
     private static RedshiftClient redshiftClient;
     private static RedshiftDataClient redshiftDataClient;
     static RedshiftActions redshiftActions = new RedshiftActions();
@@ -68,19 +72,19 @@ public class AmazonRedshiftTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void helloRedshift() {
+    public void testHelloRedshift() {
         assertDoesNotThrow(() -> HelloRedshift.listClustersPaginator(redshiftClient));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void createCluster() {
+    public void testCreateCluster() {
         try {
             CompletableFuture<CreateClusterResponse> future = redshiftActions.createClusterAsync(clusterId, userName, userPassword);
             future.join();
-            System.out.println("Cluster successfully created.");
+            logger.info("Cluster successfully created.");
 
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
@@ -90,104 +94,105 @@ public class AmazonRedshiftTest {
                 System.out.println("An unexpected error occurred: " + rt.getMessage());
             }
         }
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void waitCluster() {
+    public void testWaitCluster() {
         assertDoesNotThrow(() -> {
             CompletableFuture<Void> future = redshiftActions.waitForClusterReadyAsync(clusterId);
             future.join();
         });
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void listDatabases() {
+    public void testListDatabases() {
         assertDoesNotThrow(() -> {
             CompletableFuture<Void> future = redshiftActions.listAllDatabasesAsync(clusterId, userName, "dev");
             future.join();
         });
-        System.out.println("Test 3 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void createDatabaseTable() {
+    public void testCreateDatabaseTable() {
         assertDoesNotThrow(() -> {
             CompletableFuture<ExecuteStatementResponse> future = redshiftActions.createTableAsync(clusterId, databaseName, userName);
             future.join();
         });
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void popDatabaseTable() {
+    public void testPopDatabaseTable() {
         assertDoesNotThrow(() -> {
             redshiftActions.popTableAsync(clusterId, databaseName, userName, fileNameSc, 50).join();
         });
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void queryDatabaseTable() {
+    public void testQueryDatabaseTable() {
         assertDoesNotThrow(() -> {
             CompletableFuture<String> future = redshiftActions.queryMoviesByYearAsync(databaseName, userName, 2014, clusterId);
             id = future.join();
         });
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void checkStatement() {
+    public void testCheckStatement() {
         assertDoesNotThrow(() -> {
             CompletableFuture<Void> future = redshiftActions.checkStatementAsync(id);
             future.join();
         });
-        System.out.println("Test 8 passed");
+        logger.info("Test 8 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-    public void getResults() {
+    public void testGetResults() {
         assertDoesNotThrow(() -> {
             CompletableFuture<Void> future = redshiftActions.getResultsAsync(id);
             future.join();
         });
-        System.out.println("Test 9 passed");
+        logger.info("Test 9 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(10)
-    public void modifyDatabase() {
+    public void testModifyDatabase() {
         assertDoesNotThrow(() -> {
             CompletableFuture<ModifyClusterResponse> future = redshiftActions.modifyClusterAsync(clusterId);;
             future.join();
         });
-        System.out.println("Test 10 passed");
+        logger.info("Test 10 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(11)
-    public void deleteDatabase() {
+    public void testDeleteDatabase() {
         assertDoesNotThrow(() -> {
             CompletableFuture<DeleteClusterResponse> future = redshiftActions.deleteRedshiftClusterAsync(clusterId);;
             future.join();
         });
-        System.out.println("Test 11 passed");
+        logger.info("Test 11 passed");
     }
 
     private static String getSecretValues() {

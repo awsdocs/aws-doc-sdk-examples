@@ -27,6 +27,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.model.NotificationChannel;
@@ -42,6 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RekognitionTest {
+    private static final Logger logger = LoggerFactory.getLogger(RekognitionTest.class);
     private static RekognitionClient rekClient;
     private static NotificationChannel channel;
     private static String facesImage = "";
@@ -97,7 +100,7 @@ public class RekognitionTest {
         assertDoesNotThrow(() ->
                 DetectFaces.detectFacesinImage(rekClient, bucketName, facesImage)
         );
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -105,7 +108,7 @@ public class RekognitionTest {
     @Order(2)
     public void testRecognizeCelebrities() {
         assertDoesNotThrow(() -> RecognizeCelebrities.recognizeAllCelebrities(rekClient, bucketName, celebritiesImage));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -113,7 +116,7 @@ public class RekognitionTest {
     @Order(3)
     public void testCompareFaces() {
         assertDoesNotThrow(() -> CompareFaces.compareTwoFaces(rekClient, bucketName, facesImage, faceImage2));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -121,7 +124,7 @@ public class RekognitionTest {
     @Order(4)
     public void testCelebrityInfo() {
         assertDoesNotThrow(() -> CelebrityInfo.getCelebrityInfo(rekClient, celId));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -129,7 +132,7 @@ public class RekognitionTest {
     @Order(5)
     public void testDetectLabels() {
         assertDoesNotThrow(() -> DetectLabels.detectImageLabels(rekClient, bucketName, moutainImage));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -137,7 +140,7 @@ public class RekognitionTest {
     @Order(6)
     public void testCreateCollection() {
         assertDoesNotThrow(() -> CreateCollection.createMyCollection(rekClient, collectionName));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
@@ -145,7 +148,7 @@ public class RekognitionTest {
     @Order(7)
     public void testAddFacesToCollection() {
         assertDoesNotThrow(() -> AddFacesToCollection.addToCollection(rekClient, collectionName, bucketName, facesImage));
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 
     @Test
@@ -153,7 +156,7 @@ public class RekognitionTest {
     @Order(8)
     public void testListFacesCollection() {
         assertDoesNotThrow(() -> ListFacesInCollection.listFacesCollection(rekClient, collectionName));
-        System.out.println("Test 8 passed");
+        logger.info("Test 8 passed");
     }
 
     @Test
@@ -161,7 +164,7 @@ public class RekognitionTest {
     @Order(9)
     public void testListCollections() {
         assertDoesNotThrow(() -> ListCollections.listAllCollections(rekClient));
-        System.out.println("Test 9 passed");
+        logger.info("Test 9 passed");
     }
 
     @Test
@@ -169,7 +172,7 @@ public class RekognitionTest {
     @Order(10)
     public void testDescribeCollection() {
         assertDoesNotThrow(() -> DescribeCollection.describeColl(rekClient, collectionName));
-        System.out.println("Test 10 passed");
+        logger.info("Test 10 passed");
     }
 
     @Test
@@ -177,7 +180,7 @@ public class RekognitionTest {
     @Order(11)
     public void testDetectPPE() {
         assertDoesNotThrow(() -> DetectPPE.displayGear(rekClient, ppeImage, bucketName));
-        System.out.println("Test 11 passed");
+        logger.info("Test 11 passed");
     }
 
     @Test
@@ -185,7 +188,7 @@ public class RekognitionTest {
     @Order(12)
     public void testDetectModImage() {
         assertDoesNotThrow(() -> DetectModerationLabels.detectModLabels(rekClient, bucketName, modImage));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -194,7 +197,7 @@ public class RekognitionTest {
     public void testVideoDetectFaces() {
         assertDoesNotThrow(() -> VideoDetectFaces.startFaceDetection(rekClient, channel, bucketName, celVid));
         assertDoesNotThrow(() -> VideoDetectFaces.getFaceResults(rekClient));
-        System.out.println("Test 13 passed");
+        logger.info("Test 13 passed");
     }
 
     @Test
@@ -204,7 +207,7 @@ public class RekognitionTest {
         assertDoesNotThrow(
                 () -> VideoDetectInappropriate.startModerationDetection(rekClient, channel, bucketName, modVid));
         assertDoesNotThrow(() -> VideoDetectInappropriate.getModResults(rekClient));
-        System.out.println("Test 14 passed");
+        logger.info("Test 14 passed");
     }
 
     @Test
@@ -213,7 +216,7 @@ public class RekognitionTest {
     public void testVideoDetectText() {
         assertDoesNotThrow(() -> VideoDetectText.startTextLabels(rekClient, channel, bucketName, textVid));
         assertDoesNotThrow(() -> VideoDetectText.getTextResults(rekClient));
-        System.out.println("Test 15 passed");
+        logger.info("Test 15 passed");
     }
 
 
@@ -222,7 +225,7 @@ public class RekognitionTest {
     @Order(16)
     public void testDeleteCollection() {
         assertDoesNotThrow(() -> DeleteCollection.deleteMyCollection(rekClient, collectionName));
-        System.out.println("Test 16 passed");
+        logger.info("Test 16 passed");
     }
 
     private static String getSecretValues() {
