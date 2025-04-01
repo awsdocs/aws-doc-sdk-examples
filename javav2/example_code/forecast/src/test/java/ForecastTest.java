@@ -6,6 +6,9 @@ import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import java.util.*;
@@ -22,6 +25,7 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ForecastTest {
+    private static final Logger logger = LoggerFactory.getLogger(ForecastTest.class);
     private static ForecastClient forecast;
     private static String predARN = "";
     private static String forecastArn = ""; // set in test 3
@@ -49,61 +53,61 @@ public class ForecastTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateDataSet() {
+    public void testCreateDataSet() {
         myDataSetARN = CreateDataSet.createForecastDataSet(forecast, dataSet);
         assertFalse(myDataSetARN.isEmpty());
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void CreateForecast() {
+    public void testCreateForecast() {
         forecastArn = CreateForecast.createNewForecast(forecast, forecastName, predARN);
         assertFalse(forecastArn.isEmpty());
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void ListDataSets() {
+    public void testListDataSets() {
         assertDoesNotThrow(() -> ListDataSets.listForecastDataSets(forecast));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void ListDataSetGroups() {
+    public void testListDataSetGroups() {
         assertDoesNotThrow(() -> ListDataSetGroups.listDataGroups(forecast));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ListForecasts() {
+    public void testListForecasts() {
         assertDoesNotThrow(() -> ListForecasts.listAllForeCasts(forecast));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void DeleteDataSet() {
+    public void testDeleteDataSet() {
         assertDoesNotThrow(() -> DeleteDataset.deleteForecastDataSet(forecast, myDataSetARN));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void DeleteForecast() throws InterruptedException {
+    public void testDeleteForecast() throws InterruptedException {
         System.out.println("Wait 40 mins for resource to become available.");
         TimeUnit.MINUTES.sleep(40);
         assertDoesNotThrow(() -> DeleteForecast.delForecast(forecast, forecastArn));
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 
     private static String getSecretValues() {
