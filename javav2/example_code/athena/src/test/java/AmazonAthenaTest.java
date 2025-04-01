@@ -3,6 +3,8 @@
 
 import aws.example.athena.*;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.athena.AthenaClient;
@@ -15,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonAthenaTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(AmazonAthenaTest.class);
     private static AthenaClient athenaClient;
     private static String nameQuery;
 
@@ -48,49 +50,49 @@ public class AmazonAthenaTest {
 
     @Test
     @Order(1)
-    public void CreateNamedQueryExample() {
+    public void testCreateNamedQueryExample() {
         assertDoesNotThrow(() -> CreateNamedQueryExample.createNamedQuery(athenaClient, nameQuery));
-        System.out.println("Test passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Order(2)
-    public void ListNamedQueryExample() {
+    public void testListNamedQueryExample() {
         assertDoesNotThrow(() -> ListNamedQueryExample.listNamedQueries(athenaClient));
-        System.out.println("Test passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Order(3)
-    public void ListQueryExecutionsExample() {
+    public void testListQueryExecutionsExample() {
         assertDoesNotThrow(() -> ListQueryExecutionsExample.listQueryIds(athenaClient));
-        System.out.println("Test passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Order(4)
-    public void DeleteNamedQueryExample() {
+    public void testDeleteNamedQueryExample() {
         String sampleNamedQueryId = DeleteNamedQueryExample.getNamedQueryId(athenaClient, nameQuery);
         assertDoesNotThrow(() -> DeleteNamedQueryExample.deleteQueryName(athenaClient, sampleNamedQueryId));
-        System.out.println("Test passed");
+        logger.info("Test 4 passed");
 
     }
 
     @Test
     @Order(5)
-    public void StartQueryExample() {
+    public void testStartQueryExample() {
         String queryExecutionId = StartQueryExample.submitAthenaQuery(athenaClient);
         assertDoesNotThrow(() -> StartQueryExample.waitForQueryToComplete(athenaClient, queryExecutionId));
         assertDoesNotThrow(() -> StartQueryExample.processResultRows(athenaClient, queryExecutionId));
-        System.out.println("Test passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
     @Order(6)
-    public void StopQueryExecutionExample() {
+    public void testStopQueryExecutionExample() {
         String sampleQueryExecutionId = StopQueryExecutionExample.submitAthenaQuery(athenaClient);
         assertDoesNotThrow(() -> StopQueryExecutionExample.stopAthenaQuery(athenaClient, sampleQueryExecutionId));
-        System.out.println("Test passed");
+        logger.info("Test 6 passed");
     }
 }
 
