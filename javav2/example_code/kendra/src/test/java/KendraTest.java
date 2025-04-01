@@ -58,7 +58,7 @@ public class KendraTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateIndex() {
+    public void testCreateIndex() {
         indexId = CreateIndexAndDataSourceExample.createIndex(kendra, indexDescription, indexName, indexRoleArn);
         assertFalse(indexId.isEmpty());
         logger.info("Test 1 passed");
@@ -67,7 +67,7 @@ public class KendraTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void CreateDataSource() {
+    public void testCreateDataSource() {
         dataSourceId = CreateIndexAndDataSourceExample.createDataSource(kendra, s3BucketName, dataSourceName,
                 dataSourceDescription, indexId, dataSourceRoleArn);
         assertFalse(dataSourceId.isEmpty());
@@ -77,7 +77,7 @@ public class KendraTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void SyncDataSource() {
+    public void testSyncDataSource() {
         assertDoesNotThrow(() -> CreateIndexAndDataSourceExample.startDataSource(kendra, indexId, dataSourceId));
         logger.info("Test 3 passed");
     }
@@ -85,7 +85,7 @@ public class KendraTest {
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void ListSyncJobs() {
+    public void testListSyncJobs() {
         assertDoesNotThrow(() -> ListDataSourceSyncJobs.listSyncJobs(kendra, indexId, dataSourceId));
         logger.info("Test 4 passed");
     }
@@ -93,7 +93,7 @@ public class KendraTest {
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void QueryIndex() {
+    public void testQueryIndex() {
         assertDoesNotThrow(() -> QueryIndex.querySpecificIndex(kendra, indexId, text));
         logger.info("Test 5 passed");
     }
@@ -101,7 +101,7 @@ public class KendraTest {
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void DeleteDataSource() {
+    public void testDeleteDataSource() {
         assertDoesNotThrow(() -> DeleteDataSource.deleteSpecificDataSource(kendra, indexId, dataSourceId));
         logger.info("Test 6 passed");
     }
@@ -109,7 +109,7 @@ public class KendraTest {
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void DeleteIndex() {
+    public void testDeleteIndex() {
         assertDoesNotThrow(() -> DeleteIndex.deleteSpecificIndex(kendra, indexId));
         logger.info("Test 7 passed");
     }
