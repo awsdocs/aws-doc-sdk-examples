@@ -22,7 +22,7 @@
     "@aws-cdk/aws-iam": "^1.204.0",
     "@aws-cdk/aws-s3": "^1.204.0",
     "@aws-cdk/core": "^1.204.0",
-    "aws-cdk-lib": "2.95.1",
+    "aws-cdk-lib": "2.184.0",
     "constructs": "^10.0.0",
     "js-yaml": "^4.1.0",
     "source-map-support": "^0.5.21",
