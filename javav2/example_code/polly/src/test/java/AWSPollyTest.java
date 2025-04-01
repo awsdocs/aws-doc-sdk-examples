@@ -8,6 +8,8 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -19,7 +21,7 @@ import java.io.*;
 
 public class AWSPollyTest {
     private static PollyClient polly;
-
+    private static final Logger logger = LoggerFactory.getLogger(AWSPollyTest.class);
     @BeforeAll
     public static void setUp() {
         polly = PollyClient.builder()
@@ -32,7 +34,7 @@ public class AWSPollyTest {
     @Order(1)
     public void describeVoicesSample() {
         assertDoesNotThrow(() ->DescribeVoicesSample.describeVoice(polly));
-        System.out.println("describeVoicesSample test passed");
+        logger.info("describeVoicesSample test passed");
     }
 
     @Test
@@ -40,6 +42,6 @@ public class AWSPollyTest {
     @Order(2)
     public void listLexicons() {
         assertDoesNotThrow(() ->ListLexicons.listLexicons(polly));
-        System.out.println("listLexicons test passed");
+        logger.info("listLexicons test passed");
     }
 }
