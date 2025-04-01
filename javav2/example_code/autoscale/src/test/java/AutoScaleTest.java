@@ -10,14 +10,9 @@ import com.example.autoscaling.DeleteAutoScalingGroup;
 import com.example.autoscaling.DescribeAutoScalingInstances;
 import com.example.autoscaling.DetachInstances;
 import com.google.gson.Gson;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.autoscaling.AutoScalingClient;
 
 import java.io.IOException;
@@ -35,6 +30,7 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AutoScaleTest {
+    private static final Logger logger = LoggerFactory.getLogger(AutoScaleTest.class);
     private static AutoScalingClient autoScalingClient;
     private static String groupName = "";
     private static String groupNameSc = "";
@@ -62,6 +58,7 @@ public class AutoScaleTest {
     }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(1)
     public void autoScalingScenario() throws InterruptedException {
         System.out.println("**** Create an Auto Scaling group named " + groupName);
@@ -111,6 +108,7 @@ public class AutoScaleTest {
 
         System.out.println("**** Delete the Auto Scaling group");
         AutoScalingScenario.deleteAutoScalingGroup(autoScalingClient, groupNameSc);
+        logger.info("Test 1 passed");
     }
 
     private static String getSecretValues() {
