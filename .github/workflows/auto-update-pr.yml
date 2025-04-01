@@ -1,8 +1,9 @@
 name: "Keep PRs Updated from Main"
 on:
-  push:
-    branches:
-      - main
+  # disabled on push until testing is complete
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:
 jobs:
   autoupdate:
