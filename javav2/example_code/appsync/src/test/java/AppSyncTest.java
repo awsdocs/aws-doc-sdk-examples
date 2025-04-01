@@ -6,6 +6,9 @@ import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.appsync.AppSyncClient;
 import java.io.*;
@@ -21,6 +24,7 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AppSyncTest {
+    private static final Logger logger = LoggerFactory.getLogger(AppSyncTest.class);
     private static AppSyncClient appSyncClient;
     private static String apiId = "";
     private static String dsName = "";
@@ -54,7 +58,7 @@ public class AppSyncTest {
     public void CreateApiKey() {
         keyId = CreateApiKey.createKey(appSyncClient, apiId);
         assertFalse(keyId.isEmpty());
-        System.out.println("Test 2 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -63,7 +67,7 @@ public class AppSyncTest {
     public void CreateDataSource() {
         dsARN = CreateDataSource.createDS(appSyncClient, dsName, reg, dsRole, apiId, tableName);
         assertFalse(dsARN.isEmpty());
-        System.out.println("Test 3 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -71,7 +75,7 @@ public class AppSyncTest {
     @Order(3)
     public void GetDataSource() {
         assertDoesNotThrow(() -> GetDataSource.getDS(appSyncClient, apiId, dsName));
-        System.out.println("Test 4 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -79,7 +83,7 @@ public class AppSyncTest {
     @Order(4)
     public void ListGraphqlApis() {
         assertDoesNotThrow(() -> ListGraphqlApis.getApis(appSyncClient));
-        System.out.println("Test 5 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -87,7 +91,7 @@ public class AppSyncTest {
     @Order(5)
     public void ListApiKeys() {
         assertDoesNotThrow(() -> ListApiKeys.getKeys(appSyncClient, apiId));
-        System.out.println("Test 6 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -95,7 +99,7 @@ public class AppSyncTest {
     @Order(6)
     public void DeleteDataSource() {
         assertDoesNotThrow(() -> DeleteDataSource.deleteDS(appSyncClient, apiId, dsName));
-        System.out.println("Test 7 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
@@ -103,7 +107,7 @@ public class AppSyncTest {
     @Order(7)
     public void DeleteApiKey() {
         assertDoesNotThrow(() -> DeleteApiKey.deleteKey(appSyncClient, keyId, apiId));
-        System.out.println("Test 8 passed");
+        logger.info("Test 7 passed");
     }
 
     private static String getSecretValues() {
