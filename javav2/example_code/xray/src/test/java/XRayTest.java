@@ -3,7 +3,8 @@
 
 import com.example.xray.*;
 import com.google.gson.Gson;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class XRayTest {
+    private static final Logger logger = LoggerFactory.getLogger(XRayTest.class);
     private static XRayClient xRayClient;
     private static String groupName = "";
     private static String newGroupName = "";
@@ -28,7 +30,7 @@ public class XRayTest {
 
     @BeforeAll
     public static void setUp() throws IOException {
-
+        org.apache.logging.log4j.LogManager.getContext(false);
         Region region = Region.US_EAST_1;
         xRayClient = XRayClient.builder()
                 .region(region)
@@ -49,41 +51,41 @@ public class XRayTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateGroup() {
+    public void testCreateGroup() {
         assertDoesNotThrow(() -> CreateGroup.createNewGroup(xRayClient, newGroupName));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void CreateSamplingRule() {
+    public void testCreateSamplingRule() {
         assertDoesNotThrow(() -> CreateSamplingRule.createRule(xRayClient, ruleName));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void GetGroups() {
+    public void testGetGroups() {
         assertDoesNotThrow(() -> GetGroups.getAllGroups(xRayClient));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void DeleteSamplingRule() {
+    public void testDeleteSamplingRule() {
         assertDoesNotThrow(() -> DeleteSamplingRule.deleteRule(xRayClient, ruleName));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void DeleteGroup() {
+    public void testDeleteGroup() {
         assertDoesNotThrow(() -> DeleteGroup.deleteSpecificGroup(xRayClient, newGroupName));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     private static String getSecretValues() {

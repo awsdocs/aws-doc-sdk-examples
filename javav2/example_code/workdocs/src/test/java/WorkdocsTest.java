@@ -7,6 +7,8 @@ import com.example.workdocs.ListUsers;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import com.example.workdocs.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
@@ -23,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class WorkdocsTest {
+    private static final Logger logger = LoggerFactory.getLogger(WorkdocsTest.class);
     private static WorkDocsClient workDocs;
     private static String orgId = "";
     private static String userEmail = "";;
@@ -54,17 +57,17 @@ public class WorkdocsTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void ListUserDocs() {
+    public void testListUserDocs() {
         assertDoesNotThrow(() -> ListUserDocs.listDocs(workDocs, orgId, userEmail));
-        System.out.println("Test 3 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void ListUsers() {
+    public void testListUsers() {
         assertDoesNotThrow(() -> ListUsers.getAllUsers(workDocs, orgId));
-        System.out.println("Test 4 passed");
+        logger.info("Test 2 passed");
     }
 
     private static String getSecretValues() {
