@@ -10,6 +10,9 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
@@ -25,6 +28,7 @@ import java.io.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TranslateTest {
+    private static final Logger logger = LoggerFactory.getLogger(TranslateTest.class);
     private static TranslateClient translateClient;
     private static Region region;
     private static String s3Uri = "";
@@ -53,34 +57,34 @@ public class TranslateTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void TranslateText() {
+    public void testTranslateText() {
         assertDoesNotThrow(() -> TranslateText.textTranslate(translateClient));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void BatchTranslation() {
+    public void testBatchTranslation() {
         jobId = BatchTranslation.translateDocuments(translateClient, s3Uri, s3UriOut, jobName, dataAccessRoleArn);
         assertFalse(jobId.isEmpty());
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void ListTextTranslationJobs() {
+    public void testListTextTranslationJobs() {
         assertDoesNotThrow(() -> ListTextTranslationJobs.getTranslationJobs(translateClient));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void DescribeTextTranslationJob() {
+    public void testDescribeTextTranslationJob() {
         assertDoesNotThrow(() -> DescribeTextTranslationJob.describeTextTranslationJob(translateClient, jobId));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     private static String getSecretValues() {
