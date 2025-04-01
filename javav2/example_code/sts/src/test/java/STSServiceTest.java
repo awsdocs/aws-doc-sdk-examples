@@ -6,6 +6,8 @@ import com.example.sts.GetAccessKeyInfo;
 import com.example.sts.GetCallerIdentity;
 import com.example.sts.GetSessionToken;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
@@ -22,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class STSServiceTest {
+    private static final Logger logger = LoggerFactory.getLogger(STSServiceTest.class);
     private static StsClient stsClient;
     private static String roleArn = "";
     private static String accessKeyId = "";
@@ -41,61 +44,38 @@ public class STSServiceTest {
         roleArn = values.getRoleArn();
         accessKeyId = values.getAccessKeyId();
         roleSessionName = values.getRoleSessionName();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * STSServiceTest.class.getClassLoader().getResourceAsStream("config.properties"
-         * )) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * roleArn = prop.getProperty("roleArn");
-         * accessKeyId = prop.getProperty("accessKeyId");
-         * roleSessionName = prop.getProperty("roleSessionName");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void AssumeRole() {
+    public void testAssumeRole() {
         assertDoesNotThrow(() -> AssumeRole.assumeGivenRole(stsClient, roleArn, roleSessionName));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void GetSessionToken() {
+    public void testGetSessionToken() {
         assertDoesNotThrow(() -> GetSessionToken.getToken(stsClient));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void GetCallerIdentity() {
+    public void testGetCallerIdentity() {
         assertDoesNotThrow(() -> GetCallerIdentity.getCallerId(stsClient));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void GetAccessKeyInfo() {
+    public void testGetAccessKeyInfo() {
         assertDoesNotThrow(() -> GetAccessKeyInfo.getKeyInfo(stsClient, accessKeyId));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     private static String getSecretValues() {
