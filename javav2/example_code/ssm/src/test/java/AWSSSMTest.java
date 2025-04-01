@@ -6,6 +6,8 @@ import com.example.scenario.SSMScenario;
 import com.example.ssm.*;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,6 +26,7 @@ import java.util.Date;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AWSSSMTest {
+    private static final Logger logger = LoggerFactory.getLogger(AWSSSMTest.class);
     private static SsmClient ssmClient;
     private static String paraName = "";
     private static String title = "";
@@ -60,23 +63,23 @@ public class AWSSSMTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void HelloSSM() {
+    public void testHelloSSM() {
         assertDoesNotThrow(() -> HelloSSM.listDocuments(ssmClient, account));
-        System.out.println("Integration Test 1 passed");
+        logger.info("Integration Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void GetParameter() {
+    public void testGetParameter() {
         assertDoesNotThrow(() -> GetParameter.getParaValue(ssmClient, paraName));
-        System.out.println("Integration Test 2 passed");
+        logger.info("Integration Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void InvokeScenario() {
+    public void testInvokeScenario() {
         SSMActions actions = new SSMActions();
         String currentDateTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String maintenanceWindowName = "windowmain_" + currentDateTime;
@@ -101,7 +104,7 @@ public class AWSSSMTest {
         assertDoesNotThrow(() -> actions.deleteDoc(documentName));
         assertDoesNotThrow(() -> actions.deleteMaintenanceWindow(maintenanceWindowId));
 
-        System.out.println("Test passed");
+        logger.info("Test 3 passed");
     }
 
    private static String getSecretValues() {
