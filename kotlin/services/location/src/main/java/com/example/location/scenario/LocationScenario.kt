@@ -53,7 +53,7 @@ suspend fun main(args: Array<String>) {
             Usage:    <mapName> <keyName> <collectionName> <geoId> <trackerName> <calculatorName> <deviceId>
 
             Where:
-              mapName - The name of the map to be create (e.g., "AWSMap").
+              mapName - The name of the map to create (e.g., "AWSMap").
               keyName - The name of the API key to create (e.g., "AWSApiKey").
               collectionName - The name of the geofence collection (e.g., "AWSLocationCollection").
               geoId - The geographic identifier used for the geofence or map (e.g., "geoId").
