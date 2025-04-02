@@ -321,7 +321,7 @@ location_DeleteRouteCalculator:
           excerpts:
             - description:
               snippet_tags:
-                - location.kotlin.kotlin.tracker.main
+                - location.kotlin.delete.calculator.main
     Java:
       versions:
         - sdk_version: 2
