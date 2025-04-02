@@ -1,5 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
+// snippet-start:[Bedrock.ConverseTool.javascript.Scenario]
+
+/* Before running this JavaScript code example, set up your development environment, including your credentials.
+This demo illustrates a tool use scenario using Amazon Bedrock's Converse API and a weather tool.
+The script interacts with a foundation model on Amazon Bedrock to provide weather information based on user
+input. It uses the Open-Meteo API (https://open-meteo.com) to retrieve current weather data for a given location.*/
+
 import {
   Scenario,
   ScenarioAction,
@@ -40,27 +48,30 @@ const systemPrompt = [
   },
 ];
 const tools_config = toolConfig;
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+
+/// Starts the conversation with the user and handles the interaction with Bedrock.
+async function askQuestion(userMessage) {
+  // The maximum number of recursive calls allowed in the tool use function.
+  // This helps prevent infinite loops and potential performance issues.
+  const max_recursions = 5;
+  const messages = [
+    {
+      role: "user",
+      content: [{ text: userMessage }],
+    },
+  ];
+  try {
+    const response = await SendConversationtoBedrock(messages);
+    await ProcessModelResponseAsync(response, messages, max_recursions);
+  } catch (error) {
+    console.log("error ", error);
+  }
 }
-const callWeatherTool = async (longitude, latitude) => {
-  // Open-Meteo API endpoint
-  const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
 
-  // Fetch the weather data.
-  return fetch(apiUrl)
-    .then((response) => {
-      return response.json().then((current_weather) => {
-        return current_weather;
-      });
-    })
-    .catch((error) => {
-      console.error("Error fetching weather data:", error);
-    });
-};
-const default_prompt = "What is the weather like in Seattle?";
-
-async function sendConversationtoBedrock(messages) {
+// Sends the conversation, the system prompt, and the tool spec to Amazon Bedrock, and returns the response.
+// param "messages" - The conversation history including the next message to send.
+// return - The response from Amazon Bedrock.
+async function SendConversationtoBedrock(messages) {
   const bedRockRuntimeClient = new BedrockRuntimeClient({
     region: "us-east-1",
   });
@@ -76,17 +87,28 @@ async function sendConversationtoBedrock(messages) {
   return response;
 }
 
-async function ProcessModelResponseAsync(response, messages) {
-  if (response.stopReason === "tool_use") {
+// Processes the response received via Amazon Bedrock and performs the necessary actions based on the stop reason.
+// param - "response" - The model's response returned via Amazon Bedrock.
+// param "messages" - The conversation history.
+// param "max_recursions" - The maximum number of recursive calls allowed.
+async function ProcessModelResponseAsync(response, messages, max_recursions) {
+  if (max_recursions <= 0) {
     await HandleToolUseAsync(response, messages);
+  }
+  if (response.stopReason === "tool_use") {
+    await HandleToolUseAsync(response, messages, max_recursions - 1);
   }
   if (response.stopReason === "end_turn") {
     const messageToPrint = response.output.message.content[0].text;
     console.log(messageToPrint.replace(/<[^>]+>/g, ""));
   }
 }
-
-async function HandleToolUseAsync(response, messages) {
+// Handles the tool use case by invoking the specified tool and sending the tool's response back to Bedrock.
+// The tool response is appended to the conversation, and the conversation is sent back to Amazon Bedrock for further processing.
+// param - "response">The model's response containing the tool use request.
+// param - "messages">The conversation history.
+// param = max_recursions">The maximum number of recursive calls allowed.
+async function HandleToolUseAsync(response, messages, max_recursions) {
   const toolResultFinal = [];
   try {
     const output_message = response.output.message;
@@ -136,31 +158,32 @@ async function HandleToolUseAsync(response, messages) {
     messages.push(toolResultMessage);
     // Send the conversation to Amazon Bedrock
     await ProcessModelResponseAsync(
-      await sendConversationtoBedrock(messages),
+      await SendConversationtoBedrock(messages),
       messages,
     );
   } catch (error) {
     console.log("error1 ", error);
   }
 }
+// Call the Weathertool
+// param = longitude of location
+// param = latitude of location
+async function callWeatherTool(longitude, latitude) {
+  // Open-Meteo API endpoint
+  const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
 
-async function askQuestion(userMessage) {
-  // The maximum number of recursive calls allowed in the tool use function.
-  // This helps prevent infinite loops and potential performance issues.
-  const max_recursions = 5;
-  const messages = [
-    {
-      role: "user",
-      content: [{ text: userMessage }],
-    },
-  ];
-  try {
-    const response = await sendConversationtoBedrock(messages);
-    await ProcessModelResponseAsync(response, messages);
-  } catch (error) {
-    console.log("error ", error);
-  }
+  // Fetch the weather data.
+  return fetch(apiUrl)
+    .then((response) => {
+      return response.json().then((current_weather) => {
+        return current_weather;
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching weather data:", error);
+    });
 }
+const default_prompt = "What is the weather like in Seattle?";
 
 /**
  * Used repeatedly to have the user press enter.
@@ -281,3 +304,4 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   });
   main({ confirmAll: values.yes });
 }
+// snippet-end:[Bedrock.ConverseTool.javascript.Scenario]
