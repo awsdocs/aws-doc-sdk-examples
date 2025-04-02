@@ -32,16 +32,16 @@ public class AWSPollyTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void describeVoicesSample() {
+    public void testDescribeVoicesSample() {
         assertDoesNotThrow(() ->DescribeVoicesSample.describeVoice(polly));
-        logger.info("describeVoicesSample test passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void listLexicons() {
+    public void testListLexicons() {
         assertDoesNotThrow(() ->ListLexicons.listLexicons(polly));
-        logger.info("listLexicons test passed");
+        logger.info("Test 2 passed");
     }
 }
