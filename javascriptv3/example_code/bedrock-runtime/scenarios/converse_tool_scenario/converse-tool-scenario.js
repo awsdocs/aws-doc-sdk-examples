@@ -1,0 +1,283 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+import {
+  Scenario,
+  ScenarioAction,
+  ScenarioInput,
+  ScenarioOutput,
+  //} from "@aws-doc-sdk-examples/lib/scenario/index.js";
+} from "../../../libs/scenario/index.js";
+import {
+  BedrockRuntimeClient,
+  ConverseCommand,
+} from "@aws-sdk/client-bedrock-runtime";
+
+import { parseArgs } from "node:util";
+import { fileURLToPath } from "node:url";
+import { dirname } from "node:path";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+import data from "./questions.json" with { type: "json" };
+import toolConfig from "./tool_config.json" with { type: "json" };
+
+const systemPrompt = [
+  {
+    text:
+      "You are a weather assistant that provides current weather data for user-specified locations using only\n" +
+      "the Weather_Tool, which expects latitude and longitude. Infer the coordinates from the location yourself.\n" +
+      "If the user provides coordinates, infer the approximate location and refer to it in your response.\n" +
+      "To use the tool, you strictly apply the provided tool specification.\n" +
+      "\n" +
+      "- Explain your step-by-step process, and give brief updates before each step.\n" +
+      "- Only use the Weather_Tool for data. Never guess or make up information. \n" +
+      "- Repeat the tool use for subsequent requests if necessary.\n" +
+      "- If the tool errors, apologize, explain weather is unavailable, and suggest other options.\n" +
+      "- Report temperatures in °C (°F) and wind in km/h (mph). Keep weather reports concise. Sparingly use\n" +
+      "  emojis where appropriate.\n" +
+      "- Only respond to weather queries. Remind off-topic users of your purpose. \n" +
+      "- Never claim to search online, access external data, or use tools besides Weather_Tool.\n" +
+      "- Complete the entire process until you have all required data before sending the complete response.",
+  },
+];
+const tools_config = toolConfig;
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+const callWeatherTool = async (longitude, latitude) => {
+  // Open-Meteo API endpoint
+  const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
+
+  // Fetch the weather data.
+  return fetch(apiUrl)
+    .then((response) => {
+      return response.json().then((current_weather) => {
+        return current_weather;
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching weather data:", error);
+    });
+};
+const default_prompt = "What is the weather like in Seattle?";
+
+async function sendConversationtoBedrock(messages) {
+  const bedRockRuntimeClient = new BedrockRuntimeClient({
+    region: "us-east-1",
+  });
+  const modelId = "amazon.nova-lite-v1:0";
+  const response = await bedRockRuntimeClient.send(
+    new ConverseCommand({
+      modelId: modelId,
+      messages: messages,
+      system: systemPrompt,
+      toolConfig: tools_config,
+    }),
+  );
+  return response;
+}
+
+async function ProcessModelResponseAsync(response, messages) {
+  if (response.stopReason === "tool_use") {
+    await HandleToolUseAsync(response, messages);
+  }
+  if (response.stopReason === "end_turn") {
+    const messageToPrint = response.output.message.content[0].text;
+    console.log(messageToPrint.replace(/<[^>]+>/g, ""));
+  }
+}
+
+async function HandleToolUseAsync(response, messages) {
+  const toolResultFinal = [];
+  try {
+    const output_message = response.output.message;
+    messages.push(output_message);
+    const toolRequests = output_message.content;
+    const toolMessage = toolRequests[0].text;
+    console.log(toolMessage.replace(/<[^>]+>/g, ""));
+    for (const toolRequest of toolRequests) {
+      if (Object.hasOwn(toolRequest, "toolUse")) {
+        const toolUse = output_message.content[1].toolUse;
+        const toolUseID = toolUse.toolUseId;
+        const latitude = toolUse.input.latitude;
+        const longitude = toolUse.input.longitude;
+        console.log(
+          `Requesting tool ${toolUse.name}, Tool use id ${toolUse.toolUseId}`,
+        );
+        if (toolUse.name === "Weather_Tool") {
+          try {
+            let jsonData;
+            const current_weather = await callWeatherTool(
+              longitude,
+              latitude,
+            ).then((current_weather) => current_weather);
+            const currentWeather = current_weather;
+            const toolResult = {
+              toolResult: {
+                toolUseId: toolUseID,
+                content: [{ json: currentWeather }],
+              },
+            };
+            toolResultFinal.push(toolResult);
+          } catch (err) {
+            const toolResult = {
+              toolUseId: toolUseID,
+              content: [{ json: { text: err.message } }],
+              status: "error",
+            };
+          }
+        }
+      }
+    }
+    //
+    const toolResultMessage = {
+      role: "user",
+      content: toolResultFinal,
+    };
+    messages.push(toolResultMessage);
+    // Send the conversation to Amazon Bedrock
+    await ProcessModelResponseAsync(
+      await sendConversationtoBedrock(messages),
+      messages,
+    );
+  } catch (error) {
+    console.log("error1 ", error);
+  }
+}
+
+async function askQuestion(userMessage) {
+  // The maximum number of recursive calls allowed in the tool use function.
+  // This helps prevent infinite loops and potential performance issues.
+  const max_recursions = 5;
+  const messages = [
+    {
+      role: "user",
+      content: [{ text: userMessage }],
+    },
+  ];
+  try {
+    const response = await sendConversationtoBedrock(messages);
+    await ProcessModelResponseAsync(response, messages);
+  } catch (error) {
+    console.log("error ", error);
+  }
+}
+
+/**
+ * Used repeatedly to have the user press enter.
+ * @type {ScenarioInput}
+ */
+const pressEnter = new ScenarioInput("continue", "Press Enter to continue", {
+  type: "confirm",
+});
+
+const greet = new ScenarioOutput(
+  "greet",
+  "Welcome to the Amazon Bedrock Tool Use demo! \n" +
+    "This assistant provides current weather information for user-specified locations. " +
+    "You can ask for weather details by providing the location name or coordinates." +
+    "Weather information will be provided using a custom Tool and open-meteo API." +
+    "For the purposes of this example, we'll use in order the questions in ./questions.json :\n" +
+    "What's the weather like in Seattle? " +
+    "What's the best kind of cat? " +
+    "Where is the warmest city in Washington State right now? " +
+    "What's the warmest city in California right now?\n" +
+    "To exit the program, simply type 'x' and press Enter.\n" +
+    "Have fun and experiment with the app by editing the questions in ./questions.json! " +
+    "P.S.: You're not limited to single locations, or even to using English! ",
+
+  { header: true },
+);
+const displayAskQuestion1 = new ScenarioOutput(
+  "displayAskQuestion1",
+  "Press enter to ask question number 1 (default is 'What's the weather like in Seattle?')",
+);
+
+const askQuestion1 = new ScenarioAction(
+  "askQuestion1",
+  async (/** @type {State} */ state) => {
+    const userMessage1 = data.questions["question-1"];
+    await askQuestion(userMessage1);
+  },
+);
+
+const displayAskQuestion2 = new ScenarioOutput(
+  "displayAskQuestion2",
+  "Press enter to ask question number 2 (default is 'What's the best kind of cat?')",
+);
+
+const askQuestion2 = new ScenarioAction(
+  "askQuestion2",
+  async (/** @type {State} */ state) => {
+    const userMessage2 = data.questions["question-2"];
+    await askQuestion(userMessage2);
+  },
+);
+const displayAskQuestion3 = new ScenarioOutput(
+  "displayAskQuestion3",
+  "Press enter to ask question number 3 (default is 'Where is the warmest city in Washington State right now?')",
+);
+
+const askQuestion3 = new ScenarioAction(
+  "askQuestion3",
+  async (/** @type {State} */ state) => {
+    const userMessage3 = data.questions["question-3"];
+    await askQuestion(userMessage3);
+  },
+);
+
+const displayAskQuestion4 = new ScenarioOutput(
+  "displayAskQuestion4",
+  "Press enter to ask question number 4 (default is 'What's the warmest city in California right now?')",
+);
+
+const askQuestion4 = new ScenarioAction(
+  "askQuestion4",
+  async (/** @type {State} */ state) => {
+    const userMessage4 = data.questions["question-4"];
+    await askQuestion(userMessage4);
+  },
+);
+
+const goodbye = new ScenarioOutput(
+  "goodbye",
+  "Thank you for checking out the Amazon Bedrock Tool Use demo. We hope you\n" +
+    "learned something new, or got some inspiration for your own apps today!\n" +
+    "For more Bedrock examples in different programming languages, have a look at:\n" +
+    "https://docs.aws.amazon.com/bedrock/latest/userguide/service_code_examples.html",
+);
+
+const myScenario = new Scenario("Converse Tool Scenario", [
+  greet,
+  pressEnter,
+  displayAskQuestion1,
+  askQuestion1,
+  pressEnter,
+  displayAskQuestion2,
+  askQuestion2,
+  pressEnter,
+  displayAskQuestion3,
+  askQuestion3,
+  pressEnter,
+  displayAskQuestion4,
+  askQuestion4,
+  pressEnter,
+  goodbye,
+]);
+
+/** @type {{ stepHandlerOptions: StepHandlerOptions }} */
+export const main = async (stepHandlerOptions) => {
+  await myScenario.run(stepHandlerOptions);
+};
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const { values } = parseArgs({
+    options: {
+      yes: {
+        type: "boolean",
+        short: "y",
+      },
+    },
+  });
+  main({ confirmAll: values.yes });
+}
