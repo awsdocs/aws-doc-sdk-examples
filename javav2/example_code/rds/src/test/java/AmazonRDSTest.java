@@ -83,7 +83,7 @@ public class AmazonRDSTest {
         User user = gson.fromJson(String.valueOf(RDSScenario.getSecretValues(secretDBName)), User.class);
         assertDoesNotThrow(() -> CreateDBInstance.createDatabaseInstance(rdsClient, dbInstanceIdentifier, dbName,
                 user.getUsername(), user.getPassword()));
-        logger.info("CreateDBInstance test passed");
+        logger.info("\nTest 1 passed");
     }
 
     @Test
@@ -91,7 +91,7 @@ public class AmazonRDSTest {
     @Order(2)
     public void testWaitForInstanceReady() {
         assertDoesNotThrow(() -> CreateDBInstance.waitForInstanceReady(rdsClient, dbInstanceIdentifier));
-        logger.info("waitForInstanceReady test passed");
+        logger.info("\nTest 2 passed");
     }
 
     @Test
@@ -99,7 +99,7 @@ public class AmazonRDSTest {
     @Order(3)
     public void testDescribeAccountAttributes() {
         assertDoesNotThrow(() -> DescribeAccountAttributes.getAccountAttributes(rdsClient));
-        logger.info("DescribeAccountAttributes test passed");
+        logger.info("\nTest 3 passed");
     }
 
     @Test
@@ -107,7 +107,7 @@ public class AmazonRDSTest {
     @Order(4)
     public void testDescribeDBInstances() {
         assertDoesNotThrow(() -> DescribeDBInstances.describeInstances(rdsClient));
-        logger.info("DescribeDBInstances test passed");
+        logger.info("\nTest 4 passed");
     }
 
     @Test
@@ -116,7 +116,7 @@ public class AmazonRDSTest {
     public void testModifyDBInstance() {
         assertDoesNotThrow(
                 () -> ModifyDBInstance.updateIntance(rdsClient, dbInstanceIdentifier, newMasterUserPassword));
-        logger.info("ModifyDBInstance test passed");
+        logger.info("\nTest 5 passed");
     }
 
     @Test
@@ -124,7 +124,7 @@ public class AmazonRDSTest {
     public void testCreateDBSnapshot() {
         assertDoesNotThrow(
                 () -> CreateDBSnapshot.createSnapshot(rdsClient, dbInstanceIdentifier, dbSnapshotIdentifier));
-        logger.info("CreateDBSnapshot test passed");
+        logger.info("\nTest 6 passed");
     }
 
     @Test
@@ -132,7 +132,7 @@ public class AmazonRDSTest {
     @Order(7)
     public void testDeleteDBInstance() {
         assertDoesNotThrow(() -> DeleteDBInstance.deleteDatabaseInstance(rdsClient, dbInstanceIdentifier));
-        logger.info("DeleteDBInstance test passed");
+        logger.info("\nTest 7 passed");
     }
 
     @Test
@@ -159,7 +159,7 @@ public class AmazonRDSTest {
                 () -> RDSScenario.waitForSnapshotReady(rdsClient, dbInstanceIdentifierSc, dbSnapshotIdentifierSc));
         assertDoesNotThrow(() -> RDSScenario.deleteDatabaseInstance(rdsClient, dbInstanceIdentifierSc));
         assertDoesNotThrow(() -> RDSScenario.deleteParaGroup(rdsClient, dbGroupNameSc, dbARN));
-        System.out.println("TestRDSScenario test passed");
+        logger.info("\nTest 8 passed");
     }
 
     @Test
@@ -209,7 +209,7 @@ public class AmazonRDSTest {
         assertDoesNotThrow(() -> AuroraScenario.deleteCluster(rdsClient, dbInstanceClusterIdentifier));
         System.out.println("16. Delete the DB cluster group");
         assertDoesNotThrow(() -> AuroraScenario.deleteDBClusterGroup(rdsClient, dbClusterGroupName, clusterDBARN));
-        System.out.println("TestAuroraScenario test passed");
+        logger.info("\nTest 9 passed");
     }
 
     private static String getSecretValues() {

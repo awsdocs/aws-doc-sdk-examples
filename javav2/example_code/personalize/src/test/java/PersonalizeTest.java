@@ -66,7 +66,7 @@ public class PersonalizeTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateSolution() {
+    public void testCreateSolution() {
         solutionArn = CreateSolution.createPersonalizeSolution(personalizeClient, datasetGroupArn, solutionName,
                 recipeArn);
         assertFalse(solutionArn.isEmpty());
@@ -76,7 +76,7 @@ public class PersonalizeTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void ListSolutions() {
+    public void testListSolutions() {
         assertDoesNotThrow(() -> ListSolutions.listAllSolutions(personalizeClient, datasetGroupArn));
         logger.info("Test 2 passed");
     }
@@ -84,7 +84,7 @@ public class PersonalizeTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void DescribeSolution() {
+    public void testDescribeSolution() {
         assertDoesNotThrow(() -> DescribeSolution.describeSpecificSolution(personalizeClient, solutionArn));
         logger.info("Test 3 passed");
     }
@@ -92,7 +92,7 @@ public class PersonalizeTest {
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void CreateCampaign() {
+    public void testCreateCampaign() {
         campaignArn = CreateCampaign.createPersonalCompaign(personalizeClient, solutionVersionArn, campaignName);
         assertFalse(campaignArn.isEmpty());
         logger.info("Test 4 passed");
@@ -101,7 +101,7 @@ public class PersonalizeTest {
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ListCampaigns() {
+    public void testListCampaigns() {
         assertDoesNotThrow(() -> ListCampaigns.listAllCampaigns(personalizeClient, existingSolutionArn));
         logger.info("Test 5 passed");
     }
@@ -109,7 +109,7 @@ public class PersonalizeTest {
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void DescribeRecipe() {
+    public void testDescribeRecipe() {
         assertDoesNotThrow(() -> DescribeRecipe.describeSpecificRecipe(personalizeClient, recipeArn));
         logger.info("Test 6 passed");
     }
@@ -117,7 +117,7 @@ public class PersonalizeTest {
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void ListRecipes() {
+    public void testListRecipes() {
         assertDoesNotThrow(() -> ListRecipes.listAllRecipes(personalizeClient));
         logger.info("Test 7 passed");
     }
@@ -125,7 +125,7 @@ public class PersonalizeTest {
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void ListDatasetGroups() {
+    public void testListDatasetGroups() {
         assertDoesNotThrow(() -> ListDatasetGroups.listDSGroups(personalizeClient));
         logger.info("Test 8 passed");
     }
@@ -133,7 +133,7 @@ public class PersonalizeTest {
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-    public void DeleteSolution() {
+    public void testDeleteSolution() {
         assertDoesNotThrow(() -> DeleteSolution.deleteGivenSolution(personalizeClient, solutionArn));
         logger.info("Test 9 passed");
     }
@@ -142,7 +142,7 @@ public class PersonalizeTest {
     @Test
     @Tag("IntegrationTest")
     @Order(10)
-    public void DeleteCampaign() {
+    public void testDeleteCampaign() {
         assertDoesNotThrow(() -> {
             DeleteCampaign.waitForCampaignToBeDeletable(personalizeClient, campaignArn);
             DeleteCampaign.deleteSpecificCampaign(personalizeClient, campaignArn);

@@ -38,9 +38,6 @@ public class CloudTrailTest {
         SecretValues values = gson.fromJson(json, SecretValues.class);
         trailName = values.getTrailName();
         s3BucketName = values.getS3BucketName();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
     }
 
     @Test

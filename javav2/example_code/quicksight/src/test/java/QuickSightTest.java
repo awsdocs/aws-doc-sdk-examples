@@ -51,66 +51,66 @@ public class QuickSightTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void DescribeAnalysis() {
+    public void testDescribeAnalysis() {
         assertDoesNotThrow(() -> DescribeAnalysis.describeSpecificAnalysis(qsClient, account, analysisId));
-        logger.info("DescribeAnalysis test passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void DescribeDashboard() {
+    public void testDescribeDashboard() {
         assertDoesNotThrow(() -> DescribeDashboard.describeSpecificDashboard(qsClient, account, dashboardId));
-        logger.info("DescribeDashboard test passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void DescribeTemplate() {
+    public void testDescribeTemplate() {
         assertDoesNotThrow(() -> DescribeTemplate.describeSpecificTemplate(qsClient, account, templateId));
-        logger.info("DescribeTemplate test passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void ListThemes() {
+    public void testListThemes() {
         assertDoesNotThrow(() -> ListThemes.listAllThemes(qsClient, account));
-        logger.info("ListThemes test passed");
+        logger.info("Test 4  passed");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(5)
+    public void testListAnalyses() {
+        assertDoesNotThrow(() -> ListAnalyses.listAllAnAnalyses(qsClient, account));
+        logger.info("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void ListAnalyses() {
-        assertDoesNotThrow(() -> ListAnalyses.listAllAnAnalyses(qsClient, account));
-        logger.info("ListAnalyses test passed");
+    public void testListDashboards() {
+        assertDoesNotThrow(() -> ListDashboards.listAllDashboards(qsClient, account));
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void ListDashboards() {
-        assertDoesNotThrow(() -> ListDashboards.listAllDashboards(qsClient, account));
-        logger.info("ListDashboards test passed");
+    public void testListTemplates() {
+        assertDoesNotThrow(() -> ListTemplates.listAllTemplates(qsClient, account));
+        logger.info("Test 7 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void ListTemplates() {
-        assertDoesNotThrow(() -> ListTemplates.listAllTemplates(qsClient, account));
-        logger.info("ListTemplates test passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(9)
-    public void UpdateDashboard() {
+    public void testUpdateDashboard() {
         assertDoesNotThrow(
                 () -> UpdateDashboard.updateSpecificDashboard(qsClient, account, dashboardId, dataSetArn, analysisArn));
-        logger.info("UpdateDashboard test passed");
+        logger.info("Test 8 passed");
     }
 
     private static String getSecretValues() {

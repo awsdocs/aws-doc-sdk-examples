@@ -45,11 +45,8 @@ public class CloudWatchTest {
     private static String dashboardJsonSc = "";
     private static String dashboardAddSc = "";
     private static String settingsSc = "";
-
     private static String alarmName = "";
-
     private static final CloudWatchActions cwActions = new CloudWatchActions();
-
     private static Dimension myDimension = null;
 
     @BeforeAll
@@ -90,7 +87,6 @@ public class CloudWatchTest {
         });
         logger.info("Test 2 passed");
     }
-
 
     @Test
     @Tag("IntegrationTest")

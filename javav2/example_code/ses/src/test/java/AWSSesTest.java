@@ -110,7 +110,7 @@ public class AWSSesTest {
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void ListEmailTemplates() {
+    public void testListEmailTemplates() {
         assertDoesNotThrow(() -> ListTemplates.listAllTemplates(sesv2Client));
         logger.info("Test 6 passed");
     }
