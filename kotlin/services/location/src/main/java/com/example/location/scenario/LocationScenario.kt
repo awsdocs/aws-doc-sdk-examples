@@ -331,7 +331,7 @@ suspend fun deleteTracker(trackerName: String) {
 
     }
 }
-// snippet-kotlin:[location.kotlin.delete.tracker.main]
+// snippet-end:[location.kotlin.delete.tracker.main]
 
 // snippet-start:[location.kotlin.delete.collection.main]
 
