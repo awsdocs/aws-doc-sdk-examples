@@ -5,6 +5,15 @@ location_Hello:
   synopsis: get started using &ALlong;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.hello.main
     Java:
       versions:
         - sdk_version: 2

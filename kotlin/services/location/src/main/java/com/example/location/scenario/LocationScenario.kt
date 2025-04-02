@@ -34,8 +34,8 @@ import aws.sdk.kotlin.services.location.model.PositionFiltering
 import aws.sdk.kotlin.services.location.model.PutGeofenceRequest
 import aws.sdk.kotlin.services.location.model.TravelMode
 import java.util.Scanner
-import kotlin.system.exitProcess
 
+// snippet-start:[location.kotlin.scenario.main]
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
@@ -68,12 +68,12 @@ suspend fun main(args: Array<String>) {
     //     exitProcess(0)
     // }
 
-    val mapName = "AWSMap300"; //args[0]
-    val keyName = "AWSApiKey300"; //args[1]
-    val collectionName = "AWSLocationCollection300"; //args[2]
-    val geoId = "geoId300";//args[3]
-    val trackerName = "geoTracker300" // args[4]
-    val calculatorName = "AWSRouteCalc300"; //args[5]
+    val mapName = "AWSMap301"; //args[0]
+    val keyName = "AWSApiKey301"; //args[1]
+    val collectionName = "AWSLocationCollection301"; //args[2]
+    val geoId = "geoId301";//args[3]
+    val trackerName = "geoTracker301" // args[4]
+    val calculatorName = "AWSRouteCalc301"; //args[5]
     val deviceId = "iPhone-112356"
 
     println(
@@ -349,7 +349,6 @@ suspend fun deleteGeofenceCollection(collectionName: String) {
     LocationClient { region = "us-east-1" }.use { client ->
         client.deleteGeofenceCollection(collectionRequest)
         println("The geofence collection $collectionName was deleted.")
-
     }
 }
 // snippet-end:[location.kotlin.delete.collection.main]
@@ -527,7 +526,7 @@ suspend fun calcDistance(routeCalcName: String): CalculateRouteResponse {
 }
 // snippet-end:[location.kotlin.calc.distance.main]
 
-// snippet-start:[location.java2.create.calculator.main]
+// snippet-start:[location.kotlin.create.calculator.main]
 /**
  * Creates a new route calculator with the specified name and data source.
  *
@@ -545,7 +544,7 @@ suspend fun createRouteCalculator(routeCalcName: String): CreateRouteCalculatorR
         return client.createRouteCalculator(request)
     }
 }
-// snippet-end:[location.java2.create.calculator.main]
+// snippet-end:[location.kotlin.create.calculator.main]
 
 // snippet-start:[location.kotlin.get.device.position.main]
 /**
@@ -732,3 +731,4 @@ fun waitForInputToContinue(scanner: Scanner) {
         }
     }
 }
+// snippet-end:[location.kotlin.scenario.main]
