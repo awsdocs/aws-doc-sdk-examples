@@ -371,7 +371,7 @@ suspend fun deleteKey(keyName: String) {
 }
 // snippet-end:[location.kotlin.delete.key.main]
 
-// snippet-start:[location.kotlin.delete.key.main]
+// snippet-start:[location.kotlin.delete.map.main]
 /**
  * Deletes the specified key from the key-value store.
  *
@@ -387,7 +387,7 @@ suspend fun deleteMap(mapName: String) {
         println("The map $mapName was deleted.")
     }
 }
-// snippet-end:[location.kotlin.delete.key.main]
+// snippet-end:[location.kotlin.delete.map.main]
 
 // snippet-start:[geoplaces.kotlin.search.near.main]
 
