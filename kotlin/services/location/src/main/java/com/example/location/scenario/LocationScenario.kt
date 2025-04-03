@@ -392,14 +392,14 @@ suspend fun deleteMap(mapName: String) {
  * The results are processed and printed once the search completes successfully.
  */
 suspend fun searchNearby() {
-    val latitude = 37.7749  // San Francisco
+    val latitude = 37.7749
     val longitude = -122.4194
     val queryPosition = listOf(longitude, latitude)
 
     // Set up the request for searching nearby places.
     val request = SearchNearbyRequest {
-        this.queryPosition = queryPosition  // Set the position
-        this.queryRadius = 1000L  // Radius in meters (1000 meters = 1 km)
+        this.queryPosition = queryPosition
+        this.queryRadius = 1000L
     }
 
     GeoPlacesClient { region = "us-east-1" }.use { client ->
@@ -424,7 +424,7 @@ suspend fun searchNearby() {
  * @param searchQuery the search query to be used for the place search (ex, coffee shop)
  */
 suspend fun searchText(searchQuery: String) {
-    val latitude = 37.7749  // San Francisco
+    val latitude = 37.7749
     val longitude = -122.4194
     val queryPosition = listOf(longitude, latitude)
 
@@ -475,7 +475,7 @@ suspend fun searchText(searchQuery: String) {
  * This method uses the latitude and longitude of San Francisco as the input, and prints the resulting address.
  */
 suspend fun reverseGeocode() {
-    val latitude = 37.7749  // San Francisco
+    val latitude = 37.7749
     val longitude = -122.4194
     println("Use latitude 37.7749 and longitude -122.4194")
 
@@ -528,7 +528,7 @@ suspend fun calcDistance(routeCalcName: String): CalculateRouteResponse {
  * @param routeCalcName the name of the route calculator to be created
  */
 suspend fun createRouteCalculator(routeCalcName: String): CreateRouteCalculatorResponse {
-    val dataSource = "Esri" // or "Here"
+    val dataSource = "Esri"
 
     val request = CreateRouteCalculatorRequest {
         this.calculatorName = routeCalcName
@@ -568,7 +568,7 @@ suspend fun getDevicePosition(trackerName: String, deviceId: String): GetDeviceP
  * @param deviceId    the unique identifier of the device
  */
 suspend fun updateDevicePosition(trackerName: String, deviceId: String) {
-    val latitude = 37.7749  // Example: San Francisco
+    val latitude = 37.7749
     val longitude = -122.4194
 
     val positionUpdate = DevicePositionUpdate {
@@ -620,11 +620,11 @@ suspend fun putGeofence(collectionName: String, geoId: String) {
     val geofenceGeometry = GeofenceGeometry {
         polygon = listOf(
             listOf(
-                listOf(-122.3381, 47.6101), // First point
+                listOf(-122.3381, 47.6101),
                 listOf(-122.3281, 47.6101),
                 listOf(-122.3281, 47.6201),
                 listOf(-122.3381, 47.6201),
-                listOf(-122.3381, 47.6101) // Closing the polygon
+                listOf(-122.3381, 47.6101) 
             )
         )
     }
