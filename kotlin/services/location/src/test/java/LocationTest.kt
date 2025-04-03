@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import com.example.location.listGeofences
 import com.example.location.scenario.calcDistance
 import com.example.location.scenario.createGeofenceCollection
 import com.example.location.scenario.createKey
@@ -22,17 +23,20 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
-import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class LocationTest {
+    private val logger: Logger = LoggerFactory.getLogger(LocationTest::class.java)
     private val mapName = "TestMap"
     private val keyName = "TestKey"
     private val collectionName = "TestCollection"
+    private val existingCollectione = "Collection100"
     private val geoId = "TestGeo"
     private val trackerName = "TestTracker"
     private var mapArn = ""
@@ -41,7 +45,6 @@ class LocationTest {
     var deviceId = "iPhone-112359" // Use the iPhone's identifier from Swift
 
     @Test
-    @Tag("IntegrationTest")
     @Order(1)
     fun testScenario() = runBlocking {
         println("===== Starting Full Location Service Scenario Test =====")
@@ -52,7 +55,7 @@ class LocationTest {
                 .onFailure { it.printStackTrace() }
                 .getOrThrow()
 
-            println("Created Map: $mapArn")
+            logger.info("Created Map: $mapArn")
 
             // Step 2: Create Key
             keyArn = runCatching { createKey(keyName, mapArn) }
@@ -60,7 +63,7 @@ class LocationTest {
                 .onFailure { it.printStackTrace() }
                 .getOrThrow()
 
-            println("Created Key: $keyArn")
+            logger.info("Created Key: $keyArn")
 
             // Step 3: Geofencing
             runCatching { createGeofenceCollection(collectionName) }
@@ -130,9 +133,20 @@ class LocationTest {
             val cleanupSuccess = cleanupResults.all { it.isSuccess }
             Assertions.assertTrue(cleanupSuccess, "Some resources failed to delete")
 
-            println("===== Cleanup Completed Successfully =====")
+            logger.info("===== Cleanup Completed Successfully =====")
         }
 
-        println("🎉 Test 1 Passed Successfully!")
+        logger.info("🎉 Test 1 Passed Successfully!")
+    }
+
+    @Test
+    @Order(2)
+    fun testHello() = runBlocking {
+        runCatching { listGeofences(existingCollectione) }
+            .onSuccess { println("Hello passed") }
+            .onFailure { it.printStackTrace() }
+            .getOrThrow()
+
+        logger.info("🎉 Test 2 Passed Successfully!")
     }
 }
