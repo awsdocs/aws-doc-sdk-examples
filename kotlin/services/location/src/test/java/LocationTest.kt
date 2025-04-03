@@ -126,7 +126,7 @@ class LocationTest {
                 runCatching { deleteKey(keyName) }.onFailure { it.printStackTrace() },
                 runCatching { deleteGeofenceCollection(collectionName) }.onFailure { it.printStackTrace() },
                 runCatching { deleteTracker(trackerName) }.onFailure { it.printStackTrace() },
-                runCatching { deleteRouteCalculator(calculatorName) }.onFailure { it.printStackTrace() }
+                runCatching { deleteRouteCalculator(calculatorName) }.onFailure { it.printStackTrace() },
             )
 
             // Ensure cleanup didn't fail completely
