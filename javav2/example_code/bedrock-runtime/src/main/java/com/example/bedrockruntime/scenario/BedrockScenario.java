@@ -4,26 +4,22 @@
 package com.example.bedrockruntime.scenario;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.concurrent.CompletableFuture;
-
 import software.amazon.awssdk.core.document.Document;
 import software.amazon.awssdk.services.bedrockruntime.model.ContentBlock;
 import software.amazon.awssdk.services.bedrockruntime.model.ConversationRole;
 import software.amazon.awssdk.services.bedrockruntime.model.ConverseOutput;
 import software.amazon.awssdk.services.bedrockruntime.model.ConverseResponse;
-import software.amazon.awssdk.services.bedrockruntime.model.DocumentBlock;
 import software.amazon.awssdk.services.bedrockruntime.model.Message;
-import software.amazon.awssdk.services.bedrockruntime.model.StopReason;
 import software.amazon.awssdk.services.bedrockruntime.model.ToolResultBlock;
 import software.amazon.awssdk.services.bedrockruntime.model.ToolResultContentBlock;
 import software.amazon.awssdk.services.bedrockruntime.model.ToolSpecification;
 import software.amazon.awssdk.services.bedrockruntime.model.ToolUseBlock;
 
+// snippet-start:[bedrock.converseTool.javav2.scenario]
 /*
  This demo illustrates a tool use scenario using Amazon Bedrock's Converse API and a weather tool.
  The program interacts with a foundation model on Amazon Bedrock to provide weather information based on user
@@ -57,7 +53,6 @@ public class BedrockScenario {
         - Never claim to search online, access external data, or use tools besides Weather_Tool.
         - Complete the entire process until you have all required data before sending the complete response.
         """;
-
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -94,7 +89,6 @@ public class BedrockScenario {
         System.out.println("Amazon Bedrock Converse API with Tool Use Feature Scenario is complete.");
         System.out.println(DASHES);
     }
-
 
     /**
      Starts the conversation with the user and handles the interaction with Bedrock.
@@ -241,16 +235,6 @@ public class BedrockScenario {
         } else {
             String errorMessage = "The requested tool with name "+toolName +" does not exist.";
             System.out.println(errorMessage);
-            /*
-            Map<String, Object> content = new HashMap<>();
-            content.put("error", true);
-            content.put("message", errorMessage);
-
-            ToolResponse toolResponse = new ToolResponse();
-            toolResponse.setContent(content);
-            toolResponse.setToolUseId(payload.toolUseId());
-
-             */
             return null;
         }
     }
@@ -328,3 +312,4 @@ public class BedrockScenario {
         """);
     }
 }
+// snippet-end:[bedrock.converseTool.javav2.scenario]

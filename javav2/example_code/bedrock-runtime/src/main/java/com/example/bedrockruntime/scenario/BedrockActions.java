@@ -1,34 +1,22 @@
 package com.example.bedrockruntime.scenario;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
-import software.amazon.awssdk.core.document.Document;
 import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeAsyncClient;
-import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
-import software.amazon.awssdk.services.bedrockruntime.model.BedrockRuntimeException;
-import software.amazon.awssdk.services.bedrockruntime.model.ContentBlock;
 import software.amazon.awssdk.services.bedrockruntime.model.ConverseRequest;
 import software.amazon.awssdk.services.bedrockruntime.model.ConverseResponse;
 import software.amazon.awssdk.services.bedrockruntime.model.Message;
 import software.amazon.awssdk.services.bedrockruntime.model.SystemContentBlock;
 import software.amazon.awssdk.services.bedrockruntime.model.Tool;
 import software.amazon.awssdk.services.bedrockruntime.model.ToolConfiguration;
-import software.amazon.awssdk.services.bedrockruntime.model.ToolInputSchema;
 import software.amazon.awssdk.services.bedrockruntime.model.ToolSpecification;
-
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.concurrent.CompletableFuture;
 
 public class BedrockActions {
 
@@ -65,6 +53,7 @@ public class BedrockActions {
         return bedrockRuntimeClient;
     }
 
+    // snippet-start:[bedrockruntime.java2.converse.main]
     /**
      * Sends an asynchronous converse request to the AI model.
      *
@@ -107,6 +96,7 @@ public class BedrockActions {
 
         return null;
     }
+    // snippet-end:[bedrockruntime.java2.converse.main]
 }
 
 

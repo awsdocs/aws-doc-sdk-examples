@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 
 import org.json.JSONObject;
 
+// snippet-start:[bedrock.converseTool.javav2.weathertool]
 public class WeatherTool {
 
     private static final Logger logger = LoggerFactory.getLogger(WeatherTool.class);
@@ -159,5 +160,5 @@ public class WeatherTool {
         }
         return Document.fromNull(); // Handle null values safely
     }
-
 }
+// snippet-end:[bedrock.converseTool.javav2.weathertool]
