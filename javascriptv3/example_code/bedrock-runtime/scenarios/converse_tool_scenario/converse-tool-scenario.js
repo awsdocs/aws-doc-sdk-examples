@@ -88,7 +88,7 @@ async function SendConversationtoBedrock(messages) {
 }
 
 // Processes the response received via Amazon Bedrock and performs the necessary actions based on the stop reason.
-// param - "response" - The model's response returned via Amazon Bedrock.
+// param "response" - The model's response returned via Amazon Bedrock.
 // param "messages" - The conversation history.
 // param "max_recursions" - The maximum number of recursive calls allowed.
 async function ProcessModelResponseAsync(response, messages, max_recursions) {
@@ -105,9 +105,9 @@ async function ProcessModelResponseAsync(response, messages, max_recursions) {
 }
 // Handles the tool use case by invoking the specified tool and sending the tool's response back to Bedrock.
 // The tool response is appended to the conversation, and the conversation is sent back to Amazon Bedrock for further processing.
-// param - "response">The model's response containing the tool use request.
-// param - "messages">The conversation history.
-// param = max_recursions">The maximum number of recursive calls allowed.
+// param "response" - the model's response containing the tool use request.
+// param "messages" - the conversation history.
+// param "max_recursions" - The maximum number of recursive calls allowed.
 async function HandleToolUseAsync(response, messages, max_recursions) {
   const toolResultFinal = [];
   try {
@@ -183,8 +183,6 @@ async function callWeatherTool(longitude, latitude) {
       console.error("Error fetching weather data:", error);
     });
 }
-const default_prompt = "What is the weather like in Seattle?";
-
 /**
  * Used repeatedly to have the user press enter.
  * @type {ScenarioInput}
