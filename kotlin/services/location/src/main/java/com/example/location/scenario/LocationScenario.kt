@@ -130,7 +130,7 @@ suspend fun main(args: Array<String>) {
             maps, not geocoding). API keys can expire, ensuring temporary
             access control.
             
-            """.trimIndent()
+        """.trimIndent(),
     )
     val keyArn = createKey(keyName, mapArn)
     println("The Key ARN is: $keyArn")
@@ -141,13 +141,12 @@ suspend fun main(args: Array<String>) {
     println("3. Display Map URL")
     println(
         """
-            In order to get the MAP URL, you need to get the API Key value.
-            You can get the key value using the AWS Management Console under
-            Location Services. This operation cannot be completed using the
-            AWS SDK. For more information about getting the key value, see 
-            the AWS Location Documentation.
-            
-            """.trimIndent()
+        In order to get the MAP URL, you need to get the API Key value.
+        You can get the key value using the AWS Management Console under
+        Location Services. This operation cannot be completed using the
+        AWS SDK. For more information about getting the key value, see 
+        the AWS Location Documentation.
+        """.trimIndent(),
     )
     val mapUrl = "https://maps.geo.aws.amazon.com/maps/v0/maps/$mapName/tiles/{z}/{x}/{y}?key={KeyValue}"
     println("Embed this URL in your Web app: $mapUrl")
@@ -167,20 +166,19 @@ suspend fun main(args: Array<String>) {
     println("5. Store a geofence geometry in a given geofence collection.")
     println(
         """
-            An AWS Location geofence is a virtual boundary that defines a geographic area
-            on a map. It is a useful feature for tracking the location of
-            assets or monitoring the movement of objects within a specific region.
+        An AWS Location geofence is a virtual boundary that defines a geographic area
+        on a map. It is a useful feature for tracking the location of
+        assets or monitoring the movement of objects within a specific region.
                         
-            To define a geofence, you need to specify the coordinates of a
-            polygon that represents the area of interest. The polygon must be
-            defined in a counter-clockwise direction, meaning that the points of
-            the polygon must be listed in a counter-clockwise order.
+        To define a geofence, you need to specify the coordinates of a
+        polygon that represents the area of interest. The polygon must be
+        defined in a counter-clockwise direction, meaning that the points of
+        the polygon must be listed in a counter-clockwise order.
                         
-            This is a requirement for the AWS Location service to correctly
-            interpret the geofence and ensure that the location data is
-            accurately processed within the defined area.
-            
-            """.trimIndent()
+        This is a requirement for the AWS Location service to correctly
+        interpret the geofence and ensure that the location data is
+        accurately processed within the defined area.
+        """.trimIndent(),
     )
 
     waitForInputToContinue(scanner)
@@ -201,16 +199,16 @@ suspend fun main(args: Array<String>) {
     println("7. Update the position of a device in the location tracking system.")
     println(
         """
-            The AWS location service does not enforce a strict format for deviceId, but it must:
-              - Be a string (case-sensitive).
-              - Be 1–100 characters long.
-              - Contain only:
-                - Alphanumeric characters (A-Z, a-z, 0-9)
-                - Underscores (_)
-                - Hyphens (-)
-                - Be the same ID used when sending and retrieving positions.
+        The AWS location service does not enforce a strict format for deviceId, but it must:
+            - Be a string (case-sensitive).
+            - Be 1–100 characters long.
+            - Contain only:
+            - Alphanumeric characters (A-Z, a-z, 0-9)
+            - Underscores (_)
+            - Hyphens (-)
+            - Be the same ID used when sending and retrieving positions.
             
-            """.trimIndent()
+        """.trimIndent(),
     )
 
     waitForInputToContinue(scanner)
@@ -247,15 +245,15 @@ suspend fun main(args: Array<String>) {
     println("11. Use the GeoPlacesClient to perform additional operations.")
     println(
         """
-            This scenario will show use of the GeoPlacesClient that enables  
-            location search and geocoding capabilities for your applications. 
+        This scenario will show use of the GeoPlacesClient that enables  
+        location search and geocoding capabilities for your applications. 
                     
-            We are going to use this client to perform these AWS Location tasks:
-             - Reverse Geocoding (reverseGeocode): Converts geographic coordinates into addresses.
-             - Place Search (searchText): Finds places based on search queries.
-             - Nearby Search (searchNearby): Finds places near a specific location.
+        We are going to use this client to perform these AWS Location tasks:
+            - Reverse Geocoding (reverseGeocode): Converts geographic coordinates into addresses.
+            - Place Search (searchText): Finds places based on search queries.
+            - Nearby Search (searchNearby): Finds places near a specific location.
             
-            """.trimIndent()
+        """.trimIndent(),
     )
 
     waitForInputToContinue(scanner)
