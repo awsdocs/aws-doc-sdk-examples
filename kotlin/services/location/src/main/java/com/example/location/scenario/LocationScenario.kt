@@ -95,9 +95,9 @@ suspend fun main(args: Array<String>) {
     
        Geocoding: The service provides the ability to convert addresses or 
        location names into geographic coordinates (latitude and longitude), 
-        and vice versa, enabling developers to integrate location-based search 
-        and routing functionality into their applications.
-    """.trimIndent()
+       and vice versa, enabling developers to integrate location-based search 
+       and routing functionality into their applications.
+       """.trimIndent()
     )
 
     waitForInputToContinue(scanner)
