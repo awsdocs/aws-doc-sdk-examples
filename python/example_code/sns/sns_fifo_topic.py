@@ -45,6 +45,7 @@ class FifoTopicWrapper:
                 Attributes={
                     "FifoTopic": str(True),
                     "ContentBasedDeduplication": str(False),
+                    "FifoThroughputScope": "MessageGroup",
                 },
             )
             logger.info("Created FIFO topic with name=%s.", topic_name)
