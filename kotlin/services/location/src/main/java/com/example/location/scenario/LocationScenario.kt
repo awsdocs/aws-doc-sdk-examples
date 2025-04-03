@@ -50,18 +50,17 @@ val DASHES = String(CharArray(80)).replace("\u0000", "-")
 suspend fun main(args: Array<String>) {
     val usage = """
 
-            Usage:    <mapName> <keyName> <collectionName> <geoId> <trackerName> <calculatorName> <deviceId>
+        Usage:    <mapName> <keyName> <collectionName> <geoId> <trackerName> <calculatorName> <deviceId>
 
-            Where:
-              mapName - The name of the map to create (e.g., "AWSMap").
-              keyName - The name of the API key to create (e.g., "AWSApiKey").
-              collectionName - The name of the geofence collection (e.g., "AWSLocationCollection").
-              geoId - The geographic identifier used for the geofence or map (e.g., "geoId").
-              trackerName - The name of the tracker (e.g., "geoTracker").
-              calculatorName - The name of the route calculator (e.g., "AWSRouteCalc").
-              deviceId - The ID of the device (e.g., "iPhone-112356").
-            
-            """.trimIndent()
+        Where:
+            mapName - The name of the map to create (e.g., "AWSMap").
+            keyName - The name of the API key to create (e.g., "AWSApiKey").
+            collectionName - The name of the geofence collection (e.g., "AWSLocationCollection").
+            geoId - The geographic identifier used for the geofence or map (e.g., "geoId").
+            trackerName - The name of the tracker (e.g., "geoTracker").
+            calculatorName - The name of the route calculator (e.g., "AWSRouteCalc").
+            deviceId - The ID of the device (e.g., "iPhone-112356").
+    """
 
     if (args.size != 7) {
         println(usage)
@@ -99,7 +98,7 @@ suspend fun main(args: Array<String>) {
             and vice versa, enabling developers to integrate location-based search 
             and routing functionality into their applications.
             
-            """.trimIndent()
+        """
     )
     waitForInputToContinue(scanner)
 
