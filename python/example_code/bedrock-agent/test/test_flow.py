@@ -10,6 +10,8 @@ import boto3
 from botocore.exceptions import ClientError
 import pytest
 
+from conftest import FakeFlowData as Fake
+
 from flows import flow
 
 
@@ -30,22 +32,22 @@ def test_create_flow(make_stubber, error_code):
     bedrock_agent_stubber = make_stubber(bedrock_agent_client)
 
     expected_params = {
-        "name": FLOW_NAME,
-        "description": FLOW_DESCRIPTION,
-        "executionRoleArn": ROLE_ARN,
-        "definition": FLOW_DEFINITION
+        "name": Fake.FLOW_NAME,
+        "description": Fake.FLOW_DESCRIPTION,
+        "executionRoleArn": Fake.ROLE_ARN,
+        "definition": Fake.FLOW_DEFINITION
     }
 
     response = {
-        "arn": FLOW_ARN,
-        "createdAt": CREATED_AT,
-        "definition": FLOW_DEFINITION,
-        "description": FLOW_DESCRIPTION,
-        "executionRoleArn": ROLE_ARN,
-        "id": FLOW_ID,
-        "name": FLOW_NAME,
+        "arn": Fake.FLOW_ARN,
+        "createdAt": Fake.CREATED_AT,
+        "definition": Fake.FLOW_DEFINITION,
+        "description": Fake.FLOW_DESCRIPTION,
+        "executionRoleArn": Fake.ROLE_ARN,
+        "id": Fake.FLOW_ID,
+        "name": Fake.FLOW_NAME,
         "status": "NotPrepared",
-        "updatedAt": UPDATED_AT,
+        "updatedAt": Fake.UPDATED_AT,
         "version": "DRAFT"
     }
 
@@ -55,14 +57,14 @@ def test_create_flow(make_stubber, error_code):
 
     if error_code is None:
         call_response = flow.create_flow(
-            bedrock_agent_client, FLOW_NAME, FLOW_DESCRIPTION, ROLE_ARN, FLOW_DEFINITION
+            bedrock_agent_client, Fake.FLOW_NAME, Fake.FLOW_DESCRIPTION, Fake.ROLE_ARN, Fake.FLOW_DEFINITION
         )
         assert call_response["status"] == "NotPrepared"
 
     else:
         with pytest.raises(ClientError) as exc_info:
-            flow.create_flow(bedrock_agent_client, FLOW_NAME,
-                             FLOW_DESCRIPTION, ROLE_ARN, FLOW_DEFINITION)
+            flow.create_flow(bedrock_agent_client, Fake.FLOW_NAME,
+                             Fake.FLOW_DESCRIPTION, Fake.ROLE_ARN, Fake.FLOW_DEFINITION)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -72,23 +74,23 @@ def test_update_flow(make_stubber, error_code):
     bedrock_agent_stubber = make_stubber(bedrock_agent_client)
 
     expected_params = {
-        "flowIdentifier": FLOW_ID,
-        "name": FLOW_NAME,
-        "description": FLOW_DESCRIPTION,
-        "executionRoleArn": ROLE_ARN,
-        "definition": FLOW_DEFINITION
+        "flowIdentifier": Fake.FLOW_ID,
+        "name": Fake.FLOW_NAME,
+        "description": Fake.FLOW_DESCRIPTION,
+        "executionRoleArn": Fake.ROLE_ARN,
+        "definition": Fake.FLOW_DEFINITION
     }
 
     response = {
-        "arn": FLOW_ARN,
-        "createdAt": CREATED_AT,
-        "definition": FLOW_DEFINITION,
-        "description": FLOW_DESCRIPTION,
-        "executionRoleArn": ROLE_ARN,
-        "id": FLOW_ID,
-        "name": FLOW_NAME,
+        "arn": Fake.FLOW_ARN,
+        "createdAt": Fake.CREATED_AT,
+        "definition": Fake.FLOW_DEFINITION,
+        "description": Fake.FLOW_DESCRIPTION,
+        "executionRoleArn": Fake.ROLE_ARN,
+        "id": Fake.FLOW_ID,
+        "name": Fake.FLOW_NAME,
         "status": "NotPrepared",
-        "updatedAt": UPDATED_AT,
+        "updatedAt": Fake.UPDATED_AT,
         "version": "DRAFT"
     }
 
@@ -98,14 +100,14 @@ def test_update_flow(make_stubber, error_code):
 
     if error_code is None:
         call_response = flow.update_flow(
-            bedrock_agent_client, FLOW_ID, FLOW_NAME, FLOW_DESCRIPTION, ROLE_ARN, FLOW_DEFINITION
+            bedrock_agent_client, Fake.FLOW_ID, Fake.FLOW_NAME, Fake.FLOW_DESCRIPTION, Fake.ROLE_ARN, Fake.FLOW_DEFINITION
         )
-        assert call_response["id"] == FLOW_ID
+        assert call_response["id"] == Fake.FLOW_ID
 
     else:
         with pytest.raises(ClientError) as exc_info:
-            flow.update_flow(bedrock_agent_client, FLOW_ID,  FLOW_NAME,
-                             FLOW_DESCRIPTION, ROLE_ARN, FLOW_DEFINITION)
+            flow.update_flow(bedrock_agent_client, Fake.FLOW_ID,  Fake.FLOW_NAME,
+                             Fake.FLOW_DESCRIPTION, Fake.ROLE_ARN, Fake.FLOW_DEFINITION)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -120,7 +122,7 @@ def test_prepare_flow(make_stubber, error_code):
     bedrock_agent_stubber = make_stubber(bedrock_agent_client)
 
     expected_params = {
-        "flowIdentifier": FLOW_ID,
+        "flowIdentifier": Fake.FLOW_ID,
     }
 
     if error_code is None:
@@ -129,7 +131,7 @@ def test_prepare_flow(make_stubber, error_code):
         bedrock_agent_stubber.stub_prepare_flow(
             expected_params,
             {
-                "id": FLOW_ID,
+                "id": Fake.FLOW_ID,
                 "status": "Preparing"
             }
         )
@@ -138,15 +140,15 @@ def test_prepare_flow(make_stubber, error_code):
         bedrock_agent_stubber.stub_get_flow(
             expected_params,
             {
-                "arn": FLOW_ARN,
-                "createdAt": CREATED_AT,
-                "definition": FLOW_DEFINITION,
-                "description": FLOW_DESCRIPTION,
-                "executionRoleArn": ROLE_ARN,
-                "id": FLOW_ID,
-                "name": FLOW_NAME,
+                "arn": Fake.FLOW_ARN,
+                "createdAt": Fake.CREATED_AT,
+                "definition": Fake.FLOW_DEFINITION,
+                "description": Fake.FLOW_DESCRIPTION,
+                "executionRoleArn": Fake.ROLE_ARN,
+                "id": Fake.FLOW_ID,
+                "name": Fake.FLOW_NAME,
                 "status": "Prepared",
-                "updatedAt": UPDATED_AT,
+                "updatedAt": Fake.UPDATED_AT,
                 "version": "DRAFT"
             })
 
@@ -156,7 +158,7 @@ def test_prepare_flow(make_stubber, error_code):
     else:
         bedrock_agent_stubber.stub_prepare_flow(
             expected_params,
-            {"id": FLOW_ID},
+            {"id": Fake.FLOW_ID},
             error_code=error_code
         )
         with pytest.raises(ClientError) as exc_info:
@@ -170,19 +172,19 @@ def test_get_flow(make_stubber, error_code):
     bedrock_agent_stubber = make_stubber(bedrock_agent_client)
 
     expected_params = {
-        "flowIdentifier": FLOW_ID
+        "flowIdentifier": Fake.FLOW_ID
     }
 
     response = {
-        "arn": FLOW_ARN,
-        "createdAt": CREATED_AT,
-        "definition": FLOW_DEFINITION,
-        "description": FLOW_DESCRIPTION,
-        "executionRoleArn": ROLE_ARN,
-        "id": FLOW_ID,
-        "name": FLOW_NAME,
+        "arn": Fake.FLOW_ARN,
+        "createdAt": Fake.CREATED_AT,
+        "definition": Fake.FLOW_DEFINITION,
+        "description": Fake.FLOW_DESCRIPTION,
+        "executionRoleArn": Fake.ROLE_ARN,
+        "id": Fake.FLOW_ID,
+        "name": Fake.FLOW_NAME,
         "status": "NotPrepared",
-        "updatedAt": UPDATED_AT,
+        "updatedAt": Fake.UPDATED_AT,
         "version": "DRAFT"
     }
 
@@ -192,13 +194,13 @@ def test_get_flow(make_stubber, error_code):
 
     if error_code is None:
         call_response = flow.get_flow(
-            bedrock_agent_client, FLOW_ID)
+            bedrock_agent_client, Fake.FLOW_ID)
 
         assert call_response["status"] == "NotPrepared"
 
     else:
         with pytest.raises(ClientError) as exc_info:
-            flow.get_flow(bedrock_agent_client, FLOW_ID)
+            flow.get_flow(bedrock_agent_client, Fake.FLOW_ID)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -208,12 +210,12 @@ def test_delete_flow(make_stubber, error_code):
     bedrock_agent_stubber = make_stubber(bedrock_agent_client)
 
     expected_params = {
-        "flowIdentifier": FLOW_ID,
+        "flowIdentifier": Fake.FLOW_ID,
         "skipResourceInUseCheck": True
     }
 
     response = {
-        "id": FLOW_ID
+        "id": Fake.FLOW_ID
     }
 
     bedrock_agent_stubber.stub_delete_flow(
@@ -222,13 +224,13 @@ def test_delete_flow(make_stubber, error_code):
 
     if error_code is None:
         call_response = flow.delete_flow(
-            bedrock_agent_client, FLOW_ID)
+            bedrock_agent_client, Fake.FLOW_ID)
 
-        assert call_response["id"] == FLOW_ID
+        assert call_response["id"] == Fake.FLOW_ID
 
     else:
         with pytest.raises(ClientError) as exc_info:
-            flow.delete_flow(bedrock_agent_client, FLOW_ID)
+            flow.delete_flow(bedrock_agent_client, Fake.FLOW_ID)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -242,14 +244,14 @@ def test_list_flows(make_stubber, error_code):
     response = {
         "flowSummaries": [
             {
-                "arn": FLOW_ARN,
-                "createdAt": CREATED_AT,
-                "description": FLOW_DESCRIPTION,
-                "name": FLOW_NAME,
-                "id": FLOW_ID,
+                "arn": Fake.FLOW_ARN,
+                "createdAt": Fake.CREATED_AT,
+                "description": Fake.FLOW_DESCRIPTION,
+                "name": Fake.FLOW_NAME,
+                "id": Fake.FLOW_ID,
                 "status": "Prepared",
-                "updatedAt": UPDATED_AT,
-                "version": FLOW_VERSION
+                "updatedAt": Fake.UPDATED_AT,
+                "version": "DRAFT"
             }
         ]
     }
