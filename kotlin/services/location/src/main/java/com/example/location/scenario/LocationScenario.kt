@@ -97,8 +97,9 @@ suspend fun main(args: Array<String>) {
       location names into geographic coordinates (latitude and longitude),
       and vice versa, enabling developers to integrate location-based search
       and routing functionality into their applications.
-    """.trimIndent()
+    """.trimIndent(),
     )
+
 
     waitForInputToContinue(scanner)
 
