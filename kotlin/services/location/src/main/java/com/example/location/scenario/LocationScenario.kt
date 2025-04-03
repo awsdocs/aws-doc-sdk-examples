@@ -34,6 +34,7 @@ import aws.sdk.kotlin.services.location.model.PositionFiltering
 import aws.sdk.kotlin.services.location.model.PutGeofenceRequest
 import aws.sdk.kotlin.services.location.model.TravelMode
 import java.util.Scanner
+import kotlin.system.exitProcess
 
 // snippet-start:[location.kotlin.scenario.main]
 /**
@@ -47,7 +48,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 val scanner = Scanner(System.`in`)
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
             Usage:    <mapName> <keyName> <collectionName> <geoId> <trackerName> <calculatorName> <deviceId>
@@ -63,18 +63,18 @@ suspend fun main(args: Array<String>) {
             
             """.trimIndent()
 
-    // if (args.size != 7) {
-    //     println(usage)
-    //     exitProcess(0)
-    // }
+    if (args.size != 7) {
+        println(usage)
+        exitProcess(0)
+    }
 
-    val mapName = "AWSMap301"; //args[0]
-    val keyName = "AWSApiKey301"; //args[1]
-    val collectionName = "AWSLocationCollection301"; //args[2]
-    val geoId = "geoId301";//args[3]
-    val trackerName = "geoTracker301" // args[4]
-    val calculatorName = "AWSRouteCalc301"; //args[5]
-    val deviceId = "iPhone-112356"
+    val mapName = args[0]
+    val keyName = args[1]
+    val collectionName = args[2]
+    val geoId = args[3]
+    val trackerName = args[4]
+    val calculatorName = args[5]
+    val deviceId = args[6]
 
     println(
         """
@@ -328,7 +328,6 @@ suspend fun deleteTracker(trackerName: String) {
     LocationClient { region = "us-east-1" }.use { client ->
         client.deleteTracker(trackerRequest)
         println("The tracker $trackerName was deleted.")
-
     }
 }
 // snippet-end:[location.kotlin.delete.tracker.main]

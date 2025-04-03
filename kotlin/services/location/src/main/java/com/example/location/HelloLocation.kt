@@ -5,6 +5,7 @@ package com.example.location
 
 import aws.sdk.kotlin.services.location.LocationClient
 import aws.sdk.kotlin.services.location.model.ListGeofencesRequest
+import kotlin.system.exitProcess
 
 // snippet-start:[location.kotlin.hello.main]
 /**
@@ -31,11 +32,11 @@ suspend fun main(args: Array<String>) {
             
             """.trimIndent()
 
-    //if (args.size != 1) {
-    ///    println(usage)
-    //    exitProcess(0)
-    // }
-    val colletionName = "Collection100" //args[0]
+    if (args.size != 1) {
+         println(usage)
+         exitProcess(0)
+     }
+    val colletionName = args[0]
     listGeofences(colletionName)
 }
 
@@ -44,7 +45,7 @@ suspend fun main(args: Array<String>) {
  *
  * @param collectionName the name of the geofence collection
  */
-private suspend fun listGeofences(collectionName: String) {
+suspend fun listGeofences(collectionName: String) {
     val request = ListGeofencesRequest {
         this.collectionName = collectionName
     }
@@ -52,7 +53,6 @@ private suspend fun listGeofences(collectionName: String) {
     LocationClient { region = "us-east-1" }.use { client ->
         val response = client.listGeofences(request)
         val geofences = response.entries
-
         if (geofences.isNullOrEmpty()) {
             println("No Geofences found")
         } else {
