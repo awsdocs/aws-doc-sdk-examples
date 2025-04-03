@@ -100,20 +100,18 @@ suspend fun main(args: Array<String>) {
         """.trimIndent(),
     )
 
-
     waitForInputToContinue(scanner)
-
     println(DASHES)
     println("1. Create an AWS Location Service map")
     println(
         """
-             An AWS Location map can enhance the user experience of your
-             application by providing accurate and personalized location-based
-             features. For example, you could use the geocoding capabilities to
-             allow users to search for and locate businesses, landmarks, or
-             other points of interest within a specific region.
+        An AWS Location map can enhance the user experience of your
+        application by providing accurate and personalized location-based
+        features. For example, you could use the geocoding capabilities to
+        allow users to search for and locate businesses, landmarks, or
+        other points of interest within a specific region.
             
-        """
+        """.trimIndent(),
     )
 
     waitForInputToContinue(scanner)
