@@ -36,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CloudWatchTest {
+    private static final Logger logger = LoggerFactory.getLogger(CloudWatchTest.class);
     private static CloudWatchClient cw;
     private static String namespace = "";
     private static String myDateSc = "";
@@ -44,19 +45,14 @@ public class CloudWatchTest {
     private static String dashboardJsonSc = "";
     private static String dashboardAddSc = "";
     private static String settingsSc = "";
-
     private static String alarmName = "";
-
     private static final CloudWatchActions cwActions = new CloudWatchActions();
-
     private static Dimension myDimension = null;
 
-    private static final Logger logger = LoggerFactory.getLogger(CloudWatchTest.class);
     @BeforeAll
     public static void setUp() throws IOException {
         cw = CloudWatchClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -89,9 +85,8 @@ public class CloudWatchTest {
             ArrayList<String> list = future.join();
             assertFalse(list.isEmpty());
         });
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
-
 
     @Test
     @Tag("IntegrationTest")
@@ -101,7 +96,7 @@ public class CloudWatchTest {
             CompletableFuture<PutDashboardResponse> future = cwActions.createDashboardWithMetricsAsync(dashboardNameSc, dashboardJsonSc);
             future.join();
         });
-        logger.info("\n Test 6 passed");
+        logger.info("\n Test 3 passed");
     }
 
     @Test
@@ -112,7 +107,7 @@ public class CloudWatchTest {
             CompletableFuture<GetMetricStatisticsResponse> future = cwActions.getMetricStatisticsAsync(costDateWeekSc);
             future.join();
         });
-        logger.info("\n Test 7 passed");
+        logger.info("\n Test 4 passed");
     }
 
     @Test
@@ -123,7 +118,7 @@ public class CloudWatchTest {
             CompletableFuture<Void> future = cwActions.listDashboardsAsync();
             future.join();
         });
-        logger.info("\n Test 8 passed");
+        logger.info("\n Test 5 passed");
     }
 
     @Test
@@ -135,7 +130,7 @@ public class CloudWatchTest {
             CompletableFuture<PutMetricDataResponse> future = cwActions.createNewCustomMetricAsync(dataPoint);
             future.join();
         });
-        logger.info("\n Test 9 passed");
+        logger.info("\n Test 6 passed");
     }
 
     @Test
@@ -147,7 +142,7 @@ public class CloudWatchTest {
             future.join();
 
         });
-        logger.info("\n Test 10 passed");
+        logger.info("\n Test 7 passed");
     }
     @Test
     @Tag("IntegrationTest")
@@ -158,7 +153,7 @@ public class CloudWatchTest {
             alarmName = future.join();
             assertFalse(alarmName.isEmpty());
         });
-        logger.info("\n Test 11 passed");
+        logger.info("\n Test 8 passed");
      }
 
     @Test
@@ -169,7 +164,7 @@ public class CloudWatchTest {
             CompletableFuture<Void> future = cwActions.describeAlarmsAsync();
             future.join();
         });
-        logger.info("\n Test 12 passed");
+        logger.info("\n Test 9 passed");
     }
 
     @Test
@@ -180,7 +175,7 @@ public class CloudWatchTest {
             CompletableFuture<Void> future = cwActions.getCustomMetricDataAsync(settingsSc);
             future.join();
         });
-        logger.info("\n Test 13 passed");
+        logger.info("\n Test 10 passed");
     }
 
     @Test
@@ -191,7 +186,7 @@ public class CloudWatchTest {
             CompletableFuture<PutMetricDataResponse> future = cwActions.addMetricDataForAlarmAsync(settingsSc);
             future.join();
         });
-        logger.info("\n Test 14 passed");
+        logger.info("\n Test 11 passed");
     }
 
     @Test
@@ -202,7 +197,7 @@ public class CloudWatchTest {
             CompletableFuture<Void> future = cwActions.checkForMetricAlarmAsync(settingsSc);
             future.join();
         });
-        logger.info("\n Test 15 passed");
+        logger.info("\n Test 12 passed");
     }
 
     @Test
@@ -213,7 +208,7 @@ public class CloudWatchTest {
             CompletableFuture<Void> future = cwActions.getAlarmHistoryAsync(settingsSc, myDateSc);
             future.join();
         });
-        logger.info("\n Test 16 passed");
+        logger.info("\n Test 13 passed");
     }
 
     @Test
@@ -224,7 +219,7 @@ public class CloudWatchTest {
             CompletableFuture<Void> future = cwActions.addAnomalyDetectorAsync(settingsSc);
             future.join();
         });
-        logger.info("\n Test 17 passed");
+        logger.info("\n Test 14 passed");
     }
 
     @Test
@@ -236,7 +231,7 @@ public class CloudWatchTest {
             future.join();
 
         });
-        logger.info("\n Test 18 passed");
+        logger.info("\n Test 15 passed");
     }
 
     @Test
@@ -248,7 +243,7 @@ public class CloudWatchTest {
             future.join();
 
         });
-        logger.info("\n Test 19 passed");
+        logger.info("\n Test 16 passed");
     }
 
     @Test
@@ -260,13 +255,12 @@ public class CloudWatchTest {
             future.join();
 
         });
-        logger.info("\n Test 20 passed");
+        logger.info("\n Test 17 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/cloudwatch";
 

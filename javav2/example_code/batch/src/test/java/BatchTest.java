@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.batch.model.CreateComputeEnvironmentResponse;
@@ -23,13 +25,16 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadLocalRandom;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BatchTest {
+    private static final Logger logger = LoggerFactory.getLogger(BatchTest.class);
     private static String computeEnvironmentName = "my-compute-environment" ;
-    private static String jobQueueName = "my-job-queue";
+    private static String jobQueueName = "my-job-queue12";
     private static String jobDefinitionName = "my-job-definition";
     private static String dockerImage = "dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text";
     private static String subnet = "" ;
@@ -56,6 +61,8 @@ public class BatchTest {
 
         dockerImage = accId[0]+"."+dockerImage;
 
+        int randomValue = ThreadLocalRandom.current().nextInt(1, 1001);
+        computeEnvironmentName += randomValue;
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
         String json = getSecretValues();
@@ -73,7 +80,7 @@ public class BatchTest {
         CompletableFuture<CreateComputeEnvironmentResponse> future = batchActions.createComputeEnvironmentAsync(computeEnvironmentName, batchIAMRole, subnet, secGroup);
         CreateComputeEnvironmentResponse response = future.join();
         System.out.println("Compute Environment ARN: " + response.computeEnvironmentArn());
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -88,7 +95,7 @@ public class BatchTest {
         CompletableFuture<String> future = batchActions.checkComputeEnvironmentsStatus(computeEnvironmentName);
         String status = future.join();
         System.out.println("Compute Environment Status: " + status);
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -99,7 +106,7 @@ public class BatchTest {
         jobQueueArn = jobQueueFuture.join();
         assertNotNull(jobQueueArn, "Job Queue ARN should not be null");
         System.out.println("Job Queue ARN: " + jobQueueArn);
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -109,7 +116,7 @@ public class BatchTest {
         jobARN = batchActions.registerJobDefinitionAsync(jobDefinitionName, executionRoleARN, dockerImage, "X86_64").join();
         assertNotNull(jobARN, "Job ARN should not be null");
         System.out.println("Job ARN: " + jobARN);
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -124,7 +131,7 @@ public class BatchTest {
         }
         jobId = batchActions.submitJobAsync(jobDefinitionName, jobQueueName, jobARN).join();
         System.out.println("Job Id: " + jobId);
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -136,7 +143,7 @@ public class BatchTest {
             System.out.printf("Job ID: %s, Job Name: %s, Job Status: %s%n",
                 job.jobId(), job.jobName(), job.status())
         );
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
@@ -146,21 +153,21 @@ public class BatchTest {
         CompletableFuture<String> future = batchActions.describeJobAsync(jobId);
         String jobStatus = future.join();
         System.out.println("Job Status: " + jobStatus);
-        System.out.println("Test 7 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(7)
-    public void testRegisterJobQueue() {
-        batchActions.deregisterJobDefinitionAsync(jobARN);
-        batchActions.disableJobQueueAsync(jobQueueArn);
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(8)
+    public void testRegisterJobQueue() {
+        batchActions.deregisterJobDefinitionAsync(jobARN);
+        batchActions.disableJobQueueAsync(jobQueueArn);
+        logger.info("Test 8 passed");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(9)
     public void testDeleteJobQueue() {
         try {
             Thread.sleep(120_000);
@@ -169,12 +176,12 @@ public class BatchTest {
         }
 
         batchActions.deleteJobQueueAsync(jobQueueArn);
-        System.out.println("Test 8 passed");
+        logger.info("Test 9 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
-    @Order(9)
+    @Order(10)
     public void testDisableComputeEnvironment() {
         try {
             Thread.sleep(120_000);
@@ -187,12 +194,13 @@ public class BatchTest {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+        logger.info("Test 10 passed");
 
     }
 
     @Test
     @Tag("IntegrationTest")
-    @Order(10)
+    @Order(11)
     public void testDeleteComputeEnvironment() {
         try {
             Thread.sleep(120_000);
@@ -200,13 +208,12 @@ public class BatchTest {
             Thread.currentThread().interrupt();
         }
         batchActions.deleteComputeEnvironmentAsync(computeEnvironmentName);
-        System.out.println("Test 10 passed");
+        logger.info("Test 11 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
         String secretName = "test/batch";
 

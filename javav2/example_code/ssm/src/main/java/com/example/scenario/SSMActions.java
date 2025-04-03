@@ -65,26 +65,25 @@ public class SSMActions {
     private static SsmAsyncClient getAsyncClient() {
         if (ssmAsyncClient == null) {
             SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
-                .maxConcurrency(100)
-                .connectionTimeout(Duration.ofSeconds(60))
-                .readTimeout(Duration.ofSeconds(60))
-                .writeTimeout(Duration.ofSeconds(60))
-                .build();
+                    .maxConcurrency(100)
+                    .connectionTimeout(Duration.ofSeconds(60))
+                    .readTimeout(Duration.ofSeconds(60))
+                    .writeTimeout(Duration.ofSeconds(60))
+                    .build();
 
             ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
-                .apiCallTimeout(Duration.ofMinutes(2))
-                .apiCallAttemptTimeout(Duration.ofSeconds(90))
-                .retryPolicy(RetryPolicy.builder()
-                    .numRetries(3)
-                    .build())
-                .build();
+                    .apiCallTimeout(Duration.ofMinutes(2))
+                    .apiCallAttemptTimeout(Duration.ofSeconds(90))
+                    .retryPolicy(RetryPolicy.builder()
+                            .numRetries(3)
+                            .build())
+                    .build();
 
             ssmAsyncClient = SsmAsyncClient.builder()
-                .region(Region.US_EAST_1)
-                .httpClient(httpClient)
-                .overrideConfiguration(overrideConfig)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+                    .region(Region.US_EAST_1)
+                    .httpClient(httpClient)
+                    .overrideConfiguration(overrideConfig)
+                    .build();
         }
         return ssmAsyncClient;
     }
@@ -100,17 +99,17 @@ public class SSMActions {
      */
     public void deleteDoc(String documentName) {
         DeleteDocumentRequest documentRequest = DeleteDocumentRequest.builder()
-            .name(documentName)
-            .build();
+                .name(documentName)
+                .build();
 
         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
             getAsyncClient().deleteDocument(documentRequest)
-                .thenAccept(response -> {
-                    System.out.println("The SSM document was successfully deleted.");
-                })
-                .exceptionally(ex -> {
-                    throw new CompletionException(ex);
-                }).join();
+                    .thenAccept(response -> {
+                        System.out.println("The SSM document was successfully deleted.");
+                    })
+                    .exceptionally(ex -> {
+                        throw new CompletionException(ex);
+                    }).join();
         }).exceptionally(ex -> {
             Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
             if (cause instanceof SsmException) {
@@ -139,17 +138,17 @@ public class SSMActions {
      */
     public void deleteMaintenanceWindow(String winId) {
         DeleteMaintenanceWindowRequest windowRequest = DeleteMaintenanceWindowRequest.builder()
-            .windowId(winId)
-            .build();
+                .windowId(winId)
+                .build();
 
         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
             getAsyncClient().deleteMaintenanceWindow(windowRequest)
-                .thenAccept(response -> {
-                    System.out.println("The maintenance window was successfully deleted.");
-                })
-                .exceptionally(ex -> {
-                    throw new CompletionException(ex);
-                }).join();
+                    .thenAccept(response -> {
+                        System.out.println("The maintenance window was successfully deleted.");
+                    })
+                    .exceptionally(ex -> {
+                        throw new CompletionException(ex);
+                    }).join();
         }).exceptionally(ex -> {
             Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
             if (cause instanceof SsmException) {
@@ -178,18 +177,18 @@ public class SSMActions {
      */
     public void resolveOpsItem(String opsID) {
         UpdateOpsItemRequest opsItemRequest = UpdateOpsItemRequest.builder()
-            .opsItemId(opsID)
-            .status(OpsItemStatus.RESOLVED)
-            .build();
+                .opsItemId(opsID)
+                .status(OpsItemStatus.RESOLVED)
+                .build();
 
         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
             getAsyncClient().updateOpsItem(opsItemRequest)
-                .thenAccept(response -> {
-                    System.out.println("OpsItem resolved successfully.");
-                })
-                .exceptionally(ex -> {
-                    throw new CompletionException(ex);
-                }).join();
+                    .thenAccept(response -> {
+                        System.out.println("OpsItem resolved successfully.");
+                    })
+                    .exceptionally(ex -> {
+                        throw new CompletionException(ex);
+                    }).join();
         }).exceptionally(ex -> {
             Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
             if (cause instanceof SsmException) {
@@ -219,27 +218,27 @@ public class SSMActions {
      */
     public void describeOpsItems(String key) {
         OpsItemFilter filter = OpsItemFilter.builder()
-            .key(OpsItemFilterKey.OPS_ITEM_ID)
-            .values(key)
-            .operator(OpsItemFilterOperator.EQUAL)
-            .build();
+                .key(OpsItemFilterKey.OPS_ITEM_ID)
+                .values(key)
+                .operator(OpsItemFilterOperator.EQUAL)
+                .build();
 
         DescribeOpsItemsRequest itemsRequest = DescribeOpsItemsRequest.builder()
-            .maxResults(10)
-            .opsItemFilters(filter)
-            .build();
+                .maxResults(10)
+                .opsItemFilters(filter)
+                .build();
 
         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
             getAsyncClient().describeOpsItems(itemsRequest)
-                .thenAccept(itemsResponse -> {
-                    List<OpsItemSummary> items = itemsResponse.opsItemSummaries();
-                    for (OpsItemSummary item : items) {
-                        System.out.println("The item title is " + item.title() + " and the status is " + item.status().toString());
-                    }
-                })
-                .exceptionally(ex -> {
-                    throw new CompletionException(ex);
-                }).join();
+                    .thenAccept(itemsResponse -> {
+                        List<OpsItemSummary> items = itemsResponse.opsItemSummaries();
+                        for (OpsItemSummary item : items) {
+                            System.out.println("The item title is " + item.title() + " and the status is " + item.status().toString());
+                        }
+                    })
+                    .exceptionally(ex -> {
+                        throw new CompletionException(ex);
+                    }).join();
         }).exceptionally(ex -> {
             Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
             if (cause instanceof SsmException) {
@@ -276,12 +275,12 @@ public class SSMActions {
 
         CompletableFuture<Void> future = getOpsItem(opsItemId).thenCompose(opsItem -> {
             UpdateOpsItemRequest request = UpdateOpsItemRequest.builder()
-                .opsItemId(opsItemId)
-                .title(title)
-                .operationalData(operationalData)
-                .status(opsItem.statusAsString())
-                .description(description)
-                .build();
+                    .opsItemId(opsItemId)
+                    .title(title)
+                    .operationalData(operationalData)
+                    .status(opsItem.statusAsString())
+                    .description(description)
+                    .build();
 
             return getAsyncClient().updateOpsItem(request).thenAccept(response -> {
                 System.out.println(opsItemId + " updated successfully.");
@@ -327,12 +326,12 @@ public class SSMActions {
      */
     public String createSSMOpsItem(String title, String source, String category, String severity) {
         CreateOpsItemRequest opsItemRequest = CreateOpsItemRequest.builder()
-            .description("Created by the SSM Java API")
-            .title(title)
-            .source(source)
-            .category(category)
-            .severity(severity)
-            .build();
+                .description("Created by the SSM Java API")
+                .title(title)
+                .source(source)
+                .category(category)
+                .severity(severity)
+                .build();
 
         CompletableFuture<CreateOpsItemResponse> future = getAsyncClient().createOpsItem(opsItemRequest);
 
@@ -361,8 +360,8 @@ public class SSMActions {
      */
     public void displayCommands(String commandId) {
         ListCommandInvocationsRequest commandInvocationsRequest = ListCommandInvocationsRequest.builder()
-            .commandId(commandId)
-            .build();
+                .commandId(commandId)
+                .build();
 
         CompletableFuture<ListCommandInvocationsResponse> future = getAsyncClient().listCommandInvocations(commandInvocationsRequest);
         future.thenAccept(response -> {
@@ -398,8 +397,8 @@ public class SSMActions {
         CompletableFuture<Void> documentActiveFuture = CompletableFuture.runAsync(() -> {
             boolean isDocumentActive = false;
             DescribeDocumentRequest request = DescribeDocumentRequest.builder()
-                .name(documentName)
-                .build();
+                    .name(documentName)
+                    .build();
 
             while (!isDocumentActive) {
                 CompletableFuture<DescribeDocumentResponse> response = getAsyncClient().describeDocument(request);
@@ -422,9 +421,9 @@ public class SSMActions {
 
         // Create the SendCommandRequest.
         SendCommandRequest commandRequest = SendCommandRequest.builder()
-            .documentName(documentName)
-            .instanceIds(instanceId)
-            .build();
+                .documentName(documentName)
+                .instanceIds(instanceId)
+                .build();
 
         // Send the command.
         CompletableFuture<SendCommandResponse> commandFuture = getAsyncClient().sendCommand(commandRequest);
@@ -437,9 +436,9 @@ public class SSMActions {
 
                 // Wait for the command execution to complete.
                 GetCommandInvocationRequest invocationRequest = GetCommandInvocationRequest.builder()
-                    .commandId(commandId[0])
-                    .instanceId(instanceId)
-                    .build();
+                        .commandId(commandId[0])
+                        .instanceId(instanceId)
+                        .build();
 
                 try {
                     System.out.println("Wait 5 secs");
@@ -508,10 +507,10 @@ public class SSMActions {
         """;
 
         CreateDocumentRequest request = CreateDocumentRequest.builder()
-            .content(jsonData)
-            .name(docName)
-            .documentType(DocumentType.COMMAND)
-            .build();
+                .content(jsonData)
+                .name(docName)
+                .documentType(DocumentType.COMMAND)
+                .build();
 
         CompletableFuture<CreateDocumentResponse> future = getAsyncClient().createDocument(request);
         future.thenAccept(response -> {
@@ -542,13 +541,13 @@ public class SSMActions {
      */
     public void updateSSMMaintenanceWindow(String id, String name) throws SsmException {
         UpdateMaintenanceWindowRequest updateRequest = UpdateMaintenanceWindowRequest.builder()
-            .windowId(id)
-            .allowUnassociatedTargets(true)
-            .duration(24)
-            .enabled(true)
-            .name(name)
-            .schedule("cron(0 0 ? * MON *)")
-            .build();
+                .windowId(id)
+                .allowUnassociatedTargets(true)
+                .duration(24)
+                .enabled(true)
+                .name(name)
+                .schedule("cron(0 0 ? * MON *)")
+                .build();
 
         CompletableFuture<UpdateMaintenanceWindowResponse> future = getAsyncClient().updateMaintenanceWindow(updateRequest);
         future.whenComplete((response, ex) -> {
@@ -579,13 +578,13 @@ public class SSMActions {
      */
     public String createMaintenanceWindow(String winName) throws SsmException, DocumentAlreadyExistsException {
         CreateMaintenanceWindowRequest request = CreateMaintenanceWindowRequest.builder()
-            .name(winName)
-            .description("This is my maintenance window")
-            .allowUnassociatedTargets(true)
-            .duration(2)
-            .cutoff(1)
-            .schedule("cron(0 10 ? * MON-FRI *)")
-            .build();
+                .name(winName)
+                .description("This is my maintenance window")
+                .allowUnassociatedTargets(true)
+                .duration(2)
+                .cutoff(1)
+                .schedule("cron(0 10 ? * MON-FRI *)")
+                .build();
 
         CompletableFuture<CreateMaintenanceWindowResponse> future = getAsyncClient().createMaintenanceWindow(request);
         final String[] windowId = {null};
@@ -608,13 +607,13 @@ public class SSMActions {
 
         if (windowId[0] == null) {
             MaintenanceWindowFilter filter = MaintenanceWindowFilter.builder()
-                .key("name")
-                .values(winName)
-                .build();
+                    .key("name")
+                    .values(winName)
+                    .build();
 
             DescribeMaintenanceWindowsRequest winRequest = DescribeMaintenanceWindowsRequest.builder()
-                .filters(filter)
-                .build();
+                    .filters(filter)
+                    .build();
 
             CompletableFuture<DescribeMaintenanceWindowsResponse> describeFuture = getAsyncClient().describeMaintenanceWindows(winRequest);
             describeFuture.whenComplete((describeResponse, describeEx) -> {

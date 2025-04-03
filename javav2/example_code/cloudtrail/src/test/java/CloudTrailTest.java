@@ -3,6 +3,8 @@
 
 import com.example.cloudtrail.*;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.cloudtrail.CloudTrailClient;
 import org.junit.jupiter.api.*;
@@ -19,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CloudTrailTest {
+    private static final Logger logger = LoggerFactory.getLogger(CloudTrailTest.class);
     private static CloudTrailClient cloudTrailClient;
     private static String trailName = "";
     private static String s3BucketName = "";
@@ -27,8 +30,7 @@ public class CloudTrailTest {
     public static void setUp() {
         cloudTrailClient = CloudTrailClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -36,106 +38,84 @@ public class CloudTrailTest {
         SecretValues values = gson.fromJson(json, SecretValues.class);
         trailName = values.getTrailName();
         s3BucketName = values.getS3BucketName();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * CloudTrailTest.class.getClassLoader().getResourceAsStream("config.properties"
-         * )) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * trailName = prop.getProperty("trailName");
-         * s3BucketName = prop.getProperty("s3BucketName");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateTrail() {
+    public void testCreateTrail() {
         assertDoesNotThrow(() -> CreateTrail.createNewTrail(cloudTrailClient, trailName, s3BucketName));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void PutEventSelectors() {
+    public void testPutEventSelectors() {
         assertDoesNotThrow(() -> PutEventSelectors.setSelector(cloudTrailClient, trailName));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void GetEventSelectors() {
+    public void testGetEventSelectors() {
         assertDoesNotThrow(() -> GetEventSelectors.getSelectors(cloudTrailClient, trailName));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void LookupEvents() {
+    public void testLookupEvents() {
         assertDoesNotThrow(() -> LookupEvents.lookupAllEvents(cloudTrailClient));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void DescribeTrails() {
+    public void testDescribeTrails() {
         assertDoesNotThrow(() -> DescribeTrails.describeSpecificTrails(cloudTrailClient, trailName));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void GetTrailLoggingTime() {
+    public void testGetTrailLoggingTime() {
         assertDoesNotThrow(() -> GetTrailLoggingTime.getLogTime(cloudTrailClient, trailName));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void StartLogging() {
+    public void testStartLogging() {
         assertDoesNotThrow(() -> StartLogging.startLog(cloudTrailClient, trailName));
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void StopLogging() {
+    public void testStopLogging() {
         assertDoesNotThrow(() -> StartLogging.stopLog(cloudTrailClient, trailName));
-        System.out.println("Test 8 passed");
+        logger.info("Test 8 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-    public void DeleteTrail() {
+    public void testDeleteTrail() {
         assertDoesNotThrow(() -> DeleteTrail.deleteSpecificTrail(cloudTrailClient, trailName));
-        System.out.println("Test 9 passed");
+        logger.info("Test 9 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                //.credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/cloudtrail";
 

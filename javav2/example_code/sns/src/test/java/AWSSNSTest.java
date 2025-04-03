@@ -3,6 +3,8 @@
 
 import com.example.sns.*;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
@@ -21,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AWSSNSTest {
+    private static final Logger logger = LoggerFactory.getLogger(AWSSNSTest.class);
     private static SnsClient snsClient;
     private static String topicName = "";
     private static String topicArn = "";
@@ -37,7 +40,6 @@ public class AWSSNSTest {
 
         snsClient = SnsClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         Random random = new Random();
@@ -53,166 +55,141 @@ public class AWSSNSTest {
         lambdaarn = myValues.getLambdaarn();
         phone = myValues.getPhone();
         message = myValues.getMessage();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * AWSSNSTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * prop.load(input);
-         * topicName = prop.getProperty("topicName");
-         * attributeName= prop.getProperty("attributeName");
-         * attributeValue = prop.getProperty("attributeValue");
-         * email= prop.getProperty("email");
-         * lambdaarn = prop.getProperty("lambdaarn");
-         * phone = prop.getProperty("phone");
-         * message = prop.getProperty("message");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void createTopicTest() {
+    public void testCreateTopicTest() {
         topicArn = CreateTopic.createSNSTopic(snsClient, topicName);
         assertFalse(topicArn.isEmpty());
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void listTopicsTest() {
+    public void testListTopicsTest() {
         assertDoesNotThrow(() -> ListTopics.listSNSTopics(snsClient));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void setTopicAttributesTest() {
+    public void testSetTopicAttributesTest() {
         assertDoesNotThrow(() -> SetTopicAttributes.setTopAttr(snsClient, attributeName, topicArn, attributeValue));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void getTopicAttributesTest() {
+    public void testGetTopicAttributesTest() {
         assertDoesNotThrow(() -> GetTopicAttributes.getSNSTopicAttributes(snsClient, topicArn));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void subscribeEmailTest() {
+    public void testSubscribeEmailTest() {
         assertDoesNotThrow(() -> SubscribeEmail.subEmail(snsClient, topicArn, email));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void subscribeLambdaTest() {
+    public void testSubscribeLambdaTest() {
         subArn = SubscribeLambda.subLambda(snsClient, topicArn, lambdaarn);
         assertFalse(subArn.isEmpty());
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void useMessageFilterPolicyTest() {
+    public void testUseMessageFilterPolicyTest() {
         assertDoesNotThrow(() -> UseMessageFilterPolicy.usePolicy(snsClient, subArn));
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void addTagsTest() {
+    public void testAddTagsTest() {
         assertDoesNotThrow(() -> AddTags.addTopicTags(snsClient, topicArn));
-        System.out.println("Test 8 passed");
+        logger.info("Test 8 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-    public void listTagsTest() {
+    public void testListTagsTest() {
         assertDoesNotThrow(() -> ListTags.listTopicTags(snsClient, topicArn));
-        System.out.println("Test 9 passed");
+        logger.info("Test 9 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(10)
-    public void deleteTagTest() {
+    public void testDeleteTagTest() {
         assertDoesNotThrow(() -> DeleteTag.removeTag(snsClient, topicArn, "Environment"));
-        System.out.println("Test 10 passed");
+        logger.info("Test 10 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(11)
-    public void unsubscribeTest() {
+    public void testUnsubscribeTest() {
         assertDoesNotThrow(() -> Unsubscribe.unSub(snsClient, subArn));
-        System.out.println("Test 11 passed");
+        logger.info("Test 11 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(12)
-    public void publishTopicTest() {
+    public void testPublishTopicTest() {
         assertDoesNotThrow(() -> PublishTopic.pubTopic(snsClient, message, topicArn));
-        System.out.println("Test 12 passed");
+        logger.info("Test 12 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(13)
-    public void subscribeTextSMSTest() {
+    public void testSubscribeTextSMSTest() {
         assertDoesNotThrow(() -> SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone));
-        System.out.println("Test 13 passed");
+        logger.info("Test 13 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(14)
-    public void publishTextSMSTest() {
+    public void testPublishTextSMSTest() {
         assertDoesNotThrow(() -> PublishTextSMS.pubTextSMS(snsClient, message, phone));
-        System.out.println("Test 14 passed");
+        logger.info("Test 14 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(15)
-    public void listSubscriptionsTest() {
+    public void testListSubscriptionsTest() {
         assertDoesNotThrow(() -> ListSubscriptions.listSNSSubscriptions(snsClient));
-        System.out.println("Test 15 passed");
+        logger.info("Test 15 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(16)
-    public void DeleteTopic() {
+    public void testDeleteTopic() {
         assertDoesNotThrow(() -> DeleteTopic.deleteSNSTopic(snsClient, topicArn));
-        System.out.println("Test 16 passed");
+        logger.info("Test 16 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/sns";
 

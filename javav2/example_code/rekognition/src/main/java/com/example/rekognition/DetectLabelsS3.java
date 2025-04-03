@@ -32,7 +32,8 @@ public class DetectLabelsS3 {
                 Usage:    <bucket> <image>
 
                 Where:
-                   bucket - The name of the Amazon S3 bucket that contains the image (for example, ,ImageBucket).   image - The name of the image located in the Amazon S3 bucket (for example, Lake.png).\s
+                   bucket - The name of the Amazon S3 bucket that contains the image (for example, ImageBucket).   
+                   image - The name of the image located in the Amazon S3 bucket (for example, Lake.png).\s
                 """;
 
         if (args.length != 2) {
@@ -51,6 +52,13 @@ public class DetectLabelsS3 {
         rekClient.close();
     }
 
+    /**
+     * Retrieves labels from an image stored in an Amazon S3 bucket using the Amazon Rekognition service.
+     *
+     * @param rekClient the Amazon Rekognition client instance
+     * @param bucket the name of the S3 bucket where the image is stored
+     * @param image the name of the image file in the S3 bucket
+     */
     public static void getLabelsfromImage(RekognitionClient rekClient, String bucket, String image) {
         try {
             S3Object s3Object = S3Object.builder()

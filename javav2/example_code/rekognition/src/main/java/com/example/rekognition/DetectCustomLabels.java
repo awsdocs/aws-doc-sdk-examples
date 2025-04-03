@@ -16,12 +16,12 @@ public class DetectCustomLabels {
     public static void main(String[] args) {
         final String USAGE = """
 
-            Usage: DetectLabels <project arn> <S3 bucket> <S3 key>
+            Usage: <arn> <bucketName> <key>
 
             Where:
-            project arn - the arn of the model in Rekognition Custom Labels to the image (for example, arn:aws:rekognition:us-east-1:XXXXXXXXXXXX:project/YOURPROJECT/version/YOURPROJECT.YYYY-MM-DDT00.00.00/1234567890123).\s
-            S3 bucket - the bucket where your image is stored (for example, my-bucket-name\s
-            S3 key - the path of the image inside your bucket (for example, myfolder/pic1.png).\s
+                arn - the arn of the model in Rekognition Custom Labels to the image (for example, arn:aws:rekognition:us-east-1:XXXXXXXXXXXX:project/YOURPROJECT/version/YOURPROJECT.YYYY-MM-DDT00.00.00/1234567890123).\s
+                bucketName - the bucket where your image is stored (for example, my-bucket-name\s
+                key - the path of the image inside your bucket (for example, myfolder/pic1.png).\s
             """;
 
         if (args.length != 3) {
@@ -40,6 +40,16 @@ public class DetectCustomLabels {
         detectImageCustomLabels(rekClient, arn, bucket, key );
         rekClient.close();
     }
+
+
+    /**
+     * Detects custom labels in an image using an AWS Rekognition custom model.
+     *
+     * @param rekClient    the AWS Rekognition client to use for the detection
+     * @param arn          the Amazon Resource Name (ARN) of the custom model to use for the detection
+     * @param bucket       the name of the S3 bucket where the image is stored
+     * @param key          the key (file name) of the image in the S3 bucket
+     */
     public static void detectImageCustomLabels(RekognitionClient rekClient, String arn, String bucket, String key ) {
         try {
             S3Object s3Object = S3Object.builder()

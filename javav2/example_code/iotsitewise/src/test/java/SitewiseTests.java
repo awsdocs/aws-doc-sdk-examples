@@ -15,6 +15,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iotsitewise.model.CreateAssetModelResponse;
@@ -34,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SitewiseTests {
-
+    private static final Logger logger = LoggerFactory.getLogger(SitewiseTests.class);
     private static final String assetModelName = "MyAssetModel" + UUID.randomUUID();
     private static final String assetName = "MyAsset";
 
@@ -81,6 +83,7 @@ public class SitewiseTests {
     @Order(1)
     public void testHelloService() {
         assertDoesNotThrow(HelloSitewise::fetchAssetModels);
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -97,6 +100,7 @@ public class SitewiseTests {
             assetModelId = response.assetModelId();
             assertNotNull(assetModelId);
         });
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -110,6 +114,7 @@ public class SitewiseTests {
             assetId = response.assetId();
             assertNotNull(assetId);
         });
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -119,10 +124,11 @@ public class SitewiseTests {
         assertDoesNotThrow(() -> {
             propertyIds = sitewiseActions.getPropertyIds(assetModelId).join();
             humPropId = propertyIds.get("Humidity");
-            System.out.println("The Humidity property Id is " + humPropId);
+            logger.info("The Humidity property Id is " + humPropId);
             tempPropId = propertyIds.get("Temperature");
-            System.out.println("The Temperature property Id is " + tempPropId);
+            logger.info("The Temperature property Id is " + tempPropId);
         });
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -132,6 +138,7 @@ public class SitewiseTests {
         assertDoesNotThrow(() -> {
             sitewiseActions.sendDataToSiteWiseAsync(assetId, tempPropId, humPropId).join();
         });
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -141,6 +148,7 @@ public class SitewiseTests {
         assertDoesNotThrow(() -> {
             sitewiseActions.getAssetPropValueAsync(humPropId, assetId);
         });
+        logger.info("Test 6 passed");
     }
 
     @Test
@@ -151,6 +159,7 @@ public class SitewiseTests {
             portalId = sitewiseActions.createPortalAsync(portalName, iamRole, contactEmail).join();
             assertNotNull(portalId);
         });
+        logger.info("Test 7 passed");
     }
 
     @Test
@@ -161,6 +170,7 @@ public class SitewiseTests {
             String portalUrl = sitewiseActions.describePortalAsync(portalId).join();
             assertNotNull(portalUrl);
         });
+        logger.info("Test 8 passed");
     }
 
     @Test
@@ -171,6 +181,7 @@ public class SitewiseTests {
             gatewayId = sitewiseActions.createGatewayAsync(gatewayName, myThing).join();
             assertNotNull(gatewayId);
         });
+        logger.info("Test 9 passed");
     }
 
     @Test
@@ -180,6 +191,7 @@ public class SitewiseTests {
         assertDoesNotThrow(() -> {
             sitewiseActions.describeGatewayAsync(gatewayId).join();
         });
+        logger.info("Test 10 passed");
     }
 
     @Test
@@ -190,6 +202,7 @@ public class SitewiseTests {
         assertDoesNotThrow(() -> {
             sitewiseActions.deletePortalAsync(portalId).join();
         });
+        logger.info("Test 11 passed");
     }
 
     @Test
@@ -200,22 +213,24 @@ public class SitewiseTests {
         assertDoesNotThrow(() -> {
             sitewiseActions.deleteAssetAsync(assetId).join();
         });
+        logger.info("Test 12 passed");
     }
+
     @Test
     @Tag("IntegrationTest")
-    @Order(12)
+    @Order(13)
     public void testDeleteAssetModel() throws InterruptedException {
         Thread.sleep(30000);
         assertDoesNotThrow(() -> {
             sitewiseActions.deleteAssetModelAsync(assetModelId).join();
         });
         CloudFormationHelper.destroyCloudFormationStack(ROLES_STACK);
+        logger.info("Test 13 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
         String secretName = "test/sitewise";
 

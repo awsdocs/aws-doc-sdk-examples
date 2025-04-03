@@ -81,12 +81,12 @@ public class SupportScenario {
                     fileAttachment - The file can be a simple saved .txt file to use as an email attachment.\s
                 """;
 
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+      //  if (args.length != 1) {
+      //      System.out.println(usage);
+      //      System.exit(1);
+      //  }
 
-        String fileAttachment = args[0];
+        String fileAttachment = "C:\\AWS\\test.txt" ; //args[0];
         Region region = Region.US_WEST_2;
         SupportClient supportClient = SupportClient.builder()
                 .region(region)
