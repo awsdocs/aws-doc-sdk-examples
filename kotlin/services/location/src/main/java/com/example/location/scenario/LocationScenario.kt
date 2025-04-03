@@ -512,7 +512,7 @@ suspend fun calcDistance(routeCalcName: String): CalculateRouteResponse {
         this.departurePosition = departurePosition
         this.destinationPosition = arrivePosition
         this.travelMode = TravelMode.Car // Options: Car, Truck, Walking, Bicycle
-        this.distanceUnit = DistanceUnit.Kilometers// Options: Meters, Kilometers, Miles
+        this.distanceUnit = DistanceUnit.Kilometers // Options: Meters, Kilometers, Miles
     }
 
     LocationClient { region = "us-east-1" }.use { client ->
@@ -624,7 +624,7 @@ suspend fun putGeofence(collectionName: String, geoId: String) {
                 listOf(-122.3281, 47.6101),
                 listOf(-122.3281, 47.6201),
                 listOf(-122.3381, 47.6201),
-                listOf(-122.3381, 47.6101) 
+                listOf(-122.3381, 47.6101),
             )
         )
     }
