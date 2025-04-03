@@ -33,9 +33,9 @@ suspend fun main(args: Array<String>) {
             """.trimIndent()
 
     if (args.size != 1) {
-         println(usage)
-         exitProcess(0)
-     }
+        println(usage)
+        exitProcess(0)
+    }
     val colletionName = args[0]
     listGeofences(colletionName)
 }
