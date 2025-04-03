@@ -97,8 +97,7 @@ suspend fun main(args: Array<String>) {
             location names into geographic coordinates (latitude and longitude), 
             and vice versa, enabling developers to integrate location-based search 
             and routing functionality into their applications.
-        """
-    )
+        """)
     waitForInputToContinue(scanner)
 
     println(DASHES)
@@ -111,7 +110,7 @@ suspend fun main(args: Array<String>) {
              allow users to search for and locate businesses, landmarks, or
              other points of interest within a specific region.
             
-        """.trimIndent())
+        """)
 
     waitForInputToContinue(scanner)
     val mapArn = createMap(mapName)
