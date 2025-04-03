@@ -77,27 +77,27 @@ suspend fun main(args: Array<String>) {
 
     println(
         """
-        AWS Location Service is a fully managed service offered by Amazon Web Services (AWS) that
-        provides location-based services for developers. This service simplifies
-        the integration of location-based features into applications, making it
-        easier to build and deploy location-aware applications.
-    
-        The AWS Location Service offers a range of location-based services,
-        including:
-    
-        Maps: The service provides access to high-quality maps, satellite imagery, 
-        and geospatial data from various providers, allowing developers to 
-        easily embed maps into their applications.
-    
-       Tracking: The Location Service enables real-time tracking of mobile devices, 
-       assets, or other entities, allowing developers to build applications 
-       that can monitor the location of people, vehicles, or other objects.
-    
-       Geocoding: The service provides the ability to convert addresses or 
-       location names into geographic coordinates (latitude and longitude), 
-       and vice versa, enabling developers to integrate location-based search 
-       and routing functionality into their applications.
-       """.trimIndent()
+    AWS Location Service is a fully managed service offered by Amazon Web Services (AWS) that
+    provides location-based services for developers. This service simplifies
+    the integration of location-based features into applications, making it
+    easier to build and deploy location-aware applications.
+
+    The AWS Location Service offers a range of location-based services,
+    including:
+
+    - Maps: The service provides access to high-quality maps, satellite imagery,
+      and geospatial data from various providers, allowing developers to
+      easily embed maps into their applications.
+
+    - Tracking: The Location Service enables real-time tracking of mobile devices,
+      assets, or other entities, allowing developers to build applications
+      that can monitor the location of people, vehicles, or other objects.
+
+    - Geocoding: The service provides the ability to convert addresses or
+      location names into geographic coordinates (latitude and longitude),
+      and vice versa, enabling developers to integrate location-based search
+      and routing functionality into their applications.
+    """.trimIndent()
     )
 
     waitForInputToContinue(scanner)
