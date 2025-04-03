@@ -625,7 +625,7 @@ suspend fun putGeofence(collectionName: String, geoId: String) {
                 listOf(-122.3281, 47.6201),
                 listOf(-122.3381, 47.6201),
                 listOf(-122.3381, 47.6101),
-            )
+            ),
         )
     }
 
