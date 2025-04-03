@@ -24,13 +24,12 @@ https://docs.aws.amazon.com/location/latest/developerguide/geofence-gs.html
 suspend fun main(args: Array<String>) {
     val usage = """
 
-            Usage:
-                <colletionName>
+        Usage:
+            <colletionName>
 
-            Where:
-                colletionName - The Amazon location collection name. 
-            
-            """.trimIndent()
+        Where:
+            colletionName - The Amazon location collection name. 
+    """
 
     if (args.size != 1) {
         println(usage)
