@@ -1,24 +1,24 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import com.example.location.listGeofences
-import com.example.location.scenario.calcDistance
-import com.example.location.scenario.createGeofenceCollection
-import com.example.location.scenario.createKey
-import com.example.location.scenario.createMap
-import com.example.location.scenario.createRouteCalculator
-import com.example.location.scenario.createTracker
-import com.example.location.scenario.deleteGeofenceCollection
-import com.example.location.scenario.deleteKey
-import com.example.location.scenario.deleteMap
-import com.example.location.scenario.deleteRouteCalculator
-import com.example.location.scenario.deleteTracker
-import com.example.location.scenario.getDevicePosition
-import com.example.location.scenario.putGeofence
-import com.example.location.scenario.reverseGeocode
-import com.example.location.scenario.searchNearby
-import com.example.location.scenario.searchText
-import com.example.location.scenario.updateDevicePosition
+import location.listGeofences
+import location.scenario.calcDistance
+import location.scenario.createGeofenceCollection
+import location.scenario.createKey
+import location.scenario.createMap
+import location.scenario.createRouteCalculator
+import location.scenario.createTracker
+import location.scenario.deleteGeofenceCollection
+import location.scenario.deleteKey
+import location.scenario.deleteMap
+import location.scenario.deleteRouteCalculator
+import location.scenario.deleteTracker
+import location.scenario.getDevicePosition
+import location.scenario.putGeofence
+import location.scenario.reverseGeocode
+import location.scenario.searchNearby
+import location.scenario.searchText
+import location.scenario.updateDevicePosition
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.MethodOrderer

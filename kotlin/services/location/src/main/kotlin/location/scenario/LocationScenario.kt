@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.location.scenario
+package location.scenario
 
 import aws.sdk.kotlin.services.geoplaces.GeoPlacesClient
 import aws.sdk.kotlin.services.geoplaces.model.GetPlaceRequest
