@@ -5,6 +5,15 @@ location_Hello:
   synopsis: get started using &ALlong;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.hello.main
     Java:
       versions:
         - sdk_version: 2
@@ -18,6 +27,15 @@ location_Hello:
     location: {ListGeofencesPaginator}
 location_CreateMap:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.create.map.main
     Java:
       versions:
         - sdk_version: 2
@@ -31,6 +49,15 @@ location_CreateMap:
     location: {CreateMap}
 location_CreateKey:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.create.key.main
     Java:
       versions:
         - sdk_version: 2
@@ -44,6 +71,15 @@ location_CreateKey:
     location: {CreateKey}
 location_CreateGeofenceCollection:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.create.collection.main
     Java:
       versions:
         - sdk_version: 2
@@ -57,6 +93,15 @@ location_CreateGeofenceCollection:
     location: {CreateGeofenceCollection}
 location_PutGeofence:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.put.geo.main
     Java:
       versions:
         - sdk_version: 2
@@ -70,6 +115,15 @@ location_PutGeofence:
     location: {PutGeofence}
 location_CreateTracker:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.create.tracker.main
     Java:
       versions:
         - sdk_version: 2
@@ -83,6 +137,15 @@ location_CreateTracker:
     location: {CreateTracker}
 location_BatchUpdateDevicePosition:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.update.device.position.main
     Java:
       versions:
         - sdk_version: 2
@@ -96,6 +159,15 @@ location_BatchUpdateDevicePosition:
     location: {BatchUpdateDevicePosition}
 location_GetDevicePosition:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.get.device.position.main
     Java:
       versions:
         - sdk_version: 2
@@ -109,6 +181,15 @@ location_GetDevicePosition:
     location: {GetDevicePosition}
 location_CreateRouteCalculator:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.create.calculator.main
     Java:
       versions:
         - sdk_version: 2
@@ -122,6 +203,15 @@ location_CreateRouteCalculator:
     location: {CreateRouteCalculator}
 location_CalculateRoute:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.calc.distance.main
     Java:
       versions:
         - sdk_version: 2
@@ -135,6 +225,15 @@ location_CalculateRoute:
     location: {CalculateRoute}
 location_DeleteGeofenceCollection:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.delete.collection.main
     Java:
       versions:
         - sdk_version: 2
@@ -148,6 +247,15 @@ location_DeleteGeofenceCollection:
     location: {DeleteGeofenceCollection}    
 location_DeleteKey:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.delete.key.main
     Java:
       versions:
         - sdk_version: 2
@@ -161,6 +269,15 @@ location_DeleteKey:
     location: {DeleteKey}  
 location_DeleteMap:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.delete.map.main
     Java:
       versions:
         - sdk_version: 2
@@ -174,6 +291,15 @@ location_DeleteMap:
     location: {DeleteMap}    
 location_DeleteTracker:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.delete.tracker.main
     Java:
       versions:
         - sdk_version: 2
@@ -187,6 +313,15 @@ location_DeleteTracker:
     location: {DeleteTracker} 
 location_DeleteRouteCalculator:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.delete.calculator.main
     Java:
       versions:
         - sdk_version: 2
@@ -214,6 +349,15 @@ location_Scenario:
     - Delete the &ALshort; Assets.
   category: Basics
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.scenario.main
     Java:
       versions:
         - sdk_version: 2
