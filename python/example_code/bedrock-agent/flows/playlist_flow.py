@@ -326,11 +326,16 @@ def delete_role_resources(bedrock_agent_client,
         flow_alias (str): The alias of the flow.
     """
 
-    delete_flow_alias(bedrock_agent_client, flow_id, flow_alias)
-    delete_flow_version(bedrock_agent_client,
+    if flow_id is not None:
+        if flow_alias is not None:
+            delete_flow_alias(bedrock_agent_client, flow_id, flow_alias)
+        if flow_version is not None:
+            delete_flow_version(bedrock_agent_client,
                         flow_id, flow_version)
-    delete_flow(bedrock_agent_client, flow_id)
-    delete_flow_role(iam_client, role_name)
+        delete_flow(bedrock_agent_client, flow_id)
+    
+    if role_name is not None:
+        delete_flow_role(iam_client, role_name)
 
 # snippet-end:[python.example_code.bedrock-agent-runtime.flow_delete_resources]
 
@@ -351,6 +356,11 @@ def main():
         bedrock_agent_client = session.client('bedrock-agent')
         bedrock_client = session.client('bedrock')
         iam_client = session.client('iam')
+        
+        role_name = None
+        flow_id = None
+        flow_version = None
+        flow_alias = None
 
         prompt_model_id = "amazon.nova-pro-v1:0"
 
@@ -367,7 +377,7 @@ def main():
 
         # Create the flow.
         response = create_playlist_flow(
-            bedrock_agent_client, flow_name, flow_description, role_arn, prompt_model_id)
+            bedrock_agent_client, flow_name, flow_description, "role_arn", prompt_model_id)
         flow_id = response.get('id')
 
         if flow_id:
@@ -406,12 +416,27 @@ def main():
                 delete_flow(bedrock_agent_client, flow_id)
                 delete_flow_role(iam_client, role_name)
         else:
-            print("Couldn't create flow. Deleting role.")
-            delete_flow_role(iam_client, role_name)
+            print("Couldn't create flow. Deleting resources")
+            #delete_flow_role(iam_client, role_name)
+            delete_role_resources(bedrock_agent_client,
+                                          iam_client,
+                                          role_name,
+                                          flow_id,
+                                          flow_version,
+                                          flow_alias)
         print("Done")
 
     except Exception as e:
         print(f"Fatal error: {str(e)}")
+    
+    finally:
+        delete_role_resources(bedrock_agent_client,
+                                          iam_client,
+                                          role_name,
+                                          flow_id,
+                                          flow_version,
+                                          flow_alias)
+        
 
 
 if __name__ == "__main__":
