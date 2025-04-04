@@ -1,0 +1,88 @@
+{
+	"examples": [
+		{
+			"id": "cloudwatch-logs_GetQueryResults",
+			"file": "cloudwatch-logs_metadata.yaml",
+			"languages": [],
+			"title": "GetQueryResults",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch-logs_example_cloudwatch-logs_GetQueryResults_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch-logs_Scenario_BigQuery",
+			"file": "cloudwatch-logs_metadata.yaml",
+			"languages": [],
+			"title": "Use CloudWatch Logs to run a large query",
+			"title_abbrev": "Run a large query",
+			"synopsis": "use CloudWatch Logs to query more than 10,000 records.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch-logs_example_cloudwatch-logs_Scenario_BigQuery_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cloudwatch-logs_StartQuery",
+			"file": "cloudwatch-logs_metadata.yaml",
+			"languages": [],
+			"title": "StartQuery",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch-logs_example_cloudwatch-logs_StartQuery_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_LambdaScheduledEvents",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Use scheduled events to invoke a Lambda function",
+			"title_abbrev": "Use scheduled events to invoke a Lambda function",
+			"synopsis": "create an AWS Lambda function invoked by an Amazon EventBridge scheduled event.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "lambda",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cloudwatch-logs": "https://docs.aws.amazon.com/code-library/latest/ug/cloudwatch-logs_example_cross_LambdaScheduledEvents_section.html",
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_LambdaScheduledEvents_section.html",
+					"eventbridge": "https://docs.aws.amazon.com/code-library/latest/ug/eventbridge_example_cross_LambdaScheduledEvents_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_LambdaScheduledEvents_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_LambdaScheduledEvents_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

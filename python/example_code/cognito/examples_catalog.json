@@ -1,0 +1,288 @@
+{
+	"examples": [
+		{
+			"id": "cognito-identity-provider_AdminGetUser",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "AdminGetUser",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_AdminGetUser_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_AdminInitiateAuth",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "AdminInitiateAuth",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_AdminInitiateAuth_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_AdminRespondToAuthChallenge",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "AdminRespondToAuthChallenge",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_AdminRespondToAuthChallenge_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_AssociateSoftwareToken",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "AssociateSoftwareToken",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_AssociateSoftwareToken_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_ConfirmDevice",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "ConfirmDevice",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_ConfirmDevice_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_ConfirmSignUp",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "ConfirmSignUp",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_ConfirmSignUp_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_Hello",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon Cognito",
+			"title_abbrev": "Hello Amazon Cognito",
+			"synopsis": "get started using Amazon Cognito.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_InitiateAuth",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "InitiateAuth",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_InitiateAuth_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_ListUsers",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "ListUsers",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_ListUsers_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_ResendConfirmationCode",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "ResendConfirmationCode",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_ResendConfirmationCode_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_RespondToAuthChallenge",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "RespondToAuthChallenge",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_RespondToAuthChallenge_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_Scenario_SignUpUserWithMfa",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "Sign up a user with an Amazon Cognito user pool that requires MFA using an AWS SDK",
+			"title_abbrev": "Sign up a user with a user pool that requires MFA",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_Scenario_SignUpUserWithMfa_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Sign up and confirm a user with a username, password, and email address.",
+				"Set up multi-factor authentication by associating an MFA application with the user.",
+				"Sign in by using a password and an MFA code."
+			],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_SignUp",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "SignUp",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_SignUp_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cognito-identity-provider_VerifySoftwareToken",
+			"file": "cognito-identity-provider_metadata.yaml",
+			"languages": [],
+			"title": "VerifySoftwareToken",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"cognito-identity-provider": "https://docs.aws.amazon.com/code-library/latest/ug/cognito-identity-provider_example_cognito-identity-provider_VerifySoftwareToken_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

@@ -1,0 +1,395 @@
+{
+	"examples": [
+		{
+			"id": "aurora_CreateDBCluster",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "CreateDBCluster",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_CreateDBCluster_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_CreateDBClusterParameterGroup",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "CreateDBClusterParameterGroup",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_CreateDBClusterParameterGroup_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_CreateDBClusterSnapshot",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "CreateDBClusterSnapshot",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_CreateDBClusterSnapshot_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_CreateDBInstance",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "CreateDBInstance",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_CreateDBInstance_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_DeleteDBCluster",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "DeleteDBCluster",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_DeleteDBCluster_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_DeleteDBClusterParameterGroup",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "DeleteDBClusterParameterGroup",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_DeleteDBClusterParameterGroup_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_DeleteDBInstance",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "DeleteDBInstance",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_DeleteDBInstance_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_DescribeDBClusterParameterGroups",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "DescribeDBClusterParameterGroups",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_DescribeDBClusterParameterGroups_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_DescribeDBClusterParameters",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "DescribeDBClusterParameters",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_DescribeDBClusterParameters_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_DescribeDBClusterSnapshots",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "DescribeDBClusterSnapshots",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_DescribeDBClusterSnapshots_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_DescribeDBClusters",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "DescribeDBClusters",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_DescribeDBClusters_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_DescribeDBEngineVersions",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "DescribeDBEngineVersions",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_DescribeDBEngineVersions_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_DescribeDBInstances",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "DescribeDBInstances",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_DescribeDBInstances_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_DescribeOrderableDBInstanceOptions",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "DescribeOrderableDBInstanceOptions",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_DescribeOrderableDBInstanceOptions_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_Hello",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "Hello Aurora",
+			"title_abbrev": "Hello Aurora",
+			"synopsis": "get started using Aurora.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_ModifyDBClusterParameterGroup",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "ModifyDBClusterParameterGroup",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_ModifyDBClusterParameterGroup_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "aurora_Scenario_GetStartedClusters",
+			"file": "aurora_metadata.yaml",
+			"languages": [],
+			"title": "Learn the basics",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_aurora_Scenario_GetStartedClusters_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create a custom Aurora DB cluster parameter group and set parameter values.",
+				"Create a DB cluster that uses the parameter group.",
+				"Create a DB instance that contains a database.",
+				"Take a snapshot of the DB cluster, then clean up resources."
+			],
+			"source_key": null
+		},
+		{
+			"id": "cross_AuroraRestLendingLibrary",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create a lending library REST API",
+			"title_abbrev": "Create a lending library REST API",
+			"synopsis": "create a lending library where patrons can borrow and return books by using a REST API backed by an Amazon Aurora database.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "aurora",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"api-gateway": "https://docs.aws.amazon.com/code-library/latest/ug/api-gateway_example_cross_AuroraRestLendingLibrary_section.html",
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_AuroraRestLendingLibrary_section.html",
+					"lambda": "https://docs.aws.amazon.com/code-library/latest/ug/lambda_example_cross_AuroraRestLendingLibrary_section.html",
+					"secrets-manager": "https://docs.aws.amazon.com/code-library/latest/ug/secrets-manager_example_cross_AuroraRestLendingLibrary_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RDSDataTracker",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create an Aurora Serverless work item tracker",
+			"title_abbrev": "Create an Aurora Serverless work item tracker",
+			"synopsis": "create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "aurora",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_RDSDataTracker_section.html",
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_cross_RDSDataTracker_section.html",
+					"rds-data": "https://docs.aws.amazon.com/code-library/latest/ug/rds-data_example_cross_RDSDataTracker_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RDSDataTracker_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

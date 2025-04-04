@@ -1,0 +1,164 @@
+{
+	"examples": [
+		{
+			"id": "emr_AddJobFlowSteps",
+			"file": "emr_metadata.yaml",
+			"languages": [],
+			"title": "AddJobFlowSteps",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"emr": "https://docs.aws.amazon.com/code-library/latest/ug/emr_example_emr_AddJobFlowSteps_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "emr_DescribeCluster",
+			"file": "emr_metadata.yaml",
+			"languages": [],
+			"title": "DescribeCluster",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"emr": "https://docs.aws.amazon.com/code-library/latest/ug/emr_example_emr_DescribeCluster_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "emr_DescribeStep",
+			"file": "emr_metadata.yaml",
+			"languages": [],
+			"title": "DescribeStep",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"emr": "https://docs.aws.amazon.com/code-library/latest/ug/emr_example_emr_DescribeStep_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "emr_ListSteps",
+			"file": "emr_metadata.yaml",
+			"languages": [],
+			"title": "ListSteps",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"emr": "https://docs.aws.amazon.com/code-library/latest/ug/emr_example_emr_ListSteps_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "emr_RunJobFlow",
+			"file": "emr_metadata.yaml",
+			"languages": [],
+			"title": "RunJobFlow",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"emr": "https://docs.aws.amazon.com/code-library/latest/ug/emr_example_emr_RunJobFlow_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "emr_Scenario_ShortLivedEmrCluster",
+			"file": "emr_metadata.yaml",
+			"languages": [],
+			"title": "Create a short-lived Amazon EMR cluster and run a step using an AWS SDK",
+			"title_abbrev": "Create a short-lived Amazon EMR cluster and run a step",
+			"synopsis": "create a short-lived Amazon EMR cluster that runs a step and automatically terminates after the step completes.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"emr": "https://docs.aws.amazon.com/code-library/latest/ug/emr_example_emr_Scenario_ShortLivedEmrCluster_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "emr_TerminateJobFlows",
+			"file": "emr_metadata.yaml",
+			"languages": [],
+			"title": "TerminateJobFlows",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"emr": "https://docs.aws.amazon.com/code-library/latest/ug/emr_example_emr_TerminateJobFlows_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "emr_Usage_InstallLibrariesWithSsm",
+			"file": "emr_metadata.yaml",
+			"languages": [],
+			"title": "Run a shell script to install libraries on Amazon EMR instances using an AWS SDK",
+			"title_abbrev": "Run a shell script to install libraries",
+			"synopsis": "use AWS Systems Manager to run a shell script on Amazon EMR instances that installs additional libraries. This way, you can automate instance management instead of running commands manually through an SSH connection.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"emr": "https://docs.aws.amazon.com/code-library/latest/ug/emr_example_emr_Usage_InstallLibrariesWithSsm_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

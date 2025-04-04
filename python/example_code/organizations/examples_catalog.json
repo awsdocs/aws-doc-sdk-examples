@@ -1,0 +1,124 @@
+{
+	"examples": [
+		{
+			"id": "organizations_AttachPolicy",
+			"file": "organizations_metadata.yaml",
+			"languages": [],
+			"title": "AttachPolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/organizations_example_organizations_AttachPolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "organizations_CreatePolicy",
+			"file": "organizations_metadata.yaml",
+			"languages": [],
+			"title": "CreatePolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/organizations_example_organizations_CreatePolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "organizations_DeletePolicy",
+			"file": "organizations_metadata.yaml",
+			"languages": [],
+			"title": "DeletePolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/organizations_example_organizations_DeletePolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "organizations_DescribePolicy",
+			"file": "organizations_metadata.yaml",
+			"languages": [],
+			"title": "DescribePolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/organizations_example_organizations_DescribePolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "organizations_DetachPolicy",
+			"file": "organizations_metadata.yaml",
+			"languages": [],
+			"title": "DetachPolicy",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/organizations_example_organizations_DetachPolicy_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "organizations_ListPolicies",
+			"file": "organizations_metadata.yaml",
+			"languages": [],
+			"title": "ListPolicies",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"organizations": "https://docs.aws.amazon.com/code-library/latest/ug/organizations_example_organizations_ListPolicies_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

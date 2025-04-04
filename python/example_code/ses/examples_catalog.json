@@ -1,0 +1,559 @@
+{
+	"examples": [
+		{
+			"id": "cross_DynamoDBDataTracker",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create a web application to track DynamoDB data",
+			"title_abbrev": "Create a web application to track DynamoDB data",
+			"synopsis": "create a web application that tracks work items in an Amazon DynamoDB table and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "dynamodb",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"dynamodb": "https://docs.aws.amazon.com/code-library/latest/ug/dynamodb_example_cross_DynamoDBDataTracker_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_DynamoDBDataTracker_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RDSDataTracker",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Create an Aurora Serverless work item tracker",
+			"title_abbrev": "Create an Aurora Serverless work item tracker",
+			"synopsis": "create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "aurora",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"aurora": "https://docs.aws.amazon.com/code-library/latest/ug/aurora_example_cross_RDSDataTracker_section.html",
+					"rds": "https://docs.aws.amazon.com/code-library/latest/ug/rds_example_cross_RDSDataTracker_section.html",
+					"rds-data": "https://docs.aws.amazon.com/code-library/latest/ug/rds-data_example_cross_RDSDataTracker_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RDSDataTracker_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionPhotoAnalyzer",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect objects in images with Amazon Rekognition using an AWS SDK",
+			"title_abbrev": "Detect objects in images",
+			"synopsis": "build an app that uses Amazon Rekognition to detect objects by category in images.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionPhotoAnalyzer_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionPhotoAnalyzer_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionPhotoAnalyzer_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_RekognitionVideoDetection",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect people and objects in a video with Amazon Rekognition using an AWS SDK",
+			"title_abbrev": "Detect people and objects in a video",
+			"synopsis": "detect people and objects in a video with Amazon Rekognition.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "rekognition",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"rekognition": "https://docs.aws.amazon.com/code-library/latest/ug/rekognition_example_cross_RekognitionVideoDetection_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_RekognitionVideoDetection_section.html",
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_cross_RekognitionVideoDetection_section.html",
+					"sns": "https://docs.aws.amazon.com/code-library/latest/ug/sns_example_cross_RekognitionVideoDetection_section.html",
+					"sqs": "https://docs.aws.amazon.com/code-library/latest/ug/sqs_example_cross_RekognitionVideoDetection_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_CreateReceiptFilter",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "CreateReceiptFilter",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_CreateReceiptFilter_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_CreateReceiptRule",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "CreateReceiptRule",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_CreateReceiptRule_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_CreateReceiptRuleSet",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "CreateReceiptRuleSet",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_CreateReceiptRuleSet_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_CreateTemplate",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "CreateTemplate",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_CreateTemplate_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_DeleteIdentity",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "DeleteIdentity",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_DeleteIdentity_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_DeleteReceiptFilter",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "DeleteReceiptFilter",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_DeleteReceiptFilter_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_DeleteReceiptRule",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "DeleteReceiptRule",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_DeleteReceiptRule_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_DeleteReceiptRuleSet",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "DeleteReceiptRuleSet",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_DeleteReceiptRuleSet_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_DeleteTemplate",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "DeleteTemplate",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_DeleteTemplate_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_DescribeReceiptRuleSet",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "DescribeReceiptRuleSet",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_DescribeReceiptRuleSet_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_GetIdentityVerificationAttributes",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "GetIdentityVerificationAttributes",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_GetIdentityVerificationAttributes_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_GetTemplate",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "GetTemplate",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_GetTemplate_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_ListIdentities",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "ListIdentities",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_ListIdentities_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_ListReceiptFilters",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "ListReceiptFilters",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_ListReceiptFilters_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_ListTemplates",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "ListTemplates",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_ListTemplates_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_Scenario_GenerateSmtpCredentials",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "Generate credentials to connect to an Amazon SES SMTP endpoint",
+			"title_abbrev": "Generate credentials to connect to an SMTP endpoint",
+			"synopsis": "generate credentials to connect to an Amazon SES SMTP endpoint.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_Scenario_GenerateSmtpCredentials_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_Scenario_ReplicateIdentities",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "Copy Amazon SES email and domain identities from one AWS Region to another using an AWS SDK",
+			"title_abbrev": "Copy email and domain identities across Regions",
+			"synopsis": "copy Amazon SES email and domain identities from one AWS Region to another. When domain identities are managed by Route 53, verification records are copied to the domain for the destination Region.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_Scenario_ReplicateIdentities_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_Scenario_SendEmail",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "Verify an email identity and send messages with Amazon SES  using an AWS SDK",
+			"title_abbrev": "Verify an email identity and send messages",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_Scenario_SendEmail_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Add and verify an email address with Amazon SES.",
+				"Send a standard email message.",
+				"Create a template and send a templated email message.",
+				"Send a message by using an Amazon SES SMTP server."
+			],
+			"source_key": null
+		},
+		{
+			"id": "ses_SendEmail",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "SendEmail",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_SendEmail_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_SendTemplatedEmail",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "SendTemplatedEmail",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_SendTemplatedEmail_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_UpdateTemplate",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "UpdateTemplate",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_UpdateTemplate_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_VerifyDomainIdentity",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "VerifyDomainIdentity",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_VerifyDomainIdentity_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "ses_VerifyEmailIdentity",
+			"file": "ses_metadata.yaml",
+			"languages": [],
+			"title": "VerifyEmailIdentity",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"ses": "https://docs.aws.amazon.com/code-library/latest/ug/ses_example_ses_VerifyEmailIdentity_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

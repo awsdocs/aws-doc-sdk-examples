@@ -3,6 +3,7 @@
 
 readme = "README.md"
 saved_readme = "README.old.md"
+catalog_filename = "examples_catalog.json"
 doc_base_url = "https://docs.aws.amazon.com"
 categories = {
     "hello": "Hello",
@@ -153,6 +154,10 @@ language = {
                 "secrets-manager": "python/example_code/secretsmanager",
                 "dynamodb": "python/example_code/dynamodb",
             },
+            "service_folder_ignores": [
+                "cognito",
+                "elastic-load-balancing",
+            ]
         }
     },
     "Ruby": {

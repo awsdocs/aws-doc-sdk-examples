@@ -1,0 +1,88 @@
+{
+	"examples": [
+		{
+			"id": "bedrock_GetFoundationModel",
+			"file": "bedrock_metadata.yaml",
+			"languages": [],
+			"title": "GetFoundationModel",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock_example_bedrock_GetFoundationModel_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock_Hello",
+			"file": "bedrock_metadata.yaml",
+			"languages": [],
+			"title": "Hello Amazon Bedrock",
+			"title_abbrev": "Hello Amazon Bedrock",
+			"synopsis": "get started using Amazon Bedrock.",
+			"category": "Hello",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock_example_bedrock_Hello_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "bedrock_ListFoundationModels",
+			"file": "bedrock_metadata.yaml",
+			"languages": [],
+			"title": "ListFoundationModels",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock_example_bedrock_ListFoundationModels_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "cross_ServerlessPromptChaining",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Build and orchestrate generative AI applications with Amazon Bedrock and Step Functions",
+			"title_abbrev": "Orchestrate generative AI applications with Step Functions",
+			"synopsis": "build and orchestrate generative AI applications with Amazon Bedrock and Step Functions.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "bedrock",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"bedrock": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock_example_cross_ServerlessPromptChaining_section.html",
+					"bedrock-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-runtime_example_cross_ServerlessPromptChaining_section.html",
+					"bedrock-agent": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent_example_cross_ServerlessPromptChaining_section.html",
+					"bedrock-agent-runtime": "https://docs.aws.amazon.com/code-library/latest/ug/bedrock-agent-runtime_example_cross_ServerlessPromptChaining_section.html",
+					"sfn": "https://docs.aws.amazon.com/code-library/latest/ug/sfn_example_cross_ServerlessPromptChaining_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

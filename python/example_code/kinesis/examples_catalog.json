@@ -1,0 +1,104 @@
+{
+	"examples": [
+		{
+			"id": "kinesis_CreateStream",
+			"file": "kinesis_metadata.yaml",
+			"languages": [],
+			"title": "CreateStream",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis_example_kinesis_CreateStream_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis_DeleteStream",
+			"file": "kinesis_metadata.yaml",
+			"languages": [],
+			"title": "DeleteStream",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis_example_kinesis_DeleteStream_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis_DescribeStream",
+			"file": "kinesis_metadata.yaml",
+			"languages": [],
+			"title": "DescribeStream",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis_example_kinesis_DescribeStream_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis_GetRecords",
+			"file": "kinesis_metadata.yaml",
+			"languages": [],
+			"title": "GetRecords",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis_example_kinesis_GetRecords_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "kinesis_PutRecord",
+			"file": "kinesis_metadata.yaml",
+			"languages": [],
+			"title": "PutRecord",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"kinesis": "https://docs.aws.amazon.com/code-library/latest/ug/kinesis_example_kinesis_PutRecord_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}
