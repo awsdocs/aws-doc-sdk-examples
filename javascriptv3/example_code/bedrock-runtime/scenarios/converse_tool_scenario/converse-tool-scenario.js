@@ -162,7 +162,16 @@ async function HandleToolUseAsync(response, messages, max_recursions) {
       messages,
     );
   } catch (error) {
-    console.log("error1 ", error);
+    const errorString = error.toString();
+    const searchString =
+      "ValidationException: The toolResult blocks at messages.2.content contain duplicate Ids:";
+    if (errorString.includes(searchString)) {
+      console.log(
+        "An processing error occurred with the model. Please try again.",
+      );
+    } else {
+      console.log("An error occurred. ", error);
+    }
   }
 }
 // Call the Weathertool
