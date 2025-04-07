@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import kotlinx.coroutines.runBlocking
 import location.listGeofences
 import location.scenario.calcDistance
 import location.scenario.createGeofenceCollection
@@ -19,7 +20,6 @@ import location.scenario.reverseGeocode
 import location.scenario.searchNearby
 import location.scenario.searchText
 import location.scenario.updateDevicePosition
-import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order

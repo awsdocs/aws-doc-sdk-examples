@@ -9,8 +9,6 @@ group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
 }
 
 buildscript {
@@ -39,6 +37,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.slf4j:slf4j-api:2.0.15")
     implementation("org.slf4j:slf4j-simple:2.0.15")
+    implementation(kotlin("stdlib-jdk8"))
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
@@ -53,4 +52,7 @@ tasks.test {
     // Define the test source set
     testClassesDirs += files("build/classes/kotlin/test")
     classpath += files("build/classes/kotlin/main", "build/resources/main")
+}
+kotlin {
+    jvmToolchain(17)
 }
