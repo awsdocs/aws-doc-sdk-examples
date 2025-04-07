@@ -7,6 +7,8 @@ import com.example.helloswf.WorkflowStarter;
 import com.example.helloswf.WorkflowWorker;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
@@ -23,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonSimpleWorkflowTest {
+    private static final Logger logger = LoggerFactory.getLogger(AmazonSimpleWorkflowTest.class);
     private static SwfClient swf;
     private static String workflowInput = "";
     private static String domain = "";
@@ -37,7 +40,6 @@ public class AmazonSimpleWorkflowTest {
         Region region = software.amazon.awssdk.regions.Region.US_EAST_1;
         swf = SwfClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -50,89 +52,61 @@ public class AmazonSimpleWorkflowTest {
         workflowVersion = values.getWorkflowVersion();
         activity = values.getActivity();
         activityVersion = values.getActivityVersion();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * AmazonSimpleWorkflowTest.class.getClassLoader().getResourceAsStream(
-         * "config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * // Populate the data members required for all tests
-         * prop.load(input);
-         * domain = prop.getProperty("domain")+ java.util.UUID.randomUUID();
-         * taskList = prop.getProperty("taskList");
-         * workflow = prop.getProperty("workflow");
-         * workflowVersion = prop.getProperty("workflowVersion");
-         * activity = prop.getProperty("activity");
-         * activityVersion = prop.getProperty("activityVersion");
-         * 
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         * 
-         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void registerDomain() {
+    public void testRegisterDomain() {
         assertDoesNotThrow(() -> SWFWorkflowDemo.registerDomain(swf, domain));
-        System.out.println("Test 1 passed");
+        logger.info("\n Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void RegisterWorkflowType() {
+    public void testRegisterWorkflowType() {
         assertDoesNotThrow(
                 () -> SWFWorkflowDemo.registerWorkflowType(swf, domain, workflow, workflowVersion, taskList));
-        System.out.println("Test 2 passed");
+        logger.info("\nTest 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void registerActivityType() {
+    public void testRegisterActivityType() {
         assertDoesNotThrow(
                 () -> SWFWorkflowDemo.registerActivityType(swf, domain, activity, activityVersion, taskList));
-        System.out.println("Test 3 passed");
+        logger.info("\nTest 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void WorkflowStarter() {
+    public void testWorkflowStarter() {
         assertDoesNotThrow(() -> WorkflowStarter.startWorkflow(swf, workflowInput, domain, workflow, workflowVersion));
-        System.out.println("Test 4 passed");
+        logger.info("\nTest 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void WorkflowWorker() {
+    public void testWorkflowWorker() {
         assertDoesNotThrow(() -> WorkflowWorker.pollADecision(swf, domain, taskList, activity, activityVersion));
-        System.out.println("Test 5 passed");
+        logger.info("\nTest 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void ActivityWorker() {
+    public void testActivityWorker() {
         assertDoesNotThrow(() -> ActivityWorker.getPollData(swf, domain, taskList));
-        System.out.println("Test 6 passed");
+        logger.info("\nTest 6 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/swf";
 

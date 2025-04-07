@@ -4,7 +4,8 @@
 import com.example.cognito.*;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
@@ -22,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Tag("integ")
 public class AmazonCognitoTest {
+    private static final Logger logger = LoggerFactory.getLogger(AmazonCognitoTest.class);
     private static CognitoIdentityProviderClient cognitoclient;
     private static CognitoIdentityProviderClient cognitoIdentityProviderClient;
     private static CognitoIdentityClient cognitoIdclient;
@@ -54,17 +56,14 @@ public class AmazonCognitoTest {
         // Run tests on Real AWS Resources
         cognitoclient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         cognitoIdclient = CognitoIdentityClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         cognitoIdentityProviderClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         Gson gson = new Gson();
@@ -89,172 +88,127 @@ public class AmazonCognitoTest {
         userNameMVP = values.getUserNameMVP();
         passwordMVP = values.getPasswordMVP();
         emailMVP = values.getEmailMVP();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * AmazonCognitoTest.class.getClassLoader().getResourceAsStream(
-         * "config.properties")) {
-         * 
-         * Properties prop = new Properties();
-         * 
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * //load a properties file from class path, inside static method
-         * prop.load(input);
-         * 
-         * // Populate the data members required for all tests
-         * userPoolName = prop.getProperty("userPoolName");
-         * username= prop.getProperty("username")+"_"+ java.util.UUID.randomUUID();
-         * email= prop.getProperty("email");
-         * clientName = prop.getProperty("clientName");
-         * identityPoolName = prop.getProperty("identityPoolName");
-         * identityId = prop.getProperty("identityId"); // used in the
-         * GetIdentityCredentials test
-         * appId = prop.getProperty("appId");
-         * existingUserPoolId = prop.getProperty("existingUserPoolId");
-         * existingIdentityPoolId = prop.getProperty("existingIdentityPoolId");
-         * providerName = prop.getProperty("providerName");
-         * existingPoolName = prop.getProperty("existingPoolName");
-         * clientId = prop.getProperty("clientId");
-         * secretkey = prop.getProperty("secretkey");
-         * password = prop.getProperty("password");
-         * poolIdMVP = prop.getProperty("poolIdMVP");
-         * clientIdMVP = prop.getProperty("clientIdMVP");
-         * userNameMVP = prop.getProperty("userNameMVP");
-         * passwordMVP = prop.getProperty("passwordMVP");
-         * emailMVP = prop.getProperty("emailMVP");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateUserPool() {
+    public void testCreateUserPool() {
         userPoolId = CreateUserPool.createPool(cognitoclient, userPoolName);
         assertFalse(userPoolId.isEmpty());
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void CreateUser() {
+    public void testCreateUser() {
         assertDoesNotThrow(() -> CreateUser.createNewUser(cognitoclient, userPoolId, username, email, password));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void CreateUserPoolClient() {
+    public void testCreateUserPoolClient() {
         assertDoesNotThrow(() -> CreateUserPoolClient.createPoolClient(cognitoclient, clientName, userPoolId));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void CreateIdentityPool() {
+    public void testCreateIdentityPool() {
         identityPoolId = CreateIdentityPool.createIdPool(cognitoIdclient, identityPoolName);
         assertFalse(identityPoolId.isEmpty());
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ListUserPools() {
+    public void testListUserPools() {
         assertDoesNotThrow(() -> ListUserPools.listAllUserPools(cognitoclient));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void ListIdentityPools() {
+    public void testListIdentityPools() {
         assertDoesNotThrow(() -> ListIdentityPools.listIdPools(cognitoIdclient));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void ListUserPoolClients() {
+    public void testListUserPoolClients() {
         assertDoesNotThrow(
                 () -> ListUserPoolClients.listAllUserPoolClients(cognitoIdentityProviderClient, existingUserPoolId));
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void ListUsers() {
+    public void testListUsers() {
         assertDoesNotThrow(() -> ListUsers.listAllUsers(cognitoclient, existingUserPoolId));
-        System.out.println("Test 8 passed");
+        logger.info("Test 8 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-    public void ListIdentities() {
+    public void testListIdentities() {
         assertDoesNotThrow(() -> ListIdentities.listPoolIdentities(cognitoIdclient, existingIdentityPoolId));
-        System.out.println("Test 9 passed");
+        logger.info("Test 9 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(10)
-    public void AddLoginProvider() {
+    public void testAddLoginProvider() {
         assertDoesNotThrow(() -> AddLoginProvider.setLoginProvider(cognitoIdclient, appId, existingPoolName,
                 existingIdentityPoolId, providerName));
-        System.out.println("Test 10 passed");
+        logger.info("Test 10 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(11)
-    public void GetIdentityCredentials() {
+    public void testGetIdentityCredentials() {
         assertDoesNotThrow(() -> GetIdentityCredentials.getCredsForIdentity(cognitoIdclient, identityId));
-        System.out.println("Test 11 passed");
+        logger.info("Test 11 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(12)
-    public void GetId() {
+    public void testGetId() {
         assertDoesNotThrow(() -> GetId.getClientID(cognitoIdclient, existingIdentityPoolId));
-        System.out.println("Test 12 passed");
+        logger.info("Test 12 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(13)
-    public void DeleteUserPool() {
+    public void testDeleteUserPool() {
         assertDoesNotThrow(() -> DeleteUserPool.deletePool(cognitoclient, userPoolId));
-        System.out.println("Test 13 passed");
+        logger.info("Test 13 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(14)
-    public void DeleteIdentityPool() {
+    public void testDeleteIdentityPool() {
         assertDoesNotThrow(() -> DeleteIdentityPool.deleteIdPool(cognitoIdclient, identityPoolId));
-        System.out.println("Test 15 passed");
+        logger.info("Test 15 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/cognito";
 

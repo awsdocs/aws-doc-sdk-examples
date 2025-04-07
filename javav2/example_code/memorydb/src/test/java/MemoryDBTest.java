@@ -3,6 +3,8 @@
 
 import com.example.memorydb.*;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.regions.Region;
@@ -20,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MemoryDBTest {
+    private static final Logger logger = LoggerFactory.getLogger(MemoryDBTest.class);
     private static MemoryDbClient memoryDbClient;
     private static String clusterName = "";
     private static String nodeType = "";
@@ -32,7 +35,6 @@ public class MemoryDBTest {
         Region region = Region.US_EAST_1;
         memoryDbClient = MemoryDbClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         Random random = new Random();
@@ -47,30 +49,6 @@ public class MemoryDBTest {
         subnetGroupName = values.getSubnetGroupName();
         aclName = values.getAclName();
         snapShotName = values.getSnapShotName() + randomNum;
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * MemoryDBTest.class.getClassLoader().getResourceAsStream("config.properties"))
-         * {
-         * 
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * prop.load(input);
-         * clusterName = prop.getProperty("clusterName")+ java.util.UUID.randomUUID();
-         * nodeType = prop.getProperty("nodeType");
-         * subnetGroupName = prop.getProperty("subnetGroupName");
-         * aclName = prop.getProperty("aclName");
-         * snapShotName= prop.getProperty("snapShotName");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -79,7 +57,7 @@ public class MemoryDBTest {
     public void createCluster() {
         assertDoesNotThrow(() -> CreateCluster.createSingleCluster(memoryDbClient, clusterName, nodeType,
                 subnetGroupName, aclName));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -87,7 +65,7 @@ public class MemoryDBTest {
     @Order(2)
     public void describeSpecificCluster() {
         assertDoesNotThrow(() -> DescribeSpecificCluster.checkIfAvailable(memoryDbClient, clusterName));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -95,7 +73,7 @@ public class MemoryDBTest {
     @Order(3)
     public void createSnapshot() {
         assertDoesNotThrow(() -> CreateSnapshot.createSpecificSnapshot(memoryDbClient, clusterName, snapShotName));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -103,7 +81,7 @@ public class MemoryDBTest {
     @Order(4)
     public void describeSnapshot() {
         assertDoesNotThrow(() -> DescribeSnapshots.describeALlSnapshots(memoryDbClient, clusterName));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -112,7 +90,7 @@ public class MemoryDBTest {
     public void describeAllClusters() {
         assertDoesNotThrow(() -> DescribeClusters.getClusters(memoryDbClient));
         assertDoesNotThrow(() -> DescribeSpecificCluster.checkIfAvailable(memoryDbClient, clusterName));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -120,13 +98,12 @@ public class MemoryDBTest {
     @Order(6)
     public void deleteCluster() {
         assertDoesNotThrow(() -> DeleteCluster.deleteSpecificCluster(memoryDbClient, clusterName));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/memorydb";
 

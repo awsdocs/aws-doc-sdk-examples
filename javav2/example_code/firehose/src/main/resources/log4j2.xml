@@ -1,0 +1,18 @@
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%msg%n"/>
+        </Console>
+        <MemoryLog4jAppender name="MemoryLog4jAppender"/>
+        <Console name="AlignedConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <!-- Root logger configuration -->
+        <Root level="info">
+            <!-- Specify which appenders to use -->
+            <AppenderRef ref="ConsoleAppender" />
+        </Root>
+    </Loggers>
+</Configuration>
