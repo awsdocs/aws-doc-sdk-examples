@@ -8,8 +8,7 @@
     "integration-test": "vitest run integration --reporter=junit --outputFile=test_results/bedrock-runtime-test-results.junit.xml"
   },
   "devDependencies": {
-    "vitest": "^1.6.1",
-    "prettier": "^3.5.3"
+    "vitest": "^1.6.1"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.751.0"
