@@ -5,7 +5,7 @@
 Amazon Bedrock Flow Runner for Playlist Generation
 
 This module provides functionality to execute an existing Amazon Bedrock flow that generates
-music playlists based on user-specified genre and number of songs. It handles flow invocation,
+a music playlist based on user-specified genre and number of songs. It handles flow invocation,
 response streaming, and error handling.
 
 The module interacts with a pre-configured Bedrock flow that expects:
@@ -32,7 +32,7 @@ def invoke_flow(client, flow_id, flow_alias_id, input_data):
         input_data: Input data for the flow.
 
     Returns:
-        Dict containing flow_complete status, input_required info, and execution_id
+        Dict containing flow status and flow output.
     """
 
     response = None
@@ -49,6 +49,7 @@ def invoke_flow(client, flow_id, flow_alias_id, input_data):
     response = client.invoke_flow(**request_params)
 
     flow_status = ""
+    output= ""
 
     # Process the streaming response
     for event in response['responseStream']:
@@ -57,17 +58,22 @@ def invoke_flow(client, flow_id, flow_alias_id, input_data):
         if 'flowCompletionEvent' in event:
             flow_status = event['flowCompletionEvent']['completionReason']
 
-        # Print the model output.
+        # Save the model output.
         elif 'flowOutputEvent' in event:
-            logger.info(event['flowOutputEvent']['content']['document'])
+            output = event['flowOutputEvent']['content']['document']
+            logger.info("Output : %s", output)
 
         # Log trace events.
         elif 'flowTraceEvent' in event:
             logger.info("Flow trace:  %s", event['flowTraceEvent'])
-
+    
     return {
-        "flow_status": flow_status
+        "flow_status": flow_status,
+        "output": output
+
     }
+
+
 # snippet-end:[python.example_code.bedrock-agent-runtime.flow_invoke_flow]  
 
 # snippet-start:[python.example_code.bedrock-agent-runtime.run_playlist_flow]  
@@ -112,6 +118,7 @@ def run_playlist_flow(bedrock_agent_client, flow_id, flow_alias_id):
         if status == "SUCCESS":
                 # The flow completed successfully.
                 logger.info("The flow %s successfully completed.", flow_id)
+                print(result['output'])
         else:
             logger.warning("Flow status: %s",status)
 

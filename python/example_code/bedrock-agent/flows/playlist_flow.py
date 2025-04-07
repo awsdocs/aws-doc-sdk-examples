@@ -22,7 +22,6 @@ The script will:
 """
 
 # snippet-start:[python.example_code.bedrock-agent-runtine.Scenario_GettingStartedBedrockFlows]
-
 from datetime import datetime
 import logging
 import boto3
@@ -41,11 +40,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # snippet-start:[python.example_code.bedrock-agent-runtime.create_input_node]
-
-
 def create_input_node(name):
     """
-    Creates an input node configuration for a Bedrock flow.
+    Creates an input node configuration for an Amazon Bedrock flow.
 
     The input node serves as the entry point for the flow and defines
     the initial document structure that will be passed to subsequent nodes.
@@ -71,8 +68,6 @@ def create_input_node(name):
 # snippet-end:[python.example_code.bedrock-agent-runtime.create_input_node]
 
 # snippet-start:[python.example_code.bedrock-agent-runtime.create_prompt_node]
-
-
 def create_prompt_node(name, model_id):
     """
     Creates a prompt node configuration for a Bedrock flow that generates music playlists.
@@ -138,8 +133,6 @@ def create_prompt_node(name, model_id):
 # snippet-end:[python.example_code.bedrock-agent-runtime.create_prompt_node]
 
 # snippet-start:[python.example_code.bedrock-agent-runtime.create_output_node]
-
-
 def create_output_node(name):
     """
     Creates an output node configuration for a Bedrock flow.
@@ -271,8 +264,6 @@ def get_model_arn(client, model_id):
 
 
 # snippet-start:[python.example_code.bedrock-agent-runtime.flow_prepare_version_alias]
-
-
 def prepare_flow_version_and_alias(bedrock_agent_client,
                                    flow_id):
     """
@@ -307,7 +298,6 @@ def prepare_flow_version_and_alias(bedrock_agent_client,
 # snippet-end:[python.example_code.bedrock-agent-runtime.flow_prepare_version_alias]
 
 # snippet-start:[python.example_code.bedrock-agent-runtime.flow_delete_resources]
-
 
 def delete_role_resources(bedrock_agent_client,
                           iam_client,
@@ -348,6 +338,7 @@ def main():
         Requires valid AWS credentials in the default profile
     """
 
+    delete_choice = "y"
     try:
 
         # Get various boto3 clients.
@@ -361,8 +352,8 @@ def main():
         flow_id = None
         flow_version = None
         flow_alias = None
-        delete_choice = "y"
 
+        #Change the model as needed.
         prompt_model_id = "amazon.nova-pro-v1:0"
 
         # Base the flow name on the current date and time

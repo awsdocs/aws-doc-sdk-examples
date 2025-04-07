@@ -37,33 +37,21 @@ def test_create_flow_version(make_stubber, error_code):
         "executionRoleArn": Fake.ROLE_ARN,
         "id": Fake.VERSION_ID,
         "name": Fake.VERSION_NAME,
-        "status": "preparing",
+        "status": "NotPrepared",
         "version": Fake.FLOW_VERSION
     }
 
-    if error_code is None:
-
-        # First stub - Start creating the flow version.
-        bedrock_agent_stubber.stub_create_flow_version(
+            # First stub - Start creating the flow version.
+    bedrock_agent_stubber.stub_create_flow_version(
             create_flow_version_expected_params,
-            response)
+            response,            
+            error_code=error_code)
 
-        # Second stub - Get flow status for created flow version.
-        response['status'] = "Prepared"
-        bedrock_agent_stubber.stub_get_flow_version(
-            get_flow_version_expected_params,
-            response
-        )
-
+    if error_code is None:
         version = flow_version.create_flow_version(
             bedrock_agent_client, Fake.FLOW_ID, Fake.VERSION_DESCRIPTION)
         assert version == Fake.FLOW_VERSION
     else:
-        bedrock_agent_stubber.stub_create_flow_version(
-            create_flow_version_expected_params,
-            response,
-            error_code=error_code
-        )
         with pytest.raises(ClientError) as exc_info:
             flow_version.create_flow_version(
                 bedrock_agent_client, Fake.FLOW_ID, Fake.VERSION_DESCRIPTION)

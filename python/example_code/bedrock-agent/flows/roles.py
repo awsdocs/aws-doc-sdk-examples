@@ -8,23 +8,29 @@ This module provides functionality to create, update, and delete IAM roles speci
 configured for Amazon Bedrock flows. It handles the complete lifecycle of IAM roles
 including trust relationships, inline policies, and permissions management.
 """
-
+import logging
 import json
 from botocore.exceptions import ClientError
 
+logging.basicConfig(
+    level=logging.INFO
+)
+logger = logging.getLogger(__name__)
+
+# snippet-start:[python.example_code.bedrock-agent-runtime.Scenario_GettingStartedBedrockFlows_iam_role]
 
 def create_flow_role(client, role_name):
     """
     Creates an IAM role for Amazon Bedrock with permissions to run a flow.
     
     Args:
-        role_name (str): Name for the new IAM role
+        role_name (str): Name for the new IAM role.
     Returns:
-        dict: Created role information if successful, None if failed
+        str: The role Amazon Resource Name.
     """
 
     
-    # Trust relationship policy - allows Bedrock service to assume this role.
+    # Trust relationship policy - allows Amazon Bedrock service to assume this role.
     trust_policy = {
         "Version": "2012-10-17",
         "Statement": [{
@@ -60,7 +66,7 @@ def create_flow_role(client, role_name):
     
     try:
         # Create the IAM role with trust policy
-        print(f"Creating role: {role_name}")
+        logging.info("Creating role: %s",role_name)
         role = client.create_role(
             RoleName=role_name,
             AssumeRolePolicyDocument=json.dumps(trust_policy),
@@ -75,23 +81,24 @@ def create_flow_role(client, role_name):
             PolicyDocument=json.dumps(bedrock_policy)
         )
         
-        print(f"Role ARN: {role['Role']['Arn']}")
+        logging.info("Create Role ARN: %s", role['Role']['Arn'])
         return role['Role']
         
     except ClientError as e:
-        print(f"Error creating role: {str(e)}")
+        logging.warning("Error creating role: %s", str(e))
         raise
     except Exception as e:
-        print(f"Unexpected error: {str(e)}")
+        logging.warning("Unexpected error: %s", str(e))
         raise
+
 
 def update_role_policy(client, role_name, resource_arns):
     """
     Updates an IAM role's inline policy with specific resource ARNs.
     
     Args:
-        role_name (str): Name of the existing role
-        resource_arns (list): List of resource ARNs to allow access to
+        role_name (str): Name of the existing role.
+        resource_arns (list): List of resource ARNs to allow access to.
     """
 
     
@@ -117,11 +124,11 @@ def update_role_policy(client, role_name, resource_arns):
             PolicyName=f"{role_name}-policy",
             PolicyDocument=json.dumps(updated_policy)
         )
-        print(f"Updated policy for role: {role_name}")
+        logging.info("Updated policy for role: %s",role_name)
         
     except ClientError as e:
-        print(f"Error updating role policy: {str(e)}")
-        raise 
+        logging.warning("Error updating role policy: %s", str(e))
+        raise
 
 
 def delete_flow_role(client, role_name):
@@ -129,7 +136,7 @@ def delete_flow_role(client, role_name):
     Deletes an IAM role.
 
     Args:
-        role_name (str): Name of the role to delete
+        role_name (str): Name of the role to delete.
     """
 
 
@@ -142,10 +149,11 @@ def delete_flow_role(client, role_name):
 
         # Delete the role
         client.delete_role(RoleName=role_name)
-        print(f"Deleted role: {role_name}")
+        logging.info("Deleted role: %s", role_name)
 
 
     except ClientError as e:
-        print(f"Error deleting role: {str(e)}")
+        logging.info("Error Deleting role: %s", str(e))
         raise
 
+# snippet-end:[python.example_code.bedrock-agent-runtime.Scenario_GettingStartedBedrockFlows_iam_role]

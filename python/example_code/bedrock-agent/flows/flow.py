@@ -21,7 +21,7 @@ def create_flow(client, flow_name, flow_description, role_arn, flow_def):
     Creates an Amazon Bedrock flow.
 
     Args:
-    client: bedrock agent boto3 client.
+    client: Amazon Bedrock agent boto3 client.
     flow_name (str): The name for the new flow.
     role_arn (str):  The ARN for the IAM role that use flow uses.
     flow_def (json): The JSON definition of the flow that you want to create.
@@ -61,6 +61,7 @@ def prepare_flow(client, flow_id):
     Prepares an Amazon Bedrock Flow.
 
     Args:
+        client: Amazon Bedrock agent boto3 client.
         flow_id (str): The identifier of the flow that you want to prepare.
 
     Returns:
@@ -121,7 +122,7 @@ def update_flow(client, flow_id, flow_name, flow_description, role_arn, flow_def
     flow_def (json): The JSON definition of the flow that you want to create.
 
     Returns:
-        dict: Flow information if successful, None if an error occurs
+        dict: Flow information if successful.
     """
     try:
 
@@ -157,8 +158,8 @@ def delete_flow(client, flow_id):
     Deletes an Amazon Bedrock flow.
 
     Args:
-    client: bedrock agent boto3 client.
-        flow_id (str): The identifier of the flow that you want to delete.
+    client: Amazon Bedrock agent boto3 client.
+    flow_id (str): The identifier of the flow that you want to delete.
 
     Returns:
         dict: The response from the DeleteFLow operation.
@@ -189,11 +190,9 @@ def delete_flow(client, flow_id):
 # snippet-end:[python.example_code.bedrock-agent.delete_flow]
 
 # snippet-start:[python.example_code.bedrock-agent.get_flow]
-
-
 def get_flow(client, flow_id):
     """
-    Gets a Bedrock flow.
+    Gets an Amazon Bedrock flow.
 
     Args:
     client: bedrock agent boto3 client.
@@ -207,7 +206,7 @@ def get_flow(client, flow_id):
         logger.info("Getting flow ID: %s.",
                     flow_id)
 
-        # Call GetFLow operation
+        # Call GetFlow operation.
         response = client.get_flow(
             flowIdentifier=flow_id
         )
@@ -233,7 +232,7 @@ def list_flows(client):
     Lists versions of an Amazon Bedrock flow.
 
     Args:
-        client: bedrock agent boto3 client.
+        client: Amazon Bedrock agent boto3 client.
         flow_id (str): The identifier of the flow.
 
     Returns:

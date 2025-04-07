@@ -21,7 +21,7 @@ def create_flow_version(client, flow_id, description):
     Creates a version of an Amazon Bedrock flow.
 
     Args:
-        client: bedrock agent boto3 client.
+        client: Amazon Bedrock agent boto3 client.
         flow_id (str): The identifier of the flow.
         description (str) : A description for the flow.
 
@@ -54,10 +54,10 @@ def create_flow_version(client, flow_id, description):
 # snippet-start:[python.example_code.bedrock-agent.get_flow_version]
 def get_flow_version(client, flow_id, flow_version):
     """
-    Gets information about a version of a Bedrock flow.
+    Gets information about a version of an Amazon Bedrock flow.
 
     Args:
-        client: bedrock agent boto3 client.
+        client: Amazon Bedrock agent boto3 client.
         flow_id (str): The identifier of the flow.
         flow_version (str): The flow version of the flow.
 
@@ -91,10 +91,10 @@ def get_flow_version(client, flow_id, flow_version):
 # snippet-start:[python.example_code.bedrock-agent.delete_flow_version]
 def delete_flow_version(client, flow_id, flow_version):
     """
-    Deletes a version of a Bedrock flow.
+    Deletes a version of an Amazon Bedrock flow.
 
     Args:
-        client: bedrock agent boto3 client.
+        client: Amazon Bedrock agent boto3 client.
         flow_id (str): The identifier of the flow.
 
     Returns:
@@ -131,7 +131,7 @@ def list_flow_versions(client, flow_id):
     Lists the versions of an Amazon Bedrock flow.
 
     Args:
-        client: bedrock agent boto3 client.
+        client: Amazon bedrock agent boto3 client.
         flow_id (str): The identifier of the flow.
 
     Returns:
