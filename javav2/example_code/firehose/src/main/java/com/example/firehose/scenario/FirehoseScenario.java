@@ -6,6 +6,7 @@ package com.example.firehose.scenario;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import software.amazon.awssdk.core.SdkBytes;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.*;
 import software.amazon.awssdk.services.firehose.FirehoseClient;
@@ -42,6 +43,7 @@ public class FirehoseScenario {
             System.out.println(usage);
             return;
         }
+
         String deliveryStreamName = args[0];
 
         try {
@@ -77,14 +79,18 @@ public class FirehoseScenario {
 
     private static FirehoseClient getFirehoseClient() {
         if (firehoseClient == null) {
-            firehoseClient = FirehoseClient.create();
+            firehoseClient = FirehoseClient.builder()
+                    .region(Region.US_EAST_1)
+                    .build();
         }
         return firehoseClient;
     }
 
     private static CloudWatchClient getCloudWatchClient() {
         if (cloudWatchClient == null) {
-            cloudWatchClient = CloudWatchClient.create();
+            cloudWatchClient = CloudWatchClient.builder()
+                    .region(Region.US_EAST_1)
+                    .build();
         }
         return cloudWatchClient;
     }

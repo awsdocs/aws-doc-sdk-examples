@@ -1,0 +1,374 @@
+# zexi 0.4.0
+location_Hello:
+  title: Hello &ALlong;
+  title_abbrev: Hello &ALshort;
+  synopsis: get started using &ALlong;.
+  category: Hello
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.hello.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.hello.main
+  services:
+    location: {ListGeofencesPaginator}
+location_CreateMap:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.create.map.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.create.map.main
+  services:
+    location: {CreateMap}
+location_CreateKey:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.create.key.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.create.key.main
+  services:
+    location: {CreateKey}
+location_CreateGeofenceCollection:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.create.collection.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.create.collection.main
+  services:
+    location: {CreateGeofenceCollection}
+location_PutGeofence:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.put.geo.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.put.geo.main
+  services:
+    location: {PutGeofence}
+location_CreateTracker:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.create.tracker.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.create.tracker.main
+  services:
+    location: {CreateTracker}
+location_BatchUpdateDevicePosition:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.update.device.position.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.update.device.position.main
+  services:
+    location: {BatchUpdateDevicePosition}
+location_GetDevicePosition:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.get.device.position.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.get.device.position.main
+  services:
+    location: {GetDevicePosition}
+location_CreateRouteCalculator:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.create.calculator.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.create.calculator.main
+  services:
+    location: {CreateRouteCalculator}
+location_CalculateRoute:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.calc.distance.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.calc.distance.main
+  services:
+    location: {CalculateRoute}
+location_DeleteGeofenceCollection:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.delete.collection.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.delete.collection.main
+  services:
+    location: {DeleteGeofenceCollection}    
+location_DeleteKey:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.delete.key.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.delete.key.main
+  services:
+    location: {DeleteKey}  
+location_DeleteMap:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.delete.map.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.delete.map.main
+  services:
+    location: {DeleteMap}    
+location_DeleteTracker:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.delete.tracker.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.delete.tracker.main
+  services:
+    location: {DeleteTracker} 
+location_DeleteRouteCalculator:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.delete.calculator.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.java2.delete.calculator.main
+  services:
+    location: {DeleteRouteCalculator} 
+location_Scenario:
+  synopsis_list:
+    - Create an &ALshort; map.
+    - Create an &ALshort; API key.
+    - Display Map URL.
+    - Create a geofence collection.
+    - Store a geofence geometry.
+    - Create a tracker resource.
+    - Update the position of a device.
+    - Retrieve the most recent position update for a specified device.
+    - Create a route calculator.
+    - Determine the distance between Seattle and Vancouver.
+    - Use &ALshort; higher level APIs.
+    - Delete the &ALshort; Assets.
+  category: Basics
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/location
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.kotlin.scenario.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/location
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &ALlong; features.
+              snippet_tags:
+                - location.java2.scenario.main
+            - description: A wrapper class for &ALlong; SDK methods.
+              snippet_tags:
+                - location.java2.actions.main
+  services:
+    location: {}

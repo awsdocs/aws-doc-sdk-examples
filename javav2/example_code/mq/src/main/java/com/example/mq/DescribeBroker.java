@@ -45,21 +45,31 @@ public class DescribeBroker {
     }
 
     // snippet-start:[mq.java2.describe_broker.main]
-    public static String describeBroker(MqClient mqClient, String brokerName) {
+    public static String describeBroker(MqClient mqClient, String brokerId) {
         try {
-            DescribeBrokerRequest request = DescribeBrokerRequest.builder()
-                    .brokerId(brokerName)
-                    .build();
+            while (true) {
+                DescribeBrokerRequest request = DescribeBrokerRequest.builder()
+                        .brokerId(brokerId)
+                        .build();
 
-            DescribeBrokerResponse response = mqClient.describeBroker(request);
-            System.out.print(response + "\n\n");
-            return response.brokerId();
+                DescribeBrokerResponse response = mqClient.describeBroker(request);
+                String currentState = response.brokerStateAsString();
+                System.out.println("Current Broker State: " + currentState);
 
+                if ("RUNNING".equalsIgnoreCase(currentState)) {
+                    return response.brokerId();
+                }
+
+                // Sleep before polling again to avoid throttling
+                Thread.sleep(5_000);
+            }
         } catch (MqException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            System.err.println("Error describing broker: " + e.awsErrorDetails().errorMessage());
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Thread was interrupted while waiting for broker to complete.", e);
         }
-        return "";
     }
     // snippet-end:[mq.java2.describe_broker.main]
 }

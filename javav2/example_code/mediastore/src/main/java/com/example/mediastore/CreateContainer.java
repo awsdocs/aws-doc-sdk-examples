@@ -47,6 +47,7 @@ public class CreateContainer {
         mediaStoreClient.close();
     }
 
+
     public static void createMediaContainer(MediaStoreClient mediaStoreClient, String containerName) {
         try {
             CreateContainerRequest containerRequest = CreateContainerRequest.builder()

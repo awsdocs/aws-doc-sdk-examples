@@ -3,18 +3,15 @@
 
 import com.example.glue.scenario.GlueScenario;
 import com.google.gson.Gson;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.glue.GlueClient;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
-
-import java.io.*;
-import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
@@ -24,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class GlueTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(GlueTest.class);
     private static GlueClient glueClient;
     private static String crawlerName = "";
     private static String cron = "";
@@ -47,7 +44,6 @@ public class GlueTest {
     public static void setUp() {
         glueClient = GlueClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -79,6 +75,7 @@ public class GlueTest {
         assertDoesNotThrow(() -> {
             GlueScenario.createDatabase(glueClient, dbNameSc, locationUri);
         });
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -88,6 +85,7 @@ public class GlueTest {
         assertDoesNotThrow(() -> {
             GlueScenario.createGlueCrawler(glueClient, IAM, s3PathSc, cron, dbNameSc, crawlerNameSc);
         });
+        logger.info("Test 2 passed");
     }
 
     @Test
@@ -97,6 +95,7 @@ public class GlueTest {
         assertDoesNotThrow(() -> {
             GlueScenario.getSpecificCrawler(glueClient, crawlerNameSc);
         });
+        logger.info("Test 3 passed");
     }
 
     @Test
@@ -106,6 +105,7 @@ public class GlueTest {
         assertDoesNotThrow(() -> {
             GlueScenario.startSpecificCrawler(glueClient, crawlerNameSc);
         });
+        logger.info("Test 4 passed");
     }
 
     @Test
@@ -115,6 +115,7 @@ public class GlueTest {
         assertDoesNotThrow(() -> {
             GlueScenario.getSpecificDatabase(glueClient, dbNameSc);
         });
+        logger.info("Test 5 passed");
     }
 
     @Test
@@ -127,6 +128,7 @@ public class GlueTest {
             System.out.println("6. Get tables.");
             GlueScenario.getGlueTables(glueClient, dbNameSc);
         });
+        logger.info("Test 6 passed");
     }
 
     @Test
@@ -136,6 +138,7 @@ public class GlueTest {
         assertDoesNotThrow(() -> {
             GlueScenario.createJob(glueClient, jobNameSc, IAM, scriptLocationSc);
         });
+        logger.info("Test 7 passed");
     }
 
     @Test
@@ -145,6 +148,7 @@ public class GlueTest {
         assertDoesNotThrow(() -> {
             GlueScenario.startJob(glueClient, jobNameSc, dbNameSc, tableName, bucketNameSc);
         });
+        logger.info("Test 8 passed");
     }
 
     @Test
@@ -154,6 +158,7 @@ public class GlueTest {
         assertDoesNotThrow(() -> {
             GlueScenario.getAllJobs(glueClient);
         });
+        logger.info("Test 9 passed");
     }
 
     @Test
@@ -163,6 +168,7 @@ public class GlueTest {
         assertDoesNotThrow(() -> {
             GlueScenario.getJobRuns(glueClient, jobNameSc);
         });
+        logger.info("Test 10 passed");
     }
 
     @Test
@@ -172,6 +178,7 @@ public class GlueTest {
         assertDoesNotThrow(() -> {
             GlueScenario.deleteJob(glueClient, jobNameSc);
         });
+        logger.info("Test 11 passed");
     }
 
     @Test
@@ -183,6 +190,7 @@ public class GlueTest {
             TimeUnit.MINUTES.sleep(5);
             GlueScenario.deleteDatabase(glueClient, dbNameSc);
         });
+        logger.info("Test 12 passed");
     }
 
     @Test
@@ -194,12 +202,12 @@ public class GlueTest {
             TimeUnit.MINUTES.sleep(5);
             GlueScenario.deleteSpecificCrawler(glueClient, crawlerNameSc);
         });
+        logger.info("Test 13 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
         String secretName = "test/glue";
 
