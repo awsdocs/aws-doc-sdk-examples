@@ -20,12 +20,14 @@ import (
 //
 // `-scenario` can be one of the following:
 //
+//   - `converse`  -	Runs a scenario that shows how to use the converse command
 //   - `invokemodels`  -	Runs a scenario that shows how to invoke various image and text
 //     generation models on Amazon Bedrock.
 func main() {
 
 	scenarioMap := map[string]func(ctx context.Context, sdkConfig aws.Config){
 		"invokemodels": runInvokeModelsScenario,
+		"converse":     runConverseScenario,
 	}
 	choices := make([]string, len(scenarioMap))
 	choiceIndex := 0
@@ -59,5 +61,10 @@ func main() {
 
 func runInvokeModelsScenario(ctx context.Context, sdkConfig aws.Config) {
 	scenario := scenarios.NewInvokeModelsScenario(sdkConfig, demotools.NewQuestioner())
+	scenario.Run(ctx)
+}
+
+func runConverseScenario(ctx context.Context, sdkConfig aws.Config) {
+	scenario := scenarios.NewConverseScenario(sdkConfig, demotools.NewQuestioner())
 	scenario.Run(ctx)
 }
