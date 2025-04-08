@@ -13,7 +13,7 @@ import AWSSQS
 import Foundation
 
 struct ExampleCommand: ParsableCommand {
-    @Option(help: "Name of the Amazon Region to use (default: us-east-1)")
+    @Option(help: "Name of the Amazon Region to use")
     var region = "us-east-1"
 
     static var configuration = CommandConfiguration(
@@ -24,6 +24,7 @@ struct ExampleCommand: ParsableCommand {
         (Amazon SQS) together to publish and receive messages using queues.
         """,
         discussion: """
+        Supports filtering using a "tone" attribute.
         """
     )
 
@@ -87,31 +88,28 @@ struct ExampleCommand: ParsableCommand {
 
         print(prompt)
 
-        var index = 1
+        var index = 0
         for option in options {
             print("(\(index)) \(option)")
             index += 1
         }
         print("")
 
-        var answerNum = 0
-
-        while answerNum < 1 || answerNum > numOptions {
-            print("Enter your selection (1 - \(numOptions)): ", terminator: "")
+        repeat {
+            print("Enter your selection (0 - \(numOptions-1)): ", terminator: "")
             if let answer = readLine() {
-                let answerConvert = Int(answer)
-                if answerConvert == nil {
-                    answerNum = 0
-                } else {
-                    answerNum = Int(answerConvert!)
+                guard let answer = Int(answer) else {
+                    print("Please enter the number matching your selection.")
+                    continue
                 }
 
-            } else {
-                return 0
+                if answer >= 0 && answer < numOptions {
+                    return answer
+                } else {
+                    print("Please enter the number matching your selection.")
+                }
             }
-        }
-
-        return answerNum
+        } while true
     }
     
     /// Ask the user too press RETURN. Accepts any input but ignores it.
@@ -122,6 +120,66 @@ struct ExampleCommand: ParsableCommand {
         _ = readLine()
     }
 
+    var attrValues = [
+        "<none>",
+        "cheerful",
+        "funny",
+        "serious",
+        "sincere"
+    ]
+
+    /// Ask the user to choose one of the attribute values to use as a filter.
+    /// 
+    /// - Parameters:
+    ///   - message: A message to display before the menu of values.
+    ///   - attrValues: An array of strings giving the values to choose from.
+    /// 
+    /// - Returns: The string corresponding to the selected option.
+    func askForFilter(message: String, attrValues: [String]) -> String? {
+        print(message)
+        for (index, value) in attrValues.enumerated() {
+            print("  [\(index)] \(value)")
+        }
+
+        var answer: Int?
+        repeat {
+            answer = Int(stringRequest(prompt: "Select an value for the 'tone' attribute or 0 to end: "))
+        } while answer == nil || answer! < 0 || answer! > attrValues.count + 1
+
+        if answer == 0 {
+            return nil
+        }
+        return attrValues[answer!]
+    }
+
+    /// Prompts the user for filter terms and constructs the attribute
+    /// record that specifies them.
+    /// 
+    /// - Returns: A mapping of "FilterPolicy" to a JSON string representing
+    ///   the user-defined filter.
+    func buildFilterAttributes() -> [String:String] {
+        var attr: [String:String] = [:]
+        var filterString = ""
+
+        var first = true
+
+        while let ans = askForFilter(message: "Choose a value to apply to the 'tone' attribute.",
+                                    attrValues: attrValues) {
+            if !first {
+                filterString += ","
+            }
+            first = false
+
+            filterString += "\"\(ans)\""
+        }
+
+        let filterJSON = """
+                        { "tone": [\(filterString)]}
+                        """
+        attr["FilterPolicy"] = filterJSON
+
+        return attr
+    }
     /// Create a queue, returning its URL string.
     ///
     /// - Parameters:
@@ -130,27 +188,32 @@ struct ExampleCommand: ParsableCommand {
     ///
     /// - Returns: The URL of the queue.
     func createQueue(prompt: String, sqsClient: SQSClient, isFIFO: Bool) async throws -> String? {
-        var queueName = stringRequest(prompt: prompt)
-        var attributes: [String:String] = [:]
+        repeat {
+            var queueName = stringRequest(prompt: prompt)
+            var attributes: [String:String] = [:]
 
-        if isFIFO {
-            queueName += ".fifo"
-            attributes["FifoQueue"] = "true"
-        }
+            if isFIFO {
+                queueName += ".fifo"
+                attributes["FifoQueue"] = "true"
+            }
 
+            do {
+                let output = try await sqsClient.createQueue(
+                    input: CreateQueueInput(
+                        attributes: attributes,
+                        queueName: queueName
+                    )
+                )
+                guard let url = output.queueUrl else {
+                    return nil
+                }
 
-        let output = try await sqsClient.createQueue(
-            input: CreateQueueInput(
-                attributes: attributes,
-                queueName: queueName
-            )
-        )
-
-        guard let url = output.queueUrl else {
-            return nil
-        }
-
-        return url
+                return url
+            } catch _ as QueueDeletedRecently {
+                print("You need to use a different queue name. A queue by that name was recently deleted.")
+                continue
+            }
+        } while true
     }
 
     /// Return the ARN of a queue given its URL.
@@ -174,6 +237,15 @@ struct ExampleCommand: ParsableCommand {
         return attributes["QueueArn"]
     }
 
+    /// Applies the needed policy to the specified queue.
+    /// 
+    /// - Parameters:
+    ///   - sqsClient: The Amazon SQS client to use.
+    ///   - queueUrl: The queue to apply the policy to.
+    ///   - queueArn: The ARN of the queue to apply the policy to.
+    ///   - topicArn: The topic that should have access via the policy.
+    ///
+    /// - Throws: Errors from the SQS `SetQueueAttributes` action.
     func setQueuePolicy(sqsClient: SQSClient, queueUrl: String,
                         queueArn: String, topicArn: String) async throws {
         _ = try await sqsClient.setQueueAttributes(
@@ -223,9 +295,6 @@ struct ExampleCommand: ParsableCommand {
                                 -> [SQSClientTypes.DeleteMessageBatchRequestEntry] {
         let output = try await sqsClient.receiveMessage(
             input: ReceiveMessageInput(
-                //messageAttributeNames: [String]?,
-                //messageSystemAttributeNames:
-                //[SQSClientTypes.MessageSystemAttributeName]?,
                 maxNumberOfMessages: 10,
                 queueUrl: queueUrl
             )
@@ -254,18 +323,6 @@ struct ExampleCommand: ParsableCommand {
                     )
                 )
             }
-
-/*
-            // If there are any attributes, output a table of them.
-
-            if message.messageAttributes != nil {
-                print("Attributes:")
-                for attribute: (key: String, value: SQSClientTypes.MessageAttributeValue) in message.messageAttributes! {
-                    print(String(format: "%-30s %s", attribute.key, attribute.value.stringValue ?? "<unknown>"))
-                }
-            }
-            print(" ---")
-*/
         }
 
         return deleteList
@@ -320,9 +377,9 @@ struct ExampleCommand: ParsableCommand {
         let sqsConfig = try await SQSClient.SQSClientConfiguration(region: region)
         let sqsClient = SQSClient(config: sqsConfig)
 
-        // 1. Ask the user whether to create (1) a Non-FIFO topic, (2) a FIFO
-        //    topic with content-based deduplication, or (3) a FIFO topic
-        //    without deduplication.
+        // 1. Ask the user whether to create a FIFO topic. If so, ask whether
+        //    to use content-based deduplication instead of requiring a
+        //    deduplication ID.
 
         let isFIFO = yesNoRequest(prompt: "Do you want to create a FIFO topic (Y/N)? ")
         var isContentBasedDeduplication = false
@@ -352,28 +409,30 @@ struct ExampleCommand: ParsableCommand {
         }
 
         var topicName = stringRequest(prompt: "Enter the name of the topic to create: ")
+        
+        // 2. Create the topic. Append ".fifo" to the name if FIFO was
+        //    requested, and set the "FifoTopic" attribute to "true" if so as
+        //    well. Set the "ContentBasedDeduplication" attribute to "true" if
+        //    content-based deduplication was requested.
 
         if isFIFO {
             topicName += ".fifo"
         }
 
         print("Topic name: \(topicName)")
-        
-        // 2. Create the topic. Append ".fifo" to the name if either of the
-        //    FIFO topic types were selected. Set the "FifoTopic" attribute to
-        //    "true" if appropriate. Set the "ContentBasedDeduplication"
-        //    attribute to "true" if deduplication was requested.
 
         var attributes = [
             "FifoTopic": (isFIFO ? "true" : "false")
         ]
 
-        // If it's a FIFO topic with deduplication, set the appropriate
-        // attribute.
+        // If it's a FIFO topic with content-based deduplication, set the
+        // "ContentBasedDeduplication" attribute.
 
         if isContentBasedDeduplication {
             attributes["ContentBasedDeduplication"] = "true"
         }
+
+        // Create the topic and retrieve the ARN.
 
         let output = try await snsClient.createTopic(
             input: CreateTopicInput(
@@ -406,13 +465,12 @@ struct ExampleCommand: ParsableCommand {
         )
 
         let q1Url = try await createQueue(prompt: "Enter the name of the first queue: ",
-                                sqsClient: sqsClient, isFIFO: isFIFO)
-    
+                                          sqsClient: sqsClient, isFIFO: isFIFO)
         guard let q1Url else {
             print("Unable to create queue 1!")
             return
         }
-
+        
         // 4. Get the SQS queue's ARN attribute using `GetQueueAttributes`.
 
         let q1Arn = try await getQueueARN(sqsClient: sqsClient, queueUrl: q1Url)
@@ -435,15 +493,42 @@ struct ExampleCommand: ParsableCommand {
         //    apply a filter. A filter allows only matching messages to enter
         //    the queue.
 
-        // ADD FILTER OPTION HERE!!! ADD FILTER OPTION HERE!!!
+        var q1Attributes: [String:String]? = nil
 
-        _ = try await snsClient.subscribe(
+        if isFIFO {
+            print(
+                """
+
+                If you add a filter to this subscription, then only the filtered messages will
+                be received in the queue. For information about message filtering, see
+                https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html
+                For this example, you can filter messages by a 'tone' attribute.
+
+                """
+            )
+
+            let subPrompt = """
+                Would you like to filter messages for the first queue's subscription to the
+                topic \(topicName) (Y/N)? 
+                """
+            if (yesNoRequest(prompt: subPrompt)) {
+                q1Attributes = buildFilterAttributes()
+            }
+        }
+
+        let sub1Output = try await snsClient.subscribe(
             input: SubscribeInput(
+                attributes: q1Attributes,
                 endpoint: q1Arn,
                 protocol: "sqs",
                 topicArn: topicArn
             )
         )
+
+        guard let q1SubscriptionArn = sub1Output.subscriptionArn else {
+            print("Invalid subscription ARN returned for queue 1!")
+            return
+        }
 
         // 7. Repeat steps 3-6 for the second queue.
 
@@ -466,15 +551,31 @@ struct ExampleCommand: ParsableCommand {
         try await setQueuePolicy(sqsClient: sqsClient, queueUrl: q2Url,
                                  queueArn: q2Arn, topicArn: topicArn)
 
-        // ADD FILTER OPTION HERE!!! ADD FILTER OPTION HERE!!!
+        var q2Attributes: [String:String]? = nil
 
-        _ = try await snsClient.subscribe(
+        if isFIFO {
+            let subPrompt = """
+                Would you like to filter messages for the second queue's subscription to the
+                topic \(topicName) (Y/N)? 
+                """
+            if (yesNoRequest(prompt: subPrompt)) {
+                q2Attributes = buildFilterAttributes()
+            }
+        }
+
+        let sub2Output = try await snsClient.subscribe(
             input: SubscribeInput(
+                attributes: q2Attributes,
                 endpoint: q2Arn,
                 protocol: "sqs",
                 topicArn: topicArn
             )
         )
+
+        guard let q2SubscriptionArn = sub2Output.subscriptionArn else {
+            print("Invalid subscription ARN returned for queue 1!")
+            return
+        }
 
         // 8. Let the user publish messages to the topic, asking for a message
         //    body for each message. Handle the types of topic correctly (SEE
@@ -519,17 +620,15 @@ struct ExampleCommand: ParsableCommand {
                 }
             }
 
-            // Allow the user to add attributes to the message. In this
-            // example, only string attributes are supported.
+            // Allow the user to add a value for the "tone" attribute if they
+            // wish to do so.
 
             var messageAttributes: [String:SNSClientTypes.MessageAttributeValue] = [:]
+            let attrValSelection = menuRequest(prompt: "Choose a tone to apply to this message.", options: attrValues)
 
-            while yesNoRequest(prompt: "\nAdd an attribute to this message (Y/N)? ") {
-                let attrName = stringRequest(prompt: "   Enter the attribute's name: ")
-                let attrValue = stringRequest(prompt: "   Enter the value of attribute '\(attrName)': ")
-
-                let val = SNSClientTypes.MessageAttributeValue(dataType: "String", stringValue: attrValue)
-                messageAttributes[attrName] = val
+            if attrValSelection != 0 {
+                let val = SNSClientTypes.MessageAttributeValue(dataType: "String", stringValue: attrValues[attrValSelection])
+                messageAttributes["tone"] = val
             }
 
             publishInput.messageAttributes = messageAttributes
@@ -570,9 +669,19 @@ struct ExampleCommand: ParsableCommand {
         print("\nDeleting the messages from queue 2...")
         try await deleteMessageList(sqsClient: sqsClient, queueUrl: q2Url, deleteList: q2DeleteList)
 
-        // 12. Unsubscribe from the queue then delete both queues.
+        // 12. Unsubscribe and delete both queues.
 
-        print("\nDeleting queue 1...")
+        print("\nUnsubscribing from queue 1...")
+        _ = try await snsClient.unsubscribe(
+            input: UnsubscribeInput(subscriptionArn: q1SubscriptionArn)
+        )
+
+        print("Unsubscribing from queue 2...")
+        _ = try await snsClient.unsubscribe(
+            input: UnsubscribeInput(subscriptionArn: q2SubscriptionArn)
+        )
+
+        print("Deleting queue 1...")
         _ = try await sqsClient.deleteQueue(
             input: DeleteQueueInput(queueUrl: q1Url)
         )
