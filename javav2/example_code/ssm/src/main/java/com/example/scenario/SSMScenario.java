@@ -34,10 +34,10 @@ public class SSMScenario {
         String documentName;
         String windowName;
         String instanceId = args[0];
-        String title = args[1];
-        String source = args[2];
-        String category = args[3];
-        String severity = args[4];
+        String title = "Disk Space Alert" ;
+        String source = "EC2" ;
+        String category = "Availability" ;
+        String severity = "2" ;
 
         System.out.println(DASHES);
         System.out.println("""

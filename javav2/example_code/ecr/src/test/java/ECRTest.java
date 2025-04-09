@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecr.EcrClient;
@@ -26,20 +28,17 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ECRTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(ECRTest.class);
     private static EcrClient ecrClient;
-
     private static String repoName = "";
-
     private static String newRepoName = "";
     private static String iamRole = "" ;
-
     private static ECRActions ecrActions;
+
     @BeforeAll
     public static void setUp() {
         ecrClient = EcrClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
         ecrActions = new ECRActions();
@@ -66,7 +65,7 @@ public class ECRTest {
             assertDoesNotThrow(() -> ecrActions.setLifeCyclePolicy(newRepoName));
             assertDoesNotThrow(() -> ecrActions.pushDockerImage(newRepoName, newRepoName));
             assertDoesNotThrow(() -> ecrActions.verifyImage(newRepoName, newRepoName));
-            System.out.println("Test 1 passed");
+            logger.info("Test 1 passed");
         } catch (AssertionError e) {
             System.err.println("Test failed: " + e.getMessage());
             try {
@@ -84,13 +83,12 @@ public class ECRTest {
     @Order(2)
     public void testHello() {
         assertDoesNotThrow(() -> HelloECR.listImageTags(ecrClient, repoName));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
         String secretName = "test/ecr";
 

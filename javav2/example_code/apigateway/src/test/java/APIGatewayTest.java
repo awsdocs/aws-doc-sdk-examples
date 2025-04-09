@@ -3,7 +3,8 @@
 
 import com.example.gateway.*;
 import com.google.gson.Gson;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.apigateway.ApiGatewayClient;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.regions.Region;
@@ -21,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class APIGatewayTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(APIGatewayTest.class);
     private static ApiGatewayClient apiGateway;
     private static String restApiId = "";
     private static String resourceId = "";
@@ -45,78 +46,48 @@ public class APIGatewayTest {
         httpMethod = values.getHttpMethod();
         restApiName = values.getRestApiName() + randomNum;
         stageName = values.getStageName();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * APIGatewayTest.class.getClassLoader().getResourceAsStream("config.properties"
-         * )) {
-         * 
-         * Properties prop = new Properties();
-         * 
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * //load a properties file from class path, inside static method
-         * prop.load(input);
-         * 
-         * // Populate the data members required for all tests
-         * restApiId = prop.getProperty("restApiId");
-         * resourceId = prop.getProperty("resourceId");
-         * httpMethod = prop.getProperty("httpMethod");
-         * restApiName = prop.getProperty("restApiName");
-         * stageName = prop.getProperty("stageName");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
     @Order(1)
-    public void CreateRestApi() {
+    public void testCreateRestApi() {
         newApiId = CreateRestApi.createAPI(apiGateway, restApiId, restApiName);
         assertFalse(newApiId.isEmpty());
-        System.out.println("Test 2 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Order(2)
-    public void CreateDeployment() {
+    public void testCreateDeployment() {
         deploymentId = CreateDeployment.createNewDeployment(apiGateway, newApiId, stageName);
         assertFalse(deploymentId.isEmpty());
-        System.out.println("Test 3 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Order(3)
-    public void GetDeployments() {
+    public void testGetDeployments() {
         assertDoesNotThrow(() -> GetDeployments.getAllDeployments(apiGateway, newApiId));
-        System.out.println("Test 4 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Order(4)
-    public void GetStages() {
+    public void testGetStages() {
         assertDoesNotThrow(() -> GetStages.getAllStages(apiGateway, newApiId));
-        System.out.println("Test 7 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Order(5)
-    public void DeleteRestApi() {
+    public void testDeleteRestApi() {
         assertDoesNotThrow(() -> DeleteRestApi.deleteAPI(apiGateway, newApiId));
-        System.out.println("Test 9 passed");
+        logger.info("Test 5 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/apigateway";
 

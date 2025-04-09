@@ -54,6 +54,7 @@ functions within the same service.
 
 ### Anthropic Claude
 
+- [Converse](actions/converse.go#L7)
 - [InvokeModel](actions/invoke_model.go#L7)
 - [InvokeModelWithResponseStream](actions/invoke_model_with_response_stream.go#L30)
 

@@ -3,6 +3,8 @@
 
 import com.example.sage.*;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.sagemaker.SageMakerClient;
 import org.junit.jupiter.api.*;
@@ -20,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SageMakerTest {
+    private static final Logger logger = LoggerFactory.getLogger(SageMakerTest.class);
     private static SageMakerClient sageMakerClient;
     private static String image = "";
     private static String modelDataUrl = "";
@@ -39,7 +42,6 @@ public class SageMakerTest {
         Region region = Region.US_WEST_2;
         sageMakerClient = SageMakerClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -58,104 +60,69 @@ public class SageMakerTest {
         channelName = values.getChannelName();
         trainingImage = values.getTrainingImage();
         existingModel = values.getModelName();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * SageMakerTest.class.getClassLoader().getResourceAsStream("config.properties")
-         * ) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests
-         * prop.load(input);
-         * image = prop.getProperty("image");
-         * modelDataUrl = prop.getProperty("modelDataUrl");
-         * executionRoleArn = prop.getProperty("executionRoleArn");
-         * modelName = prop.getProperty("modelName")+ java.util.UUID.randomUUID();
-         * s3UriData = prop.getProperty("s3UriData");
-         * s3Uri = prop.getProperty("s3Uri");
-         * roleArn = prop.getProperty("roleArn");
-         * trainingJobName = prop.getProperty("trainingJobName")+
-         * java.util.UUID.randomUUID();
-         * s3OutputPath = prop.getProperty("s3OutputPath");
-         * channelName = prop.getProperty("channelName");
-         * trainingImage = prop.getProperty("trainingImage");
-         * existingModel = prop.getProperty("existingModel");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateModel() {
+    public void testCreateModel() {
         assertDoesNotThrow(() -> CreateModel.createSagemakerModel(sageMakerClient, modelDataUrl, image, modelName,
                 executionRoleArn));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void CreateTrainingJob() {
+    public void testCreateTrainingJob() {
         assertDoesNotThrow(() -> CreateTrainingJob.trainJob(sageMakerClient, s3UriData, s3Uri, trainingJobName, roleArn,
                 s3OutputPath, channelName, trainingImage));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void DescribeTrainingJob() {
+    public void testDescribeTrainingJob() {
         assertDoesNotThrow(() -> DescribeTrainingJob.describeTrainJob(sageMakerClient, trainingJobName));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void ListModels() {
+    public void testListModels() {
         assertDoesNotThrow(() -> ListModels.listAllModels(sageMakerClient));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ListAlgorithms() {
+    public void testListAlgorithms() {
         assertDoesNotThrow(() -> ListAlgorithms.listAlgs(sageMakerClient));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void ListTrainingJobs() {
+    public void testListTrainingJobs() {
         assertDoesNotThrow(() -> ListTrainingJobs.listJobs(sageMakerClient));
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void DeleteModel() {
+    public void testDeleteModel() {
         assertDoesNotThrow(() -> DeleteModel.deleteSagemakerModel(sageMakerClient, modelName));
-        System.out.println("Test 8 passed");
+        logger.info("Test 8 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/sagemaker";
 

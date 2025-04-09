@@ -7,10 +7,9 @@ package com.example.firehose;
 // snippet-start:[firehose.java2.create_stream.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.firehose.FirehoseClient;
-import software.amazon.awssdk.services.firehose.model.FirehoseException;
-import software.amazon.awssdk.services.firehose.model.CreateDeliveryStreamRequest;
-import software.amazon.awssdk.services.firehose.model.ExtendedS3DestinationConfiguration;
-import software.amazon.awssdk.services.firehose.model.CreateDeliveryStreamResponse;
+import software.amazon.awssdk.services.firehose.model.*;
+
+import java.util.concurrent.TimeUnit;
 // snippet-end:[firehose.java2.create_stream.import]
 
 /**
@@ -71,6 +70,37 @@ public class CreateDeliveryStream {
         } catch (FirehoseException e) {
             System.out.println(e.getLocalizedMessage());
         }
+    }
+
+    public static void waitForStreamToBecomeActive(FirehoseClient firehoseClient, String streamName) {
+        System.out.println("Waiting for the stream to become ACTIVE...");
+        int maxAttempts = 60; // 10 minutes (60 * 10 seconds)
+        int attempt = 0;
+        while (attempt < maxAttempts) {
+            try {
+                DescribeDeliveryStreamRequest describeRequest = DescribeDeliveryStreamRequest.builder()
+                        .deliveryStreamName(streamName)
+                        .build();
+                DescribeDeliveryStreamResponse describeResponse = firehoseClient.describeDeliveryStream(describeRequest);
+                String status = describeResponse.deliveryStreamDescription().deliveryStreamStatusAsString();
+
+                System.out.println("Current status: " + status);
+                if (status.equals("ACTIVE")) {
+                    System.out.println("Stream is now ACTIVE.");
+                    return;
+                }
+
+                TimeUnit.SECONDS.sleep(10);
+                attempt++;
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException("Polling interrupted", e);
+            } catch (FirehoseException e) {
+                System.err.println("Error while checking stream status: " + e.getMessage());
+            }
+        }
+        System.err.println("Timed out waiting for the stream to become ACTIVE.");
+        System.exit(1);
     }
 }
 // snippet-end:[firehose.java2.create_stream.main]

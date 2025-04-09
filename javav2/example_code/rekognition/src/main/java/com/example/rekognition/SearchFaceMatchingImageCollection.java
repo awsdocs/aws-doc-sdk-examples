@@ -47,7 +47,7 @@ public class SearchFaceMatchingImageCollection {
 
         String collectionId = args[0];
         String sourceImage = args[1];
-        Region region = Region.US_EAST_1;
+        Region region = Region.US_WEST_2;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();

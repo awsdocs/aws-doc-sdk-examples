@@ -8,11 +8,8 @@ package com.example.rekognition;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
-import software.amazon.awssdk.services.rekognition.model.DetectTextRequest;
-import software.amazon.awssdk.services.rekognition.model.Image;
-import software.amazon.awssdk.services.rekognition.model.DetectTextResponse;
-import software.amazon.awssdk.services.rekognition.model.TextDetection;
-import software.amazon.awssdk.services.rekognition.model.RekognitionException;
+import software.amazon.awssdk.services.rekognition.model.*;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -29,35 +26,46 @@ import java.util.List;
  */
 public class DetectText {
     public static void main(String[] args) {
-        final String usage = """
+        final String usage = "\n" +
+            "Usage:   <bucketName> <sourceImage>\n" +
+            "\n" +
+            "Where:\n" +
+            "   bucketName - The name of the S3 bucket where the image is stored\n" +
+            "   sourceImage - The path to the image that contains text (for example, pic1.png). \n";
 
-                Usage:    <sourceImage>
-
-                Where:
-                   sourceImage - The path to the image that contains text (for example, C:\\AWS\\pic1.png).\s
-                """;
-
-        if (args.length != 1) {
+        if (args.length != 2) {
             System.out.println(usage);
             System.exit(1);
         }
 
-        String sourceImage = args[0];
+        String bucketName = args[0];
+        String sourceImage = args[1];
         Region region = Region.US_EAST_1;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
 
-        detectTextLabels(rekClient, sourceImage);
+        detectTextLabels(rekClient, bucketName, sourceImage);
         rekClient.close();
     }
 
-    public static void detectTextLabels(RekognitionClient rekClient, String sourceImage) {
+    /**
+     * Detects text labels in an image stored in an S3 bucket using Amazon Rekognition.
+     *
+     * @param rekClient    an instance of the Amazon Rekognition client
+     * @param bucketName   the name of the S3 bucket where the image is stored
+     * @param sourceImage  the name of the image file in the S3 bucket
+     * @throws RekognitionException if an error occurs while calling the Amazon Rekognition API
+     */
+    public static void detectTextLabels(RekognitionClient rekClient, String bucketName, String sourceImage) {
         try {
-            InputStream sourceStream = new FileInputStream(sourceImage);
-            SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
+            S3Object s3ObjectTarget = S3Object.builder()
+                    .bucket(bucketName)
+                    .name(sourceImage)
+                    .build();
+
             Image souImage = Image.builder()
-                    .bytes(sourceBytes)
+                    .s3Object(s3ObjectTarget)
                     .build();
 
             DetectTextRequest textRequest = DetectTextRequest.builder()
@@ -76,7 +84,7 @@ public class DetectText {
                 System.out.println();
             }
 
-        } catch (RekognitionException | FileNotFoundException e) {
+        } catch (RekognitionException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }

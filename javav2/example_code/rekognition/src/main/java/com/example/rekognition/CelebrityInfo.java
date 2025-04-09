@@ -36,7 +36,7 @@ public class CelebrityInfo {
         }
 
         String id = args[0];
-        Region region = Region.US_EAST_1;
+        Region region = Region.US_WEST_2;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
@@ -45,6 +45,13 @@ public class CelebrityInfo {
         rekClient.close();
     }
 
+    /**
+     * Retrieves information about a celebrity identified in an image.
+     *
+     * @param rekClient the Amazon Rekognition client used to make the API call
+     * @param id the unique identifier of the celebrity
+     * @throws RekognitionException if there is an error retrieving the celebrity information
+     */
     public static void getCelebrityInfo(RekognitionClient rekClient, String id) {
         try {
             GetCelebrityInfoRequest info = GetCelebrityInfoRequest.builder()

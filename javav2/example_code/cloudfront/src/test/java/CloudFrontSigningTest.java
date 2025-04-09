@@ -58,12 +58,11 @@ public class CloudFrontSigningTest {
         // Run tests on Real AWS resources.
         cloudFrontClient = CloudFrontClient.builder()
                 .region(Region.AWS_GLOBAL)
-                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
+
         s3Client = S3Client.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+                 .build();
 
         try (InputStream input = CloudFrontSigningTest.class.getClassLoader().getResourceAsStream("config.properties")) {
             Properties prop = new Properties();

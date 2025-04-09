@@ -262,6 +262,15 @@ bedrock-runtime_Converse_AnthropicClaude:
             - description: Send a text message to Anthropic Claude, using Bedrock's Converse API.
               snippet_tags:
                 - BedrockRuntime.dotnetv3.Converse_AnthropicClaude
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Anthropic Claude, using Bedrock's Converse API.
+              snippet_tags:
+                - gov2.bedrock-runtime.Converse.struct
+                - gov2.bedrock-runtime.ConverseClaude
     Python:
       versions:
         - sdk_version: 3

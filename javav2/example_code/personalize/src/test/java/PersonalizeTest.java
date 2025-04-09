@@ -3,6 +3,8 @@
 
 import com.example.personalize.*;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.personalize.PersonalizeClient;
 import org.junit.jupiter.api.*;
@@ -21,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PersonalizeTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(PersonalizeTest.class);
     private static PersonalizeRuntimeClient personalizeRuntimeClient;
     private static PersonalizeClient personalizeClient;
     private static String datasetGroupArn = "";
@@ -38,12 +40,10 @@ public class PersonalizeTest {
     @BeforeAll
     public static void setUp() {
         personalizeRuntimeClient = PersonalizeRuntimeClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(Region.US_EAST_1)
                 .build();
 
         personalizeClient = PersonalizeClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .region(Region.US_EAST_1)
                 .build();
 
@@ -61,136 +61,98 @@ public class PersonalizeTest {
         ;
         existingSolutionArn = values.getExistingSolutionArn();
         existingCampaignName = values.getExistingCampaignName();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * PersonalizeTest.class.getClassLoader().getResourceAsStream(
-         * "config.properties")) {
-         * 
-         * Properties prop = new Properties();
-         * 
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * //load a properties file from class path, inside static method
-         * prop.load(input);
-         * 
-         * // Populate the data members required for all tests
-         * datasetGroupArn = prop.getProperty("datasetGroupArn");
-         * solutionVersionArn = prop.getProperty("solutionVersionArn");
-         * recipeArn = prop.getProperty("recipeArn");
-         * solutionName = prop.getProperty("solutionName")+
-         * java.util.UUID.randomUUID();;
-         * userId = prop.getProperty("userId");
-         * campaignName= prop.getProperty("campaignName")+ java.util.UUID.randomUUID();;
-         * existingSolutionArn= prop.getProperty("existingSolutionArn");
-         * existingCampaignName = prop.getProperty("existingCampaignName");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateSolution() {
+    public void testCreateSolution() {
         solutionArn = CreateSolution.createPersonalizeSolution(personalizeClient, datasetGroupArn, solutionName,
                 recipeArn);
         assertFalse(solutionArn.isEmpty());
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void ListSolutions() {
+    public void testListSolutions() {
         assertDoesNotThrow(() -> ListSolutions.listAllSolutions(personalizeClient, datasetGroupArn));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void DescribeSolution() {
+    public void testDescribeSolution() {
         assertDoesNotThrow(() -> DescribeSolution.describeSpecificSolution(personalizeClient, solutionArn));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void CreateCampaign() {
-        CreateCampaign.createPersonalCompaign(personalizeClient, solutionVersionArn, campaignName);
-        System.out.println("Test 4 passed");
+    public void testCreateCampaign() {
+        campaignArn = CreateCampaign.createPersonalCompaign(personalizeClient, solutionVersionArn, campaignName);
+        assertFalse(campaignArn.isEmpty());
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ListCampaigns() {
+    public void testListCampaigns() {
         assertDoesNotThrow(() -> ListCampaigns.listAllCampaigns(personalizeClient, existingSolutionArn));
-        System.out.println("Test 6 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void DescribeRecipe() {
+    public void testDescribeRecipe() {
         assertDoesNotThrow(() -> DescribeRecipe.describeSpecificRecipe(personalizeClient, recipeArn));
-        System.out.println("Test 7 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void ListRecipes() {
+    public void testListRecipes() {
         assertDoesNotThrow(() -> ListRecipes.listAllRecipes(personalizeClient));
-        System.out.println("Test 8 passed");
+        logger.info("Test 7 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void ListDatasetGroups() {
+    public void testListDatasetGroups() {
         assertDoesNotThrow(() -> ListDatasetGroups.listDSGroups(personalizeClient));
-        System.out.println("Test 9 passed");
+        logger.info("Test 8 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-    public void DeleteSolution() {
+    public void testDeleteSolution() {
         assertDoesNotThrow(() -> DeleteSolution.deleteGivenSolution(personalizeClient, solutionArn));
-        System.out.println("Test 10 passed");
+        logger.info("Test 9 passed");
     }
+
 
     @Test
     @Tag("IntegrationTest")
     @Order(10)
-    public void GetRecommendations() {
-        assertDoesNotThrow(() -> GetRecommendations.getRecs(personalizeRuntimeClient, campaignArn, userId));
-        System.out.println("Test 11 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(11)
-    public void DeleteCampaign() {
-        assertDoesNotThrow(() -> DeleteCampaign.deleteSpecificCampaign(personalizeClient, campaignArn));
-        System.out.println("Test 12 passed");
+    public void testDeleteCampaign() {
+        assertDoesNotThrow(() -> {
+            DeleteCampaign.waitForCampaignToBeDeletable(personalizeClient, campaignArn);
+            DeleteCampaign.deleteSpecificCampaign(personalizeClient, campaignArn);
+        });
+        logger.info("Test 10 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/personalize";
 

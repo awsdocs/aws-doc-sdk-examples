@@ -4,6 +4,8 @@
 import com.example.kms.*;
 import com.example.kms.scenario.KMSActions;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import org.junit.jupiter.api.*;
@@ -23,6 +25,7 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonKMSTest {
+    private static final Logger logger = LoggerFactory.getLogger(AmazonKMSTest.class);
     private static String granteePrincipal = "";
 
     private static String accountId = "";
@@ -42,7 +45,7 @@ public class AmazonKMSTest {
     @Order(1)
     public void HelloKMS() {
         assertDoesNotThrow(HelloKMS::listAllKeys);
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
@@ -84,13 +87,12 @@ public class AmazonKMSTest {
             assertDoesNotThrow(() -> kmsActions.deleteKeyAsync(targetKeyId).join());
         }
 
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
         String secretName = "test/kms";
 
