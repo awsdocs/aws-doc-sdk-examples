@@ -88,6 +88,7 @@ curl -X POST "http://localhost:8080/video/generate?prompt=A cat surfing on a piz
 ```
 curl -X POST "http://localhost:8080/video/check?invocationArn=<your-arn-here>"
 ```
+when status is Completed - video generated and stored in S3 bucket
 
 ## Dependencies
 
