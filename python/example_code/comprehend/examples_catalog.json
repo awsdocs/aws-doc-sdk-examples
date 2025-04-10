@@ -1,0 +1,420 @@
+{
+	"examples": [
+		{
+			"id": "comprehend_CreateDocumentClassifier",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "CreateDocumentClassifier",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_CreateDocumentClassifier_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DeleteDocumentClassifier",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "DeleteDocumentClassifier",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DeleteDocumentClassifier_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DescribeDocumentClassificationJob",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "DescribeDocumentClassificationJob",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DescribeDocumentClassificationJob_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DescribeDocumentClassifier",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "DescribeDocumentClassifier",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DescribeDocumentClassifier_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DescribeTopicsDetectionJob",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "DescribeTopicsDetectionJob",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DescribeTopicsDetectionJob_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DetectDominantLanguage",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "DetectDominantLanguage",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DetectDominantLanguage_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DetectEntities",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "DetectEntities",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DetectEntities_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DetectKeyPhrases",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "DetectKeyPhrases",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DetectKeyPhrases_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DetectPiiEntities",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "DetectPiiEntities",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DetectPiiEntities_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DetectSentiment",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "DetectSentiment",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DetectSentiment_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_DetectSyntax",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "DetectSyntax",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_DetectSyntax_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_ListDocumentClassificationJobs",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "ListDocumentClassificationJobs",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_ListDocumentClassificationJobs_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_ListDocumentClassifiers",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "ListDocumentClassifiers",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_ListDocumentClassifiers_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_ListTopicsDetectionJobs",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "ListTopicsDetectionJobs",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_ListTopicsDetectionJobs_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_StartDocumentClassificationJob",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "StartDocumentClassificationJob",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_StartDocumentClassificationJob_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_StartTopicsDetectionJob",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "StartTopicsDetectionJob",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_StartTopicsDetectionJob_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_Usage_ComprehendClassifier",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "Train a custom Amazon Comprehend classifier and classify documents using an AWS SDK",
+			"title_abbrev": "Train a custom classifier and classify documents",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_Usage_ComprehendClassifier_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create an Amazon Comprehend multi-label classifier.",
+				"Train the classifier on sample data.",
+				"Run a classification job on a second set of data.",
+				"Extract the job output data from Amazon S3."
+			],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_Usage_DetectApis",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "Detect document elements with Amazon Comprehend and an AWS SDK",
+			"title_abbrev": "Detect document elements",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_Usage_DetectApis_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Detect languages, entities, and key phrases in a document.",
+				"Detect personally identifiable information (PII) in a document.",
+				"Detect the sentiment of a document.",
+				"Detect syntax elements in a document."
+			],
+			"source_key": null
+		},
+		{
+			"id": "comprehend_Usage_TopicModeler",
+			"file": "comprehend_metadata.yaml",
+			"languages": [],
+			"title": "Run an Amazon Comprehend topic modeling job on sample data using an AWS SDK",
+			"title_abbrev": "Run a topic modeling job on sample data",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_comprehend_Usage_TopicModeler_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Run an Amazon Comprehend topic modeling job on sample data.",
+				"Get information about the job.",
+				"Extract job output data from Amazon S3."
+			],
+			"source_key": null
+		},
+		{
+			"id": "cross_TextractComprehendDetectEntities",
+			"file": "cross_metadata.yaml",
+			"languages": [],
+			"title": "Detect entities in text extracted from an image using an AWS SDK",
+			"title_abbrev": "Detect entities in text extracted from an image",
+			"synopsis": "use Amazon Comprehend to detect entities in text extracted by Amazon Textract from an image that is stored in Amazon S3.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": "textract",
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"comprehend": "https://docs.aws.amazon.com/code-library/latest/ug/comprehend_example_cross_TextractComprehendDetectEntities_section.html",
+					"s3": "https://docs.aws.amazon.com/code-library/latest/ug/s3_example_cross_TextractComprehendDetectEntities_section.html",
+					"textract": "https://docs.aws.amazon.com/code-library/latest/ug/textract_example_cross_TextractComprehendDetectEntities_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

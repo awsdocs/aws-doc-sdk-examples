@@ -1,0 +1,24 @@
+{
+	"examples": [
+		{
+			"id": "pinpoint-sms-voice_SendVoiceMessage",
+			"file": "pinpoint-sms-voice_metadata.yaml",
+			"languages": [],
+			"title": "SendVoiceMessage",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"pinpoint-sms-voice": "https://docs.aws.amazon.com/code-library/latest/ug/pinpoint-sms-voice_example_pinpoint-sms-voice_SendVoiceMessage_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

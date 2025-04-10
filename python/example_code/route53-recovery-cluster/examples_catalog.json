@@ -1,0 +1,44 @@
+{
+	"examples": [
+		{
+			"id": "route53-recovery-cluster_GetRoutingControlState",
+			"file": "route53-recovery-cluster_metadata.yaml",
+			"languages": [],
+			"title": "GetRoutingControlState",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"route53-recovery-cluster": "https://docs.aws.amazon.com/code-library/latest/ug/route53-recovery-cluster_example_route53-recovery-cluster_GetRoutingControlState_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "route53-recovery-cluster_UpdateRoutingControlState",
+			"file": "route53-recovery-cluster_metadata.yaml",
+			"languages": [],
+			"title": "UpdateRoutingControlState",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"route53-recovery-cluster": "https://docs.aws.amazon.com/code-library/latest/ug/route53-recovery-cluster_example_route53-recovery-cluster_UpdateRoutingControlState_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

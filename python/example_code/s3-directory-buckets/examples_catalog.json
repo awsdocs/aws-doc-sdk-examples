@@ -1,0 +1,53 @@
+{
+	"examples": [
+		{
+			"id": "s3-directory-buckets_CreateSession",
+			"file": "s3-directory-buckets_metadata.yaml",
+			"languages": [],
+			"title": "CreateSession",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3-directory-buckets": "https://docs.aws.amazon.com/code-library/latest/ug/s3-directory-buckets_example_s3-directory-buckets_CreateSession_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "s3-directory-buckets_Scenario_ExpressBasics",
+			"file": "s3-directory-buckets_metadata.yaml",
+			"languages": [],
+			"title": "Learn the basics",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Basics",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"s3-directory-buckets": "https://docs.aws.amazon.com/code-library/latest/ug/s3-directory-buckets_example_s3-directory-buckets_Scenario_ExpressBasics_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Set up a VPC and VPC Endpoint.",
+				"Set up the Policies, Roles, and User to work with S3 directory buckets and the S3 Express One Zone storage class.",
+				"Create two S3 Clients.",
+				"Create two buckets.",
+				"Create an object and copy it over.",
+				"Demonstrate performance difference.",
+				"Populate the buckets to show the lexicographical difference.",
+				"Prompt the user to see if they want to clean up the resources."
+			],
+			"source_key": null
+		}
+	]
+}

@@ -1,0 +1,24 @@
+{
+	"examples": [
+		{
+			"id": "pinpoint_SendMessages",
+			"file": "pinpoint_metadata.yaml",
+			"languages": [],
+			"title": "SendMessages",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"pinpoint": "https://docs.aws.amazon.com/code-library/latest/ug/pinpoint_example_pinpoint_SendMessages_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

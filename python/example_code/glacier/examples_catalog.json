@@ -1,0 +1,294 @@
+{
+	"examples": [
+		{
+			"id": "glacier_CreateVault",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "CreateVault",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_CreateVault_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_DeleteArchive",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "DeleteArchive",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_DeleteArchive_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_DeleteVault",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "DeleteVault",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_DeleteVault_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_DeleteVaultNotifications",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "DeleteVaultNotifications",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_DeleteVaultNotifications_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_DescribeJob",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "DescribeJob",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_DescribeJob_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_GetJobOutput",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "GetJobOutput",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_GetJobOutput_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_GetVaultNotifications",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "GetVaultNotifications",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_GetVaultNotifications_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_InitiateJob",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "InitiateJob",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_InitiateJob_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_ListJobs",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "ListJobs",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_ListJobs_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_ListVaults",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "ListVaults",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_ListVaults_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_SetVaultNotifications",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "SetVaultNotifications",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_SetVaultNotifications_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_UploadArchive",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "UploadArchive",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_UploadArchive_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "glacier_Usage_RetrieveDelete",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "Get Amazon S3 Glacier archive content and delete the archive using an AWS SDK",
+			"title_abbrev": "Get archive content and delete the archive",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_Usage_RetrieveDelete_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"List jobs for an Amazon S3 Glacier vault and get job status.",
+				"Get the output of a completed archive retrieval job.",
+				"Delete an archive.",
+				"Delete a vault."
+			],
+			"source_key": null
+		},
+		{
+			"id": "glacier_Usage_UploadNotifyInitiate",
+			"file": "glacier_metadata.yaml",
+			"languages": [],
+			"title": "Archive a file to Amazon S3 Glacier, get notifications, and initiate a job using an AWS SDK",
+			"title_abbrev": "Archive a file, get notifications, and initiate a job",
+			"synopsis": "",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"glacier": "https://docs.aws.amazon.com/code-library/latest/ug/glacier_example_glacier_Usage_UploadNotifyInitiate_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [
+				"Create an Amazon S3 Glacier vault.",
+				"Configure the vault to publish notifications to an Amazon SNS topic.",
+				"Upload an archive file to the vault.",
+				"Initiate an archive retrieval job."
+			],
+			"source_key": null
+		}
+	]
+}

@@ -1,0 +1,64 @@
+{
+	"examples": [
+		{
+			"id": "firehose_PutRecord",
+			"file": "firehose_metadata.yaml",
+			"languages": [],
+			"title": "PutRecord",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"firehose": "https://docs.aws.amazon.com/code-library/latest/ug/firehose_example_firehose_PutRecord_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "firehose_PutRecordBatch",
+			"file": "firehose_metadata.yaml",
+			"languages": [],
+			"title": "PutRecordBatch",
+			"title_abbrev": "",
+			"synopsis": "",
+			"category": "Api",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"firehose": "https://docs.aws.amazon.com/code-library/latest/ug/firehose_example_firehose_PutRecordBatch_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		},
+		{
+			"id": "firehose_Scenario_PutRecords",
+			"file": "firehose_metadata.yaml",
+			"languages": [],
+			"title": "Use Amazon Data Firehose to process individual and batch records",
+			"title_abbrev": "Put records to Data Firehose",
+			"synopsis": "use Data Firehose to process individual and batch records.",
+			"category": "Scenarios",
+			"guide_topic": null,
+			"service_main": null,
+			"services": [],
+			"doc_filenames": {
+				"service_pages": {
+					"firehose": "https://docs.aws.amazon.com/code-library/latest/ug/firehose_example_firehose_Scenario_PutRecords_section.html"
+				},
+				"sdk_pages": []
+			},
+			"synopsis_list": [],
+			"source_key": null
+		}
+	]
+}

@@ -98,7 +98,7 @@ these examples in an isolated environment.
 
 ## Updating Rust Version
 
-If a rust version releases (most likely) a clippy or has some other breaking change, the Weathertop dashboard will go red. The easiest way to handle this is to run `./tools/set_rust_version.py [rust_version]` (using a venv with the appropriate requirements), creating a commit with those updates, and then running `cargo clippy --fix` in the appropriate folder before making a second commit with those fixes. Line numbers will certainly change, so don't forget to run WRITEME - `./.tools/readmes/.venv/bin/python ./.tools/readmes/writeme.py --languages Rust:1`.
+If a rust version releases (most likely) a clippy or has some other breaking change, the Weathertop dashboard will go red. The easiest way to handle this is to run `./tools/set_rust_version.py [rust_version]` (using a venv with the appropriate requirements), creating a commit with those updates, and then running `cargo clippy --fix` in the appropriate folder before making a second commit with those fixes. Line numbers will certainly change, so don't forget to run WRITEME - `./.tools/scanners/.venv/bin/python ./.tools/readmes/writeme.py --languages Rust:1`.
 
 ## Contributing
 
