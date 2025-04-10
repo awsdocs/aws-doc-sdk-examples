@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import { expect, test, vi } from "vitest";
 import { SendConversationtoBedrock } from "../models/amazonNovaText/converse-with-tool.js";
 import {
