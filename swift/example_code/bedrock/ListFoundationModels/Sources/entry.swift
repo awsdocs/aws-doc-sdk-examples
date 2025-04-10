@@ -110,8 +110,8 @@ struct ExampleCommand: ParsableCommand {
             print("No models returned.")
             return
         }
-        // snippet-end:[swift.bedrock.ListFoundationModels]
         
+        // Output a list of the models with their details.
         for summary in summaries {
             print("==========================================")
             print(" Model ID: \(summary.modelId ?? "<unknown>")")
@@ -124,6 +124,7 @@ struct ExampleCommand: ParsableCommand {
             print(" Supported inference types: \(buildInferenceList(inferences: summary.inferenceTypesSupported))")
             print("------------------------------------------\n")
         }
+        // snippet-end:[swift.bedrock.ListFoundationModels]
         
         print("\(summaries.count) models available.")
     }
