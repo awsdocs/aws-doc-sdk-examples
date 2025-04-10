@@ -5,15 +5,12 @@ package com.example.bedrockruntime.scenario;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONArray;
 import software.amazon.awssdk.core.SdkNumber;
 import software.amazon.awssdk.core.document.Document;
 import software.amazon.awssdk.services.bedrockruntime.model.ToolSpecification;
 import software.amazon.awssdk.services.bedrockruntime.model.ToolInputSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.math.BigInteger;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -23,16 +20,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
-
-import org.json.JSONObject;
 
 // snippet-start:[bedrock.converseTool.javav2.weathertool]
 public class WeatherTool {
 
     private static final Logger logger = LoggerFactory.getLogger(WeatherTool.class);
     private static java.net.http.HttpClient httpClient = null;
-
 
     /**
      * Returns the JSON Schema specification for the Weather tool. The tool specification
@@ -149,9 +142,9 @@ public class WeatherTool {
     private static Document convertToDocument(Object value) {
         if (value instanceof Map) {
             return Document.fromMap(convertToDocumentMap((Map<String, Object>) value));
-        } else if (value instanceof Integer) {  // ✅ Fix: Use fromInteger() for integers
+        } else if (value instanceof Integer) {
             return Document.fromNumber(SdkNumber.fromInteger((Integer) value));
-        } else if (value instanceof Double) {  // ✅ Fix: Use fromDouble() for floating-point numbers
+        } else if (value instanceof Double) {  //
             return Document.fromNumber(SdkNumber.fromDouble((Double) value));
         } else if (value instanceof Boolean) {
             return Document.fromBoolean((Boolean) value);

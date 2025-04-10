@@ -9,13 +9,8 @@ import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeAsyncClient;
-import software.amazon.awssdk.services.bedrockruntime.model.ConverseRequest;
-import software.amazon.awssdk.services.bedrockruntime.model.ConverseResponse;
-import software.amazon.awssdk.services.bedrockruntime.model.Message;
-import software.amazon.awssdk.services.bedrockruntime.model.SystemContentBlock;
-import software.amazon.awssdk.services.bedrockruntime.model.Tool;
-import software.amazon.awssdk.services.bedrockruntime.model.ToolConfiguration;
-import software.amazon.awssdk.services.bedrockruntime.model.ToolSpecification;
+import software.amazon.awssdk.services.bedrockruntime.model.*;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,11 +87,11 @@ public class BedrockActions {
             ConverseResponse response = getClient().converse(request).join();
             return response;
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (ModelNotReadyException ex) {
+            throw new RuntimeException("Model is not ready: " + ex.getMessage(), ex);
+        } catch (BedrockRuntimeException ex) {
+            throw new RuntimeException("Failed to converse with Bedrock model: " + ex.getMessage(), ex);
         }
-
-        return null;
     }
     // snippet-end:[bedrockruntime.java2.converse.main]
 }

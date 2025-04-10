@@ -8,16 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
+
 import software.amazon.awssdk.core.document.Document;
-import software.amazon.awssdk.services.bedrockruntime.model.ContentBlock;
-import software.amazon.awssdk.services.bedrockruntime.model.ConversationRole;
-import software.amazon.awssdk.services.bedrockruntime.model.ConverseOutput;
-import software.amazon.awssdk.services.bedrockruntime.model.ConverseResponse;
-import software.amazon.awssdk.services.bedrockruntime.model.Message;
-import software.amazon.awssdk.services.bedrockruntime.model.ToolResultBlock;
-import software.amazon.awssdk.services.bedrockruntime.model.ToolResultContentBlock;
-import software.amazon.awssdk.services.bedrockruntime.model.ToolSpecification;
-import software.amazon.awssdk.services.bedrockruntime.model.ToolUseBlock;
+import software.amazon.awssdk.services.bedrockruntime.model.*;
 
 // snippet-start:[bedrock.converseTool.javav2.scenario]
 /*
@@ -27,7 +20,7 @@ import software.amazon.awssdk.services.bedrockruntime.model.ToolUseBlock;
  */
 public class BedrockScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-    private static String modelId = "anthropic.claude-3-sonnet-20240229-v1:0";
+    private static String modelId = "amazon.nova-lite-v1:0";
     private static String defaultPrompt = "What is the weather like in Seattle?";
     private static WeatherTool weatherTool = new WeatherTool();
 
@@ -38,49 +31,49 @@ public class BedrockScenario {
     public static boolean interactive = true;
 
     private static final String systemPrompt = """
-        You are a weather assistant that provides current weather data for user-specified locations using only
-        the Weather_Tool, which expects latitude and longitude. Infer the coordinates from the location yourself.
-        If the user provides coordinates, infer the approximate location and refer to it in your response.
-        To use the tool, you strictly apply the provided tool specification.
-
-        - Explain your step-by-step process, and give brief updates before each step.
-        - Only use the Weather_Tool for data. Never guess or make up information. 
-        - Repeat the tool use for subsequent requests if necessary.
-        - If the tool errors, apologize, explain weather is unavailable, and suggest other options.
-        - Report temperatures in °C (°F) and wind in km/h (mph). Keep weather reports concise. Sparingly use
-          emojis where appropriate.
-        - Only respond to weather queries. Remind off-topic users of your purpose. 
-        - Never claim to search online, access external data, or use tools besides Weather_Tool.
-        - Complete the entire process until you have all required data before sending the complete response.
-        """;
+            You are a weather assistant that provides current weather data for user-specified locations using only
+            the Weather_Tool, which expects latitude and longitude. Infer the coordinates from the location yourself.
+            If the user provides coordinates, infer the approximate location and refer to it in your response.
+            To use the tool, you strictly apply the provided tool specification.
+            
+            - Explain your step-by-step process, and give brief updates before each step.
+            - Only use the Weather_Tool for data. Never guess or make up information. 
+            - Repeat the tool use for subsequent requests if necessary.
+            - If the tool errors, apologize, explain weather is unavailable, and suggest other options.
+            - Report temperatures in °C (°F) and wind in km/h (mph). Keep weather reports concise. Sparingly use
+              emojis where appropriate.
+            - Only respond to weather queries. Remind off-topic users of your purpose. 
+            - Never claim to search online, access external data, or use tools besides Weather_Tool.
+            - Complete the entire process until you have all required data before sending the complete response.
+            """;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("""
-         =================================================
-         Welcome to the Amazon Bedrock Tool Use demo!
-         =================================================
-                    
-         This assistant provides current weather information for user-specified locations.
-         You can ask for weather details by providing the location name or coordinates.
-                    
-         Example queries:
-         - What's the weather like in New York?
-         - Current weather for latitude 40.70, longitude -74.01
-         - Is it warmer in Rome or Barcelona today?
-                    
-         To exit the program, simply type 'x' and press Enter.
-                    
-         P.S.: You're not limited to single locations, or even to using English!
-         Have fun and experiment with the app!
-         """);
+                =================================================
+                Welcome to the Amazon Bedrock Tool Use demo!
+                =================================================
+                
+                This assistant provides current weather information for user-specified locations.
+                You can ask for weather details by providing the location name or coordinates.
+                
+                Example queries:
+                - What's the weather like in New York?
+                - Current weather for latitude 40.70, longitude -74.01
+                - Is it warmer in Rome or Barcelona today?
+                
+                To exit the program, simply type 'x' and press Enter.
+                
+                P.S.: You're not limited to single locations, or even to using English!
+                Have fun and experiment with the app!
+                """);
         System.out.println(DASHES);
 
         try {
             runConversation(scanner);
 
         } catch (Exception ex) {
-            System.out.println("There was a problem running the scenario: "+ ex.getMessage());
+            System.out.println("There was a problem running the scenario: " + ex.getMessage());
         }
 
         waitForInputToContinue(scanner);
@@ -91,7 +84,7 @@ public class BedrockScenario {
     }
 
     /**
-     Starts the conversation with the user and handles the interaction with Bedrock.
+     * Starts the conversation with the user and handles the interaction with Bedrock.
      */
     private static List<Message> runConversation(Scanner scanner) {
         List<Message> conversation = new ArrayList<>();
@@ -102,16 +95,16 @@ public class BedrockScenario {
 
         while (userInput != null) {
             ContentBlock block = ContentBlock.builder()
-                .text(userInput)
-                .build();
+                    .text(userInput)
+                    .build();
 
             List<ContentBlock> blockList = new ArrayList<>();
             blockList.add(block);
 
             Message message = Message.builder()
-                .role(ConversationRole.USER)
-                .content(blockList)
-                .build();
+                    .role(ConversationRole.USER)
+                    .content(blockList)
+                    .build();
 
             conversation.add(message);
 
@@ -131,9 +124,9 @@ public class BedrockScenario {
     /**
      * Processes the response from the model and updates the conversation accordingly.
      *
-     * @param modelResponse   the response from the model
-     * @param conversation   the ongoing conversation
-     * @param maxRecursion   the maximum number of recursions allowed
+     * @param modelResponse the response from the model
+     * @param conversation  the ongoing conversation
+     * @param maxRecursion  the maximum number of recursions allowed
      */
     private static void processModelResponse(ConverseResponse modelResponse, List<Message> conversation, int maxRecursion) {
         if (maxRecursion <= 0) {
@@ -150,7 +143,7 @@ public class BedrockScenario {
             handleToolUse(modelResponse.output(), conversation, maxRecursion - 1);
         }
 
-        if (modelResponseVal.compareTo ("end_turn") ==0) {
+        if (modelResponseVal.compareTo("end_turn") == 0) {
             // If the stop reason is "end_turn", print the model's response text, and finish the process
             PrintModelResponse(modelResponse.output().message().content().get(0).text());
             if (!interactive) {
@@ -163,8 +156,8 @@ public class BedrockScenario {
      * Handles the use of a tool by the model in a conversation.
      *
      * @param modelResponse the response from the model, which may include a tool use request
-     * @param conversation the current conversation, which will be updated with the tool use results
-     * @param maxRecursion the maximum number of recursive calls allowed to handle the model's response
+     * @param conversation  the current conversation, which will be updated with the tool use results
+     * @param maxRecursion  the maximum number of recursive calls allowed to handle the model's response
      */
     private static void handleToolUse(ConverseOutput modelResponse, List<Message> conversation, int maxRecursion) {
         List<ContentBlock> toolResults = new ArrayList<>();
@@ -182,18 +175,18 @@ public class BedrockScenario {
                 // Add the tool use ID and the tool's response to the list of results
                 List<ToolResultContentBlock> contentBlockList = new ArrayList<>();
                 ToolResultContentBlock block = ToolResultContentBlock.builder()
-                    .json(toolResponse.getContent())
-                    .build();
+                        .json(toolResponse.getContent())
+                        .build();
                 contentBlockList.add(block);
 
                 ToolResultBlock toolResultBlock = ToolResultBlock.builder()
-                    .toolUseId(toolResponse.getToolUseId())
-                    .content(contentBlockList)
-                    .build();
+                        .toolUseId(toolResponse.getToolUseId())
+                        .content(contentBlockList)
+                        .build();
 
                 ContentBlock contentBlock1 = ContentBlock.builder()
-                    .toolResult(toolResultBlock)
-                    .build();
+                        .toolResult(toolResultBlock)
+                        .build();
 
                 toolResults.add(contentBlock1);
             }
@@ -201,16 +194,16 @@ public class BedrockScenario {
 
         // Embed the tool results in a new user message
         Message message = Message.builder()
-            .role(ConversationRole.USER)
-            .content(toolResults)
-            .build();
+                .role(ConversationRole.USER)
+                .content(toolResults)
+                .build();
 
         // Append the new message to the ongoing conversation
         //conversation.add(message);
         conversation.add(message);
 
         // Send the conversation to Amazon Bedrock
-        var response =  sendConversationToBedrock(conversation);
+        var response = sendConversationToBedrock(conversation);
 
         // Recursively handle the model's response until the model has returned its final response or the recursion counter has reached 0
         processModelResponse(response, conversation, maxRecursion);
@@ -221,7 +214,7 @@ public class BedrockScenario {
     private static ToolResponse invokeTool(ToolUseBlock payload) {
         String toolName = payload.name();
 
-        if (Objects.equals(toolName, "Weather_Tool")){
+        if (Objects.equals(toolName, "Weather_Tool")) {
             Map<String, Document> inputData = payload.input().asMap();
             printToolUse(toolName, inputData);
 
@@ -233,7 +226,7 @@ public class BedrockScenario {
             toolResponse.setToolUseId(payload.toolUseId());
             return toolResponse;
         } else {
-            String errorMessage = "The requested tool with name "+toolName +" does not exist.";
+            String errorMessage = "The requested tool with name " + toolName + " does not exist.";
             System.out.println(errorMessage);
             return null;
         }
@@ -252,8 +245,18 @@ public class BedrockScenario {
     private static ConverseResponse sendConversationToBedrock(List<Message> conversation) {
         System.out.println("Calling Bedrock...");
 
-        // Send the conversation, system prompt, and tool configuration, and return the response
-        return bedrockActions.sendConverseRequestAsync(modelId, systemPrompt, conversation, weatherTool.getToolSpec());
+        try {
+            return bedrockActions.sendConverseRequestAsync(modelId, systemPrompt, conversation, weatherTool.getToolSpec());
+        } catch (ModelNotReadyException ex) {
+             System.err.println("Model is not ready. Please try again later: " + ex.getMessage());
+            throw ex;
+        } catch (BedrockRuntimeException ex) {
+            System.err.println("Bedrock service error: " + ex.getMessage());
+            throw ex;
+        } catch (RuntimeException ex) {
+            System.err.println("Unexpected error occurred: " + ex.getMessage());
+            throw ex;
+        }
     }
 
     private static ConverseResponse sendConversationToBedrockwithSpec(List<Message> conversation, ToolSpecification toolSpec) {
@@ -299,17 +302,16 @@ public class BedrockScenario {
         }
     }
 
-    public static void printFooter()
-    {
+    public static void printFooter() {
         System.out.println("""
-        =================================================
-        Thank you for checking out the Amazon Bedrock Tool Use demo. We hope you
-        learned something new, or got some inspiration for your own apps today!
-
-        For more Bedrock examples in different programming languages, have a look at:
-        https://docs.aws.amazon.com/bedrock/latest/userguide/service_code_examples.html
-        =================================================
-        """);
+                =================================================
+                Thank you for checking out the Amazon Bedrock Tool Use demo. We hope you
+                learned something new, or got some inspiration for your own apps today!
+                
+                For more Bedrock examples in different programming languages, have a look at:
+                https://docs.aws.amazon.com/bedrock/latest/userguide/service_code_examples.html
+                =================================================
+                """);
     }
 }
 // snippet-end:[bedrock.converseTool.javav2.scenario]
