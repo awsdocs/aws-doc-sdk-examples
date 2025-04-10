@@ -7,7 +7,9 @@
 // snippet-start:[swift.sns.basics.hello]
 import ArgumentParser
 import AWSClientRuntime
+// snippet-start:[swift.sns.import]
 import AWSSNS
+// snippet-end:[swift.sns.import]
 import Foundation
 
 struct ExampleCommand: ParsableCommand {
