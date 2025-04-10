@@ -181,6 +181,22 @@ bedrock-runtime_Scenario_ToolUse:
   synopsis: "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input."
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: "The primary execution of the scenario flow. This scenario orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              snippet_tags:
+                - bedrock.converseTool.javav2.scenario
+            - description: "The weather tool used by the demo. This file defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
+              genai: some
+              snippet_tags:
+                - bedrock.converseTool.javav2.weathertool
+            - description: "The Converse API action with a tool configuration."
+              genai: some
+              snippet_tags:
+                - bedrockruntime.java2.converse.main   
     .NET:
       versions:
         - sdk_version: 3
@@ -1468,6 +1484,22 @@ bedrock-runtime_Scenario_ToolUseDemo_AmazonNova:
   synopsis: "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input."
   category: Amazon Nova
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: "The primary execution of the scenario flow. This scenario orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              snippet_tags:
+                - bedrock.converseTool.javav2.scenario
+            - description: "The weather tool used by the demo. This file defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
+              genai: some
+              snippet_tags:
+                - bedrock.converseTool.javav2.weathertool
+            - description: "The Converse API action with a tool configuration."
+              genai: some
+              snippet_tags:
+                - bedrockruntime.java2.converse.main  
     .NET:
       versions:
         - sdk_version: 3
