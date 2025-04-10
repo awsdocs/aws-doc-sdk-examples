@@ -54,21 +54,12 @@ struct ExampleCommand: ParsableCommand {
     ///
     /// - Returns: `true` if the user answered "Y", otherwise `false`.
     func yesNoRequest(prompt: String) -> Bool {
-        var answer: String?
-
-        while answer == nil {
-            answer = stringRequest(prompt: prompt)
-
-            if answer != nil {
-                answer = answer!.lowercased()
-
-                if answer != "y" && answer != "n" {
-                    print("Please answer 'Y' or 'N'. ", terminator: "")
-                    answer = nil
-                }
+        while true {
+            let answer = stringRequest(prompt: prompt).lowercased()
+            if answer == "y" || answer == "n" {
+                return answer == "y"
             }
         }
-        return answer == "y"
     }
 
     /// Display a menu of options then request a selection.
@@ -88,12 +79,9 @@ struct ExampleCommand: ParsableCommand {
 
         print(prompt)
 
-        var index = 0
-        for option in options {
-            print("(\(index)) \(option)")
-            index += 1
+        for (index, value) in options.enumerated() {
+            print("(\(index)) \(value)")
         }
-        print("")
 
         repeat {
             print("Enter your selection (0 - \(numOptions-1)): ", terminator: "")
@@ -173,9 +161,7 @@ struct ExampleCommand: ParsableCommand {
             filterString += "\"\(ans)\""
         }
 
-        let filterJSON = """
-                        { "tone": [\(filterString)]}
-                        """
+        let filterJSON = "{ \"tone\": [\(filterString)]}"
         attr["FilterPolicy"] = filterJSON
 
         return attr
@@ -190,7 +176,7 @@ struct ExampleCommand: ParsableCommand {
     func createQueue(prompt: String, sqsClient: SQSClient, isFIFO: Bool) async throws -> String? {
         repeat {
             var queueName = stringRequest(prompt: prompt)
-            var attributes: [String:String] = [:]
+            var attributes: [String: String] = [:]
 
             if isFIFO {
                 queueName += ".fifo"
@@ -343,10 +329,9 @@ struct ExampleCommand: ParsableCommand {
             input: DeleteMessageBatchInput(entries: deleteList, queueUrl: queueUrl)
         )
 
-        let failed = output.failed
-        if failed != nil {
-            print("\(failed!.count) errors occurred deleting messages from the queue.")
-            for message in failed! {
+        if let failed = output.failed {
+            print("\(failed.count) errors occurred deleting messages from the queue.")
+            for message in failed {
                 print("---> Failed to delete message \(message.id ?? "<unknown ID>") with error: \(message.code ?? "<unknown>") (\(message.message ?? "..."))")
             }
         }
