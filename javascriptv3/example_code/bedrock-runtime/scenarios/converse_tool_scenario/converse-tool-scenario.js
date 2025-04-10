@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[Bedrock.ConverseTool.javascript.Scenario]
+// snippet-start:[Bedrock.ConverseTool.javascriptv3.Scenario]
 
 /* Before running this JavaScript code example, set up your development environment, including your credentials.
 This demo illustrates a tool use scenario using Amazon Bedrock's Converse API and a weather tool.
@@ -13,8 +13,7 @@ import {
   ScenarioAction,
   ScenarioInput,
   ScenarioOutput,
-  //} from "@aws-doc-sdk-examples/lib/scenario/index.js";
-} from "../../../libs/scenario/index.js";
+} from "@aws-doc-sdk-examples/lib/scenario/index.js";
 import {
   BedrockRuntimeClient,
   ConverseCommand,
@@ -24,7 +23,6 @@ import { parseArgs } from "node:util";
 import { fileURLToPath } from "node:url";
 import { dirname } from "node:path";
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 import data from "./questions.json" with { type: "json" };
 import toolConfig from "./tool_config.json" with { type: "json" };
 
@@ -35,6 +33,7 @@ const systemPrompt = [
       "the Weather_Tool, which expects latitude and longitude. Infer the coordinates from the location yourself.\n" +
       "If the user provides coordinates, infer the approximate location and refer to it in your response.\n" +
       "To use the tool, you strictly apply the provided tool specification.\n" +
+      "If the user specifies a state, country, or region, infer the locations of cities within that state.\n" +
       "\n" +
       "- Explain your step-by-step process, and give brief updates before each step.\n" +
       "- Only use the Weather_Tool for data. Never guess or make up information. \n" +
@@ -75,16 +74,31 @@ async function SendConversationtoBedrock(messages) {
   const bedRockRuntimeClient = new BedrockRuntimeClient({
     region: "us-east-1",
   });
-  const modelId = "amazon.nova-lite-v1:0";
-  const response = await bedRockRuntimeClient.send(
-    new ConverseCommand({
-      modelId: modelId,
-      messages: messages,
-      system: systemPrompt,
-      toolConfig: tools_config,
-    }),
-  );
-  return response;
+  try {
+    const modelId = "amazon.nova-lite-v1:0";
+    const response = await bedRockRuntimeClient.send(
+      new ConverseCommand({
+        modelId: modelId,
+        messages: messages,
+        system: systemPrompt,
+        toolConfig: tools_config,
+      }),
+    );
+    return response;
+  } catch (caught) {
+    if (caught.name === "ModelNotReady") {
+      console.log(
+        "`${caught.name}` - Model not ready, please wait and try again.",
+      );
+      throw caught;
+    }
+    if (caught.name === "BedrockRuntimeException") {
+      console.log(
+        '`${caught.name}` - "Error occurred while sending Converse request.',
+      );
+      throw caught;
+    }
+  }
 }
 
 // Processes the response received via Amazon Bedrock and performs the necessary actions based on the stop reason.
@@ -118,16 +132,15 @@ async function HandleToolUseAsync(response, messages, max_recursions) {
     console.log(toolMessage.replace(/<[^>]+>/g, ""));
     for (const toolRequest of toolRequests) {
       if (Object.hasOwn(toolRequest, "toolUse")) {
-        const toolUse = output_message.content[1].toolUse;
-        const toolUseID = toolUse.toolUseId;
+        const toolUse = toolRequest.toolUse;
         const latitude = toolUse.input.latitude;
         const longitude = toolUse.input.longitude;
+        const toolUseID = toolUse.toolUseId;
         console.log(
-          `Requesting tool ${toolUse.name}, Tool use id ${toolUse.toolUseId}`,
+          `Requesting tool ${toolUse.name}, Tool use id ${toolUseID}`,
         );
         if (toolUse.name === "Weather_Tool") {
           try {
-            let jsonData;
             const current_weather = await callWeatherTool(
               longitude,
               latitude,
@@ -141,16 +154,12 @@ async function HandleToolUseAsync(response, messages, max_recursions) {
             };
             toolResultFinal.push(toolResult);
           } catch (err) {
-            const toolResult = {
-              toolUseId: toolUseID,
-              content: [{ json: { text: err.message } }],
-              status: "error",
-            };
+            console.log("An error occurred. ", err);
           }
         }
       }
     }
-    //
+
     const toolResultMessage = {
       role: "user",
       content: toolResultFinal,
@@ -162,19 +171,10 @@ async function HandleToolUseAsync(response, messages, max_recursions) {
       messages,
     );
   } catch (error) {
-    const errorString = error.toString();
-    const searchString =
-      "ValidationException: The toolResult blocks at messages.2.content contain duplicate Ids:";
-    if (errorString.includes(searchString)) {
-      console.log(
-        "An processing error occurred with the model. Please try again.",
-      );
-    } else {
-      console.log("An error occurred. ", error);
-    }
+    console.log("An error occurred. ", error);
   }
 }
-// Call the Weathertool
+// Call the Weathertool.
 // param = longitude of location
 // param = latitude of location
 async function callWeatherTool(longitude, latitude) {
@@ -197,7 +197,7 @@ async function callWeatherTool(longitude, latitude) {
  * @type {ScenarioInput}
  */
 const pressEnter = new ScenarioInput("continue", "Press Enter to continue", {
-  type: "confirm",
+  type: "input",
 });
 
 const greet = new ScenarioOutput(
@@ -311,4 +311,4 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   });
   main({ confirmAll: values.yes });
 }
-// snippet-end:[Bedrock.ConverseTool.javascript.Scenario]
+// snippet-end:[Bedrock.ConverseTool.javascriptv3.Scenario]
