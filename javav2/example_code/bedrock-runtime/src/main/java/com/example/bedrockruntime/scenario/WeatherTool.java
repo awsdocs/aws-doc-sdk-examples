@@ -35,7 +35,6 @@ public class WeatherTool {
      * @return The tool specification for the Weather tool.
      */
     public ToolSpecification getToolSpec() {
-        // Build the JSON schema using JSONObject and JSONArray
         Map<String, Document> latitudeMap = new HashMap<>();
         latitudeMap.put("type", Document.fromString("string"));
         latitudeMap.put("description", Document.fromString("Geographical WGS84 latitude of the location."));
@@ -99,24 +98,14 @@ public class WeatherTool {
         try {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
-                // Convert response body to AWS SDK Document. At this point,
-                // its valid JSON
                 String weatherJson = response.body();
                 System.out.println(weatherJson);
-
-                // Convert JSON string to a Document
-                //Document weatherDocument = Document.fromString(weatherJson);
                 ObjectMapper objectMapper = new ObjectMapper();
-                //Map<String, Object> jsonMap = objectMapper.readValue(weatherJson, Map.class);
-
-                //
                 Map<String, Object> rawMap = objectMapper.readValue(weatherJson, new TypeReference<Map<String, Object>>() {});
                 Map<String, Document> documentMap = convertToDocumentMap(rawMap);
 
-                // Create a Document object from the Map<String, Document>
-                Document weatherDocument = Document.fromMap(documentMap);
-               // Document weatherDocument = Document.fromMap(jsonMap);
 
+                Document weatherDocument = Document.fromMap(documentMap);
                 System.out.println(weatherDocument);
                 return weatherDocument;
             } else {
@@ -137,7 +126,6 @@ public class WeatherTool {
         return result;
     }
 
-    // Convert different types of Objects to Document
     // Convert different types of Objects to Document
     private static Document convertToDocument(Object value) {
         if (value instanceof Map) {
