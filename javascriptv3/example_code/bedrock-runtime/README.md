@@ -55,6 +55,7 @@ functions within the same service.
 
 - [Converse](models/amazonNovaText/converse.js#L4)
 - [ConverseStream](models/amazonNovaText/converseStream.js#L4)
+- [Scenario: Tool use with the Converse API](scenarios/converse_tool_scenario/converse-tool-scenario.js#L4)
 
 ### Amazon Nova Canvas
 
