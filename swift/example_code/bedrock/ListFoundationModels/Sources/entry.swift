@@ -8,9 +8,9 @@ import ArgumentParser
 import AWSClientRuntime
 import Foundation
 
-// snippet-start:[bedrock.swift.import]
+// snippet-start:[swift.bedrock.import]
 import AWSBedrock
-// snippet-end:[bedrock.swift.import]
+// snippet-end:[swift.bedrock.import]
 
 struct ExampleCommand: ParsableCommand {
     static var configuration = CommandConfiguration(
