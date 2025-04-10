@@ -1,13 +1,13 @@
-# DynamoDB code examples for the SDK for Swift
+# Amazon Bedrock code examples for the SDK for Swift
 
 ## Overview
 
-Shows how to use the AWS SDK for Swift to work with Amazon DynamoDB.
+Shows how to use the AWS SDK for Swift to work with Amazon Bedrock.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability._
+_Amazon Bedrock enables you to build and scale generative AI applications with foundation models._
 
 ## ⚠ Important
 
@@ -29,28 +29,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Basics
+### Get started
 
-Code examples that show you how to perform the essential operations within a service.
-
-- [Learn the basics](basics/MovieList/MovieTable.swift)
+- [Hello Amazon Bedrock](ListFoundationModels/Sources/entry.swift#L7) (`ListFoundationModels`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchGetItem](BatchGetItem/Sources/MovieDatabase.swift#L304)
-- [BatchWriteItem](basics/MovieList/MovieTable.swift#L203)
-- [CreateTable](basics/MovieList/MovieTable.swift#L62)
-- [DeleteItem](basics/MovieList/MovieTable.swift#L542)
-- [DeleteTable](basics/MovieList/MovieTable.swift#L150)
-- [GetItem](basics/MovieList/MovieTable.swift#L321)
-- [ListTables](ListTables/Sources/DatabaseManager.swift#L107)
-- [PutItem](basics/MovieList/MovieTable.swift#L266)
-- [Query](basics/MovieList/MovieTable.swift#L360)
-- [Scan](basics/MovieList/MovieTable.swift#L412)
-- [UpdateItem](basics/MovieList/MovieTable.swift#L477)
+- [ListFoundationModels](ListFoundationModels/Sources/entry.swift#L101)
 
 
 <!--custom.examples.start-->
@@ -75,24 +63,10 @@ and run commands.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Amazon Bedrock
 
-#### Learn the basics
+This example shows you how to get started using Amazon Bedrock.
 
-This example shows you how to do the following:
-
-- Create a table that can hold movie data.
-- Put, get, and update a single movie in the table.
-- Write movie data to the table from a sample JSON file.
-- Query for movies that were released in a given year.
-- Scan for movies that were released in a range of years.
-- Delete a movie from the table, then delete the table.
-
-<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
-
-
-<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.end-->
 
 
 ### Tests
@@ -110,9 +84,9 @@ in the `swift` folder.
 
 ## Additional resources
 
-- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
-- [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-- [SDK for Swift DynamoDB reference](https://sdk.amazonaws.com/swift/api/awsdynamodb/latest/documentation/awsdynamodb)
+- [Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
+- [Amazon Bedrock API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/welcome.html)
+- [SDK for Swift Amazon Bedrock reference](https://sdk.amazonaws.com/swift/api/awsbedrock/latest/documentation/awsbedrock)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

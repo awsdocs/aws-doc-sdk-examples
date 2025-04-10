@@ -4,6 +4,7 @@
 // An example demonstrating how to fetch a list of foundation models available
 // using Amazon Bedrock.
 
+// snippet-start:[swift.bedrock.hello]
 import ArgumentParser
 import AWSClientRuntime
 import Foundation
@@ -144,3 +145,4 @@ struct Main {
         }
     }    
 }
+// snippet-end:[swift.bedrock.hello]
