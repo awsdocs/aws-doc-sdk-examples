@@ -1,4 +1,4 @@
-# Amazon S3 Directory Bucket Basics for the SDK for JavaScript (v3)
+# Amazon Bedrock Runtime Converse API with Tool for the SDK for JavaScript (v3)
 
 ## Overview
 
