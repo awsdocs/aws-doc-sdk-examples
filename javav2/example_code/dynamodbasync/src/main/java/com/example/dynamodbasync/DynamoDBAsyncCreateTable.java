@@ -14,9 +14,11 @@
 package com.example.dynamodbasync;
 
 // snippet-start:[dynamodb.java2.dbasync.table.import]
+
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
+
 import java.util.concurrent.CompletableFuture;
 
 import software.amazon.awssdk.services.dynamodb.model.BillingMode;
@@ -79,7 +81,7 @@ public class DynamoDBAsyncCreateTable {
                         .attributeName(key)
                         .keyType(KeyType.HASH)
                         .build())
-            .billingMode(BillingMode.PAY_PER_REQUEST) //  DynamoDB automatically scales based on traffic.
+                .billingMode(BillingMode.PAY_PER_REQUEST) //  DynamoDB automatically scales based on traffic.
                 .tableName(tableName)
                 .build();
 

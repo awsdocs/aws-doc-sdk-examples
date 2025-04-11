@@ -5,6 +5,8 @@ import com.example.guardduty.GetDetector;
 import com.example.guardduty.GetFindings;
 import com.example.guardduty.ListDetectors;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.guardduty.GuardDutyClient;
@@ -22,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class GuarddutyTest {
+    private static final Logger logger = LoggerFactory.getLogger(GuarddutyTest.class);
     private static GuardDutyClient guardDutyClient;
     private static String detectorId = "";
     private static String findingId = "";
@@ -31,7 +34,6 @@ public class GuarddutyTest {
         Region region = Region.US_EAST_1;
         guardDutyClient = GuardDutyClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -40,59 +42,36 @@ public class GuarddutyTest {
         SecretValues values = gson.fromJson(json, SecretValues.class);
         detectorId = values.getDetectorId();
         findingId = values.getFindingId();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * GuarddutyTest.class.getClassLoader().getResourceAsStream("config.properties")
-         * ) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * detectorId = prop.getProperty("detectorId");
-         * findingId = prop.getProperty("findingId");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void GetDetector() {
+    public void testGetDetector() {
         assertDoesNotThrow(() -> GetDetector.getSpecificDetector(guardDutyClient, detectorId));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void GetFindings() {
+    public void testGetFindings() {
         assertDoesNotThrow(() -> GetFindings.getSpecificFinding(guardDutyClient, findingId, detectorId));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void ListDetectors() {
+    public void testListDetectors() {
         assertDoesNotThrow(() -> ListDetectors.listAllDetectors(guardDutyClient));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     private static String getSecretValues() {
         // Get the Amazon RDS creds from Secrets Manager.
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/guarduty";
 

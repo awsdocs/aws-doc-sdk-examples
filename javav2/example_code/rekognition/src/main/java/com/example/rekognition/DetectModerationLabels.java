@@ -5,14 +5,10 @@ package com.example.rekognition;
 
 // snippet-start:[rekognition.java2.detect_mod_labels.main]
 // snippet-start:[rekognition.java2.detect_mod_labels.import]
-import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
-import software.amazon.awssdk.services.rekognition.model.RekognitionException;
-import software.amazon.awssdk.services.rekognition.model.Image;
-import software.amazon.awssdk.services.rekognition.model.DetectModerationLabelsRequest;
-import software.amazon.awssdk.services.rekognition.model.DetectModerationLabelsResponse;
-import software.amazon.awssdk.services.rekognition.model.ModerationLabel;
+import software.amazon.awssdk.services.rekognition.model.*;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -31,38 +27,51 @@ public class DetectModerationLabels {
 
     public static void main(String[] args) {
         final String usage = """
+            Usage:  <bucketName>  <sourceImage>
 
-                Usage:    <sourceImage>
+            Where:
+                bucketName - The name of the S3 bucket where the images are stored.
+                sourceImage - The name of the image (for example, pic1.png).\s
+            """;
 
-                Where:
-                   sourceImage - The path to the image (for example, C:\\AWS\\pic1.png).\s
-                """;
-
-        if (args.length < 1) {
+        if (args.length != 2) {
             System.out.println(usage);
             System.exit(1);
         }
 
-        String sourceImage = args[0];
-        Region region = Region.US_EAST_1;
+        String bucketName = args[0];
+        String sourceImage = args[1];
+        Region region = Region.US_WEST_2;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
 
-        detectModLabels(rekClient, sourceImage);
+        detectModLabels(rekClient, bucketName, sourceImage);
         rekClient.close();
     }
 
-    public static void detectModLabels(RekognitionClient rekClient, String sourceImage) {
+    /**
+     * Detects moderation labels in an image stored in an Amazon S3 bucket.
+     *
+     * @param rekClient      the Amazon Rekognition client to use for the detection
+     * @param bucketName     the name of the Amazon S3 bucket where the image is stored
+     * @param sourceImage    the name of the image file to be analyzed
+     *
+     * @throws RekognitionException if there is an error during the image detection process
+     */
+    public static void detectModLabels(RekognitionClient rekClient, String bucketName, String sourceImage) {
         try {
-            InputStream sourceStream = new FileInputStream(sourceImage);
-            SdkBytes sourceBytes = SdkBytes.fromInputStream(sourceStream);
-            Image souImage = Image.builder()
-                    .bytes(sourceBytes)
+            S3Object s3ObjectTarget = S3Object.builder()
+                    .bucket(bucketName)
+                    .name(sourceImage)
+                    .build();
+
+            Image targetImage = Image.builder()
+                    .s3Object(s3ObjectTarget)
                     .build();
 
             DetectModerationLabelsRequest moderationLabelsRequest = DetectModerationLabelsRequest.builder()
-                    .image(souImage)
+                    .image(targetImage)
                     .minConfidence(60F)
                     .build();
 
@@ -76,7 +85,7 @@ public class DetectModerationLabels {
                         + "\n Parent:" + label.parentName());
             }
 
-        } catch (RekognitionException | FileNotFoundException e) {
+        } catch (RekognitionException e) {
             e.printStackTrace();
             System.exit(1);
         }

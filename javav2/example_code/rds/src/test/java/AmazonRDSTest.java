@@ -3,6 +3,8 @@
 
 import com.example.rds.*;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.rds.RdsClient;
 import org.junit.jupiter.api.*;
@@ -22,7 +24,7 @@ import java.util.*;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonRDSTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(AmazonRDSTest.class);
     private static RdsClient rdsClient;
 
     private static String dbInstanceIdentifier = "";
@@ -48,9 +50,8 @@ public class AmazonRDSTest {
     @BeforeAll
     public static void setUp() throws IOException {
         rdsClient = RdsClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .build();
 
         Random rand = new Random();
         int randomNum = rand.nextInt((10000 - 1) + 1) + 1;
@@ -72,109 +73,72 @@ public class AmazonRDSTest {
         dbParameterGroupFamily = values.getDbParameterGroupFamily();
         dbInstanceClusterIdentifier = values.getDbInstanceClusterIdentifier();
         secretDBName = values.getSecretName();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * AmazonRDSTest.class.getClassLoader().getResourceAsStream("config.properties")
-         * ) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * prop.load(input);
-         * dbInstanceIdentifier = prop.getProperty("dbInstanceIdentifier")+
-         * java.util.UUID.randomUUID();
-         * dbSnapshotIdentifier = prop.getProperty("dbSnapshotIdentifier")+
-         * java.util.UUID.randomUUID();
-         * dbName = prop.getProperty("dbName")+ randomNum;
-         * masterUsername = prop.getProperty("masterUsername");
-         * masterUserPassword = prop.getProperty("masterUserPassword");
-         * newMasterUserPassword = prop.getProperty("newMasterUserPassword");
-         * dbGroupNameSc = prop.getProperty("dbGroupNameSc")+
-         * java.util.UUID.randomUUID();;
-         * dbParameterGroupFamilySc = prop.getProperty("dbParameterGroupFamilySc");
-         * dbInstanceIdentifierSc = prop.getProperty("dbInstanceIdentifierSc")+
-         * java.util.UUID.randomUUID();;
-         * masterUsernameSc = prop.getProperty("masterUsernameSc");
-         * masterUserPasswordSc = prop.getProperty("masterUserPasswordSc");
-         * dbSnapshotIdentifierSc = prop.getProperty("dbSnapshotIdentifierSc")+
-         * java.util.UUID.randomUUID();;
-         * dbNameSc = prop.getProperty("dbNameSc")+ randomNum ;
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateDBInstance() {
+    public void testCreateDBInstance() {
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(RDSScenario.getSecretValues(secretDBName)), User.class);
         assertDoesNotThrow(() -> CreateDBInstance.createDatabaseInstance(rdsClient, dbInstanceIdentifier, dbName,
                 user.getUsername(), user.getPassword()));
-        System.out.println("CreateDBInstance test passed");
+        logger.info("\nTest 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void waitForInstanceReady() {
+    public void testWaitForInstanceReady() {
         assertDoesNotThrow(() -> CreateDBInstance.waitForInstanceReady(rdsClient, dbInstanceIdentifier));
-        System.out.println("waitForInstanceReady test passed");
+        logger.info("\nTest 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void DescribeAccountAttributes() {
+    public void testDescribeAccountAttributes() {
         assertDoesNotThrow(() -> DescribeAccountAttributes.getAccountAttributes(rdsClient));
-        System.out.println("DescribeAccountAttributes test passed");
+        logger.info("\nTest 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void DescribeDBInstances() {
+    public void testDescribeDBInstances() {
         assertDoesNotThrow(() -> DescribeDBInstances.describeInstances(rdsClient));
-        System.out.println("DescribeDBInstances test passed");
+        logger.info("\nTest 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ModifyDBInstance() {
+    public void testModifyDBInstance() {
         assertDoesNotThrow(
                 () -> ModifyDBInstance.updateIntance(rdsClient, dbInstanceIdentifier, newMasterUserPassword));
-        System.out.println("ModifyDBInstance test passed");
+        logger.info("\nTest 5 passed");
     }
 
     @Test
     @Order(6)
-    public void CreateDBSnapshot() {
+    public void testCreateDBSnapshot() {
         assertDoesNotThrow(
                 () -> CreateDBSnapshot.createSnapshot(rdsClient, dbInstanceIdentifier, dbSnapshotIdentifier));
-        System.out.println("CreateDBSnapshot test passed");
+        logger.info("\nTest 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void DeleteDBInstance() {
+    public void testDeleteDBInstance() {
         assertDoesNotThrow(() -> DeleteDBInstance.deleteDatabaseInstance(rdsClient, dbInstanceIdentifier));
-        System.out.println("DeleteDBInstance test passed");
+        logger.info("\nTest 7 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void TestRDSScenario() {
+    public void testRDSScenario() {
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(RDSScenario.getSecretValues(secretDBName)), User.class);
         assertDoesNotThrow(() -> RDSScenario.describeDBEngines(rdsClient));
@@ -195,13 +159,13 @@ public class AmazonRDSTest {
                 () -> RDSScenario.waitForSnapshotReady(rdsClient, dbInstanceIdentifierSc, dbSnapshotIdentifierSc));
         assertDoesNotThrow(() -> RDSScenario.deleteDatabaseInstance(rdsClient, dbInstanceIdentifierSc));
         assertDoesNotThrow(() -> RDSScenario.deleteParaGroup(rdsClient, dbGroupNameSc, dbARN));
-        System.out.println("TestRDSScenario test passed");
+        logger.info("\nTest 8 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-    public void TestAuroraScenario() throws InterruptedException {
+    public void testAuroraScenario() throws InterruptedException {
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(RDSScenario.getSecretValues(secretDBName)), User.class);
         System.out.println("1. Return a list of the available DB engines");
@@ -245,16 +209,14 @@ public class AmazonRDSTest {
         assertDoesNotThrow(() -> AuroraScenario.deleteCluster(rdsClient, dbInstanceClusterIdentifier));
         System.out.println("16. Delete the DB cluster group");
         assertDoesNotThrow(() -> AuroraScenario.deleteDBClusterGroup(rdsClient, dbClusterGroupName, clusterDBARN));
-        System.out.println("TestAuroraScenario test passed");
+        logger.info("\nTest 9 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
         String secretName = "test/rds";
-
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
                 .secretId(secretName)
                 .build();

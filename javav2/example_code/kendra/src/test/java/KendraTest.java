@@ -4,6 +4,8 @@
 import com.example.kendra.*;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kendra.KendraClient;
@@ -20,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
 public class KendraTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(KendraTest.class);
     private static KendraClient kendra;
     private static String indexName = "";
     private static String indexDescription = "";
@@ -37,7 +39,6 @@ public class KendraTest {
     public static void setUp() {
         kendra = KendraClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -52,101 +53,70 @@ public class KendraTest {
         dataSourceDescription = values.getDataSourceDescription();
         dataSourceRoleArn = values.getDataSourceRoleArn();
         text = values.getText();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * KendraTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Load a properties file from the class path.
-         * prop.load(input);
-         * 
-         * // Populate the data members required for all tests.
-         * indexName = prop.getProperty("indexName")+ java.util.UUID.randomUUID();
-         * indexRoleArn = prop.getProperty("indexRoleArn");
-         * indexDescription = prop.getProperty("indexDescription");
-         * s3BucketName = prop.getProperty("s3BucketName");
-         * dataSourceName = prop.getProperty("dataSourceName");
-         * dataSourceDescription = prop.getProperty("dataSourceDescription");
-         * dataSourceRoleArn = prop.getProperty("dataSourceRoleArn");
-         * text = prop.getProperty("text");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateIndex() {
+    public void testCreateIndex() {
         indexId = CreateIndexAndDataSourceExample.createIndex(kendra, indexDescription, indexName, indexRoleArn);
         assertFalse(indexId.isEmpty());
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void CreateDataSource() {
+    public void testCreateDataSource() {
         dataSourceId = CreateIndexAndDataSourceExample.createDataSource(kendra, s3BucketName, dataSourceName,
                 dataSourceDescription, indexId, dataSourceRoleArn);
         assertFalse(dataSourceId.isEmpty());
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void SyncDataSource() {
+    public void testSyncDataSource() {
         assertDoesNotThrow(() -> CreateIndexAndDataSourceExample.startDataSource(kendra, indexId, dataSourceId));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void ListSyncJobs() {
+    public void testListSyncJobs() {
         assertDoesNotThrow(() -> ListDataSourceSyncJobs.listSyncJobs(kendra, indexId, dataSourceId));
-        System.out.println("Test 4 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void QueryIndex() {
+    public void testQueryIndex() {
         assertDoesNotThrow(() -> QueryIndex.querySpecificIndex(kendra, indexId, text));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void DeleteDataSource() {
+    public void testDeleteDataSource() {
         assertDoesNotThrow(() -> DeleteDataSource.deleteSpecificDataSource(kendra, indexId, dataSourceId));
-        System.out.println("Test 6 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void DeleteIndex() {
+    public void testDeleteIndex() {
         assertDoesNotThrow(() -> DeleteIndex.deleteSpecificIndex(kendra, indexId));
-        System.out.println("Test 7 passed");
+        logger.info("Test 7 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/kendra";
 

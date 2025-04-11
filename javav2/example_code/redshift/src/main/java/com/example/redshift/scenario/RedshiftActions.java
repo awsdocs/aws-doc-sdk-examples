@@ -69,7 +69,6 @@ public class RedshiftActions {
             redshiftAsyncClient = RedshiftAsyncClient.builder()
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         }
         return redshiftAsyncClient;
@@ -93,7 +92,6 @@ public class RedshiftActions {
             redshiftDataAsyncClient = RedshiftDataAsyncClient.builder()
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         }
         return redshiftDataAsyncClient;

@@ -5,6 +5,7 @@ package com.example.rekognition;
 
 // snippet-start:[rekognition.java2.detect_ppe.main]
 // snippet-start:[rekognition.java2.detect_ppe.import]
+
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
@@ -22,6 +23,7 @@ import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.rekognition.model.ProtectiveEquipmentPerson;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
@@ -30,20 +32,19 @@ import java.util.List;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DetectPPE {
     public static void main(String[] args) {
         final String usage = """
-
-                Usage:    <sourceImage> <bucketName>
-
-                Where:
-                   sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png).\s
-                   bucketName - The name of the Amazon S3 bucket (for example, myBucket).\s
+                 Usage:  <bucketName> <sourceImage> 
+                
+                 Where:
+                     bucketName - The name of the Amazon S3 bucket (for example, myBucket).\s
+                     sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png).\s
                 """;
 
         if (args.length != 2) {
@@ -51,48 +52,47 @@ public class DetectPPE {
             System.exit(1);
         }
 
-        String sourceImage = args[0];
-        String bucketName = args[1];
-        Region region = Region.US_EAST_1;
-        S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
-
+        String bucketName = args[0];
+        String sourceImage = args[1];
+        Region region = Region.US_WEST_2;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();
 
-        displayGear(s3, rekClient, sourceImage, bucketName);
-        s3.close();
+        displayGear(rekClient, sourceImage, bucketName);
         rekClient.close();
         System.out.println("This example is done!");
     }
 
-    public static void displayGear(S3Client s3,
-            RekognitionClient rekClient,
-            String sourceImage,
-            String bucketName) {
-
-        byte[] data = getObjectBytes(s3, bucketName, sourceImage);
-        InputStream is = new ByteArrayInputStream(data);
-
+    /**
+     * Displays the protective equipment detected in the specified image using the AWS Rekognition service.
+     *
+     * @param rekClient   the Rekognition client used to detect protective equipment
+     * @param sourceImage the name of the source image file
+     * @param bucketName  the name of the S3 bucket containing the source image
+     */
+    public static void displayGear(RekognitionClient rekClient, String sourceImage, String bucketName) {
         try {
+            software.amazon.awssdk.services.rekognition.model.Image rekImage = software.amazon.awssdk.services.rekognition.model.Image.builder()
+                    .s3Object(s3Object -> s3Object
+                            .bucket(bucketName)
+                            .name(sourceImage)
+                    )
+                    .build();
+
             ProtectiveEquipmentSummarizationAttributes summarizationAttributes = ProtectiveEquipmentSummarizationAttributes
                     .builder()
                     .minConfidence(80F)
                     .requiredEquipmentTypesWithStrings("FACE_COVER", "HAND_COVER", "HEAD_COVER")
                     .build();
 
-            SdkBytes sourceBytes = SdkBytes.fromInputStream(is);
-            software.amazon.awssdk.services.rekognition.model.Image souImage = Image.builder()
-                    .bytes(sourceBytes)
-                    .build();
-
+            // Create the request to detect protective equipment from Rekognition
             DetectProtectiveEquipmentRequest request = DetectProtectiveEquipmentRequest.builder()
-                    .image(souImage)
+                    .image(rekImage)
                     .summarizationAttributes(summarizationAttributes)
                     .build();
 
+            // Call Rekognition to detect protective equipment
             DetectProtectiveEquipmentResponse result = rekClient.detectProtectiveEquipment(request);
             List<ProtectiveEquipmentPerson> persons = result.persons();
             for (ProtectiveEquipmentPerson person : persons) {
@@ -100,10 +100,9 @@ public class DetectPPE {
                 List<ProtectiveEquipmentBodyPart> bodyParts = person.bodyParts();
                 if (bodyParts.isEmpty()) {
                     System.out.println("\tNo body parts detected");
-                } else
+                } else {
                     for (ProtectiveEquipmentBodyPart bodyPart : bodyParts) {
-                        System.out
-                                .println("\t" + bodyPart.name() + ". Confidence: " + bodyPart.confidence().toString());
+                        System.out.println("\t" + bodyPart.name() + ". Confidence: " + bodyPart.confidence().toString());
                         List<EquipmentDetection> equipmentDetections = bodyPart.equipmentDetections();
 
                         if (equipmentDetections.isEmpty()) {
@@ -127,7 +126,10 @@ public class DetectPPE {
                             }
                         }
                     }
+                }
             }
+
+            // Display summary statistics
             System.out.println("Person ID Summary\n-----------------");
 
             displaySummary("With required equipment", result.summary().personsWithRequiredEquipment());
@@ -140,27 +142,9 @@ public class DetectPPE {
         }
     }
 
-    public static byte[] getObjectBytes(S3Client s3, String bucketName, String keyName) {
-        try {
-            GetObjectRequest objectRequest = GetObjectRequest
-                    .builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
-
-            ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
-            return objectBytes.asByteArray();
-
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        return null;
-    }
-
     static void displaySummary(String summaryType, List<Integer> idList) {
         System.out.print(summaryType + "\n\tIDs  ");
-        if (idList.size() == 0) {
+        if (idList.isEmpty()) {
             System.out.println("None");
         } else {
             int count = 0;
