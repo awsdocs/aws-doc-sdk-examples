@@ -6,6 +6,7 @@
 // to them through a single topic. The example demonstrates various features
 // of both SNS and SQS together.
 
+// snippet-start:[swift.sqs.scenario.main]
 import ArgumentParser
 import AWSClientRuntime
 import AWSSNS
@@ -699,3 +700,4 @@ struct Main {
         }
     }    
 }
+// snippet-end:[swift.sqs.scenario.main]
