@@ -100,6 +100,10 @@ bedrock-runtime_Converse_AmazonNovaText:
             - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
               snippet_tags:
                 - javascript.v3.bedrock-runtime.Converse_AmazonNovaText
+            - description: Send a conversation of messages to Amazon Nova using Bedrock's Converse API with a tool configuration.
+              genai: some
+              snippet_tags:
+                - Bedrock.ConverseTool.javascriptv3.SendConverseRequest
     Kotlin:
       versions:
         - sdk_version: 1
@@ -214,6 +218,15 @@ bedrock-runtime_Scenario_ToolUse:
               genai: some
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime/scenarios/converse_tool_scenario
+          excerpts:
+            - description: "The primary execution of the scenario flow. This scenario orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              genai: some
+              snippet_tags:
+                - Bedrock.ConverseTool.javascriptv3.Scenario
     Python:
       versions:
         - sdk_version: 3
@@ -1517,6 +1530,15 @@ bedrock-runtime_Scenario_ToolUseDemo_AmazonNova:
               genai: some
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime/scenarios/converse_tool_scenario
+          excerpts:
+            - description: "The primary execution of the scenario flow. This scenario orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              genai: some
+              snippet_tags:
+                - Bedrock.ConverseTool.javascriptv3.Scenario
   services:
     bedrock-runtime: {Converse}
 
