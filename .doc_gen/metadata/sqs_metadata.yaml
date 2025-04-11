@@ -183,6 +183,7 @@ sqs_CreateQueue:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.CreateQueue
   services:
     sqs: {CreateQueue}
@@ -349,6 +350,7 @@ sqs_ListQueues:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.ListQueues
   services:
     sqs: {ListQueues}
@@ -452,6 +454,7 @@ sqs_DeleteQueue:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.DeleteQueue
   services:
     sqs: {DeleteQueue}
@@ -709,6 +712,7 @@ sqs_ReceiveMessage:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.ReceiveMessage
   services:
     sqs: {ReceiveMessage}
@@ -834,6 +838,7 @@ sqs_DeleteMessageBatch:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.DeleteMessageBatch
   services:
     sqs: {DeleteMessageBatch}
@@ -914,6 +919,7 @@ sqs_GetQueueAttributes:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.GetQueueAttributes
   services:
     sqs: {GetQueueAttributes}
@@ -1018,6 +1024,7 @@ sqs_SetQueueAttributes:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.SetQueueAttributes
     Java:
       versions:
