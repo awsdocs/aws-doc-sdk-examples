@@ -78,7 +78,7 @@ def writeme(
         typer.Option(
             help="Save a copy of the original README as the 'saved_readme' value specified in config.py ({config.saved_readme})."
         ),
-    ] = True,
+    ] = False,
     verbose: Annotated[
         bool, typer.Option(help="When set, output verbose debugging info.")
     ] = False,

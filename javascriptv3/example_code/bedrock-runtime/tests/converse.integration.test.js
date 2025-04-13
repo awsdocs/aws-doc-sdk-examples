@@ -9,7 +9,6 @@ describe("Converse with text generation models", () => {
   const fileName = "converse.js";
 
   const models = {
-    ai21LabsJurassic2: "AI21 Labs Jurassic-2",
     amazonNovaText: "Amazon Nova",
     amazonTitanText: "Amazon Titan",
     anthropicClaude: "Anthropic Claude",

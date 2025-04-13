@@ -19,8 +19,6 @@ This example illustrates a typical interaction between a generative AI model, an
 
 ![img.png](toolscenario.png)
 
-![img.png](toolscenario.png)
-
 ### Resources
 
 No additional resources are needed for this scenario.

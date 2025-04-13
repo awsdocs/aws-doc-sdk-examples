@@ -311,6 +311,7 @@ sns_ListTopics:
           github: swift/example_code/sns/basics
           excerpts:
             - snippet_tags:
+                - swift.sns.import
                 - swift.sns.ListTopics
     SAP ABAP:
       versions:
@@ -549,6 +550,7 @@ sns_CreateTopic:
           github: swift/example_code/sns
           excerpts:
             - snippet_tags:
+                - swift.sns.import
                 - swift.sns.CreateTopic
     SAP ABAP:
       versions:
@@ -638,6 +640,7 @@ sns_DeleteTopic:
           github: swift/example_code/sns
           excerpts:
             - snippet_tags:
+                - swift.sns.import
                 - swift.sns.DeleteTopic
     SAP ABAP:
       versions:
@@ -783,6 +786,7 @@ sns_Publish:
           github: swift/example_code/sns
           excerpts:
             - snippet_tags:
+                - swift.sns.import
                 - swift.sns.Publish
     SAP ABAP:
       versions:
@@ -1113,9 +1117,11 @@ sns_Subscribe:
           excerpts:
             - description: Subscribe an email address to a topic.
               snippet_tags:
+                - swift.sns.import
                 - swift.sns.SubscribeEmail
             - description: Subscribe a phone number to a topic to receive notifications by SMS.
               snippet_tags:
+                - swift.sns.import
                 - swift.sns.SubscribeSMS
     SAP ABAP:
       versions:
@@ -1196,6 +1202,7 @@ sns_Unsubscribe:
           github: swift/example_code/sns
           excerpts:
             - snippet_tags:
+                - swift.sns.import
                 - swift.sns.Unsubscribe
     SAP ABAP:
       versions:

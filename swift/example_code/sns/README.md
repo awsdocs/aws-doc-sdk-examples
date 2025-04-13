@@ -40,7 +40,7 @@ Code excerpts that show you how to call individual service functions.
 
 - [CreateTopic](CreateTopic/Sources/entry.swift#L29)
 - [DeleteTopic](DeleteTopic/Sources/entry.swift#L29)
-- [ListTopics](basics/Sources/entry.swift#L28)
+- [ListTopics](basics/Sources/entry.swift#L30)
 - [Publish](Publish/Sources/entry.swift#L30)
 - [Subscribe](SubscribeEmail/Sources/entry.swift#L31)
 - [Unsubscribe](Unsubscribe/Sources/entry.swift#L29)

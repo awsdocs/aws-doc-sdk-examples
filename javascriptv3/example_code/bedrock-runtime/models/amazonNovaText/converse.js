@@ -16,7 +16,7 @@ import {
 } from "@aws-sdk/client-bedrock-runtime";
 
 // Step 1: Create the Amazon Bedrock runtime client
-// Credentials will be automatically loaded from the environment
+// Credentials will be automatically loaded from the environment.
 const client = new BedrockRuntimeClient({ region: "us-east-1" });
 
 // Step 2: Specify which model to use:

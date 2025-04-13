@@ -7,7 +7,9 @@
 // snippet-start:[swift.sqs.basics]
 import ArgumentParser
 import AWSClientRuntime
+// snippet-start:[swift.sqs.import]
 import AWSSQS
+// snippet-end:[swift.sqs.import]
 import Foundation
 
 struct ExampleCommand: ParsableCommand {
