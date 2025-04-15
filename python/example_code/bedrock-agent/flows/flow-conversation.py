@@ -63,7 +63,7 @@ def invoke_flow(client, flow_id, flow_alias_id, input_data, execution_id):
     input_required = None
     flow_status = ""
 
-    # Process the streaming response
+    # Process the streaming response.
     for event in response['responseStream']:
 
         # Check if flow is complete.
