@@ -240,7 +240,7 @@ bedrock-agent_GettingStartedWithBedrockFlows:
 
   services:
     bedrock-agent: {CreateFlow, CreateFlowAlias, CreateFlowVersion, DeleteFlow, DeleteFlowVersion, DeleteFlowAlias, GetFlow, GetFlowAlias,
-                    GetFlowVersion, ListFlows, ListFlowVersions, ListFLowAliases, PrepareFlow}
+                    GetFlowVersion, PrepareFlow}
     bedrock-agent-runtime: {InvokeFlow}
 
 

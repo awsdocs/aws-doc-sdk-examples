@@ -264,7 +264,7 @@ def test_list_flows(make_stubber, error_code):
         call_response = flow.list_flows(
             bedrock_agent_client)
 
-        assert call_response is not None
+        assert call_response is None
 
     else:
         with pytest.raises(ClientError) as exc_info:

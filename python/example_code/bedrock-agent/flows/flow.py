@@ -236,7 +236,7 @@ def list_flows(client):
         flow_id (str): The identifier of the flow.
 
     Returns:
-        dict: The response from ListFlowVersions.
+        Nothing.
     """
     try:
         finished = False
@@ -262,8 +262,8 @@ def list_flows(client):
             else:
                 finished = True
 
-        logging.info("Successfully listed flows")
-        return response
+        logging.info("Successfully listed flows.")
+
 
     except ClientError as e:
         logging.exception("Client error listing flow versions: %s", str(e))
