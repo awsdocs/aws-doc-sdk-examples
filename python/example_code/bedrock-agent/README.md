@@ -132,6 +132,18 @@ Optionally, the script can delete the resources that it creates. If you want to 
 
 
 
+#### List flows
+
+Shows how to List Amazon Bedrock flows, versions of a flow, and aliases of a flow.
+
+Start the example by running the following at a command prompt:
+
+```
+python flows/list_flows.py
+```
+The example first lists the flows in the current AWS Region. It
+then prompts for a flow ID, which you can get from the list of flows. Finally, the example lists the flow versions and flow aliases for the flow ID that you entered.
+
 ### Tests
 
 ⚠ Running tests might result in charges to your AWS account.
