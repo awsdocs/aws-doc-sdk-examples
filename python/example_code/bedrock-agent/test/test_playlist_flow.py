@@ -15,7 +15,7 @@ def test_playlist_flow(file):
     # Simulate user input - each string represents one input() call
     # If you're using the docs at https://docs.aws.amazon.com/bedrock/latest/userguide/flows-multi-turn-invocation.html,
     # "Create a playlist\n 3\n pop, castles\n" should work with Antropic Haiku.
-    test_input = "pop\n3\n\y"  
+    test_input = "pop\n3\ny"  
     
     result = subprocess.run(
         [sys.executable, file],
