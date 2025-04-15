@@ -118,7 +118,7 @@ python scenario_get_started_with_agents.py
 
 Shows how to create a simple flow that generates music playlists.
 The flow includes a prompt node that generates a playlist for a chosen genre
-and number of songs. The example created the nodes and permissions
+and number of songs. The example creates the nodes and permissions
 for the flow.
 
 Start the example by running the following at a command prompt:
