@@ -18,29 +18,32 @@ describe("ConverseStream with text generation models", () => {
     mistral: "Mistral",
   };
 
-  test.each(Object.entries(models).map(([sub, name]) => [name, sub]))(
-    "should invoke %s and return text",
-    async (_, subdirectory) => {
-      let output = "";
-      const outputStream = new Writable({
-        write(/** @type string */ chunk, encoding, callback) {
-          output += chunk.toString();
-          callback();
-        },
-      });
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-      const stdoutWriteSpy = vi
-        .spyOn(process.stdout, "write")
-        .mockImplementation(outputStream.write.bind(outputStream));
+  test.sequential.each(
+    Object.entries(models).map(([sub, name]) => [name, sub]),
+  )("should invoke %s and return text", async (_, subdirectory) => {
+    // Add a 500 ms delay before each test to avoid throttling issues
+    await delay(500);
+    let output = "";
+    const outputStream = new Writable({
+      write(/** @type string */ chunk, encoding, callback) {
+        output += chunk.toString();
+        callback();
+      },
+    });
 
-      const script = path.join(baseDirectory, subdirectory, fileName);
+    const stdoutWriteSpy = vi
+      .spyOn(process.stdout, "write")
+      .mockImplementation(outputStream.write.bind(outputStream));
 
-      try {
-        await import(script);
-        expect(output).toMatch(/\S/);
-      } finally {
-        stdoutWriteSpy.mockRestore();
-      }
-    },
-  );
+    const script = path.join(baseDirectory, subdirectory, fileName);
+
+    try {
+      await import(script);
+      expect(output).toMatch(/\S/);
+    } finally {
+      stdoutWriteSpy.mockRestore();
+    }
+  });
 });

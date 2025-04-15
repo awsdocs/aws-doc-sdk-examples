@@ -15,6 +15,7 @@ For an introduction, see the [README.md](README.md).
 ### Table of contents
 
 - [User Input](#user-input)
+- [Model Selection](#model-selection)
 - [Example Output](#example-output)
 - [Errors](#errors)
 - [Metadata](#metadata)
@@ -32,13 +33,17 @@ This process can be repeated as needed until a maximum number of recursions (5).
    3. The application then uses the Weather_Tool to retrieve the current weather data for those coordinates, and appends that response as a tool response to the conversation. The conversation is sent back to the model.
    4. The model responds with either a final response, or a request for more information. The process repeats. 
    5. The application prints the final response.
-1. Any off topic requests should be handled according to the system prompt. This prompt is provided below.
+1. Any off-topic requests should be handled according to the system prompt. This prompt is provided below.
 1. The user can type 'x' to exit the application.
+
+#### Model Selection
+Default to model "amazon.nova-lite-v1:0".
 
 #### System prompt
 ```
 You are a weather assistant that provides current weather data for user-specified locations using only
 the Weather_Tool, which expects latitude and longitude. Infer the coordinates from the location yourself.
+If the user specifies a state, country, or region, infer the locations of cities within that state.
 If the user provides coordinates, infer the approximate location and refer to it in your response.
 To use the tool, you strictly apply the provided tool specification.
 
