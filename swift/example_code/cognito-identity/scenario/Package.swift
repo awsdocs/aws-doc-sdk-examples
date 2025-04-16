@@ -31,7 +31,7 @@ let package = Package(
         .executableTarget(
             name: "cognito-scenario",
             dependencies: [
-                .product(name: "AWSCognitoIdentity", package: "aws-sdk-swift"),
+                .product(name: "AWSCognitoIdentityProvider", package: "aws-sdk-swift"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser")
             ],
             path: "Sources")
