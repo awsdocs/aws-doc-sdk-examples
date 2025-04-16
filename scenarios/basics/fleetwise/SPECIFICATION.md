@@ -286,10 +286,10 @@ The following table describes the metadata used in this Basics Scenario.
 | action                | metadata file             | metadata key                         |
 |-----------------------|---------------------------|------------------------------------- |
 |`createSignalCatalog`  |iot_fleetwise_metadata.yaml|iotfleetwise_CreateSignalCatalog      |
-|`createFleet`          |iot_fleetwise_metadata.yaml| iotfleetwise_CreateFleet             |
-|`createGateway `       |iot_fleetwise_metadata.yaml| iotfleetwise_CreateGateway           |
-|`createModelManifest`  iot_fleetwise_metadata.yaml | iotfleetwise_CreateModelManifest     |
-|`createDecoderManifest`|iot_fleetwise_metadata.yaml| iotfleetwise_CreateDecoderManifest   |
+|`createFleet`          |iot_fleetwise_metadata.yaml|iotfleetwise_CreateFleet             |
+|`createGateway `       |iot_fleetwise_metadata.yaml|iotfleetwise_CreateGateway           |
+|`createModelManifest`  iot_fleetwise_metadata.yaml |iotfleetwise_CreateModelManifest     |
+|`createDecoderManifest`|iot_fleetwise_metadata.yaml|iotfleetwise_CreateDecoderManifest   |
 |`updateModelManifest`  |iot_fleetwise_metadata.yaml|iotfleetwise_UpdateModelManifest      |
 | `createPortal`        |iot_fleetwise_metadata.yaml|iotfleetwise_CreatePortal             |
 |`waitForModelManifest` |iot_fleetwise_metadata.yaml|iotfleetwise_WaitForModelManifest     |
