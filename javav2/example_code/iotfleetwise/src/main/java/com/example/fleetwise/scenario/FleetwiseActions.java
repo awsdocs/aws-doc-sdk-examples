@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+// snippet-start:[iotfleetwise.java2.scenario.actions.main]
 public class FleetwiseActions {
     private static IoTFleetWiseAsyncClient ioTFleetWiseAsyncClient;
 
@@ -51,6 +52,7 @@ public class FleetwiseActions {
         return ioTFleetWiseAsyncClient;
     }
 
+    // snippet-start:[iotfleetwise.java2.create.catalog.main]
     /**
      * Creates a signal catalog asynchronously.
      *
@@ -106,6 +108,7 @@ public class FleetwiseActions {
                             .thenApply(CreateSignalCatalogResponse::arn);
                 });
     }
+    // snippet-end:[iotfleetwise.java2.create.catalog.main]
 
     /**
      * Delays the execution of the current thread asynchronously for the specified duration.
@@ -124,7 +127,7 @@ public class FleetwiseActions {
         });
     }
 
-
+    // snippet-start:[iotfleetwise.java2.delete.catalog.main]
     /**
      * Deletes the specified signal catalog asynchronously, if it exists.
      *
@@ -151,7 +154,9 @@ public class FleetwiseActions {
                     return null;
                 });
     }
+    // snippet-end:[iotfleetwise.java2.delete.catalog.main]
 
+    // snippet-start:[iotfleetwise.java2.create.decoder.main]
     /**
      * Creates a new decoder manifest asynchronously.
      *
@@ -222,7 +227,16 @@ public class FleetwiseActions {
                 })
                 .thenApply(CreateDecoderManifestResponse::arn);
     }
+    // snippet-end:[iotfleetwise.java2.create.decoder.main]
 
+    // snippet-start:[iotfleetwise.java2.delete.decoder.main]
+    /**
+     * Deletes a decoder manifest asynchronously.
+     *
+     * @param name the name of the decoder manifest to delete
+     * @return a {@link CompletableFuture} that completes when the decoder manifest has been deleted
+     * @throws RuntimeException if the deletion of the decoder manifest fails
+     */
     public CompletableFuture<Void> deleteDecoderManifestAsync(String name) {
         DeleteDecoderManifestRequest request = DeleteDecoderManifestRequest.builder()
                 .name(name)
@@ -238,7 +252,9 @@ public class FleetwiseActions {
                 })
                 .thenApply(response -> null); // Return CompletableFuture<Void>
     }
+    // snippet-end:[iotfleetwise.java2.delete.decoder.main]
 
+    // snippet-start:[iotfleetwise.java2.delete.vehicle.main]
     /**
      * Asynchronously deletes a vehicle with the specified name.
      *
@@ -261,8 +277,9 @@ public class FleetwiseActions {
                 })
                 .thenApply(response -> null); // Return CompletableFuture<Void>
     }
+    // snippet-end:[iotfleetwise.java2.delete.vehicle.main]
 
-
+    // snippet-start:[iotfleetwise.java2.update.manifest.main]
     /**
      * Updates the model manifest asynchronously.
      *
@@ -282,7 +299,9 @@ public class FleetwiseActions {
                 })
                 .thenApply(response -> null);
     }
+    // snippet-end:[iotfleetwise.java2.update.manifest.main]
 
+    // snippet-start:[iotfleetwise.java2.update.decoder.main]
     /**
      * Asynchronously updates the decoder manifest with the given name.
      *
@@ -304,7 +323,9 @@ public class FleetwiseActions {
                 })
                 .thenApply(response -> null); // Return void-equivalent
     }
+    // snippet-end:[iotfleetwise.java2.update.decoder.main]
 
+    // snippet-start:[iotfleetwise.java2.create.vehicle.main]
     /**
      * Asynchronously creates a new vehicle in the system.
      *
@@ -331,7 +352,9 @@ public class FleetwiseActions {
                 })
                 .thenApply(response -> null); // Void return type
     }
+    // snippet-end:[iotfleetwise.java2.create.vehicle.main]
 
+    // snippet-start:[iotfleetwise.java2.decoder.active.main]
     /**
      * Waits for the decoder manifest to become active asynchronously.
      *
@@ -346,7 +369,6 @@ public class FleetwiseActions {
         AtomicReference<ManifestStatus> lastStatus = new AtomicReference<>(ManifestStatus.DRAFT);
 
         System.out.print("⏳ Elapsed: 0s | Decoder Status: DRAFT");
-
         final Runnable pollTask = new Runnable() {
             @Override
             public void run() {
@@ -385,7 +407,6 @@ public class FleetwiseActions {
                                 }
                             });
                 } else {
-                    // Still print even if not polling yet
                     System.out.print("\r⏱️ Elapsed: " + elapsed + "s | Decoder Status: " + lastStatus.get());
                 }
             }
@@ -394,8 +415,9 @@ public class FleetwiseActions {
         scheduler.scheduleAtFixedRate(pollTask, 1, 1, TimeUnit.SECONDS);
         return result;
     }
+    // snippet-end:[iotfleetwise.java2.decoder.active.main]
 
-
+    // snippet-start:[iotfleetwise.java2.get.manifest.main]
     /**
      * Waits for the specified model manifest to become active.
      *
@@ -410,7 +432,6 @@ public class FleetwiseActions {
         AtomicReference<ManifestStatus> lastStatus = new AtomicReference<>(ManifestStatus.DRAFT);
 
         System.out.print("⏳ Elapsed: 0s | Status: DRAFT");
-
         final Runnable pollTask = new Runnable() {
             @Override
             public void run() {
@@ -458,7 +479,9 @@ public class FleetwiseActions {
         scheduler.scheduleAtFixedRate(pollTask, 1, 1, TimeUnit.SECONDS);
         return result;
     }
+    // snippet-end:[iotfleetwise.java2.get.manifest.main]
 
+    // snippet-start:[iotfleetwise.java2.get.vehicle.main]
     /**
      * Asynchronously fetches the details of a vehicle.
      *
@@ -493,6 +516,7 @@ public class FleetwiseActions {
                 })
                 .thenApply(response -> null); // returning CompletableFuture<Void>
     }
+    // snippet-end:[iotfleetwise.java2.get.vehicle.main]
 
     /**
      * Asynchronously creates an IoT Thing if it does not already exist.
@@ -524,6 +548,7 @@ public class FleetwiseActions {
                 .thenApply(response -> null);
     }
 
+    // snippet-start:[iotfleetwise.java2.delete.model.main]
     /**
      * Deletes a model manifest asynchronously.
      *
@@ -546,7 +571,9 @@ public class FleetwiseActions {
                 })
                 .thenApply(response -> null); // return type is CompletableFuture<Void>
     }
+    // snippet-end:[iotfleetwise.java2.delete.model.main]
 
+     // snippet-start:[iotfleetwise.java2.delete.catalog.main]
     /**
      * Deletes a signal catalog asynchronously.
      *
@@ -569,7 +596,9 @@ public class FleetwiseActions {
                 })
                 .thenApply(response -> null); // return type is CompletableFuture<Void>
     }
+    // snippet-end:[iotfleetwise.java2.delete.catalog.main]
 
+    // snippet-start:[iotfleetwise.java2.list.catalogs.main]
     /**
      * Lists the signal catalog nodes asynchronously.
      *
@@ -590,7 +619,9 @@ public class FleetwiseActions {
                 })
                 .thenApply(ListSignalCatalogNodesResponse::nodes); // Return the nodes
     }
+    // snippet-end:[iotfleetwise.java2.list.catalogs.main]
 
+    // snippet-start:[iotfleetwise.java2.create.model.main]
     /**
      * Creates a model manifest asynchronously.
      *
@@ -634,7 +665,9 @@ public class FleetwiseActions {
                 })
                 .thenApply(CreateModelManifestResponse::arn); // Return the ARN
     }
+    // snippet-end:[iotfleetwise.java2.create.model.main]
 
+    // snippet-start:[iotfleetwise.java2.delete.fleet.main]
     /**
      * Deletes a fleet based on the provided fleet ID.
      *
@@ -656,8 +689,10 @@ public class FleetwiseActions {
                 })
                 .thenApply(response -> null); // Returning Void
     }
+    // snippet-end:[iotfleetwise.java2.delete.fleet.main]
 
 
+    // snippet-start:[iotfleetwise.java2.create.fleet.main]
     /**
      * Creates a new fleet asynchronously using the AWS SDK for Java V2.
      *
@@ -681,4 +716,6 @@ public class FleetwiseActions {
                 })
                 .thenApply(CreateFleetResponse::id); // Extract fleet ID on success
     }
+    // snippet-end:[iotfleetwise.java2.create.fleet.main]
 }
+// snippet-end:[iotfleetwise.java2.scenario.actions.main]
