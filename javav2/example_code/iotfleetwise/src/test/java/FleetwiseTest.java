@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class FleetwiseTest {
     private static final Logger logger = LoggerFactory.getLogger(FleetwiseTest.class);
-    private static String signalCatalogName = "catelogtest";
+    private static String signalCatalogName = "catalogtest";
     private static String manifestName = "manifesttest";
     private static String fleetId = "fleettest";
-    private static String vecName = "vechiletest";
+    private static String vecName = "vehicletest";
     private static String decName = "decManifesttest";
     private static String signalCatalogArn = "" ;
     private static String fleetid = "" ;
@@ -61,6 +61,7 @@ public class FleetwiseTest {
     public void testCreateManifest() {
         assertDoesNotThrow(() -> {
             List<Node> nodes = actions.listSignalCatalogNodeAsync(signalCatalogName).join();
+            assertNotNull(nodes, "The returned node list should not be null");
             manifestArn = actions.createModelManifestAsync(manifestName,signalCatalogArn,nodes).join();;
             assertNotNull(manifestArn, "The returned manifest Arn should not be null");
         });

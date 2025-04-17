@@ -5,12 +5,12 @@ This SDK Basics scenario demonstrates how to interact with AWS IoT Fleetwise usi
 It demonstrates various tasks such as creating a Fleetwise catelog, creating an fleet, 
 creating a vehicle, and so on.  Finally this scenario demonstrates how 
 to clean up resources. Its purpose is to demonstrate how to get up and running with 
-AWS Fleetwise SiteWise and an AWS SDK.
+AWS Fleetwise and an AWS SDK.
 
 ## Resources
 This Basics scenario does not require any additional AWS resources. 
 
-## Hello AWS Fleetwise SiteWise
+## Hello AWS Fleetwise
 This program is intended for users not familiar with the AWS IoT Fleetwise Service to easily get up and running. The program uses a `listSignalCatalogsPaginator` to demonstrate how you can read through catalog information.
 
 ## Basics Scenario Program Flow
@@ -18,52 +18,52 @@ The AWS IoT Fleetwise Basics scenario executes the following operations.
 
 1. **Create an AWS FleetWise collection**:
    - Description: This step creates an AWS Fleetwise collection by invoking the `createSignalCatalog` method.
-   - Exception Handling: Check to see if a `???` is thrown. 
-     If it is thrown, display the asset model ID and move on.
+   - Exception Handling: Check to see if a `ValidationException` is thrown. 
+     If it is thrown, if so, display the message and end the program.
 
 2. **Create an IoT Fleetwise fleet**:
    - Description: This operation creates an AWS Fleetwise fleet.
-   - The method `listSignalCatalogNodes` is called to retrieve a list of nodes.
-   - Exception Handling: Check to see if a `???` is thrown. 
+   - The method `createFleet` is called.
+   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. 
 
 3. **Create a model manifest**:
-   - Description: To create a model manifest, the method `listAssetModelProperties` is called. The node list is used to create the model manifest by calling `createModelManifest()`.
-   - Exception Handling: Check to see if an `???` is thrown. If so, display the message and end the program.
+   - Description: To create a model manifest, the method `listSignalCatalogNodes` is called to retrieve a list of nodes. This node list is passed to `createModelManifest()`.
+   - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program.
 
 4. **Create a decoder manifest**:
    - Description: This operation creates a decoder manifest.
    - This step uses the method `createDecoderManifest`.
-   - Exception Handling: Check to see if a `???` is thrown. If so, display the message and end the program.
+   - Exception Handling: Check to see if a `CompletionException` is thrown. If so, display the message and end the program.
 
 5. **Check the status of the model manifest**:
    - Description: This operation checks the status of the model manifest.
    - This step uses the  `updateModelManifest`and `getModelManifest` methods.
-   - Exception Handling: Check to see if a `???` is thrown. If so, display the message and end the program.
+   - Exception Handling: Check to see if a `CompletionException` is thrown. If so, display the message and end the program.
 
 6. **Check the status of the decoder**:
    - Description: This operation creates an IoT Thing which is required to create a vehicle.
    - This step uses the  `createThing` method.
-   - Exception Handling: Check to see if a `???` is thrown. If so, display the message and end the program.
+   - Exception Handling: Check to see if a `RuntimeException` is thrown. If so, display the message and end the program.
 
 
 7. **Create an IoT Thing**:
    - Description: This operation describes the portal and returns a URL for the portal.
    - The method `describePortal` is called and returns the URL.
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
+   - Exception Handling: Check to see if a `ResourceAlreadyExistsException` is thrown. If so, display the message and end the program.
 
 8.  **Create a vehicle**:
    - Description: This operation creates a vehicle.
    - The method `createVehicle` is called.
-   - Exception Handling: Check to see if an `???` is thrown. If so, display the message and end the program.
+   - Exception Handling: Check to see if an `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
 9. **Display vehicle details**:
    - Description: This operation describes the vehicle.
    - The method `getVehicle` is called.
    - Exception Handling: Check to see if a `???` is thrown. If so, display the message and end the program.
 
-10. **Delete the AWS IoT SiteWise Assets**:
+10. **Delete the AWS IoT Fleetwise Assets**:
     - The `delete` methods are called to clean up the resources.
-    - Exception Handling: Check to see if a `???` is thrown. If so, display the message and end the program."
+    - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program."
 
 ### Program execution
 The following shows the output of the AWS IoT Fleetwise Basics scenario in the console. 
