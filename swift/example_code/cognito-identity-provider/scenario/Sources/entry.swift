@@ -1,3 +1,4 @@
+// snippet-start:[swift.cognito-identity-provider.scenario]
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -31,7 +32,6 @@
 //    “SOFTWARE_TOKEN_MFA”).
 // 9. Invokes the AdminRespondToAuthChallenge to get back a token.
 
-// snippet-start:[swift.cognito-identity-provider.scenario]
 import ArgumentParser
 import AWSClientRuntime
 import Foundation
