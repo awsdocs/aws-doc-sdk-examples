@@ -18,11 +18,29 @@ public class FleetwiseScenario {
 
     public static void main(String[] args) {
 
-        String signalCatalogName = "catelogscott1";
-        String manifestName = "manifestscott1";
-        String fleetId = "fleetscott1";
-        String vecName = "vechile1";
-        String decName = "decManifestscott1";
+        final String usage =
+                """
+                Usage:
+                    <signalCatalogName> <manifestName> <fleetId> <vecName> <decName>
+            
+                Where:
+                    signalCatalogName     - The name of the Signal Catalog to create or use.
+                    manifestName          - The name of the Vehicle Model (Model Manifest) to create or use.
+                    fleetId               - The ID of the Fleet to create or use.
+                    vecName               - The name of the Vehicle to create or register.
+                    decName               - The name of the Decoder Manifest to create or use.
+                """;
+
+        if (args.length != 5) {
+            System.out.println(usage);
+            System.exit(1);
+        }
+
+        String signalCatalogName = args[0];
+        String manifestName = args[1];
+        String fleetId = args[2];
+        String vecName = args[3];
+        String decName = args[4];
 
         System.out.println("""
             AWS IoT FleetWise is a managed service that simplifies the 

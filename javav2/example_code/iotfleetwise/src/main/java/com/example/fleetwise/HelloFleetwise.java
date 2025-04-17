@@ -12,7 +12,10 @@ import software.amazon.awssdk.services.iotfleetwise.paginators.ListSignalCatalog
 public class HelloFleetwise {
 
         public static void main(String[] args) {
-            // Create the client
+            ListSignalCatalogs();
+        }
+
+        public static void  ListSignalCatalogs() {
             try (IoTFleetWiseClient fleetWiseClient = IoTFleetWiseClient.builder()
                     .region(Region.US_EAST_1)
                     .credentialsProvider(DefaultCredentialsProvider.create())
