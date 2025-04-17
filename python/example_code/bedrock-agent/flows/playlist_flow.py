@@ -21,7 +21,7 @@ The script will:
 
 """
 
-# snippet-start:[python.example_code.bedrock-agent-runtine.Scenario_GettingStartedBedrockFlows]
+# snippet-start:[python.example_code.bedrock-agent-runtime.Scenario_GettingStartedBedrockFlows]
 from datetime import datetime
 import logging
 import boto3
@@ -421,4 +421,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# snippet-end:[python.example_code.bedrock-agent-runtine.Scenario_GettingStartedBedrockFlows]
+# snippet-end:[python.example_code.bedrock-agent-runtime.Scenario_GettingStartedBedrockFlows]
