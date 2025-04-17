@@ -47,7 +47,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Sign up a user with a user pool that requires MFA](scenario/Sources/entry.swift)
+- [Sign up a user with a user pool that requires MFA](scenario/Package.swift)
 
 
 <!--custom.examples.start-->

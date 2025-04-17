@@ -1024,9 +1024,10 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
         - sdk_version: 1
           github: swift/example_code/cognito-identity-provider
           excerpts:
-            - description:
+            - description: The <code>Package.swift</code> file.
               snippet_tags:
                 - swift.cognito-identity-provider.scenario.package
+            - description: The Swift code file.
                 - swift.cognito-identity-provider.scenario
   services:
   services:
