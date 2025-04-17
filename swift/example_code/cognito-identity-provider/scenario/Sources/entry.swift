@@ -1,7 +1,7 @@
-// snippet-start:[swift.cognito-identity-provider.scenario]
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
+// snippet-start:[swift.cognito-identity-provider.scenario]
 // An example demonstrating various features of Amazon Cognito. Before running
 // this Swift code example, set up your development environment, including
 // your credentials.
