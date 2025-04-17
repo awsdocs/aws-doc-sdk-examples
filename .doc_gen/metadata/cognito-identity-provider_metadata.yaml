@@ -1028,6 +1028,7 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
               snippet_tags:
                 - swift.cognito-identity-provider.scenario.package
             - description: The Swift code file.
+              snippet_tags:
                 - swift.cognito-identity-provider.scenario
   services:
   services:
