@@ -1,7 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-// An example demonstrating various features of Amazon Cognito.
+// An example demonstrating various features of Amazon Cognito. Before running
+// this Swift code example, set up your development environment, including
+// your credentials.
+//
+// For more information, see the following documentation:
+// https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+//
+// TIP: To set up the required user pool, run the AWS Cloud Development Kit
+// (AWS CDK) script provided in this GitHub repo at
+// resources/cdk/cognito_scenario_user_pool_with_mfa.
 //
 // This example performs the following functions:
 //
@@ -22,6 +31,7 @@
 //    “SOFTWARE_TOKEN_MFA”).
 // 9. Invokes the AdminRespondToAuthChallenge to get back a token.
 
+// snippet-start:[swift.cognito-identity-provider.scenario]
 import ArgumentParser
 import AWSClientRuntime
 import Foundation
@@ -272,8 +282,14 @@ struct ExampleCommand: ParsableCommand {
             print("=====> Response challenge is \(challengeName)")
 
             return output.session
+        } catch _ as UserNotFoundException {
+            print("*** The specified username, \(userName), doesn't exist.")
+            return nil
+        } catch _ as UserNotConfirmedException {
+            print("*** The user \(userName) has not been confirmed.")
+            return nil
         } catch {
-            dump(error)
+            print("*** An unexpected error occurred.")
             return nil
         }
     }
@@ -305,9 +321,11 @@ struct ExampleCommand: ParsableCommand {
 
             print("=====> Enter this token into Google Authenticator: \(secretCode)")
             return output.session
+        } catch _ as SoftwareTokenMFANotFoundException {
+            print("*** The specified user pool isn't configured for MFA.")
+            return nil
         } catch {
-            print("*** Error getting the secret for the app's MFA")
-            dump(error)
+            print("*** An unexpected error occurred getting the secret for the app's MFA.")
             return nil
         }
     }
@@ -337,15 +355,38 @@ struct ExampleCommand: ParsableCommand {
                 return
             }
             print("=====> The token's status is: \(tokenStatus)")
+        } catch _ as SoftwareTokenMFANotFoundException {
+            print("*** The specified user pool isn't configured for MFA.")
+            return
+        } catch _ as CodeMismatchException {
+            print("*** The specified MFA code doesn't match the expected value.")
+            return
+        } catch _ as UserNotFoundException {
+            print("*** The specified username doesn't exist.")
+            return
+        } catch _ as UserNotConfirmedException {
+            print("*** The user has not been confirmed.")
+            return
         } catch {
             print("*** Error verifying the MFA token!")
-            dump(error)
             return
         }
     }
     // snippet-end:[swift.cognito-identity-provider.VerifySoftwareToken]
 
     // snippet-start:[swift.cognito-identity-provider.AdminRespondToAuthChallenge]
+    /// Respond to the authentication challenge received from Cognito after
+    /// initiating an authentication session. This involves sending a current
+    /// MFA code to the service.
+    /// 
+    /// - Parameters:
+    ///   - cipClient: The `CognitoIdentityProviderClient` to use.
+    ///   - userName: The user's username.
+    ///   - clientId: The app client ID.
+    ///   - userPoolId: The user pool to sign into.
+    ///   - mfaCode: The 6-digit MFA code currently displayed by the user's
+    ///     authenticator.
+    ///   - session: The authentication session to continue processing.
     func adminRespondToAuthChallenge(cipClient: CognitoIdentityProviderClient, userName: String,
                                      clientId: String, userPoolId: String, mfaCode: String,
                                      session: String) async {
@@ -373,9 +414,23 @@ struct ExampleCommand: ParsableCommand {
 
             print("=====> Authentication result (JWTs are redacted):")
             print(authenticationResult)
+        } catch _ as SoftwareTokenMFANotFoundException {
+            print("*** The specified user pool isn't configured for MFA.")
+            return
+        } catch _ as CodeMismatchException {
+            print("*** The specified MFA code doesn't match the expected value.")
+            return
+        } catch _ as UserNotFoundException {
+            print("*** The specified username, \(userName), doesn't exist.")
+            return
+        } catch _ as UserNotConfirmedException {
+            print("*** The user \(userName) has not been confirmed.")
+            return
+        } catch let error as NotAuthorizedException {
+            print("*** Unauthorized access. Reason: \(error.properties.message ?? "<unknown>")")
         } catch {
-            print("*** Error responding to the auth challenge.")
-            dump(error)
+            print("*** Error responding to the MFA challenge.")
+            return
         }
     }
     // snippet-end:[swift.cognito-identity-provider.AdminRespondToAuthChallenge]
@@ -385,8 +440,17 @@ struct ExampleCommand: ParsableCommand {
         let config = try await CognitoIdentityProviderClient.CognitoIdentityProviderClientConfiguration(region: region)
         let cipClient = CognitoIdentityProviderClient(config: config)
 
+        print("""
+              This example collects information about a user, then creates that user in the
+              specified user pool. Then, it enables Multi-Factor Authentication (MFA) for that
+              user by associating an authenticator application (such as Google Authenticator
+              or a password manager that supports TOTP). Then, the user uses a code from their
+              authenticator application to sign in.
+
+              """)
+
         let userName = stringRequest("Please enter a new username: ")
-        let password = stringRequest("Enter your password: ")
+        let password = stringRequest("Enter a password: ")
         let email = stringRequest("Enter your email address: ", minLength: 5)
 
         // Submit the sign-up request to AWS.
@@ -400,7 +464,7 @@ struct ExampleCommand: ParsableCommand {
 
         // Check the user's status. This time, it should come back "unconfirmed".
 
-        print("==> Getting user \(userName) in the user pool...")
+        print("==> Getting the status of user \(userName) from the user pool (should be 'unconfirmed')...")
         if await adminGetUser(cipClient: cipClient, userName: userName, userPoolId: poolId) == false {
             return
         }
@@ -429,11 +493,10 @@ struct ExampleCommand: ParsableCommand {
         // Check the user's status again. This time it should come back
         // "confirmed".
 
-        print("==> Rechecking status of user \(userName) in the user pool...")
+        print("==> Rechecking status of user \(userName) in the user pool (should be 'confirmed')...")
         if await adminGetUser(cipClient: cipClient, userName: userName, userPoolId: poolId) == false {
             return
         }
-
         // Check the challenge mode. Here, it should be "mfaSetup", indicating
         // that the user needs to add MFA before using it. This returns a
         // session that can be used to register MFA, or nil if an error occurs.
@@ -460,13 +523,16 @@ struct ExampleCommand: ParsableCommand {
         // authenticator. Then verify that it matches the value expected for
         // the session.
 
-        let mfaCode1 = stringRequest("==> Enter the 6-digit code displayed in Google Authenticator: ",
+        let mfaCode1 = stringRequest("==> Enter the 6-digit code displayed in your authenticator: ",
                                     minLength: 6)
         await verifyTOTP(cipClient: cipClient, session: newSession, mfaCode: mfaCode1)
 
         // Ask the user to authenticate now that the authenticator has been
         // configured. This creates a new session using the user's username
-        // and password.
+        // and password as already entered.
+
+        print("\nNow starting the sign-in process for user \(userName)...\n")
+        
         let session2 = await initiateAuth(cipClient: cipClient, clientId: clientId,
                                     userName: userName, password: password, userPoolId: poolId)
         guard let session2 else {
@@ -477,8 +543,7 @@ struct ExampleCommand: ParsableCommand {
         // new 6-digit code from their authenticator, and send it to the auth
         // session.
 
-        print("==> Be sure to wait for a new code before entering one below!")
-        let mfaCode2 = stringRequest("==> Enter a new 6-digit code displayed in Google Authenticator: ",
+        let mfaCode2 = stringRequest("==> Wait for your authenticator to show a new 6-digit code, then enter it: ",
                                     minLength: 6)
         await adminRespondToAuthChallenge(cipClient: cipClient, userName: userName,
                                           clientId: clientId, userPoolId: poolId,
@@ -500,3 +565,4 @@ struct Main {
         }
     }    
 }
+// snippet-end:[swift.cognito-identity-provider.scenario]

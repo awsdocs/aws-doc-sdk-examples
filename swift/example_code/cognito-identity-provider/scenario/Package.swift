@@ -1,4 +1,10 @@
 // swift-tools-version: 5.9
+
+// (swift-tools-version has two lines here because it needs to be the first
+// line in the file, but it should also appear in the snippet below)
+
+// snippet-start:[swift.cognito-identity-provider.scenario.package]
+// swift-tools-version: 5.9
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -38,3 +44,4 @@ let package = Package(
 
     ]
 )
+// snippet-end:[swift.cognito-identity-provider.scenario.package]
