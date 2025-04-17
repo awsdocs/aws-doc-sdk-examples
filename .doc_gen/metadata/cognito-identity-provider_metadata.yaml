@@ -1031,6 +1031,5 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
               snippet_tags:
                 - swift.cognito-identity-provider.scenario
   services:
-  services:
     cognito-identity-provider: {ConfirmSignUp, ConfirmDevice, AssociateSoftwareToken, AdminGetUser, ListUsers, ResendConfirmationCode,
                                 RespondToAuthChallenge, AdminRespondToAuthChallenge, SignUp, InitiateAuth, AdminInitiateAuth, VerifySoftwareToken}
