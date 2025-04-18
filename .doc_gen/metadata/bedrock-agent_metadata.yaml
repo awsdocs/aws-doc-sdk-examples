@@ -214,9 +214,8 @@ bedrock-agent_GettingStartedWithBedrockAgents:
     
 
 
-
 bedrock-agent_GettingStartedWithBedrockFlows:
-  title: An end-to-end example showing how to create and invoke an Amazon Bedrock flow using an &AWS; SDK. 
+  title: An end-to-end example showing how to create and invoke an Amazon Bedrock flow using an &AWS; SDK
   title_abbrev: Create and invoke a flow
   synopsis_list:
     - Create an execution role for the flow.
@@ -277,7 +276,7 @@ bedrock-agent_UpdateFlow:
         - sdk_version: 3
           github: python/example_code/bedrock-agent
           excerpts:
-            - description: Update an Amazon Bedrock Flow
+            - description: Update an Amazon Bedrock Flow.
               snippet_tags:
                 - python.example_code.bedrock-agent.update_flow
   services:
@@ -434,3 +433,4 @@ bedrock-agent_ListFlowVersions:
 
   services:
     bedrock-agent: {ListFlowVersions}
+    
