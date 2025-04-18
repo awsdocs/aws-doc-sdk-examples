@@ -38,6 +38,14 @@ bedrock_Hello:
             - description:
               snippet_tags:
                 - bedrock.example_code.hello_bedrock.complete
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/bedrock
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.bedrock.hello
   services:
     bedrock: {ListFoundationModels}
 
@@ -135,5 +143,14 @@ bedrock_ListFoundationModels:
             - description: List the available Bedrock foundation models.
               snippet_tags:
                 - Bedrock.dotnetv3.BedrockActions.ListFoundationModels
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/bedrock
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.bedrock.import
+                - swift.bedrock.ListFoundationModels
   services:
     bedrock: {ListFoundationModels}
