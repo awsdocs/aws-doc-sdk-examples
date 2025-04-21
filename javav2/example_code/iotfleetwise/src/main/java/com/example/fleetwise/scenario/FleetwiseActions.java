@@ -229,7 +229,7 @@ public class FleetwiseActions {
         return getAsyncClient().createDecoderManifest(request)
                 .whenComplete((response, exception) -> {
                     if (exception != null) {
-                        throw new CompletionException("Failed to create decoder manifest: " + exception.getMessage(), exception);
+                        throw new CompletionException("❌ Failed to create decoder manifest: " + exception.getMessage(), exception);
                     }
                 })
                 .thenApply(CreateDecoderManifestResponse::arn);
