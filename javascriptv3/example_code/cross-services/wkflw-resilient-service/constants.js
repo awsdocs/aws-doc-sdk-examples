@@ -6,7 +6,7 @@ import { resolve, join } from "node:path";
 export const PROJECT_ROOT_PATH = resolve("../../../../");
 export const RESOURCES_PATH = join(
   PROJECT_ROOT_PATH,
-  "workflows/resilient_service/resources/",
+  "scenarios/features/resilient_service/resources/",
 );
 export const ROOT = resolve("./");
 
