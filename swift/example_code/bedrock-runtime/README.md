@@ -31,6 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 ### Amazon Nova
 
 - [Converse](models/amazon-nova/amazon-nova-text/Sources/Converse/main.swift#L4)
+- [ConverseStream](models/amazon-nova/amazon-nova-text/Sources/ConverseStream/main.swift#L4)
 
 
 <!--custom.examples.start-->

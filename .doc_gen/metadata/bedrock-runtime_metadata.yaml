@@ -509,6 +509,14 @@ bedrock-runtime_ConverseStream_AmazonNovaText:
             - description: Send a text message to Amazon Nova, using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
                 - python.example_code.bedrock-runtime.ConverseStream_AmazonNovaText
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API and process the response stream in real-time.
+              snippet_tags:
+                - swift.example_code.bedrock-runtime.ConverseStream_AmazonNovaText
   services:
     bedrock-runtime: {ConverseStream}
 
