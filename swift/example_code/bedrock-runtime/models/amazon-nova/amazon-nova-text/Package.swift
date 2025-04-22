@@ -28,6 +28,14 @@ let package = Package(
                 .product(name: "ArgumentParser", package: "swift-argument-parser")
             ],
             path: "Sources/Converse"
+        ),
+        .executableTarget(
+            name: "ConverseStream",
+            dependencies: [
+                .product(name: "AWSBedrockRuntime", package: "aws-sdk-swift"),
+                .product(name: "ArgumentParser", package: "swift-argument-parser")
+            ],
+            path: "Sources/ConverseStream"
         )
     ]
 )

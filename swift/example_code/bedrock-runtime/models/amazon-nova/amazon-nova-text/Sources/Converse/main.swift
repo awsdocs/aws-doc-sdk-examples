@@ -20,10 +20,10 @@ func converse(_ textPrompt: String) async throws -> String {
 
     // Start a conversation with the user message.
     let message = BedrockRuntimeClientTypes.Message(
-                content: [.text(textPrompt)],
-                role: .user
-            )
-    
+        content: [.text(textPrompt)],
+        role: .user
+    )
+
     // Optionally use inference parameters
     let inferenceConfig = BedrockRuntimeClientTypes.InferenceConfiguration(
         maxTokens: 512,
@@ -34,7 +34,7 @@ func converse(_ textPrompt: String) async throws -> String {
 
     // Create the ConverseInput to send to the model
     let input = ConverseInput(inferenceConfig: inferenceConfig, messages: [message], modelId: modelId)
-    
+
     // Send the ConverseInput to the model
     let response = try await client.converse(input: input)
 
