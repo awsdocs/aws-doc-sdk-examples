@@ -1,5 +1,5 @@
 ## Overview
-This AWS IoT Fleetwise basic scenario demonstrates how to interact with the AWS IoT FleetWise service using an AWS SDK. The scenario covers various operations such as creating a collection of standardized signalsl, creating a model manifest, creating a vehicle, and  so on.
+This AWS IoT Fleetwise basic scenario demonstrates how to interact with the AWS IoT FleetWise service using an AWS SDK. The scenario covers various operations such as creating a collection of standardized signals, creating a model manifest, creating a vehicle, and so on.
 
 ## Key Operations
 
@@ -29,7 +29,7 @@ This Basics scenario does not require any additional AWS resources.
 This scenario example will be implemented in the following languages:
 
 - Java
-- Python
+- JavaScript
 - Kotlin
 
 ## Additional Reading
