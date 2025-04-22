@@ -134,7 +134,7 @@ bedrock-runtime_Converse_AmazonNovaText:
                 - python.example_code.bedrock-runtime.Converse_AmazonNovaText
     Swift:
       versions:
-        - sdk_version: 3
+        - sdk_version: 1
           github: swift/example_code/bedrock-runtime
           excerpts:
             - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
