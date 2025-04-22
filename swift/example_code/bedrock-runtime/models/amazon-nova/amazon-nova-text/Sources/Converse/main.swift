@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-//
-// An example demonstrating how to use converse with Amazon Nova Micro
-
+// 
 // snippet-start:[swift.example_code.bedrock-runtime.Converse_AmazonNovaText]
+// An example demonstrating how to use the Conversation API to send a text message to Amazon Nova.
+
 import ArgumentParser
 import AWSClientRuntime
 import Foundation

@@ -30,7 +30,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 <!--custom.prerequisites.end-->
 ### Amazon Nova
 
-- [Converse](models/amazon-nova/amazon-nova-text/Sources/Converse/main.swift#L6)
+- [Converse](models/amazon-nova/amazon-nova-text/Sources/Converse/main.swift#L4)
 
 
 <!--custom.examples.start-->
