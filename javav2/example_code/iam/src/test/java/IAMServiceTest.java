@@ -6,6 +6,9 @@ import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
@@ -25,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class IAMServiceTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(IAMServiceTest.class);
     private static IamClient iam;
     private static String userName = "";
     private static String policyName = "";
@@ -45,7 +48,6 @@ public class IAMServiceTest {
         Region region = Region.AWS_GLOBAL;
         iam = IamClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -62,138 +64,103 @@ public class IAMServiceTest {
         roleSessionName = values.getRoleName() + UUID.randomUUID();;
         fileLocationSc = values.getFileLocationSc();
         bucketNameSc = values.getBucketNameSc();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * IAMServiceTest.class.getClassLoader().getResourceAsStream("config.properties"
-         * )) {
-         * Properties prop = new Properties();
-         * prop.load(input);
-         * userName = prop.getProperty("userName");
-         * policyName= prop.getProperty("policyName");
-         * policyARN= prop.getProperty("policyARN");
-         * roleName=prop.getProperty("roleName");
-         * accountAlias=prop.getProperty("accountAlias");
-         * usernameSc=prop.getProperty("usernameSc");
-         * policyNameSc=prop.getProperty("policyNameSc");
-         * roleNameSc=prop.getProperty("roleNameSc");
-         * roleSessionName=prop.getProperty("roleSessionName");
-         * fileLocationSc=prop.getProperty("fileLocationSc");
-         * bucketNameSc=prop.getProperty("bucketNameSc");
-         * 
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreatUser() {
+    public void testCreatUser() {
         String result = CreateUser.createIAMUser(iam, userName);
         assertFalse(result.isEmpty());
-        System.out.println("\n Test 1 passed");
+        logger.info("\n Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void CreatePolicy() {
+    public void testCreatePolicy() {
         policyARN = CreatePolicy.createIAMPolicy(iam, policyName);
         assertFalse(policyARN.isEmpty());
-        System.out.println("\n Test 2 passed");
+        logger.info("\n Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void CreateAccessKey() {
+    public void testCreateAccessKey() {
         keyId = CreateAccessKey.createIAMAccessKey(iam, userName);
         assertFalse(keyId.isEmpty());
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
-
-
-
-
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void GetPolicy() {
+    public void testGetPolicy() {
         assertDoesNotThrow(() -> GetPolicy.getIAMPolicy(iam, policyARN));
-        System.out.println("Test 6 passed");
+        logger.info("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void ListAccessKeys() {
+    public void testListAccessKeys() {
         assertDoesNotThrow(() -> ListAccessKeys.listKeys(iam, userName));
-        System.out.println("Test 7 passed");
+        logger.info("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
-    public void ListUsers() {
+    public void testListUsers() {
         assertDoesNotThrow(() -> ListUsers.listAllUsers(iam));
-        System.out.println("Test 8 passed");
+        logger.info("Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void CreateAccountAlias() {
+    public void testCreateAccountAlias() {
         assertDoesNotThrow(() -> CreateAccountAlias.createIAMAccountAlias(iam, accountAlias));
-        System.out.println("Test 9 passed");
+        logger.info("Test 7 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void DeleteAccountAlias() {
+    public void testDeleteAccountAlias() {
         assertDoesNotThrow(() -> DeleteAccountAlias.deleteIAMAccountAlias(iam, accountAlias));
-        System.out.println("Test 10 passed");
+        logger.info("Test 8 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-    public void DeletePolicy() {
+    public void testDeletePolicy() {
         assertDoesNotThrow(() -> DeletePolicy.deleteIAMPolicy(iam, policyARN));
-        System.out.println("Test 12 passed");
+        logger.info("Test 9 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(10)
-    public void DeleteAccessKey() {
+    public void testDeleteAccessKey() {
         assertDoesNotThrow(() -> DeleteAccessKey.deleteKey(iam, userName, keyId));
-        System.out.println("Test 12 passed");
+        logger.info("Test 10 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(11)
-    public void DeleteUser() {
+    public void testDeleteUser() {
         assertDoesNotThrow(() -> DeleteUser.deleteIAMUser(iam, userName));
-        System.out.println("Test 13 passed");
+        logger.info("Test 11 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(12)
-    public void TestIAMScenario() throws Exception {
+    public void testIAMScenario() throws Exception {
         String DASHES = new String(new char[80]).replace("\0", "-");
         System.out.println(DASHES);
         System.out.println(" 1. Create the IAM user.");
@@ -249,12 +216,12 @@ public class IAMServiceTest {
         IAMScenario.deleteRole(iam, roleNameSc, polArn);
         IAMScenario.deleteIAMUser(iam, usernameSc);
         System.out.println(DASHES);
+        logger.info("Test 12 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/iam";
 

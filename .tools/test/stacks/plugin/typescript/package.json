@@ -26,7 +26,7 @@
     "@aws-cdk/aws-lambda-event-sources": "^1.204.0",
     "@aws-cdk/aws-s3": "^1.204.0",
     "@aws-cdk/core": "^1.204.0",
-    "aws-cdk-lib": "2.95.1",
+    "aws-cdk-lib": "2.189.1",
     "constructs": "^10.0.0",
     "source-map-support": "^0.5.21",
     "yaml": "^2.4.2"

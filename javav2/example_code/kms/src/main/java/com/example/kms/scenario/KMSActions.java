@@ -103,7 +103,6 @@ public class KMSActions {
             kmsAsyncClient = KmsAsyncClient.builder()
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         }
         return kmsAsyncClient;

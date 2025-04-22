@@ -23,12 +23,11 @@ import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 public class DeleteCollection {
     public static void main(String[] args) {
         final String usage = """
+            Usage: <collectionId>\s
 
-                Usage:    <collectionId>\s
-
-                Where:
-                   collectionId - The id of the collection to delete.\s
-                """;
+            Where:
+                collectionId - The id of the collection to delete.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -46,6 +45,12 @@ public class DeleteCollection {
         rekClient.close();
     }
 
+    /**
+     * Deletes an Amazon Rekognition collection.
+     *
+     * @param rekClient      An instance of the {@link RekognitionClient} class, which is used to interact with the Amazon Rekognition service.
+     * @param collectionId   The ID of the collection to be deleted.
+     */
     public static void deleteMyCollection(RekognitionClient rekClient, String collectionId) {
         try {
             DeleteCollectionRequest deleteCollectionRequest = DeleteCollectionRequest.builder()

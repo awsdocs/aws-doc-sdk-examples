@@ -42,9 +42,16 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteMessageBatch](DeleteMessageBatch/Sources/entry.swift#L31)
 - [DeleteQueue](DeleteQueue/Sources/entry.swift#L29)
 - [GetQueueAttributes](GetQueueAttributes/Sources/entry.swift#L29)
-- [ListQueues](basics/Sources/entry.swift#L28)
+- [ListQueues](basics/Sources/entry.swift#L30)
 - [ReceiveMessage](ReceiveMessage/Sources/entry.swift#L31)
 - [SetQueueAttributes](SetQueueAttributes/Sources/entry.swift#L32)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Publish messages to queues](scenario/Sources/entry.swift)
 
 
 <!--custom.examples.start-->
@@ -74,6 +81,22 @@ and run commands.
 This example shows you how to get started using Amazon SQS.
 
 
+
+#### Publish messages to queues
+
+This example shows you how to do the following:
+
+- Create topic (FIFO or non-FIFO).
+- Subscribe several queues to the topic with an option to apply a filter.
+- Publish messages to the topic.
+- Poll the queues for messages received.
+
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
 
 ### Tests
 

@@ -45,7 +45,7 @@ public class RotateImage {
         }
 
         String sourceImage = args[0];
-        Region region = Region.US_EAST_1;
+        Region region = Region.US_WEST_2;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .region(region)
                 .build();

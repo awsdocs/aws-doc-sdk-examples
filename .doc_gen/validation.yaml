@@ -1,5 +1,6 @@
 allow_list:
   # Git commits
+  - "cad7e7ba2c59a54837212e789a5304b9108fac47"
   - "cd5e746ec203c8c3c61647e0886a8df8c1e78e41"
   - "725feb26d6f73bc1d83dbbe075ae8ea991efb245"
   - "e9772d140489982e0e3704fea5ee93d536f1e275"
@@ -213,6 +214,7 @@ allow_list:
   - "src/main/java/com/example/acm/ImportCert"
   - "EnablePropagateAdditionalUserContextData"
   - "StopQueryWorkloadInsightsTopContributors"
+  - "com/location/latest/APIReference/Welcome"
 sample_files:
   - "README.md"
   - "chat_sfn_state_machine.json"

@@ -10,7 +10,6 @@
 import AWSClientRuntime
 import AWSS3
 import Foundation
-
 // snippet-end:[s3.swift.intro.imports]
 
 // snippet-start:[s3.swift.intro.getbucketnames]
@@ -56,11 +55,10 @@ func getBucketNames() async throws -> [String] {
         }
     }
 }
-
 // snippet-end:[s3.swift.intro.getbucketnames]
 
-// snippet-start:[s3.swift.intro.main]
 /// The program's asynchronous entry point.
+// snippet-start:[s3.swift.intro.main]
 @main
 struct Main {
     static func main() async {
@@ -78,5 +76,4 @@ struct Main {
         }
     }
 }
-
 // snippet-end:[s3.swift.intro.main]
