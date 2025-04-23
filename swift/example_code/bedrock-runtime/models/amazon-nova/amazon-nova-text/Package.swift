@@ -15,7 +15,6 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.3.0"),
         .package(url: "https://github.com/awslabs/aws-sdk-swift", from: "1.2.61")
     ],
     targets: [
@@ -25,7 +24,6 @@ let package = Package(
             name: "Converse",
             dependencies: [
                 .product(name: "AWSBedrockRuntime", package: "aws-sdk-swift"),
-                .product(name: "ArgumentParser", package: "swift-argument-parser")
             ],
             path: "Sources/Converse"
         ),
@@ -33,7 +31,6 @@ let package = Package(
             name: "ConverseStream",
             dependencies: [
                 .product(name: "AWSBedrockRuntime", package: "aws-sdk-swift"),
-                .product(name: "ArgumentParser", package: "swift-argument-parser")
             ],
             path: "Sources/ConverseStream"
         )

@@ -4,15 +4,12 @@
 // snippet-start:[swift.example_code.bedrock-runtime.ConverseStream_AmazonNovaText]
 // An example demonstrating how to use the Conversation API to send a text message to Amazon Nova and print the response stream
 
-import ArgumentParser
-import AWSClientRuntime
-import Foundation
 import AWSBedrockRuntime
 
 func printConverseStream(_ textPrompt: String) async throws {
 
     // Create a Bedrock Runtime client in the AWS Region you want to use.
-    let config = try await BedrockRuntimeClient.BedrockRuntimeClientConfiguration(region: "us-east-1")    
+    let config = try await BedrockRuntimeClient.BedrockRuntimeClientConfiguration(region: "us-east-1")
     let client = BedrockRuntimeClient(config: config)
 
     // Set the model ID.
@@ -61,10 +58,10 @@ func printConverseStream(_ textPrompt: String) async throws {
     }
 }
 
+// snippet-end:[swift.example_code.bedrock-runtime.ConverseStream_AmazonNovaText]
+
 do {
     try await printConverseStream("Describe the purpose of a 'hello world' program in two paragraphs.")
 } catch {
     print("An error occured: \(error)")
 }
-
-// snippet-end:[swift.example_code.bedrock-runtime.ConverseStream_AmazonNovaText]

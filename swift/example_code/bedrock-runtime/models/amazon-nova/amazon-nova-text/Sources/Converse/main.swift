@@ -4,9 +4,6 @@
 // snippet-start:[swift.example_code.bedrock-runtime.Converse_AmazonNovaText]
 // An example demonstrating how to use the Conversation API to send a text message to Amazon Nova.
 
-import ArgumentParser
-import AWSClientRuntime
-import Foundation
 import AWSBedrockRuntime
 
 func converse(_ textPrompt: String) async throws -> String {
@@ -50,11 +47,11 @@ func converse(_ textPrompt: String) async throws -> String {
     }
 }
 
+// snippet-end:[swift.example_code.bedrock-runtime.Converse_AmazonNovaText]
+
 do {
     let reply = try await converse("Describe the purpose of a 'hello world' program in one line.")
     print(reply)
 } catch {
     print("An error occured: \(error)")
 }
-
-// snippet-end:[swift.example_code.bedrock-runtime.Converse_AmazonNovaText]
