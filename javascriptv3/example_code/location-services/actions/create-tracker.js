@@ -24,7 +24,7 @@ async function main() {
   }
 }
 
-// snippet-end:[location.JavaScript.map.createTrackerV3]
+// snippet-end:[location.JavaScript.tracker.createTrackerV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
