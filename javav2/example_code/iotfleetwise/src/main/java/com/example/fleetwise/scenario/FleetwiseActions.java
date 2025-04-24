@@ -16,6 +16,7 @@ import software.amazon.awssdk.services.iot.model.ResourceAlreadyExistsException;
 import software.amazon.awssdk.services.iotfleetwise.IoTFleetWiseAsyncClient;
 import software.amazon.awssdk.services.iotfleetwise.model.Node;
 import software.amazon.awssdk.services.iotfleetwise.model.*;
+
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
@@ -167,6 +168,7 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.delete.catalog.main]
 
     // snippet-start:[iotfleetwise.java2.create.decoder.main]
+
     /**
      * Creates a new decoder manifest.
      *
@@ -269,7 +271,7 @@ public class FleetwiseActions {
     // snippet-start:[iotfleetwise.java2.delete.vehicle.main]
 
     /**
-     * Asynchronously deletes a vehicle with the specified name.
+     * Deletes a vehicle with the specified name.
      *
      * @param vecName the name of the vehicle to be deleted
      * @return a {@link CompletableFuture} that completes when the vehicle has been deleted
@@ -299,7 +301,7 @@ public class FleetwiseActions {
     // snippet-start:[iotfleetwise.java2.update.manifest.main]
 
     /**
-     * Updates the model manifest asynchronously.
+     * Updates the model manifest.
      *
      * @param name the name of the model manifest to update
      */
@@ -322,7 +324,7 @@ public class FleetwiseActions {
     // snippet-start:[iotfleetwise.java2.update.decoder.main]
 
     /**
-     * Asynchronously updates the decoder manifest with the given name.
+     * Updates the decoder manifest with the given name.
      *
      * @param name the name of the decoder manifest to update
      * @return a {@link CompletableFuture} that completes when the update operation is finished
@@ -347,7 +349,7 @@ public class FleetwiseActions {
     // snippet-start:[iotfleetwise.java2.create.vehicle.main]
 
     /**
-     * Asynchronously creates a new vehicle in the system.
+     * Creates a new vehicle in the system.
      *
      * @param vecName     the name of the vehicle to be created
      * @param manifestArn the Amazon Resource Name (ARN) of the model manifest for the vehicle
@@ -381,7 +383,7 @@ public class FleetwiseActions {
     // snippet-start:[iotfleetwise.java2.decoder.active.main]
 
     /**
-     * Waits for the decoder manifest to become active asynchronously.
+     * Waits for the decoder manifest to become active.
      *
      * @param decoderName the name of the decoder to wait for
      * @return a {@link CompletableFuture} that completes when the decoder manifest becomes active, or exceptionally if an error occurs or the manifest becomes invalid
@@ -393,7 +395,7 @@ public class FleetwiseActions {
         AtomicInteger secondsElapsed = new AtomicInteger(0);
         AtomicReference<ManifestStatus> lastStatus = new AtomicReference<>(ManifestStatus.DRAFT);
 
-        System.out.print("⏳ Elapsed: 0s | Decoder Status: DRAFT");
+        logger.info("⏳ Elapsed: 0s | Decoder Status: DRAFT");
         final Runnable pollTask = new Runnable() {
             @Override
             public void run() {
@@ -456,13 +458,13 @@ public class FleetwiseActions {
         AtomicInteger secondsElapsed = new AtomicInteger(0);
         AtomicReference<ManifestStatus> lastStatus = new AtomicReference<>(ManifestStatus.DRAFT);
 
-        System.out.print("⏳ Elapsed: 0s | Status: DRAFT");
+        logger.info("⏳ Elapsed: 0s | Status: DRAFT");
         final Runnable pollTask = new Runnable() {
             @Override
             public void run() {
                 int elapsed = secondsElapsed.incrementAndGet();
 
-                // Only check status every 5 seconds
+                // Only check status every 5 seconds.
                 if (elapsed % 5 == 0) {
                     GetModelManifestRequest request = GetModelManifestRequest.builder()
                             .name(manifestName)
@@ -507,7 +509,7 @@ public class FleetwiseActions {
     // snippet-start:[iotfleetwise.java2.get.vehicle.main]
 
     /**
-     * Asynchronously fetches the details of a vehicle.
+     * Fetches the details of a vehicle.
      *
      * @param vehicleName the name of the vehicle to fetch details for
      * @return a {@link CompletableFuture} that completes when the vehicle details have been fetched
@@ -534,7 +536,7 @@ public class FleetwiseActions {
                         // Print details in a readable format
                         logger.info("🚗 Vehicle Details:");
                         details.forEach((key, value) -> {
-                            System.out.printf("• %-20s : %s%n", key, value);
+                            logger.info("• %-20s : %s%n", key, value);
                         });
                     }
                 })
@@ -543,7 +545,7 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.get.vehicle.main]
 
     /**
-     * Asynchronously creates an IoT Thing if it does not already exist.
+     * Creates an IoT Thing if it does not already exist.
      *
      * @param thingName the name of the IoT Thing to create
      * @return a {@link CompletableFuture} that completes when the IoT Thing has been created or if it already exists
@@ -674,7 +676,11 @@ public class FleetwiseActions {
     public CompletableFuture<String> createModelManifestAsync(String name,
                                                               String signalCatalogArn,
                                                               List<Node> nodes) {
-        // Extract fully qualified names from each Node.
+        /*
+        Extract the fully qualified names (FQNs) from each Node in the provided list.
+        The FQN is obtained by calling the appropriate getter method on the Node object
+        (sensor(), branch(), or attribute()) and then retrieving the fullyQualifiedName()
+       */
         List<String> fqnList = nodes.stream()
                 .map(node -> {
                     if (node.sensor() != null) {
@@ -706,6 +712,7 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.create.model.main]
 
     // snippet-start:[iotfleetwise.java2.delete.fleet.main]
+
     /**
      * Deletes a fleet based on the provided fleet ID.
      *
