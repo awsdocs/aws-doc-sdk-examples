@@ -33,7 +33,19 @@ class BedrockStubber(ExampleStubber):
 
     def stub_get_foundation_model(self, model_identifier, error_code=None):
         expected_params = {"modelIdentifier": model_identifier}
-        response = {}
+        response = {
+            "modelDetails": {
+                "modelArn": "arn:aws:test:::test-resource",
+                "modelId": model_identifier,
+                "modelName": "testModelName",
+                "providerName": "testProviderName",
+                "inputModalities": ["TEXT"],
+                "outputModalities": ["TEXT"],
+                "responseStreamingSupported": False,
+                "customizationsSupported": ["FINE_TUNING"],
+                "inferenceTypesSupported": ["ON_DEMAND"],
+            }
+        }
         self._stub_bifurcator(
             "get_foundation_model", expected_params, response, error_code=error_code
         )
