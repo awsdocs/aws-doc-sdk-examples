@@ -58,8 +58,8 @@ import data from "./inputs.json" with { type: "json" };
  */
 /* v8 ignore next 3 */
 const pressEnter = new ScenarioInput("continue", "Press Enter to continue", {
-  type: "input",
-  verbose: "true",
+  type: "confirm",
+  verbose: "false",
 });
 
 const pressEnterConfirm = new ScenarioInput(
@@ -67,7 +67,7 @@ const pressEnterConfirm = new ScenarioInput(
   "Press Enter to continue",
   {
     type: "confirm",
-    verbose: "true",
+    verbose: "false",
   },
 );
 
