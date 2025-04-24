@@ -33,7 +33,7 @@ def invoke_prompt(client, prompt_id, version, input_variables):
     try:
         logger.info("Invoking prompt ID: %s", prompt_id)
         if version:
-            logger.info("Using version/alias: %s", version)
+            logger.info("Using version: %s", version)
         else:
             logger.info("Using latest version")
 
@@ -93,51 +93,3 @@ Please write a concise, engaging, and professional product description that high
         raise
 # snippet-end:[python.example_code.bedrock.invoke_prompt]
 
-def main():
-    """
-    Entry point for the invoke prompt script.
-    """
-    parser = argparse.ArgumentParser(
-        description="Invoke an Amazon Bedrock managed prompt."
-    )
-    parser.add_argument(
-        '--region',
-        default='us-east-1',
-        help="The AWS Region to use."
-    )
-    parser.add_argument(
-        '--prompt-id',
-        required=True,
-        help="The ID of the prompt to invoke."
-    )
-    parser.add_argument(
-        '--version',
-        help="The version of the prompt to invoke."
-    )
-    parser.add_argument(
-        '--input-variables',
-        required=True,
-        help="The input variables for the prompt as a JSON string."
-    )
-    args = parser.parse_args()
-
-    bedrock_runtime_client = boto3.client('bedrock-runtime', region_name=args.region)
-    
-    try:
-        input_vars = json.loads(args.input_variables)
-        
-        result = invoke_prompt(
-            bedrock_runtime_client,
-            args.prompt_id,
-            args.version,
-            input_vars
-        )
-        
-        print("\nGenerated Output:")
-        print(result['output'])
-        
-    except Exception as e:
-        logger.exception("Error: %s", str(e))
-        
-if __name__ == "__main__":
-    main()
