@@ -14,6 +14,7 @@ import software.amazon.awssdk.services.iot.IotAsyncClient;
 import software.amazon.awssdk.services.iot.model.CreateThingRequest;
 import software.amazon.awssdk.services.iot.model.ResourceAlreadyExistsException;
 import software.amazon.awssdk.services.iotfleetwise.IoTFleetWiseAsyncClient;
+import software.amazon.awssdk.services.iotfleetwise.model.Node;
 import software.amazon.awssdk.services.iotfleetwise.model.*;
 import java.time.Duration;
 import java.util.HashMap;
@@ -56,8 +57,9 @@ public class FleetwiseActions {
     }
 
     // snippet-start:[iotfleetwise.java2.create.catalog.main]
+
     /**
-     * Creates a signal catalog asynchronously.
+     * Creates a signal catalog.
      *
      * @param signalCatalogName the name of the signal catalog to be created
      * @return a {@link CompletableFuture} that completes with the Amazon Resource Name (ARN) of the created signal catalog
@@ -106,7 +108,7 @@ public class FleetwiseActions {
                             .whenComplete((response, exception) -> {
                                 if (exception != null) {
                                     Throwable cause = exception.getCause();
-                                    if (cause instanceof software.amazon.awssdk.services.iot.model.ValidationException) {
+                                    if (cause instanceof software.amazon.awssdk.services.iotfleetwise.model.ValidationException) {
                                         throw new CompletionException("A validation error occurred: " + cause.getMessage(), cause);
                                     }
                                     throw new CompletionException("Error performing place search", exception);
@@ -135,14 +137,15 @@ public class FleetwiseActions {
     }
 
     // snippet-start:[iotfleetwise.java2.delete.catalog.main]
+
     /**
-     * Deletes the specified signal catalog asynchronously, if it exists.
+     * Deletes the specified signal catalog.
      *
      * @param signalCatalogName the name of the signal catalog to delete
      * @return a {@link CompletableFuture} representing the asynchronous operation.
-     *         The future will complete without a result if the signal catalog was successfully
-     *         deleted or if the signal catalog does not exist. If an exception occurs during
-     *         the deletion, the future will complete exceptionally with the corresponding exception.
+     * The future will complete without a result if the signal catalog was successfully
+     * deleted or if the signal catalog does not exist. If an exception occurs during
+     * the deletion, the future will complete exceptionally with the corresponding exception.
      */
     public static CompletableFuture<Void> deleteSignalCatalogIfExistsAsync(String signalCatalogName) {
         DeleteSignalCatalogRequest request = DeleteSignalCatalogRequest.builder()
@@ -165,7 +168,7 @@ public class FleetwiseActions {
 
     // snippet-start:[iotfleetwise.java2.create.decoder.main]
     /**
-     * Creates a new decoder manifest asynchronously.
+     * Creates a new decoder manifest.
      *
      * @param name             the name of the decoder manifest
      * @param modelManifestArn the ARN of the model manifest
@@ -174,8 +177,6 @@ public class FleetwiseActions {
      */
     public CompletableFuture<String> createDecoderManifestAsync(String name, String modelManifestArn) {
         String interfaceId = "can0";
-
-        // Define CAN interface.
         NetworkInterface networkInterface = NetworkInterface.builder()
                 .interfaceId(interfaceId)
                 .type(NetworkInterfaceType.CAN_INTERFACE)
@@ -218,7 +219,6 @@ public class FleetwiseActions {
                         .build())
                 .build();
 
-        // Create decoder manifest request.
         CreateDecoderManifestRequest request = CreateDecoderManifestRequest.builder()
                 .name(name)
                 .modelManifestArn(modelManifestArn)
@@ -237,8 +237,9 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.create.decoder.main]
 
     // snippet-start:[iotfleetwise.java2.delete.decoder.main]
+
     /**
-     * Deletes a decoder manifest asynchronously.
+     * Deletes a decoder manifest.
      *
      * @param name the name of the decoder manifest to delete
      * @return a {@link CompletableFuture} that completes when the decoder manifest has been deleted
@@ -266,6 +267,7 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.delete.decoder.main]
 
     // snippet-start:[iotfleetwise.java2.delete.vehicle.main]
+
     /**
      * Asynchronously deletes a vehicle with the specified name.
      *
@@ -295,6 +297,7 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.delete.vehicle.main]
 
     // snippet-start:[iotfleetwise.java2.update.manifest.main]
+
     /**
      * Updates the model manifest asynchronously.
      *
@@ -317,6 +320,7 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.update.manifest.main]
 
     // snippet-start:[iotfleetwise.java2.update.decoder.main]
+
     /**
      * Asynchronously updates the decoder manifest with the given name.
      *
@@ -341,14 +345,15 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.update.decoder.main]
 
     // snippet-start:[iotfleetwise.java2.create.vehicle.main]
+
     /**
      * Asynchronously creates a new vehicle in the system.
      *
-     * @param vecName      the name of the vehicle to be created
-     * @param manifestArn  the Amazon Resource Name (ARN) of the model manifest for the vehicle
-     * @param decArn       the Amazon Resource Name (ARN) of the decoder manifest for the vehicle
+     * @param vecName     the name of the vehicle to be created
+     * @param manifestArn the Amazon Resource Name (ARN) of the model manifest for the vehicle
+     * @param decArn      the Amazon Resource Name (ARN) of the decoder manifest for the vehicle
      * @return a {@link CompletableFuture} that completes when the vehicle has been created, or throws a
-     *         {@link CompletionException} if there was an error during the creation process
+     * {@link CompletionException} if there was an error during the creation process
      */
     public CompletableFuture<Void> createVehicleAsync(String vecName, String manifestArn, String decArn) {
         CreateVehicleRequest request = CreateVehicleRequest.builder()
@@ -374,6 +379,7 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.create.vehicle.main]
 
     // snippet-start:[iotfleetwise.java2.decoder.active.main]
+
     /**
      * Waits for the decoder manifest to become active asynchronously.
      *
@@ -393,7 +399,7 @@ public class FleetwiseActions {
             public void run() {
                 int elapsed = secondsElapsed.incrementAndGet();
 
-                // Only check status every 5 seconds
+                // Check status every 5 seconds.
                 if (elapsed % 5 == 0) {
                     GetDecoderManifestRequest request = GetDecoderManifestRequest.builder()
                             .name(decoderName)
@@ -412,21 +418,20 @@ public class FleetwiseActions {
                                 lastStatus.set(status);
 
                                 if (status == ManifestStatus.ACTIVE) {
-                                    System.out.print("\r⏱️ Elapsed: " + elapsed + "s | Decoder Status: ACTIVE ✅\n");
+                                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Decoder Status: ACTIVE ✅\n");
                                     scheduler.shutdown();
                                     result.complete(null);
                                 } else if (status == ManifestStatus.INVALID) {
-                                    System.out.print("\r⏱️ Elapsed: " + elapsed + "s | Decoder Status: INVALID ❌\n");
+                                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Decoder Status: INVALID ❌\n");
                                     scheduler.shutdown();
                                     result.completeExceptionally(
                                             new RuntimeException("Decoder manifest became INVALID. Cannot proceed."));
                                 } else {
-                                    // Just update the status text
-                                    System.out.print("\r⏱️ Elapsed: " + elapsed + "s | Decoder Status: " + status);
+                                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Decoder Status: " + status);
                                 }
                             });
                 } else {
-                    System.out.print("\r⏱️ Elapsed: " + elapsed + "s | Decoder Status: " + lastStatus.get());
+                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Decoder Status: " + lastStatus.get());
                 }
             }
         };
@@ -437,6 +442,7 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.decoder.active.main]
 
     // snippet-start:[iotfleetwise.java2.get.manifest.main]
+
     /**
      * Waits for the specified model manifest to become active.
      *
@@ -475,7 +481,7 @@ public class FleetwiseActions {
                                 lastStatus.set(status);
 
                                 if (status == ManifestStatus.ACTIVE) {
-                                    System.out.print("\r⏱️ Elapsed: " + elapsed + "s | Status: ACTIVE ✅\n");
+                                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Status: ACTIVE ✅\n");
                                     scheduler.shutdown();
                                     result.complete(null);
                                 } else if (status == ManifestStatus.INVALID) {
@@ -484,13 +490,11 @@ public class FleetwiseActions {
                                     result.completeExceptionally(
                                             new RuntimeException("Model manifest became INVALID. Cannot proceed."));
                                 } else {
-                                    // Just update the status text
-                                    System.out.print("\r⏱️ Elapsed: " + elapsed + "s | Status: " + status);
+                                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Status: " + status);
                                 }
                             });
                 } else {
-                    // Still print even if not polling yet
-                    System.out.print("\r⏱️ Elapsed: " + elapsed + "s | Status: " + lastStatus.get());
+                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Status: " + lastStatus.get());
                 }
             }
         };
@@ -501,6 +505,7 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.get.manifest.main]
 
     // snippet-start:[iotfleetwise.java2.get.vehicle.main]
+
     /**
      * Asynchronously fetches the details of a vehicle.
      *
@@ -568,8 +573,9 @@ public class FleetwiseActions {
     }
 
     // snippet-start:[iotfleetwise.java2.delete.model.main]
+
     /**
-     * Deletes a model manifest asynchronously.
+     * Deletes a model manifest.
      *
      * @param name the name of the model manifest to delete
      * @return a {@link CompletableFuture} that completes when the model manifest has been deleted
@@ -597,9 +603,10 @@ public class FleetwiseActions {
 
     // snippet-end:[iotfleetwise.java2.delete.model.main]
 
-     // snippet-start:[iotfleetwise.java2.delete.catalog.main]
+    // snippet-start:[iotfleetwise.java2.delete.catalog.main]
+
     /**
-     * Deletes a signal catalog asynchronously.
+     * Deletes a signal catalog.
      *
      * @param name the name of the signal catalog to delete
      * @return a {@link CompletableFuture} that completes when the signal catalog is deleted
@@ -628,8 +635,9 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.delete.catalog.main]
 
     // snippet-start:[iotfleetwise.java2.list.catalogs.main]
+
     /**
-     * Lists the signal catalog nodes asynchronously.
+     * Lists the signal catalog nodes.
      *
      * @param signalCatalogName the name of the signal catalog
      * @return a CompletableFuture that, when completed, contains a list of nodes in the specified signal catalog
@@ -651,21 +659,22 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.list.catalogs.main]
 
     // snippet-start:[iotfleetwise.java2.create.model.main]
+
     /**
-     * Creates a model manifest asynchronously.
+     * Creates a model manifest.
      *
-     * @param name              the name of the model manifest to create
-     * @param signalCatalogArn  the Amazon Resource Name (ARN) of the signal catalog
-     * @param nodes             a list of nodes to include in the model manifest
+     * @param name             the name of the model manifest to create
+     * @param signalCatalogArn the Amazon Resource Name (ARN) of the signal catalog
+     * @param nodes            a list of nodes to include in the model manifest
      * @return a {@link CompletableFuture} that completes with the ARN of the created model manifest
-     * @throws RuntimeException if an unsupported node type is encountered
+     * @throws RuntimeException    if an unsupported node type is encountered
      * @throws CompletionException if there is a failure during the model manifest creation
      */
 
     public CompletableFuture<String> createModelManifestAsync(String name,
-                                                                     String signalCatalogArn,
-                                                                     List<Node> nodes) {
-        // Extract fully qualified names from each Node
+                                                              String signalCatalogArn,
+                                                              List<Node> nodes) {
+        // Extract fully qualified names from each Node.
         List<String> fqnList = nodes.stream()
                 .map(node -> {
                     if (node.sensor() != null) {
@@ -726,10 +735,11 @@ public class FleetwiseActions {
 
 
     // snippet-start:[iotfleetwise.java2.create.fleet.main]
+
     /**
-     * Creates a new fleet asynchronously using the AWS SDK for Java V2.
+     * Creates a new fleet.
      *
-     * @param catARN the Amazon Resource Name (ARN) of the signal catalog to associate with the fleet
+     * @param catARN  the Amazon Resource Name (ARN) of the signal catalog to associate with the fleet
      * @param fleetId the unique identifier for the fleet
      * @return a {@link CompletableFuture} that completes with the ID of the created fleet
      * @throws RuntimeException if there was an error creating the fleet
