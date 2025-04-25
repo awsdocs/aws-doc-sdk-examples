@@ -8,6 +8,8 @@ to invoke Amazon Bedrock managed prompts with the Converse operation.
 import logging
 import boto3
 
+from botocore.exceptions import ClientError
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -26,7 +28,7 @@ def invoke_prompt(client, prompt_arn, variables):
         variables (dict): Dictionary containing the input variables for the prompt.
 
     Returns:
-        str: The generated response
+        str: The generated response.
     """
     try:
         logger.info("Generating response with prompt: %s", prompt_arn)
@@ -50,6 +52,10 @@ def invoke_prompt(client, prompt_arn, variables):
         logger.info("Finished generating response with prompt: %s", prompt_arn)
     
         return result
+    
+    except ClientError as e:
+        logger.exception("Client error invoking prompt version: %s", str(e))
+        raise
     except Exception as e:
         logger.error("Error invoking prompt: %s", str(e))
         raise

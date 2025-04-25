@@ -6,6 +6,7 @@ to manage Amazon Bedrock managed prompts.
 """
 
 import logging
+import re
 from botocore.exceptions import ClientError
 
 
@@ -46,7 +47,7 @@ def create_prompt(client, prompt_name, prompt_description, prompt_template, mode
         
         # Extract input variables from the template
         # Look for patterns like {{variable_name}}
-        import re
+
         variables = re.findall(r'{{(.*?)}}', prompt_template)
         for var in variables:
             variant["templateConfiguration"]["text"]["inputVariables"].append({"name": var.strip()})
@@ -109,6 +110,7 @@ def create_prompt_version(client, prompt_id, description=None):
         logger.info("Prompt version ARN: %s", response['arn'])
 
         return response
+
 
     except ClientError as e:
         logger.exception("Client error creating prompt version: %s", str(e))
