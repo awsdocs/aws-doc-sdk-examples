@@ -9,6 +9,7 @@ import software.amazon.awssdk.services.iotfleetwise.IoTFleetWiseClient;
 import software.amazon.awssdk.services.iotfleetwise.model.*;
 import software.amazon.awssdk.services.iotfleetwise.paginators.ListSignalCatalogsIterable;
 
+// snippet-start:[iotfleetwise.java2.hello.main]
 public class HelloFleetwise {
 
         public static void main(String[] args) {
@@ -44,3 +45,4 @@ public class HelloFleetwise {
             }
         }
     }
+// snippet-end:[iotfleetwise.java2.hello.main]
