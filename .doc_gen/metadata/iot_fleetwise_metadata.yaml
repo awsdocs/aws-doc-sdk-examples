@@ -251,5 +251,5 @@ iotfleetwise_Scenario:
               snippet_tags:
                 - iotfleetwise.java2.scenario.actions.main 
       services:
-    iotsitewise: {}
+    iotfleetwise: {}
       
