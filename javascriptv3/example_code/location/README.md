@@ -29,6 +29,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon Location](hello.js#L4) (`ListGeofencesPaginator`)
+
+
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
@@ -90,6 +95,13 @@ for that file.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Amazon Location
+
+This example shows you how to get started using Amazon Location.
+
+```bash
+node ./hello.js
+```
 
 #### Learn the basics
 
