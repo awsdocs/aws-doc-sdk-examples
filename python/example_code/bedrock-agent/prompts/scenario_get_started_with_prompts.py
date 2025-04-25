@@ -12,6 +12,9 @@ This scenario demonstrates the following:
 5. Clean up resources (optional)
 """
 
+
+# snippet-start:[python.example_code.bedrock-agent-runtime.Scenario_GettingStartedBedrockManagedPrompts]
+
 import argparse
 import boto3
 import logging
@@ -181,3 +184,5 @@ def main():
         
 if __name__ == "__main__":
     main()
+
+# snippet-end:[python.example_code.bedrock-agent-runtime.Scenario_GettingStartedBedrockManagedPrompts]

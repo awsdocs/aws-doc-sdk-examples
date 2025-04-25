@@ -65,16 +65,13 @@ Code excerpts that show you how to call individual service functions.
 - [UpdateFlowAlias](flows/flow_alias.py#L55) 
 - [DeleteFlowAlias](flows/flow_alias.py#L98) 
 - [ListFlowAliases](flows/flow_alias.py#L132) 
+- [FlowConversation](flows/flow-conversation.py)
 - [CreatePrompt](prompts/prompt.py#L32)
+- [CreatePromptVersion](prompts/prompt.py#L61)
 - [GetPrompt](prompts/prompt.py#L71)
-- [UpdatePrompt](prompts/prompt.py#L110)
 - [DeletePrompt](prompts/prompt.py#L154)
 - [ListPrompts](prompts/prompt.py#L187)
-- [CreatePromptVersion](prompts/prompt_version.py#L18)
-- [GetPromptVersion](prompts/prompt_version.py#L54)
-- [DeletePromptVersion](prompts/prompt_version.py#L91)
-- [ListPromptVersions](prompts/prompt_version.py#L128)
-- [InvokePrompt](prompts/run_prompt.py#L23)
+
 
 
 

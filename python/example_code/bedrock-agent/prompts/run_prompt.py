@@ -62,14 +62,3 @@ def invoke_prompt(client, prompt_arn, variables):
 # snippet-end:[python.example_code.bedrock-runtime.invoke_prompt_converse]
 
 
-if __name__ == "__main__":
-  
-
-    prompt_id="94AWYDN2VQ"
-    version = "arn:aws:bedrock:us-east-1:484315795920:prompt/94AWYDN2VQ:1"
-    input_variables ={"genre": "pop", "number": 2}
-
-    bedrock_runtime_client = boto3.client(service_name='bedrock-runtime')
-
-    playlist = invoke_prompt(bedrock_runtime_client, version, input_variables)
-    print(playlist)
