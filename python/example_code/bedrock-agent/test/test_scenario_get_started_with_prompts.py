@@ -11,7 +11,7 @@ import pytest
 import io
 import json
 
-from conftest import FakeData
+from conftest import FakePromptData
 
 import sys
 sys.path.append("..")
@@ -27,16 +27,9 @@ class FakeScenarioData:
     UPDATED_AT = "2025-03-30T21:34:43.048609+00:00"
     OUTPUT_TEXT = "This is the generated product description."
 
-@pytest.fixture
-def mock_wait_for_prompt_status(monkeypatch):
-    """Mock the wait_for_prompt_status function."""
-    def mock_wait(*args, **kwargs):
-        return True
-    
-    monkeypatch.setattr(scenario, "wait_for_prompt_status", mock_wait)
-    return mock_wait
 
-def test_run_scenario(make_stubber, mock_wait_for_prompt_status, monkeypatch):
+
+def test_run_scenario(make_stubber, monkeypatch):
     """Test the run_scenario function."""
     bedrock_client = boto3.client("bedrock-agent")
     bedrock_runtime_client = boto3.client("bedrock-runtime")
@@ -45,19 +38,33 @@ def test_run_scenario(make_stubber, mock_wait_for_prompt_status, monkeypatch):
     
     # Mock create_prompt
     create_response = {
-        "id": FakeScenarioData.PROMPT_ID,
-        "arn": f"arn:aws:bedrock:us-east-1:123456789012:prompt/{FakeScenarioData.PROMPT_ID}",
-        "name": FakeScenarioData.PROMPT_NAME,
-        "description": FakeScenarioData.PROMPT_DESCRIPTION,
-        "createdAt": FakeScenarioData.CREATED_AT,
-        "updatedAt": FakeScenarioData.UPDATED_AT,
+        "id": FakePromptData.PROMPT_ID,
+        "arn": FakePromptData.PROMPT_ARN,
+        "name": FakePromptData.PROMPT_NAME,
+        "description": FakePromptData.PROMPT_DESCRIPTION,
+        "createdAt": FakePromptData.CREATED_AT,
+        "updatedAt": FakePromptData.UPDATED_AT,
+        "version": "1"
+    }
+
+    create_prompt_version_response = {
+        "id": FakePromptData.PROMPT_ID,
+        "arn": FakePromptData.PROMPT_ARN,
+        "name": FakePromptData.PROMPT_NAME,
+        "description": FakePromptData.PROMPT_DESCRIPTION,
+        "createdAt": FakePromptData.CREATED_AT,
+        "updatedAt": FakePromptData.UPDATED_AT,
         "version": "1"
     }
     
     def mock_create_prompt(*args, **kwargs):
         return create_response
+    def mock_create_prompt_version(*args, **kwargs):
+        return create_prompt_version_response
     
     monkeypatch.setattr(scenario, "create_prompt", mock_create_prompt)
+
+    monkeypatch.setattr(scenario, "create_prompt_version", mock_create_prompt_version)
     
     # Mock invoke_prompt
     invoke_response = {
@@ -69,22 +76,8 @@ def test_run_scenario(make_stubber, mock_wait_for_prompt_status, monkeypatch):
     
     monkeypatch.setattr(scenario, "invoke_prompt", mock_invoke_prompt)
     
-    # Mock update_prompt
-    update_response = {
-        "id": FakeScenarioData.PROMPT_ID,
-        "arn": f"arn:aws:bedrock:us-east-1:123456789012:prompt/{FakeScenarioData.PROMPT_ID}",
-        "name": FakeScenarioData.PROMPT_NAME,
-        "description": FakeScenarioData.PROMPT_DESCRIPTION,
-        "createdAt": FakeScenarioData.CREATED_AT,
-        "updatedAt": FakeScenarioData.UPDATED_AT,
-        "version": "1"
-    }
     
-    def mock_update_prompt(*args, **kwargs):
-        return update_response
-    
-    monkeypatch.setattr(scenario, "update_prompt", mock_update_prompt)
-    
+
     # Mock delete_prompt
     delete_response = {
         "id": FakeScenarioData.PROMPT_ID
@@ -96,12 +89,10 @@ def test_run_scenario(make_stubber, mock_wait_for_prompt_status, monkeypatch):
     monkeypatch.setattr(scenario, "delete_prompt", mock_delete_prompt)
     
     # Run the scenario
-    resources = scenario.run_scenario(
+    scenario.run_scenario(
         bedrock_client,
         bedrock_runtime_client,
         FakeScenarioData.MODEL_ID,
         cleanup=True
     )
     
-    # Verify the resources
-    assert resources["prompt_id"] == FakeScenarioData.PROMPT_ID

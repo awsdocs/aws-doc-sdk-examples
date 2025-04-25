@@ -79,6 +79,46 @@ def create_prompt(client, prompt_name, prompt_description, prompt_template, mode
         raise
 # snippet-end:[python.example_code.bedrock.create_prompt]
 
+
+# snippet-start:[python.example_code.bedrock.create_prompt_version]
+def create_prompt_version(client, prompt_id, description=None):
+    """
+    Creates a version of an Amazon Bedrock managed prompt.
+
+    Args:
+    client: Amazon Bedrock Agent boto3 client.
+    prompt_id (str): The identifier of the prompt to create a version for.
+    description (str, optional): A description for the version.
+
+    Returns:
+        dict: The response from CreatePromptVersion.
+    """
+    try:
+        logger.info("Creating version for prompt ID: %s.", prompt_id)
+        
+        create_params = {
+            'promptIdentifier': prompt_id
+        }
+        
+        if description:
+            create_params['description'] = description
+            
+        response = client.create_prompt_version(**create_params)
+
+        logger.info("Successfully created prompt version: %s", response['version'])
+        logger.info("Prompt version ARN: %s", response['arn'])
+
+        return response
+
+    except ClientError as e:
+        logger.exception("Client error creating prompt version: %s", str(e))
+        raise
+
+    except Exception as e:
+        logger.exception("Unexpected error creating prompt version: %s", str(e))
+        raise
+# snippet-end:[python.example_code.bedrock.create_prompt_version]
+
 # snippet-start:[python.example_code.bedrock.get_prompt]
 def get_prompt(client, prompt_id):
     """

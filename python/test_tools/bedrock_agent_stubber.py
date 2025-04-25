@@ -156,6 +156,10 @@ class BedrockAgentStubber(ExampleStubber):
         self._stub_bifurcator(
             "create_prompt", expected_params, response, error_code=error_code
         )
+    def stub_create_prompt_version(self, expected_params, response, error_code=None):
+        self._stub_bifurcator(
+            "create_prompt_version", expected_params, response, error_code=error_code
+        )
         
     def stub_get_prompt(self, expected_params, response, error_code=None):
         self._stub_bifurcator(

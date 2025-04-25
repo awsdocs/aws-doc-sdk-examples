@@ -86,3 +86,8 @@ class FakePromptData:
     MODEL_ID = "anthropic.claude-v2"
     CREATED_AT = "2025-03-29T21:34:43.048609+00:00"
     UPDATED_AT = "2025-03-30T21:34:43.048609+00:00"
+    INPUT_VARIABLES = {
+        "genre": "pop",
+        "number": "1"
+    }
+    OUTPUT_TEXT ="Here's a playlist with one song"

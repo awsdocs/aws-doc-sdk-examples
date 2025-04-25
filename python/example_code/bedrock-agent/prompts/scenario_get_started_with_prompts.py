@@ -26,7 +26,7 @@ if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
 # Now import the modules
-from prompts.prompt import create_prompt, update_prompt, delete_prompt
+from prompts.prompt import create_prompt, create_prompt_version, delete_prompt
 from prompts.run_prompt import invoke_prompt
 
 logging.basicConfig(
@@ -35,14 +35,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def wait_for_prompt_status(client, prompt_id, target_status, max_attempts=30, delay=2):
-    """Wait for a prompt to reach a specific status."""
-    logger.info("Waiting for prompt %s to reach status: %s", prompt_id, target_status)
-    
-    # For Amazon Bedrock prompts, we don't need to wait for a specific status
-    # as they are immediately available after creation
-    logger.info("Prompt %s is ready to use", prompt_id)
-    return True
+
 
 def run_scenario(bedrock_client, bedrock_runtime_client, model_id, cleanup=True):
     """
@@ -58,24 +51,14 @@ def run_scenario(bedrock_client, bedrock_runtime_client, model_id, cleanup=True)
         dict: A dictionary containing the created resources.
     """
     prompt_id = None
-    resources = {}
     
     try:
         # Step 1: Create a prompt
         print("\n=== Step 1: Creating a prompt ===")
-        prompt_name = f"ProductDescriptionGenerator-{int(time.time())}"
-        prompt_description = "Generates product descriptions for e-commerce websites"
+        prompt_name = f"PlaylistGenerator-{int(time.time())}"
+        prompt_description = "Playlist generator"
         prompt_template = """
-        Create a compelling product description for an e-commerce website.
-
-        Product Name: {{product_name}}
-        Product Category: {{category}}
-        Key Features: {{features}}
-        Target Audience: {{audience}}
-
-        The description should be engaging, highlight the key features, and appeal to the target audience.
-        Keep it between 100-150 words.
-        """
+          Make me a {{genre}} playlist consisting of the following number of songs: {{number}}."""
         
         create_response = create_prompt(
             bedrock_client,
@@ -86,81 +69,42 @@ def run_scenario(bedrock_client, bedrock_runtime_client, model_id, cleanup=True)
         )
         
         prompt_id = create_response['id']
-        resources['prompt_id'] = prompt_id
         print(f"Created prompt: {prompt_name} with ID: {prompt_id}")
         
-        # Wait for the prompt to be ready
-        wait_for_prompt_status(bedrock_client, prompt_id, "Available")
+        # Create a version of the prompt
+        print("\n=== Creating a version of the prompt ===")
+        version_response = create_prompt_version(
+            bedrock_client,
+            prompt_id,
+            description="Initial version of the product description generator"
+        )
+        
+        prompt_version_arn = version_response['arn']
+        prompt_version = version_response['version']
+
+        print(f"Created prompt version: {prompt_version}")
+        print(f"Prompt version ARN: {prompt_version_arn}")
         
         # Step 2: Invoke the prompt directly
         print("\n=== Step 2: Invoking the prompt ===")
         input_variables = {
-            "product_name": "UltraFit Smart Watch",
-            "category": "Wearable Technology",
-            "features": "Heart rate monitoring, GPS tracking, 7-day battery life, water resistant to 50m",
-            "audience": "Fitness enthusiasts and active professionals"
-        }
+            "genre": "pop",
+            "number": "2",
+           }
         
+        # Use the ARN from the create_prompt_version response
         result = invoke_prompt(
             bedrock_runtime_client,
-            prompt_id,
-            None,  # No version specified
+            prompt_version_arn,  
             input_variables
         )
+        # Display the playlist
+        print(f"\n{result}")
+    
         
-        print("\nGenerated Product Description:")
-        print(result['output'])
-        
-        # Step 3: Update the prompt
-        print("\n=== Step 3: Updating the prompt ===")
-        updated_template = """
-        Create a compelling product description for an e-commerce website.
-
-        Product Name: {{product_name}}
-        Product Category: {{category}}
-        Key Features: {{features}}
-        Target Audience: {{audience}}
-        Price Point: {{price_point}}
-
-        The description should be engaging, highlight the key features, and appeal to the target audience.
-        Emphasize the value proposition based on the price point.
-        Keep it between 100-150 words.
-        """
-        
-        update_prompt(
-            bedrock_client,
-            prompt_id,
-            prompt_template=updated_template
-        )
-        
-        print("Updated prompt template to include price point")
-        
-        # Wait for the prompt to be ready after update
-        wait_for_prompt_status(bedrock_client, prompt_id, "Available")
-        
-        # Step 4: Invoke the updated prompt
-        print("\n=== Step 4: Invoking the updated prompt ===")
-        updated_input_variables = {
-            "product_name": "UltraFit Smart Watch",
-            "category": "Wearable Technology",
-            "features": "Heart rate monitoring, GPS tracking, 7-day battery life, water resistant to 50m",
-            "audience": "Fitness enthusiasts and active professionals",
-            "price_point": "Premium ($299)"
-        }
-        
-        updated_result = invoke_prompt(
-            bedrock_runtime_client,
-            prompt_id,
-            None,  # No version specified
-            updated_input_variables
-        )
-        
-        print("\nGenerated Product Description (with price point):")
-        print(updated_result['output'])
-        
-        # Step 5: Clean up resources (optional)
+        # Step 3: Clean up resources (optional)
         if cleanup:
-            print("\n=== Step 5: Cleaning up resources ===")
+            print("\n=== Step 3: Cleaning up resources ===")
             
             # Delete the prompt
             print(f"Deleting prompt {prompt_id}...")
@@ -171,7 +115,7 @@ def run_scenario(bedrock_client, bedrock_runtime_client, model_id, cleanup=True)
             print("\n=== Resources were not cleaned up ===")
             print(f"Prompt ID: {prompt_id}")
         
-        return resources
+   
         
     except Exception as e:
         logger.exception("Error in scenario: %s", str(e))

@@ -17,79 +17,62 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # snippet-start:[python.example_code.bedrock.invoke_prompt]
-def invoke_prompt(client, prompt_id, version, input_variables):
+def invoke_prompt(client, prompt_arn, variables):
     """
-    Invokes a prompt with the specified input variables.
+    Invokes a prompt with the specified input variables using the Converse API.
 
     Args:
         client: The Bedrock Runtime client.
-        prompt_id (str): The ID of the prompt to invoke.
         version (str, optional): The version or alias of the prompt to invoke.
         input_variables (dict): The input variables for the prompt.
 
     Returns:
-        dict: The response from InvokePrompt.
+        str: The generated playlist
     """
     try:
-        logger.info("Invoking prompt ID: %s", prompt_id)
-        if version:
-            logger.info("Using version: %s", version)
-        else:
-            logger.info("Using latest version")
+        logger.info("Generating playlist with prompt: %s", prompt_arn)
 
-        # Format the prompt for Claude model
-        # Claude requires a specific format for the prompt
-        # Check if we have product info or generic variables
-        if all(key in input_variables for key in ['product_name', 'category', 'features', 'audience']):
-            # Product description prompt
-            product_info = input_variables
-            prompt_text = f"""Human: Create a compelling product description for the following product:
+        playlist = ""
+ 
+        response = client.converse(
+            modelId=prompt_arn,
+            promptVariables={
+                "genre": {
+                    "text": variables['genre']
+                },
+                "number": {
+                    "text": variables['number']
+                }
+            }
+        )
 
-Product Name: {product_info['product_name']}
-Category: {product_info['category']}
-Key Features: {product_info['features']}
-Target Audience: {product_info['audience']}
 
-Please write a concise, engaging, and professional product description that highlights the benefits and features.
-"""
-            # Add price point if available
-            if 'price_point' in product_info:
-                prompt_text += f"\nPrice Point: {product_info['price_point']}\n"
-        else:
-            # Generic prompt with whatever variables we have
-            prompt_text = "Human: Here are the input variables:\n\n"
-            for key, value in input_variables.items():
-                prompt_text += f"{key}: {value}\n"
-            prompt_text += "\nPlease process these variables and provide a response.\n"
-            
-        prompt_text += "\nAssistant:"
-        
-        # Prepare the request body
-        request_body = {
-            "modelId": "anthropic.claude-v2",
-            "contentType": "application/json",
-            "accept": "application/json",
-            "body": json.dumps({
-                "prompt": prompt_text,
-                "max_tokens_to_sample": 500,
-                "temperature": 0.7,
-                "top_p": 0.9,
-            })
-        }
-        
-        # Invoke the model
-        response = client.invoke_model(**request_body)
-        
-        # Parse the response
-        response_body = json.loads(response['body'].read().decode())
-        
-        # Return the output
-        return {
-            "output": response_body['completion'].strip()
-        }
+ 
+
+        message = response['output']['message']
+        for content in message['content']:
+            playlist = content['text']
+
+        logger.info("Finished generating playlist with prompt: %s", prompt_arn)
+    
+        return playlist
+  
+
         
     except Exception as e:
         logger.exception("Error invoking prompt: %s", str(e))
         raise
 # snippet-end:[python.example_code.bedrock.invoke_prompt]
 
+
+if __name__ == "__main__":
+  
+
+    prompt_id="94AWYDN2VQ"
+    version = "arn:aws:bedrock:us-east-1:484315795920:prompt/94AWYDN2VQ:1"
+    input_variables ={"genre": "pop", "number": "5"}
+
+    bedrock_runtime_client = boto3.client(service_name='bedrock-runtime')
+    #input_variables = json.loads(args.input_variables)
+    playlist = invoke_prompt(bedrock_runtime_client, version, input_variables)
+    print(playlist)
