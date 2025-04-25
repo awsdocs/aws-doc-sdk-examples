@@ -16,18 +16,10 @@ import argparse
 import boto3
 import logging
 import time
-import os
-import sys
-
-# Add the parent directory to sys.path if needed
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-if parent_dir not in sys.path:
-    sys.path.insert(0, parent_dir)
 
 # Now import the modules
-from prompts.prompt import create_prompt, create_prompt_version, delete_prompt
-from prompts.run_prompt import invoke_prompt
+from prompt import create_prompt, create_prompt_version, delete_prompt
+from run_prompt import invoke_prompt
 
 logging.basicConfig(
     level=logging.INFO,

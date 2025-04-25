@@ -8,6 +8,7 @@ to list Amazon Bedrock managed prompts.
 import argparse
 import boto3
 import logging
+
 from prompt import list_prompts
 
 logging.basicConfig(
@@ -34,6 +35,7 @@ def main():
     bedrock_client = boto3.client('bedrock-agent', region_name=args.region)
     
     try:
+
         # List all prompts
         print("\n=== Amazon Bedrock Managed Prompts ===")
         prompts = list_prompts(bedrock_client)

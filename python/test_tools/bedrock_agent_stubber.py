@@ -166,11 +166,6 @@ class BedrockAgentStubber(ExampleStubber):
             "get_prompt", expected_params, response, error_code=error_code
         )
         
-    def stub_update_prompt(self, expected_params, response, error_code=None):
-        self._stub_bifurcator(
-            "update_prompt", expected_params, response, error_code=error_code
-        )
-        
     def stub_delete_prompt(self, expected_params, response, error_code=None):
         self._stub_bifurcator(
             "delete_prompt", expected_params, response, error_code=error_code
