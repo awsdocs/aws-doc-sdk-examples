@@ -226,7 +226,7 @@ iotfleetwise_CreateFleet:
     iotfleetwise: {createFleet} 
 iotfleetwise_Scenario:
   synopsis_list:
-    - Creates a collection of &FWlong; standardized signals.
+    - Create a collection of standardized signals.
     - Create a fleet that represents a group of vehicles.
     - Create a model manifest.
     - Create a decoder manifest.
@@ -247,7 +247,7 @@ iotfleetwise_Scenario:
             - description: Run an interactive scenario demonstrating &ITSW; features.
               snippet_tags:
                 - iotfleetwise.java2.scenario.main
-            - description: A wrapper class for &ITSW; SDK methods.
+            - description: A wrapper class for &FW; SDK methods.
               snippet_tags:
                 - iotfleetwise.java2.scenario.actions.main 
   services:
