@@ -311,4 +311,4 @@ public class FleetwiseScenario {
         }
     }
 }
-// snippet-start:[iotfleetwise.java2.scenario.main]
+// snippet-end:[iotfleetwise.java2.scenario.main]
