@@ -241,7 +241,7 @@ iotfleetwise_Scenario:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/iotsitewise
+          github: javav2/example_code/iotfleetwise
           sdkguide:
           excerpts:
             - description: Run an interactive scenario demonstrating &ITSW; features.
