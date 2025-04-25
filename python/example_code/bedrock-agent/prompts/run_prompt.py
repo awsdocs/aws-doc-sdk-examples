@@ -2,12 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 """
 Shows how to use the AWS SDK for Python (Boto3) with Amazon Bedrock
-to invoke Amazon Bedrock managed prompts.
+to invoke Amazon Bedrock managed prompts with the Converse operation.
 """
 
-import argparse
+
 import boto3
-import json
 import logging
 
 logging.basicConfig(
@@ -23,41 +22,36 @@ def invoke_prompt(client, prompt_arn, variables):
 
     Args:
         client: The Bedrock Runtime client.
-        version (str, optional): The version or alias of the prompt to invoke.
-        input_variables (dict): The input variables for the prompt.
+        prompt_arn (str): The ARN of the prompt to invoke.
+        variables (dict): Dictionary containing the input variables for the prompt.
 
     Returns:
-        str: The generated playlist
+        str: The generated response
     """
     try:
-        logger.info("Generating playlist with prompt: %s", prompt_arn)
+        logger.info("Generating response with prompt: %s", prompt_arn)
 
-        playlist = ""
- 
+        # Create promptVariables dictionary dynamically
+        prompt_variables = {
+            key: {"text": str(value)} for key, value in variables.items()
+        }
+
         response = client.converse(
             modelId=prompt_arn,
-            promptVariables={
-                "genre": {
-                    "text": variables['genre']
-                },
-                "number": {
-                    "text":str(variables['number'])
-                }
-            }
+            promptVariables=prompt_variables
         )
 
+        # Extract the response text
         message = response['output']['message']
+        result = ""
         for content in message['content']:
-            playlist = content['text']
+            result += content['text']
 
-        logger.info("Finished generating playlist with prompt: %s", prompt_arn)
+        logger.info("Finished generating response with prompt: %s", prompt_arn)
     
-        return playlist
-  
-
-        
+        return result
     except Exception as e:
-        logger.exception("Error invoking prompt: %s", str(e))
+        logger.error("Error invoking prompt: %s", str(e))
         raise
 # snippet-end:[python.example_code.bedrock-runtime.invoke_prompt_converse]
 
