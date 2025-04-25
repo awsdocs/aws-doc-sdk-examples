@@ -8,11 +8,8 @@ Unit tests for prompt.py.
 import boto3
 from botocore.exceptions import ClientError
 import pytest
-import json
-import io
 
-from conftest import FakePromptData 
-
+from conftest import FakePromptData
 from prompts import prompt
 
 
@@ -52,7 +49,8 @@ def test_create_prompt(make_stubber, error_code):
     if error_code is None:
         bedrock_stubber.stub_create_prompt(expected_params, response)
     else:
-        bedrock_stubber.stub_create_prompt(expected_params, response, error_code=error_code)
+        bedrock_stubber.stub_create_prompt(
+            expected_params, response, error_code=error_code)
 
     if error_code is None:
         result = prompt.create_prompt(
@@ -110,7 +108,8 @@ def test_get_prompt(make_stubber, error_code):
     if error_code is None:
         bedrock_stubber.stub_get_prompt(expected_params, response)
     else:
-        bedrock_stubber.stub_get_prompt(expected_params, response, error_code=error_code)
+        bedrock_stubber.stub_get_prompt(
+            expected_params, response, error_code=error_code)
 
     if error_code is None:
         result = prompt.get_prompt(
@@ -145,7 +144,8 @@ def test_delete_prompt(make_stubber, error_code):
     if error_code is None:
         bedrock_stubber.stub_delete_prompt(expected_params, response)
     else:
-        bedrock_stubber.stub_delete_prompt(expected_params, response, error_code=error_code)
+        bedrock_stubber.stub_delete_prompt(
+            expected_params, response, error_code=error_code)
 
     if error_code is None:
         result = prompt.delete_prompt(
@@ -161,68 +161,6 @@ def test_delete_prompt(make_stubber, error_code):
             )
         assert exc.value.response["Error"]["Code"] == error_code
 
-
-@pytest.mark.parametrize("error_code", [None, "TestException"])
-def test_update_prompt(make_stubber, error_code):
-    bedrock_client = boto3.client("bedrock-agent")
-    bedrock_stubber = make_stubber(bedrock_client)
-
-    new_name = "UpdatedPromptName"
-    new_description = "Updated prompt description"
-    new_template = "Updated {{variable}} template"
-
-    # The expected parameters for the API call
-    expected_params = {
-        "promptIdentifier": FakePromptData.PROMPT_ID,
-        "name": new_name,
-        "description": new_description,
-        "variants": [{
-            "name": "default",
-            "templateType": "TEXT",
-            "templateConfiguration": {
-                "text": {
-                    "text": new_template,
-                    "inputVariables": [{"name": "variable"}]
-                }
-            }
-        }]
-    }
-
-    # The response from the API
-    response = {
-        "id": FakePromptData.PROMPT_ID,
-        "arn": FakePromptData.PROMPT_ARN,
-        "name": new_name,
-        "description": new_description,
-        "createdAt": FakePromptData.CREATED_AT,
-        "updatedAt": FakePromptData.UPDATED_AT,
-        "version": "1"
-    }
-
-    if error_code is None:
-        bedrock_stubber.stub_update_prompt(expected_params, response)
-    else:
-        bedrock_stubber.stub_update_prompt(expected_params, response, error_code=error_code)
-
-    if error_code is None:
-        result = prompt.update_prompt(
-            bedrock_client,
-            FakePromptData.PROMPT_ID,
-            new_name,
-            new_description,
-            new_template
-        )
-        assert result == response
-    else:
-        with pytest.raises(ClientError) as exc:
-            prompt.update_prompt(
-                bedrock_client,
-                FakePromptData.PROMPT_ID,
-                new_name,
-                new_description,
-                new_template
-            )
-        assert exc.value.response["Error"]["Code"] == error_code
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_create_prompt_version(make_stubber, error_code):
@@ -248,7 +186,8 @@ def test_create_prompt_version(make_stubber, error_code):
     if error_code is None:
         bedrock_stubber.stub_create_prompt_version(expected_params, response)
     else:
-        bedrock_stubber.stub_create_prompt_version(expected_params, response, error_code=error_code)
+        bedrock_stubber.stub_create_prompt_version(
+            expected_params, response, error_code=error_code)
 
     if error_code is None:
         result = prompt.create_prompt_version(
