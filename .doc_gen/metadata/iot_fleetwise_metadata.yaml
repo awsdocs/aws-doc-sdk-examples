@@ -250,6 +250,6 @@ iotfleetwise_Scenario:
             - description: A wrapper class for &ITSW; SDK methods.
               snippet_tags:
                 - iotfleetwise.java2.scenario.actions.main 
-      services:
+  services:
     iotfleetwise: {}
       
