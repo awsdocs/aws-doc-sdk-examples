@@ -13,7 +13,7 @@ import data from "./inputs.json" with { type: "json" };
 const region = "eu-west-1";
 const locationClient = new LocationClient({ region: region });
 
-async function main() {
+export const main = async () => {
   const routeCalcParams = {
     CalculatorName: `${data.inputs.calculatorName}`,
     DataSource: "Esri",
@@ -34,7 +34,7 @@ async function main() {
       return;
     }
   }
-}
+};
 
 // snippet-end:[location.JavaScript.routes.createRouteCalcV3]
 

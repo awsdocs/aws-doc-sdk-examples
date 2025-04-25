@@ -12,7 +12,7 @@ import data from "./inputs.json" with { type: "json" };
 
 const region = "eu-west-1";
 
-async function main() {
+export const main = async () => {
   const locationClient = new LocationClient({ region: region });
   const deviceId = `${data.inputs.deviceId}`;
   const trackerName = `${data.inputs.trackerName}`;
@@ -37,7 +37,7 @@ async function main() {
     }
     return;*/
   }
-}
+};
 
 // snippet-end:[location.JavaScript.position.getDevicePositionV3]
 

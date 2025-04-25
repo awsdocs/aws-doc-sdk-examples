@@ -12,7 +12,7 @@ import data from "./inputs.json" with { type: "json" };
 
 const region = "eu-west-1";
 const locationClient = new LocationClient({ region: region });
-async function main() {
+export const main = async () => {
   const geoFenceGeoParams = {
     CollectionName: `${data.inputs.collectionName}`,
     GeofenceId: `${data.inputs.geoId}`,
@@ -38,7 +38,7 @@ async function main() {
     );
     return;
   }
-}
+};
 
 // snippet-end:[location.JavaScript.geofence.putV3]
 

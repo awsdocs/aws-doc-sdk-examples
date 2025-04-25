@@ -2,16 +2,17 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { describe, it } from "vitest";
-import { main } from "../actions/create-map.js";
+import { main } from "../actions/get-device-position.js";
 import data from "../actions/inputs.json";
-
-describe("test create-map", () => {
+const deviceId = `${data.inputs.deviceId}`;
+const trackerName = `${data.inputs.trackerName}`;
+describe("test get-device-position", () => {
   it(
     "should not re-throw service exceptions",
     async () => {
       await main({
-        MapName: `${data.inputs.mapName}`,
-        Configuration: { style: "VectorEsriNavigation" },
+        DeviceId: deviceId,
+        TrackerName: trackerName,
       });
     },
     { timeout: 600000 },

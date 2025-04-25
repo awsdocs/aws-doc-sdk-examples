@@ -2,16 +2,19 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { describe, it } from "vitest";
-import { main } from "../actions/create-map.js";
+import { main } from "../actions/calculate-distance-async.js";
 import data from "../actions/inputs.json";
 
-describe("test create-map", () => {
+describe("test calculate-distance-async", () => {
   it(
     "should not re-throw service exceptions",
     async () => {
       await main({
-        MapName: `${data.inputs.mapName}`,
-        Configuration: { style: "VectorEsriNavigation" },
+        CalculatorName: `${data.inputs.calculatorName}`,
+        DeparturePosition: [-122.3321, 47.6062],
+        DestinationPosition: [-123.1216, 49.2827],
+        TravelMode: "Car",
+        DistanceUnit: "Kilometers",
       });
     },
     { timeout: 600000 },

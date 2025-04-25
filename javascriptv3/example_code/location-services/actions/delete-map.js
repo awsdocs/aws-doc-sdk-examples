@@ -12,7 +12,7 @@ import data from "./inputs.json" with { type: "json" };
 
 const region = "eu-west-1";
 
-async function main() {
+export const main = async () => {
   const deleteMapParams = {
     MapName: `${data.inputs.mapName}`,
   };
@@ -27,7 +27,7 @@ async function main() {
       return;
     }
   }
-}
+};
 
 // snippet-end:[location.JavaScript.geofence.deleteMapV3]
 

@@ -2,16 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { describe, it } from "vitest";
-import { main } from "../actions/create-map.js";
+import { main } from "../actions/create-route-calculator.js";
 import data from "../actions/inputs.json";
 
-describe("test create-map", () => {
+describe("test create-route-calculator", () => {
   it(
     "should not re-throw service exceptions",
     async () => {
       await main({
-        MapName: `${data.inputs.mapName}`,
-        Configuration: { style: "VectorEsriNavigation" },
+        CalculatorName: `${data.inputs.calculatorName}`,
+        DataSource: "Esri",
       });
     },
     { timeout: 600000 },

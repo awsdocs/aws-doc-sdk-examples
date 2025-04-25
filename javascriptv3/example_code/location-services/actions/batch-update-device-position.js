@@ -21,7 +21,7 @@ const updateDevicePosParams = {
     },
   ],
 };
-async function main() {
+export const main = async () => {
   try {
     const command = new BatchUpdateDevicePositionCommand(updateDevicePosParams);
     const response = await locationClient.send(command);
@@ -34,7 +34,7 @@ async function main() {
   } catch (error) {
     console.log("error ", error);
   }
-}
+};
 
 // snippet-end:[location.JavaScript.device.batchUpdatePositionV3]
 

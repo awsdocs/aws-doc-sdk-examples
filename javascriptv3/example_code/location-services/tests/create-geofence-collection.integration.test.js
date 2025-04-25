@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { describe, it } from "vitest";
-import { main } from "../actions/create-map.js";
+import { main } from "../actions/create-geofence-collection.js";
 import data from "../actions/inputs.json";
 
-describe("test create-map", () => {
+describe("test create-geofence-collection", () => {
   it(
     "should not re-throw service exceptions",
     async () => {

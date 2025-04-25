@@ -8,7 +8,7 @@ import data from "./inputs.json" with { type: "json" };
 
 const region = "eu-west-1";
 
-async function main() {
+export const main = async () => {
   const createTrackerParams = {
     TrackerName: `${data.inputs.trackerName}`,
   };
@@ -22,7 +22,7 @@ async function main() {
     console.error("Error creating map: ", error);
     throw error;
   }
-}
+};
 
 // snippet-end:[location.JavaScript.tracker.createTrackerV3]
 

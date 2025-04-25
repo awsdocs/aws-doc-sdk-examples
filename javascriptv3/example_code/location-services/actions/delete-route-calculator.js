@@ -12,7 +12,7 @@ import data from "./inputs.json" with { type: "json" };
 
 const region = "eu-west-1";
 
-async function main() {
+export const main = async () => {
   const deleteRouteCalculatorParams = {
     CalculatorName: `${data.inputs.calculatorName}`,
   };
@@ -31,7 +31,7 @@ async function main() {
       return;
     }
   }
-}
+};
 
 // snippet-end:[location.JavaScript.calculator.deleteRouteCalculatorV3]
 

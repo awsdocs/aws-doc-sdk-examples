@@ -19,7 +19,7 @@ const calculateRouteParams = {
   TravelMode: "Car",
   DistanceUnit: "Kilometers",
 };
-async function main() {
+export const main = async () => {
   try {
     const command = new CalculateRouteCommand(calculateRouteParams);
     const response = await locationClient.send(command);
@@ -36,7 +36,7 @@ async function main() {
       return;
     }
   }
-}
+};
 
 // snippet-end:[location.JavaScript.CalculateRouteV3]
 
