@@ -23,6 +23,15 @@ location_Hello:
             - description:
               snippet_tags:
                 - location.java2.hello.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.location.hello
   services:
     location: {ListGeofencesPaginator}
 location_CreateMap:
