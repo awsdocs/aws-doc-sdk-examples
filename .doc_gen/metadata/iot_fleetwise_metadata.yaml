@@ -17,10 +17,6 @@ iotfleetwise_Hello:
   services:
     iotfleetwise: {listSignalCatalogsPaginator}
 iotfleetwise_CreateSignalCatalog:
-  title: Hello &FWlong;
-  title_abbrev: Hello &FW;
-  synopsis: get started using &FW;.
-  category: Hello
   languages:
     Java:
       versions:
