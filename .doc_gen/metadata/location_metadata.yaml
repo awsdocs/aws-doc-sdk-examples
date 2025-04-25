@@ -39,7 +39,7 @@ location_CreateMap:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/location-services/actions
+          github: javascriptv3/example_code/location/actions
           sdkguide:
           excerpts:
             - description:
@@ -92,7 +92,7 @@ location_CreateGeofenceCollection:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/location-services/actions
+          github: javascriptv3/example_code/location/actions
           sdkguide:
           excerpts:
             - description:
@@ -123,7 +123,7 @@ location_PutGeofence:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/location-services/actions
+          github: javascriptv3/example_code/location/actions
           sdkguide:
           excerpts:
             - description:
@@ -154,7 +154,7 @@ location_CreateTracker:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/location-services/actions
+          github: javascriptv3/example_code/location/actions
           sdkguide:
           excerpts:
             - description:
@@ -185,7 +185,7 @@ location_BatchUpdateDevicePosition:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/location-services/actions
+          github: javascriptv3/example_code/location/actions
           sdkguide:
           excerpts:
             - description:
@@ -216,7 +216,7 @@ location_GetDevicePosition:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/location-services/actions
+          github: javascriptv3/example_code/location/actions
           sdkguide:
           excerpts:
             - description:
@@ -247,7 +247,7 @@ location_CreateRouteCalculator:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/location-services/actions
+          github: javascriptv3/example_code/location/actions
           sdkguide:
           excerpts:
             - description:
@@ -278,7 +278,7 @@ location_CalculateRoute:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/location-services/actions
+          github: javascriptv3/example_code/location/actions
           sdkguide:
           excerpts:
             - description:
@@ -309,7 +309,7 @@ location_DeleteGeofenceCollection:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/location-services/actions
+          github: javascriptv3/example_code/location/actions
           sdkguide:
           excerpts:
             - description:
@@ -362,7 +362,7 @@ location_DeleteMap:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/location-services/actions
+          github: javascriptv3/example_code/location/actions
           sdkguide:
           excerpts:
             - description:
@@ -393,7 +393,7 @@ location_DeleteTracker:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/location-services/actions
+          github: javascriptv3/example_code/location/actions
           sdkguide:
           excerpts:
             - description:
@@ -424,7 +424,7 @@ location_DeleteRouteCalculator:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/location-services/actions
+          github: javascriptv3/example_code/location/actions
           sdkguide:
           excerpts:
             - description:
@@ -481,7 +481,7 @@ location_Scenario:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/location-services/scenarios
+          github: javascriptv3/example_code/location/scenarios
           sdkguide:
           excerpts:
             - description:
