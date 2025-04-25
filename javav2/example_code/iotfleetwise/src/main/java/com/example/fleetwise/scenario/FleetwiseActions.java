@@ -137,8 +137,6 @@ public class FleetwiseActions {
         });
     }
 
-    // snippet-start:[iotfleetwise.java2.delete.catalog.main]
-
     /**
      * Deletes the specified signal catalog.
      *
@@ -165,7 +163,6 @@ public class FleetwiseActions {
                     return null;
                 });
     }
-    // snippet-end:[iotfleetwise.java2.delete.catalog.main]
 
     // snippet-start:[iotfleetwise.java2.create.decoder.main]
 
