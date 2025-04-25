@@ -16,7 +16,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# snippet-start:[python.example_code.bedrock.invoke_prompt]
+# snippet-start:[python.example_code.bedrock-runtime.invoke_prompt_converse]
 def invoke_prompt(client, prompt_arn, variables):
     """
     Invokes a prompt with the specified input variables using the Converse API.
@@ -41,13 +41,10 @@ def invoke_prompt(client, prompt_arn, variables):
                     "text": variables['genre']
                 },
                 "number": {
-                    "text": variables['number']
+                    "text":str(variables['number'])
                 }
             }
         )
-
-
- 
 
         message = response['output']['message']
         for content in message['content']:
@@ -62,7 +59,7 @@ def invoke_prompt(client, prompt_arn, variables):
     except Exception as e:
         logger.exception("Error invoking prompt: %s", str(e))
         raise
-# snippet-end:[python.example_code.bedrock.invoke_prompt]
+# snippet-end:[python.example_code.bedrock-runtime.invoke_prompt_converse]
 
 
 if __name__ == "__main__":
@@ -70,9 +67,9 @@ if __name__ == "__main__":
 
     prompt_id="94AWYDN2VQ"
     version = "arn:aws:bedrock:us-east-1:484315795920:prompt/94AWYDN2VQ:1"
-    input_variables ={"genre": "pop", "number": "5"}
+    input_variables ={"genre": "pop", "number": 2}
 
     bedrock_runtime_client = boto3.client(service_name='bedrock-runtime')
-    #input_variables = json.loads(args.input_variables)
+
     playlist = invoke_prompt(bedrock_runtime_client, version, input_variables)
     print(playlist)

@@ -6,35 +6,17 @@ Unit tests for scenario_get_started_with_prompts.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
-import pytest
-import io
-import json
 
 from conftest import FakePromptData
-
-import sys
-sys.path.append("..")
 from prompts import scenario_get_started_with_prompts as scenario
 
 
-class FakeScenarioData:
-    PROMPT_ID = "FAKE_PROMPT_ID"
-    PROMPT_NAME = "Product-Description-Generator-12345"
-    PROMPT_DESCRIPTION = "Generates product descriptions based on product details"
-    MODEL_ID = "anthropic.claude-v2"
-    CREATED_AT = "2025-03-29T21:34:43.048609+00:00"
-    UPDATED_AT = "2025-03-30T21:34:43.048609+00:00"
-    OUTPUT_TEXT = "This is the generated product description."
 
-
-
-def test_run_scenario(make_stubber, monkeypatch):
+def test_run_scenario(monkeypatch):
     """Test the run_scenario function."""
     bedrock_client = boto3.client("bedrock-agent")
     bedrock_runtime_client = boto3.client("bedrock-runtime")
-    bedrock_stubber = make_stubber(bedrock_client)
-    bedrock_runtime_stubber = make_stubber(bedrock_runtime_client)
+
     
     # Mock create_prompt
     create_response = {
@@ -68,7 +50,7 @@ def test_run_scenario(make_stubber, monkeypatch):
     
     # Mock invoke_prompt
     invoke_response = {
-        "output": FakeScenarioData.OUTPUT_TEXT
+        "output": FakePromptData.OUTPUT_TEXT
     }
     
     def mock_invoke_prompt(*args, **kwargs):
@@ -80,7 +62,7 @@ def test_run_scenario(make_stubber, monkeypatch):
 
     # Mock delete_prompt
     delete_response = {
-        "id": FakeScenarioData.PROMPT_ID
+        "id": FakePromptData.PROMPT_ID
     }
     
     def mock_delete_prompt(*args, **kwargs):
@@ -92,7 +74,7 @@ def test_run_scenario(make_stubber, monkeypatch):
     scenario.run_scenario(
         bedrock_client,
         bedrock_runtime_client,
-        FakeScenarioData.MODEL_ID,
+        FakePromptData.MODEL_ID,
         cleanup=True
     )
     
