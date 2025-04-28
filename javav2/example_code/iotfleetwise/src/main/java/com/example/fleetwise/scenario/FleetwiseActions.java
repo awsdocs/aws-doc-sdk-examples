@@ -519,7 +519,13 @@ public class FleetwiseActions {
         return getAsyncClient().getVehicle(request)
                 .whenComplete((response, exception) -> {
                     if (exception != null) {
-                        throw new CompletionException("Failed to fetch vehicle details: " + exception.getMessage(), exception);
+                        Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
+
+                        if (cause instanceof ResourceNotFoundException) {
+                            throw new CompletionException((ResourceNotFoundException) cause);
+                        } else {
+                            throw new CompletionException("Failed to fetch vehicle details: " + cause.getMessage(), cause);
+                        }
                     } else {
                         Map<String, Object> details = new HashMap<>();
                         details.put("vehicleName", response.vehicleName());
@@ -537,7 +543,7 @@ public class FleetwiseActions {
                         });
                     }
                 })
-                .thenApply(response -> null); // returning CompletableFuture<Void>
+                .thenApply(response -> null); // CompletableFuture<Void>
     }
     // snippet-end:[iotfleetwise.java2.get.vehicle.main]
 

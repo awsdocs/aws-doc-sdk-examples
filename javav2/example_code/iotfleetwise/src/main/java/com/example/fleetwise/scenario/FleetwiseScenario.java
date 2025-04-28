@@ -9,6 +9,7 @@ import software.amazon.awssdk.services.iot.model.ResourceAlreadyExistsException;
 import software.amazon.awssdk.services.iotfleetwise.model.Node;
 import software.amazon.awssdk.services.iotfleetwise.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.iotfleetwise.model.ValidationException;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CompletionException;
@@ -22,17 +23,17 @@ public class FleetwiseScenario {
 
     public static void main(String[] args) {
         final String usage =
-        """
-        Usage:
-            <signalCatalogName> <manifestName> <fleetId> <vecName> <decName>
+                """
+                        Usage:
+                            <signalCatalogName> <manifestName> <fleetId> <vecName> <decName>
                         
-        Where:
-            signalCatalogName     - The name of the Signal Catalog to create (eg, catalog30).
-            manifestName          - The name of the Vehicle Model (Model Manifest) to create (eg, manifest30).
-            fleetId               - The ID of the Fleet to create (eg, fleet30).
-            vecName               - The name of the Vehicle to create (eg, vehicle30).
-             decName               - The name of the Decoder Manifest to create (eg, decManifest30).
-        """;
+                        Where:
+                            signalCatalogName     - The name of the Signal Catalog to create (eg, catalog30).
+                            manifestName          - The name of the Vehicle Model (Model Manifest) to create (eg, manifest30).
+                            fleetId               - The ID of the Fleet to create (eg, fleet30).
+                            vecName               - The name of the Vehicle to create (eg, vehicle30).
+                             decName               - The name of the Decoder Manifest to create (eg, decManifest30).
+                        """;
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -46,28 +47,28 @@ public class FleetwiseScenario {
         String decName = args[4];
 
         logger.info(
-                 """
-                 AWS IoT FleetWise is a managed service that simplifies the 
-                 process of collecting, organizing, and transmitting vehicle 
-                 data to the cloud in near real-time. Designed for automakers 
-                 and fleet operators, it allows you to define vehicle models, 
-                 specify the exact data you want to collect (such as engine 
-                 temperature, speed, or battery status), and send this data to 
-                 AWS for analysis. By using intelligent data collection 
-                 techniques, IoT FleetWise reduces the volume of data 
-                 transmitted by filtering and transforming it at the edge, 
-                 helping to minimize bandwidth usage and costs. 
-                
-                At its core, AWS IoT FleetWise helps organizations build 
-                scalable systems for vehicle data management and analytics, 
-                supporting a wide variety of vehicles and sensor configurations. 
-                You can define signal catalogs and decoder manifests that describe 
-                how raw CAN bus signals are translated into readable data, making 
-                the platform highly flexible and extensible. This allows 
-                manufacturers to optimize vehicle performance, improve safety, 
-                and reduce maintenance costs by gaining real-time visibility 
-                into fleet operations. 
-                """);
+                """
+                         AWS IoT FleetWise is a managed service that simplifies the 
+                         process of collecting, organizing, and transmitting vehicle 
+                         data to the cloud in near real-time. Designed for automakers 
+                         and fleet operators, it allows you to define vehicle models, 
+                         specify the exact data you want to collect (such as engine 
+                         temperature, speed, or battery status), and send this data to 
+                         AWS for analysis. By using intelligent data collection 
+                         techniques, IoT FleetWise reduces the volume of data 
+                         transmitted by filtering and transforming it at the edge, 
+                         helping to minimize bandwidth usage and costs. 
+                        
+                        At its core, AWS IoT FleetWise helps organizations build 
+                        scalable systems for vehicle data management and analytics, 
+                        supporting a wide variety of vehicles and sensor configurations. 
+                        You can define signal catalogs and decoder manifests that describe 
+                        how raw CAN bus signals are translated into readable data, making 
+                        the platform highly flexible and extensible. This allows 
+                        manufacturers to optimize vehicle performance, improve safety, 
+                        and reduce maintenance costs by gaining real-time visibility 
+                        into fleet operations. 
+                        """);
 
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -104,15 +105,15 @@ public class FleetwiseScenario {
         logger.info(DASHES);
         logger.info("2. Create a fleet that represents a group of vehicles");
         logger.info(
-                 """
-                 Creating an IoT FleetWise fleet allows you to efficiently collect, 
-                 organize, and transfer vehicle data to the cloud, enabling real-time 
-                 insights into vehicle performance and health. 
-                
-                 It helps reduce data costs by allowing you to filter and prioritize 
-                 only the most relevant vehicle signals, supporting advanced analytics 
-                 and predictive maintenance use cases.
-                 """);
+                """
+                        Creating an IoT FleetWise fleet allows you to efficiently collect, 
+                        organize, and transfer vehicle data to the cloud, enabling real-time 
+                        insights into vehicle performance and health. 
+                        
+                        It helps reduce data costs by allowing you to filter and prioritize 
+                        only the most relevant vehicle signals, supporting advanced analytics 
+                        and predictive maintenance use cases.
+                        """);
 
         waitForInputToContinue(scanner);
         String fleetid;
@@ -262,7 +263,17 @@ public class FleetwiseScenario {
         logger.info(DASHES);
         logger.info("9. Display vehicle details");
         waitForInputToContinue(scanner);
-        actions.getVehicleDetailsAsync(vecName).join();
+        try {
+            actions.getVehicleDetailsAsync(vecName).join();
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof ResourceNotFoundException) {
+                logger.error("The resource was not found: {}", cause.getMessage());
+            } else {
+                logger.error("An unexpected error occurred.", cause);
+            }
+            return;
+        }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
