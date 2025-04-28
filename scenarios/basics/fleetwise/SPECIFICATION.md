@@ -283,28 +283,28 @@ You have successfully completed the AWS IoT Fleetwise scenario.
 The following table describes the metadata used in this Basics Scenario.
 
 
-| action                | metadata file             | metadata key                         |
-|-----------------------|---------------------------|------------------------------------- |
-|`createSignalCatalog`  |iot_fleetwise_metadata.yaml|iotfleetwise_CreateSignalCatalog      |
-|`createFleet`          |iot_fleetwise_metadata.yaml|iotfleetwise_CreateFleet             |
-|`createGateway `       |iot_fleetwise_metadata.yaml|iotfleetwise_CreateGateway           |
-|`createModelManifest`  iot_fleetwise_metadata.yaml |iotfleetwise_CreateModelManifest     |
-|`createDecoderManifest`|iot_fleetwise_metadata.yaml|iotfleetwise_CreateDecoderManifest   |
-|`updateModelManifest`  |iot_fleetwise_metadata.yaml|iotfleetwise_UpdateModelManifest      |
-| `createPortal`        |iot_fleetwise_metadata.yaml|iotfleetwise_CreatePortal             |
-|`waitForModelManifest` |iot_fleetwise_metadata.yaml|iotfleetwise_WaitForModelManifest     |
-|`updateDecoderManifest`|iot_fleetwise_metadata.yaml|iotfleetwise_updateDecoder            |
-| `describeAssetModel`  | iot_fleetwise_metadata.yaml|iotfleetwise_DescribeAssetModel      |
-| `waitForDecoder  `    | iot_fleetwise_metadata.yaml|iotfleetwise_WaitForDecoder          |
-| `createVehicle`       | iot_fleetwise_metadata.yaml|iotfleetwise_CreateVehicle           |
-| `getVehicle`          | iot_fleetwise_metadata.yaml|iotfleetwise_GetVehicle              |
-| `deleteVehicle `      | iot_fleetwise_metadata.yaml|iotfleetwise_DeleteVehicle           |
-| `deleteVehicle `      | iot_fleetwise_metadata.yaml|iotfleetwise_DeleteVehicle           |
-| `deleteFleet `        | iot_fleetwise_metadata.yaml|iotfleetwise_DeleteFleet             |
-| `deleteModel`         | iot_fleetwise_metadata.yaml|iotfleetwise_DeleteModel             |
-| `deleteSignal `       | iot_fleetwise_metadata.yaml|iotfleetwise_DeleteSignal            |
-| `scenario`            | iot_fleetwise_metadata.yaml|iotfleetwise_Scenario                |
-| `hello`               | iot_fleetwise_metadata.yaml|iotfleetwise_Hello                   |
+| action                | metadata file              | metadata key                         |
+|-----------------------|----------------------------|------------------------------------- |
+|`createSignalCatalog`  |iot_fleetwise_metadata.yaml |iotfleetwise_CreateSignalCatalog      |
+|`createFleet`          |iot_fleetwise_metadata.yaml |iotfleetwise_CreateFleet              |
+|`createGateway `       |iot_fleetwise_metadata.yaml |iotfleetwise_CreateGateway            |
+|`createModelManifest`  iot_fleetwise_metadata.yaml  |iotfleetwise_CreateModelManifest      |
+|`createDecoderManifest`|iot_fleetwise_metadata.yaml |iotfleetwise_CreateDecoderManifest    |
+|`updateModelManifest`  |iot_fleetwise_metadata.yaml |iotfleetwise_UpdateModelManifest      |
+| `createPortal`        |iot_fleetwise_metadata.yaml |iotfleetwise_CreatePortal             |
+|`waitForModelManifest` |iot_fleetwise_metadata.yaml |iotfleetwise_WaitForModelManifest     |
+|`updateDecoderManifest`|iot_fleetwise_metadata.yaml |iotfleetwise_updateDecoder            |
+| `describeAssetModel`  |iot_fleetwise_metadata.yaml |iotfleetwise_DescribeAssetModel       |
+| `waitForDecoder  `    |iot_fleetwise_metadata.yaml |iotfleetwise_WaitForDecoder           |
+| `createVehicle`       |iot_fleetwise_metadata.yaml |iotfleetwise_CreateVehicle            |
+| `getVehicle`          |iot_fleetwise_metadata.yaml |iotfleetwise_GetVehicle               |
+| `deleteVehicle `      |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteVehicle            |
+| `deleteVehicle `      |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteVehicle            |
+| `deleteFleet `        |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteFleet              |
+| `deleteModel`         |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteModel              |
+| `deleteSignal `       |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteSignal             |
+| `scenario`            |iot_fleetwise_metadata.yaml |iotfleetwise_Scenario                 |
+| `hello`               |iot_fleetwise_metadata.yaml |iotfleetwise_Hello                    |
 
 
 
