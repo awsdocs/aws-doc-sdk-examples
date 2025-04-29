@@ -500,7 +500,7 @@ bedrock-agent_ListPrompts:
   services:
     bedrock-agent: {ListPrompts}
 
-bedrock-runtime_Converse_InvokePrompt:
+bedrock-agent_Converse_InvokePrompt:
   languages:
     Python:
       versions:
@@ -511,8 +511,6 @@ bedrock-runtime_Converse_InvokePrompt:
               snippet_tags:
                 - python.example_code.bedrock-runtime.invoke_prompt_converse
 
-  services:
-    bedrock-runtime: {Converse}
     
 bedrock-agent_GettingStartedWithBedrockPrompts:
   title: An end-to-end example showing how to create and invoke Amazon Bedrock managed prompts using an &AWS; SDK
