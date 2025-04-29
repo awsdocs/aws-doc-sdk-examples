@@ -1,15 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-// 
+//
 // snippet-start:[swift.example_code.bedrock-runtime.ConverseStream_AmazonNovaText]
-// An example demonstrating how to use the Conversation API to send a text message to Amazon Nova and print the response stream
+// An example demonstrating how to use the Conversation API to send a text message
+// to Amazon Nova and print the response stream
 
 import AWSBedrockRuntime
 
 func printConverseStream(_ textPrompt: String) async throws {
 
     // Create a Bedrock Runtime client in the AWS Region you want to use.
-    let config = try await BedrockRuntimeClient.BedrockRuntimeClientConfiguration(region: "us-east-1")
+    let config =
+        try await BedrockRuntimeClient.BedrockRuntimeClientConfiguration(
+            region: "us-east-1"
+        )
     let client = BedrockRuntimeClient(config: config)
 
     // Set the model ID.
@@ -22,15 +26,17 @@ func printConverseStream(_ textPrompt: String) async throws {
     )
 
     // Optionally use inference parameters.
-    let inferenceConfig = BedrockRuntimeClientTypes.InferenceConfiguration(
-        maxTokens: 512,
-        stopSequences: ["END"],
-        temperature: 0.5,
-        topp: 0.9
-    )
+    let inferenceConfig =
+        BedrockRuntimeClientTypes.InferenceConfiguration(
+            maxTokens: 512,
+            stopSequences: ["END"],
+            temperature: 0.5,
+            topp: 0.9
+        )
 
     // Create the ConverseStreamInput to send to the model.
-    let input = ConverseStreamInput(inferenceConfig: inferenceConfig, messages: [message], modelId: modelId)
+    let input = ConverseStreamInput(
+        inferenceConfig: inferenceConfig, messages: [message], modelId: modelId)
 
     // Send the ConverseStreamInput to the model.
     let response = try await client.converseStream(input: input)
@@ -61,7 +67,9 @@ func printConverseStream(_ textPrompt: String) async throws {
 // snippet-end:[swift.example_code.bedrock-runtime.ConverseStream_AmazonNovaText]
 
 do {
-    try await printConverseStream("Describe the purpose of a 'hello world' program in two paragraphs.")
+    try await printConverseStream(
+        "Describe the purpose of a 'hello world' program in two paragraphs."
+    )
 } catch {
-    print("An error occured: \(error)")
+    print("An error occurred: \(error)")
 }
