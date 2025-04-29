@@ -194,9 +194,7 @@ Start the example by running the following at a command prompt:
 python prompts/list_prompts.py
 ```
 
-The example first lists the prompts in the current AWS Region. It
-then prompts for a prompt ID, which you can get from the list of prompts. Finally, the example lists the prompt versions for the prompt ID that you entered.
-
+The example first lists the prompts in the current AWS Region. 
 
 
 ### Tests

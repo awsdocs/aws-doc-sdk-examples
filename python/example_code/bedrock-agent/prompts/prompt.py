@@ -157,15 +157,13 @@ def get_prompt(client, prompt_id):
 
 
 # snippet-start:[python.example_code.bedrock.delete_prompt]
-def delete_prompt(client, prompt_id, skip_resource_in_use_check=False):
+def delete_prompt(client, prompt_id):
     """
     Deletes an Amazon Bedrock managed prompt.
 
     Args:
     client: Amazon Bedrock Agent boto3 client.
     prompt_id (str): The identifier of the prompt that you want to delete.
-    skip_resource_in_use_check (bool, optional): Whether to skip checking if the prompt is in use.
-                                               This parameter is ignored as it's not supported by the API.
 
     Returns:
         dict: The response from the DeletePrompt operation.
@@ -191,6 +189,7 @@ def delete_prompt(client, prompt_id, skip_resource_in_use_check=False):
 # snippet-end:[python.example_code.bedrock.delete_prompt]
 
 # snippet-start:[python.example_code.bedrock.list_prompts]
+
 def list_prompts(client, max_results=10):
     """
     Lists Amazon Bedrock managed prompts.
@@ -203,32 +202,31 @@ def list_prompts(client, max_results=10):
         list: A list of prompt summaries.
     """
     try:
-        finished = False
-        all_prompts = []
-        next_token = None
-
         logger.info("Listing prompts:")
-
-        while not finished:
-            if next_token:
-                response = client.list_prompts(maxResults=max_results, nextToken=next_token)
-            else:
-                response = client.list_prompts(maxResults=max_results)
-
-            all_prompts.extend(response.get('promptSummaries', []))
-
-            if 'nextToken' in response:
-                next_token = response['nextToken']
-            else:
-                finished = True
-
+        
+        # Create a paginator for the list_prompts operation
+        paginator = client.get_paginator('list_prompts')
+        
+        # Create the pagination parameters
+        pagination_config = {
+            'maxResults': max_results
+        }
+        
+        # Initialize an empty list to store all prompts
+        all_prompts = []
+        
+        # Iterate through all pages
+        for page in paginator.paginate(**pagination_config):
+            all_prompts.extend(page.get('promptSummaries', []))
+            
         logger.info("Successfully listed %s prompts.", len(all_prompts))
         return all_prompts
-
+        
     except ClientError as e:
         logger.exception("Client error listing prompts: %s", str(e))
         raise
     except Exception as e:
         logger.exception("Unexpected error listing prompts: %s", str(e))
         raise
+
 # snippet-end:[python.example_code.bedrock.list_prompts]
