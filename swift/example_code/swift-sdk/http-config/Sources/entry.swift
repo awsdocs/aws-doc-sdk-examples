@@ -6,12 +6,12 @@
 // client used by an Amazon Web Services (AWS) service client.
 
 import ArgumentParser
-import AWSClientRuntime
+// snippet-start:[swift.http-config.imports]
 import ClientRuntime
 import AWSS3
-import Foundation
 import SmithyHTTPAPI
 import AwsCommonRuntimeKit
+// snippet-end:[swift.http-config.imports]
 
 struct ExampleCommand: ParsableCommand {
     @Option(help: "Name of the Amazon Region to use")
@@ -28,14 +28,10 @@ struct ExampleCommand: ParsableCommand {
 
     /// Called by ``main()`` to run the bulk of the example.
     func runAsync() async throws {
-        //await SDKLoggingSystem().initialize(logLevel: .trace)
-        //SDKDefaultIO.setLogLevel(level: .trace)
-        // snippet-start:[swift.http-config.configure]
+        // snippet-start:[swift.http-config.headers]
         let config = try await S3Client.S3ClientConfiguration(
             region: region,
             httpClientConfiguration: HttpClientConfiguration(
-                connectTimeout: 2,
-                socketTimeout: 5,
                 defaultHeaders: Headers(
                     [
                         "X-My-Custom-Header": "CustomHeaderValue",
@@ -45,28 +41,30 @@ struct ExampleCommand: ParsableCommand {
             )
         )
         let s3Client = S3Client(config: config)
-        // snippet-end:[swift.http-config.configure]
+        // snippet-end:[swift.http-config.headers]
 
-        print("*** Getting list of buckets ***")
-        let output: ListBucketsOutput = try await s3Client.listBuckets(input: ListBucketsInput())
+        print("*** Getting list of buckets...")
+        _ = try await s3Client.listBuckets(input: ListBucketsInput())
+        print("*** Success!\n")
 
-        print("*** Getting bucket list with very short timeout ***")
+        print("*** Getting bucket list with custom timeouts...")
         
         // snippet-start: [swift.http-config.timeouts]
         do {
             let config = try await S3Client.S3ClientConfiguration(
                 region: region,
                 httpClientConfiguration: HttpClientConfiguration(
-                    connectTimeout: 0.001,
-                    socketTimeout: 0.005
+                    connectTimeout: 2,
+                    socketTimeout: 5
                 )
             )
             let s3Client = S3Client(config: config)
-            let output: ListBucketsOutput = try await s3Client.listBuckets(input: ListBucketsInput())
+            _ = try await s3Client.listBuckets(input: ListBucketsInput())
+            print("*** Success!")
         } catch CommonRunTimeError.crtError(let crtError) {
             print("*** An error occurred accessing the bucket list: \(crtError.message)")
         } catch {
-            print("*** Unexpected error requesting bucket list.")
+            print("*** Unexpected error occurred requesting the bucket list.")
         }
         // snippet-end: [swift.http-config.timeouts]
 
