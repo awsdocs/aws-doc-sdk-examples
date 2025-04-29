@@ -105,17 +105,24 @@ public class FleetwiseActions {
                             .nodes(nodes)
                             .build();
 
-                    return getAsyncClient().createSignalCatalog(request)
+                    CompletableFuture<String> result = new CompletableFuture<>();
+
+                    getAsyncClient().createSignalCatalog(request)
                             .whenComplete((response, exception) -> {
                                 if (exception != null) {
-                                    Throwable cause = exception.getCause();
-                                    if (cause instanceof software.amazon.awssdk.services.iotfleetwise.model.ValidationException) {
-                                        throw new CompletionException("A validation error occurred: " + cause.getMessage(), cause);
+                                    Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
+
+                                    if (cause instanceof ValidationException) {
+                                        result.completeExceptionally(cause);
+                                    } else {
+                                        result.completeExceptionally(new RuntimeException("Error creating the catalog", cause));
                                     }
-                                    throw new CompletionException("Error performing place search", exception);
+                                } else {
+                                    result.complete(response.arn());
                                 }
-                            })
-                            .thenApply(CreateSignalCatalogResponse::arn);
+                            });
+
+                    return result;
                 });
     }
     // snippet-end:[iotfleetwise.java2.create.catalog.main]
@@ -125,7 +132,6 @@ public class FleetwiseActions {
      *
      * @param millis the duration of the delay in milliseconds
      * @return a {@link CompletableFuture} that completes after the specified delay
-     * @throws CompletionException if the sleep operation is interrupted
      */
     private static CompletableFuture<Void> delayAsync(long millis) {
         return CompletableFuture.runAsync(() -> {
@@ -142,9 +148,6 @@ public class FleetwiseActions {
      *
      * @param signalCatalogName the name of the signal catalog to delete
      * @return a {@link CompletableFuture} representing the asynchronous operation.
-     * The future will complete without a result if the signal catalog was successfully
-     * deleted or if the signal catalog does not exist. If an exception occurs during
-     * the deletion, the future will complete exceptionally with the corresponding exception.
      */
     public static CompletableFuture<Void> deleteSignalCatalogIfExistsAsync(String signalCatalogName) {
         DeleteSignalCatalogRequest request = DeleteSignalCatalogRequest.builder()
@@ -154,25 +157,24 @@ public class FleetwiseActions {
         return getAsyncClient().deleteSignalCatalog(request)
                 .handle((response, exception) -> {
                     if (exception != null) {
-                        Throwable cause = exception.getCause();
+                        Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
                         if (cause instanceof ResourceNotFoundException) {
-                            return null; // Signal catalog doesn't exist — ignore
+                           throw new CompletionException(new RuntimeException("Signal Catalog not found: " + signalCatalogName));
                         }
-                        throw new CompletionException("Failed to delete signal catalog: " + exception.getMessage(), exception);
+                        throw new RuntimeException("Failed to delete signal catalog: " + signalCatalogName, cause);
                     }
                     return null;
                 });
     }
 
-    // snippet-start:[iotfleetwise.java2.create.decoder.main]
 
+    // snippet-start:[iotfleetwise.java2.create.decoder.main]
     /**
      * Creates a new decoder manifest.
      *
      * @param name             the name of the decoder manifest
      * @param modelManifestArn the ARN of the model manifest
      * @return a {@link CompletableFuture} that completes with the ARN of the created decoder manifest
-     * @throws CompletionException if there is an error creating the decoder manifest
      */
     public CompletableFuture<String> createDecoderManifestAsync(String name, String modelManifestArn) {
         String interfaceId = "can0";
@@ -225,42 +227,45 @@ public class FleetwiseActions {
                 .signalDecoders(List.of(engineRpmDecoder, vehicleSpeedDecoder))
                 .build();
 
-        return getAsyncClient().createDecoderManifest(request)
+        CompletableFuture<String> result = new CompletableFuture<>();
+
+        getAsyncClient().createDecoderManifest(request)
                 .whenComplete((response, exception) -> {
                     if (exception != null) {
-                        throw new CompletionException("❌ Failed to create decoder manifest: " + exception.getMessage(), exception);
+                        Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
+
+                        if (cause instanceof DecoderManifestValidationException) {
+                            result.completeExceptionally(new CompletionException("The request contains signal decoders with validation errors: " + cause.getMessage(), cause));
+                        } else {
+                            result.completeExceptionally(new CompletionException("Failed to create decoder manifest: " + exception.getMessage(), exception));
+                        }
+                    } else {
+                        result.complete(response.arn()); // Complete successfully with the ARN
                     }
-                })
-                .thenApply(CreateDecoderManifestResponse::arn);
+                });
+
+        return result;
     }
     // snippet-end:[iotfleetwise.java2.create.decoder.main]
 
     // snippet-start:[iotfleetwise.java2.delete.decoder.main]
-
     /**
      * Deletes a decoder manifest.
      *
      * @param name the name of the decoder manifest to delete
      * @return a {@link CompletableFuture} that completes when the decoder manifest has been deleted
-     * @throws RuntimeException if the deletion of the decoder manifest fails
      */
     public CompletableFuture<Void> deleteDecoderManifestAsync(String name) {
-        DeleteDecoderManifestRequest request = DeleteDecoderManifestRequest.builder()
-                .name(name)
-                .build();
-
-        return getAsyncClient().deleteDecoderManifest(request)
+        return getAsyncClient().deleteDecoderManifest(DeleteDecoderManifestRequest.builder().name(name).build())
                 .handle((response, exception) -> {
                     if (exception != null) {
-                        Throwable cause = exception.getCause();
+                        Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
                         if (cause instanceof ResourceNotFoundException) {
-                            throw new CompletionException("❌ Failed to locate the decoder manifest: " + name, cause);
+                            throw new RuntimeException("Decoder manifest not found: " + name, cause);
                         }
-                        throw new CompletionException("❌ Failed to delete decoder manifest: " + name, cause);
-                    } else {
-                        logger.info("✅ {} was successfully deleted", name);
-                        return null;
+                        throw new RuntimeException("Failed to delete decoder manifest: " + name, cause);
                     }
+                    return null;
                 });
     }
     // snippet-end:[iotfleetwise.java2.delete.decoder.main]
@@ -272,7 +277,6 @@ public class FleetwiseActions {
      *
      * @param vecName the name of the vehicle to be deleted
      * @return a {@link CompletableFuture} that completes when the vehicle has been deleted
-     * @throws RuntimeException if the deletion of the vehicle fails
      */
     public CompletableFuture<Void> deleteVehicleAsync(String vecName) {
         DeleteVehicleRequest request = DeleteVehicleRequest.builder()
@@ -282,15 +286,13 @@ public class FleetwiseActions {
         return getAsyncClient().deleteVehicle(request)
                 .handle((response, exception) -> {
                     if (exception != null) {
-                        Throwable cause = exception.getCause();
+                        Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
                         if (cause instanceof ResourceNotFoundException) {
-                            throw new CompletionException("❌ Failed to locate the vehicle: " + vecName, cause);
+                            throw new RuntimeException("Failed to locate the vehicle: " + vecName, cause);
                         }
-                        throw new CompletionException("❌ Failed to delete vehicle: " + vecName, cause);
-                    } else {
-                        logger.info("✅ {} was successfully deleted", vecName);
-                        return null;
+                        throw new RuntimeException("Failed to delete vehicle: " + vecName, cause);
                     }
+                    return null;
                 });
     }
     // snippet-end:[iotfleetwise.java2.delete.vehicle.main]
@@ -325,7 +327,6 @@ public class FleetwiseActions {
      *
      * @param name the name of the decoder manifest to update
      * @return a {@link CompletableFuture} that completes when the update operation is finished
-     * @throws CompletionException if the update operation fails
      */
     public CompletableFuture<Void> updateDecoderManifestAsync(String name) {
         UpdateDecoderManifestRequest request = UpdateDecoderManifestRequest.builder()
@@ -339,7 +340,7 @@ public class FleetwiseActions {
                         throw new CompletionException("Failed to update decoder manifest: " + exception.getMessage(), exception);
                     }
                 })
-                .thenApply(response -> null); // Return void-equivalent
+                .thenApply(response -> null);
     }
     // snippet-end:[iotfleetwise.java2.update.decoder.main]
 
@@ -352,7 +353,6 @@ public class FleetwiseActions {
      * @param manifestArn the Amazon Resource Name (ARN) of the model manifest for the vehicle
      * @param decArn      the Amazon Resource Name (ARN) of the decoder manifest for the vehicle
      * @return a {@link CompletableFuture} that completes when the vehicle has been created, or throws a
-     * {@link CompletionException} if there was an error during the creation process
      */
     public CompletableFuture<Void> createVehicleAsync(String vecName, String manifestArn, String decArn) {
         CreateVehicleRequest request = CreateVehicleRequest.builder()
@@ -361,24 +361,29 @@ public class FleetwiseActions {
                 .decoderManifestArn(decArn)
                 .build();
 
-        return getAsyncClient().createVehicle(request)
+        CompletableFuture<Void> result = new CompletableFuture<>();
+        getAsyncClient().createVehicle(request)
                 .whenComplete((response, exception) -> {
                     if (exception != null) {
-                        Throwable cause = exception.getCause();
+                        Throwable cause = exception instanceof CompletionException ? exception.getCause() : exception;
+
                         if (cause instanceof ResourceNotFoundException) {
-                            throw new CompletionException("The required resource was not located: " + exception.getMessage(), exception);
+                            result.completeExceptionally(cause); // don't rewrap
+                        } else {
+                            result.completeExceptionally(new RuntimeException("Failed to create vehicle: " + cause.getMessage(), cause));
                         }
-                        throw new CompletionException("Failed to delete signal catalog: " + exception.getMessage(), exception);
                     } else {
-                        logger.info("✅ Vehicle '" + vecName + "' created successfully.");
+                        logger.info("Vehicle '{}' created successfully.", vecName);
+                        result.complete(null); // mark future as complete
                     }
-                })
-                .thenApply(response -> null); // Void return type
+                });
+
+        return result;
     }
+
     // snippet-end:[iotfleetwise.java2.create.vehicle.main]
 
     // snippet-start:[iotfleetwise.java2.decoder.active.main]
-
     /**
      * Waits for the decoder manifest to become active.
      *
@@ -392,13 +397,14 @@ public class FleetwiseActions {
         AtomicInteger secondsElapsed = new AtomicInteger(0);
         AtomicReference<ManifestStatus> lastStatus = new AtomicReference<>(ManifestStatus.DRAFT);
 
-        logger.info("⏳ Elapsed: 0s | Decoder Status: DRAFT");
+        logger.info(" Elapsed: 0s | Decoder Status: DRAFT");
+
         final Runnable pollTask = new Runnable() {
             @Override
             public void run() {
                 int elapsed = secondsElapsed.incrementAndGet();
 
-                // Check status every 5 seconds.
+                // Check status every 5 seconds
                 if (elapsed % 5 == 0) {
                     GetDecoderManifestRequest request = GetDecoderManifestRequest.builder()
                             .name(decoderName)
@@ -407,9 +413,14 @@ public class FleetwiseActions {
                     getAsyncClient().getDecoderManifest(request)
                             .whenComplete((response, exception) -> {
                                 if (exception != null) {
+                                    Throwable cause = exception instanceof CompletionException ? exception.getCause() : exception;
+
                                     scheduler.shutdown();
-                                    result.completeExceptionally(new RuntimeException("❌ Error while polling decoder manifest status: "
-                                            + exception.getMessage(), exception));
+                                    if (cause instanceof ResourceNotFoundException) {
+                                        result.completeExceptionally(new RuntimeException("Decoder manifest not found: " + cause.getMessage(), cause));
+                                    } else {
+                                        result.completeExceptionally(new RuntimeException("Error while polling decoder manifest status: " + exception.getMessage(), exception));
+                                    }
                                     return;
                                 }
 
@@ -417,27 +428,28 @@ public class FleetwiseActions {
                                 lastStatus.set(status);
 
                                 if (status == ManifestStatus.ACTIVE) {
-                                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Decoder Status: ACTIVE ✅\n");
+                                    logger.info("\r Elapsed: {}s | Decoder Status: ACTIVE", elapsed);
                                     scheduler.shutdown();
                                     result.complete(null);
                                 } else if (status == ManifestStatus.INVALID) {
-                                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Decoder Status: INVALID ❌\n");
+                                    logger.info("\r Elapsed: {}s | Decoder Status: INVALID", elapsed);
                                     scheduler.shutdown();
-                                    result.completeExceptionally(
-                                            new RuntimeException("Decoder manifest became INVALID. Cannot proceed."));
+                                    result.completeExceptionally(new RuntimeException("Decoder manifest became INVALID. Cannot proceed."));
                                 } else {
-                                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Decoder Status: " + status);
+                                    logger.info("\r⏱ Elapsed: {}s | Decoder Status: {}", elapsed, status);
                                 }
                             });
                 } else {
-                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Decoder Status: " + lastStatus.get());
+                    logger.info("\r Elapsed: {}s | Decoder Status: {}", elapsed, lastStatus.get());
                 }
             }
         };
 
+        // Start the task with an initial delay of 1 second, and repeat every second
         scheduler.scheduleAtFixedRate(pollTask, 1, 1, TimeUnit.SECONDS);
         return result;
     }
+
     // snippet-end:[iotfleetwise.java2.decoder.active.main]
 
     // snippet-start:[iotfleetwise.java2.get.manifest.main]
@@ -446,7 +458,6 @@ public class FleetwiseActions {
      * Waits for the specified model manifest to become active.
      *
      * @param manifestName the name of the model manifest to wait for
-     * @throws RuntimeException if the model manifest does not become active within the timeout period, or if an error occurs while polling the manifest status
      */
     public CompletableFuture<Void> waitForModelManifestActiveAsync(String manifestName) {
         CompletableFuture<Void> result = new CompletableFuture<>();
@@ -455,13 +466,14 @@ public class FleetwiseActions {
         AtomicInteger secondsElapsed = new AtomicInteger(0);
         AtomicReference<ManifestStatus> lastStatus = new AtomicReference<>(ManifestStatus.DRAFT);
 
-        logger.info("⏳ Elapsed: 0s | Status: DRAFT");
+        logger.info("Elapsed: 0s | Status: DRAFT");
+
         final Runnable pollTask = new Runnable() {
             @Override
             public void run() {
                 int elapsed = secondsElapsed.incrementAndGet();
 
-                // Only check status every 5 seconds.
+                // Only check status every 5 seconds
                 if (elapsed % 5 == 0) {
                     GetModelManifestRequest request = GetModelManifestRequest.builder()
                             .name(manifestName)
@@ -470,9 +482,14 @@ public class FleetwiseActions {
                     getAsyncClient().getModelManifest(request)
                             .whenComplete((response, exception) -> {
                                 if (exception != null) {
+                                    Throwable cause = exception instanceof CompletionException ? exception.getCause() : exception;
+
                                     scheduler.shutdown();
-                                    result.completeExceptionally(new RuntimeException("❌ Error while polling model manifest status: "
-                                            + exception.getMessage(), exception));
+                                    if (cause instanceof ResourceNotFoundException) {
+                                        result.completeExceptionally(new RuntimeException("Model manifest not found: " + cause.getMessage(), cause));
+                                    } else {
+                                        result.completeExceptionally(new RuntimeException("Error while polling model manifest status: " + exception.getMessage(), exception));
+                                    }
                                     return;
                                 }
 
@@ -480,27 +497,28 @@ public class FleetwiseActions {
                                 lastStatus.set(status);
 
                                 if (status == ManifestStatus.ACTIVE) {
-                                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Status: ACTIVE ✅\n");
+                                    logger.info("\rElapsed: {}s | Status: ACTIVE", elapsed);
                                     scheduler.shutdown();
                                     result.complete(null);
                                 } else if (status == ManifestStatus.INVALID) {
-                                    System.out.print("\r⏱️ Elapsed: " + elapsed + "s | Status: INVALID ❌\n");
+                                    logger.info("\rElapsed: {}s | Status: INVALID", elapsed);
                                     scheduler.shutdown();
-                                    result.completeExceptionally(
-                                            new RuntimeException("Model manifest became INVALID. Cannot proceed."));
+                                    result.completeExceptionally(new RuntimeException("Model manifest became INVALID. Cannot proceed."));
                                 } else {
-                                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Status: " + status);
+                                    logger.info("\rElapsed: {}s | Status: {}", elapsed, status);
                                 }
                             });
                 } else {
-                    logger.info("\r⏱️ Elapsed: " + elapsed + "s | Status: " + lastStatus.get());
+                    logger.info("\rElapsed: {}s | Status: {}", elapsed, lastStatus.get());
                 }
             }
         };
 
+        // Start the task with an initial delay of 1 second, and repeat every second
         scheduler.scheduleAtFixedRate(pollTask, 1, 1, TimeUnit.SECONDS);
         return result;
     }
+
     // snippet-end:[iotfleetwise.java2.get.manifest.main]
 
     // snippet-start:[iotfleetwise.java2.get.vehicle.main]
@@ -516,15 +534,17 @@ public class FleetwiseActions {
                 .vehicleName(vehicleName)
                 .build();
 
-        return getAsyncClient().getVehicle(request)
+        CompletableFuture<Void> result = new CompletableFuture<>();
+
+        getAsyncClient().getVehicle(request)
                 .whenComplete((response, exception) -> {
                     if (exception != null) {
-                        Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
+                        Throwable cause = exception instanceof CompletionException ? exception.getCause() : exception;
 
                         if (cause instanceof ResourceNotFoundException) {
-                            throw new CompletionException((ResourceNotFoundException) cause);
+                            result.completeExceptionally(cause); // don't rewrap
                         } else {
-                            throw new CompletionException("Failed to fetch vehicle details: " + cause.getMessage(), cause);
+                            result.completeExceptionally(new RuntimeException("Failed to fetch vehicle details: " + cause.getMessage(), cause));
                         }
                     } else {
                         Map<String, Object> details = new HashMap<>();
@@ -536,15 +556,16 @@ public class FleetwiseActions {
                         details.put("creationTime", response.creationTime().toString());
                         details.put("lastModificationTime", response.lastModificationTime().toString());
 
-                        // Print details in a readable format
-                        logger.info("🚗 Vehicle Details:");
-                        details.forEach((key, value) -> {
-                            logger.info("• %-20s : %s%n", key, value);
-                        });
+                        logger.info("Vehicle Details:");
+                        details.forEach((key, value) -> logger.info("• {} : {}", key, value));
+
+                        result.complete(null); // mark as successful
                     }
-                })
-                .thenApply(response -> null); // CompletableFuture<Void>
+                });
+
+        return result;
     }
+
     // snippet-end:[iotfleetwise.java2.get.vehicle.main]
 
     /**
@@ -566,12 +587,12 @@ public class FleetwiseActions {
                 .whenComplete((response, exception) -> {
                     if (exception != null) {
                         if (exception instanceof ResourceAlreadyExistsException) {
-                            logger.info("ℹ️ IoT Thing already exists: " + thingName);
+                            logger.info(" IoT Thing already exists: " + thingName);
                         } else {
                             throw new CompletionException("Failed to create IoT Thing: " + thingName, exception);
                         }
                     } else {
-                        logger.info("✅ IoT Thing created: " + response.thingName());
+                        logger.info("IoT Thing created: " + response.thingName());
                     }
                 })
                 .thenApply(response -> null);
@@ -584,7 +605,6 @@ public class FleetwiseActions {
      *
      * @param name the name of the model manifest to delete
      * @return a {@link CompletableFuture} that completes when the model manifest has been deleted
-     * @throws CompletionException if there was an error deleting the model manifest
      */
     public CompletableFuture<Void> deleteModelManifestAsync(String name) {
         DeleteModelManifestRequest request = DeleteModelManifestRequest.builder()
@@ -594,18 +614,16 @@ public class FleetwiseActions {
         return getAsyncClient().deleteModelManifest(request)
                 .handle((response, exception) -> {
                     if (exception != null) {
-                        Throwable cause = exception.getCause();
+                        Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
                         if (cause instanceof ResourceNotFoundException) {
-                            throw new CompletionException("❌ Failed to locate the model manifest: " + name, cause);
+                            throw new RuntimeException("Failed to locate the model manifest: " + name, cause);
                         }
-                        throw new CompletionException("❌ Failed to delete model manifest: " + name, cause);
-                    } else {
-                        logger.info("✅ {} was successfully deleted", name);
-                        return null;
+                        throw new RuntimeException("Failed to delete model manifest: " + name, cause);
                     }
+                    logger.info("{} was successfully deleted", name);
+                    return null;
                 });
     }
-
     // snippet-end:[iotfleetwise.java2.delete.model.main]
 
     // snippet-start:[iotfleetwise.java2.delete.catalog.main]
@@ -615,7 +633,6 @@ public class FleetwiseActions {
      *
      * @param name the name of the signal catalog to delete
      * @return a {@link CompletableFuture} that completes when the signal catalog is deleted
-     * @throws CompletionException if the deletion of the signal catalog fails
      */
     public CompletableFuture<Void> deleteSignalCatalogAsync(String name) {
         DeleteSignalCatalogRequest request = DeleteSignalCatalogRequest.builder()
@@ -625,18 +642,16 @@ public class FleetwiseActions {
         return getAsyncClient().deleteSignalCatalog(request)
                 .handle((response, exception) -> {
                     if (exception != null) {
-                        Throwable cause = exception.getCause();
+                        Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
                         if (cause instanceof ResourceNotFoundException) {
-                            throw new CompletionException("❌ Failed to locate the signal catalog: " + name, cause);
+                            throw new RuntimeException("Failed to locate the signal catalog: " + name, cause);
                         }
-                        throw new CompletionException("❌ Failed to delete signal catalog: " + name, cause);
-                    } else {
-                        logger.info("✅ {} was successfully deleted", name);
-                        return null;
+                        throw new RuntimeException("Failed to delete signal catalog: " + name, cause);
                     }
+                    logger.info("{} was successfully deleted", name);
+                    return null;
                 });
     }
-
     // snippet-end:[iotfleetwise.java2.delete.catalog.main]
 
     // snippet-start:[iotfleetwise.java2.list.catalogs.main]
@@ -646,7 +661,6 @@ public class FleetwiseActions {
      *
      * @param signalCatalogName the name of the signal catalog
      * @return a CompletableFuture that, when completed, contains a list of nodes in the specified signal catalog
-     * @throws CompletionException if an exception occurs during the asynchronous operation
      */
     public CompletableFuture<List<Node>> listSignalCatalogNodeAsync(String signalCatalogName) {
         ListSignalCatalogNodesRequest request = ListSignalCatalogNodesRequest.builder()
@@ -672,18 +686,11 @@ public class FleetwiseActions {
      * @param signalCatalogArn the Amazon Resource Name (ARN) of the signal catalog
      * @param nodes            a list of nodes to include in the model manifest
      * @return a {@link CompletableFuture} that completes with the ARN of the created model manifest
-     * @throws RuntimeException    if an unsupported node type is encountered
-     * @throws CompletionException if there is a failure during the model manifest creation
      */
-
     public CompletableFuture<String> createModelManifestAsync(String name,
                                                               String signalCatalogArn,
                                                               List<Node> nodes) {
-        /*
-        Extract the fully qualified names (FQNs) from each Node in the provided list.
-        The FQN is obtained by calling the appropriate getter method on the Node object
-        (sensor(), branch(), or attribute()) and then retrieving the fullyQualifiedName()
-       */
+        // Extract the fully qualified names (FQNs) from each Node in the provided list.
         List<String> fqnList = nodes.stream()
                 .map(node -> {
                     if (node.sensor() != null) {
@@ -704,13 +711,24 @@ public class FleetwiseActions {
                 .nodes(fqnList)
                 .build();
 
-        return getAsyncClient().createModelManifest(request)
+
+        CompletableFuture<String> result = new CompletableFuture<>();
+        getAsyncClient().createModelManifest(request)
                 .whenComplete((response, exception) -> {
                     if (exception != null) {
-                        throw new CompletionException("Failed to create model manifest: " + exception.getMessage(), exception);
+                        Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
+
+                        if (cause instanceof InvalidSignalsException) {
+                            result.completeExceptionally(new CompletionException("The request contains signals that aren't valid: " + cause.getMessage(), cause));
+                        } else {
+                            result.completeExceptionally(new CompletionException("Failed to create model manifest: " + exception.getMessage(), exception));
+                        }
+                    } else {
+                        result.complete(response.arn()); // Complete successfully with the ARN
                     }
-                })
-                .thenApply(CreateModelManifestResponse::arn); // Return the ARN
+                });
+
+        return result;
     }
     // snippet-end:[iotfleetwise.java2.create.model.main]
 
@@ -720,7 +738,6 @@ public class FleetwiseActions {
      * Deletes a fleet based on the provided fleet ID.
      *
      * @param fleetId the ID of the fleet to be deleted
-     * @throws IoTFleetWiseException if an error occurs during the deletion process
      */
     public CompletableFuture<Void> deleteFleetAsync(String fleetId) {
         DeleteFleetRequest request = DeleteFleetRequest.builder()
@@ -730,15 +747,14 @@ public class FleetwiseActions {
         return getAsyncClient().deleteFleet(request)
                 .handle((response, exception) -> {
                     if (exception != null) {
-                        Throwable cause = exception.getCause();
+                        Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
                         if (cause instanceof ResourceNotFoundException) {
-                            throw new CompletionException("❌ Failed to locate the fleet: " + fleetId, cause);
+                            throw new RuntimeException("Failed to locate the fleet: " + fleetId, cause);
                         }
-                        throw new CompletionException("❌ Failed to delete fleet: " + fleetId, cause);
-                    } else {
-                        logger.info("✅ {} was successfully deleted", fleetId);
-                        return null;
+                        throw new RuntimeException("Failed to delete fleet: " + fleetId, cause);
                     }
+                    logger.info("{} was successfully deleted", fleetId);
+                    return null;
                 });
     }
     // snippet-end:[iotfleetwise.java2.delete.fleet.main]
@@ -752,7 +768,6 @@ public class FleetwiseActions {
      * @param catARN  the Amazon Resource Name (ARN) of the signal catalog to associate with the fleet
      * @param fleetId the unique identifier for the fleet
      * @return a {@link CompletableFuture} that completes with the ID of the created fleet
-     * @throws RuntimeException if there was an error creating the fleet
      */
     public CompletableFuture<String> createFleetAsync(String catARN, String fleetId) {
         CreateFleetRequest fleetRequest = CreateFleetRequest.builder()
@@ -761,17 +776,23 @@ public class FleetwiseActions {
                 .description("Built using the AWS For Java V2")
                 .build();
 
-        return getAsyncClient().createFleet(fleetRequest)
+        CompletableFuture<String> result = new CompletableFuture<>();
+        getAsyncClient().createFleet(fleetRequest)
                 .whenComplete((response, exception) -> {
                     if (exception != null) {
-                        Throwable cause = exception.getCause();
+                        Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
+
                         if (cause instanceof ResourceNotFoundException) {
-                            throw new CompletionException("The required resource was not found: " + cause.getMessage(), cause);
+                            result.completeExceptionally(cause);
+                        } else {
+                            result.completeExceptionally(new RuntimeException("An unexpected error occurred", cause));
                         }
-                        throw new CompletionException("An unexpected error occurred", exception);
+                    } else {
+                        result.complete(response.id());
                     }
-                })
-                .thenApply(CreateFleetResponse::id); // Extract fleet ID on success
+                });
+
+        return result;
     }
     // snippet-end:[iotfleetwise.java2.create.fleet.main]
 }

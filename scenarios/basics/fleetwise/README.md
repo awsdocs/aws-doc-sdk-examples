@@ -18,7 +18,7 @@ This AWS IoT Fleetwise basic scenario demonstrates how to interact with the AWS 
 5. **Create a vehicle**:
    - This operation creates an AWS Fleetwise vehicle by invoking the `createVehicle`method.
 
-**Note** See the Eng spec for a full listing of operations. 
+**Note** See the [Engineering specification](SPECIFICATION.md) for a full listing of operations.
 
 ## Resources
 
