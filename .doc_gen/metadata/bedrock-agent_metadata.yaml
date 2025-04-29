@@ -510,6 +510,7 @@ bedrock-agent_InvokePrompt:
         - sdk_version: 3
           github: python/example_code/bedrock-agent
           excerpts:
+            - description:
               snippet_tags:
                 - python.example_code.bedrock-runtime.invoke_prompt_converse
 
