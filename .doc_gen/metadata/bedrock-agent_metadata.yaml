@@ -499,21 +499,6 @@ bedrock-agent_ListPrompts:
 
   services:
     bedrock-agent: {ListPrompts}
-
-bedrock-agent_InvokePrompt:
-  title: Invoke a managed prompt.
-  title_abbrev: Invoke a prompt
-  synopsis: Invoke an Amazon Bedrock managed prompt.
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-agent
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.bedrock-runtime.invoke_prompt_converse
-
     
 bedrock-agent_GettingStartedWithBedrockPrompts:
   title: An end-to-end example showing how to create and invoke Amazon Bedrock managed prompts using an &AWS; SDK
