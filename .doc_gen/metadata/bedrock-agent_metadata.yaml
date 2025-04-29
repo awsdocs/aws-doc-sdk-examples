@@ -500,7 +500,7 @@ bedrock-agent_ListPrompts:
   services:
     bedrock-agent: {ListPrompts}
 
-bedrock-agent_Converse:
+bedrock-runtime_Converse_InvokePrompt:
   languages:
     Python:
       versions:
