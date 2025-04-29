@@ -252,4 +252,3 @@ iotfleetwise_Scenario:
                 - iotfleetwise.java2.scenario.actions.main 
   services:
     iotfleetwise: {}
-      

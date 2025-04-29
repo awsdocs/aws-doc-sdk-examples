@@ -18,6 +18,7 @@ import software.amazon.awssdk.services.iotfleetwise.model.Node;
 import software.amazon.awssdk.services.iotfleetwise.model.*;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -368,7 +369,7 @@ public class FleetwiseActions {
                         Throwable cause = exception instanceof CompletionException ? exception.getCause() : exception;
 
                         if (cause instanceof ResourceNotFoundException) {
-                            result.completeExceptionally(cause); // don't rewrap
+                            result.completeExceptionally(cause);
                         } else {
                             result.completeExceptionally(new RuntimeException("Failed to create vehicle: " + cause.getMessage(), cause));
                         }
@@ -655,26 +656,25 @@ public class FleetwiseActions {
     // snippet-end:[iotfleetwise.java2.delete.catalog.main]
 
     // snippet-start:[iotfleetwise.java2.list.catalogs.main]
-
     /**
-     * Lists the signal catalog nodes.
+     * Asynchronously retrieves a list of all nodes in the specified signal catalog.
      *
-     * @param signalCatalogName the name of the signal catalog
-     * @return a CompletableFuture that, when completed, contains a list of nodes in the specified signal catalog
+     * @param signalCatalogName the name of the signal catalog to retrieve nodes for
+     * @return a {@link CompletableFuture} that, when completed, contains a {@link List} of {@link Node} objects
+     * representing all the nodes in the specified signal catalog
      */
     public CompletableFuture<List<Node>> listSignalCatalogNodeAsync(String signalCatalogName) {
         ListSignalCatalogNodesRequest request = ListSignalCatalogNodesRequest.builder()
                 .name(signalCatalogName)
                 .build();
 
-        return getAsyncClient().listSignalCatalogNodes(request)
-                .whenComplete((response, exception) -> {
-                    if (exception != null) {
-                        throw new CompletionException("Failed to list signal catalog nodes: " + exception.getMessage(), exception);
-                    }
-                })
-                .thenApply(ListSignalCatalogNodesResponse::nodes); // Return the nodes
+        List<Node> allNodes = new ArrayList<>();
+
+        return getAsyncClient().listSignalCatalogNodesPaginator(request)
+                .subscribe(response -> allNodes.addAll(response.nodes()))
+                .thenApply(v -> allNodes);
     }
+
     // snippet-end:[iotfleetwise.java2.list.catalogs.main]
 
     // snippet-start:[iotfleetwise.java2.create.model.main]
