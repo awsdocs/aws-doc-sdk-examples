@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Identity Pools Demo</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Sign Up</h1>
+    
+    <% if (locals.error) { %>
+      <div class="error-message">
+        <%= error %>
+      </div>
+    <% } %>
+    
+    <div class="auth-section">
+      <h2>Create a Cognito User Account</h2>
+      <form action="/cognito/signup" method="POST" class="auth-form" id="signup-form">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+          <small>Password must be at least 8 characters long and include uppercase, lowercase, numbers, and special characters.</small>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password:</label>
+          <input type="password" id="confirm-password" name="confirm-password" required>
+        </div>
+        <button type="submit" class="btn">Sign Up</button>
+      </form>
+      
+      <div id="confirmation-form" style="display: none;">
+        <h3>Verify Your Email</h3>
+        <p>A verification code has been sent to your email. Please enter it below to complete registration.</p>
+        <form action="/cognito/confirm" method="POST" class="auth-form">
+          <input type="hidden" id="confirm-username" name="username">
+          <div class="form-group">
+            <label for="verification-code">Verification Code:</label>
+            <input type="text" id="verification-code" name="code" required>
+          </div>
+          <button type="submit" class="btn">Verify</button>
+        </form>
+      </div>
+    </div>
+    
+    <div class="auth-section">
+      <h2>Or Sign Up with a Social Provider</h2>
+      <div class="social-buttons">
+        <a href="/auth/facebook" class="social-btn facebook">
+          <img src="/img/facebook-icon.png" alt="Facebook">
+          Sign Up with Facebook
+        </a>
+        <a href="/auth/google" class="social-btn google">
+          <img src="/img/google-icon.png" alt="Google">
+          Sign Up with Google
+        </a>
+        <a href="/auth/amazon" class="social-btn amazon">
+          <img src="/img/amazon-icon.png" alt="Amazon">
+          Sign Up with Amazon
+        </a>
+        <a href="/auth/apple" class="social-btn apple">
+          <img src="/img/apple-icon.png" alt="Apple">
+          Sign Up with Apple
+        </a>
+        <a href="/auth/twitter" class="social-btn twitter">
+          <img src="/img/twitter-icon.png" alt="Twitter">
+          Sign Up with Twitter
+        </a>
+      </div>
+    </div>
+    
+    <div class="auth-links">
+      Already have an account? <a href="/login">Login</a>
+    </div>
+    
+    <div class="back-link">
+      <a href="/">Back to Home</a>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('signup-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Validate passwords match
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      
+      if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
+      
+      // Submit the form data
+      const formData = new FormData(this);
+      const username = formData.get('username');
+      
+      try {
+        const response = await fetch('/cognito/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: formData.get('username'),
+            email: formData.get('email'),
+            password: formData.get('password')
+          })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          // Show confirmation form
+          document.getElementById('signup-form').style.display = 'none';
+          document.getElementById('confirmation-form').style.display = 'block';
+          document.getElementById('confirm-username').value = username;
+        } else {
+          alert(data.error || 'An error occurred during signup');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred during signup');
+      }
+    });
+  </script>
+</body>
+</html>

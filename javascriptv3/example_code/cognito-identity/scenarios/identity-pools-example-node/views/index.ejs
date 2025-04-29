@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - Identity Pools Demo</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Amazon Cognito Identity Pools Demo</h1>
+    
+    <div class="welcome-section">
+      <% if (user || cognitoUser) { %>
+        <h2>Welcome, <%= user ? user.displayName : cognitoUser.name || cognitoUser.username %>!</h2>
+        <p>You are currently signed in.</p>
+        
+        <div class="action-buttons">
+          <a href="/credentials" class="btn">View AWS Credentials</a>
+          <% if (user) { %>
+            <a href="/auth/logout" class="btn btn-secondary">Logout</a>
+          <% } else if (cognitoUser) { %>
+            <a href="/cognito/logout" class="btn btn-secondary">Logout</a>
+          <% } %>
+        </div>
+      <% } else { %>
+        <h2>Welcome to the Identity Pools Demo</h2>
+        <p>This application demonstrates how to use Amazon Cognito Identity Pools to obtain temporary AWS credentials using various identity providers.</p>
+        
+        <div class="auth-options">
+          <div class="auth-option">
+            <h3>Sign in with Cognito User Pool</h3>
+            <p>Use your Cognito User Pool account to authenticate via OIDC.</p>
+            <a href="/cognito/login" class="btn">Login with Cognito</a>
+          </div>
+          
+          <div class="auth-option">
+            <h3>Sign in with Social Providers</h3>
+            <p>Use your existing social media accounts to authenticate.</p>
+            <div class="social-buttons">
+              <a href="/auth/facebook" class="social-btn facebook">
+                Facebook
+              </a>
+              <a href="/auth/google" class="social-btn google">
+                Google
+              </a>
+              <a href="/auth/amazon" class="social-btn amazon">
+                Amazon
+              </a>
+              <a href="/auth/apple" class="social-btn apple">
+                Apple
+              </a>
+              <a href="/auth/twitter" class="social-btn twitter">
+                Twitter
+              </a>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+    
+    <div class="info-section">
+      <h2>About This Demo</h2>
+      <p>This application demonstrates how to:</p>
+      <ul>
+        <li>Authenticate users with Amazon Cognito User Pools via OIDC</li>
+        <li>Authenticate users with social identity providers (Facebook, Google, Amazon, Apple, Twitter)</li>
+        <li>Exchange identity provider tokens for temporary AWS credentials using Amazon Cognito Identity Pools</li>
+        <li>Use those credentials to access AWS services</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

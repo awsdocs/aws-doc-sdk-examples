@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error - Identity Pools Demo</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Error</h1>
+    
+    <div class="error-section">
+      <div class="error-message">
+        <h2>Something went wrong</h2>
+        <p><%= message %></p>
+      </div>
+      
+      <% if (locals.debug) { %>
+        <div class="debug-info">
+          <h3>Debug Information</h3>
+          <pre><%= JSON.stringify(debug, null, 2) %></pre>
+        </div>
+      <% } %>
+    </div>
+    
+    <div class="action-buttons">
+      <a href="/" class="btn">Back to Home</a>
+      <a href="/login" class="btn btn-secondary">Try Again</a>
+    </div>
+  </div>
+</body>
+</html>

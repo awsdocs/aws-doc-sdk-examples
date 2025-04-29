@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Identity Pools Demo</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Login</h1>
+    
+    <% if (locals.error) { %>
+      <div class="error-message">
+        <%= error %>
+      </div>
+    <% } %>
+    
+    <div class="auth-section">
+      <h2>Cognito User Pool Login</h2>
+      <p>Sign in with your Cognito User Pool account</p>
+      <div class="auth-buttons">
+        <a href="/cognito/login" class="btn">Login with Cognito</a>
+      </div>
+    </div>
+    
+    <div class="auth-section">
+      <h2>Social Identity Providers</h2>
+      <div class="social-buttons">
+        <a href="/auth/facebook" class="social-btn facebook">
+          Login with Facebook
+        </a>
+        <a href="/auth/google" class="social-btn google">
+          Login with Google
+        </a>
+        <a href="/auth/amazon" class="social-btn amazon">
+          Login with Amazon
+        </a>
+        <a href="/auth/apple" class="social-btn apple">
+          Login with Apple
+        </a>
+        <a href="/auth/twitter" class="social-btn twitter">
+          Login with Twitter
+        </a>
+      </div>
+    </div>
+    
+    <div class="back-link">
+      <a href="/">Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
