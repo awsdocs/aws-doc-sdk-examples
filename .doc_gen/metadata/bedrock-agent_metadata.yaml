@@ -186,7 +186,6 @@ bedrock-agent_PrepareAgent:
   services:
     bedrock-agent: {PrepareAgent}
 
-
 bedrock-agent_GettingStartedWithBedrockAgents:
   title: An end-to-end example showing how to create and invoke &BRA; using an &AWS; SDK
   title_abbrev: Create and invoke an agent
@@ -211,7 +210,6 @@ bedrock-agent_GettingStartedWithBedrockAgents:
   services:
     bedrock-agent: {CreateAgent, CreateAgentActionGroup, CreateAgentAlias, DeleteAgent, DeleteAgentAlias, GetAgent, ListAgentActionGroups,
                     ListAgents, ListAgentKnowledgeBases, PrepareAgent}
-    
 
 bedrock-agent_GettingStartedWithBedrockFlows:
   title: An end-to-end example showing how to create and invoke an Amazon Bedrock flow using an &AWS; SDK
@@ -240,7 +238,6 @@ bedrock-agent_GettingStartedWithBedrockFlows:
     bedrock-agent: {CreateFlow, CreateFlowAlias, CreateFlowVersion, DeleteFlow, DeleteFlowVersion, DeleteFlowAlias, GetFlow, GetFlowAlias,
                     GetFlowVersion, PrepareFlow}
     bedrock-agent-runtime: {InvokeFlow}
-
 
 bedrock-agent_CreateFlow:
   languages:
@@ -475,8 +472,6 @@ bedrock-agent_GetPrompt:
   services:
     bedrock-agent: {GetPrompt}
 
-
-
 bedrock-agent_DeletePrompt:
   languages:
     Python:
@@ -505,7 +500,7 @@ bedrock-agent_ListPrompts:
   services:
     bedrock-agent: {ListPrompts}
 
-bedrock-runtime_InvokePrompt:
+bedrock-agent_Converse:
   languages:
     Python:
       versions:
