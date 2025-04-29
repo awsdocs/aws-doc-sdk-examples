@@ -22,21 +22,26 @@ public class HelloFleetwise {
                     .credentialsProvider(DefaultCredentialsProvider.create())
                     .build()) {
 
-                // Create the request
                 ListSignalCatalogsRequest request = ListSignalCatalogsRequest.builder()
                         .maxResults(10) // Optional: limit per page
                         .build();
 
-                // Use paginator to iterate through all pages
                 ListSignalCatalogsIterable paginator = fleetWiseClient.listSignalCatalogsPaginator(request);
+                boolean found = false;
+
                 for (ListSignalCatalogsResponse response : paginator) {
                     for (SignalCatalogSummary summary : response.summaries()) {
+                        found = true;
                         System.out.println("Catalog Name: " + summary.name());
                         System.out.println("ARN: " + summary.arn());
                         System.out.println("Created: " + summary.creationTime());
                         System.out.println("Last Modified: " + summary.lastModificationTime());
                         System.out.println("---------------");
                     }
+                }
+
+                if (!found) {
+                    System.out.println("No AWS Fleetwise Signal Catalogs were found.");
                 }
 
             } catch (IoTFleetWiseException e) {

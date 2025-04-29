@@ -24,19 +24,19 @@ public class FleetwiseScenario {
     public static void main(String[] args) {
         final String usage =
                 """
-                        Usage:
-                            <signalCatalogName> <manifestName> <fleetId> <vecName> <decName>
-                        
-                        Where:
-                            signalCatalogName     - The name of the Signal Catalog to create (eg, catalog30).
-                            manifestName          - The name of the Vehicle Model (Model Manifest) to create (eg, manifest30).
-                            fleetId               - The ID of the Fleet to create (eg, fleet30).
-                            vecName               - The name of the Vehicle to create (eg, vehicle30).
-                             decName               - The name of the Decoder Manifest to create (eg, decManifest30).
-                        """;
+                Usage:
+                    <signalCatalogName> <manifestName> <fleetId> <vecName> <decName>
+                
+                Where:
+                    signalCatalogName     - The name of the Signal Catalog to create (eg, catalog30).
+                    manifestName          - The name of the Vehicle Model (Model Manifest) to create (eg, manifest30).
+                    fleetId               - The ID of the Fleet to create (eg, fleet30).
+                    vecName               - The name of the Vehicle to create (eg, vehicle30).
+                    decName               - The name of the Decoder Manifest to create (eg, decManifest30).
+                """;
 
         if (args.length != 5) {
-            System.out.println(usage);
+            logger.info(usage);
             return;
         }
 
@@ -48,27 +48,27 @@ public class FleetwiseScenario {
 
         logger.info(
                 """
-                         AWS IoT FleetWise is a managed service that simplifies the 
-                         process of collecting, organizing, and transmitting vehicle 
-                         data to the cloud in near real-time. Designed for automakers 
-                         and fleet operators, it allows you to define vehicle models, 
-                         specify the exact data you want to collect (such as engine 
-                         temperature, speed, or battery status), and send this data to 
-                         AWS for analysis. By using intelligent data collection 
-                         techniques, IoT FleetWise reduces the volume of data 
-                         transmitted by filtering and transforming it at the edge, 
-                         helping to minimize bandwidth usage and costs. 
-                        
-                        At its core, AWS IoT FleetWise helps organizations build 
-                        scalable systems for vehicle data management and analytics, 
-                        supporting a wide variety of vehicles and sensor configurations. 
-                        You can define signal catalogs and decoder manifests that describe 
-                        how raw CAN bus signals are translated into readable data, making 
-                        the platform highly flexible and extensible. This allows 
-                        manufacturers to optimize vehicle performance, improve safety, 
-                        and reduce maintenance costs by gaining real-time visibility 
-                        into fleet operations. 
-                        """);
+                 AWS IoT FleetWise is a managed service that simplifies the 
+                 process of collecting, organizing, and transmitting vehicle 
+                 data to the cloud in near real-time. Designed for automakers 
+                 and fleet operators, it allows you to define vehicle models, 
+                 specify the exact data you want to collect (such as engine 
+                 temperature, speed, or battery status), and send this data to 
+                 AWS for analysis. By using intelligent data collection 
+                 techniques, IoT FleetWise reduces the volume of data 
+                 transmitted by filtering and transforming it at the edge, 
+                 helping to minimize bandwidth usage and costs. 
+                
+                At its core, AWS IoT FleetWise helps organizations build 
+                scalable systems for vehicle data management and analytics, 
+                supporting a wide variety of vehicles and sensor configurations. 
+                You can define signal catalogs and decoder manifests that describe 
+                how raw CAN bus signals are translated into readable data, making 
+                the platform highly flexible and extensible. This allows 
+                manufacturers to optimize vehicle performance, improve safety, 
+                and reduce maintenance costs by gaining real-time visibility 
+                into fleet operations. 
+                """);
 
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -106,14 +106,14 @@ public class FleetwiseScenario {
         logger.info("2. Create a fleet that represents a group of vehicles");
         logger.info(
                 """
-                        Creating an IoT FleetWise fleet allows you to efficiently collect, 
-                        organize, and transfer vehicle data to the cloud, enabling real-time 
-                        insights into vehicle performance and health. 
-                        
-                        It helps reduce data costs by allowing you to filter and prioritize 
-                        only the most relevant vehicle signals, supporting advanced analytics 
-                        and predictive maintenance use cases.
-                        """);
+                Creating an IoT FleetWise fleet allows you to efficiently collect, 
+                organize, and transfer vehicle data to the cloud, enabling real-time 
+                insights into vehicle performance and health. 
+                
+                It helps reduce data costs by allowing you to filter and prioritize 
+                only the most relevant vehicle signals, supporting advanced analytics 
+                and predictive maintenance use cases.
+                """);
 
         waitForInputToContinue(scanner);
         String fleetid;
@@ -134,7 +134,8 @@ public class FleetwiseScenario {
 
         logger.info(DASHES);
         logger.info("3. Create a model manifest");
-        logger.info("""
+        logger.info(
+                """
                 An AWS IoT FleetWise manifest defines the structure and 
                 relationships of vehicle data. The model manifest specifies 
                 which signals to collect and how they relate to vehicle systems, 
@@ -146,7 +147,7 @@ public class FleetwiseScenario {
         try {
             List<Node> nodes = actions.listSignalCatalogNodeAsync(signalCatalogName).join();
             manifestArn = actions.createModelManifestAsync(manifestName, signalCatalogArn, nodes).join();
-            logger.info("The manifest ARN is " + manifestArn);
+            logger.info("The manifest ARN is {}", manifestArn);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             logger.error("An unexpected error occurred.", cause);
@@ -157,7 +158,8 @@ public class FleetwiseScenario {
 
         logger.info(DASHES);
         logger.info("4. Create a decoder manifest");
-        logger.info("""
+        logger.info(
+                """
                 A decoder manifest in AWS IoT FleetWise defines how raw vehicle 
                 data (such as CAN signals) should be interpreted and decoded 
                 into meaningful signals. It acts as a translation layer 
@@ -171,7 +173,7 @@ public class FleetwiseScenario {
         String decArn;
         try {
             decArn = actions.createDecoderManifestAsync(decName, manifestArn).join();
-            logger.info("The decoder manifest ARN is " + decArn);
+            logger.info("The decoder manifest ARN is {}", decArn);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             logger.error("An unexpected error occurred.", cause);
@@ -181,7 +183,8 @@ public class FleetwiseScenario {
         logger.info(DASHES);
 
         logger.info("5. Check the status of the model manifest");
-        logger.info("""
+        logger.info(
+                """
                 The model manifest must be in an ACTIVE state before it can be used 
                 to create or update a vehicle.
                 """);
@@ -191,14 +194,15 @@ public class FleetwiseScenario {
             actions.waitForModelManifestActiveAsync(manifestName).join();
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            logger.error("An unexpected error occurred.", cause);
+            logger.error("An unexpected error occurred while waiting for the model manifest status.", cause);
             return;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
         logger.info("6. Check the status of the decoder");
-        logger.info("""
+        logger.info(
+                """
                 The decoder manifest must be in an ACTIVE state before it can be used 
                 to create or update a vehicle.
                 """);
@@ -208,7 +212,7 @@ public class FleetwiseScenario {
             actions.waitForDecoderManifestActiveAsync(decName).join();
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            logger.error("An unexpected error occurred.", cause);
+            logger.error("An unexpected error occurred while waiting for the decoder manifest status.", cause);
             return;
         }
         waitForInputToContinue(scanner);
@@ -216,7 +220,8 @@ public class FleetwiseScenario {
 
         logger.info(DASHES);
         logger.info("7. Create an IoT Thing");
-        logger.info("""
+        logger.info(
+                """
                 AWS IoT FleetWise expects an existing AWS IoT Thing with the same 
                 name as the vehicle name you are passing to createVehicle method. 
                 Before calling createVehicle(), you must create an AWS IoT Thing 
@@ -239,7 +244,8 @@ public class FleetwiseScenario {
 
         logger.info(DASHES);
         logger.info("8. Create a vehicle");
-        logger.info("""
+        logger.info(
+                """
                 Creating a vehicle in AWS IoT FleetWise allows you to digitally 
                 represent and manage a physical vehicle within the AWS ecosystem. 
                 This enables efficient ingestion, transformation, and transmission 
@@ -250,12 +256,12 @@ public class FleetwiseScenario {
             actions.createVehicleAsync(vecName, manifestArn, decArn).join();
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
+
             if (cause instanceof ResourceNotFoundException) {
-                logger.error("The resource was not found: {}", cause.getMessage());
+                logger.error("The required resource was not found: {}", cause.getMessage());
             } else {
-                logger.error("An unexpected error occurred.", cause);
+                logger.error("An unexpected error occurred while creating vehicle.", cause);
             }
-            return;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -299,7 +305,13 @@ public class FleetwiseScenario {
             }
 
             logger.info(DASHES);
-            logger.info("You have successfully completed the AWS IoT Fleetwise scenario.");
+            logger.info(
+                    """
+                    Thank you for checking out the AWS IoT Fleetwise Service Use demo. We hope you
+                    learned something new, or got some inspiration for your own apps today.
+                    For more AWS code examples, have a look at:
+                    https://docs.aws.amazon.com/code-library/latest/ug/what-is-code-library.html
+                    """);
             logger.info(DASHES);
         } else {
             logger.info("The AWS resources will not be deleted.");
