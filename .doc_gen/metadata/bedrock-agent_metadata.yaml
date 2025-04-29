@@ -213,7 +213,6 @@ bedrock-agent_GettingStartedWithBedrockAgents:
                     ListAgents, ListAgentKnowledgeBases, PrepareAgent}
     
 
-
 bedrock-agent_GettingStartedWithBedrockFlows:
   title: An end-to-end example showing how to create and invoke an Amazon Bedrock flow using an &AWS; SDK
   title_abbrev: Create and invoke a flow
@@ -524,10 +523,10 @@ bedrock-agent_GettingStartedWithBedrockPrompts:
   title: An end-to-end example showing how to create and invoke Amazon Bedrock managed prompts using an &AWS; SDK
   title_abbrev: Create and invoke a managed prompt
   synopsis_list:
-    - Create a managed prompt
-    - Create a version of the prompt
-    - Invoke the prompt using the version
-    - Clean up resources (optional)
+    - Create a managed prompt.
+    - Create a version of the prompt.
+    - Invoke the prompt using the version.
+    - Clean up resources (optional).
   category: Scenarios
   languages:
     Python:
