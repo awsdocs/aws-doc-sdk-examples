@@ -11,65 +11,58 @@ AWS Fleetwise and an AWS SDK.
 This Basics scenario does not require any additional AWS resources. 
 
 ## Hello AWS Fleetwise
-This program is intended for users not familiar with the AWS IoT Fleetwise Service to easily get up and running. The program uses a `listSignalCatalogsPaginator` to demonstrate how you can read through catalog information.
+This program is intended for users not familiar with the AWS IoT Fleetwise Service to easily get up and running. The program uses a `listSignalCatalogsPaginator` to demonstrate how you can read through catalog information. If there are no catalogs, print out a message to inform the user. 
 
 ## Basics Scenario Program Flow
 The AWS IoT Fleetwise Basics scenario executes the following operations.
 
 1. **Create an AWS FleetWise collection**:
-   - Description: This step creates an AWS Fleetwise collection by invoking the `createSignalCatalog` method.
+   - Description: Creates an AWS Fleetwise collection by invoking `createSignalCatalog`.
    - Exception Handling: Check to see if a `ValidationException` is thrown. 
      If it is thrown, if so, display the message and end the program.
 
 2. **Create an IoT Fleetwise fleet**:
-   - Description: This operation creates an AWS Fleetwise fleet.
-   - The method `createFleet` is called.
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. 
+   - Description: Creates an AWS Fleetwise fleet by invoking `createFleet`.
+   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If it is thrown, if so, display the message and end the program.
 
 3. **Create a model manifest**:
-   - Description: To create a model manifest, the method `listSignalCatalogNodes` is called to retrieve a list of nodes. This node list is passed to `createModelManifest()`.
-   - Exception Handling: Check to see if an `CompletionException` is thrown. If so, display the message and end the program.
+   - Description: Creates a model manifest by invoking `listSignalCatalogNodes` to retrieve a list of nodes. This node list is passed to `createModelManifest()`.
+   - Exception Handling: Check to see if an `InvalidSignalsException` is thrown. If so, display the message and end the program.
 
 4. **Create a decoder manifest**:
-   - Description: This operation creates a decoder manifest.
-   - This step uses the method `createDecoderManifest`.
-   - Exception Handling: Check to see if a `CompletionException` is thrown. If so, display the message and end the program.
+   - Description: Creates a decoder manifest by invoking `createDecoderManifest`.
+   - Exception Handling: Check to see if a `DecoderManifestValidationException` is thrown. If so, display the message and end the program.
 
 5. **Check the status of the model manifest**:
-   - Description: This operation checks the status of the model manifest.
-   - This step uses the  `updateModelManifest`and `getModelManifest` methods.
-   - Exception Handling: Check to see if a `CompletionException` is thrown. If so, display the message and end the program.
+   - Description: Checks the status of the model manifest by invoking `updateModelManifest`and `getModelManifest`.
+   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
 6. **Check the status of the decoder**:
-   - Description: This operation creates an IoT Thing which is required to create a vehicle.
-   - This step uses the  `createThing` method.
-   - Exception Handling: Check to see if a `RuntimeException` is thrown. If so, display the message and end the program.
+   - Description: Checks the status of the decoder manifest by invoking `updateDecoderManifest`and `getDecoderManifest`.
+   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
 
 7. **Create an IoT Thing**:
-   - Description: This operation describes the portal and returns a URL for the portal.
-   - The method `describePortal` is called and returns the URL.
+   - Description: Creates an IoT Thing which is required to create a vehicle by invoking `createThing`.
    - Exception Handling: Check to see if a `ResourceAlreadyExistsException` is thrown. If so, display the message and end the program.
 
 8.  **Create a vehicle**:
-   - Description: This operation creates a vehicle.
-   - The method `createVehicle` is called.
+   - Description: Creates a vehicle by invoking `createVehicle`.
    - Exception Handling: Check to see if an `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
 9. **Display vehicle details**:
-   - Description: This operation describes the vehicle.
-   - The method `getVehicle` is called.
-   - Exception Handling: Check to see if a `???` is thrown. If so, display the message and end the program.
+   - Description: Describes the vehicle by invoking `getVehicle`.
+   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
 10. **Delete the AWS IoT Fleetwise Assets**:
     - The `delete` methods are called to clean up the resources.
     - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program."
 
 ### Program execution
-The following shows the output of the AWS IoT Fleetwise Basics scenario in the console. 
+The following shows the output of the AWS IoT Fleetwise Basics scenario. 
 
 ```
- AWS IoT FleetWise is a managed service that simplifies the
+ WS IoT FleetWise is a managed service that simplifies the
  process of collecting, organizing, and transmitting vehicle
  data to the cloud in near real-time. Designed for automakers
  and fleet operators, it allows you to define vehicle models,
@@ -98,7 +91,7 @@ Continuing with the program...
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 1. Creates a collection of standardized signals that can be reused to create vehicle models
-The collection ARN is arn:aws:iotfleetwise:us-east-1:814548047983:signal-catalog/catelogscott1
+The collection ARN is arn:aws:iotfleetwise:us-east-1:814548047983:signal-catalog/catalog60
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -107,20 +100,20 @@ Continuing with the program...
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 2. Create a fleet that represents a group of vehicles
- Creating an IoT FleetWise fleet allows you to efficiently collect,
- organize, and transfer vehicle data to the cloud, enabling real-time
- insights into vehicle performance and health.
+Creating an IoT FleetWise fleet allows you to efficiently collect,
+organize, and transfer vehicle data to the cloud, enabling real-time
+insights into vehicle performance and health.
 
- It helps reduce data costs by allowing you to filter and prioritize
- only the most relevant vehicle signals, supporting advanced analytics
- and predictive maintenance use cases.
+It helps reduce data costs by allowing you to filter and prioritize
+only the most relevant vehicle signals, supporting advanced analytics
+and predictive maintenance use cases.
 
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The fleet Id is fleetscott1
+The fleet Id is fleet60
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -140,7 +133,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The manifest ARN is arn:aws:iotfleetwise:us-east-1:814548047983:model-manifest/manifestscott1
+The manifest ARN is arn:aws:iotfleetwise:us-east-1:814548047983:model-manifest/manifest60
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -155,7 +148,7 @@ into meaningful signals. It acts as a translation layer
 that maps vehicle-specific protocols to standardized data formats
 using decoding rules. This is crucial for extracting usable
 data from different vehicle models, even when their data
- formats vary.
+formats vary.
 
 
 
@@ -163,23 +156,28 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The decoder manifest ARN is arn:aws:iotfleetwise:us-east-1:814548047983:decoder-manifest/decManifestscott1
+The decoder manifest ARN is arn:aws:iotfleetwise:us-east-1:814548047983:decoder-manifest/decManifest60
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
 --------------------------------------------------------------------------------
-5. Check the status of the model
- The model manifest must be in an ACTIVE state before it can be used
-  to create or update a vehicle.
+5. Check the status of the model manifest
+The model manifest must be in an ACTIVE state before it can be used
+to create or update a vehicle.
 
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-⏱️ Elapsed: 5s | Status: ACTIVE ✅
+Elapsed: 0s | Status: DRAFT
+Elapsed: 1s | Status: DRAFT
+Elapsed: 2s | Status: DRAFT
+Elapsed: 3s | Status: DRAFT
+Elapsed: 4s | Status: DRAFT
+Elapsed: 5s | Status: ACTIVE
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -187,15 +185,20 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 6. Check the status of the decoder
- The decoder manifest must be in an ACTIVE state before it can be used
-  to create or update a vehicle.
+The decoder manifest must be in an ACTIVE state before it can be used
+to create or update a vehicle.
 
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-⏱️ Elapsed: 5s | Decoder Status: ACTIVE ✅
+ Elapsed: 0s | Decoder Status: DRAFT
+ Elapsed: 1s | Decoder Status: DRAFT
+ Elapsed: 2s | Decoder Status: DRAFT
+ Elapsed: 3s | Decoder Status: DRAFT
+ Elapsed: 4s | Decoder Status: DRAFT
+ Elapsed: 5s | Decoder Status: ACTIVE
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -214,7 +217,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-✅ IoT Thing created: vechile1
+IoT Thing created: vehicle60
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -233,7 +236,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-✅ Vehicle 'vechile1' created successfully.
+Vehicle 'vehicle60' created successfully.
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -247,14 +250,14 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-🚗 Vehicle Details:
-• modelManifestArn     : arn:aws:iotfleetwise:us-east-1:814548047983:model-manifest/manifestscott1
-• vehicleName          : vechile1
-• creationTime         : 2025-04-16T18:10:00.332Z
-• lastModificationTime : 2025-04-16T18:10:00.332Z
-• decoderManifestArn   : arn:aws:iotfleetwise:us-east-1:814548047983:decoder-manifest/decManifestscott1
-• attributes           : {}
-• arn                  : arn:aws:iotfleetwise:us-east-1:814548047983:vehicle/vechile1
+Vehicle Details:
+• modelManifestArn : arn:aws:iotfleetwise:us-east-1:814548047983:model-manifest/manifest60
+• vehicleName : vehicle60
+• creationTime : 2025-04-29T16:00:02.147Z
+• lastModificationTime : 2025-04-29T16:00:02.147Z
+• decoderManifestArn : arn:aws:iotfleetwise:us-east-1:814548047983:decoder-manifest/decManifest60
+• attributes : {}
+• arn : arn:aws:iotfleetwise:us-east-1:814548047983:vehicle/vehicle60
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -265,17 +268,18 @@ Continuing with the program...
 10. Delete the AWS IoT Fleetwise Assets
 Would you like to delete the IoT Fleetwise Assets? (y/n)
 y
-✅ vechile1 was successfully deleted
-✅ decManifestscott1 was successfully deleted
-✅ manifestscott1 was successfully deleted
-✅ fleetscott1 was successfully deleted
-✅ catelogscott1 was successfully deleted
+vehicle60 was successfully deleted
+decManifest60 was successfully deleted
+manifest60 was successfully deleted
+fleet60 was successfully deleted
+catalog60 was successfully deleted
 --------------------------------------------------------------------------------
-You have successfully completed the AWS IoT Fleetwise scenario.
+Thank you for checking out the AWS IoT Fleetwise Service Use demo. We hope you
+learned something new, or got some inspiration for your own apps today.
+For more AWS code examples, have a look at:
+https://docs.aws.amazon.com/code-library/latest/ug/what-is-code-library.html
+
 --------------------------------------------------------------------------------
-
-
-
 ```
 
 ## SOS Tags
@@ -283,28 +287,28 @@ You have successfully completed the AWS IoT Fleetwise scenario.
 The following table describes the metadata used in this Basics Scenario.
 
 
-| action                | metadata file              | metadata key                         |
-|-----------------------|----------------------------|------------------------------------- |
-|`createSignalCatalog`  |iot_fleetwise_metadata.yaml |iotfleetwise_CreateSignalCatalog      |
-|`createFleet`          |iot_fleetwise_metadata.yaml |iotfleetwise_CreateFleet              |
-|`createGateway `       |iot_fleetwise_metadata.yaml |iotfleetwise_CreateGateway            |
-|`createModelManifest`  iot_fleetwise_metadata.yaml  |iotfleetwise_CreateModelManifest      |
-|`createDecoderManifest`|iot_fleetwise_metadata.yaml |iotfleetwise_CreateDecoderManifest    |
-|`updateModelManifest`  |iot_fleetwise_metadata.yaml |iotfleetwise_UpdateModelManifest      |
-| `createPortal`        |iot_fleetwise_metadata.yaml |iotfleetwise_CreatePortal             |
-|`waitForModelManifest` |iot_fleetwise_metadata.yaml |iotfleetwise_WaitForModelManifest     |
-|`updateDecoderManifest`|iot_fleetwise_metadata.yaml |iotfleetwise_updateDecoder            |
-| `describeAssetModel`  |iot_fleetwise_metadata.yaml |iotfleetwise_DescribeAssetModel       |
-| `waitForDecoder  `    |iot_fleetwise_metadata.yaml |iotfleetwise_WaitForDecoder           |
-| `createVehicle`       |iot_fleetwise_metadata.yaml |iotfleetwise_CreateVehicle            |
-| `getVehicle`          |iot_fleetwise_metadata.yaml |iotfleetwise_GetVehicle               |
-| `deleteVehicle `      |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteVehicle            |
-| `deleteVehicle `      |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteVehicle            |
-| `deleteFleet `        |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteFleet              |
-| `deleteModel`         |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteModel              |
-| `deleteSignal `       |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteSignal             |
-| `scenario`            |iot_fleetwise_metadata.yaml |iotfleetwise_Scenario                 |
-| `hello`               |iot_fleetwise_metadata.yaml |iotfleetwise_Hello                    |
+| action                 | metadata file              | metadata key                         |
+|------------------------|----------------------------|------------------------------------- |
+|`createSignalCatalog`   |iot_fleetwise_metadata.yaml |iotfleetwise_CreateSignalCatalog      |
+|`createFleet`           |iot_fleetwise_metadata.yaml |iotfleetwise_CreateFleet              |
+|`createGateway `        |iot_fleetwise_metadata.yaml |iotfleetwise_CreateGateway            |
+|`createModelManifest`   iot_fleetwise_metadata.yaml  |iotfleetwise_CreateModelManifest      |
+|`createDecoderManifest` |iot_fleetwise_metadata.yaml |iotfleetwise_CreateDecoderManifest    |
+|`updateModelManifest`   |iot_fleetwise_metadata.yaml |iotfleetwise_UpdateModelManifest      |
+| `createPortal`         |iot_fleetwise_metadata.yaml |iotfleetwise_CreatePortal             |
+|`waitForModelManifest`  |iot_fleetwise_metadata.yaml |iotfleetwise_WaitForModelManifest     |
+|`updateDecoderManifest` |iot_fleetwise_metadata.yaml |iotfleetwise_updateDecoder            |
+| `describeAssetModel`   |iot_fleetwise_metadata.yaml |iotfleetwise_DescribeAssetModel       |
+| `waitForDecoder  `     |iot_fleetwise_metadata.yaml |iotfleetwise_WaitForDecoder           |
+| `createVehicle`        |iot_fleetwise_metadata.yaml |iotfleetwise_CreateVehicle            |
+| `getVehicle`           |iot_fleetwise_metadata.yaml |iotfleetwise_GetVehicle               |
+| `deleteVehicle `       |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteVehicle            |
+|`deleteDecoderManifest` |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteDecoder            |
+| `deleteFleet `         |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteFleet              |
+| `deleteModel`          |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteModel              |
+| `deleteSignal `        |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteSignal             |
+| `scenario`             |iot_fleetwise_metadata.yaml |iotfleetwise_Scenario                 |
+| `hello`                |iot_fleetwise_metadata.yaml |iotfleetwise_Hello                    |
 
 
 
