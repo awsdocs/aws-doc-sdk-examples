@@ -1665,4 +1665,3 @@ bedrock-runtime_Scenario_GenerateVideos_NovaReel:
                 - bedrock-runtime.java2.NovaReel.VideoGeneration
   services:
     bedrock-runtime: {StartAsyncInvoke, GetAsyncInvoke}
-
