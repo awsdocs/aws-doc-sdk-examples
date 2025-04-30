@@ -291,7 +291,6 @@ The following table describes the metadata used in this Basics Scenario.
 |------------------------|----------------------------|------------------------------------- |
 |`createSignalCatalog`   |iot_fleetwise_metadata.yaml |iotfleetwise_CreateSignalCatalog      |
 |`createFleet`           |iot_fleetwise_metadata.yaml |iotfleetwise_CreateFleet              |
-|`createGateway `        |iot_fleetwise_metadata.yaml |iotfleetwise_CreateGateway            |
 |`createModelManifest`   iot_fleetwise_metadata.yaml  |iotfleetwise_CreateModelManifest      |
 |`createDecoderManifest` |iot_fleetwise_metadata.yaml |iotfleetwise_CreateDecoderManifest    |
 |`updateModelManifest`   |iot_fleetwise_metadata.yaml |iotfleetwise_UpdateModelManifest      |
@@ -306,7 +305,7 @@ The following table describes the metadata used in this Basics Scenario.
 |`deleteDecoderManifest` |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteDecoder            |
 | `deleteFleet `         |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteFleet              |
 | `deleteModel`          |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteModel              |
-| `deleteSignal `        |iot_fleetwise_metadata.yaml |iotfleetwise_DeleteSignal             |
+| `deleteSignalCatalog ` |iot_fleetwise_metadata.yaml|iotfleetwise_DeleteSignalCatalog       |
 | `scenario`             |iot_fleetwise_metadata.yaml |iotfleetwise_Scenario                 |
 | `hello`                |iot_fleetwise_metadata.yaml |iotfleetwise_Hello                    |
 
