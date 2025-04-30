@@ -1652,7 +1652,7 @@ bedrock-runtime_Scenario_InvokeModels:
 bedrock-runtime_Scenario_GenerateVideos_NovaReel:
   title: Generate videos from text prompts using &BR; and Nova-Reel
   title_abbrev: "Generate videos from text prompts using &BR;"
-  synopsis: a Spring Boot app that generates videos from text prompts using &BR; and the Nova-Reel model
+  synopsis: a Spring Boot app that generates videos from text prompts using &BR; and the Nova-Reel model.
   category: Scenarios
   languages:
     Java:
@@ -1660,8 +1660,9 @@ bedrock-runtime_Scenario_GenerateVideos_NovaReel:
         - sdk_version: 2
           github: javav2/example_code/bedrock-runtime
           excerpts:
-            - description: Generate videos from text prompts using &BR; and Nova-Reel
+            - description: Generate videos from text prompts using &BR; and Nova-Reel.
               snippet_tags:
                 - bedrock-runtime.java2.NovaReel.VideoGeneration
   services:
     bedrock-runtime: {StartAsyncInvoke, GetAsyncInvoke}
+
