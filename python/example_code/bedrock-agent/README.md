@@ -2,12 +2,14 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Bedrock Agents.
+Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Bedrock agents, flows, and managed prompts.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
 _Amazon Bedrock Agents offer you the ability to build and configure autonomous agents in your application._
+
+
 
 ## ⚠ Important
 
@@ -63,6 +65,13 @@ Code excerpts that show you how to call individual service functions.
 - [UpdateFlowAlias](flows/flow_alias.py#L55) 
 - [DeleteFlowAlias](flows/flow_alias.py#L98) 
 - [ListFlowAliases](flows/flow_alias.py#L132) 
+- [FlowConversation](flows/flow-conversation.py)
+- [CreatePrompt](prompts/prompt.py#L32)
+- [CreatePromptVersion](prompts/prompt.py#L61)
+- [GetPrompt](prompts/prompt.py#L71)
+- [DeletePrompt](prompts/prompt.py#L154)
+- [ListPrompts](prompts/prompt.py#L187)
+
 
 
 
@@ -73,6 +82,7 @@ functions within the same service.
 
 - [Create and invoke an agent](scenario_get_started_with_agents.py)
 - [Create and invoke a flow](flows/playlist_flow.py)
+- [Create and invoke a managed prompt](prompts/scenario_get_started_with_prompts.py)
 
 
 <!--custom.examples.start-->
@@ -143,6 +153,49 @@ python flows/list_flows.py
 ```
 The example first lists the flows in the current AWS Region. It
 then prompts for a flow ID, which you can get from the list of flows. Finally, the example lists the flow versions and flow aliases for the flow ID that you entered.
+
+#### Create and invoke a managed prompt
+
+This example shows you how to do the following:
+
+- Create a managed prompt
+- Create a version of the prompt
+- Invoke the prompt using the version
+- Update the prompt
+- Create a new version
+- Invoke the updated prompt
+- Clean up resources (optional)
+
+Start the example by running the following at a command prompt:
+
+```
+python prompts/scenario_get_started_with_prompts.py
+```
+
+By default, the example will clean up all resources it creates. If you want to keep the resources for further exploration, use the `--no-cleanup` flag:
+
+```
+python prompts/scenario_get_started_with_prompts.py --no-cleanup
+```
+
+You can also specify a different AWS region or model ID:
+
+```
+python prompts/scenario_get_started_with_prompts.py --region us-west-2 --model-id anthropic.claude-3-sonnet-20240229-v1:0
+```
+
+#### List prompts
+
+Shows how to list Amazon Bedrock managed prompts and versions of a prompt.
+
+Start the example by running the following at a command prompt:
+
+```
+python prompts/list_prompts.py
+```
+
+The example first lists the prompts in the current AWS Region. 
+
 
 ### Tests
 

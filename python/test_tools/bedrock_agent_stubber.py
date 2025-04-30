@@ -150,3 +150,28 @@ class BedrockAgentStubber(ExampleStubber):
         self._stub_bifurcator(
             "list_flow_versions", expected_params, response, error_code=error_code
         )
+
+        # Prompt API stubs
+    def stub_create_prompt(self, expected_params, response, error_code=None):
+        self._stub_bifurcator(
+            "create_prompt", expected_params, response, error_code=error_code
+        )
+    def stub_create_prompt_version(self, expected_params, response, error_code=None):
+        self._stub_bifurcator(
+            "create_prompt_version", expected_params, response, error_code=error_code
+        )
+        
+    def stub_get_prompt(self, expected_params, response, error_code=None):
+        self._stub_bifurcator(
+            "get_prompt", expected_params, response, error_code=error_code
+        )
+        
+    def stub_delete_prompt(self, expected_params, response, error_code=None):
+        self._stub_bifurcator(
+            "delete_prompt", expected_params, response, error_code=error_code
+        )
+        
+    def stub_list_prompts(self, expected_params, response, error_code=None):
+        self._stub_bifurcator(
+            "list_prompts", expected_params, response, error_code=error_code
+        )

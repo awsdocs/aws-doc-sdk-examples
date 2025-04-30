@@ -186,7 +186,6 @@ bedrock-agent_PrepareAgent:
   services:
     bedrock-agent: {PrepareAgent}
 
-
 bedrock-agent_GettingStartedWithBedrockAgents:
   title: An end-to-end example showing how to create and invoke &BRA; using an &AWS; SDK
   title_abbrev: Create and invoke an agent
@@ -211,8 +210,6 @@ bedrock-agent_GettingStartedWithBedrockAgents:
   services:
     bedrock-agent: {CreateAgent, CreateAgentActionGroup, CreateAgentAlias, DeleteAgent, DeleteAgentAlias, GetAgent, ListAgentActionGroups,
                     ListAgents, ListAgentKnowledgeBases, PrepareAgent}
-    
-
 
 bedrock-agent_GettingStartedWithBedrockFlows:
   title: An end-to-end example showing how to create and invoke an Amazon Bedrock flow using an &AWS; SDK
@@ -241,7 +238,6 @@ bedrock-agent_GettingStartedWithBedrockFlows:
     bedrock-agent: {CreateFlow, CreateFlowAlias, CreateFlowVersion, DeleteFlow, DeleteFlowVersion, DeleteFlowAlias, GetFlow, GetFlowAlias,
                     GetFlowVersion, PrepareFlow}
     bedrock-agent-runtime: {InvokeFlow}
-
 
 bedrock-agent_CreateFlow:
   languages:
@@ -433,3 +429,95 @@ bedrock-agent_ListFlowVersions:
 
   services:
     bedrock-agent: {ListFlowVersions}
+
+bedrock-agent_CreatePrompt:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create an Amazon Bedrock managed prompt.
+              snippet_tags:
+                - python.example_code.bedrock.create_prompt
+
+  services:
+    bedrock-agent: {CreatePrompt}
+
+bedrock-agent_CreatePromptVersion:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create a version of an Amazon Bedrock managed prompt.
+              snippet_tags:
+                - python.example_code.bedrock.create_prompt_version
+
+  services:
+    bedrock-agent: {CreatePromptVersion}
+
+bedrock-agent_GetPrompt:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Get an Amazon Bedrock managed prompt.
+              snippet_tags:
+                - python.example_code.bedrock.get_prompt
+
+  services:
+    bedrock-agent: {GetPrompt}
+
+bedrock-agent_DeletePrompt:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Delete an Amazon Bedrock managed prompt.
+              snippet_tags:
+                - python.example_code.bedrock.delete_prompt
+
+  services:
+    bedrock-agent: {DeletePrompt}
+
+bedrock-agent_ListPrompts:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: List Amazon Bedrock managed prompts.
+              snippet_tags:
+                - python.example_code.bedrock.list_prompts
+
+  services:
+    bedrock-agent: {ListPrompts}
+    
+bedrock-agent_GettingStartedWithBedrockPrompts:
+  title: An end-to-end example showing how to create and invoke Amazon Bedrock managed prompts using an &AWS; SDK
+  title_abbrev: Create and invoke a managed prompt
+  synopsis_list:
+    - Create a managed prompt.
+    - Create a version of the prompt.
+    - Invoke the prompt using the version.
+    - Clean up resources (optional).
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create and invoke a managed prompt.
+              snippet_tags:
+                - python.example_code.bedrock-agent-runtime.Scenario_GettingStartedBedrockManagedPrompts
+  services:
+    bedrock-agent: {CreatePrompt, CreatePromptVersion, DeletePrompt}
+    bedrock-runtime: {Converse}

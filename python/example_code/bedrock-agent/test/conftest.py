@@ -26,6 +26,13 @@ class FakeData:
     INSTRUCTION = "A fake instruction with a minimum of 40 characters"
     TIMESTAMP = "1970-01-01T00:00:00Z"
     VERSION = "1.234.5"
+    # Prompt data
+    PROMPT_ID = "FAKE_PROMPT_ID"
+    PROMPT_NAME = "FakePromptName"
+    PROMPT_DESCRIPTION = "A fake prompt description"
+    PROMPT_TEMPLATE = "This is a {{variable}} template"
+    PROMPT_VERSION = "1"
+    PROMPT_ALIAS = "prod"
 
 
 class FakeFlowData:   
@@ -56,3 +63,31 @@ class FakeFlowData:
         }
     ]
     SESSION_ID = "XXXXXXXXXX"
+
+class FakePromptRunData:
+    PROMPT_ID = "FAKE_PROMPT_ID"
+    VERSION_OR_ALIAS = "prod"
+    INPUT_VARIABLES = {
+        "product_name": "Smart Home Hub",
+        "category": "Home Automation",
+        "features": "Voice control, Smart app integration, Energy monitoring",
+        "audience": "Tech-savvy homeowners",
+        "price_point": "$199.99"
+    }
+    OUTPUT_TEXT = "The Smart Home Hub is a revolutionary device that transforms your living space into an intelligent, connected environment."
+
+
+class FakePromptData:
+    PROMPT_ID = "FAKE_PROMPT_ID"
+    PROMPT_ARN = "arn:aws:bedrock:us-east-1:123456789012:prompt/FAKE_PROMPT_ID"
+    PROMPT_NAME = "FakePromptName"
+    PROMPT_DESCRIPTION = "A fake prompt description"
+    PROMPT_TEMPLATE = "This is a {{variable}} template"
+    MODEL_ID = "anthropic.claude-v2"
+    CREATED_AT = "2025-03-29T21:34:43.048609+00:00"
+    UPDATED_AT = "2025-03-30T21:34:43.048609+00:00"
+    INPUT_VARIABLES = {
+        "genre": "pop",
+        "number": "1"
+    }
+    OUTPUT_TEXT ="Here's a playlist with one song"

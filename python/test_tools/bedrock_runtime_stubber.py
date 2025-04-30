@@ -269,3 +269,15 @@ class BedrockRuntimeStubber(ExampleStubber):
         self._stub_bifurcator(
             "invoke_model", expected_params, response, error_code=error_code
         )
+    def stub_converse(self, expected_params, response, error_code=None):
+        """
+        Adds a stub for the converse function.
+        
+        :param expected_params: The parameters that are expected to be passed to the function.
+        :param response: The response to return when the expected parameters are passed.
+        :param error_code: The error code to raise when the expected parameters are passed.
+                           If this is None, no error is raised.
+        """
+        self._stub_bifurcator(
+            "converse", expected_params, response, error_code=error_code
+        )
