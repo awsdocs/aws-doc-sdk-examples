@@ -262,9 +262,9 @@ public class FleetwiseActions {
                     if (exception != null) {
                         Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
                         if (cause instanceof ResourceNotFoundException) {
-                            throw new RuntimeException("Decoder manifest not found: " + name, cause);
+                            throw (ResourceNotFoundException) cause;
                         }
-                        throw new RuntimeException("Failed to delete decoder manifest: " + name, cause);
+                        throw new RuntimeException("Failed to delete the decoder manifest: " + cause);
                     }
                     return null;
                 });
@@ -289,9 +289,9 @@ public class FleetwiseActions {
                     if (exception != null) {
                         Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
                         if (cause instanceof ResourceNotFoundException) {
-                            throw new RuntimeException("Failed to locate the vehicle: " + vecName, cause);
+                            throw (ResourceNotFoundException) cause;
                         }
-                        throw new RuntimeException("Failed to delete vehicle: " + vecName, cause);
+                        throw new RuntimeException("Failed to delete the vehicle: " + cause);
                     }
                     return null;
                 });
@@ -617,9 +617,9 @@ public class FleetwiseActions {
                     if (exception != null) {
                         Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
                         if (cause instanceof ResourceNotFoundException) {
-                            throw new RuntimeException("Failed to locate the model manifest: " + name, cause);
+                            throw (ResourceNotFoundException) cause;
                         }
-                        throw new RuntimeException("Failed to delete model manifest: " + name, cause);
+                        throw new RuntimeException("Failed to delete the model manifest: " + cause);
                     }
                     logger.info("{} was successfully deleted", name);
                     return null;
@@ -645,9 +645,9 @@ public class FleetwiseActions {
                     if (exception != null) {
                         Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
                         if (cause instanceof ResourceNotFoundException) {
-                            throw new RuntimeException("Failed to locate the signal catalog: " + name, cause);
+                            throw (ResourceNotFoundException) cause;
                         }
-                        throw new RuntimeException("Failed to delete signal catalog: " + name, cause);
+                        throw new RuntimeException("Failed to delete the signal catalog: " + cause);
                     }
                     logger.info("{} was successfully deleted", name);
                     return null;
@@ -749,9 +749,9 @@ public class FleetwiseActions {
                     if (exception != null) {
                         Throwable cause = exception.getCause() != null ? exception.getCause() : exception;
                         if (cause instanceof ResourceNotFoundException) {
-                            throw new RuntimeException("Failed to locate the fleet: " + fleetId, cause);
+                            throw (ResourceNotFoundException) cause;
                         }
-                        throw new RuntimeException("Failed to delete fleet: " + fleetId, cause);
+                        throw new RuntimeException("Failed to delete the fleet: " + cause);
                     }
                     logger.info("{} was successfully deleted", fleetId);
                     return null;
