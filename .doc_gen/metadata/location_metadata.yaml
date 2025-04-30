@@ -23,6 +23,15 @@ location_Hello:
             - description:
               snippet_tags:
                 - location.java2.hello.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.location.hello
   services:
     location: {ListGeofencesPaginator}
 location_CreateMap:
@@ -36,6 +45,15 @@ location_CreateMap:
             - description:
               snippet_tags:
                 - location.kotlin.create.map.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/actions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.JavaScript.map.createMapV3
     Java:
       versions:
         - sdk_version: 2
@@ -80,6 +98,15 @@ location_CreateGeofenceCollection:
             - description:
               snippet_tags:
                 - location.kotlin.create.collection.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/actions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.JavaScript.geofence.createCollectionV3
     Java:
       versions:
         - sdk_version: 2
@@ -102,6 +129,15 @@ location_PutGeofence:
             - description:
               snippet_tags:
                 - location.kotlin.put.geo.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/actions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.JavaScript.geofence.putV3
     Java:
       versions:
         - sdk_version: 2
@@ -124,6 +160,15 @@ location_CreateTracker:
             - description:
               snippet_tags:
                 - location.kotlin.create.tracker.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/actions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.JavaScript.tracker.createTrackerV3
     Java:
       versions:
         - sdk_version: 2
@@ -146,6 +191,15 @@ location_BatchUpdateDevicePosition:
             - description:
               snippet_tags:
                 - location.kotlin.update.device.position.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/actions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.JavaScript.device.batchUpdatePositionV3
     Java:
       versions:
         - sdk_version: 2
@@ -168,6 +222,15 @@ location_GetDevicePosition:
             - description:
               snippet_tags:
                 - location.kotlin.get.device.position.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/actions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.JavaScript.position.getDevicePositionV3
     Java:
       versions:
         - sdk_version: 2
@@ -190,6 +253,15 @@ location_CreateRouteCalculator:
             - description:
               snippet_tags:
                 - location.kotlin.create.calculator.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/actions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.JavaScript.routes.createRouteCalcV3
     Java:
       versions:
         - sdk_version: 2
@@ -212,6 +284,15 @@ location_CalculateRoute:
             - description:
               snippet_tags:
                 - location.kotlin.calc.distance.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/actions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.JavaScript.distance.createDistAsyncV3
     Java:
       versions:
         - sdk_version: 2
@@ -234,6 +315,15 @@ location_DeleteGeofenceCollection:
             - description:
               snippet_tags:
                 - location.kotlin.delete.collection.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/actions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.JavaScript.geofence.deleteCollectionV3
     Java:
       versions:
         - sdk_version: 2
@@ -278,6 +368,15 @@ location_DeleteMap:
             - description:
               snippet_tags:
                 - location.kotlin.delete.map.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/actions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.JavaScript.geofence.deleteMapV3
     Java:
       versions:
         - sdk_version: 2
@@ -300,6 +399,15 @@ location_DeleteTracker:
             - description:
               snippet_tags:
                 - location.kotlin.delete.tracker.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/actions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.JavaScript.tracker.deleteTrackerV3
     Java:
       versions:
         - sdk_version: 2
@@ -322,6 +430,15 @@ location_DeleteRouteCalculator:
             - description:
               snippet_tags:
                 - location.kotlin.delete.calculator.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/actions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - location.JavaScript.calculator.deleteRouteCalculatorV3
     Java:
       versions:
         - sdk_version: 2
@@ -370,5 +487,14 @@ location_Scenario:
             - description: A wrapper class for &ALlong; SDK methods.
               snippet_tags:
                 - location.java2.actions.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/location/scenarios
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - LocationServices.javascriptv3.Scenario.basics
   services:
     location: {}

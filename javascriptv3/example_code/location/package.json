@@ -1,0 +1,21 @@
+{
+  "name": "@aws-doc-sdk-examples/javascript-location-services-basics",
+  "version": "1.0.0",
+  "description": "Code samples for interacting with Amazon Location Services via the AWS SDK for JavaScript (v3)",
+  "author": "Brian Murray (brmur@amazon.com)",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "integration-test": "vitest run integration --reporter=junit --outputFile=test_results/location-service-test-results.junit.xml"
+  },
+  "dependencies": {
+    "@aws-doc-sdk-examples/lib": "^1.0.0",
+    "@aws-sdk/client-location": "^3.163.0",
+    "@aws-sdk/client-geo-places": "^3.787.0",
+    "@aws-sdk/client-iam": "^3.787.0"
+  },
+  "devDependencies": {
+    "prettier": "3.5.3",
+    "vitest": "^1.6.1"
+  }
+}
