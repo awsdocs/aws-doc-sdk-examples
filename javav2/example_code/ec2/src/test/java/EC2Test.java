@@ -50,7 +50,7 @@ public class EC2Test {
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-         keyName = values.getKeyNameSc();
+        keyName = values.getKeyNameSc();
         groupName = values.getGroupName() + java.util.UUID.randomUUID();
         groupDesc = values.getGroupDesc();
         keyNameSc = values.getKeyNameSc() + java.util.UUID.randomUUID();
