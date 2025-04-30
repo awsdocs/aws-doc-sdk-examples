@@ -62,7 +62,7 @@ The AWS IoT Fleetwise Basics scenario executes the following operations.
 The following shows the output of the AWS IoT Fleetwise Basics scenario. 
 
 ```
- WS IoT FleetWise is a managed service that simplifies the
+ AWS IoT FleetWise is a managed service that simplifies the
  process of collecting, organizing, and transmitting vehicle
  data to the cloud in near real-time. Designed for automakers
  and fleet operators, it allows you to define vehicle models,
