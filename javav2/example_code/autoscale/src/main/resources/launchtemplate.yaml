@@ -1,0 +1,26 @@
+Resources:
+  MyLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        ImageId: ami-08962a4068733a2b6
+        InstanceType: t3.micro
+      LaunchTemplateName: MyLaunchTemplate
+    Metadata:
+      aws:cdk:path: MyCdkAutoScaleStack/MyLaunchTemplate
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Analytics: v2:deflate64:H4sIAAAAAAAA/zPSM7Qw0zNQTCwv1k1OydbNyUzSqw4uSUzO1kksL45PTTbSc07L80kszUvOCEnNLchJLEnVcU7L8y8tKSgtqdXxSixL1Dcy1DPQM1PMKs7M1C0qzSvJzE3VC4LQAEchUclgAAAA
+    Metadata:
+      aws:cdk:path: MyCdkAutoScaleStack/CDKMetadata/Default
+Outputs:
+  LaunchTemplateNameOutput:
+    Description: The name of the launch template
+    Value: MyLaunchTemplate
+Parameters:
+  BootstrapVersion:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cdk-bootstrap/hnb659fds/version
+    Description: Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]
+
