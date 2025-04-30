@@ -297,9 +297,14 @@ public class FleetwiseScenario {
             } catch (CompletionException ce) {
                 Throwable cause = ce.getCause();
                 if (cause instanceof ResourceNotFoundException) {
+                    // Handle the case where the resource is not found.
                     logger.error("The resource was not found: {}", cause.getMessage());
+                } else if (cause instanceof RuntimeException) {
+                    // Handle other runtime exceptions.
+                    logger.error("An unexpected error occurred: {}", cause.getMessage());
                 } else {
-                    logger.error("An unexpected error occurred.", cause);
+                    // Catch any other unexpected exceptions.
+                    logger.error("An unknown error occurred.", cause);
                 }
                 return;
             }
