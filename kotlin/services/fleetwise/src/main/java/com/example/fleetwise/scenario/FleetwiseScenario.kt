@@ -257,6 +257,7 @@ suspend fun runScenario(signalCatalogName: String, fleetIdVal: String, manifestN
     println(DASHES);
 }
 
+// snippet-start:[iotfleetwise.kotlin.delete.vehicle.main]
 suspend fun deleteVehicle(vecName:String){
     val request  = DeleteVehicleRequest {
         vehicleName = vecName
@@ -267,7 +268,9 @@ suspend fun deleteVehicle(vecName:String){
         println("✅ Vehicle $vecName was deleted successfully.")
     }
 }
+// snippet-end:[iotfleetwise.kotlin.delete.vehicle.main]
 
+// snippet-start:[iotfleetwise.kotlin.get.vehicle.main]
 suspend fun getVehicleDetails(vehicleNameVal:String) {
     val request = GetVehicleRequest {
         vehicleName = vehicleNameVal
@@ -291,7 +294,9 @@ suspend fun getVehicleDetails(vehicleNameVal:String) {
         }
     }
 }
+// snippet-end:[iotfleetwise.kotlin.get.vehicle.main]
 
+// snippet-start:[iotfleetwise.kotlin.create.vehicle.main]
 suspend fun createVehicle(vecName:String, manifestArn:String?, decArn:String){
     val request = CreateVehicleRequest {
         vehicleName = vecName
@@ -304,6 +309,7 @@ suspend fun createVehicle(vecName:String, manifestArn:String?, decArn:String){
         println("✅ Vehicle $vecName was created successfully.")
     }
 }
+// snippet-end:[iotfleetwise.kotlin.create.vehicle.main]
 
 /**
  * Creates an IoT Thing if it does not already exist.
@@ -321,6 +327,7 @@ suspend fun createThingIfNotExist(vecName: String){
     }
 }
 
+// snippet-start:[iotfleetwise.kotlin.update.decoder.main]
 suspend fun updateDecoderManifest(nameVal:String) {
     val request = UpdateDecoderManifestRequest {
         name = nameVal
@@ -331,7 +338,9 @@ suspend fun updateDecoderManifest(nameVal:String) {
         println("$nameVal was successfully updated")
     }
 }
+// snippet-end:[iotfleetwise.kotlin.update.decoder.main]
 
+// snippet-start:[iotfleetwise.kotlin.decoder.active.main]
 /**
 * Waits for the specified model manifest to become active.
 *
@@ -375,6 +384,7 @@ suspend fun waitForDecoderManifestActive(decNameVal: String) {
         }
     }
 }
+// snippet-end:[iotfleetwise.kotlin.decoder.active.main]
 
 // snippet-start:[iotfleetwise.kotlin.get.manifest.main]
 /**
@@ -440,6 +450,8 @@ suspend fun updateModelManifest(nameVal:String) {
 }
 // snippet-end:[iotfleetwise.kotlin.update.manifest.main]
 
+
+// snippet-start:[iotfleetwise.kotlin.delete.decoder.main]
 suspend fun deleteDecoderManifest(nameVal:String) {
     val request = DeleteDecoderManifestRequest{
         name = nameVal
@@ -450,6 +462,7 @@ suspend fun deleteDecoderManifest(nameVal:String) {
         println("✅ $nameVal was successfully deleted")
     }
 }
+// snippet-end:[iotfleetwise.kotlin.delete.decoder.main]
 
 // snippet-start:[iotfleetwise.kotlin.create.decoder.main]
 /**
@@ -557,7 +570,7 @@ suspend fun deleteFleet(fleetIdVal: String) {
 }
 // snippet-end:[iotfleetwise.kotlin.delete.fleet.main]
 
-// snippet-start:[iotfleetwise.koltin.delete.model.main]
+// snippet-start:[iotfleetwise.kotlin.delete.model.main]
 /**
  * Deletes a model manifest.
  *
@@ -572,7 +585,7 @@ suspend fun deleteModelManifest(nameVal: String) {
         println("✅ $nameVal was successfully deleted")
     }
 }
-// snippet-end:[iotfleetwise.koltin.delete.model.main]
+// snippet-end:[iotfleetwise.kotlin.delete.model.main]
 
 // snippet-start:[iotfleetwise.kotlin.create.model.main]
 /**
