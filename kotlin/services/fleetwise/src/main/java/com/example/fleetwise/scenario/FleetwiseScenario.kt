@@ -36,6 +36,14 @@ import aws.sdk.kotlin.services.iotfleetwise.model.UpdateModelManifestRequest
 import kotlinx.coroutines.delay
 import java.util.Scanner
 
+// snippet-start:[iotfleetwise.kotlin.scenario.main]
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
 var scanner = Scanner(System.`in`)
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
 suspend fun main(args: Array<String>) {
@@ -707,3 +715,4 @@ private fun waitForInputToContinue(scanner: Scanner) {
         }
     }
 }
+// snippet-end:[iotfleetwise.kotlin.scenario.main]
