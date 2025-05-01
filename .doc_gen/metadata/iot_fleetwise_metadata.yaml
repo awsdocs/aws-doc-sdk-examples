@@ -8,7 +8,7 @@ iotfleetwise_Hello:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -29,7 +29,7 @@ iotfleetwise_CreateSignalCatalog:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -50,7 +50,7 @@ iotfleetwise_CreateDecoderManifest:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -71,7 +71,7 @@ iotfleetwise_DeleteDecoderManifest:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -92,7 +92,7 @@ iotfleetwise_DeleteVehicle:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -113,7 +113,7 @@ iotfleetwise_UpdateModelManifest:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -134,7 +134,7 @@ iotfleetwise_UpdateDecoderManifest:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -155,7 +155,7 @@ iotfleetwise_CreateVehicle:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -176,7 +176,7 @@ iotfleetwise_GetDecoderManifest:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -197,7 +197,7 @@ iotfleetwise_GetModelManifest:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -218,7 +218,7 @@ iotfleetwise_GetVehicle:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -239,7 +239,7 @@ iotfleetwise_DeleteModelManifest:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -260,7 +260,7 @@ iotfleetwise_DeleteSignalCatalog:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -281,7 +281,7 @@ iotfleetwise_ListSignalCatalogNodes:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -302,7 +302,7 @@ iotfleetwise_CreateModelManifest:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -323,7 +323,7 @@ iotfleetwise_DeleteFleet:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -344,7 +344,7 @@ iotfleetwise_CreateFleet:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - snippet_tags:
@@ -377,7 +377,7 @@ iotfleetwise_Scenario:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/fleetwise
+          github: kotlin/services/iotfleetwise
           sdkguide:
           excerpts:
             - description: Run an interactive scenario demonstrating &ITSW; features.
