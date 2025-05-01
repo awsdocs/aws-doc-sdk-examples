@@ -1,13 +1,13 @@
-# AWS IoT code examples for the SDK for Kotlin
+# AWS IoT FleetWise code examples for the SDK for Kotlin
 
 ## Overview
 
-Shows how to use the AWS SDK for Kotlin to work with AWS IoT.
+Shows how to use the AWS SDK for Kotlin to work with AWS IoT FleetWise.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_AWS IoT provides secure, bi-directional communication for Internet-connected devices (such as sensors, actuators, embedded devices, wireless devices, and smart appliances) to connect to the AWS Cloud over MQTT, HTTPS, and LoRaWAN._
+_AWS IoT FleetWise provides a secure and scalable platform for collecting, storing, and analyzing data from connected vehicles and fleets._
 
 ## ⚠ Important
 
@@ -31,32 +31,36 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 ### Get started
 
-- [Hello AWS IoT](src/main/kotlin/com/example/iot/HelloIoT.kt#L6) (`listThings`)
+- [Hello AWS IoT FleetWise](src/main/java/com/example/fleetwise/HelloFleetwise.kt#L10) (`listSignalCatalogsPaginator`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](src/main/kotlin/com/example/iot/IotScenario.kt)
+- [Learn the basics](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachThingPrincipal](src/main/kotlin/com/example/iot/IotScenario.kt#L476)
-- [CreateKeysAndCertificate](src/main/kotlin/com/example/iot/IotScenario.kt#L511)
-- [CreateThing](src/main/kotlin/com/example/iot/IotScenario.kt#L528)
-- [CreateTopicRule](src/main/kotlin/com/example/iot/IotScenario.kt#L331)
-- [DeleteCertificate](src/main/kotlin/com/example/iot/IotScenario.kt#L257)
-- [DeleteThing](src/main/kotlin/com/example/iot/IotScenario.kt#L243)
-- [DescribeEndpoint](src/main/kotlin/com/example/iot/IotScenario.kt#L397)
-- [DescribeThing](src/main/kotlin/com/example/iot/IotScenario.kt#L494)
-- [DetachThingPrincipal](src/main/kotlin/com/example/iot/IotScenario.kt#L277)
-- [ListCertificates](src/main/kotlin/com/example/iot/IotScenario.kt#L384)
-- [SearchIndex](src/main/kotlin/com/example/iot/IotScenario.kt#L295)
-- [UpdateThing](src/main/kotlin/com/example/iot/IotScenario.kt#L429)
+- [createDecoderManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L467)
+- [createFleet](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L640)
+- [createModelManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L590)
+- [createSignalCatalog](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L662)
+- [createVehicle](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L299)
+- [deleteDecoderManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L454)
+- [deleteFleet](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L555)
+- [deleteModelManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L573)
+- [deleteSignalCatalog](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L538)
+- [deleteVehicle](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L260)
+- [getDecoderManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L343)
+- [getModelManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L389)
+- [getVehicle](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L273)
+- [listSignalCatalogNodes](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L620)
+- [updateDecoderManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L330)
+- [updateModelManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L435)
 
 
 <!--custom.examples.start-->
@@ -70,33 +74,32 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello AWS IoT
+#### Hello AWS IoT FleetWise
 
-This example shows you how to get started using AWS IoT.
+This example shows you how to get started using AWS IoT FleetWise.
 
 
 #### Learn the basics
 
 This example shows you how to do the following:
 
-- Create an AWS IoT Thing.
-- Generate a device certificate.
-- Update an AWS IoT Thing with Attributes.
-- Return a unique endpoint.
-- List your AWS IoT certificates.
-- Create an AWS IoT shadow.
-- Write out state information.
-- Creates a rule.
-- List your rules.
-- Search things using the Thing name.
-- Delete an AWS IoT Thing.
+- Create a collection of standardized signals.
+- Create a fleet that represents a group of vehicles.
+- Create a model manifest.
+- Create a decoder manifest.
+- Check the status of the model manifest.
+- Check the status of the decoder.
+- Create an IoT Thing.
+- Create a vehicle.
+- Display vehicle details.
+- Delete the AWS IoT FleetWise Assets.
 
-<!--custom.basic_prereqs.iot_Scenario.start-->
-<!--custom.basic_prereqs.iot_Scenario.end-->
+<!--custom.basic_prereqs.iotfleetwise_Scenario.start-->
+<!--custom.basic_prereqs.iotfleetwise_Scenario.end-->
 
 
-<!--custom.basics.iot_Scenario.start-->
-<!--custom.basics.iot_Scenario.end-->
+<!--custom.basics.iotfleetwise_Scenario.start-->
+<!--custom.basics.iotfleetwise_Scenario.end-->
 
 
 ### Tests
@@ -114,9 +117,9 @@ in the `kotlin` folder.
 
 ## Additional resources
 
-- [AWS IoT Developer Guide](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html)
-- [AWS IoT API Reference](https://docs.aws.amazon.com/iot/latest/apireference/Welcome.html)
-- [SDK for Kotlin AWS IoT reference](https://sdk.amazonaws.com/kotlin/api/latest/iot/index.html)
+- [AWS IoT FleetWise Developer Guide](https://docs.aws.amazon.com/iot-fleetwise/latest/developerguide/what-is-fleetwise.html)
+- [AWS IoT FleetWise API Reference](https://docs.aws.amazon.com/iot-fleetwise/latest/APIReference/Welcome.html)
+- [SDK for Kotlin AWS IoT FleetWise reference](https://sdk.amazonaws.com/kotlin/api/latest/iot/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
