@@ -265,7 +265,7 @@ suspend fun deleteVehicle(vecName:String){
 
     IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.deleteVehicle(request)
-        println("✅ Vehicle $vecName was deleted successfully.")
+        println("Vehicle $vecName was deleted successfully.")
     }
 }
 // snippet-end:[iotfleetwise.kotlin.delete.vehicle.main]
@@ -288,7 +288,7 @@ suspend fun getVehicleDetails(vehicleNameVal:String) {
             "lastModificationTime" to response.lastModificationTime.toString()
         )
 
-        println("🚗 Vehicle Details:")
+        println("Vehicle Details:")
         for ((key, value) in details) {
             println("• %-20s : %s".format(key, value))
         }
@@ -306,7 +306,7 @@ suspend fun createVehicle(vecName:String, manifestArn:String?, decArn:String){
 
     IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.createVehicle(request)
-        println("✅ Vehicle $vecName was created successfully.")
+        println("Vehicle $vecName was created successfully.")
     }
 }
 // snippet-end:[iotfleetwise.kotlin.create.vehicle.main]
@@ -365,21 +365,21 @@ suspend fun waitForDecoderManifestActive(decNameVal: String) {
 
                 when (lastStatus) {
                     ManifestStatus.Active -> {
-                        print("\r⏱️ Elapsed: ${elapsedSeconds}s | Status: ACTIVE ✅\n")
+                        print("\rElapsed: ${elapsedSeconds}s | Status: ACTIVE ✅\n")
                         return
                     }
 
                     ManifestStatus.Invalid -> {
-                        print("\r⏱️ Elapsed: ${elapsedSeconds}s | Status: INVALID ❌\n")
+                        print("\rElapsed: ${elapsedSeconds}s | Status: INVALID ❌\n")
                         throw RuntimeException("Model manifest became INVALID. Cannot proceed.")
                     }
 
                     else -> {
-                        print("\r⏱️ Elapsed: ${elapsedSeconds}s | Status: $lastStatus")
+                        print("\r Elapsed: ${elapsedSeconds}s | Status: $lastStatus")
                     }
                 }
             } else {
-                print("\r⏱️ Elapsed: ${elapsedSeconds}s | Status: $lastStatus")
+                print("\r Elapsed: ${elapsedSeconds}s | Status: $lastStatus")
             }
         }
     }
@@ -411,21 +411,21 @@ suspend fun waitForModelManifestActive(manifestNameVal: String) {
 
                 when (lastStatus) {
                     ManifestStatus.Active -> {
-                        print("\r⏱️ Elapsed: ${elapsedSeconds}s | Status: ACTIVE ✅\n")
+                        print("\r Elapsed: ${elapsedSeconds}s | Status: ACTIVE ✅\n")
                         return
                     }
 
                     ManifestStatus.Invalid -> {
-                        print("\r⏱️ Elapsed: ${elapsedSeconds}s | Status: INVALID ❌\n")
+                        print("\r Elapsed: ${elapsedSeconds}s | Status: INVALID ❌\n")
                         throw RuntimeException("Model manifest became INVALID. Cannot proceed.")
                     }
 
                     else -> {
-                        print("\r⏱️ Elapsed: ${elapsedSeconds}s | Status: $lastStatus")
+                        print("\r Elapsed: ${elapsedSeconds}s | Status: $lastStatus")
                     }
                 }
             } else {
-                print("\r⏱️ Elapsed: ${elapsedSeconds}s | Status: $lastStatus")
+                print("\r Elapsed: ${elapsedSeconds}s | Status: $lastStatus")
             }
         }
     }
@@ -450,7 +450,6 @@ suspend fun updateModelManifest(nameVal:String) {
 }
 // snippet-end:[iotfleetwise.kotlin.update.manifest.main]
 
-
 // snippet-start:[iotfleetwise.kotlin.delete.decoder.main]
 suspend fun deleteDecoderManifest(nameVal:String) {
     val request = DeleteDecoderManifestRequest{
@@ -459,7 +458,7 @@ suspend fun deleteDecoderManifest(nameVal:String) {
 
     IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.deleteDecoderManifest(request)
-        println("✅ $nameVal was successfully deleted")
+        println("$nameVal was successfully deleted")
     }
 }
 // snippet-end:[iotfleetwise.kotlin.delete.decoder.main]
@@ -547,7 +546,7 @@ suspend fun deleteSignalCatalog(catName: String) {
     }
     IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.deleteSignalCatalog(request)
-        println("✅ $catName was successfully deleted")
+        println(" $catName was successfully deleted")
     }
 }
 // snippet-end:[iotfleetwise.kotlin.delete.catalog.main]
@@ -565,7 +564,7 @@ suspend fun deleteFleet(fleetIdVal: String) {
 
     IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.deleteFleet(request)
-        println("✅ $fleetIdVal was successfully deleted")
+        println(" $fleetIdVal was successfully deleted")
     }
 }
 // snippet-end:[iotfleetwise.kotlin.delete.fleet.main]
@@ -582,7 +581,7 @@ suspend fun deleteModelManifest(nameVal: String) {
     }
     IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.deleteModelManifest(request)
-        println("✅ $nameVal was successfully deleted")
+        println(" $nameVal was successfully deleted")
     }
 }
 // snippet-end:[iotfleetwise.kotlin.delete.model.main]

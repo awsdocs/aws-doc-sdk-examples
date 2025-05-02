@@ -25,17 +25,15 @@ import com.example.fleetwise.scenario.updateDecoderManifest
 import com.example.fleetwise.scenario.updateModelManifest
 import com.example.fleetwise.scenario.waitForDecoderManifestActive
 import com.example.fleetwise.scenario.waitForModelManifestActive
-import org.junit.jupiter.api.Assertions.assertTrue
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class FleetwiseTest {
-
     private val signalCatalogName = "catalogTest10"
     private val manifestName = "manifest10"
     private val fleetName = "fleet10"
     private val vecName = "vehicle10"
-    private val decName = "decManifest10" 
+    private val decName = "decManifest10"
     private var signalCatalogArn = ""
     private var fleetValue  =""
     private var manifestArn = ""
@@ -71,7 +69,7 @@ class FleetwiseTest {
         runCatching {
             fleetValue = createFleet(signalCatalogArn, fleetName)
         }.onSuccess {
-            println("✅ Test 3 Passed Successfully")
+            println("Test 3 Passed Successfully")
         }.onFailure {
             it.printStackTrace()
         }.getOrThrow()
@@ -84,7 +82,7 @@ class FleetwiseTest {
             val nodes = listSignalCatalogNode(signalCatalogName);
             manifestArn = nodes?.let { createModelManifest(manifestName, signalCatalogArn, it) }.toString();
         }.onSuccess {
-            println("✅ Test 4 Passed Successfully")
+            println("Test 4 Passed Successfully")
         }.onFailure {
             it.printStackTrace()
         }.getOrThrow()
@@ -96,7 +94,7 @@ class FleetwiseTest {
         runCatching {
             decArn = createDecoderManifest(decName, manifestArn)
         }.onSuccess {
-            println("✅ Test 5 Passed Successfully")
+            println("Test 5 Passed Successfully")
         }.onFailure {
             it.printStackTrace()
         }.getOrThrow()
@@ -109,7 +107,7 @@ class FleetwiseTest {
             updateModelManifest(manifestName)
             waitForModelManifestActive(manifestName)
         }.onSuccess {
-            println("✅ Test 6 Passed Successfully")
+            println("Test 6 Passed Successfully")
         }.onFailure {
             it.printStackTrace()
         }.getOrThrow()
@@ -122,7 +120,7 @@ class FleetwiseTest {
             updateDecoderManifest(decName)
             waitForDecoderManifestActive(decName)
         }.onSuccess {
-            println("✅ Test 7 Passed Successfully")
+            println("Test 7 Passed Successfully")
         }.onFailure {
             it.printStackTrace()
         }.getOrThrow()
@@ -134,7 +132,7 @@ class FleetwiseTest {
         runCatching {
             createThingIfNotExist(vecName)
         }.onSuccess {
-            println("✅ Test 8 Passed Successfully")
+            println("Test 8 Passed Successfully")
         }.onFailure {
             it.printStackTrace()
         }.getOrThrow()
@@ -146,7 +144,7 @@ class FleetwiseTest {
         runCatching {
             createVehicle(vecName, manifestArn, decArn)
         }.onSuccess {
-            println("✅ Test 9 Passed Successfully")
+            println("Test 9 Passed Successfully")
         }.onFailure {
             it.printStackTrace()
         }.getOrThrow()
@@ -158,7 +156,7 @@ class FleetwiseTest {
         runCatching {
             getVehicleDetails(vecName)
         }.onSuccess {
-            println("✅ Test 10 Passed Successfully")
+            println("Test 10 Passed Successfully")
         }.onFailure {
             it.printStackTrace()
         }.getOrThrow()
