@@ -280,7 +280,7 @@ suspend fun getVehicleDetails(vehicleNameVal: String) {
             "decoderManifestArn" to response.decoderManifestArn,
             "attributes" to response.attributes.toString(),
             "creationTime" to response.creationTime.toString(),
-            "lastModificationTime" to response.lastModificationTime.toString()
+            "lastModificationTime" to response.lastModificationTime.toString(),
         )
 
         println("Vehicle Details:")
@@ -692,7 +692,7 @@ suspend fun createbranchVehicle(signalCatalogName: String): String {
         Node.Branch(branchVehicle),
         Node.Branch(branchPowertrain),
         Node.Sensor(sensorRPM),
-        Node.Sensor(sensorKM)
+        Node.Sensor(sensorKM),
     )
 
     val request = CreateSignalCatalogRequest {

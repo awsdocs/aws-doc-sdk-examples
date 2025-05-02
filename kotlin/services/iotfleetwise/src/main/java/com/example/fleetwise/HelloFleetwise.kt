@@ -6,7 +6,6 @@ package com.example.fleetwise
 import aws.sdk.kotlin.services.iotfleetwise.IotFleetWiseClient
 import aws.sdk.kotlin.services.iotfleetwise.model.ListSignalCatalogsRequest
 
-
 // snippet-start:[iotfleetwise.kotlin.hello.main]
 /**
 Before running this Kotlin code example, set up your development environment,
@@ -16,13 +15,13 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-    ListSignalCatalogs()
+    listSignalCatalogs()
 }
 
 /**
  * Lists the AWS FleetWise Signal Catalogs associated with the current AWS account.
  */
-suspend fun ListSignalCatalogs() {
+suspend fun listSignalCatalogs() {
     val request = ListSignalCatalogsRequest {
         maxResults = 10
     }
