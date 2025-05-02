@@ -2,11 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.MethodOrderer
-import org.junit.jupiter.api.Order
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
-import org.junit.jupiter.api.TestMethodOrder
 import com.example.fleetwise.listSignalCatalogs
 import com.example.fleetwise.scenario.createDecoderManifest
 import com.example.fleetwise.scenario.createFleet
@@ -25,6 +20,11 @@ import com.example.fleetwise.scenario.updateDecoderManifest
 import com.example.fleetwise.scenario.updateModelManifest
 import com.example.fleetwise.scenario.waitForDecoderManifestActive
 import com.example.fleetwise.scenario.waitForModelManifestActive
+import org.junit.jupiter.api.MethodOrderer
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.TestMethodOrder
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
@@ -35,7 +35,7 @@ class FleetwiseTest {
     private val vecName = "vehicle10"
     private val decName = "decManifest10"
     private var signalCatalogArn = ""
-    private var fleetValue  = ""
+    private var fleetValue = ""
     private var manifestArn = ""
     private var decArn = ""
 
