@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import kotlinx.coroutines.runBlocking
 import com.example.fleetwise.listSignalCatalogs
 import com.example.fleetwise.scenario.createDecoderManifest
 import com.example.fleetwise.scenario.createFleet
@@ -20,6 +19,7 @@ import com.example.fleetwise.scenario.updateDecoderManifest
 import com.example.fleetwise.scenario.updateModelManifest
 import com.example.fleetwise.scenario.waitForDecoderManifestActive
 import com.example.fleetwise.scenario.waitForModelManifestActive
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
