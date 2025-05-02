@@ -142,8 +142,8 @@ suspend fun runScenario(signalCatalogName: String, fleetIdVal: String, manifestN
         """.trimIndent(),
     )
     waitForInputToContinue(scanner)
-    val nodes = listSignalCatalogNode(signalCatalogName);
-    val manifestArn = nodes?.let { createModelManifest(manifestName, signalCatalogArn, it) };
+    val nodes = listSignalCatalogNode(signalCatalogName)
+    val manifestArn = nodes?.let { createModelManifest(manifestName, signalCatalogArn, it) }
     println("The manifest ARN is $manifestArn")
     println(DASHES)
 
@@ -194,8 +194,8 @@ suspend fun runScenario(signalCatalogName: String, fleetIdVal: String, manifestN
     waitForInputToContinue(scanner)
     println(DASHES)
 
-    println(DASHES);
-    println("7. Create an IoT Thing");
+    println(DASHES)
+    println("7. Create an IoT Thing")
     println(
         """
         AWS IoT FleetWise expects an existing AWS IoT Thing with the same 
@@ -204,12 +204,12 @@ suspend fun runScenario(signalCatalogName: String, fleetIdVal: String, manifestN
         with the same name using the AWS IoT Core service.
         """.trimIndent(),
     )
-    waitForInputToContinue(scanner);
+    waitForInputToContinue(scanner)
     createThingIfNotExist(vecName)
-    println(DASHES);
+    println(DASHES)
 
-    println(DASHES);
-    println("8. Create a vehicle");
+    println(DASHES)
+    println("8. Create a vehicle")
     println(
         """
         Creating a vehicle in AWS IoT FleetWise allows you to digitally 
@@ -218,21 +218,20 @@ suspend fun runScenario(signalCatalogName: String, fleetIdVal: String, manifestN
         of vehicle telemetry data to the cloud for analysis.
         """.trimIndent(),
     )
-    waitForInputToContinue(scanner);
+    waitForInputToContinue(scanner)
     createVehicle(vecName, manifestArn, decArn)
-    println(DASHES);
+    println(DASHES)
 
-    println(DASHES);
-    println("9. Display vehicle details");
-    waitForInputToContinue(scanner);
+    println(DASHES)
+    println("9. Display vehicle details")
+    waitForInputToContinue(scanner)
     getVehicleDetails(vecName)
-    waitForInputToContinue(scanner);
-    println(DASHES);
-
-    println(DASHES);
-    println("10. Delete the AWS IoT Fleetwise Assets");
-    println("Would you like to delete the IoT Fleetwise Assets? (y/n)");
-    val delAns = scanner.nextLine().trim();
+    waitForInputToContinue(scanner)
+    println(DASHES)
+    println(DASHES)
+    println("10. Delete the AWS IoT Fleetwise Assets")
+    println("Would you like to delete the IoT Fleetwise Assets? (y/n)")
+    val delAns = scanner.nextLine().trim()
     if (delAns.equals("y", ignoreCase = true)) {
         deleteVehicle(vecName)
         deleteDecoderManifest(decName)
@@ -241,7 +240,7 @@ suspend fun runScenario(signalCatalogName: String, fleetIdVal: String, manifestN
         deleteSignalCatalog(signalCatalogName)
     }
 
-    println(DASHES);
+    println(DASHES)
     println(
         """
         Thank you for checking out the AWS IoT Fleetwise Service Use demo. We hope you
@@ -250,7 +249,7 @@ suspend fun runScenario(signalCatalogName: String, fleetIdVal: String, manifestN
         https://docs.aws.amazon.com/code-library/latest/ug/what-is-code-library.html
         """.trimIndent(),
     )
-    println(DASHES);
+    println(DASHES)
 }
 
 // snippet-start:[iotfleetwise.kotlin.delete.vehicle.main]
