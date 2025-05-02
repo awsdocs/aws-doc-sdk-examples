@@ -35,7 +35,7 @@ class FleetwiseTest {
     private val vecName = "vehicle10"
     private val decName = "decManifest10"
     private var signalCatalogArn = ""
-    private var fleetValue  =""
+    private var fleetValue  = ""
     private var manifestArn = ""
     private var decArn = ""
 
@@ -61,7 +61,7 @@ class FleetwiseTest {
         }.onFailure {
             it.printStackTrace()
         }.getOrThrow()
-   }
+    }
 
     @Test
     @Order(3)
@@ -79,8 +79,8 @@ class FleetwiseTest {
     @Order(4)
     fun testModelManifest(): Unit = runBlocking {
         runCatching {
-            val nodes = listSignalCatalogNode(signalCatalogName);
-            manifestArn = nodes?.let { createModelManifest(manifestName, signalCatalogArn, it) }.toString();
+            val nodes = listSignalCatalogNode(signalCatalogName)
+            manifestArn = nodes?.let { createModelManifest(manifestName, signalCatalogArn, it) }.toString()
         }.onSuccess {
             println("Test 4 Passed Successfully")
         }.onFailure {
