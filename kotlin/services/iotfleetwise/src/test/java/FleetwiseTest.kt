@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import com.example.fleetwise.ListSignalCatalogs
+import com.example.fleetwise.listSignalCatalogs
 import com.example.fleetwise.scenario.createDecoderManifest
 import com.example.fleetwise.scenario.createFleet
 import com.example.fleetwise.scenario.createModelManifest
@@ -26,6 +26,7 @@ import com.example.fleetwise.scenario.updateModelManifest
 import com.example.fleetwise.scenario.waitForDecoderManifestActive
 import com.example.fleetwise.scenario.waitForModelManifestActive
 
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class FleetwiseTest {
@@ -43,7 +44,7 @@ class FleetwiseTest {
     @Order(1)
     fun testHello() = runBlocking {
         runCatching {
-            ListSignalCatalogs()
+            listSignalCatalogs()
         }.onSuccess {
             println("Test 1 Passed Successfully!")
         }.onFailure {
