@@ -94,15 +94,20 @@ suspend fun main(args: Array<String>) {
         manufacturers to optimize vehicle performance, improve safety, 
         and reduce maintenance costs by gaining real-time visibility 
         into fleet operations. 
-        
-    """.trimIndent(),
+        """.trimIndent(),
     )
     waitForInputToContinue(scanner)
     println(DASHES)
     runScenario(signalCatalogName, fleetId, manifestName, decName, vecName)
 }
 
-suspend fun runScenario(signalCatalogName: String, fleetIdVal: String, manifestName: String, decName:String, vecName:String) {
+suspend fun runScenario(
+    signalCatalogName: String,
+    fleetIdVal: String,
+    manifestName: String,
+    decName: String,
+    vecName: String
+) {
     println(DASHES)
     println("1. Creates a collection of standardized signals that can be reused to create vehicle models")
     waitForInputToContinue(scanner)
@@ -122,7 +127,6 @@ suspend fun runScenario(signalCatalogName: String, fleetIdVal: String, manifestN
         It helps reduce data costs by allowing you to filter and prioritize 
         only the most relevant vehicle signals, supporting advanced analytics 
         and predictive maintenance use cases.
-                
         """.trimIndent(),
     )
     waitForInputToContinue(scanner)
@@ -141,7 +145,6 @@ suspend fun runScenario(signalCatalogName: String, fleetIdVal: String, manifestN
         which signals to collect and how they relate to vehicle systems, 
         while the decoder manifest defines how to decode raw vehicle data 
         into meaningful signals. 
-                
         """.trimIndent(),
     )
     waitForInputToContinue(scanner)
@@ -161,7 +164,6 @@ suspend fun runScenario(signalCatalogName: String, fleetIdVal: String, manifestN
         using decoding rules. This is crucial for extracting usable
         data from different vehicle models, even when their data 
         formats vary.
-                
         """.trimIndent(),
     )
     waitForInputToContinue(scanner)
@@ -258,8 +260,8 @@ suspend fun runScenario(signalCatalogName: String, fleetIdVal: String, manifestN
 }
 
 // snippet-start:[iotfleetwise.kotlin.delete.vehicle.main]
-suspend fun deleteVehicle(vecName:String){
-    val request  = DeleteVehicleRequest {
+suspend fun deleteVehicle(vecName: String) {
+    val request = DeleteVehicleRequest {
         vehicleName = vecName
     }
 
@@ -271,7 +273,7 @@ suspend fun deleteVehicle(vecName:String){
 // snippet-end:[iotfleetwise.kotlin.delete.vehicle.main]
 
 // snippet-start:[iotfleetwise.kotlin.get.vehicle.main]
-suspend fun getVehicleDetails(vehicleNameVal:String) {
+suspend fun getVehicleDetails(vehicleNameVal: String) {
     val request = GetVehicleRequest {
         vehicleName = vehicleNameVal
     }
@@ -297,7 +299,7 @@ suspend fun getVehicleDetails(vehicleNameVal:String) {
 // snippet-end:[iotfleetwise.kotlin.get.vehicle.main]
 
 // snippet-start:[iotfleetwise.kotlin.create.vehicle.main]
-suspend fun createVehicle(vecName:String, manifestArn:String?, decArn:String){
+suspend fun createVehicle(vecName: String, manifestArn: String?, decArn: String) {
     val request = CreateVehicleRequest {
         vehicleName = vecName
         modelManifestArn = manifestArn
@@ -316,9 +318,9 @@ suspend fun createVehicle(vecName:String, manifestArn:String?, decArn:String){
  *
  * @param vecName the name of the IoT Thing to create
  */
-suspend fun createThingIfNotExist(vecName: String){
+suspend fun createThingIfNotExist(vecName: String) {
     val request = CreateThingRequest {
-        thingName= vecName
+        thingName = vecName
     }
 
     IotClient { region = "us-east-1" }.use { client ->
@@ -328,7 +330,7 @@ suspend fun createThingIfNotExist(vecName: String){
 }
 
 // snippet-start:[iotfleetwise.kotlin.update.decoder.main]
-suspend fun updateDecoderManifest(nameVal:String) {
+suspend fun updateDecoderManifest(nameVal: String) {
     val request = UpdateDecoderManifestRequest {
         name = nameVal
         status = ManifestStatus.Active
@@ -342,10 +344,10 @@ suspend fun updateDecoderManifest(nameVal:String) {
 
 // snippet-start:[iotfleetwise.kotlin.decoder.active.main]
 /**
-* Waits for the specified model manifest to become active.
-*
-* @param decNameVal the name of the model manifest to wait for
-*/
+ * Waits for the specified model manifest to become active.
+ *
+ * @param decNameVal the name of the model manifest to wait for
+ */
 suspend fun waitForDecoderManifestActive(decNameVal: String) {
     var elapsedSeconds = 0
     var lastStatus: ManifestStatus = ManifestStatus.Draft
@@ -438,7 +440,7 @@ suspend fun waitForModelManifestActive(manifestNameVal: String) {
  *
  * @param nameVal the name of the model manifest to update
  */
-suspend fun updateModelManifest(nameVal:String) {
+suspend fun updateModelManifest(nameVal: String) {
     val request = UpdateModelManifestRequest {
         name = nameVal
         status = ManifestStatus.Active
@@ -451,8 +453,8 @@ suspend fun updateModelManifest(nameVal:String) {
 // snippet-end:[iotfleetwise.kotlin.update.manifest.main]
 
 // snippet-start:[iotfleetwise.kotlin.delete.decoder.main]
-suspend fun deleteDecoderManifest(nameVal:String) {
-    val request = DeleteDecoderManifestRequest{
+suspend fun deleteDecoderManifest(nameVal: String) {
+    val request = DeleteDecoderManifestRequest {
         name = nameVal
     }
 
@@ -471,7 +473,7 @@ suspend fun deleteDecoderManifest(nameVal:String) {
  * @param modelManifestArnVal the ARN of the model manifest
  * @return the ARN of the decoder manifest
  */
-suspend fun createDecoderManifest(decName:String, modelManifestArnVal:String?):String {
+suspend fun createDecoderManifest(decName: String, modelManifestArnVal: String?): String {
     val interfaceIdVal = "can0"
 
     val canInter = CanInterface {
@@ -481,9 +483,9 @@ suspend fun createDecoderManifest(decName:String, modelManifestArnVal:String?):S
     }
 
     val networkInterface = NetworkInterface {
-         interfaceId = interfaceIdVal
-         type = NetworkInterfaceType.CanInterface
-         canInterface = canInter
+        interfaceId = interfaceIdVal
+        type = NetworkInterfaceType.CanInterface
+        canInterface = canInter
     }
 
     val carRpmSig = CanSignal {
@@ -520,7 +522,7 @@ suspend fun createDecoderManifest(decName:String, modelManifestArnVal:String?):S
         canSignal = carSpeedSig
     }
 
-    val request =   CreateDecoderManifestRequest {
+    val request = CreateDecoderManifestRequest {
         name = decName
         modelManifestArn = modelManifestArnVal
         networkInterfaces = listOf(networkInterface)
