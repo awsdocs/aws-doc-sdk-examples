@@ -101,12 +101,7 @@ suspend fun main(args: Array<String>) {
     runScenario(signalCatalogName, fleetId, manifestName, decName, vecName)
 }
 
-suspend fun runScenario(
-    signalCatalogName: String,
-    fleetIdVal: String,
-    manifestName: String,
-    decName: String,
-    vecName: String){
+suspend fun runScenario(signalCatalogName: String, fleetIdVal: String, manifestName: String, decName: String, vecName: String) {
     println(DASHES)
     println("1. Creates a collection of standardized signals that can be reused to create vehicle models")
     waitForInputToContinue(scanner)
