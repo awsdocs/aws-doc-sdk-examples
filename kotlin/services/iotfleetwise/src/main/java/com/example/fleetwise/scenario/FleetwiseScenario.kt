@@ -61,16 +61,16 @@ suspend fun main(args: Array<String>) {
                         
         """.trimIndent()
 
-    //  if (args.size != 5) {
-    //      println(usage)
-    //     return
-    // }
+    if (args.size != 5) {
+        println(usage)
+        return
+    }
 
-    val signalCatalogName = "catalog309"//args[0]
-    val manifestName = "manifest309" //args[1]
-    val fleetId = "fleet309" //args[2]
-    val vecName = "vehicle309" //args[3]
-    val decName = "decManifest309" //args[4]
+    val signalCatalogName = args[0]
+    val manifestName = args[1]
+    val fleetId = args[2]
+    val vecName = args[3]
+    val decName = args[4]
 
     println(
         """
