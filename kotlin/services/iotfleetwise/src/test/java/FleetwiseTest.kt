@@ -26,7 +26,6 @@ import com.example.fleetwise.scenario.updateModelManifest
 import com.example.fleetwise.scenario.waitForDecoderManifestActive
 import com.example.fleetwise.scenario.waitForModelManifestActive
 
-
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class FleetwiseTest {
