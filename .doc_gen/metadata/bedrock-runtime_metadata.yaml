@@ -415,6 +415,14 @@ bedrock-runtime_Converse_MetaLlama:
             - description: Send a text message to Meta Llama, using Bedrock's Converse API.
               snippet_tags:
                 - javascript.v3.bedrock-runtime.Converse_MetaLlama
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Meta Llama, using Bedrock's Converse API.
+              snippet_tags:
+                - swift.example_code.bedrock-runtime.Converse_MetaLlama
   services:
     bedrock-runtime: {Converse}
 
@@ -692,6 +700,14 @@ bedrock-runtime_ConverseStream_MetaLlama:
             - description: Send a text message to Meta Llama, using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
                 - javascript.v3.bedrock-runtime.ConverseStream_MetaLlama
+    Swift:
+      versions:
+        - sdk_version: 3
+          github: swift/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Meta Llama, using Bedrock's Converse API and process the response stream in real-time.
+              snippet_tags:
+                - swift.example_code.bedrock-runtime.ConverseStream_MetaLlama
   services:
     bedrock-runtime: {ConverseStream}
 
