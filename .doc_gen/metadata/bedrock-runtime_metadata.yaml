@@ -702,7 +702,7 @@ bedrock-runtime_ConverseStream_MetaLlama:
                 - javascript.v3.bedrock-runtime.ConverseStream_MetaLlama
     Swift:
       versions:
-        - sdk_version: 3
+        - sdk_version: 1
           github: swift/example_code/bedrock-runtime
           excerpts:
             - description: Send a text message to Meta Llama, using Bedrock's Converse API and process the response stream in real-time.

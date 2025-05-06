@@ -36,6 +36,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 ### Meta Llama
 
 - [Converse](models/meta_llama/Sources/Converse/main.swift#L4)
+- [ConverseStream](models/meta_llama/Sources/ConverseStream/main.swift#L4)
 
 
 <!--custom.examples.start-->
