@@ -92,14 +92,14 @@ entityresolution_CheckWorkflowStatus:
             - description:
               snippet_tags:
                 - entityres.java2_check_matching_workflow.main
-      JavaScript:
-        versions:
-          - sdk_version: 3
-            github: javascriptv3/example_code/entityresolution
-            excerpts:
-              - description:
-                snippet_tags:
-                  - entity-resolution.JavaScriptv3.check-workflow-status
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entity-resolution.JavaScriptv3.check-workflow-status
   services:
     entityresolution: {CheckWorkflowStatus}
 entityresolution_StartMatchingJob:
