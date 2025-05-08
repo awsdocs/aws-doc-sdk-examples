@@ -327,6 +327,14 @@ bedrock-runtime_Converse_AnthropicClaude:
             - description: Use statements, Error utility, and constants.
               snippet_tags:
                 - rust.bedrock-runtime.Converse_AnthropicClaude.supporting
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Anthropic Claude, using Bedrock's Converse API.
+              snippet_tags:
+                - swift.example_code.bedrock-runtime.Converse_AnthropicClaude
   services:
     bedrock-runtime: {Converse}
 
@@ -610,6 +618,14 @@ bedrock-runtime_ConverseStream_AnthropicClaude:
             - description: Use statements, Error utility, and constants.
               snippet_tags:
                 - rust.bedrock-runtime.ConverseStream_AnthropicClaude.supporting
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Anthropic Claude, using Bedrock's Converse API and process the response stream in real-time.
+              snippet_tags:
+                - swift.example_code.bedrock-runtime.ConverseStream_AnthropicClaude
   services:
     bedrock-runtime: {ConverseStream}
 
