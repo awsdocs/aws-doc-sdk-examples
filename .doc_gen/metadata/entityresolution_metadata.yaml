@@ -15,7 +15,7 @@ entityresolution_Hello:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/entity-resolution
+          github: javascriptv3/example_code/entityresolution
           excerpts:
             - description:
               snippet_tags:
@@ -35,7 +35,7 @@ entityresolution_DeleteSchemaMapping:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/entity-resolution
+          github: javascriptv3/example_code/entityresolution
           excerpts:
             - description:
               snippet_tags:
@@ -55,7 +55,7 @@ entityresolution_TagEntityResource:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/entity-resolution
+          github: javascriptv3/example_code/entityresolution
           excerpts:
             - description:
               snippet_tags:
@@ -75,7 +75,7 @@ entityresolution_CreateMatchingWorkflow:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/entity-resolution
+          github: javascriptv3/example_code/entityresolution
           excerpts:
             - description:
               snippet_tags:
@@ -95,7 +95,7 @@ entityresolution_CheckWorkflowStatus:
       JavaScript:
         versions:
           - sdk_version: 3
-            github: javascriptv3/example_code/entity-resolution
+            github: javascriptv3/example_code/entityresolution
             excerpts:
               - description:
                 snippet_tags:
@@ -115,7 +115,7 @@ entityresolution_StartMatchingJob:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/entity-resolution
+          github: javascriptv3/example_code/entityresolution
           excerpts:
             - description:
               snippet_tags:
@@ -135,7 +135,7 @@ entityresolution_GetMatchingJob:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/entity-resolution
+          github: javascriptv3/example_code/entityresolution
           excerpts:
             - description:
               snippet_tags:
@@ -155,7 +155,7 @@ entityresolution_DeleteMatchingWorkflow:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/entity-resolution
+          github: javascriptv3/example_code/entityresolution
           excerpts:
             - description:
               snippet_tags:
@@ -175,7 +175,7 @@ entityresolution_ListSchemaMappings:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/entity-resolution
+          github: javascriptv3/example_code/entityresolution
           excerpts:
             - description:
               snippet_tags:
@@ -195,7 +195,7 @@ entityresolution_GetSchemaMapping:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/entity-resolution
+          github: javascriptv3/example_code/entityresolution
           excerpts:
             - description:
               snippet_tags:
@@ -215,7 +215,7 @@ entityresolution_CreateSchemaMapping:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/entity-resolution
+          github: javascriptv3/example_code/entityresolution
           excerpts:
             - description:
               snippet_tags:
