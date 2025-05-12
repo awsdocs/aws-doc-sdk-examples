@@ -168,6 +168,9 @@ sesv2_SendEmail:
             - description: Sends a message using a template.
               snippet_tags:
                 - sesv2.java2.newsletter.SendEmail.template
+            - description: Sends a message with header information.
+              snippet_tags:
+                - ses.java2.send.header.sesv2.main  
     Rust:
       versions:
         - sdk_version: 1
