@@ -41,12 +41,13 @@ class S3ExpressBasicsTest extends TestCase
 
     public function testItRunsWithoutThrowingAnException()
     {
+        $start = new S3ExpressBasics();
         try {
-            $start = new S3ExpressBasics();
             $start->runExample();
             self::assertTrue(true); // This asserts that we made it to this line with no exceptions thrown.
         }catch(S3Exception $caught){
             echo "There was a problem running the tests: {$caught->getAwsErrorMessage()}\n";
+            self::fail();
         }finally{
             $start->cleanUp();
         }

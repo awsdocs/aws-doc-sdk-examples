@@ -109,7 +109,7 @@ INTRO;
         echo "Now, we'll set up some policies, roles, and a user. This user will only have permissions to do S3 Express One Zone actions.\n";
         pressEnter();
 
-        $this->cloudFormationClient = new CloudFormationClient([]);
+        $this->cloudFormationClient = new CloudFormationClient(["region" => "us-east-1"]);
         $stackName = "cfn-stack-s3-express-basics-" . uniqid();
         $file = file_get_contents(__DIR__ . "/../../../../resources/cfn/s3_express_basics/s3_express_template.yml");
         $result = $this->cloudFormationClient->createStack([
@@ -150,13 +150,13 @@ INTRO;
         echo "This client is created with the credentials associated with the user account with the S3 Express policy attached, so it can perform S3 Express operations.\n";
         pressEnter();
         $s3RegularClient = new S3Client([
-            'Region' => $region,
-            'Credentials' => $regularCredentials,
+            'region' => $region,
+            'credentials' => $regularCredentials,
         ]);
         $s3RegularService = new S3Service($s3RegularClient);
         $s3ExpressClient = new S3Client([
-            'Region' => $region,
-            'Credentials' => $expressCredentials,
+            'region' => $region,
+            'credentials' => $expressCredentials,
         ]);
         $s3ExpressService = new S3Service($s3ExpressClient);
         echo "All the roles and policies were created an attached to the user. Then, a new S3 Client and Service were created using that user's credentials.\n";

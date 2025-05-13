@@ -40,7 +40,7 @@ WELCOME;
         echo "--------------------------------------\n";
         $this->pressEnter();
 
-        $this->kmsClient = new KmsClient([]);
+        $this->kmsClient = new KmsClient(["region" => "us-east-1"]);
         // Initialize the KmsService class with the client. This allows you to override any defaults in the client before giving it to the service class.
         $this->kmsService = new KmsService($this->kmsClient);
 
@@ -184,7 +184,7 @@ When authorizing access to a KMS key, grants are considered along with key polic
         echo "Every KMS key must have exactly one key policy. The statements in the key policy determine who has permission to use the KMS key and how they can use it.\n";
         echo " You can also use IAM policies and grants to control access to the KMS key, but every KMS key must have a key policy.\n";
         echo "We will replace the key's policy with a new one:\n";
-        $stsClient = new StsClient([]);
+        $stsClient = new StsClient(["region" => "us-east-1"]);
         $result = $stsClient->getCallerIdentity();
         $accountId = $result['Account'];
         $keyPolicy = <<< KEYPOLICY
