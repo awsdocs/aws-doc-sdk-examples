@@ -7,33 +7,42 @@
          convertDeprecationsToExceptions="true"
          failOnRisky="true"
          failOnWarning="true"
-         verbose="true">
-<!--    <testsuites>-->
-<!--        <testsuite name="kms-basics">-->
-<!--            <file>kms/tests/KmsBasicsTests.php</file>-->
-<!--        </testsuite>-->
-<!--        <testsuite name="s3-express-basics">-->
-<!--            <file>s3/tests/S3ExpressBasicsTest.php</file>-->
-<!--        </testsuite>-->
-<!--        <testsuite name="dynamodb-basics">-->
-<!--            <file>dynamodb/dynamodb_basics/tests/DynamoDBBasicsTest.php</file>-->
-<!--        </testsuite>-->
-<!--        <testsuite name="partiql-basics">-->
-<!--            <file>dynamodb/partiql_basics/tests/PartiQLBasicsTest.php</file>-->
-<!--        </testsuite>-->
-<!--        <testsuite name="iam">-->
-<!--            <directory>iam/tests/</directory>-->
-<!--        </testsuite>-->
-<!--        <testsuite name="glue-basics">-->
-<!--            <file>glue/tests/GlueBasicsTest.php</file>-->
-<!--        </testsuite>-->
-<!--        <testsuite name="lambda-basics">-->
-<!--            <file>lambda/tests/LambdaTest.php</file>-->
-<!--        </testsuite>-->
-<!--        <testsuite name="auto-scaling-basics">-->
-<!--            <file>auto-scaling/tests/AutoScalingBasicsTest.php</file>-->
-<!--        </testsuite>-->
-<!--    </testsuites>-->
+         verbose="true"
+         printerClass="Sempro\PHPUnitPrettyPrinter\PrettyPrinterForPhpUnit9">
+    <testsuites>
+        <testsuite name="hackathon-pass">
+            <file>kms/tests/KmsBasicsTests.php</file>
+        </testsuite>
+        <testsuite name="hackathon-fail">
+            <file>kms/tests/KmsBasicsTests.php</file>
+
+            <file>lambda/tests/LambdaTest.php</file>
+        </testsuite>
+        <testsuite name="kms-basics">
+            <file>kms/tests/KmsBasicsTests.php</file>
+        </testsuite>
+        <testsuite name="s3-express-basics">
+            <file>s3/express/tests/S3ExpressBasicsTest.php</file>
+        </testsuite>
+        <testsuite name="dynamodb-basics">
+            <file>dynamodb/dynamodb_basics/tests/DynamoDBBasicsTest.php</file>
+        </testsuite>
+        <testsuite name="partiql-basics">
+            <file>dynamodb/partiql_basics/tests/PartiQLBasicsTest.php</file>
+        </testsuite>
+        <testsuite name="iam">
+            <directory>iam/tests/</directory>
+        </testsuite>
+        <testsuite name="glue-basics">
+            <file>glue/tests/GlueBasicsTest.php</file>
+        </testsuite>
+        <testsuite name="lambda-basics">
+            <file>lambda/tests/LambdaTest.php</file>
+        </testsuite>
+        <testsuite name="auto-scaling-basics">
+            <file>auto-scaling/tests/AutoScalingBasicsTest.php</file>
+        </testsuite>
+    </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"
               processUncoveredFiles="false">

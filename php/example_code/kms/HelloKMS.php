@@ -9,7 +9,7 @@ use Aws\Kms\KmsClient;
 
 echo "This file shows how to connect to the KmsClient, uses a paginator to get the keys for the account, and lists the KeyIds for up to 10 keys.\n";
 
-$client = new KmsClient([]);
+$client = new KmsClient(["region" => "us-east-1"]);
 
 $pageLength = 10; // Change this value to change the number of records shown, or to break up the result into pages.
 
