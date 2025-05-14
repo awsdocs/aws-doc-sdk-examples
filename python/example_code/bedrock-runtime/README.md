@@ -48,6 +48,7 @@ python -m pip install -r requirements.txt
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Create and invoke a managed prompt](../bedrock-agent/prompts/scenario_get_started_with_prompts.py)
 - [Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
 
 ### AI21 Labs Jurassic-2
@@ -105,8 +106,8 @@ functions within the same service.
 
 - [Converse](models/meta_llama/converse.py#L4)
 - [ConverseStream](models/meta_llama/converse_stream.py#L4)
-- [InvokeModel: Llama 3](models/meta_llama/llama3_invoke_model.py#L4)
-- [InvokeModelWithResponseStream: Llama 3](models/meta_llama/llama3_invoke_model_with_response_stream.py#L4)
+- [InvokeModel](models/meta_llama/llama3_invoke_model.py#L4)
+- [InvokeModelWithResponseStream](models/meta_llama/llama3_invoke_model_with_response_stream.py#L4)
 
 ### Mistral AI
 
@@ -153,6 +154,26 @@ This example shows you how to get started using Amazon Bedrock Runtime.
 python hello/hello_bedrock_runtime_invoke.py
 ```
 
+#### Create and invoke a managed prompt
+
+This example shows you how to do the following:
+
+- Create a managed prompt.
+- Create a version of the prompt.
+- Invoke the prompt using the version.
+- Clean up resources (optional).
+
+<!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockPrompts.start-->
+<!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockPrompts.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python ../bedrock-agent/prompts/scenario_get_started_with_prompts.py
+```
+
+<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.start-->
+<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.end-->
 
 #### Tool use with the Converse API
 

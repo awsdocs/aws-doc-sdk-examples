@@ -46,11 +46,6 @@ functions within the same service.
 - [Invoke multiple foundation models on Amazon Bedrock](scenarios/cli_text_playground.js)
 - [Tool use with the Converse API](scenarios/converse_tool_scenario/converse-tool-scenario.js)
 
-### AI21 Labs Jurassic-2
-
-- [Converse](models/ai21LabsJurassic2/converse.js#L4)
-- [InvokeModel](models/ai21LabsJurassic2/invoke_model.js)
-
 ### Amazon Nova
 
 - [Converse](models/amazonNovaText/converse.js#L4)
@@ -83,8 +78,8 @@ functions within the same service.
 
 - [Converse](models/metaLlama/converse.js#L4)
 - [ConverseStream](models/metaLlama/converseStream.js#L4)
-- [InvokeModel: Llama 3](models/metaLlama/llama3/invoke_model_quickstart.js#L4)
-- [InvokeModelWithResponseStream: Llama 3](models/metaLlama/llama3/invoke_model_with_response_stream_quickstart.js#L4)
+- [InvokeModel](models/metaLlama/llama3/invoke_model_quickstart.js#L4)
+- [InvokeModelWithResponseStream](models/metaLlama/llama3/invoke_model_with_response_stream_quickstart.js#L4)
 
 ### Mistral AI
 
