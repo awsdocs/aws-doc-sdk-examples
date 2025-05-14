@@ -23,10 +23,10 @@ class Converse
             'profile' => 'default'
         ]);
 
-// Set the model ID, e.g., Amazon Nova Lite.
+        // Set the model ID, e.g., Amazon Nova Lite.
         $modelId = 'amazon.nova-lite-v1:0';
 
-// Start a conversation with the user message.
+        // Start a conversation with the user message.
         $userMessage = "Describe the purpose of a 'hello world' program in one line.";
         $conversation = [
             [
