@@ -1612,7 +1612,7 @@ bedrock-runtime_DocumentUnderstanding_Mistral:
   title: Send and process a document with Mistral models on &BR;
   title_abbrev: "Document understanding"
   synopsis: send and process a document with Mistral models on &BR;
-  category: Meta Llama
+  category: Mistral AI
   languages:
     Python:
       versions:
