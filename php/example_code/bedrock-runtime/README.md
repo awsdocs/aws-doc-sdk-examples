@@ -42,13 +42,13 @@ functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](GettingStartedWithBedrockRuntime.php)
 
-### AI21 Labs Jurassic-2
+### Amazon Nova
 
-- [InvokeModel](BedrockRuntimeService.php#L66)
+- [Converse](Models/AmazonNova/Text/Converse.php#L9)
 
 ### Amazon Titan Image Generator
 
-- [InvokeModel](BedrockRuntimeService.php#L133)
+- [InvokeModel](BedrockRuntimeService.php#L103)
 
 ### Anthropic Claude
 
@@ -56,7 +56,7 @@ functions within the same service.
 
 ### Stable Diffusion
 
-- [InvokeModel](BedrockRuntimeService.php#L96)
+- [InvokeModel](BedrockRuntimeService.php#L66)
 
 
 <!--custom.examples.start-->
