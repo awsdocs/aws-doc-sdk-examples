@@ -1,0 +1,2 @@
+# Set .local/ directory to be treated specially in git
+/.local/ export-ignore
