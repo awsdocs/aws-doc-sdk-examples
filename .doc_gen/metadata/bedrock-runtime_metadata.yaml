@@ -1526,7 +1526,7 @@ bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings:
 bedrock-runtime_DocumentUnderstanding_AmazonNova:
   title: Send and process a document with Amazon Nova on &BR;
   title_abbrev: "Document understanding"
-  synopsis: send and process a document with Amazon Nova on &BR;
+  synopsis: send and process a document with Amazon Nova on &BR;.
   category: Amazon Nova
   languages:
     Python:
@@ -1534,7 +1534,7 @@ bedrock-runtime_DocumentUnderstanding_AmazonNova:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: Send and process a document with Amazon Nova on &BR;
+            - description: Send and process a document with Amazon Nova on &BR;.
               snippet_tags:
                 - python.example_code.bedrock-runtime.DocumentUnderstanding_AmazonNovaText
   services:
@@ -1543,7 +1543,7 @@ bedrock-runtime_DocumentUnderstanding_AmazonNova:
 bedrock-runtime_DocumentUnderstanding_AnthropicClaude:
   title: Send and process a document with Anthropic Claude on &BR;
   title_abbrev: "Document understanding"
-  synopsis: send and process a document with Anthropic Claude on &BR;
+  synopsis: send and process a document with Anthropic Claude on &BR;.
   category: Anthropic Claude
   languages:
     Python:
@@ -1551,7 +1551,7 @@ bedrock-runtime_DocumentUnderstanding_AnthropicClaude:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: Send and process a document with Anthropic Claude on &BR;
+            - description: Send and process a document with Anthropic Claude on &BR;.
               snippet_tags:
                 - python.example_code.bedrock-runtime.DocumentUnderstanding_AnthropicClaude
   services:
@@ -1560,7 +1560,7 @@ bedrock-runtime_DocumentUnderstanding_AnthropicClaude:
 bedrock-runtime_DocumentUnderstanding_CohereCommand:
   title: Send and process a document with Cohere Command models on &BR;
   title_abbrev: "Document understanding"
-  synopsis: send and process a document with Cohere Command models on &BR;
+  synopsis: send and process a document with Cohere Command models on &BR;.
   category: Cohere Command
   languages:
     Python:
@@ -1568,7 +1568,7 @@ bedrock-runtime_DocumentUnderstanding_CohereCommand:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: Send and process a document with Cohere Command models on &BR;
+            - description: Send and process a document with Cohere Command models on &BR;.
               snippet_tags:
                 - python.example_code.bedrock-runtime.DocumentUnderstanding_CohereCommand
   services:
@@ -1577,7 +1577,7 @@ bedrock-runtime_DocumentUnderstanding_CohereCommand:
 bedrock-runtime_DocumentUnderstanding_DeepSeek:
   title: Send and process a document with DeepSeek on &BR;
   title_abbrev: "Document understanding"
-  synopsis: send and process a document with DeepSeek on &BR;
+  synopsis: send and process a document with DeepSeek on &BR;.
   category: DeepSeek
   languages:
     Python:
@@ -1585,7 +1585,7 @@ bedrock-runtime_DocumentUnderstanding_DeepSeek:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: Send and process a document with DeepSeek on &BR;
+            - description: Send and process a document with DeepSeek on &BR;.
               snippet_tags:
                 - python.example_code.bedrock-runtime.DocumentUnderstanding_DeepSeek
   services:
@@ -1594,7 +1594,7 @@ bedrock-runtime_DocumentUnderstanding_DeepSeek:
 bedrock-runtime_DocumentUnderstanding_MetaLlama:
   title: Send and process a document with Llama on &BR;
   title_abbrev: "Document understanding"
-  synopsis: send and process a document with Llama on &BR;
+  synopsis: send and process a document with Llama on &BR;.
   category: Meta Llama
   languages:
     Python:
@@ -1602,7 +1602,7 @@ bedrock-runtime_DocumentUnderstanding_MetaLlama:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: Send and process a document with Llama on &BR;
+            - description: Send and process a document with Llama on &BR;.
               snippet_tags:
                 - python.example_code.bedrock-runtime.DocumentUnderstanding_MetaLlama
   services:
@@ -1611,7 +1611,7 @@ bedrock-runtime_DocumentUnderstanding_MetaLlama:
 bedrock-runtime_DocumentUnderstanding_Mistral:
   title: Send and process a document with Mistral models on &BR;
   title_abbrev: "Document understanding"
-  synopsis: send and process a document with Mistral models on &BR;
+  synopsis: send and process a document with Mistral models on &BR;.
   category: Mistral AI
   languages:
     Python:
@@ -1619,7 +1619,7 @@ bedrock-runtime_DocumentUnderstanding_Mistral:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: Send and process a document with Mistral models on &BR;
+            - description: Send and process a document with Mistral models on &BR;.
               snippet_tags:
                 - python.example_code.bedrock-runtime.DocumentUnderstanding_Mistral
   services:
