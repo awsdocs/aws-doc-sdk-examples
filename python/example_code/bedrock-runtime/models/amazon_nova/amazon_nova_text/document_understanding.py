@@ -13,12 +13,26 @@ client = boto3.client("bedrock-runtime", region_name="us-east-1")
 # Set the model ID, e.g., Amazon Nova Lite.
 model_id = "amazon.nova-lite-v1:0"
 
-# Start a conversation with the user message.
-user_message = "Describe the purpose of a 'hello world' program in one line."
+# Load the document
+with open("example-data/amazon-nova-service-cards.pdf", "rb") as file:
+    document_bytes = file.read()
+
+# Start a conversation with a user message and the document
 conversation = [
     {
         "role": "user",
-        "content": [{"text": user_message}],
+        "content": [
+            {
+                "text": "Briefly compare the models described in this document"
+            },
+            {
+                "document": {
+                    "format": "pdf",
+                    "name": "Amazon Nova Service Cards",
+                    "source": {"bytes": document_bytes}
+                }
+            }
+        ],
     }
 ]
 
@@ -27,7 +41,7 @@ try:
     response = client.converse(
         modelId=model_id,
         messages=conversation,
-        inferenceConfig={"maxTokens": 512, "temperature": 0.5, "topP": 0.9},
+        inferenceConfig={"maxTokens": 500, "temperature": 0.3},
     )
 
     # Extract and print the response text.
