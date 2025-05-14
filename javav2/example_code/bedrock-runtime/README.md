@@ -34,6 +34,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 > see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 >
 <!--custom.prerequisites.end-->
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Generate videos from text prompts using Amazon Bedrock](../../usecases/video_generation_bedrock_nova_reel/src/main/java/com/example/novareel/VideoGenerationService.java)
+- [Tool use with the Converse API](src/main/java/com/example/bedrockruntime/scenario/BedrockScenario.java)
+
 ### AI21 Labs Jurassic-2
 
 - [Converse](src/main/java/com/example/bedrockruntime/models/ai21LabsJurassic2/Converse.java#L6)
@@ -43,6 +52,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 - [Converse](src/main/java/com/example/bedrockruntime/models/amazon/nova/text/ConverseAsync.java#L6)
 - [ConverseStream](src/main/java/com/example/bedrockruntime/models/amazon/nova/text/ConverseStream.java#L6)
+- [Scenario: Tool use with the Converse API](src/main/java/com/example/bedrockruntime/scenario/BedrockScenario.java#L15)
 
 ### Amazon Nova Canvas
 
@@ -85,8 +95,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 - [Converse](src/main/java/com/example/bedrockruntime/models/metaLlama/Converse.java#L6)
 - [ConverseStream](src/main/java/com/example/bedrockruntime/models/metaLlama/ConverseStream.java#L6)
-- [InvokeModel: Llama 3](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama3_InvokeModel.java#L6)
-- [InvokeModelWithResponseStream: Llama 3](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama3_InvokeModelWithResponseStream.java#L6)
+- [InvokeModel](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama3_InvokeModel.java#L6)
+- [InvokeModelWithResponseStream](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama3_InvokeModelWithResponseStream.java#L6)
 
 ### Mistral AI
 
@@ -111,7 +121,32 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Generate videos from text prompts using Amazon Bedrock
 
+This example shows you how to a Spring Boot app that generates videos from text prompts using Amazon Bedrock and the
+Nova-Reel model.
+
+
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_GenerateVideos_NovaReel.start-->
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_GenerateVideos_NovaReel.end-->
+
+
+<!--custom.scenarios.bedrock-runtime_Scenario_GenerateVideos_NovaReel.start-->
+<!--custom.scenarios.bedrock-runtime_Scenario_GenerateVideos_NovaReel.end-->
+
+#### Tool use with the Converse API
+
+This example shows you how to build a typical interaction between an application, a generative AI model, and connected
+tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an
+external weather API to the AI model so it can provide real-time weather information based on user input.
+
+
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_ToolUse.start-->
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_ToolUse.end-->
+
+
+<!--custom.scenarios.bedrock-runtime_Scenario_ToolUse.start-->
+<!--custom.scenarios.bedrock-runtime_Scenario_ToolUse.end-->
 
 ### Tests
 
