@@ -66,7 +66,7 @@ if($ok_loc !== false) {
     $failures = trim(substr($file, $failures_loc + 7, $end_failures_loc - $failures_loc - 7));
 
     $output['results']['summary']['tests'] = (int)$assertions;
-    $output['results']['summary']['passed'] = $assertions - $failures;
+    $output['results']['summary']['passed'] = (int)$assertions - (int)$failures;
     $output['results']['summary']['failed'] = (int)$failures;
 }
 echo json_encode($output);

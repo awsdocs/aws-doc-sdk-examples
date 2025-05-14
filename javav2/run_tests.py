@@ -150,9 +150,7 @@ def write_language_test_stats(language: str, total_tests: int, passed_tests: int
 
 
 def main():
-    print("start of main")
     clone_repo()
-    print("after clone")
 
     total_passed = total_failed = total_skipped = 0
     tested_services = 0
@@ -165,7 +163,6 @@ def main():
         key=lambda path: os.path.basename(path).lower()
     )
 
-    print("starting service loop")
     current = 0
     max = 1
     for service_path in service_dirs:
@@ -178,7 +175,6 @@ def main():
             total_failed += failed
             total_skipped += skipped
             tested_services += 1
-    print("end of service loop")
     elapsed = time.time() - start_time
 #     print("\n===== ✅ Final Test Summary =====")
 #     print(f"Services Tested: {tested_services}")
