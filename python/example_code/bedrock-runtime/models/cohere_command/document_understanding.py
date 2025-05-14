@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.DocumentUnderstanding_AmazonNovaText]
-# Send and process a document with Amazon Nova on Amazon Bedrock.
+# snippet-start:[python.example_code.bedrock-runtime.DocumentUnderstanding_CohereCommand]
+# Send and process a document with Cohere Command models on Amazon Bedrock.
 
 import boto3
 from botocore.exceptions import ClientError
@@ -10,8 +10,8 @@ from botocore.exceptions import ClientError
 # Create a Bedrock Runtime client in the AWS Region you want to use.
 client = boto3.client("bedrock-runtime", region_name="us-east-1")
 
-# Set the model ID, e.g. Amazon Nova Lite.
-model_id = "amazon.nova-lite-v1:0"
+# Set the model ID, e.g. Command R+.
+model_id = "cohere.command-r-plus-v1:0"
 
 # Load the document
 with open("example-data/amazon-nova-service-cards.pdf", "rb") as file:
@@ -51,4 +51,4 @@ except (ClientError, Exception) as e:
     print(f"ERROR: Can't invoke '{model_id}'. Reason: {e}")
     exit(1)
 
-# snippet-end:[python.example_code.bedrock-runtime.DocumentUnderstanding_AmazonNovaText]
+# snippet-end:[python.example_code.bedrock-runtime.DocumentUnderstanding_CohereCommand]
