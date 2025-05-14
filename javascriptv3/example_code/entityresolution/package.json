@@ -1,0 +1,21 @@
+{
+  "name": "@aws-doc-sdk-examples/javascript-entity-resolution-basics",
+  "version": "1.0.0",
+  "description": "Code samples for interacting with AWS Entity Resolutions via the AWS SDK for JavaScript (v3)",
+  "author": "Brian Murray (brmur@amazon.com)",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "integration-test": "vitest run integration --reporter=junit --outputFile=test_results/entity-resolution-test-results.junit.xml"
+  },
+  "dependencies": {
+    "@aws-doc-sdk-examples/lib": "^1.0.1",
+    "@aws-sdk/client-entityresolution": "^3.163.0",
+    "@aws-sdk/client-cloudformation": "^3.797.0",
+    "@aws-sdk/client-s3": "^3.797.0"
+  },
+  "devDependencies": {
+    "prettier": "3.5.3",
+    "vitest": "^1.6.1"
+  }
+}

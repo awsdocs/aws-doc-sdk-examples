@@ -12,6 +12,14 @@ entityresolution_Hello:
             - description:
               snippet_tags:
                 - entityres.java2_hello.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.entity-resolution.hello
   services:
     entityresolution: {listMatchingWorkflows}
 entityresolution_DeleteSchemaMapping:
@@ -24,6 +32,14 @@ entityresolution_DeleteSchemaMapping:
             - description:
               snippet_tags:
                 - entityres.java2_delete_mappings.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entity-resolution.JavaScriptv3.delete.schema-mapping
   services:
     entityresolution: {DeleteSchemaMapping}
 entityresolution_TagEntityResource:
@@ -36,6 +52,14 @@ entityresolution_TagEntityResource:
             - description:
               snippet_tags:
                 - entityres.java2_tag_resource.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entity-resolution.JavaScriptv3.tag.entity-resource
   services:
     entityresolution: {TagEntityResource}
 entityresolution_CreateMatchingWorkflow:
@@ -48,6 +72,14 @@ entityresolution_CreateMatchingWorkflow:
             - description:
               snippet_tags:
                 - entityres.java2_create_matching_workflow.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entity-resolution.JavaScriptv3.create-matching-workflow
   services:
     entityresolution: {CreateMatchingWorkflow}
 entityresolution_CheckWorkflowStatus:
@@ -60,6 +92,14 @@ entityresolution_CheckWorkflowStatus:
             - description:
               snippet_tags:
                 - entityres.java2_check_matching_workflow.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entity-resolution.JavaScriptv3.check-workflow-status
   services:
     entityresolution: {CheckWorkflowStatus}
 entityresolution_StartMatchingJob:
@@ -72,6 +112,14 @@ entityresolution_StartMatchingJob:
             - description:
               snippet_tags:
                 - entityres.java2_start_job.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entity-resolution.JavaScriptv3.start.matching-job
   services:
     entityresolution: {StartMatchingJob}
 entityresolution_GetMatchingJob:
@@ -84,6 +132,14 @@ entityresolution_GetMatchingJob:
             - description:
               snippet_tags:
                 - entityres.java2_get_job.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entity-resolution.JavaScriptv3.get.matching-job
   services:
     entityresolution: {GetMatchingJob}
 entityresolution_DeleteMatchingWorkflow:
@@ -96,6 +152,14 @@ entityresolution_DeleteMatchingWorkflow:
             - description:
               snippet_tags:
                 - entityres.java2_delete_matching_workflow.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entity-resolution.JavaScriptv3.delete-matching-workflow
   services:
     entityresolution: {DeleteMatchingWorkflow}
 entityresolution_ListSchemaMappings:
@@ -108,6 +172,14 @@ entityresolution_ListSchemaMappings:
             - description:
               snippet_tags:
                 - entityres.java2_list_mappings.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entity-resolution.JavaScriptv3.list.schema-mapping
   services:
     entityresolution: {ListSchemaMappings}
 entityresolution_GetSchemaMapping:
@@ -120,6 +192,14 @@ entityresolution_GetSchemaMapping:
             - description:
               snippet_tags:
                 - entityres.java2_get_schema_mapping.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entity-resolution.JavaScriptv3.get.schema-mapping
   services:
     entityresolution: {GetSchemaMapping}
 entityresolution_CreateSchemaMapping:
@@ -132,6 +212,14 @@ entityresolution_CreateSchemaMapping:
             - description:
               snippet_tags:
                 - entityres.java2_create_schema.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/entityresolution
+          excerpts:
+            - description:
+              snippet_tags:
+                - entity-resolution.JavaScriptv3.create-schema-mapping
   services:
     entityresolution: {CreateSchemaMapping}
 entityresolution_Scenario:
@@ -158,5 +246,14 @@ entityresolution_Scenario:
             - description: A wrapper class for &ERlong; SDK methods.
               snippet_tags:
                 - entityres.java2_actions.main
+    JavaScript:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/entityresolution
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &ERlong; features.
+              snippet_tags:
+                - entity-resolution.JavaScriptv3.scenario.basics
   services:
     entityresolution: {}
