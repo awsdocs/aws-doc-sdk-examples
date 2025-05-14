@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 namespace BedrockRuntime\Models\AmazonNova\Text;
+
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 // snippet-start:[php.example_code.bedrock-runtime.service.Converse_AmazonNovaText]
@@ -48,7 +49,6 @@ class Converse
             // Extract and return the response text.
             $responseText = $response['output']['message']['content'][0]['text'];
             return $responseText;
-
         } catch (AwsException $e) {
             echo "ERROR: Can't invoke {$modelId}. Reason: {$e->getAwsErrorMessage()}";
             throw new RuntimeException("Failed to invoke model: " . $e->getAwsErrorMessage(), 0, $e);
