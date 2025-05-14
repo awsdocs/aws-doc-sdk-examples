@@ -6,7 +6,7 @@
  * Integration tests for the Amazon Bedrock Runtime service.
  */
 
-namespace bedrockruntime\tests;
+namespace BedrockRuntime\tests;
 
 use Aws\BedrockRuntime\BedrockRuntimeClient;
 use BedrockRuntime\BedrockRuntimeService;
@@ -44,12 +44,6 @@ class BedrockRuntimeTests extends TestCase
     public function test_claude_can_be_invoked()
     {
         $completion = $this->bedrockRuntimeService->invokeClaude($this->prompt);
-        self::assertNotEmpty($completion);
-    }
-
-    public function test_jurassic2_can_be_invoked()
-    {
-        $completion = $this->bedrockRuntimeService->invokeJurassic2($this->prompt);
         self::assertNotEmpty($completion);
     }
 

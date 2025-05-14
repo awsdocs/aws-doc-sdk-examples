@@ -1,6 +1,6 @@
 {
     "require": {
-        "aws/aws-sdk-php": "^3.336",
+        "aws/aws-sdk-php": "^3.343",
         "guzzlehttp/guzzle": "^7.9.2"
     },
     "autoload": {
@@ -11,5 +11,8 @@
             "BedrockRuntime\\": "../bedrock-runtime/",
             "AwsUtilities\\": "../aws_utilities/"
         }
+    },
+    "scripts": {
+        "Models/AmazonNova/Text/Converse": "php Models/AmazonNova/Text/Converse.php"
     }
 }
