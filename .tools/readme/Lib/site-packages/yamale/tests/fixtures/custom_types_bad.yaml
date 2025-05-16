@@ -1,0 +1,18 @@
+customerA:
+    name: bob
+    age: 900
+    custom:
+        integer: 1
+customerB:
+    name: jill
+    age: 1
+    custom:
+        integer: 34
+recursion:
+    level: 1
+    again:
+        level: 2
+        again:
+            level: 3
+            again:
+                level: NOT AN INT

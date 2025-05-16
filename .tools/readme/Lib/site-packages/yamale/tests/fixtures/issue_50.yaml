@@ -1,0 +1,16 @@
+---
+ntp:
+  config:
+    enabled: bool()
+    ntp-source-address: str()
+  servers:
+    "192.168.1.1": include('ntp_servers')
+    "192.168.1.2": include('ntp_servers')
+---
+ntp_servers:
+  config: include('ntp_servers_config')
+ntp_servers_config:
+  port: int(min=123, max=123)
+  version: int(min=2, max=3)
+  prefer: bool()
+  address: str()

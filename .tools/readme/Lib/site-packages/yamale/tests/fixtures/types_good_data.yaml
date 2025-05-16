@@ -1,0 +1,11 @@
+string: "hello"
+regex: 'abcde'
+number: 12.1
+integer: 2
+boolean: True
+list: ['hi']
+enum: 1
+map:
+    hello: 1
+    another: "hi"
+null: null

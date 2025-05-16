@@ -1,0 +1,3 @@
+field1: 1
+field2: 2
+field3: {fieldA: 3, extra: 4}

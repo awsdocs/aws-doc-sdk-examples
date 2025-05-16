@@ -1,0 +1,5 @@
+uri_url_list: >
+  list(regex(r'^(?:(?:https?://)?(?:api)\.foobar\.com|foobar)([:/])'
+             r'(spam|ham|eggs)\1([a-zA-Z0-9]{10})(?:\?.*)?$'))
+
+flags: regex('^orange.*juice$', ignore_case=True, multiline=True, dotall=True)

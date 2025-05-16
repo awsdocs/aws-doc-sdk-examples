@@ -521,3 +521,68 @@ bedrock-agent_GettingStartedWithBedrockPrompts:
   services:
     bedrock-agent: {CreatePrompt, CreatePromptVersion, DeletePrompt}
     bedrock-runtime: {Converse}
+
+bedrock-agent_CreateKnowledgeBase:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create an Amazon Bedrock knowledge base.
+              snippet_tags:
+                - python.example_code.bedrock-agent.create_knowledge_base
+  services:
+    bedrock-agent: {CreateKnowledgeBase}
+
+bedrock-agent_GetKnowledgeBase:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Get an Amazon Bedrock knowledge base.
+              snippet_tags:
+                - python.example_code.bedrock-agent.get_knowledge_base
+  services:
+    bedrock-agent: {GetKnowledgeBase}
+
+bedrock-agent_UpdateKnowledgeBase:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Update an Amazon Bedrock knowledge base.
+              snippet_tags:
+                - python.example_code.bedrock-agent.update_knowledge_base
+  services:
+    bedrock-agent: {UpdateKnowledgeBase}
+
+bedrock-agent_DeleteKnowledgeBase:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Delete an Amazon Bedrock knowledge base.
+              snippet_tags:
+                - python.example_code.bedrock-agent.delete_knowledge_base
+  services:
+    bedrock-agent: {DeleteKnowledgeBase}
+
+bedrock-agent_ListKnowledgeBases:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: List Amazon Bedrock knowledge Bases.
+              snippet_tags:
+                - python.example_code.bedrock-agent.list_knowledge_bases
+  services:
+    bedrock-agent: {ListKnowledgeBases}    

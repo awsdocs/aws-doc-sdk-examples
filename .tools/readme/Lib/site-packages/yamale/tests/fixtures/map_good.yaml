@@ -1,0 +1,10 @@
+map:
+    good: "hello"
+    yes: 5
+min:
+    a: 1
+max:
+    a: 1
+min_max:
+    a: 1
+    b: 2

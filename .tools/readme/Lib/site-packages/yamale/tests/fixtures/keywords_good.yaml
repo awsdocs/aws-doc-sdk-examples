@@ -1,0 +1,10 @@
+optional:
+optional_min: 10
+min_example: 1.6
+min_negative: -1
+min_on_date: 2010-01-02
+min_on_datetime: 2010-01-01 00:00:00
+max_example: 100
+max_on_date: 2009-12-31
+max_on_datetime: 2010-01-01 00:00:00
+boolean: True

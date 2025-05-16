@@ -1,0 +1,8 @@
+field1: int()
+field2: int()
+field3: include('map2', strict=True)
+
+---
+
+map2:
+  fieldA: int()

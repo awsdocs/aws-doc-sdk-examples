@@ -1,0 +1,4 @@
+map: map(str(), int())
+min: map(int(), min=1)
+max: map(int(), max=2)
+min_max: map(int(), min=2, max=3)

@@ -1,0 +1,11 @@
+simple:
+  - 'this'
+  - 'is'
+questions:
+  - choices:
+      - id: 'id_str'
+      - id: 'id_str1'
+      - id: 'too_many'
+  - questions:
+      choices: str
+nested: [1,2]

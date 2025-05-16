@@ -1,0 +1,11 @@
+uri_url_list:
+  - foobar:spam:abcde12345
+  - api.foobar.com/ham/54321edcba
+  - http://api.foobar.com/eggs/a1b2c3d4e5?derp=hello
+
+flags: >
+  ORANGE PEEL
+
+  and
+
+  LEMON JUICE

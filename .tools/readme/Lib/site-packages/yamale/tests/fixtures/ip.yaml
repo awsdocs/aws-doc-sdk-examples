@@ -1,0 +1,6 @@
+---
+ipa: ip()
+ipb: ip()
+ip4: ip(version=4)
+ip6: ip(version=6)
+str: ip(required=False)

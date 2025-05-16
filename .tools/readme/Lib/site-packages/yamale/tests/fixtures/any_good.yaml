@@ -1,0 +1,10 @@
+any_list:
+  - street: "Pennsylvania"
+    postal_code: 20500
+    note: 123
+  - street: "Downing"
+    postal_code: "SW1A 2AA"
+    note: "Anything"
+  - street: "Fake"
+    postal_code:
+    note:

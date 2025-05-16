@@ -1,0 +1,34 @@
+standard_categories: ["Hello", "Basics", "Actions", "Scenarios"]
+categories:
+  Hello:
+    display: "Hello"
+    overrides:
+      title: "Hello {{.ServiceEntity.Short}}"
+      title_abbrev: "Hello {{.ServiceEntity.Short}}"
+      synopsis: "get started using {{.ServiceEntity.Short}}."
+  Actions:
+    display: "Actions"
+    overrides:
+      title: "Use <code>{{.Action}}</code>"
+      title_suffixes:
+        cli: " with a CLI"
+        sdk: " with an &AWS; SDK"
+        sdk_cli: " with an &AWS; SDK or CLI"
+      title_abbrev: "<code>{{.Action}}</code>"
+      synopsis: "use <code>{{.Action}}</code>."
+    description: "are code excerpts from larger programs and must be run in context. While actions
+      show you how to call individual service functions, you can see actions in context in their related scenarios."
+  Basics:
+    display: "Basics"
+    defaults:
+      title: "Learn the basics of {{.ServiceEntity.Short}} with an &AWS; SDK"
+      title_abbrev: "Learn the basics"
+    description: "are code examples that show you how to perform the essential operations within a service."
+  Scenarios:
+    display: "Scenarios"
+    description: "are code examples that show you how to accomplish specific tasks by
+      calling multiple functions within a service or combined with other &AWS-services;."
+  TributaryLite:
+    display: "&AWS; community contributions"
+    description: "are examples that were created and are maintained by multiple teams across &AWS;. 
+      To provide feedback, use the mechanism provided in the linked repositories."

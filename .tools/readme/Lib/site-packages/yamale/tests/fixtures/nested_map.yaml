@@ -1,0 +1,5 @@
+level1: list(include('nested_map'))
+---
+nested_map:
+  level2:
+    level3: str()

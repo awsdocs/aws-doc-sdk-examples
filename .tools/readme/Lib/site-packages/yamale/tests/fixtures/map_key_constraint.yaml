@@ -1,0 +1,3 @@
+map( include('nest_list_map'), key = int() )
+---
+nest_list_map: list( map(int(), key = str(exclude = 'z')) )

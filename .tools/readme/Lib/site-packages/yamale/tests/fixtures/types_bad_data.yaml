@@ -1,0 +1,9 @@
+string: 1
+regex: 'edcba'
+number: "nan"
+integer: 1.4
+boolean: 0
+list: "list?"
+enum: False
+map: 'hello'
+null: "null"
