@@ -1,0 +1,18 @@
+---
+ntp:
+  config:
+    enabled: true
+    ntp-source-address: 1.2.3.4
+  servers:
+    192.168.1.1:
+      config:
+        port: 123
+        version: 3
+        prefer: true
+        address: 192.168.1.1
+    192.168.1.2:
+      config:
+        port: 123
+        version: 3
+        prefer: true
+        address: 192.168.1.2

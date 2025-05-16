@@ -1,0 +1,18 @@
+string: str()
+number: num()
+integer: int()
+boolean: bool()
+date: day()
+datetime: timestamp()
+nest:
+    integer: int()
+    nest:
+        date: day()
+        string: str()
+        number: num()
+list:
+    - str()
+    - bool()
+    - timestamp()
+    - integer: int()
+      string: str()

@@ -1,0 +1,5 @@
+---
+mac_colon: mac()
+mac_cisco: mac()
+mac_hyphen: mac()
+mac_no_sep: mac()

@@ -1,0 +1,18 @@
+string: "hello"
+number: 12
+integer: 3
+boolean: True
+date: 2015-01-01
+datetime: 2015-01-01T00:00:00+01
+nest:
+    integer: 1
+    nest:
+        date: 2015-02-01
+        string: "nested"
+        number: 4
+list:
+    - "yay"
+    - True
+    - 2015-01-01 00:00:00
+    - integer: 1
+      string: 'sup'

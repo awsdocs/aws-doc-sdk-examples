@@ -1,0 +1,15 @@
+simple:
+  - 'this'
+  - 'is'
+  - 'a'
+  - 100
+  - 10
+questions:
+  - choices:
+      - id: 'id_str'
+      - id: 'id_str1'
+    questions:
+      - choices:
+        - id: 'id_str'
+        - id: 'id_str1'
+nested: [[1,2], [3,4]]

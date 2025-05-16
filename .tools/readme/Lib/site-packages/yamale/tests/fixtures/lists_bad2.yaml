@@ -1,0 +1,10 @@
+simple: unicode, α1
+questions:
+  - choices:
+      - id: 'id_str'
+      - id: 'id_str1'
+    questions:
+      - choices:
+        - id: 'id_str'
+        - id: 'id_str1'
+nested: NOT A LIST

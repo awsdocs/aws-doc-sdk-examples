@@ -1,0 +1,5 @@
+---
+mac_colon: 12:34:56:ab:cd:eg
+mac_cisco: gf10:49af:1234
+mac_hyphen: ef-cd-zb-56-34-12
+mac_no_sep: fedpba654321

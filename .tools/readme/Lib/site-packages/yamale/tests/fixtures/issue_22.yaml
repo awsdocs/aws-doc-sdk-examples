@@ -1,0 +1,10 @@
+apps: >
+  list(
+    str(),
+    include('app_fdroid_latest'),
+  )
+---
+app_fdroid_latest:
+  id: str()
+  repository: str(required=False)
+  app_type: enum('system', 'privileged', 'user', required=False)

@@ -1,0 +1,7 @@
+included_list: include('my_list')
+---
+my_list:
+- - str()
+  - int()
+- - str()
+  - day()
