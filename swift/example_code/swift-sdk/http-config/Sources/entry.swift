@@ -49,7 +49,7 @@ struct ExampleCommand: ParsableCommand {
 
         print("*** Getting bucket list with custom timeouts...")
         
-        // snippet-start: [swift.http-config.timeouts]
+        // snippet-start:[swift.http-config.timeouts]
         do {
             let config = try await S3Client.S3ClientConfiguration(
                 region: region,
@@ -66,7 +66,7 @@ struct ExampleCommand: ParsableCommand {
         } catch {
             print("*** Unexpected error occurred requesting the bucket list.")
         }
-        // snippet-end: [swift.http-config.timeouts]
+        // snippet-end:[swift.http-config.timeouts]
 
     }
 }
