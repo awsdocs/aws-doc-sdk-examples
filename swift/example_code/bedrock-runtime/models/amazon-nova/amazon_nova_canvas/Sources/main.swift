@@ -33,11 +33,10 @@ func generateImage(_ textPrompt: String, to path: String) async throws {
                 },
                 "taskType": "TEXT_IMAGE",
                 "imageGenerationConfig": {
-                    "cfgScale": 8,
                     "seed": 42,
                     "quality": "standard",
-                    "width": 1024,
-                    "height": 1024,
+                    "width": 512,
+                    "height": 512,
                     "numberOfImages": 1
                 }
             }
