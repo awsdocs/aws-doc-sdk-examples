@@ -1001,9 +1001,9 @@ bedrock-runtime_InvokeModel_CohereCommandR:
     bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeModel_MetaLlama3:
-  title: Invoke Meta Llama 3 on &BR; using the Invoke Model API
-  title_abbrev: "InvokeModel: Llama 3"
-  synopsis: send a text message to Meta Llama 3, using the Invoke Model API.
+  title: Invoke Meta Llama on &BR; using the Invoke Model API
+  title_abbrev: "InvokeModel"
+  synopsis: send a text message to Meta Llama, using the Invoke Model API.
   category: Meta Llama
   languages:
     Java:
@@ -1233,9 +1233,9 @@ bedrock-runtime_InvokeModelWithResponseStream_CohereCommandR:
     bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeModelWithResponseStream_MetaLlama3:
-  title: Invoke Meta Llama 3 on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "InvokeModelWithResponseStream: Llama 3"
-  synopsis: send a text message to Meta Llama 3, using the Invoke Model API, and print the response stream.
+  title: Invoke Meta Llama on &BR; using the Invoke Model API with a response stream
+  title_abbrev: "InvokeModelWithResponseStream"
+  synopsis: send a text message to Meta Llama, using the Invoke Model API, and print the response stream.
   category: Meta Llama
   languages:
     Java:
