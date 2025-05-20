@@ -35,10 +35,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 - [Converse](src/main/kotlin/com/example/bedrockruntime/models/amazon/nova/text/Converse.kt#L6)
 - [ConverseStream](src/main/kotlin/com/example/bedrockruntime/models/amazon/nova/text/ConverseStream.kt#L6)
 
-### Amazon Nova Canvas
-
-- [InvokeModel](src/main/kotlin/com/example/bedrockruntime/models/amazon/nova/canvas/InvokeModel.kt#L6)
-
 ### Amazon Titan Text
 
 - [InvokeModel](src/main/kotlin/com/example/bedrockruntime/models/amazon/titan/text/InvokeModel.kt#L6)
