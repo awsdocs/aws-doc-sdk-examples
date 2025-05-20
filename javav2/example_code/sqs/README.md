@@ -54,6 +54,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create and publish to a FIFO topic](../sns/src/main/java/com/example/sns/PriceUpdateExample.java)
+- [Manage large messages using S3](src/main/java/com/example/sqs/SqsExtendedClientExample.java)
 - [Process S3 event notifications](../s3/src/main/java/com/example/s3/ProcessS3EventNotification.java)
 - [Publish messages to queues](../../usecases/topics_and_queues/src/main/java/com/example/sns/SNSWorkflow.java)
 - [Use the Amazon SQS Java Messaging Library to work with the JMS interface](../sqs-jms/src/main/java/com/example/sqs/jms/stdqueue/TextMessageSender.java)
@@ -88,6 +89,18 @@ This example shows you how to create and publish to a FIFO Amazon SNS topic.
 
 <!--custom.scenarios.sns_PublishFifoTopic.start-->
 <!--custom.scenarios.sns_PublishFifoTopic.end-->
+
+#### Manage large messages using S3
+
+This example shows you how to use the Amazon SQS Extended Client Library to work with large Amazon SQS messages.
+
+
+<!--custom.scenario_prereqs.sqs_Scenario_SqsExtendedClient.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_SqsExtendedClient.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_SqsExtendedClient.start-->
+<!--custom.scenarios.sqs_Scenario_SqsExtendedClient.end-->
 
 #### Process S3 event notifications
 
