@@ -41,6 +41,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 - [Converse](models/anthropic_claude/Sources/Converse/main.swift#L4)
 - [ConverseStream](models/anthropic_claude/Sources/ConverseStream/main.swift#L4)
 
+### Meta Llama
+
+- [Converse](models/meta_llama/Sources/Converse/main.swift#L4)
+- [ConverseStream](models/meta_llama/Sources/ConverseStream/main.swift#L4)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
