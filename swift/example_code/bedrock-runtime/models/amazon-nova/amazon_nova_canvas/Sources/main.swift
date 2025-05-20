@@ -5,18 +5,20 @@
 // Use the native inference API to create an image with Amazon Nova Canvas
 
 import AWSBedrockRuntime
+import AWSSDKIdentity
 import Foundation
 
 struct NovaImageOutput: Decodable {
     let images: [Data]
 }
 
-func generateImage(_ textPrompt: String, to path: String) async throws {
+func generateImage(_ textPrompt: String) async throws {
     // Create a Bedrock Runtime client in the AWS Region you want to use.
     let config =
         try await BedrockRuntimeClient.BedrockRuntimeClientConfiguration(
             region: "us-east-1"
         )
+    config.awsCredentialIdentityResolver = try SSOAWSCredentialIdentityResolver()
 
     let client = BedrockRuntimeClient(config: config)
 
@@ -48,26 +50,26 @@ func generateImage(_ textPrompt: String, to path: String) async throws {
     let response = try await client.invokeModel(input: input)
 
     // Decode the response body.
-    let titanImage = try JSONDecoder().decode(NovaImageOutput.self, from: response.body!)
+    let output = try JSONDecoder().decode(NovaImageOutput.self, from: response.body!)
 
     // Extract the image data.
-    let data = titanImage.images.first
-    guard let data = data else {
+    guard let data = output.images.first else {
         print("No image data found")
         return
     }
 
     // Save the generated image to a local folder.
-    let fileURL = URL(fileURLWithPath: path)
+    let fileURL = URL.documentsDirectory.appending(path: "nova_canvas.png")
+    print(fileURL)
     try data.write(to: fileURL)
-    print("Image is saved at \(path)")
+    print("Image is saved at \(fileURL)")
 }
 
 // snippet-end:[swift.example_code.bedrock-runtime.InvokeModel_AmazonNovaImageGeneration]
 
 do {
     try await generateImage(
-        "A tabby cat in a teacup", to: "/Users/monadierickx/Desktop/img/nova_canvas.png"
+        "A tabby cat in a teacup"
     )
 } catch {
     print("An error occurred: \(error)")
