@@ -1211,3 +1211,21 @@ sqs_Scenario_UseJMS:
                 - javav2/example_code/sqs-jms/src/main/java/com/example/sqs/jms/SqsJmsExampleUtils.java
   services:
     sqs: {CreateQueue, DeleteQueue}
+sqs_Scenario_SqsExtendedClient:
+  title: Manage large &SQS; messages using &S3; with an &AWS; SDK
+  title_abbrev: Manage large messages using S3
+  synopsis: use the Amazon SQS Extended Client Library to work with large &SQS; messages.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide: AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-s3-messages.html
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.java2.sqs-extended-client.main
+  services:
+    sqs: {SendMessage, ReceiveMessage}
+    s3: {CreateBucket, PutBucketLifecycleConfiguration}
