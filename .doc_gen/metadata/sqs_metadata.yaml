@@ -1229,4 +1229,3 @@ sqs_Scenario_SqsExtendedClient:
   services:
     sqs: {SendMessage, ReceiveMessage}
     s3: {CreateBucket, PutBucketLifecycleConfiguration}
-
