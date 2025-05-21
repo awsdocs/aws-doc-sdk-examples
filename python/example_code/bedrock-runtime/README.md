@@ -60,6 +60,7 @@ functions within the same service.
 
 - [Converse](models/amazon_nova/amazon_nova_text/converse.py#L4)
 - [ConverseStream](models/amazon_nova/amazon_nova_text/converse_stream.py#L4)
+- [Document understanding](models/amazon_nova/amazon_nova_text/document_understanding.py#L4)
 
 ### Amazon Nova Canvas
 
@@ -88,6 +89,7 @@ functions within the same service.
 
 - [Converse](models/anthropic_claude/converse.py#L4)
 - [ConverseStream](models/anthropic_claude/converse_stream.py#L4)
+- [Document understanding](models/anthropic_claude/document_understanding.py#L4)
 - [InvokeModel](models/anthropic_claude/invoke_model.py#L4)
 - [InvokeModelWithResponseStream](models/anthropic_claude/invoke_model_with_response_stream.py#L4)
 - [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
@@ -96,16 +98,22 @@ functions within the same service.
 
 - [Converse](models/cohere_command/converse.py#L4)
 - [ConverseStream](models/cohere_command/converse_stream.py#L4)
+- [Document understanding](models/cohere_command/document_understanding.py#L4)
 - [InvokeModel: Command R and R+](models/cohere_command/command_r_invoke_model.py#L4)
 - [InvokeModel: Command and Command Light](models/cohere_command/command_invoke_model.py#L4)
 - [InvokeModelWithResponseStream: Command R and R+](models/cohere_command/command_r_invoke_model_with_response_stream.py#L4)
 - [InvokeModelWithResponseStream: Command and Command Light](models/cohere_command/command_invoke_model_with_response_stream.py#L4)
 - [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
 
+### DeepSeek
+
+- [Document understanding](models/deepseek/document_understanding.py#L4)
+
 ### Meta Llama
 
 - [Converse](models/meta_llama/converse.py#L4)
 - [ConverseStream](models/meta_llama/converse_stream.py#L4)
+- [Document understanding](models/meta_llama/document_understanding.py#L4)
 - [InvokeModel](models/meta_llama/llama3_invoke_model.py#L4)
 - [InvokeModelWithResponseStream](models/meta_llama/llama3_invoke_model_with_response_stream.py#L4)
 
@@ -113,6 +121,7 @@ functions within the same service.
 
 - [Converse](models/mistral_ai/converse.py#L4)
 - [ConverseStream](models/mistral_ai/converse_stream.py#L4)
+- [Document understanding](models/mistral_ai/document_understanding.py#L4)
 - [InvokeModel](models/mistral_ai/invoke_model.py#L4)
 - [InvokeModelWithResponseStream](models/mistral_ai/invoke_model_with_response_stream.py#L4)
 
