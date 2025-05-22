@@ -3,11 +3,18 @@
 
 package com.example.neptune.scenerio;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import software.amazon.awssdk.core.retry.RetryMode;
+import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
+import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeSubnetsRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeSubnetsResponse;
 import software.amazon.awssdk.services.ec2.model.Subnet;
+import software.amazon.awssdk.services.neptune.NeptuneAsyncClient;
 import software.amazon.awssdk.services.neptune.NeptuneClient;
 import software.amazon.awssdk.services.neptune.model.*;
 import software.amazon.awssdk.services.neptune.model.CreateDbClusterRequest;
@@ -24,170 +31,364 @@ import software.amazon.awssdk.services.neptune.model.DeleteDbSubnetGroupRequest;
 import software.amazon.awssdk.services.neptune.model.DescribeDbClustersResponse;
 import software.amazon.awssdk.services.neptune.model.DescribeDbInstancesRequest;
 import software.amazon.awssdk.services.neptune.model.DescribeDbInstancesResponse;
-
-import software.amazon.awssdk.services.neptunedata.NeptunedataClient;
-import software.amazon.awssdk.services.neptunedata.model.*;
-
 import software.amazon.awssdk.services.neptune.model.DescribeDbClustersRequest;
+import software.amazon.awssdk.services.neptunegraph.model.ServiceQuotaExceededException;
 
-
-import java.net.URI;
+import java.time.Duration;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class NeptuneActions {
-
+    private CompletableFuture<Void> instanceCheckFuture;
+    private long instanceCheckStartTime;
+    private static NeptuneAsyncClient neptuneAsyncClient;
     private final Region region = Region.US_EAST_1;
+    private static final Logger logger = LoggerFactory.getLogger(NeptuneActions.class);
+    private final NeptuneClient neptuneClient = NeptuneClient.builder().region(region).build();
 
-        private final NeptuneClient neptuneClient = NeptuneClient.builder().region(region).build();
 
-       public void deleteDBSubnetGroup(String subnetGroupId) {
-           DeleteDbSubnetGroupRequest deleteDbSubnetGroupRequest = DeleteDbSubnetGroupRequest.builder()
-                   .dbSubnetGroupName(subnetGroupId)
-                   .build();
+    /**
+     * Retrieves an instance of the NeptuneAsyncClient.
+     * <p>
+     * This method initializes and returns a singleton instance of the NeptuneAsyncClient. The client
+     * is configured with the following settings:
+     * <ul>
+     *     <li>Maximum concurrency: 100</li>
+     *     <li>Connection timeout: 60 seconds</li>
+     *     <li>Read timeout: 60 seconds</li>
+     *     <li>Write timeout: 60 seconds</li>
+     *     <li>API call timeout: 2 minutes</li>
+     *     <li>API call attempt timeout: 90 seconds</li>
+     *     <li>Retry strategy: STANDARD</li>
+     * </ul>
+     * The client is built using the NettyNioAsyncHttpClient.
+     *
+     * @return the singleton instance of the NeptuneAsyncClient
+     */
+    private static NeptuneAsyncClient getAsyncClient() {
+        if (neptuneAsyncClient == null) {
+            SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
+                    .maxConcurrency(100)
+                    .connectionTimeout(Duration.ofSeconds(60))
+                    .readTimeout(Duration.ofSeconds(60))
+                    .writeTimeout(Duration.ofSeconds(60))
+                    .build();
 
-           neptuneClient.deleteDBSubnetGroup(deleteDbSubnetGroupRequest);
-           System.out.println("Deleted group " + subnetGroupId);
-       }
+            ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
+                    .apiCallTimeout(Duration.ofMinutes(2))
+                    .apiCallAttemptTimeout(Duration.ofSeconds(90))
+                    .retryStrategy(RetryMode.STANDARD)
+                    .build();
 
-        public void deleteDBCluster(String dbClusterId) {
-           DeleteDbClusterRequest deleteDbClusterRequest = DeleteDbClusterRequest.builder()
-                   .dbClusterIdentifier(dbClusterId)
-                   .skipFinalSnapshot(true)
-                   .build();
-           neptuneClient.deleteDBCluster(deleteDbClusterRequest);
-           System.out.println("Deleted Cluster " + dbClusterId);
-
-       }
-
-    public void describeDBInstances(String instanceIdentifier) {
-        DescribeDbInstancesRequest request = DescribeDbInstancesRequest.builder()
-                .dbInstanceIdentifier(instanceIdentifier)
-                .build();
-
-        try {
-            DescribeDbInstancesResponse response = neptuneClient.describeDBInstances(request);
-            for (DBInstance instance : response.dbInstances()) {
-                System.out.println("DB Instance Identifier: " + instance.dbInstanceIdentifier());
-                System.out.println("DB Instance Class: " + instance.dbInstanceClass());
-                System.out.println("Engine: " + instance.engine());
-                System.out.println("Engine Version: " + instance.engineVersion());
-                System.out.println("Availability Zone: " + instance.availabilityZone());
-                System.out.println("DB Subnet Group: " + instance.dbSubnetGroup().dbSubnetGroupName());
-                System.out.println("VPC ID: " + instance.dbSubnetGroup().vpcId());
-                System.out.println("Subnet Group Description: " + instance.dbSubnetGroup().dbSubnetGroupDescription());
-                System.out.println("Endpoint: " + instance.endpoint().address() + ":" + instance.endpoint().port());
-                System.out.println("Storage Type: " + instance.storageType());
-                System.out.println("Multi-AZ: " + instance.multiAZ());
-                System.out.println("IAM DB Auth Enabled: " + instance.iamDatabaseAuthenticationEnabled());
-                System.out.println("Publicly Accessible: " + instance.publiclyAccessible());
-                System.out.println("Instance Status: " + instance.dbInstanceStatus());
-                System.out.println("Preferred Maintenance Window: " + instance.preferredMaintenanceWindow());
-                System.out.println("------");
-            }
-        } catch (NeptuneException e) {
-            System.err.println("Failed to describe DB instances: " + e.awsErrorDetails().errorMessage());
-            throw new RuntimeException(e);
+            neptuneAsyncClient = NeptuneAsyncClient.builder()
+                    .httpClient(httpClient)
+                    .overrideConfiguration(overrideConfig)
+                    .build();
         }
+        return neptuneAsyncClient;
     }
 
-    public void describeDBClusters(String clusterId) {
+    /**
+     * Asynchronously deletes a set of Amazon Neptune resources in a defined order.
+     * <p>
+     * The method performs the following operations in sequence:
+     * <ol>
+     *     <li>Deletes the Neptune DB instance identified by {@code dbInstanceId}.</li>
+     *     <li>Waits until the DB instance is fully deleted.</li>
+     *     <li>Deletes the Neptune DB cluster identified by {@code dbClusterId}.</li>
+     *     <li>Deletes the Neptune DB subnet group identified by {@code subnetGroupName}.</li>
+     * </ol>
+     * <p>
+     * If any step fails, the subsequent operations are not performed, and the exception
+     * is logged. This method blocks the calling thread until all operations complete.
+     *
+     * @param dbInstanceId      the ID of the Neptune DB instance to delete
+     * @param dbClusterId       the ID of the Neptune DB cluster to delete
+     * @param subnetGroupName   the name of the Neptune DB subnet group to delete
+     */
+    public void deleteNeptuneResourcesAsync(String dbInstanceId, String dbClusterId, String subnetGroupName) {
+        deleteDBInstanceAsync(dbInstanceId)
+                .thenCompose(v -> waitUntilInstanceDeletedAsync(dbInstanceId))
+                .thenCompose(v -> deleteDBClusterAsync(dbClusterId))
+                .thenCompose(v -> deleteDBSubnetGroupAsync(subnetGroupName))
+                .whenComplete((v, ex) -> {
+                    if (ex != null) {
+                        logger.info("❌ Failed to delete Neptune resources: " + ex.getMessage());
+                    } else {
+                        logger.info("✅ Neptune resources deleted successfully.");
+                    }
+                })
+                .join(); // Waits for the entire async chain to complete
+    }
+
+    // snippet-start:[neptune.java2.delete.subnet.group.main]
+    /**
+     * Deletes a subnet group.
+     *
+     * @param subnetGroupName the identifier of the subnet group to delete
+     * @return a {@link CompletableFuture} that completes when the cluster has been deleted
+     */
+    public CompletableFuture<Void> deleteDBSubnetGroupAsync(String subnetGroupName) {
+        DeleteDbSubnetGroupRequest request = DeleteDbSubnetGroupRequest.builder()
+                .dbSubnetGroupName(subnetGroupName)
+                .build();
+
+        return getAsyncClient().deleteDBSubnetGroup(request)
+                .thenAccept(response -> logger.info("🗑️ Deleting Subnet Group: " + subnetGroupName));
+    }
+    // snippet-end:[neptune.java2.delete.subnet.group.main]
+
+    // snippet-start:[neptune.java2.delete.cluster.main]
+    /**
+     * Deletes a DB instance asynchronously.
+     *
+     * @param clusterId the identifier of the cluster to delete
+     * @return a {@link CompletableFuture} that completes when the cluster has been deleted
+     */
+    public CompletableFuture<Void> deleteDBClusterAsync(String clusterId) {
+        DeleteDbClusterRequest request = DeleteDbClusterRequest.builder()
+                .dbClusterIdentifier(clusterId)
+                .skipFinalSnapshot(true)
+                .build();
+
+        return getAsyncClient().deleteDBCluster(request)
+                .thenAccept(response -> System.out.println("🗑️ Deleting DB Cluster: " + clusterId));
+    }
+    // snippet-end:[neptune.java2.delete.cluster.main]
+
+    public CompletableFuture<Void> waitUntilInstanceDeletedAsync(String instanceId) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        long startTime = System.currentTimeMillis();
+        checkInstanceDeletedRecursive(instanceId, startTime, future);
+        return future;
+    }
+
+    // snippet-start:[neptune.java2.delete.instance.main]
+    /**
+     * Deletes a DB instance asynchronously.
+     *
+     * @param instanceId the identifier of the DB instance to be deleted
+     * @return a {@link CompletableFuture} that completes when the DB instance has been deleted
+     */
+    public CompletableFuture<Void> deleteDBInstanceAsync(String instanceId) {
+        DeleteDbInstanceRequest request = DeleteDbInstanceRequest.builder()
+                .dbInstanceIdentifier(instanceId)
+                .skipFinalSnapshot(true)
+                .build();
+
+        return getAsyncClient().deleteDBInstance(request)
+                .thenAccept(response -> System.out.println("🗑️ Deleting DB Instance: " + instanceId));
+    }
+    // snippet-end:[neptune.java2.delete.instance.main]
+
+
+    private void checkInstanceDeletedRecursive(String instanceId, long startTime, CompletableFuture<Void> future) {
+        DescribeDbInstancesRequest request = DescribeDbInstancesRequest.builder()
+                .dbInstanceIdentifier(instanceId)
+                .build();
+
+        getAsyncClient().describeDBInstances(request)
+                .whenComplete((response, exception) -> {
+                    if (exception != null) {
+                        Throwable cause = exception.getCause();
+                        if (cause instanceof NeptuneException &&
+                                ((NeptuneException) cause).awsErrorDetails().errorCode().equals("DBInstanceNotFound")) {
+                            long elapsed = (System.currentTimeMillis() - startTime) / 1000;
+                            logger.info("\r✅ Instance %s deleted after %ds%n", instanceId, elapsed);
+                            future.complete(null);
+                            return;
+                        }
+                        future.completeExceptionally(new CompletionException("Error polling DB instance", cause));
+                        return;
+                    }
+
+                    String status = response.dbInstances().get(0).dbInstanceStatus();
+                    long elapsed = (System.currentTimeMillis() - startTime) / 1000;
+                    logger.info("\r⏳ Waiting: Instance %s status: %-10s (%ds elapsed)", instanceId, status, elapsed);
+                    System.out.flush();
+
+                    CompletableFuture.delayedExecutor(20, TimeUnit.SECONDS)
+                            .execute(() -> checkInstanceDeletedRecursive(instanceId, startTime, future));
+                });
+    }
+
+
+    public void waitForClusterStatus(String clusterId, String desiredStatus) {
+        System.out.printf("🔍 Waiting for cluster '%s' to reach status '%s'...\n", clusterId, desiredStatus);
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        checkClusterStatusRecursive(clusterId, desiredStatus, System.currentTimeMillis(), future);
+        future.join(); // Wait for status
+    }
+
+    private void checkClusterStatusRecursive(String clusterId, String desiredStatus, long startTime, CompletableFuture<Void> future) {
         DescribeDbClustersRequest request = DescribeDbClustersRequest.builder()
                 .dbClusterIdentifier(clusterId)
                 .build();
 
-        try {
-            DescribeDbClustersResponse response = neptuneClient.describeDBClusters(request);
-            for (DBCluster cluster : response.dbClusters()) {
-                System.out.println("Cluster Identifier: " + cluster.dbClusterIdentifier());
-                System.out.println("Status: " + cluster.status());
-                System.out.println("Engine: " + cluster.engine());
-                System.out.println("Engine Version: " + cluster.engineVersion());
-                System.out.println("Endpoint: " + cluster.endpoint());
-                System.out.println("Reader Endpoint: " + cluster.readerEndpoint());
-                System.out.println("Availability Zones: " + cluster.availabilityZones());
-                System.out.println("Subnet Group: " + cluster.dbSubnetGroup());
-                System.out.println("VPC Security Groups:");
-                cluster.vpcSecurityGroups().forEach(vpcGroup ->
-                        System.out.println("  - " + vpcGroup.vpcSecurityGroupId()));
-                System.out.println("Storage Encrypted: " + cluster.storageEncrypted());
-                System.out.println("IAM DB Auth Enabled: " + cluster.iamDatabaseAuthenticationEnabled());
-                System.out.println("Backup Retention Period: " + cluster.backupRetentionPeriod() + " days");
-                System.out.println("Preferred Backup Window: " + cluster.preferredBackupWindow());
-                System.out.println("Preferred Maintenance Window: " + cluster.preferredMaintenanceWindow());
-                System.out.println("------");
-            }
-        } catch (NeptuneException e) {
-            System.err.println("Failed to describe the DB cluster: " + e.awsErrorDetails().errorMessage());
-            throw new RuntimeException(e);
-        }
-    }
+        getAsyncClient().describeDBClusters(request)
+                .whenComplete((response, exception) -> {
+                    if (exception != null) {
+                        Throwable cause = exception.getCause();
+                        future.completeExceptionally(
+                                new CompletionException("Error checking Neptune cluster status", cause)
+                        );
+                        return;
+                    }
 
+                    List<DBCluster> clusters = response.dbClusters();
+                    if (clusters.isEmpty()) {
+                        future.completeExceptionally(new RuntimeException("Cluster not found: " + clusterId));
+                        return;
+                    }
 
-    public void deleteDBInstance(String dbInstanceId) {
-            DeleteDbInstanceRequest instanceRequest = DeleteDbInstanceRequest.builder()
-                    .dbInstanceIdentifier(dbInstanceId)
-                    .skipFinalSnapshot(true)
-                    .build();
-
-            neptuneClient.deleteDBInstance(instanceRequest);
-            System.out.println("Deleted DBInstance " + dbInstanceId);
-        }
-
-    public void isNeptuneInstanceReady(String instanceId) {
-        try {
-            boolean isReady = false;
-            int elapsedSeconds = 0;
-            String lastStatus = "checking...";
-
-            while (!isReady) {
-                for (int i = 0; i < 20 && !isReady; i++) {
-                    String line = String.format(
-                            "\r⏰ Elapsed: %-20s 🔄 Status: %-20s",
-                            formatElapsedTime(elapsedSeconds),
-                            lastStatus
-                    );
-                    System.out.print(line);
+                    String currentStatus = clusters.get(0).status();
+                    long elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000;
+                    System.out.printf("\r⏰ Elapsed: %-20s 🔄 Cluster status: %-20s", formatElapsedTime((int) elapsedSeconds), currentStatus);
                     System.out.flush();
 
-                    Thread.sleep(1000);
-                    elapsedSeconds++;
-                }
-
-                // Every 20 seconds, check DB instance status
-                DescribeDbInstancesRequest request = DescribeDbInstancesRequest.builder()
-                        .dbInstanceIdentifier(instanceId)
-                        .build();
-
-                DescribeDbInstancesResponse response = neptuneClient.describeDBInstances(request);
-                List<DBInstance> instances = response.dbInstances();
-                if (instances.isEmpty()) {
-                    System.out.print("\r❌ No instance found with ID: " + instanceId + "                       \n");
-                    break;
-                }
-
-                String status = instances.get(0).dbInstanceStatus();
-                lastStatus = status;
-
-                if ("available".equalsIgnoreCase(status)) {
-                    String doneLine = String.format(
-                            "\r✅ Neptune instance is now available after %s.                     \n",
-                            formatElapsedTime(elapsedSeconds)
-                    );
-                    System.out.print(doneLine);
-                    isReady = true;
-                }
-            }
-
-        } catch (NeptuneException e) {
-            System.err.println("\n❌ Error checking instance status: " + e.awsErrorDetails().errorMessage());
-            throw e;
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException("Thread interrupted while waiting", e);
-        }
+                    if (desiredStatus.equalsIgnoreCase(currentStatus)) {
+                        System.out.printf("\r✅ Neptune cluster reached desired status '%s' after %s.\n", desiredStatus, formatElapsedTime((int) elapsedSeconds));
+                        future.complete(null);
+                    } else {
+                        CompletableFuture.delayedExecutor(20, TimeUnit.SECONDS)
+                                .execute(() -> checkClusterStatusRecursive(clusterId, desiredStatus, startTime, future));
+                    }
+                });
     }
+
+
+    // snippet-start:[neptune.java2.start.cluster.main]
+    /**
+     * Starts an Amazon Neptune DB cluster.
+     *
+     * @param clusterIdentifier the unique identifier of the DB cluster to be stopped
+     */
+    public void startDBCluster(String clusterIdentifier) {
+        StartDbClusterRequest clusterRequest = StartDbClusterRequest.builder()
+                .dbClusterIdentifier(clusterIdentifier)
+                .build();
+
+        neptuneClient.startDBCluster(clusterRequest);
+        logger.info("🚀 DB Cluster starting...");
+    }
+    // snippet-end:[neptune.java2.start.cluster.main]
+
+    // snippet-start:[neptune.java2.stop.cluster.main]
+    /**
+     * Stops an Amazon Neptune DB cluster.
+     *
+     * @param clusterIdentifier the unique identifier of the DB cluster to be stopped
+     */
+    public void stopDBCluster(String clusterIdentifier) {
+        StopDbClusterRequest clusterRequest = StopDbClusterRequest.builder()
+                .dbClusterIdentifier(clusterIdentifier)
+                .build();
+
+        neptuneClient.stopDBCluster(clusterRequest);
+        logger.info("DB Cluster Stopped");
+    }
+    // snippet-stop:[neptune.java2.stop.cluster.main]
+
+    // snippet-start:[neptune.java2.describe.cluster.main]
+
+    /**
+     * Asynchronously describes the specified Amazon RDS DB cluster.
+     *
+     * @param clusterId the identifier of the DB cluster to describe
+     * @return a {@link CompletableFuture} that completes when the operation is done, or throws a {@link RuntimeException}
+     * if an error occurs
+     */
+    public CompletableFuture<Void> describeDBClustersAsync(String clusterId) {
+        DescribeDbClustersRequest request = DescribeDbClustersRequest.builder()
+                .dbClusterIdentifier(clusterId)
+                .build();
+
+        return getAsyncClient().describeDBClusters(request)
+                .thenAccept(response -> {
+                    for (DBCluster cluster : response.dbClusters()) {
+                        logger.info("Cluster Identifier: " + cluster.dbClusterIdentifier());
+                        logger.info("Status: " + cluster.status());
+                        logger.info("Engine: " + cluster.engine());
+                        logger.info("Engine Version: " + cluster.engineVersion());
+                        logger.info("Endpoint: " + cluster.endpoint());
+                        logger.info("Reader Endpoint: " + cluster.readerEndpoint());
+                        logger.info("Availability Zones: " + cluster.availabilityZones());
+                        logger.info("Subnet Group: " + cluster.dbSubnetGroup());
+                        logger.info("VPC Security Groups:");
+                        cluster.vpcSecurityGroups().forEach(vpcGroup ->
+                                logger.info("  - " + vpcGroup.vpcSecurityGroupId()));
+                        logger.info("Storage Encrypted: " + cluster.storageEncrypted());
+                        logger.info("IAM DB Auth Enabled: " + cluster.iamDatabaseAuthenticationEnabled());
+                        logger.info("Backup Retention Period: " + cluster.backupRetentionPeriod() + " days");
+                        logger.info("Preferred Backup Window: " + cluster.preferredBackupWindow());
+                        logger.info("Preferred Maintenance Window: " + cluster.preferredMaintenanceWindow());
+                        logger.info("------");
+                    }
+                })
+                .exceptionally(ex -> {
+                    Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
+                    throw new RuntimeException("Failed to describe the DB cluster: " + cause.getMessage(), cause);
+                });
+    }
+    // snippet-end:[neptune.java2.describe.cluster.main]
+
+
+    public CompletableFuture<Void> checkInstanceStatus(String instanceId, String desiredStatus) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        long startTime = System.currentTimeMillis();
+        checkStatusRecursive(instanceId, desiredStatus.toLowerCase(), startTime, future);
+        return future;
+    }
+
+    // snippet-start:[neptune.java2.describe.dbinstance.main]
+    /**
+     * Checks the status of a Neptune instance recursively until the desired status is reached or a timeout occurs.
+     *
+     * @param instanceId     the ID of the Neptune instance to check
+     * @param desiredStatus  the desired status of the Neptune instance
+     * @param startTime      the start time of the operation, used to calculate the elapsed time
+     * @param future         a {@link CompletableFuture} that will be completed when the desired status is reached
+     */
+    private void checkStatusRecursive(String instanceId, String desiredStatus, long startTime, CompletableFuture<Void> future) {
+        DescribeDbInstancesRequest request = DescribeDbInstancesRequest.builder()
+                .dbInstanceIdentifier(instanceId)
+                .build();
+
+        getAsyncClient().describeDBInstances(request)
+                .whenComplete((response, exception) -> {
+                    if (exception != null) {
+                        Throwable cause = exception.getCause();
+                        future.completeExceptionally(
+                                new CompletionException("Error checking Neptune instance status", cause)
+                        );
+                        return;
+                    }
+
+                    List<DBInstance> instances = response.dbInstances();
+                    if (instances.isEmpty()) {
+                        future.completeExceptionally(new RuntimeException("Instance not found: " + instanceId));
+                        return;
+                    }
+
+                    String currentStatus = instances.get(0).dbInstanceStatus();
+                    long elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000;
+                    System.out.printf("\r⏰ Elapsed: %-20s 🔄 Status: %-20s", formatElapsedTime((int) elapsedSeconds), currentStatus);
+                    System.out.flush();
+
+                    if (desiredStatus.equalsIgnoreCase(currentStatus)) {
+                        System.out.printf("\r✅ Neptune instance reached desired status '%s' after %s.\n", desiredStatus, formatElapsedTime((int) elapsedSeconds));
+                        future.complete(null);
+                    } else {
+                        CompletableFuture.delayedExecutor(20, TimeUnit.SECONDS)
+                                .execute(() -> checkStatusRecursive(instanceId, desiredStatus, startTime, future));
+                    }
+                });
+    }
+    // snippet-start:[neptune.java2.describe.dbinstance.main]
+
 
     private String formatElapsedTime(int seconds) {
         int minutes = seconds / 60;
@@ -201,67 +402,117 @@ public class NeptuneActions {
         }
     }
 
+    // snippet-start:[neptune.java2.create.dbinstance.main]
 
+    /**
+     * Creates a new Amazon Neptune DB instance asynchronously.
+     *
+     * @param dbInstanceId the identifier for the new DB instance
+     * @param dbClusterId  the identifier for the DB cluster that the new instance will be a part of
+     * @return a {@link CompletableFuture} that completes with the identifier of the newly created DB instance
+     * @throws CompletionException if the operation fails, with a cause of either:
+     *                             - {@link ServiceQuotaExceededException} if the request would exceed the maximum quota, or
+     *                             - a general exception with the failure message
+     */
+    public CompletableFuture<String> createDBInstanceAsync(String dbInstanceId, String dbClusterId) {
+        CreateDbInstanceRequest request = CreateDbInstanceRequest.builder()
+                .dbInstanceIdentifier(dbInstanceId)
+                .dbInstanceClass("db.r5.large")
+                .engine("neptune")
+                .dbClusterIdentifier(dbClusterId)
+               // .availabilityZone("us-east-1c")
+                .build();
 
-
-
-    public String createDBInstance(String dbInstanceId, String dbClusterId) {
-        try {
-            CreateDbInstanceRequest request = CreateDbInstanceRequest.builder()
-                    .dbInstanceIdentifier(dbInstanceId)
-                    .dbInstanceClass("db.r5.large")
-                    .engine("neptune")
-                    .dbClusterIdentifier(dbClusterId)
-                    .availabilityZone("us-east-1b")
-                    .build();
-
-            CreateDbInstanceResponse response = neptuneClient.createDBInstance(request);
-            System.out.println("Created Neptune DB Instance: " + response.dbInstance().dbInstanceIdentifier());
-            return response.dbInstance().dbInstanceIdentifier();
-
-        } catch (NeptuneException e) {
-            System.err.println("Failed to create Neptune DB instance: " + e.awsErrorDetails().errorMessage());
-            return "";
-        }
+        return getAsyncClient().createDBInstance(request)
+                .whenComplete((response, exception) -> {
+                    if (exception != null) {
+                        Throwable cause = exception.getCause();
+                        if (cause instanceof ServiceQuotaExceededException) {
+                            throw new CompletionException("The operation was denied because the request would exceed the maximum quota.", cause);
+                        }
+                        throw new CompletionException("Failed to create Neptune DB instance: " + exception.getMessage(), exception);
+                    }
+                })
+                .thenApply(response -> {
+                    String instanceId = response.dbInstance().dbInstanceIdentifier();
+                    logger.info("Created Neptune DB Instance: " + instanceId);
+                    return instanceId;
+                });
     }
+    // snippet-end:[neptune.java2.create.dbinstance.main]
 
-    public String createDBCluster(String dbName) {
-        try {
-            CreateDbClusterRequest request = CreateDbClusterRequest.builder()
-                    .dbClusterIdentifier(dbName)
-                    .engine("neptune")
-                    .deletionProtection(false)
-                    .backupRetentionPeriod(1)
-                    .build();
 
-            CreateDbClusterResponse response = neptuneClient.createDBCluster(request);
-            System.out.println("DB Cluster created: " + response.dbCluster().dbClusterIdentifier());
-            return response.dbCluster().dbClusterIdentifier();
+    // snippet-start:[neptune.java2.create.cluster.main]
 
-        } catch (NeptuneException e) {
-            System.err.println("Failed to create Neptune DB cluster: " + e.awsErrorDetails().errorMessage());
-            throw e;
-        }
+    /**
+     * Creates a new Amazon Neptune DB cluster asynchronously.
+     *
+     * @param dbName the name of the DB cluster to be created
+     * @return a CompletableFuture that, when completed, provides the ID of the created DB cluster
+     * @throws CompletionException if the operation fails for any reason, including if the request would exceed the maximum quota
+     */
+    public CompletableFuture<String> createDBClusterAsync(String dbName) {
+        CreateDbClusterRequest request = CreateDbClusterRequest.builder()
+                .dbClusterIdentifier(dbName)
+                .engine("neptune")
+                .deletionProtection(false)
+                .backupRetentionPeriod(1)
+                .build();
+
+        return neptuneAsyncClient.createDBCluster(request)
+                .whenComplete((response, exception) -> {
+                    if (exception != null) {
+                        Throwable cause = exception.getCause();
+                        if (cause instanceof ServiceQuotaExceededException) {
+                            throw new CompletionException("The operation was denied because the request would exceed the maximum quota.", cause);
+                        }
+                        throw new CompletionException("Failed to create Neptune DB cluster: " + exception.getMessage(), exception);
+                    }
+                })
+                .thenApply(response -> {
+                    String clusterId = response.dbCluster().dbClusterIdentifier();
+                    logger.info("DB Cluster created: " + clusterId);
+                    return clusterId;
+                });
     }
+    // snippet-end:[neptune.java2.create.cluster.main]
 
-    public String createSubnetGroup(String vpcId, String groupName) {
+    // snippet-start:[neptune.java2.create.subnet.main]
+
+    /**
+     * Creates a new DB subnet group asynchronously.
+     *
+     * @param vpcId     the ID of the VPC for which to create the subnet group
+     * @param groupName the name of the subnet group to create
+     * @return a CompletableFuture that, when completed, returns the Amazon Resource Name (ARN) of the created subnet group
+     * @throws CompletionException if the operation fails, with a cause that may be a ServiceQuotaExceededException if the request would exceed the maximum quota
+     */
+    public CompletableFuture<String> createSubnetGroupAsync(String vpcId, String groupName) {
         List<String> subnetList = getSubnetIds(vpcId);
-        try {
-            CreateDbSubnetGroupRequest request = CreateDbSubnetGroupRequest.builder()
-                    .dbSubnetGroupName(groupName)
-                    .dbSubnetGroupDescription("Subnet group for Neptune cluster")
-                    .subnetIds(subnetList)
-                    .build();
+        CreateDbSubnetGroupRequest request = CreateDbSubnetGroupRequest.builder()
+                .dbSubnetGroupName(groupName)
+                .dbSubnetGroupDescription("Subnet group for Neptune cluster")
+                .subnetIds(subnetList)
+                .build();
 
-            CreateDbSubnetGroupResponse response = neptuneClient.createDBSubnetGroup(request);
-            System.out.println("Subnet group created: " + response.dbSubnetGroup().dbSubnetGroupName());
-            return response.dbSubnetGroup().dbSubnetGroupArn();
-
-        } catch (NeptuneException e) {
-            System.err.println("Error creating subnet group: " + e.awsErrorDetails().errorMessage());
-            return "";
-        }
+        return getAsyncClient().createDBSubnetGroup(request)
+                .whenComplete((response, exception) -> {
+                    if (exception != null) {
+                        Throwable cause = exception.getCause();
+                        if (cause instanceof ServiceQuotaExceededException) {
+                            throw new CompletionException("The operation was denied because the request would exceed the maximum quota.", cause);
+                        }
+                        throw new CompletionException("Failed to create subnet group: " + exception.getMessage(), exception);
+                    }
+                })
+                .thenApply(response -> {
+                    String name = response.dbSubnetGroup().dbSubnetGroupName();
+                    String arn = response.dbSubnetGroup().dbSubnetGroupArn();
+                    logger.info("Subnet group created: " + name);
+                    return arn;
+                });
     }
+    // snippet-end:[neptune.java2.create.subnet.main]
 
     private List<String> getSubnetIds(String vpcId) {
         try (Ec2Client ec2 = Ec2Client.builder().region(region).build()) {

@@ -3,23 +3,26 @@
 
 package com.example.neptune.scenerio;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class NeptuneScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-
+    private static final Logger logger = LoggerFactory.getLogger(NeptuneScenario.class);
     static Scanner scanner = new Scanner(System.in);
     static NeptuneActions neptuneActions = new NeptuneActions();
 
     public static void main(String[] args) {
-        String subnetGroupName = "neptuneSubnetGroup28" ;
+        String subnetGroupName = "neptuneSubnetGroup56" ;
         String vpcId = "vpc-e97a4393" ;
-        String clusterName = "neptuneCluster28" ;
-        String dbInstanceId = "neptuneDB28" ;
+        String clusterName = "neptuneCluster56" ;
+        String dbInstanceId = "neptuneDB56" ;
 
-        System.out.println("""
+        logger.info("""
             Amazon Neptune is a fully managed graph 
             database service by AWS, designed specifically
             for handling complex relationships and connected 
@@ -50,98 +53,109 @@ public class NeptuneScenario {
     }
 
     public static void runScenario(String subnetGroupName,  String vpcId, String dbInstanceId, String clusterName) {
-        System.out.println(DASHES);
-        System.out.println("1. Create a Neptune DB Subnet Group");
-        System.out.println("The Neptune DB subnet group is used when launching a Neptune cluster");
+        logger.info(DASHES);
+        logger.info("1. Create a Neptune DB Subnet Group");
+        logger.info("The Neptune DB subnet group is used when launching a Neptune cluster");
         waitForInputToContinue(scanner);
-        String groupARN = neptuneActions.createSubnetGroup(vpcId, subnetGroupName);
+        neptuneActions.createSubnetGroupAsync(vpcId, subnetGroupName).join();
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("2. Create a Neptune Cluster");
-        System.out.println("A Neptune Cluster allows you to store and query highly connected datasets with low latency.");
+        logger.info(DASHES);
+        logger.info("2. Create a Neptune Cluster");
+        logger.info("A Neptune Cluster allows you to store and query highly connected datasets with low latency.");
         waitForInputToContinue(scanner);
-        String dbClusterId = neptuneActions.createDBCluster(clusterName);
+        String dbClusterId = neptuneActions.createDBClusterAsync(clusterName).join();
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("3. Create a Neptune DB Instance");
-        System.out.println("In this step, we add a new database instance to the Neptune cluster");
+        logger.info(DASHES);
+        logger.info("3. Create a Neptune DB Instance");
+        logger.info("In this step, we add a new database instance to the Neptune cluster");
         waitForInputToContinue(scanner);
-        neptuneActions.createDBInstance(dbInstanceId, dbClusterId);
+        neptuneActions.createDBInstanceAsync(dbInstanceId, dbClusterId).join();
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("4. Check the status of the Neptune DB Instance");
-        System.out.println("""
+        logger.info(DASHES);
+        logger.info("4. Check the status of the Neptune DB Instance");
+        logger.info("""
         In this step, we will wait until the DB instance 
         becomes available. This may take around 10 minutes.
         """);
         waitForInputToContinue(scanner);
-        neptuneActions.isNeptuneInstanceReady(dbInstanceId);
+        neptuneActions.checkInstanceStatus(dbInstanceId, "available").join();
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("5. Tag the Amazon Neptune Resource");
+        logger.info(DASHES);
+        logger.info("5.Show Neptune Cluster details");
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        neptuneActions.describeDBClustersAsync(clusterName).join();
+        waitForInputToContinue(scanner);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("6.Show Neptune Cluster details");
+        logger.info(DASHES);
+        logger.info("6. Stop the Amazon Neptune cluster");
+        logger.info("""
+                Once stopped, this step polls the status 
+                until the cluster is in a stopped state.
+                """);
         waitForInputToContinue(scanner);
-        neptuneActions.describeDBClusters(clusterName);
+        neptuneActions.stopDBCluster(dbClusterId);
+        neptuneActions.waitForClusterStatus(dbClusterId,"stopped");
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("7.Show Neptune Instance details");
+        logger.info(DASHES);
+        logger.info("7. Start the Amazon Neptune cluster");
+        logger.info("""
+                Once started, this step polls the clusters 
+                status until it's in an available state.
+                We will also poll the instance status.
+                """);
         waitForInputToContinue(scanner);
-        neptuneActions.describeDBInstances(dbInstanceId);
-        waitForInputToContinue(scanner);
-        System.out.println(DASHES);
-
-        System.out.println(DASHES);
-        System.out.println("8. Delete the Neptune Assets");
-        System.out.println("Would you like to delete the Neptune Assets? (y/n)");
+        neptuneActions.startDBCluster(dbClusterId);
+        neptuneActions.waitForClusterStatus(dbClusterId,"available");
+        neptuneActions.checkInstanceStatus(dbInstanceId, "available").join();
+        logger.info(DASHES);
+        logger.info(DASHES);
+        logger.info("8. Delete the Neptune Assets");
+        logger.info("Would you like to delete the Neptune Assets? (y/n)");
         String delAns = scanner.nextLine().trim();
         if (delAns.equalsIgnoreCase("y")) {
-            System.out.println("You selected to delete the Neptune assets.");
-            neptuneActions.deleteDBInstance(dbInstanceId);
-            neptuneActions.deleteDBCluster(dbClusterId);
-            neptuneActions.deleteDBSubnetGroup(subnetGroupName);
+            logger.info("You selected to delete the Neptune assets.");
+            neptuneActions.deleteNeptuneResourcesAsync(dbInstanceId, clusterName, subnetGroupName);
+
         } else {
-            System.out.println("You selected not to delete Neptune assets.");
+            logger.info("You selected not to delete Neptune assets.");
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println(
+        logger.info(DASHES);
+        logger.info(
         """
         Thank you for checking out the Amazon Neptune Service Use demo. We hope you
         learned something new, or got some inspiration for your own apps today.
         For more AWS code examples, have a look at:
         https://docs.aws.amazon.com/code-library/latest/ug/what-is-code-library.html
         """);
-        System.out.println(DASHES);
+        logger.info(DASHES);
     }
 
     private static void waitForInputToContinue(Scanner scanner) {
         while (true) {
-            System.out.println("");
-            System.out.println("Enter 'c' followed by <ENTER> to continue:");
+            logger.info("");
+            logger.info("Enter 'c' followed by <ENTER> to continue:");
             String input = scanner.nextLine();
 
             if (input.trim().equalsIgnoreCase("c")) {
-                System.out.println("Continuing with the program...");
-                System.out.println("");
+                logger.info("Continuing with the program...");
+                logger.info("");
                 break;
             } else {
-                System.out.println("Invalid input. Please try again.");
+                logger.info("Invalid input. Please try again.");
             }
         }
     }
