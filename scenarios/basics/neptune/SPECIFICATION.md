@@ -241,25 +241,25 @@ The following table describes the metadata used in this Basics Scenario. The met
 
 | action                 | metadata key                         |
 |------------------------|------------------------------------- |
-|`createSignalCatalog`   | iotfleetwise_CreateSignalCatalog      |
-|`createFleet`           | iotfleetwise_CreateFleet              |
-|`createModelManifest`   | iotfleetwise_CreateModelManifest      |
-|`createDecoderManifest` | iotfleetwise_CreateDecoderManifest    |
-|`updateModelManifest`   | iotfleetwise_UpdateModelManifest      |
-| `createPortal`         | iotfleetwise_CreatePortal             |
-|`waitForModelManifest`  | iotfleetwise_WaitForModelManifest     |
-|`updateDecoderManifest` | iotfleetwise_updateDecoder            |
-| `describeAssetModel`   | iotfleetwise_DescribeAssetModel       |
-| `waitForDecoder  `     | otfleetwise_WaitForDecoder           |
-| `createVehicle`        |iotfleetwise_CreateVehicle            |
-| `getVehicle`           |iotfleetwise_GetVehicle               |
-| `deleteVehicle `       |iotfleetwise_DeleteVehicle            |
-|`deleteDecoderManifest` |iotfleetwise_DeleteDecoder            |
-| `deleteFleet `         |iotfleetwise_DeleteFleet              |
-| `deleteModel`          |iotfleetwise_DeleteModel              |
-| `deleteSignalCatalog ` |otfleetwise_DeleteSignalCatalog       |
-| `scenario`             |iotfleetwise_Scenario                 |
-| `hello`                |iotfleetwise_Hello                    |
+|`createDBSubnetGroup`   | neptune_CreateDBSubnetGroup          |
+|`createDBCluster`       | neptune_CreateDBCluster              |
+|`createDBInstance`      | neptune_CreateDBInstance             |
+|`describeDBInstances  ` | neptune_DescribeDBInstances          |
+|`describeDBClusters`    | neptune_DescribeDBClusters           |
+| `stopDBCluster`        | neptune_StopDBCluster                |
+|`startDBCluster      `  | neptune_StartDBCluster               |
+|`updateDecoderManifest` | neptune_updateDecoder            |
+| `describeAssetModel`   | neptune_DescribeAssetModel       |
+| `waitForDecoder  `     | neptune_WaitForDecoder           |
+| `createVehicle`        | neptune_CreateVehicle            |
+| `getVehicle`           | neptune_GetVehicle               |
+| `deleteVehicle `       | neptune_DeleteVehicle            |
+|`deleteDecoderManifest` | neptunee_DeleteDecoder            |
+| `deleteFleet `         | neptune_DeleteFleet              |
+| `deleteModel`          | neptune_DeleteModel              |
+| `deleteSignalCatalog ` | neptune_DeleteSignalCatalog       |
+| `scenario`             | neptune_Scenario                 |
+| `hello`                | neptune_Hello                    |
 
 
 
