@@ -248,18 +248,11 @@ The following table describes the metadata used in this Basics Scenario. The met
 |`describeDBClusters`    | neptune_DescribeDBClusters           |
 | `stopDBCluster`        | neptune_StopDBCluster                |
 |`startDBCluster      `  | neptune_StartDBCluster               |
-|`updateDecoderManifest` | neptune_updateDecoder            |
-| `describeAssetModel`   | neptune_DescribeAssetModel       |
-| `waitForDecoder  `     | neptune_WaitForDecoder           |
-| `createVehicle`        | neptune_CreateVehicle            |
-| `getVehicle`           | neptune_GetVehicle               |
-| `deleteVehicle `       | neptune_DeleteVehicle            |
-|`deleteDecoderManifest` | neptunee_DeleteDecoder            |
-| `deleteFleet `         | neptune_DeleteFleet              |
-| `deleteModel`          | neptune_DeleteModel              |
-| `deleteSignalCatalog ` | neptune_DeleteSignalCatalog       |
-| `scenario`             | neptune_Scenario                 |
-| `hello`                | neptune_Hello                    |
+|`deleteDBInstance     ` | neptune_DeleteDBInstance             |
+| `deleteDBCluster`      | neptune_DeleteDBCluster              |
+| `deleteDBSubnetGroup  `| neptune_DeleteDBSubnetGroup          |
+| `scenario`             | neptune_Scenario                     |
+| `hello`                | neptune_Hello                        |
 
 
 
