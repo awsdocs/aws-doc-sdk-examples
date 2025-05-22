@@ -11,10 +11,10 @@ _Amazon Bedrock Agents offer you the ability to build and configure autonomous a
 
 ## ⚠ Important
 
-- Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
-- Running the tests might result in charges to your AWS account.
-- We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
-- This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 <!--custom.important.start-->
 <!--custom.important.end-->
@@ -82,6 +82,7 @@ functions within the same service.
 - [Create and invoke a managed prompt](prompts/scenario_get_started_with_prompts.py)
 - [Create and invoke an agent](scenario_get_started_with_agents.py)
 
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 
@@ -89,8 +90,11 @@ functions within the same service.
 
 ### Instructions
 
+
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+
 
 #### Create and invoke a flow
 
@@ -115,6 +119,7 @@ Start the example by running the following at a command prompt:
 ```
 python flows/playlist_flow.py
 ```
+
 
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockFlows.start-->
 
@@ -141,6 +146,7 @@ Start the example by running the following at a command prompt:
 ```
 python prompts/scenario_get_started_with_prompts.py
 ```
+
 
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.start-->
 
@@ -195,6 +201,7 @@ Start the example by running the following at a command prompt:
 python scenario_get_started_with_agents.py
 ```
 
+
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockAgents.start-->
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockAgents.end-->
 
@@ -202,8 +209,11 @@ python scenario_get_started_with_agents.py
 
 ⚠ Running tests might result in charges to your AWS account.
 
+
 To find instructions for running these tests, see the [README](../../README.md#Tests)
 in the `python` folder.
+
+
 
 <!--custom.tests.start-->
 <!--custom.tests.end-->
