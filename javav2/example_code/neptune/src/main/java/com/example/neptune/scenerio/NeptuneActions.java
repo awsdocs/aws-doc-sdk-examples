@@ -387,7 +387,7 @@ public class NeptuneActions {
                     }
                 });
     }
-    // snippet-start:[neptune.java2.describe.dbinstance.main]
+    // snippet-end:[neptune.java2.describe.dbinstance.main]
 
 
     private String formatElapsedTime(int seconds) {
