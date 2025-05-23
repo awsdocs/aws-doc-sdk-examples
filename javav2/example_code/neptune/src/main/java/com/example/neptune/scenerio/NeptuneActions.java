@@ -13,28 +13,28 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeSubnetsRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeSubnetsResponse;
+import software.amazon.awssdk.services.ec2.model.DescribeVpcsRequest;
+import software.amazon.awssdk.services.ec2.model.Filter;
+import software.amazon.awssdk.services.ec2.model.DescribeVpcsResponse;
 import software.amazon.awssdk.services.ec2.model.Subnet;
+import software.amazon.awssdk.services.ec2.model.Vpc;
 import software.amazon.awssdk.services.neptune.NeptuneAsyncClient;
 import software.amazon.awssdk.services.neptune.NeptuneClient;
 import software.amazon.awssdk.services.neptune.model.*;
 import software.amazon.awssdk.services.neptune.model.CreateDbClusterRequest;
-import software.amazon.awssdk.services.neptune.model.CreateDbClusterResponse;
 import software.amazon.awssdk.services.neptune.model.CreateDbInstanceRequest;
-import software.amazon.awssdk.services.neptune.model.CreateDbInstanceResponse;
 import software.amazon.awssdk.services.neptune.model.CreateDbSubnetGroupRequest;
-import software.amazon.awssdk.services.neptune.model.CreateDbSubnetGroupResponse;
 import software.amazon.awssdk.services.neptune.model.DBCluster;
 import software.amazon.awssdk.services.neptune.model.DBInstance;
 import software.amazon.awssdk.services.neptune.model.DeleteDbClusterRequest;
 import software.amazon.awssdk.services.neptune.model.DeleteDbInstanceRequest;
 import software.amazon.awssdk.services.neptune.model.DeleteDbSubnetGroupRequest;
-import software.amazon.awssdk.services.neptune.model.DescribeDbClustersResponse;
 import software.amazon.awssdk.services.neptune.model.DescribeDbInstancesRequest;
-import software.amazon.awssdk.services.neptune.model.DescribeDbInstancesResponse;
 import software.amazon.awssdk.services.neptune.model.DescribeDbClustersRequest;
 import software.amazon.awssdk.services.neptunegraph.model.ServiceQuotaExceededException;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -44,12 +44,10 @@ import java.util.stream.Collectors;
 // snippet-start:[neptune.java2.actions.main]
 public class NeptuneActions {
     private CompletableFuture<Void> instanceCheckFuture;
-    private long instanceCheckStartTime;
     private static NeptuneAsyncClient neptuneAsyncClient;
     private final Region region = Region.US_EAST_1;
     private static final Logger logger = LoggerFactory.getLogger(NeptuneActions.class);
     private final NeptuneClient neptuneClient = NeptuneClient.builder().region(region).build();
-
 
     /**
      * Retrieves an instance of the NeptuneAsyncClient.
@@ -487,7 +485,10 @@ public class NeptuneActions {
      * @return a CompletableFuture that, when completed, returns the Amazon Resource Name (ARN) of the created subnet group
      * @throws CompletionException if the operation fails, with a cause that may be a ServiceQuotaExceededException if the request would exceed the maximum quota
      */
-    public CompletableFuture<String> createSubnetGroupAsync(String vpcId, String groupName) {
+    public CompletableFuture<String> createSubnetGroupAsync(String vpcId2, String groupName) {
+
+        // Get the Amazon Virtual Private Cloud (VPC) where the Neptune cluster and resources will be created
+        String vpcId = getDefaultVpcId();
         List<String> subnetList = getSubnetIds(vpcId);
         CreateDbSubnetGroupRequest request = CreateDbSubnetGroupRequest.builder()
                 .dbSubnetGroupName(groupName)
@@ -526,5 +527,33 @@ public class NeptuneActions {
                     .collect(Collectors.toList());
         }
     }
+
+    public static String getDefaultVpcId() {
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(Region.US_EAST_1)
+                .build();
+
+        Filter myFilter = Filter.builder()
+                .name("isDefault")
+                .values("true")
+                .build();
+
+        List<Filter> filterList = new ArrayList<>();
+        filterList.add(myFilter);
+
+        DescribeVpcsRequest request = DescribeVpcsRequest.builder()
+                .filters(filterList)
+                .build();
+
+
+        DescribeVpcsResponse response = ec2.describeVpcs(request);
+        if (!response.vpcs().isEmpty()) {
+            Vpc defaultVpc = response.vpcs().get(0);
+            return defaultVpc.vpcId();
+        } else {
+            throw new RuntimeException("No default VPC found in this region.");
+        }
+    }
 }
+
 // snippet-end:[neptune.java2.actions.main]
