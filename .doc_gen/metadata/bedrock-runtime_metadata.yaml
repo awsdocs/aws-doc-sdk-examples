@@ -124,6 +124,14 @@ bedrock-runtime_Converse_AmazonNovaText:
               genai: some
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
+              snippet_tags:
+                - php.example_code.bedrock-runtime.service.Converse_AmazonNovaText
     Python:
       versions:
         - sdk_version: 3
@@ -792,14 +800,6 @@ bedrock-runtime_InvokeModel_Ai21LabsJurassic2:
               snippet_tags:
                 - gov2.bedrock-runtime.InvokeModelWrapper.struct
                 - gov2.bedrock-runtime.InvokeJurassic2
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - php.example_code.bedrock-runtime.service.invokeJurassic2
   services:
     bedrock-runtime: {InvokeModel}
 
