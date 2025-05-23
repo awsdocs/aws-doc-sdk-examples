@@ -290,7 +290,7 @@ public class NeptuneActions {
         neptuneClient.stopDBCluster(clusterRequest);
         logger.info("DB Cluster Stopped");
     }
-    // snippet-stop:[neptune.java2.stop.cluster.main]
+    // snippet-end:[neptune.java2.stop.cluster.main]
 
     // snippet-start:[neptune.java2.describe.cluster.main]
 
