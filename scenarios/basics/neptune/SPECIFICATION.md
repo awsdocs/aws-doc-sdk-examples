@@ -3,14 +3,15 @@
 ## Overview
 This SDK Basics scenario demonstrates how to interact with Amazon Neptune using an AWS SDK. 
 It demonstrates various tasks such as creating a Neptune DB Subnet Group, creating a Neptune Cluster, 
-creating a Neptune DB Instance, and so on.  Finally this scenario demonstrates how 
-to clean up resources. Its purpose is to demonstrate how to get up and running with Amazon Neptune and an AWS SDK.
+creating a Neptune DB Instance, and so on. 
+
+Finally this scenario demonstrates how to clean up resources. Its purpose is to demonstrate how to get up and running with Amazon Neptune and an AWS SDK.
 
 ## Resources
 This Basics scenario does not require any additional AWS resources. 
 
 ## Hello Amazon Neptune
-This program is intended for users not familiar with the Amazon Neptune Service to easily get up and running. The program invokes `describeDBSubnetGroupsPaginator`to iterate through subnet groups. 
+This program is intended for users not familiar with Amazon Neptune to easily get up and running. The program invokes `describeDBSubnetGroupsPaginator`to iterate through subnet groups. 
 
 ## Basics Scenario Program Flow
 The Amazon Neptune Basics scenario executes the following operations.
