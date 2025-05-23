@@ -5,11 +5,9 @@ package com.example.neptune.scenerio;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+// snippet-start:[neptune.java2.scenario.main]
 public class NeptuneScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     private static final Logger logger = LoggerFactory.getLogger(NeptuneScenario.class);
@@ -160,3 +158,4 @@ public class NeptuneScenario {
         }
     }
 }
+// snippet-end:[neptune.java2.scenario.main]

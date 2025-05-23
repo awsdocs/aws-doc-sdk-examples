@@ -41,6 +41,7 @@ import java.util.concurrent.CompletionException;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+// snippet-start:[neptune.java2.actions.main]
 public class NeptuneActions {
     private CompletableFuture<Void> instanceCheckFuture;
     private long instanceCheckStartTime;
@@ -420,7 +421,6 @@ public class NeptuneActions {
                 .dbInstanceClass("db.r5.large")
                 .engine("neptune")
                 .dbClusterIdentifier(dbClusterId)
-               // .availabilityZone("us-east-1c")
                 .build();
 
         return getAsyncClient().createDBInstance(request)
@@ -527,3 +527,4 @@ public class NeptuneActions {
         }
     }
 }
+// snippet-end:[neptune.java2.actions.main]

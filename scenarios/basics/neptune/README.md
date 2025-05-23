@@ -1,22 +1,19 @@
 ## Overview
-This AWS IoT Fleetwise basic scenario demonstrates how to interact with the AWS IoT FleetWise service using an AWS SDK. The scenario covers various operations such as creating a collection of standardized signals, creating a model manifest, creating a vehicle, and so on.
+This Amazon Neptune basic scenario demonstrates how to interact with Amazon Neptune using an AWS SDK. The scenario covers various operations such as creating a cluster, creating an instance, starting and stopping the cluster, and so on.
 
 ## Key Operations
 
-1. **Create an AWS Fleetwise signal catalog**:
-   - This step creates an AWS Fleetwise signal catalog by invoking the `createSignalCatalog`method.
+1. **Create a Neptune DB Subnet Group**:
+   - Creates a Neptune DB Subnet Group by invoking `createDBSubnetGroup`.
 
-2. **Create an AWS IoT Fleetwise fleet**:
-   - This operation creates an AWS Fleetwise fleet by invoking the `createFleet`method.
+2. **Create a Neptune Cluster**:
+   - Description: Creates a Neptune Cluster by invoking `createDBCluster`.
 
-3. **Create a model manifest**:
-   - This operation creates an AWS Fleetwise model manifest by invoking the `createModelManifest`method.
+3. **Create a Neptune DB Instance**:
+   - Description: Creates a Neptune DB Instance by invoking `createDBInstance`. 
 
-4. **Create a decoder manifest**:
-   - This operation creates an AWS Fleetwise decoder manifest by invoking the `createDecoderManifest`method.
-
-5. **Create a vehicle**:
-   - This operation creates an AWS Fleetwise vehicle by invoking the `createVehicle`method.
+4. **Check the status of the Neptune DB Instance**:
+   - Description: Check the status of the DB instance by invoking `describeDBInstances`. Poll the instance until it reaches an `availbale`state. 
 
 **Note** See the [Engineering specification](SPECIFICATION.md) for a full listing of operations.
 
@@ -29,11 +26,11 @@ This Basics scenario does not require any additional AWS resources.
 This scenario example will be implemented in the following languages:
 
 - Java
-- JavaScript
+- Python
 - Kotlin
 
 ## Additional Reading
 
-- [AWS IoT Fleetwise Documentation](https://docs.aws.amazon.com/iot-fleetwise/latest/developerguide/what-is-iotfleetwise.html)
+- [Amazon Neptune Documentation](https://docs.aws.amazon.com/neptune/latest/userguide/intro.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
