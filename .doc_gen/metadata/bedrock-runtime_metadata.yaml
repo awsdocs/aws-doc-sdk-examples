@@ -1488,6 +1488,14 @@ bedrock-runtime_Scenario_AmazonNova_TextToVideo:
             - description: Use Amazon Nova Reel to generate a video from a text prompt.
               snippet_tags:
                 - python.example_code.bedrock-runtime.Scenario_AmazonNova_TextToVideo
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/bedrock-runtime
+          excerpts:
+            - description: Use Amazon Nova Reel to generate a video from a text prompt.
+              snippet_tags:
+                - swift.example_code.bedrock-runtime.Scenario_AmazonNova_TextToVideo
   services:
     bedrock-runtime: {GetAsyncInvoke, StartAsyncInvoke}
 

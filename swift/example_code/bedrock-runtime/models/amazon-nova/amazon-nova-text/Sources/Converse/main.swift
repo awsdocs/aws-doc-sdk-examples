@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-// snippet-start:[swift.example_code.bedrock-runtime.Converse_AmazonNovaText]
+// snippet-start:[swift.example_code.bedrock-runtime.Scenario_AmazonNova_TextToVideo]
 // An example demonstrating how to use the Conversation API to send 
 // a text message to Amazon Nova.
 
