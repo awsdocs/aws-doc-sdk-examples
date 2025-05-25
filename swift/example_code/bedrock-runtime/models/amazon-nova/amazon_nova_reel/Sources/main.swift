@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-// snippet-start:[swift.example_code.bedrock-runtime.Converse_AmazonNovaText]
+// snippet-start:[swift.example_code.bedrock-runtime.Scenario_AmazonNova_TextToVideo]
 // This example demonstrates how to use Amazon Nova Reel to generate a video from a text prompt.
 // It shows how to:
 // - Set up the Amazon Bedrock runtime client
@@ -109,4 +109,4 @@ do {
     print("An error occurred: \(error)")
 }
 
-// snippet-end:[swift.example_code.bedrock-runtime.Converse_AmazonNovaText]
+// snippet-end:[swift.example_code.bedrock-runtime.Scenario_AmazonNova_TextToVideo]
