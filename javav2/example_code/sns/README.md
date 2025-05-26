@@ -9,7 +9,7 @@ Shows how to use the AWS SDK for Java 2.x to work with Amazon Simple Notificatio
 
 _Amazon SNS is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud._
 
-## ⚠ Important
+## ⚠ Important 1
 
 * Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
 * Running the tests might result in charges to your AWS account.
