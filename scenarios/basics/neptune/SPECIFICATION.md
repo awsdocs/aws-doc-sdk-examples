@@ -23,11 +23,11 @@ The Amazon Neptune Basics scenario executes the following operations.
 
 2. **Create a Neptune Cluster**:
    - Description: Creates a Neptune Cluster by invoking `createDBCluster`.
-   - Exception Handling: Check to see if a `???` is thrown. If it is thrown, if so, display the message and end the program.
+   - Exception Handling: Check to see if a `ServiceQuotaExceededException` is thrown. If it is thrown, if so, display the message and end the program.
 
 3. **Create a Neptune DB Instance**:
    - Description: Creates a Neptune DB Instance by invoking `createDBInstance`. 
-   - Exception Handling: Check to see if an `???` is thrown. If so, display the message and end the program.
+   - Exception Handling: Check to see if an `ServiceQuotaExceededException` is thrown. If so, display the message and end the program.
 
 4. **Check the status of the Neptune DB Instance**:
    - Description: Check the status of the DB instance by invoking `describeDBInstances`. Poll the instance until it reaches an `availbale`state. 
