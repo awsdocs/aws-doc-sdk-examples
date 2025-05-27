@@ -84,7 +84,7 @@ in the `rustv1` folder.
 
 - [Amazon Bedrock Runtime User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
 - [Amazon Bedrock Runtime API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/welcome.html)
-- [SDK for Rust Amazon Bedrock Runtime reference](https://docs.rs/aws-sdk-bedrock-runtime/latest/aws_sdk_bedrock-runtime/)
+- [SDK for Rust Amazon Bedrock Runtime reference](https://docs.rs/aws-sdk-bedrockruntime/latest/aws_sdk_bedrockruntime/))
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
