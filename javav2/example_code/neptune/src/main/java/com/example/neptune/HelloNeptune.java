@@ -26,6 +26,12 @@ public class HelloNeptune {
         describeDbCluster(neptuneClient).join(); // This ensures the async code runs to completion
     }
 
+    /**
+     * Describes the Amazon Neptune DB clusters.
+     *
+     * @param neptuneClient the Neptune asynchronous client used to make the request
+     * @return a {@link CompletableFuture} that completes when the operation is finished
+     */
     public static CompletableFuture<Void> describeDbCluster(NeptuneAsyncClient neptuneClient) {
         DescribeDbClustersRequest request = DescribeDbClustersRequest.builder()
                 .maxRecords(20)

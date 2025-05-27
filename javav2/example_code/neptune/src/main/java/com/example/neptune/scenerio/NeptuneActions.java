@@ -115,9 +115,9 @@ public class NeptuneActions {
                 .thenCompose(v -> deleteDBSubnetGroupAsync(subnetGroupName))
                 .whenComplete((v, ex) -> {
                     if (ex != null) {
-                        logger.info("❌ Failed to delete Neptune resources: " + ex.getMessage());
+                        logger.info("Failed to delete Neptune resources: " + ex.getMessage());
                     } else {
-                        logger.info("✅ Neptune resources deleted successfully.");
+                        logger.info("Neptune resources deleted successfully.");
                     }
                 })
                 .join(); // Waits for the entire async chain to complete
@@ -196,7 +196,7 @@ public class NeptuneActions {
                         if (cause instanceof NeptuneException &&
                                 ((NeptuneException) cause).awsErrorDetails().errorCode().equals("DBInstanceNotFound")) {
                             long elapsed = (System.currentTimeMillis() - startTime) / 1000;
-                            logger.info("\r✅ Instance %s deleted after %ds%n", instanceId, elapsed);
+                            logger.info("\r Instance %s deleted after %ds%n", instanceId, elapsed);
                             future.complete(null);
                             return;
                         }
@@ -206,7 +206,7 @@ public class NeptuneActions {
 
                     String status = response.dbInstances().get(0).dbInstanceStatus();
                     long elapsed = (System.currentTimeMillis() - startTime) / 1000;
-                    logger.info("\r⏳ Waiting: Instance %s status: %-10s (%ds elapsed)", instanceId, status, elapsed);
+                    logger.info("\r  Waiting: Instance %s status: %-10s (%ds elapsed)", instanceId, status, elapsed);
                     System.out.flush();
 
                     CompletableFuture.delayedExecutor(20, TimeUnit.SECONDS)
@@ -216,10 +216,10 @@ public class NeptuneActions {
 
 
     public void waitForClusterStatus(String clusterId, String desiredStatus) {
-        System.out.printf("🔍 Waiting for cluster '%s' to reach status '%s'...\n", clusterId, desiredStatus);
+        System.out.printf("Waiting for cluster '%s' to reach status '%s'...\n", clusterId, desiredStatus);
         CompletableFuture<Void> future = new CompletableFuture<>();
         checkClusterStatusRecursive(clusterId, desiredStatus, System.currentTimeMillis(), future);
-        future.join(); // Wait for status
+        future.join();
     }
 
     private void checkClusterStatusRecursive(String clusterId, String desiredStatus, long startTime, CompletableFuture<Void> future) {
@@ -245,11 +245,11 @@ public class NeptuneActions {
 
                     String currentStatus = clusters.get(0).status();
                     long elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000;
-                    System.out.printf("\r⏰ Elapsed: %-20s 🔄 Cluster status: %-20s", formatElapsedTime((int) elapsedSeconds), currentStatus);
+                    System.out.printf("\r Elapsed: %-20s  Cluster status: %-20s", formatElapsedTime((int) elapsedSeconds), currentStatus);
                     System.out.flush();
 
                     if (desiredStatus.equalsIgnoreCase(currentStatus)) {
-                        System.out.printf("\r✅ Neptune cluster reached desired status '%s' after %s.\n", desiredStatus, formatElapsedTime((int) elapsedSeconds));
+                        System.out.printf("\r Neptune cluster reached desired status '%s' after %s.\n", desiredStatus, formatElapsedTime((int) elapsedSeconds));
                         future.complete(null);
                     } else {
                         CompletableFuture.delayedExecutor(20, TimeUnit.SECONDS)
@@ -270,8 +270,8 @@ public class NeptuneActions {
                 .dbClusterIdentifier(clusterIdentifier)
                 .build();
 
-        neptuneClient.startDBCluster(clusterRequest);
-        logger.info("🚀 DB Cluster starting...");
+        getAsyncClient().startDBCluster(clusterRequest);
+        logger.info(" DB Cluster starting...");
     }
     // snippet-end:[neptune.java2.start.cluster.main]
 
@@ -286,7 +286,7 @@ public class NeptuneActions {
                 .dbClusterIdentifier(clusterIdentifier)
                 .build();
 
-        neptuneClient.stopDBCluster(clusterRequest);
+        getAsyncClient().stopDBCluster(clusterRequest);
         logger.info("DB Cluster Stopped");
     }
     // snippet-end:[neptune.java2.stop.cluster.main]
@@ -374,11 +374,11 @@ public class NeptuneActions {
 
                     String currentStatus = instances.get(0).dbInstanceStatus();
                     long elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000;
-                    System.out.printf("\r⏰ Elapsed: %-20s 🔄 Status: %-20s", formatElapsedTime((int) elapsedSeconds), currentStatus);
+                    System.out.printf("\r Elapsed: %-20s  Status: %-20s", formatElapsedTime((int) elapsedSeconds), currentStatus);
                     System.out.flush();
 
                     if (desiredStatus.equalsIgnoreCase(currentStatus)) {
-                        System.out.printf("\r✅ Neptune instance reached desired status '%s' after %s.\n", desiredStatus, formatElapsedTime((int) elapsedSeconds));
+                        System.out.printf("\r Neptune instance reached desired status '%s' after %s.\n", desiredStatus, formatElapsedTime((int) elapsedSeconds));
                         future.complete(null);
                     } else {
                         CompletableFuture.delayedExecutor(20, TimeUnit.SECONDS)
@@ -457,7 +457,7 @@ public class NeptuneActions {
                 .backupRetentionPeriod(1)
                 .build();
 
-        return neptuneAsyncClient.createDBCluster(request)
+        return getAsyncClient().createDBCluster(request)
                 .whenComplete((response, exception) -> {
                     if (exception != null) {
                         Throwable cause = exception.getCause();
@@ -480,7 +480,6 @@ public class NeptuneActions {
     /**
      * Creates a new DB subnet group asynchronously.
      *
-     * @param vpcId     the ID of the VPC for which to create the subnet group
      * @param groupName the name of the subnet group to create
      * @return a CompletableFuture that, when completed, returns the Amazon Resource Name (ARN) of the created subnet group
      * @throws CompletionException if the operation fails, with a cause that may be a ServiceQuotaExceededException if the request would exceed the maximum quota
@@ -555,5 +554,4 @@ public class NeptuneActions {
         }
     }
 }
-
 // snippet-end:[neptune.java2.actions.main]
