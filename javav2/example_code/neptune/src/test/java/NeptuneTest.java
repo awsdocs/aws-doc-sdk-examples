@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class NeptuneTest {
     private static String subnetGroupName = "neptuneSubnetGroupTest" ;
-    private static String vpcId = "vpc-e97a4393" ;
     private static String clusterName = "neptuneClusterTest" ;
     private static String dbInstanceId = "neptuneDBTest" ;
     private static NeptuneActions neptuneActions = new NeptuneActions();
@@ -26,8 +25,7 @@ public class NeptuneTest {
     @Order(1)
     public void testCreateSubnetGroup() {
         assertDoesNotThrow(() -> {
-            neptuneActions.createSubnetGroupAsync(vpcId, subnetGroupName).join();
-            //assertTrue(signalCatalogArn.startsWith("arn:"), "The ARN should start with 'arn:'");
+            neptuneActions.createSubnetGroupAsync(subnetGroupName).join();
         });
         System.out.println("Test 1 passed");
     }
