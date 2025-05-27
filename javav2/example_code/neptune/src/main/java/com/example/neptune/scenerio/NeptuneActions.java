@@ -485,7 +485,7 @@ public class NeptuneActions {
      * @return a CompletableFuture that, when completed, returns the Amazon Resource Name (ARN) of the created subnet group
      * @throws CompletionException if the operation fails, with a cause that may be a ServiceQuotaExceededException if the request would exceed the maximum quota
      */
-    public CompletableFuture<String> createSubnetGroupAsync(String vpcId2, String groupName) {
+    public CompletableFuture<String> createSubnetGroupAsync(String groupName) {
 
         // Get the Amazon Virtual Private Cloud (VPC) where the Neptune cluster and resources will be created
         String vpcId = getDefaultVpcId();

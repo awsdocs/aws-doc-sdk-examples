@@ -23,7 +23,6 @@ public class NeptuneScenario {
                 
                 Where:
                     subnetGroupName - The name of an existing Neptune DB subnet group that includes subnets in at least two Availability Zones.
-                    vpcId           - The ID of the Amazon Virtual Private Cloud (VPC) where the Neptune cluster and resources will be created.
                     clusterName     - The unique identifier for the Neptune DB cluster.
                     dbInstanceId    - The identifier for a specific Neptune DB instance within the cluster.
                 """;
@@ -58,15 +57,15 @@ public class NeptuneScenario {
                     Let's get started...
                     """);
         waitForInputToContinue(scanner);
-        runScenario(subnetGroupName, vpcId, dbInstanceId, clusterName);
+        runScenario(subnetGroupName, dbInstanceId, clusterName);
     }
 
-    public static void runScenario(String subnetGroupName, String vpcId, String dbInstanceId, String clusterName) {
+    public static void runScenario(String subnetGroupName, String dbInstanceId, String clusterName) {
         logger.info(DASHES);
         logger.info("1. Create a Neptune DB Subnet Group");
         logger.info("The Neptune DB subnet group is used when launching a Neptune cluster");
         waitForInputToContinue(scanner);
-        neptuneActions.createSubnetGroupAsync(vpcId, subnetGroupName).join();
+        neptuneActions.createSubnetGroupAsync(subnetGroupName).join();
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
