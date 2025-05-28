@@ -1,0 +1,399 @@
+# zexi 0.4.0
+iotfleetwise_Hello:
+  title: Hello &FWlong;
+  title_abbrev: Hello &FW;
+  synopsis: get started using &FW;.
+  category: Hello
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.hello.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.hello.main
+  services:
+    iotfleetwise: {listSignalCatalogsPaginator}
+iotfleetwise_CreateSignalCatalog:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.create.catalog.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.create.catalog.main
+  services:
+    iotfleetwise: {createSignalCatalog}
+iotfleetwise_CreateDecoderManifest:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.create.decoder.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.create.decoder.main
+  services:
+    iotfleetwise: {createDecoderManifest}
+iotfleetwise_DeleteDecoderManifest:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.delete.decoder.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.delete.decoder.main
+  services:
+    iotfleetwise: {deleteDecoderManifest}
+iotfleetwise_DeleteVehicle:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.delete.vehicle.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.delete.vehicle.main
+  services:
+    iotfleetwise: {deleteVehicle}    
+iotfleetwise_UpdateModelManifest:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.update.manifest.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.update.manifest.main
+  services:
+    iotfleetwise: {updateModelManifest}    
+iotfleetwise_UpdateDecoderManifest:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.update.decoder.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.update.decoder.main
+  services:
+    iotfleetwise: {updateDecoderManifest}  
+iotfleetwise_CreateVehicle:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.create.vehicle.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.create.vehicle.main
+  services:
+    iotfleetwise: {createVehicle}      
+iotfleetwise_GetDecoderManifest:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.decoder.active.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.decoder.active.main
+  services:
+    iotfleetwise: {getDecoderManifest}
+iotfleetwise_GetModelManifest:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.get.manifest.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.get.manifest.main
+  services:
+    iotfleetwise: {getModelManifest} 
+iotfleetwise_GetVehicle:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.get.vehicle.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.get.vehicle.main
+  services:
+    iotfleetwise: {getVehicle}  
+iotfleetwise_DeleteModelManifest:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.delete.model.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.delete.model.main
+  services:
+    iotfleetwise: {deleteModelManifest} 
+iotfleetwise_DeleteSignalCatalog:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.delete.catalog.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.delete.catalog.main
+  services:
+    iotfleetwise: {deleteSignalCatalog}  
+iotfleetwise_ListSignalCatalogNodes:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.list.catalogs.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.list.catalogs.main
+  services:
+    iotfleetwise: {listSignalCatalogNodes}                 
+iotfleetwise_CreateModelManifest:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.create.model.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.create.model.main
+  services:
+    iotfleetwise: {createModelManifest}
+iotfleetwise_DeleteFleet:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.delete.fleet.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.delete.fleet.main
+  services:
+    iotfleetwise: {deleteFleet}  
+iotfleetwise_CreateFleet:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - iotfleetwise.kotlin.create.fleet.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotfleetwise.java2.create.fleet.main
+  services:
+    iotfleetwise: {createFleet} 
+iotfleetwise_Scenario:
+  synopsis_list:
+    - Create a collection of standardized signals.
+    - Create a fleet that represents a group of vehicles.
+    - Create a model manifest.
+    - Create a decoder manifest.
+    - Check the status of the model manifest.
+    - Check the status of the decoder.
+    - Create an IoT Thing.
+    - Create a vehicle.
+    - Display vehicle details.
+    - Delete the &FW; Assets.
+  category: Basics
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &ITSW; features.
+              snippet_tags:
+                - iotfleetwise.kotlin.scenario.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotfleetwise
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &ITSW; features.
+              snippet_tags:
+                - iotfleetwise.java2.scenario.main
+            - description: A wrapper class for &FW; SDK methods.
+              snippet_tags:
+                - iotfleetwise.java2.scenario.actions.main 
+  services:
+    iotfleetwise: {}

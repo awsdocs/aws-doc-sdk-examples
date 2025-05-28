@@ -3,6 +3,8 @@
 
 import com.example.mediastore.*;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.mediastore.MediaStoreClient;
 import software.amazon.awssdk.services.mediastore.model.DescribeContainerRequest;
@@ -26,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MediaStoreTest {
+    private static final Logger logger = LoggerFactory.getLogger(MediaStoreTest.class);
     private static MediaStoreClient mediaStoreClient;
     private static MediaStoreDataClient mediaStoreData;
     private static String containerName = "";
@@ -39,7 +42,6 @@ public class MediaStoreTest {
         Region region = Region.US_EAST_1;
         mediaStoreClient = MediaStoreClient.builder()
                 .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -52,32 +54,6 @@ public class MediaStoreTest {
         existingContainer = values.getExistingContainer();
         savePath = values.getSavePath();
 
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * MediaStoreTest.class.getClassLoader().getResourceAsStream("config.properties"
-         * )) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests
-         * prop.load(input);
-         * containerName = prop.getProperty("containerName")+
-         * java.util.UUID.randomUUID();
-         * filePath = prop.getProperty("filePath");
-         * completePath = prop.getProperty("completePath");
-         * existingContainer = prop.getProperty("existingContainer");
-         * savePath = prop.getProperty("savePath");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
-
         URI uri = new URI(PutObject.getEndpoint(existingContainer));
         mediaStoreData = MediaStoreDataClient.builder()
                 .endpointOverride(uri)
@@ -88,45 +64,45 @@ public class MediaStoreTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateContainer() {
+    public void testCreateContainer() {
         assertDoesNotThrow(() -> CreateContainer.createMediaContainer(mediaStoreClient, containerName));
-        System.out.println("Test 1 passed");
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void DescribeContainer() {
+    public void testDescribeContainer() {
         assertDoesNotThrow(() -> DescribeContainer.checkContainer(mediaStoreClient, containerName));
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void ListContainers() {
+    public void testListContainers() {
         assertDoesNotThrow(() -> ListContainers.listAllContainers(mediaStoreClient));
-        System.out.println("Test 3 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void ListItems() {
+    public void testListItems() {
         assertDoesNotThrow(() -> ListItems.listAllItems(mediaStoreData, containerName));
-        System.out.println("Test 5 passed");
+        logger.info("Test 5 passed");
     }
 
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void DeleteContainer() throws InterruptedException {
+    public void testDeleteContainer() throws InterruptedException {
         System.out.println("Wait 1 min to delete container");
         TimeUnit.MINUTES.sleep(1);
         assertDoesNotThrow(
                 () -> assertDoesNotThrow(() -> DeleteContainer.deleteMediaContainer(mediaStoreClient, containerName)));
-        System.out.println("Test 7 passed");
+        logger.info("Test 5 passed");
     }
 
     private static String getEndpoint(String containerName) {
@@ -146,7 +122,6 @@ public class MediaStoreTest {
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/mediastore";
 

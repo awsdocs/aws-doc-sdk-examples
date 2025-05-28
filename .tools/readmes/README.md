@@ -17,6 +17,7 @@ python -m venv .venv
 
 # Windows
 .venv\Scripts\activate
+python -m pip install -r requirements_freeze.txt
 
 # Linux or MacOS
 source .venv/bin/activate

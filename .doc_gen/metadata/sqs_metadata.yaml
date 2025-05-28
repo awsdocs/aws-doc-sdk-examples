@@ -183,6 +183,7 @@ sqs_CreateQueue:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.CreateQueue
   services:
     sqs: {CreateQueue}
@@ -349,6 +350,7 @@ sqs_ListQueues:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.ListQueues
   services:
     sqs: {ListQueues}
@@ -452,6 +454,7 @@ sqs_DeleteQueue:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.DeleteQueue
   services:
     sqs: {DeleteQueue}
@@ -709,6 +712,7 @@ sqs_ReceiveMessage:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.ReceiveMessage
   services:
     sqs: {ReceiveMessage}
@@ -834,6 +838,7 @@ sqs_DeleteMessageBatch:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.DeleteMessageBatch
   services:
     sqs: {DeleteMessageBatch}
@@ -914,6 +919,7 @@ sqs_GetQueueAttributes:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.GetQueueAttributes
   services:
     sqs: {GetQueueAttributes}
@@ -1018,6 +1024,7 @@ sqs_SetQueueAttributes:
           excerpts:
             - description:
               snippet_tags:
+                - swift.sqs.import
                 - swift.sqs.SetQueueAttributes
     Java:
       versions:
@@ -1110,13 +1117,22 @@ sqs_Scenario_TopicsAndQueues:
           excerpts:
             - snippet_tags:
                 - sns.kotlin.workflow.main
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sqs/scenario
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.sqs.scenario.main
   services:
     sns: {CreateTopic, Subscribe, Publish, Unsubscribe, DeleteTopic}
     sqs: {CreateQueue, GetQueueAttributes, SetQueueAttributes, ReceiveMessage, DeleteMessageBatch, DeleteQueue}
 sqs_Scenario_WorkWithTags:
   title: Work with queue tags and &SQS; using an &AWS; SDK
   title_abbrev: Work with queue tags
-  synopsis: perform tagging operation with &SQS;
+  synopsis: perform tagging operation with &SQS;.
   category: Scenarios
   languages:
     Java:
@@ -1130,3 +1146,68 @@ sqs_Scenario_WorkWithTags:
                 - sqs.java2.tag-examples
   services:
     sqs: {TagQueue, ListQueueTags, UntagQueue}
+sqs_Scenario_UseJMS:
+  title: Use the &SQS; Java Messaging Library to work with the Java Message Service (JMS) interface for &SQS;
+  title_abbrev: Use the &SQS; Java Messaging Library to work with the JMS interface
+  synopsis: use the &SQS; Java Messaging Library to work with the JMS interface.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description: >-
+                The following examples work with standard &SQS; queues and include:</para>
+                <itemizedlist>
+                    <listitem>
+                        <para>Sending a text message.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Receiving messages synchronously.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Receiving messages asynchronously.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Receiving messages using CLIENT_ACKNOWLEDGE mode.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Receiving messages using the UNORDERED_ACKNOWLEDGE mode.</para>
+                    </listitem>
+                    <listitem>
+                        <para>Using Spring to inject dependencies.</para>
+                    </listitem>
+                    <listitem>
+                        <para>A utility class that provides common methods used by the other examples.</para>
+                    </listitem>
+                </itemizedlist>
+                <para>For more information on using JMS with &SQS;, see the 
+                <ulink type="documentation" url="AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-java-message-service-jms-client.html">&SQS; Developer Guide</ulink>.
+                </para><para>Sending a text message.
+              snippet_tags:
+                - sqs-jms.java2.send-text-message
+            - description: Receiving messages synchronously.
+              snippet_tags:
+                - sqs-jms.java2.receive-message-sync
+            - description: Receiving messages asynchronously.
+              snippet_tags:
+                - sqs-jms.java2.receive-message-async
+            - description: Receiving messages using CLIENT_ACKNOWLEDGE mode.
+              snippet_tags:
+                - sqs-jms.java2.receive-message-sync-client-ack
+            - description: Receiving messages using the UNORDERED_ACKNOWLEDGE mode.
+              snippet_tags:
+                - sqs-jms.java2.receive-message-sync-unordered-ack
+            - description: Using Spring to inject dependencies.
+              snippet_tags:
+                - sqs-jms.java2.spring
+            - description: Spring bean definitions.
+              snippet_files:
+                - javav2/example_code/sqs-jms/src/main/resources/SpringExampleConfiguration.xml.txt
+            - description: A utility class that provides common methods used by the other examples.
+              snippet_files:
+                - javav2/example_code/sqs-jms/src/main/java/com/example/sqs/jms/SqsJmsExampleUtils.java
+  services:
+    sqs: {CreateQueue, DeleteQueue}

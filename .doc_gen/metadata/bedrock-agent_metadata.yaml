@@ -185,6 +185,7 @@ bedrock-agent_PrepareAgent:
                 - python.example_code.bedrock-agent.PrepareAgent
   services:
     bedrock-agent: {PrepareAgent}
+
 bedrock-agent_GettingStartedWithBedrockAgents:
   title: An end-to-end example showing how to create and invoke &BRA; using an &AWS; SDK
   title_abbrev: Create and invoke an agent
@@ -209,3 +210,314 @@ bedrock-agent_GettingStartedWithBedrockAgents:
   services:
     bedrock-agent: {CreateAgent, CreateAgentActionGroup, CreateAgentAlias, DeleteAgent, DeleteAgentAlias, GetAgent, ListAgentActionGroups,
                     ListAgents, ListAgentKnowledgeBases, PrepareAgent}
+
+bedrock-agent_GettingStartedWithBedrockFlows:
+  title: An end-to-end example showing how to create and invoke an Amazon Bedrock flow using an &AWS; SDK
+  title_abbrev: Create and invoke a flow
+  synopsis_list:
+    - Create an execution role for the flow.
+    - Create the flow.
+    - Deploy the fully configured flow.
+    - Invoke the flow with user-provided prompts.
+    - Delete all created resources.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Generates a music playlist based on user-specified genre and number of songs.
+              snippet_tags:
+                - python.example_code.bedrock-agent-runtime.Scenario_GettingStartedBedrockFlows
+                - python.example_code.bedrock-agent-runtime.flow_invoke_flow
+                - python.example_code.bedrock-agent-runtime.run_playlist_flow
+                - python.example_code.bedrock-agent-runtime.Scenario_GettingStartedBedrockFlows_iam_role
+
+  services:
+    bedrock-agent: {CreateFlow, CreateFlowAlias, CreateFlowVersion, DeleteFlow, DeleteFlowVersion, DeleteFlowAlias, GetFlow, GetFlowAlias,
+                    GetFlowVersion, PrepareFlow}
+    bedrock-agent-runtime: {InvokeFlow}
+
+bedrock-agent_CreateFlow:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create an Amazon Bedrock flow.
+              snippet_tags:
+                - python.example_code.bedrock-agent.create_flow
+  services:
+    bedrock-agent: {CreateFlow}
+
+bedrock-agent_PrepareFlow:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Prepare an Amazon Bedrock flow.
+              snippet_tags:
+                - python.example_code.bedrock-agent.prepare_flow
+  services:
+    bedrock-agent: {PrepareFlow}
+
+bedrock-agent_UpdateFlow:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Update an Amazon Bedrock Flow.
+              snippet_tags:
+                - python.example_code.bedrock-agent.update_flow
+  services:
+    bedrock-agent: {UpdateFlow}
+
+bedrock-agent_DeleteFlow:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Delete an Amazon Bedrock flow.
+              snippet_tags:
+                - python.example_code.bedrock-agent.delete_flow
+  services:
+    bedrock-agent: {DeleteFlow}
+
+bedrock-agent_GetFlow:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Get an Amazon Bedrock flow.
+              snippet_tags:
+                - python.example_code.bedrock-agent.get_flow
+  services:
+    bedrock-agent: {GetFlow}
+
+bedrock-agent_ListFlows:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: List Amazon Bedrock flows.
+              snippet_tags:
+                - python.example_code.bedrock-agent.list_flows
+
+  services:
+    bedrock-agent: {ListFlows}
+
+bedrock-agent_CreateFlowAlias:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create an alias for an Amazon Bedrock flow.
+              snippet_tags:
+                - python.example_code.bedrock-agent.create_flow_alias
+
+  services:
+    bedrock-agent: {CreateFlowAlias}
+
+bedrock-agent_UpdateFlowAlias:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Update an alias for an Amazon Bedrock flow.
+              snippet_tags:
+                - python.example_code.bedrock-agent.update_flow_alias
+
+  services:
+    bedrock-agent: {UpdateFlowAlias}
+
+bedrock-agent_DeleteFlowAlias:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Delete an alias for an Amazon Bedrock flow.
+              snippet_tags:
+                - python.example_code.bedrock-agent.delete_flow_alias
+
+  services:
+    bedrock-agent: {DeleteFlowAlias}
+
+bedrock-agent_ListFlowAliases:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: List the aliases for an Amazon Bedrock flow.
+              snippet_tags:
+                - python.example_code.bedrock-agent.list_flow_aliases
+
+  services:
+    bedrock-agent: {ListFlowAliases}
+
+bedrock-agent_CreateFlowVersion:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create a version of an Amazon Bedrock flow.
+              snippet_tags:
+                - python.example_code.bedrock-agent.create_flow_version
+
+  services:
+    bedrock-agent: {CreateFlowVersion}
+
+bedrock-agent_GetFlowVersion:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Get a version of an Amazon Bedrock flow.
+              snippet_tags:
+                - python.example_code.bedrock-agent.get_flow_version
+
+  services:
+    bedrock-agent: {GetFlowVersion}
+
+bedrock-agent_DeleteFlowVersion:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Delete a version of an Amazon Bedrock flow.
+              snippet_tags:
+                - python.example_code.bedrock-agent.delete_flow_version
+
+  services:
+    bedrock-agent: {DeleteFlowVersion}
+
+bedrock-agent_ListFlowVersions:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: List the versions of an Amazon Bedrock flow.
+              snippet_tags:
+                - python.example_code.bedrock-agent.list_flow_versions
+
+  services:
+    bedrock-agent: {ListFlowVersions}
+
+bedrock-agent_CreatePrompt:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create an Amazon Bedrock managed prompt.
+              snippet_tags:
+                - python.example_code.bedrock.create_prompt
+
+  services:
+    bedrock-agent: {CreatePrompt}
+
+bedrock-agent_CreatePromptVersion:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create a version of an Amazon Bedrock managed prompt.
+              snippet_tags:
+                - python.example_code.bedrock.create_prompt_version
+
+  services:
+    bedrock-agent: {CreatePromptVersion}
+
+bedrock-agent_GetPrompt:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Get an Amazon Bedrock managed prompt.
+              snippet_tags:
+                - python.example_code.bedrock.get_prompt
+
+  services:
+    bedrock-agent: {GetPrompt}
+
+bedrock-agent_DeletePrompt:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Delete an Amazon Bedrock managed prompt.
+              snippet_tags:
+                - python.example_code.bedrock.delete_prompt
+
+  services:
+    bedrock-agent: {DeletePrompt}
+
+bedrock-agent_ListPrompts:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: List Amazon Bedrock managed prompts.
+              snippet_tags:
+                - python.example_code.bedrock.list_prompts
+
+  services:
+    bedrock-agent: {ListPrompts}
+    
+bedrock-agent_GettingStartedWithBedrockPrompts:
+  title: An end-to-end example showing how to create and invoke Amazon Bedrock managed prompts using an &AWS; SDK
+  title_abbrev: Create and invoke a managed prompt
+  synopsis_list:
+    - Create a managed prompt.
+    - Create a version of the prompt.
+    - Invoke the prompt using the version.
+    - Clean up resources (optional).
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-agent
+          excerpts:
+            - description: Create and invoke a managed prompt.
+              snippet_tags:
+                - python.example_code.bedrock-agent-runtime.Scenario_GettingStartedBedrockManagedPrompts
+  services:
+    bedrock-agent: {CreatePrompt, CreatePromptVersion, DeletePrompt}
+    bedrock-runtime: {Converse}

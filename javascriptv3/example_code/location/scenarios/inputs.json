@@ -1,0 +1,11 @@
+{
+  "inputs": {
+    "mapName": "AWSMap",
+    "keyName": "AWSApiKey",
+    "collectionName": "AWSLocationCollection",
+    "geoId": "geoId",
+    "trackerName": "geoTracker",
+    "calculatorName": "AWSRouteCalc",
+    "deviceId": "iPhone-112356"
+  }
+}

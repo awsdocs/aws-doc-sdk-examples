@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.firehose.FirehoseClient;
@@ -28,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class FirehoseTest {
+    private static final Logger logger = LoggerFactory.getLogger(FirehoseTest.class);
     private static FirehoseClient firehoseClient;
     private static String bucketARN = "";
     private static String roleARN = "";
@@ -37,8 +40,7 @@ public class FirehoseTest {
     @BeforeAll
     public static void setUp() throws IOException {
         firehoseClient = FirehoseClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .region(Region.US_EAST_1)
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -49,46 +51,24 @@ public class FirehoseTest {
         roleARN = values.getRoleARN();
         newStream = values.getNewStream() + java.util.UUID.randomUUID();
         textValue = values.getTextValue();
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * FirehoseTest.class.getClassLoader().getResourceAsStream("config.properties"))
-         * {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * // Populate the data members required for all tests.
-         * prop.load(input);
-         * bucketARN = prop.getProperty("bucketARN");
-         * roleARN = prop.getProperty("roleARN");
-         * newStream = prop.getProperty("newStream")+java.util.UUID.randomUUID();
-         * textValue = prop.getProperty("textValue");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
+
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateDeliveryStream() {
-        assertDoesNotThrow(() -> CreateDeliveryStream.createStream(firehoseClient, bucketARN, roleARN, newStream));
-        System.out.println("Test 1 passed");
+    public void testCreateDeliveryStream() {
+        assertDoesNotThrow(() -> {
+            CreateDeliveryStream.createStream(firehoseClient, bucketARN, roleARN, newStream);
+            CreateDeliveryStream.waitForStreamToBecomeActive(firehoseClient, newStream);
+        });
+        logger.info("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void PutRecord() throws IOException, InterruptedException {
-        System.out.println("Wait 10 mins for resource to become available.");
-        TimeUnit.MINUTES.sleep(10);
+    public void testPutRecord() throws IOException, InterruptedException {
         String jsonContent = FirehoseScenario.readJsonFile("sample_records.json");
         ObjectMapper objectMapper = new ObjectMapper();
         List<Map<String, Object>> sampleData = objectMapper.readValue(jsonContent, new TypeReference<>() {});
@@ -102,29 +82,28 @@ public class FirehoseTest {
                 System.err.println("Error processing record: " + e.getMessage());
             }
         });
-        System.out.println("Test 2 passed");
+        logger.info("Test 2 passed");
     }
 
    @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void ListDeliveryStreams() {
+    public void testListDeliveryStreams() {
         assertDoesNotThrow(() -> ListDeliveryStreams.listStreams(firehoseClient));
-        System.out.println("Test 4 passed");
+        logger.info("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void DeleteStream() {
+    public void testDeleteStream() {
         assertDoesNotThrow(() -> DeleteStream.delStream(firehoseClient, newStream));
-        System.out.println("Test 5 passed");
+        logger.info("Test 4 passed");
     }
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         String secretName = "test/firehose";
 
@@ -161,5 +140,4 @@ public class FirehoseTest {
             return textValue;
         }
     }
-
 }

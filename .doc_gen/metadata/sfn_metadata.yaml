@@ -437,7 +437,6 @@ sfn_GetActivityTask:
             - description:
               snippet_tags:
                 - stepfunctions.java2.activity_task.main
-                - StepFunctions.dotnetv3.StopExecution
     Python:
       versions:
         - sdk_version: 3

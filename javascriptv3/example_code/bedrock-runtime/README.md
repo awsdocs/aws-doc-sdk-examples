@@ -44,16 +44,13 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](scenarios/cli_text_playground.js)
-
-### AI21 Labs Jurassic-2
-
-- [Converse](models/ai21LabsJurassic2/converse.js#L4)
-- [InvokeModel](models/ai21LabsJurassic2/invoke_model.js)
+- [Tool use with the Converse API](scenarios/converse_tool_scenario/converse-tool-scenario.js)
 
 ### Amazon Nova
 
 - [Converse](models/amazonNovaText/converse.js#L4)
 - [ConverseStream](models/amazonNovaText/converseStream.js#L4)
+- [Scenario: Tool use with the Converse API](scenarios/converse_tool_scenario/converse-tool-scenario.js#L4)
 
 ### Amazon Nova Canvas
 
@@ -81,8 +78,8 @@ functions within the same service.
 
 - [Converse](models/metaLlama/converse.js#L4)
 - [ConverseStream](models/metaLlama/converseStream.js#L4)
-- [InvokeModel: Llama 3](models/metaLlama/llama3/invoke_model_quickstart.js#L4)
-- [InvokeModelWithResponseStream: Llama 3](models/metaLlama/llama3/invoke_model_with_response_stream_quickstart.js#L4)
+- [InvokeModel](models/metaLlama/llama3/invoke_model_quickstart.js#L4)
+- [InvokeModelWithResponseStream](models/metaLlama/llama3/invoke_model_with_response_stream_quickstart.js#L4)
 
 ### Mistral AI
 
@@ -147,6 +144,18 @@ This example shows you how to prepare and send a prompt to a variety of large-la
 
 <!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.start-->
 <!--custom.scenarios.bedrock-runtime_Scenario_InvokeModels.end-->
+
+#### Tool use with the Converse API
+
+This example shows you how to build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input.
+
+
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_ToolUse.start-->
+<!--custom.scenario_prereqs.bedrock-runtime_Scenario_ToolUse.end-->
+
+
+<!--custom.scenarios.bedrock-runtime_Scenario_ToolUse.start-->
+<!--custom.scenarios.bedrock-runtime_Scenario_ToolUse.end-->
 
 ### Tests
 

@@ -163,6 +163,15 @@ cognito-identity-provider_SignUp:
                 - cpp.example_code.cognito.client_configuration
                 - cpp.example_code.cognito.cognito_client
                 - cpp.example_code.cognito.signup
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/cognito-identity-provider
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.cognito-identity-provider.import
+                - swift.cognito-identity-provider.SignUp
   services:
     cognito-identity-provider: {SignUp}
 cognito-identity-provider_AdminGetUser:
@@ -223,6 +232,15 @@ cognito-identity-provider_AdminGetUser:
                 - cpp.example_code.cognito.client_configuration
                 - cpp.example_code.cognito.cognito_client
                 - cpp.example_code.cognito.admin_get_user
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/cognito-identity-provider
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.cognito-identity-provider.import
+                - swift.cognito-identity-provider.AdminGetUser
   services:
     cognito-identity-provider: {AdminGetUser}
 cognito-identity-provider_ResendConfirmationCode:
@@ -283,6 +301,15 @@ cognito-identity-provider_ResendConfirmationCode:
                 - cpp.example_code.cognito.client_configuration
                 - cpp.example_code.cognito.cognito_client
                 - cpp.example_code.cognito.resend_confirmation
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/cognito-identity-provider
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.cognito-identity-provider.import
+                - swift.cognito-identity-provider.ResendConfirmationCode
   services:
     cognito-identity-provider: {ResendConfirmationCode}
 cognito-identity-provider_ConfirmSignUp:
@@ -343,6 +370,15 @@ cognito-identity-provider_ConfirmSignUp:
                 - cpp.example_code.cognito.client_configuration
                 - cpp.example_code.cognito.cognito_client
                 - cpp.example_code.cognito.confirm_signup
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/cognito-identity-provider
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.cognito-identity-provider.import
+                - swift.cognito-identity-provider.ConfirmSignUp
   services:
     cognito-identity-provider: {ConfirmSignUp}
 cognito-identity-provider_ListUsers:
@@ -453,6 +489,15 @@ cognito-identity-provider_AdminInitiateAuth:
                 - cpp.example_code.cognito.client_configuration
                 - cpp.example_code.cognito.cognito_client
                 - cpp.example_code.cognito.admin_initiate_auth
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/cognito-identity-provider
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.cognito-identity-provider.import
+                - swift.cognito-identity-provider.AdminInitiateAuth
   services:
     cognito-identity-provider: {AdminInitiateAuth}
 cognito-identity-provider_AssociateSoftwareToken:
@@ -513,6 +558,15 @@ cognito-identity-provider_AssociateSoftwareToken:
                 - cpp.example_code.cognito.client_configuration
                 - cpp.example_code.cognito.cognito_client
                 - cpp.example_code.cognito.associate_software_token
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/cognito-identity-provider
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.cognito-identity-provider.import
+                - swift.cognito-identity-provider.AssociateSoftwareToken
   services:
     cognito-identity-provider: {AssociateSoftwareToken}
 cognito-identity-provider_VerifySoftwareToken:
@@ -573,6 +627,15 @@ cognito-identity-provider_VerifySoftwareToken:
                 - cpp.example_code.cognito.client_configuration
                 - cpp.example_code.cognito.cognito_client
                 - cpp.example_code.cognito.verify_software_token
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/cognito-identity-provider
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.cognito-identity-provider.import
+                - swift.cognito-identity-provider.VerifySoftwareToken
   services:
     cognito-identity-provider: {VerifySoftwareToken}
 cognito-identity-provider_AdminRespondToAuthChallenge:
@@ -633,6 +696,15 @@ cognito-identity-provider_AdminRespondToAuthChallenge:
                 - cpp.example_code.cognito.client_configuration
                 - cpp.example_code.cognito.cognito_client
                 - cpp.example_code.cognito.admin_respond_to_auth_challenge
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/cognito-identity-provider
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.cognito-identity-provider.import
+                - swift.cognito-identity-provider.AdminRespondToAuthChallenge
   services:
     cognito-identity-provider: {AdminRespondToAuthChallenge}
 cognito-identity-provider_ConfirmDevice:
@@ -947,6 +1019,17 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
               snippet_tags:
                 - cpp.example_code.cognito.client_configuration
                 - cpp.example_code.getting_started_with_user_pools
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/cognito-identity-provider
+          excerpts:
+            - description: The <code>Package.swift</code> file.
+              snippet_tags:
+                - swift.cognito-identity-provider.scenario.package
+            - description: The Swift code file.
+              snippet_tags:
+                - swift.cognito-identity-provider.scenario
   services:
     cognito-identity-provider: {ConfirmSignUp, ConfirmDevice, AssociateSoftwareToken, AdminGetUser, ListUsers, ResendConfirmationCode,
                                 RespondToAuthChallenge, AdminRespondToAuthChallenge, SignUp, InitiateAuth, AdminInitiateAuth, VerifySoftwareToken}

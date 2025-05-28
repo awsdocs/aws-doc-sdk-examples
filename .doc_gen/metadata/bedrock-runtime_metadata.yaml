@@ -72,14 +72,6 @@ bedrock-runtime_Converse_Ai21LabsJurassic2:
             - description: Send a text message to AI21 Labs Jurassic-2, using Bedrock's Converse API.
               snippet_tags:
                 - python.example_code.bedrock-runtime.Converse_Ai21LabsJurassic2
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Send a text message to AI21 Labs Jurassic-2, using Bedrock's Converse API.
-              snippet_tags:
-                - javascript.v3.bedrock-runtime.Converse_Ai21LabsJurassic2
   services:
     bedrock-runtime: {Converse}
 
@@ -108,6 +100,10 @@ bedrock-runtime_Converse_AmazonNovaText:
             - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
               snippet_tags:
                 - javascript.v3.bedrock-runtime.Converse_AmazonNovaText
+            - description: Send a conversation of messages to Amazon Nova using Bedrock's Converse API with a tool configuration.
+              genai: some
+              snippet_tags:
+                - Bedrock.ConverseTool.javascriptv3.SendConverseRequest
     Kotlin:
       versions:
         - sdk_version: 1
@@ -136,6 +132,14 @@ bedrock-runtime_Converse_AmazonNovaText:
             - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
               snippet_tags:
                 - python.example_code.bedrock-runtime.Converse_AmazonNovaText
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
+              snippet_tags:
+                - swift.example_code.bedrock-runtime.Converse_AmazonNovaText
   services:
     bedrock-runtime: {Converse}
 
@@ -189,6 +193,22 @@ bedrock-runtime_Scenario_ToolUse:
   synopsis: "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input."
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: "The primary execution of the scenario flow. This scenario orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              snippet_tags:
+                - bedrock.converseTool.javav2.scenario
+            - description: "The weather tool used by the demo. This file defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
+              genai: some
+              snippet_tags:
+                - bedrock.converseTool.javav2.weathertool
+            - description: "The Converse API action with a tool configuration."
+              genai: some
+              snippet_tags:
+                - bedrockruntime.java2.converse.main   
     .NET:
       versions:
         - sdk_version: 3
@@ -206,6 +226,15 @@ bedrock-runtime_Scenario_ToolUse:
               genai: some
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime/scenarios/converse_tool_scenario
+          excerpts:
+            - description: "The primary execution of the scenario flow. This scenario orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              genai: some
+              snippet_tags:
+                - Bedrock.ConverseTool.javascriptv3.Scenario
     Python:
       versions:
         - sdk_version: 3
@@ -262,6 +291,15 @@ bedrock-runtime_Converse_AnthropicClaude:
             - description: Send a text message to Anthropic Claude, using Bedrock's Converse API.
               snippet_tags:
                 - BedrockRuntime.dotnetv3.Converse_AnthropicClaude
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Anthropic Claude, using Bedrock's Converse API.
+              snippet_tags:
+                - gov2.bedrock-runtime.Converse.struct
+                - gov2.bedrock-runtime.ConverseClaude
     Python:
       versions:
         - sdk_version: 3
@@ -289,6 +327,14 @@ bedrock-runtime_Converse_AnthropicClaude:
             - description: Use statements, Error utility, and constants.
               snippet_tags:
                 - rust.bedrock-runtime.Converse_AnthropicClaude.supporting
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Anthropic Claude, using Bedrock's Converse API.
+              snippet_tags:
+                - swift.example_code.bedrock-runtime.Converse_AnthropicClaude
   services:
     bedrock-runtime: {Converse}
 
@@ -471,6 +517,14 @@ bedrock-runtime_ConverseStream_AmazonNovaText:
             - description: Send a text message to Amazon Nova, using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
                 - python.example_code.bedrock-runtime.ConverseStream_AmazonNovaText
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API and process the response stream in real-time.
+              snippet_tags:
+                - swift.example_code.bedrock-runtime.ConverseStream_AmazonNovaText
   services:
     bedrock-runtime: {ConverseStream}
 
@@ -564,6 +618,14 @@ bedrock-runtime_ConverseStream_AnthropicClaude:
             - description: Use statements, Error utility, and constants.
               snippet_tags:
                 - rust.bedrock-runtime.ConverseStream_AnthropicClaude.supporting
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Anthropic Claude, using Bedrock's Converse API and process the response stream in real-time.
+              snippet_tags:
+                - swift.example_code.bedrock-runtime.ConverseStream_AnthropicClaude
   services:
     bedrock-runtime: {ConverseStream}
 
@@ -730,14 +792,6 @@ bedrock-runtime_InvokeModel_Ai21LabsJurassic2:
               snippet_tags:
                 - gov2.bedrock-runtime.InvokeModelWrapper.struct
                 - gov2.bedrock-runtime.InvokeJurassic2
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/models/ai21LabsJurassic2/invoke_model.js
     PHP:
       versions:
         - sdk_version: 3
@@ -947,9 +1001,9 @@ bedrock-runtime_InvokeModel_CohereCommandR:
     bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeModel_MetaLlama3:
-  title: Invoke Meta Llama 3 on &BR; using the Invoke Model API
-  title_abbrev: "InvokeModel: Llama 3"
-  synopsis: send a text message to Meta Llama 3, using the Invoke Model API.
+  title: Invoke Meta Llama on &BR; using the Invoke Model API
+  title_abbrev: "InvokeModel"
+  synopsis: send a text message to Meta Llama, using the Invoke Model API.
   category: Meta Llama
   languages:
     Java:
@@ -1179,9 +1233,9 @@ bedrock-runtime_InvokeModelWithResponseStream_CohereCommandR:
     bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeModelWithResponseStream_MetaLlama3:
-  title: Invoke Meta Llama 3 on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "InvokeModelWithResponseStream: Llama 3"
-  synopsis: send a text message to Meta Llama 3, using the Invoke Model API, and print the response stream.
+  title: Invoke Meta Llama on &BR; using the Invoke Model API with a response stream
+  title_abbrev: "InvokeModelWithResponseStream"
+  synopsis: send a text message to Meta Llama, using the Invoke Model API, and print the response stream.
   category: Meta Llama
   languages:
     Java:
@@ -1468,6 +1522,109 @@ bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings:
   services:
     bedrock-runtime: {InvokeModel}
 
+# Document understanding
+bedrock-runtime_DocumentUnderstanding_AmazonNova:
+  title: Send and process a document with Amazon Nova on &BR;
+  title_abbrev: "Document understanding"
+  synopsis: send and process a document with Amazon Nova on &BR;.
+  category: Amazon Nova
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send and process a document with Amazon Nova on &BR;.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.DocumentUnderstanding_AmazonNovaText
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_DocumentUnderstanding_AnthropicClaude:
+  title: Send and process a document with Anthropic Claude on &BR;
+  title_abbrev: "Document understanding"
+  synopsis: send and process a document with Anthropic Claude on &BR;.
+  category: Anthropic Claude
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send and process a document with Anthropic Claude on &BR;.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.DocumentUnderstanding_AnthropicClaude
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_DocumentUnderstanding_CohereCommand:
+  title: Send and process a document with Cohere Command models on &BR;
+  title_abbrev: "Document understanding"
+  synopsis: send and process a document with Cohere Command models on &BR;.
+  category: Cohere Command
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send and process a document with Cohere Command models on &BR;.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.DocumentUnderstanding_CohereCommand
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_DocumentUnderstanding_DeepSeek:
+  title: Send and process a document with DeepSeek on &BR;
+  title_abbrev: "Document understanding"
+  synopsis: send and process a document with DeepSeek on &BR;.
+  category: DeepSeek
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send and process a document with DeepSeek on &BR;.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.DocumentUnderstanding_DeepSeek
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_DocumentUnderstanding_MetaLlama:
+  title: Send and process a document with Llama on &BR;
+  title_abbrev: "Document understanding"
+  synopsis: send and process a document with Llama on &BR;.
+  category: Meta Llama
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send and process a document with Llama on &BR;.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.DocumentUnderstanding_MetaLlama
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_DocumentUnderstanding_Mistral:
+  title: Send and process a document with Mistral models on &BR;
+  title_abbrev: "Document understanding"
+  synopsis: send and process a document with Mistral models on &BR;.
+  category: Mistral AI
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send and process a document with Mistral models on &BR;.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.DocumentUnderstanding_Mistral
+  services:
+    bedrock-runtime: {Converse}
+
 # Tool use scenarios
 bedrock-runtime_Scenario_ToolUseDemo_AmazonNova:
   title: "A tool use demo illustrating how to connect AI models on &BR; with a custom tool or API"
@@ -1475,6 +1632,22 @@ bedrock-runtime_Scenario_ToolUseDemo_AmazonNova:
   synopsis: "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input."
   category: Amazon Nova
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: "The primary execution of the scenario flow. This scenario orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              snippet_tags:
+                - bedrock.converseTool.javav2.scenario
+            - description: "The weather tool used by the demo. This file defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
+              genai: some
+              snippet_tags:
+                - bedrock.converseTool.javav2.weathertool
+            - description: "The Converse API action with a tool configuration."
+              genai: some
+              snippet_tags:
+                - bedrockruntime.java2.converse.main  
     .NET:
       versions:
         - sdk_version: 3
@@ -1492,6 +1665,15 @@ bedrock-runtime_Scenario_ToolUseDemo_AmazonNova:
               genai: some
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime/scenarios/converse_tool_scenario
+          excerpts:
+            - description: "The primary execution of the scenario flow. This scenario orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              genai: some
+              snippet_tags:
+                - Bedrock.ConverseTool.javascriptv3.Scenario
   services:
     bedrock-runtime: {Converse}
 
@@ -1585,3 +1767,20 @@ bedrock-runtime_Scenario_InvokeModels:
                 - php.example_code.bedrock-runtime.basics.scenario
   services:
     bedrock-runtime: {InvokeModel, InvokeModelWithResponseStream}
+
+bedrock-runtime_Scenario_GenerateVideos_NovaReel:
+  title: Generate videos from text prompts using &BR; and Nova-Reel
+  title_abbrev: "Generate videos from text prompts using &BR;"
+  synopsis: a Spring Boot app that generates videos from text prompts using &BR; and the Nova-Reel model.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Generate videos from text prompts using &BR; and Nova-Reel.
+              snippet_tags:
+                - bedrock-runtime.java2.NovaReel.VideoGeneration
+  services:
+    bedrock-runtime: {StartAsyncInvoke, GetAsyncInvoke}
