@@ -206,7 +206,7 @@ public class NeptuneActions {
 
                     String status = response.dbInstances().get(0).dbInstanceStatus();
                     long elapsed = (System.currentTimeMillis() - startTime) / 1000;
-                    logger.info("\r  Waiting: Instance %s status: %-10s (%ds elapsed)", instanceId, status, elapsed);
+                    System.out.printf("\r  Waiting: Instance %s status: %-10s (%ds elapsed)", instanceId, status, elapsed);
                     System.out.flush();
 
                     CompletableFuture.delayedExecutor(20, TimeUnit.SECONDS)
@@ -265,13 +265,25 @@ public class NeptuneActions {
      *
      * @param clusterIdentifier the unique identifier of the DB cluster to be stopped
      */
-    public void startDBCluster(String clusterIdentifier) {
+    public CompletableFuture<StartDbClusterResponse> startDBClusterAsync(String clusterIdentifier) {
         StartDbClusterRequest clusterRequest = StartDbClusterRequest.builder()
                 .dbClusterIdentifier(clusterIdentifier)
                 .build();
 
-        getAsyncClient().startDBCluster(clusterRequest);
-        logger.info(" DB Cluster starting...");
+        return getAsyncClient().startDBCluster(clusterRequest)
+                .whenComplete((response, error) -> {
+                    if (error != null) {
+                        Throwable cause = error.getCause() != null ? error.getCause() : error;
+
+                        if (cause instanceof ResourceNotFoundException) {
+                            throw (ResourceNotFoundException) cause;
+                        }
+
+                        throw new RuntimeException("Failed to start DB cluster: " + cause.getMessage(), cause);
+                    } else {
+                        logger.info("DB Cluster starting: " + clusterIdentifier);
+                    }
+                });
     }
     // snippet-end:[neptune.java2.start.cluster.main]
 
@@ -281,14 +293,27 @@ public class NeptuneActions {
      *
      * @param clusterIdentifier the unique identifier of the DB cluster to be stopped
      */
-    public void stopDBCluster(String clusterIdentifier) {
+    public CompletableFuture<StopDbClusterResponse> stopDBClusterAsync(String clusterIdentifier) {
         StopDbClusterRequest clusterRequest = StopDbClusterRequest.builder()
                 .dbClusterIdentifier(clusterIdentifier)
                 .build();
 
-        getAsyncClient().stopDBCluster(clusterRequest);
-        logger.info("DB Cluster Stopped");
+        return getAsyncClient().stopDBCluster(clusterRequest)
+                .whenComplete((response, error) -> {
+                    if (error != null) {
+                        Throwable cause = error.getCause() != null ? error.getCause() : error;
+
+                        if (cause instanceof ResourceNotFoundException) {
+                            throw (ResourceNotFoundException) cause;
+                        }
+
+                        throw new RuntimeException("Failed to stop DB cluster: " + cause.getMessage(), cause);
+                    } else {
+                        logger.info("DB Cluster stopped: " + clusterIdentifier);
+                    }
+                });
     }
+
     // snippet-end:[neptune.java2.stop.cluster.main]
 
     // snippet-start:[neptune.java2.describe.cluster.main]
@@ -329,6 +354,11 @@ public class NeptuneActions {
                 })
                 .exceptionally(ex -> {
                     Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
+
+                    if (cause instanceof ResourceNotFoundException) {
+                        throw (ResourceNotFoundException) cause;
+                    }
+
                     throw new RuntimeException("Failed to describe the DB cluster: " + cause.getMessage(), cause);
                 });
     }
@@ -438,7 +468,6 @@ public class NeptuneActions {
                 });
     }
     // snippet-end:[neptune.java2.create.dbinstance.main]
-
 
     // snippet-start:[neptune.java2.create.cluster.main]
 

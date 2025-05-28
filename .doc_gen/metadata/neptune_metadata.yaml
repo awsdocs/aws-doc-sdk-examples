@@ -1,7 +1,7 @@
 # zexi 0.4.0
 neptune_Hello:
   title: Hello &neptune;
-  title_abbrev: Hello &neptune;
+  title_abbrev: Hello &BR;
   synopsis: get started using &neptune;.
   category: Hello
   languages:
@@ -133,19 +133,6 @@ neptune_CreateDBCluster:
                 - neptune.java2.create.cluster.main
   services:
     neptune: {CreateDBCluster}  
-neptune_CreateDBSubnetGroup:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/neptune
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - neptune.java2.create.subnet.main
-  services:
-    neptune: {CreateDBSubnetGroup}
 neptune_CreateDBSubnetGroup:
   languages:
     Java:
