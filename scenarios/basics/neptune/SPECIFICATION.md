@@ -11,7 +11,7 @@ Finally this scenario demonstrates how to clean up resources. Its purpose is to 
 This Basics scenario does not require any additional AWS resources. 
 
 ## Hello Amazon Neptune
-This program is intended for users not familiar with Amazon Neptune to easily get up and running. The program invokes `describeDBSubnetGroupsPaginator`to iterate through subnet groups. 
+This program is intended for users not familiar with Amazon Neptune to easily get up and running. The program invokes `describeDBClustersPaginator`to iterate through subnet groups. 
 
 ## Basics Scenario Program Flow
 The Amazon Neptune Basics scenario executes the following operations.
@@ -31,7 +31,7 @@ The Amazon Neptune Basics scenario executes the following operations.
 
 4. **Check the status of the Neptune DB Instance**:
    - Description: Check the status of the DB instance by invoking `describeDBInstances`. Poll the instance until it reaches an `availbale`state. 
-   - Exception Handling: Check to see if a `???` is thrown. If so, display the message and end the program.
+   - Exception Handling: This operatioin handles a `CompletionException`. If thrown,  display the message and end the program.
 
 5. **Show Neptune Cluster details**:
    - Description: Shows the details of the cluster by invoking `describeDBClusters`.
@@ -39,7 +39,7 @@ The Amazon Neptune Basics scenario executes the following operations.
 
 6. **Stop the Cluster**:
    - Description: Stop the cluster by invoking `stopDBCluster`. Poll the cluster until it reaches a `stopped`state. 
-   - Exception Handling: Check to see if a `ResourceAlreadyExistsException` is thrown. If so, display the message and end the program.
+   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
 7. **Start the cluster**:
    - Description: Start the cluster by invoking `startBCluster`. Poll the cluster until it reaches an `available`state.
@@ -139,7 +139,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-✅ Neptune instance reached desired status 'available' after 10 mins, 29 secs.
+ Neptune instance reached desired status 'available' after 10 mins, 29 secs.
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -186,8 +186,8 @@ c
 Continuing with the program...
 
 DB Cluster Stopped
-🔍 Waiting for cluster 'neptunecluster56' to reach status 'stopped'...
-✅ Neptune cluster reached desired status 'stopped' after 12 mins, 10 secs.
+ Waiting for cluster 'neptunecluster56' to reach status 'stopped'...
+ Neptune cluster reached desired status 'stopped' after 12 mins, 10 secs.
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -205,21 +205,21 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-🚀 DB Cluster starting...
-🔍 Waiting for cluster 'neptunecluster56' to reach status 'available'...
-✅ Neptune cluster reached desired status 'available' after 10 mins, 28 secs.
-✅ Neptune instance reached desired status 'available' after 0 secs.
+ DB Cluster starting...
+ Waiting for cluster 'neptunecluster56' to reach status 'available'...
+ Neptune cluster reached desired status 'available' after 10 mins, 28 secs.
+ Neptune instance reached desired status 'available' after 0 secs.
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 8. Delete the Neptune Assets
 Would you like to delete the Neptune Assets? (y/n)
 y
 You selected to delete the Neptune assets.
-🗑️ Deleting DB Instance: neptuneDB56
-✅ Instance neptuneDB56 deleted after 750s
-🗑️ Deleting DB Cluster: neptuneCluster56
-🗑️ Deleting Subnet Group: neptuneSubnetGroup56
-✅ Neptune resources deleted successfully.
+ Deleting DB Instance: neptuneDB56
+ Instance neptuneDB56 deleted after 750s
+ Deleting DB Cluster: neptuneCluster56
+ Deleting Subnet Group: neptuneSubnetGroup56
+ Neptune resources deleted successfully.
 
 Enter 'c' followed by <ENTER> to continue:
 c

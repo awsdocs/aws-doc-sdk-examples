@@ -5,8 +5,11 @@ package com.example.neptune.scenerio;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.services.neptunegraph.model.ResourceNotFoundException;
+import software.amazon.awssdk.services.neptunegraph.model.ServiceQuotaExceededException;
 
 import java.util.Scanner;
+import java.util.concurrent.CompletionException;
 
 // snippet-start:[neptune.java2.scenario.main]
 public class NeptuneScenario {
@@ -26,33 +29,32 @@ public class NeptuneScenario {
                     clusterName     - The unique identifier for the Neptune DB cluster.
                     dbInstanceId    - The identifier for a specific Neptune DB instance within the cluster.
                 """;
-        String subnetGroupName = "neptuneSubnetGroup56";
-        String clusterName = "neptuneCluster56";
-        String dbInstanceId = "neptuneDB56";
+        String subnetGroupName = "neptuneSubnetGroup58";
+        String clusterName = "neptuneCluster58";
+        String dbInstanceId = "neptuneDB58";
 
         logger.info("""
-                     Amazon Neptune is a fully managed graph 
-                     database service by AWS, designed specifically
-                     for handling complex relationships and connected 
-                     datasets at scale. It supports two popular graph models: 
-                     property graphs (via openCypher and Gremlin) and RDF 
-                     graphs (via SPARQL). This makes Neptune ideal for 
-                     use cases such as knowledge graphs, fraud detection, 
-                     social networking, recommendation engines, and 
-                     network management, where relationships between 
-                     entities are central to the data.
+                   Amazon Neptune is a fully managed graph 
+                   database service by AWS, designed specifically
+                   for handling complex relationships and connected 
+                   datasets at scale. It supports two popular graph models: 
+                   property graphs (via openCypher and Gremlin) and RDF 
+                   graphs (via SPARQL). This makes Neptune ideal for 
+                   use cases such as knowledge graphs, fraud detection, 
+                   social networking, recommendation engines, and 
+                   network management, where relationships between 
+                   entities are central to the data.
                     
-                    Being fully managed, Neptune handles database 
-                    provisioning, patching, backups, and replication, 
-                    while also offering high availability and durability 
-                    within AWS's infrastructure.
+                   Being fully managed, Neptune handles database 
+                   provisioning, patching, backups, and replication, 
+                   while also offering high availability and durability 
+                   within AWS's infrastructure.
                     
-                    For developers, programming with Neptune allows 
-                    for building intelligent, relationship-aware 
-                    applications that go beyond traditional tabular 
-                    databases. Developers can use the AWS SDK for Java 
-                    V2 to automate infrastructure operations 
-                    (via NeptuneClient). 
+                   For developers, programming with Neptune allows 
+                   for building intelligent, relationship-aware 
+                   applications that go beyond traditional tabular 
+                   databases. Developers can use the AWS SDK for Java 
+                   to automate infrastructure operations (via NeptuneClient). 
                     
                     Let's get started...
                     """);
@@ -65,7 +67,18 @@ public class NeptuneScenario {
         logger.info("1. Create a Neptune DB Subnet Group");
         logger.info("The Neptune DB subnet group is used when launching a Neptune cluster");
         waitForInputToContinue(scanner);
-        neptuneActions.createSubnetGroupAsync(subnetGroupName).join();
+        try {
+            neptuneActions.createSubnetGroupAsync(subnetGroupName).join();
+
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof ServiceQuotaExceededException) {
+                logger.error("The request failed due to service quota exceeded: {}", cause.getMessage());
+            } else {
+                logger.error("An unexpected error occurred.", cause);
+            }
+            return;
+        }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -73,7 +86,19 @@ public class NeptuneScenario {
         logger.info("2. Create a Neptune Cluster");
         logger.info("A Neptune Cluster allows you to store and query highly connected datasets with low latency.");
         waitForInputToContinue(scanner);
-        String dbClusterId = neptuneActions.createDBClusterAsync(clusterName).join();
+        String dbClusterId;
+        try {
+            dbClusterId = neptuneActions.createDBClusterAsync(clusterName).join();
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof ServiceQuotaExceededException) {
+                logger.error("The request failed due to service quota exceeded: {}", cause.getMessage());
+            } else {
+                logger.error("An unexpected error occurred.", cause);
+            }
+            return;
+        }
+
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -81,7 +106,17 @@ public class NeptuneScenario {
         logger.info("3. Create a Neptune DB Instance");
         logger.info("In this step, we add a new database instance to the Neptune cluster");
         waitForInputToContinue(scanner);
+        try {
         neptuneActions.createDBInstanceAsync(dbInstanceId, dbClusterId).join();
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof ServiceQuotaExceededException) {
+                logger.error("The request failed due to service quota exceeded: {}", cause.getMessage());
+            } else {
+                logger.error("An unexpected error occurred.", cause);
+            }
+            return;
+        }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -92,14 +127,30 @@ public class NeptuneScenario {
                     becomes available. This may take around 10 minutes.
                     """);
         waitForInputToContinue(scanner);
-        neptuneActions.checkInstanceStatus(dbInstanceId, "available").join();
+        try {
+            neptuneActions.checkInstanceStatus(dbInstanceId, "available").join();
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            logger.error("An unexpected error occurred.", cause);
+            return;
+        }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
         logger.info(DASHES);
         logger.info("5.Show Neptune Cluster details");
         waitForInputToContinue(scanner);
-        neptuneActions.describeDBClustersAsync(clusterName).join();
+        try {
+            neptuneActions.describeDBClustersAsync(clusterName).join();
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof ResourceNotFoundException) {
+                logger.error("The request failed due to the resource not found: {}", cause.getMessage());
+            } else {
+                logger.error("An unexpected error occurred.", cause);
+            }
+            return;
+        }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -110,8 +161,18 @@ public class NeptuneScenario {
                     until the cluster is in a stopped state.
                     """);
         waitForInputToContinue(scanner);
-        neptuneActions.stopDBCluster(dbClusterId);
-        neptuneActions.waitForClusterStatus(dbClusterId, "stopped");
+        try {
+            neptuneActions.stopDBClusterAsync(dbClusterId);
+            neptuneActions.waitForClusterStatus(dbClusterId, "stopped");
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof ResourceNotFoundException) {
+                logger.error("The request failed due to the resource not found: {}", cause.getMessage());
+            } else {
+                logger.error("An unexpected error occurred.", cause);
+            }
+            return;
+        }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -123,18 +184,38 @@ public class NeptuneScenario {
                     We will also poll the instance status.
                     """);
         waitForInputToContinue(scanner);
-        neptuneActions.startDBCluster(dbClusterId);
-        neptuneActions.waitForClusterStatus(dbClusterId, "available");
-        neptuneActions.checkInstanceStatus(dbInstanceId, "available").join();
+        try {
+            neptuneActions.startDBClusterAsync(dbClusterId);
+            neptuneActions.waitForClusterStatus(dbClusterId, "available");
+            neptuneActions.checkInstanceStatus(dbInstanceId, "available").join();
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof ResourceNotFoundException) {
+                logger.error("The request failed due to the resource not found: {}", cause.getMessage());
+            } else {
+                logger.error("An unexpected error occurred.", cause);
+            }
+            return;
+        }
         logger.info(DASHES);
+
         logger.info(DASHES);
         logger.info("8. Delete the Neptune Assets");
         logger.info("Would you like to delete the Neptune Assets? (y/n)");
         String delAns = scanner.nextLine().trim();
         if (delAns.equalsIgnoreCase("y")) {
             logger.info("You selected to delete the Neptune assets.");
-            neptuneActions.deleteNeptuneResourcesAsync(dbInstanceId, clusterName, subnetGroupName);
-
+            try {
+                neptuneActions.deleteNeptuneResourcesAsync(dbInstanceId, clusterName, subnetGroupName);
+            } catch (CompletionException ce) {
+                Throwable cause = ce.getCause();
+                if (cause instanceof ResourceNotFoundException) {
+                    logger.error("The request failed due to the resource not found: {}", cause.getMessage());
+                } else {
+                    logger.error("An unexpected error occurred.", cause);
+                }
+                return;
+            }
         } else {
             logger.info("You selected not to delete Neptune assets.");
         }

@@ -76,7 +76,7 @@ public class NeptuneTest {
     @Order(6)
     public void testStopDBCluster() {
         assertDoesNotThrow(() -> {
-            neptuneActions.stopDBCluster(dbClusterId);
+            neptuneActions.stopDBClusterAsync(dbClusterId);
             neptuneActions.waitForClusterStatus(dbClusterId,"stopped");
         });
         System.out.println("Test 6 passed");
@@ -87,7 +87,7 @@ public class NeptuneTest {
     @Order(7)
     public void testStartDBCluster() {
         assertDoesNotThrow(() -> {
-            neptuneActions.startDBCluster(dbClusterId);
+            neptuneActions.startDBClusterAsync(dbClusterId);
             neptuneActions.waitForClusterStatus(dbClusterId,"available");
             neptuneActions.checkInstanceStatus(dbInstanceId, "available").join();
         });
