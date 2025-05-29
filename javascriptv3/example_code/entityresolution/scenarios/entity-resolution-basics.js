@@ -151,7 +151,7 @@ const sdkBuildCloudFormationStack = new ScenarioAction(
       state.jsonGlueTable = stack.Stacks[0].Outputs[2];
       state.CSVGlueTable = stack.Stacks[0].Outputs[3];
       state.glueDataBucket = stack.Stacks[0].Outputs[0];
-      stack.stackName = stack.StackName;
+      state.stackName = stack.StackName;
       console.log(state.glueDataBucket);
       console.log(
         `The  ARN of the EntityResolution Role is ${state.entityResolutionRole.OutputValue}`,
