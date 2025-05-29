@@ -69,7 +69,7 @@ const skipWhenErrors = (state) => state.errors.length > 0;
  */
 /* v8 ignore next 3 */
 const pressEnter = new ScenarioInput("continue", "Press Enter to continue", {
-  type: "confirm",
+  type: "input",
   verbose: "false",
   skipWhen: skipWhenErrors,
 });
