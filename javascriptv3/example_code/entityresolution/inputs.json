@@ -1,0 +1,14 @@
+{
+  "inputs": {
+    "schemaNameJson": "json-AWSSchema",
+    "schemaNameCSV": "csv-AWSSchema",
+    "workflowName": "AWSWorkFlow",
+    "jobId": "JobId",
+    "entityResolutionStack": "EntityResolutionBasicsStack",
+    "schemaArn": "mySchemaARN",
+    "JSONinputSourceARN": "arn:aws:glue:us-east-1:123456789012:table/my-database/my-table",
+    "CSVinputSourceARN": "arn:aws:glue:us-east-1:123456789012:table/my-glue-database-name/my-glue-table-name",
+    "roleArn": "EntityResolutionRoleARN",
+    "myBucketName": "my-bucket-123.example-bucket"
+  }
+}
