@@ -9,7 +9,6 @@ knowledge bases in your AWS account.
 
 This example demonstrates how to:
 - Create a Bedrock Agent client
-- Create a knowledge base
 - Get details of a knowledge base
 - Update a knowledge base
 - List knowledge bases in your account
@@ -21,7 +20,9 @@ import logging
 from pprint import pprint
 import boto3
 import uuid
+import time
 from botocore.exceptions import ClientError
+from roles import create_knowledge_base_role, delete_knowledge_base_role
 
 logger = logging.getLogger(__name__)
 
@@ -232,6 +233,107 @@ def list_knowledge_bases(bedrock_agent_client, max_results=None):
 # snippet-end:[python.example_code.bedrock-agent.list_knowledge_bases]
 
 
+def run_knowledge_base_scenario():
+    """
+    1. Create an IAM role for the knowledge base
+    2. Create a knowledge base
+    3. Get details of the knowledge base
+    4. Update the knowledge base
+    5. Delete the knowledge base and IAM role
+    """
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    
+    print("-" * 88)
+    print("Welcome to the Amazon Bedrock Knowledge Bases scenario.")
+    print("-" * 88)
+    
+    # Create clients
+    bedrock_agent_client = boto3.client(service_name="bedrock-agent")
+    iam_client = boto3.client(service_name="iam")
+    
+    # Generate unique names for resources
+    kb_name = "example-knowledge-base-" + str(uuid.uuid4().hex[:8])    
+    role_name = "example-kb-role" + str(uuid.uuid4().hex[:8])
+    
+    knowledge_base_id = None
+    
+    try:
+        # Step 1: Create IAM role
+        print("\nCreating IAM role: " + role_name + " ...")
+        role = create_knowledge_base_role(iam_client, role_name)
+        role_arn = role['Arn']
+        print("Created role with ARN: " + role_arn)
+        
+        # Wait for role to propagate
+        print("Waiting for role to propagate...")
+        time.sleep(10)
+        
+        # Step 2: Create knowledge base
+        print("Creating knowledge base: " + kb_name + " ...")
+        kb = create_knowledge_base(
+            bedrock_agent_client,
+            kb_name,
+            role_arn,
+            "Example knowledge base for demonstration"
+        )
+        knowledge_base_id = kb["knowledgeBaseId"]
+        print("Created knowledge base with ID: " + knowledge_base_id)
+        
+        # Step 3: Get knowledge base details
+        print("\nGetting details for knowledge base: " + knowledge_base_id + " ...")
+        kb_details = get_knowledge_base(bedrock_agent_client, knowledge_base_id)
+        print("Knowledge base details:")
+        pprint(kb_details)
+        
+        # Step 4: Update knowledge base
+        new_name = kb_name + "-updated"
+        print("\nUpdating knowledge base name to: " + new_name + " ...")
+        updated_kb = update_knowledge_base(
+            bedrock_agent_client,
+            knowledge_base_id,
+            new_name,
+            "Updated description for the knowledge base",
+            role_arn
+        )
+        print("Updated knowledge base details:")
+        pprint(updated_kb)
+        
+        # Step 5: List knowledge bases
+        print("\nListing all knowledge bases:")
+        all_kbs = list_knowledge_bases(bedrock_agent_client)
+        print("Found " + len(all_kbs) + " knowledge bases.")
+        
+        print("\nCleaning up resources...")
+        if knowledge_base_id:
+            print("Deleting knowledge base " + knowledge_base_id + " ...")
+            delete_knowledge_base(bedrock_agent_client, knowledge_base_id)
+            print("Knowledge base " + knowledge_base_id + " deleted successfully.")
+        
+        print("Deleting IAM role " + role_name + " ...")
+        delete_knowledge_base_role(iam_client, role_name)
+        print("Role " + role_name + " deleted successfully.")
+        
+        print("\nScenario completed successfully!")
+        
+    except ClientError as error:
+        print("Operation failed: " + error)
+        # Clean up resources on error
+        if knowledge_base_id:
+            try:
+                print("Attempting to delete knowledge base " + knowledge_base_id + " ...")
+                delete_knowledge_base(bedrock_agent_client, knowledge_base_id)
+            except Exception as e:
+                print("Failed to delete knowledge base: " + e)
+        
+        try:
+            print("Attempting to delete IAM role: " + role_name + " ...")
+            delete_knowledge_base_role(iam_client, role_name)
+        except Exception as e:
+            print("Failed to delete IAM role: " + e)
+    
+    print("-" * 88)
+
+
 def main():
     """
     Shows how to use the Bedrock Agent API to work with knowledge bases.
@@ -243,7 +345,7 @@ def main():
     )
     parser.add_argument(
         "--action",
-        choices=["list", "create", "get", "update", "delete"],
+        choices=["list", "create", "get", "update", "delete", "scenario"],
         default="list",
         help="The action to perform on knowledge bases.",
     )
@@ -277,12 +379,14 @@ def main():
     bedrock_agent_client = boto3.client(service_name="bedrock-agent")
 
     try:
-        if args.action == "list":
+        if args.action == "scenario":
+            run_knowledge_base_scenario()
+        elif args.action == "list":
             print("Listing knowledge bases in your AWS account...")
             knowledge_bases = list_knowledge_bases(bedrock_agent_client, args.max_results)
             
             if knowledge_bases:
-                print(f"Found {len(knowledge_bases)} knowledge bases:")
+                print("Found " + len(knowledge_bases) + " knowledge bases")
                 for kb in knowledge_bases:
                     print("\n" + "-" * 40)
                     pprint(kb)
@@ -294,7 +398,7 @@ def main():
                 print("Error: --name and --role-arn are required for create action.")
                 return
                 
-            print(f"Creating knowledge base '{args.name}'...")
+            print("Creating knowledge base " + args.name + " ...")
             kb = create_knowledge_base(
                 bedrock_agent_client, 
                 args.name, 
@@ -309,7 +413,7 @@ def main():
                 print("Error: --knowledge-base-id is required for get action.")
                 return
                 
-            print(f"Getting details for knowledge base {args.knowledge_base_id}...")
+            print("Getting details for knowledge base " + args.knowledge_base_id + " ...")
             kb = get_knowledge_base(bedrock_agent_client, args.knowledge_base_id)
             print("Knowledge base details:")
             pprint(kb)
@@ -319,7 +423,7 @@ def main():
                 print("Error: --knowledge-base-id is required for update action.")
                 return
                 
-            print(f"Updating knowledge base {args.knowledge_base_id}...")
+            print("Updating knowledge base " + args.knowledge_base_id + " ...")
             kb = update_knowledge_base(
                 bedrock_agent_client,
                 args.knowledge_base_id,
@@ -335,12 +439,12 @@ def main():
                 print("Error: --knowledge-base-id is required for delete action.")
                 return
                 
-            print(f"Deleting knowledge base {args.knowledge_base_id}...")
+            print("Deleting knowledge base " + args.knowledge_base_id + " ...")
             if delete_knowledge_base(bedrock_agent_client, args.knowledge_base_id):
-                print(f"Knowledge base {args.knowledge_base_id} deleted successfully.")
+                print("Knowledge base " + args.knowledge_base_id + " deleted successfully.")
     
     except ClientError as error:
-        print(f"Operation failed: {error}")
+        print("Operation failed: " + error)
 
     print("-" * 88)
 
