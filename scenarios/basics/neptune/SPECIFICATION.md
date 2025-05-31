@@ -10,7 +10,7 @@ Finally this scenario demonstrates how to clean up resources. Its purpose is to 
 
 Here is more context on when it's a good idea to use the `NeptuneAsyncClient`:
 
-1. **Dynamic Resource Provisioning**: The `NeptuneAsyncClient` can be particularly useful when you need to dynamically create, update, or delete Neptune resources as part of your application's functionality. This could be useful in scenarios such as:
+1. **Dynamic Resource Provisioning**: The `NeptuneAsyncClient` can be particularly useful when you need to dynamically create, update, or delete Neptune resources as part of your application's functionality. This could be useful in use cases such as:
 
    - **Multi-tenant Applications**: If you're building a SaaS application that needs to provision Neptune instances on-demand, the `NeptuneAsyncClient` can help you automate this process programmatically.
    - **Ephemeral Environments**: When you need to spin up and tear down Neptune resources as part of your CI/CD pipeline or within a Lambda environments, the `NeptuneAsyncClient` can streamline this process.

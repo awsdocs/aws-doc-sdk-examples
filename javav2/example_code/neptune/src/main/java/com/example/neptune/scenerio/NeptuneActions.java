@@ -517,7 +517,13 @@ public class NeptuneActions {
 
         // Get the Amazon Virtual Private Cloud (VPC) where the Neptune cluster and resources will be created
         String vpcId = getDefaultVpcId();
+        logger.info("VPC is : " + vpcId);
+
         List<String> subnetList = getSubnetIds(vpcId);
+        for (String subnetId : subnetList) {
+            System.out.println("Subnet group:" +subnetId);
+        }
+
         CreateDbSubnetGroupRequest request = CreateDbSubnetGroupRequest.builder()
                 .dbSubnetGroupName(groupName)
                 .dbSubnetGroupDescription("Subnet group for Neptune cluster")

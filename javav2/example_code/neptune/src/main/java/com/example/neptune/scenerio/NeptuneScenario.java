@@ -29,9 +29,9 @@ public class NeptuneScenario {
                     clusterName     - The unique identifier for the Neptune DB cluster.
                     dbInstanceId    - The identifier for a specific Neptune DB instance within the cluster.
                 """;
-        String subnetGroupName = "neptuneSubnetGroup58";
-        String clusterName = "neptuneCluster58";
-        String dbInstanceId = "neptuneDB58";
+        String subnetGroupName = "neptuneSubnetGroup65";
+        String clusterName = "neptuneCluster65";
+        String dbInstanceId = "neptuneDB65";
 
         logger.info("""
                    Amazon Neptune is a fully managed graph 
