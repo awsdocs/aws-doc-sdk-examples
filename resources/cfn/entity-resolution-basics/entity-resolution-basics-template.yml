@@ -1,0 +1,262 @@
+Resources:
+  ErBucket6EA35F9D:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: erbucketf684533d2680435fa99d24b1bdaf5179
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: EntityResolutionCdkStack/ErBucket/Resource
+  GlueDatabase:
+    Type: AWS::Glue::Database
+    Properties:
+      CatalogId:
+        Ref: AWS::AccountId
+      DatabaseInput:
+        Name: entity_resolution_db
+    Metadata:
+      aws:cdk:path: EntityResolutionCdkStack/GlueDatabase
+  jsongluetable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId:
+        Ref: AWS::AccountId
+      DatabaseName:
+        Ref: GlueDatabase
+      TableInput:
+        Name: jsongluetable
+        StorageDescriptor:
+          Columns:
+            - Name: id
+              Type: string
+            - Name: name
+              Type: string
+            - Name: email
+              Type: string
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          Location:
+            Fn::Join:
+              - ""
+              - - s3://
+                - Ref: ErBucket6EA35F9D
+                - /jsonData/
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          SerdeInfo:
+            Parameters:
+              serialization.format: "1"
+            SerializationLibrary: org.openx.data.jsonserde.JsonSerDe
+        TableType: EXTERNAL_TABLE
+    DependsOn:
+      - GlueDatabase
+    Metadata:
+      aws:cdk:path: EntityResolutionCdkStack/jsongluetable
+  csvgluetable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId:
+        Ref: AWS::AccountId
+      DatabaseName:
+        Ref: GlueDatabase
+      TableInput:
+        Name: csvgluetable
+        StorageDescriptor:
+          Columns:
+            - Name: id
+              Type: string
+            - Name: name
+              Type: string
+            - Name: email
+              Type: string
+            - Name: phone
+              Type: string
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          Location:
+            Fn::Join:
+              - ""
+              - - s3://
+                - Ref: ErBucket6EA35F9D
+                - /csvData/
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          SerdeInfo:
+            Parameters:
+              serialization.format: "1"
+            SerializationLibrary: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
+        TableType: EXTERNAL_TABLE
+    DependsOn:
+      - GlueDatabase
+    Metadata:
+      aws:cdk:path: EntityResolutionCdkStack/csvgluetable
+  EntityResolutionRoleB51A51D3:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: entityresolution.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/AmazonS3FullAccess
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/AWSEntityResolutionConsoleFullAccess
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/AWSGlueConsoleFullAccess
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSGlueServiceRole
+    Metadata:
+      aws:cdk:path: EntityResolutionCdkStack/EntityResolutionRole/Resource
+  EntityResolutionRoleDefaultPolicy586C8066:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - entityresolution:GetMatchingWorkflow
+              - entityresolution:StartMatchingWorkflow
+            Effect: Allow
+            Resource: "*"
+        Version: "2012-10-17"
+      PolicyName: EntityResolutionRoleDefaultPolicy586C8066
+      Roles:
+        - Ref: EntityResolutionRoleB51A51D3
+    Metadata:
+      aws:cdk:path: EntityResolutionCdkStack/EntityResolutionRole/DefaultPolicy/Resource
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Analytics: v2:deflate64:H4sIAAAAAAAA/02MzQ7CIBCEn6V3WPuTvoD15EVTvZstRbOWgimgMYR3t4WLp5n5ZjI1VE0LZYEfy8U4cUUDhItDMbEV3YJtIOy9mKRj3V1nF9lDeQlhBQd0OKCVW3nFQcnICGcIvVGJJT0bReK7xexiZL20xi8ibU7evXy6/6ed0SM5MjqyI75xV1dQQls8LRFfvHY0S+iz/gCPIXoRxAAAAA==
+    Metadata:
+      aws:cdk:path: EntityResolutionCdkStack/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Outputs:
+  EntityResolutionRoleArn:
+    Description: The ARN of the EntityResolution Role
+    Value:
+      Fn::GetAtt:
+        - EntityResolutionRoleB51A51D3
+        - Arn
+  JsonErGlueTableArn:
+    Description: The ARN of the Json Glue Table
+    Value:
+      Fn::Join:
+        - ""
+        - - "arn:aws:glue:"
+          - Ref: AWS::Region
+          - ":"
+          - Ref: AWS::AccountId
+          - :table/
+          - Ref: GlueDatabase
+          - /jsongluetable
+  CsvErGlueTableArn:
+    Description: The ARN of the CSV Glue Table
+    Value:
+      Fn::Join:
+        - ""
+        - - "arn:aws:glue:"
+          - Ref: AWS::Region
+          - ":"
+          - Ref: AWS::AccountId
+          - :table/
+          - Ref: GlueDatabase
+          - /csvgluetable
+  GlueDataBucketName:
+    Description: The name of the Glue Data Bucket
+    Value:
+      Ref: ErBucket6EA35F9D
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - af-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - il-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2
+Parameters:
+  BootstrapVersion:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cdk-bootstrap/hnb659fds/version
+    Description: Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]
