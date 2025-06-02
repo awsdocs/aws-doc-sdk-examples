@@ -8,12 +8,9 @@ import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.neptunedata.NeptunedataClient;
-
-
 import software.amazon.awssdk.services.neptunedata.model.ExecuteGremlinProfileQueryRequest;
 import software.amazon.awssdk.services.neptunedata.model.ExecuteGremlinProfileQueryResponse;
 import software.amazon.awssdk.services.neptunedata.model.NeptunedataException;
-
 import java.net.URI;
 import java.time.Duration;
 
@@ -25,17 +22,14 @@ import java.time.Duration;
  * ----------------------------------------------------------------------------------
  * Amazon Neptune must be accessed from **within the same VPC** as the Neptune cluster.
  * It does not expose a public endpoint, so this code must be executed from:
- *   - An EC2 instance, Lambda function, ECS task, Cloud9 IDE, or
- *   - A connected environment (VPN, Direct Connect, or peered VPC).
+ *
+ *  - An **AWS Lambda function** configured to run inside the same VPC
+ *  - An **EC2 instance** or **ECS task** running in the same VPC
+ *  - A connected environment such as a **VPN**, **AWS Direct Connect**, or a **peered VPC**
  *
  * To see an example, see Creating an AWS Lambda function that queries Neptune graph data within the VPC
  * in the AWS Code Library.
  *
- * Notes:
- * - Ensure Neptune's security group allows inbound traffic on port 8182.
- * - Replace the endpoint below with your Neptune cluster's HTTPS endpoint.
- * - To verify access, run: curl https://<your-neptune-endpoint>:8182/status
- * ----------------------------------------------------------------------------------
  */
 public class GremlinProfileQueryExample {
 
@@ -67,6 +61,7 @@ public class GremlinProfileQueryExample {
         }
     }
 
+    // snippet-start:[neptune.java2.data.query.gremlin.profile.main]
     /**
      * Executes a Gremlin PROFILE query using the provided NeptunedataClient.
      *
@@ -87,4 +82,5 @@ public class GremlinProfileQueryExample {
             System.out.println("No output returned from the profile query.");
         }
     }
+    // snippet-end:[neptune.java2.data.query.gremlin.profile.main]
 }

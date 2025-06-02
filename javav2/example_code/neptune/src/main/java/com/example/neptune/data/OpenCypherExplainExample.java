@@ -20,23 +20,16 @@ import java.time.Duration;
  * ------------------------------------------------------------------------------
  * VPC NETWORKING REQUIREMENT:
  * ------------------------------------------------------------------------------
- * Amazon Neptune must be accessed from within an Amazon VPC. It does not expose
- * a public endpoint.
+ * Amazon Neptune must be accessed from **within the same VPC** as the Neptune cluster.
+ * It does not expose a public endpoint, so this code must be executed from:
  *
- * 1. This Java application must run from an environment inside the same VPC as the Neptune cluster,
- *    such as EC2, ECS, AWS Lambda, AWS Cloud9, or a connected network via VPN or Direct Connect.
- *
- * 2. Ensure the Neptune cluster’s security group allows inbound access on port 8182 from the host
- *    running this application.
- *
- * 3. Use the Neptune HTTPS endpoint with port 8182 in `endpointOverride()`.
+ *  - An **AWS Lambda function** configured to run inside the same VPC
+ *  - An **EC2 instance** or **ECS task** running in the same VPC
+ *  - A connected environment such as a **VPN**, **AWS Direct Connect**, or a **peered VPC**
  *
  * To see an example, see Creating an AWS Lambda function that queries Neptune graph data within the VPC
- * in the AWS Code Library. *
+ * in the AWS Code Library.
  *
- * Test connectivity with:
- *     curl https://<your-neptune-endpoint>:8182/status
- * ------------------------------------------------------------------------------
  */
 public class OpenCypherExplainExample {
 
@@ -57,6 +50,7 @@ public class OpenCypherExplainExample {
         executeGremlinQuery(client);
     }
 
+    // snippet-start:[neptune.java2.data.query.opencypher.main]
     /**
      * Executes an OpenCypher EXPLAIN query using the provided Neptune data client.
      *
@@ -87,4 +81,5 @@ public class OpenCypherExplainExample {
             client.close();
         }
     }
+    // snippet-end:[neptune.java2.data.query.opencypher.main]
 }

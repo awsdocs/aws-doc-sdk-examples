@@ -18,29 +18,16 @@ import java.time.Duration;
  *
  * VPC NETWORKING REQUIREMENT:
  * ----------------------------------------------------------------------
- * Amazon Neptune is designed to be **accessed from within an Amazon VPC**.
- * It does not expose a public endpoint. This means:
+ * Amazon Neptune must be accessed from **within the same VPC** as the Neptune cluster.
+ * It does not expose a public endpoint, so this code must be executed from:
  *
- * 1. Your Java application must run **within the same VPC** (e.g., via an EC2 instance, Lambda function, ECS task,
- *    or AWS Cloud9 environment), or from a peered VPC that has network access to Neptune.
- *
- * 2. You cannot run this example directly from your local machine (e.g., via IntelliJ or PyCharm on your laptop)
- *    unless you set up a VPN or AWS Direct Connect that bridges your local environment to your VPC.
- *
- * 3. You must ensure the **VPC Security Group** attached to your Neptune cluster allows **inbound access on port 8182**
- *    from the instance or environment where this Java code runs.
- *
- * 4. The `endpointOverride()` must use the **HTTPS Neptune endpoint** including the `:8182` port.
+ *  - An **AWS Lambda function** configured to run inside the same VPC
+ *  - An **EC2 instance** or **ECS task** running in the same VPC
+ *  - A connected environment such as a **VPN**, **AWS Direct Connect**, or a **peered VPC**
  *
  * To see an example, see Creating an AWS Lambda function that queries Neptune graph data within the VPC
  * in the AWS Code Library.
  *
- *  TIP:
- * You can test connectivity using `curl` or `telnet` from your instance to:
- *     curl https://<neptune-endpoint>:8182/status
- * If this fails, it’s likely a networking or security group issue.
- *
- * ----------------------------------------------------------------------
  */
 
 public class NeptuneGremlinQueryExample {
@@ -62,6 +49,7 @@ public class NeptuneGremlinQueryExample {
                 .build();
     }
 
+    // snippet-start:[neptune.java2.data.query.gremlin.main]
     /**
      * Executes a Gremlin query against an Amazon Neptune database using the provided {@link NeptunedataClient}.
      *
@@ -94,4 +82,5 @@ public class NeptuneGremlinQueryExample {
             client.close();
         }
     }
+    // snippet-end:[neptune.java2.data.query.gremlin.main]
 }

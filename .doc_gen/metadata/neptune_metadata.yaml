@@ -16,6 +16,32 @@ neptune_Hello:
                 - neptune.java2.hello.main
   services:
     neptune: {DescribeDBClustersPaginator}
+neptune_ExecuteGremlinProfileQuery:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.data.query.gremlin.main
+  services:
+    neptune: {ExecuteGremlinProfileQuery}
+neptune_ExecuteGremlinQuery:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.data.query.gremlin.profile.main
+  services:
+    neptune: {ExecuteGremlinQuery}
 neptune_DeleteDBSubnetGroup:
   languages:
     Java:

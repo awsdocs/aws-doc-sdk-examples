@@ -10,7 +10,7 @@
 
 This guide provides a step-by-step walkthrough for creating and deploying an AWS Lambda function that queries an Amazon Neptune graph database using the Neptune Data API.
 
-Amazon Neptune is a fully managed graph database service designed to operate within a Virtual Private Cloud (VPC). Because of this, any Lambda function that needs to access Neptune must also run inside the same VPC and be granted appropriate network and IAM permissions—external access is not supported.
+Amazon Neptune is a fully managed graph database service designed to operate within a Virtual Private Cloud (VPC). Because of this, any Lambda function that needs to access Neptune must also run inside the same VPC and be granted appropriate network and IAM permissions. External access is not supported.
 
 To ensure secure and reliable communication between Lambda and Neptune, you’ll configure key AWS infrastructure components, including VPC subnets, security groups, and IAM roles. This guide covers all necessary setup and configuration tasks to help you successfully connect your Lambda function to Neptune using the Neptune Data API.
 
@@ -19,6 +19,7 @@ To ensure secure and reliable communication between Lambda and Neptune, you’ll
 
 #### Topics
 +	Prerequisites
++ Set Up the Amazon Neptune Cluster and VPC
 +	Create an AWS Identity and Access Management (IAM) role that is used to execute Lambda functions
 +	Create an IntelliJ project
 +	Add the POM dependencies to your project
@@ -39,13 +40,13 @@ To follow along with this tutorial, you need the following:
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
 + Running this code might result in charges to your AWS account. 
 + Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
 
 ## Set Up the Amazon Neptune Cluster and VPC
 
-Amazon Neptune requires a VPC (Virtual Private Cloud) with at least two subnets in different Availability Zones (AZs) to ensure high availability and fault tolerance.
+Amazon Neptune requires a VPC with at least two subnets in different Availability Zones (AZs) to ensure high availability and fault tolerance.
 
 If you're unsure which VPC or subnets to use, you can easily generate the required resources by running the Amazon Neptune Basics scenario from the AWS Code Library. This setup will provision:
 

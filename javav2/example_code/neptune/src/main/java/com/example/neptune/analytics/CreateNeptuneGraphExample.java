@@ -2,20 +2,32 @@ package com.example.neptune.analytics;
 
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.neptunedata.NeptunedataClient;
 import software.amazon.awssdk.services.neptunegraph.NeptuneGraphClient;
 import software.amazon.awssdk.services.neptunegraph.model.CreateGraphRequest;
 import software.amazon.awssdk.services.neptunegraph.model.CreateGraphResponse;
-import software.amazon.awssdk.services.neptunegraph.model.GraphStatus;
 import software.amazon.awssdk.services.neptunegraph.model.NeptuneGraphException;
+
+/**
+ * This Java example demonstrates how to query Amazon Neptune Analytics (Neptune Graph) using the AWS SDK for Java V2.
+ *
+ * VPC NETWORKING REQUIREMENT:
+ * ----------------------------------------------------------------------
+ * Amazon Neptune Analytics must be accessed from within an Amazon VPC. This means:
+ *
+ * 1. Your application must run within a VPC environment such as EC2, Lambda, ECS, Cloud9, or an AWS managed notebook.
+ * 2. You **cannot run this code from your local machine** unless you are connected via a VPN or Direct Connect.
+ * 3. Ensure that your Neptune Graph cluster endpoint is accessible and security groups allow inbound access from your client.
+ * 4. Always use the HTTPS endpoint when setting the `endpointOverride()` value.
+ *
+ * You can test access by running:
+ *     curl https://<graph-endpoint>:8182/status
+ * ----------------------------------------------------------------------
+ */
 
 public class CreateNeptuneGraphExample {
 
     public static void main(String[] args) {
-        // Set the desired region
         Region region = Region.US_EAST_1;
-
-        // Set the name for your new graph
         String graphName = "sample-analytics-graph";
 
         // Create the NeptuneGraph client
@@ -25,7 +37,6 @@ public class CreateNeptuneGraphExample {
                 .build();
 
         executeCreateGraph(client, graphName);
-
     }
 
     /**
