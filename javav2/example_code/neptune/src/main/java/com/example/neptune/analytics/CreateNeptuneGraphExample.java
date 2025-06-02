@@ -39,6 +39,7 @@ public class CreateNeptuneGraphExample {
         executeCreateGraph(client, graphName);
     }
 
+    // snippet-start:[neptune.java2.graph.create.main]
     /**
      * Executes the process of creating a new Neptune graph.
      *
@@ -73,5 +74,6 @@ public class CreateNeptuneGraphExample {
             client.close();
         }
    }
+    // snippet-end:[neptune.java2.graph.create.main]
 }
 

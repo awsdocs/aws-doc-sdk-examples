@@ -16,6 +16,58 @@ neptune_Hello:
                 - neptune.java2.hello.main
   services:
     neptune: {DescribeDBClustersPaginator}
+neptune_ExecuteQuery:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.graph.execute.main
+  services:
+    neptune: {ExecuteQuery}
+neptune_CreateGraph:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.graph.create.main
+  services:
+    neptune: {CreateGraph}
+neptune_ExecuteOpenCypherExplainQuery:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.data.query.opencypher.main
+  services:
+    neptune: {ExecuteOpenCypherExplainQuery}
+neptune_ExecuteOpenCypherExplainQuery:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.data.query.opencypher.main
+  services:
+    neptune: {ExecuteOpenCypherExplainQuery}
 neptune_ExecuteGremlinProfileQuery:
   languages:
     Java:

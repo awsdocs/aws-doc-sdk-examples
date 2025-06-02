@@ -62,6 +62,7 @@ public class NeptuneAnalyticsQueryExample {
         executeGremlinProfileQuery(client, graphId);
     }
 
+    // snippet-start:[neptune.java2.graph.execute.main]
     /**
      * Executes a Gremlin profile query on the Neptune Analytics graph.
      *
@@ -99,5 +100,6 @@ public class NeptuneAnalyticsQueryExample {
             client.close();
         }
     }
+    // snippet-end:[neptune.java2.graph.execute.main]
 }
 
