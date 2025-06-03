@@ -1,24 +1,25 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.neptune.data;
+package com.example.neptune.database;
 
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.neptunedata.NeptunedataClient;
-import software.amazon.awssdk.services.neptunedata.model.ExecuteOpenCypherExplainQueryRequest;
-import software.amazon.awssdk.services.neptunedata.model.ExecuteOpenCypherExplainQueryResponse;
+import software.amazon.awssdk.services.neptunedata.model.ExecuteGremlinProfileQueryRequest;
+import software.amazon.awssdk.services.neptunedata.model.ExecuteGremlinProfileQueryResponse;
 import software.amazon.awssdk.services.neptunedata.model.NeptunedataException;
 import java.net.URI;
 import java.time.Duration;
 
 /**
- * Example: Running an OpenCypher EXPLAIN query on Amazon Neptune using AWS SDK for Java V2.
+ * Example: Running a Gremlin Profile query using the AWS SDK for Java V2.
  *
- * ------------------------------------------------------------------------------
- * VPC NETWORKING REQUIREMENT:
- * ------------------------------------------------------------------------------
+ * ----------------------------------------------------------------------------------
+ * VPC Networking Requirement:
+ * ----------------------------------------------------------------------------------
  * Amazon Neptune must be accessed from **within the same VPC** as the Neptune cluster.
  * It does not expose a public endpoint, so this code must be executed from:
  *
@@ -30,12 +31,15 @@ import java.time.Duration;
  * in the AWS Code Library.
  *
  */
-public class OpenCypherExplainExample {
+public class GremlinProfileQueryExample {
 
+    // Specify the endpoint. You can obtain an endpoint by running
+    // the main scenario.
     private static final String NEPTUNE_ENDPOINT = "https://<your-neptune-endpoint>:8182";
 
     public static void main(String[] args) {
         NeptunedataClient client = NeptunedataClient.builder()
+                .credentialsProvider(DefaultCredentialsProvider.create())
                 .region(Region.US_EAST_1)
                 .endpointOverride(URI.create(NEPTUNE_ENDPOINT))
                 .httpClientBuilder(ApacheHttpClient.builder()
@@ -46,32 +50,8 @@ public class OpenCypherExplainExample {
                         .build())
                 .build();
 
-        executeGremlinQuery(client);
-    }
-
-    // snippet-start:[neptune.java2.data.query.opencypher.main]
-    /**
-     * Executes an OpenCypher EXPLAIN query using the provided Neptune data client.
-     *
-     * @param client The Neptune data client to use for the query execution.
-     */
-    public static void executeGremlinQuery(NeptunedataClient client) {
         try {
-            System.out.println("Executing OpenCypher EXPLAIN query...");
-            ExecuteOpenCypherExplainQueryRequest request = ExecuteOpenCypherExplainQueryRequest.builder()
-                    .openCypherQuery("MATCH (n {code: 'ANC'}) RETURN n")
-                    .explainMode("debug")
-                    .build();
-
-            ExecuteOpenCypherExplainQueryResponse response = client.executeOpenCypherExplainQuery(request);
-
-            if (response.results() != null) {
-                System.out.println("Explain Results:");
-                System.out.println(response.results().asUtf8String());
-            } else {
-                System.out.println("No explain results returned.");
-            }
-
+            executeGremlinProfileQuery(client);
         } catch (NeptunedataException e) {
             System.err.println("Neptune error: " + e.awsErrorDetails().errorMessage());
         } catch (Exception e) {
@@ -80,5 +60,27 @@ public class OpenCypherExplainExample {
             client.close();
         }
     }
-    // snippet-end:[neptune.java2.data.query.opencypher.main]
+
+    // snippet-start:[neptune.java2.data.query.gremlin.profile.main]
+    /**
+     * Executes a Gremlin PROFILE query using the provided NeptunedataClient.
+     *
+     * @param client The NeptunedataClient instance to be used for executing the Gremlin PROFILE query.
+     */
+    private static void executeGremlinProfileQuery(NeptunedataClient client) {
+        System.out.println("Executing Gremlin PROFILE query...");
+
+        ExecuteGremlinProfileQueryRequest request = ExecuteGremlinProfileQueryRequest.builder()
+                .gremlinQuery("g.V().has('code', 'ANC')")
+                .build();
+
+        ExecuteGremlinProfileQueryResponse response = client.executeGremlinProfileQuery(request);
+        if (response.output() != null) {
+            System.out.println("Query Profile Output:");
+            System.out.println(response.output());
+        } else {
+            System.out.println("No output returned from the profile query.");
+        }
+    }
+    // snippet-end:[neptune.java2.data.query.gremlin.profile.main]
 }
