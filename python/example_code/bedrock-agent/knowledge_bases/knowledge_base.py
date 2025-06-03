@@ -54,7 +54,7 @@ def create_knowledge_base(bedrock_agent_client, name, role_arn, description=None
             "storageConfiguration": {
                 "type": "OPENSEARCH_SERVERLESS",
                 "opensearchServerlessConfiguration": {
-                    "collectionArn": "arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-embed-text-v1",
+                    "collectionArn": "arn:aws:aoss:us-east-1::123456789012:collection/abcdefgh12345678defgh",
                     "fieldMapping": {
                         "metadataField": "metadata",
                         "textField": "text",
@@ -316,7 +316,7 @@ def run_knowledge_base_scenario():
         print("\nScenario completed successfully!")
         
     except ClientError as error:
-        print("Operation failed: " + error)
+        print("Operation failed: " + str(error))
         # Clean up resources on error
         if knowledge_base_id:
             try:
@@ -329,7 +329,7 @@ def run_knowledge_base_scenario():
             print("Attempting to delete IAM role: " + role_name + " ...")
             delete_knowledge_base_role(iam_client, role_name)
         except Exception as e:
-            print("Failed to delete IAM role: " + e)
+            print("Failed to delete IAM role: " + str(e))
     
     print("-" * 88)
 
