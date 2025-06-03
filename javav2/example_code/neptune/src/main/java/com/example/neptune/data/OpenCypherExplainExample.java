@@ -10,7 +10,6 @@ import software.amazon.awssdk.services.neptunedata.NeptunedataClient;
 import software.amazon.awssdk.services.neptunedata.model.ExecuteOpenCypherExplainQueryRequest;
 import software.amazon.awssdk.services.neptunedata.model.ExecuteOpenCypherExplainQueryResponse;
 import software.amazon.awssdk.services.neptunedata.model.NeptunedataException;
-
 import java.net.URI;
 import java.time.Duration;
 

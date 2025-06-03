@@ -3,12 +3,10 @@
 
 package com.example.neptune.analytics;
 
-import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.neptunedata.NeptunedataClient;
 import software.amazon.awssdk.services.neptunegraph.NeptuneGraphClient;
 import software.amazon.awssdk.services.neptunegraph.model.ExecuteQueryRequest;
 import software.amazon.awssdk.services.neptunegraph.model.ExecuteQueryResponse;
