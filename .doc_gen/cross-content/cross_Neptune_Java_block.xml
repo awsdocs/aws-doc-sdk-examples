@@ -5,7 +5,7 @@
         ]>
 <block>
     <para>
-        Shows how to use &neptune; Java API to create a Lambda function that queries graph data within the VPC.
+        Shows how to use &neptunelong; Java API to create a Lambda function that queries graph data within the VPC.
     </para>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on

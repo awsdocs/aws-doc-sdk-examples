@@ -1,6 +1,6 @@
 # zexi 0.4.0
 cross_Neptune_Query:
-  title: Use the &neptune; API to develop an &LAM; function that queries graph data
+  title: Use the &neptunelong; API to develop a &LAM; function that queries graph data
   title_abbrev: Use the &neptune; API to query graph data
   synopsis: use the &neptune; API to query graph data.
   category: Scenarios
