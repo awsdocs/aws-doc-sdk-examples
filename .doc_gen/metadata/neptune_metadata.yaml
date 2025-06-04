@@ -55,19 +55,6 @@ neptune_ExecuteOpenCypherExplainQuery:
                 - neptune.java2.data.query.opencypher.main
   services:
     neptune: {ExecuteOpenCypherExplainQuery}
-neptune_ExecuteOpenCypherExplainQuery:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/neptune
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - neptune.java2.data.query.opencypher.main
-  services:
-    neptune: {ExecuteOpenCypherExplainQuery}
 neptune_ExecuteGremlinProfileQuery:
   languages:
     Java:
