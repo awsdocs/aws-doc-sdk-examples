@@ -11,7 +11,6 @@ import botocore.exceptions
 POLL_INTERVAL_SECONDS = 10
 TIMEOUT_SECONDS = 1200  # 20 minutes
 
-
 def delete_db_subnet_group(neptune_client, subnet_group_name: str):
     request = {
         'DBSubnetGroupName': subnet_group_name
