@@ -1,4 +1,18 @@
 # zexi 0.4.0
+cross_Neptune_Query:
+  title: Use the &neptunelong; API to develop a &LAM; function that queries graph data
+  title_abbrev: Use the &neptune; API to query graph data
+  synopsis: use the &neptune; API to query graph data.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_Neptune_Java_block.xml
+  service_main: neptune
+  services:
+    neptune:
+    lambda:
 cross_MessageProcessingFrameworkTutorial:
   title: Use the &AWS; Message Processing Framework for .NET to publish and receive &SQS; messages
   title_abbrev: Use the &AWS; Message Processing Framework for .NET with &SQS;
