@@ -2,12 +2,12 @@
 #  SPDX-License-Identifier: Apache-2.0
 
 
+# snippet-start:[neptune.python.scenario.main]
 import boto3
 import time
-from datetime import timedelta
 import botocore.exceptions
 
-# Constants
+# Constants used in this scenario
 POLL_INTERVAL_SECONDS = 10
 TIMEOUT_SECONDS = 1200  # 20 minutes
 
@@ -301,7 +301,6 @@ def get_subnet_ids(vpc_id: str) -> list[str]:
     subnet_ids = [subnet['SubnetId'] for subnet in subnets if 'SubnetId' in subnet]
     return subnet_ids
 
-
 def get_default_vpc_id() -> str:
     ec2_client = boto3.client('ec2')
     describe_vpcs_request = {
@@ -419,6 +418,9 @@ def run_scenario(neptune_client, subnet_group_name: str, db_instance_id: str, cl
 
 def main():
     neptune_client = boto3.client('neptune')
+
+    # Customize the following names to match your Neptune setup
+    # (You must change these to unique values for your environment)
     subnet_group_name = "neptuneSubnetGroup75"
     cluster_name = "neptuneCluster75"
     db_instance_id = "neptuneDB75"
@@ -436,6 +438,6 @@ Let's get started!
     https://docs.aws.amazon.com/code-library/latest/ug/what-is-code-library.html
     """)
 
-
 if __name__ == "__main__":
     main()
+# snippet-end:[neptune.python.scenario.main]
