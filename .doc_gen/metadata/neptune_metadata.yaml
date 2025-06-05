@@ -1,0 +1,239 @@
+# zexi 0.4.0
+neptune_Hello:
+  title: Hello &neptunelong;
+  title_abbrev: Hello &neptune;
+  synopsis: get started using &neptune;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.hello.main
+  services:
+    neptune: {DescribeDBClustersPaginator}
+neptune_ExecuteQuery:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.graph.execute.main
+  services:
+    neptune: {ExecuteQuery}
+neptune_CreateGraph:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.graph.create.main
+  services:
+    neptune: {CreateGraph}
+neptune_ExecuteOpenCypherExplainQuery:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.data.query.opencypher.main
+  services:
+    neptune: {ExecuteOpenCypherExplainQuery}
+neptune_ExecuteGremlinProfileQuery:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.data.query.gremlin.main
+  services:
+    neptune: {ExecuteGremlinProfileQuery}
+neptune_ExecuteGremlinQuery:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.data.query.gremlin.profile.main
+  services:
+    neptune: {ExecuteGremlinQuery}
+neptune_DeleteDBSubnetGroup:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.delete.subnet.group.main
+  services:
+    neptune: {DeleteDBSubnetGroup}
+neptune_DeleteDBCluster:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.delete.cluster.main
+  services:
+    neptune: {DeleteDBCluster}
+neptune_DeleteDBInstance:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.delete.instance.main
+  services:
+    neptune: {DeleteDBInstance}
+neptune_StartDBCluster:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.start.cluster.main
+  services:
+    neptune: {StartDBCluster}
+neptune_StopDBCluster:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.stop.cluster.main
+  services:
+    neptune: {StopDBCluster} 
+neptune_DescribeDBClusters:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.describe.cluster.main
+  services:
+    neptune: {DescribeDBClusters}
+neptune_DescribeDBInstances:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.describe.dbinstance.main
+  services:
+    neptune: {DescribeDBInstances} 
+neptune_CreateDBInstance:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.create.dbinstance.main
+  services:
+    neptune: {CreateDBInstance} 
+neptune_CreateDBCluster:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.create.cluster.main
+  services:
+    neptune: {CreateDBCluster}  
+neptune_CreateDBSubnetGroup:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.java2.create.subnet.main
+  services:
+    neptune: {CreateDBSubnetGroup}
+neptune_Scenario:
+  synopsis_list:
+    - Create an &neptunelong; Subnet Group.
+    - Create an &neptune; Cluster.
+    - Create an &neptune; Instance.
+    - Check the status of the &neptune; Instance.
+    - Show &neptune; cluster details.
+    - Stop the &neptune; cluster.
+    - Start the &neptune; cluster.
+    - Delete the &neptune; Assets.
+  category: Basics
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/neptune
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &neptune; features.
+              snippet_tags:
+                - neptune.java2.scenario.main
+            - description: A wrapper class for &neptune; SDK methods.
+              snippet_tags:
+                - neptune.java2.actions.main
+  services:
+    neptune: {}
