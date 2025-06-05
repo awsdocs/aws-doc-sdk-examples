@@ -20,7 +20,7 @@ def main():
     """
     Main entry point: creates the Neptune client and calls the describe operation.
     """
-    neptune_client = boto3.client("neptune")
+    neptune_client = boto3.client("neptune", region_name="us-east-1")
     try:
         describe_db_clusters(neptune_client)
     except Exception as e:
