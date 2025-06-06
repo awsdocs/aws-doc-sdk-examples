@@ -4,7 +4,7 @@
 import boto3
 from botocore.exceptions import ClientError
 
-# snippet-start: [neptune.python.graph.execute.main]
+# snippet-start:[neptune.python.graph.execute.main]
 """
 Running this example.
 
@@ -70,4 +70,4 @@ def execute_gremlin_profile_query(client, graph_id):
 
 if __name__ == "__main__":
     main()
-# snippet-end: [neptune.python.graph.execute.main]
+# snippet-end:[neptune.python.graph.execute.main]
