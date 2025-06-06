@@ -239,6 +239,7 @@ def describe_db_clusters(neptune_client, cluster_id: str):
         print("------")
 # snippet-end:[neptune.python.describe.cluster.main]
 
+# snippet-start:[neptune.python.describe.dbinstance.main]
 def check_instance_status(neptune_client, instance_id: str, desired_status: str):
     start_time = time.time()
 
@@ -263,6 +264,7 @@ def check_instance_status(neptune_client, instance_id: str, desired_status: str)
             raise RuntimeError(f"Timeout waiting for Neptune instance to reach status: {desired_status}")
 
         time.sleep(POLL_INTERVAL_SECONDS)
+# snippet-end:[neptune.python.describe.dbinstance.main]
 
 # snippet-start:[neptune.python.create.dbinstance.main]
 def create_db_instance(neptune_client, db_instance_id: str, db_cluster_id: str) -> str:
