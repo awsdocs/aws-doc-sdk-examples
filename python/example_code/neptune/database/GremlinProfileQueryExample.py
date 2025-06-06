@@ -1,5 +1,5 @@
-#  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-#  SPDX-License-Identifier: Apache-2.0
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 
 # snippet-start: [neptune.python.data.query.gremlin.profile.main]
 import boto3
