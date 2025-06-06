@@ -175,3 +175,63 @@ class BedrockAgentStubber(ExampleStubber):
         self._stub_bifurcator(
             "list_prompts", expected_params, response, error_code=error_code
         )
+
+    def stub_list_knowledge_bases(self, expected_params, response, error_code=None):
+        """
+        Adds a response for the ListKnowledgeBases operation.
+        
+        :param expected_params: The parameters that are expected in the request.
+        :param response: The response to return when the expected parameters are seen.
+        :param error_code: The error code to return, if any.
+        """
+        self._stub_bifurcator(
+            "list_knowledge_bases", expected_params, response, error_code=error_code
+        )
+        
+    def stub_create_knowledge_base(self, expected_params, response, error_code=None):
+        """
+        Adds a response for the CreateKnowledgeBase operation.
+        
+        :param expected_params: The parameters that are expected in the request.
+        :param response: The response to return when the expected parameters are seen.
+        :param error_code: The error code to return, if any.
+        """
+        self._stub_bifurcator(
+            "create_knowledge_base", expected_params, response, error_code=error_code
+        )
+        
+    def stub_get_knowledge_base(self, expected_params, response, error_code=None):
+        """
+        Adds a response for the GetKnowledgeBase operation.
+        
+        :param expected_params: The parameters that are expected in the request.
+        :param response: The response to return when the expected parameters are seen.
+        :param error_code: The error code to return, if any.
+        """
+        self._stub_bifurcator(
+            "get_knowledge_base", expected_params, response, error_code=error_code
+        )
+        
+    def stub_update_knowledge_base(self, expected_params, response, error_code=None):
+        """
+        Adds a response for the UpdateKnowledgeBase operation.
+        
+        :param expected_params: The parameters that are expected in the request.
+        :param response: The response to return when the expected parameters are seen.
+        :param error_code: The error code to return, if any.
+        """
+        self._stub_bifurcator(
+            "update_knowledge_base", expected_params, response, error_code=error_code
+        )
+        
+    def stub_delete_knowledge_base(self, expected_params, response, error_code=None):
+        """
+        Adds a response for the DeleteKnowledgeBase operation.
+        
+        :param expected_params: The parameters that are expected in the request.
+        :param response: The response to return when the expected parameters are seen.
+        :param error_code: The error code to return, if any.
+        """
+        self._stub_bifurcator(
+            "delete_knowledge_base", expected_params, response, error_code=error_code
+        )
