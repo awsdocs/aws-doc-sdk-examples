@@ -5,6 +5,7 @@ import boto3
 from botocore.config import Config
 from botocore.exceptions import BotoCoreError, ClientError
 
+# snippet-start:[neptune.python.data.query.gremlin.profile.main]
 """
 Running this example.
 
@@ -81,3 +82,4 @@ def run_profile_query(neptune_client):
 
 if __name__ == "__main__":
     main()
+# snippet-end:[neptune.python.data.query.gremlin.profile.main]

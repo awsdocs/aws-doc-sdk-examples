@@ -74,4 +74,4 @@ def execute_opencypher_explain_query(neptune_client):
 
 if __name__ == "__main__":
     main()
-# snippet-end: [neptune.python.data.query.opencypher.main]
+# snippet-end:[neptune.python.data.query.opencypher.main]
