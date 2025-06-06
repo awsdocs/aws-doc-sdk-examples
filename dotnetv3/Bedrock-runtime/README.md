@@ -77,8 +77,8 @@ functions within the same service.
 
 - [Converse](Models/MetaLlama/Converse/Converse.cs#L4)
 - [ConverseStream](Models/MetaLlama/ConverseStream/ConverseStream.cs#L4)
-- [InvokeModel: Llama 3](Models/MetaLlama/Llama3_InvokeModel/InvokeModel.cs#L4)
-- [InvokeModelWithResponseStream: Llama 3](Models/MetaLlama/Llama3_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
+- [InvokeModel](Models/MetaLlama/Llama3_InvokeModel/InvokeModel.cs#L4)
+- [InvokeModelWithResponseStream](Models/MetaLlama/Llama3_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 ### Mistral AI
 

@@ -124,6 +124,14 @@ bedrock-runtime_Converse_AmazonNovaText:
               genai: some
               snippet_tags:
                 - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
+              snippet_tags:
+                - php.example_code.bedrock-runtime.service.Converse_AmazonNovaText
     Python:
       versions:
         - sdk_version: 3
@@ -808,14 +816,6 @@ bedrock-runtime_InvokeModel_Ai21LabsJurassic2:
               snippet_tags:
                 - gov2.bedrock-runtime.InvokeModelWrapper.struct
                 - gov2.bedrock-runtime.InvokeJurassic2
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - php.example_code.bedrock-runtime.service.invokeJurassic2
   services:
     bedrock-runtime: {InvokeModel}
 
@@ -1017,9 +1017,9 @@ bedrock-runtime_InvokeModel_CohereCommandR:
     bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeModel_MetaLlama3:
-  title: Invoke Meta Llama 3 on &BR; using the Invoke Model API
-  title_abbrev: "InvokeModel: Llama 3"
-  synopsis: send a text message to Meta Llama 3, using the Invoke Model API.
+  title: Invoke Meta Llama on &BR; using the Invoke Model API
+  title_abbrev: "InvokeModel"
+  synopsis: send a text message to Meta Llama, using the Invoke Model API.
   category: Meta Llama
   languages:
     Java:
@@ -1249,9 +1249,9 @@ bedrock-runtime_InvokeModelWithResponseStream_CohereCommandR:
     bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeModelWithResponseStream_MetaLlama3:
-  title: Invoke Meta Llama 3 on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "InvokeModelWithResponseStream: Llama 3"
-  synopsis: send a text message to Meta Llama 3, using the Invoke Model API, and print the response stream.
+  title: Invoke Meta Llama on &BR; using the Invoke Model API with a response stream
+  title_abbrev: "InvokeModelWithResponseStream"
+  synopsis: send a text message to Meta Llama, using the Invoke Model API, and print the response stream.
   category: Meta Llama
   languages:
     Java:
@@ -1537,6 +1537,109 @@ bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings:
                 - python.example_code.bedrock-runtime.InvokeModel_TitanTextEmbeddings
   services:
     bedrock-runtime: {InvokeModel}
+
+# Document understanding
+bedrock-runtime_DocumentUnderstanding_AmazonNova:
+  title: Send and process a document with Amazon Nova on &BR;
+  title_abbrev: "Document understanding"
+  synopsis: send and process a document with Amazon Nova on &BR;.
+  category: Amazon Nova
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send and process a document with Amazon Nova on &BR;.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.DocumentUnderstanding_AmazonNovaText
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_DocumentUnderstanding_AnthropicClaude:
+  title: Send and process a document with Anthropic Claude on &BR;
+  title_abbrev: "Document understanding"
+  synopsis: send and process a document with Anthropic Claude on &BR;.
+  category: Anthropic Claude
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send and process a document with Anthropic Claude on &BR;.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.DocumentUnderstanding_AnthropicClaude
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_DocumentUnderstanding_CohereCommand:
+  title: Send and process a document with Cohere Command models on &BR;
+  title_abbrev: "Document understanding"
+  synopsis: send and process a document with Cohere Command models on &BR;.
+  category: Cohere Command
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send and process a document with Cohere Command models on &BR;.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.DocumentUnderstanding_CohereCommand
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_DocumentUnderstanding_DeepSeek:
+  title: Send and process a document with DeepSeek on &BR;
+  title_abbrev: "Document understanding"
+  synopsis: send and process a document with DeepSeek on &BR;.
+  category: DeepSeek
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send and process a document with DeepSeek on &BR;.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.DocumentUnderstanding_DeepSeek
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_DocumentUnderstanding_MetaLlama:
+  title: Send and process a document with Llama on &BR;
+  title_abbrev: "Document understanding"
+  synopsis: send and process a document with Llama on &BR;.
+  category: Meta Llama
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send and process a document with Llama on &BR;.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.DocumentUnderstanding_MetaLlama
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_DocumentUnderstanding_Mistral:
+  title: Send and process a document with Mistral models on &BR;
+  title_abbrev: "Document understanding"
+  synopsis: send and process a document with Mistral models on &BR;.
+  category: Mistral AI
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send and process a document with Mistral models on &BR;.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.DocumentUnderstanding_Mistral
+  services:
+    bedrock-runtime: {Converse}
 
 # Tool use scenarios
 bedrock-runtime_Scenario_ToolUseDemo_AmazonNova:
