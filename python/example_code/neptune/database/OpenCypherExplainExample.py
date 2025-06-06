@@ -19,7 +19,7 @@ It does not expose a public endpoint, so this code must be executed from:
   - A connected environment such as a **VPN**, **AWS Direct Connect**, or a **peered VPC**
 
 """
-# snippet-start: [neptune.python.data.query.opencypher.main]
+# snippet-start:[neptune.python.data.query.opencypher.main]
 # Replace with your actual Neptune endpoint URL
 NEPTUNE_ENDPOINT = "https://<your-neptune-endpoint>:8182"
 
