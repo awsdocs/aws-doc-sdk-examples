@@ -11,18 +11,7 @@ import botocore.exceptions
 POLL_INTERVAL_SECONDS = 10
 TIMEOUT_SECONDS = 1200  # 20 minutes
 
-def delete_db_subnet_group(neptune_client, subnet_group_name: str):
-    request = {
-        'DBSubnetGroupName': subnet_group_name
-    }
-
-    try:
-        neptune_client.delete_db_subnet_group(**request)
-        print(f"  Deleting Subnet Group: {subnet_group_name}")
-    except (botocore.ClientError, botocore.BotoCoreError) as e:
-        print(f" Failed to delete subnet group '{subnet_group_name}': {e}")
-
-
+# snippet-start:[neptune.python.delete.cluster.main]
 def delete_db_cluster(neptune_client, cluster_id: str):
     request = {
         'DBClusterIdentifier': cluster_id,
@@ -34,13 +23,12 @@ def delete_db_cluster(neptune_client, cluster_id: str):
         print(f" Deleting DB Cluster: {cluster_id}")
     except Exception as e:
         print(f" Failed to delete DB Cluster '{cluster_id}': {e}")
-
+# snippet-end:[neptune.python.delete.cluster.main]
 
 def format_elapsed_time(seconds: int) -> str:
     mins, secs = divmod(seconds, 60)
     hours, mins = divmod(mins, 60)
     return f"{hours:02}:{mins:02}:{secs:02}"
-
 
 def wait_until_instance_deleted(
         neptune_client,
@@ -86,8 +74,15 @@ def wait_until_instance_deleted(
 
         time.sleep(poll_interval_seconds)
 
-
+# snippet-start:[neptune.python.delete.instance.main]
 def delete_db_instance(neptune_client, instance_id: str):
+    """
+        Deletes a Neptune DB instance.
+
+        Args:
+            neptune_client (boto3.client): The Neptune client object.
+            instance_id (str): The ID of the Neptune DB instance to be deleted.
+        """
     delete_db_instance_request = {
         'DBInstanceIdentifier': instance_id,
         'SkipFinalSnapshot': True
@@ -95,7 +90,21 @@ def delete_db_instance(neptune_client, instance_id: str):
 
     neptune_client.delete_db_instance(**delete_db_instance_request)
     print(f"Deleting DB Instance: {instance_id}")
+# snippet-end:[neptune.python.delete.instance.main]
 
+# snippet-start:[neptune.python.delete.subnet.group.main]
+def delete_db_subnet_group(neptune_client, subnet_group_name):
+    """
+    Deletes a Neptune DB subnet group synchronously using Boto3.
+
+    :param subnet_group_name: The name of the DB subnet group to delete.
+    """
+    delete_group_request = {
+        'DBSubnetGroupName': subnet_group_name
+    }
+    neptune_client.delete_db_subnet_group(**delete_group_request)
+    print(f"️ Deleting Subnet Group: {subnet_group_name}")
+# snippet-end:[neptune.python.delete.subnet.group.main]
 
 def wait_for_cluster_status(
         neptune_client,
@@ -149,7 +158,7 @@ def wait_for_cluster_status(
 
         time.sleep(poll_interval_seconds)
 
-
+# snippet-start:[neptune.python.start.cluster.main]
 def start_db_cluster(neptune_client, cluster_identifier):
     """
     Starts an Amazon Neptune DB cluster.
@@ -159,6 +168,8 @@ def start_db_cluster(neptune_client, cluster_identifier):
         cluster_identifier (str): The identifier of the DB cluster to start.
     """
 
+    time.sleep(30)
+
     # Create the request dictionary
     start_db_cluster_request = {
         'DBClusterIdentifier': cluster_identifier
@@ -167,8 +178,9 @@ def start_db_cluster(neptune_client, cluster_identifier):
     # Call the API to start the DB cluster
     neptune_client.start_db_cluster(**start_db_cluster_request)
     print(f"DB Cluster started: {cluster_identifier}")
+# snippet-end:[neptune.python.start.cluster.main]
 
-
+# snippet-start:[neptune.python.stop.cluster.main]
 def stop_db_cluster(neptune_client, cluster_identifier: str):
     """
     Stops an Amazon Neptune DB cluster.
@@ -186,8 +198,9 @@ def stop_db_cluster(neptune_client, cluster_identifier: str):
     # Call the API to stop the DB cluster
     neptune_client.stop_db_cluster(**stop_db_cluster_request)
     print(f"DB Cluster stopped: {cluster_identifier}")
+# snippet-end:[neptune.python.stop.cluster.main]
 
-
+# snippet-start:[neptune.python.describe.cluster.main]
 def describe_db_clusters(neptune_client, cluster_id: str):
     """
     Describes the details of a specific Neptune DB cluster.
@@ -224,7 +237,7 @@ def describe_db_clusters(neptune_client, cluster_id: str):
         print(f"Preferred Backup Window: {cluster.get('PreferredBackupWindow')}")
         print(f"Preferred Maintenance Window: {cluster.get('PreferredMaintenanceWindow')}")
         print("------")
-
+# snippet-end:[neptune.python.describe.cluster.main]
 
 def check_instance_status(neptune_client, instance_id: str, desired_status: str):
     start_time = time.time()
@@ -251,7 +264,7 @@ def check_instance_status(neptune_client, instance_id: str, desired_status: str)
 
         time.sleep(POLL_INTERVAL_SECONDS)
 
-
+# snippet-start:[neptune.python.create.dbinstance.main]
 def create_db_instance(neptune_client, db_instance_id: str, db_cluster_id: str) -> str:
     create_db_instance_request = {
         'DBInstanceIdentifier': db_instance_id,
@@ -268,8 +281,9 @@ def create_db_instance(neptune_client, db_instance_id: str, db_cluster_id: str) 
     instance_id = instance['DBInstanceIdentifier']
     print(f"Created Neptune DB Instance: {instance_id}")
     return instance_id
+# snippet-end:[neptune.python.create.dbinstance.main]
 
-
+# snippet-start:[neptune.python.create.cluster.main]
 def create_db_cluster(neptune_client, db_name: str) -> str:
     create_db_cluster_request = {
         'DBClusterIdentifier': db_name,
@@ -286,7 +300,7 @@ def create_db_cluster(neptune_client, db_name: str) -> str:
     cluster_id = cluster['DBClusterIdentifier']
     print(f"DB Cluster created: {cluster_id}")
     return cluster_id
-
+# snippet-end:[neptune.python.create.cluster.main]
 
 def get_subnet_ids(vpc_id: str) -> list[str]:
     ec2_client = boto3.client('ec2')
@@ -316,6 +330,7 @@ def get_default_vpc_id() -> str:
     return default_vpc_id
 
 
+# snippet-start:[neptune.python.create.subnet.main]
 def create_subnet_group(neptune_client, group_name: str):
     vpc_id = get_default_vpc_id()
     subnet_ids = get_subnet_ids(vpc_id)
@@ -334,7 +349,7 @@ def create_subnet_group(neptune_client, group_name: str):
 
     print(f"Subnet group created: {name}")
     print(f"ARN: {arn}")
-
+# snippet-end:[neptune.python.create.subnet.main]
 
 def wait_for_input_to_continue():
     while True:
@@ -410,6 +425,7 @@ def run_scenario(neptune_client, subnet_group_name: str, db_instance_id: str, cl
         delete_db_instance(neptune_client, db_instance_id)
         wait_until_instance_deleted(neptune_client, db_instance_id)
         delete_db_cluster(neptune_client, db_cluster_id)
+        delete_db_subnet_group(neptune_client, subnet_group_name)
         print("Neptune resources deleted successfully")
 
     print("-" * 88)
@@ -420,9 +436,9 @@ def main():
 
     # Customize the following names to match your Neptune setup
     # (You must change these to unique values for your environment)
-    subnet_group_name = "neptuneSubnetGroup75"
-    cluster_name = "neptuneCluster75"
-    db_instance_id = "neptuneDB75"
+    subnet_group_name = "neptuneSubnetGroup78"
+    cluster_name = "neptuneCluster78"
+    db_instance_id = "neptuneDB78"
 
     print("""
 Amazon Neptune is a fully managed graph database service by AWS...
