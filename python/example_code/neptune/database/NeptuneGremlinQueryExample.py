@@ -1,9 +1,12 @@
+#  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#  SPDX-License-Identifier: Apache-2.0
+
 import boto3
 from botocore.config import Config
 from botocore.exceptions import BotoCoreError, ClientError
 
 """
-Example: Running a Gremlin PROFILE query using the AWS SDK for Python (Boto3).
+Running this example.
 
 ----------------------------------------------------------------------------------
 VPC Networking Requirement:

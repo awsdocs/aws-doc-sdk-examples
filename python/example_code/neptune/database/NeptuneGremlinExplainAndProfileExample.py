@@ -6,7 +6,7 @@ from botocore.config import Config
 from botocore.exceptions import BotoCoreError, ClientError
 
 """
-Example: Running a Gremlin PROFILE query using the AWS SDK for Python (Boto3).
+Running this example.
 
 ----------------------------------------------------------------------------------
 VPC Networking Requirement:
