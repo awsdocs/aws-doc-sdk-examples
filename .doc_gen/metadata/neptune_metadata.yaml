@@ -5,6 +5,14 @@ neptune_Hello:
   synopsis: get started using &neptune;.
   category: Hello
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.hello.main
     Java:
       versions:
         - sdk_version: 2
