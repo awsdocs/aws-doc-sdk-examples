@@ -53,9 +53,11 @@ def create_knowledge_base(bedrock_agent_client, name, role_arn, description=None
             },
             "storageConfiguration": {
                 "type": "OPENSEARCH_SERVERLESS",
+                # Note: You will need to create an OpenSearch Serverless collection first and replace this ARN
+                # with your actual collection ARN from the OpenSearch console. If you use the console instead,
+                # you can use the quick-create flow to have Knowledge Bases create the collection for you.
                 "opensearchServerlessConfiguration": {
                     "collectionArn": "arn:aws:aoss:us-east-1::123456789012:collection/abcdefgh12345678defgh",
-                    "fieldMapping": {
                         "metadataField": "metadata",
                         "textField": "text",
                         "vectorField": "vector"
