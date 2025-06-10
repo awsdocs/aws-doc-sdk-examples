@@ -6,7 +6,7 @@ const BEDROCK_AGENT_ALIAS_ID: &str = "AVKP1ITZAA";
 
 #[::tokio::main]
 async fn main() -> Result<(), Box<bedrockagentruntime::Error>> {
-    let result = invoke_bedrock_agent("a prompt".to_string(), "random session id".to_string()).await?;
+    let result = invoke_bedrock_agent("I need help.".to_string(), "123".to_string()).await?;
     println!("{}", result);
     Ok(())
 }
@@ -20,7 +20,8 @@ async fn invoke_bedrock_agent(prompt: String, session_id: String) -> Result<Stri
         .agent_id(BEDROCK_AGENT_ID)
         .agent_alias_id(BEDROCK_AGENT_ALIAS_ID)
         .session_id(session_id)
-        .input_text(prompt);
+        .input_text(prompt)
+        .enable_trace(false);
 
     let response = command_builder.send().await?;
 
