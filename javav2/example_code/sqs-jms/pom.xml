@@ -83,7 +83,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>6.1.14</version>  <!-- Use the latest compatible version -->
+            <version>6.1.20</version>  <!-- Use the latest compatible version -->
         </dependency>
 
         <!-- Spring Beans (Required for bean configuration) -->
