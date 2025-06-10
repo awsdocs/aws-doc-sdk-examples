@@ -9,7 +9,7 @@ members = [
     "aurora",
     "auto-scaling",
     "autoscalingplans",
-    "batch",
+    "batch", "bedrock-agent-runtime",
     "bedrock-runtime",
     "cloudformation",
     "cloudwatch",
