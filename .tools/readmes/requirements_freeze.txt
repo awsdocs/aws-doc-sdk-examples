@@ -22,7 +22,7 @@ pyflakes==3.1.0
 Pygments==2.19.1
 pytest==8.0.0
 PyYAML==6.0.1
-requests==2.32.0
+requests==2.32.4
 rich==13.9.4
 shellingham==1.5.4
 typer==0.15.1
