@@ -4,7 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = "1.0.98"
 aws-config = "1.6.3"
 aws-sdk-bedrockagentruntime = "1.98.0"
 tokio = { version = "1.45.1", features = ["full"] }
