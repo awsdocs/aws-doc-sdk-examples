@@ -5,13 +5,14 @@ const BEDROCK_AGENT_ID: &str = "AJBHXXILZN";
 const BEDROCK_AGENT_ALIAS_ID: &str = "AVKP1ITZAA";
 
 #[::tokio::main]
-async fn main() -> Result<(), bedrockagentruntime::Error> {
+async fn main() -> Result<(), Box<bedrockagentruntime::Error>> {
     let result = invoke_bedrock_agent("a prompt".to_string(), "random session id".to_string()).await?;
-    Ok(println!("{}",result))
+    println!("{}", result);
+    Ok(())
 }
 
 async fn invoke_bedrock_agent(prompt: String, session_id: String) -> Result<String, bedrockagentruntime::Error> {
-    let aws_config: SdkConfig = aws_config::load_from_env().await;
+    let aws_config: SdkConfig = aws_config::load_defaults(BehaviorVersion::latest()).await;
     let bedrock_client = bedrockagentruntime::Client::new(&aws_config);
 
     let command_builder = bedrock_client
