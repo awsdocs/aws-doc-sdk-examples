@@ -3,8 +3,9 @@ use aws_sdk_bedrockagentruntime::{self as bedrockagentruntime, types::ResponseSt
 
 const BEDROCK_AGENT_ID: &str = "AJBHXXILZN";
 const BEDROCK_AGENT_ALIAS_ID: &str = "AVKP1ITZAA";
+const BEDROCK_AGENT_REGION: &str = "us-east-1";
 
-#[::tokio::main]
+#[tokio::main]
 async fn main() -> Result<(), Box<bedrockagentruntime::Error>> {
     let result = invoke_bedrock_agent("I need help.".to_string(), "123".to_string()).await?;
     println!("{}", result);
@@ -12,16 +13,18 @@ async fn main() -> Result<(), Box<bedrockagentruntime::Error>> {
 }
 
 async fn invoke_bedrock_agent(prompt: String, session_id: String) -> Result<String, bedrockagentruntime::Error> {
-    let aws_config: SdkConfig = aws_config::load_defaults(BehaviorVersion::latest()).await;
-    let bedrock_client = bedrockagentruntime::Client::new(&aws_config);
+    let sdk_config: SdkConfig = aws_config::defaults(BehaviorVersion::latest())
+        .region(BEDROCK_AGENT_REGION)
+        .load()
+        .await;
+    let bedrock_client = bedrockagentruntime::Client::new(&sdk_config);
 
     let command_builder = bedrock_client
         .invoke_agent()
         .agent_id(BEDROCK_AGENT_ID)
         .agent_alias_id(BEDROCK_AGENT_ALIAS_ID)
         .session_id(session_id)
-        .input_text(prompt)
-        .enable_trace(false);
+        .input_text(prompt);
 
     let response = command_builder.send().await?;
 
@@ -29,7 +32,7 @@ async fn invoke_bedrock_agent(prompt: String, session_id: String) -> Result<Stri
     let mut full_agent_text_response = String::new();
 
     println!("Processing Bedrock agent response stream...");
-    while let Some(event_result) = response_stream.recv().await.unwrap() {
+    while let Some(event_result) = response_stream.recv().await? {
         match event_result {
             ResponseStream::Chunk(chunk) => {
                 if let Some(bytes) = chunk.bytes {
@@ -39,7 +42,7 @@ async fn invoke_bedrock_agent(prompt: String, session_id: String) -> Result<Stri
                         }
                         Err(e) => {
                             eprintln!("UTF-8 decoding error for chunk: {}", e);
-                        }
+                          }
                     }
                 }
             }
@@ -51,3 +54,5 @@ async fn invoke_bedrock_agent(prompt: String, session_id: String) -> Result<Stri
 
     Ok(full_agent_text_response)
 }
+
+
