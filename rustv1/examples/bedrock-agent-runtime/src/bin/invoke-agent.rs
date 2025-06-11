@@ -12,10 +12,7 @@ async fn main() -> Result<(), Box<bedrockagentruntime::Error>> {
     Ok(())
 }
 
-async fn invoke_bedrock_agent(
-    prompt: String,
-    session_id: String,
-) -> Result<String, bedrockagentruntime::Error> {
+async fn invoke_bedrock_agent(prompt: String, session_id: String) -> Result<String, bedrockagentruntime::Error> {
     let sdk_config: SdkConfig = aws_config::defaults(BehaviorVersion::latest())
         .region(BEDROCK_AGENT_REGION)
         .load()
@@ -45,7 +42,7 @@ async fn invoke_bedrock_agent(
                         }
                         Err(e) => {
                             eprintln!("UTF-8 decoding error for chunk: {}", e);
-                        }
+                          }
                     }
                 }
             }
@@ -57,3 +54,5 @@ async fn invoke_bedrock_agent(
 
     Ok(full_agent_text_response)
 }
+
+
