@@ -35,6 +35,7 @@
 import ArgumentParser
 import AWSS3
 import Foundation
+import Smithy
 
 // snippet-start:[swift.glue.import]
 import AWSClientRuntime
@@ -146,8 +147,11 @@ struct ExampleCommand: ParsableCommand {
     
     /// Called by ``main()`` to run the bulk of the example.
     func runAsync() async throws {
-        let config = try await GlueClient.GlueClientConfiguration(region: awsRegion)
-        let glueClient = GlueClient(config: config)
+        let glueConfig = try await GlueClient.GlueClientConfiguration(region: awsRegion)
+        let glueClient = GlueClient(config: glueConfig)
+
+        let s3Config = try await S3Client.S3ClientConfiguration(region: awsRegion)
+        let s3Client = S3Client(config: s3Config)
 
         print("Welcome to the AWS SDK for Swift basic scenario for AWS Glue!")
 
@@ -173,6 +177,65 @@ struct ExampleCommand: ParsableCommand {
         // 0. Upload the Python script to the target bucket so it's available
         //    for use by the Amazon Glue service.
         //=====================================================================
+    
+        do {
+            print("Uploading the Python script: \(script) as key \(scriptName)")
+            print("Destination bucket: \(bucket)")
+
+            let fileData = try Data(contentsOf: URL(fileURLWithPath: script))
+            let dataStream = ByteStream.data(fileData)
+            _ = try await s3Client.putObject(
+                input: PutObjectInput(
+                    body: dataStream,
+                    bucket: bucket,
+                    key: scriptName
+                )
+            )
+        } catch {
+            print("*** An unexpected error occurred uploading the script to the Amazon S3 bucket \"\(bucket)\".")
+            return
+        }
+
+        //=====================================================================
+        // 1. Create the database and crawler. This also creates the database
+        //    named `databaseName`.
+        //=====================================================================
+
+        print("Creating crawler \"\(crawlerName)\"...")
+
+        let s3Target = GlueClientTypes.S3Target(path: s3url)
+        let targetList = GlueClientTypes.CrawlerTargets(s3Targets: [s3Target])
+
+        do {
+            _ = try await glueClient.createCrawler(
+                input: CreateCrawlerInput(
+                    databaseName: databaseName,
+                    description: "Created by the AWS SDK for Swift Scenario Example for AWS Glue.",
+                    name: crawlerName,
+                    role: role,
+                    schedule: cron,
+                    tablePrefix: tablePrefix,
+                    targets: targetList
+                )
+            )
+        } catch _ as AlreadyExistsException {
+            print("*** A crawler named \"\(crawlerName)\" already exists.")
+            return
+        } catch _ as OperationTimeoutException {
+            print("*** The attempt to create the AWS Glue crawler timed out.")
+            return
+        } catch {
+            print("*** An unexpected error occurred creating the AWS Glue crawler: \(error.localizedDescription)")
+            return
+        }
+
+        //=====================================================================
+        // 2. Start the crawler, then call `getCaller()` in a loop to wait for
+        //    it to be ready.
+        //=====================================================================
+
+        print("Starting the crawler and waiting until it's ready...")
+
     }
 }
 
