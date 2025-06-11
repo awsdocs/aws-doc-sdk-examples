@@ -61,7 +61,7 @@ The Amazon Neptune Basics scenario executes the following operations.
 
 4. **Check the status of the Neptune DB Instance**:
    - Description: Check the status of the DB instance by invoking `describeDBInstances`. Poll the instance until it reaches an `availbale`state. 
-   - Exception Handling: This operatioin handles a `CompletionException`. If thrown,  display the message and end the program.
+   - Exception Handling: This operatioin handles a `ResourceNotFoundException`. If thrown,  display the message and end the program. 
 
 5. **Show Neptune Cluster details**:
    - Description: Shows the details of the cluster by invoking `describeDBClusters`.
