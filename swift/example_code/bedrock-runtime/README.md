@@ -27,6 +27,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 
 <!--custom.prerequisites.start-->
+> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console)
+> before you have requested access to it, you will receive an error message. For more information,
+> see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 <!--custom.prerequisites.end-->
 ### Amazon Nova
 
@@ -37,6 +40,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 - [Converse](models/anthropic_claude/Sources/Converse/main.swift#L4)
 - [ConverseStream](models/anthropic_claude/Sources/ConverseStream/main.swift#L4)
+
+### Meta Llama
+
+- [Converse](models/meta_llama/Sources/Converse/main.swift#L4)
+- [ConverseStream](models/meta_llama/Sources/ConverseStream/main.swift#L4)
 
 
 <!--custom.examples.start-->
