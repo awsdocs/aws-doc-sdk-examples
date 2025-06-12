@@ -572,6 +572,7 @@ def run_scenario(neptune_client, subnet_group_name: str, db_instance_id: str, cl
         print(f" Unexpected error: {e}")
     print("-" * 88)
 
+    print("-" * 88)
     print("3. Create a Neptune DB Instance")
     wait_for_input_to_continue()
     try:
