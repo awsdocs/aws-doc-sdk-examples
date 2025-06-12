@@ -53,6 +53,8 @@ Hello, AWS Control Tower! Let's list available baselines:
 #### Setup
 - List available landing zones, and prompt the user if they would like to use the first or other landing zone.
 - If no landing zones, provide a link to set up a landing zone and only use the list operations that do not require a target id.
+- For the selected landing zone, the control tower actions may require the arn of the target organizational id. To get it, find the
+- Sandbox organizational unit inside the root organization, or create it, and store the id of that OU for the other calls.
 
 Example
 ```
