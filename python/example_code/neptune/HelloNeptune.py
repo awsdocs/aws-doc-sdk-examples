@@ -6,15 +6,15 @@ import boto3
 
 def describe_db_clusters(neptune_client):
     """
-    Describes the Amazon Neptune DB clusters synchronously using a single call.
+    Describes the Amazon Neptune DB clusters using a paginator to handle multiple pages.
 
     :param neptune_client: Boto3 Neptune client
     """
-    response = neptune_client.describe_db_clusters()
-    for cluster in response.get("DBClusters", []):
-        print(f"Cluster Identifier: {cluster['DBClusterIdentifier']}")
-        print(f"Status: {cluster['Status']}")
-
+    paginator = neptune_client.get_paginator("describe_db_clusters")
+    for page in paginator.paginate():
+        for cluster in page.get("DBClusters", []):
+            print(f"Cluster Identifier: {cluster['DBClusterIdentifier']}")
+            print(f"Status: {cluster['Status']}")
 
 def main():
     """
@@ -28,4 +28,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 # snippet-end:[neptune.python.hello.main]
