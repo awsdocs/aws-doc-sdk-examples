@@ -1,0 +1,105 @@
+Parameters:
+  ParentOrganizationId:
+    Type: String
+    Description: Parent organization ID
+Resources:
+  InfrastructureOU2:
+    Type: AWS::Organizations::OrganizationalUnit
+    Properties:
+      Name: Infrastructure2
+      ParentId: !Ref ParentOrganizationId
+  SecurityOU2:
+    Type: AWS::Organizations::OrganizationalUnit
+    Properties:
+      Name: Security2
+      ParentId: !Ref ParentOrganizationId
+  AWSControlTowerAdmin:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: AWSControlTowerAdmin
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: controltower.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Path: '/service-role/'
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSControlTowerServiceRolePolicy
+  AWSControlTowerAdminPolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: AWSControlTowerAdminPolicy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: 'ec2:DescribeAvailabilityZones'
+            Resource: '*'
+      Roles:
+        - !Ref AWSControlTowerAdmin
+  AWSControlTowerCloudTrailRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: AWSControlTowerCloudTrailRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: cloudtrail.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Path: '/service-role/'
+  AWSControlTowerCloudTrailRolePolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: AWSControlTowerCloudTrailRolePolicy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 'logs:CreateLogStream'
+              - 'logs:PutLogEvents'
+            Resource: !Sub arn:${AWS::Partition}:logs:*:*:log-group:aws-controltower/CloudTrailLogs:*
+            Effect: Allow
+      Roles:
+        - !Ref AWSControlTowerCloudTrailRole
+  AWSControlTowerConfigAggregatorRoleForOrganizations:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: AWSControlTowerConfigAggregatorRoleForOrganizations
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: config.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Path: '/service-role/'
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSConfigRoleForOrganizations
+  AWSControlTowerStackSetRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: AWSControlTowerStackSetRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: cloudformation.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Path: '/service-role/'
+  AWSControlTowerStackSetRolePolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: AWSControlTowerStackSetRolePolicy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action: 'sts:AssumeRole'
+            Resource: !Sub 'arn:${AWS::Partition}:iam::*:role/AWSControlTowerExecution'
+            Effect: Allow
+      Roles:
+        - !Ref AWSControlTowerStackSetRole
