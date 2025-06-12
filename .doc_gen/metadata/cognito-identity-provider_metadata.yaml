@@ -429,6 +429,14 @@ cognito-identity-provider_ListUsers:
             - description:
               snippet_tags:
                 - javascript.v3.cognito-idp.actions.ListUsers
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/cognito-identity-provider
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.cognito-identity-provider.ListUsers
   services:
     cognito-identity-provider: {ListUsers}
 cognito-identity-provider_AdminInitiateAuth:

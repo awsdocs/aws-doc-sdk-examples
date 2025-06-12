@@ -33,10 +33,10 @@
 // 9. Invokes the AdminRespondToAuthChallenge to get back a token.
 
 import ArgumentParser
-import AWSClientRuntime
 import Foundation
 
 // snippet-start:[swift.cognito-identity-provider.import]
+import AWSClientRuntime
 import AWSCognitoIdentityProvider
 // snippet-end:[swift.cognito-identity-provider.import]
 
