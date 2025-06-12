@@ -4,7 +4,7 @@
 
 import logging
 import sys
-import datetime
+import time
 
 import boto3
 from botocore.exceptions import ClientError
@@ -48,9 +48,9 @@ class ControlTowerScenario:
         self.account_id = boto3.client("sts").get_caller_identity()["Account"]
 
         print("Some demo operations require the use of a landing zone. "
-              "You can use an existing landing zone or opt out of these operations in the demo."
-              "For instructions on how to set up a landing zone, "
-              "see https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-from-console.html")
+              "\nYou can use an existing landing zone or opt out of these operations in the demo."
+              "\nFor instructions on how to set up a landing zone, "
+              "\nsee https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-from-console.html")
         # List available landing zones
         landing_zones = self.controltower_wrapper.list_landing_zones()
         if landing_zones:
@@ -83,6 +83,7 @@ class ControlTowerScenario:
 
         # List and Enable Baseline.
         control_tower_baseline = None
+        identity_center_baseline = None
         baselines = self.controltower_wrapper.list_baselines()
         print("\nListing available Baselines:")
         for baseline in baselines:
@@ -91,16 +92,54 @@ class ControlTowerScenario:
             print(f"{baseline['name']}")
 
         if self.use_landing_zone:
-            print("\nEnabling Control Tower Baseline")
-            baseline_arn = self.controltower_wrapper.enable_baseline(
-                self.ou_arn,
-                control_tower_baseline['arn'],
-                '4.0'
+            print("\nListing enabled baselines:")
+            enabled_baselines = self.controltower_wrapper.list_enabled_baselines(
+                self.ou_arn
             )
-            if baseline_arn:
-                print(f"Enabled baseline ARN: {baseline_arn}")
-            else:
-                print("Baseline is already enabled for this target")
+            for baseline in enabled_baselines:
+                # If the Identity Center baseline is enabled, the identifier must be used for other baselines.
+                if 'baseline/LN25R72TTG6IGPTQ' in baseline['baselineIdentifier']:
+                    identity_center_baseline = baseline
+                print(f"{baseline['baselineIdentifier']}")
+
+            if q.ask(
+                    f"Do you want to enable the Control Tower Baseline? (y/n) ",
+                    q.is_yesno,
+            ):
+                print("\nEnabling Control Tower Baseline.")
+                baseline_arn = self.controltower_wrapper.enable_baseline(
+                    self.ou_arn,
+                    identity_center_baseline['arn'],
+                    control_tower_baseline['arn'],
+                    '4.0'
+                )
+                if baseline_arn:
+                    print(f"Enabled baseline ARN: {baseline_arn}")
+                else:
+                    for enabled_baseline in enabled_baselines:
+                        if enabled_baseline['arn'] == control_tower_baseline['arn']:
+                            control_tower_baseline = baseline
+                    print("No change, the selected baseline was already enabled.")
+
+                if q.ask(
+                        f"Do you want to reset the Control Tower Baseline? (y/n) ",
+                        q.is_yesno,
+                ):
+                    print("\nResetting Control Tower Baseline.")
+                    operation_id = self.controltower_wrapper.reset_enabled_baseline(
+                        baseline_arn
+                    )
+                    print(f"\nReset baseline operation id {operation_id}.")
+
+                if baseline_arn and q.ask(
+                        f"Do you want to disable the Control Tower Baseline? (y/n) ",
+                        q.is_yesno,
+                ):
+                    print(f"Disabling baseline ARN: {baseline_arn}")
+                    operation_id = self.controltower_wrapper.disable_baseline(
+                        baseline_arn
+                    )
+                    print(f"\nDisabled baseline operation id {operation_id}.")
 
         # List and Enable Controls.
         print("Managing Controls:")
@@ -110,36 +149,40 @@ class ControlTowerScenario:
             print(f"{i}. {control['Name']}")
 
         if self.use_landing_zone:
-            # Enable first control as an example.
-            control_arn = controls[0]['Arn']
+
+            enabled_controls = self.controltower_wrapper.list_enabled_controls()
+            print("\nListing enabled controls:")
+            for i, control in enabled_controls:
+                print(f"{i}. {control['Name']}")
+
+            # Enable first non-enabled control as an example.
+            enabled_control_arns = [control['Arn'] for control in enabled_controls]
+            control_arn = next(control['Arn'] for control in controls if control['Arn'] not in enabled_control_arns)
             target_ou = self.ou_arn
 
-            print(f"\nEnabling control: {controls[0]['Name']} {control_arn}")
-            operation_id = self.controltower_wrapper.enable_control(
-                control_arn, target_ou)
+            if control_arn and q.ask(
+                f"Do you want to enable the control {control_arn}? (y/n) ",
+                q.is_yesno,
+            ):
+                print(f"\nEnabling control: {control_arn}")
+                operation_id = self.controltower_wrapper.enable_control(
+                    control_arn, target_ou)
 
-            if operation_id:
-                print(f"Enabling control with operation id {operation_id}")
-            else:
-                print("Control is already enabled for this target")
-            # Wait for control operation to complete.
+                if operation_id:
+                    print(f"Enabled control with operation id {operation_id}")
+                else:
+                    print("Control is already enabled for this target")
 
-            if operation_id:
-                while True:
-                    status = self.controltower_wrapper.get_control_operation(operation_id)
-                    print(f"Control operation status: {status}")
-                    if status in ['SUCCEEDED', 'FAILED']:
-                        break
-                    datetime.time.sleep(30)
+            if q.ask(
+                    f"Do you want to disable the control? (y/n) ",
+                    q.is_yesno,
+            ):
+                print("\nDisabling the control...")
+                operation_id = self.controltower_wrapper.disable_control(
+                    control_arn, target_ou)
+                print(f"Disable operation ID: {operation_id}")
 
-                if status == 'SUCCEEDED':
-                    # Disable the control.
-                    print("\nDisabling the control...")
-                    operation_id = self.controltower_wrapper.disable_control(
-                        control_arn, target_ou)
-                    print(f"Disable operation ID: {operation_id}")
-
-            print("This concludes the scenario.")
+            print("This concludes the control tower scenario.")
 
             print("Thanks for watching!")
             print("-" * 88)

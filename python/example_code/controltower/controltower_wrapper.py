@@ -3,6 +3,7 @@
 
 import logging
 import boto3
+import time
 
 from botocore.exceptions import ClientError
 
@@ -31,61 +32,6 @@ class ControlTowerWrapper:
         return cls(controltower_client, controlcatalog_client)
 
     # snippet-end:[python.example_code.controltower.ControlTowerWrapper.decl]
-
-    # snippet-start:[python.example_code.controltower.SetupLandingZone]
-    def create_landing_zone(self, manifest):
-        """
-        Sets up a landing zone using the provided manifest.
-
-        :param manifest: The landing zone manifest containing configuration details.
-        :return: Dictionary containing the landing zone ARN and operation ID.
-        :raises ClientError: If the landing zone setup fails.
-
-        """
-        try:
-            response = self.controltower_client.create_landing_zone(
-                manifest=manifest,
-                version='3.3'
-            )
-            return response
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "AccessDeniedException":
-                logger.error("Access denied. Please ensure you have the necessary permissions.")
-            else:
-                logger.error(
-                    "Couldn't set up landing zone. Here's why: %s: %s",
-                    err.response["Error"]["Code"],
-                    err.response["Error"]["Message"]
-                )
-            raise
-
-    # snippet-end:[python.example_code.controltower.SetupLandingZone]
-
-    # snippet-start:[python.example_code.controltower.DeleteLandingZone]
-    def delete_landing_zone(self, landing_zone_identifier):
-        """
-        Deletes a landing zone by its identifier.
-
-        :param landing_zone_identifier: The landing zone identifier to delete.
-        :raises ClientError: If the landing zone delete fails.
-
-        """
-        try:
-            self.controltower_client.delete_landing_zone(
-                landingZoneIdentifier=landing_zone_identifier
-            )
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                logger.error("Landing zone not found.")
-            else:
-                logger.error(
-                    "Couldn't delete landing zone. Here's why: %s: %s",
-                    err.response["Error"]["Code"],
-                    err.response["Error"]["Message"]
-                )
-            raise
-
-    # snippet-end:[python.example_code.controltower.DeleteLandingZone]
 
     # snippet-start:[python.example_code.controltower.ListBaselines]
     def list_baselines(self):
@@ -116,12 +62,13 @@ class ControlTowerWrapper:
     # snippet-end:[python.example_code.controltower.ListBaselines]
 
     # snippet-start:[python.example_code.controltower.EnableBaseline]
-    def enable_baseline(self, target_identifier, baseline_identifier, baseline_version):
+    def enable_baseline(self, target_identifier, identity_center_baseline, baseline_identifier, baseline_version):
         """
         Enables a baseline for the specified target if it's not already enabled.
 
         :param target_identifier: The ARN of the target.
         :param baseline_identifier: The identifier of baseline to enable.
+        :param identity_center_baseline: The identifier of identity center baseline if it is enabled.
         :param baseline_version: The version of baseline to enable.
         :return: The enabled baseline ARN or None if already enabled.
         :raises ClientError: If enabling the baseline fails for reasons other than it being already enabled.
@@ -130,13 +77,29 @@ class ControlTowerWrapper:
             response = self.controltower_client.enable_baseline(
                 baselineIdentifier=baseline_identifier,
                 baselineVersion=baseline_version,
-                targetIdentifier=target_identifier
+                targetIdentifier=target_identifier,
+                parameters=[
+                    {
+                        "key": "IdentityCenterEnabledBaselineArn",
+                        "value": identity_center_baseline
+                    }
+                ]
             )
+
+            operation_id = response['operationIdentifier']
+            while True:
+                status = self.get_baseline_operation(operation_id)
+                print(f"Baseline operation status: {status}")
+                if status in ['SUCCEEDED', 'FAILED']:
+                    break
+                time.sleep(30)
+
             return response['arn']
         except ClientError as err:
             if err.response["Error"]["Code"] == "ValidationException":
                 if "already enabled" in err.response["Error"]["Message"]:
                     print("Baseline is already enabled for this target")
+                    return None
                 else:
                     print("Unable to enable baseline due to validation exception: %s: %s",
                           err.response["Error"]["Code"],
@@ -194,7 +157,16 @@ class ControlTowerWrapper:
                 controlIdentifier=control_arn,
                 targetIdentifier=target_identifier
             )
-            return response['operationIdentifier']
+
+            operation_id = response['operationIdentifier']
+            while True:
+                status = self.get_control_operation(operation_id)
+                print(f"Control operation status: {status}")
+                if status in ['SUCCEEDED', 'FAILED']:
+                    break
+                time.sleep(30)
+
+            return operation_id
 
         except ClientError as err:
             if (err.response["Error"]["Code"] == "ValidationException" and
@@ -227,7 +199,7 @@ class ControlTowerWrapper:
             return response['controlOperation']['status']
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                logger.error("Control not found.")
+                logger.error("Operation not found.")
             else:
                 logger.error(
                     "Couldn't get control operation status. Here's why: %s: %s",
@@ -237,6 +209,33 @@ class ControlTowerWrapper:
             raise
 
     # snippet-end:[python.example_code.controltower.GetControlOperation]
+
+    # snippet-start:[python.example_code.controltower.GetBaselineOperation]
+    def get_baseline_operation(self, operation_id):
+        """
+        Gets the status of a baseline operation.
+
+        :param operation_id: The ID of the baseline operation.
+        :return: The operation status.
+        :raises ClientError: If getting the operation status fails.
+        """
+        try:
+            response = self.controltower_client.get_baseline_operation(
+                operationIdentifier=operation_id
+            )
+            return response['baselineOperation']['status']
+        except ClientError as err:
+            if err.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error("Operation not found.")
+            else:
+                logger.error(
+                    "Couldn't get baseline operation status. Here's why: %s: %s",
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"]
+                )
+            raise
+
+    # snippet-end:[python.example_code.controltower.GetBaselineOperation]
 
     # snippet-start:[python.example_code.controltower.DisableControl]
     def disable_control(self, control_arn, target_identifier):
@@ -253,7 +252,16 @@ class ControlTowerWrapper:
                 controlIdentifier=control_arn,
                 targetIdentifier=target_identifier
             )
-            return response['operationIdentifier']
+
+            operation_id = response['operationIdentifier']
+            while True:
+                status = self.get_control_operation(operation_id)
+                print(f"Control operation status: {status}")
+                if status in ['SUCCEEDED', 'FAILED']:
+                    break
+                time.sleep(30)
+
+            return operation_id
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
                 logger.error("Control not found.")
@@ -266,33 +274,6 @@ class ControlTowerWrapper:
             raise
 
     # snippet-end:[python.example_code.controltower.DisableControl]
-
-    # snippet-start:[python.example_code.controltower.GetLandingZoneOperation]
-    def get_landing_zone_operation(self, operation_id):
-        """
-        Gets the status of a landing zone operation.
-
-        :param operation_id: The ID of the landing zone operation.
-        :return: The operation status.
-        :raises ClientError: If getting the operation status fails.
-        """
-        try:
-            response = self.controltower_client.get_landing_zone_operation(
-                operationIdentifier=operation_id
-            )
-            return response['operationDetails']['status']
-        except ClientError as err:
-            if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                logger.error("Landing zone not found.")
-            else:
-                logger.error(
-                    "Couldn't get landing zone operation status. Here's why: %s: %s",
-                    err.response["Error"]["Code"],
-                    err.response["Error"]["Message"]
-                )
-            raise
-
-# snippet-end:[python.example_code.controltower.GetLandingZoneOperation]
 
     # snippet-start:[python.example_code.controltower.ListLandingZones]
     def list_landing_zones(self):
@@ -333,66 +314,87 @@ class ControlTowerWrapper:
         try:
             paginator = self.controltower_client.get_paginator('list_enabled_baselines')
             enabled_baselines = []
-            for page in paginator.paginate(targetIdentifier=target_identifier):
+            for page in paginator.paginate():
                 enabled_baselines.extend(page['enabledBaselines'])
             return enabled_baselines
 
         except ClientError as err:
-            logger.error(
-                "Couldn't list enabled baselines. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"]
-            )
+            if err.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error("Target not found.")
+            else:
+                logger.error(
+                    "Couldn't list enabled baselines. Here's why: %s: %s",
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"]
+                )
             raise
     # snippet-end:[python.example_code.controltower.ListEnabledBaselines]
     
     # snippet-start:[python.example_code.controltower.ResetEnabledBaseline]
-    def reset_enabled_baseline(self, target_identifier, baseline_identifier):
+    def reset_enabled_baseline(self, enabled_baseline_identifier):
         """
         Resets an enabled baseline for a specific target.
 
-        :param target_identifier: The identifier of the target (e.g., OU ARN).
-        :param baseline_identifier: The identifier of the baseline to reset.
+        :param enabled_baseline_identifier: The identifier of the enabled baseline to reset.
         :return: The operation ID.
         :raises ClientError: If resetting the baseline fails.
         """
         try:
             response = self.controltower_client.reset_enabled_baseline(
-                targetIdentifier=target_identifier,
-                baselineIdentifier=baseline_identifier
+                enabledBaselineIdentifier=enabled_baseline_identifier
             )
-            return response['operationIdentifier']
+            operation_id = response['operationIdentifier']
+            while True:
+                status = self.get_baseline_operation(operation_id)
+                print(f"Baseline operation status: {status}")
+                if status in ['SUCCEEDED', 'FAILED']:
+                    break
+                time.sleep(30)
+            return operation_id
         except ClientError as err:
-            logger.error(
-                "Couldn't reset enabled baseline. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"]
-            )
+            if err.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error("Target not found.")
+            else:
+                logger.error(
+                    "Couldn't reset enabled baseline. Here's why: %s: %s",
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"]
+                )
             raise
     # snippet-end:[python.example_code.controltower.ResetEnabledBaseline]
     
     # snippet-start:[python.example_code.controltower.DisableBaseline]
-    def disable_baseline(self, target_identifier, baseline_identifier):
+    def disable_baseline(self, enabled_baseline_identifier):
         """
-        Disables a baseline for a specific target.
+        Disables a baseline for a specific target and waits for the operation to complete.
 
-        :param target_identifier: The identifier of the target (e.g., OU ARN).
-        :param baseline_identifier: The identifier of the baseline to disable.
+        :param enabled_baseline_identifier: The identifier of the baseline to disable.
         :return: The operation ID.
         :raises ClientError: If disabling the baseline fails.
         """
         try:
             response = self.controltower_client.disable_baseline(
-                targetIdentifier=target_identifier,
-                baselineIdentifier=baseline_identifier
+                enabledBaselineIdentifier=enabled_baseline_identifier
             )
+
+            operation_id = response['operationIdentifier']
+            while True:
+                status = self.get_baseline_operation(operation_id)
+                print(f"Baseline operation status: {status}")
+                if status in ['SUCCEEDED', 'FAILED']:
+                    break
+                time.sleep(30)
+
             return response['operationIdentifier']
         except ClientError as err:
-            logger.error(
-                "Couldn't disable baseline. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"]
-            )
+            if err.response["Error"]["Code"] == "ResourceNotFoundException":
+                logger.error("Target not found.")
+            else:
+                logger.error(
+                    "Couldn't disable baseline. Here's why: %s: %s",
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"]
+                )
             raise
     # snippet-end:[python.example_code.controltower.DisableBaseline]
     
@@ -413,11 +415,14 @@ class ControlTowerWrapper:
             return enabled_controls
 
         except ClientError as err:
-            logger.error(
-                "Couldn't list enabled controls. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"]
-            )
+            if err.response["Error"]["Code"] == "AccessDeniedException":
+                logger.error("Access denied. Please ensure you have the necessary permissions.")
+            else:
+                logger.error(
+                    "Couldn't list enabled controls. Here's why: %s: %s",
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"]
+                )
             raise
     # snippet-end:[python.example_code.controltower.ListEnabledControls]
 
