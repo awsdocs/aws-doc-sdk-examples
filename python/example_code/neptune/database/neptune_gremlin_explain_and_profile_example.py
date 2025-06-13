@@ -32,7 +32,6 @@ def main():
 
     neptune_client = boto3.client(
         "neptunedata",
-        region_name="us-east-1",
         endpoint_url=NEPTUNE_ENDPOINT,
         config=config
     )

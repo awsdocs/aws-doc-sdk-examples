@@ -3,7 +3,7 @@ import pytest
 from unittest.mock import MagicMock
 from botocore.exceptions import ClientError, EndpointConnectionError
 
-from database.GremlinProfileQueryExample import execute_gremlin_profile_query  # Adjust path as needed
+from database.gremlin_profile_query_example import execute_gremlin_profile_query  # Adjust path as needed
 
 
 def test_execute_gremlin_profile_query(capfd):

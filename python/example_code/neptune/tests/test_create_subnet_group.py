@@ -4,7 +4,7 @@
 import pytest
 from unittest.mock import MagicMock, patch
 from botocore.exceptions import ClientError
-from NeptuneScenario import create_subnet_group  # Adjust the import path as necessary
+from neptune_scenario import create_subnet_group  # Adjust the import path as necessary
 
 # Mocking external functions to isolate the unit test
 @patch("NeptuneScenario.get_subnet_ids")

@@ -21,14 +21,13 @@ It does not expose a public endpoint, so this code must be executed from:
 """
 
 GRAPH_NAME = "sample-analytics-graph"
-REGION = "us-east-1"
 
 def main():
     """
     Main entry point: create NeptuneGraph client and call graph creation.
     """
     # Hypothetical client - boto3 currently doesn't have NeptuneGraph client, so replace with actual client if available
-    neptune_graph_client = boto3.client("neptune", region_name=REGION)
+    neptune_graph_client = boto3.client("neptune")
 
     execute_create_graph(neptune_graph_client, GRAPH_NAME)
 

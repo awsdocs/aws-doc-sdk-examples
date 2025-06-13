@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock
 from botocore.exceptions import ClientError, BotoCoreError
-from analytics.CreateNeptuneGraphExample import execute_create_graph  # Adjust import based on your file structure
+from analytics.create_neptune_graph_example import execute_create_graph  # Adjust import based on your file structure
 
 
 def test_execute_create_graph(capfd):

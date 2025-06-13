@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock, patch
 from botocore.exceptions import ClientError
-from NeptuneScenario import check_instance_status
+from neptune_scenario import check_instance_status
 
 
 @patch("NeptuneScenario.time.sleep", return_value=None)

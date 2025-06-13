@@ -6,7 +6,7 @@ import pytest
 from unittest.mock import MagicMock, patch
 from botocore.exceptions import ClientError
 
-from NeptuneScenario import start_db_cluster  # Update import if needed
+from neptune_scenario import start_db_cluster  # Update import if needed
 
 # Speed up test runs
 POLL_INTERVAL_SECONDS = 0.1

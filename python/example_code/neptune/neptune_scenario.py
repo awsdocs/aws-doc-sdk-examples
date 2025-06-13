@@ -14,7 +14,6 @@ TIMEOUT_SECONDS = 1200  # 20 minutes
 # snippet-start:[neptune.python.delete.cluster.main]
 from botocore.exceptions import ClientError
 
-
 def delete_db_cluster(neptune_client, cluster_id: str):
     """
     Deletes a Neptune DB cluster and throws exceptions to the caller.

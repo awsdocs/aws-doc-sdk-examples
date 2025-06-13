@@ -22,13 +22,11 @@ It does not expose a public endpoint, so this code must be executed from:
 
 NEPTUNE_ANALYTICS_ENDPOINT = "https://<your-neptune-analytics-endpoint>:8182"
 GRAPH_ID = "<your-graph-id>"
-REGION = "us-east-1"
 
 def main():
     # Build the boto3 client for neptune-graph with endpoint override
     client = boto3.client(
         "neptune-graph",
-        region_name=REGION,
         endpoint_url=NEPTUNE_ANALYTICS_ENDPOINT
     )
 

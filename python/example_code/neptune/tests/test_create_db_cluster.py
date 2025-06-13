@@ -5,7 +5,7 @@ import pytest
 from unittest.mock import MagicMock
 from botocore.exceptions import ClientError
 
-from NeptuneScenario import create_db_cluster  # Replace with your actual module path
+from neptune_scenario import create_db_cluster  # Replace with your actual module path
 
 def test_create_db_cluster():
     """
