@@ -41,7 +41,9 @@ The key advantage of the `NeptuneAsyncClient` is its ability to provide fine-gra
 This Basics scenario does not require any additional AWS resources. 
 
 ## Hello Amazon Neptune
-This program is intended for users not familiar with Amazon Neptune to easily get up and running. The program invokes `describeDBClustersPaginator`to iterate through subnet groups. 
+This program is intended for users not familiar with Amazon Neptune to easily get up and running. The program invokes `describeDBClustersPaginator`to iterate through subnet groups. '
+
+Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. 
 
 ## Basics Scenario Program Flow
 The Amazon Neptune Basics scenario executes the following operations.
