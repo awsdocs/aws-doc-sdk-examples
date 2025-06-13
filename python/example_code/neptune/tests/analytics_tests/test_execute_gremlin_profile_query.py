@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock
 from botocore.exceptions import ClientError
-from analytics.NeptuneAnalyticsQueryExample import execute_gremlin_profile_query  # adjust this import
+from analytics.neptune_analytics_query_example import execute_gremlin_profile_query  # adjust this import
 
 
 class FakePayload:

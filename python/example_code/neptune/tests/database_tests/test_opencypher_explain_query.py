@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock
 from botocore.exceptions import ClientError, BotoCoreError
-from database.OpenCypherExplainExample import execute_opencypher_explain_query
+from database.open_cypher_explain_example import execute_opencypher_explain_query
 
 
 def test_execute_opencypher_explain_query(capfd):

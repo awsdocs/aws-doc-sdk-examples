@@ -4,7 +4,7 @@
 import pytest
 from unittest.mock import MagicMock, patch
 from botocore.exceptions import ClientError
-from NeptuneScenario import delete_db_instance
+from neptune_scenario import delete_db_instance
 
 
 @patch("NeptuneScenario.time.sleep", return_value=None)  # Not needed here, but safe if waiter is mocked differently later

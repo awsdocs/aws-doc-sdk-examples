@@ -5,7 +5,7 @@ import pytest
 from unittest.mock import MagicMock
 from botocore.exceptions import ClientError
 
-from NeptuneScenario import delete_db_cluster  # Update with actual module name
+from neptune_scenario import delete_db_cluster  # Update with actual module name
 
 def test_delete_db_cluster():
     """

@@ -5,7 +5,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 from botocore.exceptions import ClientError
-from NeptuneScenario import describe_db_clusters
+from neptune_scenario import describe_db_clusters
 
 class TestDescribeDbClusters(unittest.TestCase):
 

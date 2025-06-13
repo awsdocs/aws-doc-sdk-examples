@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock
 from botocore.exceptions import ClientError, BotoCoreError
-from database.NeptuneGremlinQueryExample import execute_gremlin_query
+from database.neptune_gremlin_query_example import execute_gremlin_query
 
 def test_execute_gremlin_query(capfd):
     # Mock the client

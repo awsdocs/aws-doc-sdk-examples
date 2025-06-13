@@ -5,7 +5,7 @@ import pytest
 from unittest.mock import MagicMock
 from botocore.exceptions import ClientError
 
-from HelloNeptune import describe_db_clusters  # replace with actual import
+from hello_neptune import describe_db_clusters  # replace with actual import
 
 
 @pytest.fixture

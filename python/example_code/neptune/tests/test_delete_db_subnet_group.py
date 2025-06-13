@@ -5,7 +5,7 @@ import pytest
 from unittest.mock import MagicMock
 from botocore.exceptions import ClientError
 
-from NeptuneScenario import delete_db_subnet_group  # Adjust if module name differs
+from neptune_scenario import delete_db_subnet_group  # Adjust if module name differs
 
 
 def test_delete_db_subnet_group():

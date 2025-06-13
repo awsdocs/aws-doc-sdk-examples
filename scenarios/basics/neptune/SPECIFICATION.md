@@ -275,15 +275,30 @@ The following table describes the metadata used in this Basics Scenario. The met
 |`createDBSubnetGroup`   | neptune_CreateDBSubnetGroup          |
 |`createDBCluster`       | neptune_CreateDBCluster              |
 |`createDBInstance`      | neptune_CreateDBInstance             |
-|`describeDBInstances  ` | neptune_DescribeDBInstances          |
+|`describeDBInstances`   | neptune_DescribeDBInstances          |
 |`describeDBClusters`    | neptune_DescribeDBClusters           |
 | `stopDBCluster`        | neptune_StopDBCluster                |
-|`startDBCluster      `  | neptune_StartDBCluster               |
-|`deleteDBInstance     ` | neptune_DeleteDBInstance             |
-| `deleteDBCluster`      | neptune_DeleteDBCluster              |
-| `deleteDBSubnetGroup  `| neptune_DeleteDBSubnetGroup          |
-| `scenario`             | neptune_Scenario                     |
-| `hello`                | neptune_Hello                        |
+|`startDBCluster`        | neptune_StartDBCluster               |
+|`deleteDBInstance`      | neptune_DeleteDBInstance             |
+|`deleteDBCluster`       | neptune_DeleteDBCluster              |
+|`deleteDBSubnetGroup`   | neptune_DeleteDBSubnetGroup          |
+|`scenario`              | neptune_Scenario                     |
+|`hello`                 | neptune_Hello                        |
+
+### Additional SOS Tags
+We will add additional code examples to the AWS Code Library. These code examples were created by the SME. These APIs cannot be used in the main scenario because you must run them from within the same VPC as the cluster. There is no console access. However, we will still add them to the AWS Code Library.
+
+This table decribes the SOS tags for NeptunedataClient and NeptuneGraphClient.
+
+| action                        | metadata key                         |
+|-------------------------------|------------------------------------- |
+|`executeGremlinProfileQuery`   | neptune_ExecuteGremlinProfileQuery   |
+|`executeGremlinQuery`          | neptune_ExecuteGremlinQuery          |
+|`executeOpenCypherExplainQuery`| <See below>          |
+|`createGraph  `                | neptune_CreateGraph:                 |
+|`executeQuery`                 | neptune_ExecuteQuery                 |
 
 
+NOTE
 
+As there is limited room in aboce table, the metadata key for `executeOpenCypherExplainQuery`is neptune_ExecuteOpenCypherExplainQuery.
