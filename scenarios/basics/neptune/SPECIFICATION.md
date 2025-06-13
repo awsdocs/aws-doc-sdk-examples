@@ -41,7 +41,9 @@ The key advantage of the `NeptuneAsyncClient` is its ability to provide fine-gra
 This Basics scenario does not require any additional AWS resources. 
 
 ## Hello Amazon Neptune
-This program is intended for users not familiar with Amazon Neptune to easily get up and running. The program invokes `describeDBClustersPaginator`to iterate through subnet groups. 
+This program is intended for users not familiar with Amazon Neptune to easily get up and running. The program invokes `describeDBClustersPaginator`to iterate through subnet groups. '
+
+Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. 
 
 ## Basics Scenario Program Flow
 The Amazon Neptune Basics scenario executes the following operations.
@@ -61,7 +63,7 @@ The Amazon Neptune Basics scenario executes the following operations.
 
 4. **Check the status of the Neptune DB Instance**:
    - Description: Check the status of the DB instance by invoking `describeDBInstances`. Poll the instance until it reaches an `availbale`state. 
-   - Exception Handling: This operatioin handles a `CompletionException`. If thrown,  display the message and end the program.
+   - Exception Handling: This operatioin handles a `ResourceNotFoundException`. If thrown,  display the message and end the program. 
 
 5. **Show Neptune Cluster details**:
    - Description: Shows the details of the cluster by invoking `describeDBClusters`.
@@ -275,15 +277,30 @@ The following table describes the metadata used in this Basics Scenario. The met
 |`createDBSubnetGroup`   | neptune_CreateDBSubnetGroup          |
 |`createDBCluster`       | neptune_CreateDBCluster              |
 |`createDBInstance`      | neptune_CreateDBInstance             |
-|`describeDBInstances  ` | neptune_DescribeDBInstances          |
+|`describeDBInstances`   | neptune_DescribeDBInstances          |
 |`describeDBClusters`    | neptune_DescribeDBClusters           |
 | `stopDBCluster`        | neptune_StopDBCluster                |
-|`startDBCluster      `  | neptune_StartDBCluster               |
-|`deleteDBInstance     ` | neptune_DeleteDBInstance             |
-| `deleteDBCluster`      | neptune_DeleteDBCluster              |
-| `deleteDBSubnetGroup  `| neptune_DeleteDBSubnetGroup          |
-| `scenario`             | neptune_Scenario                     |
-| `hello`                | neptune_Hello                        |
+|`startDBCluster`        | neptune_StartDBCluster               |
+|`deleteDBInstance`      | neptune_DeleteDBInstance             |
+|`deleteDBCluster`       | neptune_DeleteDBCluster              |
+|`deleteDBSubnetGroup`   | neptune_DeleteDBSubnetGroup          |
+|`scenario`              | neptune_Scenario                     |
+|`hello`                 | neptune_Hello                        |
+
+### Additional SOS Tags
+We will add additional code examples to the AWS Code Library. These code examples were created by the SME. These APIs cannot be used in the main scenario because you must run them from within the same VPC as the cluster. There is no console access. However, we will still add them to the AWS Code Library.
+
+This table decribes the SOS tags for NeptunedataClient and NeptuneGraphClient.
+
+| action                        | metadata key                         |
+|-------------------------------|------------------------------------- |
+|`executeGremlinProfileQuery`   | neptune_ExecuteGremlinProfileQuery   |
+|`executeGremlinQuery`          | neptune_ExecuteGremlinQuery          |
+|`executeOpenCypherExplainQuery`| <See below>          |
+|`createGraph  `                | neptune_CreateGraph:                 |
+|`executeQuery`                 | neptune_ExecuteQuery                 |
 
 
+NOTE
 
+As there is limited room in aboce table, the metadata key for `executeOpenCypherExplainQuery`is neptune_ExecuteOpenCypherExplainQuery.
