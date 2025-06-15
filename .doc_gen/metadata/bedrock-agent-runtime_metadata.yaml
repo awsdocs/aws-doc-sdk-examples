@@ -25,6 +25,14 @@ bedrock-agent-runtime_InvokeAgent:
             - description:
               snippet_tags:
                 - bdz.abapv1.invokeagent
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/bedrock-agent-runtime
+          excerpts:
+            - description:
+              snippet_files:
+                - rustv1/examples/bedrock-agent-runtime/src/bin/invoke-agent.rs
   services:
     bedrock-agent-runtime: {InvokeAgent}
 
