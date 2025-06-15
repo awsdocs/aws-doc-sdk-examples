@@ -963,7 +963,7 @@ s3_GetObject:
             - description: Download the object.
               snippet_tags:
                 - s3.JavaScript.buckets.getobjectV3
-            - description: Download the object on condition its ETag does not match the one provided.
+            - description: Download the object on condition its ETag matches the one provided.
               snippet_files:
                 - javascriptv3/example_code/s3/actions/get-object-conditional-request-if-match.js
             - description: Download the object on condition its ETag does not match the one provided.
