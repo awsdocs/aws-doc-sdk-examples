@@ -75,7 +75,7 @@ func main() async throws {
         prompt: "A pomegranate juice in a railway station",
         outputS3Uri: bucket
     )
-    print(f"Job started with invocation ARN: {invocation_arn}")
+    print("Job started with invocation ARN: \(String(describing:invocationArn))")
 
     // Poll for job completion
     var status: BedrockRuntimeClientTypes.AsyncInvokeStatus?
