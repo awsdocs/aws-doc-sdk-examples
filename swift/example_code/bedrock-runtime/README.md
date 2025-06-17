@@ -38,7 +38,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 ### Amazon Nova Reel
 
-- [Text-to-video](models/amazon-nova/amazon_nova_reel/Sources/main.swift#L4)
+- [Text-to-video](models/amazon-nova/amazon-nova-reel/Sources/main.swift#L4)
 
 ### Anthropic Claude
 
