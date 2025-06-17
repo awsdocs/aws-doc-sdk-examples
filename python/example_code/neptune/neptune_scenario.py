@@ -684,20 +684,39 @@ def run_scenario(neptune_client, subnet_group_name: str, db_instance_id: str, cl
     print("-" * 88)
     print("8. Delete the Neptune Assets")
     print("Would you like to delete the Neptune Assets? (y/n)")
-    del_ans = input().strip()
+    del_ans = input().strip().lower()
+
     if del_ans == "y":
         print("You selected to delete the Neptune assets.")
         try:
             delete_db_instance(neptune_client, db_instance_id)
-            delete_db_cluster(neptune_client, db_cluster_id)
-            delete_db_subnet_group(neptune_client, subnet_group_name)
-            print("Neptune resources deleted successfully")
         except ClientError as e:
             error_code = e.response['Error']['Code']
-            if error_code == "DBInstanceNotFound":
+            if error_code == "DBInstanceNotFoundFault":
                 print(f"Instance '{db_instance_id}' already deleted or doesn't exist.")
             else:
-                print(f"Error during Neptune cleanup: {e}")
+                raise  # re-raise if it's a different error
+
+        try:
+            delete_db_cluster(neptune_client, db_cluster_id)
+        except ClientError as e:
+            error_code = e.response['Error']['Code']
+            if error_code == "DBClusterNotFoundFault":
+                print(f"Cluster '{db_cluster_id}' already deleted or doesn't exist.")
+            else:
+                raise
+
+        try:
+            delete_db_subnet_group(neptune_client, subnet_group_name)
+        except ClientError as e:
+            error_code = e.response['Error']['Code']
+            if error_code == "DBSubnetGroupNotFoundFault":
+                print(f"Subnet group '{subnet_group_name}' already deleted or doesn't exist.")
+            else:
+                raise
+
+        print("Neptune resources deleted successfully")
+
         print("-" * 88)
 
 
@@ -706,9 +725,9 @@ def main():
 
     # Customize the following names to match your Neptune setup
     # (You must change these to unique values for your environment)
-    subnet_group_name = "neptuneSubnetGroup105"
-    cluster_name = "neptuneCluster105"
-    db_instance_id = "neptuneDB105"
+    subnet_group_name = "neptuneSubnetGroup106"
+    cluster_name = "neptuneCluster106"
+    db_instance_id = "neptuneDB106"
 
     print("""
     Amazon Neptune is a fully managed graph database service by AWS...

@@ -1,65 +1,109 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 import pytest
-from unittest.mock import MagicMock, patch
 from botocore.exceptions import ClientError
-from neptune_scenario import check_instance_status
+import boto3
+from neptune_stubber import Neptune
+from neptune_scenario import check_instance_status  # your function to test
+
+# Constants for polling & timeout - patch if needed
+TIMEOUT_SECONDS = 10
+POLL_INTERVAL_SECONDS = 1
 
 
-@patch("NeptuneScenario.time.sleep", return_value=None)
-@patch("NeptuneScenario.time.time")
-@patch("NeptuneScenario.format_elapsed_time", side_effect=lambda x: f"{x}s")
-def test_check_instance_status(mock_format_time, mock_time, mock_sleep):
-    """
-    Fast unit test for check_instance_status().
-    Covers: success, timeout, ClientError.
-    """
-    # --- Setup Neptune mock client ---
-    mock_client = MagicMock()
-    mock_paginator = MagicMock()
-    mock_client.get_paginator.return_value = mock_paginator
+def test_check_instance_status_with_neptune_stubber(monkeypatch):
+    # Create real boto3 client + wrap with Neptune stubber
+    client = boto3.client("neptune", region_name="us-east-1")
+    stubber = Neptune(client)
 
-    # --- Success scenario ---
-    # Simulate time progressing quickly
-    mock_time.side_effect = [0, 1, 2, 3, 4, 5]  # enough for 2 loops
+    instance_id = "instance-1"
 
-    # Simulate: starting -> available
-    mock_paginator.paginate.side_effect = [
-        [{"DBInstances": [{"DBInstanceStatus": "starting"}]}],
-        [{"DBInstances": [{"DBInstanceStatus": "available"}]}]
-    ]
+    # Prepare stubbed responses for describe_db_instances paginator pages
+    # Each call to paginate() will return these pages in order:
+    # First call returns status 'starting', second returns 'available'
+    # Because the paginator returns an iterator of pages, each page is a dict
 
-    check_instance_status(mock_client, "instance-1", "available")
-    assert mock_client.get_paginator.called
-    assert mock_paginator.paginate.called
+    stubbed_pages_starting = [{"DBInstances": [{"DBInstanceStatus": "starting"}]}]
+    stubbed_pages_available = [{"DBInstances": [{"DBInstanceStatus": "available"}]}]
 
-    # --- Timeout scenario ---
-    # Reset mocks
-    mock_client.reset_mock()
-    mock_paginator = MagicMock()
-    mock_client.get_paginator.return_value = mock_paginator
-
-    # Provide enough time values to loop 4–5 times
-    mock_time.side_effect = list(range(20))  # 0 to 19
-
-    # Always returns 'starting'
-    mock_paginator.paginate.side_effect = lambda **kwargs: [
-        {"DBInstances": [{"DBInstanceStatus": "starting"}]}
-    ]
-
-    # Shrink TIMEOUT to 3s inside test scope
-    with patch("NeptuneScenario.TIMEOUT_SECONDS", 3), patch("NeptuneScenario.POLL_INTERVAL_SECONDS", 1):
-        with pytest.raises(RuntimeError, match="Timeout waiting for 'instance-timeout'"):
-            check_instance_status(mock_client, "instance-timeout", "available")
-
-    # --- ClientError scenario ---
-    mock_paginator.paginate.side_effect = ClientError(
-        {
-            "Error": {
-                "Code": "DBInstanceNotFound",
-                "Message": "Instance not found"
-            }
-        },
-        operation_name="DescribeDBInstances"
+    # We need to stub `describe_db_instances` for each paginator page request
+    # So stub two responses in sequence to simulate status change on subsequent polls
+    stubber.stubber.add_response(
+        "describe_db_instances",
+        stubbed_pages_starting[0],
+        expected_params={"DBInstanceIdentifier": instance_id},
+    )
+    stubber.stubber.add_response(
+        "describe_db_instances",
+        stubbed_pages_available[0],
+        expected_params={"DBInstanceIdentifier": instance_id},
     )
 
+    # Patch time.time to simulate time passing quickly (simulate elapsed time)
+    times = [0, 1, 2, 3, 4, 5]
+    monkeypatch.setattr("neptune_scenario.time.time", lambda: times.pop(0) if times else 5)
+
+    # Patch time.sleep to avoid real wait during test
+    monkeypatch.setattr("neptune_scenario.time.sleep", lambda s: None)
+
+    # Patch format_elapsed_time to just return seconds + 's' string
+    monkeypatch.setattr("neptune_scenario.format_elapsed_time", lambda x: f"{x}s")
+
+    # Run the check_instance_status function (should exit once status 'available' is found)
+    check_instance_status(stubber.client, instance_id, "available")
+
+
+def test_check_instance_status_timeout(monkeypatch):
+    client = boto3.client("neptune", region_name="us-east-1")
+    stubber = Neptune(client)
+
+    instance_id = "instance-timeout"
+
+    # Always return status 'starting' to simulate never reaching 'available'
+    stub_response = {"DBInstances": [{"DBInstanceStatus": "starting"}]}
+
+    # Stub multiple responses (enough for timeout loops)
+    for _ in range(10):
+        stubber.stubber.add_response(
+            "describe_db_instances",
+            stub_response,
+            expected_params={"DBInstanceIdentifier": instance_id},
+        )
+
+    # Patch time.time to simulate time passing beyond timeout (simulate elapsed time)
+    times = list(range(15))  # simulate 15 seconds
+    monkeypatch.setattr("neptune_scenario.time.time", lambda: times.pop(0) if times else 15)
+
+    monkeypatch.setattr("neptune_scenario.time.sleep", lambda s: None)
+    monkeypatch.setattr("neptune_scenario.format_elapsed_time", lambda x: f"{x}s")
+
+    # Patch timeout and poll interval inside your module (adjust as needed)
+    monkeypatch.setattr("neptune_scenario.TIMEOUT_SECONDS", 5)
+    monkeypatch.setattr("neptune_scenario.POLL_INTERVAL_SECONDS", 1)
+
+    with pytest.raises(RuntimeError, match="Timeout waiting for 'instance-timeout'"):
+        check_instance_status(stubber.client, instance_id, "available")
+
+
+def test_check_instance_status_client_error(monkeypatch):
+    client = boto3.client("neptune")
+    stubber = Neptune(client)
+
+    instance_id = "not-there"
+
+    # Stub a ClientError for describe_db_instances
+    stubber.stubber.add_client_error(
+        "describe_db_instances",
+        service_error_code="DBInstanceNotFound",
+        service_message="Instance not found",
+        expected_params={"DBInstanceIdentifier": instance_id},
+    )
+
+    # Patch time.sleep and format_elapsed_time to avoid delays and keep output clean
+    monkeypatch.setattr("neptune_scenario.time.sleep", lambda s: None)
+    monkeypatch.setattr("neptune_scenario.format_elapsed_time", lambda x: f"{x}s")
+
     with pytest.raises(ClientError, match="Instance not found"):
-        check_instance_status(mock_client, "not-there", "available")
+        check_instance_status(stubber.client, instance_id, "available")
+

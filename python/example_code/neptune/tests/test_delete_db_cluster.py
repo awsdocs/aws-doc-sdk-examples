@@ -1,46 +1,35 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
-
 import pytest
-from unittest.mock import MagicMock
+import boto3
 from botocore.exceptions import ClientError
 
-from neptune_scenario import delete_db_cluster  # Update with actual module name
+from neptune_scenario import delete_db_cluster  # Your actual module
+from neptune_stubber import Neptune  # Update path if needed
 
-def test_delete_db_cluster():
-    """
-    Unit test for delete_db_cluster().
-    Tests success, AWS ClientError, and unexpected exception scenarios.
-    """
+def test_delete_db_cluster_success_and_clienterror():
+    neptune_client = boto3.client("neptune", region_name="us-east-1")
+    stubber = Neptune(neptune_client)
+
     # --- Success case ---
-    mock_neptune = MagicMock()
-    mock_neptune.delete_db_cluster.return_value = {}
-
-    delete_db_cluster(mock_neptune, "test-cluster")
-    mock_neptune.delete_db_cluster.assert_called_once_with(
-        DBClusterIdentifier="test-cluster",
-        SkipFinalSnapshot=True
-    )
+    stubber.stub_delete_db_cluster("test-cluster")
+    delete_db_cluster(neptune_client, "test-cluster")  # Should not raise
 
     # --- AWS ClientError is raised ---
-    mock_neptune = MagicMock()
-    mock_neptune.delete_db_cluster.side_effect = ClientError(
-        {
-            "Error": {
-                "Code": "AccessDenied",
-                "Message": "You are not authorized to delete this cluster"
-            }
-        },
-        operation_name="DeleteDBCluster"
-    )
+    stubber.stub_delete_db_cluster("unauthorized-cluster", error_code="AccessDenied")
 
     with pytest.raises(ClientError) as exc_info:
-        delete_db_cluster(mock_neptune, "unauthorized-cluster")
+        delete_db_cluster(neptune_client, "unauthorized-cluster")
+
     assert "AccessDenied" in str(exc_info.value)
 
-    # --- Unexpected Exception raises as-is ---
-    mock_neptune = MagicMock()
-    mock_neptune.delete_db_cluster.side_effect = Exception("Unexpected error")
+def test_delete_db_cluster_unexpected_exception(monkeypatch):
+    # Patch the client to raise a generic exception
+    client = boto3.client("neptune", region_name="us-east-1")
+
+    def raise_unexpected_error(**kwargs):
+        raise Exception("Unexpected error")
+
+    monkeypatch.setattr(client, "delete_db_cluster", raise_unexpected_error)
 
     with pytest.raises(Exception, match="Unexpected error"):
-        delete_db_cluster(mock_neptune, "error-cluster")
+        delete_db_cluster(client, "error-cluster")
+

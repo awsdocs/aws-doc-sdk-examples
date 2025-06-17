@@ -74,7 +74,7 @@ def run_profile_query(neptune_client):
             gremlinQuery="g.V().has('code', 'ANC')"
         )
         print("Profile Query Result:")
-        print(response.get("output", "No profile output returned."))
+        print(response['output'].read().decode('UTF-8'))
     except Exception as e:
         print(f"Failed to execute PROFILE query: {str(e)}")
 

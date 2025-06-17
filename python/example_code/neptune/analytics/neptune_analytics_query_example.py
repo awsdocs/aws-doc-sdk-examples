@@ -3,7 +3,7 @@
 
 import boto3
 from botocore.exceptions import ClientError
-
+from botocore.config import Config
 # snippet-start:[neptune.python.graph.execute.main]
 """
 Running this example.
@@ -20,49 +20,85 @@ It does not expose a public endpoint, so this code must be executed from:
 
 """
 
-NEPTUNE_ANALYTICS_ENDPOINT = "https://<your-neptune-analytics-endpoint>:8182"
 GRAPH_ID = "<your-graph-id>"
 
 def main():
-    # Build the boto3 client for neptune-graph with endpoint override
-    client = boto3.client(
-        "neptune-graph",
-        endpoint_url=NEPTUNE_ANALYTICS_ENDPOINT
-    )
+    config = Config(retries={"total_max_attempts": 1, "mode": "standard"}, read_timeout=None)
+    client = boto3.client("neptune-graph", config=config)
 
     try:
-        execute_gremlin_profile_query(client, GRAPH_ID)
+        print("\n--- Running OpenCypher query without parameters ---")
+        run_open_cypher_query(client, GRAPH_ID)
+
+        print("\n--- Running OpenCypher query with parameters ---")
+        run_open_cypher_query_with_params(client, GRAPH_ID)
+
+        print("\n--- Running OpenCypher explain query ---")
+        run_open_cypher_explain_query(client, GRAPH_ID)
+
     except Exception as e:
         print(f"Unexpected error in main: {e}")
 
-def execute_gremlin_profile_query(client, graph_id):
+def run_open_cypher_query(client, graph_id):
     """
-    Executes a Gremlin or OpenCypher query on Neptune Analytics graph.
-
-    Args:
-        client (boto3.client): The NeptuneGraph client.
-        graph_id (str): The graph identifier.
+    Run an OpenCypher query without parameters.
     """
-    print("Running openCypher query on Neptune Analytics...")
-
     try:
-        response = client.execute_query(
+        resp = client.execute_query(
             GraphIdentifier=graph_id,
             QueryString="MATCH (n {code: 'ANC'}) RETURN n",
             Language="OPEN_CYPHER"
         )
-
-        # The response 'Payload' may contain the query results as a streaming bytes object
-        # Convert to string and print
-        if 'Payload' in response:
-            result = response['Payload'].read().decode('utf-8')
-            print("Query Result:")
+        if 'Payload' in resp:
+            result = resp['Payload'].read().decode('utf-8')
             print(result)
         else:
             print("No query result returned.")
-
     except ClientError as e:
-        print(f"NeptuneGraph error: {e.response['Error']['Message']}")
+        print(f"NeptuneGraph ClientError: {e.response['Error']['Message']}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+def run_open_cypher_query_with_params(client, graph_id):
+    """
+    Run an OpenCypher query with parameters.
+    """
+    try:
+        parameters = {'code': 'ANC'}
+        resp = client.execute_query(
+            GraphIdentifier=graph_id,
+            QueryString="MATCH (n {code: $code}) RETURN n",
+            Language="OPEN_CYPHER",
+            Parameters=parameters
+        )
+        if 'Payload' in resp:
+            result = resp['Payload'].read().decode('utf-8')
+            print(result)
+        else:
+            print("No query result returned.")
+    except ClientError as e:
+        print(f"NeptuneGraph ClientError: {e.response['Error']['Message']}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+def run_open_cypher_explain_query(client, graph_id):
+    """
+    Run an OpenCypher explain query (explainMode = "debug").
+    """
+    try:
+        resp = client.execute_query(
+            GraphIdentifier=graph_id,
+            QueryString="MATCH (n {code: 'ANC'}) RETURN n",
+            Language="OPEN_CYPHER",
+            ExplainMode="debug"
+        )
+        if 'Payload' in resp:
+            result = resp['Payload'].read().decode('utf-8')
+            print(result)
+        else:
+            print("No query result returned.")
+    except ClientError as e:
+        print(f"NeptuneGraph ClientError: {e.response['Error']['Message']}")
     except Exception as e:
         print(f"Unexpected error: {e}")
 

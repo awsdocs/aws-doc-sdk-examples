@@ -2,46 +2,37 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import pytest
-from unittest.mock import MagicMock, patch
 from botocore.exceptions import ClientError
 from neptune_scenario import delete_db_instance
+from neptune_stubber import Neptune
 
 
-@patch("NeptuneScenario.time.sleep", return_value=None)  # Not needed here, but safe if waiter is mocked differently later
-def test_delete_db_instance(mock_sleep):
-    """
-    Unit test for delete_db_instance().
-    Covers: successful deletion and ClientError case.
-    """
-    # --- Setup mock Neptune client ---
-    mock_client = MagicMock()
-    mock_waiter = MagicMock()
-    mock_client.get_waiter.return_value = mock_waiter
+def test_delete_db_instance_success():
+    import boto3
+    neptune_client = boto3.client("neptune", region_name="us-east-1")
+    stubber = Neptune(neptune_client)
 
-    # --- Success scenario ---
-    delete_db_instance(mock_client, "instance-1")
+    instance_id = "instance-1"
+    # Stub delete call + describe_db_instances polling with statuses simulating deletion progress
+    stubber.stub_delete_db_instance(instance_id, statuses=["deleting", "deleted"])
 
-    mock_client.delete_db_instance.assert_called_once_with(
-        DBInstanceIdentifier="instance-1",
-        SkipFinalSnapshot=True
-    )
-    mock_client.get_waiter.assert_called_once_with("db_instance_deleted")
-    mock_waiter.wait.assert_called_once_with(
-        DBInstanceIdentifier="instance-1",
-        WaiterConfig={"Delay": 30, "MaxAttempts": 40}
-    )
+    delete_db_instance(neptune_client, instance_id)
 
-    # --- ClientError scenario ---
-    mock_client.reset_mock()
-    mock_client.delete_db_instance.side_effect = ClientError(
-        {
-            "Error": {
-                "Code": "InvalidDBInstanceState",
-                "Message": "Instance is not in a deletable state"
-            }
-        },
-        operation_name="DeleteDBInstance"
-    )
+    stubber.stubber.assert_no_pending_responses()
 
-    with pytest.raises(ClientError, match="Instance is not in a deletable state"):
-        delete_db_instance(mock_client, "bad-instance")
+
+def test_delete_db_instance_client_error():
+    import boto3
+    neptune_client = boto3.client("neptune", region_name="us-east-1")
+    stubber = Neptune(neptune_client)
+
+    instance_id = "bad-instance"
+    # Stub delete call to return a client error
+    stubber.stub_delete_db_instance(instance_id, error_code="InvalidDBInstanceState")
+
+    with pytest.raises(ClientError) as exc_info:
+        delete_db_instance(neptune_client, instance_id)
+
+    assert "InvalidDBInstanceState" in str(exc_info.value)
+
+    stubber.stubber.assert_no_pending_responses()

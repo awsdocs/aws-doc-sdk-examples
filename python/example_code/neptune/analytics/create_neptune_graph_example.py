@@ -3,7 +3,7 @@
 
 import boto3
 from botocore.exceptions import ClientError, BotoCoreError
-
+from botocore.config import Config
 # snippet-start:[neptune.python.graph.create.main]
 """
 Running this example.
@@ -26,31 +26,21 @@ def main():
     """
     Main entry point: create NeptuneGraph client and call graph creation.
     """
-    # Hypothetical client - boto3 currently doesn't have NeptuneGraph client, so replace with actual client if available
-    neptune_graph_client = boto3.client("neptune")
-
-    execute_create_graph(neptune_graph_client, GRAPH_NAME)
+    config = Config(retries={"total_max_attempts": 1, "mode": "standard"}, read_timeout=None)
+    client = boto3.client("neptune-graph", config=config)
+    execute_create_graph(client, GRAPH_NAME)
 
 
 def execute_create_graph(client, graph_name):
-    """
-    Creates a new Neptune graph.
-
-    :param client: Boto3 Neptune graph client (hypothetical)
-    :param graph_name: Name of the graph to create
-    """
     try:
         print("Creating Neptune graph...")
-
-        # Hypothetical method for create_graph, adjust accordingly if you use HTTP API or SDK extensions
         response = client.create_graph(
-            GraphName=graph_name,
-            ProvisionedMemory=16  # Example parameter, adjust if API differs
+            GraphName=graph_name
         )
 
-        created_graph_name = response.get("Name")
-        graph_arn = response.get("Arn")
-        graph_endpoint = response.get("Endpoint")
+        created_graph_name = response.get("GraphName")
+        graph_arn = response.get("GraphArn")
+        graph_endpoint = response.get("GraphEndpoint")
 
         print("Graph created successfully!")
         print(f"Graph Name: {created_graph_name}")
@@ -63,6 +53,7 @@ def execute_create_graph(client, graph_name):
         print(f"Failed to create graph: {str(e)}")
     except Exception as e:
         print(f"Unexpected error: {str(e)}")
+
 
 
 if __name__ == "__main__":

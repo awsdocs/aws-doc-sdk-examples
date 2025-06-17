@@ -40,25 +40,17 @@ def main():
 def execute_gremlin_query(neptune_client):
     """
     Executes a Gremlin query against an Amazon Neptune database.
-
-    :param neptune_client: Boto3 Neptunedata client
     """
     try:
         print("Querying Neptune...")
 
-        response = neptune_client.execute_gremlin_query(
+        response = neptune_client.execute_gremlin_explain_query(
             gremlinQuery="g.V().has('code', 'ANC')"
         )
 
         print("Full Response:")
-        print(response)
+        print(response['output'].read().decode('UTF-8'))
 
-        result = response.get("result")
-        if result:
-            print("Query Result:")
-            print(result)
-        else:
-            print("No result returned from the query.")
     except ClientError as e:
         print(f"Error calling Neptune: {e.response['Error']['Message']}")
     except BotoCoreError as e:

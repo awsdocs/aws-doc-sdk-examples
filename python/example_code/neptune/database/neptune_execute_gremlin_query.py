@@ -21,28 +21,22 @@ It does not expose a public endpoint, so this code must be executed from:
   - A connected environment such as a **VPN**, **AWS Direct Connect**, or a **peered VPC**
 
 """
-
-
 # Customize this with your Neptune endpoint
 NEPTUNE_ENDPOINT = "https://<your-neptune-endpoint>:8182"
 
 def execute_gremlin_profile_query(client):
     """
-    Executes a Gremlin PROFILE query using the provided Neptune client.
+    Executes a Gremlin query using the provided Neptune Data client.
     """
     print("Executing Gremlin PROFILE query...")
 
     try:
-        response = client.execute_gremlin_profile_query(
-            gremlinQuery="g.V().has('code', 'ANC')"
+        response = client.execute_gremlin_query(
+            gremlinQueyr="g.V().has('code', 'ANC')"
         )
-        output = response.get("output")
 
-        if output:
-            print("Query Profile Output:")
-            print(json.dumps(output, indent=2))
-        else:
-            print("No output returned from the profile query.")
+        print("Response is:")
+        print(response['result'])
 
     except ClientError as e:
         print(f"Neptune error: {e.response['Error']['Message']}")

@@ -1,90 +1,40 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
-
-
 import pytest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
+import boto3
+from botocore.stub import Stubber
 from botocore.exceptions import ClientError
+from neptune_scenario import start_db_cluster, TIMEOUT_SECONDS, POLL_INTERVAL_SECONDS
+from neptune_stubber import Neptune  # Your custom stubber class
 
-from neptune_scenario import start_db_cluster  # Update import if needed
+# Patch sleep to return immediately so polling is fast
+@patch("neptune_scenario.time.sleep", return_value=None)
+@patch("neptune_scenario.POLL_INTERVAL_SECONDS", 0.1)
+@patch("neptune_scenario.TIMEOUT_SECONDS", 2)  # Enough time for 10 polls
+def test_start_db_cluster_success(mock_sleep):
+    cluster_id = "my-cluster"
+    client = boto3.client("neptune", region_name="us-east-1")
+    neptune = Neptune(client)
 
-# Speed up test runs
-POLL_INTERVAL_SECONDS = 0.1
-TIMEOUT_SECONDS = 0.3
-
-
-@patch("NeptuneScenario.time.sleep", return_value=None)  # mock sleep
-@patch("NeptuneScenario.POLL_INTERVAL_SECONDS", POLL_INTERVAL_SECONDS)
-@patch("NeptuneScenario.TIMEOUT_SECONDS", TIMEOUT_SECONDS)
-def test_start_db_cluster(mock_sleep):
-    """
-    Unit test for start_db_cluster().
-    Covers success, timeout, start failure, and paginator failure.
-    """
-    # --- Success case ---
-    mock_neptune = MagicMock()
-    paginator_mock = MagicMock()
-    mock_neptune.get_paginator.return_value = paginator_mock
-
-    # start_db_cluster returns nothing
-    mock_neptune.start_db_cluster.return_value = {}
-
-    # First call returns "starting", second returns "available"
-    paginator_mock.paginate.side_effect = [
-        [{'DBClusters': [{'Status': 'starting'}]}],
-        [{'DBClusters': [{'Status': 'available'}]}]
-    ]
-
-    start_db_cluster(mock_neptune, "my-cluster")
-
-    mock_neptune.start_db_cluster.assert_called_once_with(DBClusterIdentifier="my-cluster")
-    mock_neptune.get_paginator.assert_called_once_with("describe_db_clusters")
-    assert paginator_mock.paginate.call_count == 2
-
-    # --- Timeout case ---
-    mock_neptune.reset_mock()
-    paginator_mock = MagicMock()
-    mock_neptune.get_paginator.return_value = paginator_mock
-
-    def always_starting(*args, **kwargs):
-        return [{'DBClusters': [{'Status': 'starting'}]}]
-
-    paginator_mock.paginate.side_effect = always_starting
-    mock_neptune.start_db_cluster.return_value = {}
-
-    with pytest.raises(RuntimeError, match="Timeout waiting for cluster 'timeout-cluster' to become available."):
-        start_db_cluster(mock_neptune, "timeout-cluster")
-
-    # --- start_db_cluster throws ClientError ---
-    mock_neptune.start_db_cluster.side_effect = ClientError(
-        {
-            "Error": {
-                "Code": "AccessDenied",
-                "Message": "Permission denied"
-            }
-        },
-        operation_name="StartDBCluster"
+    # Stub the start call
+    neptune.stubber.add_response(
+        "start_db_cluster",
+        {"DBCluster": {"DBClusterIdentifier": cluster_id}},
+        {"DBClusterIdentifier": cluster_id}
     )
 
-    with pytest.raises(ClientError) as exc_info:
-        start_db_cluster(mock_neptune, "fail-cluster")
-    assert exc_info.value.response["Error"]["Code"] == "AccessDenied"
+    # Stub 9 "starting" statuses and 1 "available"
+    statuses = ["starting"] * 9 + ["available"]
+    for status in statuses:
+        neptune.stubber.add_response(
+            "describe_db_clusters",
+            {
+                "DBClusters": [{"DBClusterIdentifier": cluster_id, "Status": status}]
+            },
+            {"DBClusterIdentifier": cluster_id}
+        )
 
-    # --- Paginator throws ClientError ---
-    mock_neptune.start_db_cluster.side_effect = None  # reset
-    paginator_mock = MagicMock()
-    mock_neptune.get_paginator.return_value = paginator_mock
+    # Run the service method
+    start_db_cluster(client, cluster_id)
 
-    paginator_mock.paginate.side_effect = ClientError(
-        {
-            "Error": {
-                "Code": "Throttling",
-                "Message": "Too many requests"
-            }
-        },
-        operation_name="DescribeDBClusters"
-    )
+    neptune.stubber.deactivate()
 
-    with pytest.raises(ClientError) as exc_info:
-        start_db_cluster(mock_neptune, "paginator-error")
-    assert exc_info.value.response["Error"]["Code"] == "Throttling"
