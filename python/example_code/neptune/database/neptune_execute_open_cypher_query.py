@@ -104,4 +104,4 @@ def execute_open_cypher_explain_query(client):
 
 if __name__ == "__main__":
     main()
-# snippet-end:[neptune.python.data.query.opencypher.main]
+# snippet-end:[neptune.python.data.query.opencypher.main]# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.

@@ -35,7 +35,7 @@ def execute_create_graph(client, graph_name):
     try:
         print("Creating Neptune graph...")
         response = client.create_graph(
-            GraphName=graph_name
+            graph_name=graph_name
         )
 
         created_graph_name = response.get("GraphName")
@@ -51,10 +51,8 @@ def execute_create_graph(client, graph_name):
         print(f"Failed to create graph: {e.response['Error']['Message']}")
     except BotoCoreError as e:
         print(f"Failed to create graph: {str(e)}")
-    except Exception as e:
+    except Exception as e:  # <-- Add this generic catch
         print(f"Unexpected error: {str(e)}")
-
-
 
 if __name__ == "__main__":
     main()

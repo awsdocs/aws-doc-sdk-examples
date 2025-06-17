@@ -1,10 +1,7 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
-
 import boto3
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError, BotoCoreError
 from botocore.config import Config
-# snippet-start:[neptune.python.graph.execute.main]
+
 """
 Running this example.
 
@@ -17,7 +14,6 @@ It does not expose a public endpoint, so this code must be executed from:
   - An **AWS Lambda function** configured to run inside the same VPC
   - An **EC2 instance** or **ECS task** running in the same VPC
   - A connected environment such as a **VPN**, **AWS Direct Connect**, or a **peered VPC**
-
 """
 
 GRAPH_ID = "<your-graph-id>"
@@ -45,18 +41,21 @@ def run_open_cypher_query(client, graph_id):
     """
     try:
         resp = client.execute_query(
-            GraphIdentifier=graph_id,
-            QueryString="MATCH (n {code: 'ANC'}) RETURN n",
-            Language="OPEN_CYPHER"
+            graphIdentifier=graph_id,
+            queryString="MATCH (n {code: 'ANC'}) RETURN n",
+            language='OPEN_CYPHER'
         )
-        if 'Payload' in resp:
-            result = resp['Payload'].read().decode('utf-8')
-            print(result)
-        else:
-            print("No query result returned.")
+        print(resp['payload'].read().decode('UTF-8'))
+
+    except client.exceptions.InternalServerException as e:
+        print(f"InternalServerException: {e.response['Error']['Message']}")
+    except client.exceptions.BadRequestException as e:
+        print(f"BadRequestException: {e.response['Error']['Message']}")
+    except client.exceptions.LimitExceededException as e:
+        print(f"LimitExceededException: {e.response['Error']['Message']}")
     except ClientError as e:
-        print(f"NeptuneGraph ClientError: {e.response['Error']['Message']}")
-    except Exception as e:
+        print(f"ClientError: {e.response['Error']['Message']}")
+    except Exception as e:  # <--- ADD THIS BLOCK
         print(f"Unexpected error: {e}")
 
 def run_open_cypher_query_with_params(client, graph_id):
@@ -66,19 +65,22 @@ def run_open_cypher_query_with_params(client, graph_id):
     try:
         parameters = {'code': 'ANC'}
         resp = client.execute_query(
-            GraphIdentifier=graph_id,
-            QueryString="MATCH (n {code: $code}) RETURN n",
-            Language="OPEN_CYPHER",
-            Parameters=parameters
+            graphIdentifier=graph_id,
+            queryString="MATCH (n {code: $code}) RETURN n",
+            language='OPEN_CYPHER',
+            parameters=parameters
         )
-        if 'Payload' in resp:
-            result = resp['Payload'].read().decode('utf-8')
-            print(result)
-        else:
-            print("No query result returned.")
+        print(resp['payload'].read().decode('UTF-8'))
+
+    except client.exceptions.InternalServerException as e:
+        print(f"InternalServerException: {e.response['Error']['Message']}")
+    except client.exceptions.BadRequestException as e:
+        print(f"BadRequestException: {e.response['Error']['Message']}")
+    except client.exceptions.LimitExceededException as e:
+        print(f"LimitExceededException: {e.response['Error']['Message']}")
     except ClientError as e:
-        print(f"NeptuneGraph ClientError: {e.response['Error']['Message']}")
-    except Exception as e:
+        print(f"ClientError: {e.response['Error']['Message']}")
+    except Exception as e:  # <--- ADD THIS BLOCK
         print(f"Unexpected error: {e}")
 
 def run_open_cypher_explain_query(client, graph_id):
@@ -87,20 +89,19 @@ def run_open_cypher_explain_query(client, graph_id):
     """
     try:
         resp = client.execute_query(
-            GraphIdentifier=graph_id,
-            QueryString="MATCH (n {code: 'ANC'}) RETURN n",
-            Language="OPEN_CYPHER",
-            ExplainMode="debug"
+            graphIdentifier=graph_id,
+            queryString="MATCH (n {code: 'ANC'}) RETURN n",
+            language='OPEN_CYPHER',
+            explainMode="debug"
         )
-        if 'Payload' in resp:
-            result = resp['Payload'].read().decode('utf-8')
-            print(result)
-        else:
-            print("No query result returned.")
+        print(resp['payload'].read().decode('UTF-8'))
+
     except ClientError as e:
-        print(f"NeptuneGraph ClientError: {e.response['Error']['Message']}")
-    except Exception as e:
-        print(f"Unexpected error: {e}")
+        print(f"Neptune error: {e.response['Error']['Message']}")
+    except BotoCoreError as e:
+        print(f"Unexpected Boto3 error: {str(e)}")
+    except Exception as e:  # <-- Add this generic catch
+        print(f"Unexpected error: {str(e)}")
 
 if __name__ == "__main__":
     main()
