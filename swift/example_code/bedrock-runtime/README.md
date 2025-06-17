@@ -38,7 +38,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 ### Amazon Nova Canvas
 
-- [InvokeModel](models/amazon-nova/amazon_nova_canvas/Sources/main.swift#L4)
+- [InvokeModel](models/amazon-nova/amazon-nova-canvas/Sources/main.swift#L4)
 
 ### Anthropic Claude
 
