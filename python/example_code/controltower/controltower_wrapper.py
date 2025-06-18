@@ -42,27 +42,35 @@ class ControlTowerWrapper:
         :raises ClientError: If the listing operation fails.
         """
         try:
-            paginator = self.controltower_client.get_paginator('list_baselines')
+            paginator = self.controltower_client.get_paginator("list_baselines")
             baselines = []
             for page in paginator.paginate():
-                baselines.extend(page['baselines'])
+                baselines.extend(page["baselines"])
             return baselines
 
         except ClientError as err:
             if err.response["Error"]["Code"] == "AccessDeniedException":
-                logger.error("Access denied. Please ensure you have the necessary permissions.")
+                logger.error(
+                    "Access denied. Please ensure you have the necessary permissions."
+                )
             else:
                 logger.error(
                     "Couldn't list baselines. Here's why: %s: %s",
                     err.response["Error"]["Code"],
-                    err.response["Error"]["Message"]
+                    err.response["Error"]["Message"],
                 )
             raise
 
     # snippet-end:[python.example_code.controltower.ListBaselines]
 
     # snippet-start:[python.example_code.controltower.EnableBaseline]
-    def enable_baseline(self, target_identifier, identity_center_baseline, baseline_identifier, baseline_version):
+    def enable_baseline(
+        self,
+        target_identifier,
+        identity_center_baseline,
+        baseline_identifier,
+        baseline_version,
+    ):
         """
         Enables a baseline for the specified target if it's not already enabled.
 
@@ -81,35 +89,38 @@ class ControlTowerWrapper:
                 parameters=[
                     {
                         "key": "IdentityCenterEnabledBaselineArn",
-                        "value": identity_center_baseline
+                        "value": identity_center_baseline,
                     }
-                ]
+                ],
             )
 
-            operation_id = response['operationIdentifier']
+            operation_id = response["operationIdentifier"]
             while True:
                 status = self.get_baseline_operation(operation_id)
                 print(f"Baseline operation status: {status}")
-                if status in ['SUCCEEDED', 'FAILED']:
+                if status in ["SUCCEEDED", "FAILED"]:
                     break
                 time.sleep(30)
 
-            return response['arn']
+            return response["arn"]
         except ClientError as err:
             if err.response["Error"]["Code"] == "ValidationException":
                 if "already enabled" in err.response["Error"]["Message"]:
                     print("Baseline is already enabled for this target")
                     return None
                 else:
-                    print("Unable to enable baseline due to validation exception: %s: %s",
-                          err.response["Error"]["Code"],
-                          err.response["Error"]["Message"])
+                    print(
+                        "Unable to enable baseline due to validation exception: %s: %s",
+                        err.response["Error"]["Code"],
+                        err.response["Error"]["Message"],
+                    )
             logger.error(
                 "Couldn't enable baseline. Here's why: %s: %s",
                 err.response["Error"]["Code"],
-                err.response["Error"]["Message"]
+                err.response["Error"]["Message"],
             )
             raise
+
     # snippet-end:[python.example_code.controltower.EnableBaseline]
 
     # snippet-start:[python.example_code.controltower.ListControls]
@@ -121,20 +132,22 @@ class ControlTowerWrapper:
         :raises ClientError: If the listing operation fails.
         """
         try:
-            paginator = self.controlcatalog_client.get_paginator('list_controls')
+            paginator = self.controlcatalog_client.get_paginator("list_controls")
             controls = []
             for page in paginator.paginate():
-                controls.extend(page['Controls'])
+                controls.extend(page["Controls"])
             return controls
 
         except ClientError as err:
             if err.response["Error"]["Code"] == "AccessDeniedException":
-                logger.error("Access denied. Please ensure you have the necessary permissions.")
+                logger.error(
+                    "Access denied. Please ensure you have the necessary permissions."
+                )
             else:
                 logger.error(
                     "Couldn't list controls. Here's why: %s: %s",
                     err.response["Error"]["Code"],
-                    err.response["Error"]["Message"]
+                    err.response["Error"]["Message"],
                 )
             raise
 
@@ -154,30 +167,30 @@ class ControlTowerWrapper:
             print(control_arn)
             print(target_identifier)
             response = self.controltower_client.enable_control(
-                controlIdentifier=control_arn,
-                targetIdentifier=target_identifier
+                controlIdentifier=control_arn, targetIdentifier=target_identifier
             )
 
-            operation_id = response['operationIdentifier']
+            operation_id = response["operationIdentifier"]
             while True:
                 status = self.get_control_operation(operation_id)
                 print(f"Control operation status: {status}")
-                if status in ['SUCCEEDED', 'FAILED']:
+                if status in ["SUCCEEDED", "FAILED"]:
                     break
                 time.sleep(30)
 
             return operation_id
 
         except ClientError as err:
-            if (err.response["Error"]["Code"] == "ValidationException" and
-                    "already enabled" in err.response["Error"][
-                "Message"]):
+            if (
+                err.response["Error"]["Code"] == "ValidationException"
+                and "already enabled" in err.response["Error"]["Message"]
+            ):
                 logger.info("Control is already enabled for this target")
                 return None
             logger.error(
                 "Couldn't enable control. Here's why: %s: %s",
                 err.response["Error"]["Code"],
-                err.response["Error"]["Message"]
+                err.response["Error"]["Message"],
             )
             raise
 
@@ -196,7 +209,7 @@ class ControlTowerWrapper:
             response = self.controltower_client.get_control_operation(
                 operationIdentifier=operation_id
             )
-            return response['controlOperation']['status']
+            return response["controlOperation"]["status"]
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
                 logger.error("Operation not found.")
@@ -204,7 +217,7 @@ class ControlTowerWrapper:
                 logger.error(
                     "Couldn't get control operation status. Here's why: %s: %s",
                     err.response["Error"]["Code"],
-                    err.response["Error"]["Message"]
+                    err.response["Error"]["Message"],
                 )
             raise
 
@@ -223,7 +236,7 @@ class ControlTowerWrapper:
             response = self.controltower_client.get_baseline_operation(
                 operationIdentifier=operation_id
             )
-            return response['baselineOperation']['status']
+            return response["baselineOperation"]["status"]
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
                 logger.error("Operation not found.")
@@ -231,7 +244,7 @@ class ControlTowerWrapper:
                 logger.error(
                     "Couldn't get baseline operation status. Here's why: %s: %s",
                     err.response["Error"]["Code"],
-                    err.response["Error"]["Message"]
+                    err.response["Error"]["Message"],
                 )
             raise
 
@@ -249,15 +262,14 @@ class ControlTowerWrapper:
         """
         try:
             response = self.controltower_client.disable_control(
-                controlIdentifier=control_arn,
-                targetIdentifier=target_identifier
+                controlIdentifier=control_arn, targetIdentifier=target_identifier
             )
 
-            operation_id = response['operationIdentifier']
+            operation_id = response["operationIdentifier"]
             while True:
                 status = self.get_control_operation(operation_id)
                 print(f"Control operation status: {status}")
-                if status in ['SUCCEEDED', 'FAILED']:
+                if status in ["SUCCEEDED", "FAILED"]:
                     break
                 time.sleep(30)
 
@@ -269,7 +281,7 @@ class ControlTowerWrapper:
                 logger.error(
                     "Couldn't disable control. Here's why: %s: %s",
                     err.response["Error"]["Code"],
-                    err.response["Error"]["Message"]
+                    err.response["Error"]["Message"],
                 )
             raise
 
@@ -284,22 +296,25 @@ class ControlTowerWrapper:
         :raises ClientError: If the listing operation fails.
         """
         try:
-            paginator = self.controltower_client.get_paginator('list_landing_zones')
+            paginator = self.controltower_client.get_paginator("list_landing_zones")
             landing_zones = []
             for page in paginator.paginate():
-                landing_zones.extend(page['landingZones'])
+                landing_zones.extend(page["landingZones"])
             return landing_zones
 
         except ClientError as err:
             if err.response["Error"]["Code"] == "AccessDeniedException":
-                logger.error("Access denied. Please ensure you have the necessary permissions.")
+                logger.error(
+                    "Access denied. Please ensure you have the necessary permissions."
+                )
             else:
                 logger.error(
                     "Couldn't list landing zones. Here's why: %s: %s",
                     err.response["Error"]["Code"],
-                    err.response["Error"]["Message"]
+                    err.response["Error"]["Message"],
                 )
             raise
+
     # snippet-end:[python.example_code.controltower.ListLandingZones]
 
     # snippet-start:[python.example_code.controltower.ListEnabledBaselines]
@@ -311,10 +326,10 @@ class ControlTowerWrapper:
         :raises ClientError: If the listing operation fails.
         """
         try:
-            paginator = self.controltower_client.get_paginator('list_enabled_baselines')
+            paginator = self.controltower_client.get_paginator("list_enabled_baselines")
             enabled_baselines = []
             for page in paginator.paginate():
-                enabled_baselines.extend(page['enabledBaselines'])
+                enabled_baselines.extend(page["enabledBaselines"])
             return enabled_baselines
 
         except ClientError as err:
@@ -324,11 +339,12 @@ class ControlTowerWrapper:
                 logger.error(
                     "Couldn't list enabled baselines. Here's why: %s: %s",
                     err.response["Error"]["Code"],
-                    err.response["Error"]["Message"]
+                    err.response["Error"]["Message"],
                 )
             raise
+
     # snippet-end:[python.example_code.controltower.ListEnabledBaselines]
-    
+
     # snippet-start:[python.example_code.controltower.ResetEnabledBaseline]
     def reset_enabled_baseline(self, enabled_baseline_identifier):
         """
@@ -342,11 +358,11 @@ class ControlTowerWrapper:
             response = self.controltower_client.reset_enabled_baseline(
                 enabledBaselineIdentifier=enabled_baseline_identifier
             )
-            operation_id = response['operationIdentifier']
+            operation_id = response["operationIdentifier"]
             while True:
                 status = self.get_baseline_operation(operation_id)
                 print(f"Baseline operation status: {status}")
-                if status in ['SUCCEEDED', 'FAILED']:
+                if status in ["SUCCEEDED", "FAILED"]:
                     break
                 time.sleep(30)
             return operation_id
@@ -357,11 +373,12 @@ class ControlTowerWrapper:
                 logger.error(
                     "Couldn't reset enabled baseline. Here's why: %s: %s",
                     err.response["Error"]["Code"],
-                    err.response["Error"]["Message"]
+                    err.response["Error"]["Message"],
                 )
             raise
+
     # snippet-end:[python.example_code.controltower.ResetEnabledBaseline]
-    
+
     # snippet-start:[python.example_code.controltower.DisableBaseline]
     def disable_baseline(self, enabled_baseline_identifier):
         """
@@ -376,28 +393,31 @@ class ControlTowerWrapper:
                 enabledBaselineIdentifier=enabled_baseline_identifier
             )
 
-            operation_id = response['operationIdentifier']
+            operation_id = response["operationIdentifier"]
             while True:
                 status = self.get_baseline_operation(operation_id)
                 print(f"Baseline operation status: {status}")
-                if status in ['SUCCEEDED', 'FAILED']:
+                if status in ["SUCCEEDED", "FAILED"]:
                     break
                 time.sleep(30)
 
-            return response['operationIdentifier']
+            return response["operationIdentifier"]
         except ClientError as err:
             if err.response["Error"]["Code"] == "ConflictException":
-                print(f"Conflict disabling baseline: {err.response['Error']['Message']}. Skipping disable step." )
+                print(
+                    f"Conflict disabling baseline: {err.response['Error']['Message']}. Skipping disable step."
+                )
                 return None
             else:
                 logger.error(
                     "Couldn't disable baseline. Here's why: %s: %s",
                     err.response["Error"]["Code"],
-                    err.response["Error"]["Message"]
+                    err.response["Error"]["Message"],
                 )
                 raise
+
     # snippet-end:[python.example_code.controltower.DisableBaseline]
-    
+
     # snippet-start:[python.example_code.controltower.ListEnabledControls]
     def list_enabled_controls(self, target_identifier):
         """
@@ -408,22 +428,26 @@ class ControlTowerWrapper:
         :raises ClientError: If the listing operation fails.
         """
         try:
-            paginator = self.controltower_client.get_paginator('list_enabled_controls')
+            paginator = self.controltower_client.get_paginator("list_enabled_controls")
             enabled_controls = []
             for page in paginator.paginate(targetIdentifier=target_identifier):
-                enabled_controls.extend(page['enabledControls'])
+                enabled_controls.extend(page["enabledControls"])
             return enabled_controls
 
         except ClientError as err:
             if err.response["Error"]["Code"] == "AccessDeniedException":
-                logger.error("Access denied. Please ensure you have the necessary permissions.")
+                logger.error(
+                    "Access denied. Please ensure you have the necessary permissions."
+                )
             else:
                 logger.error(
                     "Couldn't list enabled controls. Here's why: %s: %s",
                     err.response["Error"]["Code"],
-                    err.response["Error"]["Message"]
+                    err.response["Error"]["Message"],
                 )
             raise
+
     # snippet-end:[python.example_code.controltower.ListEnabledControls]
+
 
 # snippet-end:[python.example_code.controltower.ControlTowerWrapper.class]

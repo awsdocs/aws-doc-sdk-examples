@@ -22,8 +22,8 @@ def hello_controltower(controltower_client):
     baseline_names: [str] = []
     try:
         for page in page_iterator:
-            for baseline in page['baselines']:
-                baseline_names.append(baseline['name'])
+            for baseline in page["baselines"]:
+                baseline_names.append(baseline["name"])
 
         print(f"{len(baseline_names)} baseline(s) retrieved.")
         for baseline_name in baseline_names:
