@@ -5,6 +5,7 @@ import boto3
 from botocore.exceptions import ClientError, BotoCoreError
 from botocore.config import Config
 
+# snippet-start:[neptune.python.graph.execute.main]
 """
 Running this example.
 
