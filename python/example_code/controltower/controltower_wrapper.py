@@ -303,11 +303,10 @@ class ControlTowerWrapper:
     # snippet-end:[python.example_code.controltower.ListLandingZones]
 
     # snippet-start:[python.example_code.controltower.ListEnabledBaselines]
-    def list_enabled_baselines(self, target_identifier):
+    def list_enabled_baselines(self):
         """
-        Lists all enabled baselines for a specific target.
+        Lists all enabled baselines.
 
-        :param target_identifier: The identifier of the target (e.g., OU ARN).
         :return: List of enabled baselines.
         :raises ClientError: If the listing operation fails.
         """
@@ -387,15 +386,16 @@ class ControlTowerWrapper:
 
             return response['operationIdentifier']
         except ClientError as err:
-            if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                logger.error("Target not found.")
+            if err.response["Error"]["Code"] == "ConflictException":
+                print(f"Conflict disabling baseline: {err.response['Error']['Message']}. Skipping disable step." )
+                return None
             else:
                 logger.error(
                     "Couldn't disable baseline. Here's why: %s: %s",
                     err.response["Error"]["Code"],
                     err.response["Error"]["Message"]
                 )
-            raise
+                raise
     # snippet-end:[python.example_code.controltower.DisableBaseline]
     
     # snippet-start:[python.example_code.controltower.ListEnabledControls]
