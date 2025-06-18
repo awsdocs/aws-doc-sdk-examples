@@ -2,59 +2,61 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import io
-from unittest.mock import MagicMock
-from botocore.exceptions import ClientError, EndpointConnectionError, BotoCoreError
-
+import types
+from botocore.exceptions import ClientError, EndpointConnectionError
+from neptune_data_stubber import NeptuneDateStubber
 from database.neptune_execute_gremlin_explain_query import execute_gremlin_query
 
 def test_execute_gremlin_query(capfd):
-    """
-    Unit test for execute_gremlin_query().
-    Tests: success with output, ClientError, BotoCoreError, and general Exception.
-    """
-    # Mock the Neptune client
-    mock_client = MagicMock()
+    stubber = NeptuneDateStubber()
+    client = stubber.get_client()
+    stubber.activate()
 
-    # --- Success case with valid StreamingBody output ---
-    mock_body = io.BytesIO(b'{"explain": "details"}')
-    mock_client.execute_gremlin_explain_query.return_value = {
-        "output": mock_body
-    }
+    try:
+        # --- Success case with valid StreamingBody output ---
+        response_payload = '{"explain": "details"}'
+        stubber.add_execute_gremlin_explain_query_stub(
+            gremlin_query="g.V().has('code', 'ANC')",
+            response_payload=response_payload
+        )
 
-    execute_gremlin_query(mock_client)
-    out, _ = capfd.readouterr()
-    assert "Querying Neptune..." in out
-    assert "Full Response:" in out
-    assert '{"explain": "details"}' in out
+        execute_gremlin_query(client)
+        out, _ = capfd.readouterr()
+        assert "Querying Neptune..." in out
+        assert "Full Response:" in out
+        assert '{"explain": "details"}' in out
 
-    # --- ClientError case ---
-    mock_client.execute_gremlin_explain_query.side_effect = ClientError(
-        {"Error": {"Code": "BadRequest", "Message": "Invalid query"}},
-        operation_name="ExecuteGremlinExplainQuery"
-    )
+        # --- ClientError case ---
+        stubber.stubber.assert_no_pending_responses()
+        stubber.stubber.add_client_error(
+            method='execute_gremlin_explain_query',
+            service_error_code='BadRequest',
+            service_message='Invalid query',
+            expected_params={"gremlinQuery": "g.V().has('code', 'ANC')"}
+        )
+        execute_gremlin_query(client)
+        out, _ = capfd.readouterr()
+        assert "Error calling Neptune: Invalid query" in out
 
-    execute_gremlin_query(mock_client)
-    out, _ = capfd.readouterr()
-    assert "Error calling Neptune: Invalid query" in out
+        # --- EndpointConnectionError (BotoCoreError subclass) case ---
+        stubber.stubber.assert_no_pending_responses()
 
-    # --- Reset side effect ---
-    mock_client.execute_gremlin_explain_query.side_effect = None
+        def raise_endpoint_connection_error(*args, **kwargs):
+            raise EndpointConnectionError(endpoint_url="https://neptune.amazonaws.com")
 
-    # --- BotoCoreError (e.g., EndpointConnectionError) ---
-    mock_client.execute_gremlin_explain_query.side_effect = EndpointConnectionError(
-        endpoint_url="https://neptune.amazonaws.com"
-    )
+        client.execute_gremlin_explain_query = types.MethodType(raise_endpoint_connection_error, client)
+        execute_gremlin_query(client)
+        out, _ = capfd.readouterr()
+        assert "BotoCore error:" in out
 
-    execute_gremlin_query(mock_client)
-    out, _ = capfd.readouterr()
-    assert "BotoCore error:" in out
+        # --- Unexpected Exception case ---
+        def raise_generic_exception(*args, **kwargs):
+            raise Exception("Boom")
 
-    # --- Reset side effect ---
-    mock_client.execute_gremlin_explain_query.side_effect = None
+        client.execute_gremlin_explain_query = types.MethodType(raise_generic_exception, client)
+        execute_gremlin_query(client)
+        out, _ = capfd.readouterr()
+        assert "Unexpected error: Boom" in out
 
-    # --- Unexpected Exception case ---
-    mock_client.execute_gremlin_explain_query.side_effect = Exception("Boom")
-
-    execute_gremlin_query(mock_client)
-    out, _ = capfd.readouterr()
-    assert "Unexpected error: Boom" in out
+    finally:
+        stubber.deactivate()

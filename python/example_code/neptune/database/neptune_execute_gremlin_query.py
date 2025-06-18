@@ -23,15 +23,15 @@ It does not expose a public endpoint, so this code must be executed from:
 # Customize this with your Neptune endpoint
 NEPTUNE_ENDPOINT = "https://<your-neptune-endpoint>:8182"
 
-def execute_gremlin_profile_query(client):
+def execute_gremlin_query(client):
     """
     Executes a Gremlin query using the provided Neptune Data client.
     """
-    print("Executing Gremlin PROFILE query...")
+    print("Executing Gremlin query...")
 
     try:
         response = client.execute_gremlin_query(
-            gremlinQueyr="g.V().has('code', 'ANC')"
+            gremlinQuery="g.V().has('code', 'ANC')"
         )
 
         print("Response is:")
@@ -59,7 +59,7 @@ def main():
         config=config
     )
 
-    execute_gremlin_profile_query(neptune_client)
+    execute_gremlin_query(neptune_client)
 
 
 if __name__ == "__main__":

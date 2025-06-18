@@ -1,44 +1,68 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
-
-from unittest.mock import MagicMock
+import types
+import pytest
 from botocore.exceptions import ClientError, BotoCoreError
-from database.neptune_execute_gremlin_query import execute_gremlin_profile_query  # adjust import as needed
+from database.neptune_execute_gremlin_query import execute_gremlin_query
+from neptune_data_stubber import NeptuneDateStubber
 
-def test_execute_gremlin_profile_query(capfd):
-    mock_client = MagicMock()
+def test_execute_gremlin_query(capfd):
+    stubber = NeptuneDateStubber()
+    client = stubber.get_client()
+    stubber.activate()
 
-    # --- Success case ---
-    mock_client.execute_gremlin_query.return_value = {
-        "result": {"metrics": {"dur": 500, "steps": 3}}
-    }
-    execute_gremlin_profile_query(mock_client)
-    out, _ = capfd.readouterr()
-    assert "Executing Gremlin PROFILE query..." in out
-    assert "Response is:" in out
-    assert "'dur': 500" in out  # 'dur' will show in single quotes because dict is printed directly
+    try:
+        # --- Success case with valid output ---
+        stubber.add_execute_gremlin_query_stub(
+            gremlin_query="g.V().has('code', 'ANC')",
+            response_dict={"result": {"metrics": {"dur": 500, "steps": 3}}}
+        )
+        execute_gremlin_query(client)
+        out, _ = capfd.readouterr()
+        assert "Executing Gremlin query..." in out
+        assert "Response is:" in out
+        assert '"dur": 500' in out or "'dur': 500" in out
 
-    # --- No output case (result missing) ---
-    mock_client.execute_gremlin_query.return_value = {}
-    execute_gremlin_profile_query(mock_client)
-    out, _ = capfd.readouterr()
-    # In the current implementation, this will raise a KeyError, so we need to handle it in the service code to test this properly.
-    # We can either fix the service or remove this check
+        # --- Success case with None result ---
+        stubber.stubber.assert_no_pending_responses()
+        stubber.add_execute_gremlin_query_stub(
+            gremlin_query="g.V().has('code', 'ANC')",
+            response_dict={"result": None}
+        )
+        execute_gremlin_query(client)
+        out, _ = capfd.readouterr()
+        assert "Response is:" in out
+        assert "None" in out
 
-    # --- ClientError case ---
-    mock_client.execute_gremlin_query.side_effect = ClientError(
-        {"Error": {"Message": "Invalid query"}},
-        operation_name="execute_gremlin_query"
-    )
-    execute_gremlin_profile_query(mock_client)
-    out, _ = capfd.readouterr()
-    assert "Neptune error: Invalid query" in out
+        # --- ClientError case ---
+        stubber.stubber.assert_no_pending_responses()
+        stubber.stubber.add_client_error(
+            method='execute_gremlin_query',
+            service_error_code='BadRequest',
+            service_message='Invalid query',
+            expected_params={"gremlinQuery": "g.V().has('code', 'ANC')"}
+        )
+        execute_gremlin_query(client)
+        out, _ = capfd.readouterr()
+        assert "Neptune error: Invalid query" in out
 
-    # --- BotoCoreError case ---
-    mock_client.execute_gremlin_query.side_effect = BotoCoreError()
-    execute_gremlin_profile_query(mock_client)
-    out, _ = capfd.readouterr()
-    assert "Unexpected Boto3 error" in out
+        # --- BotoCoreError case (Fix 1) ---
+        stubber.stubber.assert_no_pending_responses()
 
-    # --- Generic exception case ---
-    mock_client.execute_g
+        def raise_boto_core_error(*args, **kwargs):
+            raise BotoCoreError()  # ✅ No arguments
+
+        client.execute_gremlin_query = types.MethodType(raise_boto_core_error, client)
+        execute_gremlin_query(client)
+        out, _ = capfd.readouterr()
+        assert "Unexpected Boto3 error" in out
+
+        # --- Generic Exception case ---
+        def raise_generic_exception(*args, **kwargs):
+            raise Exception("Boom")
+
+        client.execute_gremlin_query = types.MethodType(raise_generic_exception, client)
+        execute_gremlin_query(client)
+        out, _ = capfd.readouterr()
+        assert "Unexpected error: Boom" in out
+
+    finally:
+        stubber.deactivate()

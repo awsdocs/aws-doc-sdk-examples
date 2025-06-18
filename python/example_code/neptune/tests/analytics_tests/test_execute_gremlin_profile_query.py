@@ -1,77 +1,80 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
-
-from unittest.mock import MagicMock
+import io
+import pytest
+from botocore.response import StreamingBody
 from botocore.exceptions import ClientError
-from analytics.neptune_analytics_query_example import run_open_cypher_query  # Adjust import as needed
+from analytics.neptune_analytics_query_example import run_open_cypher_query
+from neptune_graph_stubber import NeptuneGraphStubber
 
-
-class FakePayload:
-    def __init__(self, data: bytes):
-        self._data = data
-
-    def read(self):
-        return self._data
-
-
-class EmptyPayload:
-    def read(self):
-        return b''  # empty bytes simulates empty payload
-
-
-# Fake exceptions to satisfy except clauses in service code
-class FakeInternalServerException(Exception):
-    pass
-
-
-class FakeBadRequestException(Exception):
-    pass
-
-
-class FakeLimitExceededException(Exception):
-    pass
-
+GRAPH_ID = "test-graph-id"
 
 def test_execute_gremlin_profile_query(capfd):
-    mock_client = MagicMock()
-    graph_id = "test-graph-id"
-
-    # Attach fake exceptions for service error handling
-    mock_client.exceptions = MagicMock()
-    mock_client.exceptions.InternalServerException = FakeInternalServerException
-    mock_client.exceptions.BadRequestException = FakeBadRequestException
-    mock_client.exceptions.LimitExceededException = FakeLimitExceededException
+    stubber = NeptuneGraphStubber()
+    client = stubber.get_client()
 
     # --- Success case with payload ---
-    mock_client.execute_query.return_value = {
-        "payload": FakePayload(b'{"results": "some data"}')
-    }
-    run_open_cypher_query(mock_client, graph_id)
+    stubber.activate()
+    payload_bytes = b'{"results": "some data"}'
+    response_body = StreamingBody(io.BytesIO(payload_bytes), len(payload_bytes))
+
+    stubber.stubber.add_response(
+        "execute_query",
+        {"payload": response_body},
+        {
+            "graphIdentifier": GRAPH_ID,
+            "queryString": "MATCH (n {code: 'ANC'}) RETURN n",
+            "language": "OPEN_CYPHER"
+        }
+    )
+    run_open_cypher_query(client, GRAPH_ID)
     out, _ = capfd.readouterr()
     assert '{"results": "some data"}' in out
+    stubber.deactivate()
 
     # --- Success case with empty payload ---
-    mock_client.execute_query.return_value = {"payload": EmptyPayload()}
-    run_open_cypher_query(mock_client, graph_id)
+    stubber.activate()
+    empty_payload = StreamingBody(io.BytesIO(b''), 0)
+
+    stubber.stubber.add_response(
+        "execute_query",
+        {"payload": empty_payload},
+        {
+            "graphIdentifier": GRAPH_ID,
+            "queryString": "MATCH (n {code: 'ANC'}) RETURN n",
+            "language": "OPEN_CYPHER"
+        }
+    )
+    run_open_cypher_query(client, GRAPH_ID)
     out, _ = capfd.readouterr()
-    assert out == "\n"
+    assert out.strip() == ""  # Empty line
+    stubber.deactivate()
 
     # --- ClientError case ---
-    mock_client.execute_query.side_effect = ClientError(
-        {"Error": {"Message": "Client error occurred"}}, "ExecuteQuery"
+    stubber.activate()
+    stubber.stubber.add_client_error(
+        "execute_query",
+        service_error_code="ValidationException",  # <-- Updated to a valid exception code
+        service_message="Client error occurred",
+        http_status_code=400,
+        expected_params={
+            "graphIdentifier": GRAPH_ID,
+            "queryString": "MATCH (n {code: 'ANC'}) RETURN n",
+            "language": "OPEN_CYPHER"
+        }
     )
-    run_open_cypher_query(mock_client, graph_id)
+    run_open_cypher_query(client, GRAPH_ID)
     out, _ = capfd.readouterr()
     assert "ClientError: Client error occurred" in out
+    stubber.deactivate()
 
-    # --- Generic exception case ---
-    mock_client.execute_query.side_effect = Exception("Generic failure")
+    # --- Generic Exception case ---
+    # Deactivate stubber to allow monkeypatching client.execute_query
+    stubber.deactivate()
 
-    # Call function inside try/except, but **capture output immediately**
-    try:
-        run_open_cypher_query(mock_client, graph_id)
-    except Exception:
-        pass
+    def raise_generic_error(**kwargs):
+        raise Exception("Generic failure")
 
+    client.execute_query = raise_generic_error
+    run_open_cypher_query(client, GRAPH_ID)
     out, _ = capfd.readouterr()
     assert "Unexpected error: Generic failure" in out
+

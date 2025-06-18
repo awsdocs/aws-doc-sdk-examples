@@ -30,12 +30,14 @@ def main():
 def execute_create_graph(client, graph_name):
     try:
         print("Creating Neptune graph...")
-        response = client.create_graph(graph_name=graph_name)
+        response = client.create_graph(
+            graphName=graph_name,
+            provisionedMemory = 16
+        )
 
-        graph = response.get("graph", {})
-        created_graph_name = graph.get("name")
-        graph_arn = graph.get("arn")
-        graph_endpoint = graph.get("endpoint")
+        created_graph_name = response.get("name")
+        graph_arn = response.get("arn")
+        graph_endpoint = response.get("endpoint")
 
         print("Graph created successfully!")
         print(f"Graph Name: {created_graph_name}")

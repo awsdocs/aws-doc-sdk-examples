@@ -82,7 +82,7 @@ def execute_open_cypher_explain_query(client):
         print("\nRunning OpenCypher EXPLAIN query (debug mode)...")
         resp = client.execute_open_cypher_explain_query(
             openCypherQuery="MATCH (n {code: 'ANC'}) RETURN n",
-            explainMode="debug"
+            explainMode="details"
         )
         results = resp.get('results')
         if results is None:

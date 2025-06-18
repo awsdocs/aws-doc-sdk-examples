@@ -1,59 +1,73 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from unittest.mock import MagicMock
+import types
+import pytest
 from botocore.exceptions import ClientError, BotoCoreError
-from database.neptune_execute_gremlin_query import execute_gremlin_profile_query
+from neptune_data_stubber import NeptuneDateStubber
+from database.neptune_execute_gremlin_profile_query import run_profile_query  # Adjust import path as needed
 
+def test_run_profile_query(capfd):
+    stubber = NeptuneDateStubber()
+    client = stubber.get_client()
+    stubber.activate()
 
-def test_execute_gremlin_profile_query(capfd):
-    """
-    Unit test for execute_gremlin_profile_query().
-    Tests success, no output, ClientError, BotoCoreError, and generic Exception handling.
-    """
-    mock_client = MagicMock()
+    try:
+        # --- Success case with streaming output ---
+        profile_response_payload = '{"metrics": {"dur": 500, "steps": 3}}'
+        stubber.add_execute_gremlin_profile_query_stub(
+            gremlin_query="g.V().has('code', 'ANC')",
+            response_payload=profile_response_payload
+        )
+        run_profile_query(client)
+        out, _ = capfd.readouterr()
+        assert "Running Gremlin PROFILE query..." in out
+        assert "Profile Query Result:" in out
+        assert '"dur": 500' in out or "'dur': 500" in out
 
-    # --- Success case with valid output ---
-    mock_client.execute_gremlin_query.return_value = {
-        "result": {"metrics": {"dur": 500, "steps": 3}}
-    }
+        # --- Success case with no output (output=None) ---
+        stubber.stubber.assert_no_pending_responses()
+        stubber.add_execute_gremlin_profile_query_stub(
+            gremlin_query="g.V().has('code', 'ANC')",
+            response_payload=""  # Empty string simulates no output
+        )
+        run_profile_query(client)
+        out, _ = capfd.readouterr()
+        # Because output is streaming body, empty string means output.read() returns '', so "No explain output returned." should NOT print
+        # So, test that something is printed (could be empty)
+        assert "Profile Query Result:" in out
 
-    execute_gremlin_profile_query(mock_client)
-    out, _ = capfd.readouterr()
-    assert "Executing Gremlin PROFILE query..." in out
-    assert "Response is:" in out
-    assert '"dur": 500' in out or "'dur': 500" in out  # depending on Python version's dict print style
+        # --- ClientError case ---
+        stubber.stubber.assert_no_pending_responses()
+        stubber.stubber.add_client_error(
+            method='execute_gremlin_profile_query',
+            service_error_code='BadRequest',
+            service_message='Invalid query',
+            expected_params={"gremlinQuery": "g.V().has('code', 'ANC')"}
+        )
+        run_profile_query(client)
+        out, _ = capfd.readouterr()
+        assert "Failed to execute PROFILE query:" in out or "Neptune error:" in out or "Invalid query" in out
 
-    # --- Success case with no output ---
-    mock_client.execute_gremlin_query.return_value = {
-        "result": None
-    }
+        # --- BotoCoreError case ---
+        stubber.stubber.assert_no_pending_responses()
 
-    execute_gremlin_profile_query(mock_client)
-    out, _ = capfd.readouterr()
-    # Adjust assert to check for no output message or print of None
-    assert "No output returned from the profile query." in out or "None" in out or "Response is:" in out
+        def raise_boto_core_error(*args, **kwargs):
+            raise BotoCoreError()
 
-    # --- ClientError case ---
-    mock_client.execute_gremlin_query.side_effect = ClientError(
-        {"Error": {"Code": "BadRequest", "Message": "Invalid query"}},
-        operation_name="execute_gremlin_query"
-    )
+        client.execute_gremlin_profile_query = types.MethodType(raise_boto_core_error, client)
+        run_profile_query(client)
+        out, _ = capfd.readouterr()
+        assert "Failed to execute PROFILE query:" in out or "BotoCore error" in out or "Unexpected Boto3 error" in out
 
-    execute_gremlin_profile_query(mock_client)
-    out, _ = capfd.readouterr()
-    assert "Neptune error: Invalid query" in out
+        # --- Generic Exception case ---
+        def raise_generic_exception(*args, **kwargs):
+            raise Exception("Boom")
 
-    # --- BotoCoreError case ---
-    mock_client.execute_gremlin_query.side_effect = BotoCoreError()
+        client.execute_gremlin_profile_query = types.MethodType(raise_generic_exception, client)
+        run_profile_query(client)
+        out, _ = capfd.readouterr()
+        assert "Failed to execute PROFILE query: Boom" in out
 
-    execute_gremlin_profile_query(mock_client)
-    out, _ = capfd.readouterr()
-    assert "Unexpected Boto3 error" in out
-
-    # --- Generic exception case ---
-    mock_client.execute_gremlin_query.side_effect = Exception("Boom")
-
-    execute_gremlin_profile_query(mock_client)
-    out, _ = capfd.readouterr()
-    assert "Unexpected error: Boom" in out
+    finally:
+        stubber.deactivate()

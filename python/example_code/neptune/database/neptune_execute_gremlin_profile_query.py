@@ -37,7 +37,6 @@ def main():
     )
 
     try:
-        run_explain_query(neptune_client)
         run_profile_query(neptune_client)
     except ClientError as e:
         print(f"Neptune error: {e.response['Error']['Message']}")
@@ -45,23 +44,6 @@ def main():
         print(f"BotoCore error: {str(e)}")
     except Exception as e:
         print(f"Unexpected error: {str(e)}")
-
-
-def run_explain_query(neptune_client):
-    """
-    Runs an EXPLAIN query on the Neptune graph database.
-    """
-    print("Running Gremlin EXPLAIN query...")
-
-    try:
-        response = neptune_client.execute_gremlin_explain_query(
-            gremlinQuery="g.V().has('code', 'ANC')"
-        )
-        print("Explain Query Result:")
-        print(response.get("output", "No explain output returned."))
-    except Exception as e:
-        print(f"Failed to execute EXPLAIN query: {str(e)}")
-
 
 def run_profile_query(neptune_client):
     """
@@ -74,7 +56,11 @@ def run_profile_query(neptune_client):
             gremlinQuery="g.V().has('code', 'ANC')"
         )
         print("Profile Query Result:")
-        print(response['output'].read().decode('UTF-8'))
+        output = response.get("output")
+        if output:
+            print(output.read().decode('utf-8'))
+        else:
+            print("No explain output returned.")
     except Exception as e:
         print(f"Failed to execute PROFILE query: {str(e)}")
 

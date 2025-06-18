@@ -53,10 +53,6 @@ def run_open_cypher_query(client, graph_id):
 
     except client.exceptions.InternalServerException as e:
         print(f"InternalServerException: {e.response['Error']['Message']}")
-    except client.exceptions.BadRequestException as e:
-        print(f"BadRequestException: {e.response['Error']['Message']}")
-    except client.exceptions.LimitExceededException as e:
-        print(f"LimitExceededException: {e.response['Error']['Message']}")
     except ClientError as e:
         print(f"ClientError: {e.response['Error']['Message']}")
     except Exception as e:  # <--- ADD THIS BLOCK
@@ -78,10 +74,6 @@ def run_open_cypher_query_with_params(client, graph_id):
 
     except client.exceptions.InternalServerException as e:
         print(f"InternalServerException: {e.response['Error']['Message']}")
-    except client.exceptions.BadRequestException as e:
-        print(f"BadRequestException: {e.response['Error']['Message']}")
-    except client.exceptions.LimitExceededException as e:
-        print(f"LimitExceededException: {e.response['Error']['Message']}")
     except ClientError as e:
         print(f"ClientError: {e.response['Error']['Message']}")
     except Exception as e:  # <--- ADD THIS BLOCK
@@ -96,7 +88,7 @@ def run_open_cypher_explain_query(client, graph_id):
             graphIdentifier=graph_id,
             queryString="MATCH (n {code: 'ANC'}) RETURN n",
             language='OPEN_CYPHER',
-            explainMode="debug"
+            explainMode='DETAILS'
         )
         print(resp['payload'].read().decode('UTF-8'))
 
