@@ -23,24 +23,19 @@ It does not expose a public endpoint, so this code must be executed from:
 GRAPH_NAME = "sample-analytics-graph"
 
 def main():
-    """
-    Main entry point: create NeptuneGraph client and call graph creation.
-    """
     config = Config(retries={"total_max_attempts": 1, "mode": "standard"}, read_timeout=None)
     client = boto3.client("neptune-graph", config=config)
     execute_create_graph(client, GRAPH_NAME)
 
-
 def execute_create_graph(client, graph_name):
     try:
         print("Creating Neptune graph...")
-        response = client.create_graph(
-            graph_name=graph_name
-        )
+        response = client.create_graph(graph_name=graph_name)
 
-        created_graph_name = response.get("GraphName")
-        graph_arn = response.get("GraphArn")
-        graph_endpoint = response.get("GraphEndpoint")
+        graph = response.get("graph", {})
+        created_graph_name = graph.get("name")
+        graph_arn = graph.get("arn")
+        graph_endpoint = graph.get("endpoint")
 
         print("Graph created successfully!")
         print(f"Graph Name: {created_graph_name}")
@@ -51,7 +46,7 @@ def execute_create_graph(client, graph_name):
         print(f"Failed to create graph: {e.response['Error']['Message']}")
     except BotoCoreError as e:
         print(f"Failed to create graph: {str(e)}")
-    except Exception as e:  # <-- Add this generic catch
+    except Exception as e:
         print(f"Unexpected error: {str(e)}")
 
 if __name__ == "__main__":
