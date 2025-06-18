@@ -44,7 +44,7 @@ class ScenarioData:
             controltower_wrapper=ControlTowerWrapper(
                 self.controltower_client, self.controlcatalog_client
             ),
-            org_client=self.organizations_client
+            org_client=self.organizations_client,
         )
 
 
