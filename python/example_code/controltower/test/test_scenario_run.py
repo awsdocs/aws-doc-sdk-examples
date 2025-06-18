@@ -33,7 +33,7 @@ class MockManager:
             "arn:aws:cloudformation:us-east-1:123456789012:stack/test-stack/abcdef"
         )
         self.baseline_arn = "arn:aws:controltower:us-east-1:123456789012:baseline/AWSControlTowerBaseline"
-        self.enabled_baseline_arn = "arn:aws:controltower:us-east-1:123456789012:baseline/AWSControlTowerBaseline/enabled"
+        self.enabled_baseline_arn = "arn:aws:controltower:us-east-1:123456789012:baseline/AWSControlTowerBaseline/isenabled"
         self.control_arn = (
             "arn:aws:controlcatalog:us-east-1:123456789012:control/aws-control-1234"
         )
