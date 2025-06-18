@@ -10,6 +10,10 @@ from botocore.exceptions import ClientError
 import datetime
 import boto3
 
+from example_code.controltower.controltower_wrapper import ControlTowerWrapper
+from example_code.controltower.scenario_controltower import ControlTowerScenario
+
+
 class MockManager:
     def __init__(self, stub_runner, scenario_data, input_mocker):
         self.scenario_data = scenario_data
@@ -25,6 +29,7 @@ class MockManager:
         self.baseline_arn = "arn:aws:controltower:us-east-1:123456789012:baseline/AWSControlTowerBaseline"
         self.enabled_baseline_arn = "arn:aws:controltower:us-east-1:123456789012:baseline/AWSControlTowerBaseline/enabled"
         self.control_arn = "arn:aws:controlcatalog:us-east-1:123456789012:control/aws-control-1234"
+        self.control_arn_enabled = "arn:aws:controlcatalog:us-east-1:123456789012:control/aws-control-5678"
         
         self.landing_zones = [
             {
@@ -61,8 +66,8 @@ class MockManager:
 
         self.enabled_controls = [
             {
-                "arn": self.control_arn,
-                "controlIdentifier": self.control_arn,
+                "arn": self.control_arn_enabled,
+                "controlIdentifier": self.control_arn_enabled,
                 "statusSummary": {
                     "status": "SUCCEEDED",
                     "lastOperationIdentifier": self.baseline_operation_id,
@@ -139,7 +144,6 @@ class MockManager:
             )
             runner.add(
                 self.scenario_data.controltower_stubber.stub_reset_enabled_baseline,
-                self.sandbox_ou_arn,
                 self.enabled_baseline_arn,
                 self.baseline_operation_id
             )
@@ -150,7 +154,6 @@ class MockManager:
             )
             runner.add(
                 self.scenario_data.controltower_stubber.stub_disable_baseline,
-                self.sandbox_ou_arn,
                 self.enabled_baseline_arn,
                 self.baseline_operation_id
             )
@@ -187,6 +190,11 @@ class MockManager:
                 self.sandbox_ou_arn,
                 self.operation_id
             )
+            runner.add(
+                self.scenario_data.controltower_stubber.stub_get_control_operation,
+                self.operation_id,
+                "SUCCEEDED"
+            )
 
 
     def setup_integ(self, error, stop_on):
@@ -196,8 +204,8 @@ class MockManager:
             "n",  # Use first landing zone in the list.
             "n",  # Enable baseline.
         ]
+        self.stub_runner = None
         self.input_mocker.mock_answers(answers)
-
 
 
 @pytest.fixture
@@ -213,23 +221,37 @@ def test_run_scenario(mock_mgr, capsys, monkeypatch):
     mock_mgr.setup_stubs(None, None, monkeypatch)
     
     # Run the scenario
+    mock_mgr.scenario_data
     mock_mgr.scenario_data.scenario.run_scenario()
     
     # Verify the scenario completed successfully
     captured = capsys.readouterr()
-    assert "This concludes the scenario." in captured.out
+    assert "This concludes the example scenario." in captured.out
 
-@pytest.mark.skip(
-    reason="Skip until shared resources are part of the Docker environment."
-)
+
 @pytest.mark.integ
-def test_run_scenario_integ(mock_mgr, capsys, monkeypatch):
+def test_run_scenario_integ(input_mocker, capsys):
     """Test the scenario with an integration test."""
-    mock_mgr.setup_integ(None, None)
+    answers = [
+        "n", # Run the sections that don't require a landing zone.
+        "n",
+    ]
+
+    input_mocker.mock_answers(answers)
+    controltower_client = boto3.client("controltower")
+    controlcatalog_client = boto3.client("controlcatalog")
+    organizations_client = boto3.client("organizations")
+
+    scenario = ControlTowerScenario(
+        controltower_wrapper=ControlTowerWrapper(
+            controltower_client, controlcatalog_client
+        ),
+        org_client=organizations_client
+    )
 
     # Run the scenario
-    mock_mgr.scenario_data.scenario.run_scenario()
+    scenario.run_scenario()
 
     # Verify the scenario completed successfully
     captured = capsys.readouterr()
-    assert "This concludes the scenario." in captured.out
+    assert "This concludes the example scenario." in captured.out

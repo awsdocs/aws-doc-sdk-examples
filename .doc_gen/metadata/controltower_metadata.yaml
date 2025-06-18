@@ -85,20 +85,6 @@ controltower_DisableBaseline:
   services:
     controltower: {DisableBaseline}
 
-controltower_ListControls:
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/controltower
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.controltower.ControlTowerWrapper.decl
-                - python.example_code.controltower.ListControls
-  services:
-    controlcatalog: {ListControls}
-
 controltower_ListEnabledControls:
   languages:
     Python:
@@ -188,4 +174,3 @@ controltower_Scenario:
                 - python.example_code.controltower.ControlTowerWrapper.class
   services:
     controltower: {CreateLandingZone, DeleteLandingZone, ListBaselines, ListEnabledBaselines, EnableBaseline, ResetEnabledBaseline, DisableBaseline, EnableControl, GetControlOperation, DisableControl, GetLandingZoneOperation, ListLandingZones, ListEnabledControls}
-    controlcatalog: {ListControls}

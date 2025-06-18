@@ -53,11 +53,11 @@ def scenario_data(make_stubber):
     controltower_client = boto3.client("controltower")
     controlcatalog_client = boto3.client("controlcatalog")
     organizations_client = boto3.client("organizations")
-    
+
     controltower_stubber = make_stubber(controltower_client)
     controlcatalog_stubber = make_stubber(controlcatalog_client)
     organizations_stubber = make_stubber(organizations_client)
-    
+
     return ScenarioData(
         controltower_client,
         controlcatalog_client,
