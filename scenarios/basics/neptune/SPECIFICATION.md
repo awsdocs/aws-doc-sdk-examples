@@ -265,11 +265,7 @@ This table decribes the SOS tags for NeptunedataClient and NeptuneGraphClient.
 |-------------------------------|------------------------------------- |
 |`executeGremlinProfileQuery`   | neptune_ExecuteGremlinProfileQuery   |
 |`executeGremlinQuery`          | neptune_ExecuteGremlinQuery          |
-|`executeOpenCypherExplainQuery`| <See below>                          |
+|`executeOpenCypherExplainQuery`| neptune_ExecuteOpenCypherExplainQuery                          |
 |`createGraph  `                | neptune_CreateGraph:                 |
 |`executeQuery`                 | neptune_ExecuteQuery                 |
 
-
-NOTE
-
-As there is limited room in aboce table, the metadata key for `executeOpenCypherExplainQuery`is neptune_ExecuteOpenCypherExplainQuery.
