@@ -1,4 +1,6 @@
-import pytest
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 from unittest.mock import MagicMock
 from botocore.exceptions import ClientError, BotoCoreError
 from analytics.create_neptune_graph_example import execute_create_graph  # Adjust import as needed

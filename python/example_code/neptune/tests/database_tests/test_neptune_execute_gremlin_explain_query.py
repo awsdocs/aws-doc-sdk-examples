@@ -1,5 +1,7 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 import io
-import pytest
 from unittest.mock import MagicMock
 from botocore.exceptions import ClientError, EndpointConnectionError, BotoCoreError
 

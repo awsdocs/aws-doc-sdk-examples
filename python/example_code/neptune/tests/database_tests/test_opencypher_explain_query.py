@@ -1,4 +1,6 @@
-import pytest
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 from unittest.mock import MagicMock
 from botocore.exceptions import ClientError, BotoCoreError
 from database.neptune_execute_open_cypher_query import execute_open_cypher_explain_query

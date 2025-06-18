@@ -3,7 +3,6 @@
 
 # snippet-start: [neptune.python.data.query.gremlin.profile.main]
 import boto3
-import json
 from botocore.config import Config
 from botocore.exceptions import BotoCoreError, ClientError
 

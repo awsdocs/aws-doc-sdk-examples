@@ -1,3 +1,6 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 import boto3
 from botocore.exceptions import ClientError, BotoCoreError
 from botocore.config import Config

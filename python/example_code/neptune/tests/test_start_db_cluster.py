@@ -1,8 +1,8 @@
-import pytest
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 from unittest.mock import patch
 import boto3
-from botocore.stub import Stubber
-from botocore.exceptions import ClientError
 from neptune_scenario import start_db_cluster, TIMEOUT_SECONDS, POLL_INTERVAL_SECONDS
 from neptune_stubber import Neptune  # Your custom stubber class
 
@@ -15,7 +15,6 @@ def test_start_db_cluster_success(mock_sleep):
     client = boto3.client("neptune", region_name="us-east-1")
     neptune = Neptune(client)
 
-    # Stub the start call
     neptune.stubber.add_response(
         "start_db_cluster",
         {"DBCluster": {"DBClusterIdentifier": cluster_id}},
