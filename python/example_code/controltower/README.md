@@ -32,6 +32,8 @@ python -m pip install -r requirements.txt
 ```
 
 <!--custom.prerequisites.start-->
+Before running the example, set up a landing zone in order to run the baseline and control management sections.
+Follow the instructions provided by the [quick start](https://docs.aws.amazon.com/controltower/latest/userguide/quick-start.html) guide.
 <!--custom.prerequisites.end-->
 
 ### Get started

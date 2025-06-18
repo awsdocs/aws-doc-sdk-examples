@@ -22,7 +22,7 @@ The scenario follows these steps:
 ### Scenario
 #### Setup
 - List available landing zones and prompt the user if they would like to use an existing landing zone.
-- If no landing zones exist, provide information about setting up a landing zone.
+- If no landing zones exist, provide [information about setting up a landing zone](https://docs.aws.amazon.com/controltower/latest/userguide/quick-start.html).
 
 #### Baselines
 - List available baselines.

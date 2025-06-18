@@ -27,7 +27,7 @@ For an introduction, see the [README.md](README.md).
 - This example can run with no additional resources, or can use an existing landing zone. Since landing zone creation
 - requires multiple AWS accounts (which cannot be deleted for 7 days), this example does not support creating new
 - landing zones. The example will prompt to use a current landing zone, or run only that portion that doesn't 
-- require landing zone identifiers.
+- require landing zone identifiers. To set up a landing zone, follow the [QuickStart guide](https://docs.aws.amazon.com/controltower/latest/userguide/quick-start.html), and create new accounts when prompted.
 
 ### Hello
 The Hello example is a separate runnable example.
