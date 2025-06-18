@@ -58,7 +58,26 @@ Hello, AWS Control Tower! Let's list available baselines:
 
 Example
 ```
-TODO
+----------------------------------------------------------------------------------------
+        Welcome to the AWS Control Tower with ControlCatalog example scenario.
+----------------------------------------------------------------------------------------
+This demo will walk you through working with AWS Control Tower for landing zones,
+managing baselines, and working with controls.
+Some demo operations require the use of a landing zone. 
+You can use an existing landing zone or opt out of these operations in the demo.
+For instructions on how to set up a landing zone,
+see https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-from-console.html
+
+Available Landing Zones:
+1 arn:aws:controltower:us-east-1:478643181688:landingzone/MBQZZWORLOCC8WZ7)
+Do you want to use the first landing zone in the list (arn:aws:controltower:us-east-1:478643181688:landingzone/MBQZZWORLOCC8WZ7)? (y/n) y
+Using landing zone ID: arn:aws:controltower:us-east-1:478643181688:landingzone/MBQZZWORLOCC8WZ7)
+
+Checking organization status...
+Account is part of organization: o-phmlq23w1e
+Checking for Sandbox OU...
+Found existing Sandbox OU: ou-spdo-e3mtcidv
+
 
 ```
 
@@ -73,7 +92,45 @@ TODO
 
 Example
 ```
-TODO
+Managing Baselines:
+
+Listing available Baselines:
+AuditBaseline
+LogArchiveBaseline
+IdentityCenterBaseline
+AWSControlTowerBaseline
+BackupCentralVaultBaseline
+BackupAdminBaseline
+BackupBaseline
+
+Listing enabled baselines:
+arn:aws:controltower:us-east-1::baseline/LN25R72TTG6IGPTQ
+arn:aws:controltower:us-east-1::baseline/4T4HA1KMO10S6311
+arn:aws:controltower:us-east-1::baseline/J8HX46AHS5MIKQPD
+arn:aws:controltower:us-east-1::baseline/17BSJV3IGJ2QSGA2
+Do you want to enable the Control Tower Baseline? (y/n) y
+
+Enabling Control Tower Baseline.
+Baseline is already enabled for this target
+No change, the selected baseline was already enabled.
+Do you want to reset the Control Tower Baseline? (y/n) y
+
+Resetting Control Tower Baseline. arn:aws:controltower:us-east-1:478643181688:enabledbaseline/XOVK3ATZUCD5A04QV
+Baseline operation status: IN_PROGRESS
+Baseline operation status: IN_PROGRESS
+Baseline operation status: IN_PROGRESS
+Baseline operation status: IN_PROGRESS
+Baseline operation status: IN_PROGRESS
+Baseline operation status: SUCCEEDED
+
+Reset baseline operation id 64f9c26e-c2d4-46c1-8863-f2b6382c2b4d.
+
+Do you want to disable the Control Tower Baseline? (y/n) y
+Disabling baseline ARN: arn:aws:controltower:us-east-1:478643181688:enabledbaseline/XOVK3ATZUCD5A04QV
+Conflict disabling baseline: AWS Control Tower cannot perform a DisableBaseline operation on a target OU with enabled optional controls.. Skipping disable step.
+
+Disabled baseline operation id None.
+
 
 ```
 
@@ -90,7 +147,46 @@ and so is included as part of this example.
 
 Example
 ```
-TODO
+Managing Controls:
+
+Listing first 5 available Controls:
+1. Checks if a recovery point expires no earlier than after the specified period
+2. Require any AWS CodeBuild project environment to have logging configured
+3. Checks if AWS AppConfig configuration profiles have tags
+4. ECS containers should run as non-privileged
+5. Disallow changes to Amazon CloudWatch Logs log groups set up by AWS Control Tower
+
+Listing enabled controls:
+1. arn:aws:controltower:us-east-1::control/AWS-GR_CLOUDTRAIL_CHANGE_PROHIBITED
+2. arn:aws:controltower:us-east-1::control/AWS-GR_CLOUDTRAIL_CLOUDWATCH_LOGS_ENABLED
+3. arn:aws:controltower:us-east-1::control/AWS-GR_CLOUDTRAIL_ENABLED
+4. arn:aws:controltower:us-east-1::control/AWS-GR_CLOUDTRAIL_VALIDATION_ENABLED
+5. arn:aws:controltower:us-east-1::control/AWS-GR_CLOUDWATCH_EVENTS_CHANGE_PROHIBITED
+6. arn:aws:controltower:us-east-1::control/AWS-GR_CONFIG_AGGREGATION_AUTHORIZATION_POLICY
+7. arn:aws:controltower:us-east-1::control/AWS-GR_CONFIG_AGGREGATION_CHANGE_PROHIBITED
+8. arn:aws:controltower:us-east-1::control/AWS-GR_CONFIG_CHANGE_PROHIBITED
+9. arn:aws:controltower:us-east-1::control/AWS-GR_CONFIG_ENABLED
+10. arn:aws:controltower:us-east-1::control/AWS-GR_CONFIG_RULE_CHANGE_PROHIBITED
+11. arn:aws:controltower:us-east-1::control/AWS-GR_IAM_ROLE_CHANGE_PROHIBITED
+12. arn:aws:controltower:us-east-1::control/AWS-GR_LAMBDA_CHANGE_PROHIBITED
+13. arn:aws:controltower:us-east-1::control/AWS-GR_LOG_GROUP_POLICY
+15. arn:aws:controltower:us-east-1::control/AWS-GR_SNS_SUBSCRIPTION_CHANGE_PROHIBITED
+16. arn:aws:controlcatalog:::control/m7a5gbdf08wg2o0en010mkng
+Do you want to enable the control arn:aws:controlcatalog:::control/m7a5gbdf08wg2o0en010mkng? (y/n) y
+
+Enabling control: arn:aws:controlcatalog:::control/m7a5gbdf08wg2o0en010mkng
+arn:aws:controlcatalog:::control/m7a5gbdf08wg2o0en010mkng
+arn:aws:organizations::478643181688:ou/o-phmlq23w1e/ou-spdo-e3mtcidv
+Control is already enabled for this target
+Do you want to disable the control? (y/n) y
+
+Disabling the control...
+Control operation status: IN_PROGRESS
+Control operation status: SUCCEEDED
+Disable operation ID: c9c24ab0-9988-48fa-a8f3-1c5daf979176
+This concludes the control tower scenario.
+Thanks for watching!
+
 
 ```
 
@@ -100,17 +196,17 @@ TODO
 ## Errors
 The following errors are handled in the Control Tower wrapper class:
 
-| action                 | Error                 | Handling                                                       |
-|------------------------|-----------------------|----------------------------------------------------------------|
-| `ListBaselines`        | AccessDeniedException | Notify the user of insufficient permissions and exit.          |
-| `ListEnabledBaselines` | AccessDeniedException | Notify the user of insufficient permissions and exit.          |
-| `EnableBaseline`       | ValidationException   | Handle case where baseline is already enabled and return None. |
-| `DisableBaseline`      | ResourceNotFound      | Notify the user that the baseline was not found.               |
-| `ListControls`         | AccessDeniedException | Notify the user of insufficient permissions and exit.          |
-| `EnableControl`        | ValidationException   | Handle case where control is already enabled and return None.  |
-| `GetControlOperation`  | ResourceNotFound      | Notify the user that the control operation was not found.      |
-| `DisableControl`       | ResourceNotFound      | Notify the user that the control was not found.                | 
-| `ListLandingZones`     | AccessDeniedException | Notify the user of insufficient permissions and exit.          |
+| action                 | Error                 | Handling                                                               |
+|------------------------|-----------------------|------------------------------------------------------------------------|
+| `ListBaselines`        | AccessDeniedException | Notify the user of insufficient permissions and exit.                  |
+| `ListEnabledBaselines` | AccessDeniedException | Notify the user of insufficient permissions and exit.                  |
+| `EnableBaseline`       | ValidationException   | Handle case where baseline is already enabled and return None.         |
+| `DisableBaseline`      | ConflictException     | Notify the user that the baseline could not be disabled, and continue. |
+| `ListControls`         | AccessDeniedException | Notify the user of insufficient permissions and exit.                  |
+| `EnableControl`        | ValidationException   | Handle case where control is already enabled and return None.          |
+| `GetControlOperation`  | ResourceNotFound      | Notify the user that the control operation was not found.              |
+| `DisableControl`       | ResourceNotFound      | Notify the user that the control was not found.                        | 
+| `ListLandingZones`     | AccessDeniedException | Notify the user of insufficient permissions and exit.                  |
 
 
 ---

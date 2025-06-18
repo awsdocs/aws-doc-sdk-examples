@@ -16,7 +16,7 @@ class MockManager:
         self.account_id = "123456789012"
         self.org_id = "o-exampleorgid"
         self.root_id = "r-examplerootid"
-        self.sandbox_ou_id = "ou-exampleouid"
+        self.sandbox_ou_id = "ou-exampleouid123456"
         self.sandbox_ou_arn = "arn:aws:organizations::123456789012:ou/o-exampleorgid/ou-exampleouid"
         self.landing_zone_arn = "arn:aws:controltower:us-east-1:123456789012:landingzone/lz-example"
         self.operation_id = "op-1234567890abcdef01234567890abcdef"
@@ -38,6 +38,18 @@ class MockManager:
                 "arn": self.baseline_arn
             }
         ]
+
+        self.enabled_baselines = [
+            {
+                "targetIdentifier": self.sandbox_ou_arn,
+                "baselineIdentifier": self.enabled_baseline_arn,
+                "arn": self.baseline_arn,
+                "statusSummary": {
+                    "status": "SUCCEEDED",
+                    "lastOperationIdentifier": self.baseline_operation_id,
+                },
+            }
+        ]
         
         self.controls = [
             {
@@ -46,16 +58,32 @@ class MockManager:
                 "Description": "Test control description",
             }
         ]
+
+        self.enabled_controls = [
+            {
+                "arn": self.control_arn,
+                "controlIdentifier": self.control_arn,
+                "statusSummary": {
+                    "status": "SUCCEEDED",
+                    "lastOperationIdentifier": self.baseline_operation_id,
+                },
+                "targetIdentifier": self.sandbox_ou_id
+            }
+        ]
         
         self.stub_runner = stub_runner
         self.input_mocker = input_mocker
 
-    def setup_stubs_use_suggested(self, error, stop_on, monkeypatch):
+    def setup_stubs(self, error, stop_on, monkeypatch):
         """Setup stubs for the scenario"""
-        # Mock user inputs for using the suggested landing zone
+        # Mock user inputs
         answers = [
-            "y",  # Use first landing zone in the list
-            "y",  # Clean up resources
+            "y",  # Use first landing zone in the list.
+            "y",  # Enable baseline.
+            "y",  # Reset baseline.
+            "y",  # Disable baseline.
+            "y",  # Enable control.
+            "y",  # Disable control.
         ]
         self.input_mocker.mock_answers(answers)
         
@@ -93,6 +121,10 @@ class MockManager:
                 self.baselines
             )
             runner.add(
+                self.scenario_data.controltower_stubber.stub_list_enabled_baselines,
+                self.enabled_baselines
+            )
+            runner.add(
                 self.scenario_data.controltower_stubber.stub_enable_baseline,
                 self.baseline_arn,
                 "4.0",
@@ -100,11 +132,43 @@ class MockManager:
                 self.enabled_baseline_arn,
                 self.baseline_operation_id
             )
+            runner.add(
+                self.scenario_data.controltower_stubber.stub_get_baseline_operation,
+                self.baseline_operation_id,
+                "SUCCEEDED"
+            )
+            runner.add(
+                self.scenario_data.controltower_stubber.stub_reset_enabled_baseline,
+                self.sandbox_ou_arn,
+                self.enabled_baseline_arn,
+                self.baseline_operation_id
+            )
+            runner.add(
+                self.scenario_data.controltower_stubber.stub_get_baseline_operation,
+                self.baseline_operation_id,
+                "SUCCEEDED"
+            )
+            runner.add(
+                self.scenario_data.controltower_stubber.stub_disable_baseline,
+                self.sandbox_ou_arn,
+                self.enabled_baseline_arn,
+                self.baseline_operation_id
+            )
+            runner.add(
+                self.scenario_data.controltower_stubber.stub_get_baseline_operation,
+                self.baseline_operation_id,
+                "SUCCEEDED"
+            )
             
             # List and enable controls
             runner.add(
                 self.scenario_data.controlcatalog_stubber.stub_list_controls,
                 self.controls
+            )
+            runner.add(
+                self.scenario_data.controltower_stubber.stub_list_enabled_controls,
+                self.sandbox_ou_arn,
+                self.enabled_controls
             )
             runner.add(
                 self.scenario_data.controltower_stubber.stub_enable_control,
@@ -123,19 +187,14 @@ class MockManager:
                 self.sandbox_ou_arn,
                 self.operation_id
             )
-            
-            # Cleanup
-            runner.add(
-                self.scenario_data.controltower_stubber.stub_delete_landing_zone,
-                self.landing_zone_arn,
-                self.lz_operation_id
-            )
+
 
     def setup_integ(self, error, stop_on):
         """Set up the scenario for an integration test."""
         # Mock user inputs for using the suggested landing zone
         answers = [
-            "n",  # Do not create a landing zone for this scenario.
+            "n",  # Use first landing zone in the list.
+            "n",  # Enable baseline.
         ]
         self.input_mocker.mock_answers(answers)
 
@@ -149,9 +208,9 @@ def mock_mgr(stub_runner, scenario_data, input_mocker):
 ANY = object()
 
 
-def test_run_scenario_use_suggested(mock_mgr, capsys, monkeypatch):
+def test_run_scenario(mock_mgr, capsys, monkeypatch):
     """Test the scenario that uses the suggested landing zone."""
-    mock_mgr.setup_stubs_use_suggested(None, None, monkeypatch)
+    mock_mgr.setup_stubs(None, None, monkeypatch)
     
     # Run the scenario
     mock_mgr.scenario_data.scenario.run_scenario()
@@ -160,6 +219,9 @@ def test_run_scenario_use_suggested(mock_mgr, capsys, monkeypatch):
     captured = capsys.readouterr()
     assert "This concludes the scenario." in captured.out
 
+@pytest.mark.skip(
+    reason="Skip until shared resources are part of the Docker environment."
+)
 @pytest.mark.integ
 def test_run_scenario_integ(mock_mgr, capsys, monkeypatch):
     """Test the scenario with an integration test."""

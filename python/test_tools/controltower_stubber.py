@@ -64,16 +64,14 @@ class ControlTowerStubber(ExampleStubber):
             "list_baselines", expected_params, response, error_code=error_code
         )
         
-    def stub_list_enabled_baselines(self, target_identifier: str, enabled_baselines: list, error_code: str = None) -> None:
+    def stub_list_enabled_baselines(self, enabled_baselines: list, error_code: str = None) -> None:
         """
         Stub the list_enabled_baselines function.
 
-        :param target_identifier: The identifier of the target.
         :param enabled_baselines: List of enabled baselines to return.
         :param error_code: Simulated error code to raise.
         """
         expected_params = {
-            "targetIdentifier": target_identifier
         }
         response = {
             "enabledBaselines": enabled_baselines
@@ -154,7 +152,8 @@ class ControlTowerStubber(ExampleStubber):
         expected_params = {
             "baselineIdentifier": baseline_identifier,
             "baselineVersion": baseline_version,
-            "targetIdentifier": target_identifier
+            "targetIdentifier": target_identifier,
+            'parameters': [{'key': 'IdentityCenterEnabledBaselineArn', 'value': None}],
         }
         response = {
             "arn": arn,
@@ -162,6 +161,25 @@ class ControlTowerStubber(ExampleStubber):
         }
         self._stub_bifurcator(
             "enable_baseline", expected_params, response, error_code=error_code
+        )
+    def stub_get_baseline_operation(self, operation_identifier: str, status: str, error_code: str = None) -> None:
+        """
+        Stub the get_baseline_operation function.
+
+        :param operation_identifier: The identifier of the operation.
+        :param status: The status of the operation.
+        :param error_code: Simulated error code to raise.
+        """
+        expected_params = {
+            "operationIdentifier": operation_identifier
+        }
+        response = {
+            "baselineOperation": {
+                "status": status,
+            }
+        }
+        self._stub_bifurcator(
+            "get_baseline_operation", expected_params, response, error_code=error_code
         )
 
     def stub_enable_control(self, control_identifier: str, target_identifier: str, operation_identifier: str, error_code: str = None) -> None:
