@@ -50,15 +50,16 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateLandingZone](controltower_wrapper.py#L13)
-- [DeleteLandingZone](controltower_wrapper.py#L67)
-- [DisableControl](controltower_wrapper.py#L232)
-- [EnableBaseline](controltower_wrapper.py#L117)
-- [EnableControl](controltower_wrapper.py#L172)
-- [GetControlOperation](controltower_wrapper.py#L206)
-- [GetLandingZoneOperation](controltower_wrapper.py#L260)
-- [ListBaselines](controltower_wrapper.py#L92)
-- [ListLandingZones](controltower_wrapper.py#L287)
+- [DisableBaseline](controltower_wrapper.py#L365)
+- [DisableControl](controltower_wrapper.py#L240)
+- [EnableBaseline](controltower_wrapper.py#L64)
+- [EnableControl](controltower_wrapper.py#L143)
+- [GetControlOperation](controltower_wrapper.py#L186)
+- [ListBaselines](controltower_wrapper.py#L36)
+- [ListEnabledBaselines](controltower_wrapper.py#L305)
+- [ListEnabledControls](controltower_wrapper.py#L401)
+- [ListLandingZones](controltower_wrapper.py#L278)
+- [ResetEnabledBaseline](controltower_wrapper.py#L332)
 
 
 <!--custom.examples.start-->
@@ -84,11 +85,9 @@ python hello/hello_controltower.py
 
 This example shows you how to do the following:
 
-- Set up a landing zone.
-- List and enable baselines.
-- List and enable controls.
-- Disable controls.
-- Delete a landing zone.
+- List landing zones.
+- List, enable, get, reset, and disable baselines.
+- List, enable, get, and disable controls.
 
 <!--custom.basic_prereqs.controltower_Scenario.start-->
 <!--custom.basic_prereqs.controltower_Scenario.end-->

@@ -80,18 +80,16 @@ class ControlTowerStubber(ExampleStubber):
             "list_enabled_baselines", expected_params, response, error_code=error_code
         )
         
-    def stub_reset_enabled_baseline(self, target_identifier: str, baseline_identifier: str, operation_identifier: str, error_code: str = None) -> None:
+    def stub_reset_enabled_baseline(self, baseline_identifier: str, operation_identifier: str, error_code: str = None) -> None:
         """
         Stub the reset_enabled_baseline function.
 
-        :param target_identifier: The identifier of the target.
         :param baseline_identifier: The identifier of the baseline to reset.
         :param operation_identifier: The identifier of the operation.
         :param error_code: Simulated error code to raise.
         """
         expected_params = {
-            "targetIdentifier": target_identifier,
-            "baselineIdentifier": baseline_identifier
+            "enabledBaselineIdentifier": baseline_identifier
         }
         response = {
             "operationIdentifier": operation_identifier
@@ -100,18 +98,16 @@ class ControlTowerStubber(ExampleStubber):
             "reset_enabled_baseline", expected_params, response, error_code=error_code
         )
         
-    def stub_disable_baseline(self, target_identifier: str, baseline_identifier: str, operation_identifier: str, error_code: str = None) -> None:
+    def stub_disable_baseline(self, baseline_identifier: str, operation_identifier: str, error_code: str = None) -> None:
         """
         Stub the disable_baseline function.
 
-        :param target_identifier: The identifier of the target.
         :param baseline_identifier: The identifier of the baseline to disable.
         :param operation_identifier: The identifier of the operation.
         :param error_code: Simulated error code to raise.
         """
         expected_params = {
-            "targetIdentifier": target_identifier,
-            "baselineIdentifier": baseline_identifier
+            "enabledBaselineIdentifier": baseline_identifier
         }
         response = {
             "operationIdentifier": operation_identifier
