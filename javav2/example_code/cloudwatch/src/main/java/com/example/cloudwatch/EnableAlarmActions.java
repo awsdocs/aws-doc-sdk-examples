@@ -45,6 +45,17 @@ public class EnableAlarmActions {
         cw.close();
     }
 
+    /**
+     * Enables actions on the specified Amazon CloudWatch alarm.
+     *
+     * <p>This method sends a request to Amazon CloudWatch to enable actions on the given alarm name.
+     * Alarm actions can include notifications, auto scaling, or other automated responses triggered by alarm state changes.</p>
+     *
+     * @param cw    The {@link CloudWatchClient} used to send the request.
+     * @param alarm The name of the alarm to enable actions on.
+     *
+     * @throws CloudWatchException if the request fails due to client-side issues or service errors.
+     */
     public static void enableActions(CloudWatchClient cw, String alarm) {
         try {
             EnableAlarmActionsRequest request = EnableAlarmActionsRequest.builder()

@@ -99,6 +99,19 @@ cloudwatch-logs_DescribeExportTasks:
                 - CloudWatchLogs.dotnetv3.DescribeExportTasksExammple
   services:
     cloudwatch-logs: {DescribeExportTasks}
+cloudwatch-logs_DescribeLogStreams:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.javav2.describe.log group.main
+  services:
+    cloudwatch-logs: {DescribeLogStreams}
 cloudwatch-logs_DescribeLogGroups:
   languages:
     .NET:
