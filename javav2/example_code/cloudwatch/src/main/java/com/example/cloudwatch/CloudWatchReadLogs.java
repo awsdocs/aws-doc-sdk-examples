@@ -1,13 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.cloudwatch.logs;
+package com.example.cloudwatch;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.CloudWatchLogsException;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeLogStreamsRequest;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeLogStreamsResponse;
+import software.amazon.awssdk.services.cloudwatchlogs.model.FilterLogEventsRequest;
+import software.amazon.awssdk.services.cloudwatchlogs.model.FilterLogEventsResponse;
+import software.amazon.awssdk.services.cloudwatchlogs.model.FilteredLogEvent;
 import software.amazon.awssdk.services.cloudwatchlogs.model.GetLogEventsRequest;
 import software.amazon.awssdk.services.cloudwatchlogs.model.GetLogEventsResponse;
 import software.amazon.awssdk.services.cloudwatchlogs.model.LogStream;
@@ -25,67 +28,51 @@ import java.util.List;
  */
 // snippet-start:[cloudwatch.javav2.describe.log group.main]
 public class CloudWatchReadLogs {
+
     public static void main(final String[] args) {
         final String usage = """
-             Usage:
-                <logGroupName> 
-             Where:
-                 logGroupName - The name of the log group (for example, /aws/lambda/ChatAIHandler).
+            Usage:
+               <logGroupName>
+            Where:
+                logGroupName - The name of the log group (e.g., /aws/lambda/ChatAIHandler)
             """;
-        if (args.length != 3) {
-            System.out.print(usage);
+
+        if (args.length != 1) {
+            System.out.println(usage);
             System.exit(1);
         }
 
         String logGroupName = args[0];
-        CloudWatchLogsClient logsClient = CloudWatchLogsClient.builder()
+        try (CloudWatchLogsClient logsClient = CloudWatchLogsClient.builder()
                 .region(Region.US_EAST_1)
-                .build();
-        getLogEvents(logsClient, logGroupName, startTime, endTime);
+                .build()) {
+            fetchRecentLogs(logsClient, logGroupName);
+        } catch (CloudWatchLogsException e) {
+            System.err.println("Error accessing CloudWatch Logs: " + e.awsErrorDetails().errorMessage());
+        }
     }
 
     /**
-     * Retrieves and prints the log events from the specified log group and the most recent log stream within that group,
-     * filtered by the provided start and end times.
+     * Retrieves and prints recent log events from the specified log group across all log streams.
      *
      * @param logsClient   the CloudWatchLogsClient used to interact with AWS CloudWatch Logs
      * @param logGroupName the name of the log group from which to retrieve the log events
-     * @param startTime    the start time for the log events (in milliseconds since epoch)
-     * @param endTime      the end time for the log events (in milliseconds since epoch)
      */
-    public static void getLogEvents(CloudWatchLogsClient logsClient, String logGroupName, long startTime, long endTime) {
-        DescribeLogStreamsRequest streamsRequest = DescribeLogStreamsRequest.builder()
+    public static void fetchRecentLogs(CloudWatchLogsClient logsClient, String logGroupName) {
+        FilterLogEventsRequest request = FilterLogEventsRequest.builder()
                 .logGroupName(logGroupName)
-                .orderBy(OrderBy.LAST_EVENT_TIME)
-                .descending(true)
-                .limit(1)
+                .limit(50) // Adjust as needed
                 .build();
-        try {
-            DescribeLogStreamsResponse streamsResponse = logsClient.describeLogStreams(streamsRequest);
-            List<LogStream> logStreams = streamsResponse.logStreams();
-            if (logStreams.isEmpty()) {
-                System.out.println("No log streams found for log group: " + logGroupName);
-                return;
-            }
 
-            String logStreamName = logStreams.get(0).logStreamName();
-            GetLogEventsRequest eventsRequest = GetLogEventsRequest.builder()
-                    .logGroupName(logGroupName)
-                    .logStreamName(logStreamName)
-                    .startFromHead(true)
-                    .startTime(startTime)
-                    .endTime(endTime)
-                    .build();
+        FilterLogEventsResponse response = logsClient.filterLogEvents(request);
+        if (response.events().isEmpty()) {
+            System.out.println("No log events found.");
+            return;
+        }
 
-            GetLogEventsResponse eventsResponse = logsClient.getLogEvents(eventsRequest);
-            System.out.println("Log events from: " + logStreamName);
-            for (OutputLogEvent event : eventsResponse.events()) {
-                if (event.timestamp() >= startTime && event.timestamp() <= endTime) {
-                    System.out.printf("[%s] %s%n", event.timestamp(), event.message());
-                }
-            }
-        } catch (CloudWatchLogsException e) {
-            System.err.println("Failed to fetch logs: " + e.awsErrorDetails().errorMessage());
+        System.out.println("Recent log events:");
+        for (FilteredLogEvent event : response.events()) {
+            System.out.printf("[%s] %s%n", event.timestamp(), event.message());
         }
     }
 }

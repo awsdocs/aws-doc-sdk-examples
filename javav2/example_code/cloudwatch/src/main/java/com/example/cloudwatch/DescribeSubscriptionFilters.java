@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.cloudwatch.logs;
+package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.java2.describe_subscription_filters.main]
 // snippet-start:[cloudwatch.java2.describe_subscription_filters.import]

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.cloudwatch.events;
+package com.example.cloudwatch;
 
 // snippet-start:[cloudwatch.javav2.describe_rule.main]
 // snippet-start:[cloudwatch.javav2.describe_rule.import]
