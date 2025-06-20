@@ -1,9 +1,51 @@
 use aws_config::{BehaviorVersion, SdkConfig};
-use aws_sdk_bedrockagentruntime::{self as bedrockagentruntime, types::ResponseStream};
+use aws_sdk_bedrockagentruntime::{
+    self as bedrockagentruntime,
+    types::{error::ResponseStreamError, ResponseStream},
+};
+#[allow(unused_imports)]
+use mockall::automock;
 
 const BEDROCK_AGENT_ID: &str = "AJBHXXILZN";
 const BEDROCK_AGENT_ALIAS_ID: &str = "AVKP1ITZAA";
 const BEDROCK_AGENT_REGION: &str = "us-east-1";
+
+#[cfg(not(test))]
+pub use EventReceiverImpl as EventReceiver;
+#[cfg(test)]
+pub use MockEventReceiverImpl as EventReceiver;
+
+pub struct EventReceiverImpl {
+    inner: aws_sdk_bedrockagentruntime::primitives::event_stream::EventReceiver<
+        ResponseStream,
+        ResponseStreamError,
+    >,
+}
+
+#[cfg_attr(test, automock)]
+impl EventReceiverImpl {
+    #[allow(dead_code)]
+    pub fn new(
+        inner: aws_sdk_bedrockagentruntime::primitives::event_stream::EventReceiver<
+            ResponseStream,
+            ResponseStreamError,
+        >,
+    ) -> Self {
+        Self { inner }
+    }
+
+    pub async fn recv(
+        &mut self,
+    ) -> Result<
+        Option<ResponseStream>,
+        aws_sdk_bedrockagentruntime::error::SdkError<
+            ResponseStreamError,
+            aws_smithy_types::event_stream::RawMessage,
+        >,
+    > {
+        self.inner.recv().await
+    }
+}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<bedrockagentruntime::Error>> {
@@ -31,11 +73,19 @@ async fn invoke_bedrock_agent(
 
     let response = command_builder.send().await?;
 
-    let mut response_stream = response.completion;
+    let response_stream = response.completion;
+
+    let event_receiver = EventReceiver::new(response_stream);
+
+    process_agent_response_stream(event_receiver).await
+}
+
+async fn process_agent_response_stream(
+    mut event_receiver: EventReceiver,
+) -> Result<String, bedrockagentruntime::Error> {
     let mut full_agent_text_response = String::new();
 
-    println!("Processing Bedrock agent response stream...");
-    while let Some(event_result) = response_stream.recv().await? {
+    while let Some(event_result) = event_receiver.recv().await? {
         match event_result {
             ResponseStream::Chunk(chunk) => {
                 if let Some(bytes) = chunk.bytes {
@@ -54,6 +104,33 @@ async fn invoke_bedrock_agent(
             }
         }
     }
-
     Ok(full_agent_text_response)
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[tokio::test]
+    async fn test_process_agent_response_stream() {
+        let mut mock = MockEventReceiverImpl::default();
+        mock.expect_recv().times(1).returning(|| {
+            Ok(Some(
+                aws_sdk_bedrockagentruntime::types::ResponseStream::Chunk(
+                    aws_sdk_bedrockagentruntime::types::PayloadPart::builder()
+                        .set_bytes(Some(aws_smithy_types::Blob::new(vec![
+                            116, 101, 115, 116, 32, 99, 111, 109, 112, 108, 101, 116, 105, 111, 110,
+                        ])))
+                        .build(),
+                ),
+            ))
+        });
+
+        // end the stream
+        mock.expect_recv().times(1).returning(|| Ok(None));
+
+        let response = process_agent_response_stream(mock).await.unwrap();
+
+        assert_eq!("test completion", response);
+    }
 }
