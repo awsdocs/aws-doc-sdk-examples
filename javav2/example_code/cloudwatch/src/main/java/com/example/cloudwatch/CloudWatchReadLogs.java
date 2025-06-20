@@ -27,17 +27,17 @@ import java.util.List;
 public class CloudWatchReadLogs {
     public static void main(final String[] args) {
         final String usage = """
-                             Usage:
-                                 <logGroupName> 
-                             Where:
-                                 logGroupName - The name of the log group (for example, /aws/lambda/ChatAIHandler).
-                             """;
-       // if (args.length != 3) {
-       //     System.out.print(usage);
-       //     System.exit(1);
-       // }
+             Usage:
+                <logGroupName> 
+             Where:
+                 logGroupName - The name of the log group (for example, /aws/lambda/ChatAIHandler).
+            """;
+        if (args.length != 3) {
+            System.out.print(usage);
+            System.exit(1);
+        }
 
-        String logGroupName = "/aws/lambda/ChatAIHandler" ; //args[0];
+        String logGroupName = args[0];
         CloudWatchLogsClient logsClient = CloudWatchLogsClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
