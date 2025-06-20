@@ -28,19 +28,16 @@ public class CloudWatchReadLogs {
     public static void main(final String[] args) {
         final String usage = """
                              Usage:
-                             <logGroupName> <startTime> <endTime>
+                                 <logGroupName> 
                              Where:
-                             logGroupName - The name of the log group (for example, /aws/lambda/ChatAIHandler).
-                             startTime - The start time for the log events (in milliseconds since epoch).
-                             endTime - The end time for the log events (in milliseconds since epoch).
+                                 logGroupName - The name of the log group (for example, /aws/lambda/ChatAIHandler).
                              """;
-        if (args.length != 3) {
-            System.out.print(usage);
-            System.exit(1);
-        }
-        String logGroupName = args[0];
-        long startTime = Long.parseLong(args[1]);
-        long endTime = Long.parseLong(args[2]);
+       // if (args.length != 3) {
+       //     System.out.print(usage);
+       //     System.exit(1);
+       // }
+
+        String logGroupName = "/aws/lambda/ChatAIHandler" ; //args[0];
         CloudWatchLogsClient logsClient = CloudWatchLogsClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
