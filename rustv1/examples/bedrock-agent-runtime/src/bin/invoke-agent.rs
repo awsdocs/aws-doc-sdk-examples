@@ -100,7 +100,7 @@ async fn process_agent_response_stream(
                 }
             }
             _ => {
-                println!("Received an unhandled event type from Bedrock stream.");
+                panic!("received an unhandled event type from Bedrock stream",);
             }
         }
     }
@@ -109,6 +109,7 @@ async fn process_agent_response_stream(
 
 #[cfg(test)]
 mod test {
+
     use super::*;
 
     #[tokio::test]
@@ -132,5 +133,20 @@ mod test {
         let response = process_agent_response_stream(mock).await.unwrap();
 
         assert_eq!("test completion", response);
+    }
+
+    #[tokio::test]
+    #[should_panic(expected = "received an unhandled event type from Bedrock stream")]
+    async fn test_process_agent_response_stream_error() {
+        let mut mock = MockEventReceiverImpl::default();
+        mock.expect_recv().times(1).returning(|| {
+            Ok(Some(
+                aws_sdk_bedrockagentruntime::types::ResponseStream::Trace(
+                    aws_sdk_bedrockagentruntime::types::TracePart::builder().build(),
+                ),
+            ))
+        });
+
+        let _ = process_agent_response_stream(mock).await.unwrap();
     }
 }
