@@ -1,8 +1,8 @@
-# Amazon Bedrock code examples for the SDK for .NET
+# Amazon Bedrock code examples for the SDK for .NET (v4)
 
 ## Overview
 
-Shows how to use the AWS SDK for .NET to work with Amazon Bedrock.
+Shows how to use the AWS SDK for .NET (v4) to work with Amazon Bedrock.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
@@ -48,23 +48,6 @@ Code excerpts that show you how to call individual service functions.
 
 ### Instructions
 
-For general instructions to run the examples, see the
-[README](../README.md#building-and-running-the-code-examples) in the `dotnetv4` folder.
-
-Some projects might include a settings.json file. Before compiling the project,
-you can change these values to match your own account and resources. Alternatively,
-add a settings.local.json file with your local settings, which will be loaded automatically
-when the application runs.
-
-After the example compiles, you can run it from the command line. To do so, navigate to
-the folder that contains the .csproj file and run the following command:
-
-```
-dotnet run
-```
-
-Alternatively, you can run the example from within your IDE.
-
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
@@ -92,7 +75,7 @@ in the `dotnetv4` folder.
 
 - [Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
 - [Amazon Bedrock API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/welcome.html)
-- [SDK for .NET Amazon Bedrock reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Bedrock/NBedrock.html)
+- [SDK for .NET (v4) Amazon Bedrock reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Bedrock/NBedrock.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

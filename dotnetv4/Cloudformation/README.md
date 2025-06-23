@@ -1,8 +1,8 @@
-# CloudFormation code examples for the SDK for .NET
+# CloudFormation code examples for the SDK for .NET (v4)
 
 ## Overview
 
-Shows how to use the AWS SDK for .NET to work with AWS CloudFormation.
+Shows how to use the AWS SDK for .NET (v4) to work with AWS CloudFormation.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
@@ -41,23 +41,6 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 ### Instructions
 
-For general instructions to run the examples, see the
-[README](../README.md#building-and-running-the-code-examples) in the `dotnetv4` folder.
-
-Some projects might include a settings.json file. Before compiling the project,
-you can change these values to match your own account and resources. Alternatively,
-add a settings.local.json file with your local settings, which will be loaded automatically
-when the application runs.
-
-After the example compiles, you can run it from the command line. To do so, navigate to
-the folder that contains the .csproj file and run the following command:
-
-```
-dotnet run
-```
-
-Alternatively, you can run the example from within your IDE.
-
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
@@ -85,7 +68,7 @@ in the `dotnetv4` folder.
 
 - [CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)
 - [CloudFormation API Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/Welcome.html)
-- [SDK for .NET CloudFormation reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/CloudFormation/NCloudFormation.html)
+- [SDK for .NET (v4) CloudFormation reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Cloudformation/NCloudformation.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
