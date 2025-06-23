@@ -153,6 +153,15 @@ glue_GetCrawler:
             - description:
               snippet_tags:
                 - rust.glue.get_crawler
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.GetCrawler
   services:
     glue: {GetCrawler}
 glue_CreateCrawler:
@@ -241,6 +250,15 @@ glue_CreateCrawler:
             - description:
               snippet_tags:
                 - rust.glue.create_crawler
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.CreateCrawler
   services:
     glue: {CreateCrawler}
 glue_StartCrawler:
@@ -329,6 +347,15 @@ glue_StartCrawler:
             - description:
               snippet_tags:
                 - rust.glue.start_crawler
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.StartCrawler
   services:
     glue: {StartCrawler}
 glue_GetDatabase:
@@ -416,6 +443,15 @@ glue_GetDatabase:
             - description:
               snippet_tags:
                 - rust.glue.get_database
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.GetDatabase
   services:
     glue: {GetDatabase}
 glue_GetTables:
@@ -494,6 +530,15 @@ glue_GetTables:
             - description:
               snippet_tags:
                 - rust.glue.get_tables
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.GetTables
   services:
     glue: {GetTables}
 glue_CreateJob:
@@ -573,6 +618,15 @@ glue_CreateJob:
             - description:
               snippet_tags:
                 - rust.glue.create_job
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.CreateJob
   services:
     glue: {CreateJob}
 glue_StartJobRun:
@@ -653,6 +707,15 @@ glue_StartJobRun:
             - description:
               snippet_tags:
                 - rust.glue.start_job_run
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.StartJobRun
   services:
     glue: {StartJobRun}
 glue_ListJobs:
@@ -720,6 +783,15 @@ glue_ListJobs:
             - description:
               snippet_tags:
                 - rust.glue.list_jobs
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.ListJobs
   services:
     glue: {ListJobs}
 glue_GetJobRuns:
@@ -859,6 +931,15 @@ glue_GetJobRun:
             - description:
               snippet_tags:
                 - rust.glue.get_job_run
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.GetJobRun
   services:
     glue: {GetJobRun}
 glue_DeleteJob:
@@ -936,6 +1017,15 @@ glue_DeleteJob:
             - description:
               snippet_tags:
                 - rust.glue.delete_job
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.DeleteJob
   services:
     glue: {DeleteJob}
 glue_DeleteTable:
@@ -1070,6 +1160,15 @@ glue_DeleteDatabase:
             - description:
               snippet_tags:
                 - rust.glue.delete_database
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.DeleteDatabase
   services:
     glue: {DeleteDatabase}
 glue_DeleteCrawler:
@@ -1147,6 +1246,15 @@ glue_DeleteCrawler:
             - description:
               snippet_tags:
                 - rust.glue.delete_crawler
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.DeleteCrawler
   services:
     glue: {DeleteCrawler}
 glue_GetDatabases:
@@ -1333,6 +1441,17 @@ glue_Scenario_GetStartedCrawlersJobs:
                 - rust.glue.delete_table
                 - rust.glue.delete_database
                 - rust.glue.delete_crawler
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description: The <code>Package.swift</code> file.
+              snippet_tags:
+                - swift.glue.scenario.package
+            - description: The Swift code file, <code>entry.swift</code>.
+              snippet_tags:
+                - swift.glue.scenario
   services:
     glue: {GetCrawler, CreateCrawler, StartCrawler, GetDatabase, GetDatabases, GetTables, CreateJob, StartJobRun, ListJobs,
            GetJob, GetJobRuns, GetJobRun, DeleteJob, DeleteTable, DeleteDatabase, DeleteCrawler}
