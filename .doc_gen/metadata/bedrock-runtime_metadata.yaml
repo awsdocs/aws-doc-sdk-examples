@@ -58,12 +58,12 @@ bedrock-runtime_Converse_Ai21LabsJurassic2:
                 - bedrock-runtime.java2.ConverseAsync_Ai21LabsJurassic2
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Send a text message to AI21 Labs Jurassic-2, using Bedrock's Converse API.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.Converse_Ai21LabsJurassic2
+                - BedrockRuntime.dotnetv4.Converse_Ai21LabsJurassic2
     Python:
       versions:
         - sdk_version: 3
@@ -114,16 +114,16 @@ bedrock-runtime_Converse_AmazonNovaText:
                 - bedrock-runtime.kotlin.Converse_AmazonNovaText
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.Converse_AmazonNovaText
+                - BedrockRuntime.dotnetv4.Converse_AmazonNovaText
             - description: Send a conversation of messages to Amazon Nova using Bedrock's Converse API with a tool configuration.
               genai: some
               snippet_tags:
-                - Bedrock.ConverseTool.dotnetv3.SendConverseRequest
+                - Bedrock.ConverseTool.dotnetv4.SendConverseRequest
     PHP:
       versions:
         - sdk_version: 3
@@ -170,12 +170,12 @@ bedrock-runtime_Converse_AmazonTitanText:
                 - bedrock-runtime.java2.ConverseAsync_AmazonTitanText
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Send a text message to Amazon Titan Text, using Bedrock's Converse API.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.Converse_AmazonTitanText
+                - BedrockRuntime.dotnetv4.Converse_AmazonTitanText
     Python:
       versions:
         - sdk_version: 3
@@ -293,12 +293,12 @@ bedrock-runtime_Converse_AnthropicClaude:
                 - bedrock-runtime.java2.ConverseAsync_AnthropicClaude
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Send a text message to Anthropic Claude, using Bedrock's Converse API.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.Converse_AnthropicClaude
+                - BedrockRuntime.dotnetv4.Converse_AnthropicClaude
     Go:
       versions:
         - sdk_version: 2
@@ -365,12 +365,12 @@ bedrock-runtime_Converse_CohereCommand:
                 - bedrock-runtime.java2.ConverseAsync_CohereCommand
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Send a text message to Cohere Command, using Bedrock's Converse API.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.Converse_CohereCommand
+                - BedrockRuntime.dotnetv4.Converse_CohereCommand
     Python:
       versions:
         - sdk_version: 3
@@ -409,12 +409,12 @@ bedrock-runtime_Converse_MetaLlama:
                 - bedrock-runtime.java2.ConverseAsync_MetaLlama
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Send a text message to Meta Llama, using Bedrock's Converse API.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.Converse_MetaLlama
+                - BedrockRuntime.dotnetv4.Converse_MetaLlama
     Python:
       versions:
         - sdk_version: 3
@@ -461,12 +461,12 @@ bedrock-runtime_Converse_Mistral:
                 - bedrock-runtime.java2.ConverseAsync_Mistral
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Send a text message to Mistral, using Bedrock's Converse API.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.Converse_Mistral
+                - BedrockRuntime.dotnetv4.Converse_Mistral
     Python:
       versions:
         - sdk_version: 3
@@ -519,12 +519,12 @@ bedrock-runtime_ConverseStream_AmazonNovaText:
                 - bedrock-runtime.kotlin.ConverseStream_AmazonNovaText
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Send a text message to Amazon Nova, using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.ConverseStream_AmazonNovaText
+                - BedrockRuntime.dotnetv4.ConverseStream_AmazonNovaText
     Python:
       versions:
         - sdk_version: 3
@@ -560,12 +560,12 @@ bedrock-runtime_ConverseStream_AmazonTitanText:
                 - bedrock-runtime.java2.ConverseStream_AmazonTitanText
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Send a text message to Amazon Titan Text, using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.ConverseStream_AmazonTitanText
+                - BedrockRuntime.dotnetv4.ConverseStream_AmazonTitanText
     Python:
       versions:
         - sdk_version: 3
@@ -601,12 +601,12 @@ bedrock-runtime_ConverseStream_AnthropicClaude:
                 - bedrock-runtime.java2.ConverseStream_AnthropicClaude
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Send a text message to Anthropic Claude, using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.ConverseStream_AnthropicClaude
+                - BedrockRuntime.dotnetv4.ConverseStream_AnthropicClaude
     Python:
       versions:
         - sdk_version: 3
@@ -661,12 +661,12 @@ bedrock-runtime_ConverseStream_CohereCommand:
                 - bedrock-runtime.java2.ConverseStream_CohereCommand
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Send a text message to Cohere Command, using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.ConverseStream_CohereCommand
+                - BedrockRuntime.dotnetv4.ConverseStream_CohereCommand
     Python:
       versions:
         - sdk_version: 3
@@ -702,12 +702,12 @@ bedrock-runtime_ConverseStream_MetaLlama:
                 - bedrock-runtime.java2.ConverseStream_MetaLlama
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Send a text message to Meta Llama, using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.ConverseStream_MetaLlama
+                - BedrockRuntime.dotnetv4.ConverseStream_MetaLlama
     Python:
       versions:
         - sdk_version: 3
@@ -751,12 +751,12 @@ bedrock-runtime_ConverseStream_Mistral:
                 - bedrock-runtime.java2.ConverseStream_Mistral
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Send a text message to Mistral, using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.ConverseStream_Mistral
+                - BedrockRuntime.dotnetv4.ConverseStream_Mistral
     Python:
       versions:
         - sdk_version: 3
@@ -793,12 +793,12 @@ bedrock-runtime_InvokeModel_Ai21LabsJurassic2:
                 - bedrock-runtime.java2.InvokeModel_Ai21LabsJurassic2
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Use the Invoke Model API to send a text message.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModel_Ai21LabsJurassic2
+                - BedrockRuntime.dotnetv4.InvokeModel_Ai21LabsJurassic2
     Python:
       versions:
         - sdk_version: 3
@@ -843,12 +843,12 @@ bedrock-runtime_InvokeModel_TitanText:
                 - bedrock-runtime.kotlin.InvokeModel_AmazonTitanText
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Use the Invoke Model API to send a text message.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModel_AmazonTitanText
+                - BedrockRuntime.dotnetv4.InvokeModel_AmazonTitanText
     Python:
       versions:
         - sdk_version: 3
@@ -893,12 +893,12 @@ bedrock-runtime_InvokeModel_AnthropicClaude:
                 - bedrock-runtime.java2.InvokeModel_AnthropicClaude
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
+        - sdk_version: 4
+          github: dotnetv4/Bedrock-runtime
           excerpts:
             - description: Use the Invoke Model API to send a text message.
               snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModel_AnthropicClaude
+                - BedrockRuntime.dotnetv4.InvokeModel_AnthropicClaude
     Python:
       versions:
         - sdk_version: 3
