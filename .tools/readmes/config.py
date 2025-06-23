@@ -127,6 +127,11 @@ language = {
             "service_folder_overrides": {
                 "aurora": "dotnetv4/Aurora",
                 "auto-scaling": "dotnetv4/AutoScaling",
+                "cloudformation": "dotnetv4/CloudFormation",
+                "cloudwatch": "dotnetv4/CloudWatch",
+                "cognito-identity-provider": "dotnetv4/Cognito",
+                "ec2": "dotnetv4/EC2",
+                "ecs": "dotnetv4/ECS",
             },
         }
     },
