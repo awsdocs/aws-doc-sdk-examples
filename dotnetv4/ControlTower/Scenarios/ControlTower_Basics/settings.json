@@ -1,0 +1,6 @@
+{
+  "TargetIdentifier": "arn:aws:organizations::123456789012:ou/o-example12345/ou-example12345",
+  "ControlArn": "arn:aws:controltower:us-east-1::control/AWS-GR_AUDIT_BUCKET_ENCRYPTION_ENABLED",
+  "BaselineIdentifier": "arn:aws:controltower:us-east-1::baseline/AWSControlTowerBaseline",
+  "BaselineVersion": "1.0"
+}

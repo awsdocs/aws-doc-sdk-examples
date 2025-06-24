@@ -4,6 +4,8 @@
 // snippet-start:[ControlTower.dotnetv4.Usings]
 global using Amazon.ControlTower;
 global using Amazon.ControlTower.Model;
+global using Amazon.ControlCatalog;
+global using Amazon.ControlCatalog.Model;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
 global using Microsoft.Extensions.Logging;

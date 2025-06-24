@@ -25,6 +25,7 @@ public class HelloControlTower
                     .AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Trace))
             .ConfigureServices((_, services) =>
                 services.AddAWSService<IAmazonControlTower>()
+                .AddAWSService<IAmazonControlCatalog>()
                 .AddTransient<ControlTowerWrapper>()
             )
             .Build();
@@ -51,7 +52,7 @@ public class HelloControlTower
         {
             landingZones.ForEach(landingZone =>
             {
-                Console.WriteLine($"{landingZone.Arn}\t{landingZone.Status}");
+                Console.WriteLine($"Landing Zone \t{landingZone.Arn}");
             });
         }
         else
