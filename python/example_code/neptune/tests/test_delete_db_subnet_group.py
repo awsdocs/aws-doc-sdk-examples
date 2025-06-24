@@ -9,15 +9,12 @@ from neptune_scenario import delete_db_subnet_group  # Adjust if needed
 
 
 def test_delete_db_subnet_group():
-    # Create a real boto3 client and wrap it with the custom stubber
     boto_client = boto3.client("neptune", region_name="us-east-1")
     stubber = Neptune(boto_client)
 
-    # --- Success case ---
     stubber.stub_delete_db_subnet_group("my-subnet-group")
     delete_db_subnet_group(stubber.client, "my-subnet-group")
 
-    # --- ClientError case ---
     stubber.stub_delete_db_subnet_group(
         "unauthorized-subnet",
         error_code="AccessDenied"

@@ -45,10 +45,7 @@ def test_describe_db_clusters_unit(mock_neptune_client, capsys):
     ]
 
     try:
-        # Call the function with the mocked client
         describe_db_clusters(mock_neptune_client)
-
-        # Capture stdout
         captured = capsys.readouterr()
 
         # Check that expected outputs from both pages were printed
@@ -57,10 +54,7 @@ def test_describe_db_clusters_unit(mock_neptune_client, capsys):
         assert "my-second-cluster" in captured.out
         assert "modifying" in captured.out
 
-        # Ensure get_paginator was called with correct operation
         mock_neptune_client.get_paginator.assert_called_once_with("describe_db_clusters")
-
-        # Ensure paginate method was called
         mock_paginator.paginate.assert_called_once()
 
     except ClientError as e:

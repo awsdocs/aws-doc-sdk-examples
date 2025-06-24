@@ -1,5 +1,8 @@
+
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 import types
-import pytest
 from botocore.exceptions import ClientError, BotoCoreError
 from database.neptune_execute_gremlin_query import execute_gremlin_query
 from neptune_data_stubber import NeptuneDateStubber
@@ -10,7 +13,6 @@ def test_execute_gremlin_query(capfd):
     stubber.activate()
 
     try:
-        # --- Success case with valid output ---
         stubber.add_execute_gremlin_query_stub(
             gremlin_query="g.V().has('code', 'ANC')",
             response_dict={"result": {"metrics": {"dur": 500, "steps": 3}}}
@@ -21,7 +23,6 @@ def test_execute_gremlin_query(capfd):
         assert "Response is:" in out
         assert '"dur": 500' in out or "'dur': 500" in out
 
-        # --- Success case with None result ---
         stubber.stubber.assert_no_pending_responses()
         stubber.add_execute_gremlin_query_stub(
             gremlin_query="g.V().has('code', 'ANC')",
@@ -32,7 +33,6 @@ def test_execute_gremlin_query(capfd):
         assert "Response is:" in out
         assert "None" in out
 
-        # --- ClientError case ---
         stubber.stubber.assert_no_pending_responses()
         stubber.stubber.add_client_error(
             method='execute_gremlin_query',
@@ -44,7 +44,6 @@ def test_execute_gremlin_query(capfd):
         out, _ = capfd.readouterr()
         assert "Neptune error: Invalid query" in out
 
-        # --- BotoCoreError case (Fix 1) ---
         stubber.stubber.assert_no_pending_responses()
 
         def raise_boto_core_error(*args, **kwargs):

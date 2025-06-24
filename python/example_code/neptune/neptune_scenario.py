@@ -33,10 +33,18 @@ def delete_db_cluster(neptune_client, cluster_id: str):
     try:
         print(f"Deleting DB Cluster: {cluster_id}")
         neptune_client.delete_db_cluster(**request)
-    except ClientError as e:
+
+    except ClientError as err:
+        code = err.response["Error"]["Code"]
+        message = err.response["Error"]["Message"]
+
+        if code == "DBClusterNotFoundFault":
+            print(f"Cluster '{cluster_id}' not found or already deleted.")
+        elif code == "AccessDeniedException":
+            print("Access denied. Please ensure you have the necessary permissions.")
+        else:
+            print(f"Couldn't delete DB cluster. {code}: {message}")
         raise
-
-
 # snippet-end:[neptune.python.delete.cluster.main]
 
 def format_elapsed_time(seconds: int) -> str:
@@ -69,10 +77,18 @@ def delete_db_instance(neptune_client, instance_id: str):
         )
 
         print(f"DB Instance '{instance_id}' successfully deleted.")
-    except ClientError as e:
+
+    except ClientError as err:
+        code = err.response["Error"]["Code"]
+        message = err.response["Error"]["Message"]
+
+        if code == "DBInstanceNotFoundFault":
+            print(f"Instance '{instance_id}' not found or already deleted.")
+        elif code == "AccessDeniedException":
+            print("Access denied. Please ensure you have the necessary permissions.")
+        else:
+            print(f"Couldn't delete DB instance. {code}: {message}")
         raise
-
-
 # snippet-end:[neptune.python.delete.instance.main]
 
 # snippet-start:[neptune.python.delete.subnet.group.main]
@@ -80,18 +96,32 @@ def delete_db_subnet_group(neptune_client, subnet_group_name):
     """
     Deletes a Neptune DB subnet group synchronously using Boto3.
 
-    :param subnet_group_name: The name of the DB subnet group to delete.
+    Args:
+        neptune_client (boto3.client): The Neptune client.
+        subnet_group_name (str): The name of the DB subnet group to delete.
+
+    Raises:
+        ClientError: If the delete operation fails.
     """
     delete_group_request = {
         'DBSubnetGroupName': subnet_group_name
     }
+
     try:
         neptune_client.delete_db_subnet_group(**delete_group_request)
-        print(f"️ Deleting Subnet Group: {subnet_group_name}")
-    except ClientError as e:
+        print(f"🗑️ Deleting Subnet Group: {subnet_group_name}")
+
+    except ClientError as err:
+        code = err.response["Error"]["Code"]
+        message = err.response["Error"]["Message"]
+
+        if code == "DBSubnetGroupNotFoundFault":
+            print(f"Subnet group '{subnet_group_name}' not found or already deleted.")
+        elif code == "AccessDeniedException":
+            print("Access denied. Please ensure you have the necessary permissions.")
+        else:
+            print(f"Couldn't delete subnet group. {code}: {message}")
         raise
-
-
 # snippet-end:[neptune.python.delete.subnet.group.main]
 
 def wait_for_cluster_status(
@@ -164,11 +194,16 @@ def start_db_cluster(neptune_client, cluster_identifier: str):
         # Initial wait in case the cluster was just stopped
         time.sleep(30)
         neptune_client.start_db_cluster(DBClusterIdentifier=cluster_identifier)
-    except ClientError:
-        # Immediately propagate any AWS API error
+    except ClientError as err:
+        code = err.response["Error"]["Code"]
+        message = err.response["Error"]["Message"]
+
+        if code == "AccessDeniedException":
+            print("Access denied. Please ensure you have the necessary permissions.")
+        else:
+            print(f"Couldn't start DB cluster. Here's why: {code}: {message}")
         raise
 
-    # Poll until cluster status is 'available'
     start_time = time.time()
     paginator = neptune_client.get_paginator('describe_db_clusters')
 
@@ -178,7 +213,14 @@ def start_db_cluster(neptune_client, cluster_identifier: str):
             clusters = []
             for page in pages:
                 clusters.extend(page.get('DBClusters', []))
-        except ClientError:
+        except ClientError as err:
+            code = err.response["Error"]["Code"]
+            message = err.response["Error"]["Message"]
+
+            if code == "DBClusterNotFound":
+                print(f"Cluster '{cluster_identifier}' not found while polling. It may have been deleted.")
+            else:
+                print(f"Couldn't describe DB cluster. Here's why: {code}: {message}")
             raise
 
         status = clusters[0].get('Status') if clusters else None
@@ -195,10 +237,11 @@ def start_db_cluster(neptune_client, cluster_identifier: str):
 
         time.sleep(POLL_INTERVAL_SECONDS)
 
-
 # snippet-end:[neptune.python.start.cluster.main]
 
 # snippet-start:[neptune.python.stop.cluster.main]
+from botocore.exceptions import ClientError
+
 def stop_db_cluster(neptune_client, cluster_identifier: str):
     """
     Stops an Amazon Neptune DB cluster and waits until it's fully stopped.
@@ -213,8 +256,14 @@ def stop_db_cluster(neptune_client, cluster_identifier: str):
     """
     try:
         neptune_client.stop_db_cluster(DBClusterIdentifier=cluster_identifier)
-    except ClientError:
-        # Propagate AWS-level exceptions immediately
+    except ClientError as err:
+        code = err.response["Error"]["Code"]
+        message = err.response["Error"]["Message"]
+
+        if code == "AccessDeniedException":
+            print("Access denied. Please ensure you have the necessary permissions.")
+        else:
+            print(f"Couldn't stop DB cluster. Here's why: {code}: {message}")
         raise
 
     start_time = time.time()
@@ -226,8 +275,14 @@ def stop_db_cluster(neptune_client, cluster_identifier: str):
             clusters = []
             for page in pages:
                 clusters.extend(page.get('DBClusters', []))
-        except ClientError:
-            # For example, cluster might be already deleted/not found
+        except ClientError as err:
+            code = err.response["Error"]["Code"]
+            message = err.response["Error"]["Message"]
+
+            if code == "DBClusterNotFound":
+                print(f"Cluster '{cluster_identifier}' not found while polling. It may have been deleted.")
+            else:
+                print(f"Couldn't describe DB cluster. Here's why: {code}: {message}")
             raise
 
         status = clusters[0].get('Status') if clusters else None
@@ -236,7 +291,7 @@ def stop_db_cluster(neptune_client, cluster_identifier: str):
         print(f"\rElapsed: {int(elapsed)}s – Cluster status: {status}", end="", flush=True)
 
         if status and status.lower() == 'stopped':
-            print(f"\n Cluster '{cluster_identifier}' is now stopped.")
+            print(f"\nCluster '{cluster_identifier}' is now stopped.")
             return
 
         if elapsed > TIMEOUT_SECONDS:
@@ -260,41 +315,50 @@ def describe_db_clusters(neptune_client, cluster_id: str):
         ClientError: If there's an AWS API error (e.g., cluster not found).
     """
     paginator = neptune_client.get_paginator('describe_db_clusters')
+
     try:
         pages = paginator.paginate(DBClusterIdentifier=cluster_id)
-    except ClientError:
+
+        found = False
+        for page in pages:
+            for cluster in page.get('DBClusters', []):
+                found = True
+                print(f"Cluster Identifier: {cluster.get('DBClusterIdentifier')}")
+                print(f"Status: {cluster.get('Status')}")
+                print(f"Engine: {cluster.get('Engine')}")
+                print(f"Engine Version: {cluster.get('EngineVersion')}")
+                print(f"Endpoint: {cluster.get('Endpoint')}")
+                print(f"Reader Endpoint: {cluster.get('ReaderEndpoint')}")
+                print(f"Availability Zones: {cluster.get('AvailabilityZones')}")
+                print(f"Subnet Group: {cluster.get('DBSubnetGroup')}")
+                print("VPC Security Groups:")
+                for vpc_group in cluster.get('VpcSecurityGroups', []):
+                    print(f"  - {vpc_group.get('VpcSecurityGroupId')}")
+                print(f"Storage Encrypted: {cluster.get('StorageEncrypted')}")
+                print(f"IAM Auth Enabled: {cluster.get('IAMDatabaseAuthenticationEnabled')}")
+                print(f"Backup Retention Period: {cluster.get('BackupRetentionPeriod')} days")
+                print(f"Preferred Backup Window: {cluster.get('PreferredBackupWindow')}")
+                print(f"Preferred Maintenance Window: {cluster.get('PreferredMaintenanceWindow')}")
+                print("------")
+
+        if not found:
+            # Treat empty response as cluster not found
+            raise ClientError(
+                {"Error": {"Code": "DBClusterNotFound", "Message": f"No cluster found with ID '{cluster_id}'"}},
+                "DescribeDBClusters"
+            )
+
+    except ClientError as err:
+        code = err.response["Error"]["Code"]
+        message = err.response["Error"]["Message"]
+
+        if code == "AccessDeniedException":
+            print("Access denied. Please ensure you have the necessary permissions.")
+        elif code == "DBClusterNotFound":
+            print(f"Cluster '{cluster_id}' not found. Please verify the cluster ID.")
+        else:
+            print(f"Couldn't describe DB cluster. Here's why: {code}: {message}")
         raise
-
-    found = False
-    for page in pages:
-        for cluster in page.get('DBClusters', []):
-            found = True
-            print(f"Cluster Identifier: {cluster.get('DBClusterIdentifier')}")
-            print(f"Status: {cluster.get('Status')}")
-            print(f"Engine: {cluster.get('Engine')}")
-            print(f"Engine Version: {cluster.get('EngineVersion')}")
-            print(f"Endpoint: {cluster.get('Endpoint')}")
-            print(f"Reader Endpoint: {cluster.get('ReaderEndpoint')}")
-            print(f"Availability Zones: {cluster.get('AvailabilityZones')}")
-            print(f"Subnet Group: {cluster.get('DBSubnetGroup')}")
-            print("VPC Security Groups:")
-            for vpc_group in cluster.get('VpcSecurityGroups', []):
-                print(f"  - {vpc_group.get('VpcSecurityGroupId')}")
-            print(f"Storage Encrypted: {cluster.get('StorageEncrypted')}")
-            print(f"IAM Auth Enabled: {cluster.get('IAMDatabaseAuthenticationEnabled')}")
-            print(f"Backup Retention Period: {cluster.get('BackupRetentionPeriod')} days")
-            print(f"Preferred Backup Window: {cluster.get('PreferredBackupWindow')}")
-            print(f"Preferred Maintenance Window: {cluster.get('PreferredMaintenanceWindow')}")
-            print("------")
-
-    if not found:
-        # Handle empty result set as not found
-        raise ClientError(
-            {"Error": {"Code": "DBClusterNotFound", "Message": f"No cluster found with ID '{cluster_id}'"}},
-            "DescribeDBClusters"
-        )
-
-
 # snippet-end:[neptune.python.describe.cluster.main]
 
 # snippet-start:[neptune.python.describe.dbinstance.main]
@@ -312,13 +376,19 @@ def check_instance_status(neptune_client, instance_id: str, desired_status: str)
 
     while True:
         try:
-            # Paginate responses for the specified instance ID
             pages = paginator.paginate(DBInstanceIdentifier=instance_id)
             instances = []
             for page in pages:
                 instances.extend(page.get('DBInstances', []))
-        except ClientError:
-            # Let the calling code handle errors such as ResourceNotFound
+
+        except ClientError as err:
+            code = err.response["Error"]["Code"]
+            message = err.response["Error"]["Message"]
+
+            if code == "DBInstanceNotFound":
+                print(f"Instance '{instance_id}' not found. Please verify the instance ID.")
+            else:
+                print(f"Failed to describe DB instance. {code}: {message}")
             raise
 
         current_status = instances[0].get('DBInstanceStatus') if instances else None
@@ -334,7 +404,6 @@ def check_instance_status(neptune_client, instance_id: str, desired_status: str)
             raise RuntimeError(f"Timeout waiting for '{instance_id}' to reach '{desired_status}'")
 
         time.sleep(POLL_INTERVAL_SECONDS)
-
 
 # snippet-end:[neptune.python.describe.dbinstance.main]
 
@@ -355,7 +424,6 @@ def create_db_instance(neptune_client, db_instance_id: str, db_cluster_id: str) 
         if not instance or 'DBInstanceIdentifier' not in instance:
             raise RuntimeError("Instance creation succeeded but no ID returned.")
 
-        # Wait for it to become available
         print(f"Waiting for DB Instance '{db_instance_id}' to become available...")
         waiter = neptune_client.get_waiter('db_instance_available')
         waiter.wait(
@@ -366,20 +434,19 @@ def create_db_instance(neptune_client, db_instance_id: str, db_cluster_id: str) 
         print(f"DB Instance '{db_instance_id}' is now available.")
         return instance['DBInstanceIdentifier']
 
-    except ClientError as e:
-        raise ClientError(
-            {
-                "Error": {
-                    "Code": e.response["Error"]["Code"],
-                    "Message": f"Failed to create DB instance '{db_instance_id}': {e.response['Error']['Message']}"
-                }
-            },
-            e.operation_name
-        ) from e
+    except ClientError as err:
+        code = err.response["Error"]["Code"]
+        message = err.response["Error"]["Message"]
+
+        if code == "AccessDeniedException":
+            print("Access denied. Please ensure you have the necessary permissions.")
+        else:
+            print(f"Couldn't create DB instance. Here's why: {code}: {message}")
+        raise
 
     except Exception as e:
+        print(f"Unexpected error creating DB instance '{db_instance_id}': {e}")
         raise RuntimeError(f"Unexpected error creating DB instance '{db_instance_id}': {e}") from e
-
 
 # snippet-end:[neptune.python.create.dbinstance.main]
 
@@ -396,8 +463,7 @@ def create_db_cluster(neptune_client, db_name: str) -> str:
         str: The DB cluster identifier.
 
     Raises:
-        ClientError: Wraps any AWS-side error for the calling code to handle.
-        RuntimeError: If the call succeeds but no identifier is returned.
+        RuntimeError: For any failure or AWS error, with a user-friendly message.
     """
     request = {
         'DBClusterIdentifier': db_name,
@@ -418,22 +484,16 @@ def create_db_cluster(neptune_client, db_name: str) -> str:
         return cluster_id
 
     except ClientError as e:
-        # enrich the message,
-        # keep the AWS error code for downstream handling
-        raise ClientError(
-            {
-                "Error": {
-                    "Code": e.response["Error"]["Code"],
-                    "Message": f"Failed to create DB cluster '{db_name}': {e.response['Error']['Message']}"
-                }
-            },
-            e.operation_name
-        ) from e
+        code = e.response["Error"]["Code"]
+        message = e.response["Error"]["Message"]
+
+        if code in ("ServiceQuotaExceededException", "DBClusterQuotaExceededFault"):
+            raise RuntimeError("You have exceeded the quota for Neptune DB clusters.") from e
+        else:
+            raise RuntimeError(f"AWS error [{code}]: {message}") from e
 
     except Exception as e:
         raise RuntimeError(f"Unexpected error creating DB cluster '{db_name}': {e}") from e
-
-
 # snippet-end:[neptune.python.create.cluster.main]
 
 def get_subnet_ids(vpc_id: str) -> list[str]:
@@ -466,6 +526,8 @@ def get_default_vpc_id() -> str:
 
 
 # snippet-start:[neptune.python.create.subnet.main]
+from botocore.exceptions import ClientError
+
 def create_subnet_group(neptune_client, group_name: str):
     """
     Creates a Neptune DB subnet group and returns its name and ARN.
@@ -478,8 +540,7 @@ def create_subnet_group(neptune_client, group_name: str):
         tuple(str, str): (subnet_group_name, subnet_group_arn)
 
     Raises:
-        ClientError: If AWS returns an error.
-        RuntimeError: For unexpected internal errors.
+        RuntimeError: For quota errors or other AWS-related failures.
     """
     vpc_id = get_default_vpc_id()
     subnet_ids = get_subnet_ids(vpc_id)
@@ -494,7 +555,6 @@ def create_subnet_group(neptune_client, group_name: str):
     try:
         response = neptune_client.create_db_subnet_group(**request)
         sg = response.get("DBSubnetGroup", {})
-
         name = sg.get("DBSubnetGroupName")
         arn = sg.get("DBSubnetGroupArn")
 
@@ -503,23 +563,22 @@ def create_subnet_group(neptune_client, group_name: str):
 
         print(f"Subnet group created: {name}")
         print(f"ARN: {arn}")
-
         return name, arn
 
-    except ClientError as e:
-        # Repackage with context, then throw
-        raise ClientError(
-            {
-                "Error": {
-                    "Code": e.response["Error"]["Code"],
-                    "Message": f"Failed to create subnet group '{group_name}': {e.response['Error']['Message']}"
-                }
-            },
-            e.operation_name
-        ) from e
-
     except Exception as e:
-        raise RuntimeError(f"Unexpected error creating subnet group '{group_name}': {e}") from e
+        if isinstance(e, ClientError):
+            code = e.response["Error"]["Code"]
+            msg = e.response["Error"]["Message"]
+
+            if code == "ServiceQuotaExceededException":
+                print("Subnet group quota exceeded.")
+                raise RuntimeError("Subnet group quota exceeded.") from e
+            else:
+                print(f"AWS error [{code}]: {msg}")
+                raise RuntimeError(f"AWS error [{code}]: {msg}") from e
+        else:
+            print(f"Unexpected error creating subnet group '{group_name}': {e}")
+            raise RuntimeError(f"Unexpected error creating subnet group '{group_name}': {e}") from e
 
 
 # snippet-end:[neptune.python.create.subnet.main]
@@ -538,186 +597,92 @@ def run_scenario(neptune_client, subnet_group_name: str, db_instance_id: str, cl
         name, arn = create_subnet_group(neptune_client, subnet_group_name)
         print(f"Subnet group successfully created: {name}")
 
-    except ClientError as ce:
-        code = ce.response["Error"]["Code"]
-        if code == "ServiceQuotaExceededException":
-            print("You've hit the subnet group quota.")
-        else:
-            msg = ce.response["Error"]["Message"]
-            print(f"AWS error [{code}]: {msg}")
-            raise
-
-    except RuntimeError as re:
-        print(f"Runtime issue: {re}")
-
-    print("-" * 88)
-
-    print("2. Create a Neptune Cluster")
-    wait_for_input_to_continue()
-    try:
+        print("-" * 88)
+        print("2. Create a Neptune Cluster")
+        wait_for_input_to_continue()
         db_cluster_id = create_db_cluster(neptune_client, cluster_name)
-    except ClientError as ce:
-        code = ce.response["Error"]["Code"]
-        if code in ("ServiceQuotaExceededException", "DBClusterQuotaExceededFault"):
-            print("You have exceeded the quota for Neptune DB clusters.")
-        else:
-            msg = ce.response["Error"]["Message"]
-            print(f"AWS error [{code}]: {msg}")
 
-    except RuntimeError as re:
-        print(f"Runtime issue: {re}")
-
-    except Exception as e:
-        print(f" Unexpected error: {e}")
-    print("-" * 88)
-
-    print("-" * 88)
-    print("3. Create a Neptune DB Instance")
-    wait_for_input_to_continue()
-    try:
+        print("-" * 88)
+        print("3. Create a Neptune DB Instance")
+        wait_for_input_to_continue()
         create_db_instance(neptune_client, db_instance_id, cluster_name)
 
-    except ClientError as ce:
-        error_code = ce.response["Error"]["Code"]
-        if error_code == "ServiceQuotaExceededException":
-            print("You have exceeded the quota for Neptune DB instances.")
-        else:
-            print(f"AWS error [{error_code}]: {ce.response['Error']['Message']}")
-            raise  # Optionally rethrow
+        print("-" * 88)
+        print("4. Check the status of the Neptune DB Instance")
+        print("""
+        Even though you're targeting a single DB instance, 
+        describe_db_instances supports pagination and can return multiple pages. 
 
-    except RuntimeError as re:
-        print(f"Runtime error: {str(re)}")
-    print("-" * 88)
-
-    print("-" * 88)
-    print("4. Check the status of the Neptune DB Instance")
-    print("""
-    Even though you're targeting a single DB instance, 
-    describe_db_instances supports pagination and can return multiple pages. 
-
-    Handling paginated responses ensures your method continues to work reliably 
-    even if AWS returns large or paged results.
-    """)
-    wait_for_input_to_continue()
-
-    try:
+        Handling paginated responses ensures your method continues to work reliably 
+        even if AWS returns large or paged results.
+        """)
+        wait_for_input_to_continue()
         check_instance_status(neptune_client, db_instance_id, "available")
-    except ClientError as ce:
-        code = ce.response['Error']['Code']
-        if code in ('DBInstanceNotFound', 'DBInstanceNotFoundFault', 'ResourceNotFound'):
-            print(f"Instance '{db_instance_id}' not found.")
-        else:
-            print(f"AWS error [{code}]: {ce.response['Error']['Message']}")
-            raise
-    except RuntimeError as re:
-        print(f" Timeout: {re}")
-    print("-" * 88)
 
-    print("-" * 88)
-    print("5. Show Neptune Cluster details")
-    wait_for_input_to_continue()
-
-    try:
+        print("-" * 88)
+        print("5. Show Neptune Cluster details")
+        wait_for_input_to_continue()
         describe_db_clusters(neptune_client, db_cluster_id)
-    except ClientError as ce:
-        code = ce.response["Error"]["Code"]
-        if code in ("DBClusterNotFound", "DBClusterNotFoundFault", "ResourceNotFound"):
-            print(f"Cluster '{db_cluster_id}' not found.")
-        else:
-            print(f"AWS error [{code}]: {ce.response['Error']['Message']}")
-            raise
-    print("-" * 88)
 
-    print("-" * 88)
-    print("6. Stop the Amazon Neptune cluster")
-    print("""
-        Boto3 doesn't currently offer a 
-        built-in waiter for stop_db_cluster, 
-        This example implements a custom polling 
-        strategy until the cluster is in a stopped state.
-    
-    """)
-    wait_for_input_to_continue()
-    try:
+        print("-" * 88)
+        print("6. Stop the Amazon Neptune cluster")
+        print("""
+            Boto3 doesn't currently offer a 
+            built-in waiter for stop_db_cluster, 
+            This example implements a custom polling 
+            strategy until the cluster is in a stopped state.
+        """)
+        wait_for_input_to_continue()
         stop_db_cluster(neptune_client, db_cluster_id)
         check_instance_status(neptune_client, db_instance_id, "stopped")
-    except ClientError as ce:
-        code = ce.response["Error"]["Code"]
-        if code in ("DBClusterNotFoundFault", "DBClusterNotFound", "ResourceNotFoundFault"):
-            print(f"Cluster '{db_cluster_id}' not found.")
-        else:
-            print(f"AWS error [{code}]: {ce.response['Error']['Message']}")
-            raise
-    print("-" * 88)
 
-    print("-" * 88)
-    print("7. Start the Amazon Neptune cluster")
-    print("""
-        Boto3 doesn't currently offer a 
-        built-in waiter for start_db_cluster, 
-        This example implements a custom polling 
-        strategy until the cluster is in an available state.
+        print("-" * 88)
+        print("7. Start the Amazon Neptune cluster")
+        print("""
+            Boto3 doesn't currently offer a 
+            built-in waiter for start_db_cluster, 
+            This example implements a custom polling 
+            strategy until the cluster is in an available state.
         """)
-    wait_for_input_to_continue()
-    try:
+        wait_for_input_to_continue()
         start_db_cluster(neptune_client, db_cluster_id)
         wait_for_cluster_status(neptune_client, db_cluster_id, "available")
         check_instance_status(neptune_client, db_instance_id, "available")
 
-    except ClientError as ce:
-        code = ce.response["Error"]["Code"]
-        if code in ("DBClusterNotFoundFault", "DBClusterNotFound", "ResourceNotFoundFault"):
-            print(f"Cluster '{db_cluster_id}' not found.")
-        else:
-            print(f"AWS error [{code}]: {ce.response['Error']['Message']}")
-            raise
-
-    except RuntimeError as re:
-        # Handles timeout or other runtime issues
-        print(f"Timeout or runtime error: {re}")
-
-    else:
-        # No exceptions occurred
         print("All Neptune resources are now available.")
-    print("-" * 88)
-
-    print("-" * 88)
-    print("8. Delete the Neptune Assets")
-    print("Would you like to delete the Neptune Assets? (y/n)")
-    del_ans = input().strip().lower()
-
-    if del_ans == "y":
-        print("You selected to delete the Neptune assets.")
-        try:
-            delete_db_instance(neptune_client, db_instance_id)
-        except ClientError as e:
-            error_code = e.response['Error']['Code']
-            if error_code == "DBInstanceNotFoundFault":
-                print(f"Instance '{db_instance_id}' already deleted or doesn't exist.")
-            else:
-                raise  # re-raise if it's a different error
-
-        try:
-            delete_db_cluster(neptune_client, db_cluster_id)
-        except ClientError as e:
-            error_code = e.response['Error']['Code']
-            if error_code == "DBClusterNotFoundFault":
-                print(f"Cluster '{db_cluster_id}' already deleted or doesn't exist.")
-            else:
-                raise
-
-        try:
-            delete_db_subnet_group(neptune_client, subnet_group_name)
-        except ClientError as e:
-            error_code = e.response['Error']['Code']
-            if error_code == "DBSubnetGroupNotFoundFault":
-                print(f"Subnet group '{subnet_group_name}' already deleted or doesn't exist.")
-            else:
-                raise
-
-        print("Neptune resources deleted successfully")
+        print("-" * 88)
 
         print("-" * 88)
+        print("8. Delete the Neptune Assets")
+        print("Would you like to delete the Neptune Assets? (y/n)")
+        del_ans = input().strip().lower()
+
+        if del_ans == "y":
+            print("You selected to delete the Neptune assets.")
+
+            delete_db_instance(neptune_client, db_instance_id)
+            delete_db_cluster(neptune_client, db_cluster_id)
+            delete_db_subnet_group(neptune_client, subnet_group_name)
+
+            print("Neptune resources deleted successfully")
+
+    except ClientError as ce:
+        code = ce.response["Error"]["Code"]
+
+        if code in ("DBInstanceNotFound", "DBInstanceNotFoundFault", "ResourceNotFound"):
+            print(f"Instance '{db_instance_id}' not found.")
+        elif code in ("DBClusterNotFound", "DBClusterNotFoundFault", "ResourceNotFoundFault"):
+            print(f"Cluster '{cluster_name}' not found.")
+        elif code == "DBSubnetGroupNotFoundFault":
+            print(f"Subnet group '{subnet_group_name}' not found.")
+        elif code == "AccessDeniedException":
+            print("Access denied. Please ensure you have the necessary permissions.")
+        else:
+            print(f"AWS error [{code}]: {ce.response['Error']['Message']}")
+            raise  # re-raise unexpected errors
+
+    except RuntimeError as re:
+        print(f"Runtime error or timeout: {re}")
 
 
 def main():
@@ -725,9 +690,9 @@ def main():
 
     # Customize the following names to match your Neptune setup
     # (You must change these to unique values for your environment)
-    subnet_group_name = "neptuneSubnetGroup106"
-    cluster_name = "neptuneCluster106"
-    db_instance_id = "neptuneDB106"
+    subnet_group_name = "neptuneSubnetGroup110"
+    cluster_name = "neptuneCluster110"
+    db_instance_id = "neptuneDB110"
 
     print("""
     Amazon Neptune is a fully managed graph database service by AWS...

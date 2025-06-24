@@ -1,3 +1,6 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 import types
 from botocore.exceptions import ClientError, BotoCoreError
 from botocore.response import StreamingBody

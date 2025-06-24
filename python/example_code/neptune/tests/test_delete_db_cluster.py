@@ -4,7 +4,6 @@
 import pytest
 import boto3
 from botocore.exceptions import ClientError
-
 from neptune_scenario import delete_db_cluster  # Your actual module
 from neptune_stubber import Neptune  # Update path if needed
 

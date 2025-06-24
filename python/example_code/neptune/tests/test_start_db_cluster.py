@@ -21,7 +21,6 @@ def test_start_db_cluster_success(mock_sleep):
         {"DBClusterIdentifier": cluster_id}
     )
 
-    # Stub 9 "starting" statuses and 1 "available"
     statuses = ["starting"] * 9 + ["available"]
     for status in statuses:
         neptune.stubber.add_response(
@@ -32,8 +31,6 @@ def test_start_db_cluster_success(mock_sleep):
             {"DBClusterIdentifier": cluster_id}
         )
 
-    # Run the service method
     start_db_cluster(client, cluster_id)
-
     neptune.stubber.deactivate()
 

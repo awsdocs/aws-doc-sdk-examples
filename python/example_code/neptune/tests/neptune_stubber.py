@@ -41,16 +41,13 @@ class Neptune:
             )
 
     def stub_create_db_cluster(self, cluster_id=None, error_code=None,
-                               backup_retention_period=None, deletion_protection=None, engine=None):
+                               backup_retention_period=1, deletion_protection=False, engine='neptune'):
         expected_params = {
             "DBClusterIdentifier": cluster_id,
+            "BackupRetentionPeriod": backup_retention_period,
+            "DeletionProtection": deletion_protection,
+            "Engine": engine
         }
-        if backup_retention_period is not None:
-            expected_params["BackupRetentionPeriod"] = backup_retention_period
-        if deletion_protection is not None:
-            expected_params["DeletionProtection"] = deletion_protection
-        if engine is not None:
-            expected_params["Engine"] = engine
 
         if error_code:
             self.stubber.add_client_error(

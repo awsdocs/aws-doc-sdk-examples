@@ -4,9 +4,7 @@
 import pytest
 import boto3
 from unittest.mock import patch
-from botocore.exceptions import ClientError
 from neptune_stubber import Neptune
-from neptune_scenario import create_subnet_group  # Your real function to test
 
 @patch("neptune_scenario.get_subnet_ids")
 @patch("neptune_scenario.get_default_vpc_id")
