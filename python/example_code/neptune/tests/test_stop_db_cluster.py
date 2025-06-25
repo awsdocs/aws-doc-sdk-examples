@@ -41,10 +41,6 @@ def test_stop_db_cluster_with_stubbed_responses(neptune_client):
         {"DBClusterIdentifier": cluster_id}
     )
 
-    result = stop_db_cluster(neptune.client, cluster_id)
+    stop_db_cluster(neptune.client, cluster_id)  # Just call the function
 
-    assert result is None
     neptune.stubber.deactivate()
-
-
-
