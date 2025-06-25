@@ -36,11 +36,11 @@ The Amazon Neptune Basics scenario executes the following operations.
 
 5. **Show Neptune Cluster details**:
    - Description: Shows the details of the cluster by invoking `describeDBClusters`.
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
+   - Exception Handling: Check to see if a `DBClusterNotFound` is thrown. If so, display the message and end the program.
 
 6. **Stop the Cluster**:
    - Description: Stop the cluster by invoking `stopDBCluster`. Poll the cluster until it reaches a `stopped`state. 
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
+   - Exception Handling: Check to see if a `DBClusterNotFound` is thrown. If so, display the message and end the program.
 
 7. **Start the cluster**:
    - Description: Start the cluster by invoking `startBCluster`. Poll the cluster until it reaches an `available`state.

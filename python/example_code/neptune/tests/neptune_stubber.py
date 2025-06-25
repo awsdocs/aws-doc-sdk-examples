@@ -242,6 +242,30 @@ class Neptune:
                 expected_params
             )
 
+    def stub_describe_all_db_clusters(self, pages, error_code=None):
+        """
+        Stub for describe_db_clusters using a paginator simulation.
+        :param pages: List of pages, where each page is a list of DBClusters.
+                      Example: [[{...}], [{...}]] simulates 2 pages.
+        """
+        if error_code:
+            self.stubber.add_client_error(
+                "describe_db_clusters",
+                service_error_code=error_code,
+                service_message=f"{error_code} error",
+                expected_params={}
+            )
+        else:
+            for clusters in pages:
+                response = {
+                    "DBClusters": clusters
+                }
+                self.stubber.add_response(
+                    "describe_db_clusters",
+                    response,
+                    expected_params={}
+                )
+
     def stub_delete_db_subnet_group(self, group_name, error_code=None):
         expected_params = {
             "DBSubnetGroupName": group_name
@@ -260,3 +284,4 @@ class Neptune:
                 {},
                 expected_params
             )
+
