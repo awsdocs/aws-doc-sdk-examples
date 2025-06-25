@@ -5,7 +5,7 @@
 # snippet-start:[neptune.python.scenario.main]
 import boto3
 import time
-import botocore.exceptions
+from botocore.exceptions import ClientError
 
 # Constants used in this scenario
 POLL_INTERVAL_SECONDS = 10
@@ -32,7 +32,7 @@ def delete_db_cluster(neptune_client, cluster_id: str):
         print(f"Deleting DB Cluster: {cluster_id}")
         neptune_client.delete_db_cluster(**request)
 
-    except botocore.ClientError as err:
+    except ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -76,7 +76,7 @@ def delete_db_instance(neptune_client, instance_id: str):
 
         print(f"DB Instance '{instance_id}' successfully deleted.")
 
-    except botocore.ClientError as err:
+    except ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -109,7 +109,7 @@ def delete_db_subnet_group(neptune_client, subnet_group_name):
         neptune_client.delete_db_subnet_group(**delete_group_request)
         print(f"🗑️ Deleting Subnet Group: {subnet_group_name}")
 
-    except botocore.ClientError as err:
+    except ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -192,7 +192,7 @@ def start_db_cluster(neptune_client, cluster_identifier: str):
         # Initial wait in case the cluster was just stopped
         time.sleep(30)
         neptune_client.start_db_cluster(DBClusterIdentifier=cluster_identifier)
-    except botocore.ClientError as err:
+    except ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -211,7 +211,7 @@ def start_db_cluster(neptune_client, cluster_identifier: str):
             clusters = []
             for page in pages:
                 clusters.extend(page.get('DBClusters', []))
-        except botocore.ClientError as err:
+        except ClientError as err:
             code = err.response["Error"]["Code"]
             message = err.response["Error"]["Message"]
 
@@ -252,7 +252,7 @@ def stop_db_cluster(neptune_client, cluster_identifier: str):
     """
     try:
         neptune_client.stop_db_cluster(DBClusterIdentifier=cluster_identifier)
-    except botocore.ClientError as err:
+    except ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -271,7 +271,7 @@ def stop_db_cluster(neptune_client, cluster_identifier: str):
             clusters = []
             for page in pages:
                 clusters.extend(page.get('DBClusters', []))
-        except botocore.ClientError as err:
+        except ClientError as err:
             code = err.response["Error"]["Code"]
             message = err.response["Error"]["Message"]
 
@@ -339,12 +339,12 @@ def describe_db_clusters(neptune_client, cluster_id: str):
 
         if not found:
             # Treat empty response as cluster not found
-            raise botocore.ClientError(
+            raise ClientError(
                 {"Error": {"Code": "DBClusterNotFound", "Message": f"No cluster found with ID '{cluster_id}'"}},
                 "DescribeDBClusters"
             )
 
-    except botocore.ClientError as err:
+    except ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -377,7 +377,7 @@ def check_instance_status(neptune_client, instance_id: str, desired_status: str)
             for page in pages:
                 instances.extend(page.get('DBInstances', []))
 
-        except botocore.ClientError as err:
+        except ClientError as err:
             code = err.response["Error"]["Code"]
             message = err.response["Error"]["Message"]
 
@@ -430,7 +430,7 @@ def create_db_instance(neptune_client, db_instance_id: str, db_cluster_id: str) 
         print(f"DB Instance '{db_instance_id}' is now available.")
         return instance['DBInstanceIdentifier']
 
-    except botocore.ClientError as err:
+    except ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -479,7 +479,7 @@ def create_db_cluster(neptune_client, db_name: str) -> str:
         print(f"DB Cluster created: {cluster_id}")
         return cluster_id
 
-    except botocore.ClientError as e:
+    except ClientError as e:
         code = e.response["Error"]["Code"]
         message = e.response["Error"]["Message"]
 
@@ -559,7 +559,7 @@ def create_subnet_group(neptune_client, group_name: str):
         print(f"ARN: {arn}")
         return name, arn
 
-    except botocore.ClientError as e:
+    except ClientError as e:
         code = e.response["Error"]["Code"]
         msg = e.response["Error"]["Message"]
 
@@ -658,7 +658,7 @@ def run_scenario(neptune_client, subnet_group_name: str, db_instance_id: str, cl
 
             print("Neptune resources deleted successfully")
 
-    except botocore.ClientError as ce:
+    except ClientError as ce:
         code = ce.response["Error"]["Code"]
 
         if code in ("DBInstanceNotFound", "DBInstanceNotFoundFault", "ResourceNotFound"):
