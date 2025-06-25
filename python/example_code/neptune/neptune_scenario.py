@@ -682,9 +682,9 @@ def main():
 
     # Customize the following names to match your Neptune setup
     # (You must change these to unique values for your environment)
-    subnet_group_name = "neptuneSubnetGroup110"
-    cluster_name = "neptuneCluster110"
-    db_instance_id = "neptuneDB110"
+    subnet_group_name = "neptuneSubnetGroup111"
+    cluster_name = "neptuneCluster111"
+    db_instance_id = "neptuneDB111"
 
     print("""
     Amazon Neptune is a fully managed graph database service by AWS...
