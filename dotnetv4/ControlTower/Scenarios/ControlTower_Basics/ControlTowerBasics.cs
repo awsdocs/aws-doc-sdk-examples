@@ -47,9 +47,9 @@ public class ControlTowerBasics
         logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
             .CreateLogger<ControlTowerBasics>();
 
-        wrapper ??= host.Services.GetRequiredService<ControlTowerWrapper>();
-        orgClient ??= host.Services.GetRequiredService<IAmazonOrganizations>();
-        stsClient ??= host.Services.GetRequiredService<IAmazonSecurityTokenService>();
+        wrapper = host.Services.GetRequiredService<ControlTowerWrapper>();
+        orgClient = host.Services.GetRequiredService<IAmazonOrganizations>();
+        stsClient = host.Services.GetRequiredService<IAmazonSecurityTokenService>();
 
         await RunScenario();
     }

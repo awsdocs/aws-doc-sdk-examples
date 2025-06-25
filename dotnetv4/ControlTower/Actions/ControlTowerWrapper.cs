@@ -160,7 +160,7 @@ public class ControlTowerWrapper
 
             return response.Arn;
         }
-        catch (Amazon.ControlTower.Model.ValidationException ex) when (ex.Message.Contains("already enabled"))
+        catch (ValidationException ex) when (ex.Message.Contains("already enabled"))
         {
             Console.WriteLine("Baseline is already enabled for this target");
             return null;
