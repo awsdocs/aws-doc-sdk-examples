@@ -3,6 +3,8 @@
 
 // snippet-start:[ControlTower.dotnetv4.ControlTowerWrapper]
 
+using ValidationException = Amazon.ControlTower.Model.ValidationException;
+
 namespace ControlTowerActions;
 
 /// <summary>

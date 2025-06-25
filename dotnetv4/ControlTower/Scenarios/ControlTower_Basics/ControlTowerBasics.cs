@@ -20,12 +20,19 @@ namespace ControlTowerBasics;
 /// </summary>
 public class ControlTowerBasics
 {
-    private static ILogger logger = null!;
-    private static IAmazonOrganizations orgClient = null!;
+    public static bool isInteractive = true;
+    public static ILogger logger = null!;
+    public static IAmazonOrganizations? orgClient = null;
+    public static IAmazonSecurityTokenService? stsClient = null;
+    public static ControlTowerWrapper? wrapper = null;
     private static string? ouArn;
     private static bool useLandingZone = false;
 
-    static async Task Main(string[] args)
+    /// <summary>
+    /// Main entry point for the AWS Control Tower basics scenario.
+    /// </summary>
+    /// <param name="args">Command line arguments.</param>
+    public static async Task Main(string[] args)
     {
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
@@ -40,10 +47,18 @@ public class ControlTowerBasics
         logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
             .CreateLogger<ControlTowerBasics>();
 
-        var wrapper = host.Services.GetRequiredService<ControlTowerWrapper>();
-        orgClient = host.Services.GetRequiredService<IAmazonOrganizations>();
-        var stsClient = host.Services.GetRequiredService<IAmazonSecurityTokenService>();
+        wrapper ??= host.Services.GetRequiredService<ControlTowerWrapper>();
+        orgClient ??= host.Services.GetRequiredService<IAmazonOrganizations>();
+        stsClient ??= host.Services.GetRequiredService<IAmazonSecurityTokenService>();
 
+        await RunScenario();
+    }
+
+    /// <summary>
+    /// Runs the example scenario.
+    /// </summary>
+    public static async Task RunScenario()
+    {
         Console.WriteLine(new string('-', 88));
         Console.WriteLine("\tWelcome to the AWS Control Tower with ControlCatalog example scenario.");
         Console.WriteLine(new string('-', 88));
@@ -71,7 +86,7 @@ public class ControlTowerBasics
                 }
 
                 Console.Write($"\nDo you want to use the first landing zone in the list ({landingZones[0].Arn})? (y/n): ");
-                if (Console.ReadLine()?.ToLower() == "y")
+                if (GetUserConfirmation())
                 {
                     useLandingZone = true;
                     Console.WriteLine($"Using landing zone: {landingZones[0].Arn}");
@@ -108,7 +123,7 @@ public class ControlTowerBasics
                 if (controlTowerBaseline != null)
                 {
                     Console.Write("\nDo you want to enable the Control Tower Baseline? (y/n): ");
-                    if (Console.ReadLine()?.ToLower() == "y")
+                    if (GetUserConfirmation())
                     {
                         Console.WriteLine("\nEnabling Control Tower Baseline.");
                         var icBaselineArn = identityCenterBaseline?.Arn;
@@ -138,7 +153,7 @@ public class ControlTowerBasics
                         if (baselineArn != null)
                         {
                             Console.Write("\nDo you want to reset the Control Tower Baseline? (y/n): ");
-                            if (Console.ReadLine()?.ToLower() == "y")
+                            if (GetUserConfirmation())
                             {
                                 Console.WriteLine($"\nResetting Control Tower Baseline: {baselineArn}");
                                 var operationId = await wrapper.ResetEnabledBaselineAsync(baselineArn);
@@ -146,7 +161,7 @@ public class ControlTowerBasics
                             }
 
                             Console.Write("\nDo you want to disable the Control Tower Baseline? (y/n): ");
-                            if (Console.ReadLine()?.ToLower() == "y")
+                            if (GetUserConfirmation())
                             {
                                 Console.WriteLine($"Disabling baseline ARN: {baselineArn}");
                                 var operationId = await wrapper.DisableBaselineAsync(baselineArn);
@@ -189,16 +204,16 @@ public class ControlTowerBasics
                 if (controlArn != null)
                 {
                     Console.Write($"\nDo you want to enable the control {controlArn}? (y/n): ");
-                    if (Console.ReadLine()?.ToLower() == "y")
+                    if (GetUserConfirmation())
                     {
                         Console.WriteLine($"\nEnabling control: {controlArn}");
                         var operationId = await wrapper.EnableControlAsync(controlArn, ouArn);
                         if (operationId != null)
                         {
                             Console.WriteLine($"Enabled control with operation id: {operationId}");
-                            
+
                             Console.Write("\nDo you want to disable the control? (y/n): ");
-                            if (Console.ReadLine()?.ToLower() == "y")
+                            if (GetUserConfirmation())
                             {
                                 Console.WriteLine("\nDisabling the control...");
                                 var disableOpId = await wrapper.DisableControlAsync(controlArn, ouArn);
@@ -220,10 +235,14 @@ public class ControlTowerBasics
         }
     }
 
+    /// <summary>
+    /// Sets up AWS Organizations and creates or finds a Sandbox OU.
+    /// </summary>
+    /// <returns>The ARN of the Sandbox organizational unit.</returns>
     private static async Task<string> SetupOrganizationAsync()
     {
         Console.WriteLine("\nChecking organization status...");
-        
+
         try
         {
             var orgResponse = await orgClient.DescribeOrganizationAsync(new DescribeOrganizationRequest());
@@ -241,11 +260,11 @@ public class ControlTowerBasics
         // Look for Sandbox OU
         var roots = await orgClient.ListRootsAsync(new ListRootsRequest());
         var rootId = roots.Roots[0].Id;
-        
+
         Console.WriteLine("Checking for Sandbox OU...");
         var ous = await orgClient.ListOrganizationalUnitsForParentAsync(new ListOrganizationalUnitsForParentRequest { ParentId = rootId });
         var sandboxOu = ous.OrganizationalUnits.FirstOrDefault(ou => ou.Name == "Sandbox");
-        
+
         if (sandboxOu == null)
         {
             Console.WriteLine("Creating Sandbox OU...");
@@ -259,6 +278,15 @@ public class ControlTowerBasics
         }
 
         return sandboxOu.Arn;
+    }
+
+    /// <summary>
+    /// Gets user confirmation by waiting for input or returning true if not interactive.
+    /// </summary>
+    /// <returns>True if user enters 'y' or if isInteractive is false, otherwise false.</returns>
+    private static bool GetUserConfirmation()
+    {
+        return Console.ReadLine()?.ToLower() == "y" || !isInteractive;
     }
 }
 
