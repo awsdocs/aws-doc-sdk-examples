@@ -4,8 +4,8 @@
 import types
 from botocore.exceptions import ClientError, BotoCoreError
 from botocore.response import StreamingBody
-from database.neptune_execute_open_cypher_query import execute_open_cypher_explain_query
-from neptune_data_stubber import NeptuneDateStubber  # adjust import path accordingly
+from test_tools.neptune_data_stubber import NeptuneDateStubber
+from example_code.neptune.database.neptune_execute_open_cypher_query import execute_open_cypher_explain_query
 import io
 
 def test_execute_opencypher_explain_query(capfd):
@@ -14,7 +14,6 @@ def test_execute_opencypher_explain_query(capfd):
     stubber.activate()
 
     try:
-        # --- Case 1: Successful result (StreamingBody with bytes) ---
         explain_payload = 'mocked byte explain output'
         stubber.add_execute_open_cypher_explain_query_stub(
             open_cypher_query="MATCH (n {code: 'ANC'}) RETURN n",
@@ -28,7 +27,6 @@ def test_execute_opencypher_explain_query(capfd):
 
         stubber.stubber.assert_no_pending_responses()
 
-        # --- Case 2: No results (empty StreamingBody) ---
         empty_stream = StreamingBody(io.BytesIO(b""), 0)
         stubber.stubber.add_response(
             "execute_open_cypher_explain_query",
@@ -48,7 +46,6 @@ def test_execute_opencypher_explain_query(capfd):
     finally:
         stubber.deactivate()
 
-    # --- Case 3: ClientError ---
     def run_client_error_case():
         stubber = NeptuneDateStubber()
         client = stubber.get_client()
@@ -71,7 +68,6 @@ def test_execute_opencypher_explain_query(capfd):
 
     run_client_error_case()
 
-    # --- Case 4: BotoCoreError (monkeypatch) ---
     def raise_boto_core_error(*args, **kwargs):
         raise BotoCoreError()
 
@@ -80,7 +76,6 @@ def test_execute_opencypher_explain_query(capfd):
     out, _ = capfd.readouterr()
     assert "BotoCore error:" in out
 
-    # --- Case 5: Generic Exception (monkeypatch) ---
     def raise_generic_exception(*args, **kwargs):
         raise Exception("Some generic error")
 

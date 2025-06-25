@@ -3,9 +3,8 @@
 
 import pytest
 from botocore.exceptions import ClientError
-from neptune_scenario import delete_db_instance
-from neptune_stubber import Neptune
-
+from test_tools.neptune_stubber import Neptune
+from example_code.neptune.neptune_scenario import delete_db_instance
 
 def test_delete_db_instance_success():
     import boto3
@@ -13,11 +12,9 @@ def test_delete_db_instance_success():
     stubber = Neptune(neptune_client)
 
     instance_id = "instance-1"
-    # Stub delete call + describe_db_instances polling with statuses simulating deletion progress
     stubber.stub_delete_db_instance(instance_id, statuses=["deleting", "deleted"])
 
     delete_db_instance(neptune_client, instance_id)
-
     stubber.stubber.assert_no_pending_responses()
 
 
@@ -27,12 +24,10 @@ def test_delete_db_instance_client_error():
     stubber = Neptune(neptune_client)
 
     instance_id = "bad-instance"
-    # Stub delete call to return a client error
     stubber.stub_delete_db_instance(instance_id, error_code="InvalidDBInstanceState")
 
     with pytest.raises(ClientError) as exc_info:
         delete_db_instance(neptune_client, instance_id)
 
     assert "InvalidDBInstanceState" in str(exc_info.value)
-
     stubber.stubber.assert_no_pending_responses()

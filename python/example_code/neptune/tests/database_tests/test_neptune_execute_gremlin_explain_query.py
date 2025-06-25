@@ -1,11 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-import io
 import types
 from botocore.exceptions import ClientError, EndpointConnectionError
-from neptune_data_stubber import NeptuneDateStubber
-from database.neptune_execute_gremlin_explain_query import execute_gremlin_query
+from test_tools.neptune_data_stubber import NeptuneDateStubber
+from example_code.neptune.database.neptune_execute_gremlin_explain_query import execute_gremlin_query
 
 def test_execute_gremlin_query(capfd):
     stubber = NeptuneDateStubber()
@@ -13,7 +12,6 @@ def test_execute_gremlin_query(capfd):
     stubber.activate()
 
     try:
-        # --- Success case with valid StreamingBody output ---
         response_payload = '{"explain": "details"}'
         stubber.add_execute_gremlin_explain_query_stub(
             gremlin_query="g.V().has('code', 'ANC')",
@@ -26,7 +24,6 @@ def test_execute_gremlin_query(capfd):
         assert "Full Response:" in out
         assert '{"explain": "details"}' in out
 
-        # --- ClientError case ---
         stubber.stubber.assert_no_pending_responses()
         stubber.stubber.add_client_error(
             method='execute_gremlin_explain_query',
@@ -38,7 +35,6 @@ def test_execute_gremlin_query(capfd):
         out, _ = capfd.readouterr()
         assert "Error calling Neptune: Invalid query" in out
 
-        # --- EndpointConnectionError (BotoCoreError subclass) case ---
         stubber.stubber.assert_no_pending_responses()
 
         def raise_endpoint_connection_error(*args, **kwargs):

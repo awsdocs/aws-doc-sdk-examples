@@ -1,9 +1,10 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 import io
-import pytest
 from botocore.response import StreamingBody
-from botocore.exceptions import ClientError
-from analytics.neptune_analytics_query_example import run_open_cypher_query
-from neptune_graph_stubber import NeptuneGraphStubber
+from example_code.neptune.analytics.neptune_analytics_query_example import run_open_cypher_query
+from test_tools.neptune_graph_stubber import NeptuneGraphStubber
 
 GRAPH_ID = "test-graph-id"
 
@@ -11,7 +12,6 @@ def test_execute_gremlin_profile_query(capfd):
     stubber = NeptuneGraphStubber()
     client = stubber.get_client()
 
-    # --- Success case with payload ---
     stubber.activate()
     payload_bytes = b'{"results": "some data"}'
     response_body = StreamingBody(io.BytesIO(payload_bytes), len(payload_bytes))
@@ -30,7 +30,6 @@ def test_execute_gremlin_profile_query(capfd):
     assert '{"results": "some data"}' in out
     stubber.deactivate()
 
-    # --- Success case with empty payload ---
     stubber.activate()
     empty_payload = StreamingBody(io.BytesIO(b''), 0)
 
@@ -45,14 +44,13 @@ def test_execute_gremlin_profile_query(capfd):
     )
     run_open_cypher_query(client, GRAPH_ID)
     out, _ = capfd.readouterr()
-    assert out.strip() == ""  # Empty line
+    assert out.strip() == ""
     stubber.deactivate()
 
-    # --- ClientError case ---
     stubber.activate()
     stubber.stubber.add_client_error(
         "execute_query",
-        service_error_code="ValidationException",  # <-- Updated to a valid exception code
+        service_error_code="ValidationException",
         service_message="Client error occurred",
         http_status_code=400,
         expected_params={
@@ -66,8 +64,6 @@ def test_execute_gremlin_profile_query(capfd):
     assert "ClientError: Client error occurred" in out
     stubber.deactivate()
 
-    # --- Generic Exception case ---
-    # Deactivate stubber to allow monkeypatching client.execute_query
     stubber.deactivate()
 
     def raise_generic_error(**kwargs):
@@ -77,4 +73,3 @@ def test_execute_gremlin_profile_query(capfd):
     run_open_cypher_query(client, GRAPH_ID)
     out, _ = capfd.readouterr()
     assert "Unexpected error: Generic failure" in out
-

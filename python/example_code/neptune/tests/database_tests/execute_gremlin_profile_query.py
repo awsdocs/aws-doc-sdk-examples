@@ -2,10 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import types
-import pytest
 from botocore.exceptions import ClientError, BotoCoreError
-from neptune_data_stubber import NeptuneDateStubber
-from database.neptune_execute_gremlin_profile_query import run_profile_query  # Adjust import path as needed
+from test_tools.neptune_data_stubber import NeptuneDateStubber
+from example_code.neptune.database.neptune_execute_gremlin_profile_query import run_profile_query
 
 def test_run_profile_query(capfd):
     stubber = NeptuneDateStubber()

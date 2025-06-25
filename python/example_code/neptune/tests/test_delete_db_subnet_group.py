@@ -4,9 +4,8 @@
 import pytest
 import boto3
 from botocore.exceptions import ClientError
-from neptune_stubber import Neptune
-from neptune_scenario import delete_db_subnet_group  # Adjust if needed
-
+from test_tools.neptune_stubber import Neptune
+from example_code.neptune.neptune_scenario import delete_db_subnet_group
 
 def test_delete_db_subnet_group():
     boto_client = boto3.client("neptune", region_name="us-east-1")

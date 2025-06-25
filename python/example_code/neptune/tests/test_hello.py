@@ -4,9 +4,7 @@
 import boto3
 import pytest
 from botocore.stub import Stubber
-from botocore.exceptions import ClientError
-from hello_neptune import describe_db_clusters
-
+from example_code.neptune.hello_neptune import describe_db_clusters
 
 @pytest.fixture
 def neptune_client_stub():
@@ -20,7 +18,6 @@ def neptune_client_stub():
 def test_describe_db_clusters_with_stubber_single_page(neptune_client_stub, capsys):
     client, stubber = neptune_client_stub
 
-    # Simulate a single-page paginator result with both clusters in one call
     stubber.add_response("describe_db_clusters", {
         "DBClusters": [
             {"DBClusterIdentifier": "my-test-cluster", "Status": "available"},
@@ -29,7 +26,6 @@ def test_describe_db_clusters_with_stubber_single_page(neptune_client_stub, caps
     })
 
     describe_db_clusters(client)
-
     captured = capsys.readouterr()
 
     assert "my-test-cluster" in captured.out

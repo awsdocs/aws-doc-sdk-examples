@@ -1,11 +1,10 @@
-
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
 import types
 from botocore.exceptions import ClientError, BotoCoreError
-from database.neptune_execute_gremlin_query import execute_gremlin_query
-from neptune_data_stubber import NeptuneDateStubber
+from test_tools.neptune_data_stubber import NeptuneDateStubber
+from example_code.neptune.database.neptune_execute_gremlin_query import execute_gremlin_query
 
 def test_execute_gremlin_query(capfd):
     stubber = NeptuneDateStubber()
