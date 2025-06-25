@@ -12,8 +12,6 @@ POLL_INTERVAL_SECONDS = 10
 TIMEOUT_SECONDS = 1200  # 20 minutes
 
 # snippet-start:[neptune.python.delete.cluster.main]
-from botocore.exceptions import ClientError
-
 def delete_db_cluster(neptune_client, cluster_id: str):
     """
     Deletes a Neptune DB cluster and throws exceptions to the caller.
@@ -34,7 +32,7 @@ def delete_db_cluster(neptune_client, cluster_id: str):
         print(f"Deleting DB Cluster: {cluster_id}")
         neptune_client.delete_db_cluster(**request)
 
-    except ClientError as err:
+    except botocore.ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -78,7 +76,7 @@ def delete_db_instance(neptune_client, instance_id: str):
 
         print(f"DB Instance '{instance_id}' successfully deleted.")
 
-    except ClientError as err:
+    except botocore.ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -111,7 +109,7 @@ def delete_db_subnet_group(neptune_client, subnet_group_name):
         neptune_client.delete_db_subnet_group(**delete_group_request)
         print(f"🗑️ Deleting Subnet Group: {subnet_group_name}")
 
-    except ClientError as err:
+    except botocore.ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -194,7 +192,7 @@ def start_db_cluster(neptune_client, cluster_identifier: str):
         # Initial wait in case the cluster was just stopped
         time.sleep(30)
         neptune_client.start_db_cluster(DBClusterIdentifier=cluster_identifier)
-    except ClientError as err:
+    except botocore.ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -213,7 +211,7 @@ def start_db_cluster(neptune_client, cluster_identifier: str):
             clusters = []
             for page in pages:
                 clusters.extend(page.get('DBClusters', []))
-        except ClientError as err:
+        except botocore.ClientError as err:
             code = err.response["Error"]["Code"]
             message = err.response["Error"]["Message"]
 
@@ -240,8 +238,6 @@ def start_db_cluster(neptune_client, cluster_identifier: str):
 # snippet-end:[neptune.python.start.cluster.main]
 
 # snippet-start:[neptune.python.stop.cluster.main]
-from botocore.exceptions import ClientError
-
 def stop_db_cluster(neptune_client, cluster_identifier: str):
     """
     Stops an Amazon Neptune DB cluster and waits until it's fully stopped.
@@ -256,7 +252,7 @@ def stop_db_cluster(neptune_client, cluster_identifier: str):
     """
     try:
         neptune_client.stop_db_cluster(DBClusterIdentifier=cluster_identifier)
-    except ClientError as err:
+    except botocore.ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -275,7 +271,7 @@ def stop_db_cluster(neptune_client, cluster_identifier: str):
             clusters = []
             for page in pages:
                 clusters.extend(page.get('DBClusters', []))
-        except ClientError as err:
+        except botocore.ClientError as err:
             code = err.response["Error"]["Code"]
             message = err.response["Error"]["Message"]
 
@@ -343,12 +339,12 @@ def describe_db_clusters(neptune_client, cluster_id: str):
 
         if not found:
             # Treat empty response as cluster not found
-            raise ClientError(
+            raise botocore.ClientError(
                 {"Error": {"Code": "DBClusterNotFound", "Message": f"No cluster found with ID '{cluster_id}'"}},
                 "DescribeDBClusters"
             )
 
-    except ClientError as err:
+    except botocore.ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -381,7 +377,7 @@ def check_instance_status(neptune_client, instance_id: str, desired_status: str)
             for page in pages:
                 instances.extend(page.get('DBInstances', []))
 
-        except ClientError as err:
+        except botocore.ClientError as err:
             code = err.response["Error"]["Code"]
             message = err.response["Error"]["Message"]
 
@@ -434,7 +430,7 @@ def create_db_instance(neptune_client, db_instance_id: str, db_cluster_id: str) 
         print(f"DB Instance '{db_instance_id}' is now available.")
         return instance['DBInstanceIdentifier']
 
-    except ClientError as err:
+    except botocore.ClientError as err:
         code = err.response["Error"]["Code"]
         message = err.response["Error"]["Message"]
 
@@ -483,7 +479,7 @@ def create_db_cluster(neptune_client, db_name: str) -> str:
         print(f"DB Cluster created: {cluster_id}")
         return cluster_id
 
-    except ClientError as e:
+    except botocore.ClientError as e:
         code = e.response["Error"]["Code"]
         message = e.response["Error"]["Message"]
 
@@ -526,8 +522,6 @@ def get_default_vpc_id() -> str:
 
 
 # snippet-start:[neptune.python.create.subnet.main]
-from botocore.exceptions import ClientError
-
 def create_subnet_group(neptune_client, group_name: str):
     """
     Creates a Neptune DB subnet group and returns its name and ARN.
@@ -565,22 +559,20 @@ def create_subnet_group(neptune_client, group_name: str):
         print(f"ARN: {arn}")
         return name, arn
 
-    except Exception as e:
-        if isinstance(e, ClientError):
-            code = e.response["Error"]["Code"]
-            msg = e.response["Error"]["Message"]
+    except botocore.ClientError as e:
+        code = e.response["Error"]["Code"]
+        msg = e.response["Error"]["Message"]
 
-            if code == "ServiceQuotaExceededException":
-                print("Subnet group quota exceeded.")
-                raise RuntimeError("Subnet group quota exceeded.") from e
-            else:
-                print(f"AWS error [{code}]: {msg}")
-                raise RuntimeError(f"AWS error [{code}]: {msg}") from e
+        if code == "ServiceQuotaExceededException":
+            print("Subnet group quota exceeded.")
+            raise RuntimeError("Subnet group quota exceeded.") from e
         else:
-            print(f"Unexpected error creating subnet group '{group_name}': {e}")
-            raise RuntimeError(f"Unexpected error creating subnet group '{group_name}': {e}") from e
+            print(f"AWS error [{code}]: {msg}")
+            raise RuntimeError(f"AWS error [{code}]: {msg}") from e
 
-
+    except Exception as e:
+        print(f"Unexpected error creating subnet group '{group_name}': {e}")
+        raise RuntimeError(f"Unexpected error creating subnet group '{group_name}': {e}") from e
 # snippet-end:[neptune.python.create.subnet.main]
 
 def wait_for_input_to_continue():
@@ -666,7 +658,7 @@ def run_scenario(neptune_client, subnet_group_name: str, db_instance_id: str, cl
 
             print("Neptune resources deleted successfully")
 
-    except ClientError as ce:
+    except botocore.ClientError as ce:
         code = ce.response["Error"]["Code"]
 
         if code in ("DBInstanceNotFound", "DBInstanceNotFoundFault", "ResourceNotFound"):
@@ -706,7 +698,6 @@ def main():
     For more AWS code examples, visit:
     https://docs.aws.amazon.com/code-library/latest/ug/what-is-code-library.html
     """)
-
 
 if __name__ == "__main__":
     main()
