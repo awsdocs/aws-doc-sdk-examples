@@ -107,7 +107,7 @@ def delete_db_subnet_group(neptune_client, subnet_group_name):
 
     try:
         neptune_client.delete_db_subnet_group(**delete_group_request)
-        print(f"🗑️ Deleting Subnet Group: {subnet_group_name}")
+        print(f"️ Deleting Subnet Group: {subnet_group_name}")
 
     except ClientError as err:
         code = err.response["Error"]["Code"]
