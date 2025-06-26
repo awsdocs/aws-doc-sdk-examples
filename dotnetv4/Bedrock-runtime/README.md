@@ -91,7 +91,7 @@ in the `dotnetv4` folder.
 
 - [Amazon Bedrock Runtime User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
 - [Amazon Bedrock Runtime API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/welcome.html)
-- [SDK for .NET (v4) Amazon Bedrock Runtime reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Bedrock-runtime/NBedrock-runtime.html)
+- [SDK for .NET (v4) Amazon Bedrock Runtime reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Bedrock-runtime/NBedrock-runtime.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

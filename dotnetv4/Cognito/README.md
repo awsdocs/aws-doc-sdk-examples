@@ -76,7 +76,7 @@ in the `dotnetv4` folder.
 
 - [Amazon Cognito Identity Provider Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
 - [Amazon Cognito Identity Provider API Reference](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html)
-- [SDK for .NET (v4) Amazon Cognito Identity Provider reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Cognito-identity-provider/NCognito-identity-provider.html)
+- [SDK for .NET (v4) Amazon Cognito Identity Provider reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Cognito-identity-provider/NCognito-identity-provider.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

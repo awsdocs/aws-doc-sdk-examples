@@ -68,7 +68,7 @@ in the `dotnetv4` folder.
 
 - [CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)
 - [CloudFormation API Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/Welcome.html)
-- [SDK for .NET (v4) CloudFormation reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Cloudformation/NCloudformation.html)
+- [SDK for .NET (v4) CloudFormation reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Cloudformation/NCloudformation.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

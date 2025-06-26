@@ -75,7 +75,7 @@ in the `dotnetv4` folder.
 
 - [Amazon Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
 - [Amazon Bedrock API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/welcome.html)
-- [SDK for .NET (v4) Amazon Bedrock reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Bedrock/NBedrock.html)
+- [SDK for .NET (v4) Amazon Bedrock reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Bedrock/NBedrock.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

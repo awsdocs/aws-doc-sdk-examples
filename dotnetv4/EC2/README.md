@@ -68,7 +68,7 @@ in the `dotnetv4` folder.
 
 - [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
 - [Amazon EC2 API Reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html)
-- [SDK for .NET (v4) Amazon EC2 reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Ec2/NEc2.html)
+- [SDK for .NET (v4) Amazon EC2 reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Ec2/NEc2.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

@@ -124,7 +124,7 @@ in the `dotnetv4` folder.
 
 - [Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
 - [Auto Scaling API Reference](https://docs.aws.amazon.com/autoscaling/ec2/APIReference/Welcome.html)
-- [SDK for .NET (v4) Auto Scaling reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Auto-scaling/NAuto-scaling.html)
+- [SDK for .NET (v4) Auto Scaling reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Auto-scaling/NAuto-scaling.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

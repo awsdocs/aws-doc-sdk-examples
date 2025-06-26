@@ -68,7 +68,7 @@ in the `dotnetv4` folder.
 
 - [Amazon ECS Developer Guide](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html)
 - [Amazon ECS API Reference](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/Welcome.html)
-- [SDK for .NET (v4) Amazon ECS reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Ecs/NEcs.html)
+- [SDK for .NET (v4) Amazon ECS reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Ecs/NEcs.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

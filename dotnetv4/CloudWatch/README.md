@@ -70,7 +70,7 @@ in the `dotnetv4` folder.
 
 - [CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
 - [CloudWatch API Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/Welcome.html)
-- [SDK for .NET (v4) CloudWatch reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Cloudwatch/NCloudwatch.html)
+- [SDK for .NET (v4) CloudWatch reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Cloudwatch/NCloudwatch.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
