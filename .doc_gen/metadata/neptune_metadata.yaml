@@ -5,6 +5,14 @@ neptune_Hello:
   synopsis: get started using &neptune;.
   category: Hello
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.hello.main
     Java:
       versions:
         - sdk_version: 2
@@ -18,6 +26,14 @@ neptune_Hello:
     neptune: {DescribeDBClustersPaginator}
 neptune_ExecuteQuery:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.graph.execute.main
     Java:
       versions:
         - sdk_version: 2
@@ -31,6 +47,14 @@ neptune_ExecuteQuery:
     neptune: {ExecuteQuery}
 neptune_CreateGraph:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.graph.create.main
     Java:
       versions:
         - sdk_version: 2
@@ -44,6 +68,14 @@ neptune_CreateGraph:
     neptune: {CreateGraph}
 neptune_ExecuteOpenCypherExplainQuery:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.data.query.opencypher.main
     Java:
       versions:
         - sdk_version: 2
@@ -57,6 +89,14 @@ neptune_ExecuteOpenCypherExplainQuery:
     neptune: {ExecuteOpenCypherExplainQuery}
 neptune_ExecuteGremlinProfileQuery:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.data.query.gremlin.main
     Java:
       versions:
         - sdk_version: 2
@@ -70,6 +110,14 @@ neptune_ExecuteGremlinProfileQuery:
     neptune: {ExecuteGremlinProfileQuery}
 neptune_ExecuteGremlinQuery:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.data.query.gremlin.profile.main
     Java:
       versions:
         - sdk_version: 2
@@ -83,6 +131,14 @@ neptune_ExecuteGremlinQuery:
     neptune: {ExecuteGremlinQuery}
 neptune_DeleteDBSubnetGroup:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.delete.subnet.group.main
     Java:
       versions:
         - sdk_version: 2
@@ -96,6 +152,14 @@ neptune_DeleteDBSubnetGroup:
     neptune: {DeleteDBSubnetGroup}
 neptune_DeleteDBCluster:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.delete.cluster.main
     Java:
       versions:
         - sdk_version: 2
@@ -109,6 +173,14 @@ neptune_DeleteDBCluster:
     neptune: {DeleteDBCluster}
 neptune_DeleteDBInstance:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.delete.instance.main
     Java:
       versions:
         - sdk_version: 2
@@ -122,6 +194,14 @@ neptune_DeleteDBInstance:
     neptune: {DeleteDBInstance}
 neptune_StartDBCluster:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.start.cluster.main
     Java:
       versions:
         - sdk_version: 2
@@ -135,6 +215,14 @@ neptune_StartDBCluster:
     neptune: {StartDBCluster}
 neptune_StopDBCluster:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.stop.cluster.main
     Java:
       versions:
         - sdk_version: 2
@@ -148,6 +236,14 @@ neptune_StopDBCluster:
     neptune: {StopDBCluster} 
 neptune_DescribeDBClusters:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.describe.cluster.main
     Java:
       versions:
         - sdk_version: 2
@@ -161,6 +257,14 @@ neptune_DescribeDBClusters:
     neptune: {DescribeDBClusters}
 neptune_DescribeDBInstances:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.describe.dbinstance.main
     Java:
       versions:
         - sdk_version: 2
@@ -174,6 +278,14 @@ neptune_DescribeDBInstances:
     neptune: {DescribeDBInstances} 
 neptune_CreateDBInstance:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.create.dbinstance.main
     Java:
       versions:
         - sdk_version: 2
@@ -187,6 +299,14 @@ neptune_CreateDBInstance:
     neptune: {CreateDBInstance} 
 neptune_CreateDBCluster:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.create.cluster.main
     Java:
       versions:
         - sdk_version: 2
@@ -200,6 +320,14 @@ neptune_CreateDBCluster:
     neptune: {CreateDBCluster}  
 neptune_CreateDBSubnetGroup:
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.create.subnet.main
     Java:
       versions:
         - sdk_version: 2
@@ -223,6 +351,14 @@ neptune_Scenario:
     - Delete the &neptune; Assets.
   category: Basics
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/neptune
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.python.scenario.main
     Java:
       versions:
         - sdk_version: 2
