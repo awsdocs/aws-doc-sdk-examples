@@ -1,0 +1,4 @@
+boto3>=1.26.79
+pytest>=7.2.1
+qrcode>=7.4.2
+pycognito>=2022.12.0
