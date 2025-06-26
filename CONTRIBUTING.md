@@ -47,6 +47,7 @@ without needing to create a fork.
 as [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and [SOLID](https://en.wikipedia.org/wiki/SOLID) where possible.
 2. Carefully read the pull request template and follow it closely.
 3. Don't include AWS account identifiers or secret keys in your examples.
+4. To conform to licensing expectation, please follow instructions on our [Licensing guidelines wiki page](https://github.com/awsdocs/aws-doc-sdk-examples/wiki/Licensing-guidelines).
 
 ---
 
