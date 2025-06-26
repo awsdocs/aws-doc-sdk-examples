@@ -187,6 +187,10 @@ class ControlTowerWrapper:
             ):
                 logger.info("Control is already enabled for this target")
                 return None
+            elif (err.response["Error"]["Code"] == "ResourceNotFoundException"
+                    and "not registered with AWS Control Tower" in err.response["Error"]["Message"]):
+                logger.error("Control Tower must be enabled to work with controls.")
+                return None
             logger.error(
                 "Couldn't enable control. Here's why: %s: %s",
                 err.response["Error"]["Code"],
@@ -427,9 +431,10 @@ class ControlTowerWrapper:
         :return: List of enabled controls.
         :raises ClientError: If the listing operation fails.
         """
+        enabled_controls = []
         try:
             paginator = self.controltower_client.get_paginator("list_enabled_controls")
-            enabled_controls = []
+
             for page in paginator.paginate(targetIdentifier=target_identifier):
                 enabled_controls.extend(page["enabledControls"])
             return enabled_controls
@@ -439,6 +444,11 @@ class ControlTowerWrapper:
                 logger.error(
                     "Access denied. Please ensure you have the necessary permissions."
                 )
+                return enabled_controls
+            elif (err.response["Error"]["Code"] == "ResourceNotFoundException"
+                    and "not registered with AWS Control Tower" in err.response["Error"]["Message"]):
+                logger.error("Control Tower must be enabled to work with controls.")
+                return enabled_controls
             else:
                 logger.error(
                     "Couldn't list enabled controls. Here's why: %s: %s",

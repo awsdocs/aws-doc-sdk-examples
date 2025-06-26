@@ -85,10 +85,14 @@ Found existing Sandbox OU: ou-spdo-e3mtcidv
 - List available baselines.
 - If a landing zone exists:
   - List enabled baselines.
-  - Prompt the user if they would like to enable another baseline from the list.
-  - Get the operational status of the baseline operation.
-  - Reset the baseline.
-  - Disable the baseline.
+  - Prompt the user if they would like to enable the Control Tower baseline. 
+    - Notify the user if this baseline is already enabled.
+  - Prompt the user if they would like to reset the baseline.
+  - Prompt the user if they would like to disable the baseline.
+  - For all baseline operations, wait for a successful status before moving on.
+    - Get the operational status of the baseline operation.
+  - Re-enable the Control Tower baseline if it was initially enabled.
+    - The control tower baseline must be enabled in order to work with enabling/disabling controls.
 
 Example
 ```
@@ -140,10 +144,12 @@ and so is included as part of this example.
 
 - List Controls in Control Catalog.
 - If a landing zone exists:
-  - Enable a control.
-  - Get the operational status of the control.
   - List enabled controls.
-  - Disable the control.
+  - Prompt the user if they would like to enable the first control.
+    - Notify the user if this control is already enabled.
+  - Prompt the user if they would like to disable the control.
+  - For all control operations, wait for a success status before moving on.
+    - Get the operational status of the control
 
 Example
 ```
@@ -203,7 +209,9 @@ The following errors are handled in the Control Tower wrapper class:
 | `EnableBaseline`       | ValidationException   | Handle case where baseline is already enabled and return None.         |
 | `DisableBaseline`      | ConflictException     | Notify the user that the baseline could not be disabled, and continue. |
 | `ListControls`         | AccessDeniedException | Notify the user of insufficient permissions and exit.                  |
+| `ListEnabledControls`  | ResourceNotFound      | Check for "not registered with AWS Control Tower" and notify the user. |
 | `EnableControl`        | ValidationException   | Handle case where control is already enabled and return None.          |
+| `EnableControl`        | ResourceNotFound      | Check for "not registered with AWS Control Tower" and notify the user. |
 | `GetControlOperation`  | ResourceNotFound      | Notify the user that the control operation was not found.              |
 | `DisableControl`       | ResourceNotFound      | Notify the user that the control was not found.                        | 
 | `ListLandingZones`     | AccessDeniedException | Notify the user of insufficient permissions and exit.                  |
@@ -213,16 +221,17 @@ The following errors are handled in the Control Tower wrapper class:
 
 ## Metadata
 
-| action / scenario               | metadata file              | metadata key                      |
-|---------------------------------|----------------------------|-----------------------------------|
-| `ListBaselines`                 | controltower_metadata.yaml | controltower_Hello                |
-| `ListBaselines`                 | controltower_metadata.yaml | controltower_ListBaselines        |
-| `ListEnabledBaselines`          | controltower_metadata.yaml | controltower_ListEnabledBaselines |
-| `EnableBaseline`                | controltower_metadata.yaml | controltower_EnableBaseline       |
-| `DisableBaseline`               | controltower_metadata.yaml | controltower_DisableBaseline      |
-| `EnableControl`                 | controltower_metadata.yaml | controltower_EnableControl        |
-| `GetControlOperation`           | controltower_metadata.yaml | controltower_GetControlOperation  |
-| `DisableControl`                | controltower_metadata.yaml | controltower_DisableControl       |
-| `ListLandingZones`              | controltower_metadata.yaml | controltower_ListLandingZones     |
+| action / scenario              | metadata file              | metadata key                      |
+|--------------------------------|----------------------------|-----------------------------------|
+| `ListBaselines`                | controltower_metadata.yaml | controltower_Hello                |
+| `ListBaselines`                | controltower_metadata.yaml | controltower_ListBaselines        |
+| `ListEnabledBaselines`         | controltower_metadata.yaml | controltower_ListEnabledBaselines |
+| `EnableBaseline`               | controltower_metadata.yaml | controltower_EnableBaseline       |
+| `DisableBaseline`              | controltower_metadata.yaml | controltower_DisableBaseline      |
+| `ListEnabledControls`          | controltower_metadata.yaml | controltower_ListEnabledControls  |
+| `EnableControl`                | controltower_metadata.yaml | controltower_EnableControl        |
+| `GetControlOperation`          | controltower_metadata.yaml | controltower_GetControlOperation  |
+| `DisableControl`               | controltower_metadata.yaml | controltower_DisableControl       |
+| `ListLandingZones`             | controltower_metadata.yaml | controltower_ListLandingZones     |
 | `Control Tower Basics Scenario` | controltower_metadata.yaml | controltower_Scenario             |
 
