@@ -4,6 +4,7 @@
 import logging
 import boto3
 import time
+from typing import Dict, List, Optional, Any
 
 from botocore.exceptions import ClientError
 
@@ -17,7 +18,9 @@ logger = logging.getLogger(__name__)
 class ControlTowerWrapper:
     """Encapsulates AWS Control Tower and Control Catalog functionality."""
 
-    def __init__(self, controltower_client, controlcatalog_client):
+    def __init__(
+        self, controltower_client: boto3.client, controlcatalog_client: boto3.client
+    ):
         """
         :param controltower_client: A Boto3 Amazon ControlTower client.
         :param controlcatalog_client: A Boto3 Amazon ControlCatalog client.
@@ -66,10 +69,10 @@ class ControlTowerWrapper:
     # snippet-start:[python.example_code.controltower.EnableBaseline]
     def enable_baseline(
         self,
-        target_identifier,
-        identity_center_baseline,
-        baseline_identifier,
-        baseline_version,
+        target_identifier: str,
+        identity_center_baseline: str,
+        baseline_identifier: str,
+        baseline_version: str,
     ):
         """
         Enables a baseline for the specified target if it's not already enabled.
@@ -154,7 +157,7 @@ class ControlTowerWrapper:
     # snippet-end:[python.example_code.controltower.ListControls]
 
     # snippet-start:[python.example_code.controltower.EnableControl]
-    def enable_control(self, control_arn, target_identifier):
+    def enable_control(self, control_arn: str, target_identifier: str):
         """
         Enables a control for a specified target.
 
@@ -187,8 +190,11 @@ class ControlTowerWrapper:
             ):
                 logger.info("Control is already enabled for this target")
                 return None
-            elif (err.response["Error"]["Code"] == "ResourceNotFoundException"
-                    and "not registered with AWS Control Tower" in err.response["Error"]["Message"]):
+            elif (
+                err.response["Error"]["Code"] == "ResourceNotFoundException"
+                and "not registered with AWS Control Tower"
+                in err.response["Error"]["Message"]
+            ):
                 logger.error("Control Tower must be enabled to work with controls.")
                 return None
             logger.error(
@@ -201,7 +207,7 @@ class ControlTowerWrapper:
     # snippet-end:[python.example_code.controltower.EnableControl]
 
     # snippet-start:[python.example_code.controltower.GetControlOperation]
-    def get_control_operation(self, operation_id):
+    def get_control_operation(self, operation_id: str):
         """
         Gets the status of a control operation.
 
@@ -228,7 +234,7 @@ class ControlTowerWrapper:
     # snippet-end:[python.example_code.controltower.GetControlOperation]
 
     # snippet-start:[python.example_code.controltower.GetBaselineOperation]
-    def get_baseline_operation(self, operation_id):
+    def get_baseline_operation(self, operation_id: str):
         """
         Gets the status of a baseline operation.
 
@@ -255,7 +261,7 @@ class ControlTowerWrapper:
     # snippet-end:[python.example_code.controltower.GetBaselineOperation]
 
     # snippet-start:[python.example_code.controltower.DisableControl]
-    def disable_control(self, control_arn, target_identifier):
+    def disable_control(self, control_arn: str, target_identifier: str):
         """
         Disables a control for a specified target.
 
@@ -350,7 +356,7 @@ class ControlTowerWrapper:
     # snippet-end:[python.example_code.controltower.ListEnabledBaselines]
 
     # snippet-start:[python.example_code.controltower.ResetEnabledBaseline]
-    def reset_enabled_baseline(self, enabled_baseline_identifier):
+    def reset_enabled_baseline(self, enabled_baseline_identifier: str):
         """
         Resets an enabled baseline for a specific target.
 
@@ -384,7 +390,7 @@ class ControlTowerWrapper:
     # snippet-end:[python.example_code.controltower.ResetEnabledBaseline]
 
     # snippet-start:[python.example_code.controltower.DisableBaseline]
-    def disable_baseline(self, enabled_baseline_identifier):
+    def disable_baseline(self, enabled_baseline_identifier: str):
         """
         Disables a baseline for a specific target and waits for the operation to complete.
 
@@ -423,7 +429,7 @@ class ControlTowerWrapper:
     # snippet-end:[python.example_code.controltower.DisableBaseline]
 
     # snippet-start:[python.example_code.controltower.ListEnabledControls]
-    def list_enabled_controls(self, target_identifier):
+    def list_enabled_controls(self, target_identifier: str):
         """
         Lists all enabled controls for a specific target.
 
@@ -445,8 +451,11 @@ class ControlTowerWrapper:
                     "Access denied. Please ensure you have the necessary permissions."
                 )
                 return enabled_controls
-            elif (err.response["Error"]["Code"] == "ResourceNotFoundException"
-                    and "not registered with AWS Control Tower" in err.response["Error"]["Message"]):
+            elif (
+                err.response["Error"]["Code"] == "ResourceNotFoundException"
+                and "not registered with AWS Control Tower"
+                in err.response["Error"]["Message"]
+            ):
                 logger.error("Control Tower must be enabled to work with controls.")
                 return enabled_controls
             else:

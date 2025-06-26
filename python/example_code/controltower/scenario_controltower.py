@@ -5,6 +5,7 @@
 import logging
 import sys
 import time
+from typing import Any, Optional
 
 import boto3
 from botocore.exceptions import ClientError
@@ -20,9 +21,12 @@ logger = logging.getLogger(__name__)
 
 # snippet-start:[python.example_code.controltower.ControlTowerScenario]
 class ControlTowerScenario:
+    IDENTITY_CENTER_BASELINE = "baseline/LN25R72TTG6IGPTQ"
     stack_name = ""
 
-    def __init__(self, controltower_wrapper, org_client):
+    def __init__(
+        self, controltower_wrapper: ControlTowerWrapper, org_client: boto3.client
+    ):
         """
         :param controltower_wrapper: An instance of the ControlTowerWrapper class.
         :param org_client: A Boto3 Organization client.
@@ -36,7 +40,7 @@ class ControlTowerScenario:
         self.landing_zone_id = None
         self.use_landing_zone = False
 
-    def run_scenario(self):
+    def run_scenario(self) -> None:
         print("-" * 88)
         print(
             "\tWelcome to the AWS Control Tower with ControlCatalog example scenario."
@@ -44,9 +48,9 @@ class ControlTowerScenario:
         print("-" * 88)
 
         print(
-            "This demo will walk you through working with AWS Control Tower for landing zones,"
+            "This demo will walk you through working with AWS Control Tower for landing zones,\n"
+            "managing baselines, and working with controls."
         )
-        print("managing baselines, and working with controls.")
 
         self.account_id = boto3.client("sts").get_caller_identity()["Account"]
 
@@ -102,7 +106,7 @@ class ControlTowerScenario:
             enabled_baselines = self.controltower_wrapper.list_enabled_baselines()
             for baseline in enabled_baselines:
                 # If the Identity Center baseline is enabled, the identifier must be used for other baselines.
-                if "baseline/LN25R72TTG6IGPTQ" in baseline["baselineIdentifier"]:
+                if self.IDENTITY_CENTER_BASELINE in baseline["baselineIdentifier"]:
                     identity_center_baseline = baseline
                 print(f"{baseline['baselineIdentifier']}")
 
@@ -151,6 +155,15 @@ class ControlTowerScenario:
                     )
                     print(f"\nDisabled baseline operation id {operation_id}.")
 
+                    # Re-enable the baseline for the next step.
+                    print("\nEnabling Control Tower Baseline.")
+                    self.controltower_wrapper.enable_baseline(
+                        self.ou_arn,
+                        ic_baseline_arn,
+                        control_tower_baseline["arn"],
+                        "4.0",
+                    )
+
         # List and Enable Controls.
         print("\nManaging Controls:")
         controls = self.controltower_wrapper.list_controls()
@@ -186,10 +199,8 @@ class ControlTowerScenario:
 
                 if operation_id:
                     print(f"Enabled control with operation id {operation_id}")
-                else:
-                    print("Control is already enabled for this target")
 
-            if q.ask(
+            if control_arn and q.ask(
                 f"Do you want to disable the control? (y/n) ",
                 q.is_yesno,
             ):

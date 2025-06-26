@@ -171,6 +171,19 @@ class MockManager:
                 self.baseline_operation_id,
                 "SUCCEEDED",
             )
+            runner.add(
+                self.scenario_data.controltower_stubber.stub_enable_baseline,
+                self.baseline_arn,
+                "4.0",
+                self.sandbox_ou_arn,
+                self.enabled_baseline_arn,
+                self.baseline_operation_id,
+            )
+            runner.add(
+                self.scenario_data.controltower_stubber.stub_get_baseline_operation,
+                self.baseline_operation_id,
+                "SUCCEEDED",
+            )
 
             # List and enable controls
             runner.add(

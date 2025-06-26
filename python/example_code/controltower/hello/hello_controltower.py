@@ -3,9 +3,10 @@
 
 # snippet-start:[python.example_code.controltower.Hello]
 import boto3
+from typing import Any, List
 
 
-def hello_controltower(controltower_client):
+def hello_controltower(controltower_client: Any) -> None:
     """
     Use the AWS SDK for Python (Boto3) to create an AWS Control Tower client
     and list all available baselines.
@@ -19,7 +20,7 @@ def hello_controltower(controltower_client):
     paginator = controltower_client.get_paginator("list_baselines")
     page_iterator = paginator.paginate()
 
-    baseline_names: [str] = []
+    baseline_names: List[str] = []
     try:
         for page in page_iterator:
             for baseline in page["baselines"]:

@@ -130,11 +130,19 @@ Baseline operation status: SUCCEEDED
 Reset baseline operation id 64f9c26e-c2d4-46c1-8863-f2b6382c2b4d.
 
 Do you want to disable the Control Tower Baseline? (y/n) y
-Disabling baseline ARN: arn:aws:controltower:us-east-1:478643181688:enabledbaseline/XOVK3ATZUCD5A04QV
-Conflict disabling baseline: AWS Control Tower cannot perform a DisableBaseline operation on a target OU with enabled optional controls.. Skipping disable step.
+Disabling baseline ARN: arn:aws:controltower:us-east-1:478643181688:enabledbaseline/XOVK3ATZUCD5BUH7N
+Baseline operation status: IN_PROGRESS
+Baseline operation status: SUCCEEDED
 
-Disabled baseline operation id None.
+Disabled baseline operation id ff86f9d7-8f08-4bfa-b071-5469c0dfbe60.
 
+Enabling Control Tower Baseline.
+Baseline operation status: IN_PROGRESS
+Baseline operation status: IN_PROGRESS
+Baseline operation status: IN_PROGRESS
+Baseline operation status: IN_PROGRESS
+Baseline operation status: IN_PROGRESS
+Baseline operation status: SUCCEEDED
 
 ```
 
