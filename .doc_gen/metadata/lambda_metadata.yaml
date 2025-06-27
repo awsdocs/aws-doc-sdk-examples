@@ -284,6 +284,15 @@ lambda_DeleteFunction:
           excerpts:
             - snippet_tags:
                 - lambda.rust.scenario.delete_function
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/lambda/basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.lambda-basics.imports
+                - swift.lambda-basics.DeleteFunction
   services:
     lambda: {DeleteFunction}
 lambda_Invoke:

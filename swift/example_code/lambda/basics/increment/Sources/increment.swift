@@ -45,7 +45,7 @@ struct IncrementLambda: LambdaHandler {
     init(context: LambdaInitializationContext) async throws {
         // Display the `LOG_LEVEL` configuration for this process.
         context.logger.info(
-            "Log Level env var : \(ProcessInfo.processInfo.environment["LOG_LEVEL"] ?? "info" )"
+            "LOG_LEVEL environment variable: \(ProcessInfo.processInfo.environment["LOG_LEVEL"] ?? "info" )"
         )
     }
     // snippet-end:[lambda.swift.increment.handler.init]
