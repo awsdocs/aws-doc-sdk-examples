@@ -15,12 +15,12 @@ bedrock_Hello:
                 - gov2.bedrock.Hello
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock
+        - sdk_version: 4
+          github: dotnetv4/Bedrock
           excerpts:
             - description:
               snippet_tags:
-                - Bedrock.dotnetv3.BedrockActions.HelloBedrock
+                - Bedrock.dotnetv4.BedrockActions.HelloBedrock
     JavaScript:
       versions:
         - sdk_version: 3
@@ -137,12 +137,12 @@ bedrock_ListFoundationModels:
                 - python.example_code.bedrock.ListFoundationModels
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock
+        - sdk_version: 4
+          github: dotnetv4/Bedrock
           excerpts:
             - description: List the available Bedrock foundation models.
               snippet_tags:
-                - Bedrock.dotnetv3.BedrockActions.ListFoundationModels
+                - Bedrock.dotnetv4.BedrockActions.ListFoundationModels
     Swift:
       versions:
         - sdk_version: 1

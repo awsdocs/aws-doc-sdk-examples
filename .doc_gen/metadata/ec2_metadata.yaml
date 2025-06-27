@@ -6,13 +6,13 @@ ec2_Hello:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/EC2
+        - sdk_version: 4
+          github: dotnetv4/EC2
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.HelloEc2
+                - EC2.dotnetv4.HelloEc2
     Kotlin:
       versions:
         - sdk_version: 1
