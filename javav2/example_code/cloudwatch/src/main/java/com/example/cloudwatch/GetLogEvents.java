@@ -49,6 +49,13 @@ public class GetLogEvents {
         cloudWatchLogsClient.close();
     }
 
+    /**
+     * Retrieves and prints CloudWatch log events from the specified log group and log stream.
+     *
+     * @param cloudWatchLogsClient the CloudWatchLogsClient used to interact with AWS CloudWatch Logs
+     * @param logGroupName the name of the log group from which to retrieve the log events
+     * @param logStreamName the name of the log stream from which to retrieve the log events
+     */
     public static void getCWLogEvents(CloudWatchLogsClient cloudWatchLogsClient, String logGroupName,
             String logStreamName) {
         try {

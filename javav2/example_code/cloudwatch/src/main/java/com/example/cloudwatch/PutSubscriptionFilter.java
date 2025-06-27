@@ -68,6 +68,15 @@ public class PutSubscriptionFilter {
         cwl.close();
     }
 
+    /**
+     * Creates a new subscription filter for a specified CloudWatch Logs log group.
+     *
+     * @param cwl the CloudWatchLogsClient used to interact with AWS CloudWatch Logs
+     * @param filter the name of the subscription filter to create
+     * @param pattern the filter pattern for the subscription filter
+     * @param logGroup the name of the log group to which the subscription filter should be applied
+     * @param functionArn the ARN of the destination (e.g., a Lambda function) for the subscription filter
+     */
     public static void putSubFilters(CloudWatchLogsClient cwl,
             String filter,
             String pattern,

@@ -45,6 +45,12 @@ public class DescribeRule {
         cwe.close();
     }
 
+    /**
+     * Describes a specific CloudWatch Events rule and prints its schedule expression.
+     *
+     * @param cwe the CloudWatchEventsClient used to interact with AWS CloudWatch Events
+     * @param ruleName the name of the rule to describe
+     */
     public static void describeSpecificRule(CloudWatchEventsClient cwe, String ruleName) {
         try {
             DescribeRuleRequest ruleRequest = DescribeRuleRequest.builder()

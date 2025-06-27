@@ -44,6 +44,12 @@ public class HelloService {
         cw.close();
     }
 
+    /**
+     * Lists all metrics within the specified namespace using AWS CloudWatch.
+     *
+     * @param cw the CloudWatchClient used to interact with AWS CloudWatch
+     * @param namespace the namespace from which to list the metrics
+     */
     public static void listMets(CloudWatchClient cw, String namespace) {
         try {
             ListMetricsRequest request = ListMetricsRequest.builder()

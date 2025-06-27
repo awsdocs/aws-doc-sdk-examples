@@ -47,6 +47,12 @@ public class DescribeSubscriptionFilters {
         logs.close();
     }
 
+    /**
+     * Describes all subscription filters associated with the specified CloudWatch Logs log group.
+     *
+     * @param logs the CloudWatchLogsClient used to interact with AWS CloudWatch Logs
+     * @param logGroup the name of the log group from which to describe the subscription filters
+     */
     public static void describeFilters(CloudWatchLogsClient logs, String logGroup) {
         try {
             boolean done = false;

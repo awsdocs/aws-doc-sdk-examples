@@ -45,6 +45,13 @@ public class DisableAlarmActions {
         cw.close();
     }
 
+    /**
+     * Disables the actions associated with a specified CloudWatch alarm.
+     *
+     * @param cw the {@link CloudWatchClient} used to interact with the CloudWatch service
+     * @param alarmName the name of the CloudWatch alarm whose actions are to be disabled
+     *
+     */
     public static void disableActions(CloudWatchClient cw, String alarmName) {
         try {
             DisableAlarmActionsRequest request = DisableAlarmActionsRequest.builder()

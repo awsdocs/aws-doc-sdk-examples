@@ -52,6 +52,14 @@ public class FilterLogEvents {
         cloudWatchLogsClient.close();
     }
 
+    /**
+     * Filters and prints CloudWatch log events within the specified log group and time range.
+     *
+     * @param cloudWatchLogsClient the CloudWatchLogsClient used to interact with AWS CloudWatch Logs
+     * @param logGroupName the name of the log group from which to filter the log events
+     * @param startTime the start time (in milliseconds since epoch) for filtering log events
+     * @param endTime the end time (in milliseconds since epoch) for filtering log events
+     */
     public static void filterCWLogEvents(CloudWatchLogsClient cloudWatchLogsClient, String logGroupName, Long startTime,
             Long endTime) {
         try {

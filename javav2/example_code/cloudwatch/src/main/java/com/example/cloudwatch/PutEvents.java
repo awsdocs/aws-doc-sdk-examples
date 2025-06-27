@@ -43,6 +43,15 @@ public class PutEvents {
         cwe.close();
     }
 
+    /**
+     * Sends a custom event to Amazon CloudWatch Events.
+     *
+     * @param cwe The {@link CloudWatchEventsClient} used to interact with
+     * Amazon CloudWatch Events.
+     * @param resourceArn The ARN (Amazon Resource Name) of the resource associated
+     * with the event.
+     *
+     */
     public static void putCWEvents(CloudWatchEventsClient cwe, String resourceArn) {
         try {
             final String EVENT_DETAILS = "{ \"key1\": \"value1\", \"key2\": \"value2\" }";

@@ -46,6 +46,15 @@ public class PutRule {
         cwe.close();
     }
 
+    /**
+     * Creates a new CloudWatch Events rule with the specified name and role ARN.
+     * The rule is configured to trigger every 5 minutes and is enabled upon creation.
+     *
+     * @param cwe The {@link CloudWatchEventsClient} used to interact with AWS CloudWatch Events.
+     * @param ruleName The name of the CloudWatch Events rule to be created.
+     * @param roleArn The ARN of the IAM role that CloudWatch Events can assume to execute the rule.
+     *
+     */
     public static void putCWRule(CloudWatchEventsClient cwe, String ruleName, String roleArn) {
         try {
             PutRuleRequest request = PutRuleRequest.builder()

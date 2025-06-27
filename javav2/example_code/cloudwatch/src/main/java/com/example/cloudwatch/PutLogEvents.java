@@ -48,6 +48,14 @@ public class PutLogEvents {
         logsClient.close();
     }
 
+    /**
+     * Puts a CloudWatch log event to the specified log stream within the given log group.
+     *
+     * @param logsClient The CloudWatchLogsClient used to interact with AWS CloudWatch Logs.
+     * @param logGroupName The name of the log group where the log stream is located.
+     * @param streamName The name of the log stream to which the log event will be added.
+     *
+     */
     public static void putCWLogEvents(CloudWatchLogsClient logsClient, String logGroupName, String streamName) {
         try {
             DescribeLogStreamsRequest logStreamRequest = DescribeLogStreamsRequest.builder()

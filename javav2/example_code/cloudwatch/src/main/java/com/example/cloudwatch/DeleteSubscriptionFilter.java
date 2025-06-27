@@ -44,6 +44,13 @@ public class DeleteSubscriptionFilter {
         logs.close();
     }
 
+    /**
+     * Deletes a specified subscription filter from a CloudWatch Logs log group.
+     *
+     * @param logs the CloudWatchLogsClient used to interact with AWS CloudWatch Logs
+     * @param filter the name of the subscription filter to delete
+     * @param logGroup the name of the log group from which to delete the subscription filter
+     */
     public static void deleteSubFilter(CloudWatchLogsClient logs, String filter, String logGroup) {
         try {
             DeleteSubscriptionFilterRequest request = DeleteSubscriptionFilterRequest.builder()

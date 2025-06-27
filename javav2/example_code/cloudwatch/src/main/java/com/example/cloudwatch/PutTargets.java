@@ -47,6 +47,15 @@ public class PutTargets {
         cwe.close();
     }
 
+    /**
+     * Adds a target to a specified CloudWatch Events rule.
+     *
+     * @param cwe The CloudWatchEventsClient used to interact with Amazon CloudWatch Events.
+     * @param ruleName The name of the CloudWatch Events rule to which the target will be added.
+     * @param functionArn The Amazon Resource Name (ARN) of the AWS Lambda function to be invoked by the target.
+     * @param targetId The unique identifier for the target.
+     *
+     */
     public static void putCWTargets(CloudWatchEventsClient cwe, String ruleName, String functionArn, String targetId) {
         try {
             Target target = Target.builder()
