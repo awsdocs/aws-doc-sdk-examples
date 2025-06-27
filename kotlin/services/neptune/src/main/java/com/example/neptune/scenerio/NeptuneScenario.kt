@@ -29,36 +29,26 @@ var scanner = Scanner(System.`in`)
 private val pollInterval: Duration = Duration.ofSeconds(20)
 private val timeout: Duration = Duration.ofMinutes(30)
 suspend fun main(args: Array<String>) {
-    val subnetGroupName = "neptuneSubnetGroup61"
-    val clusterName = "neptuneCluster61"
-    val dbInstanceId = "neptuneDB61"
+    val subnetGroupName = "neptuneSubnetGroup200"
+    val clusterName = "neptuneCluster200"
+    val dbInstanceId = "neptuneDB200"
 
     println(
         """
-    Amazon Neptune is a fully managed graph 
-    database service by AWS, designed specifically
-    for handling complex relationships and connected 
-    datasets at scale. It supports two popular graph models: 
-    property graphs (via openCypher and Gremlin) and RDF 
-    graphs (via SPARQL). This makes Neptune ideal for 
-    use cases such as knowledge graphs, fraud detection, 
-    social networking, recommendation engines, and 
-    network management, where relationships between 
-    entities are central to the data.
+   Amazon Neptune is a fully managed AWS graph database optimized for complex, connected datasets. 
+   It supports property graphs (Gremlin, openCypher) 
+   and RDF graphs (SPARQL), making it ideal for knowledge 
+   graphs, fraud detection, social networks, 
+   recommendations, and network management.
+
+   Neptune handles provisioning, patching, backups, a
+   nd replication, offering high availability by default
+   .
+   Developers can build relationship-aware apps using the 
+   AWS SDK for Kotlin and automate infrastructure with 
+   NeptuneClient.
                     
-    Being fully managed, Neptune handles database 
-    provisioning, patching, backups, and replication, 
-    while also offering high availability and durability 
-    within AWS's infrastructure.
-                    
-    For developers, programming with Neptune allows 
-    for building intelligent, relationship-aware 
-    applications that go beyond traditional tabular 
-    databases. Developers can use the AWS SDK for Kotlin
-    to automate infrastructure operations 
-    (via NeptuneClient). 
-                    
-    Let's get started...
+   Let's get started...
                     
     """
     )
