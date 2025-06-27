@@ -131,7 +131,6 @@ neptune_ExecuteGremlinQuery:
     neptune: {ExecuteGremlinQuery}
 neptune_DeleteDBSubnetGroup:
   languages:
-  services:
     Kotlin:
       versions:
         - sdk_version: 1
