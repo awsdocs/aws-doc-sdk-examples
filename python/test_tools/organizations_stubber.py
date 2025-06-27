@@ -98,3 +98,95 @@ class OrganizationsStubber(ExampleStubber):
         self._stub_bifurcator(
             "delete_policy", expected_parameters, error_code=error_code
         )
+        
+    def stub_describe_organization(self, org_id, error_code=None):
+        """
+        Stub for the describe_organization function.
+        
+        :param org_id: The ID of the organization.
+        :param error_code: The error code to raise, if any.
+        """
+        response = {
+            "Organization": {
+                "Id": org_id,
+                "Arn": f"arn:aws:organizations::123456789012:organization/{org_id}",
+                "FeatureSet": "ALL",
+                "MasterAccountArn": "arn:aws:organizations::123456789012:account/o-exampleorgid/123456789012",
+                "MasterAccountId": "123456789012",
+                "MasterAccountEmail": "admin@example.org"
+            }
+        }
+        self._stub_bifurcator(
+            "describe_organization", {}, response, error_code=error_code
+        )
+        
+    def stub_create_organization(self, feature_set, org_id, error_code=None):
+        """
+        Stub for the create_organization function.
+        
+        :param feature_set: The feature set for the organization.
+        :param org_id: The ID of the created organization.
+        :param error_code: The error code to raise, if any.
+        """
+        expected_parameters = {"FeatureSet": feature_set}
+        response = {
+            "Organization": {
+                "Id": org_id,
+                "Arn": f"arn:aws:organizations::123456789012:organization/{org_id}",
+                "FeatureSet": feature_set,
+                "MasterAccountArn": "arn:aws:organizations::123456789012:account/o-exampleorgid/123456789012",
+                "MasterAccountId": "123456789012",
+                "MasterAccountEmail": "admin@example.org"
+            }
+        }
+        self._stub_bifurcator(
+            "create_organization", expected_parameters, response, error_code=error_code
+        )
+        
+    def stub_list_roots(self, roots, error_code=None):
+        """
+        Stub for the list_roots function.
+        
+        :param roots: List of root objects to return.
+        :param error_code: The error code to raise, if any.
+        """
+        response = {"Roots": roots}
+        self._stub_bifurcator(
+            "list_roots", {}, response, error_code=error_code
+        )
+        
+    def stub_list_organizational_units_for_parent(self, parent_id, ous, error_code=None):
+        """
+        Stub for the list_organizational_units_for_parent function.
+        
+        :param parent_id: The ID of the parent organizational unit or root.
+        :param ous: List of organizational unit objects to return.
+        :param error_code: The error code to raise, if any.
+        """
+        expected_parameters = {"ParentId": parent_id}
+        response = {"OrganizationalUnits": ous}
+        self._stub_bifurcator(
+            "list_organizational_units_for_parent", expected_parameters, response, error_code=error_code
+        )
+        
+    def stub_create_organizational_unit(self, parent_id, name, ou_id, ou_arn, error_code=None):
+        """
+        Stub for the create_organizational_unit function.
+        
+        :param parent_id: The ID of the parent organizational unit or root.
+        :param name: The name of the organizational unit.
+        :param ou_id: The ID of the created organizational unit.
+        :param ou_arn: The ARN of the created organizational unit.
+        :param error_code: The error code to raise, if any.
+        """
+        expected_parameters = {"ParentId": parent_id, "Name": name}
+        response = {
+            "OrganizationalUnit": {
+                "Id": ou_id,
+                "Arn": ou_arn,
+                "Name": name
+            }
+        }
+        self._stub_bifurcator(
+            "create_organizational_unit", expected_parameters, response, error_code=error_code
+        )
