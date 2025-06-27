@@ -131,6 +131,17 @@ neptune_ExecuteGremlinQuery:
     neptune: {ExecuteGremlinQuery}
 neptune_DeleteDBSubnetGroup:
   languages:
+  services:
+    neptune: {ExecuteGremlinProfileQuery}
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.kotlin.delete.subnet.group.main
     Python:
       versions:
         - sdk_version: 3
@@ -152,6 +163,15 @@ neptune_DeleteDBSubnetGroup:
     neptune: {DeleteDBSubnetGroup}
 neptune_DeleteDBCluster:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.Kotlin.delete.cluster.main
     Python:
       versions:
         - sdk_version: 3
@@ -173,6 +193,15 @@ neptune_DeleteDBCluster:
     neptune: {DeleteDBCluster}
 neptune_DeleteDBInstance:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.kotlin.delete.instance.main
     Python:
       versions:
         - sdk_version: 3
@@ -194,6 +223,15 @@ neptune_DeleteDBInstance:
     neptune: {DeleteDBInstance}
 neptune_StartDBCluster:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.kotlin.start.cluster.main
     Python:
       versions:
         - sdk_version: 3
@@ -215,6 +253,15 @@ neptune_StartDBCluster:
     neptune: {StartDBCluster}
 neptune_StopDBCluster:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.kotlin.stop.cluster.main
     Python:
       versions:
         - sdk_version: 3
@@ -236,6 +283,15 @@ neptune_StopDBCluster:
     neptune: {StopDBCluster} 
 neptune_DescribeDBClusters:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.kotlin.describe.cluster.main
     Python:
       versions:
         - sdk_version: 3
@@ -257,6 +313,15 @@ neptune_DescribeDBClusters:
     neptune: {DescribeDBClusters}
 neptune_DescribeDBInstances:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.kotlin.describe.dbinstance.main
     Python:
       versions:
         - sdk_version: 3
@@ -278,6 +343,15 @@ neptune_DescribeDBInstances:
     neptune: {DescribeDBInstances} 
 neptune_CreateDBInstance:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.kotlin.create.dbinstance.main
     Python:
       versions:
         - sdk_version: 3
@@ -299,6 +373,15 @@ neptune_CreateDBInstance:
     neptune: {CreateDBInstance} 
 neptune_CreateDBCluster:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.kotlin.create.cluster.main
     Python:
       versions:
         - sdk_version: 3
@@ -320,6 +403,15 @@ neptune_CreateDBCluster:
     neptune: {CreateDBCluster}  
 neptune_CreateDBSubnetGroup:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.kotlin.create.subnet.main
     Python:
       versions:
         - sdk_version: 3
@@ -351,6 +443,15 @@ neptune_Scenario:
     - Delete the &neptune; Assets.
   category: Basics
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.kotlin.scenario.main
     Python:
       versions:
         - sdk_version: 3

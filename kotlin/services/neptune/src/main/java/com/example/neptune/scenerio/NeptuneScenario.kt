@@ -23,7 +23,7 @@ import kotlinx.coroutines.delay
 import java.time.Duration
 import java.util.*
 
-
+// snippet-start:[neptune.kotlin.scenario.main]
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
 var scanner = Scanner(System.`in`)
 private val pollInterval: Duration = Duration.ofSeconds(20)
@@ -575,4 +575,5 @@ private fun waitForInputToContinue(scanner: Scanner) {
             println("Invalid input. Please try again.")
         }
     }
+    // snippet-end:[neptune.kotlin.scenario.main]
 }
