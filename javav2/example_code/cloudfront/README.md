@@ -45,6 +45,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Create a multi-tenant distribution and distribution tenant](src/main/java/com/example/cloudfront/CreateMultiTenantDistribution.java)
 - [Delete signing resources](src/main/java/com/example/cloudfront/DeleteSigningResources.java)
 - [Sign URLs and cookies](src/main/java/com/example/cloudfront/CreateCannedPolicyRequest.java)
 
@@ -61,6 +62,18 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
+
+#### Create a multi-tenant distribution and distribution tenant
+
+This example shows you how to Create a multi-tenant distribution and distribution tenant with various configurations.
+
+
+<!--custom.scenario_prereqs.cloudfront_CreateSaasResources.start-->
+<!--custom.scenario_prereqs.cloudfront_CreateSaasResources.end-->
+
+
+<!--custom.scenarios.cloudfront_CreateSaasResources.start-->
+<!--custom.scenarios.cloudfront_CreateSaasResources.end-->
 
 #### Delete signing resources
 
