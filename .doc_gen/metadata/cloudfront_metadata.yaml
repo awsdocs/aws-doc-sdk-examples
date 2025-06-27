@@ -80,6 +80,54 @@ cloudfront_CreateDistribution:
                 - cloudfront.java2.createdistribution.main
   services:
     cloudfront: {CreateDistribution}
+cloudfront_CreateSaasResources:
+  title: Create a SaaS resource stack &AWS; SDK
+  title_abbrev: Create a multi tenant distribution and distribution tenant
+  synopsis: Create a multi tenant distribution and distribution tenant with various configurations.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description: >-
+                The following example demonstrates how to create a multi tenant distribution with parameters and wildcard certificate
+              snippet_tags:
+                - cloudfront.java2.createmultitenantdistribution.import
+                - cloudfront.java2.createmultitenantdistribution.main
+            - description: >-
+                The following example demonstrates how to create a distribution tenant associated with that template, including utilizing the parameter we declared above.  Note that we don't need to add certificate info here because our domain is already covered by the parent template.
+              snippet_tags:
+                - cloudfront.java2.createdistributiontenant.import
+                - cloudfront.java2.createdistributiontenant.title
+                - cloudfront.java2.createdistributiontenant.nocert
+                - cloudfront.java2.createdistributiontenant.closebrace
+            - description: >-
+                <para>If the viewer certificate was omitted from the parent template, you would need to add certificate info on the tenant(s) associated with it instead.</para>
+                The following example demonstrates how to do so via an ACM certificate arn that covers the necessary domain for the tenant.
+              snippet_tags:
+                - cloudfront.java2.createdistributiontenant.import
+                - cloudfront.java2.createdistributiontenant.title
+                - cloudfront.java2.createdistributiontenant.withcert
+                - cloudfront.java2.createdistributiontenant.closebrace
+            - description: >-
+                The following example demonstrates how to do so with a cloudfront hosted managed certificate request.
+              snippet_tags:
+                - cloudfront.java2.createdistributiontenant.import
+                - cloudfront.java2.createdistributiontenant.title
+                - cloudfront.java2.createdistributiontenant.cfhosted
+                - cloudfront.java2.createdistributiontenant.closebrace
+            - description: >-
+                The following example demonstrates how to do so with a self-hosted managed certificate request.
+              snippet_tags:
+                - cloudfront.java2.createdistributiontenant.import
+                - cloudfront.java2.createdistributiontenant.title
+                - cloudfront.java2.createdistributiontenant.selfhosted
+                - cloudfront.java2.createdistributiontenant.closebrace
+  services:
+    cloudfront: {CreateDistribution, CreateDistributionTenant}
 cloudfront_CreateKeyGroup:
   languages:
     Java:
