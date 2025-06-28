@@ -446,7 +446,7 @@ The following Java code represents the **SendMessage** class. This class uses th
         try {
             send(fileContent,emailAddress);
         } catch (MessagingException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
      }
 

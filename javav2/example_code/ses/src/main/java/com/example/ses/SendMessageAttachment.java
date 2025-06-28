@@ -83,7 +83,7 @@ public class SendMessageAttachment {
             System.out.println("Done");
 
         } catch (IOException | MessagingException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 

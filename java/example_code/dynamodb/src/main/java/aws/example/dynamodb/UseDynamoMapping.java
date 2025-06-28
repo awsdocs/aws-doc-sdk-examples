@@ -79,7 +79,7 @@ public class UseDynamoMapping {
 
             System.out.print("Done");
         } catch (AmazonDynamoDBException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 

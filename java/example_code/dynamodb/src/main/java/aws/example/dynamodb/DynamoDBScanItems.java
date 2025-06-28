@@ -60,7 +60,7 @@ public class DynamoDBScanItems {
             }
 
         } catch (AmazonDynamoDBException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
 
         // snippet-end:[dynamodb.java.dynamoDB_scan.main]

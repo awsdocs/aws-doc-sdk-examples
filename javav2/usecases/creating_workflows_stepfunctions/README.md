@@ -314,7 +314,7 @@ The **Handler3** class is the third step in the workflow and creates a **SendMes
 
        } catch (IOException e)
        {
-           e.getStackTrace();
+           e.printStackTrace();
        }
 
         return "";
@@ -491,7 +491,7 @@ The following Java class represents the **SendMessage** class. This class uses t
             send(client, sender,email, subject,bodyText,bodyHTML);
 
         } catch (IOException | MessagingException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
       }
 
