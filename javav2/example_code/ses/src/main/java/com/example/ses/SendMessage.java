@@ -73,7 +73,7 @@ public class SendMessage {
             System.out.println("Done");
 
         } catch (IOException | MessagingException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 

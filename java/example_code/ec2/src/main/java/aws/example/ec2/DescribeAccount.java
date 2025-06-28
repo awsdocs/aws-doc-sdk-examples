@@ -39,7 +39,7 @@ public class DescribeAccount {
             }
             System.out.print("Done");
         } catch (Exception e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
         // snippet-end:[ec2.java1.describe_account.main]
     }

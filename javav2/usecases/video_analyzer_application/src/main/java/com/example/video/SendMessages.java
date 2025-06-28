@@ -52,7 +52,7 @@ public class SendMessages {
         try {
             send(fileContent, emailAddress);
         } catch (MessagingException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 

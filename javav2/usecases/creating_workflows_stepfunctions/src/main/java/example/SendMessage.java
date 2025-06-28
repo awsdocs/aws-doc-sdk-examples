@@ -46,7 +46,7 @@ public class SendMessage {
             send(client, sender, email, subject, bodyText, bodyHTML);
 
         } catch (IOException | MessagingException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 

@@ -24,7 +24,7 @@ public class Handler3 implements RequestHandler<String, String> {
             msg.sendMessage(email);
 
         } catch (IOException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
 
         return "";

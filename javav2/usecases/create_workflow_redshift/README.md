@@ -350,7 +350,7 @@ public class HandlerSES implements RequestHandler<String, String> {
 
         } catch (javax.mail.MessagingException e)
         {
-            e.getStackTrace();
+            e.printStackTrace();
         }
 
         return "Ok" ;
