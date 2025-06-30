@@ -1,13 +1,13 @@
-# AWS Control Tower code examples for the SDK for .NET
+# AWS Control Tower code examples for the SDK for .NET (v4)
 
 ## Overview
 
-Shows how to use the AWS SDK for .NET to work with AWS Control Tower.
+Shows how to use the AWS SDK for .NET (v4) to work with AWS Control Tower.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-*AWS Control Tower provides a pre-configured multi-account environment based on best practices to help organizations set up a secure, compliant, multi-account AWS environment.*
+_AWS Control Tower enables you to enforce and manage governance rules for security, operations, and compliance at scale across all your organizations and accounts._
 
 ## ⚠ Important
 
@@ -23,22 +23,40 @@ Shows how to use the AWS SDK for .NET to work with AWS Control Tower.
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `dotnetv4` folder.
+For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4` folder.
+
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
 ### Get started
 
-- [Hello AWS Control Tower](Actions/HelloControlTower.cs#L15) (`ListLandingZones`)
+- [Hello AWS Control Tower](Actions/HelloControlTower.cs#L4) (`ListBaselines`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/ControlTower_Basics/ControlTowerBasics.cs)
+
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [GetLandingZone](Actions/ControlTowerWrapper.cs#L35)
-- [ListEnabledControls](Actions/ControlTowerWrapper.cs#L50)
-- [ListLandingZones](Actions/ControlTowerWrapper.cs#L20)
+- [DisableBaseline](Actions/ControlTowerWrapper.cs#L177)
+- [DisableControl](Actions/ControlTowerWrapper.cs#L397)
+- [EnableBaseline](Actions/ControlTowerWrapper.cs#L116)
+- [EnableControl](Actions/ControlTowerWrapper.cs#L341)
+- [GetBaselineOperation](Actions/ControlTowerWrapper.cs#L269)
+- [GetControlOperation](Actions/ControlTowerWrapper.cs#L445)
+- [ListBaselines](Actions/ControlTowerWrapper.cs#L58)
+- [ListEnabledBaselines](Actions/ControlTowerWrapper.cs#L87)
+- [ListEnabledControls](Actions/ControlTowerWrapper.cs#L301)
+- [ListLandingZones](Actions/ControlTowerWrapper.cs#L29)
+- [ResetEnabledBaseline](Actions/ControlTowerWrapper.cs#L223)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -47,17 +65,6 @@ Code excerpts that show you how to call individual service functions.
 
 ### Instructions
 
-For general instructions to run the examples, see the [README](../../README.md#building-and-running-the-code-examples) in the `dotnetv4` folder.
-
-Some projects might include a settings file. Before compiling the project, you can change these settings to match your account and preferred Region. Alternatively, add a settings.local.json file with your preferred settings, which will be loaded automatically when the application runs.
-
-After the example compiles, you can run it from the command line. To do so, navigate to the folder that contains the .csproj file and run the following command:
-
-```
-dotnet run
-```
-
-Alternatively, you can run the example from within your IDE.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
@@ -66,18 +73,32 @@ Alternatively, you can run the example from within your IDE.
 
 This example shows you how to get started using AWS Control Tower.
 
-```
-dotnet run
-```
 
-<!--custom.hello.start-->
-<!--custom.hello.end-->
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- List landing zones.
+- List, enable, get, reset, and disable baselines.
+- List, enable, get, and disable controls.
+
+<!--custom.basic_prereqs.controltower_Scenario.start-->
+<!--custom.basic_prereqs.controltower_Scenario.end-->
+
+
+<!--custom.basics.controltower_Scenario.start-->
+<!--custom.basics.controltower_Scenario.end-->
+
 
 ### Tests
 
 ⚠ Running tests might result in charges to your AWS account.
 
-To find instructions for running these tests, see the [README](../../README.md#Tests) in the `dotnetv4` folder.
+
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `dotnetv4` folder.
+
+
 
 <!--custom.tests.start-->
 <!--custom.tests.end-->
@@ -86,7 +107,7 @@ To find instructions for running these tests, see the [README](../../README.md#T
 
 - [AWS Control Tower User Guide](https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html)
 - [AWS Control Tower API Reference](https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html)
-- [AWS SDK for .NET AWS Control Tower reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/ControlTower/NControlTower.html)
+- [SDK for .NET (v4) AWS Control Tower reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Controltower/NControltower.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

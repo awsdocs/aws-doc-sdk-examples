@@ -3,13 +3,20 @@
 
 // snippet-start:[ControlTower.dotnetv4.HelloControlTower]
 
+using Amazon.ControlTower;
+using Amazon.ControlTower.Model;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+using Microsoft.Extensions.Logging.Debug;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace ControlTowerActions;
 
 /// <summary>
 /// A class that introduces the AWS Control Tower by listing the
-/// landing zones for the account.
+/// available baselines for the account.
 /// </summary>
 public class HelloControlTower
 {
@@ -25,8 +32,6 @@ public class HelloControlTower
                     .AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Trace))
             .ConfigureServices((_, services) =>
                 services.AddAWSService<IAmazonControlTower>()
-                .AddAWSService<IAmazonControlCatalog>()
-                .AddTransient<ControlTowerWrapper>()
             )
             .Build();
 
@@ -36,28 +41,33 @@ public class HelloControlTower
         var amazonClient = host.Services.GetRequiredService<IAmazonControlTower>();
 
         Console.Clear();
-        Console.WriteLine("Hello AWS Control Tower.");
-        Console.WriteLine("Let's get a list of your AWS Control Tower landing zones.");
+        Console.WriteLine("Hello, AWS Control Tower! Let's list available baselines:");
+        Console.WriteLine();
 
-        var landingZones = new List<LandingZoneSummary>();
+        var baselines = new List<BaselineSummary>();
 
-        var landingZonesPaginator = amazonClient.Paginators.ListLandingZones(new ListLandingZonesRequest());
-
-        await foreach (var response in landingZonesPaginator.Responses)
+        try
         {
-            landingZones.AddRange(response.LandingZones);
-        }
+            var baselinesPaginator = amazonClient.Paginators.ListBaselines(new ListBaselinesRequest());
 
-        if (landingZones.Count > 0)
-        {
-            landingZones.ForEach(landingZone =>
+            await foreach (var response in baselinesPaginator.Responses)
             {
-                Console.WriteLine($"Landing Zone \t{landingZone.Arn}");
-            });
+                baselines.AddRange(response.Baselines);
+            }
+
+            Console.WriteLine($"{baselines.Count} baseline(s) retrieved.");
+            foreach (var baseline in baselines)
+            {
+                Console.WriteLine($"\t{baseline.Name}");
+            }
         }
-        else
+        catch (Amazon.ControlTower.Model.AccessDeniedException)
         {
-            Console.WriteLine("No landing zones were found.");
+            Console.WriteLine("Access denied. Please ensure you have the necessary permissions.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
         }
     }
 }

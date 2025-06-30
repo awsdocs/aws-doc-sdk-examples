@@ -3,6 +3,8 @@
 
 // snippet-start:[ControlTower.dotnetv4.ControlTowerBasics]
 
+using Amazon.ControlCatalog;
+using Amazon.ControlTower;
 using Amazon.ControlTower.Model;
 using Amazon.Organizations;
 using Amazon.Organizations.Model;
@@ -67,7 +69,7 @@ public class ControlTowerBasics
 
         try
         {
-            var accountId = (await stsClient.GetCallerIdentityAsync(new GetCallerIdentityRequest())).Account;
+            var accountId = (await stsClient!.GetCallerIdentityAsync(new GetCallerIdentityRequest())).Account;
             Console.WriteLine($"\nAccount ID: {accountId}");
 
             Console.WriteLine("\nSome demo operations require the use of a landing zone.");
@@ -76,7 +78,7 @@ public class ControlTowerBasics
             Console.WriteLine("see https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-from-console.html");
 
             // List available landing zones
-            var landingZones = await wrapper.ListLandingZonesAsync();
+            var landingZones = await wrapper!.ListLandingZonesAsync();
             if (landingZones.Count > 0)
             {
                 Console.WriteLine("\nAvailable Landing Zones:");
@@ -245,14 +247,14 @@ public class ControlTowerBasics
 
         try
         {
-            var orgResponse = await orgClient.DescribeOrganizationAsync(new DescribeOrganizationRequest());
+            var orgResponse = await orgClient!.DescribeOrganizationAsync(new DescribeOrganizationRequest());
             var orgId = orgResponse.Organization.Id;
             Console.WriteLine($"Account is part of organization: {orgId}");
         }
         catch (AWSOrganizationsNotInUseException)
         {
             Console.WriteLine("No organization found. Creating a new organization...");
-            var createResponse = await orgClient.CreateOrganizationAsync(new CreateOrganizationRequest { FeatureSet = OrganizationFeatureSet.ALL });
+            var createResponse = await orgClient!.CreateOrganizationAsync(new CreateOrganizationRequest { FeatureSet = OrganizationFeatureSet.ALL });
             var orgId = createResponse.Organization.Id;
             Console.WriteLine($"Created new organization: {orgId}");
         }
