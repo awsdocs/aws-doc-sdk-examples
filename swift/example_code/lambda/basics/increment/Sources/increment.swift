@@ -30,52 +30,37 @@ struct Response: Encodable, Sendable {
 
 // snippet-end:[lambda.swift.increment.types]
 
-// snippet-start:[lambda.swift.increment.handler]
-/// A Swift AWS Lambda Runtime `LambdaHandler` lets you both perform needed
-/// initialization and handle AWS Lambda requests. There are other handler
-/// protocols available for other use cases.
-@main
-struct IncrementLambda: LambdaHandler {
+// snippet-start:[lambda.swift.increment.runtime]
+/// The Lambda function body.
+///
+/// - Parameters:
+///   - event: The `Request` describing the request made by the
+///     client.
+///   - context: A `LambdaContext` describing the context in
+///     which the lambda function is running.
+///
+/// - Returns: A `Response` object that will be encoded to JSON and sent
+///   to the client by the Lambda runtime.
+let incrementLambdaRuntime = LambdaRuntime {
+        (event: Request, context: LambdaContext) -> Response in
+    let action = event.action
+    var answer: Int?
 
-    // snippet-start:[lambda.swift.increment.handler.init]
-    /// Initialize the AWS Lambda runtime.
-    ///
-    /// ^ The logger is a standard Swift logger. You can control the verbosity
-    /// by setting the `LOG_LEVEL` environment variable.
-    init(context: LambdaInitializationContext) async throws {
-        // Display the `LOG_LEVEL` configuration for this process.
-        context.logger.info(
-            "LOG_LEVEL environment variable: \(ProcessInfo.processInfo.environment["LOG_LEVEL"] ?? "info" )"
-        )
+    if action != "increment" {
+        context.logger.error("Unrecognized operation: \"\(action)\". The only supported action is \"increment\".")
+    } else {
+        answer = event.number + 1
+        context.logger.info("The calculated answer is \(answer!).")
     }
-    // snippet-end:[lambda.swift.increment.handler.init]
 
-    // snippet-start:[lambda.swift.increment.handler.handle]
-    /// The Lambda function's entry point. Called by the Lambda runtime.
-    ///
-    /// - Parameters:
-    ///   - event: The `Request` describing the request made by the
-    ///     client.
-    ///   - context: A `LambdaContext` describing the context in
-    ///     which the lambda function is running.
-    ///
-    /// - Returns: A `Response` object that will be encoded to JSON and sent
-    ///   to the client by the Lambda runtime.
-    func handle(_ event: Request, context: LambdaContext) async throws -> Response {
-        let action = event.action
-        var answer: Int?
-
-        if action != "increment" {
-            context.logger.error("Unrecognized operation: \"\(action)\". The only supported action is \"increment\".")
-        } else {
-            answer = event.number + 1
-            context.logger.info("The calculated answer is \(answer!).")
-        }
-
-        let response = Response(answer: answer)
-        return response
-    }
-    // snippet-end:[lambda.swift.increment.handler.handle]
+    let response = Response(answer: answer)
+    return response
 }
-// snippet-end:[lambda.swift.increment.handler]
+// snippet-end:[lambda.swift.increment.runtime]
+
+// Run the Lambda runtime code.
+
+// snippet-start:[lambda.swift.increment.run]
+try await incrementLambdaRuntime.run()
+// snippet-end:[lambda.swift.increment.run]
 // snippet-end:[lambda.swift.increment.complete]

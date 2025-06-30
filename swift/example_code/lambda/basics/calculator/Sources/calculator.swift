@@ -51,63 +51,46 @@ struct Response: Encodable, Sendable {
 
 // snippet-end:[lambda.swift.calculator.types]
 
-// snippet-start:[lambda.swift.calculator.handler]
-/// A Swift AWS Lambda Runtime `LambdaHandler` lets you both perform needed
-/// initialization and handle AWS Lambda requests. There are other handler
-/// protocols available for other use cases.
-@main
-struct CalculatorLambda: LambdaHandler {
+// snippet-start:[lambda.swift.calculator.runtime]
+/// The Lambda function's entry point. Called by the Lambda runtime.
+///
+/// - Parameters:
+///   - event: The `Request` describing the request made by the
+///     client.
+///   - context: A `LambdaContext` describing the context in
+///     which the lambda function is running.
+///
+/// - Returns: A `Response` object that will be encoded to JSON and sent
+///   to the client by the Lambda runtime.
+let calculatorLambdaRuntime = LambdaRuntime {
+        (_ event: Request, context: LambdaContext) -> Response in
+    let action = event.action
+    var answer: Int?
+    var actionFunc: ((Int, Int) -> Int)?
 
-    // snippet-start:[lambda.swift.calculator.handler.init]
-    /// Initialize the AWS Lambda runtime.
-    ///
-    /// ^ The logger is a standard Swift logger. You can control the verbosity
-    /// by setting the `LOG_LEVEL` environment variable.
-    init(context: LambdaInitializationContext) async throws {
-        // Display the `LOG_LEVEL` configuration for this process.
-        context.logger.info(
-            "LOG_LEVEL environment variable: \(ProcessInfo.processInfo.environment["LOG_LEVEL"] ?? "info" )"
-        )
+    // Get the closure to run to perform the calculation.
+
+    actionFunc = await actions[action]
+
+    guard let actionFunc else {
+        context.logger.error("Unrecognized operation '\(action)\'")
+        return Response(answer: nil)
     }
-    // snippet-end:[lambda.swift.calculator.handler.init]
 
-    // snippet-start:[lambda.swift.calculator.handler.handle]
-    /// The Lambda function's entry point. Called by the Lambda runtime.
-    ///
-    /// - Parameters:
-    ///   - event: The `Request` describing the request made by the
-    ///     client.
-    ///   - context: A `LambdaContext` describing the context in
-    ///     which the lambda function is running.
-    ///
-    /// - Returns: A `Response` object that will be encoded to JSON and sent
-    ///   to the client by the Lambda runtime.
-    func handle(_ event: Request, context: LambdaContext) async throws -> Response {
-        let action = event.action
-        var answer: Int?
-        var actionFunc: ((Int, Int) -> Int)?
+    // Perform the calculation and return the answer.
 
-        // Get the closure to run to perform the calculation.
+    answer = actionFunc(event.x, event.y)
 
-        actionFunc = actions[action]
-
-        guard let actionFunc else {
-            context.logger.error("Unrecognized operation '\(action)\'")
-            return Response(answer: nil)
-        }
-
-        // Perform the calculation and return the answer.
-
-        answer = actionFunc(event.x, event.y)
-
-        guard let answer else {
-            context.logger.error("Error computing \(event.x) \(action) \(event.y)")
-        }
-        context.logger.info("\(event.x) \(action) \(event.y) = \(answer)")
-
-        return Response(answer: answer)
+    guard let answer else {
+        context.logger.error("Error computing \(event.x) \(action) \(event.y)")
     }
-    // snippet-end:[lambda.swift.calculator.handler.handle]
+    context.logger.info("\(event.x) \(action) \(event.y) = \(answer)")
+
+    return Response(answer: answer)
 }
-// snippet-end:[lambda.swift.calculator.handler]
+// snippet-end:[lambda.swift.calculator.runtime]
+
+// snippet-start:[lambda.swift.calculator.run]
+try await calculatorLambdaRuntime.run()
+// snippet-end:[lambda.swift.calculator.run]
 // snippet-end:[lambda.swift.calculator.complete]

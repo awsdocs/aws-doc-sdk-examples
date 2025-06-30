@@ -165,13 +165,13 @@ struct ExampleCommand: ParsableCommand {
     /// 
     /// - Parameters:
     ///   - lambdaClient: The `LambdaClient` to use.
-    ///   - name: The name of the AWS Lambda function to create.
+    ///   - functionName: The name of the AWS Lambda function to create.
     ///   - roleArn: The ARN of the role to apply to the function.
     ///   - path: The path of the Zip archive containing the function.
     /// 
     /// - Returns: `true` if the AWS Lambda was successfully created; `false`
     ///   if it wasn't.
-    func createFunction(lambdaClient: LambdaClient, name: String,
+    func createFunction(lambdaClient: LambdaClient, functionName: String,
                                 roleArn: String?, path: String) async throws -> Bool {
         // snippet-start:[swift.lambda-basics.CreateFunction]
         do {
@@ -187,7 +187,7 @@ struct ExampleCommand: ParsableCommand {
             _ = try await lambdaClient.createFunction(
                 input: CreateFunctionInput(
                     code: LambdaClientTypes.FunctionCode(zipFile: zipData),
-                    functionName: name,
+                    functionName: functionName,
                     handler: "handle",
                     role: roleArn,
                     runtime: .providedal2
@@ -208,7 +208,7 @@ struct ExampleCommand: ParsableCommand {
                 minDelay: 0.5,
                 maxDelay: 2
             ),
-            input: GetFunctionInput(functionName: name)
+            input: GetFunctionInput(functionName: functionName)
         )
 
         switch output.result {
@@ -226,7 +226,7 @@ struct ExampleCommand: ParsableCommand {
     /// 
     /// - Parameters:
     ///   - lambdaClient: The `LambdaClient` to use.
-    ///   - name: The name of the AWS Lambda function to update.
+    ///   - functionName: The name of the AWS Lambda function to update.
     ///   - path: The pathname of the Zip file containing the packaged Lambda
     ///     function.
     /// - Throws: `ExampleError.zipFileReadError`
@@ -281,6 +281,20 @@ struct ExampleCommand: ParsableCommand {
     }
     // snippet-end:[swift.lambda-basics.UpdateFunctionCode.wait]
 
+    // snippet-start:[lambda.swift.UpdateFunctionConfiguration]
+    /// Tell the server-side component to log debug output by setting its
+    /// environment's `LOG_LEVEL` to `DEBUG`.
+    ///
+    /// - Parameters:
+    ///   - lambdaClient: The `LambdaClient` to use.
+    ///   - functionName: The name of the AWS Lambda function to enable debug
+    ///     logging for.
+    ///
+    /// - Throws: `ExampleError.environmentResponseMissingError`,
+    ///   `ExampleError.updateFunctionConfigurationError`,
+    ///   `ExampleError.environmentVariablesMissingError`,
+    ///   `ExampleError.logLevelIncorrectError`,
+    ///   `ExampleError.updateFunctionConfigurationError`
     func enableDebugLogging(lambdaClient: LambdaClient, functionName: String) async throws {
         let envVariables = [
             "LOG_LEVEL": "DEBUG"
@@ -300,8 +314,6 @@ struct ExampleCommand: ParsableCommand {
             }
 
             if response.error != nil {
-                print("Response has an error section:")
-                dump(response.error)
                 throw ExampleError.updateFunctionConfigurationError
             }
 
@@ -319,6 +331,7 @@ struct ExampleCommand: ParsableCommand {
             throw ExampleError.updateFunctionConfigurationError
         }
     }
+    // snippet-end:[lambda.swift.UpdateFunctionConfiguration]
 
     // snippet-start:[swift.lambda-basics.ListFunctionsPaginated]
     /// Returns an array containing the names of all AWS Lambda functions
@@ -476,7 +489,7 @@ struct ExampleCommand: ParsableCommand {
         // function.
 
         print("Creating the increment Lambda function...")
-        if try await createFunction(lambdaClient: lambdaClient, name: basicsFunctionName, 
+        if try await createFunction(lambdaClient: lambdaClient, functionName: basicsFunctionName, 
                                   roleArn: iamRole.arn, path: incpath) {
             print("Running increment function calls...")
             for number in 0...4 {
