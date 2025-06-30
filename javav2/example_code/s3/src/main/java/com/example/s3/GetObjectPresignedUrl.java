@@ -107,7 +107,7 @@ public class GetObjectPresignedUrl {
             }
 
         } catch (S3Exception | IOException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 }

@@ -34,7 +34,7 @@ public class HandlerSES implements RequestHandler<String, String> {
             msg.sendMessage(client, sender, recipient, subject, bodyHTML);
 
         } catch (javax.mail.MessagingException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
 
         return "Ok";
