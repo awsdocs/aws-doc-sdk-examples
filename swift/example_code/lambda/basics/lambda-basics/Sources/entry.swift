@@ -281,7 +281,7 @@ struct ExampleCommand: ParsableCommand {
     }
     // snippet-end:[swift.lambda-basics.UpdateFunctionCode.wait]
 
-    // snippet-start:[lambda.swift.UpdateFunctionConfiguration]
+    // snippet-start:[swift.lambda-basics.UpdateFunctionConfiguration]
     /// Tell the server-side component to log debug output by setting its
     /// environment's `LOG_LEVEL` to `DEBUG`.
     ///
@@ -331,7 +331,7 @@ struct ExampleCommand: ParsableCommand {
             throw ExampleError.updateFunctionConfigurationError
         }
     }
-    // snippet-end:[lambda.swift.UpdateFunctionConfiguration]
+    // snippet-end:[swift.lambda-basics.UpdateFunctionConfiguration]
 
     // snippet-start:[swift.lambda-basics.ListFunctionsPaginated]
     /// Returns an array containing the names of all AWS Lambda functions
