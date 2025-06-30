@@ -15,13 +15,13 @@ auto-scaling_Hello:
                 - autoscale.java2.hello.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/AutoScaling
+        - sdk_version: 4
+          github: dotnetv4/AutoScaling
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScaling.dotnetv3.AutoScalingActions.HelloAutoScaling
+                - AutoScaling.dotnetv4.AutoScalingActions.HelloAutoScaling
     PHP:
       versions:
         - sdk_version: 3
@@ -71,12 +71,12 @@ auto-scaling_CreateAutoScalingGroup:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/AutoScaling
+        - sdk_version: 4
+          github: dotnetv4/AutoScaling
           excerpts:
             - description:
               snippet_tags:
-                - AutoScaling.dotnetv3.AutoScalingActions.CreateAutoScalingGroup
+                - AutoScaling.dotnetv4.AutoScalingActions.CreateAutoScalingGroup
     PHP:
       versions:
         - sdk_version: 3
@@ -203,12 +203,12 @@ auto-scaling_DescribeAutoScalingGroups:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/AutoScaling
+        - sdk_version: 4
+          github: dotnetv4/AutoScaling
           excerpts:
             - description:
               snippet_tags:
-                - AutoScaling.dotnetv3.AutoScalingActions.DescribeAutoScalingInstances
+                - AutoScaling.dotnetv4.AutoScalingActions.DescribeAutoScalingInstances
     Kotlin:
       versions:
         - sdk_version: 1
@@ -282,12 +282,12 @@ auto-scaling_UpdateAutoScalingGroup:
                 - autoscale.java2.update_autoscalinggroup.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/AutoScaling
+        - sdk_version: 4
+          github: dotnetv4/AutoScaling
           excerpts:
             - description:
               snippet_tags:
-                - AutoScaling.dotnetv3.AutoScalingActions.UpdateAutoScalingGroup
+                - AutoScaling.dotnetv4.AutoScalingActions.UpdateAutoScalingGroup
     PHP:
       versions:
         - sdk_version: 3
@@ -346,13 +346,13 @@ auto-scaling_TerminateInstanceInAutoScalingGroup:
                 - autoscale.java2.terminate_instance.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/AutoScaling
+        - sdk_version: 4
+          github: dotnetv4/AutoScaling
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScaling.dotnetv3.AutoScalingActions.TerminateInstanceInAutoScalingGroup
+                - AutoScaling.dotnetv4.AutoScalingActions.TerminateInstanceInAutoScalingGroup
     PHP:
       versions:
         - sdk_version: 3
@@ -413,13 +413,13 @@ auto-scaling_SetDesiredCapacity:
                 - autoscale.java2.set_capacity.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/AutoScaling
+        - sdk_version: 4
+          github: dotnetv4/AutoScaling
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScaling.dotnetv3.AutoScalingActions.SetDesiredCapacity
+                - AutoScaling.dotnetv4.AutoScalingActions.SetDesiredCapacity
     PHP:
       versions:
         - sdk_version: 3
@@ -479,13 +479,13 @@ auto-scaling_DescribeAutoScalingInstances:
                 - autoscale.java2.describe_autoscalinggroup.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/AutoScaling
+        - sdk_version: 4
+          github: dotnetv4/AutoScaling
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScaling.dotnetv3.AutoScalingActions.DescribeAutoScalingInstances
+                - AutoScaling.dotnetv4.AutoScalingActions.DescribeAutoScalingInstances
     PHP:
       versions:
         - sdk_version: 3
@@ -545,13 +545,13 @@ auto-scaling_DescribeScalingActivities:
                 - autoscale.java2.describe_scaling_activites.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/AutoScaling
+        - sdk_version: 4
+          github: dotnetv4/AutoScaling
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScaling.dotnetv3.AutoScalingActions.DescribeScalingActivities
+                - AutoScaling.dotnetv4.AutoScalingActions.DescribeScalingActivities
     PHP:
       versions:
         - sdk_version: 3
@@ -611,13 +611,13 @@ auto-scaling_EnableMetricsCollection:
                 - autoscale.java2.enable_collection.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/AutoScaling
+        - sdk_version: 4
+          github: dotnetv4/AutoScaling
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScaling.dotnetv3.AutoScalingActions.EnableMetricsCollection
+                - AutoScaling.dotnetv4.AutoScalingActions.EnableMetricsCollection
     PHP:
       versions:
         - sdk_version: 3
@@ -677,13 +677,13 @@ auto-scaling_DisableMetricsCollection:
                 - autoscale.java2.disable_collection.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/AutoScaling
+        - sdk_version: 4
+          github: dotnetv4/AutoScaling
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScaling.dotnetv3.AutoScalingActions.DisableMetricsCollection
+                - AutoScaling.dotnetv4.AutoScalingActions.DisableMetricsCollection
     PHP:
       versions:
         - sdk_version: 3
@@ -767,21 +767,21 @@ auto-scaling_Scenario_GroupsAndInstances:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/AutoScaling
+        - sdk_version: 4
+          github: dotnetv4/AutoScaling
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScaling.dotnetv3.AutoScalingBasics.Usings
-                - AutoScaling.dotnetv3.AutoScalingBasics
-                - AutoScaling.dotnetv3.AutoScalingBasics.UIWrapper
+                - AutoScaling.dotnetv4.AutoScalingBasics.Usings
+                - AutoScaling.dotnetv4.AutoScalingBasics
+                - AutoScaling.dotnetv4.AutoScalingBasics.UIWrapper
             - description: Define functions that are called by the scenario to manage launch templates and metrics. These
                 functions wrap &AS;, &EC2;, and &CW; actions.
               snippet_tags:
-                - AutoScaling.dotnetv3.AutoScalingActions.AutoScalingWrapper
-                - AutoScaling.dotnetv3.AutoScalingActions.EC2Wrapper
-                - AutoScaling.dotnetv3.AutoScalingActions.CloudWatchWrapper
+                - AutoScaling.dotnetv4.AutoScalingActions.AutoScalingWrapper
+                - AutoScaling.dotnetv4.AutoScalingActions.EC2Wrapper
+                - AutoScaling.dotnetv4.AutoScalingActions.CloudWatchWrapper
     Kotlin:
       versions:
         - sdk_version: 1

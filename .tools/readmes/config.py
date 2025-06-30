@@ -123,10 +123,15 @@ language = {
         4: {
             "base_folder": "dotnetv4",
             "service_folder": 'dotnetv4/{{service["name"] | capitalize}}',
-            "sdk_api_ref": 'https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/{{service["name"] | capitalize}}/N{{service["name"] | capitalize}}.html',
+            "sdk_api_ref": 'https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/{{service["name"] | capitalize}}/N{{service["name"] | capitalize}}.html',
             "service_folder_overrides": {
                 "aurora": "dotnetv4/Aurora",
                 "auto-scaling": "dotnetv4/AutoScaling",
+                "cloudformation": "dotnetv4/CloudFormation",
+                "cloudwatch": "dotnetv4/CloudWatch",
+                "cognito-identity-provider": "dotnetv4/Cognito",
+                "ec2": "dotnetv4/EC2",
+                "ecs": "dotnetv4/ECS",
             },
         }
     },

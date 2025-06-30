@@ -25,6 +25,8 @@ from test_tools.cloudwatch_logs_stubber import CloudWatchLogsStubber
 from test_tools.cognito_idp_stubber import CognitoIdpStubber
 from test_tools.comprehend_stubber import ComprehendStubber
 from test_tools.config_stubber import ConfigStubber
+from test_tools.controltower_stubber import ControlTowerStubber
+from test_tools.controlcatalog_stubber import ControlCatalogStubber
 from test_tools.dynamodb_stubber import DynamoStubber
 from test_tools.ec2_stubber import Ec2Stubber
 from test_tools.ecr_stubber import EcrStubber
@@ -106,6 +108,18 @@ def stubber_factory(service_name):
         return CognitoIdpStubber
     elif service_name == "comprehend":
         return ComprehendStubber
+    elif service_name == "config":
+        return ConfigStubber
+    elif service_name == "controltower":
+        return ControlTowerStubber
+    elif service_name == "controlcatalog":
+        return ControlCatalogStubber
+    elif service_name == "dynamodb":
+        return DynamoStubber
+    elif service_name == "ec2":
+        return Ec2Stubber
+    elif service_name == "ecr":
+        return EcrStubber
     elif service_name == "config":
         return ConfigStubber
     elif service_name == "dynamodb":
