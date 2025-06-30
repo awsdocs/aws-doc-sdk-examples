@@ -16,7 +16,7 @@ public class ConnectionHelper {
             return DriverManager.getConnection(url2, user, password);
 
         } catch (SQLException | ClassNotFoundException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
         return null;
     }

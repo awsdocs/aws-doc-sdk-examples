@@ -47,7 +47,7 @@ public class GetSimpleSystemsManagementOps {
             System.out.println(item.getSource());
 
         } catch (AmazonServiceException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
         // snippet-end:[ssm.Java1.get_ops.main]
     }
