@@ -39,9 +39,9 @@ Code excerpts that show you how to call individual service functions.
 - [ListSubscriptions](zcl_aws1_sns_actions.clas.abap#L117)
 - [ListTopics](zcl_aws1_sns_actions.clas.abap#L135)
 - [Publish](zcl_aws1_sns_actions.clas.abap#L153)
-- [SetTopicAttributes](zcl_aws1_sns_actions.clas.abap#L173)
-- [Subscribe](zcl_aws1_sns_actions.clas.abap#L194)
-- [Unsubscribe](zcl_aws1_sns_actions.clas.abap#L218)
+- [SetTopicAttributes](zcl_aws1_sns_actions.clas.abap#L172)
+- [Subscribe](zcl_aws1_sns_actions.clas.abap#L192)
+- [Unsubscribe](zcl_aws1_sns_actions.clas.abap#L215)
 
 ### Scenarios
 

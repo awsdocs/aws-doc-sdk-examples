@@ -45,7 +45,7 @@ Code excerpts that show you how to call individual service functions.
 - [CreateSchema](src/main/java/com/example/personalize/CreateSchema.java#L52)
 - [CreateSolution](src/main/java/com/example/personalize/CreateSolution.java#L59)
 - [CreateSolutionVersion](src/main/java/com/example/personalize/CreateSolutionVersion.java#L47)
-- [DeleteCampaign](src/main/java/com/example/personalize/DeleteCampaign.java#L50)
+- [DeleteCampaign](src/main/java/com/example/personalize/DeleteCampaign.java#L85)
 - [DeleteEventTracker](src/main/java/com/example/personalize/DeleteEventTracker.java#L26)
 - [DeleteSolution](src/main/java/com/example/personalize/DeleteSolution.java#L49)
 - [DescribeCampaign](src/main/java/com/example/personalize/DescribeCampaign.java#L52)

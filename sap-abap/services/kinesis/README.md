@@ -41,12 +41,12 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [CreateStream](zcl_aws1_kns_actions.clas.abap#L62)
-- [DeleteStream](zcl_aws1_kns_actions.clas.abap#L88)
-- [DescribeStream](zcl_aws1_kns_actions.clas.abap#L111)
-- [GetRecords](zcl_aws1_kns_actions.clas.abap#L137)
-- [ListStreams](zcl_aws1_kns_actions.clas.abap#L177)
-- [PutRecord](zcl_aws1_kns_actions.clas.abap#L200)
-- [RegisterStreamConsumer](zcl_aws1_kns_actions.clas.abap#L238)
+- [DeleteStream](zcl_aws1_kns_actions.clas.abap#L87)
+- [DescribeStream](zcl_aws1_kns_actions.clas.abap#L109)
+- [GetRecords](zcl_aws1_kns_actions.clas.abap#L134)
+- [ListStreams](zcl_aws1_kns_actions.clas.abap#L173)
+- [PutRecord](zcl_aws1_kns_actions.clas.abap#L195)
+- [RegisterStreamConsumer](zcl_aws1_kns_actions.clas.abap#L232)
 
 
 <!--custom.examples.start-->
