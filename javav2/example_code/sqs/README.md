@@ -59,6 +59,7 @@ functions within the same service.
 - [Publish messages to queues](../../usecases/topics_and_queues/src/main/java/com/example/sns/SNSWorkflow.java)
 - [Use the Amazon SQS Java Messaging Library to work with the JMS interface](../sqs-jms/src/main/java/com/example/sqs/jms/stdqueue/TextMessageSender.java)
 - [Work with queue tags](src/main/java/com/example/sqs/TagExamples.java)
+- [Send and receive batches of messages](src/main/java/com/example/sqs/TagExamples.java)
 
 
 <!--custom.examples.start-->
