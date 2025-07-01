@@ -190,7 +190,10 @@ def writeme(
         print(failed_list)
         print("Rerun writeme.py to update README links and sections.")
     print("WRITEME Run completed.")
-    return len(failed)
+    fail_count = len(failed)
+    if fail_count > 0:
+        raise typer.Exit(code=fail_count) # Return a non-zero code through typer so Github check will fail.
+    return fail_count
 
 
 def make_diff(renderer, id):
