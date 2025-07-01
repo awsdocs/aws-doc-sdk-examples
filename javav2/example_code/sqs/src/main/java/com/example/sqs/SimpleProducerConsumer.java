@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-
+// snippet-start:[sqs.java2.batch_demo.main]
 package com.example.sqs;
 
 import org.slf4j.Logger;
@@ -492,3 +492,4 @@ public class SimpleProducerConsumer {
         }
     }
 }
+// snippet-end:[sqs.java2.batch_demo.main]
