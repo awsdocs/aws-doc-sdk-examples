@@ -27,32 +27,44 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Demonstrates SQS action batching for improved throughput and cost efficiency.
+ * Demonstrates the AWS SDK for Java 2.x Automatic Request Batching API for Amazon SQS.
  * 
- * This example compares single-message operations with batch operations to show 
- * the performance benefits of batching SQS actions. You can configure batch sizes, 
- * thread counts, and message characteristics to test how batching affects throughput 
- * in your specific use case.
+ * This example showcases the high-level SqsAsyncBatchManager library that provides
+ * efficient batching and buffering for SQS operations. The batch manager offers
+ * methods that directly mirror SqsAsyncClient methods—sendMessage, changeMessageVisibility,
+ * deleteMessage, and receiveMessage—making it a drop-in replacement with minimal code changes.
  * 
- * Batching benefits demonstrated:
- * - Reduced API calls through batch send and receive operations
- * - Lower costs by consolidating multiple actions
- * - Higher throughput with the SqsAsyncBatchManager
- * - Efficient resource utilization with fewer network round trips
+ * Key features of the SqsAsyncBatchManager:
+ * - Automatic batching: The SDK automatically buffers individual requests and sends them
+ *   as batches when maxBatchSize (default: 10) or sendRequestFrequency (default: 200ms) 
+ *   thresholds are reached
+ * - Familiar API: Method signatures match SqsAsyncClient exactly, requiring no learning curve
+ * - Background optimization: The batch manager maintains internal buffers and handles
+ *   batching logic transparently
+ * - Asynchronous operations: All methods return CompletableFuture for non-blocking execution
  * 
- * Use this example to:
- * - Compare batch versus single-message performance
- * - Test optimal batch sizes for your workload
- * - Understand concurrent processing patterns with batching
- * - Measure throughput improvements in your environment
+ * Performance benefits demonstrated:
+ * - Reduced API calls: Multiple individual requests are consolidated into single batch operations
+ * - Lower costs: Fewer API calls result in reduced SQS charges
+ * - Higher throughput: Batch operations process more messages per second
+ * - Efficient resource utilization: Fewer network round trips and better connection reuse
+ * 
+ * This example compares:
+ * 1. Single-message operations using SqsAsyncClient directly
+ * 2. Batch operations using SqsAsyncBatchManager with identical method calls
+ * 
+ * Usage patterns:
+ * - Set batch size to 1 to use SqsAsyncClient for baseline performance measurement
+ * - Set batch size > 1 to use SqsAsyncBatchManager for optimized batch processing
+ * - Monitor real-time throughput metrics to observe performance improvements
  * 
  * Prerequisites:
+ * - AWS SDK for Java 2.x version 2.28.0 or later
  * - An existing SQS queue
  * - Valid AWS credentials configured
  * 
- * Set batch size to 1 for single-message operations or higher values to enable 
- * batching. The program displays real-time metrics to help you compare the 
- * performance difference between batching strategies.
+ * The program displays real-time metrics showing the dramatic performance difference
+ * between individual operations and automatic batching.
  */
 public class SimpleProducerConsumer {
 
@@ -92,6 +104,10 @@ public class SimpleProducerConsumer {
         final int runTimeMinutes = input.nextInt();
 
         // Create SQS async client and batch manager for all operations.
+        // The SqsAsyncBatchManager is created from the SqsAsyncClient using the
+        // batchManager() factory method, which provides default batching configuration.
+        // This high-level library automatically handles request buffering and batching
+        // while maintaining the same method signatures as SqsAsyncClient.
         final SqsAsyncClient sqsAsyncClient = SqsAsyncClient.create();
         final SqsAsyncBatchManager batchManager = sqsAsyncClient.batchManager();
 
@@ -169,10 +185,15 @@ public class SimpleProducerConsumer {
     }
 
     /**
-     * Sends messages individually using SqsAsyncClient.
+     * Sends messages individually using SqsAsyncClient for baseline performance measurement.
      * 
-     * This thread continuously sends single messages until stopped.
-     * Use this class to measure baseline performance without batching.
+     * This producer demonstrates traditional single-message operations without batching.
+     * Each sendMessage() call results in a separate API request to SQS, providing
+     * a performance baseline for comparison with the batch operations.
+     * 
+     * The sendMessage() method signature is identical to SqsAsyncBatchManager.sendMessage(),
+     * showing how the high-level batching library maintains API compatibility while
+     * adding automatic optimization behind the scenes.
      */
     private static class Producer extends Thread {
         final SqsAsyncClient sqsAsyncClient;
@@ -202,8 +223,10 @@ public class SimpleProducerConsumer {
         /**
          * Continuously sends messages until the stop flag is set.
          * 
-         * Tracks the total number of messages sent across all producer threads.
-         * Exits the program if an error occurs during message sending.
+         * Uses SqsAsyncClient.sendMessage() directly, resulting in one API call per message.
+         * This approach provides baseline performance metrics for comparison with batching.
+         * Each call blocks until the individual message is sent, demonstrating traditional
+         * one-request-per-operation behavior.
          */
         public void run() {
             try {
@@ -224,10 +247,21 @@ public class SimpleProducerConsumer {
     }
 
     /**
-     * Sends messages using SqsAsyncBatchManager for improved throughput.
+     * Sends messages using SqsAsyncBatchManager for automatic request batching and optimization.
      * 
-     * This thread sends multiple messages per batch cycle to demonstrate
-     * the performance benefits of batching operations.
+     * This producer demonstrates the AWS SDK for Java 2.x high-level batching library.
+     * The SqsAsyncBatchManager automatically buffers individual sendMessage() calls and
+     * sends them as batches when thresholds are reached:
+     * - maxBatchSize: Maximum 10 messages per batch (default)
+     * - sendRequestFrequency: 200ms timeout before sending partial batches (default)
+     * 
+     * Key advantages of the batching approach:
+     * - Identical API: batchManager.sendMessage() has the same signature as sqsAsyncClient.sendMessage()
+     * - Automatic optimization: No code changes needed to benefit from batching
+     * - Transparent buffering: The SDK handles batching logic internally
+     * - Reduced API calls: Multiple messages sent in single batch requests
+     * - Lower costs: Fewer API calls result in reduced SQS charges
+     * - Higher throughput: Batch operations process significantly more messages per second
      */
     private static class BatchProducer extends Thread {
         final SqsAsyncBatchManager batchManager;
@@ -259,15 +293,30 @@ public class SimpleProducerConsumer {
         }
 
         /**
-         * Continuously sends batches of messages until the stop flag is set.
+         * Continuously sends batches of messages using the high-level batching library.
          * 
-         * Sends multiple messages per batch cycle using the batch manager.
-         * Handles responses asynchronously and tracks successful sends.
+         * Notice how batchManager.sendMessage() uses the exact same method signature
+         * and request builder pattern as SqsAsyncClient.sendMessage(). This demonstrates
+         * the drop-in replacement capability of the SqsAsyncBatchManager.
+         * 
+         * The SDK automatically:
+         * - Buffers individual sendMessage() calls internally
+         * - Groups them into batch requests when thresholds are met
+         * - Sends SendMessageBatchRequest operations to SQS
+         * - Returns individual CompletableFuture responses for each message
+         * 
+         * This transparent batching provides significant performance improvements
+         * without requiring changes to application logic or error handling patterns.
          */
         public void run() {
             try {
                 while (!stop.get()) {
-                    // Send multiple messages using batch manager
+                    // Send multiple messages using the high-level batch manager.
+                    // Each batchManager.sendMessage() call uses identical syntax to
+                    // sqsAsyncClient.sendMessage(), demonstrating API compatibility.
+                    // The SDK automatically buffers these calls and sends them as
+                    // batch operations when maxBatchSize (10) or sendRequestFrequency (200ms)
+                    // thresholds are reached, significantly improving throughput.
                     for (int i = 0; i < batchSize; i++) {
                         CompletableFuture<SendMessageResponse> future = batchManager.sendMessage(
                                 SendMessageRequest.builder()
@@ -301,10 +350,17 @@ public class SimpleProducerConsumer {
     }
 
     /**
-     * Receives and deletes messages individually using SqsAsyncClient.
+     * Receives and deletes messages individually using SqsAsyncClient for baseline measurement.
      * 
-     * This thread continuously processes single messages until stopped.
-     * Use this class to measure baseline performance without batching.
+     * This consumer demonstrates traditional single-message operations without batching.
+     * Each receiveMessage() and deleteMessage() call results in separate API requests,
+     * providing a performance baseline for comparison with batch operations.
+     * 
+     * The method signatures are identical to SqsAsyncBatchManager methods:
+     * - receiveMessage() matches batchManager.receiveMessage()
+     * - deleteMessage() matches batchManager.deleteMessage()
+     * 
+     * This API consistency allows easy migration to the high-level batching library.
      */
     private static class Consumer extends Thread {
         final SqsAsyncClient sqsAsyncClient;
@@ -329,10 +385,15 @@ public class SimpleProducerConsumer {
         }
 
         /**
-         * Continuously receives and deletes messages until the stop flag is set.
+         * Continuously receives and deletes messages using traditional single-request operations.
          * 
-         * Processes messages one at a time and tracks the total number consumed
-         * across all consumer threads. Logs errors but continues processing.
+         * Uses SqsAsyncClient methods directly:
+         * - receiveMessage(): One API call per receive operation
+         * - deleteMessage(): One API call per delete operation
+         * 
+         * This approach demonstrates the baseline performance without batching optimization.
+         * Compare these method calls with the identical signatures used in BatchConsumer
+         * to see how the high-level batching library maintains API compatibility.
          */
         public void run() {
             try {
@@ -345,6 +406,7 @@ public class SimpleProducerConsumer {
 
                         if (!result.messages().isEmpty()) {
                             final Message m = result.messages().get(0);
+                            // Note: deleteMessage() signature identical to batchManager.deleteMessage()
                             sqsAsyncClient.deleteMessage(DeleteMessageRequest.builder()
                                     .queueUrl(queueUrl)
                                     .receiptHandle(m.receiptHandle())
@@ -365,10 +427,29 @@ public class SimpleProducerConsumer {
     }
 
     /**
-     * Receives and deletes messages using SqsAsyncBatchManager.
+     * Receives and deletes messages using SqsAsyncBatchManager for automatic optimization.
      * 
-     * This thread processes multiple messages per batch cycle to demonstrate
-     * the performance benefits of batching operations.
+     * This consumer demonstrates the AWS SDK for Java 2.x high-level batching library
+     * for message consumption. The SqsAsyncBatchManager provides two key optimizations:
+     * 
+     * 1. Receive optimization: Maintains an internal buffer of messages fetched in the
+     *    background, so receiveMessage() calls return immediately from the buffer
+     * 2. Delete batching: Automatically buffers deleteMessage() calls and sends them
+     *    as DeleteMessageBatchRequest operations when thresholds are reached
+     * 
+     * Key features:
+     * - Identical API: receiveMessage() and deleteMessage() have the same signatures
+     *   as SqsAsyncClient methods, making this a true drop-in replacement
+     * - Background fetching: The batch manager continuously fetches messages to keep
+     *   the internal buffer populated, reducing receive latency
+     * - Automatic delete batching: Individual deleteMessage() calls are buffered and
+     *   sent as batch operations (up to 10 per batch, 200ms frequency)
+     * - Transparent optimization: No application logic changes needed to benefit
+     * 
+     * Performance benefits:
+     * - Reduced API calls through automatic batching of delete operations
+     * - Lower latency for receives due to background message buffering
+     * - Higher overall throughput with fewer network round trips
      */
     private static class BatchConsumer extends Thread {
         final SqsAsyncBatchManager batchManager;
@@ -396,14 +477,29 @@ public class SimpleProducerConsumer {
         }
 
         /**
-         * Continuously receives and deletes batches of messages until stopped.
+         * Continuously receives and deletes messages using the high-level batching library.
          * 
-         * Receives multiple messages per batch and deletes them using the batch manager.
-         * Handles responses asynchronously and tracks successful deletions.
+         * Demonstrates the key advantage of SqsAsyncBatchManager: identical method signatures
+         * with automatic optimization. Notice how:
+         * 
+         * - batchManager.receiveMessage() uses the same syntax as sqsAsyncClient.receiveMessage()
+         * - batchManager.deleteMessage() uses the same syntax as sqsAsyncClient.deleteMessage()
+         * 
+         * Behind the scenes, the batch manager:
+         * 1. Maintains an internal message buffer populated by background fetching
+         * 2. Returns messages immediately from the buffer (reduced latency)
+         * 3. Automatically batches deleteMessage() calls into DeleteMessageBatchRequest operations
+         * 4. Sends batch deletes when maxBatchSize (10) or sendRequestFrequency (200ms) is reached
+         * 
+         * This provides significant performance improvements with zero code changes
+         * compared to traditional SqsAsyncClient usage patterns.
          */
         public void run() {
             try {
                 while (!stop.get()) {
+                    // Receive messages using the high-level batch manager.
+                    // This call uses identical syntax to sqsAsyncClient.receiveMessage()
+                    // but benefits from internal message buffering for improved performance.
                     final ReceiveMessageResponse result = batchManager.receiveMessage(
                             ReceiveMessageRequest.builder()
                                     .queueUrl(queueUrl)
@@ -413,7 +509,10 @@ public class SimpleProducerConsumer {
                     if (!result.messages().isEmpty()) {
                         final List<Message> messages = result.messages();
                         
-                        // Delete messages using batch manager
+                        // Delete messages using the batch manager.
+                        // Each deleteMessage() call uses identical syntax to SqsAsyncClient
+                        // but the SDK automatically buffers these calls and sends them
+                        // as DeleteMessageBatchRequest operations for optimal performance.
                         for (Message message : messages) {
                             CompletableFuture<DeleteMessageResponse> future = batchManager.deleteMessage(
                                     DeleteMessageRequest.builder()
