@@ -867,6 +867,15 @@ sqs_Scenario_SendReceiveBatch:
             - description: Use the wrapper functions to send and receive messages in batches.
               snippet_tags:
                 - python.example_code.sqs.Scenario_SendReceiveBatch
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description: Compare single-message SQS operations with automatic batching.
+              snippet_tags:
+                - sqs.java2.batch_demo.main
   services:
     sqs: {CreateQueue, DeleteQueue, SendMessageBatch, ReceiveMessage, DeleteMessageBatch}
 sqs_GetQueueAttributes:
