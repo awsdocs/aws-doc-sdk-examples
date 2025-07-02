@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 ### Get started
 
-- [Hello Neptune](src/main/java/com/example/neptune/scenerio/HelloNeptune.kt#L9) (`DescribeDBClustersPaginator`)
+- [Hello Neptune](src/main/java/com/example/neptune/HelloNeptune.kt#L9) (`DescribeDBClustersPaginator`)
 
 
 ### Basics
