@@ -67,7 +67,7 @@ public class SimpleProducerConsumerIntegrationTest {
     }
     
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         // Generate unique queue name for each test
         testQueueName = "test-queue-" + System.currentTimeMillis() + "-" + Thread.currentThread().getId();
         
