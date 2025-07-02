@@ -862,6 +862,15 @@ glue_GetJobRuns:
                 - cpp.example_code.glue.client_configuration
                 - cpp.example_code.glue.glue_client
                 - cpp.example_code.glue.GetJobRuns
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.GetJobRuns
   services:
     glue: {GetJobRuns}
 glue_GetJobRun:
@@ -1083,6 +1092,15 @@ glue_DeleteTable:
             - description:
               snippet_tags:
                 - rust.glue.delete_table
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.glue.import
+                - swift.glue.DeleteTable
   services:
     glue: {DeleteTable}
 glue_DeleteDatabase:
