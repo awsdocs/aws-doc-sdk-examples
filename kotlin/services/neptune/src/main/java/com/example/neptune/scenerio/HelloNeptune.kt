@@ -20,7 +20,7 @@ suspend fun main(args: Array<String>) {
 }
 
 /**
- * Suspends the current coroutine to list details of DB clusters in Amazon Neptune.
+ * List details of DB clusters in Amazon Neptune.
  */
 public suspend fun listDBClusters() {
     val request = DescribeDbClustersRequest {
@@ -38,6 +38,6 @@ public suspend fun listDBClusters() {
             println("Engine Version: ${cluster.engineVersion}")
             println("---")
         }
-      }
+    }
 }
 // snippet-end:[neptune.kotlin.hello.main]
