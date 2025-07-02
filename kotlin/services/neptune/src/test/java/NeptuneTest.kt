@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import aws.sdk.kotlin.services.neptune.NeptuneClient
 import com.example.neptune.scenerio.checkInstanceStatus
 import com.example.neptune.scenerio.createDbCluster
 import com.example.neptune.scenerio.createDbInstance
@@ -15,6 +16,7 @@ import com.example.neptune.scenerio.waitForClusterStatus
 import com.example.neptune.scenerio.waitUntilInstanceDeleted
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Tag
@@ -29,13 +31,19 @@ class NeptuneTest {
     private val clusterName = "neptuneCluster65"
     private val dbInstanceId = "neptuneDB65"
     private var dbClusterId = ""
+    private lateinit var client: NeptuneClient
+
+    @BeforeAll
+    fun setup() = runBlocking {
+        client = NeptuneClient.fromEnvironment {region = "us-east-1" }
+    }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
     fun testSubnetGroup() = runBlocking {
         runCatching {
-            createSubnetGroup(subnetGroupName)
+            createSubnetGroup(client, subnetGroupName)
         }.onFailure {
             it.printStackTrace()
             Assertions.fail("Subnet group creation failed: ${it.message}")
@@ -49,7 +57,7 @@ class NeptuneTest {
     @Order(2)
     fun testCreateDbCluster() = runBlocking {
         dbClusterId = runCatching {
-            createDbCluster(clusterName)
+            createDbCluster(client, clusterName)
         }.onFailure {
             it.printStackTrace()
             Assertions.fail("DB cluster creation failed: ${it.message}")
@@ -64,7 +72,7 @@ class NeptuneTest {
     @Order(3)
     fun testCreateDbInstance() = runBlocking {
         runCatching {
-            createDbInstance(dbInstanceId, dbClusterId)
+            createDbInstance(client, dbInstanceId, dbClusterId)
         }.onFailure {
             it.printStackTrace()
             Assertions.fail("DB Instance creation failed: ${it.message}")
@@ -77,7 +85,7 @@ class NeptuneTest {
     @Order(4)
     fun testCheckInstanceStatus() = runBlocking {
         runCatching {
-            checkInstanceStatus(dbInstanceId, "available")
+            checkInstanceStatus(client, dbInstanceId, "available")
         }.onFailure {
             it.printStackTrace()
             Assertions.fail("Instance status check failed: ${it.message}")
@@ -90,7 +98,7 @@ class NeptuneTest {
     @Order(5)
     fun testDescribeDBClusters() = runBlocking {
         runCatching {
-            describeDBClusters(dbClusterId)
+            describeDBClusters(client, dbClusterId)
         }.onFailure {
             it.printStackTrace()
             Assertions.fail("Describe Cluster failed: ${it.message}")
@@ -103,8 +111,8 @@ class NeptuneTest {
     @Order(6)
     fun testStopClusters() = runBlocking {
         runCatching {
-            stopDBCluster(dbClusterId)
-            waitForClusterStatus(dbClusterId, "stopped")
+            stopDBCluster(client, dbClusterId)
+            waitForClusterStatus(client, dbClusterId, "stopped")
         }.onFailure {
             it.printStackTrace()
             Assertions.fail("Stopping the Cluster failed: ${it.message}")
@@ -117,9 +125,9 @@ class NeptuneTest {
     @Order(7)
     fun testStartClusters() = runBlocking {
         runCatching {
-            startDBCluster(dbClusterId)
-            waitForClusterStatus(dbClusterId, "available")
-            checkInstanceStatus(dbInstanceId, "available")
+            startDBCluster(client, dbClusterId)
+            waitForClusterStatus(client, dbClusterId, "available")
+            checkInstanceStatus(client, dbInstanceId, "available")
         }.onFailure {
             it.printStackTrace()
             Assertions.fail("Starting the Cluster failed: ${it.message}")
@@ -132,10 +140,10 @@ class NeptuneTest {
     @Order(8)
     fun testDeleteResources() = runBlocking {
         runCatching {
-            deleteDbInstance(dbInstanceId)
-            waitUntilInstanceDeleted(dbInstanceId)
-            deleteDBCluster(dbClusterId)
-            deleteDBSubnetGroup(subnetGroupName)
+            deleteDbInstance(client, dbInstanceId)
+            waitUntilInstanceDeleted(client, dbInstanceId)
+            deleteDBCluster(client, dbClusterId)
+            deleteDBSubnetGroup(client, subnetGroupName)
         }.onFailure {
             it.printStackTrace()
             Assertions.fail("Deleting the resources failed: ${it.message}")

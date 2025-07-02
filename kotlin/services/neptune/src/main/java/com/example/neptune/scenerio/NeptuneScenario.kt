@@ -26,8 +26,6 @@ import java.util.*
 // snippet-start:[neptune.kotlin.scenario.main]
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
 var scanner = Scanner(System.`in`)
-private val pollInterval: Duration = Duration.ofSeconds(20)
-private val timeout: Duration = Duration.ofMinutes(30)
 
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
@@ -36,10 +34,11 @@ private val timeout: Duration = Duration.ofMinutes(30)
  *
  * https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
-suspend fun main(args: Array<String>) {
+suspend fun main() {
     val subnetGroupName = "neptuneSubnetGroup200"
     val clusterName = "neptuneCluster200"
     val dbInstanceId = "neptuneDB200"
+    val client = NeptuneClient.fromEnvironment {region = "us-east-1" }
 
     println(
         """
@@ -61,7 +60,7 @@ suspend fun main(args: Array<String>) {
         """.trimIndent(),
     )
     waitForInputToContinue(scanner)
-    runScenario(subnetGroupName, dbInstanceId, clusterName)
+    runScenario(client, subnetGroupName, dbInstanceId, clusterName)
     println(
         """
         Thank you for checking out the Amazon Neptune Service Use demo. We hope you
@@ -72,12 +71,12 @@ suspend fun main(args: Array<String>) {
     )
 }
 
-suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterName: String) {
+suspend fun runScenario( client : NeptuneClient, subnetGroupName: String, dbInstanceId: String, clusterName: String) {
     println(DASHES)
     println("1. Create a Neptune DB Subnet Group")
     println("The Neptune DB subnet group is used when launching a Neptune cluster")
     waitForInputToContinue(scanner)
-    createSubnetGroup(subnetGroupName)
+    createSubnetGroup(client, subnetGroupName)
     waitForInputToContinue(scanner)
     println(DASHES)
 
@@ -85,7 +84,7 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
     println("2. Create a Neptune Cluster")
     println("A Neptune Cluster allows you to store and query highly connected datasets with low latency.")
     waitForInputToContinue(scanner)
-    val dbClusterId = createDbCluster(clusterName)
+    val dbClusterId = createDbCluster(client, clusterName)
     waitForInputToContinue(scanner)
     println(DASHES)
 
@@ -93,7 +92,7 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
     println("3. Create a Neptune DB Instance")
     println("In this step, we add a new database instance to the Neptune cluster")
     waitForInputToContinue(scanner)
-    createDbInstance(dbInstanceId, dbClusterId)
+    createDbInstance(client, dbInstanceId, dbClusterId)
     waitForInputToContinue(scanner)
     println(DASHES)
 
@@ -106,14 +105,14 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
         """.trimIndent(),
     )
     waitForInputToContinue(scanner)
-    checkInstanceStatus(dbInstanceId, "available")
+    checkInstanceStatus(client, dbInstanceId, "available")
     waitForInputToContinue(scanner)
     println(DASHES)
 
     println(DASHES)
     println("5. Show Neptune Cluster details")
     waitForInputToContinue(scanner)
-    describeDBClusters(dbClusterId)
+    describeDBClusters(client, dbClusterId)
     waitForInputToContinue(scanner)
     println(DASHES)
 
@@ -126,8 +125,8 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
         """.trimIndent(),
     )
     waitForInputToContinue(scanner)
-    stopDBCluster(dbClusterId)
-    waitForClusterStatus(dbClusterId, "stopped")
+    stopDBCluster(client, dbClusterId)
+    waitForClusterStatus(client, dbClusterId, "stopped")
     waitForInputToContinue(scanner)
     println(DASHES)
 
@@ -141,9 +140,9 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
         """.trimIndent(),
     )
     waitForInputToContinue(scanner)
-    startDBCluster(dbClusterId)
-    waitForClusterStatus(dbClusterId, "available")
-    checkInstanceStatus(dbInstanceId, "available")
+    startDBCluster(client, dbClusterId)
+    waitForClusterStatus(client, dbClusterId, "available")
+    checkInstanceStatus(client, dbInstanceId, "available")
     waitForInputToContinue(scanner)
     println(DASHES)
 
@@ -153,10 +152,10 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
     val delAns = scanner.nextLine().trim()
     if (delAns.equals("y")) {
         println("You selected to delete the Neptune assets.")
-        deleteDbInstance(dbInstanceId)
-        waitUntilInstanceDeleted(dbInstanceId)
-        deleteDBCluster(dbClusterId)
-        deleteDBSubnetGroup(subnetGroupName)
+        deleteDbInstance(client, dbInstanceId)
+        waitUntilInstanceDeleted(client, dbInstanceId)
+        deleteDBCluster(client, dbClusterId)
+        deleteDBSubnetGroup(client, subnetGroupName)
         println("Neptune resources deleted successfully.")
 
     } else {
@@ -171,15 +170,13 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
  * @param subnetGroupName the identifier of the subnet group to delete
  * @return a {@link CompletableFuture} that completes when the cluster has been deleted
  */
-suspend fun deleteDBSubnetGroup(subnetGroupName:String) {
+suspend fun deleteDBSubnetGroup(neptuneClient : NeptuneClient, subnetGroupName:String) {
     val request = DeleteDbSubnetGroupRequest {
         dbSubnetGroupName = subnetGroupName
     }
 
-    NeptuneClient { region = "us-east-1" }.use { neptuneClient ->
-        neptuneClient.deleteDbSubnetGroup(request)
-        println(" Deleting Subnet Group: $subnetGroupName")
-    }
+    neptuneClient.deleteDbSubnetGroup(request)
+    println(" Deleting Subnet Group: $subnetGroupName")
 }
 // snippet-end:[neptune.kotlin.delete.subnet.group.main]
 
@@ -189,64 +186,61 @@ suspend fun deleteDBSubnetGroup(subnetGroupName:String) {
  *
  * @param clusterId the identifier of the cluster to delete
  */
-suspend fun deleteDBCluster(clusterId: String) {
+suspend fun deleteDBCluster(neptuneClient : NeptuneClient, clusterId: String) {
     val request = DeleteDbClusterRequest {
         dbClusterIdentifier = clusterId
         skipFinalSnapshot = true
     }
-    NeptuneClient { region = "us-east-1" }.use { neptuneClient ->
-        neptuneClient.deleteDbCluster(request)
-       println("️ Deleting DB Cluster: $clusterId")
-    }
-}
+
+    neptuneClient.deleteDbCluster(request)
+    println("️ Deleting DB Cluster: $clusterId")
+ }
 // snippet-end:[neptune.kotlin.delete.cluster.main]
 
 suspend fun waitUntilInstanceDeleted(
+    neptuneClient: NeptuneClient,
     instanceId: String,
     timeout: Duration = Duration.ofMinutes(20),
     pollInterval: Duration = Duration.ofSeconds(10)
 ): Boolean {
-    println(" Waiting for instance '$instanceId' to be deleted...")
+    println("Waiting for instance '$instanceId' to be deleted...")
 
-    NeptuneClient { region = "us-east-1" }.use { neptuneClient ->
-        val startTime = System.currentTimeMillis()
+    val startTime = System.currentTimeMillis()
 
-        while (true) {
-            try {
-                val request = DescribeDbInstancesRequest {
-                    dbInstanceIdentifier = instanceId
-                }
+    while (true) {
+        try {
+            val request = DescribeDbInstancesRequest {
+                dbInstanceIdentifier = instanceId
+            }
 
-                val response = neptuneClient.describeDbInstances(request)
-                val status = response.dbInstances?.firstOrNull()?.dbInstanceStatus ?: "Unknown"
+            val response = neptuneClient.describeDbInstances(request)
+            val status = response.dbInstances?.firstOrNull()?.dbInstanceStatus ?: "Unknown"
+            val elapsed = (System.currentTimeMillis() - startTime) / 1000
+            print("\r  Waiting: Instance $instanceId status: ${status.padEnd(10)} (${elapsed}s elapsed)")
+            System.out.flush()
+
+        } catch (e: NeptuneException) {
+            val errorCode = e.sdkErrorMetadata.errorCode
+            return if (errorCode == "DBInstanceNotFound") {
                 val elapsed = (System.currentTimeMillis() - startTime) / 1000
-
-                print("\r  Waiting: Instance $instanceId status: ${status.padEnd(10)} (${elapsed}s elapsed)")
-                System.out.flush()
-
-            } catch (e: NeptuneException) {
-                val errorCode = e.sdkErrorMetadata.errorCode
-                return if (errorCode == "DBInstanceNotFound") {
-                    val elapsed = (System.currentTimeMillis() - startTime) / 1000
-                    println("\n Instance '$instanceId' deleted after ${elapsed}s.")
-                    true
-                } else {
-                    println("\n Error polling DB instance '$instanceId': ${errorCode ?: "Unknown"} — ${e.message}")
-                    false
-                }
-            } catch (e: Exception) {
-                println("\n Unexpected error while polling DB instance '$instanceId': ${e.message}")
-                return false
+                println("\nInstance '$instanceId' deleted after ${elapsed}s.")
+                true
+            } else {
+                println("\nError polling DB instance '$instanceId': ${errorCode ?: "Unknown"} — ${e.message}")
+                false
             }
-
-            val elapsedMs = System.currentTimeMillis() - startTime
-            if (elapsedMs > timeout.toMillis()) {
-                println("\n Timeout: Instance '$instanceId' was not deleted after ${timeout.toMinutes()} minutes.")
-                return false
-            }
-
-            delay(pollInterval.toMillis())
+        } catch (e: Exception) {
+            println("\nUnexpected error while polling DB instance '$instanceId': ${e.message}")
+            return false
         }
+
+        val elapsedMs = System.currentTimeMillis() - startTime
+        if (elapsedMs > timeout.toMillis()) {
+            println("\nTimeout: Instance '$instanceId' was not deleted after ${timeout.toMinutes()} minutes.")
+            return false
+        }
+
+        delay(pollInterval.toMillis())
     }
 }
 
@@ -257,15 +251,14 @@ suspend fun waitUntilInstanceDeleted(
  * @param instanceId the identifier of the DB instance to be deleted
  * @return a {@link CompletableFuture} that completes when the DB instance has been deleted
  */
-suspend fun deleteDbInstance(instanceId: String) {
+suspend fun deleteDbInstance(neptuneClient: NeptuneClient, instanceId: String) {
     val request = DeleteDbInstanceRequest {
         dbInstanceIdentifier = instanceId
         skipFinalSnapshot = true
     }
-    NeptuneClient { region = "us-east-1" }.use { neptuneClient ->
-        neptuneClient.deleteDbInstance(request)
-        println("Deleting DB Instance: $instanceId")
-    }
+
+    neptuneClient.deleteDbInstance(request)
+    println("Deleting DB Instance: $instanceId")
 }
 // snippet-end:[neptune.kotlin.delete.instance.main]
 
@@ -279,51 +272,42 @@ suspend fun deleteDbInstance(instanceId: String) {
  *
  */
 suspend fun waitForClusterStatus(
+    neptuneClient: NeptuneClient,
     clusterId: String,
     desiredStatus: String,
     timeout: Duration = Duration.ofMinutes(20),
     pollInterval: Duration = Duration.ofSeconds(10)
 ) {
     println("Waiting for cluster '$clusterId' to reach status '$desiredStatus'...")
+    val startTime = System.currentTimeMillis()
 
-    NeptuneClient { region = "us-east-1" }.use { neptuneClient ->
-        val startTime = System.currentTimeMillis()
-
-        while (true) {
-            val request = DescribeDbClustersRequest {
-                dbClusterIdentifier = clusterId
-            }
-
-            val response = neptuneClient.describeDbClusters(request)
-            val currentStatus = response.dbClusters?.firstOrNull()?.status
-            val elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000
-
-            println(
-                "\r Elapsed: ${formatElapsedTime(elapsedSeconds.toInt()).padEnd(20)}  Cluster status: ${
-                    currentStatus?.padEnd(
-                        20
-                    ) ?: "Unknown"
-                }"
-            )
-            System.out.flush()
-
-            if (desiredStatus.equals(currentStatus, ignoreCase = true)) {
-                println(
-                    "\nNeptune cluster reached desired status '$desiredStatus' after ${
-                        formatElapsedTime(
-                            elapsedSeconds.toInt()
-                        )
-                    }."
-                )
-                return
-            }
-
-            if (Duration.ofMillis(System.currentTimeMillis() - startTime) > timeout) {
-                throw RuntimeException("Timeout waiting for Neptune cluster to reach status: $desiredStatus")
-            }
-
-            delay(pollInterval.toMillis())
+    while (true) {
+        val request = DescribeDbClustersRequest {
+            dbClusterIdentifier = clusterId
         }
+
+        val response = neptuneClient.describeDbClusters(request)
+        val currentStatus = response.dbClusters?.firstOrNull()?.status ?: "Unknown"
+        val elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000
+
+        print(
+            "\rElapsed: ${formatElapsedTime(elapsedSeconds.toInt()).padEnd(20)}  " +
+                    "Cluster status: ${currentStatus.padEnd(20)}"
+        )
+        System.out.flush()
+        if (desiredStatus.equals(currentStatus, ignoreCase = true)) {
+            println(
+                "\nNeptune cluster reached desired status '$desiredStatus' after " +
+                        "${formatElapsedTime(elapsedSeconds.toInt())}."
+            )
+            return
+        }
+
+        if ((System.currentTimeMillis() - startTime) > timeout.toMillis()) {
+            throw RuntimeException("Timeout waiting for Neptune cluster to reach status: $desiredStatus")
+        }
+
+        delay(pollInterval.toMillis())
     }
 }
 
@@ -333,15 +317,13 @@ suspend fun waitForClusterStatus(
  *
  * @param clusterIdentifier the unique identifier of the DB cluster to be stopped
  */
-suspend fun startDBCluster(clusterIdentifier: String) {
+suspend fun startDBCluster(neptuneClient: NeptuneClient, clusterIdentifier: String) {
     val request = StartDbClusterRequest {
         dbClusterIdentifier = clusterIdentifier
     }
 
-    NeptuneClient { region = "us-east-1" }.use { neptuneClient ->
-        neptuneClient.startDbCluster(request)
-        println("DB Cluster started : $clusterIdentifier")
-    }
+    neptuneClient.startDbCluster(request)
+    println("DB Cluster started : $clusterIdentifier")
 }
 // snippet-end:[neptune.kotlin.start.cluster.main]
 
@@ -351,15 +333,13 @@ suspend fun startDBCluster(clusterIdentifier: String) {
  *
  * @param clusterIdentifier the unique identifier of the DB cluster to be stopped
  */
-suspend fun stopDBCluster(clusterIdentifier: String) {
+suspend fun stopDBCluster(neptuneClient: NeptuneClient, clusterIdentifier: String) {
     val request = StopDbClusterRequest {
         dbClusterIdentifier = clusterIdentifier
     }
 
-    NeptuneClient { region = "us-east-1" }.use { neptuneClient ->
-        neptuneClient.stopDbCluster(request)
-        println("DB Cluster stopped: $clusterIdentifier")
-    }
+    neptuneClient.stopDbCluster(request)
+    println("DB Cluster stopped: $clusterIdentifier")
 }
 // snippet-end:[neptune.kotlin.stop.cluster.main]
 
@@ -369,33 +349,31 @@ suspend fun stopDBCluster(clusterIdentifier: String) {
  *
  * @param clusterId the identifier of the cluster to describe
  */
-suspend fun describeDBClusters(clusterId: String) {
+suspend fun describeDBClusters(neptuneClient: NeptuneClient, clusterId: String) {
     val request = DescribeDbClustersRequest {
         dbClusterIdentifier = clusterId
     }
 
-    NeptuneClient { region = "us-east-1" }.use { neptuneClient ->
-        val response = neptuneClient.describeDbClusters(request)
-        response.dbClusters?.forEach { cluster ->
-            println("Cluster Identifier: ${cluster.dbClusterIdentifier}")
-            println("Status: ${cluster.status}")
-            println("Engine: ${cluster.engine}")
-            println("Engine Version: ${cluster.engineVersion}")
-            println("Endpoint: ${cluster.endpoint}")
-            println("Reader Endpoint: ${cluster.readerEndpoint}")
-            println("Availability Zones: ${cluster.availabilityZones}")
-            println("Subnet Group: ${cluster.dbSubnetGroup}")
-            println("VPC Security Groups:")
-            cluster.vpcSecurityGroups?.forEach { vpcGroup ->
-                println("  - ${vpcGroup.vpcSecurityGroupId}")
-            }
-            println("Storage Encrypted: ${cluster.storageEncrypted}")
-            println("IAM DB Auth Enabled: ${cluster.iamDatabaseAuthenticationEnabled}")
-            println("Backup Retention Period: ${cluster.backupRetentionPeriod} days")
-            println("Preferred Backup Window: ${cluster.preferredBackupWindow}")
-            println("Preferred Maintenance Window: ${cluster.preferredMaintenanceWindow}")
-            println("------")
-        }
+    val response = neptuneClient.describeDbClusters(request)
+    response.dbClusters?.forEach { cluster ->
+    println("Cluster Identifier: ${cluster.dbClusterIdentifier}")
+    println("Status: ${cluster.status}")
+    println("Engine: ${cluster.engine}")
+    println("Engine Version: ${cluster.engineVersion}")
+    println("Endpoint: ${cluster.endpoint}")
+    println("Reader Endpoint: ${cluster.readerEndpoint}")
+    println("Availability Zones: ${cluster.availabilityZones}")
+    println("Subnet Group: ${cluster.dbSubnetGroup}")
+    println("VPC Security Groups:")
+    cluster.vpcSecurityGroups?.forEach { vpcGroup ->
+        println("  - ${vpcGroup.vpcSecurityGroupId}")
+    }
+    println("Storage Encrypted: ${cluster.storageEncrypted}")
+    println("IAM DB Auth Enabled: ${cluster.iamDatabaseAuthenticationEnabled}")
+    println("Backup Retention Period: ${cluster.backupRetentionPeriod} days")
+    println("Preferred Backup Window: ${cluster.preferredBackupWindow}")
+    println("Preferred Maintenance Window: ${cluster.preferredMaintenanceWindow}")
+    println("------")
     }
 }
 // snippet-end:[neptune.kotlin.describe.cluster.main]
@@ -407,39 +385,41 @@ suspend fun describeDBClusters(clusterId: String) {
  * @param instanceId     the ID of the Neptune instance to check
  * @param desiredStatus  the desired status of the Neptune instance
  */
-suspend fun checkInstanceStatus(instanceId: String, desiredStatus: String) {
-    NeptuneClient { region = "us-east-1" }.use { neptuneClient ->
-        val startTime = System.currentTimeMillis()
-        while (true) {
-            val request = DescribeDbInstancesRequest {
-                dbInstanceIdentifier = instanceId
-            }
+suspend fun checkInstanceStatus(
+    neptuneClient: NeptuneClient,
+    instanceId: String,
+    desiredStatus: String,
+    timeout: Duration = Duration.ofMinutes(20),
+    pollInterval: Duration = Duration.ofSeconds(10)
+) {
+    val startTime = System.currentTimeMillis()
+    println("Checking status for instance '$instanceId'...")
 
-            val response = neptuneClient.describeDbInstances(request)
-            val instances = response.dbInstances
-            val currentStatus = instances?.get(0)?.dbInstanceStatus
-            val elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000
-
-            print("\r Elapsed: ${formatElapsedTime(elapsedSeconds.toInt())}  Status: $currentStatus")
-            System.out.flush()
-
-            if (desiredStatus.equals(currentStatus, ignoreCase = true)) {
-                println(
-                    "\nNeptune instance reached desired status '$desiredStatus' after ${
-                        formatElapsedTime(
-                            elapsedSeconds.toInt()
-                        )
-                    }."
-                )
-                break
-            }
-
-            if (Duration.ofMillis(System.currentTimeMillis() - startTime) > timeout) {
-                throw RuntimeException("Timeout waiting for Neptune instance to reach status: $desiredStatus")
-            }
-
-            delay(pollInterval.toMillis())
+    while (true) {
+        val request = DescribeDbInstancesRequest {
+            dbInstanceIdentifier = instanceId
         }
+
+        val response = neptuneClient.describeDbInstances(request)
+        val currentStatus = response.dbInstances?.firstOrNull()?.dbInstanceStatus ?: "Unknown"
+        val elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000
+
+        print("\rElapsed: ${formatElapsedTime(elapsedSeconds.toInt()).padEnd(20)}  Status: ${currentStatus.padEnd(20)}")
+        System.out.flush()
+
+        if (desiredStatus.equals(currentStatus, ignoreCase = true)) {
+            println(
+                "\nInstance reached desired status '$desiredStatus' after " +
+                        formatElapsedTime(elapsedSeconds.toInt()) + "."
+            )
+            break
+        }
+
+        if ((System.currentTimeMillis() - startTime) > timeout.toMillis()) {
+            throw RuntimeException("Timeout waiting for Neptune instance to reach status: $desiredStatus")
+        }
+
+        delay(pollInterval.toMillis())
     }
 }
 // snippet-end:[neptune.kotlin.describe.dbinstance.main]
@@ -459,22 +439,20 @@ private fun formatElapsedTime(totalSeconds: Int): String {
  * @param dbClusterId  the identifier for the DB cluster that the new instance will be a part of
  * @return  the identifier of the newly created DB instance
  */
-suspend fun createDbInstance(dbInstanceId: String, dbClusterId: String): String {
-    NeptuneClient { region = "us-east-1" }.use { neptuneClient ->
-        val request = CreateDbInstanceRequest {
-            dbInstanceIdentifier = dbInstanceId
-            dbInstanceClass = "db.r5.large"
-            engine = "neptune"
-            dbClusterIdentifier = dbClusterId
-        }
-
-        val response = neptuneClient.createDbInstance(request)
-        val instanceId = response.dbInstance?.dbInstanceIdentifier
-            ?: throw RuntimeException("Instance creation succeeded but no ID returned.")
-
-        println("Created Neptune DB Instance: $instanceId")
-        return instanceId
+suspend fun createDbInstance(neptuneClient: NeptuneClient, dbInstanceId: String, dbClusterId: String): String {
+    val request = CreateDbInstanceRequest {
+        dbInstanceIdentifier = dbInstanceId
+        dbInstanceClass = "db.r5.large"
+        engine = "neptune"
+        dbClusterIdentifier = dbClusterId
     }
+
+    val response = neptuneClient.createDbInstance(request)
+    val instanceId = response.dbInstance?.dbInstanceIdentifier
+        ?: throw RuntimeException("Instance creation succeeded but no ID returned.")
+
+    println("Created Neptune DB Instance: $instanceId")
+    return instanceId
 }
 // snippet-end:[neptune.kotlin.create.dbinstance.main]
 
@@ -485,22 +463,20 @@ suspend fun createDbInstance(dbInstanceId: String, dbClusterId: String): String 
  * @param dbName the name of the DB cluster to be created
  * @return the ID of the created DB cluster
  */
-suspend fun createDbCluster(dbName: String): String {
-    NeptuneClient { region = "us-east-1" }.use { neptuneClient ->
-        val request = CreateDbClusterRequest {
-            dbClusterIdentifier = dbName
-            engine = "neptune"
-            deletionProtection = false
-            backupRetentionPeriod = 1
-        }
-
-        val response = neptuneClient.createDbCluster(request)
-        val clusterId = response.dbCluster?.dbClusterIdentifier
-            ?: throw RuntimeException("Cluster creation succeeded but no ID returned.")
-
-        println("DB Cluster created: $clusterId")
-        return clusterId
+suspend fun createDbCluster(neptuneClient: NeptuneClient, dbName: String): String {
+    val request = CreateDbClusterRequest {
+        dbClusterIdentifier = dbName
+        engine = "neptune"
+        deletionProtection = false
+        backupRetentionPeriod = 1
     }
+
+    val response = neptuneClient.createDbCluster(request)
+    val clusterId = response.dbCluster?.dbClusterIdentifier
+        ?: throw RuntimeException("Cluster creation succeeded but no ID returned.")
+
+    println("DB Cluster created: $clusterId")
+    return clusterId
 }
 // snippet-end:[neptune.kotlin.create.cluster.main]
 
@@ -511,8 +487,7 @@ suspend fun createDbCluster(dbName: String): String {
  * @param groupName the name of the DB subnet group to create
  * @return the Amazon Resource Name (ARN) of the created DB subnet group
  */
-suspend fun createSubnetGroup(groupName: String) {
-    // Get the Amazon Virtual Private Cloud (VPC) where the Neptune cluster and resources will be created
+suspend fun createSubnetGroup(neptuneClient: NeptuneClient, groupName: String) {
     val vpcId = getDefaultVpcId()
     val subnetList = getSubnetIds(vpcId)
 
@@ -522,17 +497,14 @@ suspend fun createSubnetGroup(groupName: String) {
         subnetIds = subnetList
     }
 
-    NeptuneClient { region = "us-east-1" }.use { neptuneClient ->
-        val response = neptuneClient.createDbSubnetGroup(request)
-        val name = response.dbSubnetGroup?.dbSubnetGroupName
-        val arn = response.dbSubnetGroup?.dbSubnetGroupArn
-        println("Subnet group created: $name")
-    }
+    val response = neptuneClient.createDbSubnetGroup(request)
+    val name = response.dbSubnetGroup?.dbSubnetGroupName
+    println("Subnet group created: $name")
 }
 // snippet-end:[neptune.kotlin.create.subnet.main]
 
 suspend fun getDefaultVpcId(): String {
-    Ec2Client { region = "us-east-1" }.use { ec2Client ->
+    Ec2Client.fromEnvironment { region = "us-east-1" }.use { ec2Client ->
         val request = DescribeVpcsRequest {
             filters = listOf(
                 Filter {
@@ -552,7 +524,7 @@ suspend fun getDefaultVpcId(): String {
 }
 
 suspend fun getSubnetIds(vpcId: String): List<String> {
-    Ec2Client { region = "us-east-1" }.use { ec2Client ->
+    Ec2Client.fromEnvironment { region = "us-east-1" }.use { ec2Client ->
         val request = DescribeSubnetsRequest {
             filters = listOf(
                 Filter {
@@ -566,7 +538,6 @@ suspend fun getSubnetIds(vpcId: String): List<String> {
         return response.subnets?.mapNotNull { it.subnetId } ?: emptyList()
     }
 }
-
 
 private fun waitForInputToContinue(scanner: Scanner) {
     while (true) {
@@ -582,5 +553,5 @@ private fun waitForInputToContinue(scanner: Scanner) {
             println("Invalid input. Please try again.")
         }
     }
-    // snippet-end:[neptune.kotlin.scenario.main]
 }
+// snippet-end:[neptune.kotlin.scenario.main]

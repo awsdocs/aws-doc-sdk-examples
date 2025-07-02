@@ -27,7 +27,7 @@ public suspend fun listDBClusters() {
         maxRecords = 20
     }
 
-    NeptuneClient { region = "us-east-1" }.use { neptuneClient ->
+    NeptuneClient.fromEnvironment { region = "us-east-1" }.use { neptuneClient ->
         neptuneClient.describeDbClusters(request)
         val response = neptuneClient.describeDbClusters(request)
         response.dbClusters?.forEach { cluster ->
