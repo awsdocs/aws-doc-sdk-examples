@@ -48,6 +48,13 @@ Code excerpts that show you how to call individual service functions.
 - [InvokeAgent](bedrock_agent_runtime_wrapper.py#L33)
 - [InvokeFlow](bedrock_agent_runtime_wrapper.py#L71)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Create and invoke a flow](../bedrock-agent/flows/playlist_flow.py)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -79,6 +86,29 @@ python flows/flow-conversation.py
 <!--custom.basics.bedrock-agent-runtime_Scenario_ConverseWithFlow.start-->
 <!--custom.basics.bedrock-agent-runtime_Scenario_ConverseWithFlow.end-->
 
+
+#### Create and invoke a flow
+
+This example shows you how to do the following:
+
+- Create an execution role for the flow.
+- Create the flow.
+- Deploy the fully configured flow.
+- Invoke the flow with user-provided prompts.
+- Delete all created resources.
+
+<!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockFlows.start-->
+<!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockFlows.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python ../bedrock-agent/flows/playlist_flow.py
+```
+
+
+<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockFlows.start-->
+<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockFlows.end-->
 
 ### Tests
 

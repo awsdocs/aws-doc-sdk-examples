@@ -34,10 +34,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 Code excerpts that show you how to call individual service functions.
 
 - [DescribeTextTranslationJob](zcl_aws1_xl8_actions.clas.abap#L59)
-- [ListTextTranslationJobs](zcl_aws1_xl8_actions.clas.abap#L86)
-- [StartTextTranslationJob](zcl_aws1_xl8_actions.clas.abap#L121)
-- [StopTextTranslationJob](zcl_aws1_xl8_actions.clas.abap#L181)
-- [TranslateText](zcl_aws1_xl8_actions.clas.abap#L207)
+- [ListTextTranslationJobs](zcl_aws1_xl8_actions.clas.abap#L84)
+- [StartTextTranslationJob](zcl_aws1_xl8_actions.clas.abap#L115)
+- [StopTextTranslationJob](zcl_aws1_xl8_actions.clas.abap#L167)
+- [TranslateText](zcl_aws1_xl8_actions.clas.abap#L191)
 
 ### Scenarios
 

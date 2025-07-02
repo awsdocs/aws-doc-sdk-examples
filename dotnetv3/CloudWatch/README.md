@@ -31,11 +31,6 @@ To enable billing metrics and statistics for these examples, make sure to
 [enable billing alerts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html#turning_on_billing_metrics) for your account.
 <!--custom.prerequisites.end-->
 
-### Get started
-
-- [Hello CloudWatch](Actions/HelloCloudWatch.cs#L4) (`ListMetrics`)
-
-
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
@@ -95,10 +90,6 @@ Alternatively, you can run the example from within your IDE.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
-
-#### Hello CloudWatch
-
-This example shows you how to get started using CloudWatch.
 
 
 #### Learn the basics

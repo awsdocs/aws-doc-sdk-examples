@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 ### Get started
 
-- [Hello AWS IoT FleetWise](src/main/java/com/example/fleetwise/HelloFleetwise.kt#L10) (`listSignalCatalogsPaginator`)
+- [Hello AWS IoT FleetWise](src/main/java/com/example/fleetwise/HelloFleetwise.kt#L9) (`listSignalCatalogsPaginator`)
 
 
 ### Basics
@@ -45,22 +45,22 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [createDecoderManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L467)
-- [createFleet](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L640)
-- [createModelManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L590)
-- [createSignalCatalog](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L662)
-- [createVehicle](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L299)
-- [deleteDecoderManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L454)
-- [deleteFleet](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L555)
-- [deleteModelManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L573)
-- [deleteSignalCatalog](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L538)
-- [deleteVehicle](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L260)
-- [getDecoderManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L343)
-- [getModelManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L389)
-- [getVehicle](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L273)
-- [listSignalCatalogNodes](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L620)
-- [updateDecoderManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L330)
-- [updateModelManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L435)
+- [createDecoderManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L461)
+- [createFleet](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L634)
+- [createModelManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L584)
+- [createSignalCatalog](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L656)
+- [createVehicle](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L294)
+- [deleteDecoderManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L448)
+- [deleteFleet](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L549)
+- [deleteModelManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L567)
+- [deleteSignalCatalog](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L532)
+- [deleteVehicle](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L255)
+- [getDecoderManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L338)
+- [getModelManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L384)
+- [getVehicle](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L268)
+- [listSignalCatalogNodes](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L614)
+- [updateDecoderManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L325)
+- [updateModelManifest](src/main/java/com/example/fleetwise/scenario/FleetwiseScenario.kt#L430)
 
 
 <!--custom.examples.start-->

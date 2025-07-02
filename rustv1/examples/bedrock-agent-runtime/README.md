@@ -66,7 +66,7 @@ in the `rustv1` folder.
 
 - [Amazon Bedrock Agents Runtime User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
 - [Amazon Bedrock Agents Runtime API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html)
-- [SDK for JavaScript (v3) Amazon Bedrock Agents Runtime reference](https://crates.io/crates/aws-sdk-bedrockagentruntime)
+- [SDK for Rust Amazon Bedrock Agents Runtime reference](https://docs.rs/aws-sdk-bedrock-agent-runtime/latest/aws_sdk_bedrock-agent-runtime/)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
@@ -76,4 +76,3 @@ in the `rustv1` folder.
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 SPDX-License-Identifier: Apache-2.0
-

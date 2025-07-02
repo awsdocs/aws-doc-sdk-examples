@@ -34,7 +34,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 > see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 >
 <!--custom.prerequisites.end-->
-
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
@@ -121,10 +120,11 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+
+
 #### Generate videos from text prompts using Amazon Bedrock
 
-This example shows you how to a Spring Boot app that generates videos from text prompts using Amazon Bedrock and the
-Nova-Reel model.
+This example shows you how to a Spring Boot app that generates videos from text prompts using Amazon Bedrock and the Nova-Reel model.
 
 
 <!--custom.scenario_prereqs.bedrock-runtime_Scenario_GenerateVideos_NovaReel.start-->
@@ -136,9 +136,7 @@ Nova-Reel model.
 
 #### Tool use with the Converse API
 
-This example shows you how to build a typical interaction between an application, a generative AI model, and connected
-tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an
-external weather API to the AI model so it can provide real-time weather information based on user input.
+This example shows you how to build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input.
 
 
 <!--custom.scenario_prereqs.bedrock-runtime_Scenario_ToolUse.start-->

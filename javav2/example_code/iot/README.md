@@ -45,18 +45,18 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachThingPrincipal](src/main/java/com/example/iot/scenario/IotActions.java#L191)
-- [CreateKeysAndCertificate](src/main/java/com/example/iot/scenario/IotActions.java#L119)
-- [CreateThing](src/main/java/com/example/iot/scenario/IotActions.java#L158)
-- [CreateTopicRule](src/main/java/com/example/iot/scenario/IotActions.java#L441)
-- [DeleteCertificate](src/main/java/com/example/iot/scenario/IotActions.java#L609)
-- [DeleteThing](src/main/java/com/example/iot/scenario/IotActions.java#L642)
-- [DescribeEndpoint](src/main/java/com/example/iot/scenario/IotActions.java#L308)
-- [DescribeThing](src/main/java/com/example/iot/scenario/IotActions.java#L232)
-- [DetachThingPrincipal](src/main/java/com/example/iot/scenario/IotActions.java#L574)
-- [ListCertificates](src/main/java/com/example/iot/scenario/IotActions.java#L370)
-- [SearchIndex](src/main/java/com/example/iot/scenario/IotActions.java#L533)
-- [UpdateThing](src/main/java/com/example/iot/scenario/IotActions.java#L269)
+- [AttachThingPrincipal](src/main/java/com/example/iot/scenario/IotActions.java#L189)
+- [CreateKeysAndCertificate](src/main/java/com/example/iot/scenario/IotActions.java#L117)
+- [CreateThing](src/main/java/com/example/iot/scenario/IotActions.java#L156)
+- [CreateTopicRule](src/main/java/com/example/iot/scenario/IotActions.java#L439)
+- [DeleteCertificate](src/main/java/com/example/iot/scenario/IotActions.java#L607)
+- [DeleteThing](src/main/java/com/example/iot/scenario/IotActions.java#L640)
+- [DescribeEndpoint](src/main/java/com/example/iot/scenario/IotActions.java#L306)
+- [DescribeThing](src/main/java/com/example/iot/scenario/IotActions.java#L230)
+- [DetachThingPrincipal](src/main/java/com/example/iot/scenario/IotActions.java#L572)
+- [ListCertificates](src/main/java/com/example/iot/scenario/IotActions.java#L368)
+- [SearchIndex](src/main/java/com/example/iot/scenario/IotActions.java#L531)
+- [UpdateThing](src/main/java/com/example/iot/scenario/IotActions.java#L267)
 
 
 <!--custom.examples.start-->
