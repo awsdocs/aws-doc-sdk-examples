@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.example.s3.async;
 
-// snippet-start:[s3.java2.async_stream.complete]
-// snippet-start:[s3.java2.async_stream.import]
+// snippet-start:[s3.java2.async_stream_mp.complete]
+// snippet-start:[s3.java2.async_stream_mp.import]
 
 import com.example.s3.util.AsyncExampleUtils;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-// snippet-end:[s3.java2.async_stream.import]
+// snippet-end:[s3.java2.async_stream_mp.import]
 
 public class PutObjectFromStreamAsyncMp {
     private static final Logger logger = LoggerFactory.getLogger(PutObjectFromStreamAsyncMp.class);
@@ -43,7 +43,7 @@ public class PutObjectFromStreamAsyncMp {
         }
     }
 
-// snippet-start:[s3.java2.async_stream.main]
+// snippet-start:[s3.java2.async_stream_mp.main]
     /**
      * @param s3AsyncClientMp - To upload content from a stream of unknown size, use can the S3 asynchronous client with multipart enabled.
      * @param bucketName - The name of the bucket.
@@ -71,5 +71,5 @@ public class PutObjectFromStreamAsyncMp {
         return response;
     }
 }
-// snippet-end:[s3.java2.async_stream.main]
-// snippet-end:[s3.java2.async_stream.complete]
+// snippet-end:[s3.java2.async_stream_mp.main]
+// snippet-end:[s3.java2.async_stream_mp.complete]
