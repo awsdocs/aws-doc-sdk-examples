@@ -45,17 +45,17 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDocument](src/main/java/com/example/scenario/SSMActions.java#L481)
-- [CreateMaintenanceWindow](src/main/java/com/example/scenario/SSMActions.java#L569)
-- [CreateOpsItem](src/main/java/com/example/scenario/SSMActions.java#L314)
-- [DeleteDocument](src/main/java/com/example/scenario/SSMActions.java#L92)
-- [DeleteMaintenanceWindow](src/main/java/com/example/scenario/SSMActions.java#L131)
-- [DescribeOpsItems](src/main/java/com/example/scenario/SSMActions.java#L210)
+- [CreateDocument](src/main/java/com/example/scenario/SSMActions.java#L480)
+- [CreateMaintenanceWindow](src/main/java/com/example/scenario/SSMActions.java#L568)
+- [CreateOpsItem](src/main/java/com/example/scenario/SSMActions.java#L313)
+- [DeleteDocument](src/main/java/com/example/scenario/SSMActions.java#L91)
+- [DeleteMaintenanceWindow](src/main/java/com/example/scenario/SSMActions.java#L130)
+- [DescribeOpsItems](src/main/java/com/example/scenario/SSMActions.java#L209)
 - [DescribeParameters](src/main/java/com/example/ssm/GetParameter.java#L6)
 - [PutParameter](src/main/java/com/example/ssm/PutParameter.java#L6)
-- [SendCommand](src/main/java/com/example/scenario/SSMActions.java#L385)
-- [UpdateMaintenanceWindow](src/main/java/com/example/scenario/SSMActions.java#L532)
-- [UpdateOpsItem](src/main/java/com/example/scenario/SSMActions.java#L170)
+- [SendCommand](src/main/java/com/example/scenario/SSMActions.java#L384)
+- [UpdateMaintenanceWindow](src/main/java/com/example/scenario/SSMActions.java#L531)
+- [UpdateOpsItem](src/main/java/com/example/scenario/SSMActions.java#L169)
 
 
 <!--custom.examples.start-->
