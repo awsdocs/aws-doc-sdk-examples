@@ -877,7 +877,7 @@ sqs_Scenario_SendReceiveBatch:
               snippet_tags:
                 - sqs.java2.batch_demo.main
   services:
-    sqs: {CreateQueue, DeleteQueue, SendMessageBatch, ReceiveMessage, DeleteMessageBatch}
+    sqs: {CreateQueue, DeleteQueue, SendMessageBatch, SendMessage, ReceiveMessage, DeleteMessageBatch, DeleteMessage}
 sqs_GetQueueAttributes:
   languages:
     .NET:
