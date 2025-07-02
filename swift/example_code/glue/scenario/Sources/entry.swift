@@ -537,6 +537,7 @@ struct ExampleCommand: ParsableCommand {
             )
         } catch {
             print("*** Unable to delete the database.")
+            return false
         }
         return true
     }
