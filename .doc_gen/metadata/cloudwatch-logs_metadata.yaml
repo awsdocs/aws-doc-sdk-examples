@@ -109,7 +109,7 @@ cloudwatch-logs_DescribeLogStreams:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.javav2.describe.log group.main
+                - cloudwatch.javav2.describe.log.streams.main
   services:
     cloudwatch-logs: {DescribeLogStreams}
 cloudwatch-logs_DescribeLogGroups:
