@@ -1,20 +1,17 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-// snippet-start:[swift.glue.scenario]
+// snippet-start:[swift.ec2.hello]
 // An example that shows how to use the AWS SDK for Swift to perform a simple
 // operation using Amazon Elastic Compute Cloud (EC2).
 //
 
-
 import ArgumentParser
 import Foundation
 
-// snippet-start:[swift.glue.import]
-
-// import AWSClientRuntime
+// snippet-start:[swift.ec2.import]
 import AWSEC2
-// snippet-end:[swift.glue.import]
+// snippet-end:[swift.ec2.import]
 
 struct ExampleCommand: ParsableCommand {
     @Option(help: "The AWS Region to run AWS API calls in.")
@@ -44,6 +41,15 @@ struct ExampleCommand: ParsableCommand {
         """
     )
 
+    // snippet-start:[swift.ec2.DescribeSecurityGroupsPaginated]
+    /// Return an array of strings giving the names of every security group
+    /// the user is a member of.
+    ///
+    /// - Parameter ec2Client: The `EC2Client` to use when calling
+    ///   `describeSecurityGroupsPaginated()`.
+    ///
+    /// - Returns: An array of strings giving the names of every security
+    ///   group the user is a member of.
     func getSecurityGroupNames(ec2Client: EC2Client) async -> [String] {
         let pages = ec2Client.describeSecurityGroupsPaginated(
             input: DescribeSecurityGroupsInput()
@@ -68,6 +74,7 @@ struct ExampleCommand: ParsableCommand {
 
         return groupNames
     }
+    // snippet-end:[swift.ec2.DescribeSecurityGroupsPaginated]
 
     /// Called by ``main()`` to run the bulk of the example.
     func runAsync() async throws {
@@ -98,4 +105,4 @@ struct Main {
         }
     }    
 }
-// snippet-end:[swift.glue.scenario]
+// snippet-end:[swift.ec2.hello]

@@ -76,6 +76,16 @@ ec2_Hello:
           excerpts:
             - snippet_tags:
                 - ec2.rust.ec2-helloworld
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description: The <filename>Package.swift</filename> file.
+              snippet_tags:
+                - swift.ec2.hello.package
+            - description: The <filename>entry.swift</filename> file.
+                - swift.ec2.hello
   services:
     ec2: {DescribeSecurityGroups}
 ec2_GetPasswordData:
@@ -1269,6 +1279,15 @@ ec2_DescribeSecurityGroups:
           excerpts:
             - snippet_tags:
                 - ec2.rust.ec2-helloworld
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.DescribeSecurityGroupsPaginated
   services:
     ec2: {DescribeSecurityGroups}
 ec2_DeleteSecurityGroup:
