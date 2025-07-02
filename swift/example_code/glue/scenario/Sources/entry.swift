@@ -267,7 +267,14 @@ struct ExampleCommand: ParsableCommand {
             } else if state == .stopping {
                 return false
             }
-            Thread.sleep(forTimeInterval: 4)
+            
+            // Wait four seconds before trying again.
+
+            do {
+                try await Task.sleep(for: .seconds(4))
+            } catch {
+                print("*** Error pausing the task.")
+            }
         }
     }
     // snippet-end:[swift.glue.getCrawlerState]
@@ -459,7 +466,6 @@ struct ExampleCommand: ParsableCommand {
     }
     // snippet-end:[swift.glue.GetTables]
 
-    // snippet-start:[swift.glue.BatchDeleteTable]
     // snippet-start:[swift.glue.DeleteDatabase]
     /// Delete the specified database.
     /// 
@@ -486,34 +492,56 @@ struct ExampleCommand: ParsableCommand {
                 tableNames.append(name)
             }
 
-            // Delete the tables.
+            // Delete the tables. If there's only one table, use
+            // `deleteTable()`, otherwise, use `batchDeleteTable()`. You can
+            // use `batchDeleteTable()` for a single table, but this
+            // demonstrates the use of `deleteTable()`.
 
-            do {
-                _ = try await glueClient.batchDeleteTable(
-                    input: BatchDeleteTableInput(
-                        databaseName: databaseName,
-                        tablesToDelete: tableNames
+            if tableNames.count == 1 {
+                // snippet-start:[swift.glue.DeleteTable]
+                do {
+                    print("    Deleting table...")
+                    _ = try await glueClient.deleteTable(
+                        input: DeleteTableInput(
+                            databaseName: databaseName,
+                            name: tableNames[0]
+                        )
                     )
-                )
-            } catch {
-                print("*** Unable to delete the tables.")
+                } catch {
+                    print("*** Unable to delete the table.")
+                }
+                // snippet-end:[swift.glue.DeleteTable]
+            } else {
+                // snippet-start:[swift.glue.BatchDeleteTable]
+                do {
+                    print("    Deleting tables...")
+                    _ = try await glueClient.batchDeleteTable(
+                        input: BatchDeleteTableInput(
+                            databaseName: databaseName,
+                            tablesToDelete: tableNames
+                        )
+                    )
+                } catch {
+                    print("*** Unable to delete the tables.")
+                }
+                // snippet-end:[swift.glue.BatchDeleteTable]
             }
-            return true
         }
 
         // Delete the database itself.
 
         do {
+            print("    Deleting the database itself...")
             _ = try await glueClient.deleteDatabase(
                 input: DeleteDatabaseInput(name: databaseName)
             )
         } catch {
             print("*** Unable to delete the database.")
+            return false
         }
         return true
     }
     // snippet-end:[swift.glue.DeleteDatabase]
-    // snippet-end:[swift.glue.BatchDeleteTable]
 
     // snippet-start:[swift.glue.StartJobRun]
     /// Start an AWS Glue job run.
@@ -553,6 +581,43 @@ struct ExampleCommand: ParsableCommand {
         }
     }
     // snippet-end:[swift.glue.StartJobRun]
+
+    // snippet-start:[swift.glue.GetJobRuns]
+    /// Return a list of the job runs for the specified job.
+    /// 
+    /// - Parameters:
+    ///   - glueClient: The AWS Glue client to use.
+    ///   - jobName: The name of the job for which to return its job runs.
+    ///   - maxResults: The maximum number of job runs to return (default:
+    ///     1000).
+    ///
+    /// - Returns: An array of `GlueClientTypes.JobRun` objects describing
+    ///   each job run.
+    func getJobRuns(glueClient: GlueClient, name jobName: String, maxResults: Int? = nil) async -> [GlueClientTypes.JobRun] {
+        do {
+            let output = try await glueClient.getJobRuns(
+                input: GetJobRunsInput(
+                    jobName: jobName,
+                    maxResults: maxResults
+                )
+            )
+
+            guard let jobRuns = output.jobRuns else {
+                print("*** No job runs found.")
+                return []
+            }
+
+            return jobRuns
+        } catch is EntityNotFoundException {
+            print("*** The specified job name, \(jobName), doesn't exist.")
+            return []
+        } catch {
+            print("*** Unexpected error getting job runs:")
+            dump(error)
+            return []
+        }
+    }
+    // snippet-end:[swift.glue.GetJobRuns]
 
     // snippet-start:[swift.glue.GetJobRun]
     /// Get information about a specific AWS Glue job run.
@@ -660,6 +725,13 @@ struct ExampleCommand: ParsableCommand {
 
         print("Getting the crawler's database...")
         let database = await getDatabase(glueClient: glueClient, name: databaseName)
+
+        guard let database else {
+            print("*** Unable to get the database.")
+            return
+        }
+        print("Database URI: \(database.locationUri ?? "<unknown>")")
+
         let tableList = await getTablesInDatabase(glueClient: glueClient, databaseName: databaseName)
 
         print("Found \(tableList.count) table(s):")
@@ -765,9 +837,30 @@ struct ExampleCommand: ParsableCommand {
                     print("*** Warning: Job run timed out.")
                     jobRunFinished = true
                 default:
-                    Thread.sleep(forTimeInterval: 0.25)
+                    do {
+                        try await Task.sleep(for: .milliseconds(250))
+                    } catch {
+                        print("*** Error pausing the task.")
+                    }
             }
         } while jobRunFinished != true
+
+        //=====================================================================
+        // 7.5. List the job runs for this job, showing each job run's ID and
+        // its execution time.
+        //=====================================================================
+
+        print("Getting all job runs for the job \(jobName):")
+        let jobRuns = await getJobRuns(glueClient: glueClient, name: jobName)
+
+        if jobRuns.count == 0 {
+            print("    <no job runs found>")
+        } else {
+            print("Found \(jobRuns.count) job runs... listing execution times:")
+            for jobRun in jobRuns {
+                print("    \(jobRun.id ?? "<unnamed>"): \(jobRun.executionTime) seconds")
+            }
+        }
 
         //=====================================================================
         // 8. List the jobs for the user's account.
