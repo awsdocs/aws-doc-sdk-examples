@@ -21,8 +21,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 // snippet-end:[s3.java2.async_stream.import]
 
-public class PutObjectFromStreamAsync {
-    private static final Logger logger = LoggerFactory.getLogger(PutObjectFromStreamAsync.class);
+public class PutObjectFromStreamAsyncMp {
+    private static final Logger logger = LoggerFactory.getLogger(PutObjectFromStreamAsyncMp.class);
 
     public static void main(String[] args) {
         String bucketName = "qamzn-s3-demo-bucket-" + UUID.randomUUID(); // Change bucket name.
@@ -30,9 +30,9 @@ public class PutObjectFromStreamAsync {
 
         AsyncExampleUtils.createBucket(bucketName);
         try {
-            PutObjectFromStreamAsync example = new PutObjectFromStreamAsync();
-            S3AsyncClient s3AsyncClientCrt = S3AsyncClient.crtCreate();
-            PutObjectResponse putObjectResponse = example.putObjectFromStreamCrt(s3AsyncClientCrt, bucketName, key);
+            PutObjectFromStreamAsyncMp example = new PutObjectFromStreamAsyncMp();
+            S3AsyncClient s3AsyncClientMp = S3AsyncClient.builder().multipartEnabled(true).build();
+            PutObjectResponse putObjectResponse = example.putObjectFromStreamMp(s3AsyncClientMp, bucketName, key);
             logger.info("Object {} etag: {}", key, putObjectResponse.eTag());
             logger.info("Object {} uploaded to bucket {}.", key, bucketName);
         } catch (SdkException e) {
@@ -45,12 +45,12 @@ public class PutObjectFromStreamAsync {
 
 // snippet-start:[s3.java2.async_stream.main]
     /**
-     * @param s33CrtAsyncClient - To upload content from a stream of unknown size, use can the AWS CRT-based S3 client.
+     * @param s3AsyncClientMp - To upload content from a stream of unknown size, use can the S3 asynchronous client with multipart enabled.
      * @param bucketName - The name of the bucket.
      * @param key - The name of the object.
      * @return software.amazon.awssdk.services.s3.model.PutObjectResponse - Returns metadata pertaining to the put object operation.
      */
-    public PutObjectResponse putObjectFromStreamCrt(S3AsyncClient s33CrtAsyncClient, String bucketName, String key) {
+    public PutObjectResponse putObjectFromStreamMp(S3AsyncClient s3AsyncClientMp, String bucketName, String key) {
 
         // AsyncExampleUtils.randomString() returns a random string up to 100 characters.
         String randomString = AsyncExampleUtils.randomString();
@@ -63,7 +63,7 @@ public class PutObjectFromStreamAsync {
         AsyncRequestBody body = AsyncRequestBody.fromInputStream(inputStream, null, executor);
 
         CompletableFuture<PutObjectResponse> responseFuture =
-                s33CrtAsyncClient.putObject(r -> r.bucket(bucketName).key(key), body);
+                s3AsyncClientMp.putObject(r -> r.bucket(bucketName).key(key), body);
 
         PutObjectResponse response = responseFuture.join(); // Wait for the response.
         logger.info("Object {} uploaded to bucket {}.", key, bucketName);
