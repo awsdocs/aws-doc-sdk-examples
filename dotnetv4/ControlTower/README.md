@@ -45,17 +45,17 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [DisableBaseline](Actions/ControlTowerWrapper.cs#L177)
-- [DisableControl](Actions/ControlTowerWrapper.cs#L397)
-- [EnableBaseline](Actions/ControlTowerWrapper.cs#L116)
-- [EnableControl](Actions/ControlTowerWrapper.cs#L341)
-- [GetBaselineOperation](Actions/ControlTowerWrapper.cs#L269)
-- [GetControlOperation](Actions/ControlTowerWrapper.cs#L445)
-- [ListBaselines](Actions/ControlTowerWrapper.cs#L58)
-- [ListEnabledBaselines](Actions/ControlTowerWrapper.cs#L87)
-- [ListEnabledControls](Actions/ControlTowerWrapper.cs#L301)
-- [ListLandingZones](Actions/ControlTowerWrapper.cs#L29)
-- [ResetEnabledBaseline](Actions/ControlTowerWrapper.cs#L223)
+- [DisableBaseline](Actions/ControlTowerWrapper.cs#L181)
+- [DisableControl](Actions/ControlTowerWrapper.cs#L401)
+- [EnableBaseline](Actions/ControlTowerWrapper.cs#L120)
+- [EnableControl](Actions/ControlTowerWrapper.cs#L345)
+- [GetBaselineOperation](Actions/ControlTowerWrapper.cs#L273)
+- [GetControlOperation](Actions/ControlTowerWrapper.cs#L449)
+- [ListBaselines](Actions/ControlTowerWrapper.cs#L62)
+- [ListEnabledBaselines](Actions/ControlTowerWrapper.cs#L91)
+- [ListEnabledControls](Actions/ControlTowerWrapper.cs#L305)
+- [ListLandingZones](Actions/ControlTowerWrapper.cs#L33)
+- [ResetEnabledBaseline](Actions/ControlTowerWrapper.cs#L227)
 
 
 <!--custom.examples.start-->
