@@ -28,6 +28,14 @@ val DASHES = String(CharArray(80)).replace("\u0000", "-")
 var scanner = Scanner(System.`in`)
 private val pollInterval: Duration = Duration.ofSeconds(20)
 private val timeout: Duration = Duration.ofMinutes(30)
+
+/**
+ * Before running this Kotlin code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
 suspend fun main(args: Array<String>) {
     val subnetGroupName = "neptuneSubnetGroup200"
     val clusterName = "neptuneCluster200"

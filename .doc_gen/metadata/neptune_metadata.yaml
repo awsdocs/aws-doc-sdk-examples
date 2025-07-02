@@ -5,6 +5,15 @@ neptune_Hello:
   synopsis: get started using &neptune;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/neptune
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - neptune.kotlin.hello.main
     Python:
       versions:
         - sdk_version: 3
