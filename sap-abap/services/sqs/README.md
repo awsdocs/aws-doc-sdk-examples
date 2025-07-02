@@ -37,8 +37,8 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteQueue](zcl_aws1_sqs_actions.clas.abap#L84)
 - [GetQueueUrl](zcl_aws1_sqs_actions.clas.abap#L99)
 - [ListQueues](zcl_aws1_sqs_actions.clas.abap#L116)
-- [ReceiveMessage](zcl_aws1_sqs_actions.clas.abap#L179)
-- [SendMessage](zcl_aws1_sqs_actions.clas.abap#L197)
+- [ReceiveMessage](zcl_aws1_sqs_actions.clas.abap#L177)
+- [SendMessage](zcl_aws1_sqs_actions.clas.abap#L195)
 
 ### Scenarios
 

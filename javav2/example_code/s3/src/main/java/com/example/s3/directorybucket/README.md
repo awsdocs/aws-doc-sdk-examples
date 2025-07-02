@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../../../../../../../../README.md#Prerequ
 - [Hello S3 Directory Buckets](HelloS3DirectoryBuckets.java#L4) (`CreateBucket`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](../express/S3DirectoriesScenario.java)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -87,6 +94,26 @@ functions within the same service.
 
 This example shows you how to get started using S3 Directory Buckets.
 
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Set up a VPC and VPC Endpoint.
+- Set up the Policies, Roles, and User to work with S3 directory buckets and the S3 Express One Zone storage class.
+- Create two S3 Clients.
+- Create two buckets.
+- Create an object and copy it over.
+- Demonstrate performance difference.
+- Populate the buckets to show the lexicographical difference.
+- Prompt the user to see if they want to clean up the resources.
+
+<!--custom.basic_prereqs.s3-directory-buckets_Scenario_ExpressBasics.start-->
+<!--custom.basic_prereqs.s3-directory-buckets_Scenario_ExpressBasics.end-->
+
+
+<!--custom.basics.s3-directory-buckets_Scenario_ExpressBasics.start-->
+<!--custom.basics.s3-directory-buckets_Scenario_ExpressBasics.end-->
 
 
 #### Create a presigned URL to get an object
