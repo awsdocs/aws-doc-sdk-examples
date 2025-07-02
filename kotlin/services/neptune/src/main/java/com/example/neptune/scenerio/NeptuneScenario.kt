@@ -42,34 +42,33 @@ suspend fun main(args: Array<String>) {
     val dbInstanceId = "neptuneDB200"
 
     println(
-        """
-   Amazon Neptune is a fully managed AWS graph database optimized for complex, connected datasets. 
-   It supports property graphs (Gremlin, openCypher) 
-   and RDF graphs (SPARQL), making it ideal for knowledge 
-   graphs, fraud detection, social networks, 
-   recommendations, and network management.
-
-   Neptune handles provisioning, patching, backups, a
-   nd replication, offering high availability by default
-   .
-   Developers can build relationship-aware apps using the 
-   AWS SDK for Kotlin and automate infrastructure with 
-   NeptuneClient.
-                    
-   Let's get started...
-                    
     """
+    Amazon Neptune is a fully managed AWS graph database optimized for complex, connected datasets. 
+    It supports property graphs (Gremlin, openCypher) 
+    and RDF graphs (SPARQL), making it ideal for knowledge 
+    graphs, fraud detection, social networks, 
+    recommendations, and network management.
+
+    Neptune handles provisioning, patching, backups, a
+    nd replication, offering high availability by default.
+    
+    Developers can build relationship-aware apps using the 
+    AWS SDK for Kotlin and automate infrastructure with 
+    NeptuneClient.
+                    
+    Let's get started...
+                    
+    """.trimIndent(),
     )
     waitForInputToContinue(scanner)
     runScenario(subnetGroupName, dbInstanceId, clusterName)
     println(
-        """
+    """
     Thank you for checking out the Amazon Neptune Service Use demo. We hope you
     learned something new, or got some inspiration for your own apps today.
     For more AWS code examples, have a look at:
     https://docs.aws.amazon.com/code-library/latest/ug/what-is-code-library.html
-               
-    """
+    """.trimIndent(),
     )
 }
 
@@ -91,20 +90,20 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
     println(DASHES)
 
     println(DASHES)
-    println("3. Create a Neptune DB Instance");
-    println("In this step, we add a new database instance to the Neptune cluster");
+    println("3. Create a Neptune DB Instance")
+    println("In this step, we add a new database instance to the Neptune cluster")
     waitForInputToContinue(scanner)
     createDbInstance(dbInstanceId, dbClusterId)
     waitForInputToContinue(scanner)
     println(DASHES)
 
     println(DASHES)
-    println("4. Check the status of the Neptune DB Instance");
+    println("4. Check the status of the Neptune DB Instance")
     println(
-        """
-        In this step, we will wait until the DB instance 
-        becomes available. This may take around 10 minutes.
-        """
+    """
+    In this step, we will wait until the DB instance 
+    becomes available. This may take around 10 minutes.
+    """.trimIndent(),
     )
     waitForInputToContinue(scanner)
     checkInstanceStatus(dbInstanceId, "available")
@@ -112,20 +111,20 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
     println(DASHES)
 
     println(DASHES)
-    println("5. Show Neptune Cluster details");
+    println("5. Show Neptune Cluster details")
     waitForInputToContinue(scanner)
     describeDBClusters(dbClusterId)
     waitForInputToContinue(scanner)
     println(DASHES)
 
     println(DASHES)
-    println("6. Stop the Amazon Neptune cluster");
+    println("6. Stop the Amazon Neptune cluster")
     println(
-        """
-        Once stopped, this step polls the status 
-        until the cluster is in a stopped state.
-        """
-    );
+    """
+    Once stopped, this step polls the status 
+    until the cluster is in a stopped state.
+    """.trimIndent(),
+    )
     waitForInputToContinue(scanner)
     stopDBCluster(dbClusterId)
     waitForClusterStatus(dbClusterId, "stopped")
@@ -133,14 +132,14 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
     println(DASHES)
 
     println(DASHES)
-    println("7. Start the Amazon Neptune cluster");
+    println("7. Start the Amazon Neptune cluster")
     println(
-        """
-        Once started, this step polls the clusters 
-        status until it's in an available state.
-        We will also poll the instance status.
-        """
-    );
+    """
+    Once started, this step polls the clusters 
+    status until it's in an available state.
+    We will also poll the instance status.
+    """.trimIndent(),
+    )
     waitForInputToContinue(scanner)
     startDBCluster(dbClusterId)
     waitForClusterStatus(dbClusterId, "available")
@@ -148,12 +147,12 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
     waitForInputToContinue(scanner)
     println(DASHES)
 
-    println(DASHES);
-    println("8. Delete the Neptune Assets");
-    println("Would you like to delete the Neptune Assets? (y/n)");
-    val delAns = scanner.nextLine().trim();
+    println(DASHES)
+    println("8. Delete the Neptune Assets")
+    println("Would you like to delete the Neptune Assets? (y/n)")
+    val delAns = scanner.nextLine().trim()
     if (delAns.equals("y")) {
-        println("You selected to delete the Neptune assets.");
+        println("You selected to delete the Neptune assets.")
         deleteDbInstance(dbInstanceId)
         waitUntilInstanceDeleted(dbInstanceId)
         deleteDBCluster(dbClusterId)
