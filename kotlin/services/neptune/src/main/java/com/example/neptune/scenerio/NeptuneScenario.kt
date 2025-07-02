@@ -42,33 +42,33 @@ suspend fun main(args: Array<String>) {
     val dbInstanceId = "neptuneDB200"
 
     println(
-    """
-    Amazon Neptune is a fully managed AWS graph database optimized for complex, connected datasets. 
-    It supports property graphs (Gremlin, openCypher) 
-    and RDF graphs (SPARQL), making it ideal for knowledge 
-    graphs, fraud detection, social networks, 
-    recommendations, and network management.
+        """
+        Amazon Neptune is a fully managed AWS graph database optimized for complex, connected datasets. 
+        It supports property graphs (Gremlin, openCypher) 
+        and RDF graphs (SPARQL), making it ideal for knowledge 
+        graphs, fraud detection, social networks, 
+        recommendations, and network management.
 
-    Neptune handles provisioning, patching, backups, a
-    nd replication, offering high availability by default.
+        Neptune handles provisioning, patching, backups, a
+        nd replication, offering high availability by default.
     
-    Developers can build relationship-aware apps using the 
-    AWS SDK for Kotlin and automate infrastructure with 
-    NeptuneClient.
+        Developers can build relationship-aware apps using the 
+        AWS SDK for Kotlin and automate infrastructure with 
+        NeptuneClient.
                     
-    Let's get started...
+        Let's get started...
                     
-    """.trimIndent(),
+        """.trimIndent(),
     )
     waitForInputToContinue(scanner)
     runScenario(subnetGroupName, dbInstanceId, clusterName)
     println(
-    """
-    Thank you for checking out the Amazon Neptune Service Use demo. We hope you
-    learned something new, or got some inspiration for your own apps today.
-    For more AWS code examples, have a look at:
-    https://docs.aws.amazon.com/code-library/latest/ug/what-is-code-library.html
-    """.trimIndent(),
+        """
+        Thank you for checking out the Amazon Neptune Service Use demo. We hope you
+        learned something new, or got some inspiration for your own apps today.
+        For more AWS code examples, have a look at:
+        https://docs.aws.amazon.com/code-library/latest/ug/what-is-code-library.html
+        """.trimIndent(),
     )
 }
 
@@ -100,10 +100,10 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
     println(DASHES)
     println("4. Check the status of the Neptune DB Instance")
     println(
-    """
-    In this step, we will wait until the DB instance 
-    becomes available. This may take around 10 minutes.
-    """.trimIndent(),
+        """
+        In this step, we will wait until the DB instance 
+        becomes available. This may take around 10 minutes.
+        """.trimIndent(),
     )
     waitForInputToContinue(scanner)
     checkInstanceStatus(dbInstanceId, "available")
@@ -120,10 +120,10 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
     println(DASHES)
     println("6. Stop the Amazon Neptune cluster")
     println(
-    """
-    Once stopped, this step polls the status 
-    until the cluster is in a stopped state.
-    """.trimIndent(),
+        """
+        Once stopped, this step polls the status 
+        until the cluster is in a stopped state.
+        """.trimIndent(),
     )
     waitForInputToContinue(scanner)
     stopDBCluster(dbClusterId)
@@ -134,11 +134,11 @@ suspend fun runScenario(subnetGroupName: String, dbInstanceId: String, clusterNa
     println(DASHES)
     println("7. Start the Amazon Neptune cluster")
     println(
-    """
-    Once started, this step polls the clusters 
-    status until it's in an available state.
-    We will also poll the instance status.
-    """.trimIndent(),
+        """
+        Once started, this step polls the clusters 
+        status until it's in an available state.
+        We will also poll the instance status.
+        """.trimIndent(),
     )
     waitForInputToContinue(scanner)
     startDBCluster(dbClusterId)
