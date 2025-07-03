@@ -315,7 +315,7 @@ suspend fun waitForClusterStatus(
     clusterId: String,
     desiredStatus: String,
     timeout: Duration = Duration.ofMinutes(20),
-    pollInterval: Duration = Duration.ofSeconds(10)
+    pollInterval: Duration = Duration.ofSeconds(10),
 ) {
     println("Waiting for cluster $clusterId to reach status '$desiredStatus'...")
     val startTime = System.currentTimeMillis()
@@ -327,11 +327,7 @@ suspend fun waitForClusterStatus(
         val response = neptuneClient.describeDbClusters(request)
         val currentStatus = response.dbClusters?.firstOrNull()?.status ?: "Unknown"
         val elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000
-
-        print(
-            "\rElapsed: ${formatElapsedTime(elapsedSeconds.toInt()).padEnd(20)}  " +
-                    "Cluster status: ${currentStatus.padEnd(20)}"
-        )
+        println("Elapsed: ${formatElapsedTime(elapsedSeconds.toInt()).padEnd(20)} Cluster status: ${currentStatus.padEnd(20)}")
         System.out.flush()
         if (currentStatus.equals(desiredStatus, ignoreCase = true)) {
             println("Neptune cluster reached desired status $desiredStatus after ${formatElapsedTime(elapsedSeconds.toInt())}")
@@ -363,7 +359,6 @@ suspend fun startDBCluster(neptuneClient: NeptuneClient, clusterIdentifier: Stri
     try {
         neptuneClient.startDbCluster(request)
         println("DB Cluster started : $clusterIdentifier")
-
     } catch (e: DbClusterNotFoundFault) {
         println("\nResource not found: ${e.message}")
         throw e
@@ -420,26 +415,25 @@ suspend fun describeDBClusters(neptuneClient: NeptuneClient, clusterId: String) 
     try {
         val response = neptuneClient.describeDbClusters(request)
         response.dbClusters?.forEach { cluster ->
-        println("Cluster Identifier: ${cluster.dbClusterIdentifier}")
-        println("Status: ${cluster.status}")
-        println("Engine: ${cluster.engine}")
-        println("Engine Version: ${cluster.engineVersion}")
-        println("Endpoint: ${cluster.endpoint}")
-        println("Reader Endpoint: ${cluster.readerEndpoint}")
-        println("Availability Zones: ${cluster.availabilityZones}")
-        println("Subnet Group: ${cluster.dbSubnetGroup}")
-        println("VPC Security Groups:")
-        cluster.vpcSecurityGroups?.forEach { vpcGroup ->
-            println("  - ${vpcGroup.vpcSecurityGroupId}")
+            println("Cluster Identifier: ${cluster.dbClusterIdentifier}")
+            println("Status: ${cluster.status}")
+            println("Engine: ${cluster.engine}")
+            println("Engine Version: ${cluster.engineVersion}")
+            println("Endpoint: ${cluster.endpoint}")
+            println("Reader Endpoint: ${cluster.readerEndpoint}")
+            println("Availability Zones: ${cluster.availabilityZones}")
+            println("Subnet Group: ${cluster.dbSubnetGroup}")
+            println("VPC Security Groups:")
+            cluster.vpcSecurityGroups?.forEach { vpcGroup ->
+                println("  - ${vpcGroup.vpcSecurityGroupId}")
+            }
+           println("Storage Encrypted: ${cluster.storageEncrypted}")
+           println("IAM DB Auth Enabled: ${cluster.iamDatabaseAuthenticationEnabled}")
+           println("Backup Retention Period: ${cluster.backupRetentionPeriod} days")
+           println("Preferred Backup Window: ${cluster.preferredBackupWindow}")
+           println("Preferred Maintenance Window: ${cluster.preferredMaintenanceWindow}")
+           println("------")
         }
-       println("Storage Encrypted: ${cluster.storageEncrypted}")
-       println("IAM DB Auth Enabled: ${cluster.iamDatabaseAuthenticationEnabled}")
-       println("Backup Retention Period: ${cluster.backupRetentionPeriod} days")
-       println("Preferred Backup Window: ${cluster.preferredBackupWindow}")
-       println("Preferred Maintenance Window: ${cluster.preferredMaintenanceWindow}")
-       println("------")
-       }
-
     } catch (e: DbClusterNotFoundFault) {
         println("\nThe Neptune DB cluster was not found: ${e.message}")
         throw e
@@ -477,27 +471,26 @@ suspend fun checkInstanceStatus(
                 dbInstanceIdentifier = instanceId
             }
 
-            try {
+            val currentStatus = try {
                 val response = neptuneClient.describeDbInstances(request)
-                val currentStatus = response.dbInstances?.firstOrNull()?.dbInstanceStatus ?: "Unknown"
-                val elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000
-
-                print("\rElapsed: ${formatElapsedTime(elapsedSeconds.toInt()).padEnd(20)}  Status: ${currentStatus.padEnd(20)}")
-                System.out.flush()
-
-                if (desiredStatus.equals(currentStatus, ignoreCase = true)) {
-                    println("\nInstance reached desired status '$desiredStatus' after ${formatElapsedTime(elapsedSeconds.toInt())}.")
-                    break
-                }
-
+                response.dbInstances?.firstOrNull()?.dbInstanceStatus ?: "Unknown"
             } catch (e: DbInstanceNotFoundFault) {
                 println("\nInstance '$instanceId' not found. Retrying...")
-                // Keep polling — could be a temporary propagation delay
+                delay(pollInterval.toMillis())
+                continue // retry loop
+            }
+
+            val elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000
+            print("\rElapsed: ${formatElapsedTime(elapsedSeconds.toInt()).padEnd(20)}  Status: ${currentStatus.padEnd(20)}")
+            System.out.flush()
+
+            if (desiredStatus.equals(currentStatus, ignoreCase = true)) {
+                println("\nInstance reached desired status '$desiredStatus' after ${formatElapsedTime(elapsedSeconds.toInt())}.")
+                break
             }
 
             delay(pollInterval.toMillis())
         }
-
     } catch (e: NeptuneException) {
         println("\nNeptune exception while checking instance status: ${e.message}")
         throw e
