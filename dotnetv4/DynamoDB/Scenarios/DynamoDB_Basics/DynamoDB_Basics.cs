@@ -1,7 +1,10 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-namespace DynamoDB_Basics_Scenario;
+using Amazon.DynamoDBv2;
+using DynamoDBActions;
+
+namespace Basics;
 
 // snippet-start:[DynamoDB.dotnetv3.DynamoDB_Basics_Scenario]
 // This example application performs the following basic Amazon DynamoDB
@@ -16,9 +19,6 @@ namespace DynamoDB_Basics_Scenario;
 //     Query
 //     Scan
 //     DeleteItemAsync
-//
-using Amazon.DynamoDBv2;
-using DynamoDB_Actions;
 
 public class DynamoDB_Basics
 {
@@ -29,10 +29,9 @@ public class DynamoDB_Basics
     {
         var client = new AmazonDynamoDBClient();
 
-        var tableName = "movie_table";
+        var tableName = "movie_table2";
 
-        // Relative path to moviedata.json in the local repository.
-        var movieFileName = @"..\..\..\..\..\..\..\..\resources\sample_files\movies.json";
+        var movieFileName = @"movies.json";
 
         DisplayInstructions();
 
@@ -41,14 +40,9 @@ public class DynamoDB_Basics
 
         var success = await DynamoDbMethods.CreateMovieTableAsync(client, tableName);
 
-        if (success)
-        {
-            Console.WriteLine($"\nTable: {tableName} successfully created.");
-        }
-        else
-        {
-            Console.WriteLine($"\nCould not create {tableName}.");
-        }
+        Console.WriteLine(success
+            ? $"\nTable: {tableName} successfully created."
+            : $"\nCould not create {tableName}.");
 
         WaitForEnter();
 
@@ -109,7 +103,7 @@ public class DynamoDB_Basics
 
         Console.WriteLine("Looking for the movie \"Jurassic Park\".");
         var item = await DynamoDbMethods.GetItemAsync(client, lookupMovie, tableName);
-        if (item.Count > 0)
+        if (item?.Count > 0)
         {
             DynamoDbMethods.DisplayItem(item);
         }

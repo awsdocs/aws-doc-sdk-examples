@@ -3,20 +3,19 @@
 
 using Amazon.DynamoDBv2.DataModel;
 
-namespace DynamoDB_Actions
+namespace DynamoDBActions;
+
+[DynamoDBTable("movie_table")]
+public class Movie
 {
-    [DynamoDBTable("movie_table")]
-    public class Movie
-    {
-        [DynamoDBHashKey]
-        [DynamoDBProperty("year")]
-        public int Year { get; set; }
+    [DynamoDBHashKey]
+    [DynamoDBProperty("year")]
+    public int Year { get; set; }
 
-        [DynamoDBRangeKey]
-        [DynamoDBProperty("title")]
-        public string Title { get; set; }
+    [DynamoDBRangeKey]
+    [DynamoDBProperty("title")]
+    public string Title { get; set; } = null!;
 
-        [DynamoDBProperty("info")]
-        public MovieInfo Info { get; set; }
-    }
+    [DynamoDBProperty("info")]
+    public MovieInfo Info { get; set; } = null!;
 }

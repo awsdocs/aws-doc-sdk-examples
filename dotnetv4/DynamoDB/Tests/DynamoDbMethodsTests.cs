@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-using DynamoDB_Actions;
+using DynamoDBActions;
 
 namespace DynamoDB_Basics_Scenario.Tests
 {

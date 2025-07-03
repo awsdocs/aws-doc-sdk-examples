@@ -3,35 +3,34 @@
 
 using Amazon.DynamoDBv2.DataModel;
 
-namespace DynamoDB_Actions
+namespace DynamoDBActions;
+
+public class MovieInfo
 {
-    public class MovieInfo
-    {
-        [DynamoDBProperty("directors")]
-        public string[] Directors { get; set; }
+    [DynamoDBProperty("directors")]
+    public string[] Directors { get; set; } = null!;
 
-        [DynamoDBProperty("release_date")]
-        public DateTime ReleaseDate { get; set; }
+    [DynamoDBProperty("release_date")]
+    public DateTime ReleaseDate { get; set; }
 
-        [DynamoDBProperty("rating")]
-        public float Rating { get; set; }
+    [DynamoDBProperty("rating")]
+    public float Rating { get; set; }
 
-        [DynamoDBProperty("genres")]
-        public string[] Genres { get; set; }
+    [DynamoDBProperty("genres")]
+    public string[] Genres { get; set; } = null!;
 
-        [DynamoDBProperty("image_url")]
-        public string ImageUrl { get; set; }
+    [DynamoDBProperty("image_url")]
+    public string ImageUrl { get; set; } = null!;
 
-        [DynamoDBProperty("plot")]
-        public string Plot { get; set; }
+    [DynamoDBProperty("plot")]
+    public string Plot { get; set; } = null!;
 
-        [DynamoDBProperty("rank")]
-        public int Rank { get; set; }
+    [DynamoDBProperty("rank")]
+    public int Rank { get; set; }
 
-        [DynamoDBProperty("running_time_secs")]
-        public int RunningTimeSecs { get; set; }
+    [DynamoDBProperty("running_time_secs")]
+    public int RunningTimeSecs { get; set; }
 
-        [DynamoDBProperty("actors")]
-        public string[] Actors { get; set; }
-    }
+    [DynamoDBProperty("actors")]
+    public string[] Actors { get; set; } = null!;
 }
