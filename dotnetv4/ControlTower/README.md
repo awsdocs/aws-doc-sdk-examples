@@ -1,8 +1,8 @@
-# AWS Control Tower code examples for the SDK for Python
+# AWS Control Tower code examples for the SDK for .NET (v4)
 
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to work with AWS Control Tower.
+Shows how to use the AWS SDK for .NET (v4) to work with AWS Control Tower.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
@@ -23,46 +23,39 @@ _AWS Control Tower enables you to enforce and manage governance rules for securi
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `python` folder.
+For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4` folder.
 
-Install the packages required by these examples by running the following in a virtual environment:
-
-```
-python -m pip install -r requirements.txt
-```
 
 <!--custom.prerequisites.start-->
-Before running the example, set up a landing zone in order to run the baseline and control management sections.
-Follow the instructions provided by the [quick start](https://docs.aws.amazon.com/controltower/latest/userguide/quick-start.html) guide.
 <!--custom.prerequisites.end-->
 
 ### Get started
 
-- [Hello AWS Control Tower](hello/hello_controltower.py#L4) (`ListBaselines`)
+- [Hello AWS Control Tower](Actions/HelloControlTower.cs#L4) (`ListBaselines`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](scenario_controltower.py)
+- [Learn the basics](Scenarios/ControlTower_Basics/ControlTowerBasics.cs)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [DisableBaseline](controltower_wrapper.py#L392)
-- [DisableControl](controltower_wrapper.py#L263)
-- [EnableBaseline](controltower_wrapper.py#L69)
-- [EnableControl](controltower_wrapper.py#L159)
-- [GetBaselineOperation](controltower_wrapper.py#L236)
-- [GetControlOperation](controltower_wrapper.py#L209)
-- [ListBaselines](controltower_wrapper.py#L39)
-- [ListEnabledBaselines](controltower_wrapper.py#L330)
-- [ListEnabledControls](controltower_wrapper.py#L431)
-- [ListLandingZones](controltower_wrapper.py#L300)
-- [ResetEnabledBaseline](controltower_wrapper.py#L358)
+- [DisableBaseline](Actions/ControlTowerWrapper.cs#L181)
+- [DisableControl](Actions/ControlTowerWrapper.cs#L401)
+- [EnableBaseline](Actions/ControlTowerWrapper.cs#L120)
+- [EnableControl](Actions/ControlTowerWrapper.cs#L345)
+- [GetBaselineOperation](Actions/ControlTowerWrapper.cs#L273)
+- [GetControlOperation](Actions/ControlTowerWrapper.cs#L449)
+- [ListBaselines](Actions/ControlTowerWrapper.cs#L62)
+- [ListEnabledBaselines](Actions/ControlTowerWrapper.cs#L91)
+- [ListEnabledControls](Actions/ControlTowerWrapper.cs#L305)
+- [ListLandingZones](Actions/ControlTowerWrapper.cs#L33)
+- [ResetEnabledBaseline](Actions/ControlTowerWrapper.cs#L227)
 
 
 <!--custom.examples.start-->
@@ -80,9 +73,6 @@ Code excerpts that show you how to call individual service functions.
 
 This example shows you how to get started using AWS Control Tower.
 
-```
-python hello/hello_controltower.py
-```
 
 #### Learn the basics
 
@@ -95,12 +85,6 @@ This example shows you how to do the following:
 <!--custom.basic_prereqs.controltower_Scenario.start-->
 <!--custom.basic_prereqs.controltower_Scenario.end-->
 
-Start the example by running the following at a command prompt:
-
-```
-python scenario_controltower.py
-```
-
 
 <!--custom.basics.controltower_Scenario.start-->
 <!--custom.basics.controltower_Scenario.end-->
@@ -111,8 +95,8 @@ python scenario_controltower.py
 ⚠ Running tests might result in charges to your AWS account.
 
 
-To find instructions for running these tests, see the [README](../../README.md#Tests)
-in the `python` folder.
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `dotnetv4` folder.
 
 
 
@@ -123,7 +107,7 @@ in the `python` folder.
 
 - [AWS Control Tower User Guide](https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html)
 - [AWS Control Tower API Reference](https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html)
-- [SDK for Python AWS Control Tower reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cognito-idp.html)
+- [SDK for .NET (v4) AWS Control Tower reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Controltower/NControltower.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
