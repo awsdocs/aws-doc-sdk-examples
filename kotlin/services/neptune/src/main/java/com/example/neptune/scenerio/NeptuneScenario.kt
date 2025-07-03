@@ -427,12 +427,12 @@ suspend fun describeDBClusters(neptuneClient: NeptuneClient, clusterId: String) 
             cluster.vpcSecurityGroups?.forEach { vpcGroup ->
                 println("  - ${vpcGroup.vpcSecurityGroupId}")
             }
-           println("Storage Encrypted: ${cluster.storageEncrypted}")
-           println("IAM DB Auth Enabled: ${cluster.iamDatabaseAuthenticationEnabled}")
-           println("Backup Retention Period: ${cluster.backupRetentionPeriod} days")
-           println("Preferred Backup Window: ${cluster.preferredBackupWindow}")
-           println("Preferred Maintenance Window: ${cluster.preferredMaintenanceWindow}")
-           println("------")
+            println("Storage Encrypted: ${cluster.storageEncrypted}")
+            println("IAM DB Auth Enabled: ${cluster.iamDatabaseAuthenticationEnabled}")
+            println("Backup Retention Period: ${cluster.backupRetentionPeriod} days")
+            println("Preferred Backup Window: ${cluster.preferredBackupWindow}")
+            println("Preferred Maintenance Window: ${cluster.preferredMaintenanceWindow}")
+            println("------")
         }
     } catch (e: DbClusterNotFoundFault) {
         println("\nThe Neptune DB cluster was not found: ${e.message}")
@@ -460,7 +460,7 @@ suspend fun checkInstanceStatus(
     neptuneClient: NeptuneClient,
     instanceId: String,
     desiredStatus: String,
-    pollInterval: Duration = Duration.ofSeconds(10)
+    pollInterval: Duration = Duration.ofSeconds(10),
 ) {
     val startTime = System.currentTimeMillis()
     println("Checking status for instance '$instanceId'...")
@@ -533,7 +533,6 @@ suspend fun createDbInstance(neptuneClient: NeptuneClient, dbInstanceId: String,
         val instanceId = response.dbInstance?.dbInstanceIdentifier
         println("Created Neptune DB Instance: $instanceId")
         return instanceId
-
     } catch (e: DbSubnetGroupQuotaExceededFault) {
         println("Quota exceeded when creating '$dbInstanceId': ${e.message}")
         throw e
@@ -571,7 +570,6 @@ suspend fun createDbCluster(neptuneClient: NeptuneClient, dbName: String): Strin
 
         println("DB Cluster created: $clusterId")
         return clusterId
-
     } catch (e: DbSubnetGroupQuotaExceededFault) {
         println("Quota exceeded when creating '$dbName': ${e.message}")
         throw e
@@ -606,7 +604,6 @@ suspend fun createSubnetGroup(neptuneClient: NeptuneClient, groupName: String) {
         val response = neptuneClient.createDbSubnetGroup(request)
         val name = response.dbSubnetGroup?.dbSubnetGroupName
         println("Subnet group created: $name")
-
     } catch (e: DbSubnetGroupQuotaExceededFault) {
         println("Quota exceeded when creating subnet group '$groupName': ${e.message}")
         throw e
@@ -627,7 +624,6 @@ suspend fun getDefaultVpcId(): String {
                 }
             )
         }
-
         val response = ec2Client.describeVpcs(request)
         val defaultVpc = response.vpcs?.firstOrNull()
             ?: throw RuntimeException("No default VPC found in this region.")
@@ -647,7 +643,6 @@ suspend fun getSubnetIds(vpcId: String): List<String> {
                 }
             )
         }
-
         val response = ec2Client.describeSubnets(request)
         return response.subnets?.mapNotNull { it.subnetId } ?: emptyList()
     }
