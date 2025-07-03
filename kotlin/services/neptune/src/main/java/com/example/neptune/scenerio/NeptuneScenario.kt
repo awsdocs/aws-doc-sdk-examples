@@ -3,9 +3,6 @@
 
 package com.example.neptune.scenerio
 
-import java.time.Duration
-import java.util.Scanner
-import kotlinx.coroutines.delay
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeSubnetsRequest
 import aws.sdk.kotlin.services.ec2.model.DescribeVpcsRequest
@@ -26,6 +23,9 @@ import aws.sdk.kotlin.services.neptune.model.DescribeDbInstancesRequest
 import aws.sdk.kotlin.services.neptune.model.NeptuneException
 import aws.sdk.kotlin.services.neptune.model.StartDbClusterRequest
 import aws.sdk.kotlin.services.neptune.model.StopDbClusterRequest
+import kotlinx.coroutines.delay
+import java.time.Duration
+import java.util.Scanner
 
 // snippet-start:[neptune.kotlin.scenario.main]
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
