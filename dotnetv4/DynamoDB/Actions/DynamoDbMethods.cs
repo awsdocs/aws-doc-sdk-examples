@@ -22,62 +22,80 @@ public class DynamoDbMethods
     /// <returns>A Boolean value indicating the success of the operation.</returns>
     public static async Task<bool> CreateMovieTableAsync(AmazonDynamoDBClient client, string tableName)
     {
-        var response = await client.CreateTableAsync(new CreateTableRequest
+        try
         {
-            TableName = tableName,
-            AttributeDefinitions = new List<AttributeDefinition>()
+            var response = await client.CreateTableAsync(new CreateTableRequest
             {
-                new AttributeDefinition
+                TableName = tableName,
+                AttributeDefinitions = new List<AttributeDefinition>()
                 {
-                    AttributeName = "title",
-                    AttributeType = ScalarAttributeType.S,
+                    new AttributeDefinition
+                    {
+                        AttributeName = "title",
+                        AttributeType = ScalarAttributeType.S,
+                    },
+                    new AttributeDefinition
+                    {
+                        AttributeName = "year",
+                        AttributeType = ScalarAttributeType.N,
+                    },
                 },
-                new AttributeDefinition
+                KeySchema = new List<KeySchemaElement>()
                 {
-                    AttributeName = "year",
-                    AttributeType = ScalarAttributeType.N,
+                    new KeySchemaElement
+                    {
+                        AttributeName = "year",
+                        KeyType = KeyType.HASH,
+                    },
+                    new KeySchemaElement
+                    {
+                        AttributeName = "title",
+                        KeyType = KeyType.RANGE,
+                    },
                 },
-            },
-            KeySchema = new List<KeySchemaElement>()
+                BillingMode = BillingMode.PAY_PER_REQUEST,
+            });
+
+            // Wait until the table is ACTIVE and then report success.
+            Console.Write("Waiting for table to become active...");
+
+            var request = new DescribeTableRequest
             {
-                new KeySchemaElement
-                {
-                    AttributeName = "year",
-                    KeyType = KeyType.HASH,
-                },
-                new KeySchemaElement
-                {
-                    AttributeName = "title",
-                    KeyType = KeyType.RANGE,
-                },
-            },
-            BillingMode = BillingMode.PAY_PER_REQUEST,
-        });
+                TableName = response.TableDescription.TableName,
+            };
 
-        // Wait until the table is ACTIVE and then report success.
-        Console.Write("Waiting for table to become active...");
+            TableStatus status;
 
-        var request = new DescribeTableRequest
-        {
-            TableName = response.TableDescription.TableName,
-        };
+            int sleepDuration = 2000;
 
-        TableStatus status;
+            do
+            {
+                Thread.Sleep(sleepDuration);
 
-        int sleepDuration = 2000;
+                var describeTableResponse = await client.DescribeTableAsync(request);
+                status = describeTableResponse.Table.TableStatus;
 
-        do
-        {
-            Thread.Sleep(sleepDuration);
+                Console.Write(".");
+            }
+            while (status != "ACTIVE");
 
-            var describeTableResponse = await client.DescribeTableAsync(request);
-            status = describeTableResponse.Table.TableStatus;
-
-            Console.Write(".");
+            return status == TableStatus.ACTIVE;
         }
-        while (status != "ACTIVE");
-
-        return status == TableStatus.ACTIVE;
+        catch (ResourceInUseException ex)
+        {
+            Console.WriteLine($"Table {tableName} already exists. {ex.Message}");
+            throw;
+        }
+        catch (AmazonDynamoDBException ex)
+        {
+            Console.WriteLine($"An Amazon DynamoDB error occurred while creating table {tableName}. {ex.Message}");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while creating table {tableName}. {ex.Message}");
+            throw;
+        }
     }
 
     // snippet-end:[DynamoDB.dotnetv4.dynamodb-basics.CreateTable]
@@ -94,20 +112,38 @@ public class DynamoDbMethods
     /// <returns>A Boolean value that indicates the results of adding the item.</returns>
     public static async Task<bool> PutItemAsync(AmazonDynamoDBClient client, Movie newMovie, string tableName)
     {
-        var item = new Dictionary<string, AttributeValue>
+        try
         {
-            ["title"] = new AttributeValue { S = newMovie.Title },
-            ["year"] = new AttributeValue { N = newMovie.Year.ToString() },
-        };
+            var item = new Dictionary<string, AttributeValue>
+            {
+                ["title"] = new AttributeValue { S = newMovie.Title },
+                ["year"] = new AttributeValue { N = newMovie.Year.ToString() },
+            };
 
-        var request = new PutItemRequest
+            var request = new PutItemRequest
+            {
+                TableName = tableName,
+                Item = item,
+            };
+
+            await client.PutItemAsync(request);
+            return true;
+        }
+        catch (ResourceNotFoundException ex)
         {
-            TableName = tableName,
-            Item = item,
-        };
-
-        var response = await client.PutItemAsync(request);
-        return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+            Console.WriteLine($"Table {tableName} was not found. {ex.Message}");
+            return false;
+        }
+        catch (AmazonDynamoDBException ex)
+        {
+            Console.WriteLine($"An Amazon DynamoDB error occurred while putting item. {ex.Message}");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while putting item. {ex.Message}");
+            throw;
+        }
     }
 
     // snippet-end:[DynamoDB.dotnetv4.dynamodb-basics.PutItem]
@@ -130,36 +166,53 @@ public class DynamoDbMethods
         MovieInfo newInfo,
         string tableName)
     {
-        var key = new Dictionary<string, AttributeValue>
+        try
         {
-            ["title"] = new AttributeValue { S = newMovie.Title },
-            ["year"] = new AttributeValue { N = newMovie.Year.ToString() },
-        };
-        var updates = new Dictionary<string, AttributeValueUpdate>
-        {
-            ["info.plot"] = new AttributeValueUpdate
+            var key = new Dictionary<string, AttributeValue>
             {
-                Action = AttributeAction.PUT,
-                Value = new AttributeValue { S = newInfo.Plot },
-            },
-
-            ["info.rating"] = new AttributeValueUpdate
+                ["title"] = new AttributeValue { S = newMovie.Title },
+                ["year"] = new AttributeValue { N = newMovie.Year.ToString() },
+            };
+            var updates = new Dictionary<string, AttributeValueUpdate>
             {
-                Action = AttributeAction.PUT,
-                Value = new AttributeValue { N = newInfo.Rank.ToString() },
-            },
-        };
+                ["info.plot"] = new AttributeValueUpdate
+                {
+                    Action = AttributeAction.PUT,
+                    Value = new AttributeValue { S = newInfo.Plot },
+                },
 
-        var request = new UpdateItemRequest
+                ["info.rating"] = new AttributeValueUpdate
+                {
+                    Action = AttributeAction.PUT,
+                    Value = new AttributeValue { N = newInfo.Rank.ToString() },
+                },
+            };
+
+            var request = new UpdateItemRequest
+            {
+                AttributeUpdates = updates,
+                Key = key,
+                TableName = tableName,
+            };
+
+            await client.UpdateItemAsync(request);
+            return true;
+        }
+        catch (ResourceNotFoundException ex)
         {
-            AttributeUpdates = updates,
-            Key = key,
-            TableName = tableName,
-        };
-
-        var response = await client.UpdateItemAsync(request);
-
-        return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+            Console.WriteLine($"Table {tableName} or item was not found. {ex.Message}");
+            return false;
+        }
+        catch (AmazonDynamoDBException ex)
+        {
+            Console.WriteLine($"An Amazon DynamoDB error occurred while updating item. {ex.Message}");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while updating item. {ex.Message}");
+            throw;
+        }
     }
 
     // snippet-end:[DynamoDB.dotnetv4.dynamodb-basics.UpdateItem]
@@ -177,20 +230,38 @@ public class DynamoDbMethods
     /// retrieved.</returns>
     public static async Task<Dictionary<string, AttributeValue>> GetItemAsync(AmazonDynamoDBClient client, Movie newMovie, string tableName)
     {
-        var key = new Dictionary<string, AttributeValue>
+        try
         {
-            ["title"] = new AttributeValue { S = newMovie.Title },
-            ["year"] = new AttributeValue { N = newMovie.Year.ToString() },
-        };
+            var key = new Dictionary<string, AttributeValue>
+            {
+                ["title"] = new AttributeValue { S = newMovie.Title },
+                ["year"] = new AttributeValue { N = newMovie.Year.ToString() },
+            };
 
-        var request = new GetItemRequest
+            var request = new GetItemRequest
+            {
+                Key = key,
+                TableName = tableName,
+            };
+
+            var response = await client.GetItemAsync(request);
+            return response.Item;
+        }
+        catch (ResourceNotFoundException ex)
         {
-            Key = key,
-            TableName = tableName,
-        };
-
-        var response = await client.GetItemAsync(request);
-        return response.Item;
+            Console.WriteLine($"Table {tableName} was not found. {ex.Message}");
+            return new Dictionary<string, AttributeValue>();
+        }
+        catch (AmazonDynamoDBException ex)
+        {
+            Console.WriteLine($"An Amazon DynamoDB error occurred while getting item. {ex.Message}");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while getting item. {ex.Message}");
+            throw;
+        }
     }
 
     // snippet-end:[DynamoDB.dotnetv4.dynamodb-basics.GetItem]
@@ -238,27 +309,49 @@ public class DynamoDbMethods
     /// imported from the JSON file.</returns>
     public static async Task<long> BatchWriteItemsAsync(
         AmazonDynamoDBClient client,
-        string movieFileName)
+        string movieFileName, string tableName)
     {
-        var movies = ImportMovies(movieFileName);
-        if (movies is null)
+        try
         {
-            Console.WriteLine("Couldn't find the JSON file with movie data.");
-            return 0;
+            var movies = ImportMovies(movieFileName);
+            if (!movies.Any())
+            {
+                Console.WriteLine("Couldn't find the JSON file with movie data.");
+                return 0;
+            }
+
+            var context = new DynamoDBContextBuilder()
+                // Optional call to provide a specific instance of IAmazonDynamoDB
+                .WithDynamoDBClient(() => client)
+                .Build();
+
+            var movieBatch = context.CreateBatchWrite<Movie>(
+                new BatchWriteConfig()
+                {
+                    OverrideTableName = tableName
+                });
+            movieBatch.AddPutItems(movies);
+
+            Console.WriteLine("Adding imported movies to the table.");
+            await movieBatch.ExecuteAsync();
+
+            return movies.Count;
         }
-
-        var context = new DynamoDBContextBuilder()
-            // Optional call to provide a specific instance of IAmazonDynamoDB
-            .WithDynamoDBClient(() => client)
-            .Build();
-
-        var movieBatch = context.CreateBatchWrite<Movie>();
-        movieBatch.AddPutItems(movies);
-
-        Console.WriteLine("Adding imported movies to the table.");
-        await movieBatch.ExecuteAsync();
-
-        return movies.Count;
+        catch (ResourceNotFoundException ex)
+        {
+            Console.WriteLine($"Table was not found during batch write operation. {ex.Message}");
+            throw;
+        }
+        catch (AmazonDynamoDBException ex)
+        {
+            Console.WriteLine($"An Amazon DynamoDB error occurred during batch write operation. {ex.Message}");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred during batch write operation. {ex.Message}");
+            throw;
+        }
     }
 
     // snippet-end:[DynamoDB.dotnetv4.dynamodb-basics.BatchWriteItem]
@@ -280,20 +373,34 @@ public class DynamoDbMethods
         string tableName,
         Movie movieToDelete)
     {
-        var key = new Dictionary<string, AttributeValue>
+        try
         {
-            ["title"] = new AttributeValue { S = movieToDelete.Title },
-            ["year"] = new AttributeValue { N = movieToDelete.Year.ToString() },
-        };
+            var key = new Dictionary<string, AttributeValue>
+            {
+                ["title"] = new AttributeValue { S = movieToDelete.Title },
+                ["year"] = new AttributeValue { N = movieToDelete.Year.ToString() },
+            };
 
-        var request = new DeleteItemRequest
+            var request = new DeleteItemRequest { TableName = tableName, Key = key, };
+
+            await client.DeleteItemAsync(request);
+            return true;
+        }
+        catch (ResourceNotFoundException ex)
         {
-            TableName = tableName,
-            Key = key,
-        };
-
-        var response = await client.DeleteItemAsync(request);
-        return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+            Console.WriteLine($"Table {tableName} was not found. {ex.Message}");
+            return false;
+        }
+        catch (AmazonDynamoDBException ex)
+        {
+            Console.WriteLine($"An Amazon DynamoDB error occurred while deleting item. {ex.Message}");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while deleting item. {ex.Message}");
+            throw;
+        }
     }
 
     // snippet-end:[DynamoDB.dotnetv4.dynamodb-basics.DeleteItem]
@@ -311,46 +418,64 @@ public class DynamoDbMethods
     /// <returns>The number of movies that match the query.</returns>
     public static async Task<int> QueryMoviesAsync(AmazonDynamoDBClient client, string tableName, int year)
     {
-        var movieTable = new TableBuilder(client, tableName)
-            .AddHashKey("year", DynamoDBEntryType.Numeric)
-            .AddRangeKey("title", DynamoDBEntryType.String)
-            .Build();
-
-        var filter = new QueryFilter("year", QueryOperator.Equal, year);
-
-        Console.WriteLine("\nFind movies released in: {year}:");
-
-        var config = new QueryOperationConfig()
+        try
         {
-            Limit = 10, // 10 items per page.
-            Select = SelectValues.SpecificAttributes,
-            AttributesToGet = new List<string>
+            var movieTable = new TableBuilder(client, tableName)
+                .AddHashKey("year", DynamoDBEntryType.Numeric)
+                .AddRangeKey("title", DynamoDBEntryType.String)
+                .Build();
+
+            var filter = new QueryFilter("year", QueryOperator.Equal, year);
+
+            Console.WriteLine("\nFind movies released in: {year}:");
+
+            var config = new QueryOperationConfig()
             {
-                "title",
-                "year",
-            },
-            ConsistentRead = true,
-            Filter = filter,
-        };
+                Limit = 10, // 10 items per page.
+                Select = SelectValues.SpecificAttributes,
+                AttributesToGet = new List<string>
+                {
+                    "title",
+                    "year",
+                },
+                ConsistentRead = true,
+                Filter = filter,
+            };
 
-        // Value used to track how many movies match the
-        // supplied criteria.
-        var moviesFound = 0;
+            // Value used to track how many movies match the
+            // supplied criteria.
+            var moviesFound = 0;
 
-        var search = movieTable.Query(config);
-        do
-        {
-            var movieList = await search.GetNextSetAsync();
-            moviesFound += movieList.Count;
-
-            foreach (var movie in movieList)
+            var search = movieTable.Query(config);
+            do
             {
-                DisplayDocument(movie);
+                var movieList = await search.GetNextSetAsync();
+                moviesFound += movieList.Count;
+
+                foreach (var movie in movieList)
+                {
+                    DisplayDocument(movie);
+                }
             }
-        }
-        while (!search.IsDone);
+            while (!search.IsDone);
 
-        return moviesFound;
+            return moviesFound;
+        }
+        catch (ResourceNotFoundException ex)
+        {
+            Console.WriteLine($"Table {tableName} was not found. {ex.Message}");
+            return 0;
+        }
+        catch (AmazonDynamoDBException ex)
+        {
+            Console.WriteLine($"An Amazon DynamoDB error occurred while querying movies. {ex.Message}");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while querying movies. {ex.Message}");
+            throw;
+        }
     }
 
     // snippet-end:[DynamoDB.dotnetv4.dynamodb-basics.QueryItems]
@@ -362,36 +487,54 @@ public class DynamoDbMethods
         int startYear,
         int endYear)
     {
-        var request = new ScanRequest
+        try
         {
-            TableName = tableName,
-            ExpressionAttributeNames = new Dictionary<string, string>
+            var request = new ScanRequest
             {
-                { "#yr", "year" },
-            },
-            ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+                TableName = tableName,
+                ExpressionAttributeNames = new Dictionary<string, string>
+                {
+                    { "#yr", "year" },
+                },
+                ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+                {
+                    { ":y_a", new AttributeValue { N = startYear.ToString() } },
+                    { ":y_z", new AttributeValue { N = endYear.ToString() } },
+                },
+                FilterExpression = "#yr between :y_a and :y_z",
+                ProjectionExpression = "#yr, title, info.actors[0], info.directors, info.running_time_secs",
+                Limit = 10 // Set a limit to demonstrate using the LastEvaluatedKey.
+            };
+
+            // Keep track of how many movies were found.
+            int foundCount = 0;
+
+            var response = new ScanResponse();
+            do
             {
-                { ":y_a", new AttributeValue { N = startYear.ToString() } },
-                { ":y_z", new AttributeValue { N = endYear.ToString() } },
-            },
-            FilterExpression = "#yr between :y_a and :y_z",
-            ProjectionExpression = "#yr, title, info.actors[0], info.directors, info.running_time_secs",
-            Limit = 10 // Set a limit to demonstrate using the LastEvaluatedKey.
-        };
-
-        // Keep track of how many movies were found.
-        int foundCount = 0;
-
-        var response = new ScanResponse();
-        do
-        {
-            response = await client.ScanAsync(request);
-            foundCount += response.Items.Count;
-            response.Items.ForEach(i => DisplayItem(i));
-            request.ExclusiveStartKey = response.LastEvaluatedKey;
+                response = await client.ScanAsync(request);
+                foundCount += response.Items.Count;
+                response.Items.ForEach(i => DisplayItem(i));
+                request.ExclusiveStartKey = response.LastEvaluatedKey;
+            }
+            while (response?.LastEvaluatedKey?.Count > 0);
+            return foundCount;
         }
-        while (response.LastEvaluatedKey.Count > 0);
-        return foundCount;
+        catch (ResourceNotFoundException ex)
+        {
+            Console.WriteLine($"Table {tableName} was not found. {ex.Message}");
+            return 0;
+        }
+        catch (AmazonDynamoDBException ex)
+        {
+            Console.WriteLine($"An Amazon DynamoDB error occurred while scanning table. {ex.Message}");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while scanning table. {ex.Message}");
+            throw;
+        }
     }
 
     // snippet-end:[DynamoDB.dotnetv4.dynamodb-basics.ScanTable]
@@ -399,20 +542,32 @@ public class DynamoDbMethods
     // snippet-start:[DynamoDB.dotnetv4.dynamodb-basics.DeleteTableExample]
     public static async Task<bool> DeleteTableAsync(AmazonDynamoDBClient client, string tableName)
     {
-        var request = new DeleteTableRequest
+        try
         {
-            TableName = tableName,
-        };
+            var request = new DeleteTableRequest
+            {
+                TableName = tableName,
+            };
 
-        var response = await client.DeleteTableAsync(request);
-        if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
-        {
+            var response = await client.DeleteTableAsync(request);
+
             Console.WriteLine($"Table {response.TableDescription.TableName} successfully deleted.");
             return true;
+
         }
-        else
+        catch (ResourceNotFoundException ex)
         {
-            Console.WriteLine("Could not delete table.");
+            Console.WriteLine($"Table {tableName} was not found and cannot be deleted. {ex.Message}");
+            return false;
+        }
+        catch (AmazonDynamoDBException ex)
+        {
+            Console.WriteLine($"An Amazon DynamoDB error occurred while deleting table {tableName}. {ex.Message}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while deleting table {tableName}. {ex.Message}");
             return false;
         }
     }

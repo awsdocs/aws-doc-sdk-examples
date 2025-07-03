@@ -29,7 +29,7 @@ public class DynamoDB_Basics
     {
         var client = new AmazonDynamoDBClient();
 
-        var tableName = "movie_table2";
+        var tableName = "movie_table4";
 
         var movieFileName = @"movies.json";
 
@@ -89,7 +89,7 @@ public class DynamoDB_Basics
 
         // Add a batch of movies to the DynamoDB table from a list of
         // movies in a JSON file.
-        var itemCount = await DynamoDbMethods.BatchWriteItemsAsync(client, movieFileName);
+        var itemCount = await DynamoDbMethods.BatchWriteItemsAsync(client, movieFileName, tableName);
         Console.WriteLine($"Added {itemCount} movies to the table.");
 
         WaitForEnter();
@@ -162,7 +162,7 @@ public class DynamoDB_Basics
             Console.WriteLine($"Could not delete {tableName}");
         }
 
-        Console.WriteLine("The DynamoDB Basics example application is done.");
+        Console.WriteLine("The DynamoDB Basics example application is complete.");
 
         WaitForEnter();
     }

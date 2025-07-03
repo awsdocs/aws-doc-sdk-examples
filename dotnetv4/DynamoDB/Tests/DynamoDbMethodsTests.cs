@@ -3,140 +3,139 @@
 
 using DynamoDBActions;
 
-namespace DynamoDB_Basics_Scenario.Tests
+namespace DynamoDBTests;
+
+public class DynamoDbMethodsTests
 {
-    public class DynamoDbMethodsTests
+    readonly AmazonDynamoDBClient client = new();
+    readonly string _tableName = "movie_table";
+    readonly string _movieFileName = @"..\..\..\..\..\..\..\..\resources\sample_files\movies.json";
+    readonly string _badMovieFile = "notareaddatafile";
+
+    [Fact()]
+    [Order(1)]
+    [Trait("Category", "Integration")]
+    public async Task CreateMovieTableAsyncTest()
     {
-        readonly AmazonDynamoDBClient client = new();
-        readonly string _tableName = "movie_table";
-        readonly string _movieFileName = @"..\..\..\..\..\..\..\..\resources\sample_files\movies.json";
-        readonly string _badMovieFile = "notareaddatafile";
+        var success = await DynamoDbMethods.CreateMovieTableAsync(client, _tableName);
 
-        [Fact()]
-        [Order(1)]
-        [Trait("Category", "Integration")]
-        public async Task CreateMovieTableAsyncTest()
+        Assert.True(success, "Failed to create table.");
+    }
+
+    [Fact()]
+    [Order(2)]
+    [Trait("Category", "Integration")]
+    public async Task PutItemAsyncTest()
+    {
+        var newMovie = new Movie
         {
-            var success = await DynamoDbMethods.CreateMovieTableAsync(client, _tableName);
+            Year = 1959,
+            Title = "North by Northwest",
+        };
 
-            Assert.True(success, "Failed to create table.");
-        }
+        var success = await DynamoDbMethods.PutItemAsync(client, newMovie, _tableName);
+        Assert.True(success, "Couldn't add the movie.");
+    }
 
-        [Fact()]
-        [Order(2)]
-        [Trait("Category", "Integration")]
-        public async Task PutItemAsyncTest()
+    [Fact()]
+    [Order(3)]
+    [Trait("Category", "Integration")]
+    public async Task UpdateItemAsyncTest()
+    {
+        var updateMovie = new Movie
         {
-            var newMovie = new Movie
-            {
-                Year = 1959,
-                Title = "North by Northwest",
-            };
+            Title = "North by Northwest",
+            Year = 1959,
+        };
 
-            var success = await DynamoDbMethods.PutItemAsync(client, newMovie, _tableName);
-            Assert.True(success, "Couldn't add the movie.");
-        }
-
-        [Fact()]
-        [Order(3)]
-        [Trait("Category", "Integration")]
-        public async Task UpdateItemAsyncTest()
+        var updateMovieInfo = new MovieInfo
         {
-            var updateMovie = new Movie
-            {
-                Title = "North by Northwest",
-                Year = 1959,
-            };
+            Plot = "A classic Hitchcock Thriller.",
+            Rank = 5,
+        };
 
-            var updateMovieInfo = new MovieInfo
-            {
-                Plot = "A classic Hitchcock Thriller.",
-                Rank = 5,
-            };
+        var success = await DynamoDbMethods.UpdateItemAsync(client, updateMovie, updateMovieInfo, _tableName);
+        Assert.True(success, $"Couldn't update {updateMovie.Title}.");
+    }
 
-            var success = await DynamoDbMethods.UpdateItemAsync(client, updateMovie, updateMovieInfo, _tableName);
-            Assert.True(success, $"Couldn't update {updateMovie.Title}.");
-        }
+    [Fact()]
+    [Order(4)]
+    [Trait("Category", "Integration")]
+    public void ImportMoviesWithBadFileNameShouldReturnNullTest()
+    {
+        var movies = DynamoDbMethods.ImportMovies(_badMovieFile);
+        Assert.Null(movies);
+    }
 
-        [Fact()]
-        [Order(4)]
-        [Trait("Category", "Integration")]
-        public void ImportMoviesWithBadFileNameShouldReturnNullTest()
+    [Fact()]
+    [Order(5)]
+    [Trait("Category", "Integration")]
+    public async Task BatchWriteItemsAsyncTest()
+    {
+        var itemCount = await DynamoDbMethods.BatchWriteItemsAsync(client, _movieFileName);
+        Assert.Equal(250, itemCount);
+    }
+
+    [Fact()]
+    [Order(6)]
+    [Trait("Category", "Integration")]
+    public async Task GetItemAsyncTest()
+    {
+        var lookupMovie = new Movie
         {
-            var movies = DynamoDbMethods.ImportMovies(_badMovieFile);
-            Assert.Null(movies);
-        }
+            Title = "Now You See Me",
+            Year = 2013,
+        };
 
-        [Fact()]
-        [Order(5)]
-        [Trait("Category", "Integration")]
-        public async Task BatchWriteItemsAsyncTest()
+        var item = await DynamoDbMethods.GetItemAsync(client, lookupMovie, _tableName);
+
+        Assert.True(item["title"].S == lookupMovie.Title, $"Couldn't find {lookupMovie.Title}.");
+    }
+
+    [Fact()]
+    [Order(8)]
+    [Trait("Category", "Integration")]
+    public async Task DeleteItemAsyncTest()
+    {
+        var movieToDelete = new Movie
         {
-            var itemCount = await DynamoDbMethods.BatchWriteItemsAsync(client, _movieFileName);
-            Assert.Equal(250, itemCount);
-        }
+            Title = "Gravity",
+            Year = 2013,
+        };
 
-        [Fact()]
-        [Order(6)]
-        [Trait("Category", "Integration")]
-        public async Task GetItemAsyncTest()
-        {
-            var lookupMovie = new Movie
-            {
-                Title = "Now You See Me",
-                Year = 2013,
-            };
+        var success = await DynamoDbMethods.DeleteItemAsync(client, _tableName, movieToDelete);
+        Assert.True(success, "Couldn't delete the item.");
+    }
 
-            var item = await DynamoDbMethods.GetItemAsync(client, lookupMovie, _tableName);
+    [Fact()]
+    [Order(9)]
+    [Trait("Category", "Integration")]
+    public async Task QueryMoviesAsyncTest()
+    {
+        // Use Query to find all the movies released in 2010.
+        int findYear = 2013;
+        var queryCount = await DynamoDbMethods.QueryMoviesAsync(client, _tableName, findYear);
+        Assert.True(queryCount > 0, "Couldn't find any movies that match.");
+    }
 
-            Assert.True(item["title"].S == lookupMovie.Title, $"Couldn't find {lookupMovie.Title}.");
-        }
+    [Fact()]
+    [Order(10)]
+    [Trait("Category", "Integration")]
+    public async Task ScanTableAsyncTest()
+    {
+        int startYear = 2001;
+        int endYear = 2011;
+        var scanCount = await DynamoDbMethods.ScanTableAsync(client, _tableName, startYear, endYear);
+        Assert.True(scanCount > 0, "Couldn't find any movies released in those years.");
+    }
 
-        [Fact()]
-        [Order(8)]
-        [Trait("Category", "Integration")]
-        public async Task DeleteItemAsyncTest()
-        {
-            var movieToDelete = new Movie
-            {
-                Title = "Gravity",
-                Year = 2013,
-            };
+    [Fact()]
+    [Order(11)]
+    [Trait("Category", "Integration")]
+    public async void DeleteTableAsyncTest()
+    {
+        var success = await DynamoDbMethods.DeleteTableAsync(client, _tableName);
 
-            var success = await DynamoDbMethods.DeleteItemAsync(client, _tableName, movieToDelete);
-            Assert.True(success, "Couldn't delete the item.");
-        }
-
-        [Fact()]
-        [Order(9)]
-        [Trait("Category", "Integration")]
-        public async Task QueryMoviesAsyncTest()
-        {
-            // Use Query to find all the movies released in 2010.
-            int findYear = 2013;
-            var queryCount = await DynamoDbMethods.QueryMoviesAsync(client, _tableName, findYear);
-            Assert.True(queryCount > 0, "Couldn't find any movies that match.");
-        }
-
-        [Fact()]
-        [Order(10)]
-        [Trait("Category", "Integration")]
-        public async Task ScanTableAsyncTest()
-        {
-            int startYear = 2001;
-            int endYear = 2011;
-            var scanCount = await DynamoDbMethods.ScanTableAsync(client, _tableName, startYear, endYear);
-            Assert.True(scanCount > 0, "Couldn't find any movies released in those years.");
-        }
-
-        [Fact()]
-        [Order(11)]
-        [Trait("Category", "Integration")]
-        public async void DeleteTableAsyncTest()
-        {
-            var success = await DynamoDbMethods.DeleteTableAsync(client, _tableName);
-
-            Assert.True(success, "Failed to delete table.");
-        }
+        Assert.True(success, "Failed to delete table.");
     }
 }
