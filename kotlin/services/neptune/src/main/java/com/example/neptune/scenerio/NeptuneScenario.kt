@@ -35,9 +35,9 @@ var scanner = Scanner(System.`in`)
  * https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-    val subnetGroupName = "neptuneSubnetGroup200"
-    val clusterName = "neptuneCluster200"
-    val dbInstanceId = "neptuneDB200"
+    val subnetGroupName = "neptuneSubnetGroup210"
+    val clusterName = "neptuneCluster210"
+    val dbInstanceId = "neptuneDB210"
     val client = NeptuneClient.fromEnvironment {region = "us-east-1" }
 
     println(
