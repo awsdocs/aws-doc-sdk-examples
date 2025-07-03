@@ -30,7 +30,7 @@ public class CloudWatchLogQuery {
         final String usage = """
 
                 Usage:
-                  <logGroupName> <startTime> <endTime>
+                  <logGroupName> 
 
                 Where:
                   logGroupName - The name of the log group (for example, /aws/lambda/ChatAIHandler).
@@ -51,7 +51,7 @@ public class CloudWatchLogQuery {
     }
 
     /**
-     * Retrieves and prints the log events from the specified log group and the most recent log stream within that group.
+     * Retrieves and prints log events from the most recent log stream in the specified log group
      *
      * @param logsClient the CloudWatchLogsClient used to interact with AWS CloudWatch Logs
      * @param logGroupName the name of the log group from which to retrieve the log events

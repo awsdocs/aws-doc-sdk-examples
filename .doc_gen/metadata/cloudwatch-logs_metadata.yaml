@@ -11,6 +11,18 @@ cloudwatch-logs_AssociateKmsKey:
                 - CloudWatchLogs.dotnetv3.AssociateKmsKeyExample
   services:
     cloudwatch-logs: {AssociateKmsKey}
+cloudwatch-logs_GetLogEvents:
+  languages:
+    .Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.get_logs.main
+  services:
+    cloudwatch-logs: {GetLogEvents}
 cloudwatch-logs_CancelExportTask:
   languages:
     .NET:
