@@ -3,6 +3,9 @@
 
 package com.example.neptune.scenerio
 
+import java.time.Duration
+import java.util.Scanner
+import kotlinx.coroutines.delay
 import aws.sdk.kotlin.services.ec2.Ec2Client
 import aws.sdk.kotlin.services.ec2.model.DescribeSubnetsRequest
 import aws.sdk.kotlin.services.ec2.model.DescribeVpcsRequest
@@ -11,6 +14,10 @@ import aws.sdk.kotlin.services.neptune.NeptuneClient
 import aws.sdk.kotlin.services.neptune.model.CreateDbClusterRequest
 import aws.sdk.kotlin.services.neptune.model.CreateDbInstanceRequest
 import aws.sdk.kotlin.services.neptune.model.CreateDbSubnetGroupRequest
+import aws.sdk.kotlin.services.neptune.model.DbClusterNotFoundFault
+import aws.sdk.kotlin.services.neptune.model.DbInstanceNotFoundFault
+import aws.sdk.kotlin.services.neptune.model.DbSubnetGroupNotFoundFault
+import aws.sdk.kotlin.services.neptune.model.DbSubnetGroupQuotaExceededFault
 import aws.sdk.kotlin.services.neptune.model.DeleteDbClusterRequest
 import aws.sdk.kotlin.services.neptune.model.DeleteDbInstanceRequest
 import aws.sdk.kotlin.services.neptune.model.DeleteDbSubnetGroupRequest
@@ -19,13 +26,7 @@ import aws.sdk.kotlin.services.neptune.model.DescribeDbInstancesRequest
 import aws.sdk.kotlin.services.neptune.model.NeptuneException
 import aws.sdk.kotlin.services.neptune.model.StartDbClusterRequest
 import aws.sdk.kotlin.services.neptune.model.StopDbClusterRequest
-import aws.sdk.kotlin.services.neptune.model.DbSubnetGroupQuotaExceededFault
-import aws.sdk.kotlin.services.neptune.model.DbClusterNotFoundFault
-import aws.sdk.kotlin.services.neptune.model.DbInstanceNotFoundFault
-import aws.sdk.kotlin.services.neptune.model.DbSubnetGroupNotFoundFault
-import kotlinx.coroutines.delay
-import java.time.Duration
-import java.util.Scanner
+
 
 // snippet-start:[neptune.kotlin.scenario.main]
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
