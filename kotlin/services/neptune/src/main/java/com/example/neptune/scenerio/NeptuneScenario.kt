@@ -19,9 +19,13 @@ import aws.sdk.kotlin.services.neptune.model.DescribeDbInstancesRequest
 import aws.sdk.kotlin.services.neptune.model.NeptuneException
 import aws.sdk.kotlin.services.neptune.model.StartDbClusterRequest
 import aws.sdk.kotlin.services.neptune.model.StopDbClusterRequest
+import aws.sdk.kotlin.services.neptune.model.DbSubnetGroupQuotaExceededFault
+import aws.sdk.kotlin.services.neptune.model.DbClusterNotFoundFault
+import aws.sdk.kotlin.services.neptune.model.DbInstanceNotFoundFault
+import aws.sdk.kotlin.services.neptune.model.DbSubnetGroupNotFoundFault
 import kotlinx.coroutines.delay
 import java.time.Duration
-import java.util.*
+import java.util.Scanner
 
 // snippet-start:[neptune.kotlin.scenario.main]
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
@@ -71,95 +75,105 @@ suspend fun main() {
     )
 }
 
-suspend fun runScenario( client : NeptuneClient, subnetGroupName: String, dbInstanceId: String, clusterName: String) {
-    println(DASHES)
-    println("1. Create a Neptune DB Subnet Group")
-    println("The Neptune DB subnet group is used when launching a Neptune cluster")
-    waitForInputToContinue(scanner)
-    createSubnetGroup(client, subnetGroupName)
-    waitForInputToContinue(scanner)
-    println(DASHES)
+suspend fun runScenario(
+    client: NeptuneClient,
+    subnetGroupName: String,
+    dbInstanceId: String,
+    clusterName: String
+) {
+    try {
+        println(DASHES)
+        println("1. Create a Neptune DB Subnet Group")
+        println("The Neptune DB subnet group is used when launching a Neptune cluster")
+        waitForInputToContinue(scanner)
+        createSubnetGroup(client, subnetGroupName)
+        waitForInputToContinue(scanner)
+        println(DASHES)
 
-    println(DASHES)
-    println("2. Create a Neptune Cluster")
-    println("A Neptune Cluster allows you to store and query highly connected datasets with low latency.")
-    waitForInputToContinue(scanner)
-    val dbClusterId = createDbCluster(client, clusterName)
-    waitForInputToContinue(scanner)
-    println(DASHES)
+        println(DASHES)
+        println("2. Create a Neptune Cluster")
+        println("A Neptune Cluster allows you to store and query highly connected datasets with low latency.")
+        waitForInputToContinue(scanner)
+        val dbClusterId = createDbCluster(client, clusterName)
+        waitForInputToContinue(scanner)
+        println(DASHES)
 
-    println(DASHES)
-    println("3. Create a Neptune DB Instance")
-    println("In this step, we add a new database instance to the Neptune cluster")
-    waitForInputToContinue(scanner)
-    createDbInstance(client, dbInstanceId, dbClusterId)
-    waitForInputToContinue(scanner)
-    println(DASHES)
+        println(DASHES)
+        println("3. Create a Neptune DB Instance")
+        println("In this step, we add a new database instance to the Neptune cluster")
+        waitForInputToContinue(scanner)
+        createDbInstance(client, dbInstanceId, dbClusterId)
+        waitForInputToContinue(scanner)
+        println(DASHES)
 
-    println(DASHES)
-    println("4. Check the status of the Neptune DB Instance")
-    println(
-        """
-        In this step, we will wait until the DB instance 
-        becomes available. This may take around 10 minutes.
-        """.trimIndent(),
-    )
-    waitForInputToContinue(scanner)
-    checkInstanceStatus(client, dbInstanceId, "available")
-    waitForInputToContinue(scanner)
-    println(DASHES)
+        println(DASHES)
+        println("4. Check the status of the Neptune DB Instance")
+        println(
+            """
+            In this step, we will wait until the DB instance 
+            becomes available. This may take around 10 minutes.
+            """.trimIndent()
+        )
+        waitForInputToContinue(scanner)
+        checkInstanceStatus(client, dbInstanceId, "available")
+        waitForInputToContinue(scanner)
+        println(DASHES)
 
-    println(DASHES)
-    println("5. Show Neptune Cluster details")
-    waitForInputToContinue(scanner)
-    describeDBClusters(client, dbClusterId)
-    waitForInputToContinue(scanner)
-    println(DASHES)
+        println(DASHES)
+        println("5. Show Neptune Cluster details")
+        waitForInputToContinue(scanner)
+        describeDBClusters(client, dbClusterId)
+        waitForInputToContinue(scanner)
+        println(DASHES)
 
-    println(DASHES)
-    println("6. Stop the Amazon Neptune cluster")
-    println(
-        """
-        Once stopped, this step polls the status 
-        until the cluster is in a stopped state.
-        """.trimIndent(),
-    )
-    waitForInputToContinue(scanner)
-    stopDBCluster(client, dbClusterId)
-    waitForClusterStatus(client, dbClusterId, "stopped")
-    waitForInputToContinue(scanner)
-    println(DASHES)
+        println(DASHES)
+        println("6. Stop the Amazon Neptune cluster")
+        println(
+            """
+            Once stopped, this step polls the status 
+            until the cluster is in a stopped state.
+            """.trimIndent()
+        )
+        waitForInputToContinue(scanner)
+        stopDBCluster(client, dbClusterId)
+        waitForClusterStatus(client, dbClusterId, "stopped")
+        waitForInputToContinue(scanner)
+        println(DASHES)
 
-    println(DASHES)
-    println("7. Start the Amazon Neptune cluster")
-    println(
-        """
-        Once started, this step polls the clusters 
-        status until it's in an available state.
-        We will also poll the instance status.
-        """.trimIndent(),
-    )
-    waitForInputToContinue(scanner)
-    startDBCluster(client, dbClusterId)
-    waitForClusterStatus(client, dbClusterId, "available")
-    checkInstanceStatus(client, dbInstanceId, "available")
-    waitForInputToContinue(scanner)
-    println(DASHES)
+        println(DASHES)
+        println("7. Start the Amazon Neptune cluster")
+        println(
+            """
+            Once started, this step polls the clusters 
+            status until it's in an available state.
+            We will also poll the instance status.
+            """.trimIndent()
+        )
+        waitForInputToContinue(scanner)
+        startDBCluster(client, dbClusterId)
+        waitForClusterStatus(client, dbClusterId, "available")
+        checkInstanceStatus(client, dbInstanceId, "available")
+        waitForInputToContinue(scanner)
+        println(DASHES)
 
-    println(DASHES)
-    println("8. Delete the Neptune Assets")
-    println("Would you like to delete the Neptune Assets? (y/n)")
-    val delAns = scanner.nextLine().trim()
-    if (delAns.equals("y")) {
-        println("You selected to delete the Neptune assets.")
-        deleteDbInstance(client, dbInstanceId)
-        waitUntilInstanceDeleted(client, dbInstanceId)
-        deleteDBCluster(client, dbClusterId)
-        deleteDBSubnetGroup(client, subnetGroupName)
-        println("Neptune resources deleted successfully.")
+        println(DASHES)
+        println("8. Delete the Neptune Assets")
+        println("Would you like to delete the Neptune Assets? (y/n)")
+        val delAns = scanner.nextLine().trim()
+        if (delAns.equals("y", ignoreCase = true)) {
+            println("You selected to delete the Neptune assets.")
+            deleteDbInstance(client, dbInstanceId)
+            waitUntilInstanceDeleted(client, dbInstanceId)
+            deleteDBCluster(client, dbClusterId)
+            deleteDBSubnetGroup(client, subnetGroupName)
+            println("Neptune resources deleted successfully.")
+        } else {
+            println("You selected not to delete Neptune assets.")
+        }
 
-    } else {
-        println("You selected not to delete Neptune assets.")
+    } catch (e: Exception) {
+        println("An error occurred during the scenario: ${e.message}")
+        e.printStackTrace()
     }
 }
 
@@ -175,8 +189,17 @@ suspend fun deleteDBSubnetGroup(neptuneClient : NeptuneClient, subnetGroupName:S
         dbSubnetGroupName = subnetGroupName
     }
 
-    neptuneClient.deleteDbSubnetGroup(request)
-    println(" Deleting Subnet Group: $subnetGroupName")
+    try {
+        neptuneClient.deleteDbSubnetGroup(request)
+        println(" Deleting Subnet Group: $subnetGroupName")
+
+    } catch (e: DbSubnetGroupNotFoundFault) {
+        println("\nThe subnet group not found: ${e.message}")
+        throw e
+    } catch (e: NeptuneException) {
+        println("Neptune exception occurred : ${e.message}")
+        throw e
+    }
 }
 // snippet-end:[neptune.kotlin.delete.subnet.group.main]
 
@@ -192,8 +215,17 @@ suspend fun deleteDBCluster(neptuneClient : NeptuneClient, clusterId: String) {
         skipFinalSnapshot = true
     }
 
-    neptuneClient.deleteDbCluster(request)
-    println("️ Deleting DB Cluster: $clusterId")
+    try {
+        neptuneClient.deleteDbCluster(request)
+        println("️ Deleting DB Cluster: $clusterId")
+
+    } catch (e: DbClusterNotFoundFault) {
+        println("\nResource not found: ${e.message}")
+        throw e
+    } catch (e: NeptuneException) {
+        println("Neptune exception occurred : ${e.message}")
+        throw e
+    }
  }
 // snippet-end:[neptune.kotlin.delete.cluster.main]
 
@@ -246,10 +278,13 @@ suspend fun waitUntilInstanceDeleted(
 
 // snippet-start:[neptune.kotlin.delete.instance.main]
 /**
- * Deletes a DB instance.
+ * Deletes the specified Amazon Neptune DB instance.
  *
- * @param instanceId the identifier of the DB instance to be deleted
- * @return a {@link CompletableFuture} that completes when the DB instance has been deleted
+ * @param neptuneClient The Neptune client used to perform the deletion.
+ * @param instanceId The identifier of the DB instance to be deleted.
+ *
+ * @throws DbInstanceNotFoundFault if the specified DB instance does not exist.
+ * @throws NeptuneException if any other error occurs during the deletion process.
  */
 suspend fun deleteDbInstance(neptuneClient: NeptuneClient, instanceId: String) {
     val request = DeleteDbInstanceRequest {
@@ -257,8 +292,17 @@ suspend fun deleteDbInstance(neptuneClient: NeptuneClient, instanceId: String) {
         skipFinalSnapshot = true
     }
 
-    neptuneClient.deleteDbInstance(request)
-    println("Deleting DB Instance: $instanceId")
+    try {
+        neptuneClient.deleteDbInstance(request)
+        println("Deleting DB Instance: $instanceId")
+
+    } catch (e: DbInstanceNotFoundFault) {
+        println("\nThe DB instance was not found: ${e.message}")
+        throw e
+    } catch (e: NeptuneException) {
+        println("Neptune exception occurred : ${e.message}")
+        throw e
+    }
 }
 // snippet-end:[neptune.kotlin.delete.instance.main]
 
@@ -313,17 +357,30 @@ suspend fun waitForClusterStatus(
 
 // snippet-start:[neptune.kotlin.start.cluster.main]
 /**
- * Starts an Amazon Neptune DB cluster.
+ * Starts the specified Amazon Neptune DB cluster.
  *
- * @param clusterIdentifier the unique identifier of the DB cluster to be stopped
+ * @param neptuneClient The Neptune client used to make the request.
+ * @param clusterIdentifier The unique identifier of the DB cluster to be started.
+ *
+ * @throws DbClusterNotFoundFault if the specified DB cluster does not exist.
+ * @throws NeptuneException if any other service-level error occurs.
  */
 suspend fun startDBCluster(neptuneClient: NeptuneClient, clusterIdentifier: String) {
     val request = StartDbClusterRequest {
         dbClusterIdentifier = clusterIdentifier
     }
 
-    neptuneClient.startDbCluster(request)
-    println("DB Cluster started : $clusterIdentifier")
+    try {
+        neptuneClient.startDbCluster(request)
+        println("DB Cluster started : $clusterIdentifier")
+
+    } catch (e: DbClusterNotFoundFault) {
+        println("\nResource not found: ${e.message}")
+        throw e
+    } catch (e: NeptuneException) {
+        println("Neptune exception occurred : ${e.message}")
+        throw e
+    }
 }
 // snippet-end:[neptune.kotlin.start.cluster.main]
 
@@ -331,95 +388,133 @@ suspend fun startDBCluster(neptuneClient: NeptuneClient, clusterIdentifier: Stri
 /**
  * Stops an Amazon Neptune DB cluster.
  *
- * @param clusterIdentifier the unique identifier of the DB cluster to be stopped
+ * @param neptuneClient The Neptune client used to make the request.
+ * @param clusterIdentifier The unique identifier of the DB cluster to be started.
+ *
+ * @throws DbClusterNotFoundFault if the specified DB cluster does not exist.
+ * @throws NeptuneException if any other service-level error occurs.
  */
 suspend fun stopDBCluster(neptuneClient: NeptuneClient, clusterIdentifier: String) {
     val request = StopDbClusterRequest {
         dbClusterIdentifier = clusterIdentifier
     }
 
-    neptuneClient.stopDbCluster(request)
-    println("DB Cluster stopped: $clusterIdentifier")
+    try {
+        neptuneClient.stopDbCluster(request)
+        println("DB Cluster stopped: $clusterIdentifier")
+
+    } catch (e: DbClusterNotFoundFault) {
+        println("\nThe Neptune DB cluster was not found: ${e.message}")
+        throw e
+    } catch (e: NeptuneException) {
+        println("A Neptune exception occurred : ${e.message}")
+        throw e
+    }
 }
 // snippet-end:[neptune.kotlin.stop.cluster.main]
 
 // snippet-start:[neptune.kotlin.describe.cluster.main]
 /**
- * Describes the specified Amazon Neptune cluster.
- *
- * @param clusterId the identifier of the cluster to describe
- */
+* Describes the specified Amazon Neptune DB cluster and prints detailed cluster information.
+*
+* @param neptuneClient The Neptune client used to make the describe request.
+* @param clusterId The identifier of the Neptune DB cluster to describe.
+*
+* @throws DbClusterNotFoundFault if the specified DB cluster does not exist.
+* @throws NeptuneException if any other error occurs while describing the cluster.
+*/
 suspend fun describeDBClusters(neptuneClient: NeptuneClient, clusterId: String) {
     val request = DescribeDbClustersRequest {
         dbClusterIdentifier = clusterId
     }
 
-    val response = neptuneClient.describeDbClusters(request)
-    response.dbClusters?.forEach { cluster ->
-    println("Cluster Identifier: ${cluster.dbClusterIdentifier}")
-    println("Status: ${cluster.status}")
-    println("Engine: ${cluster.engine}")
-    println("Engine Version: ${cluster.engineVersion}")
-    println("Endpoint: ${cluster.endpoint}")
-    println("Reader Endpoint: ${cluster.readerEndpoint}")
-    println("Availability Zones: ${cluster.availabilityZones}")
-    println("Subnet Group: ${cluster.dbSubnetGroup}")
-    println("VPC Security Groups:")
-    cluster.vpcSecurityGroups?.forEach { vpcGroup ->
-        println("  - ${vpcGroup.vpcSecurityGroupId}")
-    }
-    println("Storage Encrypted: ${cluster.storageEncrypted}")
-    println("IAM DB Auth Enabled: ${cluster.iamDatabaseAuthenticationEnabled}")
-    println("Backup Retention Period: ${cluster.backupRetentionPeriod} days")
-    println("Preferred Backup Window: ${cluster.preferredBackupWindow}")
-    println("Preferred Maintenance Window: ${cluster.preferredMaintenanceWindow}")
-    println("------")
+    try {
+        val response = neptuneClient.describeDbClusters(request)
+        response.dbClusters?.forEach { cluster ->
+        println("Cluster Identifier: ${cluster.dbClusterIdentifier}")
+        println("Status: ${cluster.status}")
+        println("Engine: ${cluster.engine}")
+        println("Engine Version: ${cluster.engineVersion}")
+        println("Endpoint: ${cluster.endpoint}")
+        println("Reader Endpoint: ${cluster.readerEndpoint}")
+        println("Availability Zones: ${cluster.availabilityZones}")
+        println("Subnet Group: ${cluster.dbSubnetGroup}")
+        println("VPC Security Groups:")
+        cluster.vpcSecurityGroups?.forEach { vpcGroup ->
+            println("  - ${vpcGroup.vpcSecurityGroupId}")
+        }
+       println("Storage Encrypted: ${cluster.storageEncrypted}")
+       println("IAM DB Auth Enabled: ${cluster.iamDatabaseAuthenticationEnabled}")
+       println("Backup Retention Period: ${cluster.backupRetentionPeriod} days")
+       println("Preferred Backup Window: ${cluster.preferredBackupWindow}")
+       println("Preferred Maintenance Window: ${cluster.preferredMaintenanceWindow}")
+       println("------")
+       }
+
+    } catch (e: DbClusterNotFoundFault) {
+        println("\nThe Neptune DB cluster was not found: ${e.message}")
+        throw e
+    } catch (e: NeptuneException) {
+        println("Neptune exception occurred : ${e.message}")
+        throw e
     }
 }
 // snippet-end:[neptune.kotlin.describe.cluster.main]
 
 // snippet-start:[neptune.kotlin.describe.dbinstance.main]
 /**
- * Checks the status of a Neptune instance recursively until the desired status is reached or a timeout occurs.
+ * Polls the status of an Amazon Neptune DB instance until it reaches the desired status or times out.
  *
- * @param instanceId     the ID of the Neptune instance to check
- * @param desiredStatus  the desired status of the Neptune instance
+ * @param neptuneClient The Neptune client used to query instance status.
+ * @param instanceId The identifier of the DB instance to monitor.
+ * @param desiredStatus The status to wait for (e.g., "available").
+ * @param pollInterval The interval between status checks. Default is 10 seconds.
+ *
+ * @throws DbInstanceNotFoundFault if the DB instance is not found and should not be retried.
+ * @throws NeptuneException if a service-level error occurs.
  */
 suspend fun checkInstanceStatus(
     neptuneClient: NeptuneClient,
     instanceId: String,
     desiredStatus: String,
-    timeout: Duration = Duration.ofMinutes(20),
     pollInterval: Duration = Duration.ofSeconds(10)
 ) {
     val startTime = System.currentTimeMillis()
     println("Checking status for instance '$instanceId'...")
 
-    while (true) {
-        val request = DescribeDbInstancesRequest {
-            dbInstanceIdentifier = instanceId
+    try {
+        while (true) {
+            val request = DescribeDbInstancesRequest {
+                dbInstanceIdentifier = instanceId
+            }
+
+            try {
+                val response = neptuneClient.describeDbInstances(request)
+                val currentStatus = response.dbInstances?.firstOrNull()?.dbInstanceStatus ?: "Unknown"
+                val elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000
+
+                print("\rElapsed: ${formatElapsedTime(elapsedSeconds.toInt()).padEnd(20)}  Status: ${currentStatus.padEnd(20)}")
+                System.out.flush()
+
+                if (desiredStatus.equals(currentStatus, ignoreCase = true)) {
+                    println("\nInstance reached desired status '$desiredStatus' after ${formatElapsedTime(elapsedSeconds.toInt())}.")
+                    break
+                }
+
+            } catch (e: DbInstanceNotFoundFault) {
+                println("\nInstance '$instanceId' not found. Retrying...")
+                // Keep polling — could be a temporary propagation delay
+            }
+
+            delay(pollInterval.toMillis())
         }
 
-        val response = neptuneClient.describeDbInstances(request)
-        val currentStatus = response.dbInstances?.firstOrNull()?.dbInstanceStatus ?: "Unknown"
-        val elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000
-
-        print("\rElapsed: ${formatElapsedTime(elapsedSeconds.toInt()).padEnd(20)}  Status: ${currentStatus.padEnd(20)}")
-        System.out.flush()
-
-        if (desiredStatus.equals(currentStatus, ignoreCase = true)) {
-            println(
-                "\nInstance reached desired status '$desiredStatus' after " +
-                        formatElapsedTime(elapsedSeconds.toInt()) + "."
-            )
-            break
-        }
-
-        if ((System.currentTimeMillis() - startTime) > timeout.toMillis()) {
-            throw RuntimeException("Timeout waiting for Neptune instance to reach status: $desiredStatus")
-        }
-
-        delay(pollInterval.toMillis())
+    } catch (e: NeptuneException) {
+        println("\nNeptune exception while checking instance status: ${e.message}")
+        throw e
+    } catch (e: Exception) {
+        println("\nUnexpected exception while checking instance status: ${e.message}")
+        throw e
     }
 }
 // snippet-end:[neptune.kotlin.describe.dbinstance.main]
@@ -430,16 +525,20 @@ private fun formatElapsedTime(totalSeconds: Int): String {
     return String.format("%02d:%02d", minutes, seconds)
 }
 
-
 // snippet-start:[neptune.kotlin.create.dbinstance.main]
 
-/*** Creates an Amazon Neptune DB instance.
- *
- * @param dbInstanceId the identifier for the new DB instance
- * @param dbClusterId  the identifier for the DB cluster that the new instance will be a part of
- * @return  the identifier of the newly created DB instance
- */
-suspend fun createDbInstance(neptuneClient: NeptuneClient, dbInstanceId: String, dbClusterId: String): String {
+/**
+* Creates a new Amazon Neptune DB instance and returns its identifier.
+*
+* @param neptuneClient The Neptune client used to send the create request.
+* @param dbInstanceId The identifier to assign to the new DB instance.
+* @param dbClusterId The identifier of the Neptune DB cluster to associate the instance with.
+* @return The identifier of the created Neptune DB instance.
+*
+* @throws DbSubnetGroupQuotaExceededFault if the subnet group quota has been exceeded.
+* @throws NeptuneException if any other error occurs during the creation of the instance.
+*/
+suspend fun createDbInstance(neptuneClient: NeptuneClient, dbInstanceId: String, dbClusterId: String): String? {
     val request = CreateDbInstanceRequest {
         dbInstanceIdentifier = dbInstanceId
         dbInstanceClass = "db.r5.large"
@@ -447,21 +546,33 @@ suspend fun createDbInstance(neptuneClient: NeptuneClient, dbInstanceId: String,
         dbClusterIdentifier = dbClusterId
     }
 
-    val response = neptuneClient.createDbInstance(request)
-    val instanceId = response.dbInstance?.dbInstanceIdentifier
-        ?: throw RuntimeException("Instance creation succeeded but no ID returned.")
+    try {
+        val response = neptuneClient.createDbInstance(request)
+        val instanceId = response.dbInstance?.dbInstanceIdentifier
+        println("Created Neptune DB Instance: $instanceId")
+        return instanceId
 
-    println("Created Neptune DB Instance: $instanceId")
-    return instanceId
+    } catch (e: DbSubnetGroupQuotaExceededFault) {
+        println("Quota exceeded when creating '$dbInstanceId': ${e.message}")
+        throw e
+    } catch (e: NeptuneException) {
+        println("Neptune exception when creating '$dbInstanceId': ${e.message}")
+        throw e
+    }
 }
 // snippet-end:[neptune.kotlin.create.dbinstance.main]
 
 // snippet-start:[neptune.kotlin.create.cluster.main]
 /**
- * Creates a new Amazon Neptune DB cluster.
+ * Creates a new Amazon Neptune DB cluster and returns its identifier.
  *
- * @param dbName the name of the DB cluster to be created
- * @return the ID of the created DB cluster
+ * @param neptuneClient The Neptune client used to perform the cluster creation.
+ * @param dbName The unique identifier to assign to the new DB cluster.
+ * @return The identifier of the created Neptune DB cluster.
+ *
+ * @throws DbSubnetGroupQuotaExceededFault if the subnet group quota is exceeded.
+ * @throws NeptuneException if a service-level error occurs during cluster creation.
+ * @throws RuntimeException if the cluster is created but no cluster ID is returned.
  */
 suspend fun createDbCluster(neptuneClient: NeptuneClient, dbName: String): String {
     val request = CreateDbClusterRequest {
@@ -471,21 +582,33 @@ suspend fun createDbCluster(neptuneClient: NeptuneClient, dbName: String): Strin
         backupRetentionPeriod = 1
     }
 
-    val response = neptuneClient.createDbCluster(request)
-    val clusterId = response.dbCluster?.dbClusterIdentifier
-        ?: throw RuntimeException("Cluster creation succeeded but no ID returned.")
+    try {
+        val response = neptuneClient.createDbCluster(request)
+        val clusterId = response.dbCluster?.dbClusterIdentifier
+            ?: throw RuntimeException("Cluster creation succeeded but no ID returned.")
 
-    println("DB Cluster created: $clusterId")
-    return clusterId
+        println("DB Cluster created: $clusterId")
+        return clusterId
+
+    } catch (e: DbSubnetGroupQuotaExceededFault) {
+        println("Quota exceeded when creating '$dbName': ${e.message}")
+        throw e
+    } catch (e: NeptuneException) {
+        println("Neptune exception when creating '$dbName': ${e.message}")
+        throw e
+    }
 }
 // snippet-end:[neptune.kotlin.create.cluster.main]
 
 // snippet-start:[neptune.kotlin.create.subnet.main]
 /**
- * Creates a new Neptune DB subnet group asynchronously.
+ * Creates an Amazon Neptune DB subnet group using the default VPC and its associated subnets.
  *
- * @param groupName the name of the DB subnet group to create
- * @return the Amazon Resource Name (ARN) of the created DB subnet group
+ * @param neptuneClient The Neptune client used to send the create request.
+ * @param groupName The name to assign to the new subnet group.
+ *
+ * @throws DbSubnetGroupQuotaExceededFault if the subnet group quota has been exceeded.
+ * @throws NeptuneException if a service-level error occurs during subnet group creation.
  */
 suspend fun createSubnetGroup(neptuneClient: NeptuneClient, groupName: String) {
     val vpcId = getDefaultVpcId()
@@ -497,9 +620,18 @@ suspend fun createSubnetGroup(neptuneClient: NeptuneClient, groupName: String) {
         subnetIds = subnetList
     }
 
-    val response = neptuneClient.createDbSubnetGroup(request)
-    val name = response.dbSubnetGroup?.dbSubnetGroupName
-    println("Subnet group created: $name")
+    try {
+        val response = neptuneClient.createDbSubnetGroup(request)
+        val name = response.dbSubnetGroup?.dbSubnetGroupName
+        println("Subnet group created: $name")
+
+    } catch (e: DbSubnetGroupQuotaExceededFault) {
+        println("Quota exceeded when creating subnet group '$groupName': ${e.message}")
+        throw e
+    } catch (e: NeptuneException) {
+        println("Neptune exception when creating subnet group '$groupName': ${e.message}")
+        throw e
+    }
 }
 // snippet-end:[neptune.kotlin.create.subnet.main]
 
