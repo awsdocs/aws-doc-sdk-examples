@@ -624,12 +624,13 @@ suspend fun getDefaultVpcId(): String {
                 }
             )
         }
+
         val response = ec2Client.describeVpcs(request)
-        val defaultVpc = response.vpcs?.firstOrNull()
+        val defaultVpcId = response.vpcs?.firstOrNull()?.vpcId
             ?: throw RuntimeException("No default VPC found in this region.")
 
-        println("Default VPC ID: ${defaultVpc.vpcId}")
-        return defaultVpc.vpcId!!
+        println("Default VPC ID: $defaultVpcId")
+        return defaultVpcId
     }
 }
 
