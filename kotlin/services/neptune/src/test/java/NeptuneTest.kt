@@ -35,7 +35,7 @@ class NeptuneTest {
 
     @BeforeAll
     fun setup() = runBlocking {
-        client = NeptuneClient.fromEnvironment {region = "us-east-1"}
+        client = NeptuneClient.fromEnvironment { region = "us-east-1" }
     }
 
     @Test
