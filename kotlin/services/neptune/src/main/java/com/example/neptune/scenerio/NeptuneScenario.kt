@@ -207,7 +207,7 @@ suspend fun deleteDBSubnetGroup(neptuneClient: NeptuneClient, subnetGroupName: S
  *
  * @param clusterId the identifier of the cluster to delete
  */
-suspend fun deleteDBCluster(neptuneClient:NeptuneClient, clusterId: String) {
+suspend fun deleteDBCluster(neptuneClient: NeptuneClient, clusterId: String) {
     val request = DeleteDbClusterRequest {
         dbClusterIdentifier = clusterId
         skipFinalSnapshot = true
@@ -216,7 +216,6 @@ suspend fun deleteDBCluster(neptuneClient:NeptuneClient, clusterId: String) {
     try {
         neptuneClient.deleteDbCluster(request)
         println("️ Deleting DB Cluster: $clusterId")
-
     } catch (e: DbClusterNotFoundFault) {
         println("\nResource not found: ${e.message}")
         throw e
@@ -224,14 +223,14 @@ suspend fun deleteDBCluster(neptuneClient:NeptuneClient, clusterId: String) {
         println("Neptune exception occurred : ${e.message}")
         throw e
     }
- }
+}
 // snippet-end:[neptune.kotlin.delete.cluster.main]
 
 suspend fun waitUntilInstanceDeleted(
     neptuneClient: NeptuneClient,
     instanceId: String,
     timeout: Duration = Duration.ofMinutes(20),
-    pollInterval: Duration = Duration.ofSeconds(10)
+    pollInterval: Duration = Duration.ofSeconds(10),
 ): Boolean {
     println("Waiting for instance '$instanceId' to be deleted...")
 
@@ -248,7 +247,6 @@ suspend fun waitUntilInstanceDeleted(
             val elapsed = (System.currentTimeMillis() - startTime) / 1000
             print("\r  Waiting: Instance $instanceId status: ${status.padEnd(10)} (${elapsed}s elapsed)")
             System.out.flush()
-
         } catch (e: NeptuneException) {
             val errorCode = e.sdkErrorMetadata.errorCode
             return if (errorCode == "DBInstanceNotFound") {
@@ -293,7 +291,6 @@ suspend fun deleteDbInstance(neptuneClient: NeptuneClient, instanceId: String) {
     try {
         neptuneClient.deleteDbInstance(request)
         println("Deleting DB Instance: $instanceId")
-
     } catch (e: DbInstanceNotFoundFault) {
         println("\nThe DB instance was not found: ${e.message}")
         throw e
@@ -320,9 +317,8 @@ suspend fun waitForClusterStatus(
     timeout: Duration = Duration.ofMinutes(20),
     pollInterval: Duration = Duration.ofSeconds(10)
 ) {
-    println("Waiting for cluster '$clusterId' to reach status '$desiredStatus'...")
+    println("Waiting for cluster $clusterId to reach status '$desiredStatus'...")
     val startTime = System.currentTimeMillis()
-
     while (true) {
         val request = DescribeDbClustersRequest {
             dbClusterIdentifier = clusterId
@@ -337,18 +333,14 @@ suspend fun waitForClusterStatus(
                     "Cluster status: ${currentStatus.padEnd(20)}"
         )
         System.out.flush()
-        if (desiredStatus.equals(currentStatus, ignoreCase = true)) {
-            println(
-                "\nNeptune cluster reached desired status '$desiredStatus' after " +
-                        "${formatElapsedTime(elapsedSeconds.toInt())}."
-            )
+        if (currentStatus.equals(desiredStatus, ignoreCase = true)) {
+            println("Neptune cluster reached desired status $desiredStatus after ${formatElapsedTime(elapsedSeconds.toInt())}")
             return
         }
 
-        if ((System.currentTimeMillis() - startTime) > timeout.toMillis()) {
-            throw RuntimeException("Timeout waiting for Neptune cluster to reach status: $desiredStatus")
+        if (System.currentTimeMillis() - startTime > timeout.toMillis()) {
+            throw RuntimeException("Timed out waiting for Neptune cluster to reach status: $desiredStatus")
         }
-
         delay(pollInterval.toMillis())
     }
 }
@@ -400,7 +392,6 @@ suspend fun stopDBCluster(neptuneClient: NeptuneClient, clusterIdentifier: Strin
     try {
         neptuneClient.stopDbCluster(request)
         println("DB Cluster stopped: $clusterIdentifier")
-
     } catch (e: DbClusterNotFoundFault) {
         println("\nThe Neptune DB cluster was not found: ${e.message}")
         throw e
