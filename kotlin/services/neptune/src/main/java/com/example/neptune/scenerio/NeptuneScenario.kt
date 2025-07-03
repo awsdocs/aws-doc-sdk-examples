@@ -615,14 +615,14 @@ suspend fun createSubnetGroup(neptuneClient: NeptuneClient, groupName: String) {
 // snippet-end:[neptune.kotlin.create.subnet.main]
 
 suspend fun getDefaultVpcId(): String {
+    val myFilter = Filter {
+        name = "isDefault"
+        values = listOf("true")
+    }
+
     Ec2Client.fromEnvironment { region = "us-east-1" }.use { ec2Client ->
         val request = DescribeVpcsRequest {
-            filters = listOf(
-                Filter {
-                    name = "isDefault"
-                    values = listOf("true")
-                }
-            )
+            filters = listOf(myFilter)
         }
 
         val response = ec2Client.describeVpcs(request)
