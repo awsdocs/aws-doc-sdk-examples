@@ -634,6 +634,7 @@ suspend fun getDefaultVpcId(): String {
     }
 }
 
+
 suspend fun getSubnetIds(vpcId: String): List<String> {
     Ec2Client.fromEnvironment { region = "us-east-1" }.use { ec2Client ->
         val request = DescribeSubnetsRequest {
