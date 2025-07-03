@@ -220,7 +220,7 @@ public class SendRecvBatch {
         System.out.println("Welcome to the Amazon Simple Queue Service (Amazon SQS) demo!");
         System.out.println("-".repeat(88));
 
-        // Create a queue for the demo
+        // Create a queue for the demo.
         String queueName = "sqs-usage-demo-message-wrapper-"+System.currentTimeMillis();
         CreateQueueRequest createRequest = CreateQueueRequest.builder()
                 .queueName(queueName)
@@ -229,13 +229,13 @@ public class SendRecvBatch {
         System.out.println("Created queue: " + queueUrl);
 
         try {
-            // Read the lines from this Java file
+            // Read the lines from this Java file.
             Path projectRoot = Paths.get(System.getProperty("user.dir"));
             Path filePath = projectRoot.resolve("src/main/java/com/example/sqs/SendRecvBatch.java");
             List<String> lines = Files.readAllLines(filePath);
 
 
-            // Send file lines in batches
+            // Send file lines in batches.
             int batchSize = 10;
             System.out.println("Sending file lines in batches of " + batchSize + " as messages.");
 
@@ -245,7 +245,7 @@ public class SendRecvBatch {
                 for (int j = i; j < Math.min(i + batchSize, lines.size()); j++) {
                     String line = lines.get(j);
                     if (line == null || line.trim().isEmpty()) {
-                        continue; // Skip empty lines
+                        continue; // Skip empty lines.
                     }
 
                     Map<String, MessageAttributeValue> attributes = new HashMap<>();
@@ -268,7 +268,7 @@ public class SendRecvBatch {
 
             System.out.println("\nDone. Sent " + lines.size() + " messages.");
 
-            // Receive and process messages
+            // Receive and process messages.
             System.out.println("Receiving, handling, and deleting messages in batches of " + batchSize + ".");
             String[] receivedLines = new String[lines.size()];
             boolean moreMessages = true;
@@ -292,7 +292,7 @@ public class SendRecvBatch {
 
             System.out.println("\nDone.");
 
-            // Verify all lines were received correctly
+            // Verify all lines were received correctly.
             boolean allLinesMatch = true;
             for (int i = 0; i < lines.size(); i++) {
                 String originalLine = lines.get(i);
@@ -313,7 +313,7 @@ public class SendRecvBatch {
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error reading file", e);
         } finally {
-            // Clean up by deleting the queue
+            // Clean up by deleting the queue.
             DeleteQueueRequest deleteQueueRequest = DeleteQueueRequest.builder()
                     .queueUrl(queueUrl)
                     .build();

@@ -18,7 +18,13 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SendRecvBatchTest {
     private static final Logger logger = LoggerFactory.getLogger(SendRecvBatchTest.class);
     private static final SqsClient sqsClient = SqsClient.create();
@@ -56,6 +62,7 @@ public class SendRecvBatchTest {
 
     @ParameterizedTest
     @MethodSource("sendMessageBatchTestData")
+    @Order(1)
     void testSendMessages(List<SendRecvBatch.MessageEntry> messages) {
         logger.info("Testing send messages with {} messages", messages.size());
         SendMessageBatchResponse response = SendRecvBatch.sendMessages(queueUrl, messages);
@@ -64,6 +71,7 @@ public class SendRecvBatchTest {
     }
 
     @Test
+    @Order(2)
     void testReceiveMessages() {
         logger.info("Testing receive messages");
         // First send some messages
@@ -80,6 +88,7 @@ public class SendRecvBatchTest {
     }
 
     @Test
+    @Order(3)
     void testDeleteMessages() {
         logger.info("Testing delete messages");
         // First send and receive messages
@@ -99,6 +108,7 @@ public class SendRecvBatchTest {
     }
 
     @Test
+    @Order(4)
     void testMessageEntry() {
         logger.info("Testing MessageEntry with attributes");
         Map<String, MessageAttributeValue> attributes = Map.of(
@@ -116,6 +126,7 @@ public class SendRecvBatchTest {
     }
 
     @Test
+    @Order(5)
     void testMessageEntryWithNullAttributes() {
         logger.info("Testing MessageEntry with null attributes");
         SendRecvBatch.MessageEntry entry = new SendRecvBatch.MessageEntry("Test body", null);
