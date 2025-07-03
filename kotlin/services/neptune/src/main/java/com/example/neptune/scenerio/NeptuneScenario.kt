@@ -27,7 +27,6 @@ import aws.sdk.kotlin.services.neptune.model.NeptuneException
 import aws.sdk.kotlin.services.neptune.model.StartDbClusterRequest
 import aws.sdk.kotlin.services.neptune.model.StopDbClusterRequest
 
-
 // snippet-start:[neptune.kotlin.scenario.main]
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
 var scanner = Scanner(System.`in`)
