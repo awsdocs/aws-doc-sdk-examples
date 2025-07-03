@@ -634,16 +634,14 @@ suspend fun getDefaultVpcId(): String {
     }
 }
 
-
 suspend fun getSubnetIds(vpcId: String): List<String> {
+    val myFilter = Filter {
+        name = "vpc-id"
+        values = listOf(vpcId)
+    }
     Ec2Client.fromEnvironment { region = "us-east-1" }.use { ec2Client ->
         val request = DescribeSubnetsRequest {
-            filters = listOf(
-                Filter {
-                    name = "vpc-id"
-                    values = listOf(vpcId)
-                }
-            )
+            filters = listOf(myFilter)
         }
         val response = ec2Client.describeSubnets(request)
         return response.subnets?.mapNotNull { it.subnetId } ?: emptyList()
