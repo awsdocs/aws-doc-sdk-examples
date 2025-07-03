@@ -3,6 +3,7 @@
 
 using Amazon.DynamoDBv2;
 using DynamoDBActions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Basics;
 
@@ -20,14 +21,24 @@ namespace Basics;
 //     Scan
 //     DeleteItemAsync
 
-public class DynamoDB_Basics
+public class DynamoDbBasics
 {
     // Separator for the console display.
     private static readonly string SepBar = new string('-', 80);
+    public static bool isInteractive = true;
 
-    public static async Task Main()
+    public static async Task Main(string[] args)
     {
-        var client = new AmazonDynamoDBClient();
+        // Set up dependency injection for Amazon DynamoDB.
+        using var host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
+            .ConfigureServices((_, services) =>
+                services.AddAWSService<IAmazonDynamoDB>()
+                    .AddTransient<DynamoDbWrapper>()
+            )
+            .Build();
+
+        // Now the wrapper is available for injection.
+        var dynamoDbWrapper = host.Services.GetRequiredService<DynamoDbWrapper>();
 
         var tableName = "movie_table4";
 
@@ -38,7 +49,7 @@ public class DynamoDB_Basics
         // Create a new table and wait for it to be active.
         Console.WriteLine($"Creating the new table: {tableName}");
 
-        var success = await DynamoDbMethods.CreateMovieTableAsync(client, tableName);
+        var success = await dynamoDbWrapper.CreateMovieTableAsync(tableName);
 
         Console.WriteLine(success
             ? $"\nTable: {tableName} successfully created."
@@ -53,7 +64,7 @@ public class DynamoDB_Basics
             Title = "Spider-Man: No Way Home",
         };
 
-        success = await DynamoDbMethods.PutItemAsync(client, newMovie, tableName);
+        success = await dynamoDbWrapper.PutItemAsync(newMovie, tableName);
         if (success)
         {
             Console.WriteLine($"Added {newMovie.Title} to the table.");
@@ -75,7 +86,7 @@ public class DynamoDB_Basics
             Rank = 9,
         };
 
-        success = await DynamoDbMethods.UpdateItemAsync(client, newMovie, newInfo, tableName);
+        success = await dynamoDbWrapper.UpdateItemAsync(newMovie, newInfo, tableName);
         if (success)
         {
             Console.WriteLine($"Successfully updated the movie: {newMovie.Title}");
@@ -89,7 +100,7 @@ public class DynamoDB_Basics
 
         // Add a batch of movies to the DynamoDB table from a list of
         // movies in a JSON file.
-        var itemCount = await DynamoDbMethods.BatchWriteItemsAsync(client, movieFileName, tableName);
+        var itemCount = await dynamoDbWrapper.BatchWriteItemsAsync(movieFileName, tableName);
         Console.WriteLine($"Added {itemCount} movies to the table.");
 
         WaitForEnter();
@@ -102,10 +113,10 @@ public class DynamoDB_Basics
         };
 
         Console.WriteLine("Looking for the movie \"Jurassic Park\".");
-        var item = await DynamoDbMethods.GetItemAsync(client, lookupMovie, tableName);
+        var item = await dynamoDbWrapper.GetItemAsync(lookupMovie, tableName);
         if (item?.Count > 0)
         {
-            DynamoDbMethods.DisplayItem(item);
+            dynamoDbWrapper.DisplayItem(item);
         }
         else
         {
@@ -121,7 +132,7 @@ public class DynamoDB_Basics
             Year = 2010,
         };
 
-        success = await DynamoDbMethods.DeleteItemAsync(client, tableName, movieToDelete);
+        success = await dynamoDbWrapper.DeleteItemAsync(tableName, movieToDelete);
 
         if (success)
         {
@@ -137,7 +148,7 @@ public class DynamoDB_Basics
         // Use Query to find all the movies released in 2010.
         int findYear = 2010;
         Console.WriteLine($"Movies released in {findYear}");
-        var queryCount = await DynamoDbMethods.QueryMoviesAsync(client, tableName, findYear);
+        var queryCount = await dynamoDbWrapper.QueryMoviesAsync(tableName, findYear);
         Console.WriteLine($"Found {queryCount} movies released in {findYear}");
 
         WaitForEnter();
@@ -145,13 +156,13 @@ public class DynamoDB_Basics
         // Use Scan to get a list of movies from 2001 to 2011.
         int startYear = 2001;
         int endYear = 2011;
-        var scanCount = await DynamoDbMethods.ScanTableAsync(client, tableName, startYear, endYear);
+        var scanCount = await dynamoDbWrapper.ScanTableAsync(tableName, startYear, endYear);
         Console.WriteLine($"Found {scanCount} movies released between {startYear} and {endYear}");
 
         WaitForEnter();
 
         // Delete the table.
-        success = await DynamoDbMethods.DeleteTableAsync(client, tableName);
+        success = await dynamoDbWrapper.DeleteTableAsync(tableName);
 
         if (success)
         {
@@ -197,9 +208,12 @@ public class DynamoDB_Basics
     /// </summary>
     private static void WaitForEnter()
     {
-        Console.WriteLine("\nPress <Enter> to continue.");
-        Console.WriteLine(SepBar);
-        _ = Console.ReadLine();
+        if (isInteractive)
+        {
+            Console.WriteLine("\nPress <Enter> to continue.");
+            Console.WriteLine(SepBar);
+            _ = Console.ReadLine();
+        }
     }
 }
 

@@ -9,8 +9,21 @@ using Amazon.DynamoDBv2.Model;
 
 namespace DynamoDBActions;
 
-public class DynamoDbMethods
+/// <summary>
+/// Methods of this class perform Amazon DynamoDB operations.
+/// </summary>
+public class DynamoDbWrapper
 {
+    private readonly IAmazonDynamoDB _amazonDynamoDB;
+
+    /// <summary>
+    /// Constructor for the DynamoDbWrapper class.
+    /// </summary>
+    /// <param name="amazonDynamoDB">The injected DynamoDB client.</param>
+    public DynamoDbWrapper(IAmazonDynamoDB amazonDynamoDB)
+    {
+        _amazonDynamoDB = amazonDynamoDB;
+    }
     // snippet-start:[DynamoDB.dotnetv4.dynamodb-basics.CreateTable]
 
     /// <summary>
@@ -20,11 +33,11 @@ public class DynamoDbMethods
     /// <param name="client">An initialized Amazon DynamoDB client object.</param>
     /// <param name="tableName">The name of the table to create.</param>
     /// <returns>A Boolean value indicating the success of the operation.</returns>
-    public static async Task<bool> CreateMovieTableAsync(AmazonDynamoDBClient client, string tableName)
+    public async Task<bool> CreateMovieTableAsync(string tableName)
     {
         try
         {
-            var response = await client.CreateTableAsync(new CreateTableRequest
+            var response = await _amazonDynamoDB.CreateTableAsync(new CreateTableRequest
             {
                 TableName = tableName,
                 AttributeDefinitions = new List<AttributeDefinition>()
@@ -72,7 +85,7 @@ public class DynamoDbMethods
             {
                 Thread.Sleep(sleepDuration);
 
-                var describeTableResponse = await client.DescribeTableAsync(request);
+                var describeTableResponse = await _amazonDynamoDB.DescribeTableAsync(request);
                 status = describeTableResponse.Table.TableStatus;
 
                 Console.Write(".");
@@ -110,7 +123,7 @@ public class DynamoDbMethods
     /// the movie to add to the table.</param>
     /// <param name="tableName">The name of the table where the item will be added.</param>
     /// <returns>A Boolean value that indicates the results of adding the item.</returns>
-    public static async Task<bool> PutItemAsync(AmazonDynamoDBClient client, Movie newMovie, string tableName)
+    public async Task<bool> PutItemAsync(Movie newMovie, string tableName)
     {
         try
         {
@@ -126,7 +139,7 @@ public class DynamoDbMethods
                 Item = item,
             };
 
-            await client.PutItemAsync(request);
+            await _amazonDynamoDB.PutItemAsync(request);
             return true;
         }
         catch (ResourceNotFoundException ex)
@@ -160,8 +173,7 @@ public class DynamoDbMethods
     /// information that will be changed.</param>
     /// <param name="tableName">The name of the table that contains the movie.</param>
     /// <returns>A Boolean value that indicates the success of the operation.</returns>
-    public static async Task<bool> UpdateItemAsync(
-        AmazonDynamoDBClient client,
+    public async Task<bool> UpdateItemAsync(
         Movie newMovie,
         MovieInfo newInfo,
         string tableName)
@@ -195,7 +207,7 @@ public class DynamoDbMethods
                 TableName = tableName,
             };
 
-            await client.UpdateItemAsync(request);
+            await _amazonDynamoDB.UpdateItemAsync(request);
             return true;
         }
         catch (ResourceNotFoundException ex)
@@ -228,7 +240,7 @@ public class DynamoDbMethods
     /// <param name="tableName">The name of the table containing the movie.</param>
     /// <returns>A Dictionary object containing information about the item
     /// retrieved.</returns>
-    public static async Task<Dictionary<string, AttributeValue>> GetItemAsync(AmazonDynamoDBClient client, Movie newMovie, string tableName)
+    public async Task<Dictionary<string, AttributeValue>> GetItemAsync(Movie newMovie, string tableName)
     {
         try
         {
@@ -244,7 +256,7 @@ public class DynamoDbMethods
                 TableName = tableName,
             };
 
-            var response = await client.GetItemAsync(request);
+            var response = await _amazonDynamoDB.GetItemAsync(request);
             return response.Item;
         }
         catch (ResourceNotFoundException ex)
@@ -274,7 +286,7 @@ public class DynamoDbMethods
     /// </summary>
     /// <param name="movieFileName">The full path to the JSON file.</param>
     /// <returns>A generic list of movie objects.</returns>
-    public static List<Movie> ImportMovies(string movieFileName)
+    public List<Movie> ImportMovies(string movieFileName)
     {
         var moviesList = new List<Movie>();
         if (!File.Exists(movieFileName))
@@ -307,8 +319,7 @@ public class DynamoDbMethods
     /// the JSON file containing movie data.</param>
     /// <returns>A long integer value representing the number of movies
     /// imported from the JSON file.</returns>
-    public static async Task<long> BatchWriteItemsAsync(
-        AmazonDynamoDBClient client,
+    public async Task<long> BatchWriteItemsAsync(
         string movieFileName, string tableName)
     {
         try
@@ -322,7 +333,7 @@ public class DynamoDbMethods
 
             var context = new DynamoDBContextBuilder()
                 // Optional call to provide a specific instance of IAmazonDynamoDB
-                .WithDynamoDBClient(() => client)
+                .WithDynamoDBClient(() => _amazonDynamoDB)
                 .Build();
 
             var movieBatch = context.CreateBatchWrite<Movie>(
@@ -368,8 +379,7 @@ public class DynamoDbMethods
     /// year of the movie to delete.</param>
     /// <returns>A Boolean value indicating the success or failure of the
     /// delete operation.</returns>
-    public static async Task<bool> DeleteItemAsync(
-        AmazonDynamoDBClient client,
+    public async Task<bool> DeleteItemAsync(
         string tableName,
         Movie movieToDelete)
     {
@@ -383,7 +393,7 @@ public class DynamoDbMethods
 
             var request = new DeleteItemRequest { TableName = tableName, Key = key, };
 
-            await client.DeleteItemAsync(request);
+            await _amazonDynamoDB.DeleteItemAsync(request);
             return true;
         }
         catch (ResourceNotFoundException ex)
@@ -416,11 +426,11 @@ public class DynamoDbMethods
     /// <param name="year">The release year for which we want to
     /// view movies.</param>
     /// <returns>The number of movies that match the query.</returns>
-    public static async Task<int> QueryMoviesAsync(AmazonDynamoDBClient client, string tableName, int year)
+    public async Task<int> QueryMoviesAsync(string tableName, int year)
     {
         try
         {
-            var movieTable = new TableBuilder(client, tableName)
+            var movieTable = new TableBuilder(_amazonDynamoDB, tableName)
                 .AddHashKey("year", DynamoDBEntryType.Numeric)
                 .AddRangeKey("title", DynamoDBEntryType.String)
                 .Build();
@@ -481,8 +491,7 @@ public class DynamoDbMethods
     // snippet-end:[DynamoDB.dotnetv4.dynamodb-basics.QueryItems]
 
     // snippet-start:[DynamoDB.dotnetv4.dynamodb-basics.ScanTable]
-    public static async Task<int> ScanTableAsync(
-        AmazonDynamoDBClient client,
+    public async Task<int> ScanTableAsync(
         string tableName,
         int startYear,
         int endYear)
@@ -512,7 +521,7 @@ public class DynamoDbMethods
             var response = new ScanResponse();
             do
             {
-                response = await client.ScanAsync(request);
+                response = await _amazonDynamoDB.ScanAsync(request);
                 foundCount += response.Items.Count;
                 response.Items.ForEach(i => DisplayItem(i));
                 request.ExclusiveStartKey = response.LastEvaluatedKey;
@@ -540,7 +549,7 @@ public class DynamoDbMethods
     // snippet-end:[DynamoDB.dotnetv4.dynamodb-basics.ScanTable]
 
     // snippet-start:[DynamoDB.dotnetv4.dynamodb-basics.DeleteTableExample]
-    public static async Task<bool> DeleteTableAsync(AmazonDynamoDBClient client, string tableName)
+    public async Task<bool> DeleteTableAsync(string tableName)
     {
         try
         {
@@ -549,7 +558,7 @@ public class DynamoDbMethods
                 TableName = tableName,
             };
 
-            var response = await client.DeleteTableAsync(request);
+            var response = await _amazonDynamoDB.DeleteTableAsync(request);
 
             Console.WriteLine($"Table {response.TableDescription.TableName} successfully deleted.");
             return true;
@@ -578,7 +587,7 @@ public class DynamoDbMethods
     /// Displays a DynamoDB document on the console.
     /// </summary>
     /// <param name="document">The DynamoDB document to display.</param>
-    public static void DisplayDocument(Document document)
+    public void DisplayDocument(Document document)
     {
         Console.WriteLine($"{document["year"]}\t{document["title"]}");
     }
@@ -587,7 +596,7 @@ public class DynamoDbMethods
     /// Displays a DynamoDB item on the console.
     /// </summary>
     /// <param name="item">The DynamoDB item to display.</param>
-    public static void DisplayItem(Dictionary<string, AttributeValue> item)
+    public void DisplayItem(Dictionary<string, AttributeValue> item)
     {
         Console.WriteLine($"{item["year"].N}\t{item["title"].S}");
     }

@@ -7,7 +7,7 @@ namespace DynamoDBTests;
 
 public class DynamoDbMethodsTests
 {
-    readonly AmazonDynamoDBClient client = new();
+    readonly DynamoDbWrapper _wrapper = new(new AmazonDynamoDBClient());
     readonly string _tableName = "movie_table";
     readonly string _movieFileName = @"..\..\..\..\..\..\..\..\resources\sample_files\movies.json";
     readonly string _badMovieFile = "notareaddatafile";
@@ -17,7 +17,7 @@ public class DynamoDbMethodsTests
     [Trait("Category", "Integration")]
     public async Task CreateMovieTableAsyncTest()
     {
-        var success = await DynamoDbMethods.CreateMovieTableAsync(client, _tableName);
+        var success = await _wrapper.CreateMovieTableAsync(_tableName);
 
         Assert.True(success, "Failed to create table.");
     }
@@ -33,7 +33,7 @@ public class DynamoDbMethodsTests
             Title = "North by Northwest",
         };
 
-        var success = await DynamoDbMethods.PutItemAsync(client, newMovie, _tableName);
+        var success = await _wrapper.PutItemAsync(newMovie, _tableName);
         Assert.True(success, "Couldn't add the movie.");
     }
 
@@ -54,7 +54,7 @@ public class DynamoDbMethodsTests
             Rank = 5,
         };
 
-        var success = await DynamoDbMethods.UpdateItemAsync(client, updateMovie, updateMovieInfo, _tableName);
+        var success = await _wrapper.UpdateItemAsync(updateMovie, updateMovieInfo, _tableName);
         Assert.True(success, $"Couldn't update {updateMovie.Title}.");
     }
 
@@ -63,7 +63,7 @@ public class DynamoDbMethodsTests
     [Trait("Category", "Integration")]
     public void ImportMoviesWithBadFileNameShouldReturnNullTest()
     {
-        var movies = DynamoDbMethods.ImportMovies(_badMovieFile);
+        var movies = _wrapper.ImportMovies(_badMovieFile);
         Assert.Null(movies);
     }
 
@@ -72,7 +72,7 @@ public class DynamoDbMethodsTests
     [Trait("Category", "Integration")]
     public async Task BatchWriteItemsAsyncTest()
     {
-        var itemCount = await DynamoDbMethods.BatchWriteItemsAsync(client, _movieFileName);
+        var itemCount = await _wrapper.BatchWriteItemsAsync(_movieFileName, _tableName);
         Assert.Equal(250, itemCount);
     }
 
@@ -87,7 +87,7 @@ public class DynamoDbMethodsTests
             Year = 2013,
         };
 
-        var item = await DynamoDbMethods.GetItemAsync(client, lookupMovie, _tableName);
+        var item = await _wrapper.GetItemAsync(lookupMovie, _tableName);
 
         Assert.True(item["title"].S == lookupMovie.Title, $"Couldn't find {lookupMovie.Title}.");
     }
@@ -103,7 +103,7 @@ public class DynamoDbMethodsTests
             Year = 2013,
         };
 
-        var success = await DynamoDbMethods.DeleteItemAsync(client, _tableName, movieToDelete);
+        var success = await _wrapper.DeleteItemAsync(_tableName, movieToDelete);
         Assert.True(success, "Couldn't delete the item.");
     }
 
@@ -114,7 +114,7 @@ public class DynamoDbMethodsTests
     {
         // Use Query to find all the movies released in 2010.
         int findYear = 2013;
-        var queryCount = await DynamoDbMethods.QueryMoviesAsync(client, _tableName, findYear);
+        var queryCount = await _wrapper.QueryMoviesAsync(_tableName, findYear);
         Assert.True(queryCount > 0, "Couldn't find any movies that match.");
     }
 
@@ -125,7 +125,7 @@ public class DynamoDbMethodsTests
     {
         int startYear = 2001;
         int endYear = 2011;
-        var scanCount = await DynamoDbMethods.ScanTableAsync(client, _tableName, startYear, endYear);
+        var scanCount = await _wrapper.ScanTableAsync(_tableName, startYear, endYear);
         Assert.True(scanCount > 0, "Couldn't find any movies released in those years.");
     }
 
@@ -134,7 +134,7 @@ public class DynamoDbMethodsTests
     [Trait("Category", "Integration")]
     public async void DeleteTableAsyncTest()
     {
-        var success = await DynamoDbMethods.DeleteTableAsync(client, _tableName);
+        var success = await _wrapper.DeleteTableAsync(_tableName);
 
         Assert.True(success, "Failed to delete table.");
     }
