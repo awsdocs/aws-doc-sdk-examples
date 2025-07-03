@@ -20,21 +20,20 @@ namespace Basics;
 //     Query
 //     Scan
 //     DeleteItemAsync
-
 public class DynamoDbBasics
 {
+    public static bool IsInteractive = true;
+
     // Separator for the console display.
     private static readonly string SepBar = new string('-', 80);
-    public static bool isInteractive = true;
-
+    
     public static async Task Main(string[] args)
     {
         // Set up dependency injection for Amazon DynamoDB.
         using var host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
                 services.AddAWSService<IAmazonDynamoDB>()
-                    .AddTransient<DynamoDbWrapper>()
-            )
+                    .AddTransient<DynamoDbWrapper>())
             .Build();
 
         // Now the wrapper is available for injection.
@@ -183,6 +182,11 @@ public class DynamoDbBasics
     /// </summary>
     private static void DisplayInstructions()
     {
+        if (!IsInteractive)
+        {
+            return;
+        }
+
         Console.Clear();
         Console.WriteLine();
         Console.Write(new string(' ', 28));
@@ -208,7 +212,7 @@ public class DynamoDbBasics
     /// </summary>
     private static void WaitForEnter()
     {
-        if (isInteractive)
+        if (IsInteractive)
         {
             Console.WriteLine("\nPress <Enter> to continue.");
             Console.WriteLine(SepBar);
