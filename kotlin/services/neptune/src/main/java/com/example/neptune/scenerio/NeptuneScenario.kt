@@ -79,7 +79,7 @@ suspend fun runScenario(
     client: NeptuneClient,
     subnetGroupName: String,
     dbInstanceId: String,
-    clusterName: String
+    clusterName: String,
 ) {
     try {
         println(DASHES)
@@ -112,7 +112,7 @@ suspend fun runScenario(
             """
             In this step, we will wait until the DB instance 
             becomes available. This may take around 10 minutes.
-            """.trimIndent()
+            """.trimIndent(),
         )
         waitForInputToContinue(scanner)
         checkInstanceStatus(client, dbInstanceId, "available")
@@ -132,7 +132,7 @@ suspend fun runScenario(
             """
             Once stopped, this step polls the status 
             until the cluster is in a stopped state.
-            """.trimIndent()
+            """.trimIndent(),
         )
         waitForInputToContinue(scanner)
         stopDBCluster(client, dbClusterId)
@@ -147,7 +147,7 @@ suspend fun runScenario(
             Once started, this step polls the clusters 
             status until it's in an available state.
             We will also poll the instance status.
-            """.trimIndent()
+            """.trimIndent(),
         )
         waitForInputToContinue(scanner)
         startDBCluster(client, dbClusterId)
@@ -170,7 +170,6 @@ suspend fun runScenario(
         } else {
             println("You selected not to delete Neptune assets.")
         }
-
     } catch (e: Exception) {
         println("An error occurred during the scenario: ${e.message}")
         e.printStackTrace()
@@ -184,7 +183,7 @@ suspend fun runScenario(
  * @param subnetGroupName the identifier of the subnet group to delete
  * @return a {@link CompletableFuture} that completes when the cluster has been deleted
  */
-suspend fun deleteDBSubnetGroup(neptuneClient : NeptuneClient, subnetGroupName:String) {
+suspend fun deleteDBSubnetGroup(neptuneClient:NeptuneClient, subnetGroupName:String) {
     val request = DeleteDbSubnetGroupRequest {
         dbSubnetGroupName = subnetGroupName
     }
@@ -192,7 +191,6 @@ suspend fun deleteDBSubnetGroup(neptuneClient : NeptuneClient, subnetGroupName:S
     try {
         neptuneClient.deleteDbSubnetGroup(request)
         println(" Deleting Subnet Group: $subnetGroupName")
-
     } catch (e: DbSubnetGroupNotFoundFault) {
         println("\nThe subnet group not found: ${e.message}")
         throw e
@@ -209,7 +207,7 @@ suspend fun deleteDBSubnetGroup(neptuneClient : NeptuneClient, subnetGroupName:S
  *
  * @param clusterId the identifier of the cluster to delete
  */
-suspend fun deleteDBCluster(neptuneClient : NeptuneClient, clusterId: String) {
+suspend fun deleteDBCluster(neptuneClient:NeptuneClient, clusterId: String) {
     val request = DeleteDbClusterRequest {
         dbClusterIdentifier = clusterId
         skipFinalSnapshot = true
