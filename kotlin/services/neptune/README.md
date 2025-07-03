@@ -45,16 +45,16 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDBCluster](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L482)
-- [CreateDBInstance](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L455)
-- [CreateDBSubnetGroup](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L508)
-- [DeleteDBCluster](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L187)
-- [DeleteDBInstance](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L254)
-- [DeleteDBSubnetGroup](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L168)
-- [DescribeDBClusters](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L367)
-- [DescribeDBInstances](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L404)
-- [StartDBCluster](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L331)
-- [StopDBCluster](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L349)
+- [CreateDBCluster](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L546)
+- [CreateDBInstance](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L510)
+- [CreateDBSubnetGroup](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L583)
+- [DeleteDBCluster](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L204)
+- [DeleteDBInstance](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L275)
+- [DeleteDBSubnetGroup](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L179)
+- [DescribeDBClusters](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L400)
+- [DescribeDBInstances](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L447)
+- [StartDBCluster](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L344)
+- [StopDBCluster](src/main/java/com/example/neptune/scenerio/NeptuneScenario.kt#L372)
 
 
 <!--custom.examples.start-->
