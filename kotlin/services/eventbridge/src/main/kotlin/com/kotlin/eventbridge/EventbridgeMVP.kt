@@ -655,7 +655,6 @@ suspend fun createSnsTopic(topicName: String): String? {
     }
     """.trimIndent()
 
-
     val topicAttributes = mutableMapOf<String, String>()
     topicAttributes["Policy"] = topicPolicy
 
@@ -708,7 +707,6 @@ suspend fun addEventRule(
         }
     }
     """.trimIndent()
-
 
     val ruleRequest =
         PutRuleRequest {
