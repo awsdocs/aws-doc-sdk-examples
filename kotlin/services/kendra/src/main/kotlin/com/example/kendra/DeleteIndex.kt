@@ -42,7 +42,7 @@ suspend fun deleteSpecificIndex(indexId: String) {
             id = indexId
         }
 
-    KendraClient { region = "us-east-1" }.use { kendra ->
+    KendraClient.fromEnvironment { region = "us-east-1" }.use { kendra ->
         kendra.deleteIndex(deleteIndexRequest)
         println("$indexId was successfully deleted.")
     }
