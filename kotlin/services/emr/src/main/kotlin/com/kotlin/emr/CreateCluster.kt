@@ -112,7 +112,7 @@ suspend fun createAppCluster(
             instances = instancesConfig
         }
 
-    EmrClient { region = "us-west-2" }.use { emrClient ->
+    EmrClient.fromEnvironment { region = "us-west-2" }.use { emrClient ->
         val response: RunJobFlowResponse = emrClient.runJobFlow(request)
         return response.jobFlowId
     }

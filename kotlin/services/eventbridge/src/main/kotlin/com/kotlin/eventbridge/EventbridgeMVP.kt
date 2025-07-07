@@ -265,7 +265,7 @@ suspend fun deleteRole(roleNameVal: String?) {
             policyArn = policyArnVal
             roleName = roleNameVal
         }
-    IamClient { region = "us-east-1" }.use { iam ->
+    IamClient.fromEnvironment { region = "us-east-1" }.use { iam ->
         iam.detachRolePolicy(policyRequest)
         println("Successfully detached policy $policyArnVal from role $roleNameVal")
 
@@ -286,7 +286,7 @@ suspend fun deleteS3Bucket(bucketName: String?) {
         ListObjectsRequest {
             bucket = bucketName
         }
-    S3Client { region = "us-east-1" }.use { s3Client ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3Client ->
         val res = s3Client.listObjects(listObjects)
         val myObjects = res.contents
         val toDelete = mutableListOf<ObjectIdentifier>()
@@ -330,7 +330,7 @@ suspend fun deleteSNSTopic(topicArnVal: String?) {
             topicArn = topicArnVal
         }
 
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         snsClient.deleteTopic(request)
         println(" $topicArnVal was deleted.")
     }
@@ -342,7 +342,7 @@ suspend fun deleteRuleByName(ruleName: String?) {
         DeleteRuleRequest {
             name = ruleName
         }
-    EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-east-1" }.use { eventBrClient ->
         eventBrClient.deleteRule(ruleRequest)
         println("Successfully deleted the rule")
     }
@@ -357,7 +357,7 @@ suspend fun deleteTargetsFromRule(eventRuleName: String?) {
             rule = eventRuleName
         }
 
-    EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-east-1" }.use { eventBrClient ->
         val response = eventBrClient.listTargetsByRule(request)
         val allTargets = response.targets
 
@@ -398,7 +398,7 @@ suspend fun triggerCustomRule(email: String) {
             this.entries = listOf(entry)
         }
 
-    EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-east-1" }.use { eventBrClient ->
         eventBrClient.putEvents(eventsRequest)
     }
 }
@@ -430,7 +430,7 @@ suspend fun updateCustomRuleTargetWithTransform(
             eventBusName = null
         }
 
-    EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-east-1" }.use { eventBrClient ->
         eventBrClient.putTargets(targetsRequest)
     }
 }
@@ -450,7 +450,7 @@ suspend fun updateToCustomRule(ruleName: String?) {
             eventPattern = customEventsPattern
         }
 
-    EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-east-1" }.use { eventBrClient ->
         eventBrClient.putRule(request)
     }
 }
@@ -485,7 +485,7 @@ suspend fun updateSnsEventRule(
             eventBusName = null
         }
 
-    EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-east-1" }.use { eventBrClient ->
         eventBrClient.putTargets(targetsRequest)
     }
 }
@@ -497,7 +497,7 @@ suspend fun checkRule(eventRuleName: String?) {
             name = eventRuleName
         }
 
-    EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-east-1" }.use { eventBrClient ->
         val response = eventBrClient.describeRule(ruleRequest)
         println("The state of the rule is $response")
     }
@@ -524,7 +524,7 @@ suspend fun changeRuleState(
             EnableRuleRequest {
                 name = eventRuleName
             }
-        EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
+        EventBridgeClient.fromEnvironment { region = "us-east-1" }.use { eventBrClient ->
             eventBrClient.enableRule(ruleRequest)
         }
     }
@@ -549,7 +549,7 @@ suspend fun uploadTextFiletoS3(bucketName: String?) {
             body = myFile.asByteStream()
         }
 
-    S3Client { region = "us-east-1" }.use { s3Client ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3Client ->
         s3Client.putObject(putOb)
     }
 }
@@ -561,7 +561,7 @@ suspend fun listTargetRules(topicArnVal: String?) {
             targetArn = topicArnVal
         }
 
-    EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-east-1" }.use { eventBrClient ->
         val response = eventBrClient.listRuleNamesByTarget(ruleNamesByTargetRequest)
         response.ruleNames?.forEach { rule ->
             println("The rule name is $rule")
@@ -577,7 +577,7 @@ suspend fun listTargets(ruleName: String?) {
             rule = ruleName
         }
 
-    EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-east-1" }.use { eventBrClient ->
         val response = eventBrClient.listTargetsByRule(ruleRequest)
         response.targets?.forEach { target ->
             println("Target ARN: ${target.arn}")
@@ -612,7 +612,7 @@ suspend fun addSnsEventRule(
             rule = ruleName
         }
 
-    EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-east-1" }.use { eventBrClient ->
         eventBrClient.putTargets(request)
         println("Added event rule $eventRuleName with Amazon SNS target $topicName for bucket $bucketName.")
     }
@@ -631,26 +631,30 @@ suspend fun subEmail(
             topicArn = topicArnVal
         }
 
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.subscribe(request)
         println(" Subscription ARN: ${result.subscriptionArn}")
     }
 }
 
 suspend fun createSnsTopic(topicName: String): String? {
-    val topicPolicy =
-        "{" +
-            "\"Version\": \"2012-10-17\"," +
-            "\"Statement\": [{" +
-            "\"Sid\": \"EventBridgePublishTopic\"," +
-            "\"Effect\": \"Allow\"," +
-            "\"Principal\": {" +
-            "\"Service\": \"events.amazonaws.com\"" +
-            "}," +
-            "\"Resource\": \"*\"," +
-            "\"Action\": \"sns:Publish\"" +
-            "}]" +
-            "}"
+    val topicPolicy = """
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "EventBridgePublishTopic",
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": "events.amazonaws.com"
+                },
+                "Resource": "*",
+                "Action": "sns:Publish"
+            }
+        ]
+    }
+    """.trimIndent()
+
 
     val topicAttributes = mutableMapOf<String, String>()
     topicAttributes["Policy"] = topicPolicy
@@ -661,7 +665,7 @@ suspend fun createSnsTopic(topicName: String): String? {
             attributes = topicAttributes
         }
 
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         val response = snsClient.createTopic(topicRequest)
         println("Added topic $topicName for email subscriptions.")
         return response.topicArn
@@ -676,7 +680,7 @@ suspend fun listRules() {
             limit = 10
         }
 
-    EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-east-1" }.use { eventBrClient ->
         val response = eventBrClient.listRules(rulesRequest)
         response.rules?.forEach { rule ->
             println("The rule name is ${rule.name}")
@@ -693,15 +697,18 @@ suspend fun addEventRule(
     bucketName: String,
     eventRuleName: String?,
 ) {
-    val pattern = """{
+    val pattern = """
+    {
         "source": ["aws.s3"],
         "detail-type": ["Object Created"],
         "detail": {
-        "bucket": {
-            "name": ["$bucketName"]
+            "bucket": {
+                "name": ["$bucketName"]
             }
         }
-    }"""
+    }
+    """.trimIndent()
+
 
     val ruleRequest =
         PutRuleRequest {
@@ -711,7 +718,7 @@ suspend fun addEventRule(
             roleArn = roleArnVal
         }
 
-    EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-east-1" }.use { eventBrClient ->
         val ruleResponse = eventBrClient.putRule(ruleRequest)
         println("The ARN of the new rule is ${ruleResponse.ruleArn}")
     }
@@ -736,7 +743,7 @@ suspend fun setBucketNotification(bucketName: String) {
             skipDestinationValidation = true
         }
 
-    S3Client { region = "us-east-1" }.use { s3Client ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3Client ->
         s3Client.putBucketNotificationConfiguration(configurationRequest)
         println("Added bucket $bucketName with EventBridge events enabled.")
     }
@@ -749,7 +756,7 @@ suspend fun createBucket(bucketName: String) {
             bucket = bucketName
         }
 
-    S3Client { region = "us-east-1" }.use { s3 ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3 ->
         s3.createBucket(request)
         s3.waitUntilBucketExists {
             bucket = bucketName
@@ -766,7 +773,7 @@ suspend fun checkBucket(bucketName: String?): Boolean {
                 bucket = bucketName
             }
 
-        S3Client { region = "us-east-1" }.use { s3Client ->
+        S3Client.fromEnvironment { region = "us-east-1" }.use { s3Client ->
             s3Client.headBucket(headBucketRequest)
             return true
         }
@@ -793,7 +800,7 @@ suspend fun createIAMRole(
             policyArn = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess"
         }
 
-    IamClient { region = "us-east-1" }.use { iam ->
+    IamClient.fromEnvironment { region = "us-east-1" }.use { iam ->
         val response = iam.createRole(request)
         iam.attachRolePolicy(rolePolicyRequest)
         return response.role?.arn

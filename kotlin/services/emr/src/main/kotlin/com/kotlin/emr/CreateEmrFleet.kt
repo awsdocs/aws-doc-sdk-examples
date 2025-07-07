@@ -139,7 +139,7 @@ suspend fun createFleet() {
             releaseLabel = "emr-5.29.0"
         }
 
-    EmrClient { region = "us-west-2" }.use { emrClient ->
+    EmrClient.fromEnvironment { region = "us-west-2" }.use { emrClient ->
         val response = emrClient.runJobFlow(request)
         println(response.toString())
     }
