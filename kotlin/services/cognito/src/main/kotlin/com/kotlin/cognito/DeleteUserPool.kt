@@ -40,7 +40,7 @@ suspend fun delPool(userPoolId: String) {
             this.userPoolId = userPoolId
         }
 
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { cognitoClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { cognitoClient ->
         cognitoClient.deleteUserPool(request)
         print("$userPoolId was successfully deleted")
     }
