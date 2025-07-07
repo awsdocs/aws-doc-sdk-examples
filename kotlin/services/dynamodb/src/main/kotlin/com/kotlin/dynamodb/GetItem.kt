@@ -55,7 +55,7 @@ suspend fun getSpecificItem(
             tableName = tableNameVal
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         val returnedItem = ddb.getItem(request)
         val numbersMap = returnedItem.item
         numbersMap?.forEach { key1 ->

@@ -79,7 +79,7 @@ suspend fun putItemInTable(
             item = itemValues
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         ddb.putItem(request)
         println(" A new item was placed into $tableNameVal.")
     }

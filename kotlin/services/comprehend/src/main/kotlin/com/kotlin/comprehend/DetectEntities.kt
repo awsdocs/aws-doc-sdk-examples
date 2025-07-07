@@ -33,7 +33,7 @@ suspend fun detectAllEntities(textVal: String) {
             text = textVal
             languageCode = LanguageCode.fromValue("en")
         }
-    ComprehendClient { region = "us-east-1" }.use { comClient ->
+    ComprehendClient.fromEnvironment { region = "us-east-1" }.use { comClient ->
         val response = comClient.detectEntities(request)
         response.entities?.forEach { entity ->
             println("Entity text is ${entity.text}")

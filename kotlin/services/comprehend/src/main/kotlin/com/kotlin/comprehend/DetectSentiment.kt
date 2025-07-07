@@ -33,7 +33,7 @@ suspend fun detectSentiments(textVal: String) {
             languageCode = LanguageCode.fromValue("en")
         }
 
-    ComprehendClient { region = "us-east-1" }.use { comClient ->
+    ComprehendClient.fromEnvironment { region = "us-east-1" }.use { comClient ->
         val resp = comClient.detectSentiment(request)
         println("The Neutral value is ${resp.sentimentScore?.neutral}")
     }

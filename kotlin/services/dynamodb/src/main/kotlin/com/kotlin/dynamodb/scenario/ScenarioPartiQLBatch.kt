@@ -36,7 +36,7 @@ import aws.sdk.kotlin.services.dynamodb.waiters.waitUntilTableExists
 
 // snippet-start:[dynamodb.kotlin.scenario.partiql.batch.main]
 suspend fun main() {
-    val ddb = DynamoDbClient { region = "us-east-1" }
+    val ddb = DynamoDbClient.fromEnvironment { region = "us-east-1" }
     val tableName = "MoviesPartiQBatch"
     println("Creating an Amazon DynamoDB table named $tableName with a key named id and a sort key named title.")
     createTablePartiQLBatch(ddb, tableName, "year")

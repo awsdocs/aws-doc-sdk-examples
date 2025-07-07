@@ -22,7 +22,7 @@ suspend fun main() {
 
 // snippet-start:[dynamodb.kotlin.list_tables.main]
 suspend fun listAllTables() {
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         val response = ddb.listTables(ListTablesRequest {})
         response.tableNames?.forEach { tableName ->
             println("Table name is $tableName")

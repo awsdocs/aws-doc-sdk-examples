@@ -70,7 +70,7 @@ suspend fun createNewTable(
             tableName = tableNameVal
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         var tableArn: String
         val response = ddb.createTable(request)
         ddb.waitUntilTableExists {

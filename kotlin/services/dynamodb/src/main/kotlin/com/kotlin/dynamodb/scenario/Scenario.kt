@@ -87,8 +87,7 @@ suspend fun createScenarioTable(
             tableName = tableNameVal
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
-
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         val response = ddb.createTable(request)
         ddb.waitUntilTableExists {
             // suspend call
@@ -144,7 +143,7 @@ suspend fun putMovie(
             item = itemValues
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         ddb.putItem(request)
         println("Added $title to the Movie table.")
     }
@@ -167,7 +166,7 @@ suspend fun getMovie(
             tableName = tableNameVal
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         val returnedItem = ddb.getItem(request)
         val numbersMap = returnedItem.item
         numbersMap?.forEach { key1 ->
@@ -184,7 +183,7 @@ suspend fun deletIssuesTable(tableNameVal: String) {
             tableName = tableNameVal
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         ddb.deleteTable(request)
         println("$tableNameVal was deleted")
     }
@@ -210,7 +209,7 @@ suspend fun queryMovieTable(
             this.expressionAttributeValues = attrValues
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         val response = ddb.query(request)
         return response.count
     }
@@ -222,7 +221,7 @@ suspend fun scanMovies(tableNameVal: String) {
             tableName = tableNameVal
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         val response = ddb.scan(request)
         response.items?.forEach { item ->
             item.keys.forEach { key ->
