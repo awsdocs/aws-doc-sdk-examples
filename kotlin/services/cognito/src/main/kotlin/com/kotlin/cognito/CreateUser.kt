@@ -62,7 +62,7 @@ suspend fun createNewUser(
             userAttributes = listOf(attType)
         }
 
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { cognitoClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { cognitoClient ->
         val response = cognitoClient.adminCreateUser(request)
         println("User ${response.user?.username} is created. Status is ${response.user?.userStatus}")
     }

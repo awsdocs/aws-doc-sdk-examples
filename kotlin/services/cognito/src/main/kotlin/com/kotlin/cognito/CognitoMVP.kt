@@ -127,7 +127,7 @@ suspend fun checkAuthMethod(
             authFlow = AuthFlowType.AdminUserPasswordAuth
         }
 
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { identityProviderClient ->
         val response = identityProviderClient.adminInitiateAuth(authRequest)
         println("Result Challenge is ${response.challengeName}")
         return response
@@ -146,7 +146,7 @@ suspend fun resendConfirmationCode(
             username = userNameVal
         }
 
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { identityProviderClient ->
         val response = identityProviderClient.resendConfirmationCode(codeRequest)
         println("Method of delivery is " + (response.codeDeliveryDetails?.deliveryMedium))
     }
@@ -174,7 +174,7 @@ suspend fun adminRespondToAuthChallenge(
             session = sessionVal
         }
 
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { identityProviderClient ->
         val respondToAuthChallengeResult = identityProviderClient.adminRespondToAuthChallenge(adminRespondToAuthChallengeRequest)
         println("respondToAuthChallengeResult.getAuthenticationResult() ${respondToAuthChallengeResult.authenticationResult}")
     }
@@ -193,7 +193,7 @@ suspend fun verifyTOTP(
             session = sessionVal
         }
 
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { identityProviderClient ->
         val verifyResponse = identityProviderClient.verifySoftwareToken(tokenRequest)
         println("The status of the token is ${verifyResponse.status}")
     }
@@ -207,7 +207,7 @@ suspend fun getSecretForAppMFA(sessionVal: String?): String? {
             session = sessionVal
         }
 
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { identityProviderClient ->
         val tokenResponse = identityProviderClient.associateSoftwareToken(softwareTokenRequest)
         val secretCode = tokenResponse.secretCode
         println("Enter this token into Google Authenticator")
@@ -230,7 +230,7 @@ suspend fun confirmSignUp(
             username = userNameVal
         }
 
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { identityProviderClient ->
         identityProviderClient.confirmSignUp(signUpRequest)
         println("$userNameVal  was confirmed")
     }
@@ -248,7 +248,7 @@ suspend fun getAdminUser(
             userPoolId = poolIdVal
         }
 
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { identityProviderClient ->
         val response = identityProviderClient.adminGetUser(userRequest)
         println("User status ${response.userStatus}")
     }
@@ -278,7 +278,7 @@ suspend fun signUp(
             password = passwordVal
         }
 
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { identityProviderClient ->
         identityProviderClient.signUp(signUpRequest)
         println("User has been signed up")
     }

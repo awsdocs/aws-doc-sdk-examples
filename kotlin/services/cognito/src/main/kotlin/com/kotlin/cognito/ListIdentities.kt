@@ -43,7 +43,7 @@ suspend fun listPoolIdentities(identityPoolId: String?) {
             maxResults = 15
         }
 
-    CognitoIdentityClient { region = "us-east-1" }.use { cognitoIdentityClient ->
+    CognitoIdentityClient.fromEnvironment { region = "us-east-1" }.use { cognitoIdentityClient ->
         val response = cognitoIdentityClient.listIdentities(request)
         response.identities?.forEach { identity ->
             println("The identity Id value is ${identity.identityId}")
