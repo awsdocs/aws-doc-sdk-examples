@@ -32,7 +32,7 @@ suspend fun listImageTags(repoName: String?) {
             repositoryName = repoName
         }
 
-    EcrClient { region = "us-east-1" }.use { ecrClient ->
+    EcrClient.fromEnvironment { region = "us-east-1" }.use { ecrClient ->
         val imageResponse = ecrClient.listImages(listImages)
         imageResponse.imageIds?.forEach { imageId ->
             println("Image tag: ${imageId.imageTag}")
