@@ -76,7 +76,7 @@ suspend fun createNewService(
             taskDefinition = taskDefinitionVal
         }
 
-    EcsClient { region = "us-east-1" }.use { ecsClient ->
+    EcsClient.fromEnvironment { region = "us-east-1" }.use { ecsClient ->
         val response = ecsClient.createService(request)
         return response.service?.serviceArn
     }
