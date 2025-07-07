@@ -3,7 +3,6 @@
 
 package com.kotlin.cloudwatch
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.cloudwatch.CloudWatchClient
 import aws.sdk.kotlin.services.cloudwatch.model.AlarmType
 import aws.sdk.kotlin.services.cloudwatch.model.ComparisonOperator
@@ -434,8 +433,7 @@ suspend fun getAlarmHistory(
             historyItemType = HistoryItemType.Action
         }
 
-    CloudWatchClient.fromEnvironment {region = "us-east-1"
-    }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.describeAlarmHistory(historyRequest)
         val historyItems = response.alarmHistoryItems
         if (historyItems != null) {
