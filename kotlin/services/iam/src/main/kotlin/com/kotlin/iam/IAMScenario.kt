@@ -202,7 +202,7 @@ suspend fun assumeGivenRole(
     roleSessionNameVal: String?,
     bucketName: String,
 ) {
-    val stsClient = StsClient.fromEnvironment {region = "us-east-1" }
+    val stsClient = StsClient.fromEnvironment { region = "us-east-1" }
     val roleRequest =
         AssumeRoleRequest {
             roleArn = roleArnVal
@@ -215,18 +215,17 @@ suspend fun assumeGivenRole(
     val secKey = myCreds?.secretAccessKey
     val secToken = myCreds?.sessionToken
 
-    val staticCredentials =
-        StaticCredentialsProvider {
-            accessKeyId = key
-            secretAccessKey = secKey
-            sessionToken = secToken
-        }
+    val staticCredentials = StaticCredentialsProvider {
+        accessKeyId = key
+        secretAccessKey = secKey
+        sessionToken = secToken
+    }
 
     // List all objects in an Amazon S3 bucket using the temp creds.
     val s3 = S3Client.fromEnvironment {
-            credentialsProvider = staticCredentials
-            region = "us-east-1"
-        }
+        region = "us-east-1"
+        credentialsProvider = staticCredentials
+    }
 
     println("Created a S3Client using temp credentials.")
     println("Listing objects in $bucketName")
