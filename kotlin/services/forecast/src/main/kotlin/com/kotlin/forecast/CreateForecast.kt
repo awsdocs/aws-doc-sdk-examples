@@ -49,7 +49,7 @@ suspend fun createNewForecast(
             predictorArn = predictorArnVal
         }
 
-    ForecastClient { region = "us-west-2" }.use { forecast ->
+    ForecastClient.fromEnvironment { region = "us-west-2" }.use { forecast ->
         val response = forecast.createForecast(request)
         return response.forecastArn
     }

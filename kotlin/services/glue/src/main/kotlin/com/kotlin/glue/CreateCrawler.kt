@@ -77,7 +77,7 @@ suspend fun createGlueCrawler(
             schedule = cron
         }
 
-    GlueClient { region = "us-west-2" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-west-2" }.use { glueClient ->
         glueClient.createCrawler(request)
         println("$crawlerName was successfully created")
     }

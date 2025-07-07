@@ -42,7 +42,7 @@ suspend fun describe(forecastarn: String?) {
             forecastArn = forecastarn
         }
 
-    ForecastClient { region = "us-west-2" }.use { forecast ->
+    ForecastClient.fromEnvironment { region = "us-west-2" }.use { forecast ->
         val response = forecast.describeForecast(request)
         println("The name of the forecast is ${response.forecastName}")
     }

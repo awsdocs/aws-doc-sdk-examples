@@ -27,7 +27,7 @@ suspend fun listDataGroups() {
             maxResults = 10
         }
 
-    ForecastClient { region = "us-west-2" }.use { forecast ->
+    ForecastClient.fromEnvironment { region = "us-west-2" }.use { forecast ->
         val response = forecast.listDatasetGroups(request)
         response.datasetGroups?.forEach { group ->
             println("The data set group name is ${group.datasetGroupName}")

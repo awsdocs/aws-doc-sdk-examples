@@ -43,7 +43,7 @@ suspend fun delStream(streamName: String) {
             deliveryStreamName = streamName
         }
 
-    FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
+    FirehoseClient.fromEnvironment { region = "us-west-2" }.use { firehoseClient ->
         firehoseClient.deleteDeliveryStream(request)
         println("Delivery Stream $streamName is deleted")
     }

@@ -27,7 +27,7 @@ suspend fun listAllForeCasts() {
             maxResults = 10
         }
 
-    ForecastClient { region = "us-west-2" }.use { forecast ->
+    ForecastClient.fromEnvironment { region = "us-west-2" }.use { forecast ->
         val response = forecast.listForecasts(request)
         response.forecasts?.forEach { forecast ->
             println("The name of the forecast is ${forecast.forecastName}")

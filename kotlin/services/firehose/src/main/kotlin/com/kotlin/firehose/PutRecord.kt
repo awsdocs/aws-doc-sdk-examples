@@ -55,7 +55,7 @@ suspend fun putSingleRecord(
             record = recordOb
         }
 
-    FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
+    FirehoseClient.fromEnvironment { region = "us-west-2" }.use { firehoseClient ->
         val recordResponse = firehoseClient.putRecord(request)
         println("The record ID is ${recordResponse.recordId}")
     }

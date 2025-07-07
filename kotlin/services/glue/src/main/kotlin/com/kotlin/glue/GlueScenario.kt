@@ -104,7 +104,7 @@ suspend fun createDatabase(
             databaseInput = input
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         glueClient.createDatabase(request)
         println("The database was successfully created")
     }
@@ -140,7 +140,7 @@ suspend fun createCrawler(
             schedule = cron
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         glueClient.createCrawler(crawlerRequest)
         println("$crawlerName was successfully created")
     }
@@ -152,7 +152,7 @@ suspend fun getCrawler(crawlerName: String?) {
             name = crawlerName
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getCrawler(request)
         val role = response.crawler?.role
         println("The role associated with this crawler is $role")
@@ -165,7 +165,7 @@ suspend fun startCrawler(crawlerName: String) {
             name = crawlerName
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         glueClient.startCrawler(crawlerRequest)
         println("$crawlerName was successfully started.")
     }
@@ -177,7 +177,7 @@ suspend fun getDatabase(databaseName: String?) {
             name = databaseName
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getDatabase(request)
         val dbDesc = response.database?.description
         println("The database description is $dbDesc")
@@ -190,7 +190,7 @@ suspend fun getGlueTables(dbName: String?) {
             databaseName = dbName
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getTables(tableRequest)
         response.tableList?.forEach { tableName ->
             println("Table name is ${tableName.name}")
@@ -206,7 +206,7 @@ suspend fun startJob(jobNameVal: String?) {
             jobName = jobNameVal
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.startJobRun(runRequest)
         println("The job run Id is ${response.jobRunId}")
     }
@@ -235,7 +235,7 @@ suspend fun createJob(
             command = commandOb
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         glueClient.createJob(jobRequest)
         println("$jobName was successfully created.")
     }
@@ -247,7 +247,7 @@ suspend fun getJobs() {
             maxResults = 10
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getJobs(request)
         response.jobs?.forEach { job ->
             println("Job name is ${job.name}")
@@ -261,7 +261,7 @@ suspend fun getJobRuns(jobNameVal: String?) {
             jobName = jobNameVal
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getJobRuns(request)
         response.jobRuns?.forEach { job ->
             println("Job name is ${job.jobName}")
@@ -275,7 +275,7 @@ suspend fun deleteJob(jobNameVal: String) {
             jobName = jobNameVal
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         glueClient.deleteJob(jobRequest)
         println("$jobNameVal was successfully deleted")
     }
@@ -287,7 +287,7 @@ suspend fun deleteMyDatabase(databaseName: String) {
             name = databaseName
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         glueClient.deleteDatabase(request)
         println("$databaseName was successfully deleted")
     }
@@ -298,7 +298,7 @@ suspend fun deleteCrawler(crawlerName: String) {
         DeleteCrawlerRequest {
             name = crawlerName
         }
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         glueClient.deleteCrawler(request)
         println("$crawlerName was deleted")
     }
