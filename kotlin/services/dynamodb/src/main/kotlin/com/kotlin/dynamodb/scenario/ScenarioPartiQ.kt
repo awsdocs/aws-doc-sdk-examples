@@ -33,7 +33,7 @@ import java.io.File
 
 // snippet-start:[dynamodb.kotlin.scenario.partiql.main]
 suspend fun main() {
-    val ddb = DynamoDbClient { region = "us-east-1" }
+    val ddb = DynamoDbClient.fromEnvironment { region = "us-east-1" }
     val tableName = "MoviesPartiQ"
     val fileName = "../../../resources/sample_files/movies.json"
     println("Creating an Amazon DynamoDB table named MoviesPartiQ with a key named id and a sort key named title.")
