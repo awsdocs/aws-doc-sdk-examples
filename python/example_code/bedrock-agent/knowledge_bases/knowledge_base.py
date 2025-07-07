@@ -22,7 +22,7 @@ import boto3
 import uuid
 import time
 from botocore.exceptions import ClientError
-from roles import create_knowledge_base_role, delete_knowledge_base_role
+from knowledge_bases.roles import create_knowledge_base_role, delete_knowledge_base_role
 
 logger = logging.getLogger(__name__)
 
@@ -58,13 +58,14 @@ def create_knowledge_base(bedrock_agent_client, name, role_arn, description=None
                 # you can use the quick-create flow to have Knowledge Bases create the collection for you.
                 "opensearchServerlessConfiguration": {
                     "collectionArn": "arn:aws:aoss:us-east-1::123456789012:collection/abcdefgh12345678defgh",
+                        "fieldMapping": {
                         "metadataField": "metadata",
                         "textField": "text",
                         "vectorField": "vector"
-                    },
+                        },
                     "vectorIndexName": "test-uuid"
-                }
-            },             
+                    },
+                },
             "clientToken": "test-client-token-" + str(uuid.uuid4())
         }
         

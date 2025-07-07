@@ -44,7 +44,7 @@ Code excerpts that show you how to call individual service functions.
 - [CreateFlow](flows/flow.py#L18)
 - [CreateFlowAlias](flows/flow_alias.py#L15)
 - [CreateFlowVersion](flows/flow_version.py#L18)
-- [CreateKnowledgeBase](knowledge_bases/knowledge_base.py#L29)
+- [CreateKnowledgeBase](knowledge_bases/knowledge_base.py#L30)
 - [CreatePrompt](prompts/prompt.py#L18)
 - [CreatePromptVersion](prompts/prompt.py#L84)
 - [DeleteAgent](bedrock_agent_wrapper.py#L118)
@@ -52,12 +52,12 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteFlow](flows/flow.py#L155)
 - [DeleteFlowAlias](flows/flow_alias.py#L98)
 - [DeleteFlowVersion](flows/flow_version.py#L91)
-- [DeleteKnowledgeBase](knowledge_bases/knowledge_base.py#L165)
+- [DeleteKnowledgeBase](knowledge_bases/knowledge_base.py#L167)
 - [DeletePrompt](prompts/prompt.py#L159)
 - [GetAgent](bedrock_agent_wrapper.py#L161)
 - [GetFlow](flows/flow.py#L192)
 - [GetFlowVersion](flows/flow_version.py#L54)
-- [GetKnowledgeBase](knowledge_bases/knowledge_base.py#L86)
+- [GetKnowledgeBase](knowledge_bases/knowledge_base.py#L88)
 - [GetPrompt](prompts/prompt.py#L124)
 - [ListAgentActionGroups](bedrock_agent_wrapper.py#L208)
 - [ListAgentKnowledgeBases](bedrock_agent_wrapper.py#L237)
@@ -65,13 +65,13 @@ Code excerpts that show you how to call individual service functions.
 - [ListFlowAliases](flows/flow_alias.py#L132)
 - [ListFlowVersions](flows/flow_version.py#L128)
 - [ListFlows](flows/flow.py#L229)
-- [ListKnowledgeBases](knowledge_bases/knowledge_base.py#L195)
+- [ListKnowledgeBases](knowledge_bases/knowledge_base.py#L197)
 - [ListPrompts](prompts/prompt.py#L191)
 - [PrepareAgent](bedrock_agent_wrapper.py#L266)
 - [PrepareFlow](flows/flow.py#L58)
 - [UpdateFlow](flows/flow.py#L112)
 - [UpdateFlowAlias](flows/flow_alias.py#L55)
-- [UpdateKnowledgeBase](knowledge_bases/knowledge_base.py#L116)
+- [UpdateKnowledgeBase](knowledge_bases/knowledge_base.py#L118)
 
 ### Scenarios
 
@@ -93,6 +93,7 @@ functions within the same service.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
 
 
 #### Create and invoke a flow
@@ -119,14 +120,9 @@ Start the example by running the following at a command prompt:
 python flows/playlist_flow.py
 ```
 
+
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockFlows.start-->
-
-When prompted, enter the genre of music and the number of songs you want
-in the playlist.
-Optionally, the script can delete the resources that it creates. If you want to use the flow later, such as in the Amazon Bedrock console, enter `n` when the script prompts you to delete resources. Note that you will then need to manually delete the resources.
-
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockFlows.end-->
-
 
 #### Create and invoke a managed prompt
 
@@ -145,26 +141,6 @@ Start the example by running the following at a command prompt:
 ```
 python prompts/scenario_get_started_with_prompts.py
 ```
-<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockFlows.start-->
-<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockFlows.end-->
-
-<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.start-->
-
-This example shows you how to do the following:
-
-- Create a managed prompt.
-- Create a version of the prompt.
-- Invoke the prompt using the version.
-- Clean up resources (optional).
-
-<!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockPrompts.start-->
-<!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockPrompts.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-python prompts/scenario_get_started_with_prompts.py
-```
 
 
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.start-->
@@ -174,19 +150,6 @@ python prompts/scenario_get_started_with_prompts.py
 
 This example shows you how to do the following:
 
-<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.end-->
-
-#### Create and invoke an agent
-
-This example shows you how to do the following:
-
-- Create an execution role for the agent.
-- Create the agent and deploy a DRAFT version.
-- Create a Lambda function that implements the agent's capabilities.
-- Create an action group that connects the agent to the Lambda function.
-- Deploy the fully configured agent.
-- Invoke the agent with user-provided prompts.
-- Delete all created resources.
 - Create an execution role for the agent.
 - Create the agent and deploy a DRAFT version.
 - Create a Lambda function that implements the agent's capabilities.

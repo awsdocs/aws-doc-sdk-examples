@@ -79,7 +79,7 @@ def test_create_knowledge_base(make_stubber, error_code):
             "storageConfiguration": {
                 "type": "OPENSEARCH_SERVERLESS",
                 "opensearchServerlessConfiguration": {
-                    "collectionArn": "arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-embed-text-v1",
+                    "collectionArn": "arn:aws:aoss:us-east-1::123456789012:collection/abcdefgh12345678defgh",
                     "fieldMapping": {
                         "metadataField": "metadata",
                         "textField": "text",
