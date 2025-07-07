@@ -48,7 +48,7 @@ suspend fun listSyncJobs(
             id = dataSourceId
         }
 
-    KendraClient { region = "us-east-1" }.use { kendra ->
+    KendraClient.fromEnvironment { region = "us-east-1" }.use { kendra ->
         val response = kendra.listDataSourceSyncJobs(jobsRequest)
         response.history?.forEach { job ->
             println("Execution id is ${job.executionId}")

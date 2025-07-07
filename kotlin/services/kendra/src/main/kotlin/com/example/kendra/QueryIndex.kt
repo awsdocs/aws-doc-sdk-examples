@@ -50,7 +50,7 @@ suspend fun querySpecificIndex(
             queryText = text
         }
 
-    KendraClient { region = "us-east-1" }.use { kendra ->
+    KendraClient.fromEnvironment { region = "us-east-1" }.use { kendra ->
         val response = kendra.query(queryRequest)
         response.resultItems?.forEach { item ->
             println("The document title is ${item.documentTitle}")

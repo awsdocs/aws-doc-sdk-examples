@@ -49,7 +49,7 @@ suspend fun deleteSpecificDataSource(
             indexId = indexIdVal
         }
 
-    KendraClient { region = "us-east-1" }.use { kendra ->
+    KendraClient.fromEnvironment { region = "us-east-1" }.use { kendra ->
         kendra.deleteDataSource(dataSourceRequest)
         println("$dataSourceId was successfully deleted.")
     }

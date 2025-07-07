@@ -26,7 +26,7 @@ suspend fun listKeyspaces() {
             maxResults = 10
         }
 
-    KeyspacesClient { region = "us-east-1" }.use { keyClient ->
+    KeyspacesClient.fromEnvironment { region = "us-east-1" }.use { keyClient ->
         val response = keyClient.listKeyspaces(keyspacesRequest)
         response.keyspaces?.forEach { keyspace ->
             println("The name of the keyspace is ${keyspace.keyspaceName}")
