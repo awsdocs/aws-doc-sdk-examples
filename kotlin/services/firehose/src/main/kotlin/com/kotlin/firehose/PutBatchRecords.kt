@@ -65,7 +65,7 @@ suspend fun addStockTradeData(streamName: String?) {
                 records = recordList
             }
 
-        FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
+        FirehoseClient.fromEnvironment { region = "us-west-2" }.use { firehoseClient ->
             val recordResponse = firehoseClient.putRecordBatch(request)
             println("The number of records added is ${recordResponse.requestResponses?.size}")
         }
