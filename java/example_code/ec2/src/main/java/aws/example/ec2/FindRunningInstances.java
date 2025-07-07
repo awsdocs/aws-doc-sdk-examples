@@ -56,7 +56,7 @@ public class FindRunningInstances {
             System.out.print("Done");
 
         } catch (SdkClientException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
         // snippet-end:[ec2.java1.running_instances.main]
     }

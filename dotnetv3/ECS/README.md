@@ -29,11 +29,6 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Get started
-
-- [Hello Amazon ECS](ECSActions/HelloECS.cs#L4) (`ListClusters`)
-
-
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -77,10 +72,6 @@ Alternatively, you can run the example from within your IDE.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
-
-#### Hello Amazon ECS
-
-This example shows you how to get started using Amazon ECS.
 
 
 

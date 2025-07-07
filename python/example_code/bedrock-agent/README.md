@@ -95,7 +95,6 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
 #### Create and invoke a flow
 
 This example shows you how to do the following:
@@ -120,7 +119,6 @@ Start the example by running the following at a command prompt:
 python flows/playlist_flow.py
 ```
 
-
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockFlows.start-->
 
 When prompted, enter the genre of music and the number of songs you want
@@ -129,7 +127,28 @@ Optionally, the script can delete the resources that it creates. If you want to 
 
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockFlows.end-->
 
+
 #### Create and invoke a managed prompt
+
+This example shows you how to do the following:
+
+- Create a managed prompt.
+- Create a version of the prompt.
+- Invoke the prompt using the version.
+- Clean up resources (optional).
+
+<!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockPrompts.start-->
+<!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockPrompts.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python prompts/scenario_get_started_with_prompts.py
+```
+<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockFlows.start-->
+<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockFlows.end-->
+
+<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.start-->
 
 This example shows you how to do the following:
 
@@ -149,34 +168,11 @@ python prompts/scenario_get_started_with_prompts.py
 
 
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.start-->
+<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.end-->
+
+#### Create and invoke an agent
 
 This example shows you how to do the following:
-
-- Create a managed prompt
-- Create a version of the prompt
-- Invoke the prompt using the version
-- Update the prompt
-- Create a new version
-- Invoke the updated prompt
-- Clean up resources (optional)
-
-Start the example by running the following at a command prompt:
-
-```
-python prompts/scenario_get_started_with_prompts.py
-```
-
-By default, the example will clean up all resources it creates. If you want to keep the resources for further exploration, use the `--no-cleanup` flag:
-
-```
-python prompts/scenario_get_started_with_prompts.py --no-cleanup
-```
-
-You can also specify a different AWS region or model ID:
-
-```
-python prompts/scenario_get_started_with_prompts.py --region us-west-2 --model-id anthropic.claude-3-sonnet-20240229-v1:0
-```
 
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.end-->
 
@@ -184,6 +180,13 @@ python prompts/scenario_get_started_with_prompts.py --region us-west-2 --model-i
 
 This example shows you how to do the following:
 
+- Create an execution role for the agent.
+- Create the agent and deploy a DRAFT version.
+- Create a Lambda function that implements the agent's capabilities.
+- Create an action group that connects the agent to the Lambda function.
+- Deploy the fully configured agent.
+- Invoke the agent with user-provided prompts.
+- Delete all created resources.
 - Create an execution role for the agent.
 - Create the agent and deploy a DRAFT version.
 - Create a Lambda function that implements the agent's capabilities.

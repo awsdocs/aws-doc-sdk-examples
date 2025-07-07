@@ -36,6 +36,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 - [Converse](models/amazon-nova/amazon-nova-text/Sources/Converse/main.swift#L4)
 - [ConverseStream](models/amazon-nova/amazon-nova-text/Sources/ConverseStream/main.swift#L4)
 
+### Amazon Nova Reel
+
+- [Text-to-video](models/amazon-nova/amazon-nova-reel/Sources/main.swift#L4)
+
 ### Anthropic Claude
 
 - [Converse](models/anthropic_claude/Sources/Converse/main.swift#L4)

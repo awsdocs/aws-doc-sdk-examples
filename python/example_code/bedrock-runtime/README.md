@@ -163,6 +163,7 @@ This example shows you how to get started using Amazon Bedrock Runtime.
 python hello/hello_bedrock_runtime_invoke.py
 ```
 
+
 #### Create and invoke a managed prompt
 
 This example shows you how to do the following:
@@ -180,6 +181,7 @@ Start the example by running the following at a command prompt:
 ```
 python ../bedrock-agent/prompts/scenario_get_started_with_prompts.py
 ```
+
 
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.start-->
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.end-->

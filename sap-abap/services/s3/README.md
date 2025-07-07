@@ -41,12 +41,12 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [CopyObject](zcl_aws1_s3_actions.clas.abap#L61)
-- [CreateBucket](zcl_aws1_s3_actions.clas.abap#L85)
-- [DeleteBucket](zcl_aws1_s3_actions.clas.abap#L107)
-- [DeleteObject](zcl_aws1_s3_actions.clas.abap#L128)
-- [GetObject](zcl_aws1_s3_actions.clas.abap#L148)
-- [ListObjectsV2](zcl_aws1_s3_actions.clas.abap#L191)
-- [PutObject](zcl_aws1_s3_actions.clas.abap#L211)
+- [CreateBucket](zcl_aws1_s3_actions.clas.abap#L84)
+- [DeleteBucket](zcl_aws1_s3_actions.clas.abap#L117)
+- [DeleteObject](zcl_aws1_s3_actions.clas.abap#L137)
+- [GetObject](zcl_aws1_s3_actions.clas.abap#L156)
+- [ListObjectsV2](zcl_aws1_s3_actions.clas.abap#L197)
+- [PutObject](zcl_aws1_s3_actions.clas.abap#L216)
 
 
 <!--custom.examples.start-->

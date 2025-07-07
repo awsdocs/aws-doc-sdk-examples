@@ -40,11 +40,13 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateFunction](basics/lambda-basics/Sources/entry.swift#L177)
-- [GetFunction](basics/lambda-basics/Sources/entry.swift#L142)
-- [Invoke](basics/lambda-basics/Sources/entry.swift#L313)
-- [ListFunctions](basics/lambda-basics/Sources/entry.swift#L283)
-- [UpdateFunctionCode](basics/lambda-basics/Sources/entry.swift#L236)
+- [CreateFunction](basics/lambda-basics/Sources/entry.swift#L176)
+- [DeleteFunction](basics/lambda-basics/Sources/entry.swift#L549)
+- [GetFunction](basics/lambda-basics/Sources/entry.swift#L141)
+- [Invoke](basics/lambda-basics/Sources/entry.swift#L366)
+- [ListFunctions](basics/lambda-basics/Sources/entry.swift#L336)
+- [UpdateFunctionCode](basics/lambda-basics/Sources/entry.swift#L237)
+- [UpdateFunctionConfiguration](basics/lambda-basics/Sources/entry.swift#L284)
 
 
 <!--custom.examples.start-->

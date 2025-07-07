@@ -34,11 +34,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 Code excerpts that show you how to call individual service functions.
 
 - [DeleteAlarms](zcl_aws1_cwt_actions.clas.abap#L60)
-- [DescribeAlarms](zcl_aws1_cwt_actions.clas.abap#L81)
-- [DisableAlarmActions](zcl_aws1_cwt_actions.clas.abap#L103)
-- [EnableAlarmActions](zcl_aws1_cwt_actions.clas.abap#L127)
-- [ListMetrics](zcl_aws1_cwt_actions.clas.abap#L151)
-- [PutMetricAlarm](zcl_aws1_cwt_actions.clas.abap#L174)
+- [DescribeAlarms](zcl_aws1_cwt_actions.clas.abap#L80)
+- [DisableAlarmActions](zcl_aws1_cwt_actions.clas.abap#L101)
+- [EnableAlarmActions](zcl_aws1_cwt_actions.clas.abap#L124)
+- [ListMetrics](zcl_aws1_cwt_actions.clas.abap#L147)
+- [PutMetricAlarm](zcl_aws1_cwt_actions.clas.abap#L169)
 
 ### Scenarios
 

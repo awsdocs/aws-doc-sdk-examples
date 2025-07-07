@@ -45,13 +45,13 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateJob](S3BatchActions.java#L314)
-- [DeleteJobTagging](S3BatchActions.java#L238)
-- [DescribeJob](S3BatchActions.java#L263)
-- [GetJobTagging](S3BatchActions.java#L204)
-- [PutJobTagging](S3BatchActions.java#L434)
-- [UpdateJobPriority](S3BatchActions.java#L173)
-- [UpdateJobStatus](S3BatchActions.java#L146)
+- [CreateJob](S3BatchActions.java#L312)
+- [DeleteJobTagging](S3BatchActions.java#L236)
+- [DescribeJob](S3BatchActions.java#L261)
+- [GetJobTagging](S3BatchActions.java#L202)
+- [PutJobTagging](S3BatchActions.java#L432)
+- [UpdateJobPriority](S3BatchActions.java#L171)
+- [UpdateJobStatus](S3BatchActions.java#L144)
 
 
 <!--custom.examples.start-->

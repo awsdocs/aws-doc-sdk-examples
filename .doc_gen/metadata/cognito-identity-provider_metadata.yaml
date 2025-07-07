@@ -63,12 +63,12 @@ cognito-identity-provider_ListUserPools:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Cognito
+        - sdk_version: 4
+          github: dotnetv4/Cognito
           excerpts:
             - description:
               snippet_tags:
-                - Cognito.dotnetv3.ListUserPools
+                - Cognito.dotnetv4.ListUserPools
     Go:
       versions:
         - sdk_version: 2
@@ -429,6 +429,14 @@ cognito-identity-provider_ListUsers:
             - description:
               snippet_tags:
                 - javascript.v3.cognito-idp.actions.ListUsers
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/cognito-identity-provider
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.cognito-identity-provider.ListUsers
   services:
     cognito-identity-provider: {ListUsers}
 cognito-identity-provider_AdminInitiateAuth:
