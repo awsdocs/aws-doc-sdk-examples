@@ -42,7 +42,7 @@ suspend fun deleteKeys(keyPair: String?) {
             keyName = keyPair
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         ec2.deleteKeyPair(request)
         println("Successfully deleted key pair named $keyPair")
     }

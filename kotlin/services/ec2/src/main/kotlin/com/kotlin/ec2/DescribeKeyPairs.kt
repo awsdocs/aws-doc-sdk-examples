@@ -22,7 +22,7 @@ suspend fun main() {
 
 // snippet-start:[ec2.kotlin.describe_key_pairs.main]
 suspend fun describeEC2Keys() {
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeKeyPairs(DescribeKeyPairsRequest {})
         response.keyPairs?.forEach { keyPair ->
             println("Found key pair with name ${keyPair.keyName} and fingerprint ${ keyPair.keyFingerprint}")

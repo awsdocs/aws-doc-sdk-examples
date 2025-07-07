@@ -45,7 +45,7 @@ suspend fun getAllocateAddress(instanceIdVal: String?): String? {
             domain = DomainType.Vpc
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val allocateResponse = ec2.allocateAddress(allocateRequest)
         val allocationIdVal = allocateResponse.allocationId
 

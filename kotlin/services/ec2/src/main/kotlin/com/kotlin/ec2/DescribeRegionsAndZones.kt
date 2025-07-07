@@ -23,7 +23,7 @@ suspend fun main() {
 
 // snippet-start:[ec2.kotlin.describe_region_and_zones.main]
 suspend fun describeEC2RegionsAndZones() {
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val regionsResponse = ec2.describeRegions(DescribeRegionsRequest {})
         regionsResponse.regions?.forEach { region ->
             println("Found Region ${region.regionName} with endpoint ${region.endpoint}")

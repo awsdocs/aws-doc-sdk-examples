@@ -22,7 +22,7 @@ suspend fun main() {
 
 // snippet-start:[ec2.kotlin.describe_addresses.main]
 suspend fun describeEC2Address() {
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeAddresses(DescribeAddressesRequest {})
         response.addresses?.forEach { address ->
             println(
