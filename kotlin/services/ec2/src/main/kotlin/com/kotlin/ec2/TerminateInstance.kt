@@ -42,7 +42,7 @@ suspend fun terminateEC2(instanceID: String) {
             instanceIds = listOf(instanceID)
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.terminateInstances(request)
         response.terminatingInstances?.forEach { instance ->
             println("The ID of the terminated instance is ${instance.instanceId}")
