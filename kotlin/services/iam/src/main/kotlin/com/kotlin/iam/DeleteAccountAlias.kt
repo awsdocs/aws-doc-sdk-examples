@@ -41,7 +41,7 @@ suspend fun deleteIAMAccountAlias(alias: String) {
             accountAlias = alias
         }
 
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         iamClient.deleteAccountAlias(request)
         println("Successfully deleted account alias $alias")
     }

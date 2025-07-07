@@ -47,7 +47,7 @@ suspend fun updateIAMUser(
             newUserName = newName
         }
 
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         iamClient.updateUser(request)
         println("Successfully updated user to $newName")
     }

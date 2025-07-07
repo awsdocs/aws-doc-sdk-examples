@@ -22,7 +22,7 @@ suspend fun main() {
 
 // snippet-start:[iam.kotlin.list_account_aliases.main]
 suspend fun listAliases() {
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.listAccountAliases(ListAccountAliasesRequest {})
         response.accountAliases?.forEach { alias ->
             println("Retrieved account alias $alias")
