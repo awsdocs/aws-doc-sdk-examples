@@ -44,7 +44,7 @@ suspend fun createCFStack(stackNameVal: String, roleARNVal: String?, location: S
             onFailure = OnFailure.Rollback
         }
 
-    CloudFormationClient { region = "us-east-1" }.use { cfClient ->
+    CloudFormationClient.fromEnvironment { region = "us-east-1" }.use { cfClient ->
         cfClient.createStack(request)
         println("$stackNameVal was created")
     }

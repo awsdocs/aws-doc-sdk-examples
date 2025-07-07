@@ -41,7 +41,7 @@ suspend fun getSpecificPipeline(nameVal: String?) {
             name = nameVal
             version = 1
         }
-    CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
+    CodePipelineClient.fromEnvironment { region = "us-east-1" }.use { pipelineClient ->
         val response = pipelineClient.getPipeline(request)
         response.pipeline?.stages?.forEach { stage ->
             println("Stage name is " + stage.name.toString() + " and actions are:")

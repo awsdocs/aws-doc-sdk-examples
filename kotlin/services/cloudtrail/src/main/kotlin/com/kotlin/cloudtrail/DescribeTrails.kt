@@ -35,7 +35,7 @@ suspend fun describeSpecificTrails(trailName: String) {
             trailNameList = listOf(trailName)
         }
 
-    CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+    CloudTrailClient.fromEnvironment { region = "us-east-1" }.use { cloudTrail ->
         val response = cloudTrail.describeTrails(request)
         response.trailList?.forEach { trail ->
             println("The ARN of the trail is ${trail.trailArn}")

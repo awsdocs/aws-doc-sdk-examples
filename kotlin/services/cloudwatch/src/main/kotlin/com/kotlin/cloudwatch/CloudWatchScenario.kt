@@ -289,7 +289,7 @@ suspend fun deleteAnomalyDetector(fileName: String) {
             singleMetricAnomalyDetector = singleMetricAnomalyDetectorVal
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         cwClient.deleteAnomalyDetector(request)
         println("Successfully deleted the Anomaly Detector.")
     }
@@ -303,7 +303,7 @@ suspend fun deleteAlarm(alarmNameVal: String) {
             alarmNames = listOf(alarmNameVal)
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         cwClient.deleteAlarms(request)
         println("Successfully deleted alarm $alarmNameVal")
     }
@@ -316,7 +316,7 @@ suspend fun deleteDashboard(dashboardName: String) {
         DeleteDashboardsRequest {
             dashboardNames = listOf(dashboardName)
         }
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         cwClient.deleteDashboards(dashboardsRequest)
         println("$dashboardName was successfully deleted.")
     }
@@ -348,7 +348,7 @@ suspend fun getAndOpenMetricImage(fileName: String) {
             metricWidget = myJSON
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.getMetricWidgetImage(imageRequest)
         val bytes = response.metricWidgetImage
         if (bytes != null) {
@@ -373,7 +373,7 @@ suspend fun describeAnomalyDetectors(fileName: String) {
             metricName = customMetricName
             namespace = customMetricNamespace
         }
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.describeAnomalyDetectors(detectorsRequest)
         response.anomalyDetectors?.forEach { detector ->
             println("Metric name: ${detector.singleMetricAnomalyDetector?.metricName}")
@@ -403,7 +403,7 @@ suspend fun addAnomalyDetector(fileName: String?) {
             singleMetricAnomalyDetector = singleMetricAnomalyDetectorVal
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         cwClient.putAnomalyDetector(anomalyDetectorRequest)
         println("Added anomaly detector for metric $customMetricName.")
     }
@@ -434,9 +434,7 @@ suspend fun getAlarmHistory(
             historyItemType = HistoryItemType.Action
         }
 
-    CloudWatchClient {
-        credentialsProvider = EnvironmentCredentialsProvider()
-        region = "us-east-1"
+    CloudWatchClient.fromEnvironment {region = "us-east-1"
     }.use { cwClient ->
         val response = cwClient.describeAlarmHistory(historyRequest)
         val historyItems = response.alarmHistoryItems
@@ -469,7 +467,7 @@ suspend fun checkForMetricAlarm(fileName: String?) {
             metricName = customMetricName
             namespace = customMetricNamespace
         }
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         while (!hasAlarm && retries > 0) {
             val response = cwClient.describeAlarmsForMetric(metricRequest)
             if (response.metricAlarms?.count()!! > 0) {
@@ -529,7 +527,7 @@ suspend fun addMetricDataForAlarm(fileName: String?) {
             metricData = metricDataList
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         cwClient.putMetricData(request)
         println("Added metric values for for metric $customMetricName")
     }
@@ -589,7 +587,7 @@ suspend fun getCustomMetricData(fileName: String) {
             metricDataQueries = dq
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.getMetricData(getMetReq)
         response.metricDataResults?.forEach { item ->
             println("The label is ${item.label}")
@@ -609,7 +607,7 @@ suspend fun describeAlarms() {
             maxRecords = 10
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.describeAlarms(alarmsRequest)
         response.metricAlarms?.forEach { alarm ->
             println("Alarm name: ${alarm.alarmName}")
@@ -650,7 +648,7 @@ suspend fun createAlarm(fileName: String): String {
             treatMissingData = "ignore"
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         cwClient.putMetricAlarm(alarmRequest)
         println("$alarmNameVal was successfully created!")
         return alarmNameVal
@@ -669,7 +667,7 @@ suspend fun addMetricToDashboard(
             dashboardBody = readFileAsString(fileNameVal)
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         cwClient.putDashboard(dashboardRequest)
         println("$dashboardNameVal was successfully updated.")
     }
@@ -704,7 +702,7 @@ suspend fun createNewCustomMetric(dataPoint: Double) {
             metricData = listOf(datum)
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         cwClient.putMetricData(request)
         println("Added metric values for for metric PAGES_VISITED")
     }
@@ -736,7 +734,7 @@ suspend fun createDashboardWithMetrics(
             dashboardBody = readFileAsString(fileNameVal)
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.putDashboard(dashboardRequest)
         println("$dashboardNameVal was successfully created.")
         val messages = response.dashboardValidationMessages
@@ -782,7 +780,7 @@ suspend fun getMetricStatistics(costDateWeek: String?) {
                     .Instant(endDate)
             period = 86400
         }
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.getMetricStatistics(statisticsRequest)
         val data: List<Datapoint>? = response.datapoints
         if (data != null) {
@@ -846,7 +844,7 @@ suspend fun listMets(namespaceVal: String?): ArrayList<String>? {
         ListMetricsRequest {
             namespace = namespaceVal
         }
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         val reponse = cwClient.listMetrics(request)
         reponse.metrics?.forEach { metrics ->
             val data = metrics.metricName
@@ -864,7 +862,7 @@ suspend fun getSpecificMet(namespaceVal: String?): Dimension? {
         ListMetricsRequest {
             namespace = namespaceVal
         }
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.listMetrics(request)
         val myList = response.metrics
         if (myList != null) {
@@ -877,7 +875,7 @@ suspend fun getSpecificMet(namespaceVal: String?): Dimension? {
 // snippet-start:[cloudwatch.kotlin.scenario.list.namespaces.main]
 suspend fun listNameSpaces(): ArrayList<String> {
     val nameSpaceList = ArrayList<String>()
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.listMetrics(ListMetricsRequest {})
         response.metrics?.forEach { metrics ->
             val data = metrics.namespace

@@ -34,7 +34,7 @@ suspend fun listExecutions(name: String?) {
             pipelineName = name
         }
 
-    CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
+    CodePipelineClient.fromEnvironment { region = "us-east-1" }.use { pipelineClient ->
         val response = pipelineClient.listPipelineExecutions(request)
         response.pipelineExecutionSummaries?.forEach { exe ->
             println("The pipeline execution id is ${exe.pipelineExecutionId}")

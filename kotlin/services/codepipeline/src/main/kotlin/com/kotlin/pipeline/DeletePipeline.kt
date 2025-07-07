@@ -31,7 +31,7 @@ suspend fun deleteSpecificPipeline(nameVal: String) {
         DeletePipelineRequest {
             name = nameVal
         }
-    CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
+    CodePipelineClient.fromEnvironment { region = "us-east-1" }.use { pipelineClient ->
         pipelineClient.deletePipeline(request)
         println("$nameVal was successfully deleted")
     }

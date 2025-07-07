@@ -32,7 +32,7 @@ suspend fun deleteQueryName(sampleNamedQueryId: String?) {
         namedQueryId = sampleNamedQueryId
     }
 
-    AthenaClient { region = "us-west-2" }.use { athenaClient ->
+    AthenaClient.fromEnvironment { region = "us-west-2" }.use { athenaClient ->
         athenaClient.deleteNamedQuery(request)
         println("$sampleNamedQueryId was deleted!")
     }

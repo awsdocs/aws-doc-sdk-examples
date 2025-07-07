@@ -59,7 +59,7 @@ suspend fun submitAthenaQuery(queryStringVal: String, databaseVal: String, outpu
         resultConfiguration = resultConfigurationOb
     }
 
-    AthenaClient { region = "us-west-2" }.use { athenaClient ->
+    AthenaClient.fromEnvironment { region = "us-west-2" }.use { athenaClient ->
         val response = athenaClient.startQueryExecution(request)
         return response.queryExecutionId
     }

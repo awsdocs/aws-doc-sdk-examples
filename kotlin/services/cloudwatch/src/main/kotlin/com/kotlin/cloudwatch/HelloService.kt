@@ -40,7 +40,7 @@ suspend fun listAllMets(namespaceVal: String?) {
             namespace = namespaceVal
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         cwClient
             .listMetricsPaginated(request)
             .transform { it.metrics?.forEach { obj -> emit(obj) } }
