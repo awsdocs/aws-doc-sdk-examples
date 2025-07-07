@@ -70,7 +70,7 @@ private suspend fun sendStockTrade(
             data = bytes
         }
 
-    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
+    KinesisClient.fromEnvironment { region = "us-east-1" }.use { kinesisClient ->
         kinesisClient.putRecord(request)
     }
 }
@@ -81,7 +81,7 @@ suspend fun validateStream(streamNameVal: String) {
             streamName = streamNameVal
         }
 
-    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
+    KinesisClient.fromEnvironment { region = "us-east-1" }.use { kinesisClient ->
         val describeStreamResponse = kinesisClient.describeStream(request)
 
         if (describeStreamResponse.streamDescription?.streamStatus.toString() != "ACTIVE") {

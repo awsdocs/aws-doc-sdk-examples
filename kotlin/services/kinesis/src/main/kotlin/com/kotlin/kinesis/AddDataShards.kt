@@ -48,7 +48,7 @@ suspend fun addShards(
             targetShardCount = goalShards
         }
 
-    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
+    KinesisClient.fromEnvironment { region = "us-east-1" }.use { kinesisClient ->
         val response = kinesisClient.updateShardCount(request)
         println("${response.streamName} has updated shard count to ${response.currentShardCount}")
     }
