@@ -23,7 +23,7 @@ suspend fun main() {
 
 // snippet-start:[lambda.kotlin.account.main]
 suspend fun getSettings() {
-    LambdaClient { region = "us-west-2" }.use { awsLambda ->
+    LambdaClient.fromEnvironment { region = "us-west-2" }.use { awsLambda ->
         val response = awsLambda.getAccountSettings(GetAccountSettingsRequest { })
         println(
             "Total code size for your account is ${response.accountLimit?.totalCodeSize} bytes",
