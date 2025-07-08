@@ -3294,13 +3294,15 @@ s3_Scenario_UploadStream:
             - description: Use the <ulink url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation">&AWS;
                 CRT-based S3 Client</ulink>.
               snippet_tags:
-                - s3.java2.async_stream.import
-                - s3.java2.async_stream.main
+                - s3.java2.async_stream.complete
+            - description: Use the standard <ulink url="sdk-for-java/latest/developer-guide/s3-async-client-multipart.html#s3-async-client-mp-on" type="documentation">
+                asynchronous S3 client with multipart upload enabled</ulink>.
+              snippet_tags:
+                - s3.java2.async_stream_mp.complete
             - description: Use the <ulink url="sdk-for-java/latest/developer-guide/transfer-manager.html" type="documentation">&S3;
                 Transfer Manager</ulink>.
               snippet_tags:
-                - s3.tm.java2.upload_stream.import
-                - s3.tm.java2.upload_stream.main
+                - s3.tm.java2.upload_stream.complete
     Swift:
       versions:
         - sdk_version: 1
