@@ -47,7 +47,7 @@ suspend fun invokeFunction(functionNameVal: String) {
             payload = byteArray
         }
 
-    LambdaClient.fromEnvironment { region = "us-west-2" }.use { awsLambda ->
+    LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val res = awsLambda.invoke(request)
         println("${res.payload?.toString(Charsets.UTF_8)}")
         println("The log result is ${res.logResult}")
