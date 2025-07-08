@@ -40,7 +40,7 @@ suspend fun talkPolly() {
             engine = Engine.Standard
         }
 
-    PollyClient { region = "us-west-2" }.use { polly ->
+    PollyClient.fromEnvironment { region = "us-west-2" }.use { polly ->
         val describeVoicesResult = polly.describeVoices(describeVoiceRequest)
         val voice = describeVoicesResult.voices?.get(26)
         polly.synthesizeSpeech(
