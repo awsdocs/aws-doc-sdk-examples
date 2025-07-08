@@ -5,9 +5,25 @@ package com.example.sqs;
 
 // snippet-start:[sqs.java2.sendRecvBatch.main]
 // snippet-start:[sqs.java2.sendRecvBatch.import]
-import software.amazon.awssdk.regions.Region;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.sqs.SqsClient;
-import software.amazon.awssdk.services.sqs.model.*;
+import software.amazon.awssdk.services.sqs.model.BatchResultErrorEntry;
+import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
+import software.amazon.awssdk.services.sqs.model.DeleteMessageBatchRequest;
+import software.amazon.awssdk.services.sqs.model.DeleteMessageBatchRequestEntry;
+import software.amazon.awssdk.services.sqs.model.DeleteMessageBatchResponse;
+import software.amazon.awssdk.services.sqs.model.DeleteMessageBatchResultEntry;
+import software.amazon.awssdk.services.sqs.model.DeleteQueueRequest;
+import software.amazon.awssdk.services.sqs.model.Message;
+import software.amazon.awssdk.services.sqs.model.MessageAttributeValue;
+import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
+import software.amazon.awssdk.services.sqs.model.SendMessageBatchRequest;
+import software.amazon.awssdk.services.sqs.model.SendMessageBatchRequestEntry;
+import software.amazon.awssdk.services.sqs.model.SendMessageBatchResponse;
+import software.amazon.awssdk.services.sqs.model.SendMessageBatchResultEntry;
+import software.amazon.awssdk.services.sqs.model.SqsException;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,8 +33,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 // snippet-end:[sqs.java2.sendRecvBatch.import]
 
 
@@ -36,15 +50,30 @@ import java.util.logging.Logger;
  */
 
 public class SendRecvBatch {
-    private static final Logger logger = Logger.getLogger(SendRecvBatch.class.getName());
-    static {
-        Logger rootLogger = Logger.getLogger("");
-        rootLogger.setLevel(Level.WARNING);
-    }
-    private static final SqsClient sqsClient = SqsClient.builder()
-            .region(Region.US_WEST_2)
-            .build();
+    private static final Logger LOGGER = LoggerFactory.getLogger(SendRecvBatch.class);
+    private static final SqsClient sqsClient = SqsClient.create();
 
+
+    public static void main(String[] args) {
+        String queueName = "testQueue" + System.currentTimeMillis();
+        String queueUrl = createQueue(queueName);
+
+        // Send messages to the queue
+        List<MessageEntry> messages = new ArrayList<>();
+        messages.add(new MessageEntry("Hello world!", null));
+        messages.add(new MessageEntry("Hello world 2!", null));
+        messages.add(new MessageEntry("Hello world 3!", null));
+        SendMessageBatchResponse response = sendMessages(queueUrl, messages);
+
+        // Receive messages from the queue
+        List<Message> receivedMessages = receiveMessages(queueUrl, 10, 10);
+
+        // Delete messages from the queue
+        deleteMessages(queueUrl, receivedMessages);
+
+        // Delete the queue
+        deleteQueue(queueUrl);
+    }
     // snippet-start:[sqs.java2.sendRecvBatch.sendBatch]
     /**
      * Send a batch of messages in a single request to an SQS queue.
@@ -80,14 +109,14 @@ public class SendRecvBatch {
 
             if (!response.successful().isEmpty()) {
                 for (SendMessageBatchResultEntry resultEntry : response.successful()) {
-                    logger.info("Message sent: " + resultEntry.messageId() + ": " +
+                    LOGGER.info("Message sent: " + resultEntry.messageId() + ": " +
                             messages.get(Integer.parseInt(resultEntry.id())).getBody());
                 }
             }
 
             if (!response.failed().isEmpty()) {
                 for (BatchResultErrorEntry errorEntry : response.failed()) {
-                    logger.warning("Failed to send: " + errorEntry.id() + ": " +
+                    LOGGER.warn("Failed to send: " + errorEntry.id() + ": " +
                             messages.get(Integer.parseInt(errorEntry.id())).getBody());
                 }
             }
@@ -95,7 +124,7 @@ public class SendRecvBatch {
             return response;
 
         } catch (SqsException e) {
-            logger.log(Level.SEVERE, "Send messages failed to queue: " + queueUrl, e);
+            LOGGER.error("Send messages failed to queue: " + queueUrl, e);
             throw e;
         }
     }
@@ -126,13 +155,13 @@ public class SendRecvBatch {
             List<Message> messages = sqsClient.receiveMessage(receiveRequest).messages();
 
             for (Message message : messages) {
-                logger.info("Received message: " + message.messageId() + ": " + message.body());
+                LOGGER.info("Received message: " + message.messageId() + ": " + message.body());
             }
 
             return messages;
 
         } catch (SqsException e) {
-            logger.log(Level.SEVERE, "Couldn't receive messages from queue: " + queueUrl, e);
+            LOGGER.error("Couldn't receive messages from queue: " + queueUrl, e);
             throw e;
         }
     }
@@ -167,20 +196,20 @@ public class SendRecvBatch {
 
             if (!response.successful().isEmpty()) {
                 for (DeleteMessageBatchResultEntry resultEntry : response.successful()) {
-                    logger.info("Deleted " + messages.get(Integer.parseInt(resultEntry.id())).receiptHandle());
+                    LOGGER.info("Deleted " + messages.get(Integer.parseInt(resultEntry.id())).receiptHandle());
                 }
             }
 
             if (!response.failed().isEmpty()) {
                 for (BatchResultErrorEntry errorEntry : response.failed()) {
-                    logger.warning("Could not delete " + messages.get(Integer.parseInt(errorEntry.id())).receiptHandle());
+                    LOGGER.warn("Could not delete " + messages.get(Integer.parseInt(errorEntry.id())).receiptHandle());
                 }
             }
 
             return response;
 
         } catch (SqsException e) {
-            logger.log(Level.SEVERE, "Couldn't delete messages from queue " + queueUrl, e);
+            LOGGER.error("Couldn't delete messages from queue " + queueUrl, e);
             throw e;
         }
     }
@@ -311,7 +340,7 @@ public class SendRecvBatch {
             }
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error reading file", e);
+            LOGGER.error("Error reading file", e);
         } finally {
             // Clean up by deleting the queue.
             DeleteQueueRequest deleteQueueRequest = DeleteQueueRequest.builder()
@@ -325,9 +354,19 @@ public class SendRecvBatch {
         System.out.println("-".repeat(88));
     }
 
-    public static void main(String[] args) {
-        usageDemo();
+    private static String createQueue(String queueName) {
+        CreateQueueRequest createRequest = CreateQueueRequest.builder()
+                .queueName(queueName)
+                .build();
+        return sqsClient.createQueue(createRequest).queueUrl();
     }
-}
+    
+    private static void deleteQueue(String queueUrl) {
+        DeleteQueueRequest deleteQueueRequest = DeleteQueueRequest.builder()
+                .queueUrl(queueUrl)
+                .build();
+        sqsClient.deleteQueue(deleteQueueRequest);
+    }
+ }
 // snippet-end:[sqs.java2.sendRecvBatch.scenario]
 // snippet-end:[sqs.java2.sendRecvBatch.main]
