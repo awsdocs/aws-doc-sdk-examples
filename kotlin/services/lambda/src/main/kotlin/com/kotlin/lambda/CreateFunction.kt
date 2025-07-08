@@ -71,7 +71,7 @@ suspend fun createNewFunction(
             runtime = Runtime.Java17
         }
 
-    LambdaClient { region = "us-east-1" }.use { awsLambda ->
+    LambdaClient.fromEnvironment { region = "us-east-1" }.use { awsLambda ->
         val functionResponse = awsLambda.createFunction(request)
         awsLambda.waitUntilFunctionActive {
             functionName = myFunctionName

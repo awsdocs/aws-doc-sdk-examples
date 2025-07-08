@@ -27,7 +27,7 @@ suspend fun listFunctions() {
             maxItems = 10
         }
 
-    LambdaClient { region = "us-west-2" }.use { awsLambda ->
+    LambdaClient.fromEnvironment { region = "us-west-2" }.use { awsLambda ->
         val response = awsLambda.listFunctions(request)
         response.functions?.forEach { function ->
             println("The function name is ${function.functionName}")
