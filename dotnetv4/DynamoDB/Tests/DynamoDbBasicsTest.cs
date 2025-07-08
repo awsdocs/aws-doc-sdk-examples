@@ -16,7 +16,7 @@ public class DynamoDbBasicsTest
     /// <summary>
     /// Verifies the scenario with an integration test. No errors should be logged.
     /// </summary>
-    /// <returns>Async task.</returns>
+    /// <returns>A task representing the asynchronous test operation.</returns>
     [Fact]
     [Trait("Category", "Integration")]
     public async Task TestScenario()

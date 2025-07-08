@@ -8,25 +8,32 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Basics;
 
 // snippet-start:[DynamoDB.dotnetv3.DynamoDB_Basics_Scenario]
-// This example application performs the following basic Amazon DynamoDB
-// functions:
-//
-//     CreateTableAsync
-//     PutItemAsync
-//     UpdateItemAsync
-//     BatchWriteItemAsync
-//     GetItemAsync
-//     DeleteItemAsync
-//     Query
-//     Scan
-//     DeleteItemAsync
+
+/// <summary>
+/// This example application performs the following basic Amazon DynamoDB
+/// functions:
+///     CreateTableAsync
+///     PutItemAsync
+///     UpdateItemAsync
+///     BatchWriteItemAsync
+///     GetItemAsync
+///     DeleteItemAsync
+///     Query
+///     Scan
+///     DeleteItemAsync.
+/// </summary>
 public class DynamoDbBasics
 {
     public static bool IsInteractive = true;
 
     // Separator for the console display.
     private static readonly string SepBar = new string('-', 80);
-    
+
+    /// <summary>
+    /// The main entry point for the DynamoDB Basics example application.
+    /// </summary>
+    /// <param name="args">Command line arguments.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public static async Task Main(string[] args)
     {
         // Set up dependency injection for Amazon DynamoDB.
@@ -39,7 +46,7 @@ public class DynamoDbBasics
         // Now the wrapper is available for injection.
         var dynamoDbWrapper = host.Services.GetRequiredService<DynamoDbWrapper>();
 
-        var tableName = "movie_table4";
+        var tableName = "movie_table";
 
         var movieFileName = @"movies.json";
 

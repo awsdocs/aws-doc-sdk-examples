@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DynamoDBActions;
 
+/// <summary>
+/// A simple example that demonstrates basic DynamoDB operations.
+/// </summary>
 public class HelloDynamoDB
 {
     /// <summary>

@@ -30,7 +30,6 @@ public class DynamoDbWrapper
     /// Creates a new Amazon DynamoDB table and then waits for the new
     /// table to become active.
     /// </summary>
-    /// <param name="client">An initialized Amazon DynamoDB client object.</param>
     /// <param name="tableName">The name of the table to create.</param>
     /// <returns>A Boolean value indicating the success of the operation.</returns>
     public async Task<bool> CreateMovieTableAsync(string tableName)
@@ -118,7 +117,6 @@ public class DynamoDbWrapper
     /// <summary>
     /// Adds a new item to the table.
     /// </summary>
-    /// <param name="client">An initialized Amazon DynamoDB client object.</param>
     /// <param name="newMovie">A Movie object containing informtation for
     /// the movie to add to the table.</param>
     /// <param name="tableName">The name of the table where the item will be added.</param>
@@ -166,7 +164,6 @@ public class DynamoDbWrapper
     /// <summary>
     /// Updates an existing item in the movies table.
     /// </summary>
-    /// <param name="client">An initialized Amazon DynamoDB client object.</param>
     /// <param name="newMovie">A Movie object containing information for
     /// the movie to update.</param>
     /// <param name="newInfo">A MovieInfo object that contains the
@@ -234,7 +231,6 @@ public class DynamoDbWrapper
     /// <summary>
     /// Gets information about an existing movie from the table.
     /// </summary>
-    /// <param name="client">An initialized Amazon DynamoDB client object.</param>
     /// <param name="newMovie">A Movie object containing information about
     /// the movie to retrieve.</param>
     /// <param name="tableName">The name of the table containing the movie.</param>
@@ -284,7 +280,7 @@ public class DynamoDbWrapper
     /// Loads the contents of a JSON file into a list of movies to be
     /// added to the DynamoDB table.
     /// </summary>
-    /// <param name="movieFileName">The full path to the JSON file.</param>
+    /// <param name="movieFileName">The name of the JSON file.</param>
     /// <returns>A generic list of movie objects.</returns>
     public List<Movie> ImportMovies(string movieFileName)
     {
@@ -314,9 +310,9 @@ public class DynamoDbWrapper
     /// <summary>
     /// Writes 250 items to the movie table.
     /// </summary>
-    /// <param name="client">The initialized DynamoDB client object.</param>
     /// <param name="movieFileName">A string containing the full path to
     /// the JSON file containing movie data.</param>
+    /// <param name="tableName">The name of the table to write items to.</param>
     /// <returns>A long integer value representing the number of movies
     /// imported from the JSON file.</returns>
     public async Task<long> BatchWriteItemsAsync(
@@ -372,7 +368,6 @@ public class DynamoDbWrapper
     /// <summary>
     /// Deletes a single item from a DynamoDB table.
     /// </summary>
-    /// <param name="client">The initialized DynamoDB client object.</param>
     /// <param name="tableName">The name of the table from which the item
     /// will be deleted.</param>
     /// <param name="movieToDelete">A movie object containing the title and
@@ -421,7 +416,6 @@ public class DynamoDbWrapper
     /// Queries the table for movies released in a particular year and
     /// then displays the information for the movies returned.
     /// </summary>
-    /// <param name="client">The initialized DynamoDB client object.</param>
     /// <param name="tableName">The name of the table to query.</param>
     /// <param name="year">The release year for which we want to
     /// view movies.</param>
@@ -491,6 +485,13 @@ public class DynamoDbWrapper
     // snippet-end:[DynamoDB.dotnetv4.dynamodb-basics.QueryItems]
 
     // snippet-start:[DynamoDB.dotnetv4.dynamodb-basics.ScanTable]
+    /// <summary>
+    /// Scans the table for movies released between the specified years.
+    /// </summary>
+    /// <param name="tableName">The name of the table to scan.</param>
+    /// <param name="startYear">The starting year for the range.</param>
+    /// <param name="endYear">The ending year for the range.</param>
+    /// <returns>The number of movies found in the specified year range.</returns>
     public async Task<int> ScanTableAsync(
         string tableName,
         int startYear,
@@ -549,6 +550,11 @@ public class DynamoDbWrapper
     // snippet-end:[DynamoDB.dotnetv4.dynamodb-basics.ScanTable]
 
     // snippet-start:[DynamoDB.dotnetv4.dynamodb-basics.DeleteTableExample]
+    /// <summary>
+    /// Deletes a DynamoDB table.
+    /// </summary>
+    /// <param name="tableName">The name of the table to delete.</param>
+    /// <returns>A Boolean value indicating the success of the operation.</returns>
     public async Task<bool> DeleteTableAsync(string tableName)
     {
         try
