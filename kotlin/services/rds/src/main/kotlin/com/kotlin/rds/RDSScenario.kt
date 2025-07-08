@@ -148,7 +148,7 @@ suspend fun deleteParaGroup(
     var didFind: Boolean
     var instanceARN: String
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         // Make sure that the database has been deleted.
         while (!isDataDel) {
             val response = rdsClient.describeDbInstances()
@@ -193,7 +193,7 @@ suspend fun deleteDbInstance(dbInstanceIdentifierVal: String) {
             skipFinalSnapshot = true
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.deleteDbInstance(deleteDbInstanceRequest)
         print("The status of the database is ${response.dbInstance?.dbInstanceStatus}")
     }
@@ -217,7 +217,7 @@ suspend fun waitForSnapshotReady(
         }
 
     while (!snapshotReady) {
-        RdsClient { region = "us-west-2" }.use { rdsClient ->
+        RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
             val response = rdsClient.describeDbSnapshots(snapshotsRequest)
             val snapshotList: List<DbSnapshot>? = response.dbSnapshots
             if (snapshotList != null) {
@@ -249,7 +249,7 @@ suspend fun createDbSnapshot(
             dbSnapshotIdentifier = dbSnapshotIdentifierVal
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.createDbSnapshot(snapshotRequest)
         print("The Snapshot id is ${response.dbSnapshot?.dbiResourceId}")
     }
@@ -269,7 +269,7 @@ suspend fun waitForDbInstanceReady(dbInstanceIdentifierVal: String?) {
         }
     var endpoint = ""
     while (!instanceReady) {
-        RdsClient { region = "us-west-2" }.use { rdsClient ->
+        RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
             val response = rdsClient.describeDbInstances(instanceRequest)
             val instanceList = response.dbInstances
             if (instanceList != null) {
@@ -313,7 +313,7 @@ suspend fun createDatabaseInstance(
             masterUserPassword = masterUserPasswordVal
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.createDbInstance(instanceRequest)
         print("The status is ${response.dbInstance?.dbInstanceStatus}")
         return response.dbInstance?.dbInstanceArn
@@ -328,7 +328,7 @@ suspend fun getMicroInstances() {
         DescribeOrderableDbInstanceOptionsRequest {
             engine = "mysql"
         }
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeOrderableDbInstanceOptions(dbInstanceOptionsRequest)
         val orderableDBInstances = response.orderableDbInstanceOptions
         if (orderableDBInstances != null) {
@@ -349,7 +349,7 @@ suspend fun getAllowedEngines(dbParameterGroupFamilyVal: String?) {
             dbParameterGroupFamily = dbParameterGroupFamilyVal
             engine = "mysql"
         }
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbEngineVersions(versionsRequest)
         val dbEngines: List<DbEngineVersion>? = response.dbEngineVersions
         if (dbEngines != null) {
@@ -380,7 +380,7 @@ suspend fun modifyDBParas(dbGroupName: String) {
             parameters = paraList
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.modifyDbParameterGroup(groupRequest)
         println("The parameter group ${response.dbParameterGroupName} was successfully modified")
     }
@@ -405,7 +405,7 @@ suspend fun describeDbParameters(
                 source = "user"
             }
         }
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbParameters(dbParameterGroupsRequest)
         val dbParameters: List<Parameter>? = response.parameters
         var paraName: String
@@ -433,7 +433,7 @@ suspend fun describeDbParameterGroups(dbGroupName: String?) {
             dbParameterGroupName = dbGroupName
             maxRecords = 20
         }
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbParameterGroups(groupsRequest)
         val groups = response.dbParameterGroups
         if (groups != null) {
@@ -459,7 +459,7 @@ suspend fun createDBParameterGroup(
             description = "Created by using the AWS SDK for Kotlin"
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.createDbParameterGroup(groupRequest)
         println("The group name is ${response.dbParameterGroup?.dbParameterGroupName}")
     }
@@ -476,7 +476,7 @@ suspend fun describeDBEngines() {
             maxRecords = 20
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbEngineVersions(engineVersionsRequest)
         val engines: List<DbEngineVersion>? = response.dbEngineVersions
 
@@ -497,7 +497,7 @@ suspend fun getSecretValues(secretName: String?): String? {
             secretId = secretName
         }
 
-    SecretsManagerClient { region = "us-west-2" }.use { secretsClient ->
+    SecretsManagerClient.fromEnvironment { region = "us-west-2" }.use { secretsClient ->
         val valueResponse = secretsClient.getSecretValue(valueRequest)
         return valueResponse.secretString
     }

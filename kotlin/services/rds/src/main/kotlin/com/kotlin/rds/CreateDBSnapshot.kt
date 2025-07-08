@@ -47,7 +47,7 @@ suspend fun createSnapshot(
             dbSnapshotIdentifier = dbSnapshotIdentifierVal
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.createDbSnapshot(snapshotRequest)
         print("The Snapshot id is ${response.dbSnapshot?.dbiResourceId}")
     }

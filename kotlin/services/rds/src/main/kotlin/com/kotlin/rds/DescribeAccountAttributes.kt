@@ -21,7 +21,7 @@ suspend fun main() {
 
 // snippet-start:[rds.kotlin.describe_account.main]
 suspend fun getAccountAttributes() {
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeAccountAttributes(DescribeAccountAttributesRequest {})
         response.accountQuotas?.forEach { quotas ->
             val response = response.accountQuotas
