@@ -22,7 +22,7 @@ suspend fun main() {
 
 // snippet-start:[mediastore.kotlin.list_containers.main]
 suspend fun listAllContainers() {
-    MediaStoreClient { region = "us-west-2" }.use { mediaStoreClient ->
+    MediaStoreClient.fromEnvironment { region = "us-west-2" }.use { mediaStoreClient ->
         val response = mediaStoreClient.listContainers(ListContainersRequest {})
         response.containers?.forEach { container ->
             println("Container name is ${container.name}")
