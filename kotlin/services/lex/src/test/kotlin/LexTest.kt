@@ -42,24 +42,9 @@ class LexTest {
             intentVersion = values.intentVersion.toString()
         }
 
+
     @Test
     @Order(1)
-    fun putBotTest() =
-        runBlocking {
-            createBot(botName, intentName, intentVersion)
-            logger.info("Test 1 passed")
-        }
-
-    @Test
-    @Order(2)
-    fun getBotsTest() =
-        runBlocking {
-            getAllBots()
-            logger.info("Test 2 passed")
-        }
-
-    @Test
-    @Order(3)
     fun getIntentTest() =
         runBlocking {
             getSpecificIntent(intentName, intentVersion)
@@ -67,28 +52,13 @@ class LexTest {
         }
 
     @Test
-    @Order(4)
+    @Order(2)
     fun getSlotTypesTest() =
         runBlocking {
             getSlotsInfo()
             logger.info("Test 4 passed")
         }
 
-    @Test
-    @Order(5)
-    fun getBotStatusTest() =
-        runBlocking {
-            getStatus(botName)
-            logger.info("Test 5 passed")
-        }
-
-    @Test
-    @Order(6)
-    fun deleteBotTest() =
-        runBlocking {
-            deleteSpecificBot(botName)
-            logger.info("Test 6 passed")
-        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/lex"

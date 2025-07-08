@@ -46,7 +46,7 @@ suspend fun getStatus(botName: String?) {
             versionOrAlias = "\$LATEST"
         }
 
-    LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
+    LexModelBuildingClient.fromEnvironment { region = "us-west-2" }.use { lexClient ->
         var status: String
 
         do {
