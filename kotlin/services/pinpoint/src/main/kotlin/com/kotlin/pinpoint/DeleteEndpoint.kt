@@ -47,7 +47,7 @@ suspend fun deletePinEncpoint(
             endpointId = endpointIdVal
         }
 
-    PinpointClient { region = "us-west-2" }.use { pinpoint ->
+    PinpointClient.fromEnvironment { region = "us-west-2" }.use { pinpoint ->
         val result = pinpoint.deleteEndpoint(deleteEndpointRequest)
         val id = result.endpointResponse?.id
         println("The deleted endpoint is  $id")
