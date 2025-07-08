@@ -41,7 +41,7 @@ suspend fun enableKey(keyIdVal: String?) {
             keyId = keyIdVal
         }
 
-    KmsClient { region = "us-west-2" }.use { kmsClient ->
+    KmsClient.fromEnvironment { region = "us-west-2" }.use { kmsClient ->
         kmsClient.enableKey(request)
         println("$keyIdVal was successfully enabled.")
     }
