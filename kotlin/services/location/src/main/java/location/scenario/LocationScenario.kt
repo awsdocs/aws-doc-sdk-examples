@@ -303,7 +303,7 @@ suspend fun deleteRouteCalculator(calcName: String) {
         this.calculatorName = calcName
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         client.deleteRouteCalculator(calculatorRequest)
         println("The route calculator $calcName was deleted.")
     }
@@ -341,7 +341,7 @@ suspend fun deleteGeofenceCollection(collectionName: String) {
         this.collectionName = collectionName
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         client.deleteGeofenceCollection(collectionRequest)
         println("The geofence collection $collectionName was deleted.")
     }
@@ -359,7 +359,7 @@ suspend fun deleteKey(keyName: String) {
         this.keyName = keyName
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         client.deleteKey(keyRequest)
         println("The key $keyName was deleted.")
     }
@@ -377,7 +377,7 @@ suspend fun deleteMap(mapName: String) {
         this.mapName = mapName
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         client.deleteMap(mapRequest)
         println("The map $mapName was deleted.")
     }
@@ -402,7 +402,7 @@ suspend fun searchNearby() {
         this.queryRadius = 1000L
     }
 
-    GeoPlacesClient { region = "us-east-1" }.use { client ->
+    GeoPlacesClient.fromEnvironment { region = "us-east-1" }.use { client ->
         val response = client.searchNearby(request)
 
         // Process the response and print the results.
@@ -433,7 +433,7 @@ suspend fun searchText(searchQuery: String) {
         this.biasPosition = queryPosition
     }
 
-    GeoPlacesClient { region = "us-east-1" }.use { client ->
+    GeoPlacesClient.fromEnvironment { region = "us-east-1" }.use { client ->
         val response = client.searchText(request)
 
         response.resultItems?.firstOrNull()?.let { result ->
@@ -485,7 +485,7 @@ suspend fun reverseGeocode() {
         this.queryPosition = queryPosition
     }
 
-    GeoPlacesClient { region = "us-east-1" }.use { client ->
+    GeoPlacesClient.fromEnvironment { region = "us-east-1" }.use { client ->
         val response = client.reverseGeocode(request)
         response.resultItems?.forEach { result ->
             println("The address is: ${result.address?.label}")
@@ -515,7 +515,7 @@ suspend fun calcDistance(routeCalcName: String): CalculateRouteResponse {
         this.distanceUnit = DistanceUnit.Kilometers // Options: Meters, Kilometers, Miles
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         return client.calculateRoute(request)
     }
 }
@@ -535,7 +535,7 @@ suspend fun createRouteCalculator(routeCalcName: String): CreateRouteCalculatorR
         this.dataSource = dataSource
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         return client.createRouteCalculator(request)
     }
 }
@@ -554,7 +554,7 @@ suspend fun getDevicePosition(trackerName: String, deviceId: String): GetDeviceP
         this.deviceId = deviceId
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         return client.getDevicePosition(request)
     }
 }
@@ -582,7 +582,7 @@ suspend fun updateDevicePosition(trackerName: String, deviceId: String) {
         updates = listOf(positionUpdate)
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         client.batchUpdateDevicePosition(request)
     }
 }
@@ -602,7 +602,7 @@ suspend fun createTracker(trackerName: String): String {
         positionFiltering = PositionFiltering.TimeBased // Options: TimeBased, DistanceBased, AccuracyBased
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         val response = client.createTracker(trackerRequest)
         return response.trackerArn
     }
@@ -635,7 +635,7 @@ suspend fun putGeofence(collectionName: String, geoId: String) {
         this.geometry = geofenceGeometry
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         client.putGeofence(geofenceRequest)
     }
 }
@@ -653,7 +653,7 @@ suspend fun createGeofenceCollection(collectionName: String): String {
         description = "Created by using the AWS SDK for Kotlin"
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         val response = client.createGeofenceCollection(collectionRequest)
         return response.collectionArn
     }
@@ -680,7 +680,7 @@ suspend fun createKey(keyName: String, mapArn: String): String {
         noExpiry = true
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         val response = client.createKey(request)
         return response.keyArn
     }
@@ -705,7 +705,7 @@ suspend fun createMap(mapName: String): String {
         description = "A map created using the Kotlin SDK"
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         val response = client.createMap(mapRequest)
         return response.mapArn
     }

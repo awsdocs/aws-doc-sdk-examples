@@ -42,7 +42,7 @@ suspend fun delLambdaFunction(myFunctionName: String) {
             functionName = myFunctionName
         }
 
-    LambdaClient.fromEnvironment { region = "us-east-1" }.use { awsLambda ->
+    LambdaClient { region = "us-east-1" }.use { awsLambda ->
         awsLambda.deleteFunction(request)
         println("$myFunctionName was deleted")
     }
