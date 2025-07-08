@@ -74,7 +74,7 @@ suspend fun updateEndpointsViaBatch(applicationIdVal: String?) {
         }
 
     //  Updates the endpoints with Amazon Pinpoint.
-    PinpointClient { region = "us-west-2" }.use { pinpoint ->
+    PinpointClient.fromEnvironment { region = "us-west-2" }.use { pinpoint ->
         val result =
             pinpoint.updateEndpointsBatch(
                 UpdateEndpointsBatchRequest {

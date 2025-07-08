@@ -53,7 +53,7 @@ suspend fun createPersonalizeSolution(
             recipeArn = recipeArnVal
         }
 
-    PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+    PersonalizeClient.fromEnvironment { region = "us-east-1" }.use { personalizeClient ->
         val solutionResponse = personalizeClient.createSolution(request)
         return solutionResponse.solutionArn
     }

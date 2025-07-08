@@ -42,7 +42,7 @@ suspend fun listAllCampaigns(solutionArnVal: String?) {
             maxResults = 10
             solutionArn = solutionArnVal
         }
-    PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+    PersonalizeClient.fromEnvironment { region = "us-east-1" }.use { personalizeClient ->
         val response = personalizeClient.listCampaigns(request)
         response.campaigns?.forEach { campaign ->
             println("Campaign name is ${campaign.name}")

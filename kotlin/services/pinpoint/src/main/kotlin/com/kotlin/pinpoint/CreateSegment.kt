@@ -84,7 +84,7 @@ suspend fun createPinpointSegment(applicationIdVal: String?): String? {
             dimensions = dimensionsOb
         }
 
-    PinpointClient { region = "us-west-2" }.use { pinpoint ->
+    PinpointClient.fromEnvironment { region = "us-west-2" }.use { pinpoint ->
         val createSegmentResult: CreateSegmentResponse =
             pinpoint.createSegment(
                 CreateSegmentRequest {

@@ -73,7 +73,7 @@ suspend fun createPinCampaign(
             messageConfiguration = messageConfigurationOb
         }
 
-    PinpointClient { region = "us-west-2" }.use { pinpoint ->
+    PinpointClient.fromEnvironment { region = "us-west-2" }.use { pinpoint ->
         val result: CreateCampaignResponse =
             pinpoint.createCampaign(
                 CreateCampaignRequest {

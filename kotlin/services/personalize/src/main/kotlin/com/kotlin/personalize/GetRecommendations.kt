@@ -48,7 +48,7 @@ suspend fun getRecs(
             userId = userIdVal
         }
 
-    PersonalizeRuntimeClient { region = "us-east-1" }.use { personalizeRuntimeClient ->
+    PersonalizeRuntimeClient.fromEnvironment { region = "us-east-1" }.use { personalizeRuntimeClient ->
         val response = personalizeRuntimeClient.getRecommendations(request)
         response.itemList?.forEach { item ->
             println("Item Id is ${item.itemId}")

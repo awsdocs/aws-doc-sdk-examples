@@ -41,7 +41,7 @@ suspend fun deleteSpecificDomain(domainNameVal: String) {
         DeleteDomainRequest {
             domainName = domainNameVal
         }
-    OpenSearchClient { region = "us-east-1" }.use { searchClient ->
+    OpenSearchClient.fromEnvironment { region = "us-east-1" }.use { searchClient ->
         searchClient.deleteDomain(request)
         println("$domainNameVal was successfully deleted.")
     }

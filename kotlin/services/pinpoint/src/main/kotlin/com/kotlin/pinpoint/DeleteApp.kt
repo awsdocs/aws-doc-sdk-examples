@@ -36,7 +36,7 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pinpoint.kotlin.deleteapp.main]
 suspend fun deletePinApp(appId: String?) {
-    PinpointClient { region = "us-west-2" }.use { pinpoint ->
+    PinpointClient.fromEnvironment { region = "us-west-2" }.use { pinpoint ->
         val result =
             pinpoint.deleteApp(
                 DeleteAppRequest {
