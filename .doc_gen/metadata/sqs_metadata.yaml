@@ -876,6 +876,9 @@ sqs_Scenario_SendReceiveBatch:
             - description: Compare single-message SQS operations with automatic batching.
               snippet_tags:
                 - sqs.java2.batch_demo.main
+            - description: Create functions to wrap &SQS; message functions and use them to send and receive messages in batches.
+              snippet_tags:
+                - sqs.java2.sendRecvBatch.main
   services:
     sqs: {CreateQueue, DeleteQueue, SendMessageBatch, SendMessage, ReceiveMessage, DeleteMessageBatch, DeleteMessage}
 sqs_GetQueueAttributes:
