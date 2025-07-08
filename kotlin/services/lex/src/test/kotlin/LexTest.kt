@@ -4,12 +4,8 @@
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
-import com.kotlin.lex.createBot
-import com.kotlin.lex.deleteSpecificBot
-import com.kotlin.lex.getAllBots
 import com.kotlin.lex.getSlotsInfo
 import com.kotlin.lex.getSpecificIntent
-import com.kotlin.lex.getStatus
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
