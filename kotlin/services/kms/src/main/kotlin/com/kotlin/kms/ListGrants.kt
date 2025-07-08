@@ -41,7 +41,7 @@ suspend fun displayGrantIds(keyIdVal: String?) {
             limit = 15
         }
 
-    KmsClient { region = "us-west-2" }.use { kmsClient ->
+    KmsClient.fromEnvironment { region = "us-west-2" }.use { kmsClient ->
         val response = kmsClient.listGrants(request)
         response.grants?.forEach { grant ->
             println("The grant Id is ${grant.grantId}")

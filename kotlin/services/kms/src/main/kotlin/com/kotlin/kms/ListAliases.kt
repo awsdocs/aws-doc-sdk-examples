@@ -27,7 +27,7 @@ suspend fun listAllAliases() {
             limit = 15
         }
 
-    KmsClient { region = "us-west-2" }.use { kmsClient ->
+    KmsClient.fromEnvironment { region = "us-west-2" }.use { kmsClient ->
         val response = kmsClient.listAliases(request)
         response.aliases?.forEach { alias ->
             println("The alias name is ${alias.aliasName}")
