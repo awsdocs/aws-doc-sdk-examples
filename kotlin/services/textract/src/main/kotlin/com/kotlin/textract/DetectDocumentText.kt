@@ -53,7 +53,7 @@ suspend fun detectDocText(sourceDoc: String) {
             document = myDoc
         }
 
-    TextractClient { region = "us-east-1" }.use { textractClient ->
+    TextractClient.fromEnvironment { region = "us-east-1" }.use { textractClient ->
         val response = textractClient.detectDocumentText(detectDocumentTextRequest)
         response.blocks?.forEach { block ->
             println("The block type is ${block.blockType}")
