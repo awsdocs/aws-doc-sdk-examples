@@ -39,37 +39,24 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[mediaconvert.kotlin.get_job.main]
-suspend fun getSpecificJob(
-    mcClient: MediaConvertClient,
-    jobId: String?,
-) {
-    val describeEndpoints =
-        DescribeEndpointsRequest {
-            maxResults = 20
-        }
+suspend fun getSpecificJob(mcClient: MediaConvertClient, jobId: String) {
+    // 1. Discover the correct endpoint
+    val res = mcClient.describeEndpoints(DescribeEndpointsRequest { maxResults = 1 })
+    var endpointUrl = res.endpoints?.firstOrNull()?.url
+        ?: error(" No MediaConvert endpoint found")
 
-    val res = mcClient.describeEndpoints(describeEndpoints)
-    if (res.endpoints?.size!! <= 0) {
-        println("Cannot find MediaConvert service endpoint URL!")
-        exitProcess(0)
+    // 2. Create a new client using the endpoint
+    val clientWithEndpoint = MediaConvertClient {
+        region = "us-west-2"
+        endpointUrl = endpointUrl
     }
 
-    val endpointURL = res.endpoints!!.get(0).url!!
-    val mediaConvert =
-        MediaConvertClient.fromEnvironment {
-            region = "us-west-2"
-            endpointProvider =
-                MediaConvertEndpointProvider {
-                    Endpoint(endpointURL)
-                }
-        }
+    // 3. Get the job details
+    val jobResponse = clientWithEndpoint.getJob(GetJobRequest { id = jobId })
+    val job = jobResponse.job
 
-    val jobRequest =
-        GetJobRequest {
-            id = jobId
-        }
-
-    val response: GetJobResponse = mediaConvert.getJob(jobRequest)
-    println("The ARN of the job is ${response.job?.arn}.")
+    println("Job status: ${job?.status}")
+    println("Job ARN: ${job?.arn}")
+    println("Output group count: ${job?.settings?.outputGroups?.size}")
 }
 // snippet-end:[mediaconvert.kotlin.get_job.main]
