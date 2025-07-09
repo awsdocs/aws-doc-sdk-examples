@@ -57,7 +57,7 @@ suspend fun putS3Object(
             body = File(objectPath).asByteStream()
         }
 
-    S3Client { region = "us-east-1" }.use { s3 ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3 ->
         val response = s3.putObject(request)
         println("Tag information is ${response.eTag}")
     }

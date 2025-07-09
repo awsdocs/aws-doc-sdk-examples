@@ -42,7 +42,7 @@ suspend fun deleteS3BucketPolicy(bucketName: String?) {
             bucket = bucketName
         }
 
-    S3Client { region = "us-east-1" }.use { s3 ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3 ->
         s3.deleteBucketPolicy(request)
         println("Done!")
     }

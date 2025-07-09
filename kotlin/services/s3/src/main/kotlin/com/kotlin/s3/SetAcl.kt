@@ -79,7 +79,7 @@ suspend fun setBucketAcl(
             accessControlPolicy = acl
         }
 
-    S3Client { region = "us-east-1" }.use { s3 ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3 ->
         s3.putBucketAcl(request)
         println("An ACL was successfully set on $bucketName")
     }

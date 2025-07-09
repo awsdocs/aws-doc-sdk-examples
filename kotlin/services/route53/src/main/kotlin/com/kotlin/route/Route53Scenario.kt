@@ -143,7 +143,7 @@ suspend fun getDomainDetails(domainSuggestion: String?) {
         GetDomainDetailRequest {
             domainName = domainSuggestion
         }
-    Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
+    Route53DomainsClient.fromEnvironment { region = "us-east-1" }.use { route53DomainsClient ->
         val response = route53DomainsClient.getDomainDetail(detailRequest)
         println("The contact first name is ${response.registrantContact?.firstName}")
         println("The contact last name is ${response.registrantContact?.lastName}")
@@ -158,7 +158,7 @@ suspend fun getOperationalDetail(opId: String?) {
         GetOperationDetailRequest {
             operationId = opId
         }
-    Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
+    Route53DomainsClient.fromEnvironment { region = "us-east-1" }.use { route53DomainsClient ->
         val response = route53DomainsClient.getOperationDetail(detailRequest)
         println("Operation detail message is ${response.message}")
     }
@@ -199,7 +199,7 @@ suspend fun requestDomainRegistration(
             durationInYears = 1
         }
 
-    Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
+    Route53DomainsClient.fromEnvironment { region = "us-east-1" }.use { route53DomainsClient ->
         val response = route53DomainsClient.registerDomain(domainRequest)
         println("Registration requested. Operation Id: ${response.operationId}")
         return response.operationId
@@ -213,7 +213,7 @@ suspend fun checkDomainTransferability(domainSuggestion: String?) {
         CheckDomainTransferabilityRequest {
             domainName = domainSuggestion
         }
-    Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
+    Route53DomainsClient.fromEnvironment { region = "us-east-1" }.use { route53DomainsClient ->
         val response = route53DomainsClient.checkDomainTransferability(transferabilityRequest)
         println("Transferability: ${response.transferability?.transferable}")
     }
@@ -226,7 +226,7 @@ suspend fun checkDomainAvailability(domainSuggestion: String) {
         CheckDomainAvailabilityRequest {
             domainName = domainSuggestion
         }
-    Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
+    Route53DomainsClient.fromEnvironment { region = "us-east-1" }.use { route53DomainsClient ->
         val response = route53DomainsClient.checkDomainAvailability(availabilityRequest)
         println("$domainSuggestion is ${response.availability}")
     }
@@ -241,7 +241,7 @@ suspend fun listDomainSuggestions(domainSuggestion: String?) {
             suggestionCount = 5
             onlyAvailable = true
         }
-    Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
+    Route53DomainsClient.fromEnvironment { region = "us-east-1" }.use { route53DomainsClient ->
         val response = route53DomainsClient.getDomainSuggestions(suggestionsRequest)
         response.suggestionsList?.forEach { suggestion ->
             println("Suggestion Name: ${suggestion.domainName}")
@@ -259,7 +259,7 @@ suspend fun listAllPrices(domainType: String?) {
             tld = domainType
         }
 
-    Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
+    Route53DomainsClient.fromEnvironment { region = "us-east-1" }.use { route53DomainsClient ->
         route53DomainsClient
             .listPricesPaginated(pricesRequest)
             .transform { it.prices?.forEach { obj -> emit(obj) } }
@@ -290,7 +290,7 @@ suspend fun listBillingRecords() {
             end = timeEnd
         }
 
-    Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
+    Route53DomainsClient.fromEnvironment { region = "us-east-1" }.use { route53DomainsClient ->
         route53DomainsClient
             .viewBillingPaginated(viewBillingRequest)
             .transform { it.billingRecords?.forEach { obj -> emit(obj) } }
@@ -316,7 +316,7 @@ suspend fun listOperations() {
             submittedSince = time2
         }
 
-    Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
+    Route53DomainsClient.fromEnvironment { region = "us-east-1" }.use { route53DomainsClient ->
         route53DomainsClient
             .listOperationsPaginated(operationsRequest)
             .transform { it.operations?.forEach { obj -> emit(obj) } }
@@ -331,7 +331,7 @@ suspend fun listOperations() {
 
 // snippet-start:[route.kotlin.domainlist.main]
 suspend fun listDomains() {
-    Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
+    Route53DomainsClient.fromEnvironment { region = "us-east-1" }.use { route53DomainsClient ->
         route53DomainsClient
             .listDomainsPaginated(ListDomainsRequest {})
             .transform { it.domains?.forEach { obj -> emit(obj) } }
