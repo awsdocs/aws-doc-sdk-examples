@@ -44,7 +44,7 @@ suspend fun getFailedExes(stateMachineARN: String?) {
             statusFilter = ExecutionStatus.Failed
         }
 
-    SfnClient { region = "us-east-1" }.use { sfnClient ->
+    SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.listExecutions(executionsRequest)
         response.executions?.forEach { item ->
             println("The Amazon Resource Name (ARN) of the failed execution is ${item.executionArn}.")

@@ -193,7 +193,7 @@ suspend fun listStatemachinesPagnator() {
             maxResults = 10
         }
 
-    SfnClient { region = "us-east-1" }.use { sfnClient ->
+    SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
         sfnClient
             .listStateMachinesPaginated(machineRequest)
             .transform { it.stateMachines?.forEach { obj -> emit(obj) } }
@@ -209,7 +209,7 @@ suspend fun listActivitesPagnator() {
             maxResults = 10
         }
 
-    SfnClient { region = "us-east-1" }.use { sfnClient ->
+    SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
         sfnClient
             .listActivitiesPaginated(activitiesRequest)
             .transform { it.activities?.forEach { obj -> emit(obj) } }
@@ -226,7 +226,7 @@ suspend fun deleteMachine(stateMachineArnVal: String?) {
             stateMachineArn = stateMachineArnVal
         }
 
-    SfnClient { region = "us-east-1" }.use { sfnClient ->
+    SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
         sfnClient.deleteStateMachine(deleteStateMachineRequest)
         println("$stateMachineArnVal was successfully deleted.")
     }
@@ -240,7 +240,7 @@ suspend fun deleteActivity(actArn: String?) {
             activityArn = actArn
         }
 
-    SfnClient { region = "us-east-1" }.use { sfnClient ->
+    SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
         sfnClient.deleteActivity(activityRequest)
         println("You have deleted $actArn")
     }
@@ -257,7 +257,7 @@ suspend fun describeExe(executionArnVal: String?) {
     var status = ""
     var hasSucceeded = false
     while (!hasSucceeded) {
-        SfnClient { region = "us-east-1" }.use { sfnClient ->
+        SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
             val response = sfnClient.describeExecution(executionRequest)
             status = response.status.toString()
             if (status.compareTo("Running") == 0) {
@@ -285,7 +285,7 @@ suspend fun sendTaskSuccess(
             taskToken = token
             output = json
         }
-    SfnClient { region = "us-east-1" }.use { sfnClient ->
+    SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
         sfnClient.sendTaskSuccess(successRequest)
     }
 }
@@ -298,7 +298,7 @@ suspend fun getActivityTask(actArn: String?): List<String> {
         GetActivityTaskRequest {
             activityArn = actArn
         }
-    SfnClient { region = "us-east-1" }.use { sfnClient ->
+    SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.getActivityTask(getActivityTaskRequest)
         myList.add(response.taskToken.toString())
         myList.add(response.input.toString())
@@ -320,7 +320,7 @@ suspend fun startWorkflow(
             stateMachineArn = stateMachineArnVal
             name = uuidValue
         }
-    SfnClient { region = "us-east-1" }.use { sfnClient ->
+    SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.startExecution(executionRequest)
         return response.executionArn
     }
@@ -333,7 +333,7 @@ suspend fun describeStateMachine(stateMachineArnVal: String?) {
         DescribeStateMachineRequest {
             stateMachineArn = stateMachineArnVal
         }
-    SfnClient { region = "us-east-1" }.use { sfnClient ->
+    SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.describeStateMachine(stateMachineRequest)
         println("The name of the State machine is ${response.name}")
         println("The status of the State machine is ${response.status}")
@@ -357,7 +357,7 @@ suspend fun createMachine(
             type = StateMachineType.Standard
         }
 
-    SfnClient { region = "us-east-1" }.use { sfnClient ->
+    SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.createStateMachine(machineRequest)
         return response.stateMachineArn
     }
@@ -375,7 +375,7 @@ suspend fun createIAMRole(
             description = "Created using the AWS SDK for Kotlin"
         }
 
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.createRole(request)
         return response.role?.arn
     }
@@ -388,7 +388,7 @@ suspend fun createActivity(activityName: String): String? {
             name = activityName
         }
 
-    SfnClient { region = "us-east-1" }.use { sfnClient ->
+    SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.createActivity(activityRequest)
         return response.activityArn
     }

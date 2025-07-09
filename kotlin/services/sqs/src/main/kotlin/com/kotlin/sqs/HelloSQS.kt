@@ -13,7 +13,7 @@ suspend fun main() {
 }
 
 suspend fun listTopicsPag() {
-    SqsClient { region = "us-east-1" }.use { sqsClient ->
+    SqsClient.fromEnvironment { region = "us-east-1" }.use { sqsClient ->
         sqsClient
             .listQueuesPaginated { }
             .transform { it.queueUrls?.forEach { queue -> emit(queue) } }
