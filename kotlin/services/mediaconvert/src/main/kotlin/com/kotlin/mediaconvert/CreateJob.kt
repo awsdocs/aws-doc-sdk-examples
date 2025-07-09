@@ -66,7 +66,7 @@ suspend fun main(args: Array<String>) {
 suspend fun createMediaJob(
     mcClient: MediaConvertClient,
     mcRoleARN: String,
-    fileInput: String
+    fileInput1: String
 ): String? {
     // Step 1: Describe endpoints to get the MediaConvert endpoint URL
     val describeResponse = mcClient.describeEndpoints(
@@ -87,7 +87,7 @@ suspend fun createMediaJob(
     }
 
     // Output destination folder in S3 - put in 'output/' folder beside input
-    val outputDestination = fileInput.substringBeforeLast('/') + "/output/"
+    val outputDestination = fileInput1.substringBeforeLast('/') + "/output/"
 
     // Step 3: Create the job request with minimal valid video codec settings
     val jobRequest = CreateJobRequest {
@@ -95,7 +95,7 @@ suspend fun createMediaJob(
         settings = JobSettings {
             inputs = listOf(
                 Input {
-                    this.fileInput = fileInput
+                    fileInput = fileInput1
                 }
             )
             outputGroups = listOf(
@@ -121,7 +121,7 @@ suspend fun createMediaJob(
                                         qvbrSettings = H264QvbrSettings {
                                             qvbrQualityLevel = 7
                                         }
-                                        maxBitrate = 5000000
+                                        maxBitrate = 5_000_000
                                         codecLevel = H264CodecLevel.Auto
                                         codecProfile = H264CodecProfile.Main
                                         framerateControl = H264FramerateControl.InitializeFromSource
