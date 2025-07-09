@@ -66,7 +66,7 @@ suspend fun main(args: Array<String>) {
 suspend fun createMediaJob(
     mcClient: MediaConvertClient,
     mcRoleARN: String,
-    fileInput1: String
+    fileInput1: String,
 ): String? {
     // Step 1: Describe endpoints to get the MediaConvert endpoint URL
     val describeResponse = mcClient.describeEndpoints(
