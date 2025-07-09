@@ -38,7 +38,6 @@ class LexTest {
             intentVersion = values.intentVersion.toString()
         }
 
-
     @Test
     @Order(1)
     fun getIntentTest() =
@@ -54,7 +53,6 @@ class LexTest {
             getSlotsInfo()
             logger.info("Test 4 passed")
         }
-
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/lex"
