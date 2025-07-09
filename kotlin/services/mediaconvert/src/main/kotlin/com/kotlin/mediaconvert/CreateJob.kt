@@ -96,7 +96,7 @@ suspend fun createMediaJob(
             inputs = listOf(
                 Input {
                     fileInput = fileInput1
-                }
+                },
             )
             outputGroups = listOf(
                 OutputGroup {
@@ -128,9 +128,9 @@ suspend fun createMediaJob(
                                     }
                                 }
                             }
-                        }
+                        },
                     )
-                }
+                },
             )
         }
     }
