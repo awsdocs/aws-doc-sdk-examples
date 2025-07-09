@@ -72,7 +72,7 @@ suspend fun createMediaJob(
     val describeResponse = mcClient.describeEndpoints(
         DescribeEndpointsRequest {
             maxResults = 1
-        }
+        },
     )
 
     val endpointUrl = describeResponse.endpoints?.firstOrNull()?.url
