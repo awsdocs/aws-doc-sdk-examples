@@ -145,7 +145,7 @@ suspend fun sendemailAttachment(
             rawMessage = rawMessageOb
         }
 
-    SesClient { region = "us-east-1" }.use { sesClient ->
+    SesClient.fromEnvironment { region = "us-east-1" }.use { sesClient ->
         sesClient.sendRawEmail(rawEmailRequest)
     }
     println("Email sent with attachment")

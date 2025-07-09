@@ -42,7 +42,7 @@ suspend fun deleteSNSTopic(topicArnVal: String) {
             topicArn = topicArnVal
         }
 
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         snsClient.deleteTopic(request)
         println("$topicArnVal was successfully deleted.")
     }

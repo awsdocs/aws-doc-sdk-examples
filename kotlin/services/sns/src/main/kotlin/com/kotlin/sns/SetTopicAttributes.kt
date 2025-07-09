@@ -51,7 +51,7 @@ suspend fun setTopAttr(
             topicArn = topicArnVal
         }
 
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         snsClient.setTopicAttributes(request)
         println("Topic ${request.topicArn} was updated.")
     }
