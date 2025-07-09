@@ -45,7 +45,7 @@ suspend fun deleteFacesCollection(
             faceIds = listOf(faceIdVal)
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         rekClient.deleteFaces(deleteFacesRequest)
         println("$faceIdVal was deleted from the collection")
     }
