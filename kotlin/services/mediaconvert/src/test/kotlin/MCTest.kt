@@ -9,6 +9,7 @@ import com.kotlin.mediaconvert.createMediaJob
 import com.kotlin.mediaconvert.getSpecificJob
 import com.kotlin.mediaconvert.listCompleteJobs
 import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
@@ -46,12 +47,16 @@ class MCTest {
 
     @Test
     @Order(1)
-    fun createJobTest() =
-        runBlocking {
-            jobId = createMediaJob(mcClient, mcRoleARN, fileInput).toString()
-            assertTrue(!jobId.isEmpty()).toString()
-            logger.info("Test 1 passed")
-        }
+    fun createJobTest() = runBlocking {
+        val jobIdResult = createMediaJob(mcClient, mcRoleARN, fileInput)
+
+        assertNotNull(jobIdResult, "Job ID should not be null")
+        assertTrue(jobIdResult!!.isNotBlank(), "Job ID should not be blank")
+
+        logger.info("✅ Test 1 passed - Job ID: $jobIdResult")
+
+        jobId = jobIdResult // store it if needed globally for other tests
+    }
 
     @Test
     @Order(2)
