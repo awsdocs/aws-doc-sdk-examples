@@ -8,11 +8,7 @@ import com.google.gson.Gson
 import com.kotlin.rekognition.createMyCollection
 import com.kotlin.rekognition.describeColl
 import com.kotlin.rekognition.getCelebrityInfo
-import com.kotlin.rekognition.getFaceResults
-import com.kotlin.rekognition.getModResults
 import com.kotlin.rekognition.listAllCollections
-import com.kotlin.rekognition.startFaceDetection
-import com.kotlin.rekognition.startModerationDetection
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
