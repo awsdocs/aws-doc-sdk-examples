@@ -23,7 +23,7 @@ suspend fun main() {
 
 // snippet-start:[bedrock.kotlin.list_foundation_models.main]
 suspend fun listFoundationModels(): List<FoundationModelSummary>? {
-    BedrockClient { region = "us-east-1" }.use { bedrockClient ->
+    BedrockClient.fromEnvironment { region = "us-east-1" }.use { bedrockClient ->
         val response = bedrockClient.listFoundationModels(ListFoundationModelsRequest {})
         response.modelSummaries?.forEach { model ->
             println("==========================================")

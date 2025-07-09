@@ -39,7 +39,7 @@ suspend fun getSpecificMethod(restApiIdVal: String?, resourceIdVal: String?, htt
         resourceId = resourceIdVal
     }
 
-    ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
+    ApiGatewayClient.fromEnvironment { region = "us-east-1" }.use { apiGateway ->
         val response = apiGateway.getMethod(methodRequest)
 
         // Retrieve a method response associated with a given HTTP status code.

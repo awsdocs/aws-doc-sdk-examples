@@ -37,7 +37,7 @@ suspend fun createNewDeployment(restApiIdVal: String?, stageNameVal: String?): S
         stageName = stageNameVal
     }
 
-    ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
+    ApiGatewayClient.fromEnvironment { region = "us-east-1" }.use { apiGateway ->
         val response = apiGateway.createDeployment(request)
         println("The id of the deployment is " + response.id)
         return response.id

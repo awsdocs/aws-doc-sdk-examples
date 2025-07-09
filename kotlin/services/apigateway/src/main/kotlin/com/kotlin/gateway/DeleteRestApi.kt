@@ -33,7 +33,7 @@ suspend fun deleteAPI(restApiIdVal: String?) {
         restApiId = restApiIdVal
     }
 
-    ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
+    ApiGatewayClient.fromEnvironment { region = "us-east-1" }.use { apiGateway ->
         apiGateway.deleteRestApi(request)
         println("The API was successfully deleted")
     }
