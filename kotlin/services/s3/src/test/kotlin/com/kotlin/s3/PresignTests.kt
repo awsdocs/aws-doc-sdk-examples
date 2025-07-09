@@ -8,7 +8,6 @@ import aws.smithy.kotlin.runtime.client.LogMode
 import aws.smithy.kotlin.runtime.content.decodeToString
 import aws.smithy.kotlin.runtime.time.Instant
 import aws.smithy.kotlin.runtime.time.toJvmInstant
-
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
@@ -18,7 +17,7 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.TestMethodOrder
 import org.slf4j.LoggerFactory
 import java.time.temporal.ChronoUnit
-import java.util.UUID
+import java.util.*
 import kotlin.test.Test
 import kotlin.time.Duration.Companion.hours
 
