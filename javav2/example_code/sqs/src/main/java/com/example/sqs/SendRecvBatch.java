@@ -5,7 +5,6 @@ package com.example.sqs;
 
 // snippet-start:[sqs.java2.sendRecvBatch.main]
 // snippet-start:[sqs.java2.sendRecvBatch.import]
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.sqs.SqsClient;
@@ -25,10 +24,10 @@ import software.amazon.awssdk.services.sqs.model.SendMessageBatchResponse;
 import software.amazon.awssdk.services.sqs.model.SendMessageBatchResultEntry;
 import software.amazon.awssdk.services.sqs.model.SqsException;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,24 +54,7 @@ public class SendRecvBatch {
 
 
     public static void main(String[] args) {
-        String queueName = "testQueue" + System.currentTimeMillis();
-        String queueUrl = createQueue(queueName);
-
-        // Send messages to the queue
-        List<MessageEntry> messages = new ArrayList<>();
-        messages.add(new MessageEntry("Hello world!", null));
-        messages.add(new MessageEntry("Hello world 2!", null));
-        messages.add(new MessageEntry("Hello world 3!", null));
-        SendMessageBatchResponse response = sendMessages(queueUrl, messages);
-
-        // Receive messages from the queue
-        List<Message> receivedMessages = receiveMessages(queueUrl, 10, 10);
-
-        // Delete messages from the queue
-        deleteMessages(queueUrl, receivedMessages);
-
-        // Delete the queue
-        deleteQueue(queueUrl);
+        usageDemo();
     }
     // snippet-start:[sqs.java2.sendRecvBatch.sendBatch]
     /**
@@ -109,14 +91,14 @@ public class SendRecvBatch {
 
             if (!response.successful().isEmpty()) {
                 for (SendMessageBatchResultEntry resultEntry : response.successful()) {
-                    LOGGER.info("Message sent: " + resultEntry.messageId() + ": " +
+                    LOGGER.info("Message sent: {}: {}", resultEntry.messageId(),
                             messages.get(Integer.parseInt(resultEntry.id())).getBody());
                 }
             }
 
             if (!response.failed().isEmpty()) {
                 for (BatchResultErrorEntry errorEntry : response.failed()) {
-                    LOGGER.warn("Failed to send: " + errorEntry.id() + ": " +
+                    LOGGER.warn("Failed to send: {}: {}", errorEntry.id(),
                             messages.get(Integer.parseInt(errorEntry.id())).getBody());
                 }
             }
@@ -124,7 +106,7 @@ public class SendRecvBatch {
             return response;
 
         } catch (SqsException e) {
-            LOGGER.error("Send messages failed to queue: " + queueUrl, e);
+            LOGGER.error("Send messages failed to queue: {}", queueUrl, e);
             throw e;
         }
     }
@@ -135,8 +117,8 @@ public class SendRecvBatch {
      * Receive a batch of messages in a single request from an SQS queue.
      *
      * @param queueUrl   The URL of the queue from which to receive messages.
-     * @param maxNumber  The maximum number of messages to receive. The actual number
-     *                   of messages received might be less.
+     * @param maxNumber  The maximum number of messages to receive (capped at 10 by SQS).
+     *                   The actual number of messages received might be less.
      * @param waitTime   The maximum time to wait (in seconds) before returning. When
      *                   this number is greater than zero, long polling is used. This
      *                   can result in reduced costs and fewer false empty responses.
@@ -155,13 +137,13 @@ public class SendRecvBatch {
             List<Message> messages = sqsClient.receiveMessage(receiveRequest).messages();
 
             for (Message message : messages) {
-                LOGGER.info("Received message: " + message.messageId() + ": " + message.body());
+                LOGGER.info("Received message: {}: {}", message.messageId(), message.body());
             }
 
             return messages;
 
         } catch (SqsException e) {
-            LOGGER.error("Couldn't receive messages from queue: " + queueUrl, e);
+            LOGGER.error("Couldn't receive messages from queue: {}", queueUrl, e);
             throw e;
         }
     }
@@ -196,20 +178,20 @@ public class SendRecvBatch {
 
             if (!response.successful().isEmpty()) {
                 for (DeleteMessageBatchResultEntry resultEntry : response.successful()) {
-                    LOGGER.info("Deleted " + messages.get(Integer.parseInt(resultEntry.id())).receiptHandle());
+                    LOGGER.info("Deleted {}", messages.get(Integer.parseInt(resultEntry.id())).receiptHandle());
                 }
             }
 
             if (!response.failed().isEmpty()) {
                 for (BatchResultErrorEntry errorEntry : response.failed()) {
-                    LOGGER.warn("Could not delete " + messages.get(Integer.parseInt(errorEntry.id())).receiptHandle());
+                    LOGGER.warn("Could not delete {}", messages.get(Integer.parseInt(errorEntry.id())).receiptHandle());
                 }
             }
 
             return response;
 
         } catch (SqsException e) {
-            LOGGER.error("Couldn't delete messages from queue " + queueUrl, e);
+            LOGGER.error("Couldn't delete messages from queue {}", queueUrl, e);
             throw e;
         }
     }
@@ -239,133 +221,121 @@ public class SendRecvBatch {
 
     /**
      * Shows how to:
-     * * Read the lines from this Java file and send the lines in
+     * * Read the lines from a file and send the lines in
      *   batches of 10 as messages to a queue.
      * * Receive the messages in batches until the queue is empty.
      * * Reassemble the lines of the file and verify they match the original file.
      */
     public static void usageDemo() {
-        System.out.println("-".repeat(88));
-        System.out.println("Welcome to the Amazon Simple Queue Service (Amazon SQS) demo!");
-        System.out.println("-".repeat(88));
+        LOGGER.info("-".repeat(88));
+        LOGGER.info("Welcome to the Amazon Simple Queue Service (Amazon SQS) demo!");
+        LOGGER.info("-".repeat(88));
 
-        // Create a queue for the demo.
-        String queueName = "sqs-usage-demo-message-wrapper-"+System.currentTimeMillis();
-        CreateQueueRequest createRequest = CreateQueueRequest.builder()
-                .queueName(queueName)
-                .build();
-        String queueUrl = sqsClient.createQueue(createRequest).queueUrl();
-        System.out.println("Created queue: " + queueUrl);
-
+        String queueUrl = null;
         try {
-            // Read the lines from this Java file.
-            Path projectRoot = Paths.get(System.getProperty("user.dir"));
-            Path filePath = projectRoot.resolve("src/main/java/com/example/sqs/SendRecvBatch.java");
-            List<String> lines = Files.readAllLines(filePath);
+            // Create a queue for the demo.
+            String queueName = "sqs-usage-demo-message-wrapper-" + System.currentTimeMillis();
+            CreateQueueRequest createRequest = CreateQueueRequest.builder()
+                    .queueName(queueName)
+                    .build();
+            queueUrl = sqsClient.createQueue(createRequest).queueUrl();
+            LOGGER.info("Created queue: {}", queueUrl);
 
+            try (InputStream inputStream = SendRecvBatch.class.getResourceAsStream("/log4j2.xml");
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                
+                List<String> lines = reader.lines().toList();
 
-            // Send file lines in batches.
-            int batchSize = 10;
-            System.out.println("Sending file lines in batches of " + batchSize + " as messages.");
+                // Send file lines in batches.
+                int batchSize = 10;
+                LOGGER.info("Sending file lines in batches of {} as messages.", batchSize);
 
-            for (int i = 0; i < lines.size(); i += batchSize) {
-                List<MessageEntry> messageBatch = new ArrayList<>();
+                for (int i = 0; i < lines.size(); i += batchSize) {
+                    List<MessageEntry> messageBatch = new ArrayList<>();
 
-                for (int j = i; j < Math.min(i + batchSize, lines.size()); j++) {
-                    String line = lines.get(j);
-                    if (line == null || line.trim().isEmpty()) {
-                        continue; // Skip empty lines.
+                    for (int j = i; j < Math.min(i + batchSize, lines.size()); j++) {
+                        String line = lines.get(j);
+                        if (line == null || line.trim().isEmpty()) {
+                            continue; // Skip empty lines.
+                        }
+
+                        Map<String, MessageAttributeValue> attributes = new HashMap<>();
+                        attributes.put("line", MessageAttributeValue.builder()
+                                .dataType("String")
+                                .stringValue(String.valueOf(j))
+                                .build());
+
+                        messageBatch.add(new MessageEntry(lines.get(j), attributes));
                     }
 
-                    Map<String, MessageAttributeValue> attributes = new HashMap<>();
-                    attributes.put("path", MessageAttributeValue.builder()
-                            .dataType("String")
-                            .stringValue(filePath.toString())
-                            .build());
-                    attributes.put("line", MessageAttributeValue.builder()
-                            .dataType("String")
-                            .stringValue(String.valueOf(j))
-                            .build());
-
-                    messageBatch.add(new MessageEntry(lines.get(j), attributes));
+                    sendMessages(queueUrl, messageBatch);
+                    System.out.print(".");
+                    System.out.flush();
                 }
 
-                sendMessages(queueUrl, messageBatch);
-                System.out.print(".");
-                System.out.flush();
-            }
+                LOGGER.info("\nDone. Sent {} messages.", lines.size());
 
-            System.out.println("\nDone. Sent " + lines.size() + " messages.");
+                // Receive and process messages.
+                LOGGER.info("Receiving, handling, and deleting messages in batches of {}.", batchSize);
+                String[] receivedLines = new String[lines.size()];
+                boolean moreMessages = true;
 
-            // Receive and process messages.
-            System.out.println("Receiving, handling, and deleting messages in batches of " + batchSize + ".");
-            String[] receivedLines = new String[lines.size()];
-            boolean moreMessages = true;
+                while (moreMessages) {
+                    List<Message> receivedMessages = receiveMessages(queueUrl, batchSize, 5);
 
-            while (moreMessages) {
-                List<Message> receivedMessages = receiveMessages(queueUrl, batchSize, 5);
-                System.out.print(".");
-                System.out.flush();
+                    for (Message message : receivedMessages) {
+                        int lineNumber = Integer.parseInt(message.messageAttributes().get("line").stringValue());
+                        receivedLines[lineNumber] = message.body();
+                    }
 
-                for (Message message : receivedMessages) {
-                    int lineNumber = Integer.parseInt(message.messageAttributes().get("line").stringValue());
-                    receivedLines[lineNumber] = message.body();
+                    if (!receivedMessages.isEmpty()) {
+                        deleteMessages(queueUrl, receivedMessages);
+                    } else {
+                        moreMessages = false;
+                    }
                 }
 
-                if (!receivedMessages.isEmpty()) {
-                    deleteMessages(queueUrl, receivedMessages);
+                LOGGER.info("\nDone.");
+
+                // Verify that all lines were received correctly.
+                boolean allLinesMatch = true;
+                for (int i = 0; i < lines.size(); i++) {
+                    String originalLine = lines.get(i);
+                    String receivedLine = receivedLines[i] == null ? "" : receivedLines[i];
+
+                    if (!originalLine.equals(receivedLine)) {
+                        allLinesMatch = false;
+                        break;
+                    }
+                }
+
+                if (allLinesMatch) {
+                    LOGGER.info("Successfully reassembled all file lines!");
                 } else {
-                    moreMessages = false;
+                    LOGGER.info("Uh oh, some lines were missed!");
                 }
             }
-
-            System.out.println("\nDone.");
-
-            // Verify all lines were received correctly.
-            boolean allLinesMatch = true;
-            for (int i = 0; i < lines.size(); i++) {
-                String originalLine = lines.get(i);
-                String receivedLine = receivedLines[i] == null ? "" : receivedLines[i];
-
-                if (!originalLine.equals(receivedLine)) {
-                    allLinesMatch = false;
-                    break;
-                }
-            }
-
-            if (allLinesMatch) {
-                System.out.println("Successfully reassembled all file lines!");
-            } else {
-                System.out.println("Uh oh, some lines were missed!");
-            }
-
-        } catch (IOException e) {
-            LOGGER.error("Error reading file", e);
+        } catch (SqsException e) {
+            LOGGER.error("SQS operation failed", e);
+        } catch (RuntimeException | IOException e) {
+            LOGGER.error("Unexpected runtime error during demo", e);
         } finally {
-            // Clean up by deleting the queue.
-            DeleteQueueRequest deleteQueueRequest = DeleteQueueRequest.builder()
-                    .queueUrl(queueUrl)
-                    .build();
-            sqsClient.deleteQueue(deleteQueueRequest);
-            System.out.println("Deleted queue: " + queueUrl);
+            // Clean up by deleting the queue if it was created.
+            if (queueUrl != null) {
+                try {
+                    DeleteQueueRequest deleteQueueRequest = DeleteQueueRequest.builder()
+                            .queueUrl(queueUrl)
+                            .build();
+                    sqsClient.deleteQueue(deleteQueueRequest);
+                    LOGGER.info("Deleted queue: {}", queueUrl);
+                } catch (SqsException e) {
+                    LOGGER.error("Failed to delete queue: {}", queueUrl, e);
+                }
+            }
         }
 
-        System.out.println("Thanks for watching!");
-        System.out.println("-".repeat(88));
-    }
-
-    private static String createQueue(String queueName) {
-        CreateQueueRequest createRequest = CreateQueueRequest.builder()
-                .queueName(queueName)
-                .build();
-        return sqsClient.createQueue(createRequest).queueUrl();
-    }
-    
-    private static void deleteQueue(String queueUrl) {
-        DeleteQueueRequest deleteQueueRequest = DeleteQueueRequest.builder()
-                .queueUrl(queueUrl)
-                .build();
-        sqsClient.deleteQueue(deleteQueueRequest);
+        LOGGER.info("Thanks for watching!");
+        LOGGER.info("-".repeat(88));
     }
  }
 // snippet-end:[sqs.java2.sendRecvBatch.scenario]
