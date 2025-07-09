@@ -116,7 +116,7 @@ suspend fun getResolvedCase() {
             includeResolvedCases = true
         }
 
-    SupportClient { region = "us-west-2" }.use { supportClient ->
+    SupportClient.fromEnvironment { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeCases(describeCasesRequest)
         response.cases?.forEach { sinCase ->
             println("The case status is ${sinCase.status}")
@@ -133,7 +133,7 @@ suspend fun resolveSupportCase(caseIdVal: String) {
         ResolveCaseRequest {
             caseId = caseIdVal
         }
-    SupportClient { region = "us-west-2" }.use { supportClient ->
+    SupportClient.fromEnvironment { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.resolveCase(caseRequest)
         println("The status of case $caseIdVal is ${response.finalCaseStatus}")
     }
@@ -147,7 +147,7 @@ suspend fun describeAttachment(attachId: String?) {
             attachmentId = attachId
         }
 
-    SupportClient { region = "us-west-2" }.use { supportClient ->
+    SupportClient.fromEnvironment { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeAttachment(attachmentRequest)
         println("The name of the file is ${response.attachment?.fileName}")
     }
@@ -162,7 +162,7 @@ suspend fun listCommunications(caseIdVal: String?): String? {
             maxResults = 10
         }
 
-    SupportClient { region = "us-west-2" }.use { supportClient ->
+    SupportClient.fromEnvironment { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeCommunications(communicationsRequest)
         response.communications?.forEach { comm ->
             println("the body is: " + comm.body)
@@ -187,7 +187,7 @@ suspend fun addAttachSupportCase(
             communicationBody = "Please refer to attachment for details."
         }
 
-    SupportClient { region = "us-west-2" }.use { supportClient ->
+    SupportClient.fromEnvironment { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.addCommunicationToCase(caseRequest)
         if (response.result) {
             println("You have successfully added a communication to an AWS Support case")
@@ -213,7 +213,7 @@ suspend fun addAttachment(fileAttachment: String): String? {
             attachments = listOf(attachmentVal)
         }
 
-    SupportClient { region = "us-west-2" }.use { supportClient ->
+    SupportClient.fromEnvironment { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.addAttachmentsToSet(setRequest)
         return response.attachmentSetId
     }
@@ -233,7 +233,7 @@ suspend fun getOpenCase() {
             beforeTime = now.toString()
         }
 
-    SupportClient { region = "us-west-2" }.use { supportClient ->
+    SupportClient.fromEnvironment { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeCases(describeCasesRequest)
         response.cases?.forEach { sinCase ->
             println("The case status is ${sinCase.status}")
@@ -262,7 +262,7 @@ suspend fun createSupportCase(
             issueType = "technical"
         }
 
-    SupportClient { region = "us-west-2" }.use { supportClient ->
+    SupportClient.fromEnvironment { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.createCase(caseRequest)
         return response.caseId
     }
@@ -277,7 +277,7 @@ suspend fun displaySevLevels(): String {
             language = "en"
         }
 
-    SupportClient { region = "us-west-2" }.use { supportClient ->
+    SupportClient.fromEnvironment { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeSeverityLevels(severityLevelsRequest)
         response.severityLevels?.forEach { sevLevel ->
             println("The severity level name is: ${sevLevel.name}")
@@ -301,7 +301,7 @@ suspend fun displayServices(): List<String> {
             language = "en"
         }
 
-    SupportClient { region = "us-west-2" }.use { supportClient ->
+    SupportClient.fromEnvironment { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeServices(servicesRequest)
         println("Get the first 10 services")
         var index = 1
