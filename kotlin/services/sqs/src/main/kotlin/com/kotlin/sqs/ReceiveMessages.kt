@@ -44,7 +44,7 @@ suspend fun receiveMessages(queueUrlVal: String?) {
             maxNumberOfMessages = 5
         }
 
-    SqsClient { region = "us-east-1" }.use { sqsClient ->
+    SqsClient.fromEnvironment { region = "us-east-1" }.use { sqsClient ->
         val response = sqsClient.receiveMessage(receiveMessageRequest)
         response.messages?.forEach { message ->
             println(message.body)
