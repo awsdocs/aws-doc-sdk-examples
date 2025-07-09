@@ -58,7 +58,7 @@ suspend fun createRule(ruleNameVal: String?) {
             samplingRule = rule
         }
 
-    XRayClient.fromEnvironment  { region = "us-east-1" }.use { xRayClient ->
+    XRayClient.fromEnvironment { region = "us-east-1" }.use { xRayClient ->
         val ruleResponse: CreateSamplingRuleResponse = xRayClient.createSamplingRule(ruleRequest)
         println("The ARN of the new rule is ${ruleResponse.samplingRuleRecord?.samplingRule?.ruleArn}")
     }
