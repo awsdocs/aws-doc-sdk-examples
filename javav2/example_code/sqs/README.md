@@ -57,7 +57,7 @@ functions within the same service.
 - [Manage large messages using S3](src/main/java/com/example/sqs/SqsExtendedClientExample.java)
 - [Process S3 event notifications](../s3/src/main/java/com/example/s3/ProcessS3EventNotification.java)
 - [Publish messages to queues](../../usecases/topics_and_queues/src/main/java/com/example/sns/SNSWorkflow.java)
-- [Send and receive batches of messages](src/main/java/com/example/sqs/SimpleProducerConsumer.java)
+- [Send and receive batches of messages](src/main/java/com/example/sqs/SendRecvBatch.java)
 - [Use the Amazon SQS Java Messaging Library to work with the JMS interface](../sqs-jms/src/main/java/com/example/sqs/jms/stdqueue/TextMessageSender.java)
 - [Work with queue tags](src/main/java/com/example/sqs/TagExamples.java)
 
