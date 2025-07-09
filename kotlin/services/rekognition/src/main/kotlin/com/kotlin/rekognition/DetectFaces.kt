@@ -50,7 +50,7 @@ suspend fun detectFacesinImage(sourceImage: String?) {
             image = souImage
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.detectFaces(request)
         response.faceDetails?.forEach { face ->
             val ageRange = face.ageRange

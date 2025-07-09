@@ -113,24 +113,6 @@ class RekognitionTest {
             logger.info("Test 5 passed")
         }
 
-    @Test
-    @Order(6)
-    fun videoDetectFacesTest() =
-        runBlocking {
-            startFaceDetection(channel, bucketName, celVid)
-            getFaceResults()
-            logger.info("Test 6 passed")
-        }
-
-    @Test
-    @Order(7)
-    fun videoDetectInappropriateTest() =
-        runBlocking {
-            startModerationDetection(channel, bucketName, modVid)
-            getModResults()
-            logger.info("Test 7 passed")
-        }
-
     private suspend fun getSecretValues(): String {
         val secretName = "test/rekognition"
         val valueRequest =

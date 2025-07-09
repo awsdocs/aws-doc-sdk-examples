@@ -83,7 +83,7 @@ suspend fun startFaceDetection(
             video = vidOb
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val startLabelDetectionResult = rekClient.startFaceDetection(request)
         startJobId = startLabelDetectionResult.jobId.toString()
     }
@@ -93,7 +93,7 @@ suspend fun getFaceResults() {
     var finished = false
     var status: String
     var yy = 0
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         var response: GetFaceDetectionResponse? = null
 
         val recognitionRequest =

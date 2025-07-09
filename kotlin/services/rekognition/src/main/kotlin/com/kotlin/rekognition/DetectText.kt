@@ -48,7 +48,7 @@ suspend fun detectTextLabels(sourceImage: String?) {
             image = souImage
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.detectText(request)
         response.textDetections?.forEach { text ->
             println("Detected: ${text.detectedText}")

@@ -42,7 +42,7 @@ suspend fun deleteMyCollection(collectionIdVal: String) {
             collectionId = collectionIdVal
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.deleteCollection(request)
         println("The collectionId status is ${response.statusCode}")
     }

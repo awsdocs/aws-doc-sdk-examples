@@ -60,7 +60,7 @@ suspend fun displayGear(sourceImage: String) {
             summarizationAttributes = summarizationAttributesOb
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.detectProtectiveEquipment(request)
         response.persons?.forEach { person ->
             println("ID: " + person.id)
