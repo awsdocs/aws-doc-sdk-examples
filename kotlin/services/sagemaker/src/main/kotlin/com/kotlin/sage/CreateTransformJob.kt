@@ -93,7 +93,7 @@ suspend fun transformJob(
             transformResources = resources
         }
 
-    SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+    SageMakerClient.fromEnvironment { region = "us-west-2" }.use { sageMakerClient ->
         val jobResponse = sageMakerClient.createTransformJob(request)
         println("Response ${jobResponse.transformJobArn}")
     }

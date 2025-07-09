@@ -42,7 +42,7 @@ suspend fun describeTrainJob(trainingJobNameVal: String?) {
             trainingJobName = trainingJobNameVal
         }
 
-    SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+    SageMakerClient.fromEnvironment { region = "us-west-2" }.use { sageMakerClient ->
         val jobResponse = sageMakerClient.describeTrainingJob(request)
         println("The job status is ${jobResponse.trainingJobStatus}")
     }
