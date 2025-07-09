@@ -86,7 +86,7 @@ suspend fun createBucket(bucketName: String) {
             bucket = bucketName
         }
 
-    S3Client { region = "us-east-1" }.use { s3 ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3 ->
         s3.createBucket(request)
         println("$bucketName is ready")
     }
@@ -108,7 +108,7 @@ suspend fun putObject(
             this.body = Paths.get(objectPath).asByteStream()
         }
 
-    S3Client { region = "us-east-1" }.use { s3 ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3 ->
         val response = s3.putObject(request)
         println("Tag information is ${response.eTag}")
     }
@@ -125,7 +125,7 @@ suspend fun getObjectFromMrap(
             bucket = bucketName
         }
 
-    S3Client { region = "us-east-1" }.use { s3 ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3 ->
         s3.getObject(request) { resp ->
             val myFile = File(path)
             resp.body?.writeToFile(myFile)
@@ -140,7 +140,7 @@ suspend fun listBucketObs(bucketName: String) {
             bucket = bucketName
         }
 
-    S3Client { region = "us-east-1" }.use { s3 ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3 ->
 
         val response = s3.listObjects(request)
         response.contents?.forEach { myObject ->
@@ -168,7 +168,7 @@ suspend fun copyBucketOb(
             bucket = toBucket
             key = objectKey
         }
-    S3Client { region = "us-east-1" }.use { s3 ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3 ->
         s3.copyObject(request)
     }
 }
@@ -193,7 +193,7 @@ suspend fun deleteBucketObs(
             delete = delOb
         }
 
-    S3Client { region = "us-east-1" }.use { s3 ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3 ->
         s3.deleteObjects(request)
         println("$objectName was deleted from $bucketName")
     }
@@ -204,7 +204,7 @@ suspend fun deleteBucket(bucketName: String?) {
         DeleteBucketRequest {
             bucket = bucketName
         }
-    S3Client { region = "us-east-1" }.use { s3 ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3 ->
         s3.deleteBucket(request)
         println("The $bucketName was successfully deleted!")
     }
