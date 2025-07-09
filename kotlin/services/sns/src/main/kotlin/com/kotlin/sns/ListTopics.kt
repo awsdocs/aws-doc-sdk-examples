@@ -21,7 +21,7 @@ suspend fun main() {
 
 // snippet-start:[sns.kotlin.ListTopics.main]
 suspend fun listSNSTopics() {
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         val response = snsClient.listTopics(ListTopicsRequest { })
         response.topics?.forEach { topic ->
             println("The topic ARN is ${topic.topicArn}")

@@ -47,7 +47,7 @@ suspend fun removeTag(
             resourceArn = topicArn
             tagKeys = listOf(tagKey)
         }
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         snsClient.untagResource(resourceRequest)
         println("$tagKey was deleted from $topicArn")
     }

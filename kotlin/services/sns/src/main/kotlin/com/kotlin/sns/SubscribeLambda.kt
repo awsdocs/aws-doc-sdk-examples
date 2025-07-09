@@ -49,7 +49,7 @@ suspend fun subLambda(
             topicArn = topicArnVal
         }
 
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.subscribe(request)
         println(" The subscription Arn is ${result.subscriptionArn}")
     }

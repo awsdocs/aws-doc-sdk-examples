@@ -42,7 +42,7 @@ suspend fun getSNSTopicAttributes(topicArnVal: String) {
             topicArn = topicArnVal
         }
 
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.getTopicAttributes(request)
         println("${result.attributes}")
     }

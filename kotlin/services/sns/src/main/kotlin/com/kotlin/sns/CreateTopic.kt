@@ -43,7 +43,7 @@ suspend fun createSNSTopic(topicName: String): String {
             name = topicName
         }
 
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.createTopic(request)
         return result.topicArn.toString()
     }

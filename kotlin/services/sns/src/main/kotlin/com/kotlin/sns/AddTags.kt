@@ -60,7 +60,7 @@ suspend fun addTopicTags(topicArn: String) {
             tags = tagList
         }
 
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         snsClient.tagResource(request)
         println("Tags have been added to $topicArn")
     }
