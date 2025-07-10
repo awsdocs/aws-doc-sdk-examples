@@ -57,7 +57,7 @@ suspend fun main(args: Array<String>) {
 
     val mcRoleARN = args[0]
     val fileInput = args[1]
-    val mcClient = MediaConvertClient { region = "us-west-2" }
+    val mcClient = MediaConvertClient.fromEnvironment  { region = "us-west-2" }
     val id = createMediaJob(mcClient, mcRoleARN, fileInput)
     println("MediaConvert job $id was successfully created!")
 }
