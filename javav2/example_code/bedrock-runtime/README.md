@@ -42,11 +42,6 @@ functions within the same service.
 - [Generate videos from text prompts using Amazon Bedrock](../../usecases/video_generation_bedrock_nova_reel/src/main/java/com/example/novareel/VideoGenerationService.java)
 - [Tool use with the Converse API](src/main/java/com/example/bedrockruntime/scenario/BedrockScenario.java)
 
-### AI21 Labs Jurassic-2
-
-- [Converse](src/main/java/com/example/bedrockruntime/models/ai21LabsJurassic2/Converse.java#L6)
-- [InvokeModel](src/main/java/com/example/bedrockruntime/models/ai21LabsJurassic2/InvokeModel.java#L6)
-
 ### Amazon Nova
 
 - [Converse](src/main/java/com/example/bedrockruntime/models/amazon/nova/text/ConverseAsync.java#L6)
