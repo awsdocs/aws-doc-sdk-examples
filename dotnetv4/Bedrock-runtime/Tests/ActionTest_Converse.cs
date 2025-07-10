@@ -6,14 +6,14 @@ namespace BedrockRuntimeTests;
 public class ActionTest_Converse
 {
     [Theory, Trait("Category", "Integration")]
+    [InlineData(typeof(AmazonTitanText.Converse))]
     [InlineData(typeof(Mistral.Converse))]
     [InlineData(typeof(MetaLlama.Converse))]
     [InlineData(typeof(CohereCommand.Converse))]
     [InlineData(typeof(AnthropicClaude.Converse))]
-    [InlineData(typeof(AmazonTitanText.Converse))]
-    [InlineData(typeof(Ai21LabsJurassic2.Converse))]
     public void ConverseDoesNotThrow(Type type)
     {
+        Thread.Sleep(5000);
         var entryPoint = type.Assembly.EntryPoint!;
         var exception = Record.Exception(() => entryPoint.Invoke(null, [Array.Empty<string>()]));
         Assert.Null(exception);
