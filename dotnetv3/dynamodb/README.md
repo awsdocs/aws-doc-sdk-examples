@@ -29,36 +29,15 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Get started
-
-- [Hello DynamoDB](scenarios/DynamoDB_Basics/DynamoDB_Actions/HelloDynamoDB.cs#L4) (`ListTables`)
-
-
-### Basics
-
-Code examples that show you how to perform the essential operations within a service.
-
-- [Learn the basics](scenarios/DynamoDB_Basics/DynamoDB_Basics_Scenario/DynamoDB_Basics.cs)
-
-
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
 - [BatchExecuteStatement](scenarios/PartiQL_Batch_Scenario/PartiQL_Batch_Scenario/PartiQLBatchMethods.cs#L10)
 - [BatchGetItem](low-level-api/LowLevelBatchGet/LowLevelBatchGet.cs#L4)
-- [BatchWriteItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L198)
-- [CreateTable](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L14)
-- [DeleteItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L258)
-- [DeleteTable](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L387)
 - [DescribeTable](low-level-api/LowLevelTableExample/LowLevelTableExample.cs#L120)
 - [ExecuteStatement](scenarios/PartiQL_Basics_Scenario/PartiQL_Basics_Scenario/PartiQLMethods.cs#L163)
-- [GetItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L167)
 - [ListTables](low-level-api/LowLevelTableExample/LowLevelTableExample.cs#L96)
-- [PutItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L85)
-- [Query](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L293)
-- [Scan](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L346)
-- [UpdateItem](scenarios/DynamoDB_Basics/DynamoDB_Actions/DynamoDbMethods.cs#L115)
 
 ### Scenarios
 
@@ -110,28 +89,6 @@ dotnet run
 Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.end-->
 
-#### Hello DynamoDB
-
-This example shows you how to get started using DynamoDB.
-
-
-#### Learn the basics
-
-This example shows you how to do the following:
-
-- Create a table that can hold movie data.
-- Put, get, and update a single movie in the table.
-- Write movie data to the table from a sample JSON file.
-- Query for movies that were released in a given year.
-- Scan for movies that were released in a range of years.
-- Delete a movie from the table, then delete the table.
-
-<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
-
-
-<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.end-->
 
 
 #### Create a serverless application to manage photos
