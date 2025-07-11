@@ -43,7 +43,7 @@ suspend fun createMediaContainer(containerNameVal: String?) {
             containerName = containerNameVal
         }
 
-    MediaStoreClient { region = "us-west-2" }.use { mediaStoreClient ->
+    MediaStoreClient.fromEnvironment { region = "us-west-2" }.use { mediaStoreClient ->
         val containerResponse = mediaStoreClient.createContainer(request)
         var status = containerResponse.container?.status.toString()
 

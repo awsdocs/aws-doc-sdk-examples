@@ -26,7 +26,7 @@ suspend fun listAllKeys() {
             limit = 15
         }
 
-    KmsClient { region = "us-west-2" }.use { kmsClient ->
+    KmsClient.fromEnvironment { region = "us-west-2" }.use { kmsClient ->
         val response = kmsClient.listKeys(request)
         response.keys?.forEach { key ->
             println("The key ARN is ${key.keyArn}")

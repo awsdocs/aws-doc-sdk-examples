@@ -27,7 +27,7 @@ suspend fun getAllDatabases() {
             maxResults = 10
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getDatabases(request)
         response.databaseList?.forEach { database ->
             println("The database name is ${database.name}")

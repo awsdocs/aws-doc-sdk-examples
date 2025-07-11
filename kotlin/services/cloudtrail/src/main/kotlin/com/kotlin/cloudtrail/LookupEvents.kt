@@ -19,7 +19,7 @@ suspend fun lookupAllEvents() {
             maxResults = 20
         }
 
-    CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+    CloudTrailClient.fromEnvironment { region = "us-east-1" }.use { cloudTrail ->
         val response = cloudTrail.lookupEvents(request)
         response.events?.forEach { event ->
             println("Event name is ${event.eventName}")

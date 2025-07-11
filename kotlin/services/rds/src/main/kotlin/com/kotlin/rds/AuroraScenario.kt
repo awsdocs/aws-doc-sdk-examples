@@ -160,7 +160,7 @@ suspend fun deleteDBClusterGroup(
     var didFind: Boolean
     var instanceARN: String
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         // Make sure that the database has been deleted.
         while (!isDataDel) {
             val response = rdsClient.describeDbInstances()
@@ -204,7 +204,7 @@ suspend fun deleteCluster(dbInstanceClusterIdentifier: String) {
             skipFinalSnapshot = true
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         rdsClient.deleteDbCluster(deleteDbClusterRequest)
         println("$dbInstanceClusterIdentifier was deleted!")
     }
@@ -220,7 +220,7 @@ suspend fun deleteDBInstance(dbInstanceIdentifierVal: String) {
             skipFinalSnapshot = true
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.deleteDbInstance(deleteDbInstanceRequest)
         print("The status of the database is ${response.dbInstance?.dbInstanceStatus}")
     }
@@ -242,7 +242,7 @@ suspend fun waitSnapshotReady(
             dbClusterIdentifier = dbInstanceClusterIdentifier
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         while (!snapshotReady) {
             val response = rdsClient.describeDbClusterSnapshots(snapshotsRequest)
             val snapshotList = response.dbClusterSnapshots
@@ -274,7 +274,7 @@ suspend fun createDBClusterSnapshot(
             dbClusterSnapshotIdentifier = dbSnapshotIdentifier
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.createDbClusterSnapshot(snapshotRequest)
         println("The Snapshot ARN is ${response.dbClusterSnapshot?.dbClusterSnapshotArn}")
     }
@@ -292,7 +292,7 @@ suspend fun waitDBAuroraInstanceReady(dbInstanceIdentifierVal: String?) {
         }
 
     var endpoint = ""
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         while (!instanceReady) {
             val response = rdsClient.describeDbInstances(instanceRequest)
             response.dbInstances?.forEach { instance ->
@@ -325,7 +325,7 @@ suspend fun createDBInstanceCluster(
             dbInstanceClass = instanceClassVal
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.createDbInstance(instanceRequest)
         print("The status is ${response.dbInstance?.dbInstanceStatus}")
         return response.dbInstance?.dbInstanceArn
@@ -341,7 +341,7 @@ suspend fun getListInstanceClasses(): String {
             maxRecords = 20
         }
     var instanceClass = ""
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeOrderableDbInstanceOptions(optionsRequest)
         response.orderableDbInstanceOptions?.forEach { instanceOption ->
             instanceClass = instanceOption.dbInstanceClass.toString()
@@ -365,7 +365,7 @@ suspend fun waitForClusterInstanceReady(dbClusterIdentifierVal: String?) {
             dbClusterIdentifier = dbClusterIdentifierVal
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         while (!instanceReady) {
             val response = rdsClient.describeDbClusters(instanceRequest)
             response.dbClusters?.forEach { cluster ->
@@ -401,7 +401,7 @@ suspend fun createDBCluster(
             masterUserPassword = password
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.createDbCluster(clusterRequest)
         return response.dbCluster?.dbClusterArn
     }
@@ -417,7 +417,7 @@ suspend fun getAllowedClusterEngines(dbParameterGroupFamilyVal: String?) {
             engine = "aurora-mysql"
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbEngineVersions(versionsRequest)
         response.dbEngineVersions?.forEach { dbEngine ->
             println("The engine version is ${dbEngine.engineVersion}")
@@ -445,7 +445,7 @@ suspend fun modifyDBClusterParas(dClusterGroupName: String?) {
             parameters = paraList
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.modifyDbClusterParameterGroup(groupRequest)
         println("The parameter group ${response.dbClusterParameterGroupName} was successfully modified")
     }
@@ -470,7 +470,7 @@ suspend fun describeDbClusterParameters(
             }
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbClusterParameters(dbParameterGroupsRequest)
         response.parameters?.forEach { para ->
             // Only print out information about either auto_increment_offset or auto_increment_increment.
@@ -497,7 +497,7 @@ suspend fun describeDbClusterParameterGroups(dbClusterGroupName: String?) {
             maxRecords = 20
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbClusterParameterGroups(groupsRequest)
         response.dbClusterParameterGroups?.forEach { group ->
             println("The group name is ${group.dbClusterParameterGroupName}")
@@ -519,7 +519,7 @@ suspend fun createDBClusterParameterGroup(
             description = "Created by using the AWS SDK for Kotlin"
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.createDbClusterParameterGroup(groupRequest)
         println("The group name is ${response.dbClusterParameterGroup?.dbClusterParameterGroupName}")
     }
@@ -535,7 +535,7 @@ suspend fun describeAuroraDBEngines() {
             maxRecords = 20
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbEngineVersions(engineVersionsRequest)
         response.dbEngineVersions?.forEach { engineOb ->
             println("The name of the DB parameter group family for the database engine is ${engineOb.dbParameterGroupFamily}")

@@ -42,7 +42,7 @@ suspend fun describeDymamoDBTable(tableNameVal: String?) {
             tableName = tableNameVal
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         val tableInfo = ddb.describeTable(request)
         println("Table name ${tableInfo.table?.tableName}")
         println("Table Arn:  ${tableInfo.table?.tableArn}")

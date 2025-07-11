@@ -41,7 +41,7 @@ suspend fun deleteEC2SecGroup(groupIdVal: String) {
             groupId = groupIdVal
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         ec2.deleteSecurityGroup(request)
         println("Successfully deleted Security Group with id $groupIdVal")
     }

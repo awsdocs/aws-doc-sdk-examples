@@ -70,7 +70,7 @@ suspend fun createCluster(
             numberOfNodes = 2
         }
 
-    RedshiftClient { region = "us-east-1" }.use { redshiftClient ->
+    RedshiftClient.fromEnvironment { region = "us-east-1" }.use { redshiftClient ->
         val clusterResponse = redshiftClient.createCluster(clusterRequest)
         println("Created cluster ${clusterResponse.cluster?.clusterIdentifier}")
     }

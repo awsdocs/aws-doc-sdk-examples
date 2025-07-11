@@ -22,7 +22,7 @@ suspend fun main() {
 
 // snippet-start:[polly.kotlin.list_icons.main]
 suspend fun listLexicons() {
-    PollyClient { region = "us-west-2" }.use { polly ->
+    PollyClient.fromEnvironment { region = "us-west-2" }.use { polly ->
         val response = polly.listLexicons(ListLexiconsRequest {})
         response.lexicons?.forEach { lexDescription ->
             println("The name of the Lexicon is ${lexDescription.name}")

@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.0"
+    kotlin("jvm") version "2.1.0"
     application
 }
 
@@ -28,7 +28,7 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation(platform("aws.sdk.kotlin:bom:1.0.30"))
+    implementation(platform("aws.sdk.kotlin:bom:1.4.119"))
     implementation("aws.sdk.kotlin:mediaconvert")
     implementation("aws.sdk.kotlin:secretsmanager")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp")
@@ -38,6 +38,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.slf4j:slf4j-api:2.0.15")
     implementation("org.slf4j:slf4j-simple:2.0.15")
+    testImplementation(kotlin("test"))
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"

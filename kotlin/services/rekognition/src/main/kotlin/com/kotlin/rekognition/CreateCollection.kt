@@ -41,7 +41,7 @@ suspend fun createMyCollection(collectionIdVal: String) {
             collectionId = collectionIdVal
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.createCollection(request)
         println("Collection ARN is ${response.collectionArn}")
         println("Status code is ${response.statusCode}")

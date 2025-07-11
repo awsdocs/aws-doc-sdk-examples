@@ -90,7 +90,7 @@ suspend fun send(
             source = sender
         }
 
-    SesClient { region = "us-east-1" }.use { sesClient ->
+    SesClient.fromEnvironment { region = "us-east-1" }.use { sesClient ->
         println("Attempting to send an email through Amazon SES using the AWS SDK for Kotlin...")
         sesClient.sendEmail(emailRequest)
     }

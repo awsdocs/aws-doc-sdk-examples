@@ -42,7 +42,7 @@ suspend fun describeMyCluster(clusterIdVal: String?) {
             clusterId = clusterIdVal
         }
 
-    EmrClient { region = "us-west-2" }.use { emrClient ->
+    EmrClient.fromEnvironment { region = "us-west-2" }.use { emrClient ->
         val response = emrClient.describeCluster(request)
         println("The name of the cluster is ${response.cluster?.name}")
     }

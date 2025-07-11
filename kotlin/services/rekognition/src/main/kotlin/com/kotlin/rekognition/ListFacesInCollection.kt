@@ -41,7 +41,7 @@ suspend fun listFacesCollection(collectionIdVal: String?) {
             maxResults = 10
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.listFaces(request)
         response.faces?.forEach { face ->
             println("Confidence level there is a face: ${face.confidence}")

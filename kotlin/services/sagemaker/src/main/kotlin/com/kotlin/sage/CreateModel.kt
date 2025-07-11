@@ -64,7 +64,7 @@ suspend fun createSagemakerModel(
             primaryContainer = containerDefinition
         }
 
-    SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+    SageMakerClient.fromEnvironment { region = "us-west-2" }.use { sageMakerClient ->
         val response = sageMakerClient.createModel(request)
         println("The ARN of the model is ${response.modelArn}")
     }

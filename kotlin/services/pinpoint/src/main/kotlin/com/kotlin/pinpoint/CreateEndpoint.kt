@@ -61,7 +61,7 @@ suspend fun createPinpointEndpoint(applicationIdVal: String?): String? {
             endpointRequest = endpointRequestOb
         }
 
-    PinpointClient { region = "us-west-2" }.use { pinpoint ->
+    PinpointClient.fromEnvironment { region = "us-west-2" }.use { pinpoint ->
 
         val updateEndpointResponse = pinpoint.updateEndpoint(updateEndpointRequest)
         println("Update Endpoint Response ${updateEndpointResponse.messageBody}")

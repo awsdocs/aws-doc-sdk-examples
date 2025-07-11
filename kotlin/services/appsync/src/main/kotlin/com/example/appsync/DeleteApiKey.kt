@@ -47,7 +47,7 @@ suspend fun deleteKey(
             id = keyIdVal
         }
 
-    AppSyncClient { region = "us-east-1" }.use { appClient ->
+    AppSyncClient.fromEnvironment { region = "us-east-1" }.use { appClient ->
         appClient.deleteApiKey(apiKeyRequest)
         println("$keyIdVal key was deleted.")
     }

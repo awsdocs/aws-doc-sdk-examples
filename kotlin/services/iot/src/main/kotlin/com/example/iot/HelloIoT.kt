@@ -18,7 +18,7 @@ suspend fun listAllThings() {
             maxResults = 10
         }
 
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         val response = iotClient.listThings(thingsRequest)
         val thingList = response.things
         if (thingList != null) {

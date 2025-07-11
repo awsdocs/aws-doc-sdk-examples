@@ -76,7 +76,7 @@ class ECRActions {
             }
 
         // Execute the request asynchronously.
-        EcrClient { region = "us-east-1" }.use { ecrClient ->
+        EcrClient.fromEnvironment { region = "us-east-1" }.use { ecrClient ->
             val response = ecrClient.startLifecyclePolicyPreview(lifecyclePolicyPreviewRequest)
             return response.lifecyclePolicyText
         }
@@ -98,7 +98,7 @@ class ECRActions {
                 repositoryNames = listOf(repoName)
             }
 
-        EcrClient { region = "us-east-1" }.use { ecrClient ->
+        EcrClient.fromEnvironment { region = "us-east-1" }.use { ecrClient ->
             val describeRepositoriesResponse = ecrClient.describeRepositories(request)
             if (!describeRepositoriesResponse.repositories?.isEmpty()!!) {
                 return describeRepositoriesResponse?.repositories?.get(0)?.repositoryUri
@@ -117,7 +117,7 @@ class ECRActions {
      *
      */
     suspend fun getAuthToken() {
-        EcrClient { region = "us-east-1" }.use { ecrClient ->
+        EcrClient.fromEnvironment { region = "us-east-1" }.use { ecrClient ->
             // Retrieve the authorization token for ECR.
             val response = ecrClient.getAuthorizationToken()
             val authorizationData = response.authorizationData?.get(0)
@@ -144,7 +144,7 @@ class ECRActions {
             GetRepositoryPolicyRequest {
                 repositoryName = repoName
             }
-        EcrClient { region = "us-east-1" }.use { ecrClient ->
+        EcrClient.fromEnvironment { region = "us-east-1" }.use { ecrClient ->
             val response = ecrClient.getRepositoryPolicy(getRepositoryPolicyRequest)
             val responseText = response.policyText
             return responseText
@@ -185,7 +185,7 @@ class ECRActions {
                 policyText = policyDocumentTemplate
             }
 
-        EcrClient { region = "us-east-1" }.use { ecrClient ->
+        EcrClient.fromEnvironment { region = "us-east-1" }.use { ecrClient ->
             val response = ecrClient.setRepositoryPolicy(setRepositoryPolicyRequest)
             if (response != null) {
                 println("Repository policy set successfully.")
@@ -211,7 +211,7 @@ class ECRActions {
             }
 
         return try {
-            EcrClient { region = "us-east-1" }.use { ecrClient ->
+            EcrClient.fromEnvironment { region = "us-east-1" }.use { ecrClient ->
                 val response = ecrClient.createRepository(request)
                 response.repository?.repositoryArn
             }
@@ -231,7 +231,7 @@ class ECRActions {
             DescribeRepositoriesRequest {
                 repositoryNames = listOf(repoName)
             }
-        EcrClient { region = "us-east-1" }.use { ecrClient ->
+        EcrClient.fromEnvironment { region = "us-east-1" }.use { ecrClient ->
             val describeResponse = ecrClient.describeRepositories(describeRequest)
             return describeResponse.repositories?.get(0)?.repositoryArn
         }
@@ -262,7 +262,7 @@ class ECRActions {
         println("Pushing $imageName to $repoName will take a few seconds")
         val authConfig = getAuthConfig(repoName)
 
-        EcrClient { region = "us-east-1" }.use { ecrClient ->
+        EcrClient.fromEnvironment { region = "us-east-1" }.use { ecrClient ->
             val desRequest =
                 DescribeRepositoriesRequest {
                     repositoryNames = listOf(repoName)
@@ -321,7 +321,7 @@ class ECRActions {
                 imageIds = listOf(imageId)
             }
 
-        EcrClient { region = "us-east-1" }.use { ecrClient ->
+        EcrClient.fromEnvironment { region = "us-east-1" }.use { ecrClient ->
             val describeImagesResponse = ecrClient.describeImages(request)
             if (describeImagesResponse != null && !describeImagesResponse.imageDetails?.isEmpty()!!) {
                 println("Image is present in the repository.")
@@ -350,7 +350,7 @@ class ECRActions {
                 repositoryName = repoName
             }
 
-        EcrClient { region = "us-east-1" }.use { ecrClient ->
+        EcrClient.fromEnvironment { region = "us-east-1" }.use { ecrClient ->
             ecrClient.deleteRepository(repositoryRequest)
             println("You have successfully deleted the $repoName repository")
         }
@@ -359,7 +359,7 @@ class ECRActions {
 
     // Return an AuthConfig.
     private suspend fun getAuthConfig(repoName: String): AuthConfig {
-        EcrClient { region = "us-east-1" }.use { ecrClient ->
+        EcrClient.fromEnvironment { region = "us-east-1" }.use { ecrClient ->
             // Retrieve the authorization token for ECR.
             val response = ecrClient.getAuthorizationToken()
             val authorizationData = response.authorizationData?.get(0)

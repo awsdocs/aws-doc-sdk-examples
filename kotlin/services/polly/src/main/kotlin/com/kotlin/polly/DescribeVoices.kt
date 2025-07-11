@@ -23,7 +23,7 @@ suspend fun main() {
 
 // snippet-start:[polly.kotlin.describe_voice.main]
 suspend fun describeVoice() {
-    PollyClient { region = "us-west-2" }.use { polly ->
+    PollyClient.fromEnvironment { region = "us-west-2" }.use { polly ->
         val enUsVoicesResult =
             polly.describeVoices(
                 DescribeVoicesRequest {

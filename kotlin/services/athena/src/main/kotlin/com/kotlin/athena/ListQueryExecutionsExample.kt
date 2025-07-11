@@ -18,7 +18,7 @@ suspend fun listQueryIds() {
         maxResults = 10
     }
 
-    AthenaClient { region = "us-west-2" }.use { athenaClient ->
+    AthenaClient.fromEnvironment { region = "us-west-2" }.use { athenaClient ->
         val response = athenaClient.listQueryExecutions(request)
         response.queryExecutionIds?.forEach { queries ->
             println("The value is $queries")

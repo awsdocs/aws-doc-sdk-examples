@@ -44,7 +44,7 @@ suspend fun createNewGroup(groupNameVal: String?) {
             groupName = groupNameVal
         }
 
-    XRayClient { region = "us-east-1" }.use { xRayClient ->
+    XRayClient.fromEnvironment { region = "us-east-1" }.use { xRayClient ->
         val groupResponse = xRayClient.createGroup(groupRequest)
         println("The Group ARN is " + (groupResponse.group?.groupArn))
     }

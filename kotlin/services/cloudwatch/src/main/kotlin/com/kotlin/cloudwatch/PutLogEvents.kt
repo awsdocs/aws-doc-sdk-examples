@@ -52,7 +52,7 @@ suspend fun putCWLogEvents(
             logStreamNamePrefix = streamNameVal
         }
 
-    CloudWatchLogsClient { region = "us-west-2" }.use { logsClient ->
+    CloudWatchLogsClient.fromEnvironment { region = "us-west-2" }.use { logsClient ->
         describeLogStreamsResponse = logsClient.describeLogStreams(request)
         println("Successfully put the CloudWatch log event")
 

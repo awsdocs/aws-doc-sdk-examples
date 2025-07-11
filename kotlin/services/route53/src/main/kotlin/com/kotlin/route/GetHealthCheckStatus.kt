@@ -41,7 +41,7 @@ suspend fun getHealthStatus(healthCheckIdVal: String?) {
             healthCheckId = healthCheckIdVal
         }
 
-    Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
+    Route53Client.fromEnvironment { region = "AWS_GLOBAL" }.use { route53Client ->
         val response = route53Client.getHealthCheckStatus(statusRequest)
         response.healthCheckObservations?.forEach { observation ->
             println("(The health check observation status is ${observation.statusReport?.status}")

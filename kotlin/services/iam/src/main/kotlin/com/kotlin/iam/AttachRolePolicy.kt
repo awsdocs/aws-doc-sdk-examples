@@ -48,7 +48,7 @@ suspend fun attachIAMRolePolicy(
             roleName = roleNameVal
         }
 
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.listAttachedRolePolicies(request)
         val attachedPolicies = response.attachedPolicies
 

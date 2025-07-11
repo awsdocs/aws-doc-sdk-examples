@@ -42,7 +42,7 @@ suspend fun createStream(streamNameVal: String?) {
             shardCount = 1
         }
 
-    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
+    KinesisClient.fromEnvironment { region = "us-east-1" }.use { kinesisClient ->
         kinesisClient.createStream(request)
         println("The $streamNameVal data stream was created")
     }

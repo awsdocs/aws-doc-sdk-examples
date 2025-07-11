@@ -69,7 +69,7 @@ suspend fun putAlarm(
             dimensions = listOf(dimension)
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         cwClient.putMetricAlarm(request)
         println("Successfully created an alarm with name $alarmNameVal")
     }

@@ -48,7 +48,7 @@ suspend fun detectImageLabels(sourceImage: String) {
             maxLabels = 10
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.detectLabels(request)
         response.labels?.forEach { label ->
             println("${label.name} : ${label.confidence}")

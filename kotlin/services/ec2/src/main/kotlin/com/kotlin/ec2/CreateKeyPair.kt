@@ -42,7 +42,7 @@ suspend fun createEC2KeyPair(keyNameVal: String) {
             keyName = keyNameVal
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.createKeyPair(request)
         println("The key ID is ${response.keyPairId}")
     }

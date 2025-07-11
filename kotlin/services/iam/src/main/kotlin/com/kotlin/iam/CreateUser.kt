@@ -42,7 +42,7 @@ suspend fun createIAMUser(usernameVal: String?): String? {
             userName = usernameVal
         }
 
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.createUser(request)
         return response.user?.userName
     }

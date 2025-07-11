@@ -40,7 +40,7 @@ suspend fun describeSpecificCampaign(campaignArnVal: String?) {
         DescribeCampaignRequest {
             campaignArn = campaignArnVal
         }
-    PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+    PersonalizeClient.fromEnvironment { region = "us-east-1" }.use { personalizeClient ->
 
         val response = personalizeClient.describeCampaign(request)
         val myCampaign = response.campaign

@@ -41,7 +41,7 @@ suspend fun describeTranslationJob(id: String?) {
             jobId = id!!
         }
 
-    TranslateClient { region = "us-west-2" }.use { translateClient ->
+    TranslateClient.fromEnvironment { region = "us-west-2" }.use { translateClient ->
         val jobResponse = translateClient.describeTextTranslationJob(textTranslationJobRequest)
         println("The job status is ${jobResponse.textTranslationJobProperties?.jobStatus}.")
     }

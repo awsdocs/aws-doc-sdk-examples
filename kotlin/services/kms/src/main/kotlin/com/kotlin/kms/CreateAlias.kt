@@ -47,7 +47,7 @@ suspend fun createCustomAlias(
             targetKeyId = targetKeyIdVal
         }
 
-    KmsClient { region = "us-west-2" }.use { kmsClient ->
+    KmsClient.fromEnvironment { region = "us-west-2" }.use { kmsClient ->
         kmsClient.createAlias(request)
         println("$aliasNameVal was successfully created")
     }

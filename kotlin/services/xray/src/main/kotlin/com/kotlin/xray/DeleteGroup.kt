@@ -43,7 +43,7 @@ suspend fun deleteSpecificGroup(groupNameVal: String) {
             groupName = groupNameVal
         }
 
-    XRayClient { region = "us-east-1" }.use { xRayClient ->
+    XRayClient.fromEnvironment { region = "us-east-1" }.use { xRayClient ->
         xRayClient.deleteGroup(groupRequest)
         println("$groupNameVal was deleted!")
     }

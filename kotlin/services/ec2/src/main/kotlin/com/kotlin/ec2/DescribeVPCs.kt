@@ -43,7 +43,7 @@ suspend fun describeEC2Vpcs(vpcId: String) {
             vpcIds = listOf(vpcId)
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeVpcs(request)
         response.vpcs?.forEach { vpc ->
             println("Found VPC with id ${vpc.vpcId} VPC state ${vpc.state} and tenancy ${vpc.instanceTenancy}")

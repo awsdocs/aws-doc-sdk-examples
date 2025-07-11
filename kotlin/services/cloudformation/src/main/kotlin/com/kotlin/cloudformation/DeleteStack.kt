@@ -34,7 +34,7 @@ suspend fun deleteSpecificTemplate(stackNameVal: String?) {
             stackName = stackNameVal
         }
 
-    CloudFormationClient { region = "us-east-1" }.use { cfClient ->
+    CloudFormationClient.fromEnvironment { region = "us-east-1" }.use { cfClient ->
         cfClient.deleteStack(request)
         println("The AWS CloudFormation stack was successfully deleted!")
     }

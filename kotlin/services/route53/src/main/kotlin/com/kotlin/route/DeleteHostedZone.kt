@@ -42,7 +42,7 @@ suspend fun delHostedZone(hostedZoneId: String?) {
             id = hostedZoneId
         }
 
-    Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
+    Route53Client.fromEnvironment { region = "AWS_GLOBAL" }.use { route53Client ->
         route53Client.deleteHostedZone(deleteHostedZoneRequestRequest)
         println("The hosted zone with id $hostedZoneId was deleted")
     }

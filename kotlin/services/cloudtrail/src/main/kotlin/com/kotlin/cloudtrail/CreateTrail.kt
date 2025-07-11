@@ -41,7 +41,7 @@ suspend fun createNewTrail(
             isMultiRegionTrail = true
         }
 
-    CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+    CloudTrailClient.fromEnvironment { region = "us-east-1" }.use { cloudTrail ->
         val trailResponse = cloudTrail.createTrail(request)
         println("The trail ARN is ${trailResponse.trailArn}")
     }

@@ -21,7 +21,7 @@ suspend fun main() {
 
 // snippet-start:[xray.kotlin_get_rules.main]
 suspend fun getRules() {
-    XRayClient { region = "us-east-1" }.use { xRayClient ->
+    XRayClient.fromEnvironment { region = "us-east-1" }.use { xRayClient ->
         val response = xRayClient.getSamplingRules(GetSamplingRulesRequest {})
         response.samplingRuleRecords?.forEach { record ->
             println("The rule name is ${record.samplingRule?.ruleName}")

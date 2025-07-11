@@ -41,7 +41,7 @@ suspend fun listBucketObjects(bucketName: String) {
             bucket = bucketName
         }
 
-    S3Client { region = "us-east-1" }.use { s3 ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3 ->
         val response = s3.listObjects(request)
         response.contents?.forEach { myObject ->
             println("The name of the key is ${myObject.key}")

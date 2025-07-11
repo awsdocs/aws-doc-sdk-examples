@@ -49,7 +49,7 @@ suspend fun listGeofences(collectionName: String) {
         this.collectionName = collectionName
     }
 
-    LocationClient { region = "us-east-1" }.use { client ->
+    LocationClient.fromEnvironment { region = "us-east-1" }.use { client ->
         val response = client.listGeofences(request)
         val geofences = response.entries
         if (geofences.isNullOrEmpty()) {

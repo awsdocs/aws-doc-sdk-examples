@@ -42,7 +42,7 @@ suspend fun deleteForecastDataSet(myDataSetARN: String?) {
             datasetArn = myDataSetARN
         }
 
-    ForecastClient { region = "us-west-2" }.use { forecast ->
+    ForecastClient.fromEnvironment { region = "us-west-2" }.use { forecast ->
         forecast.deleteDataset(request)
         println("$myDataSetARN data set was deleted")
     }

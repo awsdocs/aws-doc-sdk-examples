@@ -42,7 +42,7 @@ suspend fun listAllSolutions(datasetGroupArnValue: String?) {
             maxResults = 10
             datasetGroupArn = datasetGroupArnValue
         }
-    PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+    PersonalizeClient.fromEnvironment { region = "us-east-1" }.use { personalizeClient ->
         val response = personalizeClient.listSolutions(request)
         response.solutions?.forEach { solution ->
             println("The solution ARN is ${solution.solutionArn}")

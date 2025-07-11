@@ -258,7 +258,7 @@ suspend fun deleteVehicle(vecName: String) {
         vehicleName = vecName
     }
 
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.deleteVehicle(request)
         println("Vehicle $vecName was deleted successfully.")
     }
@@ -271,7 +271,7 @@ suspend fun getVehicleDetails(vehicleNameVal: String) {
         vehicleName = vehicleNameVal
     }
 
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         val response = fleetwiseClient.getVehicle(request)
         val details = mapOf(
             "vehicleName" to response.vehicleName,
@@ -299,7 +299,7 @@ suspend fun createVehicle(vecName: String, manifestArn: String?, decArn: String)
         decoderManifestArn = decArn
     }
 
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.createVehicle(request)
         println("Vehicle $vecName was created successfully.")
     }
@@ -316,7 +316,7 @@ suspend fun createThingIfNotExist(vecName: String) {
         thingName = vecName
     }
 
-    IotClient { region = "us-east-1" }.use { client ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { client ->
         client.createThing(request)
         println("The $vecName IoT Thing was successfully created")
     }
@@ -328,7 +328,7 @@ suspend fun updateDecoderManifest(nameVal: String) {
         name = nameVal
         status = ManifestStatus.Active
     }
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.updateDecoderManifest(request)
         println("$nameVal was successfully updated")
     }
@@ -346,7 +346,7 @@ suspend fun waitForDecoderManifestActive(decNameVal: String) {
     var lastStatus: ManifestStatus = ManifestStatus.Draft
 
     print("⏳ Elapsed: 0s | Status: DRAFT")
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         while (true) {
             delay(1000)
             elapsedSeconds++
@@ -392,7 +392,7 @@ suspend fun waitForModelManifestActive(manifestNameVal: String) {
     var lastStatus: ManifestStatus = ManifestStatus.Draft
 
     print("⏳ Elapsed: 0s | Status: DRAFT")
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         while (true) {
             delay(1000)
             elapsedSeconds++
@@ -438,7 +438,7 @@ suspend fun updateModelManifest(nameVal: String) {
         name = nameVal
         status = ManifestStatus.Active
     }
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.updateModelManifest(request)
         println("$nameVal was successfully updated")
     }
@@ -451,7 +451,7 @@ suspend fun deleteDecoderManifest(nameVal: String) {
         name = nameVal
     }
 
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.deleteDecoderManifest(request)
         println("$nameVal was successfully deleted")
     }
@@ -522,7 +522,7 @@ suspend fun createDecoderManifest(decName: String, modelManifestArnVal: String?)
         signalDecoders = listOf(engineRpmDecoder, vehicleSpeedDecoder)
     }
 
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         val response = fleetwiseClient.createDecoderManifest(request)
         return response.arn
     }
@@ -539,7 +539,7 @@ suspend fun deleteSignalCatalog(catName: String) {
     val request = DeleteSignalCatalogRequest {
         name = catName
     }
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.deleteSignalCatalog(request)
         println(" $catName was successfully deleted")
     }
@@ -557,7 +557,7 @@ suspend fun deleteFleet(fleetIdVal: String) {
         fleetId = fleetIdVal
     }
 
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.deleteFleet(request)
         println(" $fleetIdVal was successfully deleted")
     }
@@ -574,7 +574,7 @@ suspend fun deleteModelManifest(nameVal: String) {
     val request = DeleteModelManifestRequest {
         name = nameVal
     }
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         fleetwiseClient.deleteModelManifest(request)
         println(" $nameVal was successfully deleted")
     }
@@ -604,7 +604,7 @@ suspend fun createModelManifest(nameVal: String, signalCatalogArnVal: String, no
         signalCatalogArn = signalCatalogArnVal
         nodes = fqnList
     }
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         val response = fleetwiseClient.createModelManifest(request)
         return response.arn
     }
@@ -624,7 +624,7 @@ suspend fun listSignalCatalogNode(signalCatalogName: String): List<Node>? {
         name = signalCatalogName
     }
 
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         val response = fleetwiseClient.listSignalCatalogNodes(request)
         return response.nodes
     }
@@ -646,7 +646,7 @@ suspend fun createFleet(catARN: String, fleetIdVal: String): String {
         description = "Built using the AWS For Kotlin"
     }
 
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         val response = fleetwiseClient.createFleet(fleetRequest)
         return response.id
     }
@@ -700,7 +700,7 @@ suspend fun createbranchVehicle(signalCatalogName: String): String {
         nodes = myNodes
     }
 
-    IotFleetWiseClient { region = "us-east-1" }.use { fleetwiseClient ->
+    IotFleetWiseClient.fromEnvironment { region = "us-east-1" }.use { fleetwiseClient ->
         val response = fleetwiseClient.createSignalCatalog(request)
         return response.arn
     }

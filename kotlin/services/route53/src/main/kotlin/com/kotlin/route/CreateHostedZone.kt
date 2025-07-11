@@ -47,7 +47,7 @@ suspend fun createZone(domainName: String?): String? {
             name = domainName
         }
 
-    Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
+    Route53Client.fromEnvironment { region = "AWS_GLOBAL" }.use { route53Client ->
         val zoneResponse = route53Client.createHostedZone(zoneRequest)
         return zoneResponse.hostedZone?.id
     }

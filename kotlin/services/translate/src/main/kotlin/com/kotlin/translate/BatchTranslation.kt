@@ -76,7 +76,7 @@ suspend fun translateDocuments(
             targetLanguageCodes = myList
         }
 
-    TranslateClient { region = "us-west-2" }.use { translateClient ->
+    TranslateClient.fromEnvironment { region = "us-west-2" }.use { translateClient ->
         val textTranslationJobResponse = translateClient.startTextTranslationJob(textTranslationJobRequest)
 
         // Keep checking until job is done.

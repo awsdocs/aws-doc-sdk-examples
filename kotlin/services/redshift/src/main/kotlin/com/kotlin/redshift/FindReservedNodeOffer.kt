@@ -24,7 +24,7 @@ suspend fun main() {
 
 // snippet-start:[redshift.kotlin._nodes.main]
 suspend fun listReservedNodes() {
-    RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
+    RedshiftClient.fromEnvironment { region = "us-west-2" }.use { redshiftClient ->
         val reservedNodesResponse = redshiftClient.describeReservedNodes(DescribeReservedNodesRequest {})
         println("Listing nodes already purchased.")
         reservedNodesResponse.reservedNodes?.forEach { node ->

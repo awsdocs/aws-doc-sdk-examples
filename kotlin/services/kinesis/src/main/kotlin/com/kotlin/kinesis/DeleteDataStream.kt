@@ -41,7 +41,7 @@ suspend fun deleteStream(streamNameVal: String?) {
             streamName = streamNameVal
         }
 
-    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
+    KinesisClient.fromEnvironment { region = "us-east-1" }.use { kinesisClient ->
         kinesisClient.deleteStream(request)
         println("$streamNameVal was deleted.")
     }

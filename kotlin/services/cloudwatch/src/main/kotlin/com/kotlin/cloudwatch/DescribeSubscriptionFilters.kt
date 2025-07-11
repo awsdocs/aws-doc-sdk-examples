@@ -41,7 +41,7 @@ suspend fun describeFilters(logGroup: String) {
             limit = 1
         }
 
-    CloudWatchLogsClient { region = "us-west-2" }.use { cwlClient ->
+    CloudWatchLogsClient.fromEnvironment { region = "us-west-2" }.use { cwlClient ->
         val response = cwlClient.describeSubscriptionFilters(request)
         response.subscriptionFilters?.forEach { filter ->
             println("Retrieved filter with name  ${filter.filterName} pattern ${filter.filterPattern} and destination ${filter.destinationArn}")

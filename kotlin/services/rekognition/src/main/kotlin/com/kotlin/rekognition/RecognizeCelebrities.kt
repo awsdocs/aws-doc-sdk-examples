@@ -48,7 +48,7 @@ suspend fun recognizeAllCelebrities(sourceImage: String?) {
             image = souImage
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.recognizeCelebrities(request)
         response.celebrityFaces?.forEach { celebrity ->
             println("Celebrity recognized: ${celebrity.name}")

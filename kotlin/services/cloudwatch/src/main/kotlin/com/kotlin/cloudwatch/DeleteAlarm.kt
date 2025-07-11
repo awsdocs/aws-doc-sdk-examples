@@ -42,7 +42,7 @@ suspend fun deleteCWAlarm(alarmNameVal: String) {
             alarmNames = listOf(alarmNameVal)
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         cwClient.deleteAlarms(request)
         println("Successfully deleted alarm $alarmNameVal")
     }

@@ -104,19 +104,20 @@ suspend fun createUser(usernameVal: String?): String? {
 }
 
 suspend fun createPolicy(policyNameVal: String?): String {
-    val policyDocumentValue: String =
-        "{" +
-            "  \"Version\": \"2012-10-17\"," +
-            "  \"Statement\": [" +
-            "    {" +
-            "        \"Effect\": \"Allow\"," +
-            "        \"Action\": [" +
-            "            \"s3:*\"" +
-            "       ]," +
-            "       \"Resource\": \"*\"" +
-            "    }" +
-            "   ]" +
-            "}"
+    val policyDocumentValue = """
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:*"
+                ],
+                "Resource": "*"
+            }
+        ]
+    }
+    """.trimIndent()
 
     val request =
         CreatePolicyRequest {
@@ -124,7 +125,7 @@ suspend fun createPolicy(policyNameVal: String?): String {
             policyDocument = policyDocumentValue
         }
 
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.createPolicy(request)
         return response.policy?.arn.toString()
     }
@@ -158,7 +159,7 @@ suspend fun attachRolePolicy(
             roleName = roleNameVal
         }
 
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.listAttachedRolePolicies(request)
         val attachedPolicies = response.attachedPolicies
 
@@ -201,11 +202,7 @@ suspend fun assumeGivenRole(
     roleSessionNameVal: String?,
     bucketName: String,
 ) {
-    val stsClient =
-        StsClient {
-            region = "us-east-1"
-        }
-
+    val stsClient = StsClient.fromEnvironment { region = "us-east-1" }
     val roleRequest =
         AssumeRoleRequest {
             roleArn = roleArnVal
@@ -218,19 +215,17 @@ suspend fun assumeGivenRole(
     val secKey = myCreds?.secretAccessKey
     val secToken = myCreds?.sessionToken
 
-    val staticCredentials =
-        StaticCredentialsProvider {
-            accessKeyId = key
-            secretAccessKey = secKey
-            sessionToken = secToken
-        }
+    val staticCredentials = StaticCredentialsProvider {
+        accessKeyId = key
+        secretAccessKey = secKey
+        sessionToken = secToken
+    }
 
     // List all objects in an Amazon S3 bucket using the temp creds.
-    val s3 =
-        S3Client {
-            credentialsProvider = staticCredentials
-            region = "us-east-1"
-        }
+    val s3 = S3Client.fromEnvironment {
+        region = "us-east-1"
+        credentialsProvider = staticCredentials
+    }
 
     println("Created a S3Client using temp credentials.")
     println("Listing objects in $bucketName")
@@ -251,7 +246,7 @@ suspend fun deleteRole(
     roleNameVal: String,
     polArn: String,
 ) {
-    val iam = IamClient { region = "AWS_GLOBAL" }
+    val iam = IamClient.fromEnvironment { region = "AWS_GLOBAL" }
 
     // First the policy needs to be detached.
     val rolePolicyRequest =
@@ -282,7 +277,7 @@ suspend fun deleteRole(
 }
 
 suspend fun deleteUser(userNameVal: String) {
-    val iam = IamClient { region = "AWS_GLOBAL" }
+    val iam = IamClient.fromEnvironment { region = "AWS_GLOBAL" }
     val request =
         DeleteUserRequest {
             userName = userNameVal

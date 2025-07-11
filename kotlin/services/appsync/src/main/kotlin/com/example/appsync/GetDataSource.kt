@@ -44,7 +44,7 @@ suspend fun getDS(apiIdVal: String?, dsName: String?) {
             name = dsName
         }
 
-    AppSyncClient { region = "us-east-1" }.use { appClient ->
+    AppSyncClient.fromEnvironment { region = "us-east-1" }.use { appClient ->
         val response = appClient.getDataSource(request)
         println("The DataSource ARN is ${response.dataSource?.dataSourceArn}")
     }

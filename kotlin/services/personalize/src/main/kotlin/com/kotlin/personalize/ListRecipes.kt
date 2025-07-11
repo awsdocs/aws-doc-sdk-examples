@@ -26,7 +26,7 @@ suspend fun listAllRecipes() {
         ListRecipesRequest {
             maxResults = 15
         }
-    PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+    PersonalizeClient.fromEnvironment { region = "us-east-1" }.use { personalizeClient ->
         val response = personalizeClient.listRecipes(request)
         response.recipes?.forEach { recipe ->
             println("The recipe ARN is ${recipe.recipeArn}")

@@ -41,7 +41,7 @@ suspend fun deleteIAMPolicy(policyARNVal: String?) {
             policyArn = policyARNVal
         }
 
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         iamClient.deletePolicy(request)
         println("Successfully deleted $policyARNVal")
     }

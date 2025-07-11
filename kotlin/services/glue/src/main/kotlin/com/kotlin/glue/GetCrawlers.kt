@@ -27,7 +27,7 @@ suspend fun getAllCrawlers() {
             maxResults = 10
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getCrawlers(request)
         response.crawlers?.forEach { crawler ->
             println("The crawler name is ${crawler.name}")

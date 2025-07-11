@@ -27,7 +27,7 @@ suspend fun describeEC2Instances() {
             maxResults = 6
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeInstances(request)
         response.reservations?.forEach { reservation ->
             reservation.instances?.forEach { instance ->

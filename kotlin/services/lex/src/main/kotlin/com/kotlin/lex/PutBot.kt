@@ -87,7 +87,7 @@ suspend fun createBot(
             intents = intentObs
         }
 
-    LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
+    LexModelBuildingClient.fromEnvironment { region = "us-west-2" }.use { lexClient ->
         lexClient.putBot(request)
         println("The Amazon Lex bot was successfully created")
     }

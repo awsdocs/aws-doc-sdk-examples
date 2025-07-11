@@ -21,7 +21,7 @@ suspend fun main() {
 
 // snippet-start:[ec2.kotlin.describe_account.main]
 suspend fun describeEC2Account() {
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val accountResults = ec2.describeAccountAttributes(DescribeAccountAttributesRequest {})
         accountResults.accountAttributes?.forEach { attribute ->
             println("The name of the attribute is ${attribute.attributeName}")

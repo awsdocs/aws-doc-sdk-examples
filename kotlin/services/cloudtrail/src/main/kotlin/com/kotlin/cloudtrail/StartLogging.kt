@@ -37,7 +37,7 @@ suspend fun stopLog(trailName: String) {
         StopLoggingRequest {
             name = trailName
         }
-    CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+    CloudTrailClient.fromEnvironment { region = "us-east-1" }.use { cloudTrail ->
         cloudTrail.stopLogging(request)
         println("$trailName has stopped logging")
     }
@@ -48,7 +48,7 @@ suspend fun startLog(trailName: String) {
         StartLoggingRequest {
             name = trailName
         }
-    CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+    CloudTrailClient.fromEnvironment { region = "us-east-1" }.use { cloudTrail ->
         cloudTrail.startLogging(request)
         println("$trailName has started logging")
     }

@@ -48,7 +48,7 @@ suspend fun deleteSpecificService(
             service = serviceArn
         }
 
-    EcsClient { region = "us-east-1" }.use { ecsClient ->
+    EcsClient.fromEnvironment { region = "us-east-1" }.use { ecsClient ->
         ecsClient.deleteService(request)
         println("The Service was successfully deleted.")
     }

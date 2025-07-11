@@ -55,7 +55,7 @@ suspend fun deleteDynamoDBItem(
             key = keyToGet
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         ddb.deleteItem(request)
         println("Item with key matching $keyVal was deleted")
     }

@@ -98,7 +98,7 @@ suspend fun createSparkCluster(
             instances = instancesConfig
         }
 
-    EmrClient { region = "us-west-2" }.use { emrClient ->
+    EmrClient.fromEnvironment { region = "us-west-2" }.use { emrClient ->
         val response = emrClient.runJobFlow(request)
         return response.jobFlowId
     }

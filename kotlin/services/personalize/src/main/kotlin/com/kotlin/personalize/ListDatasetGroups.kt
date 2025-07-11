@@ -26,7 +26,7 @@ suspend fun listDSGroups() {
         ListDatasetGroupsRequest {
             maxResults = 15
         }
-    PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+    PersonalizeClient.fromEnvironment { region = "us-east-1" }.use { personalizeClient ->
         val response = personalizeClient.listDatasetGroups(request)
         response.datasetGroups?.forEach { group ->
             println("The data set name is ${group.name}")

@@ -37,23 +37,24 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[iam.kotlin.create_policy.main]
 suspend fun createIAMPolicy(policyNameVal: String?): String {
-    val policyDocumentVal =
-        "{" +
-            "  \"Version\": \"2012-10-17\"," +
-            "  \"Statement\": [" +
-            "    {" +
-            "        \"Effect\": \"Allow\"," +
-            "        \"Action\": [" +
-            "            \"dynamodb:DeleteItem\"," +
-            "            \"dynamodb:GetItem\"," +
-            "            \"dynamodb:PutItem\"," +
-            "            \"dynamodb:Scan\"," +
-            "            \"dynamodb:UpdateItem\"" +
-            "       ]," +
-            "       \"Resource\": \"*\"" +
-            "    }" +
-            "   ]" +
-            "}"
+    val policyDocumentVal = """
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "dynamodb:DeleteItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:PutItem",
+                    "dynamodb:Scan",
+                    "dynamodb:UpdateItem"
+                ],
+                "Resource": "*"
+            }
+        ]
+    }
+    """.trimIndent()
 
     val request =
         CreatePolicyRequest {
@@ -61,7 +62,7 @@ suspend fun createIAMPolicy(policyNameVal: String?): String {
             policyDocument = policyDocumentVal
         }
 
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.createPolicy(request)
         return response.policy?.arn.toString()
     }

@@ -37,7 +37,7 @@ suspend fun setSelector(trailNameVal: String?) {
             readWriteType = ReadWriteType.fromValue("All")
         }
 
-    CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+    CloudTrailClient.fromEnvironment { region = "us-east-1" }.use { cloudTrail ->
         cloudTrail.putEventSelectors(
             PutEventSelectorsRequest {
                 trailName = trailNameVal

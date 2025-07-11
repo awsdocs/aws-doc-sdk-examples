@@ -27,7 +27,7 @@ suspend fun listAllWorkflows() {
             maxResults = 10
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.listWorkflows(request)
         response.workflows?.forEach { workflow ->
             println("Workflow name is: $workflow")

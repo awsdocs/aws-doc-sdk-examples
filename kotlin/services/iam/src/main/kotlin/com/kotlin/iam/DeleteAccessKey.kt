@@ -47,7 +47,7 @@ suspend fun deleteKey(
             userName = userNameVal
         }
 
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         iamClient.deleteAccessKey(request)
         println("Successfully deleted access key $accessKey from $userNameVal")
     }

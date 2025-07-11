@@ -49,7 +49,7 @@ suspend fun getStockTrades(streamNameVal: String?) {
         DescribeStreamRequest {
             streamName = streamNameVal
         }
-    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
+    KinesisClient.fromEnvironment { region = "us-east-1" }.use { kinesisClient ->
         do {
             streamRes = kinesisClient.describeStream(request)
             shards.add(streamRes.streamDescription?.shards?.get(0))

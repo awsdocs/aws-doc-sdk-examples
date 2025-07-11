@@ -76,7 +76,7 @@ suspend fun createIndex(
             roleArn = indexRoleArn
         }
 
-    KendraClient { region = "us-east-1" }.use { kendra ->
+    KendraClient.fromEnvironment { region = "us-east-1" }.use { kendra ->
         val createIndexResponse = kendra.createIndex(createIndexRequest)
         val indexId = createIndexResponse.id
         println("Waiting until the index with index ID $indexId is created.")

@@ -74,7 +74,7 @@ suspend fun signUp(
             password = passwordVal
             secretHash = secretVal
         }
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { identityProviderClient ->
         identityProviderClient.signUp(request)
         println("User has been signed up")
     }

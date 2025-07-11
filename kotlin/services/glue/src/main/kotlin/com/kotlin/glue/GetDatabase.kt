@@ -44,7 +44,7 @@ suspend fun getSpecificDatabase(databaseName: String?) {
             name = databaseName
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getDatabase(request)
         val dbDesc = response.database?.description
         println("The database description is $dbDesc")

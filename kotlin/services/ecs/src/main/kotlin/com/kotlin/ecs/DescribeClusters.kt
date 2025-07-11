@@ -43,7 +43,7 @@ suspend fun descCluster(clusterArn: String) {
             clusters = listOf(clusterArn)
         }
 
-    EcsClient { region = "us-east-1" }.use { ecsClient ->
+    EcsClient.fromEnvironment { region = "us-east-1" }.use { ecsClient ->
         val response = ecsClient.describeClusters(request)
         response.clusters?.forEach { cluster ->
             println("The cluster name is ${cluster.clusterName}.")

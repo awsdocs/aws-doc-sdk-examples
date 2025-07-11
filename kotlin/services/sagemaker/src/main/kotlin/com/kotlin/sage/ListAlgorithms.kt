@@ -21,7 +21,7 @@ suspend fun main() {
 
 // snippet-start:[sagemaker.kotlin.list_algs.main]
 suspend fun listAlgs() {
-    SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+    SageMakerClient.fromEnvironment { region = "us-west-2" }.use { sageMakerClient ->
         val response = sageMakerClient.listAlgorithms(ListAlgorithmsRequest {})
         response.algorithmSummaryList?.forEach { item ->
             println("Algorithm name is ${item.algorithmName}")

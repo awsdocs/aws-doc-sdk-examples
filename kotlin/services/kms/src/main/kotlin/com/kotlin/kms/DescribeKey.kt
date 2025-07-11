@@ -41,7 +41,7 @@ suspend fun describeSpecifcKey(keyIdVal: String?) {
             keyId = keyIdVal
         }
 
-    KmsClient { region = "us-west-2" }.use { kmsClient ->
+    KmsClient.fromEnvironment { region = "us-west-2" }.use { kmsClient ->
         val response = kmsClient.describeKey(request)
         println("The key description is ${response.keyMetadata?.description}")
         println("The key ARN is ${response.keyMetadata?.arn}")

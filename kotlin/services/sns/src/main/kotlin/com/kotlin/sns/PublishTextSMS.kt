@@ -48,7 +48,7 @@ suspend fun pubTextSMS(
             phoneNumber = phoneNumberVal
         }
 
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.publish(request)
         println("${result.messageId} message sent.")
     }

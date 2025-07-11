@@ -42,7 +42,7 @@ suspend fun describeSpecificSolution(solutionArnVal: String?) {
             solutionArn = solutionArnVal
         }
 
-    PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+    PersonalizeClient.fromEnvironment { region = "us-east-1" }.use { personalizeClient ->
         val response = personalizeClient.describeSolution(request)
         println("The solution name is ${response.solution?.name}")
     }

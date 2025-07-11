@@ -32,7 +32,7 @@ suspend fun describeApps() {
                     applicationName = app.applicationName
                 }
 
-            ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
+            ElasticBeanstalkClient.fromEnvironment { region = "us-east-1" }.use { beanstalkClient ->
                 val res = beanstalkClient.describeEnvironments(desRequest)
                 res.environments?.forEach { desc ->
 

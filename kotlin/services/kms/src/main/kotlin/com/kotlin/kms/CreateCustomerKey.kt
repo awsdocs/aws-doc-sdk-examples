@@ -33,7 +33,7 @@ suspend fun createKey(keyDesc: String?): String? {
             keyUsage = KeyUsageType.fromValue("ENCRYPT_DECRYPT")
         }
 
-    KmsClient { region = "us-west-2" }.use { kmsClient ->
+    KmsClient.fromEnvironment { region = "us-west-2" }.use { kmsClient ->
         val result = kmsClient.createKey(request)
         println("Created a customer key with id " + result.keyMetadata?.arn)
         return result.keyMetadata?.keyId

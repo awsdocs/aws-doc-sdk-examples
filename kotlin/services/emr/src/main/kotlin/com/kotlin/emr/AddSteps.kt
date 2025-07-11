@@ -65,7 +65,7 @@ suspend fun addNewStep(
             steps = listOf(stepConfig)
         }
 
-    EmrClient { region = "us-west-2" }.use { emrClient ->
+    EmrClient.fromEnvironment { region = "us-west-2" }.use { emrClient ->
         emrClient.addJobFlowSteps(request)
         println("You have successfully added a step!")
     }
