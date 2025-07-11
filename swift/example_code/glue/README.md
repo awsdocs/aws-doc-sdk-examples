@@ -48,12 +48,12 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteTable](scenario/Sources/entry.swift#L501)
 - [GetCrawler](scenario/Sources/entry.swift#L220)
 - [GetDatabase](scenario/Sources/entry.swift#L406)
-- [GetJobRun](scenario/Sources/entry.swift#L621)
-- [GetJobRuns](scenario/Sources/entry.swift#L584)
+- [GetJobRun](scenario/Sources/entry.swift#L622)
+- [GetJobRuns](scenario/Sources/entry.swift#L585)
 - [GetTables](scenario/Sources/entry.swift#L429)
 - [ListJobs](scenario/Sources/entry.swift#L319)
 - [StartCrawler](scenario/Sources/entry.swift#L198)
-- [StartJobRun](scenario/Sources/entry.swift#L545)
+- [StartJobRun](scenario/Sources/entry.swift#L546)
 
 
 <!--custom.examples.start-->
