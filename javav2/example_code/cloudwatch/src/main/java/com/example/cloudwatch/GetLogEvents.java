@@ -26,20 +26,23 @@ public class GetLogEvents {
         final String usage = """
 
                 Usage:
-                  <logStreamName> <logGroupName>
+                  <logGroupName> <logStreamName> 
 
                 Where:
-                  logStreamName - The name of the log stream (for example, mystream).
                   logGroupName - The name of the log group (for example, myloggroup).
+                  logStreamName - The name of the log stream (for example, mystream).
+                  
                 """;
 
         if (args.length != 2) {
             System.out.print(usage);
             System.exit(1);
+
         }
 
-        String logStreamName = args[0];
-        String logGroupName = args[1];
+        String logGroupName = args[0];
+        String logStreamName = args[1];
+
         Region region = Region.US_WEST_2;
         CloudWatchLogsClient cloudWatchLogsClient = CloudWatchLogsClient.builder()
                 .region(region)

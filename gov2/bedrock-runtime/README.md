@@ -40,10 +40,6 @@ functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](scenarios/scenario_invoke_models.go)
 
-### AI21 Labs Jurassic-2
-
-- [InvokeModel](actions/invoke_model.go#L7)
-
 ### Amazon Titan Image Generator
 
 - [InvokeModel](actions/invoke_model.go#L7)

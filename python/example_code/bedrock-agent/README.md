@@ -44,6 +44,7 @@ Code excerpts that show you how to call individual service functions.
 - [CreateFlow](flows/flow.py#L18)
 - [CreateFlowAlias](flows/flow_alias.py#L15)
 - [CreateFlowVersion](flows/flow_version.py#L18)
+- [CreateKnowledgeBase](knowledge_bases/knowledge_base.py#L30)
 - [CreatePrompt](prompts/prompt.py#L18)
 - [CreatePromptVersion](prompts/prompt.py#L84)
 - [DeleteAgent](bedrock_agent_wrapper.py#L118)
@@ -51,10 +52,12 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteFlow](flows/flow.py#L155)
 - [DeleteFlowAlias](flows/flow_alias.py#L98)
 - [DeleteFlowVersion](flows/flow_version.py#L91)
+- [DeleteKnowledgeBase](knowledge_bases/knowledge_base.py#L169)
 - [DeletePrompt](prompts/prompt.py#L159)
 - [GetAgent](bedrock_agent_wrapper.py#L161)
 - [GetFlow](flows/flow.py#L192)
 - [GetFlowVersion](flows/flow_version.py#L54)
+- [GetKnowledgeBase](knowledge_bases/knowledge_base.py#L90)
 - [GetPrompt](prompts/prompt.py#L124)
 - [ListAgentActionGroups](bedrock_agent_wrapper.py#L208)
 - [ListAgentKnowledgeBases](bedrock_agent_wrapper.py#L237)
@@ -62,11 +65,13 @@ Code excerpts that show you how to call individual service functions.
 - [ListFlowAliases](flows/flow_alias.py#L132)
 - [ListFlowVersions](flows/flow_version.py#L128)
 - [ListFlows](flows/flow.py#L229)
+- [ListKnowledgeBases](knowledge_bases/knowledge_base.py#L199)
 - [ListPrompts](prompts/prompt.py#L191)
 - [PrepareAgent](bedrock_agent_wrapper.py#L266)
 - [PrepareFlow](flows/flow.py#L58)
 - [UpdateFlow](flows/flow.py#L112)
 - [UpdateFlowAlias](flows/flow_alias.py#L55)
+- [UpdateKnowledgeBase](knowledge_bases/knowledge_base.py#L120)
 
 ### Scenarios
 
@@ -102,6 +107,11 @@ This example shows you how to do the following:
 - Delete all created resources.
 
 <!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockFlows.start-->
+
+The flow includes a prompt node that generates a playlist for a chosen genre
+and number of songs. The example creates the nodes and permissions
+for the flow.
+
 <!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockFlows.end-->
 
 Start the example by running the following at a command prompt:

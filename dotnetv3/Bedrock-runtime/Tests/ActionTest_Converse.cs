@@ -12,7 +12,7 @@ public class ActionTest_Converse
     [InlineData(typeof(AnthropicClaude.Converse))]
     [InlineData(typeof(AmazonNovaText.Converse))]
     [InlineData(typeof(AmazonTitanText.Converse))]
-    [InlineData(typeof(Ai21LabsJurassic2.Converse))]
+
     public void ConverseDoesNotThrow(Type type)
     {
         var entryPoint = type.Assembly.EntryPoint!;
