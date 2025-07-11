@@ -165,3 +165,5 @@ dotnet_diagnostic.S1118.severity = none
 dotnet_diagnostic.S1104.severity = none
 # S1854: Disable unused variable warnings.
 dotnet_diagnostic.S1854.severity = none
+# SA1401: Disable encapsulation warnings.
+dotnet_diagnostic.SA1401.severity = none
