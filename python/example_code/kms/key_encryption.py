@@ -35,7 +35,7 @@ class KeyEncrypt:
     # snippet-end:[python.example_code.kms.KeyEncrypt.decl]
 
     # snippet-start:[python.example_code.kms.Encrypt]
-    def encrypt(self, key_id: str, text: str) -> str:
+    def encrypt(self, key_id: str, text: str) -> bytes:
         """
         Encrypts text by using the specified key.
 
@@ -64,7 +64,7 @@ class KeyEncrypt:
     # snippet-end:[python.example_code.kms.Encrypt]
 
     # snippet-start:[python.example_code.kms.Decrypt]
-    def decrypt(self, key_id: str, cipher_text: str) -> bytes:
+    def decrypt(self, key_id: str, cipher_text: bytes) -> str:
         """
         Decrypts text previously encrypted with a key.
 
@@ -75,7 +75,7 @@ class KeyEncrypt:
         try:
             return self.kms_client.decrypt(KeyId=key_id, CiphertextBlob=cipher_text)[
                 "Plaintext"
-            ]
+            ].decode()
         except ClientError as err:
             logger.error(
                 "Couldn't decrypt your ciphertext. Here's why: %s",
