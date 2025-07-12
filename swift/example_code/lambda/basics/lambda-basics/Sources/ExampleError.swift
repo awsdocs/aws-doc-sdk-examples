@@ -26,6 +26,16 @@ enum ExampleError: Error {
     case listFunctionsError
     /// Unable to update the AWS Lambda function.
     case updateFunctionError
+    /// Unable to update the function configuration.
+    case updateFunctionConfigurationError
+    /// The environment response is missing after an
+    /// UpdateEnvironmentConfiguration attempt.
+    case environmentResponseMissingError
+    /// The environment variables are missing from the EnvironmentResponse and
+    /// no errors occurred.
+    case environmentVariablesMissingError
+    /// The log level is incorrect after attempting to set it.
+    case logLevelIncorrectError
     /// Unable to load the AWS Lambda function's Zip file.
     case zipFileReadError
 
@@ -53,6 +63,14 @@ enum ExampleError: Error {
             return "Unable to list the AWS Lambda functions."
         case .updateFunctionError:
             return "Unable to update the AWS lambda function."
+        case .updateFunctionConfigurationError:
+            return "Unable to update the AWS lambda function configuration."
+        case .environmentResponseMissingError:
+            return "The environment is missing from the response after updating the function configuration."
+        case .environmentVariablesMissingError:
+            return "While no error occurred, no environment variables were returned following function configuration."
+        case .logLevelIncorrectError:
+            return "The log level is incorrect after attempting to set it to DEBUG."
         case .zipFileReadError:
             return "Unable to read the AWS Lambda function."
         }

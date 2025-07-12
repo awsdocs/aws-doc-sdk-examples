@@ -35,11 +35,6 @@ functions within the same service.
 
 - [Tool use with the Converse API](Scenarios/ConverseToolScenario/ConverseToolScenario.cs)
 
-### AI21 Labs Jurassic-2
-
-- [Converse](Models/Ai21LabsJurassic2/Converse/Converse.cs#L4)
-- [InvokeModel](Models/Ai21LabsJurassic2/InvokeModel/InvokeModel.cs#L4)
-
 ### Amazon Nova
 
 - [Converse](Models/AmazonNova/AmazonNovaText/Converse/Converse.cs#L4)
@@ -52,22 +47,14 @@ functions within the same service.
 
 ### Amazon Titan Text
 
-- [Converse](Models/AmazonTitanText/Converse/Converse.cs#L4)
-- [ConverseStream](Models/AmazonTitanText/ConverseStream/ConverseStream.cs#L4)
-- [InvokeModel](Models/AmazonTitanText/InvokeModel/InvokeModel.cs#L4)
 - [InvokeModelWithResponseStream](Models/AmazonTitanText/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 ### Anthropic Claude
 
-- [Converse](Models/AnthropicClaude/Converse/Converse.cs#L4)
-- [ConverseStream](Models/AnthropicClaude/ConverseStream/ConverseStream.cs#L4)
-- [InvokeModel](Models/AnthropicClaude/InvokeModel/InvokeModel.cs#L4)
 - [InvokeModelWithResponseStream](Models/AnthropicClaude/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 ### Cohere Command
 
-- [Converse](Models/CohereCommand/Converse/Converse.cs#L4)
-- [ConverseStream](Models/CohereCommand/ConverseStream/ConverseStream.cs#L4)
 - [InvokeModel: Command R and R+](Models/CohereCommand/Command_R_InvokeModel/InvokeModel.cs#L4)
 - [InvokeModel: Command and Command Light](Models/CohereCommand/Command_InvokeModel/InvokeModel.cs#L4)
 - [InvokeModelWithResponseStream: Command R and R+](Models/CohereCommand/Command_R_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
@@ -75,15 +62,11 @@ functions within the same service.
 
 ### Meta Llama
 
-- [Converse](Models/MetaLlama/Converse/Converse.cs#L4)
-- [ConverseStream](Models/MetaLlama/ConverseStream/ConverseStream.cs#L4)
 - [InvokeModel](Models/MetaLlama/Llama3_InvokeModel/InvokeModel.cs#L4)
 - [InvokeModelWithResponseStream](Models/MetaLlama/Llama3_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 ### Mistral AI
 
-- [Converse](Models/Mistral/Converse/Converse.cs#L4)
-- [ConverseStream](Models/Mistral/ConverseStream/ConverseStream.cs#L4)
 - [InvokeModel](Models/Mistral/InvokeModel/InvokeModel.cs#L4)
 - [InvokeModelWithResponseStream](Models/Mistral/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 

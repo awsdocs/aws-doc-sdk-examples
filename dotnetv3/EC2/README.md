@@ -29,11 +29,6 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Get started
-
-- [Hello Amazon EC2](Actions/HelloEC2.cs#L4) (`DescribeSecurityGroups`)
-
-
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
@@ -106,10 +101,6 @@ Alternatively, you can run the example from within your IDE.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
-
-#### Hello Amazon EC2
-
-This example shows you how to get started using Amazon EC2.
 
 
 #### Learn the basics

@@ -53,7 +53,7 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteKeyPair](src/main/java/com/example/ec2/scenario/EC2Actions.java#L106)
 - [DeleteSecurityGroup](src/main/java/com/example/ec2/scenario/EC2Actions.java#L132)
 - [DescribeInstanceTypes](src/main/java/com/example/ec2/scenario/EC2Actions.java#L356)
-- [DescribeInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L402)
+- [DescribeInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L285)
 - [DescribeKeyPairs](src/main/java/com/example/ec2/scenario/EC2Actions.java#L566)
 - [DescribeSecurityGroups](src/main/java/com/example/ec2/scenario/EC2Actions.java#L468)
 - [DisassociateAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L207)

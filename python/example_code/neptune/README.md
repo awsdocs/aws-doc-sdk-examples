@@ -36,35 +36,35 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Neptune](HelloNeptune.py#L4) (`DescribeDBClustersPaginator`)
+- [Hello Neptune](hello_neptune.py#L4) (`DescribeDBClustersPaginator`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](NeptuneScenario.py)
+- [Learn the basics](neptune_scenario.py)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDBCluster](NeptuneScenario.py#L288)
-- [CreateDBInstance](NeptuneScenario.py#L269)
-- [CreateDBSubnetGroup](NeptuneScenario.py#L335)
-- [CreateGraph](analytics/CreateNeptuneGraphExample.py#L7)
-- [DeleteDBCluster](NeptuneScenario.py#L14)
-- [DeleteDBInstance](NeptuneScenario.py#L77)
-- [DeleteDBSubnetGroup](NeptuneScenario.py#L95)
-- [DescribeDBClusters](NeptuneScenario.py#L203)
-- [DescribeDBInstances](NeptuneScenario.py#L242)
-- [ExecuteGremlinProfileQuery](database/NeptuneGremlinQueryExample.py#L22)
-- [ExecuteGremlinQuery](database/NeptuneGremlinExplainAndProfileExample.py#L8)
-- [ExecuteOpenCypherExplainQuery](database/OpenCypherExplainExample.py#L22)
-- [ExecuteQuery](analytics/NeptuneAnalyticsQueryExample.py#L7)
-- [StartDBCluster](NeptuneScenario.py#L161)
-- [StopDBCluster](NeptuneScenario.py#L183)
+- [CreateDBCluster](neptune_scenario.py#L449)
+- [CreateDBInstance](neptune_scenario.py#L406)
+- [CreateDBSubnetGroup](neptune_scenario.py#L524)
+- [CreateGraph](analytics/create_neptune_graph_example.py#L7)
+- [DeleteDBCluster](neptune_scenario.py#L14)
+- [DeleteDBInstance](neptune_scenario.py#L54)
+- [DeleteDBSubnetGroup](neptune_scenario.py#L92)
+- [DescribeDBClusters](neptune_scenario.py#L301)
+- [DescribeDBInstances](neptune_scenario.py#L360)
+- [ExecuteGremlinProfileQuery](database/neptune_execute_gremlin_explain_query.py#L21)
+- [ExecuteGremlinQuery](database/neptune_execute_gremlin_profile_query.py#L8)
+- [ExecuteOpenCypherExplainQuery](database/neptune_execute_open_cypher_query.py#L23)
+- [ExecuteQuery](analytics/neptune_analytics_query_example.py#L8)
+- [StartDBCluster](neptune_scenario.py#L178)
+- [StopDBCluster](neptune_scenario.py#L240)
 
 
 <!--custom.examples.start-->
@@ -83,7 +83,7 @@ Code excerpts that show you how to call individual service functions.
 This example shows you how to get started using Neptune.
 
 ```
-python HelloNeptune.py
+python hello_neptune.py
 ```
 
 #### Learn the basics
@@ -105,7 +105,7 @@ This example shows you how to do the following:
 Start the example by running the following at a command prompt:
 
 ```
-python NeptuneScenario.py
+python neptune_scenario.py
 ```
 
 

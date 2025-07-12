@@ -324,7 +324,7 @@ public class SendReceiveMessages {
             return allMessages;
 
         } catch (SqsException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
         return null;
     }
@@ -372,7 +372,7 @@ public class SendReceiveMessages {
             sqsClient.sendMessage(sendMsgRequest);
 
         } catch (SqsException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 }

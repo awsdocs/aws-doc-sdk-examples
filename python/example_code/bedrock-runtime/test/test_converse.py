@@ -7,7 +7,6 @@ import sys
 import pytest
 
 files_under_test = [
-    "models/ai21_labs_jurassic2/converse.py",
     "models/amazon_nova/amazon_nova_text/converse.py",
     "models/amazon_titan_text/converse.py",
     "models/anthropic_claude/converse.py",

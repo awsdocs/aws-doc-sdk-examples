@@ -28,9 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Models\Ai21LabsJurassic2\Converse\Converse.csproj" />
-	  <ProjectReference Include="..\Models\Ai21LabsJurassic2\InvokeModel\InvokeModel.csproj" />
-	  <ProjectReference Include="..\Models\AmazonTitanText\ConverseStream\ConverseStream.csproj" />
+		<ProjectReference Include="..\Models\AmazonTitanText\ConverseStream\ConverseStream.csproj" />
 	  <ProjectReference Include="..\Models\AmazonTitanText\Converse\Converse.csproj" />
 	  <ProjectReference Include="..\Models\AmazonTitanText\InvokeModelWithResponseStream\InvokeModelWithResponseStream.csproj" />
 	  <ProjectReference Include="..\Models\AmazonTitanText\InvokeModel\InvokeModel.csproj" />

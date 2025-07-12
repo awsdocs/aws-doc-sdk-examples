@@ -2,14 +2,12 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Bedrock agents, flows, and managed prompts.
+Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Bedrock Agents.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
 _Amazon Bedrock Agents offer you the ability to build and configure autonomous agents in your application._
-
-
 
 ## ⚠ Important
 
@@ -43,46 +41,46 @@ Code excerpts that show you how to call individual service functions.
 - [CreateAgent](bedrock_agent_wrapper.py#L32)
 - [CreateAgentActionGroup](bedrock_agent_wrapper.py#L61)
 - [CreateAgentAlias](bedrock_agent_wrapper.py#L96)
+- [CreateFlow](flows/flow.py#L18)
+- [CreateFlowAlias](flows/flow_alias.py#L15)
+- [CreateFlowVersion](flows/flow_version.py#L18)
+- [CreateKnowledgeBase](knowledge_bases/knowledge_base.py#L30)
+- [CreatePrompt](prompts/prompt.py#L18)
+- [CreatePromptVersion](prompts/prompt.py#L84)
 - [DeleteAgent](bedrock_agent_wrapper.py#L118)
 - [DeleteAgentAlias](bedrock_agent_wrapper.py#L139)
+- [DeleteFlow](flows/flow.py#L155)
+- [DeleteFlowAlias](flows/flow_alias.py#L98)
+- [DeleteFlowVersion](flows/flow_version.py#L91)
+- [DeleteKnowledgeBase](knowledge_bases/knowledge_base.py#L169)
+- [DeletePrompt](prompts/prompt.py#L159)
 - [GetAgent](bedrock_agent_wrapper.py#L161)
+- [GetFlow](flows/flow.py#L192)
+- [GetFlowVersion](flows/flow_version.py#L54)
+- [GetKnowledgeBase](knowledge_bases/knowledge_base.py#L90)
+- [GetPrompt](prompts/prompt.py#L124)
 - [ListAgentActionGroups](bedrock_agent_wrapper.py#L208)
 - [ListAgentKnowledgeBases](bedrock_agent_wrapper.py#L237)
 - [ListAgents](bedrock_agent_wrapper.py#L185)
-- [PrepareAgent](bedrock_agent_wrapper.py#L266)
-- [InvokeFlow](flows/run_flow.py#L23)
-- [CreateFlow](flows/flow.py#L18) 
-- [PrepareFlow](flows/flow.py#L58) 
-- [UpdateFlow](flows/flow.py#L112)
-- [DeleteFlow](flows/flow.py#L156)
-- [GetFlow](flows/flow.py#L192)  
+- [ListFlowAliases](flows/flow_alias.py#L132)
+- [ListFlowVersions](flows/flow_version.py#L128)
 - [ListFlows](flows/flow.py#L229)
-- [CreateFlowVersion](flows/flow_version.py#L18) 
-- [GetFlowVersion](flows/flow_version.py#L54) 
-- [DeleteFlowVersion](flows/flow_version.py#L91) 
-- [ListFlowVersions](flows/flow_version.py#L128) 
-- [CreateFlowAlias](flows/flow_alias.py#L15) 
-- [UpdateFlowAlias](flows/flow_alias.py#L55) 
-- [DeleteFlowAlias](flows/flow_alias.py#L98) 
-- [ListFlowAliases](flows/flow_alias.py#L132) 
-- [FlowConversation](flows/flow-conversation.py)
-- [CreatePrompt](prompts/prompt.py#L32)
-- [CreatePromptVersion](prompts/prompt.py#L61)
-- [GetPrompt](prompts/prompt.py#L71)
-- [DeletePrompt](prompts/prompt.py#L154)
-- [ListPrompts](prompts/prompt.py#L187)
-
-
-
+- [ListKnowledgeBases](knowledge_bases/knowledge_base.py#L199)
+- [ListPrompts](prompts/prompt.py#L191)
+- [PrepareAgent](bedrock_agent_wrapper.py#L266)
+- [PrepareFlow](flows/flow.py#L58)
+- [UpdateFlow](flows/flow.py#L112)
+- [UpdateFlowAlias](flows/flow_alias.py#L55)
+- [UpdateKnowledgeBase](knowledge_bases/knowledge_base.py#L120)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create and invoke an agent](scenario_get_started_with_agents.py)
 - [Create and invoke a flow](flows/playlist_flow.py)
 - [Create and invoke a managed prompt](prompts/scenario_get_started_with_prompts.py)
+- [Create and invoke an agent](scenario_get_started_with_agents.py)
 
 
 <!--custom.examples.start-->
@@ -97,6 +95,56 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
+
+#### Create and invoke a flow
+
+This example shows you how to do the following:
+
+- Create an execution role for the flow.
+- Create the flow.
+- Deploy the fully configured flow.
+- Invoke the flow with user-provided prompts.
+- Delete all created resources.
+
+<!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockFlows.start-->
+
+The flow includes a prompt node that generates a playlist for a chosen genre
+and number of songs. The example creates the nodes and permissions
+for the flow.
+
+<!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockFlows.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python flows/playlist_flow.py
+```
+
+
+<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockFlows.start-->
+<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockFlows.end-->
+
+#### Create and invoke a managed prompt
+
+This example shows you how to do the following:
+
+- Create a managed prompt.
+- Create a version of the prompt.
+- Invoke the prompt using the version.
+- Clean up resources (optional).
+
+<!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockPrompts.start-->
+<!--custom.scenario_prereqs.bedrock-agent_GettingStartedWithBedrockPrompts.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python prompts/scenario_get_started_with_prompts.py
+```
+
+
+<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.start-->
+<!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockPrompts.end-->
 
 #### Create and invoke an agent
 
@@ -122,80 +170,6 @@ python scenario_get_started_with_agents.py
 
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockAgents.start-->
 <!--custom.scenarios.bedrock-agent_GettingStartedWithBedrockAgents.end-->
-
-
-#### Create and invoke a flow
-
-Shows how to create a simple flow that generates music playlists.
-The flow includes a prompt node that generates a playlist for a chosen genre
-and number of songs. The example creates the nodes and permissions
-for the flow.
-
-Start the example by running the following at a command prompt:
-
-```
-python flows/playlist_flow.py
-```
-When prompted, enter the genre of music and the number of songs you want
-in the playlist.
-Optionally, the script can delete the resources that it creates. If you want to use the flow later, such as in the Amazon Bedrock console, enter `n` when the script prompts you to delete resources. Note that you will then need to manually delete the resources.
-
-
-
-#### List flows
-
-Shows how to List Amazon Bedrock flows, versions of a flow, and aliases of a flow.
-
-Start the example by running the following at a command prompt:
-
-```
-python flows/list_flows.py
-```
-The example first lists the flows in the current AWS Region. It
-then prompts for a flow ID, which you can get from the list of flows. Finally, the example lists the flow versions and flow aliases for the flow ID that you entered.
-
-#### Create and invoke a managed prompt
-
-This example shows you how to do the following:
-
-- Create a managed prompt
-- Create a version of the prompt
-- Invoke the prompt using the version
-- Update the prompt
-- Create a new version
-- Invoke the updated prompt
-- Clean up resources (optional)
-
-Start the example by running the following at a command prompt:
-
-```
-python prompts/scenario_get_started_with_prompts.py
-```
-
-By default, the example will clean up all resources it creates. If you want to keep the resources for further exploration, use the `--no-cleanup` flag:
-
-```
-python prompts/scenario_get_started_with_prompts.py --no-cleanup
-```
-
-You can also specify a different AWS region or model ID:
-
-```
-python prompts/scenario_get_started_with_prompts.py --region us-west-2 --model-id anthropic.claude-3-sonnet-20240229-v1:0
-```
-
-#### List prompts
-
-Shows how to list Amazon Bedrock managed prompts and versions of a prompt.
-
-Start the example by running the following at a command prompt:
-
-```
-python prompts/list_prompts.py
-```
-
-The example first lists the prompts in the current AWS Region. 
-
 
 ### Tests
 

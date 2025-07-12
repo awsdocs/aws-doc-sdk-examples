@@ -89,6 +89,7 @@ functions within the same service.
 - [Download S3 'directories'](src/main/java/com/example/s3/transfermanager/S3DirectoriesDownloader.java)
 - [Download objects to a local directory](src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java)
 - [Lock Amazon S3 objects](src/main/java/com/example/s3/lockscenario/S3ObjectLockWorkflow.java)
+- [Manage large messages using S3](../sqs/src/main/java/com/example/sqs/SqsExtendedClientExample.java)
 - [Parse URIs](src/main/java/com/example/s3/ParseUri.java)
 - [Process S3 event notifications](src/main/java/com/example/s3/ProcessS3EventNotification.java)
 - [Send event notifications to EventBridge](src/main/java/com/example/s3/PutBucketS3EventNotificationEventBridge.java)
@@ -195,6 +196,18 @@ This example shows you how to work with S3 object lock features.
 
 <!--custom.scenarios.s3_Scenario_ObjectLock.start-->
 <!--custom.scenarios.s3_Scenario_ObjectLock.end-->
+
+#### Manage large messages using S3
+
+This example shows you how to use the Amazon SQS Extended Client Library to work with large Amazon SQS messages.
+
+
+<!--custom.scenario_prereqs.sqs_Scenario_SqsExtendedClient.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_SqsExtendedClient.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_SqsExtendedClient.start-->
+<!--custom.scenarios.sqs_Scenario_SqsExtendedClient.end-->
 
 #### Parse URIs
 
