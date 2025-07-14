@@ -890,10 +890,10 @@ sqs_Scenario_SendReceiveBatch:
                 <para>Use explicit batching when you need fine-grained control over batch composition and
                   error handling. Use automatic batching when you want to optimize performance with minimal
                   code changes.</para>
-                <para><emphasis role="strong">SendRecvBatch.java</emphasis> - Uses explicit batch operations with messages.
+                <para>SendRecvBatch.java - Uses explicit batch operations with messages.
               snippet_tags:
                 - sqs.java2.sendRecvBatch.main
-            - description: <emphasis role="strong">SimpleProducerConsumer.java</emphasis> - Uses automatic batching of messages.
+            - description: SimpleProducerConsumer.java - Uses automatic batching of messages.
               snippet_tags:
                 - sqs.java2.batch_demo.main
   services:
