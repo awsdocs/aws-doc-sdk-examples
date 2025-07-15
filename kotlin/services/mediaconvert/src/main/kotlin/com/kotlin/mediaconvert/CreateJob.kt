@@ -59,7 +59,7 @@ suspend fun main(args: Array<String>) {
     val fileInput = args[1]
     val mcClient = MediaConvertClient.fromEnvironment { region = "us-west-2" }
     val id = createMediaJob(mcClient, mcRoleARN, fileInput)
-    println("MediaConvert job $id was successfully created!")
+    println("MediaConvert job $id was created successfully!")
 }
 
 // snippet-start:[mediaconvert.kotlin.createjob.main]
