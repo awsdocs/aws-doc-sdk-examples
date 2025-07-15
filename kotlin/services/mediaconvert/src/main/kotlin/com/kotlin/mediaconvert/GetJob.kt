@@ -31,7 +31,7 @@ suspend fun main(args: Array<String>) {
     }
 
     val jobId = args[0]
-    val mcClient = MediaConvertClient.fromEnvironment  { region = "us-west-2" }
+    val mcClient = MediaConvertClient.fromEnvironment { region = "us-west-2" }
     getSpecificJob(mcClient, jobId)
 }
 

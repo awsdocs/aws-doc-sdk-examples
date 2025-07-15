@@ -21,7 +21,7 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 suspend fun main() {
-    val mcClient = MediaConvertClient.fromEnvironment  { region = "us-west-2" }
+    val mcClient = MediaConvertClient.fromEnvironment { region = "us-west-2" }
     listCompleteJobs(mcClient)
 }
 
