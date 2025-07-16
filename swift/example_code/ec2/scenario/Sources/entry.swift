@@ -10,6 +10,8 @@ import ArgumentParser
 import Foundation
 import AWSEC2
 
+// Allow waiters to be used.
+
 import class SmithyWaitersAPI.Waiter
 import struct SmithyWaitersAPI.WaiterOptions
 
@@ -61,11 +63,20 @@ class Example {
     let ec2Client: EC2Client
     let ssmClient: SSMClient
 
+    // Storage for AWS EC2 properties.
+
+    var keyName: String? = nil
+    var securityGroupId: String? = nil
+    var instanceId: String? = nil
+    var allocationId: String? = nil
+    var associationId: String? = nil
+
     init(ec2Client: EC2Client, ssmClient: SSMClient) {
         self.ec2Client = ec2Client
         self.ssmClient = ssmClient
     }
 
+    /// The example's main body.
     func run() async {
         //=====================================================================
         // 1. Create an RSA key pair, saving the private key as a `.pem` file.
@@ -75,8 +86,8 @@ class Example {
 
         print("Creating an RSA key pair...")
 
-        let keyName = self.tempName(prefix: "ExampleKeyName")
-        let keyUrl = await self.createKeyPair(name: keyName)
+        keyName = self.tempName(prefix: "ExampleKeyName")
+        let keyUrl = await self.createKeyPair(name: keyName!)
 
         guard let keyUrl else {
             print("*** Failed to create the key pair!")
@@ -121,18 +132,20 @@ class Example {
 
         print("IP address is: \(ipAddress)")
 
-        let securityGroupId = await self.createSecurityGroup(
+        securityGroupId = await self.createSecurityGroup(
             name: secGroupName,
             description: "An example security group created using the AWS SDK for Swift"
         )
 
-        guard let securityGroupId else {
+        if securityGroupId == nil {
+            await cleanUp()
             return
         }
 
-        print("Created security group: \(securityGroupId)")
+        print("Created security group: \(securityGroupId ?? "<unknown>")")
 
-        if !(await self.authorizeSecurityGroupIngress(groupId: securityGroupId, ipAddress: ipAddress)) {
+        if !(await self.authorizeSecurityGroupIngress(groupId: securityGroupId!, ipAddress: ipAddress)) {
+            await cleanUp()
             return
         }
 
@@ -141,7 +154,8 @@ class Example {
         //    using DescribeSecurityGroups.
         //=====================================================================
 
-        if !(await self.describeSecurityGroups(groupId: securityGroupId)) {
+        if !(await self.describeSecurityGroups(groupId: securityGroupId!)) {
+            await cleanUp()
             return
         }
 
@@ -164,7 +178,7 @@ class Example {
         //    filter).
         //=====================================================================
 
-        print("Images for Amazon Linux 2023:")
+        print("Images matching Amazon Linux 2023:")
 
         var imageIds: [String] = []
         for option in options {
@@ -192,10 +206,11 @@ class Example {
 
         guard let arch = chosenImage.architecture else {
             print("*** The selected image doesn't have a valid architecture.")
+            await cleanUp()
             return
         }
 
-        let imageTypes = await self.getInstanceTypes(architecture: arch)
+        let imageTypes = await self.getMatchingInstanceTypes(architecture: arch)
 
         for type in imageTypes {
             guard let instanceType = type.instanceType else {
@@ -218,25 +233,31 @@ class Example {
 
         guard let imageId = chosenImage.imageId else {
             print("*** Cannot start image without a valid image ID.")
+            await cleanUp()
             return
         }
         guard let instanceType = chosenInstanceType.instanceType else {
             print("*** Unable to start image without a valid image type.")
+            await cleanUp()
             return
         }
 
-        let instance = await self.createInstance(
+        let instance = await self.runInstance(
             imageId: imageId,
             instanceType: instanceType,
-            keyPairName: keyName,
-            securityGroups: [securityGroupId]
+            keyPairName: keyName!,
+            securityGroups: [securityGroupId!]
         )
 
         guard let instance else {
+            await cleanUp()
             return
         }
-        guard let instanceId = instance.instanceId else {
+
+        instanceId = instance.instanceId
+        if instanceId == nil {
             print("*** Instance is missing an ID. Canceling.")
+            await cleanUp()
             return
         }
 
@@ -258,7 +279,7 @@ class Example {
         // 10. Display SSH connection info for the instance.
         //=====================================================================
 
-        var runningInstance = await self.describeInstance(instanceId: instanceId)
+        var runningInstance = await self.describeInstance(instanceId: instanceId!)
 
         if (runningInstance != nil) && (runningInstance!.publicIpAddress != nil) {
             print("\nYou can SSH to this instance using the following command:")
@@ -271,7 +292,8 @@ class Example {
 
         print("Stopping the instance...")
 
-        if !(await self.stopInstance(instanceId: instanceId, waitUntilStopped: true)) {
+        if !(await self.stopInstance(instanceId: instanceId!, waitUntilStopped: true)) {
+            await cleanUp()
             return
         }
 
@@ -281,8 +303,9 @@ class Example {
 
         print("Starting the instance again...")
 
-        if !(await self.startInstance(instanceId: instanceId, waitUntilStarted: true)) {
-            //return
+        if !(await self.startInstance(instanceId: instanceId!, waitUntilStarted: true)) {
+            await cleanUp()
+            return
         }
 
         //=====================================================================
@@ -290,7 +313,7 @@ class Example {
         //     changed.
         //=====================================================================
 
-        runningInstance = await self.describeInstance(instanceId: instanceId)
+        runningInstance = await self.describeInstance(instanceId: instanceId!)
         if (runningInstance != nil) && (runningInstance!.publicIpAddress != nil) {
             print("\nYou can SSH to this instance using the following command.")
             print("This is probably different from when the instance was running before.")
@@ -302,15 +325,17 @@ class Example {
         //     (AllocateAddress and AssociateAddress).
         //=====================================================================
 
-        let allocationId = await self.allocateAddress()
+        allocationId = await self.allocateAddress()
 
-        guard let allocationId else {
+        if allocationId == nil {
+            await cleanUp()
             return
         }
 
-        let associationId = await self.associateAddress(instanceId: instanceId, allocationId: allocationId)
+        associationId = await self.associateAddress(instanceId: instanceId!, allocationId: allocationId)
 
-        guard let associationId else {
+        if associationId == nil {
+            await cleanUp()
             return
         }
 
@@ -319,7 +344,7 @@ class Example {
         //     public IP is now the Elastic IP, which stays constant.
         //=====================================================================
 
-        runningInstance = await self.describeInstance(instanceId: instanceId)
+        runningInstance = await self.describeInstance(instanceId: instanceId!)
         if (runningInstance != nil) && (runningInstance!.publicIpAddress != nil) {
             print("\nYou can SSH to this instance using the following command.")
             print("This has changed again, and is now the Elastic IP.")
@@ -327,75 +352,62 @@ class Example {
         }
 
         //=====================================================================
+        // Handle all cleanup tasks
+        //=====================================================================
+
+        await cleanUp()
+    }
+
+    /// Clean up by discarding and closing down all allocated EC2 items:
+    /// 
+    /// * Elastic IP allocation and association
+    /// * Terminate the instance
+    /// * Delete the security group
+    /// * Delete the key pair
+    func cleanUp() async {
+        //=====================================================================
         // 16. Disassociate and delete the Elastic IP (DisassociateAddress and
         //     ReleaseAddress).
         //=====================================================================
 
-        await self.disassociateAddress(associationId: associationId)
-        await self.releaseAddress(allocationId: allocationId)
+        if associationId != nil {
+            await self.disassociateAddress(associationId: associationId!)
+        }
+
+        if allocationId != nil {
+            await self.releaseAddress(allocationId: allocationId!)
+        }
 
         //=====================================================================
         // 17. Terminate the instance and wait for it to terminate
         //     (TerminateInstances).
         //=====================================================================
 
-        print("Terminating the instance...")
-
-        if !(await self.terminateInstance(instanceId: instanceId, waitUntilTerminated: true)) {
-            return
+        if instanceId != nil {
+            print("Terminating the instance...")
+            _ = await self.terminateInstance(instanceId: instanceId!, waitUntilTerminated: true)
         }
 
         //=====================================================================
         // 18. Delete the security group (DeleteSecurityGroup).
         //=====================================================================
 
-        print("Deleting the security group...")
-
-        if !(await self.deleteSecurityGroup(groupId: securityGroupId)) {
-            return
+        if securityGroupId != nil {
+            print("Deleting the security group...")
+            _ = await self.deleteSecurityGroup(groupId: securityGroupId!)
         }
 
         //=====================================================================
         // 19. Delete the key pair (DeleteKeyPair).
         //=====================================================================
 
-        print("Deleting the key pair...")
-
-        if !(await self.deleteKeyPair(keyPair: keyName)) {
-            return
-        }
-    }
-
-    func cleanUp(keyName: String?,
-                 securityGroupId: String?,
-                 instanceId: String?,
-                 allocationId: String?,
-                 associationId: String?) async {
-
-        if associationId != nil {
-            await self.disassociateAddress(associationId: associationId)
-        }
-
-        if allocationId != nil {
-            await self.releaseAddress(allocationId: allocationId)
-        }
-
-        if instanceId != nil {
-            print("Terminating the instance...")
-            _ = await self.terminateInstance(instanceId: instanceId, waitUntilTerminateed: true)
-        }
-
-        if securityGroupId != nil {
-            print("Deleting the security group...")
-            _ = await self.deleteSecurityGroup(groupId: securityGroupId)
-        }
-
-        if keyPair != nil {
+        if keyName != nil {
             print("Deleting the key pair...")
-            _ = await self.deleteKeyPair(keyPair: keyName)
+            _ = await self.deleteKeyPair(keyPair: keyName!)
         }
     }
 
+    // snippet-start:[swift.ec2.CreateKeyPair]
     /// Create a new RSA key pair and save the private key to a randomly-named
     /// file in the temporary directory.
     ///
@@ -429,7 +441,9 @@ class Example {
             return nil
         }
     }
+    // snippet-end:[swift.ec2.CreateKeyPair]
 
+    // snippet-start:[swift.ec2.DescribeKeyPairs]
     /// Describe the key pairs associated with the user by outputting each key
     /// pair's name and fingerprint.
     func describeKeyPairs() async {
@@ -450,7 +464,9 @@ class Example {
             print("*** Error: Unable to obtain a key pair list.")
         }
     }
+    // snippet-end:[swift.ec2.DescribeKeyPairs]
 
+    // snippet-start:[swift.ec2.DeleteKeyPair]
     /// Delete an EC2 key pair.
     /// 
     /// - Parameter keyPair: The name of the key pair to delete.
@@ -471,6 +487,7 @@ class Example {
             return false
         }
     }
+    // snippet-end:[swift.ec2.DeleteKeyPair]
 
     /// Return a list of AMI names that contain the specified string.
     /// 
@@ -517,6 +534,7 @@ class Example {
         return matchingAMIs
     }
 
+    // snippet-start:[swift.ec2.DescribeInstanceTypes]
     /// Return a list of instance types matching the specified architecture
     /// and instance sizes.
     /// 
@@ -528,7 +546,7 @@ class Example {
     /// 
     /// - Returns: An array of `EC2ClientTypes.InstanceTypeInfo` records
     ///   describing the instance types matching the given requirements.
-    func getInstanceTypes(architecture: EC2ClientTypes.ArchitectureValues = EC2ClientTypes.ArchitectureValues.x8664,
+    func getMatchingInstanceTypes(architecture: EC2ClientTypes.ArchitectureValues = EC2ClientTypes.ArchitectureValues.x8664,
                           sizes: [String] = ["*.micro", "*.small"]) async
                           -> [EC2ClientTypes.InstanceTypeInfo] {
         var instanceTypes: [EC2ClientTypes.InstanceTypeInfo] = []    
@@ -563,6 +581,7 @@ class Example {
 
         return instanceTypes
     }
+    // snippet-end:[swift.ec2.DescribeInstanceTypes]
 
     /// Get the latest information about the specified instance and output it
     /// to the screen, returning the instance details to the caller.
@@ -639,6 +658,8 @@ class Example {
         return nil
     }
 
+    // snippet-start:[swift.ec2.StopInstances]
+    // snippet-start:[swift.ec2.WaitUntilInstanceStopped]
     /// Stop the specified instance.
     /// 
     /// - Parameters:
@@ -684,7 +705,11 @@ class Example {
             return false
         }
     }
+    // snippet-end:[swift.ec2.WaitUntilInstanceStopped]
+    // snippet-end:[swift.ec2.StopInstances]
 
+    // snippet-start:[swift.ec2.StartInstances]
+    // snippet-start:[swift.ec2.WaitUntilInstanceRunning]
     /// Start the specified instance.
     /// 
     /// - Parameters:
@@ -729,7 +754,11 @@ class Example {
             return false
         }
     }
+    // snippet-end:[swift.ec2.WaitUntilInstanceRunning]
+    // snippet-end:[swift.ec2.StartInstances]
 
+    // snippet-start:[swift.ec2.TerminateInstances]
+    // snippet-start:[swift.ec2.WaitUntilInstanceTerminated]
     /// Terminate the specified instance.
     ///
     /// - Parameters:
@@ -774,7 +803,10 @@ class Example {
             return false
         }
     }
+    // snippet-end:[swift.ec2.WaitUntilInstanceTerminated]
+    // snippet-end:[swift.ec2.TerminateInstances]
 
+    // snippet-start:[swift.ec2.DescribeImages]
     /// Return an array of `EC2ClientTypes.Image` objects describing all of
     /// the images in the specified array.
     /// 
@@ -808,7 +840,9 @@ class Example {
             return []
         }
     }
+    // snippet-end:[swift.ec2.DescribeImages]
 
+    // snippet-start:[swift.ec2.RunInstances]
     /// Create and return a new EC2 instance.
     /// 
     /// - Parameters:
@@ -819,7 +853,7 @@ class Example {
     ///     to.
     ///
     /// - Returns: The EC2 instance as an `EC2ClientTypes.Instance` object.
-    func createInstance(imageId: String, instanceType: EC2ClientTypes.InstanceType,
+    func runInstance(imageId: String, instanceType: EC2ClientTypes.InstanceType,
                         keyPairName: String, securityGroups: [String]?) async -> EC2ClientTypes.Instance? {
         do {
             let output = try await ec2Client.runInstances(
@@ -844,7 +878,9 @@ class Example {
             return nil
         }
     }
+    // snippet-end:[swift.ec2.RunInstances]
 
+    // snippet-start:[swift.ec2.getMyIPAddress]
     /// Return the device's external IP address.
     /// 
     /// - Returns: A string containing the device's IP address.
@@ -862,7 +898,9 @@ class Example {
             return nil
         }
     }
+    // snippet-end:[swift.ec2.getMyIPAddress]
 
+    // snippet-start:[swift.ec2.CreateSecurityGroup]
     /// Create a new security group.
     /// 
     /// - Parameters:
@@ -885,7 +923,9 @@ class Example {
             return nil
         }
     }
+    // snippet-end:[swift.ec2.CreateSecurityGroup]
 
+    // snippet-start:[swift.ec2.AuthorizeSecurityGroupIngress]
     /// Authorize ingress of connections for the security group.
     /// 
     /// - Parameters:
@@ -923,7 +963,9 @@ class Example {
             return false
         }
     }
+    // snippet-end:[swift.ec2.AuthorizeSecurityGroupIngress]
 
+    // snippet-start:[swift.ec2.DescribeSecurityGroups]
     func describeSecurityGroups(groupId: String) async -> Bool {
         do {
             let output = try await ec2Client.describeSecurityGroups(
@@ -946,7 +988,9 @@ class Example {
             return false
         }
     }
+    // snippet-end:[swift.ec2.DescribeSecurityGroups]
 
+    // snippet-start:[swift.ec2.DeleteSecurityGroup]
     /// Delete a security group.
     /// 
     /// - Parameter groupId: The ID of the security group to delete.
@@ -966,7 +1010,9 @@ class Example {
             return false
         }
     }
+    // snippet-end:[swift.ec2.DeleteSecurityGroup]
 
+    // snippet-start:[swift.ec2.AllocateAddress]
     /// Allocate an Elastic IP address.
     ///
     /// - Returns: A string containing the ID of the Elastic IP.
@@ -988,7 +1034,9 @@ class Example {
             return nil
         }
     }
+    // snippet-end:[swift.ec2.AllocateAddress]
 
+    // snippet-start:[swift.ec2.AssociateAddress]
     /// Associate the specified allocated Elastic IP to a given instance.
     /// 
     /// - Parameters:
@@ -1012,7 +1060,9 @@ class Example {
             return nil
         }
     }
+    // snippet-end:[swift.ec2.AssociateAddress]
 
+    // snippet-start:[swift.ec2.DisassociateAddress]
     /// Disassociate an Elastic IP.
     /// 
     /// - Parameter associationId: The ID of the association to end.
@@ -1027,7 +1077,9 @@ class Example {
             print("*** Unable to disassociate the IP address: \(error.localizedDescription)")
         }
     }
+    // snippet-end:[swift.ec2.DisassociateAddress]
 
+    // snippet-start:[swift.ec2.ReleaseAddress]
     /// Release an allocated Elastic IP.
     /// 
     /// - Parameter allocationId: The allocation ID of the Elastic IP to
@@ -1043,6 +1095,7 @@ class Example {
             print("*** Unable to release the IP address: \(error.localizedDescription)")
         }
     }
+    // snippet-end:[swift.ec2.ReleaseAddress]
 
     /// Generate and return a unique file name that begins with the specified
     /// string.

@@ -31,14 +31,30 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 ### Get started
 
-- [Hello Amazon EC2](hello/Package.swift#L8) (`DescribeSecurityGroups`)
+- [Hello Amazon EC2](scenario/Package.swift#L8) (`DescribeSecurityGroups`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
+- [AllocateAddress](scenario/Sources/entry.swift#L1015)
+- [AssociateAddress](scenario/Sources/entry.swift#L1039)
+- [AuthorizeSecurityGroupIngress](scenario/Sources/entry.swift#L928)
+- [CreateKeyPair](scenario/Sources/entry.swift#L410)
+- [CreateSecurityGroup](scenario/Sources/entry.swift#L903)
+- [DeleteKeyPair](scenario/Sources/entry.swift#L469)
+- [DeleteSecurityGroup](scenario/Sources/entry.swift#L993)
+- [DescribeImages](scenario/Sources/entry.swift#L809)
+- [DescribeInstanceTypes](scenario/Sources/entry.swift#L537)
+- [DescribeKeyPairs](scenario/Sources/entry.swift#L446)
 - [DescribeSecurityGroups](hello/Sources/entry.swift#L44)
+- [DisassociateAddress](scenario/Sources/entry.swift#L1065)
+- [ReleaseAddress](scenario/Sources/entry.swift#L1082)
+- [RunInstances](scenario/Sources/entry.swift#L845)
+- [StartInstances](scenario/Sources/entry.swift#L711)
+- [StopInstances](scenario/Sources/entry.swift#L661)
+- [TerminateInstances](scenario/Sources/entry.swift#L760)
 
 
 <!--custom.examples.start-->
