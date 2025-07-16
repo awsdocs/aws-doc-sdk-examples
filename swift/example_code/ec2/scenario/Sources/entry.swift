@@ -427,6 +427,8 @@ class Example {
                 return nil
             }
 
+            // Build the URL of the temporary private key file.
+
             let fileURL = URL.temporaryDirectory
                                   .appendingPathComponent(name)
                                   .appendingPathExtension("pem")
@@ -435,9 +437,11 @@ class Example {
                 try keyMaterial.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
                 return fileURL
             } catch {
+                print("*** Failed to write the private key.")
                 return nil
             }
         } catch {
+            print("*** Unable to create the key pair.")
             return nil
         }
     }
@@ -894,7 +898,7 @@ class Example {
             print("Getting the IP address...")
             return try String(contentsOf: url, encoding: String.Encoding.utf8).trim()
         } catch {
-            print("Got an error!")
+            print("*** Unable to get your public IP address.")
             return nil
         }
     }
