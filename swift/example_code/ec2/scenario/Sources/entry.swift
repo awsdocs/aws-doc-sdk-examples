@@ -53,6 +53,20 @@ struct ExampleCommand: ParsableCommand {
 
         let example = Example(ec2Client: ec2Client, ssmClient: ssmClient)
 
+        await example.run()
+    }
+}
+
+class Example {
+    let ec2Client: EC2Client
+    let ssmClient: SSMClient
+
+    init(ec2Client: EC2Client, ssmClient: SSMClient) {
+        self.ec2Client = ec2Client
+        self.ssmClient = ssmClient
+    }
+
+    func run() async {
         //=====================================================================
         // 1. Create an RSA key pair, saving the private key as a `.pem` file.
         //    Create a `defer` block that will delete the private key when the
@@ -61,8 +75,8 @@ struct ExampleCommand: ParsableCommand {
 
         print("Creating an RSA key pair...")
 
-        let keyName = example.tempName(prefix: "ExampleKeyName")
-        let keyUrl = await example.createKeyPair(name: keyName)
+        let keyName = self.tempName(prefix: "ExampleKeyName")
+        let keyUrl = await self.createKeyPair(name: keyName)
 
         guard let keyUrl else {
             print("*** Failed to create the key pair!")
@@ -87,7 +101,7 @@ struct ExampleCommand: ParsableCommand {
         //=====================================================================
 
         print("Describing available key pairs...")
-        await example.describeKeyPairs()
+        await self.describeKeyPairs()
 
         //=====================================================================
         // 3. Create a security group for the default VPC, and add an inbound
@@ -97,8 +111,8 @@ struct ExampleCommand: ParsableCommand {
 
         print("Creating the security group...")
 
-        let secGroupName = example.tempName(prefix: "ExampleSecurityGroup")
-        let ipAddress = example.getMyIPAddress()
+        let secGroupName = self.tempName(prefix: "ExampleSecurityGroup")
+        let ipAddress = self.getMyIPAddress()
 
         guard let ipAddress else {
             print("*** Unable to get the device's IP address.")
@@ -107,18 +121,18 @@ struct ExampleCommand: ParsableCommand {
 
         print("IP address is: \(ipAddress)")
 
-        let groupId = await example.createSecurityGroup(
+        let securityGroupId = await self.createSecurityGroup(
             name: secGroupName,
             description: "An example security group created using the AWS SDK for Swift"
         )
 
-        guard let groupId else {
+        guard let securityGroupId else {
             return
         }
 
-        print("Created security group: \(groupId)")
+        print("Created security group: \(securityGroupId)")
 
-        if !(await example.authorizeSecurityGroupIngress(groupId: groupId, ipAddress: ipAddress)) {
+        if !(await self.authorizeSecurityGroupIngress(groupId: securityGroupId, ipAddress: ipAddress)) {
             return
         }
 
@@ -127,7 +141,7 @@ struct ExampleCommand: ParsableCommand {
         //    using DescribeSecurityGroups.
         //=====================================================================
 
-        if !(await example.describeSecurityGroups(groupId: groupId)) {
+        if !(await self.describeSecurityGroups(groupId: securityGroupId)) {
             return
         }
 
@@ -140,7 +154,7 @@ struct ExampleCommand: ParsableCommand {
 
         print("Searching available images for Amazon Linux 2023 images...")
 
-        let options = await example.findAMIsMatchingFilter("al2023")
+        let options = await self.findAMIsMatchingFilter("al2023")
 
         //=====================================================================
         // 6. The information in the AMI options isn't great, so make a list
@@ -160,7 +174,7 @@ struct ExampleCommand: ParsableCommand {
             imageIds.append(id)
         }
         
-        let images = await example.describeImages(imageIds)
+        let images = await self.describeImages(imageIds)
 
         // This is where you would normally let the user choose which AMI to
         // use. However, for this example, we're just going to use the first
@@ -181,7 +195,7 @@ struct ExampleCommand: ParsableCommand {
             return
         }
 
-        let imageTypes = await example.getInstanceTypes(architecture: arch)
+        let imageTypes = await self.getInstanceTypes(architecture: arch)
 
         for type in imageTypes {
             guard let instanceType = type.instanceType else {
@@ -211,11 +225,11 @@ struct ExampleCommand: ParsableCommand {
             return
         }
 
-        let instance = await example.createInstance(
+        let instance = await self.createInstance(
             imageId: imageId,
             instanceType: instanceType,
             keyPairName: keyName,
-            securityGroups: [groupId]
+            securityGroups: [securityGroupId]
         )
 
         guard let instance else {
@@ -244,7 +258,7 @@ struct ExampleCommand: ParsableCommand {
         // 10. Display SSH connection info for the instance.
         //=====================================================================
 
-        var runningInstance = await example.describeInstance(instanceId: instanceId)
+        var runningInstance = await self.describeInstance(instanceId: instanceId)
 
         if (runningInstance != nil) && (runningInstance!.publicIpAddress != nil) {
             print("\nYou can SSH to this instance using the following command:")
@@ -257,7 +271,7 @@ struct ExampleCommand: ParsableCommand {
 
         print("Stopping the instance...")
 
-        if !(await example.stopInstance(instanceId: instanceId, waitUntilStopped: true)) {
+        if !(await self.stopInstance(instanceId: instanceId, waitUntilStopped: true)) {
             return
         }
 
@@ -267,7 +281,7 @@ struct ExampleCommand: ParsableCommand {
 
         print("Starting the instance again...")
 
-        if !(await example.startInstance(instanceId: instanceId, waitUntilStarted: true)) {
+        if !(await self.startInstance(instanceId: instanceId, waitUntilStarted: true)) {
             //return
         }
 
@@ -276,7 +290,7 @@ struct ExampleCommand: ParsableCommand {
         //     changed.
         //=====================================================================
 
-        runningInstance = await example.describeInstance(instanceId: instanceId)
+        runningInstance = await self.describeInstance(instanceId: instanceId)
         if (runningInstance != nil) && (runningInstance!.publicIpAddress != nil) {
             print("\nYou can SSH to this instance using the following command.")
             print("This is probably different from when the instance was running before.")
@@ -288,13 +302,13 @@ struct ExampleCommand: ParsableCommand {
         //     (AllocateAddress and AssociateAddress).
         //=====================================================================
 
-        let allocationId = await example.allocateAddress()
+        let allocationId = await self.allocateAddress()
 
         guard let allocationId else {
             return
         }
 
-        let associationId = await example.associateAddress(instanceId: instanceId, allocationId: allocationId)
+        let associationId = await self.associateAddress(instanceId: instanceId, allocationId: allocationId)
 
         guard let associationId else {
             return
@@ -305,7 +319,7 @@ struct ExampleCommand: ParsableCommand {
         //     public IP is now the Elastic IP, which stays constant.
         //=====================================================================
 
-        runningInstance = await example.describeInstance(instanceId: instanceId)
+        runningInstance = await self.describeInstance(instanceId: instanceId)
         if (runningInstance != nil) && (runningInstance!.publicIpAddress != nil) {
             print("\nYou can SSH to this instance using the following command.")
             print("This has changed again, and is now the Elastic IP.")
@@ -317,8 +331,8 @@ struct ExampleCommand: ParsableCommand {
         //     ReleaseAddress).
         //=====================================================================
 
-        await example.disassociateAddress(associationId: associationId)
-        await example.releaseAddress(allocationId: allocationId)
+        await self.disassociateAddress(associationId: associationId)
+        await self.releaseAddress(allocationId: allocationId)
 
         //=====================================================================
         // 17. Terminate the instance and wait for it to terminate
@@ -327,7 +341,7 @@ struct ExampleCommand: ParsableCommand {
 
         print("Terminating the instance...")
 
-        if !(await example.terminateInstance(instanceId: instanceId, waitUntilTerminated: true)) {
+        if !(await self.terminateInstance(instanceId: instanceId, waitUntilTerminated: true)) {
             return
         }
 
@@ -337,7 +351,7 @@ struct ExampleCommand: ParsableCommand {
 
         print("Deleting the security group...")
 
-        if !(await example.deleteSecurityGroup(groupId: groupId)) {
+        if !(await self.deleteSecurityGroup(groupId: securityGroupId)) {
             return
         }
 
@@ -347,19 +361,39 @@ struct ExampleCommand: ParsableCommand {
 
         print("Deleting the key pair...")
 
-        if !(await example.deleteKeyPair(keyPair: keyName)) {
+        if !(await self.deleteKeyPair(keyPair: keyName)) {
             return
         }
     }
-}
 
-class Example {
-    let ec2Client: EC2Client
-    let ssmClient: SSMClient
+    func cleanUp(keyName: String?,
+                 securityGroupId: String?,
+                 instanceId: String?,
+                 allocationId: String?,
+                 associationId: String?) async {
 
-    init(ec2Client: EC2Client, ssmClient: SSMClient) {
-        self.ec2Client = ec2Client
-        self.ssmClient = ssmClient
+        if associationId != nil {
+            await self.disassociateAddress(associationId: associationId)
+        }
+
+        if allocationId != nil {
+            await self.releaseAddress(allocationId: allocationId)
+        }
+
+        if instanceId != nil {
+            print("Terminating the instance...")
+            _ = await self.terminateInstance(instanceId: instanceId, waitUntilTerminateed: true)
+        }
+
+        if securityGroupId != nil {
+            print("Deleting the security group...")
+            _ = await self.deleteSecurityGroup(groupId: securityGroupId)
+        }
+
+        if keyPair != nil {
+            print("Deleting the key pair...")
+            _ = await self.deleteKeyPair(keyPair: keyName)
+        }
     }
 
     /// Create a new RSA key pair and save the private key to a randomly-named
