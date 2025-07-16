@@ -232,16 +232,9 @@ struct ExampleCommand: ParsableCommand {
         //=====================================================================
 
         print("Waiting a few seconds to let the instance come up...")
-
-        /*********************************************************************
-         ***
-         ***   ADD CODE TO USE WaitUntilInstanceExists and
-         ***   WaitUntilInstanceRunning HERE!!!!!!!!
-         ***
-         *********************************************************************/
-
+        
         do {
-            try await Task.sleep(for: .seconds(8))
+            try await Task.sleep(for: .seconds(20))
         } catch {
             print("*** Error pausing the task.")
         }
@@ -332,13 +325,17 @@ struct ExampleCommand: ParsableCommand {
         //     (TerminateInstances).
         //=====================================================================
 
-        if !(await example.terminateInstance(instanceId: instanceId)) {
+        print("Terminating the instance...")
+
+        if !(await example.terminateInstance(instanceId: instanceId, waitUntilTerminated: true)) {
             return
         }
 
         //=====================================================================
         // 18. Delete the security group (DeleteSecurityGroup).
         //=====================================================================
+
+        print("Deleting the security group...")
 
         if !(await example.deleteSecurityGroup(groupId: groupId)) {
             return
@@ -347,6 +344,8 @@ struct ExampleCommand: ParsableCommand {
         //=====================================================================
         // 19. Delete the key pair (DeleteKeyPair).
         //=====================================================================
+
+        print("Deleting the key pair...")
 
         if !(await example.deleteKeyPair(keyPair: keyName)) {
             return
@@ -627,8 +626,7 @@ class Example {
             )
 
             if waitUntilStopped {
-                print("Waiting for the instance to stop. This may take a very long time,")
-                print("so please be patient!")
+                print("Waiting for the instance to stop. Please be patient!")
 
                 let waitOptions = WaiterOptions(maxWaitTime: 600)
                 let output = try await ec2Client.waitUntilInstanceStopped(
@@ -698,6 +696,15 @@ class Example {
         }
     }
 
+    /// Terminate the specified instance.
+    ///
+    /// - Parameters:
+    ///   - instanceId: The instance to terminate.
+    ///   - waitUntilTerminated: Whether or not to wait until the instance is
+    ///     terminated before returning.
+    /// 
+    /// - Returns: `true` if terminated successfully. `false` if not or if an
+    ///   error occurs.
     func terminateInstance(instanceId: String, waitUntilTerminated: Bool = false) async -> Bool {
         let instanceList = [instanceId]
 
@@ -711,7 +718,7 @@ class Example {
             if waitUntilTerminated {
                 print("Waiting for the instance to terminate...")
 
-                let waitOptions = WaiterOptions(maxWaitTime: 60.0)
+                let waitOptions = WaiterOptions(maxWaitTime: 600.0)
                 let output = try await ec2Client.waitUntilInstanceTerminated(
                     options: waitOptions,
                     input: DescribeInstancesInput(
@@ -878,7 +885,6 @@ class Example {
 
             return true
         } catch {
-            dump(error)
             print("*** Error authorizing ingress for the security group: \(error.localizedDescription)")
             return false
         }

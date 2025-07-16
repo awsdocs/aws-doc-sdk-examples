@@ -24,7 +24,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "1.0.0"),
+            from: "1.4.0"),
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
             branch: "main"
