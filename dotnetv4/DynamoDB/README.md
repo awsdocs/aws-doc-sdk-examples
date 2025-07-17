@@ -38,7 +38,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](../../dotnetv3/dynamodb/scenarios/DynamoDB_Basics/DynamoDB_Basics_Scenario/DynamoDB_Basics.cs)
+- [Learn the basics](../DynamoDB/Scenarios/DynamoDB_Basics/DynamoDbBasics.cs)
 
 
 ### Single actions
