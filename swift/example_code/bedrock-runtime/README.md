@@ -40,6 +40,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 - [InvokeModel](models/amazon-nova/amazon-nova-canvas/Sources/main.swift#L4)
 
+### Amazon Nova Reel
+
+- [Text-to-video](models/amazon-nova/amazon-nova-reel/Sources/main.swift#L4)
+
 ### Anthropic Claude
 
 - [Converse](models/anthropic_claude/Sources/Converse/main.swift#L4)

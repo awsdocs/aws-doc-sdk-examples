@@ -1,0 +1,297 @@
+controltower_Hello:
+  title: Hello &CTowerlong;
+  title_abbrev: Hello &CTower;
+  synopsis: get started using &CTower;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/controltower
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.controltower.Hello
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/ControlTower
+          excerpts:
+            - description:
+              snippet_tags:
+                - ControlTower.dotnetv4.HelloControlTower
+  services:
+    controltower: {ListBaselines}
+
+controltower_ListBaselines:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/controltower
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.controltower.ControlTowerWrapper.decl
+                - python.example_code.controltower.ListBaselines
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/ControlTower
+          excerpts:
+            - description:
+              snippet_tags:
+                - ControlTower.dotnetv4.ListBaselines
+  services:
+    controltower: {ListBaselines}
+
+controltower_ListEnabledBaselines:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/controltower
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.controltower.ControlTowerWrapper.decl
+                - python.example_code.controltower.ListEnabledBaselines
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/ControlTower
+          excerpts:
+            - description:
+              snippet_tags:
+                - ControlTower.dotnetv4.ListEnabledBaselines
+  services:
+    controltower: {ListEnabledBaselines}
+
+controltower_EnableBaseline:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/controltower
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.controltower.ControlTowerWrapper.decl
+                - python.example_code.controltower.EnableBaseline
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/ControlTower
+          excerpts:
+            - description:
+              snippet_tags:
+                - ControlTower.dotnetv4.EnableBaseline
+  services:
+    controltower: {EnableBaseline}
+
+controltower_ResetEnabledBaseline:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/controltower
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.controltower.ControlTowerWrapper.decl
+                - python.example_code.controltower.ResetEnabledBaseline
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/ControlTower
+          excerpts:
+            - description:
+              snippet_tags:
+                - ControlTower.dotnetv4.ResetEnabledBaseline
+  services:
+    controltower: {ResetEnabledBaseline}
+
+controltower_DisableBaseline:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/controltower
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.controltower.ControlTowerWrapper.decl
+                - python.example_code.controltower.DisableBaseline
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/ControlTower
+          excerpts:
+            - description:
+              snippet_tags:
+                - ControlTower.dotnetv4.DisableBaseline
+  services:
+    controltower: {DisableBaseline}
+
+controltower_ListEnabledControls:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/controltower
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.controltower.ControlTowerWrapper.decl
+                - python.example_code.controltower.ListEnabledControls
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/ControlTower
+          excerpts:
+            - description:
+              snippet_tags:
+                - ControlTower.dotnetv4.ListEnabledControls
+  services:
+    controltower: {ListEnabledControls}
+
+controltower_EnableControl:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/controltower
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.controltower.ControlTowerWrapper.decl
+                - python.example_code.controltower.EnableControl
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/ControlTower
+          excerpts:
+            - description:
+              snippet_tags:
+                - ControlTower.dotnetv4.EnableControl
+  services:
+    controltower: {EnableControl}
+
+controltower_GetControlOperation:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/controltower
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.controltower.ControlTowerWrapper.decl
+                - python.example_code.controltower.GetControlOperation
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/ControlTower
+          excerpts:
+            - description:
+              snippet_tags:
+                - ControlTower.dotnetv4.GetControlOperation
+  services:
+    controltower: {GetControlOperation}
+
+controltower_DisableControl:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/controltower
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.controltower.ControlTowerWrapper.decl
+                - python.example_code.controltower.DisableControl
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/ControlTower
+          excerpts:
+            - description:
+              snippet_tags:
+                - ControlTower.dotnetv4.DisableControl
+  services:
+    controltower: {DisableControl}
+
+controltower_ListLandingZones:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/controltower
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.controltower.ControlTowerWrapper.decl
+                - python.example_code.controltower.ListLandingZones
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/ControlTower
+          excerpts:
+            - description:
+              snippet_tags:
+                - ControlTower.dotnetv4.ListLandingZones
+  services:
+    controltower: {ListLandingZones}
+
+controltower_GetBaselineOperation:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/controltower
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.controltower.ControlTowerWrapper.decl
+                - python.example_code.controltower.GetBaselineOperation
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/ControlTower
+          excerpts:
+            - description:
+              snippet_tags:
+                - ControlTower.dotnetv4.GetBaselineOperation
+  services:
+    controltower: {GetBaselineOperation}
+
+controltower_Scenario:
+  synopsis_list:
+    - List landing zones.
+    - List, enable, get, reset, and disable baselines.
+    - List, enable, get, and disable controls.
+  category: Basics
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &CTowerlong; features.
+              snippet_tags:
+                - python.example_code.controltower.ControlTowerScenario
+                - python.example_code.controltower.ControlTowerWrapper.class
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/ControlTower
+          excerpts:
+            - description: Run an interactive scenario demonstrating &CTowerlong; features.
+              snippet_tags:
+                - ControlTower.dotnetv4.ControlTowerBasics
+            - description: Wrapper methods that are called by the scenario to manage &AUR; actions.
+              snippet_tags:
+                - ControlTower.dotnetv4.ControlTowerWrapper
+  services:
+    controltower: {CreateLandingZone, DeleteLandingZone, ListBaselines, ListEnabledBaselines, EnableBaseline, ResetEnabledBaseline, DisableBaseline, EnableControl, GetControlOperation, DisableControl, GetLandingZoneOperation, ListLandingZones, ListEnabledControls}

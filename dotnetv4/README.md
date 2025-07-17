@@ -33,7 +33,7 @@ Developer Guide](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/
 
 - AWS credentials, either configured in a local AWS credentials file, or by
 setting the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables.
-For more information, see the authentication topics in the [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/creds-idc.html) and the [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/sdkref/latest/guide/access.html).
+For more information, see the authentication topics in the [AWS SDK for .NET Developer Guide](https://docs.aws.amazon.com/sdk-for-net/v4/developer-guide/creds-idc.html) and the [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/sdkref/latest/guide/access.html).
 
 ## Building and running the code examples
 
@@ -95,7 +95,7 @@ dotnet test --filter Category=Integration -l "console;verbosity=detailed"
 
 ## Additional resources
 
-* [*AWS SDK for .NET Version 3 API Reference*](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
-* [*AWS SDK for .NET Developer Guide*](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
+* [*AWS SDK for .NET Version 4 API Reference*](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/index.html)
+* [*AWS SDK for .NET Developer Guide*](https://docs.aws.amazon.com/sdk-for-net/v4/developer-guide/welcome.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

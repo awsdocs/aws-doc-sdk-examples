@@ -62,7 +62,7 @@ public class SendMessageEmailRequest {
             System.out.println("Done");
 
         } catch (MessagingException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 

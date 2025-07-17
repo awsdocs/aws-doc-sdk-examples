@@ -41,12 +41,12 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [CreateFunction](zcl_aws1_lmd_actions.clas.abap#L62)
-- [DeleteFunction](zcl_aws1_lmd_actions.clas.abap#L102)
-- [GetFunction](zcl_aws1_lmd_actions.clas.abap#L127)
-- [Invoke](zcl_aws1_lmd_actions.clas.abap#L148)
-- [ListFunctions](zcl_aws1_lmd_actions.clas.abap#L190)
-- [UpdateFunctionCode](zcl_aws1_lmd_actions.clas.abap#L213)
-- [UpdateFunctionConfiguration](zcl_aws1_lmd_actions.clas.abap#L250)
+- [DeleteFunction](zcl_aws1_lmd_actions.clas.abap#L101)
+- [GetFunction](zcl_aws1_lmd_actions.clas.abap#L126)
+- [Invoke](zcl_aws1_lmd_actions.clas.abap#L147)
+- [ListFunctions](zcl_aws1_lmd_actions.clas.abap#L187)
+- [UpdateFunctionCode](zcl_aws1_lmd_actions.clas.abap#L210)
+- [UpdateFunctionConfiguration](zcl_aws1_lmd_actions.clas.abap#L246)
 
 
 <!--custom.examples.start-->
