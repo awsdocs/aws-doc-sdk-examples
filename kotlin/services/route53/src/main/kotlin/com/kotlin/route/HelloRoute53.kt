@@ -43,7 +43,7 @@ suspend fun listPricesPaginated(domainType: String) {
             tld = domainType
         }
 
-    Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
+    Route53DomainsClient.fromEnvironment { region = "us-east-1" }.use { route53DomainsClient ->
         route53DomainsClient
             .listPricesPaginated(pricesRequest)
             .transform { it.prices?.forEach { obj -> emit(obj) } }

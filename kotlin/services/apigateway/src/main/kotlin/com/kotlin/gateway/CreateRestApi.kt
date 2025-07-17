@@ -35,7 +35,7 @@ suspend fun createAPI(restApiName: String?): String? {
         name = restApiName
     }
 
-    ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
+    ApiGatewayClient.fromEnvironment { region = "us-east-1" }.use { apiGateway ->
         val response = apiGateway.createRestApi(request)
         println("The id of the new api is ${response.id}")
         return response.id

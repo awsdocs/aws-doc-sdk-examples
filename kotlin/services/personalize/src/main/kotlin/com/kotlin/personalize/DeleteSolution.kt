@@ -42,7 +42,7 @@ suspend fun deleteGivenSolution(solutionArnVal: String?) {
             solutionArn = solutionArnVal
         }
 
-    PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+    PersonalizeClient.fromEnvironment { region = "us-east-1" }.use { personalizeClient ->
         personalizeClient.deleteSolution(request)
         println("$solutionArnVal was successfully deleted.")
     }

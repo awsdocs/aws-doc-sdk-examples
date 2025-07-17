@@ -49,7 +49,7 @@ suspend fun updateSpecificService(
             desiredCount = 0
         }
 
-    EcsClient { region = "us-east-1" }.use { ecsClient ->
+    EcsClient.fromEnvironment { region = "us-east-1" }.use { ecsClient ->
         ecsClient.updateService(request)
         println("The service was modified")
     }

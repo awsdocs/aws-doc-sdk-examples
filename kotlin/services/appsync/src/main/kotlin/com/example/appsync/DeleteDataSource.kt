@@ -47,7 +47,7 @@ suspend fun deleteDS(
             name = dsName
         }
 
-    AppSyncClient { region = "us-east-1" }.use { appClient ->
+    AppSyncClient.fromEnvironment { region = "us-east-1" }.use { appClient ->
         appClient.deleteDataSource(request)
         println("The data source was deleted.")
     }

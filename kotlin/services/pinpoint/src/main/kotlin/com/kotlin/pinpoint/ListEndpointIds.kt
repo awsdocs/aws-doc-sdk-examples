@@ -40,7 +40,7 @@ suspend fun listAllEndpoints(
     applicationIdVal: String?,
     userIdVal: String?,
 ) {
-    PinpointClient { region = "us-east-1" }.use { pinpoint ->
+    PinpointClient.fromEnvironment { region = "us-east-1" }.use { pinpoint ->
 
         val response =
             pinpoint.getUserEndpoints(

@@ -44,7 +44,7 @@ suspend fun getExeHistory(exeARN: String?) {
             maxResults = 10
         }
 
-    SfnClient { region = "us-east-1" }.use { sfnClient ->
+    SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.getExecutionHistory(historyRequest)
         response.events?.forEach { event ->
             println("The event type is ${event.type}")

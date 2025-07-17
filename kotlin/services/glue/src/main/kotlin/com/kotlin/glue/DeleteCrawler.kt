@@ -41,7 +41,7 @@ suspend fun deleteSpecificCrawler(crawlerName: String) {
         DeleteCrawlerRequest {
             name = crawlerName
         }
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         glueClient.deleteCrawler(request)
         println("$crawlerName was deleted")
     }

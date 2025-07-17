@@ -26,7 +26,7 @@ suspend fun getToken() {
             durationSeconds = 1500
         }
 
-    StsClient { region = "us-east-1" }.use { stsClient ->
+    StsClient.fromEnvironment { region = "us-east-1" }.use { stsClient ->
         val tokenResponse = stsClient.getSessionToken(request)
         println("The token value is ${tokenResponse.credentials?.sessionToken}")
     }

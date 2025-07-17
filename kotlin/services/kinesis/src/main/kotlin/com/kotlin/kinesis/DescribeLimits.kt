@@ -22,7 +22,7 @@ suspend fun main() {
 
 // snippet-start:[kinesis.kotlin.DescribeLimits.main]
 suspend fun describeKinLimits() {
-    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
+    KinesisClient.fromEnvironment { region = "us-east-1" }.use { kinesisClient ->
         val response = kinesisClient.describeLimits(DescribeLimitsRequest {})
         println("Number of open shards is ${response.openShardCount}")
         println("Maximum shards allowed is ${response.shardLimit}")

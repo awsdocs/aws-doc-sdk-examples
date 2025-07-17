@@ -43,8 +43,7 @@ suspend fun describeEC2SecurityGroups(groupId: String) {
             groupIds = listOf(groupId)
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
-
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeSecurityGroups(request)
         response.securityGroups?.forEach { group ->
             println("Found Security Group with id ${group.groupId}, vpc id ${group.vpcId} and description ${group.description}")

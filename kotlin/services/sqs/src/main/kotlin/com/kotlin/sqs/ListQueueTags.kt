@@ -41,7 +41,7 @@ suspend fun listTags(queueNameVal: String?) {
             queueName = queueNameVal
         }
 
-    SqsClient { region = "us-east-1" }.use { sqsClient ->
+    SqsClient.fromEnvironment { region = "us-east-1" }.use { sqsClient ->
         val getQueueUrlResponse = sqsClient.getQueueUrl(urlRequest)
         val queueUrlVal = getQueueUrlResponse.queueUrl
         val listQueueTagsRequest =

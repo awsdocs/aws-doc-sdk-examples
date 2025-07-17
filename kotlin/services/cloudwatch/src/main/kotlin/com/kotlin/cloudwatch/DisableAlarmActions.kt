@@ -42,7 +42,7 @@ suspend fun disableActions(alarmName: String) {
         DisableAlarmActionsRequest {
             alarmNames = listOf(alarmName)
         }
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         cwClient.disableAlarmActions(request)
         println("Successfully disabled actions on alarm $alarmName")
     }

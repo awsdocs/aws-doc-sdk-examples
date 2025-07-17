@@ -35,7 +35,7 @@ suspend fun deleteSpecificTrail(trailName: String) {
             name = trailName
         }
 
-    CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+    CloudTrailClient.fromEnvironment { region = "us-east-1" }.use { cloudTrail ->
         cloudTrail.deleteTrail(request)
         println("$trailName was successfully deleted")
     }

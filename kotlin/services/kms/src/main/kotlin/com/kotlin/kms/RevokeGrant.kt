@@ -47,7 +47,7 @@ suspend fun revokeKeyGrant(
             grantId = grantIdVal
         }
 
-    KmsClient { region = "us-west-2" }.use { kmsClient ->
+    KmsClient.fromEnvironment { region = "us-west-2" }.use { kmsClient ->
         kmsClient.revokeGrant(request)
         println("$grantIdVal was successfully revoked.")
     }

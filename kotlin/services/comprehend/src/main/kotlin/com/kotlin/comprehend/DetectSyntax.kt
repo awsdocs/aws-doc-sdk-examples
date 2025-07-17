@@ -33,7 +33,7 @@ suspend fun detectAllSyntax(textVal: String) {
             text = textVal
             languageCode = SyntaxLanguageCode.fromValue("en")
         }
-    ComprehendClient { region = "us-east-1" }.use { comClient ->
+    ComprehendClient.fromEnvironment { region = "us-east-1" }.use { comClient ->
         val response = comClient.detectSyntax(request)
         response.syntaxTokens?.forEach { token ->
             println("Language is ${token.text}")

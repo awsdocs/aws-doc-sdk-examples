@@ -44,7 +44,7 @@ suspend fun deleteMessages(queueUrlVal: String) {
             queueUrl = queueUrlVal
         }
 
-    SqsClient { region = "us-east-1" }.use { sqsClient ->
+    SqsClient.fromEnvironment { region = "us-east-1" }.use { sqsClient ->
         sqsClient.purgeQueue(purgeRequest)
         println("Messages are successfully deleted from $queueUrlVal")
     }
@@ -56,7 +56,7 @@ suspend fun deleteQueue(queueUrlVal: String) {
             queueUrl = queueUrlVal
         }
 
-    SqsClient { region = "us-east-1" }.use { sqsClient ->
+    SqsClient.fromEnvironment { region = "us-east-1" }.use { sqsClient ->
         sqsClient.deleteQueue(request)
         println("$queueUrlVal was deleted!")
     }

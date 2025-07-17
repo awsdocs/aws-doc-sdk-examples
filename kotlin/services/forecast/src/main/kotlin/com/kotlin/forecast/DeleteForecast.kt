@@ -42,7 +42,7 @@ suspend fun delForecast(forecastArnVal: String) {
             forecastArn = forecastArnVal
         }
 
-    ForecastClient { region = "us-west-2" }.use { forecast ->
+    ForecastClient.fromEnvironment { region = "us-west-2" }.use { forecast ->
         forecast.deleteForecast(request)
         println("$forecastArnVal was successfully deleted")
     }

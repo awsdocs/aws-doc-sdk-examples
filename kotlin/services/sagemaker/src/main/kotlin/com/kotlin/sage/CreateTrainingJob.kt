@@ -142,7 +142,7 @@ suspend fun trainJob(
             hyperParameters = hyperParametersOb
         }
 
-    SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+    SageMakerClient.fromEnvironment { region = "us-west-2" }.use { sageMakerClient ->
         val response = sageMakerClient.createTrainingJob(request)
         println("The Amazon Resource Name (ARN) of the training job is ${response.trainingJobArn}")
     }

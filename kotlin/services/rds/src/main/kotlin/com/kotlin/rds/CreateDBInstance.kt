@@ -72,7 +72,7 @@ suspend fun createDatabaseInstance(
             masterUserPassword = masterUserPasswordVal
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.createDbInstance(instanceRequest)
         print("The status is ${response.dbInstance?.dbInstanceStatus}")
     }
@@ -90,7 +90,7 @@ suspend fun waitForInstanceReady(dbInstanceIdentifierVal: String?) {
             dbInstanceIdentifier = dbInstanceIdentifierVal
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         while (!instanceReady) {
             val response = rdsClient.describeDbInstances(instanceRequest)
             val instanceList = response.dbInstances

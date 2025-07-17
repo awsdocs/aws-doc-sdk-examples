@@ -44,7 +44,7 @@ suspend fun searchGlueTable(text: String?) {
             maxResults = 10
         }
 
-    GlueClient { region = "us-west-2" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-west-2" }.use { glueClient ->
         val response = glueClient.searchTables(request)
         response.tableList?.forEach { table ->
             println("Table name is ${table.name}")
