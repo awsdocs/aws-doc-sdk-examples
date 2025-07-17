@@ -433,6 +433,7 @@ cognito-identity-provider_ListUsers:
       versions:
         - sdk_version: 1
           github: swift/example_code/cognito-identity-provider
+          sdkguide:
           excerpts:
             - description:
               snippet_tags:

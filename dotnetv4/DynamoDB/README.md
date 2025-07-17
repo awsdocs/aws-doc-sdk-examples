@@ -31,29 +31,29 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 ### Get started
 
-- [Hello DynamoDB](Actions/HelloDynamoDB.cs#L4) (`ListTables`)
+- [Hello DynamoDB](../DynamoDB/Actions/HelloDynamoDB.cs#L4) (`ListTables`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](Scenarios/DynamoDB_Basics/DynamoDbBasics.cs)
+- [Learn the basics](../DynamoDB/Scenarios/DynamoDB_Basics/DynamoDbBasics.cs)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchWriteItem](Actions/DynamoDbWrapper.cs#L277)
-- [CreateTable](Actions/DynamoDbWrapper.cs#L27)
-- [DeleteItem](Actions/DynamoDbWrapper.cs#L366)
-- [DeleteTable](Actions/DynamoDbWrapper.cs#L552)
-- [GetItem](Actions/DynamoDbWrapper.cs#L229)
-- [PutItem](Actions/DynamoDbWrapper.cs#L115)
-- [Query](Actions/DynamoDbWrapper.cs#L413)
-- [Scan](Actions/DynamoDbWrapper.cs#L487)
-- [UpdateItem](Actions/DynamoDbWrapper.cs#L162)
+- [BatchWriteItem](../DynamoDB/Actions/DynamoDbWrapper.cs#L277)
+- [CreateTable](../DynamoDB/Actions/DynamoDbWrapper.cs#L27)
+- [DeleteItem](../DynamoDB/Actions/DynamoDbWrapper.cs#L366)
+- [DeleteTable](../DynamoDB/Actions/DynamoDbWrapper.cs#L552)
+- [GetItem](../DynamoDB/Actions/DynamoDbWrapper.cs#L229)
+- [PutItem](../DynamoDB/Actions/DynamoDbWrapper.cs#L115)
+- [Query](../DynamoDB/Actions/DynamoDbWrapper.cs#L413)
+- [Scan](../DynamoDB/Actions/DynamoDbWrapper.cs#L487)
+- [UpdateItem](../DynamoDB/Actions/DynamoDbWrapper.cs#L162)
 
 
 <!--custom.examples.start-->
