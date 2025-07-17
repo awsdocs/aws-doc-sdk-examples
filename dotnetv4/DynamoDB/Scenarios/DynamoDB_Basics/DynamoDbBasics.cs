@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Basics;
 
-// snippet-start:[DynamoDB.dotnetv3.DynamoDB_Basics_Scenario]
+// snippet-start:[DynamoDB.dotnetv4.DynamoDB_Basics_Scenario]
 
 /// <summary>
 /// This example application performs the following basic Amazon DynamoDB
@@ -228,4 +228,4 @@ public class DynamoDbBasics
     }
 }
 
-// snippet-end:[DynamoDB.dotnetv3.DynamoDB_Basics_Scenario]
+// snippet-end:[DynamoDB.dotnetv4.DynamoDB_Basics_Scenario]
