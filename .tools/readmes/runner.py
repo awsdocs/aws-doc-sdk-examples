@@ -44,8 +44,33 @@ def prepare_scanner(doc_gen: DocGen) -> Optional[Scanner]:
     return scanner
 
 
+# Try to import cache module
+try:
+    from cache import load_from_cache, save_to_cache
+    CACHE_AVAILABLE = True
+except ImportError:
+    CACHE_AVAILABLE = False
+    
+    # Dummy cache functions if cache module not available
+    def load_from_cache(key):
+        return None
+        
+    def save_to_cache(key, data):
+        return False
+
 # Load all examples immediately for cross references. Trades correctness for speed.
-doc_gen = DocGen.from_root(Path(__file__).parent.parent.parent, incremental=True)
+# Try to load from cache first
+doc_gen = None
+if CACHE_AVAILABLE:
+    doc_gen = load_from_cache("doc_gen_cache")
+    if doc_gen:
+        logging.info("Using cached DocGen data")
+
+if doc_gen is None:
+    logging.info("Building DocGen data from scratch")
+    doc_gen = DocGen.from_root(Path(__file__).parent.parent.parent, incremental=True)
+    if CACHE_AVAILABLE:
+        save_to_cache("doc_gen_cache", doc_gen)
 
 
 Language = Enum(
@@ -116,6 +141,14 @@ def writeme(
     non_writeme = []
     unchanged = []
     no_folder = []
+    
+    # Try to use progress tracking if available
+    try:
+        from progress import ProgressTracker
+        progress = ProgressTracker()
+        use_progress = True
+    except ImportError:
+        use_progress = False
 
     scanner = prepare_scanner(doc_gen)
     if scanner is None:
