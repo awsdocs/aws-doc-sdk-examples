@@ -31,30 +31,37 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 ### Get started
 
-- [Hello Amazon EC2](scenario/Package.swift#L8) (`DescribeSecurityGroups`)
+- [Hello Amazon EC2](hello/Package.swift#L8) (`DescribeSecurityGroups`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario/Package.swift)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [AllocateAddress](scenario/Sources/entry.swift#L1015)
-- [AssociateAddress](scenario/Sources/entry.swift#L1039)
-- [AuthorizeSecurityGroupIngress](scenario/Sources/entry.swift#L928)
+- [AllocateAddress](scenario/Sources/entry.swift#L1019)
+- [AssociateAddress](scenario/Sources/entry.swift#L1043)
+- [AuthorizeSecurityGroupIngress](scenario/Sources/entry.swift#L932)
 - [CreateKeyPair](scenario/Sources/entry.swift#L410)
-- [CreateSecurityGroup](scenario/Sources/entry.swift#L903)
-- [DeleteKeyPair](scenario/Sources/entry.swift#L469)
-- [DeleteSecurityGroup](scenario/Sources/entry.swift#L993)
-- [DescribeImages](scenario/Sources/entry.swift#L809)
-- [DescribeInstanceTypes](scenario/Sources/entry.swift#L537)
-- [DescribeKeyPairs](scenario/Sources/entry.swift#L446)
+- [CreateSecurityGroup](scenario/Sources/entry.swift#L907)
+- [DeleteKeyPair](scenario/Sources/entry.swift#L473)
+- [DeleteSecurityGroup](scenario/Sources/entry.swift#L997)
+- [DescribeImages](scenario/Sources/entry.swift#L813)
+- [DescribeInstanceTypes](scenario/Sources/entry.swift#L541)
+- [DescribeKeyPairs](scenario/Sources/entry.swift#L450)
 - [DescribeSecurityGroups](hello/Sources/entry.swift#L44)
-- [DisassociateAddress](scenario/Sources/entry.swift#L1065)
-- [ReleaseAddress](scenario/Sources/entry.swift#L1082)
-- [RunInstances](scenario/Sources/entry.swift#L845)
-- [StartInstances](scenario/Sources/entry.swift#L711)
-- [StopInstances](scenario/Sources/entry.swift#L661)
-- [TerminateInstances](scenario/Sources/entry.swift#L760)
+- [DisassociateAddress](scenario/Sources/entry.swift#L1069)
+- [ReleaseAddress](scenario/Sources/entry.swift#L1086)
+- [RunInstances](scenario/Sources/entry.swift#L849)
+- [StartInstances](scenario/Sources/entry.swift#L715)
+- [StopInstances](scenario/Sources/entry.swift#L665)
+- [TerminateInstances](scenario/Sources/entry.swift#L764)
 
 
 <!--custom.examples.start-->
@@ -83,6 +90,23 @@ and run commands.
 
 This example shows you how to get started using Amazon EC2.
 
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a key pair and security group.
+- Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
+- Stop and restart the instance.
+- Associate an Elastic IP address with your instance.
+- Connect to your instance with SSH, then clean up resources.
+
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.end-->
+
+
+<!--custom.basics.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basics.ec2_Scenario_GetStartedInstances.end-->
 
 
 ### Tests

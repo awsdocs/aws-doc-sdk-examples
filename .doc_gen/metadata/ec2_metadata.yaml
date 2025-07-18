@@ -85,6 +85,7 @@ ec2_Hello:
               snippet_tags:
                 - swift.ec2.hello.package
             - description: The <filename>entry.swift</filename> file.
+              snippet_tags:
                 - swift.ec2.hello
   services:
     ec2: {DescribeSecurityGroups}
@@ -2586,6 +2587,17 @@ ec2_Scenario_GetStartedInstances:
             - description: The main entry point for the scenario.
               snippet_files:
                 - rustv1/examples/ec2/src/bin/getting-started.rs
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description: The <filename>Package.swift</filename> file.
+              snippet_tags:
+                - swift.ec2.scenario.package
+            - description: The <filename>entry.swift</filename> file.
+              snippet_tags:
+                - swift.ec2.scenario
   services:
     ec2:
       {
