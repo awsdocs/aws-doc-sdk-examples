@@ -13,6 +13,20 @@ from aws_doc_sdk_examples_tools.metadata import Example
 from aws_doc_sdk_examples_tools.sdks import Sdk
 from aws_doc_sdk_examples_tools.services import Service
 
+# Import cache module if available
+try:
+    from cache import load_from_cache, save_to_cache
+    CACHE_AVAILABLE = True
+except ImportError:
+    CACHE_AVAILABLE = False
+    
+    # Dummy cache functions if cache module not available
+    def load_from_cache(key):
+        return None
+        
+    def save_to_cache(key, data):
+        return False
+
 logger = logging.getLogger(__name__)
 
 T = TypeVar("T")
@@ -45,6 +59,17 @@ class Scanner:
         )
 
     def _build_examples(self):
+        # Try to load examples from cache first
+        cache_key = "examples_cache"
+        cached_examples = load_from_cache(cache_key)
+        
+        if cached_examples:
+            logger.info("Using cached examples data")
+            self.examples = cached_examples
+            return
+            
+        # Build examples from scratch if not in cache
+        logger.info("Building examples from scratch")
         self.examples = defaultdict(list)
         for example in self.doc_gen.examples.values():
             for lang_name, language in example.languages.items():
@@ -53,6 +78,9 @@ class Scanner:
                         self.examples[
                             f"{lang_name}:{sdk_version.sdk_version}:{svc_name}"
                         ].append(example)
+        
+        # Save to cache for future runs
+        save_to_cache(cache_key, self.examples)
 
     def _example_key(self):
         return f"{self.lang_name}:{self.sdk_ver}:{self.svc_name}"
