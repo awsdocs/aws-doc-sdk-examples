@@ -874,8 +874,8 @@ sqs_Scenario_SendReceiveBatch:
           sdkguide:
           excerpts:
             - description: >-
-                You can handle batch message operations with Amazon SQS using two different approaches
-                  with the &JavaV2long;:</para>
+                As shown in the following examples, you can handle batch message operations with &SQS; 
+                  using two different approaches with the &JavaV2long;:</para>
                 <para><emphasis role="strong">SendRecvBatch.java</emphasis> uses explicit batch operations.
                   You manually create message batches and call <code>sendMessageBatch()</code> and
                   <code>deleteMessageBatch()</code> directly. You also handle batch responses, including any
