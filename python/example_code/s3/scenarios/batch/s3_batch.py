@@ -1,6 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# snippet-start:[python.example_code.s3.S3Batch.scenario]
 """
 This module provides functionality for AWS S3 Batch Operations.
 It includes classes for managing CloudFormation stacks and S3 batch scenarios.
@@ -57,6 +58,9 @@ class CloudFormationHelper:
                                     }
                                 ]
                             },
+                            "ManagedPolicyArns": [
+                                "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+                            ],
                             "Policies": [
                                 {
                                     "PolicyName": "S3BatchOperationsPolicy",
@@ -66,18 +70,8 @@ class CloudFormationHelper:
                                             {
                                                 "Effect": "Allow",
                                                 "Action": [
-                                                    "s3:GetObject",
-                                                    "s3:PutObject",
-                                                    "s3:PutObjectTagging",
-                                                    "s3:GetObjectTagging"
-                                                ],
-                                                "Resource": "*"
-                                            },
-                                            {
-                                                "Effect": "Allow",
-                                                "Action": [
-                                                    "s3:GetObject",
-                                                    "s3:PutObject"
+                                                    "s3:*",
+                                                    "s3-object-lambda:*"
                                                 ],
                                                 "Resource": "*"
                                             }
@@ -336,11 +330,12 @@ class S3BatchScenario:
                 Priority=10,
                 RoleArn=role_arn,
                 Description='Batch job for tagging objects',
-                ConfirmationRequired=True
+                # Set to False to avoid confirmation requirement
+                ConfirmationRequired=False
             )
             job_id = response['JobId']
             print(f"Created batch job with ID: {job_id}")
-            print("Job requires confirmation before starting...")
+            print("Job created and should start automatically")
             return job_id
         except ClientError as e:
             print(f"Error creating batch job: {e}")
@@ -403,6 +398,11 @@ class S3BatchScenario:
                 print(f"Current job status: {current_status}")
                 if current_status == desired_status:
                     return True
+                # For jobs with ConfirmationRequired=True, they start in Suspended state
+                # and need to be activated
+                if current_status == 'Suspended':
+                    print("Job is in Suspended state, can proceed with activation")
+                    return True
                 if current_status in ['Active', 'Failed', 'Cancelled', 'Complete']:
                     print(f"Job is in {current_status} state, cannot update priority")
                     if 'FailureReasons' in response['Job']:
@@ -431,21 +431,40 @@ class S3BatchScenario:
             ClientError: If updating job priority fails
         """
         try:
-            if self.wait_for_job_ready(job_id, account_id):
+            # Check current job status
+            response = self.s3control_client.describe_job(
+                AccountId=account_id,
+                JobId=job_id
+            )
+            current_status = response['Job']['Status']
+            print(f"Current job status before update: {current_status}")
+            print(f"Full job details: {response['Job']}")
+            
+            # First try to update the job priority
+            try:
                 self.s3control_client.update_job_priority(
                     AccountId=account_id,
                     JobId=job_id,
                     Priority=20
                 )
-                print(f"Updated priority for job {job_id}")
+                print(f"Successfully updated priority for job {job_id}")
+            except ClientError as e:
+                print(f"Warning: Could not update job priority: {e}")
+                # Continue anyway to try activating the job
+            
+            # Then try to activate the job
+            try:
                 self.s3control_client.update_job_status(
                     AccountId=account_id,
                     JobId=job_id,
                     RequestedJobStatus='Active'
                 )
-                print("Job confirmed and started")
-            else:
-                print("Could not update job priority as job is not in Ready state")
+                print(f"Successfully activated job {job_id}")
+            except ClientError as e:
+                print(f"Error activating job: {e}")
+                if 'Message' in str(e):
+                    print(f"Detailed error message: {e.response.get('Message', '')}")
+                raise
         except ClientError as e:
             print(f"Error updating job priority: {e}")
             raise
@@ -579,8 +598,21 @@ def main():
                 raise ValueError("Job failed, stopping execution")
 
         wait_for_input()
-        print("\n2. Updating job priority...")
-        scenario.update_job_priority(job_id, account_id)
+        print("\n2. Checking job status...")
+        # Get current job status instead of trying to update priority
+        response = scenario.s3control_client.describe_job(
+            AccountId=account_id,
+            JobId=job_id
+        )
+        current_status = response['Job']['Status']
+        print(f"Current job status: {current_status}")
+        
+        # Only try to update priority if job is not already active
+        if current_status not in ['Active', 'Complete']:
+            print("\nUpdating job priority...")
+            scenario.update_job_priority(job_id, account_id)
+        else:
+            print("Job is already active or complete, no need to update priority.")
 
         print("\nCleanup")
         if input(
@@ -599,3 +631,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+# snippet-end:[python.example_code.s3.S3Batch.scenario]

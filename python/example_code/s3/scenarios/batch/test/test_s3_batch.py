@@ -1,10 +1,12 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-import pytest
-from unittest.mock import Mock, patch, MagicMock
-from botocore.exceptions import ClientError, WaiterError
+"""Unit tests for S3 batch operations module."""
+
 import json
+import pytest
+from unittest.mock import Mock, patch
+from botocore.exceptions import ClientError
 
 from s3_batch import CloudFormationHelper, S3BatchScenario, setup_resources
 
@@ -20,7 +22,7 @@ class TestCloudFormationHelper:
     @patch('boto3.client')
     def test_init(self, mock_boto3_client):
         """Test CloudFormationHelper initialization."""
-        helper = CloudFormationHelper('us-east-1')
+        CloudFormationHelper('us-east-1')
         mock_boto3_client.assert_called_with('cloudformation', region_name='us-east-1')
 
     @patch('boto3.client')
@@ -29,14 +31,17 @@ class TestCloudFormationHelper:
         mock_client = Mock()
         mock_boto3_client.return_value = mock_client
         cfn_helper.cfn_client = mock_client
-        
         with patch.object(cfn_helper, '_wait_for_stack_completion'):
             cfn_helper.deploy_cloudformation_stack('test-stack')
-            
         mock_client.create_stack.assert_called_once()
         call_args = mock_client.create_stack.call_args
         assert call_args[1]['StackName'] == 'test-stack'
         assert 'CAPABILITY_IAM' in call_args[1]['Capabilities']
+        
+        # Verify the template includes AmazonS3FullAccess policy
+        template_body = json.loads(call_args[1]['TemplateBody'])
+        assert 'ManagedPolicyArns' in template_body['Resources']['S3BatchRole']['Properties']
+        assert 'arn:aws:iam::aws:policy/AmazonS3FullAccess' in template_body['Resources']['S3BatchRole']['Properties']['ManagedPolicyArns']
 
     @patch('boto3.client')
     def test_deploy_cloudformation_stack_failure(self, mock_boto3_client, cfn_helper):
@@ -48,7 +53,6 @@ class TestCloudFormationHelper:
         )
         mock_boto3_client.return_value = mock_client
         cfn_helper.cfn_client = mock_client
-        
         with pytest.raises(ClientError):
             cfn_helper.deploy_cloudformation_stack('test-stack')
 
@@ -61,7 +65,7 @@ class TestCloudFormationHelper:
                 'Outputs': [
                     {'OutputKey': 'S3BatchRoleArn', 'OutputValue': 'arn:aws:iam::123456789012:role/test-role'}
                 ]
-            }]
+        }]
         }
         mock_boto3_client.return_value = mock_client
         cfn_helper.cfn_client = mock_client
@@ -80,6 +84,7 @@ class TestCloudFormationHelper:
             cfn_helper.destroy_cloudformation_stack('test-stack')
             
         mock_client.delete_stack.assert_called_once_with(StackName='test-stack')
+
 
 
 class TestS3BatchScenario:
@@ -164,6 +169,10 @@ class TestS3BatchScenario:
         
         assert job_id == 'test-job-id'
         mock_s3control_client.create_job.assert_called_once()
+        
+        # Verify ConfirmationRequired is set to False
+        call_args = mock_s3control_client.create_job.call_args
+        assert call_args[1]['ConfirmationRequired'] is False
 
     @patch('boto3.client')
     def test_check_job_failure_reasons(self, mock_boto3_client, s3_scenario):
@@ -193,17 +202,67 @@ class TestS3BatchScenario:
         result = s3_scenario.wait_for_job_ready('test-job-id', '123456789012')
         
         assert result is True
+        
+    @patch('boto3.client')
+    @patch('time.sleep')
+    def test_wait_for_job_ready_suspended(self, mock_sleep, mock_boto3_client, s3_scenario):
+        """Test waiting for job with Suspended status."""
+        mock_s3control_client = Mock()
+        mock_s3control_client.describe_job.return_value = {
+            'Job': {'Status': 'Suspended'}
+        }
+        s3_scenario.s3control_client = mock_s3control_client
+        
+        result = s3_scenario.wait_for_job_ready('test-job-id', '123456789012')
+        
+        assert result is True
 
     @patch('boto3.client')
     def test_update_job_priority_success(self, mock_boto3_client, s3_scenario):
         """Test successful job priority update."""
         mock_s3control_client = Mock()
+        mock_s3control_client.describe_job.return_value = {
+            'Job': {'Status': 'Suspended'}
+        }
         s3_scenario.s3control_client = mock_s3control_client
         
-        with patch.object(s3_scenario, 'wait_for_job_ready', return_value=True):
-            s3_scenario.update_job_priority('test-job-id', '123456789012')
+        s3_scenario.update_job_priority('test-job-id', '123456789012')
             
         mock_s3control_client.update_job_priority.assert_called_once()
+        mock_s3control_client.update_job_status.assert_called_once()
+        
+    @patch('boto3.client')
+    def test_update_job_priority_with_ready_status(self, mock_boto3_client, s3_scenario):
+        """Test job priority update with Ready status."""
+        mock_s3control_client = Mock()
+        mock_s3control_client.describe_job.return_value = {
+            'Job': {'Status': 'Ready'}
+        }
+        s3_scenario.s3control_client = mock_s3control_client
+        
+        s3_scenario.update_job_priority('test-job-id', '123456789012')
+            
+        mock_s3control_client.update_job_priority.assert_called_once()
+        mock_s3control_client.update_job_status.assert_called_once()
+        
+    @patch('boto3.client')
+    def test_update_job_priority_error_handling(self, mock_boto3_client, s3_scenario):
+        """Test error handling in job priority update."""
+        mock_s3control_client = Mock()
+        mock_s3control_client.describe_job.return_value = {
+            'Job': {'Status': 'Suspended'}
+        }
+        mock_s3control_client.update_job_priority.side_effect = ClientError(
+            {'Error': {'Code': 'InvalidRequest', 'Message': 'Cannot update priority'}},
+            'UpdateJobPriority'
+        )
+        mock_s3control_client.update_job_status = Mock()
+        s3_scenario.s3control_client = mock_s3control_client
+        
+        # Should not raise exception due to error handling
+        s3_scenario.update_job_priority('test-job-id', '123456789012')
+        
+        # Should still try to activate the job even if priority update fails
         mock_s3control_client.update_job_status.assert_called_once()
 
     @patch('boto3.client')
@@ -228,12 +287,14 @@ class TestUtilityFunctions:
     @patch('s3_batch.input', return_value='c')
     def test_wait_for_input_valid(self, mock_input):
         """Test wait_for_input with valid input."""
+        # pylint: disable=import-outside-toplevel
         from s3_batch import wait_for_input
         wait_for_input()  # Should not raise exception
 
     @patch('s3_batch.input', side_effect=['invalid', 'c'])
     def test_wait_for_input_invalid_then_valid(self, mock_input):
         """Test wait_for_input with invalid then valid input."""
+        # pylint: disable=import-outside-toplevel
         from s3_batch import wait_for_input
         wait_for_input()  # Should not raise exception
 
