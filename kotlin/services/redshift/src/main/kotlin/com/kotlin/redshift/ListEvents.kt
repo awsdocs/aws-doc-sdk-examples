@@ -51,7 +51,7 @@ suspend fun listRedShiftEvents(
             maxRecords = 20
         }
 
-    RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
+    RedshiftClient.fromEnvironment { region = "us-west-2" }.use { redshiftClient ->
         val eventsResponse = redshiftClient.describeEvents(request)
         eventsResponse.events?.forEach { event ->
             println("Source type is ${event.sourceType}")

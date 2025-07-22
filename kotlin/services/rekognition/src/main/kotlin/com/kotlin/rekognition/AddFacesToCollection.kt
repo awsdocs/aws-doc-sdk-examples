@@ -58,7 +58,7 @@ suspend fun addToCollection(
             detectionAttributes = listOf(Attribute.Default)
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val facesResponse = rekClient.indexFaces(request)
 
         // Display the results.

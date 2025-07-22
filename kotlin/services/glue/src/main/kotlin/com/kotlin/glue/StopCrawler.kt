@@ -42,7 +42,7 @@ suspend fun stopSpecificCrawler(crawlerName: String) {
             name = crawlerName
         }
 
-    GlueClient { region = "us-west-2" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-west-2" }.use { glueClient ->
         glueClient.stopCrawler(request)
         println("$crawlerName was stopped")
     }

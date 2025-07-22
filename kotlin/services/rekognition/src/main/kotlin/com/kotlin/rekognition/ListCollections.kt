@@ -25,7 +25,7 @@ suspend fun listAllCollections() {
             maxResults = 10
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.listCollections(request)
         response.collectionIds?.forEach { resultId ->
             println(resultId)

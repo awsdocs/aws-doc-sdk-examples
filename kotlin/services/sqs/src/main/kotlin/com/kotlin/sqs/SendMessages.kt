@@ -54,7 +54,7 @@ suspend fun sendMessages(
             delaySeconds = 10
         }
 
-    SqsClient { region = "us-east-1" }.use { sqsClient ->
+    SqsClient.fromEnvironment { region = "us-east-1" }.use { sqsClient ->
         sqsClient.sendMessage(sendRequest)
         println("A single message was successfully sent.")
     }
@@ -81,7 +81,7 @@ suspend fun sendBatchMessages(queueUrlVal: String?) {
             entries = listOf(msg1, msg2)
         }
 
-    SqsClient { region = "us-east-1" }.use { sqsClient ->
+    SqsClient.fromEnvironment { region = "us-east-1" }.use { sqsClient ->
         sqsClient.sendMessageBatch(sendMessageBatchRequest)
         println("Batch message were successfully sent.")
     }

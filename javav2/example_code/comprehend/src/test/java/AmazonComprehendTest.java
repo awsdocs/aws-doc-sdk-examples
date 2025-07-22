@@ -46,7 +46,7 @@ public class AmazonComprehendTest {
     }
 
     @Test
-    @Tag("weathertop")
+    @Tag("weathertop2")
     @Tag("IntegrationTest")
     @Order(1)
     public void testDetectEntities() {

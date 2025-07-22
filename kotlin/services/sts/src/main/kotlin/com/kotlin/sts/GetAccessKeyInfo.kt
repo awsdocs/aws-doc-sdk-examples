@@ -41,7 +41,7 @@ suspend fun getKeyInfo(accessKeyIdVal: String?) {
             accessKeyId = accessKeyIdVal
         }
 
-    StsClient { region = "us-east-1" }.use { stsClient ->
+    StsClient.fromEnvironment { region = "us-east-1" }.use { stsClient ->
         val accessResponse = stsClient.getAccessKeyInfo(accessRequest)
         println("The account associated with the access key is ${accessResponse.account}")
     }

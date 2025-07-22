@@ -43,7 +43,7 @@ suspend fun createApplication(applicationName: String?): String? {
             name = applicationName
         }
 
-    PinpointClient { region = "us-west-2" }.use { pinpoint ->
+    PinpointClient.fromEnvironment { region = "us-west-2" }.use { pinpoint ->
         val result =
             pinpoint.createApp(
                 CreateAppRequest {

@@ -41,11 +41,11 @@ suspend fun describeEnv(appName: String) {
             environmentNames = listOf(appName)
         }
 
-    ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
+    ElasticBeanstalkClient.fromEnvironment { region = "us-east-1" }.use { beanstalkClient ->
         val res = beanstalkClient.describeEnvironments(request)
         res.environments?.forEach { env ->
-            System.out.println("The environment name is ${env.environmentName}")
-            System.out.println("The environment ARN is  ${env.environmentArn}")
+            println("The environment name is ${env.environmentName}")
+            println("The environment ARN is  ${env.environmentArn}")
         }
     }
 }

@@ -72,7 +72,7 @@ suspend fun createNewDomain(domainNameVal: String?) {
         }
 
     println("Sending domain creation request...")
-    OpenSearchClient { region = "us-east-1" }.use { searchClient ->
+    OpenSearchClient.fromEnvironment { region = "us-east-1" }.use { searchClient ->
         val createResponse = searchClient.createDomain(request)
         println("Domain status is ${createResponse.domainStatus}")
         println("Domain Id is ${createResponse.domainStatus?.domainId}")

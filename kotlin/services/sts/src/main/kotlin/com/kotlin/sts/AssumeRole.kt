@@ -64,7 +64,7 @@ suspend fun assumeGivenRole(
             roleSessionName = roleSessionNameVal
         }
 
-    StsClient { region = "us-east-1" }.use { stsClient ->
+    StsClient.fromEnvironment { region = "us-east-1" }.use { stsClient ->
         val roleResponse = stsClient.assumeRole(roleRequest)
         val myCreds = roleResponse.credentials
         val exTime = myCreds?.expiration

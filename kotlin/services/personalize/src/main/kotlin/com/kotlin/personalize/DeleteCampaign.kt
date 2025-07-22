@@ -42,7 +42,7 @@ suspend fun deleteSpecificCampaign(campaignArnVal: String?) {
             campaignArn = campaignArnVal
         }
 
-    PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+    PersonalizeClient.fromEnvironment { region = "us-east-1" }.use { personalizeClient ->
         personalizeClient.deleteCampaign(request)
         println("$campaignArnVal was successfully deleted.")
     }

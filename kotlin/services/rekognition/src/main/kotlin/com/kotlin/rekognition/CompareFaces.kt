@@ -66,7 +66,7 @@ suspend fun compareTwoFaces(
             similarityThreshold = similarityThresholdVal
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
 
         val compareFacesResult = rekClient.compareFaces(facesRequest)
         val faceDetails = compareFacesResult.faceMatches

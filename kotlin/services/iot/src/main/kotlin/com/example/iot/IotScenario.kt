@@ -247,7 +247,7 @@ suspend fun deleteIoTThing(thingNameVal: String) {
             thingName = thingNameVal
         }
 
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         iotClient.deleteThing(deleteThingRequest)
         println("Deleted $thingNameVal")
     }
@@ -260,7 +260,7 @@ suspend fun deleteCertificate(certificateArn: String) {
         DeleteCertificateRequest {
             certificateId = extractCertificateId(certificateArn)
         }
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         iotClient.deleteCertificate(certificateProviderRequest)
         println("$certificateArn was successfully deleted.")
     }
@@ -285,7 +285,7 @@ suspend fun detachThingPrincipal(
             thingName = thingNameVal
         }
 
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         iotClient.detachThingPrincipal(thingPrincipalRequest)
         println("$certificateArn was successfully removed from $thingNameVal")
     }
@@ -299,7 +299,7 @@ suspend fun searchThings(queryStringVal: String?) {
             queryString = queryStringVal
         }
 
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         val searchIndexResponse = iotClient.searchIndex(searchIndexRequest)
         if (searchIndexResponse.things?.isEmpty() == true) {
             println("No things found.")
@@ -315,7 +315,7 @@ suspend fun searchThings(queryStringVal: String?) {
 suspend fun listIoTRules() {
     val listTopicRulesRequest = ListTopicRulesRequest {}
 
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         val listTopicRulesResponse = iotClient.listTopicRules(listTopicRulesRequest)
         println("List of IoT rules:")
         val ruleList = listTopicRulesResponse.rules
@@ -358,7 +358,7 @@ suspend fun createIoTRule(
             topicRulePayload = topicRulePayloadVal
         }
 
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         iotClient.createTopicRule(topicRuleRequest)
         println("IoT rule created successfully.")
     }
@@ -372,7 +372,7 @@ suspend fun getPayload(thingNameVal: String?) {
             thingName = thingNameVal
         }
 
-    IotDataPlaneClient { region = "us-east-1" }.use { iotPlaneClient ->
+    IotDataPlaneClient.fromEnvironment { region = "us-east-1" }.use { iotPlaneClient ->
         val getThingShadowResponse = iotPlaneClient.getThingShadow(getThingShadowRequest)
         val payload = getThingShadowResponse.payload
         val payloadString = payload?.let { java.lang.String(it, Charsets.UTF_8) }
@@ -383,7 +383,7 @@ suspend fun getPayload(thingNameVal: String?) {
 
 // snippet-start:[iot.kotlin.list.certs.main]
 suspend fun listCertificates() {
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         val response = iotClient.listCertificates()
         val certList = response.certificates
         certList?.forEach { cert ->
@@ -397,7 +397,7 @@ suspend fun listCertificates() {
 // snippet-start:[iot.kotlin.describe.endpoint.main]
 suspend fun describeEndpoint(): String? {
     val request = DescribeEndpointRequest {}
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         val endpointResponse = iotClient.describeEndpoint(request)
         val endpointUrl: String? = endpointResponse.endpointAddress
         val exString: String = getValue(endpointUrl)
@@ -445,7 +445,7 @@ suspend fun updateThing(thingNameVal: String?) {
             attributePayload = attributePayloadVal
         }
 
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         // Update the IoT thing attributes.
         iotClient.updateThing(updateThingRequest)
         println("$thingNameVal attributes updated successfully.")
@@ -466,7 +466,7 @@ suspend fun updateShawdowThing(thingNameVal: String?) {
             payload = byteArray
         }
 
-    IotDataPlaneClient { region = "us-east-1" }.use { iotPlaneClient ->
+    IotDataPlaneClient.fromEnvironment { region = "us-east-1" }.use { iotPlaneClient ->
         iotPlaneClient.updateThingShadow(updateThingShadowRequest)
         println("The thing shadow was updated successfully.")
     }
@@ -484,7 +484,7 @@ suspend fun attachCertificateToThing(
             principal = certificateArn
         }
 
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         iotClient.attachThingPrincipal(principalRequest)
         println("Certificate attached to $thingNameVal successfully.")
     }
@@ -499,7 +499,7 @@ suspend fun describeThing(thingNameVal: String) {
         }
 
     // Print Thing details.
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         val describeResponse = iotClient.describeThing(thingRequest)
         println("Thing details:")
         println("Thing name: ${describeResponse.thingName}")
@@ -510,7 +510,7 @@ suspend fun describeThing(thingNameVal: String) {
 
 // snippet-start:[iot.kotlin.create.cert.main]
 suspend fun createCertificate(): String? {
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         val response = iotClient.createKeysAndCertificate()
         val certificatePem = response.certificatePem
         val certificateArn = response.certificateArn
@@ -532,7 +532,7 @@ suspend fun createIoTThing(thingNameVal: String) {
             thingName = thingNameVal
         }
 
-    IotClient { region = "us-east-1" }.use { iotClient ->
+    IotClient.fromEnvironment { region = "us-east-1" }.use { iotClient ->
         iotClient.createThing(createThingRequest)
         println("Created $thingNameVal}")
     }

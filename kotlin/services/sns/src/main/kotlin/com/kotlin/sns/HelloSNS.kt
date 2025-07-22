@@ -21,7 +21,7 @@ suspend fun main() {
 }
 
 suspend fun listTopicsPag() {
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         snsClient
             .listTopicsPaginated(ListTopicsRequest { })
             .transform { it.topics?.forEach { topic -> emit(topic) } }

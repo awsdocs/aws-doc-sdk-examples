@@ -48,7 +48,7 @@ suspend fun updateIntance(
             masterUserPassword = masterUserPasswordVal
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val instanceResponse = rdsClient.modifyDbInstance(request)
         println("The ARN of the modified database is ${instanceResponse.dbInstance?.dbInstanceArn}")
     }

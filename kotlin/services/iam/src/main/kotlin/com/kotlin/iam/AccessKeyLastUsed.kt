@@ -41,7 +41,7 @@ suspend fun getAccessKeyLastUsed(accessId: String?) {
             accessKeyId = accessId
         }
 
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.getAccessKeyLastUsed(request)
         println("Access key was last used on ${response.accessKeyLastUsed?.lastUsedDate}")
     }

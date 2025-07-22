@@ -60,7 +60,7 @@ suspend fun createDocumentClassifier(
             inputDataConfig = config
         }
 
-    ComprehendClient { region = "us-east-1" }.use { comClient ->
+    ComprehendClient.fromEnvironment { region = "us-east-1" }.use { comClient ->
         val resp = comClient.createDocumentClassifier(request)
         val documentClassifierArn = resp.documentClassifierArn
         println("Document Classifier ARN is $documentClassifierArn")

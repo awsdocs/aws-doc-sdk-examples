@@ -27,7 +27,7 @@ suspend fun listAllActivites() {
             maxResults = 10
         }
 
-    SfnClient { region = "us-east-1" }.use { sfnClient ->
+    SfnClient.fromEnvironment { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.listActivities(activitiesRequest)
         response.activities?.forEach { item ->
             println("The activity ARN is ${item.activityArn}")
