@@ -29,15 +29,15 @@ s3-control_CreateJob:
                 - s3control.java2.create_job.async.main
             - description: Create a compliance retention job.
               snippet_tags:
-                - s3control.java2.create_job.compliance.main   
+                - s3control.java2.create_job.compliance.main
             - description: Create a legal hold off job.
               snippet_tags:
-                - s3control.java2.create_job.compliance.main  
+                - s3control.java2.create_job.compliance.main
             - description: Create a new governance retention job.
               snippet_tags:
-                - s3.java2.create_governance_retemtion.main       
+                - s3.java2.create_governance_retemtion.main
   services:
-    s3-control: {CreateJob}    
+    s3-control: {CreateJob}
 s3-control_PutJobTagging:
   languages:
     Java:
@@ -50,7 +50,7 @@ s3-control_PutJobTagging:
               snippet_tags:
                 - s3control.java2.job.put.tags.main
   services:
-    s3-control: {PutJobTagging}  
+    s3-control: {PutJobTagging}
 s3-control_DescribeJob:
   languages:
     Java:
@@ -63,7 +63,7 @@ s3-control_DescribeJob:
               snippet_tags:
                 - s3control.java2.describe_job.main
   services:
-    s3-control: {DescribeJob}  
+    s3-control: {DescribeJob}
 s3-control_DeleteJobTagging:
   languages:
     Java:
@@ -76,7 +76,7 @@ s3-control_DeleteJobTagging:
               snippet_tags:
                 - s3control.java2.del_job_tagging.main
   services:
-    s3-control: {DeleteJobTagging}  
+    s3-control: {DeleteJobTagging}
 s3-control_GetJobTagging:
   languages:
     Java:
@@ -89,7 +89,7 @@ s3-control_GetJobTagging:
               snippet_tags:
                 - s3control.java2.get_job_tagging.main
   services:
-    s3-control: {GetJobTagging}   
+    s3-control: {GetJobTagging}
 s3-control_UpdateJobStatus:
   languages:
     Java:
@@ -102,7 +102,7 @@ s3-control_UpdateJobStatus:
               snippet_tags:
                 - s3control.java2.cancel_job.main
   services:
-    s3-control: {UpdateJobStatus}   
+    s3-control: {UpdateJobStatus}
 s3-control_UpdateJobPriority:
   languages:
     Java:
@@ -115,7 +115,7 @@ s3-control_UpdateJobPriority:
               snippet_tags:
                 - s3control.java2.update_job.main
   services:
-    s3-control: {UpdateJobPriority}   
+    s3-control: {UpdateJobPriority}
 s3-control_Basics:
   synopsis: learn core operations for &S3Control;.
   category: Basics
@@ -132,5 +132,24 @@ s3-control_Basics:
             - description: An action class that wraps operations.
               snippet_tags:
                 - s3control.java2.job.actions.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/batch
+          sdkguide:
+          excerpts:
+            - description: Learn S3 Batch Basics Scenario.
+              snippet_tags:
+                - python.example_code.s3control.Batch.scenario
   services:
-    s3-control: {CreateJob, DeleteJobTagging, DescribeJob, GetJobTagging, ListJobs, PutJobTagging, UpdateJobPriority, UpdateJobStatus}
+    s3-control:
+      {
+        CreateJob,
+        DeleteJobTagging,
+        DescribeJob,
+        GetJobTagging,
+        ListJobs,
+        PutJobTagging,
+        UpdateJobPriority,
+        UpdateJobStatus,
+      }
