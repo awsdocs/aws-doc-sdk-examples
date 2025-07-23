@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.s3.S3Batch.scenario]
+# snippet-start:[python.example_code.s3control.Batch.scenario]
 """
 This module provides functionality for AWS S3 Batch Operations.
 It includes classes for managing CloudFormation stacks and S3 batch scenarios.
@@ -631,4 +631,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-# snippet-end:[python.example_code.s3.S3Batch.scenario]
+# snippet-end:[python.example_code.s3control.Batch.scenario]
