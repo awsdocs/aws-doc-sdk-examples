@@ -3714,9 +3714,11 @@ s3_CreatePresignedPost:
           github: dotnetv4/S3
           excerpts:
             - description: Create a presigned POST URL with conditions
+              genai: most
               snippet_tags:
                 - S3.dotnetv4.CreatePresignedPostAsync
             - description: Example using presigned POST
+              genai: most
               snippet_tags:
                 - S3.dotnetv4.CreatePresignedPost
   services:
@@ -3732,6 +3734,7 @@ s3_Scenario_CreatePresignedPost:
           github: dotnetv4/S3/Scenarios/S3_CreatePresignedPost
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - S3.dotnetv4.CreatePresignedPostScenario
   services:
