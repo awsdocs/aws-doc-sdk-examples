@@ -3,6 +3,7 @@
 
 namespace S3Scenarios;
 
+// snippet-start:[S3.dotnetv4.CreatePresignedPostScenario]
 /// <summary>
 /// Scenario demonstrating the complete workflow for presigned POST URLs:
 /// 1. Create an S3 bucket
@@ -251,3 +252,4 @@ public class CreatePresignedPostScenario
         }
     }
 }
+// snippet-end:[S3.dotnetv4.CreatePresignedPostScenario]

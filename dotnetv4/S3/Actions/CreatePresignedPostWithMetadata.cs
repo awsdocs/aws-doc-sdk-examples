@@ -3,6 +3,7 @@
 
 namespace S3Actions;
 
+// snippet-start:[S3.dotnetv4.CreatePresignedPostWithMetadata]
 /// <summary>
 /// Demonstrates how to create an Amazon S3 presigned POST URL with metadata.
 /// This example shows how to add custom metadata to objects uploaded via presigned POST URLs.
@@ -107,3 +108,4 @@ public class CreatePresignedPostWithMetadata
         }
     }
 }
+// snippet-end:[S3.dotnetv4.CreatePresignedPostWithMetadata]

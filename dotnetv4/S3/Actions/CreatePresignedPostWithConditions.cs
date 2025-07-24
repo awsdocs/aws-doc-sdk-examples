@@ -3,6 +3,7 @@
 
 namespace S3Actions;
 
+// snippet-start:[S3.dotnetv4.CreatePresignedPostWithConditions]
 /// <summary>
 /// Demonstrates how to create Amazon S3 presigned POST URLs with conditions.
 /// This example shows how to add restrictions to uploads such as content type and size limits.
@@ -109,3 +110,4 @@ public class CreatePresignedPostWithConditions
         }
     }
 }
+// snippet-end:[S3.dotnetv4.CreatePresignedPostWithConditions]

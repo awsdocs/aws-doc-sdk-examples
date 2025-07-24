@@ -3,6 +3,7 @@
 
 namespace S3Actions;
 
+// snippet-start:[S3.dotnetv4.CreatePresignedPostWithFilename]
 /// <summary>
 /// Demonstrates how to create Amazon S3 presigned POST URLs with the ${filename} variable.
 /// This example shows how to preserve the original filename when uploading files to S3.
@@ -100,3 +101,4 @@ public class CreatePresignedPostWithFilename
         }
     }
 }
+// snippet-end:[S3.dotnetv4.CreatePresignedPostWithFilename]
