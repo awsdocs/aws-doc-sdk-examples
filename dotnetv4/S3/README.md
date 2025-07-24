@@ -40,7 +40,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [](Scenarios/S3_CreatePresignedPost/CreatePresignedPostScenario.cs)
+- [](Scenarios/S3_CreatePresignedPost/CreatePresignedPostBasics.cs)
 
 
 <!--custom.examples.start-->

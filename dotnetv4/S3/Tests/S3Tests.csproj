@@ -26,6 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Actions\S3Actions.csproj" />
-	<ProjectReference Include="..\Scenarios\S3_CreatePresignedPost\CreatePresignedPostScenario.csproj" />
+	<ProjectReference Include="..\Scenarios\S3_CreatePresignedPost\Basics.csproj" />
   </ItemGroup>
 </Project>

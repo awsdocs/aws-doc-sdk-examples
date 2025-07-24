@@ -3,7 +3,7 @@
 
 namespace S3Scenarios;
 
-// snippet-start:[S3.dotnetv4.CreatePresignedPostScenario]
+// snippet-start:[S3.dotnetv4.CreatePresignedPostBasics]
 /// <summary>
 /// Scenario demonstrating the complete workflow for presigned POST URLs:
 /// 1. Create an S3 bucket
@@ -11,7 +11,7 @@ namespace S3Scenarios;
 /// 3. Upload a file using the presigned POST URL
 /// 4. Clean up resources
 /// </summary>
-public class CreatePresignedPostScenario
+public class CreatePresignedPostBasics
 {
     private readonly S3Wrapper _s3Wrapper;
     private readonly ILogger _logger;
@@ -27,7 +27,7 @@ public class CreatePresignedPostScenario
     /// <param name="logger">The logger to use.</param>
     /// <param name="uiMethods">The UI methods to use.</param>
     /// <param name="isInteractive">Whether to run in interactive mode.</param>
-    public CreatePresignedPostScenario(S3Wrapper s3Wrapper, ILogger logger, UiMethods uiMethods, bool isInteractive)
+    public CreatePresignedPostBasics(S3Wrapper s3Wrapper, ILogger logger, UiMethods uiMethods, bool isInteractive)
     {
         _s3Wrapper = s3Wrapper;
         _logger = logger;
@@ -120,7 +120,7 @@ public class CreatePresignedPostScenario
         Console.WriteLine($"Creating presigned POST URL for {_bucketName}/{_objectKey}");
         Console.WriteLine($"Expiration: {expiration} UTC");
         
-        var response = await _s3Wrapper.CreatePresignedPostAsync(_bucketName!, _objectKey, expiration);
+        var response = await _s3Wrapper.CreatePresignedPostWithConditionsAsync(_bucketName!, _objectKey, expiration);
         
         Console.WriteLine("Successfully created presigned POST URL");
         return response;
@@ -251,5 +251,16 @@ public class CreatePresignedPostScenario
             }
         }
     }
+
+    public static void DisplayPresignedPostFields(CreatePresignedPostResponse response)
+    {
+        Console.WriteLine($"Presigned POST URL: {response.Url}");
+        Console.WriteLine("Form fields to include:");
+        
+        foreach (var field in response.Fields)
+        {
+            Console.WriteLine($"  {field.Key}: {field.Value}");
+        }
+    }
 }
-// snippet-end:[S3.dotnetv4.CreatePresignedPostScenario]
+// snippet-end:[S3.dotnetv4.CreatePresignedPostBasics]

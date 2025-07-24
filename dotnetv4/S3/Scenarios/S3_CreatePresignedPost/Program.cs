@@ -37,8 +37,8 @@ public class Program
         var uiMethods = new UiMethods();
         
         // Create the scenario instance
-        var logger = loggerFactory.CreateLogger<CreatePresignedPostScenario>();
-        var scenario = new CreatePresignedPostScenario(s3Wrapper, logger, uiMethods, isInteractive);
+        var logger = loggerFactory.CreateLogger<CreatePresignedPostBasics>();
+        var scenario = new CreatePresignedPostBasics(s3Wrapper, logger, uiMethods, isInteractive);
         
         // Run the scenario
         await scenario.RunAsync();

@@ -21,7 +21,7 @@ public class S3WrapperTests
     public async Task TestScenario()
     {
         // Arrange.
-        var loggerScenarioMock = new Mock<ILogger<S3Scenarios.CreatePresignedPostScenario>>();
+        var loggerScenarioMock = new Mock<ILogger<S3Scenarios.CreatePresignedPostBasics>>();
         var loggerWrapperMock = new Mock<ILogger<S3Wrapper>>();
         var uiMethods = new S3Scenarios.UiMethods();
         bool isInteractive = false;
@@ -29,7 +29,7 @@ public class S3WrapperTests
         _client = new AmazonS3Client();
         _s3Wrapper = new S3Wrapper(_client, loggerWrapperMock.Object);
         
-        var scenario = new S3Scenarios.CreatePresignedPostScenario(
+        var scenario = new S3Scenarios.CreatePresignedPostBasics(
             _s3Wrapper, 
             loggerScenarioMock.Object, 
             uiMethods, 
