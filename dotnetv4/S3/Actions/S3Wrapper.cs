@@ -3,7 +3,6 @@
 
 namespace S3Actions;
 
-// snippet-start:[S3.dotnetv4.S3Wrapper]
 /// <summary>
 /// Wrapper methods for common Amazon Simple Storage Service (Amazon S3) 
 /// operations.
@@ -255,4 +254,3 @@ public class S3Wrapper
         return await reader.ReadToEndAsync();
     }
 }
-// snippet-end:[S3.dotnetv4.S3Wrapper]

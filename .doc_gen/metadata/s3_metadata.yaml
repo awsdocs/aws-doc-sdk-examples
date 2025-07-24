@@ -3705,3 +3705,31 @@ s3_Scenario_DoesBucketExist:
                 - s3.java2.does-bucket-exist-main
   services:
     s3: {GetBucketAcl}
+    
+s3_CreatePresignedPost:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/S3
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv4.CreatePresignedPost
+  services:
+    s3: {CreatePresignedPost}
+
+s3_Scenario_CreatePresignedPost:
+  title: Create and use presigned POST URLs
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/S3/Scenarios/S3_CreatePresignedPost
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv4.CreatePresignedPostScenario
+  services:
+    s3: {CreateBucket, CreatePresignedPost, GetObjectMetadata, DeleteBucket}

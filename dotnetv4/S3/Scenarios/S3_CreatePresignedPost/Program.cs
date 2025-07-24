@@ -3,7 +3,6 @@
 
 namespace S3Scenarios;
 
-// snippet-start:[S3.dotnetv4.CreatePresignedPostProgram]
 /// <summary>
 /// Main entry point for the scenario program.
 /// </summary>
@@ -45,4 +44,3 @@ public class Program
         await scenario.RunAsync();
     }
 }
-// snippet-end:[S3.dotnetv4.CreatePresignedPostProgram]
