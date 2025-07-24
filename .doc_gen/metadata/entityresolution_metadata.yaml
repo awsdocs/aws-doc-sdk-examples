@@ -21,7 +21,7 @@ entityresolution_Hello:
               snippet_tags:
                 - javascript.v3.entity-resolution.hello
   services:
-    entityresolution: {listMatchingWorkflows}
+    entityresolution: {ListMatchingWorkflows}
 entityresolution_DeleteSchemaMapping:
   languages:
     Java:
