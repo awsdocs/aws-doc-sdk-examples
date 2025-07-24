@@ -33,7 +33,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreatePresignedPost](Actions/CreatePresignedPost.cs#L6)
+- [CreatePresignedPost](Actions/S3Wrapper.cs#L71)
 
 ### Scenarios
 

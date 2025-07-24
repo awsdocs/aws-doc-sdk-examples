@@ -60,53 +60,6 @@ public class S3Wrapper
     }
 
     /// <summary>
-    /// Create a presigned POST URL for uploading a file to an S3 bucket.
-    /// </summary>
-    /// <param name="bucketName">The name of the bucket.</param>
-    /// <param name="objectKey">The object key (path) where the uploaded file will be stored.</param>
-    /// <param name="expires">When the presigned URL expires.</param>
-    /// <returns>A CreatePresignedPostResponse object with URL and form fields.</returns>
-    public async Task<CreatePresignedPostResponse> CreatePresignedPostAsync(
-        string bucketName, string objectKey, DateTime expires)
-    {
-        var request = new CreatePresignedPostRequest
-        {
-            BucketName = bucketName,
-            Key = objectKey,
-            Expires = expires
-        };
-
-        return await _s3Client.CreatePresignedPostAsync(request);
-    }
-
-    /// <summary>
-    /// Create a presigned POST URL with custom fields.
-    /// </summary>
-    /// <param name="bucketName">The name of the bucket.</param>
-    /// <param name="objectKey">The object key (path) where the uploaded file will be stored.</param>
-    /// <param name="expires">When the presigned URL expires.</param>
-    /// <param name="fields">Dictionary of fields to add to the form.</param>
-    /// <returns>A CreatePresignedPostResponse object with URL and form fields.</returns>
-    public async Task<CreatePresignedPostResponse> CreatePresignedPostWithFieldsAsync(
-        string bucketName, string objectKey, DateTime expires, Dictionary<string, string> fields)
-    {
-        var request = new CreatePresignedPostRequest
-        {
-            BucketName = bucketName,
-            Key = objectKey,
-            Expires = expires
-        };
-
-        // Add custom fields
-        foreach (var field in fields)
-        {
-            request.Fields.Add(field.Key, field.Value);
-        }
-
-        return await _s3Client.CreatePresignedPostAsync(request);
-    }
-
-    /// <summary>
     /// Create a presigned POST URL with conditions.
     /// </summary>
     /// <param name="bucketName">The name of the bucket.</param>
@@ -115,6 +68,7 @@ public class S3Wrapper
     /// <param name="fields">Dictionary of fields to add to the form.</param>
     /// <param name="conditions">List of conditions to apply.</param>
     /// <returns>A CreatePresignedPostResponse object with URL and form fields.</returns>
+    // snippet-start:[S3.dotnetv4.CreatePresignedPostAsync]
     public async Task<CreatePresignedPostResponse> CreatePresignedPostWithConditionsAsync(
         string bucketName, string objectKey, DateTime expires, 
         Dictionary<string, string>? fields = null, List<S3PostCondition>? conditions = null)
@@ -146,26 +100,7 @@ public class S3Wrapper
 
         return await _s3Client.CreatePresignedPostAsync(request);
     }
-
-    /// <summary>
-    /// Upload a file to an S3 bucket.
-    /// </summary>
-    /// <param name="bucketName">The name of the bucket.</param>
-    /// <param name="objectKey">The object key where the file will be stored.</param>
-    /// <param name="filePath">The path to the file to upload.</param>
-    /// <returns>The response from the PutObjectAsync call.</returns>
-    public async Task<PutObjectResponse> UploadFileAsync(
-        string bucketName, string objectKey, string filePath)
-    {
-        var request = new PutObjectRequest
-        {
-            BucketName = bucketName,
-            Key = objectKey,
-            FilePath = filePath
-        };
-
-        return await _s3Client.PutObjectAsync(request);
-    }
+    // snippet-end:[S3.dotnetv4.CreatePresignedPostAsync]
 
     /// <summary>
     /// Delete an object from an S3 bucket.
@@ -221,36 +156,5 @@ public class S3Wrapper
         };
 
         return await _s3Client.GetObjectMetadataAsync(request);
-    }
-
-    /// <summary>
-    /// Get an object from an S3 bucket.
-    /// </summary>
-    /// <param name="bucketName">The name of the bucket.</param>
-    /// <param name="objectKey">The object key.</param>
-    /// <returns>The response from the GetObjectAsync call.</returns>
-    public async Task<GetObjectResponse> GetObjectAsync(
-        string bucketName, string objectKey)
-    {
-        var request = new GetObjectRequest
-        {
-            BucketName = bucketName,
-            Key = objectKey
-        };
-
-        return await _s3Client.GetObjectAsync(request);
-    }
-
-    /// <summary>
-    /// Read the content of an S3 object as a string.
-    /// </summary>
-    /// <param name="bucketName">The name of the bucket.</param>
-    /// <param name="objectKey">The object key.</param>
-    /// <returns>The object content as a string.</returns>
-    public async Task<string> ReadObjectContentAsync(string bucketName, string objectKey)
-    {
-        var response = await GetObjectAsync(bucketName, objectKey);
-        using var reader = new StreamReader(response.ResponseStream);
-        return await reader.ReadToEndAsync();
     }
 }
