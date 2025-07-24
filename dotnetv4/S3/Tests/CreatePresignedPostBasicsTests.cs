@@ -5,15 +5,15 @@ namespace S3Tests;
 
 /// <summary>
 /// Integration tests for the Amazon Simple Storage Service (Amazon S3)
-/// presigned POST URL scenario.
+/// presigned POST URL scenario (CreatePresignedPostBasics).
 /// </summary>
-public class S3WrapperTests
+public class CreatePresignedPostBasicsTests
 {
     private AmazonS3Client _client = null!;
     private S3Wrapper _s3Wrapper = null!;
 
     /// <summary>
-    /// Verifies the scenario with an integration test. No errors should be logged.
+    /// Verifies the presigned POST URL scenario with an integration test. No errors should be logged.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
@@ -24,17 +24,16 @@ public class S3WrapperTests
         var loggerScenarioMock = new Mock<ILogger<S3Scenarios.CreatePresignedPostBasics>>();
         var loggerWrapperMock = new Mock<ILogger<S3Wrapper>>();
         var uiMethods = new S3Scenarios.UiMethods();
-        bool isInteractive = false;
-
+        
         _client = new AmazonS3Client();
         _s3Wrapper = new S3Wrapper(_client, loggerWrapperMock.Object);
         
-        var scenario = new S3Scenarios.CreatePresignedPostBasics(
-            _s3Wrapper, 
-            loggerScenarioMock.Object, 
-            uiMethods, 
-            isInteractive);
-
+        // Set up the static fields directly
+        S3Scenarios.CreatePresignedPostBasics._logger = loggerScenarioMock.Object;
+        S3Scenarios.CreatePresignedPostBasics._s3Wrapper = _s3Wrapper;
+        S3Scenarios.CreatePresignedPostBasics._uiMethods = uiMethods;
+        S3Scenarios.CreatePresignedPostBasics._isInteractive = false;
+        
         // Set up verification for error logging.
         loggerScenarioMock.Setup(logger => logger.Log(
             It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
@@ -53,7 +52,8 @@ public class S3WrapperTests
         ));
 
         // Act.
-        await scenario.RunAsync();
+        // Call the static Main method with --non-interactive flag to match previous behavior
+        await S3Scenarios.CreatePresignedPostBasics.Main(new string[] { "--non-interactive" });
 
         // Assert no exceptions or errors logged.
         loggerScenarioMock.Verify(

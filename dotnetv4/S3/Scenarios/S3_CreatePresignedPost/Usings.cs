@@ -7,11 +7,10 @@ global using System.IO;
 global using System.Net;
 global using System.Net.Http;
 global using System.Net.Http.Headers;
-global using System.Text;
 global using System.Threading.Tasks;
 global using Amazon.S3;
 global using Amazon.S3.Model;
-global using Amazon.S3.Util;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.DependencyInjection;
 global using S3Actions;
+

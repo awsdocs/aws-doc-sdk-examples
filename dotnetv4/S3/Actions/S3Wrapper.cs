@@ -24,6 +24,15 @@ public class S3Wrapper
     }
 
     /// <summary>
+    /// Get the Amazon S3 client.
+    /// </summary>
+    /// <returns>The Amazon S3 client.</returns>
+    public IAmazonS3 GetS3Client()
+    {
+        return _s3Client;
+    }
+
+    /// <summary>
     /// Create a bucket and wait until it's ready to use.
     /// </summary>
     /// <param name="bucketName">The name of the bucket to create.</param>
@@ -58,49 +67,6 @@ public class S3Wrapper
         
         return bucketName;
     }
-
-    /// <summary>
-    /// Create a presigned POST URL with conditions.
-    /// </summary>
-    /// <param name="bucketName">The name of the bucket.</param>
-    /// <param name="objectKey">The object key (path) where the uploaded file will be stored.</param>
-    /// <param name="expires">When the presigned URL expires.</param>
-    /// <param name="fields">Dictionary of fields to add to the form.</param>
-    /// <param name="conditions">List of conditions to apply.</param>
-    /// <returns>A CreatePresignedPostResponse object with URL and form fields.</returns>
-    // snippet-start:[S3.dotnetv4.CreatePresignedPostAsync]
-    public async Task<CreatePresignedPostResponse> CreatePresignedPostWithConditionsAsync(
-        string bucketName, string objectKey, DateTime expires, 
-        Dictionary<string, string>? fields = null, List<S3PostCondition>? conditions = null)
-    {
-        var request = new CreatePresignedPostRequest
-        {
-            BucketName = bucketName,
-            Key = objectKey,
-            Expires = expires
-        };
-
-        // Add custom fields if provided
-        if (fields != null)
-        {
-            foreach (var field in fields)
-            {
-                request.Fields.Add(field.Key, field.Value);
-            }
-        }
-
-        // Add conditions if provided
-        if (conditions != null)
-        {
-            foreach (var condition in conditions)
-            {
-                request.Conditions.Add(condition);
-            }
-        }
-
-        return await _s3Client.CreatePresignedPostAsync(request);
-    }
-    // snippet-end:[S3.dotnetv4.CreatePresignedPostAsync]
 
     /// <summary>
     /// Delete an object from an S3 bucket.
