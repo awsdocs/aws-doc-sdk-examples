@@ -93,7 +93,7 @@ public class CreatePresignedPostWithConditions
             PresignedPostUtils.DisplayPresignedPostFields(response);
 
             Console.WriteLine("\nThis example adds these restrictions:");
-            Console.WriteLine("  • Content-Type must start with 'text/' (enforced by policy)");
+            Console.WriteLine("  • Content-Type must start with 'text/plain' (enforced by policy)");
             Console.WriteLine("  • File size must be between 1 byte and 1 MB (enforced by policy)");
             Console.WriteLine("\nIf these conditions are not met, the upload will be rejected.");
             
