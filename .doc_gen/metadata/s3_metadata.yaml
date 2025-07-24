@@ -3736,6 +3736,6 @@ s3_Scenario_CreatePresignedPost:
             - description:
               genai: most
               snippet_tags:
-                - S3.dotnetv4.CreatePresignedPostScenario
+                - S3.dotnetv4.CreatePresignedPostBasics
   services:
     s3: {CreateBucket, CreatePresignedPost, GetObjectMetadata, DeleteBucket}
