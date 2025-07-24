@@ -145,28 +145,6 @@ dotnet run
 
 > Note: The cleaning step is important when switching between different examples to ensure the new StartupObject setting takes effect. If you're building a specific example for the first time in a new terminal session, you might be able to skip the clean step.
 
-#### To build and run the simple HelloS3 example:
-
-1. Navigate to the Actions folder:
-   ```
-   cd Actions
-   ```
-
-```bash
-# If switching between examples, clean first to clear previous settings
-dotnet clean
-
-# Build with the specific StartupObject (if there is a HelloS3 example)
-dotnet build /p:StartupObject=S3Actions.HelloS3
-
-# Run the example
-dotnet run
-```
-
-The HelloS3 example will:
-- List your S3 buckets
-- Display basic information about using presigned POST URLs
-
 ## Additional resources
 
 - [Amazon S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html)
