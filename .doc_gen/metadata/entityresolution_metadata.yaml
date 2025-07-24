@@ -42,7 +42,7 @@ entityresolution_DeleteSchemaMapping:
                 - entity-resolution.JavaScriptv3.delete.schema-mapping
   services:
     entityresolution: {DeleteSchemaMapping}
-entityresolution_TagEntityResource:
+entityresolution_TagResource:
   languages:
     Java:
       versions:
@@ -61,7 +61,7 @@ entityresolution_TagEntityResource:
               snippet_tags:
                 - entity-resolution.JavaScriptv3.tag.entity-resource
   services:
-    entityresolution: {TagEntityResource}
+    entityresolution: {TagResource}
 entityresolution_CreateMatchingWorkflow:
   languages:
     Java:
