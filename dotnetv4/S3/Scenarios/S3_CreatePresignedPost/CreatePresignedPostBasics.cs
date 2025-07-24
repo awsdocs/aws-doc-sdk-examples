@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+using Microsoft.Extensions.Hosting;
+
 namespace S3Scenarios;
 
 // snippet-start:[S3.dotnetv4.CreatePresignedPostBasics]
@@ -13,34 +15,50 @@ namespace S3Scenarios;
 /// </summary>
 public class CreatePresignedPostBasics
 {
-    private readonly S3Wrapper _s3Wrapper;
-    private readonly ILogger _logger;
-    private readonly UiMethods _uiMethods;
-    private readonly bool _isInteractive;
-    private string? _bucketName;
-    private string? _objectKey;
+    public static ILogger<CreatePresignedPostBasics> _logger = null!;
+    public static S3Wrapper _s3Wrapper = null!;
+    public static UiMethods _uiMethods = null!;
+    public static bool _isInteractive = true;
+    public static string? _bucketName;
+    public static string? _objectKey;
 
     /// <summary>
-    /// Constructor for the scenario class.
+    /// Set up the services and logging.
     /// </summary>
-    /// <param name="s3Wrapper">The S3Wrapper instance to use.</param>
-    /// <param name="logger">The logger to use.</param>
-    /// <param name="uiMethods">The UI methods to use.</param>
-    /// <param name="isInteractive">Whether to run in interactive mode.</param>
-    public CreatePresignedPostBasics(S3Wrapper s3Wrapper, ILogger logger, UiMethods uiMethods, bool isInteractive)
+    /// <param name="host">The IHost instance.</param>
+    public static void SetUpServices(IHost host)
     {
-        _s3Wrapper = s3Wrapper;
-        _logger = logger;
-        _uiMethods = uiMethods;
-        _isInteractive = isInteractive;
+        var loggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.AddConsole();
+        });
+        _logger = new Logger<CreatePresignedPostBasics>(loggerFactory);
+
+        // Now the client is available for injection.
+        _s3Wrapper = host.Services.GetRequiredService<S3Wrapper>();
+        _uiMethods = new UiMethods();
     }
 
     /// <summary>
-    /// Run the scenario steps.
+    /// Perform the actions defined for the Amazon S3 Presigned POST scenario.
     /// </summary>
-    /// <returns>A Task representing the asynchronous operation.</returns>
-    public async Task RunAsync()
+    /// <param name="args">Command line arguments.</param>
+    /// <returns>A Task object.</returns>
+    public static async Task Main(string[] args)
     {
+        // Check for non-interactive mode
+        _isInteractive = !args.Contains("--non-interactive");
+        
+        // Set up dependency injection for Amazon S3
+        using var host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
+            .ConfigureServices((_, services) =>
+                services.AddAWSService<IAmazonS3>()
+                    .AddTransient<S3Wrapper>()
+            )
+            .Build();
+
+        SetUpServices(host);
+        
         try
         {
             // Display overview
@@ -58,7 +76,7 @@ public class CreatePresignedPostBasics
             
             // Step 3: Display URL and fields
             _uiMethods.DisplayTitle("Step 3: Presigned POST URL details");
-            PresignedPostUtils.DisplayPresignedPostFields(response);
+            CreatePresignedPost.DisplayPresignedPostFields(response);
             _uiMethods.PressEnter(_isInteractive);
             
             // Step 4: Upload file
@@ -95,7 +113,7 @@ public class CreatePresignedPostBasics
     /// <summary>
     /// Create an S3 bucket for the scenario.
     /// </summary>
-    private async Task CreateBucketAsync()
+    private static async Task CreateBucketAsync()
     {
         _uiMethods.DisplayTitle("Step 1: Create an S3 bucket");
         
@@ -110,9 +128,57 @@ public class CreatePresignedPostBasics
     }
 
     /// <summary>
+    /// Create a presigned POST URL with conditions.
+    /// </summary>
+    /// <param name="s3Client">The Amazon S3 client.</param>
+    /// <param name="bucketName">The name of the bucket.</param>
+    /// <param name="objectKey">The object key (path) where the uploaded file will be stored.</param>
+    /// <param name="expires">When the presigned URL expires.</param>
+    /// <param name="fields">Dictionary of fields to add to the form.</param>
+    /// <param name="conditions">List of conditions to apply.</param>
+    /// <returns>A CreatePresignedPostResponse object with URL and form fields.</returns>
+    // snippet-start:[S3.dotnetv4.Scenario_CreatePresignedPostAsync]
+    private static async Task<CreatePresignedPostResponse> CreatePresignedPostAsync(
+        IAmazonS3 s3Client,
+        string bucketName, 
+        string objectKey, 
+        DateTime expires, 
+        Dictionary<string, string>? fields = null, 
+        List<S3PostCondition>? conditions = null)
+    {
+        var request = new CreatePresignedPostRequest
+        {
+            BucketName = bucketName,
+            Key = objectKey,
+            Expires = expires
+        };
+
+        // Add custom fields if provided
+        if (fields != null)
+        {
+            foreach (var field in fields)
+            {
+                request.Fields.Add(field.Key, field.Value);
+            }
+        }
+
+        // Add conditions if provided
+        if (conditions != null)
+        {
+            foreach (var condition in conditions)
+            {
+                request.Conditions.Add(condition);
+            }
+        }
+
+        return await s3Client.CreatePresignedPostAsync(request);
+    }
+    // snippet-end:[S3.dotnetv4.Scenario_CreatePresignedPostAsync]
+
+    /// <summary>
     /// Create a presigned POST URL.
     /// </summary>
-    private async Task<CreatePresignedPostResponse> CreatePresignedPostAsync()
+    private static async Task<CreatePresignedPostResponse> CreatePresignedPostAsync()
     {
         _objectKey = "example-upload.txt";
         var expiration = DateTime.UtcNow.AddMinutes(10); // Short expiration for the demo
@@ -120,7 +186,11 @@ public class CreatePresignedPostBasics
         Console.WriteLine($"Creating presigned POST URL for {_bucketName}/{_objectKey}");
         Console.WriteLine($"Expiration: {expiration} UTC");
         
-        var response = await _s3Wrapper.CreatePresignedPostWithConditionsAsync(_bucketName!, _objectKey, expiration);
+        // Get S3 client from S3Wrapper
+        var s3Client = _s3Wrapper.GetS3Client();
+        
+        var response = await CreatePresignedPostAsync(
+            s3Client, _bucketName!, _objectKey, expiration);
         
         Console.WriteLine("Successfully created presigned POST URL");
         return response;
@@ -129,7 +199,7 @@ public class CreatePresignedPostBasics
     /// <summary>
     /// Upload a file using the presigned POST URL.
     /// </summary>
-    private async Task UploadFileAsync(CreatePresignedPostResponse response)
+    private static async Task UploadFileAsync(CreatePresignedPostResponse response)
     {
         
         // Create a temporary test file to upload
@@ -164,7 +234,7 @@ public class CreatePresignedPostBasics
     /// <summary>
     /// Helper method to upload a file using a presigned POST URL.
     /// </summary>
-    private async Task<(bool Success, HttpStatusCode StatusCode, string Response)> UploadFileWithPresignedPostAsync(
+    private static async Task<(bool Success, HttpStatusCode StatusCode, string Response)> UploadFileWithPresignedPostAsync(
         CreatePresignedPostResponse response, 
         string filePath)
     {
@@ -208,7 +278,7 @@ public class CreatePresignedPostBasics
     /// <summary>
     /// Verify that the uploaded file exists in the S3 bucket.
     /// </summary>
-    private async Task VerifyFileExistsAsync()
+    private static async Task VerifyFileExistsAsync()
     {
         _uiMethods.DisplayTitle("Step 5: Verify uploaded file exists");
         
@@ -233,7 +303,7 @@ public class CreatePresignedPostBasics
     /// <summary>
     /// Clean up resources created by the scenario.
     /// </summary>
-    private async Task CleanupAsync()
+    private static async Task CleanupAsync()
     {
         
         if (!string.IsNullOrEmpty(_bucketName))
@@ -252,15 +322,5 @@ public class CreatePresignedPostBasics
         }
     }
 
-    public static void DisplayPresignedPostFields(CreatePresignedPostResponse response)
-    {
-        Console.WriteLine($"Presigned POST URL: {response.Url}");
-        Console.WriteLine("Form fields to include:");
-        
-        foreach (var field in response.Fields)
-        {
-            Console.WriteLine($"  {field.Key}: {field.Value}");
-        }
-    }
 }
 // snippet-end:[S3.dotnetv4.CreatePresignedPostBasics]
