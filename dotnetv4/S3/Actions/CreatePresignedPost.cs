@@ -5,41 +5,63 @@ namespace S3Actions;
 
 // snippet-start:[S3.dotnetv4.CreatePresignedPost]
 /// <summary>
-/// Demonstrates how to use Amazon Simple Storage Service (Amazon S3)
-/// CreatePresignedPost functionality to generate a pre-signed URL for browser-based uploads.
+/// Demonstrates how to create Amazon S3 presigned POST URLs with both conditions and filename variables.
+/// This example shows how to add restrictions to uploads and preserve original filenames.
 /// </summary>
 public class CreatePresignedPost
 {
     /// <summary>
-    /// Create a basic presigned POST URL.
+    /// Create a presigned POST URL with both filename variable and conditions.
     /// </summary>
     /// <param name="s3Wrapper">The S3Wrapper instance to use.</param>
     /// <param name="logger">The logger to use.</param>
-    /// <param name="bucketName">The name of the bucket where the file will be uploaded.</param>
-    /// <param name="objectKey">The object key (path) where the file will be stored.</param>
+    /// <param name="bucketName">The name of the bucket.</param>
+    /// <param name="keyPrefix">The prefix for the key, final key will be prefix + actual filename.</param>
     /// <returns>A CreatePresignedPostResponse containing the URL and form fields.</returns>
-    public static async Task<CreatePresignedPostResponse> CreateBasicPresignedPost(
-        S3Wrapper s3Wrapper, 
-        ILogger logger, 
-        string bucketName, 
-        string objectKey)
+    public static async Task<CreatePresignedPostResponse> CreateWithFilenameAndConditions(
+        S3Wrapper s3Wrapper,
+        ILogger logger,
+        string bucketName,
+        string keyPrefix)
     {
-        // Set expiration time (maximum is 7 days from now)
-        var expiration = DateTime.UtcNow.AddHours(1); // 1 hour expiration
-
-        logger.LogInformation("Creating presigned POST URL for {bucket}/{key} with expiration {expiration}", 
-            bucketName, objectKey, expiration);
-
-        var response = await s3Wrapper.CreatePresignedPostAsync(bucketName, objectKey, expiration);
+        var expiration = DateTime.UtcNow.AddHours(1);
         
-        logger.LogInformation("Successfully created presigned POST URL: {url}", response.Url);
+        // Using "${filename}" placeholder in the key lets the browser replace it with the actual filename
+        string objectKey = keyPrefix + "${filename}";
         
+        // Add custom metadata and fields
+        var fields = new Dictionary<string, string>
+        {
+            // Add a custom metadata field
+            { "x-amz-meta-uploaded-by", "dotnet-sdk-example" },
+            
+            // Return HTTP 201 on successful upload
+            { "success_action_status", "201" },
+            
+            // Set the content type
+            { "Content-Type", "text/plain" }
+        };
+        
+        // Add policy conditions
+        var conditions = new List<S3PostCondition>
+        {   
+            // File size must be between 1 byte and 1 MB
+            S3PostCondition.ContentLengthRange(1, 1048576)
+        };
+        
+        logger.LogInformation("Creating presigned POST URL with filename variable and conditions for {bucket}/{key}", 
+            bucketName, objectKey);
+            
+        var response = await s3Wrapper.CreatePresignedPostWithConditionsAsync(
+            bucketName, objectKey, expiration, fields, conditions);
+        
+        logger.LogInformation("Successfully created presigned POST URL with filename variable and conditions");
+            
         return response;
     }
 
-
     /// <summary>
-    /// Main method that demonstrates the CreatePresignedPost functionality.
+    /// Main method that demonstrates creating and using presigned POST URLs with combined features.
     /// </summary>
     /// <param name="args">Command line arguments. Not used in this example.</param>
     /// <returns>Async task.</returns>
@@ -61,8 +83,8 @@ public class CreatePresignedPost
         // Create the wrapper instance
         var s3Wrapper = new S3Wrapper(s3Client, loggerFactory.CreateLogger<S3Wrapper>());
         
-        Console.WriteLine("Amazon S3 CreatePresignedPost Basic Example");
-        Console.WriteLine("==========================================");
+        Console.WriteLine("Amazon S3 CreatePresignedPost Example");
+        Console.WriteLine("===================================");
 
         try
         {
@@ -70,15 +92,23 @@ public class CreatePresignedPost
             Console.WriteLine($"Using bucket: {bucketName}");
             Console.WriteLine("Note: You must have an existing bucket with this name or create one first.");
 
-            // Create a simple example object key
-            string objectKey = "example-upload.txt";
+            // Create a key prefix for this example
+            string keyPrefix = "uploads/";
 
-            // Generate the presigned POST URL
-            Console.WriteLine("\nCreating a presigned POST URL...");
-            var response = await CreateBasicPresignedPost(s3Wrapper, logger, bucketName, objectKey);
+            // Generate the presigned POST URL with combined features
+            Console.WriteLine("\nCreating a presigned POST URL with both filename preservation and upload restrictions...");
+            var response = await CreateWithFilenameAndConditions(s3Wrapper, logger, bucketName, keyPrefix);
             
-            // Display the URL and fields that would be needed in an HTML form
+            // Display the URL and fields
+            Console.WriteLine("\nPresigned POST URL with combined features created successfully:");
             PresignedPostUtils.DisplayPresignedPostFields(response);
+
+            Console.WriteLine("\nThis example combines multiple features:");
+            Console.WriteLine("  • Uses ${filename} to preserve the original filename in the 'uploads/' prefix");
+            Console.WriteLine("  • Adds custom metadata (x-amz-meta-uploaded-by)");
+            Console.WriteLine("  • Sets success_action_status to return HTTP 201 on success");
+            Console.WriteLine("  • Restricts content type to text/plain");
+            Console.WriteLine("  • Limits file size to between 1 byte and 1 MB");
             
             Console.WriteLine("\nExample completed successfully.");
         }
