@@ -9,12 +9,55 @@ import os
 from difflib import unified_diff
 from enum import Enum
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Generator, Callable
 
 from render import Renderer, RenderStatus, MissingMetadataError
 from scanner import Scanner
 
 from aws_doc_sdk_examples_tools.doc_gen import DocGen
+from aws_doc_sdk_examples_tools.metadata_errors import MetadataError
+from collections import defaultdict
+import re
+
+# Folders to exclude from processing (can be extended as needed)
+EXCLUDED_FOLDERS = {'.kiro', '.git', 'node_modules', '__pycache__'}
+
+
+def apply_folder_exclusion_patches():
+    """
+    Apply patches to exclude specified folders from processing.
+    This integrates folder exclusion as a core feature.
+    """
+    from aws_doc_sdk_examples_tools import file_utils, validator_config
+    from aws_doc_sdk_examples_tools.fs import Fs, PathFs
+
+    def patched_skip(path: Path) -> bool:
+        """Enhanced skip function that ignores specified folders."""
+        # Check if path contains any excluded folders
+        if any(excluded_folder in path.parts for excluded_folder in EXCLUDED_FOLDERS):
+            return True
+        
+        # Call original skip logic
+        return path.suffix.lower() not in validator_config.EXT_LOOKUP or path.name in validator_config.IGNORE_FILES
+
+    def patched_get_files(
+        root: Path, skip: Callable[[Path], bool] = lambda _: False, fs: Fs = PathFs()
+    ) -> Generator[Path, None, None]:
+        """Enhanced get_files that uses our patched skip function."""
+        for path in file_utils.walk_with_gitignore(root, fs=fs):
+            if not patched_skip(path):
+                yield path
+
+    # Apply the patches
+    validator_config.skip = patched_skip
+    file_utils.get_files = patched_get_files
+    
+    excluded_list = ', '.join(sorted(EXCLUDED_FOLDERS))
+    print(f"Applied folder exclusion: {excluded_list} folders excluded")
+
+
+# Apply folder exclusion patches when module is imported
+apply_folder_exclusion_patches()
 
 
 # Default to not using Rich
@@ -26,11 +69,118 @@ if "USE_RICH" not in os.environ:
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO").upper(), force=True)
 
 
+class UnmatchedSnippetTagError(MetadataError):
+    def __init__(self, file, id, tag=None, line=None, tag_type=None):
+        super().__init__(file=file, id=id)
+        self.tag = tag
+        self.line = line
+        self.tag_type = tag_type  # 'start' or 'end'
+    
+    def message(self):
+        return f"Unmatched snippet-{self.tag_type} tag '{self.tag}' at line {self.line}"
+
+
+class DuplicateSnippetTagError(MetadataError):
+    def __init__(self, file, id, tag=None, line=None):
+        super().__init__(file=file, id=id)
+        self.tag = tag
+        self.line = line
+    
+    def message(self):
+        return f"Duplicate snippet tag '{self.tag}' found at line {self.line}"
+
+
+def validate_snippet_tags(doc_gen: DocGen):
+    """Validate snippet-start/snippet-end pairs across all files."""
+    errors = []
+    
+    # We need to scan files directly since DocGen.snippets only contains valid pairs
+    from aws_doc_sdk_examples_tools.file_utils import get_files
+    from aws_doc_sdk_examples_tools.validator_config import skip
+    
+    for file_path in get_files(doc_gen.root, skip, fs=doc_gen.fs):
+        try:
+            content = doc_gen.fs.read(file_path)
+            lines = content.splitlines()
+            
+            snippet_starts = {}  # Track all snippet-start tags and their line numbers
+            snippet_ends = {}    # Track all snippet-end tags and their line numbers
+            snippet_tags_seen = set()  # Track all tags in this file to detect duplicates
+            
+            for line_num, line in enumerate(lines, 1):
+                # Look for snippet-start patterns (# or // comment styles)
+                start_match = re.search(r'(#|//)\s*snippet-start:\[([^\]]+)\]', line)
+                if start_match:
+                    tag = start_match.group(2)
+                    
+                    # Check for duplicate start tags in the same file
+                    if tag in snippet_starts:
+                        errors.append(DuplicateSnippetTagError(
+                            file=file_path,
+                            id=f"Duplicate snippet-start tag in {file_path}",
+                            tag=tag,
+                            line=line_num
+                        ))
+                    else:
+                        snippet_starts[tag] = line_num
+                        snippet_tags_seen.add(tag)
+                
+                # Look for snippet-end patterns
+                end_match = re.search(r'(#|//)\s*snippet-end:\[([^\]]+)\]', line)
+                if end_match:
+                    tag = end_match.group(2)
+                    
+                    # Check for duplicate end tags in the same file
+                    if tag in snippet_ends:
+                        errors.append(DuplicateSnippetTagError(
+                            file=file_path,
+                            id=f"Duplicate snippet-end tag in {file_path}",
+                            tag=tag,
+                            line=line_num
+                        ))
+                    else:
+                        snippet_ends[tag] = line_num
+            
+            # Check that every snippet-start has a corresponding snippet-end
+            for tag, start_line in snippet_starts.items():
+                if tag not in snippet_ends:
+                    errors.append(UnmatchedSnippetTagError(
+                        file=file_path,
+                        id=f"Unclosed snippet-start in {file_path}",
+                        tag=tag,
+                        line=start_line,
+                        tag_type='start'
+                    ))
+            
+            # Check that every snippet-end has a corresponding snippet-start
+            for tag, end_line in snippet_ends.items():
+                if tag not in snippet_starts:
+                    errors.append(UnmatchedSnippetTagError(
+                        file=file_path,
+                        id=f"Unmatched snippet-end in {file_path}",
+                        tag=tag,
+                        line=end_line,
+                        tag_type='end'
+                    ))
+                
+        except Exception as e:
+            # Skip files that can't be read (binary files, etc.)
+            continue
+    
+    return errors
+
+
 def prepare_scanner(doc_gen: DocGen) -> Optional[Scanner]:
     for path in (doc_gen.root / ".doc_gen/metadata").glob("*_metadata.yaml"):
         doc_gen.process_metadata(path)
     doc_gen.collect_snippets()
     doc_gen.validate()
+    
+    # Validate snippet tag pairs
+    snippet_errors = validate_snippet_tags(doc_gen)
+    if snippet_errors:
+        doc_gen.errors.extend(snippet_errors)
+    
     if doc_gen.errors:
         error_strings = [str(error) for error in doc_gen.errors]
         failed_list = "\n".join(f"DocGen Error: {e}" for e in error_strings)

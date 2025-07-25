@@ -24,7 +24,14 @@ if __name__ == "__main__":
 
     from typer import run
 
-    run(writeme)
+    # Run writeme and ensure proper exit code handling
+    try:
+        result = run(writeme)
+        if result is not None and result != 0:
+            sys.exit(result)
+    except SystemExit as e:
+        # Ensure we exit with the proper code
+        sys.exit(e.code)
 else:
     from .runner import writeme
 

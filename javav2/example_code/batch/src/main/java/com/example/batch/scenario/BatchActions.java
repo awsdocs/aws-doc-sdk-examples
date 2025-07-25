@@ -458,7 +458,7 @@ public class BatchActions {
 
         return responseFuture;
     }
-    // snippet-end:[batch.java2.disable.compute.environment.main
+    // snippet-end:[batch.java2.disable.compute.environment.main]
 
     // snippet-start:[batch.java2.submit.job.main]
     /**
