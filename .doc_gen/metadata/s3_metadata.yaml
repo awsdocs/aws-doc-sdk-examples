@@ -3722,10 +3722,6 @@ s3_CreatePresignedPost:
             - description: Create a presigned POST URL
               genai: most
               snippet_tags:
-                - S3.dotnetv4.CreatePresignedPostAsync
-            - description: Example using presigned POST URL
-              genai: most
-              snippet_tags:
                 - S3.dotnetv4.CreatePresignedPost
   services:
     s3: {CreatePresignedPost}
