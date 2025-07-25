@@ -2776,6 +2776,12 @@ s3_Scenario_PresignedUrl:
             - description: Generate a presigned URL and perform an upload using that URL.
               snippet_tags:
                 - S3.dotnetv3.UploadUsingPresignedURLExample
+        - sdk_version: 4
+          github: dotnetv4/S3/Scenarios/S3_CreatePresignedPost
+          excerpts:
+            - description: Create and use presigned POST URLs for direct browser uploads.
+              snippet_tags:
+                - S3.dotnetv4.CreatePresignedPostBasics
     Java:
       versions:
         - sdk_version: 2
@@ -3713,29 +3719,13 @@ s3_CreatePresignedPost:
         - sdk_version: 4
           github: dotnetv4/S3
           excerpts:
-            - description: Create a presigned POST URL with conditions
+            - description: Create a presigned POST URL
               genai: most
               snippet_tags:
                 - S3.dotnetv4.CreatePresignedPostAsync
-            - description: Example using presigned POST
+            - description: Example using presigned POST URL
               genai: most
               snippet_tags:
                 - S3.dotnetv4.CreatePresignedPost
   services:
     s3: {CreatePresignedPost}
-
-s3_Scenario_CreatePresignedPost:
-  title: Create and use presigned POST URLs
-  category: Scenarios
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 4
-          github: dotnetv4/S3/Scenarios/S3_CreatePresignedPost
-          excerpts:
-            - description:
-              genai: most
-              snippet_tags:
-                - S3.dotnetv4.CreatePresignedPostBasics
-  services:
-    s3: {CreateBucket, CreatePresignedPost, GetObjectMetadata, DeleteBucket}
