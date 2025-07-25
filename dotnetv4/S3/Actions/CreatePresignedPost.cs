@@ -39,10 +39,40 @@ public class CreatePresignedPost
 
             // Create a key prefix for this example
             string keyPrefix = "uploads/";
+            var expiration = DateTime.UtcNow.AddHours(1);
+
+            // Using "${filename}" placeholder in the key lets the browser replace it with the actual filename
+            string objectKey = keyPrefix + "${filename}";
+
+            // Add custom metadata and fields
+            var fields = new Dictionary<string, string>
+            {
+                // Add a custom metadata field
+                { "x-amz-meta-uploaded-by", "dotnet-sdk-example" },
+                
+                // Return HTTP 201 on successful upload
+                { "success_action_status", "201" },
+                
+                // Set the content type
+                { "Content-Type", "text/plain" }
+            };
+
+            // Add policy conditions
+            var conditions = new List<S3PostCondition>
+            {   
+                // File size must be between 1 byte and 1 MB
+                S3PostCondition.ContentLengthRange(1, 1048576)
+            };
 
             // Generate the presigned POST URL with combined features
             Console.WriteLine("\nCreating a presigned POST URL with both filename preservation and upload restrictions...");
-            var response = await CreateWithFilenameAndConditions(s3Client, logger, bucketName, keyPrefix);
+            logger.LogInformation("Creating presigned POST URL with filename variable and conditions for {bucket}/{key}",
+                bucketName, objectKey);
+
+            var response = await CreatePresignedPostAsync(
+                s3Client, logger, bucketName, objectKey, expiration, fields, conditions);
+
+            logger.LogInformation("Successfully created presigned POST URL with filename variable and conditions");
 
             // Display the URL and fields
             Console.WriteLine("\nPresigned POST URL with combined features created successfully:");
@@ -66,58 +96,6 @@ public class CreatePresignedPost
             Console.WriteLine($"Error: {ex.Message}");
         }
     }
-
-    /// <summary>
-    /// Create a presigned POST URL with both filename variable and conditions.
-    /// </summary>
-    /// <param name="s3Client">The Amazon S3 client.</param>
-    /// <param name="logger">The logger to use.</param>
-    /// <param name="bucketName">The name of the bucket.</param>
-    /// <param name="keyPrefix">The prefix for the key, final key will be prefix + actual filename.</param>
-    /// <returns>A CreatePresignedPostResponse containing the URL and form fields.</returns>
-    // snippet-start:[S3.dotnetv4.CreateWithFilenameAndConditions]
-    public static async Task<CreatePresignedPostResponse> CreateWithFilenameAndConditions(
-        IAmazonS3 s3Client,
-        ILogger logger,
-        string bucketName,
-        string keyPrefix)
-    {
-        var expiration = DateTime.UtcNow.AddHours(1);
-
-        // Using "${filename}" placeholder in the key lets the browser replace it with the actual filename
-        string objectKey = keyPrefix + "${filename}";
-
-        // Add custom metadata and fields
-        var fields = new Dictionary<string, string>
-        {
-            // Add a custom metadata field
-            { "x-amz-meta-uploaded-by", "dotnet-sdk-example" },
-            
-            // Return HTTP 201 on successful upload
-            { "success_action_status", "201" },
-            
-            // Set the content type
-            { "Content-Type", "text/plain" }
-        };
-
-        // Add policy conditions
-        var conditions = new List<S3PostCondition>
-        {   
-            // File size must be between 1 byte and 1 MB
-            S3PostCondition.ContentLengthRange(1, 1048576)
-        };
-
-        logger.LogInformation("Creating presigned POST URL with filename variable and conditions for {bucket}/{key}",
-            bucketName, objectKey);
-
-        var response = await CreatePresignedPostAsync(
-            s3Client, logger, bucketName, objectKey, expiration, fields, conditions);
-
-        logger.LogInformation("Successfully created presigned POST URL with filename variable and conditions");
-
-        return response;
-    }
-    // snippet-end:[S3.dotnetv4.CreateWithFilenameAndConditions]
     
     /// <summary>
     /// Create a presigned POST URL with conditions.
@@ -130,7 +108,6 @@ public class CreatePresignedPost
     /// <param name="fields">Dictionary of fields to add to the form.</param>
     /// <param name="conditions">List of conditions to apply.</param>
     /// <returns>A CreatePresignedPostResponse object with URL and form fields.</returns>
-    // snippet-start:[S3.dotnetv4.CreatePresignedPostAsync]
     public static async Task<CreatePresignedPostResponse> CreatePresignedPostAsync(
         IAmazonS3 s3Client,
         ILogger logger,
@@ -167,13 +144,11 @@ public class CreatePresignedPost
 
         return await s3Client.CreatePresignedPostAsync(request);
     }
-    // snippet-end:[S3.dotnetv4.CreatePresignedPostAsync]
 
     /// <summary>
     /// Display the fields from a presigned POST response.
     /// </summary>
     /// <param name="response">The CreatePresignedPostResponse to display.</param>
-    // snippet-start:[S3.dotnetv4.DisplayPresignedPostFields]
     public static void DisplayPresignedPostFields(CreatePresignedPostResponse response)
     {
         Console.WriteLine($"Presigned POST URL: {response.Url}");
@@ -184,6 +159,5 @@ public class CreatePresignedPost
             Console.WriteLine($"  {field.Key}: {field.Value}");
         }
     }
-    // snippet-end:[S3.dotnetv4.DisplayPresignedPostFields]
 }
 // snippet-end:[S3.dotnetv4.CreatePresignedPost]
