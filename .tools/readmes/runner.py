@@ -19,45 +19,42 @@ from aws_doc_sdk_examples_tools.metadata_errors import MetadataError
 from collections import defaultdict
 import re
 
-# Folders to exclude from processing (can be extended as needed)
+# Folders to exclude from processing
 EXCLUDED_FOLDERS = {'.kiro', '.git', 'node_modules', '__pycache__'}
 
 
-def apply_folder_exclusion_patches():
-    """
-    Apply patches to exclude specified folders from processing.
-    This integrates folder exclusion as a core feature.
-    """
+def _configure_folder_exclusion():
+    """Configure file processing to exclude specified folders."""
     from aws_doc_sdk_examples_tools import file_utils, validator_config
     from aws_doc_sdk_examples_tools.fs import Fs, PathFs
 
-    def patched_skip(path: Path) -> bool:
-        """Enhanced skip function that ignores specified folders."""
+    def enhanced_skip(path: Path) -> bool:
+        """Skip function that ignores excluded folders and standard ignored files."""
         # Check if path contains any excluded folders
         if any(excluded_folder in path.parts for excluded_folder in EXCLUDED_FOLDERS):
             return True
         
-        # Call original skip logic
+        # Apply standard skip logic
         return path.suffix.lower() not in validator_config.EXT_LOOKUP or path.name in validator_config.IGNORE_FILES
 
-    def patched_get_files(
+    def enhanced_get_files(
         root: Path, skip: Callable[[Path], bool] = lambda _: False, fs: Fs = PathFs()
     ) -> Generator[Path, None, None]:
-        """Enhanced get_files that uses our patched skip function."""
+        """Get files using enhanced skip function."""
         for path in file_utils.walk_with_gitignore(root, fs=fs):
-            if not patched_skip(path):
+            if not enhanced_skip(path):
                 yield path
 
-    # Apply the patches
-    validator_config.skip = patched_skip
-    file_utils.get_files = patched_get_files
+    # Configure the file processing functions
+    validator_config.skip = enhanced_skip
+    file_utils.get_files = enhanced_get_files
     
     excluded_list = ', '.join(sorted(EXCLUDED_FOLDERS))
-    print(f"Applied folder exclusion: {excluded_list} folders excluded")
+    print(f"Folder exclusion configured: {excluded_list} folders excluded")
 
 
-# Apply folder exclusion patches when module is imported
-apply_folder_exclusion_patches()
+# Configure folder exclusion when module is imported
+_configure_folder_exclusion()
 
 
 # Default to not using Rich
