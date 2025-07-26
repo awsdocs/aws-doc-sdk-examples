@@ -81,7 +81,7 @@ suspend fun startModerationDetection(
             video = vidOb
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val startModDetectionResult = rekClient.startContentModeration(request)
         startJobId = startModDetectionResult.jobId.toString()
     }

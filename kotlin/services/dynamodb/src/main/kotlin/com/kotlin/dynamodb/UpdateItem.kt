@@ -72,7 +72,7 @@ suspend fun updateTableItem(
             attributeUpdates = updatedValues
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         ddb.updateItem(request)
         println("Item in $tableNameVal was updated")
     }

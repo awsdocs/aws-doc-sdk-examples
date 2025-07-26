@@ -50,7 +50,7 @@ suspend fun createPersonalCompaign(
             name = campaignName
         }
 
-    PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
+    PersonalizeClient.fromEnvironment { region = "us-east-1" }.use { personalizeClient ->
         val campaignResponse = personalizeClient.createCampaign(request)
         return campaignResponse.campaignArn
     }

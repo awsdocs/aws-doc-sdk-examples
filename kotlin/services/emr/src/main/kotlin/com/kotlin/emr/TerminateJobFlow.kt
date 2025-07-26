@@ -42,7 +42,7 @@ suspend fun terminateFlow(id: String) {
             jobFlowIds = listOf(id)
         }
 
-    EmrClient { region = "us-west-2" }.use { emrClient ->
+    EmrClient.fromEnvironment { region = "us-west-2" }.use { emrClient ->
         emrClient.terminateJobFlows(request)
         println("You have successfully terminated $id")
     }

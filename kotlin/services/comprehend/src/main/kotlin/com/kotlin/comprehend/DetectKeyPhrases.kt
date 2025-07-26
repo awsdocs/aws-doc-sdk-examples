@@ -34,7 +34,7 @@ suspend fun detectAllKeyPhrases(textVal: String) {
             languageCode = LanguageCode.fromValue("en")
         }
 
-    ComprehendClient { region = "us-east-1" }.use { comClient ->
+    ComprehendClient.fromEnvironment { region = "us-east-1" }.use { comClient ->
         val response = comClient.detectKeyPhrases(request)
         response.keyPhrases?.forEach { phrase ->
             println("Key phrase text is ${phrase.text}")

@@ -42,7 +42,7 @@ suspend fun deleteApp(appName: String?) {
             terminateEnvByForce = true
         }
 
-    ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
+    ElasticBeanstalkClient.fromEnvironment { region = "us-east-1" }.use { beanstalkClient ->
         beanstalkClient.deleteApplication(applicationRequest)
         println("The Elastic Beanstalk application was successfully deleted!")
     }

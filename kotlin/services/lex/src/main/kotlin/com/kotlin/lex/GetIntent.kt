@@ -50,7 +50,7 @@ suspend fun getSpecificIntent(
             version = intentVersion
         }
 
-    LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
+    LexModelBuildingClient.fromEnvironment { region = "us-west-2" }.use { lexClient ->
         val intentResponse = lexClient.getIntent(request)
         println("The description is  ${intentResponse.description}.")
     }

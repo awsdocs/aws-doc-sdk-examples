@@ -226,7 +226,7 @@ suspend fun deleteKeysSc(keyPair: String) {
         DeleteKeyPairRequest {
             keyName = keyPair
         }
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         ec2.deleteKeyPair(request)
         println("Successfully deleted key pair named $keyPair")
     }
@@ -237,7 +237,7 @@ suspend fun deleteEC2SecGroupSc(groupIdVal: String) {
         DeleteSecurityGroupRequest {
             groupId = groupIdVal
         }
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         ec2.deleteSecurityGroup(request)
         println("Successfully deleted security group with Id $groupIdVal")
     }
@@ -249,7 +249,7 @@ suspend fun terminateEC2Sc(instanceIdVal: String) {
             instanceIds = listOf(instanceIdVal)
         }
     println("Wait for the instance to terminate. This will take a few minutes.")
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         ec2.terminateInstances(ti)
         ec2.waitUntilInstanceTerminated {
             // suspend call
@@ -266,7 +266,7 @@ suspend fun releaseEC2AddressSc(allocId: String?) {
             allocationId = allocId
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         ec2.releaseAddress(request)
         println("Successfully released Elastic IP address $allocId")
     }
@@ -279,7 +279,7 @@ suspend fun disassociateAddressSc(associationIdVal: String?) {
         DisassociateAddressRequest {
             associationId = associationIdVal
         }
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         ec2.disassociateAddress(addressRequest)
         println("You successfully disassociated the address!")
     }
@@ -297,7 +297,7 @@ suspend fun associateAddressSc(
             allocationId = allocationIdVal
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val associateResponse = ec2.associateAddress(associateRequest)
         return associateResponse.associationId
     }
@@ -309,7 +309,7 @@ suspend fun allocateAddressSc(): String? {
         AllocateAddressRequest {
             domain = DomainType.Vpc
         }
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val allocateResponse = ec2.allocateAddress(allocateRequest)
         return allocateResponse.allocationId
     }
@@ -322,7 +322,7 @@ suspend fun startInstanceSc(instanceId: String) {
             instanceIds = listOf(instanceId)
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         ec2.startInstances(request)
         println("Waiting until instance $instanceId starts. This will take a few minutes.")
         ec2.waitUntilInstanceRunning {
@@ -341,7 +341,7 @@ suspend fun stopInstanceSc(instanceId: String) {
             instanceIds = listOf(instanceId)
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         ec2.stopInstances(request)
         println("Waiting until instance $instanceId stops. This will take a few minutes.")
         ec2.waitUntilInstanceStopped {
@@ -362,7 +362,7 @@ suspend fun describeEC2InstancesSc(newInstanceId: String?): String {
         }
 
     while (!isRunning) {
-        Ec2Client { region = "us-west-2" }.use { ec2 ->
+        Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
             val response = ec2.describeInstances(request)
             val state =
                 response.reservations
@@ -409,7 +409,7 @@ suspend fun runInstanceSc(
             imageId = amiIdVal
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.runInstances(runRequest)
         val instanceId = response.instances?.get(0)?.instanceId
         println("Successfully started EC2 Instance $instanceId based on AMI $amiIdVal")
@@ -434,7 +434,7 @@ suspend fun getInstanceTypesSc(): String {
             filters = filterObs
             maxResults = 10
         }
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeInstanceTypes(typesRequest)
         response.instanceTypes?.forEach { type ->
             println("The memory information of this type is ${type.memoryInfo?.sizeInMib}")
@@ -453,7 +453,7 @@ suspend fun describeImageSc(instanceId: String): String? {
             imageIds = listOf(instanceId)
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeImages(imagesRequest)
         println("The description of the first image is ${response.images?.get(0)?.description}")
         println("The name of the first image is  ${response.images?.get(0)?.name}")
@@ -470,7 +470,7 @@ suspend fun getParaValuesSc(): String? {
             path = "/aws/service/ami-amazon-linux-latest"
         }
 
-    SsmClient { region = "us-west-2" }.use { ssmClient ->
+    SsmClient.fromEnvironment { region = "us-west-2" }.use { ssmClient ->
         val response = ssmClient.getParametersByPath(parameterRequest)
         response.parameters?.forEach { para ->
             println("The name of the para is: ${para.name}")
@@ -496,7 +496,7 @@ suspend fun describeSecurityGroupsSc(groupId: String) {
             groupIds = listOf(groupId)
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeSecurityGroups(request)
         for (group in response.securityGroups!!) {
             println("Found Security Group with id " + group.groupId.toString() + " and group VPC " + group.vpcId)
@@ -518,7 +518,7 @@ suspend fun createEC2SecurityGroupSc(
             vpcId = vpcIdVal
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val resp = ec2.createSecurityGroup(request)
         val ipRange =
             IpRange {
@@ -554,7 +554,7 @@ suspend fun createEC2SecurityGroupSc(
 // snippet-end:[ec2.kotlin.scenario.inbound.rule.main]
 
 suspend fun describeEC2KeysSc() {
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeKeyPairs(DescribeKeyPairsRequest {})
         response.keyPairs?.forEach { keyPair ->
             println("Found key pair with name ${keyPair.keyName} and fingerprint ${ keyPair.keyFingerprint}")
@@ -571,7 +571,7 @@ suspend fun createKeyPairSc(
             keyName = keyNameVal
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.createKeyPair(request)
         val content = response.keyMaterial
         if (content != null) {

@@ -216,7 +216,7 @@ suspend fun deleteKeyspace(keyspaceNameVal: String?) {
             keyspaceName = keyspaceNameVal
         }
 
-    KeyspacesClient { region = "us-east-1" }.use { keyClient ->
+    KeyspacesClient.fromEnvironment { region = "us-east-1" }.use { keyClient ->
         keyClient.deleteKeyspace(deleteKeyspaceRequest)
     }
 }
@@ -235,7 +235,7 @@ suspend fun checkTableDelete(
         }
 
     try {
-        KeyspacesClient { region = "us-east-1" }.use { keyClient ->
+        KeyspacesClient.fromEnvironment { region = "us-east-1" }.use { keyClient ->
             // Keep looping until the table cannot be found and a ResourceNotFoundException is thrown.
             while (true) {
                 response = keyClient.getTable(tableRequest)
@@ -261,7 +261,7 @@ suspend fun deleteTable(
             tableName = tableNameVal
         }
 
-    KeyspacesClient { region = "us-east-1" }.use { keyClient ->
+    KeyspacesClient.fromEnvironment { region = "us-east-1" }.use { keyClient ->
         keyClient.deleteTable(tableRequest)
     }
 }
@@ -281,7 +281,7 @@ suspend fun checkRestoredTable(
             tableName = tableNameVal
         }
 
-    KeyspacesClient { region = "us-east-1" }.use { keyClient ->
+    KeyspacesClient.fromEnvironment { region = "us-east-1" }.use { keyClient ->
         while (!tableStatus) {
             response = keyClient.getTable(tableRequest)
             status = response!!.status.toString()
@@ -321,7 +321,7 @@ suspend fun restoreTable(
             sourceKeyspaceName = keyspaceName
         }
 
-    KeyspacesClient { region = "us-east-1" }.use { keyClient ->
+    KeyspacesClient.fromEnvironment { region = "us-east-1" }.use { keyClient ->
         val response = keyClient.restoreTable(restoreTableRequest)
         println("The ARN of the restored table is ${response.restoredTableArn}")
     }
@@ -380,7 +380,7 @@ suspend fun updateTable(
             addColumns = listOf(def)
         }
 
-    KeyspacesClient { region = "us-east-1" }.use { keyClient ->
+    KeyspacesClient.fromEnvironment { region = "us-east-1" }.use { keyClient ->
         keyClient.updateTable(tableRequest)
     }
 }
@@ -463,7 +463,7 @@ suspend fun listTables(keyspaceNameVal: String?) {
             keyspaceName = keyspaceNameVal
         }
 
-    KeyspacesClient { region = "us-east-1" }.use { keyClient ->
+    KeyspacesClient.fromEnvironment { region = "us-east-1" }.use { keyClient ->
         keyClient
             .listTablesPaginated(tablesRequest)
             .transform { it.tables?.forEach { obj -> emit(obj) } }
@@ -488,7 +488,7 @@ suspend fun checkTable(
             keyspaceName = keyspaceNameVal
             tableName = tableNameVal
         }
-    KeyspacesClient { region = "us-east-1" }.use { keyClient ->
+    KeyspacesClient.fromEnvironment { region = "us-east-1" }.use { keyClient ->
         while (!tableStatus) {
             response = keyClient.getTable(tableRequest)
             status = response!!.status.toString()
@@ -579,7 +579,7 @@ suspend fun createTable(
             pointInTimeRecovery = timeRecovery
         }
 
-    KeyspacesClient { region = "us-east-1" }.use { keyClient ->
+    KeyspacesClient.fromEnvironment { region = "us-east-1" }.use { keyClient ->
         val response = keyClient.createTable(tableRequest)
         println("The table ARN is ${response.resourceArn}")
     }
@@ -588,7 +588,7 @@ suspend fun createTable(
 
 // snippet-start:[keyspace.kotlin.scenario.list.keyspaces.main]
 suspend fun listKeyspacesPaginator() {
-    KeyspacesClient { region = "us-east-1" }.use { keyClient ->
+    KeyspacesClient.fromEnvironment { region = "us-east-1" }.use { keyClient ->
         keyClient
             .listKeyspacesPaginated(ListKeyspacesRequest {})
             .transform { it.keyspaces?.forEach { obj -> emit(obj) } }
@@ -605,7 +605,7 @@ suspend fun checkKeyspaceExistence(keyspaceNameVal: String?) {
         GetKeyspaceRequest {
             keyspaceName = keyspaceNameVal
         }
-    KeyspacesClient { region = "us-east-1" }.use { keyClient ->
+    KeyspacesClient.fromEnvironment { region = "us-east-1" }.use { keyClient ->
         val response: GetKeyspaceResponse = keyClient.getKeyspace(keyspaceRequest)
         val name = response.keyspaceName
         println("The $name KeySpace is ready")
@@ -620,7 +620,7 @@ suspend fun createKeySpace(keyspaceNameVal: String) {
             keyspaceName = keyspaceNameVal
         }
 
-    KeyspacesClient { region = "us-east-1" }.use { keyClient ->
+    KeyspacesClient.fromEnvironment { region = "us-east-1" }.use { keyClient ->
         val response = keyClient.createKeyspace(keyspaceRequest)
         println("The ARN of the KeySpace is ${response.resourceArn}")
     }

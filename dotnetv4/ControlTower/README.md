@@ -31,31 +31,31 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 ### Get started
 
-- [Hello AWS Control Tower](Actions/HelloControlTower.cs#L4) (`ListBaselines`)
+- [Hello AWS Control Tower](../ControlTower/Actions/HelloControlTower.cs#L4) (`ListBaselines`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](Scenarios/ControlTower_Basics/ControlTowerBasics.cs)
+- [Learn the basics](../ControlTower/Scenarios/ControlTower_Basics/ControlTowerBasics.cs)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [DisableBaseline](Actions/ControlTowerWrapper.cs#L181)
-- [DisableControl](Actions/ControlTowerWrapper.cs#L401)
-- [EnableBaseline](Actions/ControlTowerWrapper.cs#L120)
-- [EnableControl](Actions/ControlTowerWrapper.cs#L345)
-- [GetBaselineOperation](Actions/ControlTowerWrapper.cs#L273)
-- [GetControlOperation](Actions/ControlTowerWrapper.cs#L449)
-- [ListBaselines](Actions/ControlTowerWrapper.cs#L62)
-- [ListEnabledBaselines](Actions/ControlTowerWrapper.cs#L91)
-- [ListEnabledControls](Actions/ControlTowerWrapper.cs#L305)
-- [ListLandingZones](Actions/ControlTowerWrapper.cs#L33)
-- [ResetEnabledBaseline](Actions/ControlTowerWrapper.cs#L227)
+- [DisableBaseline](../ControlTower/Actions/ControlTowerWrapper.cs#L181)
+- [DisableControl](../ControlTower/Actions/ControlTowerWrapper.cs#L401)
+- [EnableBaseline](../ControlTower/Actions/ControlTowerWrapper.cs#L120)
+- [EnableControl](../ControlTower/Actions/ControlTowerWrapper.cs#L345)
+- [GetBaselineOperation](../ControlTower/Actions/ControlTowerWrapper.cs#L273)
+- [GetControlOperation](../ControlTower/Actions/ControlTowerWrapper.cs#L449)
+- [ListBaselines](../ControlTower/Actions/ControlTowerWrapper.cs#L62)
+- [ListEnabledBaselines](../ControlTower/Actions/ControlTowerWrapper.cs#L91)
+- [ListEnabledControls](../ControlTower/Actions/ControlTowerWrapper.cs#L305)
+- [ListLandingZones](../ControlTower/Actions/ControlTowerWrapper.cs#L33)
+- [ResetEnabledBaseline](../ControlTower/Actions/ControlTowerWrapper.cs#L227)
 
 
 <!--custom.examples.start-->

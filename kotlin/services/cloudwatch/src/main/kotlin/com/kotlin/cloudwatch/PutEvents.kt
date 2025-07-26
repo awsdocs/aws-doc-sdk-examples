@@ -51,7 +51,7 @@ suspend fun putCWEvents(resourceArn: String) {
             entries = listOf(requestEntry)
         }
 
-    CloudWatchEventsClient { region = "us-west-2" }.use { cwe ->
+    CloudWatchEventsClient.fromEnvironment { region = "us-west-2" }.use { cwe ->
         cwe.putEvents(request)
         println("Successfully put CloudWatch event")
     }

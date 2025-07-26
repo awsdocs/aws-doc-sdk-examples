@@ -26,7 +26,7 @@ suspend fun getTranslationJobs() {
             maxResults = 10
         }
 
-    TranslateClient { region = "us-west-2" }.use { translateClient ->
+    TranslateClient.fromEnvironment { region = "us-west-2" }.use { translateClient ->
         val response = translateClient.listTextTranslationJobs(textTranslationJobsRequest)
         response.textTranslationJobPropertiesList?.forEach { prop ->
             println("The job name is ${prop.jobName}")

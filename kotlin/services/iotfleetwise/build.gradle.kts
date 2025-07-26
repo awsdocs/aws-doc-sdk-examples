@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.0"
+    kotlin("jvm") version "2.1.0"
     application
 }
 
@@ -27,7 +27,7 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation(platform("aws.sdk.kotlin:bom:1.3.112"))
+    implementation(platform("aws.sdk.kotlin:bom:1.4.118"))
     implementation("aws.sdk.kotlin:iot")
     implementation("aws.sdk.kotlin:iotfleetwise")
     implementation("aws.sdk.kotlin:secretsmanager")

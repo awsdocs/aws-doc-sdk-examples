@@ -20,7 +20,7 @@ suspend fun detectTheDominantLanguage(textVal: String) {
             text = textVal
         }
 
-    ComprehendClient { region = "us-east-1" }.use { comClient ->
+    ComprehendClient.fromEnvironment { region = "us-east-1" }.use { comClient ->
         val response = comClient.detectDominantLanguage(request)
         response.languages?.forEach { lang ->
             println("Language is ${lang.languageCode}")

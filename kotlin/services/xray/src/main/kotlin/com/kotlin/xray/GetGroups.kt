@@ -21,7 +21,7 @@ suspend fun main() {
 
 // snippet-start:[xray.kotlin_get_groups.main]
 suspend fun getAllGroups() {
-    XRayClient { region = "us-east-1" }.use { xRayClient ->
+    XRayClient.fromEnvironment { region = "us-east-1" }.use { xRayClient ->
         val response = xRayClient.getGroups(GetGroupsRequest {})
         response.groups?.forEach { group ->
             println("The AWS X-Ray group name is ${group.groupName}")
