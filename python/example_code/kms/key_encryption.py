@@ -198,7 +198,7 @@ def key_encryption(kms_client):
         answer = input("Ready to decrypt your ciphertext (y/n)? ")
         if answer.lower() == "y":
             decrypted_text = key_encrypt.decrypt(key_id, cipher_text)
-            print(f"Your plaintext is {decrypted_text.decode()}")
+            print(f"Your plaintext is {decrypted_text}")
             print("-" * 88)
             key_encrypt.re_encrypt(key_id, cipher_text)
         else:
