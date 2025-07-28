@@ -26,7 +26,7 @@ suspend fun getAllPools() {
             maxResults = 10
         }
 
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { cognitoClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { cognitoClient ->
         val response = cognitoClient.listUserPools(request)
         response.userPools?.forEach { pool ->
             println("The user pool name is ${pool.name}")

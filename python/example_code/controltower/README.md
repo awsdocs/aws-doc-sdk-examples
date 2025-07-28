@@ -56,6 +56,7 @@ Code excerpts that show you how to call individual service functions.
 - [DisableControl](controltower_wrapper.py#L263)
 - [EnableBaseline](controltower_wrapper.py#L69)
 - [EnableControl](controltower_wrapper.py#L159)
+- [GetBaselineOperation](controltower_wrapper.py#L236)
 - [GetControlOperation](controltower_wrapper.py#L209)
 - [ListBaselines](controltower_wrapper.py#L39)
 - [ListEnabledBaselines](controltower_wrapper.py#L330)

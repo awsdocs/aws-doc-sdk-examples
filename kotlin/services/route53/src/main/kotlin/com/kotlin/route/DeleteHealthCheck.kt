@@ -41,7 +41,7 @@ suspend fun delHealthCheck(id: String?) {
             healthCheckId = id
         }
 
-    Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
+    Route53Client.fromEnvironment { region = "AWS_GLOBAL" }.use { route53Client ->
         route53Client.deleteHealthCheck(delRequest)
         println("The HealthCheck with id $id was deleted")
     }

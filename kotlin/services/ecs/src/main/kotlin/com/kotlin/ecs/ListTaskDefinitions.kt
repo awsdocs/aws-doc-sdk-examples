@@ -49,7 +49,7 @@ suspend fun getAllTasks(
             tasks = listOf(taskId)
         }
 
-    EcsClient { region = "us-east-1" }.use { ecsClient ->
+    EcsClient.fromEnvironment { region = "us-east-1" }.use { ecsClient ->
         val response = ecsClient.describeTasks(request)
         response.tasks?.forEach { task ->
             println("The task ARN is " + task.taskDefinitionArn)

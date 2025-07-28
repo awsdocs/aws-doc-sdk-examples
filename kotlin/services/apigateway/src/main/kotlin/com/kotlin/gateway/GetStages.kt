@@ -33,7 +33,7 @@ suspend fun getAllStages(restApiIdVal: String?) {
         restApiId = restApiIdVal
     }
 
-    ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
+    ApiGatewayClient.fromEnvironment { region = "us-east-1" }.use { apiGateway ->
         val response = apiGateway.getStages(stagesRequest)
         response.item?.forEach { stage ->
             println("Stage name is ${stage.stageName}")

@@ -57,7 +57,7 @@ suspend fun createNewGrant(
             operations = grantOperationList
         }
 
-    KmsClient { region = "us-west-2" }.use { kmsClient ->
+    KmsClient.fromEnvironment { region = "us-west-2" }.use { kmsClient ->
         val response = kmsClient.createGrant(request)
         return response.grantId
     }

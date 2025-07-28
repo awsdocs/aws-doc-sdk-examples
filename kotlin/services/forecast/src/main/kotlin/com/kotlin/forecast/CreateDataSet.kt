@@ -57,7 +57,7 @@ suspend fun createForecastDataSet(name: String?): String? {
             schema = schemaOb
         }
 
-    ForecastClient { region = "us-west-2" }.use { forecast ->
+    ForecastClient.fromEnvironment { region = "us-west-2" }.use { forecast ->
         val response = forecast.createDataset(request)
         return response.datasetArn
     }

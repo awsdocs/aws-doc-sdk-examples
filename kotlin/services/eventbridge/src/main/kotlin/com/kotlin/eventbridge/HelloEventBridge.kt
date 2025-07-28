@@ -17,7 +17,7 @@ suspend fun listBusesHello() {
             limit = 10
         }
 
-    EventBridgeClient { region = "us-west-2" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-west-2" }.use { eventBrClient ->
         val response: ListEventBusesResponse = eventBrClient.listEventBuses(request)
         response.eventBuses?.forEach { bus ->
             println("The name of the event bus is ${bus.name}")

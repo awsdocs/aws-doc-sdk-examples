@@ -42,7 +42,7 @@ suspend fun deleteSpecificAlias(aliasNameVal: String?) {
             aliasName = aliasNameVal
         }
 
-    KmsClient { region = "us-west-2" }.use { kmsClient ->
+    KmsClient.fromEnvironment { region = "us-west-2" }.use { kmsClient ->
         kmsClient.deleteAlias(request)
         println("$aliasNameVal was deleted.")
     }

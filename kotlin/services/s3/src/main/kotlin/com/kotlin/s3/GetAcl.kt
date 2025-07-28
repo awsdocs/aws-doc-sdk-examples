@@ -47,7 +47,7 @@ suspend fun getBucketACL(
             key = objectKey
         }
 
-    S3Client { region = "us-east-1" }.use { s3 ->
+    S3Client.fromEnvironment { region = "us-east-1" }.use { s3 ->
         val response = s3.getObjectAcl(request)
         response.grants?.forEach { grant ->
             println("Grant permission is ${grant.permission}")

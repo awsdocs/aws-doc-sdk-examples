@@ -40,7 +40,7 @@ suspend fun listTopicTags(topicArn: String?) {
             resourceArn = topicArn
         }
 
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         val response = snsClient.listTagsForResource(tagsForResourceRequest)
         println("Tags for topic $topicArn are " + response.tags)
     }

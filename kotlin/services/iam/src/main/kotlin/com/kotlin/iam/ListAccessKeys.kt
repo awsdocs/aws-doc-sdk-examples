@@ -40,7 +40,7 @@ suspend fun listKeys(userNameVal: String?) {
         ListAccessKeysRequest {
             userName = userNameVal
         }
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.listAccessKeys(request)
         response.accessKeyMetadata?.forEach { md ->
             println("Retrieved access key ${md.accessKeyId}")

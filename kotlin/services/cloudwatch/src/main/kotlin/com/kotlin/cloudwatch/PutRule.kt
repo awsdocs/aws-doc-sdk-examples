@@ -51,7 +51,7 @@ suspend fun putCWRule(
             state = RuleState.Enabled
         }
 
-    CloudWatchEventsClient { region = "us-east-1" }.use { cwe ->
+    CloudWatchEventsClient.fromEnvironment { region = "us-east-1" }.use { cwe ->
         val response = cwe.putRule(request)
         println("Successfully created CloudWatch events ${roleArnVal}rule with ARN ${response.ruleArn}")
     }

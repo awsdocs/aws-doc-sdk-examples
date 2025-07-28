@@ -41,17 +41,19 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [CreateCrawler](scenario/Sources/entry.swift#L134)
-- [CreateJob](scenario/Sources/entry.swift#L275)
+- [CreateJob](scenario/Sources/entry.swift#L282)
 - [DeleteCrawler](scenario/Sources/entry.swift#L178)
-- [DeleteDatabase](scenario/Sources/entry.swift#L463)
-- [DeleteJob](scenario/Sources/entry.swift#L349)
+- [DeleteDatabase](scenario/Sources/entry.swift#L469)
+- [DeleteJob](scenario/Sources/entry.swift#L356)
+- [DeleteTable](scenario/Sources/entry.swift#L501)
 - [GetCrawler](scenario/Sources/entry.swift#L220)
-- [GetDatabase](scenario/Sources/entry.swift#L399)
-- [GetJobRun](scenario/Sources/entry.swift#L557)
-- [GetTables](scenario/Sources/entry.swift#L422)
-- [ListJobs](scenario/Sources/entry.swift#L312)
+- [GetDatabase](scenario/Sources/entry.swift#L406)
+- [GetJobRun](scenario/Sources/entry.swift#L622)
+- [GetJobRuns](scenario/Sources/entry.swift#L585)
+- [GetTables](scenario/Sources/entry.swift#L429)
+- [ListJobs](scenario/Sources/entry.swift#L319)
 - [StartCrawler](scenario/Sources/entry.swift#L198)
-- [StartJobRun](scenario/Sources/entry.swift#L518)
+- [StartJobRun](scenario/Sources/entry.swift#L546)
 
 
 <!--custom.examples.start-->

@@ -56,7 +56,7 @@ suspend fun putSubFilters(
             destinationArn = functionArn
         }
 
-    CloudWatchLogsClient { region = "us-west-2" }.use { cwlClient ->
+    CloudWatchLogsClient.fromEnvironment { region = "us-west-2" }.use { cwlClient ->
         cwlClient.putSubscriptionFilter(request)
         println("Successfully created CloudWatch logs subscription filter named $filter")
     }

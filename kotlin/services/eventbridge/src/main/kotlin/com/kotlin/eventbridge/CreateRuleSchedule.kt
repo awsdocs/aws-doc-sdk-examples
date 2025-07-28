@@ -60,7 +60,7 @@ suspend fun createScRule(
             description = "A test rule that runs on a schedule created by the Kotlin API"
         }
 
-    EventBridgeClient { region = "us-west-2" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-west-2" }.use { eventBrClient ->
         val ruleResponse = eventBrClient.putRule(ruleRequest)
         println("The ARN of the new rule is ${ruleResponse.ruleArn}")
     }
@@ -88,7 +88,7 @@ suspend fun putRuleTarget(
             targets = listOf(lambdaTarget)
         }
 
-    EventBridgeClient { region = "us-west-2" }.use { eventBrClient ->
+    EventBridgeClient.fromEnvironment { region = "us-west-2" }.use { eventBrClient ->
         eventBrClient.putTargets(targetsRequest)
         println("The $lambdaARN was successfully used as a target")
     }

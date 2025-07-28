@@ -43,7 +43,7 @@ suspend fun checkContainer(containerNameVal: String?): String? {
             containerName = containerNameVal
         }
 
-    MediaStoreClient { region = "us-west-2" }.use { mediaStoreClient ->
+    MediaStoreClient.fromEnvironment { region = "us-west-2" }.use { mediaStoreClient ->
         val containerResponse = mediaStoreClient.describeContainer(request)
         println("The container name is ${containerResponse.container?.name}")
         println("The container ARN is ${containerResponse.container?.arn}")

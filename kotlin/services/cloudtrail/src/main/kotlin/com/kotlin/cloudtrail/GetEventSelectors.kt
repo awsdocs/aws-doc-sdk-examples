@@ -36,7 +36,7 @@ suspend fun getSelectors(trailNameVal: String) {
             trailName = trailNameVal
         }
 
-    CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
+    CloudTrailClient.fromEnvironment { region = "us-east-1" }.use { cloudTrail ->
 
         val response = cloudTrail.getEventSelectors(request)
         response.eventSelectors?.forEach { selector ->

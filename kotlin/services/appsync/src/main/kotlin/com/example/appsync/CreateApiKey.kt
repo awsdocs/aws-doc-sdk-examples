@@ -42,7 +42,7 @@ suspend fun createKey(apiIdVal: String): String? {
             description = "Created using the AWS SDK for Kotlin"
         }
 
-    AppSyncClient { region = "us-east-1" }.use { appClient ->
+    AppSyncClient.fromEnvironment { region = "us-east-1" }.use { appClient ->
         val response = appClient.createApiKey(apiKeyRequest)
         return response.apiKey?.id
     }

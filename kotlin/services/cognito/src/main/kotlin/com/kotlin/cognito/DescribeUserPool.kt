@@ -41,7 +41,7 @@ suspend fun describePool(userPoolId: String) {
             this.userPoolId = userPoolId
         }
 
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { cognitoClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { cognitoClient ->
         val response = cognitoClient.describeUserPool(request)
         val poolARN = response.userPool?.arn
         println("The user pool ARN is $poolARN")

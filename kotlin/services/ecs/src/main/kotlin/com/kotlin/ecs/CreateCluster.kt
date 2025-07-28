@@ -58,7 +58,7 @@ suspend fun createGivenCluster(clusterNameVal: String?): String? {
             configuration = clusterConfiguration
         }
 
-    EcsClient { region = "us-east-1" }.use { ecsClient ->
+    EcsClient.fromEnvironment { region = "us-east-1" }.use { ecsClient ->
         val response = ecsClient.createCluster(request)
         return response.cluster?.clusterArn
     }

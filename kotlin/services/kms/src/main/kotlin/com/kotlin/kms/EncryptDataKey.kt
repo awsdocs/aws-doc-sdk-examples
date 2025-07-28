@@ -48,7 +48,7 @@ suspend fun encryptData(keyIdValue: String): ByteArray? {
             plaintext = myBytes
         }
 
-    KmsClient { region = "us-west-2" }.use { kmsClient ->
+    KmsClient.fromEnvironment { region = "us-west-2" }.use { kmsClient ->
         val response = kmsClient.encrypt(encryptRequest)
         val algorithm: String = response.encryptionAlgorithm.toString()
         println("The encryption algorithm is $algorithm")

@@ -16,12 +16,12 @@ dynamodb_Hello:
                 - dynamodb.java2.list_tables.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb
+        - sdk_version: 4
+          github: dotnetv4/DynamoDB
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.HelloDynamoDB
+                - DynamoDB.dotnetv4.HelloDynamoDB
     JavaScript:
       versions:
         - sdk_version: 3
@@ -66,12 +66,12 @@ dynamodb_CreateTable:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb
+        - sdk_version: 4
+          github: dotnetv4/DynamoDB
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.CreateTable
+                - DynamoDB.dotnetv4.dynamodb-basics.CreateTable
     C++:
       versions:
         - sdk_version: 1
@@ -379,12 +379,12 @@ dynamodb_BatchWriteItem:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb
+        - sdk_version: 4
+          github: dotnetv4/DynamoDB
           excerpts:
             - description: Writes a batch of items to the movie table.
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.BatchWriteItem
+                - DynamoDB.dotnetv4.dynamodb-basics.BatchWriteItem
     Go:
       versions:
         - sdk_version: 2
@@ -490,12 +490,12 @@ dynamodb_DeleteTable:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb
+        - sdk_version: 4
+          github: dotnetv4/DynamoDB
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.DeleteTableExample
+                - DynamoDB.dotnetv4.dynamodb-basics.DeleteTableExample
     C++:
       versions:
         - sdk_version: 1
@@ -619,12 +619,12 @@ dynamodb_PutItem:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb
+        - sdk_version: 4
+          github: dotnetv4/DynamoDB
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.PutItem
+                - DynamoDB.dotnetv4.dynamodb-basics.PutItem
     C++:
       versions:
         - sdk_version: 1
@@ -760,12 +760,12 @@ dynamodb_GetItem:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb
+        - sdk_version: 4
+          github: dotnetv4/DynamoDB
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.GetItem
+                - DynamoDB.dotnetv4.dynamodb-basics.GetItem
     C++:
       versions:
         - sdk_version: 1
@@ -887,12 +887,12 @@ dynamodb_UpdateItem:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb
+        - sdk_version: 4
+          github: dotnetv4/DynamoDB
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.UpdateItem
+                - DynamoDB.dotnetv4.dynamodb-basics.UpdateItem
     C++:
       versions:
         - sdk_version: 1
@@ -1017,12 +1017,12 @@ dynamodb_DeleteItem:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb
+        - sdk_version: 4
+          github: dotnetv4/DynamoDB
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.DeleteItem
+                - DynamoDB.dotnetv4.dynamodb-basics.DeleteItem
     Go:
       versions:
         - sdk_version: 2
@@ -1295,12 +1295,12 @@ dynamodb_Query:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb
+        - sdk_version: 4
+          github: dotnetv4/DynamoDB
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.QueryItems
+                - DynamoDB.dotnetv4.dynamodb-basics.QueryItems
     C++:
       versions:
         - sdk_version: 1
@@ -1436,12 +1436,12 @@ dynamodb_Scan:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb
+        - sdk_version: 4
+          github: dotnetv4/DynamoDB
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.ScanTable
+                - DynamoDB.dotnetv4.dynamodb-basics.ScanTable
     C++:
       versions:
         - sdk_version: 1
@@ -1872,39 +1872,39 @@ dynamodb_Scenario_GettingStartedMovies:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/dynamodb
+        - sdk_version: 4
+          github: dotnetv4/DynamoDB
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.DynamoDB_Basics_Scenario
+                - DynamoDB.dotnetv4.DynamoDB_Basics_Scenario
             - description: Creates a table to contain movie data.
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.CreateTable
+                - DynamoDB.dotnetv4.dynamodb-basics.CreateTable
             - description: Adds a single movie to the table.
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.PutItem
+                - DynamoDB.dotnetv4.dynamodb-basics.PutItem
             - description: Updates a single item in a table.
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.UpdateItem
+                - DynamoDB.dotnetv4.dynamodb-basics.UpdateItem
             - description: Retrieves a single item from the movie table.
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.GetItem
+                - DynamoDB.dotnetv4.dynamodb-basics.GetItem
             - description: Writes a batch of items to the movie table.
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.BatchWriteItem
+                - DynamoDB.dotnetv4.dynamodb-basics.BatchWriteItem
             - description: Deletes a single item from the table.
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.DeleteItem
+                - DynamoDB.dotnetv4.dynamodb-basics.DeleteItem
             - description: Queries the table for movies released in a particular year.
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.QueryItems
+                - DynamoDB.dotnetv4.dynamodb-basics.QueryItems
             - description: Scans the table for movies released in a range of years.
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.ScanTable
+                - DynamoDB.dotnetv4.dynamodb-basics.ScanTable
             - description: Deletes the movie table.
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.DeleteTableExample
+                - DynamoDB.dotnetv4.dynamodb-basics.DeleteTableExample
     Go:
       versions:
         - sdk_version: 2

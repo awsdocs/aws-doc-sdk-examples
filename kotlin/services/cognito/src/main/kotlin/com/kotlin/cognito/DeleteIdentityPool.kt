@@ -41,8 +41,7 @@ suspend fun deleteIdPool(identityPoold: String?) {
             this.identityPoolId = identityPoold
         }
 
-    CognitoIdentityClient { region = "us-east-1" }.use { cognitoIdclient ->
-
+    CognitoIdentityClient.fromEnvironment { region = "us-east-1" }.use { cognitoIdclient ->
         cognitoIdclient.deleteIdentityPool(request)
         println("The identity pool was successfully deleted")
     }

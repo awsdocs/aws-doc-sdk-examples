@@ -27,7 +27,7 @@ suspend fun getAllJobs() {
             maxResults = 10
         }
 
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getJobs(request)
         response.jobs?.forEach { job ->
             println("Job name is ${job.name}")
