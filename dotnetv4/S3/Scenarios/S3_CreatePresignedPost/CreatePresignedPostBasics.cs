@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-using Microsoft.Extensions.Hosting;
-
 namespace S3Scenarios;
 
 // snippet-start:[S3.dotnetv4.CreatePresignedPostBasics]
@@ -18,6 +16,7 @@ public class CreatePresignedPostBasics
     public static ILogger<CreatePresignedPostBasics> _logger = null!;
     public static S3Wrapper _s3Wrapper = null!;
     public static UiMethods _uiMethods = null!;
+    public static IHttpClientFactory _httpClientFactory = null!;
     public static bool _isInteractive = true;
     public static string? _bucketName;
     public static string? _objectKey;
@@ -34,8 +33,8 @@ public class CreatePresignedPostBasics
         });
         _logger = new Logger<CreatePresignedPostBasics>(loggerFactory);
 
-        // Now the client is available for injection.
         _s3Wrapper = host.Services.GetRequiredService<S3Wrapper>();
+        _httpClientFactory = host.Services.GetRequiredService<IHttpClientFactory>();
         _uiMethods = new UiMethods();
     }
 
@@ -46,7 +45,6 @@ public class CreatePresignedPostBasics
     /// <returns>A Task object.</returns>
     public static async Task Main(string[] args)
     {
-        // Check for non-interactive mode
         _isInteractive = !args.Contains("--non-interactive");
         
         // Set up dependency injection for Amazon S3
@@ -54,6 +52,7 @@ public class CreatePresignedPostBasics
             .ConfigureServices((_, services) =>
                 services.AddAWSService<IAmazonS3>()
                     .AddTransient<S3Wrapper>()
+                    .AddHttpClient()
             )
             .Build();
 
@@ -151,7 +150,6 @@ public class CreatePresignedPostBasics
         Console.WriteLine($"Creating presigned POST URL for {_bucketName}/{_objectKey}");
         Console.WriteLine($"Expiration: {expiration} UTC");
         
-        // Get S3 client from S3Wrapper
         var s3Client = _s3Wrapper.GetS3Client();
         
         var response = await _s3Wrapper.CreatePresignedPostAsync(
@@ -207,8 +205,7 @@ public class CreatePresignedPostBasics
         {
             _logger.LogInformation("Uploading file {filePath} using presigned POST URL", filePath);
             
-            // Create HttpClient to send the request
-            using var httpClient = new HttpClient();
+            using var httpClient = _httpClientFactory.CreateClient();
             using var formContent = new MultipartFormDataContent();
             
             // Add all the fields from the presigned POST response
