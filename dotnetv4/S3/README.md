@@ -33,14 +33,14 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreatePresignedPost](Actions/S3Wrapper.cs#L71)
+- [CreatePresignedPost](Scenarios/S3_CreatePresignedPost/S3Wrapper.cs#L35)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [](Scenarios/S3_CreatePresignedPost/CreatePresignedPostBasics.cs)
+- [Create a presigned URL](Scenarios/S3_CreatePresignedPost/CreatePresignedPostBasics.cs)
 
 
 <!--custom.examples.start-->
@@ -56,17 +56,17 @@ functions within the same service.
 
 
 
-#### 
+#### Create a presigned URL
 
-This example shows you how to do the following:
-
-
-<!--custom.scenario_prereqs.s3_Scenario_CreatePresignedPost.start-->
-<!--custom.scenario_prereqs.s3_Scenario_CreatePresignedPost.end-->
+This example shows you how to create a presigned URL for Amazon S3 and upload an object.
 
 
-<!--custom.scenarios.s3_Scenario_CreatePresignedPost.start-->
-<!--custom.scenarios.s3_Scenario_CreatePresignedPost.end-->
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.end-->
+
+
+<!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
 
 ### Tests
 
