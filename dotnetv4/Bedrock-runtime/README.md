@@ -28,11 +28,6 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-### AI21 Labs Jurassic-2
-
-- [Converse](Models/Ai21LabsJurassic2/Converse/Converse.cs#L4)
-- [InvokeModel](Models/Ai21LabsJurassic2/InvokeModel/InvokeModel.cs#L4)
-
 ### Amazon Titan Text
 
 - [Converse](Models/AmazonTitanText/Converse/Converse.cs#L4)

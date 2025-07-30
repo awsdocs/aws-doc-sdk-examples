@@ -41,7 +41,7 @@ suspend fun deleteSagemakerModel(modelNameVal: String?) {
             modelName = modelNameVal
         }
 
-    SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+    SageMakerClient.fromEnvironment { region = "us-west-2" }.use { sageMakerClient ->
         sageMakerClient.deleteModel(request)
     }
 }

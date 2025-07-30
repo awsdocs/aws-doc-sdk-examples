@@ -8,7 +8,12 @@ plugins {
 group = "com.example.bedrockruntime"
 version = "1.0-SNAPSHOT"
 
-val awsSdkVersion = "1.4.27"
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+val awsSdkVersion = "1.4.119"
 val junitVersion = "5.12.0"
 
 repositories {
@@ -26,7 +31,7 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(17)
 }
 
 tasks.test {

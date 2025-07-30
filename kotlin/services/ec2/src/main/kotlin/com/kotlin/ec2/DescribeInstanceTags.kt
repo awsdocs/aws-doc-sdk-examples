@@ -48,7 +48,7 @@ suspend fun describeEC2Tags(resourceIdVal: String) {
             filters = listOf(filter)
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeTags(request)
         response.tags?.forEach { tag ->
             println("Tag key is ${tag.key}")

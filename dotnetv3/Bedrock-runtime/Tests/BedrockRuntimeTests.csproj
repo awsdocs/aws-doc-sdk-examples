@@ -27,9 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Models\Ai21LabsJurassic2\Converse\Converse.csproj" />
-	  <ProjectReference Include="..\Models\Ai21LabsJurassic2\InvokeModel\InvokeModel.csproj" />
-	  <ProjectReference Include="..\Models\AmazonNova\AmazonNovaCanvas\InvokeModel\InvokeModel.csproj" />
+		<ProjectReference Include="..\Models\AmazonNova\AmazonNovaCanvas\InvokeModel\InvokeModel.csproj" />
 	  <ProjectReference Include="..\Models\AmazonNova\AmazonNovaText\ConverseStream\ConverseStream.csproj" />
 	  <ProjectReference Include="..\Models\AmazonNova\AmazonNovaText\Converse\Converse.csproj" />
 	  <ProjectReference Include="..\Models\AmazonTitanText\Converse\Converse.csproj" />

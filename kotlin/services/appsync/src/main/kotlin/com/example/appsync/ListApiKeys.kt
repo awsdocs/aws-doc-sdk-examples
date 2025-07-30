@@ -41,7 +41,7 @@ suspend fun getKeys(apiIdVal: String?) {
             apiId = apiIdVal
         }
 
-    AppSyncClient { region = "us-east-1" }.use { appClient ->
+    AppSyncClient.fromEnvironment { region = "us-east-1" }.use { appClient ->
         val response = appClient.listApiKeys(request)
         response.apiKeys?.forEach { key ->
             println("The key Id is ${key.id}")

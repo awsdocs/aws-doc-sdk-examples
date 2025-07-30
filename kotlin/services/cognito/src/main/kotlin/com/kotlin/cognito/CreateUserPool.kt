@@ -42,7 +42,7 @@ suspend fun createPool(userPoolName: String): String? {
             this.poolName = userPoolName
         }
 
-    CognitoIdentityProviderClient { region = "us-east-1" }.use { cognitoClient ->
+    CognitoIdentityProviderClient.fromEnvironment { region = "us-east-1" }.use { cognitoClient ->
         val createUserPoolResponse = cognitoClient.createUserPool(request)
         return createUserPoolResponse.userPool?.id
     }

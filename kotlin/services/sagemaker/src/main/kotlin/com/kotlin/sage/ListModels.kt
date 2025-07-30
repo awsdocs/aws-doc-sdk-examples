@@ -25,7 +25,7 @@ suspend fun listAllModels() {
         ListModelsRequest {
             maxResults = 15
         }
-    SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
+    SageMakerClient.fromEnvironment { region = "us-west-2" }.use { sageMakerClient ->
         val response = sageMakerClient.listModels(request)
         response.models?.forEach { item ->
             println("Model name is ${item.modelName}")

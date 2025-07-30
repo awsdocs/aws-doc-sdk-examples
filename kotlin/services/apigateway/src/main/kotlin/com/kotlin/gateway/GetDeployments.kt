@@ -33,7 +33,7 @@ suspend fun getAllDeployments(restApiIdVal: String?) {
         restApiId = restApiIdVal
     }
 
-    ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
+    ApiGatewayClient.fromEnvironment { region = "us-east-1" }.use { apiGateway ->
         val response = apiGateway.getDeployments(request)
         response.items?.forEach { deployment ->
             println("The deployment id is ${deployment.id}")

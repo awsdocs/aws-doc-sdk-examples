@@ -28,7 +28,7 @@ suspend fun textTranslate() {
             text = "Its a sunny day today"
         }
 
-    TranslateClient { region = "us-west-2" }.use { translateClient ->
+    TranslateClient.fromEnvironment { region = "us-west-2" }.use { translateClient ->
         val textResponse = translateClient.translateText(textRequest)
         println(textResponse.translatedText)
     }

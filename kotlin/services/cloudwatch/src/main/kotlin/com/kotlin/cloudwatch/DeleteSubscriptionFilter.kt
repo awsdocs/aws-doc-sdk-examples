@@ -49,7 +49,7 @@ suspend fun deleteSubFilter(
             logGroupName = logGroup
         }
 
-    CloudWatchLogsClient { region = "us-west-2" }.use { logs ->
+    CloudWatchLogsClient.fromEnvironment { region = "us-west-2" }.use { logs ->
         logs.deleteSubscriptionFilter(request)
         println("Successfully deleted CloudWatch logs subscription filter named $filter")
     }

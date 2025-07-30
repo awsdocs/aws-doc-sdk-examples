@@ -50,7 +50,6 @@ Code excerpts that show you how to call individual service functions.
 - [ConfirmDevice](Actions/CognitoWrapper.cs#L241)
 - [ConfirmSignUp](Actions/CognitoWrapper.cs#L213)
 - [InitiateAuth](Actions/CognitoWrapper.cs#L184)
-- [ListUserPools](Actions/CognitoWrapper.cs#L25)
 - [ListUsers](Actions/CognitoWrapper.cs#L46)
 - [ResendConfirmationCode](Actions/CognitoWrapper.cs#L264)
 - [SignUp](Actions/CognitoWrapper.cs#L311)

@@ -43,7 +43,7 @@ suspend fun createIAMAccessKey(user: String?): String {
             userName = user
         }
 
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.createAccessKey(request)
         return response.accessKey?.accessKeyId.toString()
     }

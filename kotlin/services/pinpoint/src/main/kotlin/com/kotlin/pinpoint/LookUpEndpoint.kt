@@ -42,7 +42,7 @@ suspend fun lookupPinpointEndpoint(
     appId: String?,
     endpoint: String?,
 ) {
-    PinpointClient { region = "us-west-2" }.use { pinpoint ->
+    PinpointClient.fromEnvironment { region = "us-west-2" }.use { pinpoint ->
         val result =
             pinpoint.getEndpoint(
                 GetEndpointRequest {

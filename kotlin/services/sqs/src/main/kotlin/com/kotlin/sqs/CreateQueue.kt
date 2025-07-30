@@ -43,7 +43,7 @@ suspend fun createQueue(queueNameVal: String): String {
             queueName = queueNameVal
         }
 
-    SqsClient { region = "us-east-1" }.use { sqsClient ->
+    SqsClient.fromEnvironment { region = "us-east-1" }.use { sqsClient ->
         sqsClient.createQueue(createQueueRequest)
         println("Get queue url")
 

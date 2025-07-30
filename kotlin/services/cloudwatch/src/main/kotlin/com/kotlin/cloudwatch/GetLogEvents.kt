@@ -49,7 +49,7 @@ suspend fun getCWLogEvents(
             startFromHead = true
         }
 
-    CloudWatchLogsClient { region = "us-west-2" }.use { cwlClient ->
+    CloudWatchLogsClient.fromEnvironment { region = "us-west-2" }.use { cwlClient ->
         val eventsList = cwlClient.getLogEvents(request)
         eventsList.events?.forEach { list ->
             println("Message is: " + list.message)

@@ -41,7 +41,7 @@ suspend fun getSpecificCrawler(crawlerName: String?) {
         GetCrawlerRequest {
             name = crawlerName
         }
-    GlueClient { region = "us-east-1" }.use { glueClient ->
+    GlueClient.fromEnvironment { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getCrawler(request)
         val role = response.crawler?.role
         println("The role associated with this crawler is $role")

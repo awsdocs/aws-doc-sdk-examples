@@ -48,7 +48,7 @@ suspend fun detectModLabels(sourceImage: String) {
             minConfidence = 60f
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.detectModerationLabels(request)
         response.moderationLabels?.forEach { label ->
             println("Label: ${label.name} - Confidence: ${label.confidence} % Parent: ${label.parentName}")

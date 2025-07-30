@@ -27,7 +27,7 @@ suspend fun listAllHealthChecks() {
             this.maxItems = 10
         }
 
-    Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
+    Route53Client.fromEnvironment { region = "AWS_GLOBAL" }.use { route53Client ->
         val response = route53Client.listHealthChecks(requestOb)
         response.healthChecks?.forEach { check ->
             println("The health check id is ${check.id}")

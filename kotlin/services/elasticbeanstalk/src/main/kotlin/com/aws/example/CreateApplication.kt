@@ -45,7 +45,7 @@ suspend fun createApp(appName: String?): String {
         }
 
     var tableArn: String
-    ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
+    ElasticBeanstalkClient.fromEnvironment { region = "us-east-1" }.use { beanstalkClient ->
         val applicationResponse = beanstalkClient.createApplication(applicationRequest)
         tableArn = applicationResponse.application?.applicationArn.toString()
     }

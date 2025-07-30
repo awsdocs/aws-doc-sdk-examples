@@ -31,34 +31,34 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 ### Get started
 
-- [Hello Amazon Location](src/main/java/com/example/location/HelloLocation.kt#L10) (`ListGeofencesPaginator`)
+- [Hello Amazon Location](src/main/java/location/HelloLocation.kt#L10) (`ListGeofencesPaginator`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](src/main/java/com/example/location/scenario/LocationScenario.kt)
+- [Learn the basics](src/main/java/location/scenario/LocationScenario.kt)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchUpdateDevicePosition](src/main/java/com/example/location/scenario/LocationScenario.kt#L567)
-- [CalculateRoute](src/main/java/com/example/location/scenario/LocationScenario.kt#L501)
-- [CreateGeofenceCollection](src/main/java/com/example/location/scenario/LocationScenario.kt#L648)
-- [CreateKey](src/main/java/com/example/location/scenario/LocationScenario.kt#L667)
-- [CreateMap](src/main/java/com/example/location/scenario/LocationScenario.kt#L694)
-- [CreateRouteCalculator](src/main/java/com/example/location/scenario/LocationScenario.kt#L528)
-- [CreateTracker](src/main/java/com/example/location/scenario/LocationScenario.kt#L595)
-- [DeleteGeofenceCollection](src/main/java/com/example/location/scenario/LocationScenario.kt#L335)
-- [DeleteKey](src/main/java/com/example/location/scenario/LocationScenario.kt#L355)
-- [DeleteMap](src/main/java/com/example/location/scenario/LocationScenario.kt#L373)
-- [DeleteRouteCalculator](src/main/java/com/example/location/scenario/LocationScenario.kt#L300)
-- [DeleteTracker](src/main/java/com/example/location/scenario/LocationScenario.kt#L317)
-- [GetDevicePosition](src/main/java/com/example/location/scenario/LocationScenario.kt#L548)
-- [PutGeofence](src/main/java/com/example/location/scenario/LocationScenario.kt#L616)
+- [BatchUpdateDevicePosition](src/main/java/location/scenario/LocationScenario.kt#L563)
+- [CalculateRoute](src/main/java/location/scenario/LocationScenario.kt#L497)
+- [CreateGeofenceCollection](src/main/java/location/scenario/LocationScenario.kt#L644)
+- [CreateKey](src/main/java/location/scenario/LocationScenario.kt#L663)
+- [CreateMap](src/main/java/location/scenario/LocationScenario.kt#L690)
+- [CreateRouteCalculator](src/main/java/location/scenario/LocationScenario.kt#L524)
+- [CreateTracker](src/main/java/location/scenario/LocationScenario.kt#L591)
+- [DeleteGeofenceCollection](src/main/java/location/scenario/LocationScenario.kt#L331)
+- [DeleteKey](src/main/java/location/scenario/LocationScenario.kt#L351)
+- [DeleteMap](src/main/java/location/scenario/LocationScenario.kt#L369)
+- [DeleteRouteCalculator](src/main/java/location/scenario/LocationScenario.kt#L296)
+- [DeleteTracker](src/main/java/location/scenario/LocationScenario.kt#L313)
+- [GetDevicePosition](src/main/java/location/scenario/LocationScenario.kt#L544)
+- [PutGeofence](src/main/java/location/scenario/LocationScenario.kt#L612)
 
 
 <!--custom.examples.start-->

@@ -43,7 +43,7 @@ suspend fun deleteRedshiftCluster(clusterId: String?) {
             skipFinalClusterSnapshot = true
         }
 
-    RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
+    RedshiftClient.fromEnvironment { region = "us-west-2" }.use { redshiftClient ->
         val response = redshiftClient.deleteCluster(request)
         println("The status is ${response.cluster?.clusterStatus}")
     }
