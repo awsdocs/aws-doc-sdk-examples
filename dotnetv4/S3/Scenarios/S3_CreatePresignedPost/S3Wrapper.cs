@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-namespace S3Actions;
+namespace S3Scenarios;
 
 /// <summary>
 /// Wrapper methods for common Amazon Simple Storage Service (Amazon S3) 
@@ -31,6 +31,54 @@ public class S3Wrapper
     {
         return _s3Client;
     }
+    
+    // snippet-start:[S3.dotnetv4.Scenario_CreatePresignedPostAsync]
+    /// <summary>
+    /// Create a presigned POST URL with conditions.
+    /// </summary>
+    /// <param name="s3Client">The Amazon S3 client.</param>
+    /// <param name="bucketName">The name of the bucket.</param>
+    /// <param name="objectKey">The object key (path) where the uploaded file will be stored.</param>
+    /// <param name="expires">When the presigned URL expires.</param>
+    /// <param name="fields">Dictionary of fields to add to the form.</param>
+    /// <param name="conditions">List of conditions to apply.</param>
+    /// <returns>A CreatePresignedPostResponse object with URL and form fields.</returns>
+    public async Task<CreatePresignedPostResponse> CreatePresignedPostAsync(
+        IAmazonS3 s3Client,
+        string bucketName,
+        string objectKey,
+        DateTime expires,
+        Dictionary<string, string>? fields = null,
+        List<S3PostCondition>? conditions = null)
+    {
+        var request = new CreatePresignedPostRequest
+        {
+            BucketName = bucketName,
+            Key = objectKey,
+            Expires = expires
+        };
+
+        // Add custom fields if provided
+        if (fields != null)
+        {
+            foreach (var field in fields)
+            {
+                request.Fields.Add(field.Key, field.Value);
+            }
+        }
+
+        // Add conditions if provided
+        if (conditions != null)
+        {
+            foreach (var condition in conditions)
+            {
+                request.Conditions.Add(condition);
+            }
+        }
+
+        return await s3Client.CreatePresignedPostAsync(request);
+    }
+    // snippet-end:[S3.dotnetv4.Scenario_CreatePresignedPostAsync]
 
     /// <summary>
     /// Create a bucket and wait until it's ready to use.
@@ -40,31 +88,31 @@ public class S3Wrapper
     public async Task<string> CreateBucketAsync(string bucketName)
     {
         _logger.LogInformation("Creating bucket {bucket}", bucketName);
-        
+
         var request = new PutBucketRequest
         {
             BucketName = bucketName
         };
 
         var response = await _s3Client.PutBucketAsync(request);
-        
-        _logger.LogInformation("Created bucket {bucket} with status {status}", 
+
+        _logger.LogInformation("Created bucket {bucket} with status {status}",
             bucketName, response.HttpStatusCode);
 
         // Wait for the bucket to be available
         var exist = await Amazon.S3.Util.AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, bucketName);
-        
+
         if (!exist)
         {
             _logger.LogInformation("Waiting for bucket {bucket} to be ready", bucketName);
-            
+
             while (!exist)
             {
                 await Task.Delay(2000);
                 exist = await Amazon.S3.Util.AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, bucketName);
             }
         }
-        
+
         return bucketName;
     }
 

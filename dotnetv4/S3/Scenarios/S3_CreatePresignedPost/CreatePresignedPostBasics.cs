@@ -76,7 +76,7 @@ public class CreatePresignedPostBasics
             
             // Step 3: Display URL and fields
             _uiMethods.DisplayTitle("Step 3: Presigned POST URL details");
-            CreatePresignedPost.DisplayPresignedPostFields(response);
+            DisplayPresignedPostFields(response);
             _uiMethods.PressEnter(_isInteractive);
             
             // Step 4: Upload file
@@ -117,8 +117,20 @@ public class CreatePresignedPostBasics
     {
         _uiMethods.DisplayTitle("Step 1: Create an S3 bucket");
         
-        // Create a unique bucket name for the scenario
-        _bucketName = $"presigned-post-demo-{DateTime.Now:yyyyMMddHHmmss}".ToLower();
+        // Generate a default bucket name for the scenario
+        var defaultBucketName = $"presigned-post-demo-{DateTime.Now:yyyyMMddHHmmss}".ToLower();
+        
+        // Prompt user for bucket name or use default in non-interactive mode
+        _bucketName = _uiMethods.GetUserInput(
+            $"Enter S3 bucket name (or press Enter for '{defaultBucketName}'): ", 
+            defaultBucketName, 
+            _isInteractive);
+        
+        // Basic validation to ensure bucket name is not empty
+        if (string.IsNullOrWhiteSpace(_bucketName))
+        {
+            _bucketName = defaultBucketName;
+        }
         
         Console.WriteLine($"Creating bucket: {_bucketName}");
         
@@ -127,53 +139,6 @@ public class CreatePresignedPostBasics
         Console.WriteLine($"Successfully created bucket: {_bucketName}");
     }
 
-    /// <summary>
-    /// Create a presigned POST URL with conditions.
-    /// </summary>
-    /// <param name="s3Client">The Amazon S3 client.</param>
-    /// <param name="bucketName">The name of the bucket.</param>
-    /// <param name="objectKey">The object key (path) where the uploaded file will be stored.</param>
-    /// <param name="expires">When the presigned URL expires.</param>
-    /// <param name="fields">Dictionary of fields to add to the form.</param>
-    /// <param name="conditions">List of conditions to apply.</param>
-    /// <returns>A CreatePresignedPostResponse object with URL and form fields.</returns>
-    // snippet-start:[S3.dotnetv4.Scenario_CreatePresignedPostAsync]
-    private static async Task<CreatePresignedPostResponse> CreatePresignedPostAsync(
-        IAmazonS3 s3Client,
-        string bucketName, 
-        string objectKey, 
-        DateTime expires, 
-        Dictionary<string, string>? fields = null, 
-        List<S3PostCondition>? conditions = null)
-    {
-        var request = new CreatePresignedPostRequest
-        {
-            BucketName = bucketName,
-            Key = objectKey,
-            Expires = expires
-        };
-
-        // Add custom fields if provided
-        if (fields != null)
-        {
-            foreach (var field in fields)
-            {
-                request.Fields.Add(field.Key, field.Value);
-            }
-        }
-
-        // Add conditions if provided
-        if (conditions != null)
-        {
-            foreach (var condition in conditions)
-            {
-                request.Conditions.Add(condition);
-            }
-        }
-
-        return await s3Client.CreatePresignedPostAsync(request);
-    }
-    // snippet-end:[S3.dotnetv4.Scenario_CreatePresignedPostAsync]
 
     /// <summary>
     /// Create a presigned POST URL.
@@ -189,7 +154,7 @@ public class CreatePresignedPostBasics
         // Get S3 client from S3Wrapper
         var s3Client = _s3Wrapper.GetS3Client();
         
-        var response = await CreatePresignedPostAsync(
+        var response = await _s3Wrapper.CreatePresignedPostAsync(
             s3Client, _bucketName!, _objectKey, expiration);
         
         Console.WriteLine("Successfully created presigned POST URL");
@@ -300,6 +265,17 @@ public class CreatePresignedPostBasics
         }
     }
 
+    private static void DisplayPresignedPostFields(CreatePresignedPostResponse response)
+    {
+        Console.WriteLine($"Presigned POST URL: {response.Url}");
+        Console.WriteLine("Form fields to include:");
+
+        foreach (var field in response.Fields)
+        {
+            Console.WriteLine($"  {field.Key}: {field.Value}");
+        }
+    }
+
     /// <summary>
     /// Clean up resources created by the scenario.
     /// </summary>
@@ -321,6 +297,7 @@ public class CreatePresignedPostBasics
             }
         }
     }
+
 
 }
 // snippet-end:[S3.dotnetv4.CreatePresignedPostBasics]

@@ -47,4 +47,26 @@ public class UiMethods
         Console.WriteLine(strTitle);
         Console.WriteLine(SepBar);
     }
+
+    /// <summary>
+    /// Get user input with an optional default value.
+    /// </summary>
+    /// <param name="prompt">The prompt to display to the user.</param>
+    /// <param name="defaultValue">The default value to use if user doesn't provide input.</param>
+    /// <param name="isInteractive">Whether to wait for user input or use default.</param>
+    /// <returns>The user input or default value.</returns>
+    public string GetUserInput(string prompt, string? defaultValue = null, bool isInteractive = true)
+    {
+        Console.Write(prompt);
+        if (isInteractive)
+        {
+            var input = Console.ReadLine();
+            return string.IsNullOrWhiteSpace(input) ? defaultValue ?? "" : input.Trim();
+        }
+        else
+        {
+            Console.WriteLine(defaultValue ?? "");
+            return defaultValue ?? "";
+        }
+    }
 }

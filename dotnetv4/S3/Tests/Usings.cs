@@ -4,6 +4,5 @@
 global using Amazon.S3;
 global using Microsoft.Extensions.Logging;
 global using Moq;
-global using S3Scenarios;
-global using S3Actions;
 global using Xunit;
+global using S3Scenarios;
