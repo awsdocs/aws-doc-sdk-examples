@@ -278,7 +278,6 @@ public class CreatePresignedPostBasics
     /// </summary>
     private static async Task CleanupAsync()
     {
-        
         if (!string.IsNullOrEmpty(_bucketName))
         {
             Console.WriteLine($"Deleting bucket {_bucketName} and its contents...");
@@ -294,7 +293,5 @@ public class CreatePresignedPostBasics
             }
         }
     }
-
-
 }
 // snippet-end:[S3.dotnetv4.CreatePresignedPostBasics]
