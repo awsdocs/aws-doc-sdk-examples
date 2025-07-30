@@ -24,16 +24,16 @@ public class CreatePresignedPostBasicsTests
         var loggerScenarioMock = new Mock<ILogger<S3Scenarios.CreatePresignedPostBasics>>();
         var loggerWrapperMock = new Mock<ILogger<S3Wrapper>>();
         var uiMethods = new S3Scenarios.UiMethods();
-        
+
         _client = new AmazonS3Client();
         _s3Wrapper = new S3Wrapper(_client, loggerWrapperMock.Object);
-        
+
         // Set up the static fields directly
         S3Scenarios.CreatePresignedPostBasics._logger = loggerScenarioMock.Object;
         S3Scenarios.CreatePresignedPostBasics._s3Wrapper = _s3Wrapper;
         S3Scenarios.CreatePresignedPostBasics._uiMethods = uiMethods;
         S3Scenarios.CreatePresignedPostBasics._isInteractive = false;
-        
+
         // Set up verification for error logging.
         loggerScenarioMock.Setup(logger => logger.Log(
             It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),

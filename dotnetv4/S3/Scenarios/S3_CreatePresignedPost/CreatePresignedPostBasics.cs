@@ -46,7 +46,7 @@ public class CreatePresignedPostBasics
     public static async Task Main(string[] args)
     {
         _isInteractive = !args.Contains("--non-interactive");
-        
+
         // Set up dependency injection for Amazon S3
         using var host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
@@ -57,40 +57,40 @@ public class CreatePresignedPostBasics
             .Build();
 
         SetUpServices(host);
-        
+
         try
         {
             // Display overview
             _uiMethods.DisplayOverview();
             _uiMethods.PressEnter(_isInteractive);
-            
+
             // Step 1: Create bucket
             await CreateBucketAsync();
             _uiMethods.PressEnter(_isInteractive);
-            
+
             // Step 2: Create presigned URL
             _uiMethods.DisplayTitle("Step 2: Create presigned POST URL");
             var response = await CreatePresignedPostAsync();
             _uiMethods.PressEnter(_isInteractive);
-            
+
             // Step 3: Display URL and fields
             _uiMethods.DisplayTitle("Step 3: Presigned POST URL details");
             DisplayPresignedPostFields(response);
             _uiMethods.PressEnter(_isInteractive);
-            
+
             // Step 4: Upload file
             _uiMethods.DisplayTitle("Step 4: Upload test file using presigned POST URL");
             await UploadFileAsync(response);
             _uiMethods.PressEnter(_isInteractive);
-            
+
             // Step 5: Verify file exists
             await VerifyFileExistsAsync();
             _uiMethods.PressEnter(_isInteractive);
-            
+
             // Step 6: Cleanup
             _uiMethods.DisplayTitle("Step 6: Clean up resources");
             await CleanupAsync();
-            
+
             _uiMethods.DisplayTitle("S3 Presigned POST Scenario completed successfully!");
             _uiMethods.PressEnter(_isInteractive);
         }
@@ -98,7 +98,7 @@ public class CreatePresignedPostBasics
         {
             _logger.LogError(ex, "Error in scenario");
             Console.WriteLine($"Error: {ex.Message}");
-            
+
             // Attempt cleanup if there was an error
             if (!string.IsNullOrEmpty(_bucketName))
             {
@@ -115,26 +115,26 @@ public class CreatePresignedPostBasics
     private static async Task CreateBucketAsync()
     {
         _uiMethods.DisplayTitle("Step 1: Create an S3 bucket");
-        
+
         // Generate a default bucket name for the scenario
         var defaultBucketName = $"presigned-post-demo-{DateTime.Now:yyyyMMddHHmmss}".ToLower();
-        
+
         // Prompt user for bucket name or use default in non-interactive mode
         _bucketName = _uiMethods.GetUserInput(
-            $"Enter S3 bucket name (or press Enter for '{defaultBucketName}'): ", 
-            defaultBucketName, 
+            $"Enter S3 bucket name (or press Enter for '{defaultBucketName}'): ",
+            defaultBucketName,
             _isInteractive);
-        
+
         // Basic validation to ensure bucket name is not empty
         if (string.IsNullOrWhiteSpace(_bucketName))
         {
             _bucketName = defaultBucketName;
         }
-        
+
         Console.WriteLine($"Creating bucket: {_bucketName}");
-        
+
         await _s3Wrapper.CreateBucketAsync(_bucketName);
-        
+
         Console.WriteLine($"Successfully created bucket: {_bucketName}");
     }
 
@@ -146,15 +146,15 @@ public class CreatePresignedPostBasics
     {
         _objectKey = "example-upload.txt";
         var expiration = DateTime.UtcNow.AddMinutes(10); // Short expiration for the demo
-        
+
         Console.WriteLine($"Creating presigned POST URL for {_bucketName}/{_objectKey}");
         Console.WriteLine($"Expiration: {expiration} UTC");
-        
+
         var s3Client = _s3Wrapper.GetS3Client();
-        
+
         var response = await _s3Wrapper.CreatePresignedPostAsync(
             s3Client, _bucketName!, _objectKey, expiration);
-        
+
         Console.WriteLine("Successfully created presigned POST URL");
         return response;
     }
@@ -164,18 +164,18 @@ public class CreatePresignedPostBasics
     /// </summary>
     private static async Task UploadFileAsync(CreatePresignedPostResponse response)
     {
-        
+
         // Create a temporary test file to upload
         string testFilePath = Path.GetTempFileName();
         string testContent = "This is a test file for the S3 presigned POST scenario.";
-        
+
         await File.WriteAllTextAsync(testFilePath, testContent);
         Console.WriteLine($"Created test file at: {testFilePath}");
-        
+
         // Upload the file using the presigned POST URL
         Console.WriteLine("\nUploading file using the presigned POST URL...");
         var uploadResult = await UploadFileWithPresignedPostAsync(response, testFilePath);
-        
+
         // Display the upload result
         if (uploadResult.Success)
         {
@@ -188,7 +188,7 @@ public class CreatePresignedPostBasics
             Console.WriteLine($"Error: {uploadResult.Response}");
             throw new Exception("File upload failed");
         }
-        
+
         // Clean up the temporary file
         File.Delete(testFilePath);
         Console.WriteLine("Temporary file deleted");
@@ -198,36 +198,36 @@ public class CreatePresignedPostBasics
     /// Helper method to upload a file using a presigned POST URL.
     /// </summary>
     private static async Task<(bool Success, HttpStatusCode StatusCode, string Response)> UploadFileWithPresignedPostAsync(
-        CreatePresignedPostResponse response, 
+        CreatePresignedPostResponse response,
         string filePath)
     {
         try
         {
             _logger.LogInformation("Uploading file {filePath} using presigned POST URL", filePath);
-            
+
             using var httpClient = _httpClientFactory.CreateClient();
             using var formContent = new MultipartFormDataContent();
-            
+
             // Add all the fields from the presigned POST response
             foreach (var field in response.Fields)
             {
                 formContent.Add(new StringContent(field.Value), field.Key);
             }
-            
+
             // Add the file content
             var fileStream = File.OpenRead(filePath);
             var fileName = Path.GetFileName(filePath);
             var fileContent = new StreamContent(fileStream);
             fileContent.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
             formContent.Add(fileContent, "file", fileName);
-            
+
             // Send the POST request
             var httpResponse = await httpClient.PostAsync(response.Url, formContent);
             var responseContent = await httpResponse.Content.ReadAsStringAsync();
-            
+
             // Log and return the result
             _logger.LogInformation("Upload completed with status code {statusCode}", httpResponse.StatusCode);
-            
+
             return (httpResponse.IsSuccessStatusCode, httpResponse.StatusCode, responseContent);
         }
         catch (Exception ex)
@@ -243,13 +243,13 @@ public class CreatePresignedPostBasics
     private static async Task VerifyFileExistsAsync()
     {
         _uiMethods.DisplayTitle("Step 5: Verify uploaded file exists");
-        
+
         Console.WriteLine($"Checking if file exists at {_bucketName}/{_objectKey}...");
-        
+
         try
         {
             var metadata = await _s3Wrapper.GetObjectMetadataAsync(_bucketName!, _objectKey!);
-            
+
             Console.WriteLine($"File verification successful! File exists in the bucket.");
             Console.WriteLine($"File size: {metadata.ContentLength} bytes");
             Console.WriteLine($"File type: {metadata.Headers.ContentType}");
@@ -282,7 +282,7 @@ public class CreatePresignedPostBasics
         {
             Console.WriteLine($"Deleting bucket {_bucketName} and its contents...");
             bool result = await _s3Wrapper.DeleteBucketAsync(_bucketName);
-            
+
             if (result)
             {
                 Console.WriteLine("Bucket deleted successfully");

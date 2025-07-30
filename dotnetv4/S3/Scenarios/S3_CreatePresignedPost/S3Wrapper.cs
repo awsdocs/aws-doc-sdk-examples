@@ -31,7 +31,7 @@ public class S3Wrapper
     {
         return _s3Client;
     }
-    
+
     // snippet-start:[S3.dotnetv4.Scenario_CreatePresignedPostAsync]
     /// <summary>
     /// Create a presigned POST URL with conditions.
