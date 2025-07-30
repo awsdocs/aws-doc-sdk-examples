@@ -180,7 +180,6 @@ public class CreatePresignedPostBasics
         if (uploadResult.Success)
         {
             Console.WriteLine($"Upload successful! Status code: {uploadResult.StatusCode}");
-            Console.WriteLine($"Response: {uploadResult.Response}");
         }
         else
         {
