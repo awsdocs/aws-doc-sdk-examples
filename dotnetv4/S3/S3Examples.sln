@@ -2,10 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{863BD09D-4F48-4BFF-B5E7-941503A41F0A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3Actions", "Actions\S3Actions.csproj", "{F4A82877-7CC6-4DB8-A4C0-AC4E008DDD85}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scenarios", "Scenarios", "{C13DDD1A-438D-4E52-90FB-A496A54516C7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C51625C8-3B42-4810-BF1B-0E3C6C716FA6}"
@@ -20,10 +16,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F4A82877-7CC6-4DB8-A4C0-AC4E008DDD85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4A82877-7CC6-4DB8-A4C0-AC4E008DDD85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4A82877-7CC6-4DB8-A4C0-AC4E008DDD85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4A82877-7CC6-4DB8-A4C0-AC4E008DDD85}.Release|Any CPU.Build.0 = Release|Any CPU
 		{22C217CC-E2D9-9F79-EE15-24F9D262655E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{22C217CC-E2D9-9F79-EE15-24F9D262655E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22C217CC-E2D9-9F79-EE15-24F9D262655E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -37,7 +29,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{F4A82877-7CC6-4DB8-A4C0-AC4E008DDD85} = {863BD09D-4F48-4BFF-B5E7-941503A41F0A}
 		{22C217CC-E2D9-9F79-EE15-24F9D262655E} = {C13DDD1A-438D-4E52-90FB-A496A54516C7}
 		{FB41CEEB-5F32-3E4A-F9C6-1FACCBDAFF3C} = {C51625C8-3B42-4810-BF1B-0E3C6C716FA6}
 	EndGlobalSection
