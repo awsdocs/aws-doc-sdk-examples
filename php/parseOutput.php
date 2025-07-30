@@ -29,9 +29,12 @@ $output = [
     ],
 ];
 
+$by_loc = strpos($file, " by ");
+$tool = substr($file, 0, $by_loc);
+
 $runtime_loc = strpos($file,"Runtime:");
 $configuration_loc = strpos($file, "Configuration:", $runtime_loc);
-$tool = trim(substr($file, $runtime_loc + 8, $configuration_loc - $runtime_loc - 8));
+$version = trim(substr($file, $runtime_loc + 8, $configuration_loc - $runtime_loc - 8));
 
 $output['results']['tool'] = $tool;
 

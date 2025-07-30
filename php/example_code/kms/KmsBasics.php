@@ -7,7 +7,7 @@ namespace Kms;
 use Aws\Kms\KmsClient;
 use Aws\Sts\StsClient;
 use AwsUtilities\RunnableExample;
-use function AwsUtilities\testable_readline;
+use function AwsUtilities\pressEnter;
 
 class KmsBasics implements RunnableExample {
 
@@ -38,7 +38,7 @@ This KMS Basics scenario creates two key types:
 Let's get started...\n
 WELCOME;
         echo "--------------------------------------\n";
-        $this->pressEnter();
+        pressEnter();
 
         $this->kmsClient = new KmsClient(["region" => "us-east-1"]);
         // Initialize the KmsService class with the client. This allows you to override any defaults in the client before giving it to the service class.
@@ -48,41 +48,41 @@ WELCOME;
         echo "\n";
         echo "1. Create a symmetric KMS key.\n";
         echo "First, we will create a symmetric KMS key that is used to encrypt and decrypt data by invoking createKey().\n";
-        $this->pressEnter();
+        pressEnter();
 
         $key = $this->kmsService->createKey();
         $this->resources['symmetricKey'] = $key['KeyId'];
         echo "Created a customer key with ARN {$key['Arn']}.\n";
-        $this->pressEnter();
+        pressEnter();
 
         // 2. Enable a KMS key.
         echo "\n";
         echo "2. Enable a KMS key.\n";
         echo "By default when you create an AWS key, it is enabled. The code checks to
 determine if the key is enabled. If it is not enabled, the code enables it.\n";
-        $this->pressEnter();
+        pressEnter();
 
         $keyInfo = $this->kmsService->describeKey($key['KeyId']);
         if(!$keyInfo['Enabled']){
             echo "The key was not enabled, so we will enable it.\n";
-            $this->pressEnter();
+            pressEnter();
             $this->kmsService->enableKey($key['KeyId']);
             echo "The key was successfully enabled.\n";
         }else{
             echo "The key was already enabled, so there was no need to enable it.\n";
         }
-        $this->pressEnter();
+        pressEnter();
 
         // 3. Encrypt data using the symmetric KMS key.
         echo "\n";
         echo "3. Encrypt data using the symmetric KMS key.\n";
         echo "One of the main uses of symmetric keys is to encrypt and decrypt data.\n";
         echo "Next, we'll encrypt the string 'Hello, AWS KMS!' with the SYMMETRIC_DEFAULT encryption algorithm.\n";
-        $this->pressEnter();
+        pressEnter();
         $text = "Hello, AWS KMS!";
         $encryption = $this->kmsService->encrypt($key['KeyId'], $text);
         echo "The plaintext data was successfully encrypted with the algorithm: {$encryption['EncryptionAlgorithm']}.\n";
-        $this->pressEnter();
+        pressEnter();
 
         // 4. Create an alias.
         echo "\n";
@@ -94,13 +94,13 @@ determine if the key is enabled. If it is not enabled, the code enables it.\n";
         $this->kmsService->createAlias($key['KeyId'], $aliasInput);
         $this->resources['alias'] = $aliasInput;
         echo "The alias \"$aliasInput\" was successfully created.\n";
-        $this->pressEnter();
+        pressEnter();
 
         // 5. List all of your aliases.
         $aliasPageSize = 10;
         echo "\n";
         echo "5. List all of your aliases, up to $aliasPageSize.\n";
-        $this->pressEnter();
+        pressEnter();
         $aliasPaginator = $this->kmsService->listAliases();
         foreach($aliasPaginator as $pages){
             foreach($pages['Aliases'] as $alias){
@@ -108,7 +108,7 @@ determine if the key is enabled. If it is not enabled, the code enables it.\n";
             }
             break;
         }
-        $this->pressEnter();
+        pressEnter();
 
         // 6. Enable automatic rotation of the KMS key.
         echo "\n";
@@ -116,10 +116,10 @@ determine if the key is enabled. If it is not enabled, the code enables it.\n";
         echo "By default, when the SDK enables automatic rotation of a KMS key,
 KMS rotates the key material of the KMS key one year (approximately 365 days) from the enable date and every year 
 thereafter.";
-        $this->pressEnter();
+        pressEnter();
         $this->kmsService->enableKeyRotation($key['KeyId']);
         echo "The key's rotation was successfully set for key: {$key['KeyId']}\n";
-        $this->pressEnter();
+        pressEnter();
 
         // 7. Create a grant.
         echo "7. Create a grant.\n";
@@ -139,7 +139,7 @@ When authorizing access to a KMS key, grants are considered along with key polic
         }else{
             echo "Steps 7, 8, and 9 will be skipped.\n";
         }
-        $this->pressEnter();
+        pressEnter();
 
         // 8. List grants for the KMS key.
         if($granteeARN){
@@ -153,29 +153,29 @@ When authorizing access to a KMS key, grants are considered along with key polic
         }else{
             echo "Skipping step 8...\n";
         }
-        $this->pressEnter();
+        pressEnter();
 
         // 9. Revoke the grant.
         if($granteeARN) {
             echo "\n";
             echo "9. Revoke the grant.\n";
-            $this->pressEnter();
+            pressEnter();
             $this->kmsService->revokeGrant($grant['GrantId'], $keyInfo['KeyId']);
             echo "{$grant['GrantId']} was successfully revoked!\n";
         }else{
             echo "Skipping step 9...\n";
         }
-        $this->pressEnter();
+        pressEnter();
 
         // 10. Decrypt the data.
         echo "\n";
         echo "10. Decrypt the data.\n";
         echo "Let's decrypt the data that was encrypted before.\n";
         echo "We'll use the same key to decrypt the string that we encrypted earlier in the program.\n";
-        $this->pressEnter();
+        pressEnter();
         $decryption = $this->kmsService->decrypt($keyInfo['KeyId'], $encryption['CiphertextBlob'], $encryption['EncryptionAlgorithm']);
         echo "The decrypted text is: {$decryption['Plaintext']}\n";
-        $this->pressEnter();
+        pressEnter();
 
         // 11. Replace a Key Policy.
         echo "\n";
@@ -199,20 +199,20 @@ When authorizing access to a KMS key, grants are considered along with key polic
 }
 KEYPOLICY;
         echo $keyPolicy;
-        $this->pressEnter();
+        pressEnter();
         $this->kmsService->putKeyPolicy($keyInfo['KeyId'], $keyPolicy);
         echo "The Key Policy was successfully replaced!\n";
-        $this->pressEnter();
+        pressEnter();
 
         // 12. Retrieve the key policy.
         echo "\n";
         echo "12. Retrieve the key policy.\n";
         echo "Let's get some information about the new policy and print it to the screen.\n";
-        $this->pressEnter();
+        pressEnter();
         $policyInfo = $this->kmsService->getKeyPolicy($keyInfo['KeyId']);
         echo "We got the info! Here is the policy: \n";
         echo $policyInfo['Policy'] . "\n";
-        $this->pressEnter();
+        pressEnter();
 
         // 13. Create an asymmetric KMS key and sign data.
         echo "\n";
@@ -220,26 +220,26 @@ KEYPOLICY;
         echo "Signing your data with an AWS key can provide several benefits that make it an attractive option for your data signing needs.\n";
         echo "By using an AWS KMS key, you can leverage the security controls and compliance features provided by AWS, which can help you meet various regulatory requirements and enhance the overall security posture of your organization.\n";
         echo "First we'll create the asymmetric key.\n";
-        $this->pressEnter();
+        pressEnter();
         $keySpec = "RSA_2048";
         $keyUsage = "SIGN_VERIFY";
         $asymmetricKey = $this->kmsService->createKey($keySpec, $keyUsage);
         $this->resources['asymmetricKey'] = $asymmetricKey['KeyId'];
         echo "Created the key with ID: {$asymmetricKey['KeyId']}\n";
         echo "Next, we'll sign the data.\n";
-        $this->pressEnter();
+        pressEnter();
         $algorithm = "RSASSA_PSS_SHA_256";
         $sign = $this->kmsService->sign($asymmetricKey['KeyId'], $text, $algorithm);
         $verify = $this->kmsService->verify($asymmetricKey['KeyId'], $text, $sign['Signature'], $algorithm);
         echo "Signature verification result: {$sign['signature']}\n";
-        $this->pressEnter();
+        pressEnter();
 
         // 14. Tag the symmetric KMS key.
         echo "\n";
         echo "14. Tag the symmetric KMS key.\n";
         echo "By using tags, you can improve the overall management, security, and governance of your KMS keys, making it easier to organize, track, and control access to your encrypted data within your AWS environment.\n";
         echo "Let's tag our symmetric key as Environment->Production\n";
-        $this->pressEnter();
+        pressEnter();
         $this->kmsService->tagResource($key['KeyId'], [
             [
                 'TagKey' => "Environment",
@@ -247,7 +247,7 @@ KEYPOLICY;
             ],
         ]);
         echo "The key was successfully tagged!\n";
-        $this->pressEnter();
+        pressEnter();
 
         // 15. Schedule the deletion of the KMS key
         echo "\n";
@@ -299,10 +299,5 @@ KEYPOLICY;
             var_dump($this->resources);
         }
 
-    }
-
-    private function pressEnter()
-    {
-        testable_readline("Press Enter to continue:");
     }
 }

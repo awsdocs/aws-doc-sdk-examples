@@ -9,14 +9,14 @@ then
 fi
 if [ "$1" = '--test-pass' ]
 then
-  example_code/vendor/phpunit/phpunit/phpunit --configuration /Users/beqqrry/hackathon-2025/aws-doc-sdk-examples/php/example_code/phpunit.xml --testsuite hackathon-pass &> "output.txt"
+  example_code/vendor/phpunit/phpunit/phpunit --configuration example_code/phpunit.xml --testsuite hackathon-pass &> "output.txt"
   php parseOutput.php
   echo ""
   exit 0
 fi
 if [ "$1" = '--test-fail' ]
 then
-  example_code/vendor/phpunit/phpunit/phpunit --configuration /Users/beqqrry/hackathon-2025/aws-doc-sdk-examples/php/example_code/phpunit.xml --testsuite hackathon-fail &> "output.txt"
+  example_code/vendor/phpunit/phpunit/phpunit --configuration example_code/phpunit.xml --testsuite hackathon-fail &> "output.txt"
   php parseOutput.php
   echo ""
   exit 0
