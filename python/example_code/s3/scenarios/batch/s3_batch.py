@@ -330,12 +330,11 @@ class S3BatchScenario:
                 Priority=10,
                 RoleArn=role_arn,
                 Description='Batch job for tagging objects',
-                # Set to False to avoid confirmation requirement
-                ConfirmationRequired=False
+                # Set to True so job starts in Suspended state for demonstration
+                ConfirmationRequired=True
             )
             job_id = response['JobId']
-            print(f"Created batch job with ID: {job_id}")
-            print("Job created and should start automatically")
+            print(f"The Job id is {job_id}")
             return job_id
         except ClientError as e:
             print(f"Error creating batch job: {e}")
@@ -362,7 +361,6 @@ class S3BatchScenario:
                 JobId=job_id
             )
             if 'FailureReasons' in response['Job']:
-                print("Job failure reasons:")
                 for reason in response['Job']['FailureReasons']:
                     print(f"- {reason}")
             return response['Job'].get('FailureReasons', [])
@@ -426,9 +424,6 @@ class S3BatchScenario:
         Args:
             job_id (str): ID of the batch job
             account_id (str): AWS account ID
-
-        Raises:
-            ClientError: If updating job priority fails
         """
         try:
             # Check current job status
@@ -437,36 +432,174 @@ class S3BatchScenario:
                 JobId=job_id
             )
             current_status = response['Job']['Status']
-            print(f"Current job status before update: {current_status}")
-            print(f"Full job details: {response['Job']}")
+            print(f"Current job status: {current_status}")
             
-            # First try to update the job priority
-            try:
+            # Only update priority if job is in a state that allows it
+            if current_status in ['Ready', 'Suspended']:
                 self.s3control_client.update_job_priority(
                     AccountId=account_id,
                     JobId=job_id,
-                    Priority=20
+                    Priority=60
                 )
-                print(f"Successfully updated priority for job {job_id}")
-            except ClientError as e:
-                print(f"Warning: Could not update job priority: {e}")
-                # Continue anyway to try activating the job
-            
-            # Then try to activate the job
-            try:
-                self.s3control_client.update_job_status(
-                    AccountId=account_id,
-                    JobId=job_id,
-                    RequestedJobStatus='Active'
-                )
-                print(f"Successfully activated job {job_id}")
-            except ClientError as e:
-                print(f"Error activating job: {e}")
-                if 'Message' in str(e):
-                    print(f"Detailed error message: {e.response.get('Message', '')}")
-                raise
+                print("The job priority was updated")
+                
+                # Try to activate the job after priority update
+                try:
+                    self.s3control_client.update_job_status(
+                        AccountId=account_id,
+                        JobId=job_id,
+                        RequestedJobStatus='Ready'
+                    )
+                    print("Job activated successfully")
+                except ClientError as activation_error:
+                    print(f"Note: Could not activate job automatically: {activation_error}")
+                    print("Job priority was updated successfully. Job may need manual activation in the console.")
+            elif current_status in ['Active', 'Completing', 'Complete']:
+                print(f"Job is in '{current_status}' state - priority cannot be updated")
+                if current_status == 'Completing':
+                    print("Job is finishing up and will complete soon.")
+                elif current_status == 'Complete':
+                    print("Job has already completed successfully.")
+                else:
+                    print("Job is currently running.")
+            else:
+                print(f"Job is in '{current_status}' state - priority update not allowed")
+                
         except ClientError as e:
             print(f"Error updating job priority: {e}")
+            # Don't raise the error to allow the scenario to continue
+            print("Continuing with the scenario...")
+            return
+
+    def cancel_job(self, job_id, account_id):
+        """
+        Cancel an S3 batch job.
+
+        Args:
+            job_id (str): ID of the batch job
+            account_id (str): AWS account ID
+        """
+        try:
+            self.s3control_client.update_job_status(
+                AccountId=account_id,
+                JobId=job_id,
+                RequestedJobStatus='Cancelled'
+            )
+            print(f"Job {job_id} was successfully canceled.")
+        except ClientError as e:
+            print(f"Error canceling job: {e}")
+            raise
+
+    def describe_job_details(self, job_id, account_id):
+        """
+        Describe detailed information about a batch job.
+
+        Args:
+            job_id (str): ID of the batch job
+            account_id (str): AWS account ID
+        """
+        try:
+            response = self.s3control_client.describe_job(
+                AccountId=account_id,
+                JobId=job_id
+            )
+            job = response['Job']
+            print(f"Job ID: {job['JobId']}")
+            print(f"Description: {job.get('Description', 'N/A')}")
+            print(f"Status: {job['Status']}")
+            print(f"Role ARN: {job['RoleArn']}")
+            print(f"Priority: {job['Priority']}")
+            if 'ProgressSummary' in job:
+                progress = job['ProgressSummary']
+                print(f"Progress Summary: Total={progress.get('TotalNumberOfTasks', 0)}, "
+                      f"Succeeded={progress.get('NumberOfTasksSucceeded', 0)}, "
+                      f"Failed={progress.get('NumberOfTasksFailed', 0)}")
+        except ClientError as e:
+            print(f"Error describing job: {e}")
+            raise
+
+    def get_job_tags(self, job_id, account_id):
+        """
+        Get tags associated with a batch job.
+
+        Args:
+            job_id (str): ID of the batch job
+            account_id (str): AWS account ID
+        """
+        try:
+            response = self.s3control_client.get_job_tagging(
+                AccountId=account_id,
+                JobId=job_id
+            )
+            tags = response.get('Tags', [])
+            if tags:
+                print(f"Tags for job {job_id}:")
+                for tag in tags:
+                    print(f"  {tag['Key']}: {tag['Value']}")
+            else:
+                print(f"No tags found for job ID: {job_id}")
+        except ClientError as e:
+            print(f"Error getting job tags: {e}")
+            raise
+
+    def put_job_tags(self, job_id, account_id):
+        """
+        Add tags to a batch job.
+
+        Args:
+            job_id (str): ID of the batch job
+            account_id (str): AWS account ID
+        """
+        try:
+            self.s3control_client.put_job_tagging(
+                AccountId=account_id,
+                JobId=job_id,
+                Tags=[
+                    {'Key': 'Environment', 'Value': 'Development'},
+                    {'Key': 'Team', 'Value': 'DataProcessing'}
+                ]
+            )
+            print(f"Additional tags were added to job {job_id}")
+        except ClientError as e:
+            print(f"Error adding job tags: {e}")
+            raise
+
+    def list_jobs(self, account_id):
+        """
+        List all batch jobs for the account.
+
+        Args:
+            account_id (str): AWS account ID
+        """
+        try:
+            response = self.s3control_client.list_jobs(
+                AccountId=account_id,
+                JobStatuses=['Active', 'Complete', 'Cancelled', 'Failed', 'New', 'Paused', 'Pausing', 'Preparing', 'Ready', 'Suspended']
+            )
+            jobs = response.get('Jobs', [])
+            for job in jobs:
+                print(f"The job id is {job['JobId']}")
+                print(f"The job priority is {job['Priority']}")
+        except ClientError as e:
+            print(f"Error listing jobs: {e}")
+            raise
+
+    def delete_job_tags(self, job_id, account_id):
+        """
+        Delete all tags from a batch job.
+
+        Args:
+            job_id (str): ID of the batch job
+            account_id (str): AWS account ID
+        """
+        try:
+            self.s3control_client.delete_job_tagging(
+                AccountId=account_id,
+                JobId=job_id
+            )
+            print(f"You have successfully deleted {job_id} tagging.")
+        except ClientError as e:
+            print(f"Error deleting job tags: {e}")
             raise
 
     def cleanup_resources(self, bucket_name, file_names):
@@ -598,23 +731,48 @@ def main():
                 raise ValueError("Job failed, stopping execution")
 
         wait_for_input()
-        print("\n2. Checking job status...")
-        # Get current job status instead of trying to update priority
-        response = scenario.s3control_client.describe_job(
-            AccountId=account_id,
-            JobId=job_id
-        )
-        current_status = response['Job']['Status']
-        print(f"Current job status: {current_status}")
+        print("\n" + scenario.DASHES)
+        print("2. Update an existing S3 Batch Operations job's priority")
+        print("In this step, we modify the job priority value. The higher the number, the higher the priority.")
+        scenario.update_job_priority(job_id, account_id)
         
-        # Only try to update priority if job is not already active
-        if current_status not in ['Active', 'Complete']:
-            print("\nUpdating job priority...")
-            scenario.update_job_priority(job_id, account_id)
+        wait_for_input()
+        print("\n" + scenario.DASHES)
+        print("3. Cancel the S3 Batch job")
+        cancel_job = input("Do you want to cancel the Batch job? (y/n): ").lower() == 'y'
+        if cancel_job:
+            scenario.cancel_job(job_id, account_id)
         else:
-            print("Job is already active or complete, no need to update priority.")
+            print(f"Job {job_id} was not canceled.")
+            
+        wait_for_input()
+        print("\n" + scenario.DASHES)
+        print("4. Describe the job that was just created")
+        scenario.describe_job_details(job_id, account_id)
+        
+        wait_for_input()
+        print("\n" + scenario.DASHES)
+        print("5. Describe the tags associated with the job")
+        scenario.get_job_tags(job_id, account_id)
+        
+        wait_for_input()
+        print("\n" + scenario.DASHES)
+        print("6. Update Batch Job Tags")
+        scenario.put_job_tags(job_id, account_id)
+        
+        wait_for_input()
+        print("\n" + scenario.DASHES)
+        print("7. List Batch Jobs")
+        scenario.list_jobs(account_id)
+        
+        wait_for_input()
+        print("\n" + scenario.DASHES)
+        print("8. Delete the Amazon S3 Batch job tagging")
+        delete_tags = input("Do you want to delete Batch job tagging? (y/n): ").lower() == 'y'
+        if delete_tags:
+            scenario.delete_job_tags(job_id, account_id)
 
-        print("\nCleanup")
+        print("\n" + scenario.DASHES)
         if input(
             "Do you want to delete the AWS resources used in this scenario? (y/n): "
         ).lower() == 'y':
