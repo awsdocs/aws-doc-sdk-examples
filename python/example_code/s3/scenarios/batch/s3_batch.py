@@ -10,10 +10,14 @@ It includes classes for managing CloudFormation stacks and S3 batch scenarios.
 import json
 import time
 import uuid
+import sys
 from typing import Dict, List, Tuple, Optional, Any
 
 import boto3
 from botocore.exceptions import ClientError, WaiterError
+
+sys.path.append("../../../..")
+import demo_tools.question as q
 
 # snippet-start:[python.example_code.s3control.CloudFormationHelper]
 class CloudFormationHelper:
@@ -664,12 +668,8 @@ def wait_for_input() -> None:
     Returns:
         None
     """
-    while True:
-        user_input = input("\nEnter 'c' followed by <ENTER> to continue: ")
-        if user_input.lower() == 'c':
-            print("Continuing with the program...\n")
-            break
-        print("Invalid input. Please try again.")
+    q.ask("\nPress Enter to continue...")
+    print()
 
 
 def setup_resources(scenario: S3BatchScenario, bucket_name: str, file_names: List[str]) -> Tuple[str, str]:
@@ -745,9 +745,9 @@ def main() -> None:
         failure_reasons = scenario.check_job_failure_reasons(job_id, account_id)
         if failure_reasons:
             print("\nJob failed. Please fix the issues and try again.")
-            if input(
-                "Do you want to proceed with the rest of the operations? (y/n): "
-            ).lower() != 'y':
+            if not q.ask(
+                "Do you want to proceed with the rest of the operations? (y/n): ", q.is_yesno
+            ):
                 raise ValueError("Job failed, stopping execution")
 
         wait_for_input()
@@ -759,7 +759,7 @@ def main() -> None:
         wait_for_input()
         print("\n" + scenario.DASHES)
         print("3. Cancel the S3 Batch job")
-        cancel_job = input("Do you want to cancel the Batch job? (y/n): ").lower() == 'y'
+        cancel_job = q.ask("Do you want to cancel the Batch job? (y/n): ", q.is_yesno)
         if cancel_job:
             scenario.cancel_job(job_id, account_id)
         else:
@@ -788,14 +788,14 @@ def main() -> None:
         wait_for_input()
         print("\n" + scenario.DASHES)
         print("8. Delete the Amazon S3 Batch job tagging")
-        delete_tags = input("Do you want to delete Batch job tagging? (y/n): ").lower() == 'y'
+        delete_tags = q.ask("Do you want to delete Batch job tagging? (y/n): ", q.is_yesno)
         if delete_tags:
             scenario.delete_job_tags(job_id, account_id)
 
         print("\n" + scenario.DASHES)
-        if input(
-            "Do you want to delete the AWS resources used in this scenario? (y/n): "
-        ).lower() == 'y':
+        if q.ask(
+            "Do you want to delete the AWS resources used in this scenario? (y/n): ", q.is_yesno
+        ):
             scenario.cleanup_resources(bucket_name, file_names)
             cfn_helper.destroy_cloudformation_stack(scenario.STACK_NAME)
 

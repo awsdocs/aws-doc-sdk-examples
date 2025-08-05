@@ -13,6 +13,15 @@ s3-control_Hello:
             - description:
               snippet_tags:
                 - s3control.java2.list_jobs.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/batch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3control.list_jobs
   services:
     s3-control: {ListJobs}
 
@@ -36,6 +45,15 @@ s3-control_CreateJob:
             - description: Create a new governance retention job.
               snippet_tags:
                 - s3.java2.create_governance_retemtion.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/batch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3control.create_job
   services:
     s3-control: {CreateJob}
 s3-control_PutJobTagging:
@@ -49,6 +67,15 @@ s3-control_PutJobTagging:
             - description:
               snippet_tags:
                 - s3control.java2.job.put.tags.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/batch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3control.put_job_tagging
   services:
     s3-control: {PutJobTagging}
 s3-control_DescribeJob:
@@ -62,6 +89,15 @@ s3-control_DescribeJob:
             - description:
               snippet_tags:
                 - s3control.java2.describe_job.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/batch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3control.describe_job
   services:
     s3-control: {DescribeJob}
 s3-control_DeleteJobTagging:
@@ -75,6 +111,15 @@ s3-control_DeleteJobTagging:
             - description:
               snippet_tags:
                 - s3control.java2.del_job_tagging.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/batch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3control.delete_job_tagging
   services:
     s3-control: {DeleteJobTagging}
 s3-control_GetJobTagging:
@@ -88,6 +133,15 @@ s3-control_GetJobTagging:
             - description:
               snippet_tags:
                 - s3control.java2.get_job_tagging.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/batch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3control.get_job_tagging
   services:
     s3-control: {GetJobTagging}
 s3-control_UpdateJobStatus:
@@ -101,6 +155,15 @@ s3-control_UpdateJobStatus:
             - description:
               snippet_tags:
                 - s3control.java2.cancel_job.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/batch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3control.update_job_status
   services:
     s3-control: {UpdateJobStatus}
 s3-control_UpdateJobPriority:
@@ -114,6 +177,15 @@ s3-control_UpdateJobPriority:
             - description:
               snippet_tags:
                 - s3control.java2.update_job.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/batch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3control.update_job_priority
   services:
     s3-control: {UpdateJobPriority}
 s3-control_Basics:
