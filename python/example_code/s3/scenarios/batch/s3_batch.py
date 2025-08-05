@@ -10,6 +10,7 @@ It includes classes for managing CloudFormation stacks and S3 batch scenarios.
 import json
 import time
 import uuid
+from typing import Dict, List, Tuple, Optional, Any
 
 import boto3
 from botocore.exceptions import ClientError, WaiterError
@@ -17,7 +18,7 @@ from botocore.exceptions import ClientError, WaiterError
 class CloudFormationHelper:
     """Helper class for managing CloudFormation stack operations."""
     # Change the value of 'region' to your preferred AWS Region.
-    def __init__(self, region_name='us-west-2'):
+    def __init__(self, region_name: str = 'us-west-2') -> None:
         """
         Initialize CloudFormation helper.
 
@@ -27,7 +28,7 @@ class CloudFormationHelper:
         # Create a CloudFormation client for the specified region
         self.cfn_client = boto3.client('cloudformation', region_name=region_name)
 
-    def deploy_cloudformation_stack(self, stack_name):
+    def deploy_cloudformation_stack(self, stack_name: str) -> None:
         """
         Deploy a CloudFormation stack with S3 batch operation permissions.
 
@@ -104,7 +105,7 @@ class CloudFormationHelper:
             print(f"Error creating CloudFormation stack: {e}")
             raise
 
-    def get_stack_outputs(self, stack_name):
+    def get_stack_outputs(self, stack_name: str) -> Dict[str, str]:
         """
         Get CloudFormation stack outputs.
 
@@ -129,7 +130,7 @@ class CloudFormationHelper:
             print(f"Error getting stack outputs: {e}")
             raise
 
-    def destroy_cloudformation_stack(self, stack_name):
+    def destroy_cloudformation_stack(self, stack_name: str) -> None:
         """
         Delete a CloudFormation stack.
 
@@ -149,7 +150,7 @@ class CloudFormationHelper:
             print(f"Error deleting CloudFormation stack: {e}")
             raise
 
-    def _wait_for_stack_completion(self, stack_name, operation):
+    def _wait_for_stack_completion(self, stack_name: str, operation: str) -> None:
         """
         Wait for CloudFormation stack operation to complete.
 
@@ -179,7 +180,7 @@ class S3BatchScenario:
     DASHES = "-" * 80
     STACK_NAME = "MyS3Stack"
 
-    def __init__(self, region_name='us-west-2'):
+    def __init__(self, region_name: str = 'us-west-2') -> None:
         """
         Initialize S3 Batch Operations scenario.
 
@@ -191,7 +192,7 @@ class S3BatchScenario:
         self.s3control_client = boto3.client('s3control', region_name=region_name)
         self.sts_client = boto3.client('sts', region_name=region_name)
 
-    def get_account_id(self):
+    def get_account_id(self) -> str:
         """
         Get AWS account ID.
 
@@ -200,7 +201,7 @@ class S3BatchScenario:
         """
         return self.sts_client.get_caller_identity()["Account"]
 
-    def create_bucket(self, bucket_name):
+    def create_bucket(self, bucket_name: str) -> None:
         """
         Create an S3 bucket.
 
@@ -225,7 +226,7 @@ class S3BatchScenario:
             print(f"Error creating bucket: {e}")
             raise
 
-    def upload_files_to_bucket(self, bucket_name, file_names):
+    def upload_files_to_bucket(self, bucket_name: str, file_names: List[str]) -> str:
         """
         Upload files to S3 bucket including manifest file.
 
@@ -268,8 +269,8 @@ class S3BatchScenario:
             print(f"Error uploading files: {e}")
             raise
 
-    def create_s3_batch_job(self, account_id, role_arn, manifest_location,
-                           report_bucket_name):
+    def create_s3_batch_job(self, account_id: str, role_arn: str, manifest_location: str,
+                           report_bucket_name: str) -> str:
         """
         Create an S3 batch operation job.
 
@@ -341,7 +342,7 @@ class S3BatchScenario:
             if 'Message' in str(e):
                 print(f"Detailed error message: {e.response['Message']}")
             raise
-    def check_job_failure_reasons(self, job_id, account_id):
+    def check_job_failure_reasons(self, job_id: str, account_id: str) -> List[Dict[str, Any]]:
         """
         Check for any failure reasons of a batch job.
 
@@ -368,7 +369,7 @@ class S3BatchScenario:
             print(f"Error checking job failure reasons: {e}")
             raise
 
-    def wait_for_job_ready(self, job_id, account_id, desired_status='Ready'):
+    def wait_for_job_ready(self, job_id: str, account_id: str, desired_status: str = 'Ready') -> bool:
         """
         Wait for a job to reach the desired status.
 
@@ -402,7 +403,7 @@ class S3BatchScenario:
                     print("Job is in Suspended state, can proceed with activation")
                     return True
                 if current_status in ['Active', 'Failed', 'Cancelled', 'Complete']:
-                    print(f"Job is in {current_status} state, cannot update priority")
+                    print(f"Job is in {current_status} state, cannot reach {desired_status} status")
                     if 'FailureReasons' in response['Job']:
                         print("Failure reasons:")
                         for reason in response['Job']['FailureReasons']:
@@ -417,7 +418,7 @@ class S3BatchScenario:
         print(f"Timeout waiting for job to become {desired_status}")
         return False
 
-    def update_job_priority(self, job_id, account_id):
+    def update_job_priority(self, job_id: str, account_id: str) -> None:
         """
         Update the priority of a batch job and start it.
 
@@ -471,7 +472,7 @@ class S3BatchScenario:
             print("Continuing with the scenario...")
             return
 
-    def cancel_job(self, job_id, account_id):
+    def cancel_job(self, job_id: str, account_id: str) -> None:
         """
         Cancel an S3 batch job.
 
@@ -490,7 +491,7 @@ class S3BatchScenario:
             print(f"Error canceling job: {e}")
             raise
 
-    def describe_job_details(self, job_id, account_id):
+    def describe_job_details(self, job_id: str, account_id: str) -> None:
         """
         Describe detailed information about a batch job.
 
@@ -518,7 +519,7 @@ class S3BatchScenario:
             print(f"Error describing job: {e}")
             raise
 
-    def get_job_tags(self, job_id, account_id):
+    def get_job_tags(self, job_id: str, account_id: str) -> None:
         """
         Get tags associated with a batch job.
 
@@ -542,7 +543,7 @@ class S3BatchScenario:
             print(f"Error getting job tags: {e}")
             raise
 
-    def put_job_tags(self, job_id, account_id):
+    def put_job_tags(self, job_id: str, account_id: str) -> None:
         """
         Add tags to a batch job.
 
@@ -564,7 +565,7 @@ class S3BatchScenario:
             print(f"Error adding job tags: {e}")
             raise
 
-    def list_jobs(self, account_id):
+    def list_jobs(self, account_id: str) -> None:
         """
         List all batch jobs for the account.
 
@@ -584,7 +585,7 @@ class S3BatchScenario:
             print(f"Error listing jobs: {e}")
             raise
 
-    def delete_job_tags(self, job_id, account_id):
+    def delete_job_tags(self, job_id: str, account_id: str) -> None:
         """
         Delete all tags from a batch job.
 
@@ -602,7 +603,7 @@ class S3BatchScenario:
             print(f"Error deleting job tags: {e}")
             raise
 
-    def cleanup_resources(self, bucket_name, file_names):
+    def cleanup_resources(self, bucket_name: str, file_names: List[str]) -> None:
         """
         Clean up all resources created during the scenario.
 
@@ -637,7 +638,7 @@ class S3BatchScenario:
             raise
 
 
-def wait_for_input():
+def wait_for_input() -> None:
     """
     Wait for user input to continue.
 
@@ -652,7 +653,7 @@ def wait_for_input():
         print("Invalid input. Please try again.")
 
 
-def setup_resources(scenario, bucket_name, file_names):
+def setup_resources(scenario: S3BatchScenario, bucket_name: str, file_names: List[str]) -> Tuple[str, str]:
     """
     Set up initial resources for the scenario.
 
@@ -672,7 +673,7 @@ def setup_resources(scenario, bucket_name, file_names):
     return manifest_location, report_bucket_arn
 
 
-def main():
+def main() -> None:
     """Main function to run the S3 Batch Operations scenario."""
     region_name = 'us-west-2'
     scenario = S3BatchScenario(region_name)
