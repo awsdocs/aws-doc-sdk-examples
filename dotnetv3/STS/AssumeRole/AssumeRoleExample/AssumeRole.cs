@@ -26,6 +26,8 @@ namespace AssumeRoleExample
         /// for help in working with roles.
         /// </summary>
 
+        // A region property may be used if the profile or credentials loaded do not specify a region,
+        // or to use a specific region.
         private static readonly RegionEndpoint REGION = RegionEndpoint.USWest2;
 
         static async Task Main()
@@ -52,7 +54,7 @@ namespace AssumeRoleExample
             var assumeRoleRes = await client.AssumeRoleAsync(assumeRoleReq);
 
             // Now create a new client based on the credentials of the caller assuming the role.
-            var client2 = new AmazonSecurityTokenServiceClient(credentials: assumeRoleRes.Credentials);
+            var client2 = new AmazonSecurityTokenServiceClient(credentials: assumeRoleRes.Credentials, REGION);
 
             // Get and display information about the caller that has assumed the defined role.
             var caller2 = await client2.GetCallerIdentityAsync(callerIdRequest);

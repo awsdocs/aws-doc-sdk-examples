@@ -148,7 +148,7 @@ class GettingStartedWithS3 implements RunnableExample
             $check = $this->s3client->listObjectsV2([
                 'Bucket' => $this->bucketName,
             ]);
-            if (count($check) <= 0) {
+            if (isset($check['Contents']) && count($check['Contents']) > 0) {
                 throw new Exception("Bucket wasn't empty.");
             }
             echo "Deleted all objects and folders from $this->bucketName.\n";
