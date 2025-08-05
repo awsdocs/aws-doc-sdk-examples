@@ -15,6 +15,7 @@ from typing import Dict, List, Tuple, Optional, Any
 import boto3
 from botocore.exceptions import ClientError, WaiterError
 
+# snippet-start:[python.example_code.s3control.CloudFormationHelper]
 class CloudFormationHelper:
     """Helper class for managing CloudFormation stack operations."""
     # Change the value of 'region' to your preferred AWS Region.
@@ -173,7 +174,9 @@ class CloudFormationHelper:
         except WaiterError as e:
             print(f"Error waiting for stack {operation}: {e}")
             raise
+# snippet-end:[python.example_code.s3control.CloudFormationHelper]
 
+# snippet-start:[python.example_code.s3control.helper.S3BatchScenario]
 class S3BatchScenario:
     """Class for managing S3 Batch Operations scenarios."""
 
@@ -269,6 +272,7 @@ class S3BatchScenario:
             print(f"Error uploading files: {e}")
             raise
 
+    # snippet-start:[python.example_code.s3control.create_job]
     def create_s3_batch_job(self, account_id: str, role_arn: str, manifest_location: str,
                            report_bucket_name: str) -> str:
         """
@@ -342,6 +346,8 @@ class S3BatchScenario:
             if 'Message' in str(e):
                 print(f"Detailed error message: {e.response['Message']}")
             raise
+    # snippet-end:[python.example_code.s3control.create_job]
+    
     def check_job_failure_reasons(self, job_id: str, account_id: str) -> List[Dict[str, Any]]:
         """
         Check for any failure reasons of a batch job.
@@ -418,6 +424,7 @@ class S3BatchScenario:
         print(f"Timeout waiting for job to become {desired_status}")
         return False
 
+    # snippet-start:[python.example_code.s3control.update_job_priority]
     def update_job_priority(self, job_id: str, account_id: str) -> None:
         """
         Update the priority of a batch job and start it.
@@ -471,6 +478,7 @@ class S3BatchScenario:
             # Don't raise the error to allow the scenario to continue
             print("Continuing with the scenario...")
             return
+    # snippet-end:[python.example_code.s3control.update_job_priority]
 
     def cancel_job(self, job_id: str, account_id: str) -> None:
         """
@@ -491,6 +499,7 @@ class S3BatchScenario:
             print(f"Error canceling job: {e}")
             raise
 
+    # snippet-start:[python.example_code.s3control.describe_job]
     def describe_job_details(self, job_id: str, account_id: str) -> None:
         """
         Describe detailed information about a batch job.
@@ -518,7 +527,9 @@ class S3BatchScenario:
         except ClientError as e:
             print(f"Error describing job: {e}")
             raise
+    # snippet-end:[python.example_code.s3control.describe_job]
 
+    # snippet-start:[python.example_code.s3control.get_job_tagging]
     def get_job_tags(self, job_id: str, account_id: str) -> None:
         """
         Get tags associated with a batch job.
@@ -542,7 +553,9 @@ class S3BatchScenario:
         except ClientError as e:
             print(f"Error getting job tags: {e}")
             raise
+    # snippet-end:[python.example_code.s3control.get_job_tagging]
 
+    # snippet-start:[python.example_code.s3control.put_job_tagging]
     def put_job_tags(self, job_id: str, account_id: str) -> None:
         """
         Add tags to a batch job.
@@ -564,7 +577,9 @@ class S3BatchScenario:
         except ClientError as e:
             print(f"Error adding job tags: {e}")
             raise
+    # snippet-end:[python.example_code.s3control.put_job_tagging]
 
+    # snippet-start:[python.example_code.s3control.list_jobs]
     def list_jobs(self, account_id: str) -> None:
         """
         List all batch jobs for the account.
@@ -584,7 +599,9 @@ class S3BatchScenario:
         except ClientError as e:
             print(f"Error listing jobs: {e}")
             raise
+    # snippet-end:[python.example_code.s3control.list_jobs]
 
+    # snippet-start:[python.example_code.s3control.delete_job_tagging]
     def delete_job_tags(self, job_id: str, account_id: str) -> None:
         """
         Delete all tags from a batch job.
@@ -602,6 +619,7 @@ class S3BatchScenario:
         except ClientError as e:
             print(f"Error deleting job tags: {e}")
             raise
+    # snippet-end:[python.example_code.s3control.delete_job_tagging] 
 
     def cleanup_resources(self, bucket_name: str, file_names: List[str]) -> None:
         """
@@ -636,6 +654,7 @@ class S3BatchScenario:
         except ClientError as e:
             print(f"Error in cleanup: {e}")
             raise
+# snippet-end:[python.example_code.s3control.helper.S3BatchScenario]
 
 
 def wait_for_input() -> None:
