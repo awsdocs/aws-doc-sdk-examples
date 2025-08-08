@@ -126,6 +126,15 @@ rds_CreateDBInstance:
             - description:
               snippet_tags:
                 - php.example_code.rds.createDBInstance.complete
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.rds.import
+                - swift.rds.CreateDBInstance
   services:
     rds: {CreateDBInstance}
 rds_DeleteDBInstance:
@@ -194,6 +203,15 @@ rds_DeleteDBInstance:
             - description:
               snippet_tags:
                 - php.example_code.rds.deleteDBInstance.complete
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.rds.import
+                - swift.rds.DeleteDBInstance
   services:
     rds: {DeleteDBInstance}
 rds_DescribeAccountAttributes:
@@ -292,6 +310,15 @@ rds_DescribeDBInstances:
             - description:
               snippet_tags:
                 - php.example_code.rds.describeDBInstances.complete
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.rds.import
+                - swift.rds.DescribeDBInstances
   services:
     rds: {DescribeDBInstances}
 rds_ModifyDBInstance:
@@ -389,6 +416,15 @@ rds_DescribeDBParameterGroups:
                 - cpp.example_code.rds.client
                 - cpp.example_code.rds.DescribeDBParameterGroups1
                 - cpp.example_code.rds.DescribeDBParameterGroups2
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.rds.import
+                - swift.rds.DescribeDBParameterGroups
   services:
     rds: {DescribeDBParameterGroups}
 rds_CreateDBParameterGroup:
@@ -441,6 +477,15 @@ rds_CreateDBParameterGroup:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
                 - cpp.example_code.rds.CreateDBParameterGroup
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.rds.import
+                - swift.rds.CreateDBParameterGroup
   services:
     rds: {CreateDBParameterGroup}
 rds_DeleteDBParameterGroup:
@@ -493,6 +538,15 @@ rds_DeleteDBParameterGroup:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
                 - cpp.example_code.rds.DeleteDBParameterGroup
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.rds.import
+                - swift.rds.DeleteDBParameterGroup
   services:
     rds: {DeleteDBParameterGroup}
 rds_DescribeDBParameters:
@@ -554,6 +608,15 @@ rds_DescribeDBParameters:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
                 - cpp.example_code.rds.DescribeDBParameters
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.rds.import
+                - swift.rds.DescribeDBParameters
   services:
     rds: {DescribeDBParameters}
 rds_ModifyDBParameterGroup:
@@ -606,6 +669,15 @@ rds_ModifyDBParameterGroup:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
                 - cpp.example_code.rds.ModifyDBParameterGroup
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.rds.import
+                - swift.rds.ModifyDBParameterGroup
   services:
     rds: {ModifyDBParameterGroup}
 rds_CreateDBSnapshot:
@@ -675,6 +747,15 @@ rds_CreateDBSnapshot:
             - description:
               snippet_tags:
                 - php.example_code.rds.createDBSnapshot.complete
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.rds.import
+                - swift.rds.CreateDBSnapshot
   services:
     rds: {CreateDBSnapshot}
 rds_DescribeDBSnapshots:
@@ -727,6 +808,15 @@ rds_DescribeDBSnapshots:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
                 - cpp.example_code.rds.DescribeDBSnapshots
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.rds.import
+                - swift.rds.DescribeDBSnapshots
   services:
     rds: {DescribeDBSnapshots}
 rds_DescribeDBEngineVersions:
@@ -779,6 +869,15 @@ rds_DescribeDBEngineVersions:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
                 - cpp.example_code.rds.DescribeDBEngineVersions
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.rds.import
+                - swift.rds.DescribeDBEngineVersions
   services:
     rds: {DescribeDBEngineVersions}
 rds_DescribeOrderableDBInstanceOptions:
@@ -822,6 +921,15 @@ rds_DescribeOrderableDBInstanceOptions:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
                 - cpp.example_code.rds.DescribeOrderableDBInstanceOptions
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.rds.import
+                - swift.rds.DescribeOrderableDBInstanceOptions
   services:
     rds: {DescribeOrderableDBInstanceOptions}
 rds_GenerateRDSAuthToken:
@@ -916,6 +1024,17 @@ rds_Scenario_GetStartedInstances:
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.get_started_instances
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/rds
+          excerpts:
+            - description: The <code>Package.swift</code> file.
+              snippet_tags:
+                - swift.rds.scenario.package
+            - description: The Swift code file, <code>entry.swift</code>.
+              snippet_tags:
+                - swift.rds.scenario
   services:
     rds: {CreateDBInstance, CreateDBParameterGroup, CreateDBSnapshot, DeleteDBInstance, DeleteDBParameterGroup, DescribeDBInstances,
           DescribeDBEngineVersions, DescribeDBParameterGroups, DescribeDBParameters, DescribeDBSnapshots, DescribeOrderableDBInstanceOptions,
