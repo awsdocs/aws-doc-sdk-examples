@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Amazon Location](src/main/java/com/example/location/HelloLocation.java#L18) (`ListGeofencesPaginator`)
+- [Hello Amazon Location](src/main/java/com/example/location/HelloLocation.java#L18) (`ListGeofenceCollections`)
 
 
 ### Basics
