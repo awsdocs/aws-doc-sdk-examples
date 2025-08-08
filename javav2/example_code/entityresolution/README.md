@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello AWS Entity Resolution](src/main/java/com/example/entity/HelloEntityResoultion.java#L19) (`listMatchingWorkflows`)
+- [Hello AWS Entity Resolution](src/main/java/com/example/entity/HelloEntityResoultion.java#L19) (`ListMatchingWorkflows`)
 
 
 ### Basics
@@ -45,7 +45,6 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CheckWorkflowStatus](src/main/java/com/example/entity/scenario/EntityResActions.java#L391)
 - [CreateMatchingWorkflow](src/main/java/com/example/entity/scenario/EntityResActions.java#L429)
 - [CreateSchemaMapping](src/main/java/com/example/entity/scenario/EntityResActions.java#L230)
 - [DeleteMatchingWorkflow](src/main/java/com/example/entity/scenario/EntityResActions.java#L196)
@@ -54,7 +53,7 @@ Code excerpts that show you how to call individual service functions.
 - [GetSchemaMapping](src/main/java/com/example/entity/scenario/EntityResActions.java#L280)
 - [ListSchemaMappings](src/main/java/com/example/entity/scenario/EntityResActions.java#L173)
 - [StartMatchingJob](src/main/java/com/example/entity/scenario/EntityResActions.java#L354)
-- [TagEntityResource](src/main/java/com/example/entity/scenario/EntityResActions.java#L516)
+- [TagResource](src/main/java/com/example/entity/scenario/EntityResActions.java#L516)
 
 
 <!--custom.examples.start-->
