@@ -20,20 +20,6 @@ struct ExampleCommand: ParsableCommand {
     @Option(help: "The password to use for the database administrator.")
     var dbPassword: String
 
-    @Option(
-        help: ArgumentHelp("The level of logging for the Swift SDK to perform."),
-        completion: .list([
-            "critical",
-            "debug",
-            "error",
-            "info",
-            "notice",
-            "trace",
-            "warning"
-        ])
-    )
-    var logLevel: String = "error"
-
     static var configuration = CommandConfiguration(
         commandName: "rds-scenario",
         abstract: """
