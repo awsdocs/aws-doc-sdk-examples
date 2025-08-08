@@ -8,7 +8,9 @@
 
 import ArgumentParser
 import Foundation
+// snippet-start:[swift.rds.import]
 import AWSRDS
+// snippet-end:[swift.rds.import]
 
 struct ExampleCommand: ParsableCommand {
     @Option(help: "The AWS Region to run AWS API calls in.")
@@ -259,7 +261,29 @@ class Example {
         //     minutes, let the user know that.
         //=====================================================================
 
-        await waitUntilDBInstanceReady(instanceIdentifier: dbInstanceIdentifier)
+        guard let endpoint = await waitUntilDBInstanceReady(instanceIdentifier: dbInstanceIdentifier) else {
+            print("\nDid not get a valid endpoint from AWS RDS.")
+            await cleanUp()
+            return
+        }
+        
+        guard let endpointAddress = endpoint.address else {
+            print("\nNo endpoint address returned.")
+            await cleanUp()
+            return
+        }
+        guard let endpointPort = endpoint.port else {
+            print("\nNo endpoint port returned.")
+            await cleanUp()
+            return
+        }
+
+        //=====================================================================
+        // 12. Display connection information for the database instance.
+        //=====================================================================
+
+        print("\nTo connect to the new database instance using 'mysql' from the shell:")
+        print("    mysql -h \(endpointAddress) -P \(endpointPort) -u \(self.dbUsername)")
 
         //=====================================================================
         // 13. Create a snapshot of the database instance.
@@ -274,6 +298,9 @@ class Example {
 
         await waitUntilDBSnapshotReady(instanceIdentifier: dbInstanceIdentifier, snapshotIdentifier: dbSnapshotIdentifier)
 
+        // That's it! Clean up and exit!
+
+        print("Example complete! Cleaning up...")
         await cleanUp()
     }
 
@@ -281,7 +308,6 @@ class Example {
     func cleanUp() async {
         print("Deleting the database instance \(dbInstanceIdentifier)...")
         await deleteDBInstance(instanceIdentifier: dbInstanceIdentifier)
-
         await waitUntilDBInstanceDeleted(instanceIdentifier: dbInstanceIdentifier)
 
         print("Deleting the database parameter group \(dbParameterGroupName)...")
@@ -433,7 +459,6 @@ class Example {
     }
     // snippet-end:[swift.rds.ModifyDBParameterGroup]
 
-    // snippet-start:[swift.rds.DescribeDBEngineVersions]
     /// Output a list of the database engine versions supported by the
     /// specified family.
     /// 
@@ -462,9 +487,8 @@ class Example {
             return
         }
     }
-    // snippet-end:[swift.rds.DescribeDBEngineVersions]
 
-    // snippet-start:[swift.rds.DescribeOrderedDBInstanceOptionsPaginated]
+    // snippet-start:[swift.rds.DescribeOrderableDBInstanceOptionsPaginated]
     // snippet-start:[swift.rds.DescribeOrderableDBInstanceOptions]
     /// Print a list of available database instances with "micro" in the class
     /// name, then return one of them to be used by other code.
@@ -514,7 +538,7 @@ class Example {
         }
     }
     // snippet-end:[swift.rds.DescribeOrderableDBInstanceOptions]
-    // snippet-end:[swift.rds.DescribeOrderedDBInstanceOptionsPaginated]
+    // snippet-end:[swift.rds.DescribeOrderableDBInstanceOptionsPaginated]
 
     // snippet-start:[swift.rds.CreateDBInstance]
     /// Create a new database instance.
@@ -573,12 +597,10 @@ class Example {
     ///
     /// - Parameter instanceIdentifier: The database instance identifier of the
     ///   database to wait for.
-    func waitUntilDBInstanceReady(instanceIdentifier: String) async {
+    func waitUntilDBInstanceReady(instanceIdentifier: String) async -> RDSClientTypes.Endpoint? {
         do {
-            var instanceReady = false
-
             putString("Waiting for the database instance to be ready to use. This may take 10 minutes or more...")
-            while !instanceReady {
+            while true {
                 let output = try await rdsClient.describeDBInstances(
                     input: DescribeDBInstancesInput(
                         dbInstanceIdentifier: instanceIdentifier
@@ -598,32 +620,7 @@ class Example {
                     }
 
                     if status.contains("available") {
-                        guard let instanceEndpoint = instance.endpoint else {
-                            print("\n*** Instance is available but no endpoint returned!")
-                            return
-                        }
-                        
-                        guard let endpointAddress = instanceEndpoint.address else {
-                            print("\nNo endpoint address returned.")
-                            return
-                        }
-                        guard let endpointPort = instanceEndpoint.port else {
-                            print("\nNo endpoint port returned.")
-                            return
-                        }
-                        guard let username = instance.masterUsername else {
-                            print("\nNo main username returned.")
-                            return
-                        }
-
-                        //=====================================================================
-                        // 12. Display connection information for the database instance.
-                        //=====================================================================
-
-                        print("\nTo connect to the new database instance using 'mysql' from the shell:")
-                        print("    mysql -h \(endpointAddress) -P \(endpointPort) -u \(username)")
-                        
-                        instanceReady = true
+                        return instance.endpoint
                     } else {
                         putString(".")
                         do {
@@ -636,6 +633,7 @@ class Example {
             }
         } catch {
             print("*** Unable to wait until the database is ready: \(error.localizedDescription)")
+            return nil
         }
     }
     // snippet-end:[swift.rds.DescribeDBInstances]
