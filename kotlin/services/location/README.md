@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 ### Get started
 
-- [Hello Amazon Location](src/main/java/location/HelloLocation.kt#L10) (`ListGeofencesPaginator`)
+- [Hello Amazon Location](src/main/java/location/HelloLocation.kt#L10) (`ListGeofenceCollections`)
 
 
 ### Basics
