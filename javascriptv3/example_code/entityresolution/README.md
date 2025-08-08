@@ -31,14 +31,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello AWS Entity Resolution](hello.js#L4) (`listMatchingWorkflows`)
+- [Hello AWS Entity Resolution](hello.js#L4) (`ListMatchingWorkflows`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CheckWorkflowStatus](actions/check-workflow-status.js#L4)
 - [CreateMatchingWorkflow](actions/create-matching-workflow.js#L4)
 - [CreateSchemaMapping](actions/create-schema-mapping.js#L4)
 - [DeleteMatchingWorkflow](actions/delete-matching-workflow.js#L4)
@@ -47,7 +46,7 @@ Code excerpts that show you how to call individual service functions.
 - [GetSchemaMapping](actions/get-schema-mapping.js#L4)
 - [ListSchemaMappings](actions/list-schema-mappings.js#L4)
 - [StartMatchingJob](actions/start-matching-job.js#L4)
-- [TagEntityResource](actions/tag-entity-resource.js#L4)
+- [TagResource](actions/tag-entity-resource.js#L4)
 
 
 <!--custom.examples.start-->
