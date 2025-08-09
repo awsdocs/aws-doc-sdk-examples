@@ -15,14 +15,14 @@ from botocore.exceptions import ClientError, WaiterError
 class CloudFormationHelper:
     """Helper class for managing CloudFormation stack operations."""
     
-    def __init__(self, region_name: str = 'us-west-2') -> None:
+    def __init__(self) -> None:
         """
         Initialize CloudFormation helper.
-
-        Args:
-            region_name (str): AWS region name
+        
+        This example uses the default settings specified in your shared credentials
+        and config files.
         """
-        self.cfn_client = boto3.client('cloudformation', region_name=region_name)
+        self.cfn_client = boto3.client('cloudformation')
 
     def deploy_cloudformation_stack(self, stack_name: str) -> None:
         """
