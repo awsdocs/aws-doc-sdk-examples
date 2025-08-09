@@ -15,17 +15,18 @@ from botocore.exceptions import ClientError
 class S3BatchWrapper:
     """Wrapper class for managing S3 Batch Operations."""
 
-    def __init__(self, region_name: str = 'us-west-2') -> None:
+    def __init__(self) -> None:
         """
         Initialize S3 Batch Operations wrapper.
-
-        Args:
-            region_name (str): AWS region name
+        
+        This example uses the default settings specified in your shared credentials
+        and config files.
         """
-        self.region_name = region_name
-        self.s3_client = boto3.client('s3', region_name=region_name)
-        self.s3control_client = boto3.client('s3control', region_name=region_name)
-        self.sts_client = boto3.client('sts', region_name=region_name)
+        self.s3_client = boto3.client('s3')
+        self.s3control_client = boto3.client('s3control')
+        self.sts_client = boto3.client('sts')
+        # Get region from the client for bucket creation logic
+        self.region_name = self.s3_client.meta.region_name
 
     def get_account_id(self) -> str:
         """
@@ -47,7 +48,7 @@ class S3BatchWrapper:
             ClientError: If bucket creation fails
         """
         try:
-            if self.region_name != 'us-east-1':
+            if self.region_name and self.region_name != 'us-east-1':
                 self.s3_client.create_bucket(
                     Bucket=bucket_name,
                     CreateBucketConfiguration={

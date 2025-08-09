@@ -182,10 +182,14 @@ class S3BatchScenario:
 # snippet-end:[python.example_code.s3control.helper.S3BatchScenario]
 
 def main() -> None:
-    """Main function to run the S3 Batch Operations scenario."""
-    region_name = 'us-west-2'
-    s3_batch_wrapper = S3BatchWrapper(region_name)
-    cfn_helper = CloudFormationHelper(region_name)
+    """
+    Main function to run the S3 Batch Operations scenario.
+    
+    This example uses the default settings specified in your shared credentials
+    and config files.
+    """
+    s3_batch_wrapper = S3BatchWrapper()
+    cfn_helper = CloudFormationHelper()
     
     scenario = S3BatchScenario(s3_batch_wrapper, cfn_helper)
     scenario.run_scenario()
