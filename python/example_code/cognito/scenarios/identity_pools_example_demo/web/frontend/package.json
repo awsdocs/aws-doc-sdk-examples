@@ -1,0 +1,17 @@
+{
+  "name": "@amzn/cognito-identity-pools-demo",
+  "version": "1.0.0",
+  "description": "Amazon Cognito Identity Pools Enhanced vs Basic Flow Demo",
+  "dependencies": {
+    "aws-sdk": "^2.1400.0",
+    "amazon-cognito-identity-js": "^6.3.12"
+  },
+  "scripts": {
+    "build": "npm run bundle",
+    "bundle": "echo 'Bundling dependencies for browser use'"
+  },
+  "npm-pretty-much": {
+    "appName": "cognito-demo",
+    "runTest": "never"
+  }
+}
