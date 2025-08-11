@@ -1,0 +1,7 @@
+{
+  "region": "us-east-1",
+  "userPoolId": "us-east-1_EXAMPLE123",
+  "clientId": "1234567890abcdefEXAMPLE",
+  "userPoolDomain": "example-domain",
+  "apiEndpoint": "http://localhost:8006/api/authenticate"
+}
