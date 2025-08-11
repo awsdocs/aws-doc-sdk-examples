@@ -40,18 +40,18 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDBInstance](scenario/Sources/entry.swift#L543)
-- [CreateDBParameterGroup](scenario/Sources/entry.swift#L340)
-- [CreateDBSnapshot](scenario/Sources/entry.swift#L641)
-- [DeleteDBInstance](scenario/Sources/entry.swift#L719)
-- [DeleteDBParameterGroup](scenario/Sources/entry.swift#L784)
-- [DescribeDBEngineVersions](scenario/Sources/entry.swift#L317)
-- [DescribeDBInstances](scenario/Sources/entry.swift#L595)
-- [DescribeDBParameterGroups](scenario/Sources/entry.swift#L364)
-- [DescribeDBParameters](scenario/Sources/entry.swift#L388)
-- [DescribeDBSnapshots](scenario/Sources/entry.swift#L670)
-- [DescribeOrderableDBInstanceOptions](scenario/Sources/entry.swift#L492)
-- [ModifyDBParameterGroup](scenario/Sources/entry.swift#L427)
+- [CreateDBInstance](scenario/Sources/entry.swift#L529)
+- [CreateDBParameterGroup](scenario/Sources/entry.swift#L326)
+- [CreateDBSnapshot](scenario/Sources/entry.swift#L627)
+- [DeleteDBInstance](scenario/Sources/entry.swift#L705)
+- [DeleteDBParameterGroup](scenario/Sources/entry.swift#L770)
+- [DescribeDBEngineVersions](scenario/Sources/entry.swift#L303)
+- [DescribeDBInstances](scenario/Sources/entry.swift#L581)
+- [DescribeDBParameterGroups](scenario/Sources/entry.swift#L350)
+- [DescribeDBParameters](scenario/Sources/entry.swift#L374)
+- [DescribeDBSnapshots](scenario/Sources/entry.swift#L656)
+- [DescribeOrderableDBInstanceOptions](scenario/Sources/entry.swift#L478)
+- [ModifyDBParameterGroup](scenario/Sources/entry.swift#L413)
 
 
 <!--custom.examples.start-->
