@@ -8,6 +8,7 @@ import boto3
 import logging
 import os
 import base64
+import xml.etree.ElementTree as ET
 from typing import Dict, Optional
 
 logger = logging.getLogger(__name__)
