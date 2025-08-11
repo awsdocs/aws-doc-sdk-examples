@@ -3,7 +3,7 @@
 //
 // snippet-start:[swift.rds.scenario]
 // An example that shows how to use the AWS SDK for Swift to perform a variety
-// of operations using Amazon Elastic Compute Cloud (EC2).
+// of operations using Amazon Relational Database Service (RDS).
 //
 
 import ArgumentParser
