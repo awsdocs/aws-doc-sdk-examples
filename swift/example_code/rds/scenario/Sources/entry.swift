@@ -53,10 +53,10 @@ class Example {
 
     init(region: String, username: String, password: String) async throws{
         let rdsConfig = try await RDSClient.RDSClientConfiguration(region: region)
-        self.rdsClient = RDSClient(config: rdsConfig)
+        rdsClient = RDSClient(config: rdsConfig)
 
-        self.dbUsername = username
-        self.dbPassword = password
+        dbUsername = username
+        dbPassword = password
         dbParameterGroupName = ""
         dbInstanceIdentifier = ""
         dbSnapshotIdentifier = ""
