@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Cognito Identity Pool</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <!-- Modular JavaScript Files -->
+<script type="text/javascript" src="js/animations.js"></script>
+<script type="text/javascript" src="js/auth-core.js"></script>
+<script type="text/javascript" src="js/ui-display.js"></script>
+<script type="text/javascript" src="js/flow-visualizer.js"></script>
+<script type="text/javascript" src="js/app-init.js"></script>
+<script type="text/javascript">
+
+// Test if functions are loaded
+window.addEventListener('load', function() {
+    console.log('showDetailedAPIFlow available:', typeof showDetailedAPIFlow);
+    console.log('currentAuthResult available:', typeof currentAuthResult);
+    
+    // Initialize fade-in animations
+    handleScrollAnimation();
+});
+
+// Enhanced fade in animation on scroll
+function handleScrollAnimation() {
+    const animationClasses = ['.fade-in', '.fade-in-left', '.fade-in-right', '.fade-in-scale'];
+    
+    animationClasses.forEach(className => {
+        const elements = document.querySelectorAll(className);
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+            
+            if (elementTop < window.innerHeight - elementVisible) {
+                element.classList.add('visible');
+            }
+        });
+    });
+}
+
+// Add scroll listener for animations
+window.addEventListener('scroll', handleScrollAnimation);
+
+// Modal functions
+function showModal(options) {
+    document.getElementById('modalTitle').textContent = options.title;
+    document.getElementById('modalMessage').textContent = options.message;
+    document.getElementById('modalOverlay').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('modalOverlay').style.display = 'none';
+}
+
+function handleSamlSelection() {
+    if (typeof currentFlow !== 'undefined' && currentFlow === 'basic') {
+        showModal({
+            title: 'SAML not supported in basic flow',
+            message: 'SAML identity providers only work with the enhanced flow. Amazon Cognito requires the enhanced flow for SAML authentication because it handles role selection automatically through SAML assertions.'
+        });
+        return false;
+    }
+    return true;
+}
+
+function switchToEnhancedFlow() {
+    // Switch to enhanced flow and proceed with SAML
+    closeModal();
+    signInSAML('enhanced');
+}
+
+</script>
+<style>
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-dialog {
+    background: white;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+    padding: 20px 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-body {
+    padding: 20px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.modal-footer {
+    padding: 0 20px 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.btn-primary {
+    background: #8B4A9C;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+    <!-- Landing section with PSD background -->
+    <div id="landing-section" class="landing-section">
+    </div>
+    
+    <div id="main-container" class="container">
+        <div class="explore-label">Explore</div>
+        
+        <h1 class="main-title">Amazon Cognito identity pools authentication flows</h1>
+        
+        <p class="subtitle">Explore authentication flows in identity pools and how to integrate them with supported identity providers (IdP).</p>
+        
+        <div id="workloads-container" class="workloads">
+            <div id="workload-card-1" class="workload-card fade-in" title="Click to view authentication flow overview" onclick="scrollToSection('auth-flow-section')" style="cursor: pointer;">
+                <div class="workload-number">01.</div>
+                <h3 class="workload-title">Authentication flow overview</h3>
+                <p class="workload-description">Amazon Cognito identity pools support two authentication flows: a basic flow that maps guest or federated users to temporary AWS credentials, and an enhanced flow that first issues an OpenID token so you can scope roles or add session tags before requesting credentials. </p>
+            </div>
+            
+            <div id="workload-card-2" class="workload-card fade-in" title="Click to compare enhanced and basic flows" onclick="scrollToSection('detailed-overview-section')" style="cursor: pointer;">
+                <div class="workload-number">02.</div>
+                <h3 class="workload-title">Enhanced and basic flow comparison</h3>
+                <p class="workload-description">Compare basic and enhanced flows in identity pools side by side and choose the right approach for your application.</p>
+                
+            </div>
+            
+            <div id="workload-card-3" class="workload-card fade-in" title="Click to access interactive demo" onclick="scrollToSection('interactive-demo-section')" style="cursor: pointer;">
+                <div class="workload-number">03.</div>
+                <h3 class="workload-title">Interactive demo</h3>
+                <p class="workload-description">Test different authentication flows and API calls using supported identity providers to obtain temporary AWS credentials for accessing AWS services. </p>
+            </div>
+        </div>
+        
+        <div id="scroll-arrow-1" class="scroll-arrow" title="Click to scroll to authentication flow section" onclick="scrollToAuthFlow()">
+            <div class="arrow-down">↓</div>
+        </div>
+    </div>
+
+<!-- Authentication flow overview section -->
+<div id="auth-flow-section" class="auth-flow-container">
+    <div id="auth-flow-container" class="container">
+        <h2 class="network-title fade-in">Authentication flow overview</h2>
+        <p class="subtitle fade-in fade-in-delay-1">Amazon Cognito identity pools create unique identifiers for your end users that remain consistent across devices and platforms. When users authenticate with supported identity providers, identity pools exchange the provider tokens for temporary, limited-privilege AWS credentials that your application can use to access AWS resources. This credential exchange process uses one of two authentication flows: basic and enhanced flow.  Each flow uses the following sequence of API calls to accomplish this exchange. </p>
+        
+        
+        <div id="flow-comparison" class="flow-comparison fade-in fade-in-delay-2">
+            <div id="enhanced-flow-step" class="flow-step fade-in-left">
+                <div class="step-number">A</div>
+                <h3>Enhanced flow</h3>
+                <p>
+                    <span class="api-call" title="Click to view GetId API details" onclick="openApiPanel('GetId')">GetId()</span> → 
+                    <span class="api-call" title="Click to view GetCredentialsForIdentity API details" onclick="openApiPanel('GetCredentialsForIdentity')">GetCredentialsForIdentity()</span>
+                </p>
+                <small><strong>Combines</strong> identity retrieval and credential generation</small>
+            </div>
+            <div id="basic-flow-step" class="flow-step fade-in-right">
+                <div class="step-number">B</div>
+                <h3>Basic flow</h3>
+                <p>
+                    <span class="api-call" title="Click to view GetId API details" onclick="openApiPanel('GetId')">GetId()</span> → 
+                    <span class="api-call" title="Click to view GetOpenIdToken API details" onclick="openApiPanel('GetOpenIdToken')">GetOpenIdToken()</span> → 
+                    <span class="api-call" title="Click to view AssumeRoleWithWebIdentity API details" onclick="openApiPanel('AssumeRoleWithWebIdentity')">AssumeRoleWithWebIdentity()</span>
+                </p>
+                <small><strong>Separates</strong> identity retrieval and credential generation</small>
+            </div>
+            
+            <p class="api-hint fade-in fade-in-delay-3">Note: <strong> Click any API call above </strong> to view its purpose, parameters, and role in the identity pool authentication process.</p>
+        </div>
+
+        <!-- Detailed overview section -->
+        <div id="detailed-overview-section" class="detailed-overview">
+            <h3 class="fade-in">Enhanced and basic flow comparison</h3>
+            <p class="subtitle fade-in fade-in-delay-1">This section covers the detailed API sequences, implementation approaches, and decision criteria for choosing between enhanced and basic flows in Amazon Cognito identity pools. For complete implementation details, security considerations, and developer authentication patterns, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html" target="_blank" style="color: #8B4A9C; text-decoration: underline;">identity pools authentication flow</a>.</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 30px;">
+                <!-- Enhanced Flow Card -->
+                <div class="workload-card fade-in-left fade-in-delay-2" style="background: rgba(255, 255, 255, 0.9);">
+                    <div class="workload-number">A</div>
+                    <h3 class="workload-title">Enhanced flow</h3>
+                    <p class="workload-description">The enhanced flow is a two-request sequence—<span class="api-call" onclick="openApiPanel('GetID')">GetID()</span> followed by <span class="api-call" onclick="openApiPanel('GetCredentialsForIdentity')">GetCredentialsForIdentity()</span>—that produces AWS credentials valid for one hour. In this context, client means your application code (mobile app, web front end, or server-side component) sends requests to the <a href="https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html" target="_blank" style="color: #8B4A9C; text-decoration: underline;">Amazon Cognito Identity API</a>.</p>
+                    
+                    <p style="margin-top: 16px;">In the enhanced flow, your code never needs to call AWS Security Token Service (STS) directly. Once the identity pool validates the identity token to prove who the user is, it issues an OpenID token that uses internally to call STS <span class="api-call" onclick="openApiPanel('AssumeRoleWithWebIdentity')">AssumeRoleWithWebIdentity()</span> on your behalf and then returns the resulting temporary credentials in the response to <span class="api-call" onclick="openApiPanel('GetCredentialsForIdentity')">GetCredentialsForIdentity()</span>.</p>
+                    
+                    <details class="flow-details">
+                        <summary class="flow-summary">When to choose enhanced flow</summary>
+                        <ul class="flow-list">
+                            <li>Want Cognito identity pool to directly exchange AWS credentials for your users without managing STS calls manually</li>
+                            <li>Want reduced client-side complexity: the SDK handles credentials automatically after user authentication</li>
+                            <li>Your app's logic doesn't require signing its own GetCredentialsForIdentity or AssumeRoleWithWebIdentity requests</li>
+                        </ul>
+                    </details>
+                    
+                    <details class="flow-details">
+                        <summary class="flow-summary">Benefits</summary>
+                        <ul class="flow-list">
+                            <li><strong>Fewer round-trips</strong> - Only 2 API calls</li>
+                            <li><strong>Centralized role logic</strong> - identity pool handles RBAC/ABAC</li>
+                            <li><strong>Built-in security</strong> - Automatic scope-down policies</li>
+                        </ul>
+                    </details>
+                </div>
+                
+                <!-- Basic flow card -->
+                <div class="workload-card fade-in-right fade-in-delay-2" style="background: rgba(255, 255, 255, 0.9);">
+                    <div class="workload-number">B</div>
+                    <h3 class="workload-title">Basic flow</h3>
+                    <p class="workload-description">The basic flow uses a three-step process: <span class="api-call" onclick="openApiPanel('GetId')">GetId()</span> followed by <span class="api-call" onclick="openApiPanel('GetOpenIdToken')">GetOpenIdToken()</span> and then <span class="api-call" onclick="openApiPanel('AssumeRoleWithWebIdentity')">AssumeRoleWithWebIdentity()</span>. Unlike the enhanced flow, this approach gives you control over session duration (fifteen minutes to twelve hours) and role selection.</p>
+
+<p style="margin-top: 16px;">Your application handles the AWS Security Token Service (STS) interaction directly. After the identity pool validates your user's identity token, it returns an OpenID token via <span class="api-call" onclick="openApiPanel('GetOpenIdToken')">GetOpenIdToken()</span>. You then use this token to call <span class="api-call" onclick="openApiPanel('AssumeRoleWithWebIdentity')">AssumeRoleWithWebIdentity()</span> and receive temporary AWS credentials.</p>
+                    <details class="flow-details">
+                        <summary class="flow-summary">When to choose basic flow</summary>
+                        <ul class="flow-list">
+                            <li>Want full control over the STS request process</li>
+                            <li>Need for custom credential fetching or extra security checks before granting AWS access</li>
+                            <li>Security policy requires explicit AWS STS call rather than letting Cognito handle them</li>
+                        </ul>
+                    </details>
+                    
+                    <details class="flow-details">
+                        <summary class="flow-summary">Trade-offs</summary>
+                        <ul class="flow-list">
+                            <li><strong>Extra steps</strong> - 3 API calls required</li>
+                            <li><strong>Client-side logic</strong> - App handles role selection</li>
+                            <li><strong>Incompatible</strong> - Won't work with role mappings</li>
+                        </ul>
+                    </details>
+                </div>
+            </div>
+            
+            <div class="cta-section fade-in fade-in-delay-3">
+                <p>Ready to explore how enhanced and basic flows integrate with supported identity providers in identity pool? Scroll down or choose the arrow below to explore interactive demos!</p>
+            </div>
+        </div>
+        
+        <div id="scroll-arrow-2" class="scroll-arrow" title="Click to scroll to interactive demo section" onclick="scrollToSection('interactive-demo-section')">
+            <div class="arrow-down">↓</div>
+        </div>
+    </div>
+</div>
+
+<!-- Interactive demo section -->
+<div id="interactive-demo-section" class="auth-flow-container">
+    <div id="demo-container" class="container">
+        <h2 class="network-title fade-in">Interactive demo</h2>
+        <p class="subtitle fade-in fade-in-delay-1">Test different identity pool access patterns and see how identity pools provide temporary AWS credentials for various user types.</p>
+        
+        <!-- Step 1: Trust configuration -->
+        <div id="demo-step-1" class="demo-step fade-in fade-in-delay-2">
+            <h3 class="step-title">Step 1: Choose user access type <span class="info-text" title="Click for more information about user access types" onclick="openInfoPanel('user-access-type')">info</span></h3>
+            <p class="step-description">Select how users will access your application resources</p>
+            
+            <div id="trust-options" class="trust-options">
+                <div id="trust-card-authenticated" class="trust-card fade-in-left fade-in-delay-3" title="Click to configure authenticated access" onclick="selectTrust('authenticated')">
+                    <h4>Authenticated access</h4>
+                    <p>Issue AWS credentials to users who sign in through trusted identity providers such as social providers (Google, Facebook), enterprise providers (SAML, OIDC), or Cognito user pools.</p>
+                </div>
+                <div id="trust-card-guest" class="trust-card fade-in-right fade-in-delay-3" title="Click to configure guest access" onclick="selectTrust('guest')">
+                    <h4>Guest access</h4>
+                    <p>Issue temporary AWS credentials to anonymous users without requiring sign-in. Guest access is designed for public resources like graphic assets, documents, or limited app functionality that encourages user registration.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Arrow between steps -->
+        <div class="step-arrow" id="step-arrow" style="display: none;">
+            <div class="arrow-down">↓</div>
+        </div>
+        
+        <!-- Step 2: Provider selection (hidden initially) -->
+        <div id="provider-step" class="demo-step" style="display: none;">
+            <h3 class="step-title">Step 2: Select supported identity providers</h3>
+            <div id="provider-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for SAML restriction -->
+<div id="modalOverlay" class="modal-overlay" style="display: none;" onclick="closeModal()">
+    <div class="modal-dialog" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3 id="modalTitle">SAML not supported in basic flow</h3>
+            <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <p id="modalMessage">SAML identity providers only work with the enhanced flow. Amazon Cognito requires the enhanced flow for SAML authentication because it handles role selection automatically through SAML assertions.</p>
+            <p>For more information about authenticating users with a SAML IdP, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/saml-identity-provider.html" target="_blank" style="color: #8B4A9C; text-decoration: underline;">Setting up a SAML provider as an identity pool IdP</a>.</p>
+        </div>
+        <div class="modal-footer">
+            <button id="modalPrimaryBtn" class="btn-primary" onclick="switchToEnhancedFlow()">Switch to enhanced flow</button>
+            <button class="btn-secondary" onclick="closeModal()">Choose different provider</button>
+        </div>
+    </div>
+</div>
+
+<!-- Side panel for detailed API information-->
+<div id="overlay" class="overlay" title="Click to close panel" onclick="closeSidePanel()"></div>
+<div id="sidePanel" class="side-panel">
+    <div id="panel-header" class="panel-header">
+        <div id="panelTitle" class="panel-title">API reference</div>
+        <button id="close-btn" class="close-btn" title="Close panel" onclick="closeSidePanel()">×</button>utton>
+    </div>
+    <div id="panel-content" class="panel-content">
+        <div id="apiInfo" class="api-info">
+        </div>
+    </div>
+</div>div>
+
+<script type="text/javascript">
+function scrollToAuthFlow() {
+    document.getElementById('auth-flow-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+const apiData = {
+    'GetId': {
+        service: 'Amazon Cognito identity pool',
+        description: 'The GetId API call is the first call necessary to establish a new identity in Amazon Cognito.',
+        sections: [
+            {
+                title: 'Unauthenticated access',
+                content: 'Amazon Cognito can grant unauthenticated guest access in your applications. If this feature is enabled in your identity pool, users can request a new identity ID at any time via the GetId API. The application is expected to cache this identity ID to make subsequent calls to Amazon Cognito.'
+            },
+            {
+                title: 'Authenticated access',
+                content: 'When you\'ve configured your application with support for a public login provider (Facebook, Google+, Login with Amazon, or Sign in with Apple), users can also supply tokens (OAuth or OpenID Connect) that identify them in those providers. When used in a call to GetId, Amazon Cognito creates a new authenticated identity or returns the identity already associated with that particular login.'
+            }
+        ],
+        docUrl: 'https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_GetId.html'
+    },
+    'GetCredentialsForIdentity': {
+        service: 'Amazon Cognito identity pool',
+        description: 'Returns AWS credentials for the specified identity ID. This is the Enhanced flow approach - direct credential retrieval.',
+        purpose: 'Exchanges the identity ID directly for temporary AWS credentials (AccessKeyId, SecretKey, SessionToken) without requiring intermediate tokens.',
+        docUrl: 'https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_GetCredentialsForIdentity.html'
+    },
+    'GetOpenIdToken': {
+        service: 'Amazon Cognito identity pool',
+        description: 'Returns an OpenID Connect token for the specified identity ID. This is used in the Basic flow as an intermediate step.',
+        purpose: 'Generates an OpenID Connect token that can be used with AWS STS to assume an IAM role. Provides more control over role selection.',
+        docUrl: 'https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_GetOpenIdToken.html'
+    },
+    'AssumeRoleWithWebIdentity': {
+        service: 'AWS Security Token Service (STS)',
+        description: 'Returns temporary AWS credentials by assuming an IAM role using a web identity token (like OpenID Connect).',
+        purpose: 'Final step in Basic flow - exchanges the OpenID token for AWS credentials. Allows custom session duration and role selection.',
+        docUrl: 'https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRoleWithWebIdentity.html'
+    }
+};
+
+// API call description in side panel
+function openApiPanel(apiName) {
+    const panel = document.getElementById('sidePanel');
+    const overlay = document.getElementById('overlay');
+    const title = document.getElementById('panelTitle');
+    const content = document.getElementById('apiInfo');
+    
+    const api = apiData[apiName];
+    
+    title.textContent = apiName + '()';
+    
+    let sectionsHtml = '';
+    if (api.sections) {
+        sectionsHtml = api.sections.map(section => `
+            <h4>${section.title}</h4>
+            <p>${section.content}</p>
+        `).join('');
+    }
+    
+    // Purpose section: explaning what the api does
+    let purposeHtml = '';
+    if (api.purpose) {
+        purposeHtml = `
+            <h4>Purpose</h4>
+            <p>${api.purpose}</p>
+        `;
+    }
+    
+    content.innerHTML = `
+        <div class="service">${api.service}</div>
+        <h4>Description</h4>
+        <p>${api.description}</p>
+        ${sectionsHtml}
+        ${purposeHtml}
+        <a href="${api.docUrl}" target="_blank" class="doc-link">View AWS Documentation →</a>
+    `;
+    
+    panel.classList.add('open');
+    overlay.classList.add('active');
+}
+
+function closeSidePanel() {
+    const panel = document.getElementById('sidePanel');
+    const overlay = document.getElementById('overlay');
+    
+    panel.classList.remove('open');
+    overlay.classList.remove('active');
+}
+
+
+
+function scrollToSection(sectionId) {
+    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+}
+
+function selectTrust(type) {
+    // Remove previous selections
+    document.querySelectorAll('.trust-card').forEach(card => card.classList.remove('selected'));
+    
+    // Select current card
+    event.target.closest('.trust-card').classList.add('selected');
+    
+    // Show provider step and arrow
+    const providerStep = document.getElementById('provider-step');
+    const providerContent = document.getElementById('provider-content');
+    const stepArrow = document.getElementById('step-arrow');
+    const stepTitle = providerStep.querySelector('.step-title');
+    
+    providerStep.style.display = 'block';
+    stepArrow.style.display = 'block';
+    
+    if (type === 'authenticated') {
+        // Update step title for authenticated access
+        stepTitle.innerHTML = 'Step 2: Select supported identity providers <span class="info-text" onclick="openInfoPanel(\'identity-pool-trust\')">info</span>';
+        providerContent.innerHTML = `
+            <p class="step-description">Choose your authentication flow and select identity providers</p>
+            
+            <div class="flow-tabs">
+                <button class="tab-button active" onclick="switchTab('enhanced')">Enhanced flow (recommended)</button>
+                <button class="tab-button" onclick="switchTab('basic')">Basic flow</button>
+            </div>
+            
+            <div id="enhanced-tab" class="tab-content active">
+                ${getProviderCategories('enhanced')}
+            </div>
+            
+            <div id="basic-tab" class="tab-content">
+                ${getProviderCategories('basic')}
+            </div>
+        `;
+    } else {
+        stepTitle.textContent = 'Step 2: Choose authentication flow';
+        
+        providerContent.innerHTML = `
+            <p class="step-description">Configure guest access authentication flow</p>
+            
+            <div class="warning-box">
+                <h4>Security warning</h4>
+                <p>Guest access allows unauthenticated users to access your application. Ensure proper IAM policies are in place to limit permissions.</p>
+            </div>
+            
+            <div class="flow-tabs">
+                <button class="tab-button active" onclick="switchGuestTab('enhanced')">Enhanced flow (recommended)</button>
+                <button class="tab-button" onclick="switchGuestTab('basic')">Basic flow</button>
+            </div>
+            
+            <div id="guest-enhanced-tab" class="tab-content active">
+                <div class="provider-categories guest-access">
+                    <div class="provider-category">
+                        <h4 class="category-title">Unauthenticated access</h4>
+                        <p class="category-description">2-Step process: GetId() → GetCredentialsForIdentity()</p>
+                        <div class="provider-list">
+                            <div class="provider-item" onclick="testEnhancedGuest()">
+                                <span class="provider-item-name">Test guest access</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="apiVisualizerGuest" class="api-visualizer" style="display: none;">
+                    <h3>Enhanced flow progress</h3>
+                    <div class="flow-diagram" id="flowDiagramGuest">
+                        <div class="api-step current">
+                            <div class="step-indicator">1</div>
+                            <div class="step-content">
+                                <div class="step-header">
+                                    <div class="api-name">GetId()</div>
+                                    <div class="step-status current">waiting</div>
+                                </div>
+                                <div class="payload-content" id="payload-guest-0">
+                                    <div class="payload-label">Status:</div>
+                                    Waiting for authentication...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="api-step">
+                            <div class="step-indicator">2</div>
+                            <div class="step-content">
+                                <div class="step-header">
+                                    <div class="api-name">GetCredentialsForIdentity()</div>
+                                    <div class="step-status">waiting</div>
+                                </div>
+                                <div class="payload-content" id="payload-guest-1">
+                                    <div class="payload-label">Status:</div>
+                                    Waiting for previous step to complete...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="api-step">
+                            <div class="step-indicator">3</div>
+                            <div class="step-content">
+                                <div class="step-header">
+                                    <div class="api-name">Enhanced flow Success</div>
+                                    <div class="step-status">waiting</div>
+                                </div>
+                                <div class="payload-content" id="payload-guest-2">
+                                    <div class="payload-label">Status:</div>
+                                    Waiting for previous step to complete...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="guest-basic-tab" class="tab-content">
+                <div class="provider-categories guest-access">
+                    <div class="provider-category">
+                        <h4 class="category-title">Unauthenticated access</h4>
+                        <p class="category-description">3-Step Process: GetId() → GetOpenIdToken() → AssumeRoleWithWebIdentity()</p>
+                        <div class="provider-list">
+                            <div class="provider-item" onclick="testBasicGuest()">
+                                <span class="provider-item-name">Test guest access</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="apiVisualizerGuestBasic" class="api-visualizer" style="display: none;">
+                    <h3>Basic flow progress</h3>
+                    <div class="flow-diagram" id="flowDiagramGuestBasic">
+                        <div class="api-step current">
+                            <div class="step-indicator">1</div>
+                            <div class="step-content">
+                                <div class="step-header">
+                                    <div class="api-name">GetId()</div>
+                                    <div class="step-status current">waiting</div>
+                                </div>
+                                <div class="payload-content" id="payload-guest-basic-0">
+                                    <div class="payload-label">Status:</div>
+                                    Waiting for authentication...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="api-step">
+                            <div class="step-indicator">2</div>
+                            <div class="step-content">
+                                <div class="step-header">
+                                    <div class="api-name">GetOpenIdToken()</div>
+                                    <div class="step-status">waiting</div>
+                                </div>
+                                <div class="payload-content" id="payload-guest-basic-1">
+                                    <div class="payload-label">Status:</div>
+                                    Waiting for previous step to complete...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="api-step">
+                            <div class="step-indicator">3</div>
+                            <div class="step-content">
+                                <div class="step-header">
+                                    <div class="api-name">AssumeRoleWithWebIdentity()</div>
+                                    <div class="step-status">waiting</div>
+                                </div>
+                                <div class="payload-content" id="payload-guest-basic-2">
+                                    <div class="payload-label">Status:</div>
+                                    Waiting for previous step to complete...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="api-step">
+                            <div class="step-indicator">4</div>
+                            <div class="step-content">
+                                <div class="step-header">
+                                    <div class="api-name">Basic flow Success</div>
+                                    <div class="step-status">waiting</div>
+                                </div>
+                                <div class="payload-content" id="payload-guest-basic-3">
+                                    <div class="payload-label">Status:</div>
+                                    Waiting for previous step to complete...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        // Trigger animations for new content
+        setTimeout(() => window.triggerAnimations(), 100);
+    }
+    
+    // Auto-scroll to step 2 after content is loaded
+    setTimeout(() => {
+        providerStep.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+}
+
+function switchTab(flowType) {
+    // Hide all tabs
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Show selected tab
+    document.getElementById(flowType + '-tab').classList.add('active');
+    event.target.classList.add('active');
+}
+
+function switchGuestTab(flowType) {
+    // Hide all guest tabs
+    document.querySelectorAll('#guest-enhanced-tab, #guest-basic-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Show selected tab
+    document.getElementById('guest-' + flowType + '-tab').classList.add('active');
+    event.target.classList.add('active');
+}
+
+const infoData = {
+    'user-access-type': {
+        title: 'User Access Type',
+        content: `
+            <p>To get an identity ID and AWS credentials, your app can present proof of authentication from a trusted IdP, like a user pool or a social provider. In exchange, your identity pool can grant <strong>Authenticated access</strong> to your user. When your app only presents your identity pools ID in a request for an identity ID and AWS credentials, your identity pools can grant <strong>Guest access</strong> to your user.</p>
+            
+            <p>With guest access, your app can be a convenient path to non-confidential AWS resources that aren't otherwise public. Your app is a gateway to these resources, but guest access doesn't add security compared to public resources.</p>
+        `
+    },
+    'identity-pool-trust': {
+        title: 'Identity Pool Trust',
+        content: `
+            <p>You can configure the origins that you want your Amazon Cognito identity pool to trust when it issues AWS credentials. Your identity pool issues credentials in exchange for authenticated claims from trusted identity providers (IdPs). You can also configure your identity pool to issue guest credentials to anyone with the identity pool ID.</p>
+            
+            <p>You can trust the following identity sources:</p>
+            
+            <h4>Amazon Cognito user pool</h4>
+            <p>Your users authenticate with a user pool and receive an identity token. Present identity tokens to your identity pool for credentials. User pools give your identity pool the largest variety of options when you create the rules that determine your user's IAM role.</p>
+            
+            <h4>Social identity providers</h4>
+            <p>Amazon Cognito provides direct integration with Login with Amazon, Sign in with Apple, Google, Facebook, and Twitter. Provide information about your developer app or project to your identity pool, and Amazon Cognito trusts OAuth 2.0 tokens that the social provider issues on behalf of your app.</p>
+            
+            <h4>OIDC or SAML identity providers</h4>
+            <p>You can trust authenticated claims from any identity provider that issues SAML 2.0 assertions or OIDC tokens. Amazon Cognito integrates with identity providers that you have configured in AWS Identity and Access Management (IAM).</p>
+            
+            <h4>Custom developer provider</h4>
+            <p>Custom developer providers are also called developer authenticated identities. When you set up a developer provider, Amazon Cognito issues credentials based on a custom identifier, principal tags, and an AWS credentials signature in the API request. The developer authenticated flow assumes you have validated your users' sign-in elsewhere.</p>
+            
+            <h4>Unauthenticated users (guest access)</h4>
+            <p>When you allow guest access, Amazon Cognito issues credentials to anyone on the internet based on the identity pool ID in the API request. Users don't have to provide authenticated claims to receive credentials.</p>
+        `
+    }
+};
+
+function openInfoPanel(infoType) {
+    const panel = document.getElementById('sidePanel');
+    const overlay = document.getElementById('overlay');
+    const title = document.getElementById('panelTitle');
+    const content = document.getElementById('apiInfo');
+    
+    const info = infoData[infoType];
+    
+    title.textContent = info.title;
+    content.innerHTML = info.content;
+    
+    panel.classList.add('open');
+    overlay.classList.add('active');
+}
+
+</script>
+
+</body>
+</html>
