@@ -1,5 +1,4 @@
 /*
- * FLOW-VISUALIZER.JS - API Flow Visualization Engine
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
