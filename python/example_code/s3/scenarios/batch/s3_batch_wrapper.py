@@ -15,16 +15,20 @@ from botocore.exceptions import ClientError
 class S3BatchWrapper:
     """Wrapper class for managing S3 Batch Operations."""
 
-    def __init__(self) -> None:
+    def __init__(self, s3_client: Any, s3control_client: Any, sts_client: Any) -> None:
         """
-        Initialize S3 Batch Operations wrapper.
+        Initializes the S3BatchWrapper with AWS service clients.
         
-        This example uses the default settings specified in your shared credentials
-        and config files.
+        :param s3_client: A Boto3 Amazon S3 client. This client provides low-level
+                         access to AWS S3 services.
+        :param s3control_client: A Boto3 Amazon S3 Control client. This client provides
+                               low-level access to AWS S3 Control services.
+        :param sts_client: A Boto3 AWS STS client. This client provides low-level
+                          access to AWS STS services.
         """
-        self.s3_client = boto3.client('s3')
-        self.s3control_client = boto3.client('s3control')
-        self.sts_client = boto3.client('sts')
+        self.s3_client = s3_client
+        self.s3control_client = s3control_client
+        self.sts_client = sts_client
         # Get region from the client for bucket creation logic
         self.region_name = self.s3_client.meta.region_name
 

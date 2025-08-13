@@ -6,7 +6,7 @@ Helper class for managing CloudFormation stack operations for S3 Batch Operation
 """
 
 import json
-from typing import Dict
+from typing import Dict, Any
 
 import boto3
 from botocore.exceptions import ClientError, WaiterError
@@ -15,14 +15,14 @@ from botocore.exceptions import ClientError, WaiterError
 class CloudFormationHelper:
     """Helper class for managing CloudFormation stack operations."""
     
-    def __init__(self) -> None:
+    def __init__(self, cfn_client: Any) -> None:
         """
-        Initialize CloudFormation helper.
+        Initializes the CloudFormationHelper with a CloudFormation client.
         
-        This example uses the default settings specified in your shared credentials
-        and config files.
+        :param cfn_client: A Boto3 Amazon CloudFormation client. This client provides
+                          low-level access to AWS CloudFormation services.
         """
-        self.cfn_client = boto3.client('cloudformation')
+        self.cfn_client = cfn_client
 
     def deploy_cloudformation_stack(self, stack_name: str) -> None:
         """
