@@ -25,6 +25,7 @@ import uuid
 import sys
 from typing import Tuple
 
+import boto3
 from cloudformation_helper import CloudFormationHelper
 from s3_batch_wrapper import S3BatchWrapper
 sys.path.append("../../../..")
@@ -188,8 +189,13 @@ def main() -> None:
     This example uses the default settings specified in your shared credentials
     and config files.
     """
-    s3_batch_wrapper = S3BatchWrapper()
-    cfn_helper = CloudFormationHelper()
+    s3_client = boto3.client('s3')
+    s3control_client = boto3.client('s3control')
+    sts_client = boto3.client('sts')
+    cfn_client = boto3.client('cloudformation')
+    
+    s3_batch_wrapper = S3BatchWrapper(s3_client, s3control_client, sts_client)
+    cfn_helper = CloudFormationHelper(cfn_client)
     
     scenario = S3BatchScenario(s3_batch_wrapper, cfn_helper)
     scenario.run_scenario()
