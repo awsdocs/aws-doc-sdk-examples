@@ -379,7 +379,7 @@ class S3BatchWrapper:
         except ClientError as e:
             print(f"Error getting job tags: {e}")
             raise
-    # snippet-start:[python.example_code.s3control.get_job_tagging]
+    # snippet-end:[python.example_code.s3control.get_job_tagging]
     
     # snippet-start:[python.example_code.s3control.put_job_tagging]
     def put_job_tags(self, job_id: str, account_id: str) -> None:
