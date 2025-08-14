@@ -94,7 +94,7 @@ suspend fun sendSMSMessage(
             messageConfiguration = directOb
         }
 
-    PinpointClient { region = "us-west-2" }.use { pinpoint ->
+    PinpointClient.fromEnvironment { region = "us-west-2" }.use { pinpoint ->
         pinpoint.sendMessages(
             SendMessagesRequest {
                 applicationId = appId

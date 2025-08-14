@@ -43,7 +43,7 @@ suspend fun deleteDatabaseInstance(dbInstanceIdentifierVal: String?) {
             skipFinalSnapshot = true
         }
 
-    RdsClient { region = "us-west-2" }.use { rdsClient ->
+    RdsClient.fromEnvironment { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.deleteDbInstance(deleteDbInstanceRequest)
         print("The status of the database is ${response.dbInstance?.dbInstanceStatus}")
     }

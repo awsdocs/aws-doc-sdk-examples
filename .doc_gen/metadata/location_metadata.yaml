@@ -33,7 +33,7 @@ location_Hello:
               snippet_tags:
                 - javascript.v3.location.hello
   services:
-    location: {ListGeofencesPaginator}
+    location: {ListGeofences, ListGeofenceCollections}
 location_CreateMap:
   languages:
     Kotlin:

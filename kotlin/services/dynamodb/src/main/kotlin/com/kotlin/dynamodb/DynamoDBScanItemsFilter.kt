@@ -53,7 +53,7 @@ suspend fun scanItemsUsingFilter(tableNameVal: String) {
             filterExpression = "#archive2 = :val"
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         val response = ddb.scan(request)
         println("#######################################")
         response.items?.forEach { item ->

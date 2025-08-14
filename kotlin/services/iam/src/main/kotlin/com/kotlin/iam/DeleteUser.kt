@@ -42,7 +42,7 @@ suspend fun deleteIAMUser(userNameVal: String) {
         }
 
     // To delete a user, ensure that the user's access keys are deleted first.
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         iamClient.deleteUser(request)
         println("Successfully deleted user $userNameVal")
     }

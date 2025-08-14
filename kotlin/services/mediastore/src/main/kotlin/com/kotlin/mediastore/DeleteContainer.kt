@@ -43,7 +43,7 @@ suspend fun deleteMediaContainer(containerNameVal: String?) {
             containerName = containerNameVal
         }
 
-    MediaStoreClient { region = "us-west-2" }.use { mediaStoreClient ->
+    MediaStoreClient.fromEnvironment { region = "us-west-2" }.use { mediaStoreClient ->
         mediaStoreClient.deleteContainer(request)
         println("The $containerNameVal was deleted")
     }

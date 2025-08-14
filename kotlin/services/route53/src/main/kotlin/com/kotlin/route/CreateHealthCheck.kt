@@ -57,7 +57,7 @@ suspend fun createCheck(domainName: String?): String? {
             healthCheckConfig = config
         }
 
-    Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
+    Route53Client.fromEnvironment { region = "AWS_GLOBAL" }.use { route53Client ->
         val healthResponse = route53Client.createHealthCheck(healthCheckRequest)
         return healthResponse.healthCheck?.id
     }

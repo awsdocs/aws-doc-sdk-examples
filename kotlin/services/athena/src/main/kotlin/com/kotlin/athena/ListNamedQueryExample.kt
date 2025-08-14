@@ -18,7 +18,7 @@ suspend fun listNamedQueries() {
         this.maxResults = 10
     }
 
-    AthenaClient { region = "us-west-2" }.use { athenaClient ->
+    AthenaClient.fromEnvironment { region = "us-west-2" }.use { athenaClient ->
         val responses = athenaClient.listNamedQueries(request)
         responses.namedQueryIds?.forEach { queries ->
             println("Retrieved account alias $queries")

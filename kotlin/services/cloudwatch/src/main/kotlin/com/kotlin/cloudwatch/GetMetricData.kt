@@ -61,7 +61,7 @@ suspend fun getMetData() {
             metricDataQueries = dq
         }
 
-    CloudWatchClient { region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient.fromEnvironment { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.getMetricData(request)
         response.metricDataResults?.forEach { item ->
             println("The label is ${item.label}")

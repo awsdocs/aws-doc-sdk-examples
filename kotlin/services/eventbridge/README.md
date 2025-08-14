@@ -50,7 +50,7 @@ Code excerpts that show you how to call individual service functions.
 - [DisableRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L507)
 - [EnableRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L507)
 - [ListRuleNamesByTarget](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L557)
-- [ListRules](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L671)
+- [ListRules](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L674)
 - [ListTargetsByRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L573)
 - [PutEvents](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L380)
 - [PutRule](src/main/kotlin/com/kotlin/eventbridge/CreateRuleSchedule.kt#L49)

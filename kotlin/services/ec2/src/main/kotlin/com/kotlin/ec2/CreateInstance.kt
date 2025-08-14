@@ -53,7 +53,7 @@ suspend fun createEC2Instance(
             minCount = 1
         }
 
-    Ec2Client { region = "us-west-2" }.use { ec2 ->
+    Ec2Client.fromEnvironment { region = "us-west-2" }.use { ec2 ->
         val response = ec2.runInstances(request)
         val instanceId = response.instances?.get(0)?.instanceId
         val tag =

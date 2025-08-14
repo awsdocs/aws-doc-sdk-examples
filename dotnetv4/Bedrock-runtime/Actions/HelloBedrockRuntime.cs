@@ -28,7 +28,8 @@ namespace BedrockRuntimeActions
                 default:
                     Console.WriteLine($"Unknown model ID: {modelId}. Valid model IDs are: {CLAUDE}.");
                     break;
-            };
+            }
+            ;
         }
     }
 }

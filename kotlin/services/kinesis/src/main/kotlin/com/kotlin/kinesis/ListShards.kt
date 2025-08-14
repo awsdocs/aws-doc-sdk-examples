@@ -41,7 +41,7 @@ suspend fun listKinShards(name: String?) {
             streamName = name
         }
 
-    KinesisClient { region = "us-east-1" }.use { kinesisClient ->
+    KinesisClient.fromEnvironment { region = "us-east-1" }.use { kinesisClient ->
         val response = kinesisClient.listShards(request)
         response.shards?.forEach { shard ->
             println("Shard id is ${shard.shardId}")

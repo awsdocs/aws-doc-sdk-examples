@@ -41,7 +41,7 @@ suspend fun unSub(subscriptionArnVal: String) {
             subscriptionArn = subscriptionArnVal
         }
 
-    SnsClient { region = "us-east-1" }.use { snsClient ->
+    SnsClient.fromEnvironment { region = "us-east-1" }.use { snsClient ->
         snsClient.unsubscribe(request)
         println("Subscription was removed for ${request.subscriptionArn}")
     }

@@ -1,12 +1,17 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.21"
+    kotlin("jvm") version "2.1.0"
     application
 }
 
 group = "com.example.bedrock"
 version = "1.0-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 buildscript {
     repositories {
@@ -22,8 +27,8 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:bedrock:0.33.1-beta")
-    implementation("aws.sdk.kotlin:sts:0.33.1-beta")
+    implementation("aws.sdk.kotlin:bedrock:1.4.119")
+    implementation("aws.sdk.kotlin:sts:1.4.119")
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
 }
 tasks.withType<KotlinCompile> {

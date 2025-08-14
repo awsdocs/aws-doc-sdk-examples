@@ -68,7 +68,7 @@ suspend fun createDS(
             type = DataSourceType.AmazonDynamodb
         }
 
-    AppSyncClient { region = "us-east-1" }.use { appClient ->
+    AppSyncClient.fromEnvironment { region = "us-east-1" }.use { appClient ->
         val response = appClient.createDataSource(request)
         return response.dataSource?.dataSourceArn
     }

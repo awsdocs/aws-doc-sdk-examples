@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Amazon Location](hello.js#L4) (`ListGeofencesPaginator`)
+- [Hello Amazon Location](hello.js#L4) (`ListGeofenceCollections`)
 
 
 ### Basics

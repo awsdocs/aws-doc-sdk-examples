@@ -59,7 +59,7 @@ suspend fun analyzeDoc(sourceDoc: String?) {
             document = myDoc
         }
 
-    TextractClient { region = "us-east-1" }.use { textractClient ->
+    TextractClient.fromEnvironment { region = "us-east-1" }.use { textractClient ->
         val response = textractClient.analyzeDocument(analyzeDocumentRequest)
         response.blocks?.forEach { block ->
             println("The block type is ${block.blockType}")

@@ -43,7 +43,7 @@ suspend fun deleteSpecificBot(botName: String) {
             name = botName
         }
 
-    LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
+    LexModelBuildingClient.fromEnvironment { region = "us-west-2" }.use { lexClient ->
         lexClient.deleteBot(request)
         println("$botName was deleted!")
     }
