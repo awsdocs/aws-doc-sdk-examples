@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [PutRecord](src/main/java/com/example/firehose/scenario/FirehoseScenario.java#L92)
-- [PutRecordBatch](src/main/java/com/example/firehose/scenario/FirehoseScenario.java#L125)
+- [PutRecord](src/main/java/com/example/firehose/scenario/FirehoseScenario.java#L98)
+- [PutRecordBatch](src/main/java/com/example/firehose/scenario/FirehoseScenario.java#L131)
 
 ### Scenarios
 

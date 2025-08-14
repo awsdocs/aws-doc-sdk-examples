@@ -1,8 +1,8 @@
-# Amazon Cognito Identity Provider code examples for the SDK for .NET
+# Amazon Cognito Identity Provider code examples for the SDK for .NET (v4)
 
 ## Overview
 
-Shows how to use the AWS SDK for .NET to work with Amazon Cognito Identity Provider.
+Shows how to use the AWS SDK for .NET (v4) to work with Amazon Cognito Identity Provider.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
@@ -43,25 +43,7 @@ the scenario.
 
 Code excerpts that show you how to call individual service functions.
 
-- [AdminGetUser](Actions/CognitoWrapper.cs#L288)
-- [AdminInitiateAuth](Actions/CognitoWrapper.cs#L156)
-- [AdminRespondToAuthChallenge](Actions/CognitoWrapper.cs#L72)
-- [AssociateSoftwareToken](Actions/CognitoWrapper.cs#L133)
-- [ConfirmDevice](Actions/CognitoWrapper.cs#L241)
-- [ConfirmSignUp](Actions/CognitoWrapper.cs#L213)
-- [InitiateAuth](Actions/CognitoWrapper.cs#L184)
 - [ListUserPools](Actions/CognitoWrapper.cs#L25)
-- [ListUsers](Actions/CognitoWrapper.cs#L46)
-- [ResendConfirmationCode](Actions/CognitoWrapper.cs#L264)
-- [SignUp](Actions/CognitoWrapper.cs#L311)
-- [VerifySoftwareToken](Actions/CognitoWrapper.cs#L111)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Sign up a user with a user pool that requires MFA](Actions/CognitoWrapper.cs)
 
 
 <!--custom.examples.start-->
@@ -71,43 +53,11 @@ functions within the same service.
 
 ### Instructions
 
-For general instructions to run the examples, see the
-[README](../README.md#building-and-running-the-code-examples) in the `dotnetv4` folder.
-
-Some projects might include a settings.json file. Before compiling the project,
-you can change these values to match your own account and resources. Alternatively,
-add a settings.local.json file with your local settings, which will be loaded automatically
-when the application runs.
-
-After the example compiles, you can run it from the command line. To do so, navigate to
-the folder that contains the .csproj file and run the following command:
-
-```
-dotnet run
-```
-
-Alternatively, you can run the example from within your IDE.
-
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
 
-
-#### Sign up a user with a user pool that requires MFA
-
-This example shows you how to do the following:
-
-- Sign up and confirm a user with a username, password, and email address.
-- Set up multi-factor authentication by associating an MFA application with the user.
-- Sign in by using a password and an MFA code.
-
-<!--custom.scenario_prereqs.cognito-identity-provider_Scenario_SignUpUserWithMfa.start-->
-<!--custom.scenario_prereqs.cognito-identity-provider_Scenario_SignUpUserWithMfa.end-->
-
-
-<!--custom.scenarios.cognito-identity-provider_Scenario_SignUpUserWithMfa.start-->
-<!--custom.scenarios.cognito-identity-provider_Scenario_SignUpUserWithMfa.end-->
 
 ### Tests
 
@@ -126,7 +76,7 @@ in the `dotnetv4` folder.
 
 - [Amazon Cognito Identity Provider Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
 - [Amazon Cognito Identity Provider API Reference](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html)
-- [SDK for .NET Amazon Cognito Identity Provider reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/CognitoIdentity/NCognitoIdentity.html)
+- [SDK for .NET (v4) Amazon Cognito Identity Provider reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Cognito-identity-provider/NCognito-identity-provider.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

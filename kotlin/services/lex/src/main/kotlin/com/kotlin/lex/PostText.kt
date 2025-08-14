@@ -61,7 +61,7 @@ suspend fun getText(
             sessionAttributes = sessionAttributesVal
         }
 
-    LexRuntimeClient { region = "us-west-2" }.use { lexClient ->
+    LexRuntimeClient.fromEnvironment { region = "us-west-2" }.use { lexClient ->
         val textResponse = lexClient.postText(request)
         val message = textResponse.message
         return message

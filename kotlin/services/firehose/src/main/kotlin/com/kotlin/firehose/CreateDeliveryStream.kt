@@ -61,7 +61,7 @@ suspend fun createStream(
             deliveryStreamType = DeliveryStreamType.DirectPut
         }
 
-    FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
+    FirehoseClient.fromEnvironment { region = "us-west-2" }.use { firehoseClient ->
         val streamResponse = firehoseClient.createDeliveryStream(request)
         println("Delivery Stream ARN is ${streamResponse.deliveryStreamArn}")
     }

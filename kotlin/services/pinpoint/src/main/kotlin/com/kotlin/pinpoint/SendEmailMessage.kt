@@ -97,7 +97,7 @@ suspend fun sendEmail(
             this.content = emailContent
         }
 
-    PinpointEmailClient { region = "us-east-1" }.use { pinpointemail ->
+    PinpointEmailClient.fromEnvironment { region = "us-east-1" }.use { pinpointemail ->
         pinpointemail.sendEmail(sendEmailRequest)
         println("Message Sent")
     }

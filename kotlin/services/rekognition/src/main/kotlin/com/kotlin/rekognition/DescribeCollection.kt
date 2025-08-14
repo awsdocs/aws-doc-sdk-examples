@@ -42,7 +42,7 @@ suspend fun describeColl(collectionName: String) {
             collectionId = collectionName
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.describeCollection(request)
         println("The collection Arn is ${response.collectionArn}")
         println("The collection contains this many faces ${response.faceCount}")

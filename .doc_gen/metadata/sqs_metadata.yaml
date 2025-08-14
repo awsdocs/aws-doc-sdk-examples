@@ -867,8 +867,37 @@ sqs_Scenario_SendReceiveBatch:
             - description: Use the wrapper functions to send and receive messages in batches.
               snippet_tags:
                 - python.example_code.sqs.Scenario_SendReceiveBatch
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description: >-
+                As shown in the following examples, you can handle batch message operations with &SQS; 
+                  using two different approaches with the &JavaV2long;:</para>
+                <para><emphasis role="strong">SendRecvBatch.java</emphasis> uses explicit batch operations.
+                  You manually create message batches and call <code>sendMessageBatch()</code> and
+                  <code>deleteMessageBatch()</code> directly. You also handle batch responses, including any
+                  failed messages. This approach gives you full control over batch sizing and error handling.
+                  However, it requires more code to manage the batching logic.</para>
+                <para><emphasis role="strong">SimpleProducerConsumer.java</emphasis> uses the high-level
+                  <code>SqsAsyncBatchManager</code> library for automatic request batching. You make
+                  individual <code>sendMessage()</code> and <code>deleteMessage()</code> calls with the same
+                  method signatures as the standard client. The SDK automatically buffers these calls and
+                  sends them as batch operations. This approach requires minimal code changes while providing
+                  batching performance benefits.</para>
+                <para>Use explicit batching when you need fine-grained control over batch composition and
+                  error handling. Use automatic batching when you want to optimize performance with minimal
+                  code changes.</para>
+                <para>SendRecvBatch.java - Uses explicit batch operations with messages.
+              snippet_tags:
+                - sqs.java2.sendRecvBatch.main
+            - description: SimpleProducerConsumer.java - Uses automatic batching of messages.
+              snippet_tags:
+                - sqs.java2.batch_demo.main
   services:
-    sqs: {CreateQueue, DeleteQueue, SendMessageBatch, ReceiveMessage, DeleteMessageBatch}
+    sqs: {CreateQueue, DeleteQueue, SendMessageBatch, SendMessage, ReceiveMessage, DeleteMessageBatch, DeleteMessage}
 sqs_GetQueueAttributes:
   languages:
     .NET:

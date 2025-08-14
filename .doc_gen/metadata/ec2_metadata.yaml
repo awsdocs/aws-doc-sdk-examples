@@ -6,13 +6,13 @@ ec2_Hello:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/EC2
+        - sdk_version: 4
+          github: dotnetv4/EC2
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.HelloEc2
+                - EC2.dotnetv4.HelloEc2
     Kotlin:
       versions:
         - sdk_version: 1
@@ -76,6 +76,17 @@ ec2_Hello:
           excerpts:
             - snippet_tags:
                 - ec2.rust.ec2-helloworld
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description: The <filename>Package.swift</filename> file.
+              snippet_tags:
+                - swift.ec2.hello.package
+            - description: The <filename>entry.swift</filename> file.
+              snippet_tags:
+                - swift.ec2.hello
   services:
     ec2: {DescribeSecurityGroups}
 ec2_GetPasswordData:
@@ -188,6 +199,15 @@ ec2_CreateKeyPair:
             - description: A function that calls the create_key impl and securely saves the PEM private key.
               snippet_tags:
                 - ec2.rust.create_key.wrapper
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.CreateKeyPair
   services:
     ec2: {CreateKeyPair}
 ec2_DescribeKeyPairs:
@@ -274,6 +294,15 @@ ec2_DescribeKeyPairs:
           excerpts:
             - snippet_tags:
                 - ec2.rust.list_keys.impl
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.DescribeKeyPairs
   services:
     ec2: {DescribeKeyPairs}
 
@@ -370,6 +399,15 @@ ec2_CreateSecurityGroup:
           excerpts:
             - snippet_tags:
                 - ec2.rust.create_security_group.impl
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.CreateSecurityGroup
   services:
     ec2: {CreateSecurityGroup}
 ec2_RunInstances:
@@ -457,6 +495,15 @@ ec2_RunInstances:
           excerpts:
             - snippet_tags:
                 - ec2.rust.create_instance.impl
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.RunInstances
   services:
     ec2: {RunInstances}
 ec2_StartInstances:
@@ -557,6 +604,15 @@ ec2_StartInstances:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.StartInstances
   services:
     ec2: {StartInstances}
 ec2_StopInstances:
@@ -656,6 +712,15 @@ ec2_StopInstances:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.StopInstances
   services:
     ec2: {StopInstances}
 ec2_AllocateAddress:
@@ -752,6 +817,15 @@ ec2_AllocateAddress:
           excerpts:
             - snippet_tags:
                 - ec2.rust.allocate_address.impl
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.AllocateAddress
   services:
     ec2: {AllocateAddress}
 ec2_AssociateAddress:
@@ -848,6 +922,15 @@ ec2_AssociateAddress:
           excerpts:
             - snippet_tags:
                 - ec2.rust.associate_address.impl
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.AssociateAddress
   services:
     ec2: {AssociateAddress}
 ec2_DisassociateAddress:
@@ -918,6 +1001,15 @@ ec2_DisassociateAddress:
           excerpts:
             - snippet_tags:
                 - ec2.rust.disassociate_address.impl
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.DisassociateAddress
   services:
     ec2: {DisassociateAddress}
 ec2_ReleaseAddress:
@@ -1013,6 +1105,15 @@ ec2_ReleaseAddress:
           excerpts:
             - snippet_tags:
                 - ec2.rust.deallocate_address.impl
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.ReleaseAddress
   services:
     ec2: {ReleaseAddress}
 ec2_AuthorizeSecurityGroupIngress:
@@ -1094,6 +1195,15 @@ ec2_AuthorizeSecurityGroupIngress:
           excerpts:
             - snippet_tags:
                 - ec2.rust.authorize_security_group_ssh_ingress.impl
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.AuthorizeSecurityGroupIngress
   services:
     ec2: {AuthorizeSecurityGroupIngress}
 ec2_DeleteKeyPair:
@@ -1183,6 +1293,15 @@ ec2_DeleteKeyPair:
                 - ec2.rust.delete_key.wrapper
             - snippet_tags:
                 - ec2.rust.delete_key.impl
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.DeleteKeyPair
   services:
     ec2: {DeleteKeyPair}
 ec2_DescribeSecurityGroups:
@@ -1269,6 +1388,19 @@ ec2_DescribeSecurityGroups:
           excerpts:
             - snippet_tags:
                 - ec2.rust.ec2-helloworld
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description: Using pagination with <code>describeSecurityGroupsPaginated()</code>.
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.DescribeSecurityGroupsPaginated
+            - description: Without pagination.
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.DescribeSecurityGroups
   services:
     ec2: {DescribeSecurityGroups}
 ec2_DeleteSecurityGroup:
@@ -1355,6 +1487,15 @@ ec2_DeleteSecurityGroup:
           excerpts:
             - snippet_tags:
                 - ec2.rust.delete_security_group.impl
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.DeleteSecurityGroup
   services:
     ec2: {DeleteSecurityGroup}
 ec2_DeleteSnapshot:
@@ -1473,6 +1614,15 @@ ec2_TerminateInstances:
             - description: Wait for an instance to be in the terminted state, using the Waiters API. Using the Waiters API requires `use aws_sdk_ec2::client::Waiters` in the rust file.
               snippet_tags:
                 - ec2.rust.wait_for_instance_terminated.impl
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.TerminateInstances
   services:
     ec2: {TerminateInstances}
 ec2_DescribeInstances:
@@ -1494,7 +1644,7 @@ ec2_DescribeInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.describe_instances.main
+                - ec2.java2.scenario.describe_instance.main
     .NET:
       versions:
         - sdk_version: 3
@@ -1807,6 +1957,15 @@ ec2_DescribeImages:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.DescribeImages
   services:
     ec2: {DescribeImages}
 ec2_DescribeInstanceTypes:
@@ -1877,6 +2036,15 @@ ec2_DescribeInstanceTypes:
           excerpts:
             - snippet_tags:
                 - ec2.rust.list_instance_types.impl
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.ec2.import
+                - swift.ec2.DescribeInstanceTypes
   services:
     ec2: {DescribeInstanceTypes}
 ec2_DescribeAddresses:
@@ -2419,6 +2587,17 @@ ec2_Scenario_GetStartedInstances:
             - description: The main entry point for the scenario.
               snippet_files:
                 - rustv1/examples/ec2/src/bin/getting-started.rs
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description: The <filename>Package.swift</filename> file.
+              snippet_tags:
+                - swift.ec2.scenario.package
+            - description: The <filename>entry.swift</filename> file.
+              snippet_tags:
+                - swift.ec2.scenario
   services:
     ec2:
       {

@@ -963,7 +963,7 @@ s3_GetObject:
             - description: Download the object.
               snippet_tags:
                 - s3.JavaScript.buckets.getobjectV3
-            - description: Download the object on condition its ETag does not match the one provided.
+            - description: Download the object on condition its ETag matches the one provided.
               snippet_files:
                 - javascriptv3/example_code/s3/actions/get-object-conditional-request-if-match.js
             - description: Download the object on condition its ETag does not match the one provided.
@@ -2776,6 +2776,12 @@ s3_Scenario_PresignedUrl:
             - description: Generate a presigned URL and perform an upload using that URL.
               snippet_tags:
                 - S3.dotnetv3.UploadUsingPresignedURLExample
+        - sdk_version: 4
+          github: dotnetv4/S3/Scenarios/S3_CreatePresignedPost
+          excerpts:
+            - description: Create and use presigned POST URLs for direct browser uploads.
+              snippet_tags:
+                - S3.dotnetv4.CreatePresignedPostBasics
     Java:
       versions:
         - sdk_version: 2
@@ -3294,13 +3300,15 @@ s3_Scenario_UploadStream:
             - description: Use the <ulink url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation">&AWS;
                 CRT-based S3 Client</ulink>.
               snippet_tags:
-                - s3.java2.async_stream.import
-                - s3.java2.async_stream.main
+                - s3.java2.async_stream.complete
+            - description: Use the standard <ulink url="sdk-for-java/latest/developer-guide/s3-async-client-multipart.html#s3-async-client-mp-on" type="documentation">
+                asynchronous S3 client with multipart upload enabled</ulink>.
+              snippet_tags:
+                - s3.java2.async_stream_mp.complete
             - description: Use the <ulink url="sdk-for-java/latest/developer-guide/transfer-manager.html" type="documentation">&S3;
                 Transfer Manager</ulink>.
               snippet_tags:
-                - s3.tm.java2.upload_stream.import
-                - s3.tm.java2.upload_stream.main
+                - s3.tm.java2.upload_stream.complete
     Swift:
       versions:
         - sdk_version: 1
@@ -3703,3 +3711,17 @@ s3_Scenario_DoesBucketExist:
                 - s3.java2.does-bucket-exist-main
   services:
     s3: {GetBucketAcl}
+    
+s3_CreatePresignedPost:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/S3
+          excerpts:
+            - description: Create a presigned POST URL.
+              genai: most
+              snippet_tags:
+                - S3.dotnetv4.Scenario_CreatePresignedPostAsync
+  services:
+    s3: {CreatePresignedPost}

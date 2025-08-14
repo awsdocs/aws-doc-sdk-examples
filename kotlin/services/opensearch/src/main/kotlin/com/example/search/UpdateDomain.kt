@@ -48,7 +48,7 @@ suspend fun updateSpecificDomain(domainNameVal: String?) {
         }
 
     println("Sending domain update request...")
-    OpenSearchClient { region = "us-east-1" }.use { searchClient ->
+    OpenSearchClient.fromEnvironment { region = "us-east-1" }.use { searchClient ->
         val updateResponse = searchClient.updateDomainConfig(request)
         println("Domain update response from Amazon OpenSearch Service:")
         println(updateResponse.toString())

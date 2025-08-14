@@ -41,7 +41,7 @@ suspend fun getCelebrityInfo(idVal: String?) {
             id = idVal
         }
 
-    RekognitionClient { region = "us-east-1" }.use { rekClient ->
+    RekognitionClient.fromEnvironment { region = "us-east-1" }.use { rekClient ->
         val response = rekClient.getCelebrityInfo(request)
 
         // Display celebrity information.

@@ -41,7 +41,7 @@ suspend fun getIAMPolicy(policyArnVal: String?) {
             policyArn = policyArnVal
         }
 
-    IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
+    IamClient.fromEnvironment { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.getPolicy(request)
         println("Successfully retrieved policy ${response.policy?.policyName}")
     }

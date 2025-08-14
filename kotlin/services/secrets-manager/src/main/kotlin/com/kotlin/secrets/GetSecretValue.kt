@@ -41,7 +41,7 @@ suspend fun getValue(secretName: String?) {
             secretId = secretName
         }
 
-    SecretsManagerClient { region = "us-east-1" }.use { secretsClient ->
+    SecretsManagerClient.fromEnvironment { region = "us-east-1" }.use { secretsClient ->
         val response = secretsClient.getSecretValue(valueRequest)
         val secret = response.secretString
         println("The secret value is $secret")

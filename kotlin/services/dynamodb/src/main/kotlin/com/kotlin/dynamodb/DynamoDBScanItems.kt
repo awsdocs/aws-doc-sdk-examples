@@ -42,7 +42,7 @@ suspend fun scanItems(tableNameVal: String) {
             tableName = tableNameVal
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         val response = ddb.scan(request)
         response.items?.forEach { item ->
             item.keys.forEach { key ->

@@ -16,13 +16,13 @@ aurora_Hello:
                 - rds.java2.hello.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.HelloAurora
+                - Aurora.dotnetv4.HelloAurora
     Go:
       versions:
         - sdk_version: 2
@@ -72,13 +72,13 @@ aurora_DescribeDBClusterParameterGroups:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.DescribeDBClusterParameterGroups
+                - Aurora.dotnetv4.DescribeDBClusterParameterGroups
     Go:
       versions:
         - sdk_version: 2
@@ -134,13 +134,13 @@ aurora_CreateDBClusterParameterGroup:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.CreateDBClusterParameterGroup
+                - Aurora.dotnetv4.CreateDBClusterParameterGroup
     Go:
       versions:
         - sdk_version: 2
@@ -204,13 +204,13 @@ aurora_DeleteDBClusterParameterGroup:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.DeleteDBClusterParameterGroup
+                - Aurora.dotnetv4.DeleteDBClusterParameterGroup
     Go:
       versions:
         - sdk_version: 2
@@ -274,13 +274,13 @@ aurora_DescribeDBClusterParameters:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.DescribeDBClusterParameters
+                - Aurora.dotnetv4.DescribeDBClusterParameters
     Go:
       versions:
         - sdk_version: 2
@@ -344,13 +344,13 @@ aurora_ModifyDBClusterParameterGroup:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.ModifyDBClusterParameterGroup
+                - Aurora.dotnetv4.ModifyDBClusterParameterGroup
     Go:
       versions:
         - sdk_version: 2
@@ -414,13 +414,13 @@ aurora_DescribeDBClusters:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.DescribeDBClusters
+                - Aurora.dotnetv4.DescribeDBClusters
     Go:
       versions:
         - sdk_version: 2
@@ -484,13 +484,13 @@ aurora_CreateDBCluster:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.CreateDBCluster
+                - Aurora.dotnetv4.CreateDBCluster
     Go:
       versions:
         - sdk_version: 2
@@ -554,13 +554,13 @@ aurora_DeleteDBCluster:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.DeleteDBCluster
+                - Aurora.dotnetv4.DeleteDBCluster
     Go:
       versions:
         - sdk_version: 2
@@ -624,13 +624,13 @@ aurora_CreateDBClusterSnapshot:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.CreateSnapshot
+                - Aurora.dotnetv4.CreateSnapshot
     Go:
       versions:
         - sdk_version: 2
@@ -694,13 +694,13 @@ aurora_DescribeDBClusterSnapshots:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.DescribeDBSnapshots
+                - Aurora.dotnetv4.DescribeDBSnapshots
     Go:
       versions:
         - sdk_version: 2
@@ -755,13 +755,13 @@ aurora_CreateDBInstance:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.CreateDBInstance
+                - Aurora.dotnetv4.CreateDBInstance
     Go:
       versions:
         - sdk_version: 2
@@ -825,13 +825,13 @@ aurora_DescribeDBEngineVersions:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.DescribeEngineVersionsAsync
+                - Aurora.dotnetv4.DescribeEngineVersionsAsync
     Go:
       versions:
         - sdk_version: 2
@@ -895,13 +895,13 @@ aurora_DescribeOrderableDBInstanceOptions:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.DescribeOrderableDBInstanceOptions
+                - Aurora.dotnetv4.DescribeOrderableDBInstanceOptions
     Go:
       versions:
         - sdk_version: 2
@@ -956,13 +956,13 @@ aurora_DescribeDBInstances:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.DescribeDBInstances
+                - Aurora.dotnetv4.DescribeDBInstances
     Go:
       versions:
         - sdk_version: 2
@@ -1026,13 +1026,13 @@ aurora_DeleteDBInstance:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.DeleteDBInstance
+                - Aurora.dotnetv4.DeleteDBInstance
     Go:
       versions:
         - sdk_version: 2
@@ -1102,16 +1102,16 @@ aurora_Scenario_GetStartedClusters:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/Aurora
+        - sdk_version: 4
+          github: dotnetv4/Aurora
           sdkguide:
           excerpts:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
-                - Aurora.dotnetv3.AuroraClusterScenario
+                - Aurora.dotnetv4.AuroraClusterScenario
             - description: Wrapper methods that are called by the scenario to manage &AUR; actions.
               snippet_tags:
-                - Aurora.dotnetv3.AuroraWrapper
+                - Aurora.dotnetv4.AuroraWrapper
     Go:
       versions:
         - sdk_version: 2

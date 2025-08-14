@@ -143,7 +143,7 @@ suspend fun createNewPipeline(
             pipeline = pipelineDeclaration
         }
 
-    CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
+    CodePipelineClient.fromEnvironment { region = "us-east-1" }.use { pipelineClient ->
         val response = pipelineClient.createPipeline(request)
         println("Pipeline ${response.pipeline?.name} was successfully created")
     }

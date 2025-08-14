@@ -91,3 +91,39 @@ class FakePromptData:
         "number": "1"
     }
     OUTPUT_TEXT ="Here's a playlist with one song"
+
+    
+class FakeKnowledgeBaseData:
+    """Test data for knowledge base tests."""
+    # Define fake knowledge base IDs for testing
+    KB_ID_1 = "FAKE_KB_ID_1"
+    KB_ID_2 = "FAKE_KB_ID_2"
+    
+    # Define fake knowledge base names for testing
+    KB_NAME_1 = "FakeKnowledgeBase1"
+    KB_NAME_2 = "FakeKnowledgeBase2"
+    
+    # Define fake ARNs for the knowledge bases
+    KB_ARN_1 = f"arn:aws:bedrock:us-east-1:123456789012:knowledge-base/{KB_ID_1}"
+    KB_ARN_2 = f"arn:aws:bedrock:us-east-1:123456789012:knowledge-base/{KB_ID_2}"
+    
+    # Other common attributes for knowledge bases
+    DESCRIPTION = "A fake knowledge base for testing."
+    CREATED_AT = "2025-03-29T21:34:43.048609+00:00"
+    UPDATED_AT = "2025-03-30T21:34:43.048609+00:00"
+    STATUS = "ACTIVE"
+    
+    # Data source configuration
+    DATA_SOURCE_ID = "FAKE_DATA_SOURCE_ID"
+    DATA_SOURCE_NAME = "FakeDataSource"
+    DATA_SOURCE_TYPE = "S3"
+    S3_CONFIGURATION = {
+        "bucketName": "fake-kb-bucket",
+        "inclusionPrefixes": ["documents/"]
+    }
+    
+    # Vector store configuration
+    EMBEDDING_MODEL_ARN = "arn:aws:bedrock:us-east-1:123456789012:embedding-model/amazon.titan-embed-text-v1"
+    VECTOR_STORE_CONFIGURATION = {
+        "embeddingModelArn": EMBEDDING_MODEL_ARN
+    }

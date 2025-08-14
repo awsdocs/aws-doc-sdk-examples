@@ -43,7 +43,7 @@ public class GetSimpleSystemsManagementParas {
             }
 
         } catch (AmazonServiceException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
         // snippet-end:[ssm.Java1.get_params.main]
     }

@@ -29,7 +29,7 @@ suspend fun listQueues() {
             queueNamePrefix = prefix
         }
 
-    SqsClient { region = "us-east-1" }.use { sqsClient ->
+    SqsClient.fromEnvironment { region = "us-east-1" }.use { sqsClient ->
         val response = sqsClient.listQueues(listQueuesRequest)
         response.queueUrls?.forEach { url ->
             println(url)

@@ -28,39 +28,6 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-
-### Get started
-
-- [Hello Aurora](Actions/HelloAurora.cs#L4) (`DescribeDBClusters`)
-
-
-### Basics
-
-Code examples that show you how to perform the essential operations within a service.
-
-- [Learn the basics](Scenarios/AuroraScenario.cs)
-
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [CreateDBCluster](Actions/AuroraWrapper.cs#L199)
-- [CreateDBClusterParameterGroup](Actions/AuroraWrapper.cs#L41)
-- [CreateDBClusterSnapshot](Actions/AuroraWrapper.cs#L320)
-- [CreateDBInstance](Actions/AuroraWrapper.cs#L286)
-- [DeleteDBCluster](Actions/AuroraWrapper.cs#L367)
-- [DeleteDBClusterParameterGroup](Actions/AuroraWrapper.cs#L181)
-- [DeleteDBInstance](Actions/AuroraWrapper.cs#L386)
-- [DescribeDBClusterParameterGroups](Actions/AuroraWrapper.cs#L98)
-- [DescribeDBClusterParameters](Actions/AuroraWrapper.cs#L66)
-- [DescribeDBClusterSnapshots](Actions/AuroraWrapper.cs#L340)
-- [DescribeDBClusters](Actions/AuroraWrapper.cs#L259)
-- [DescribeDBEngineVersions](Actions/AuroraWrapper.cs#L21)
-- [DescribeDBInstances](Actions/AuroraWrapper.cs#L236)
-- [DescribeOrderableDBInstanceOptions](Actions/AuroraWrapper.cs#L154)
-- [ModifyDBClusterParameterGroup](Actions/AuroraWrapper.cs#L115)
-
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
@@ -97,26 +64,6 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Aurora
-
-This example shows you how to get started using Aurora.
-
-
-#### Learn the basics
-
-This example shows you how to do the following:
-
-- Create a custom Aurora DB cluster parameter group and set parameter values.
-- Create a DB cluster that uses the parameter group.
-- Create a DB instance that contains a database.
-- Take a snapshot of the DB cluster, then clean up resources.
-
-<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.end-->
-
-
-<!--custom.basics.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.basics.aurora_Scenario_GetStartedClusters.end-->
 
 
 #### Create an Aurora Serverless work item tracker

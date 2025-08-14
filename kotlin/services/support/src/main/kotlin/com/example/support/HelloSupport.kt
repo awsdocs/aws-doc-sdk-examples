@@ -35,7 +35,7 @@ suspend fun displaySomeServices() {
             language = "en"
         }
 
-    SupportClient { region = "us-west-2" }.use { supportClient ->
+    SupportClient.fromEnvironment { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeServices(servicesRequest)
         println("Get the first 10 services")
         var index = 1

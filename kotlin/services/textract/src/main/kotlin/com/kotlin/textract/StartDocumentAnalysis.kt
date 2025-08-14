@@ -67,7 +67,7 @@ suspend fun startDocAnalysisS3(
             featureTypes = myList
         }
 
-    TextractClient { region = "us-west-2" }.use { textractClient ->
+    TextractClient.fromEnvironment { region = "us-west-2" }.use { textractClient ->
         val response = textractClient.startDocumentAnalysis(documentAnalysisRequest)
 
         // Get the job ID.

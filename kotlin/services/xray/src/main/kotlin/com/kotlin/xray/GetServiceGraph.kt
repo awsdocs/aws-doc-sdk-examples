@@ -45,7 +45,7 @@ suspend fun getGraph(groupNameVal: String?) {
             this.startTime = time.now()
             endTime = time.now()
         }
-    XRayClient { region = "us-east-1" }.use { xRayClient ->
+    XRayClient.fromEnvironment { region = "us-east-1" }.use { xRayClient ->
         val response = xRayClient.getServiceGraph(getServiceGraphRequest)
         response.services?.forEach { service ->
             println("The name of the service is  ${service.name}")

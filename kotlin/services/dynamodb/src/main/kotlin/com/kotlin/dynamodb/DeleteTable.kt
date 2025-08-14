@@ -42,7 +42,7 @@ suspend fun deleteDynamoDBTable(tableNameVal: String) {
             tableName = tableNameVal
         }
 
-    DynamoDbClient { region = "us-east-1" }.use { ddb ->
+    DynamoDbClient.fromEnvironment { region = "us-east-1" }.use { ddb ->
         ddb.deleteTable(request)
         println("$tableNameVal was deleted")
     }

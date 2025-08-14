@@ -1,8 +1,8 @@
-# Amazon Bedrock Runtime code examples for the SDK for .NET
+# Amazon Bedrock Runtime code examples for the SDK for .NET (v4)
 
 ## Overview
 
-Shows how to use the AWS SDK for .NET to work with Amazon Bedrock Runtime.
+Shows how to use the AWS SDK for .NET (v4) to work with Amazon Bedrock Runtime.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
@@ -28,49 +28,32 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-### AI21 Labs Jurassic-2
-
-- [Converse](Models/Ai21LabsJurassic2/Converse/Converse.cs#L4)
-- [InvokeModel](Models/Ai21LabsJurassic2/InvokeModel/InvokeModel.cs#L4)
-
 ### Amazon Titan Text
 
 - [Converse](Models/AmazonTitanText/Converse/Converse.cs#L4)
 - [ConverseStream](Models/AmazonTitanText/ConverseStream/ConverseStream.cs#L4)
 - [InvokeModel](Models/AmazonTitanText/InvokeModel/InvokeModel.cs#L4)
-- [InvokeModelWithResponseStream](Models/AmazonTitanText/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 ### Anthropic Claude
 
 - [Converse](Models/AnthropicClaude/Converse/Converse.cs#L4)
 - [ConverseStream](Models/AnthropicClaude/ConverseStream/ConverseStream.cs#L4)
 - [InvokeModel](Models/AnthropicClaude/InvokeModel/InvokeModel.cs#L4)
-- [InvokeModelWithResponseStream](Models/AnthropicClaude/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 ### Cohere Command
 
 - [Converse](Models/CohereCommand/Converse/Converse.cs#L4)
 - [ConverseStream](Models/CohereCommand/ConverseStream/ConverseStream.cs#L4)
-- [InvokeModel: Command R and R+](Models/CohereCommand/Command_R_InvokeModel/InvokeModel.cs#L4)
-- [InvokeModel: Command and Command Light](Models/CohereCommand/Command_InvokeModel/InvokeModel.cs#L4)
-- [InvokeModelWithResponseStream: Command R and R+](Models/CohereCommand/Command_R_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
-- [InvokeModelWithResponseStream: Command and Command Light](Models/CohereCommand/Command_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 ### Meta Llama
 
 - [Converse](Models/MetaLlama/Converse/Converse.cs#L4)
 - [ConverseStream](Models/MetaLlama/ConverseStream/ConverseStream.cs#L4)
-- [InvokeModel: Llama 2](Models/MetaLlama/Llama2_InvokeModel/InvokeModel.cs#L4)
-- [InvokeModel: Llama 3](Models/MetaLlama/Llama3_InvokeModel/InvokeModel.cs#L4)
-- [InvokeModelWithResponseStream: Llama 2](Models/MetaLlama/Llama2_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
-- [InvokeModelWithResponseStream: Llama 3](Models/MetaLlama/Llama3_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 ### Mistral AI
 
 - [Converse](Models/Mistral/Converse/Converse.cs#L4)
 - [ConverseStream](Models/Mistral/ConverseStream/ConverseStream.cs#L4)
-- [InvokeModel](Models/Mistral/InvokeModel/InvokeModel.cs#L4)
-- [InvokeModelWithResponseStream](Models/Mistral/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 
 <!--custom.examples.start-->
@@ -79,23 +62,6 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 ## Run the examples
 
 ### Instructions
-
-For general instructions to run the examples, see the
-[README](../README.md#building-and-running-the-code-examples) in the `dotnetv4` folder.
-
-Some projects might include a settings.json file. Before compiling the project,
-you can change these values to match your own account and resources. Alternatively,
-add a settings.local.json file with your local settings, which will be loaded automatically
-when the application runs.
-
-After the example compiles, you can run it from the command line. To do so, navigate to
-the folder that contains the .csproj file and run the following command:
-
-```
-dotnet run
-```
-
-Alternatively, you can run the example from within your IDE.
 
 
 <!--custom.instructions.start-->
@@ -120,7 +86,7 @@ in the `dotnetv4` folder.
 
 - [Amazon Bedrock Runtime User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
 - [Amazon Bedrock Runtime API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/welcome.html)
-- [SDK for .NET Amazon Bedrock Runtime reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Bedrock-runtime/NBedrock-runtime.html)
+- [SDK for .NET (v4) Amazon Bedrock Runtime reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Bedrock-runtime/NBedrock-runtime.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

@@ -48,7 +48,7 @@ public class DescribeParameters {
             }
 
         } catch (SsmException e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 }

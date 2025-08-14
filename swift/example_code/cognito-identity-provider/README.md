@@ -38,6 +38,7 @@ Code excerpts that show you how to call individual service functions.
 - [AdminRespondToAuthChallenge](scenario/Sources/entry.swift#L377)
 - [AssociateSoftwareToken](scenario/Sources/entry.swift#L298)
 - [ConfirmSignUp](scenario/Sources/entry.swift#L215)
+- [ListUsers](ListUsers/Sources/entry.swift#L31)
 - [ResendConfirmationCode](scenario/Sources/entry.swift#L180)
 - [SignUp](scenario/Sources/entry.swift#L131)
 - [VerifySoftwareToken](scenario/Sources/entry.swift#L334)

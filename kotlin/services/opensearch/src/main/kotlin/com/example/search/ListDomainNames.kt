@@ -22,7 +22,7 @@ suspend fun main() {
 
 // snippet-start:[opensearch.kotlin.list_domains.main]
 suspend fun listAllDomains() {
-    OpenSearchClient { region = "us-east-1" }.use { searchClient ->
+    OpenSearchClient.fromEnvironment { region = "us-east-1" }.use { searchClient ->
         val response: ListDomainNamesResponse = searchClient.listDomainNames(ListDomainNamesRequest {})
         response.domainNames?.forEach { domain ->
             println("Domain name is " + domain.domainName)
