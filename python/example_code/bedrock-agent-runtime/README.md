@@ -38,7 +38,7 @@ python -m pip install -r requirements.txt
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](../bedrock-agent/flows/flow-conversation.py)
+- [Learn the basics](flows/flow-conversation.py)
 
 
 ### Single actions
@@ -79,7 +79,7 @@ This example shows you how to use InvokeFlow to converse with an Amazon Bedrock 
 Start the example by running the following at a command prompt:
 
 ```
-python ../bedrock-agent/flows/flow-conversation.py
+python flows/flow-conversation.py
 ```
 
 
