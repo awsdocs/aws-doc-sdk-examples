@@ -2952,6 +2952,14 @@ s3_Scenario_PresignedUrl:
             - snippet_tags:
                 - s3.php.presigned_url.complete
                 - php.example_code.s3.service.S3Service
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/s3
+          excerpts:
+            - description: Create presigned requests to GET S3 objects.
+              snippet_tags:
+                - s3.abapv1.s3_presigned_url_get
   services:
     s3: {}
 s3_Scenario_ObjectVersioningUsage:
