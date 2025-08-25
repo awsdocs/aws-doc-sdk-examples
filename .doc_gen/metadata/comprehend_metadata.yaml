@@ -172,6 +172,15 @@ comprehend_DetectDominantLanguage:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendDetect
                 - python.example_code.comprehend.DetectDominantLanguage
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.rust.detect-language
   services:
     comprehend: {DetectDominantLanguage}
 comprehend_DetectEntities:
@@ -204,6 +213,15 @@ comprehend_DetectEntities:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendDetect
                 - python.example_code.comprehend.DetectEntities
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.rust.detect-entities
   services:
     comprehend: {DetectEntities}
 comprehend_DetectKeyPhrases:
@@ -291,6 +309,15 @@ comprehend_DetectSentiment:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendDetect
                 - python.example_code.comprehend.DetectSentiment
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/comprehend
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - comprehend.rust.detect-sentiment
   services:
     comprehend: {DetectSentiment}
 comprehend_DetectSyntax:
@@ -325,6 +352,23 @@ comprehend_DetectSyntax:
                 - python.example_code.comprehend.DetectSyntax
   services:
     comprehend: {DetectSyntax}
+comprehend_Hello:
+  title: Hello &CMP;
+  title_abbrev: Hello &CMP;
+  synopsis: Get started using &CMP; by detecting the dominant language in text.
+  category: Hello
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/comprehend
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - comprehend.rust.hello
+  services:
+    comprehend: {DetectDominantLanguage}
 comprehend_Usage_DetectApis:
   title: Detect document elements with &CMP; and an &AWS; SDK
   title_abbrev: Detect document elements
@@ -354,6 +398,15 @@ comprehend_Usage_DetectApis:
             - description: Call functions on the wrapper class to detect entities, phrases, and more in a document.
               snippet_tags:
                 - python.example_code.comprehend.Usage_DetectApis
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/comprehend
+          sdkguide:
+          excerpts:
+            - description: Run a comprehensive scenario demonstrating various Amazon Comprehend text analysis capabilities.
+              snippet_tags:
+                - comprehend.rust.getting-started
   services:
     comprehend: {DetectDominantLanguage, DetectEntities, DetectKeyPhrases, DetectPiiEntities, DetectSentiment, DetectSyntax}
 comprehend_StartTopicsDetectionJob:
