@@ -70,7 +70,7 @@ class GeneratePresignedGetUrlTests {
         GeneratePresignedGetUrlAndRetrieve presignInstanceUnderTest = new GeneratePresignedGetUrlAndRetrieve();
         final String presignedUrlString = presignInstanceUnderTest.createPresignedGetUrl(BUCKET_NAME, KEY_NAME);
 
-        final byte[] bytes = presignInstanceUnderTest.useSdkHttpClientToPut(presignedUrlString);
+        final byte[] bytes = presignInstanceUnderTest.useSdkHttpClientToGet(presignedUrlString);
         Assertions.assertTrue(bytes.length > 0);
     }
 }
