@@ -20,7 +20,7 @@ const postItemsHandler: Handler = {
       const command = buildStatementCommand(
         `insert into items (iditem, description, guide, status, username, archived)
          values ("${uuidv4()}", ":description", ":guide", ":status", ":name", 0)`,
-        values
+        values,
       );
       await rdsDataClient.send(command);
       res.status(200).send({});

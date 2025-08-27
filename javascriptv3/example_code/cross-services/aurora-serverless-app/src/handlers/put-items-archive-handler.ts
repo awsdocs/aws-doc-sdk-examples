@@ -16,7 +16,7 @@ const putItemsArchiveHandler: Handler = {
         `update items
          set archived = 1
          where iditem = ":itemId"`,
-        values
+        values,
       );
 
       await rdsDataClient.send(command);
