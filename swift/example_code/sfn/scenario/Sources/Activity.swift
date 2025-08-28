@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[swift.sfn.scenario.activity]
 import Foundation
 import AWSSFN
 
@@ -38,6 +39,7 @@ class Activity {
         try await self.findOrCreateActivity()
     }
 
+    // snippet-start:[swift.sfn.CreateActivity]
     /// Create a new Step Functions activity.
     /// 
     /// - Throws: `ActivityError` and appropriate AWS errors.
@@ -52,7 +54,10 @@ class Activity {
 
         activityArn = arn
     }
+    // snippet-end:[swift.sfn.CreateActivity]
 
+    // snippet-start:[swift.sfn.ListActivitiesPaginated]
+    // snippet-start:[swift.sfn.ListActivities]
     /// Find an activity with the name specified when initializing the
     /// `Activity` object.
     ///
@@ -79,6 +84,8 @@ class Activity {
         
         throw ActivityError.activityNotFoundError
     }
+    // snippet-end:[swift.sfn.ListActivities]
+    // snippet-end:[swift.sfn.ListActivitiesPaginated]
 
     /// Finds an existing activity with the name given when initializing
     /// the `Activity`. If one isn't found, a new one is created.
@@ -92,6 +99,7 @@ class Activity {
         }
     }
 
+    // snippet-start:[swift.sfn.DeleteActivity]
     /// Delete the activity described by this object.
     public func delete() async {
         do {
@@ -102,7 +110,9 @@ class Activity {
             print("*** Error deleting the activity: \(error.localizedDescription)")
         }
     }
+    // snippet-end:[swift.sfn.DeleteActivity]
 
+    // snippet-start:[swift.sfn.SendTaskSuccess]
     /// Sends a task success notification to the activity.
     /// 
     /// - Parameters:
@@ -122,4 +132,6 @@ class Activity {
             return false
         }
     }
+    // snippet-end:[swift.sfn.SendTaskSuccess]
 }
+// snippet-end:[swift.sfn.scenario.activity]

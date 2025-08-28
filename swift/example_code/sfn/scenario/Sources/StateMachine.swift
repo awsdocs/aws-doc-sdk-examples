@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[swift.sfn.scenario.statemachine]
 import Foundation
 import AWSSFN
 import AWSIAM
@@ -100,6 +101,8 @@ class StateMachine {
         try await findOrCreateStateMachine()
     }
 
+    // snippet-start:[swift.sfn.ListStateMachinesPaginated]
+    // snippet-start:[swift.sfn.ListStateMachines]
     /// Finds a state machine matching the name specified when initializing the `StateMachine`.
     /// - Throws: `StateMachineError` and appropriate AWS errors.
     private func findStateMachine() async throws {
@@ -124,7 +127,10 @@ class StateMachine {
 
         throw StateMachineError.stateMachineNotFoundError
     }
+    // snippet-end:[swift.sfn.ListStateMachines]
+    // snippet-end:[swift.sfn.ListStateMachinesPaginated]
 
+    // snippet-start:[swift.sfn.CreateStateMachine]
     /// Create a new state machine with the name given when initializing the
     /// `StateMachine` object.
     /// 
@@ -157,6 +163,7 @@ class StateMachine {
 
         stateMachineArn = arn
     }
+    // snippet-end:[swift.sfn.CreateStateMachine]
 
     /// Finds a state machine matching the name given when initializing the
     /// `StateMachine` object. If it doesn't exist, a new one is created.
@@ -170,6 +177,7 @@ class StateMachine {
         }
     }
 
+    // snippet-start:[swift.sfn.DescribeStateMachine]
     /// Outputs a description of the state machine.
     /// 
     /// - Throws: `StateMachineError` and appropriate AWS errors.
@@ -192,7 +200,9 @@ class StateMachine {
         print("    Status: \(status)")
         print()
     }
+    // snippet-end:[swift.sfn.DescribeStateMachine]
 
+    // snippet-start:[swift.sfn.StartExecution]
     /// Start up the state machine.
     /// 
     /// - Parameter username: The username to use for the conversation.
@@ -213,7 +223,9 @@ class StateMachine {
 
         return output.executionArn
     }
+    // snippet-end:[swift.sfn.StartExecution]
 
+    // snippet-start:[swift.sfn.GetActivityTask]
     /// Execute the steps of the state machine until it exits.
     /// 
     /// - Throws: `StateMachineError` and appropriate AWS errors.
@@ -246,7 +258,9 @@ class StateMachine {
             )
         }
     }
+    // snippet-end:[swift.sfn.GetActivityTask]
 
+    // snippet-start:[swift.sfn.DescribeExecution]
     /// Wait for the execution to end, then output its final message.
     /// 
     /// - Parameter arn: The execution ARN to finish.
@@ -289,7 +303,9 @@ class StateMachine {
             }
         }
     }
+    // snippet-end:[swift.sfn.DescribeExecution]
 
+    // snippet-start:[swift.sfn.DeleteStateMachine]
     /// Delete the state machine.
     func delete() async {
         do {
@@ -300,6 +316,7 @@ class StateMachine {
             print("*** Error deleting the state machine: \(error.localizedDescription)")
         }
     }
+    // snippet-end:[swift.sfn.DeleteStateMachine]
 
     /// Sleep for the specified number of seconds.
     /// 
@@ -351,3 +368,4 @@ class StateMachine {
         } while true
     }
 }
+// snippet-end:[swift.sfn.scenario.statemachine]

@@ -23,7 +23,7 @@ struct ExampleCommand: ParsableCommand {
     var stateMachineName = "scenario-example-state-machine"
 
     @Option(help: "Path of the State Machine definition file.")
-    var definitionPath = "../../../../../../../resources/sample_files/chat_sfn_state_machine.json"
+    var definitionPath: String
 
     static var configuration = CommandConfiguration(
         commandName: "sfn-scenario",

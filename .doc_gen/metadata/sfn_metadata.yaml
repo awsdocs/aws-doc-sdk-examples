@@ -81,6 +81,14 @@ sfn_CreateStateMachine:
               snippet_tags:
                 - python.example_code.sfn.StateMachine_decl
                 - python.example_code.sfn.CreateStateMachine
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sfn/scenario
+          excerpts:
+            - snippet_tags:
+                - swift.sfn.import
+                - swift.sfn.CreateStateMachine
   services:
     sfn: {CreateStateMachine}
 sfn_DeleteStateMachine:
@@ -122,6 +130,14 @@ sfn_DeleteStateMachine:
               snippet_tags:
                 - python.example_code.sfn.StateMachine_decl
                 - python.example_code.sfn.DeleteStateMachine
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sfn/scenario
+          excerpts:
+            - snippet_tags:
+                - swift.sfn.import
+                - swift.sfn.DeleteStateMachine
   services:
     sfn: {DeleteStateMachine}
 sfn_ListStateMachines:
@@ -163,6 +179,14 @@ sfn_ListStateMachines:
               snippet_tags:
                 - python.example_code.sfn.StateMachine_decl
                 - python.example_code.sfn.ListStateMachines
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sfn/scenario
+          excerpts:
+            - snippet_tags:
+                - swift.sfn.import
+                - swift.sfn.ListStateMachines
   services:
     sfn: {ListStateMachines}
 sfn_DescribeStateMachine:
@@ -204,6 +228,14 @@ sfn_DescribeStateMachine:
               snippet_tags:
                 - python.example_code.sfn.StateMachine_decl
                 - python.example_code.sfn.DescribeStateMachine
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sfn/scenario
+          excerpts:
+            - snippet_tags:
+                - swift.sfn.import
+                - swift.sfn.DescribeStateMachine
   services:
     sfn: {DescribeStateMachine}
 sfn_StartExecution:
@@ -254,6 +286,14 @@ sfn_StartExecution:
             - description:
               snippet_files:
                 - javascriptv3/example_code/sfn/actions/start-execution.js
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sfn/scenario
+          excerpts:
+            - snippet_tags:
+                - swift.sfn.import
+                - swift.sfn.StartExecution
   services:
     sfn: {StartExecution}
 sfn_ListExecutions:
@@ -325,6 +365,14 @@ sfn_DescribeExecution:
             - description:
               snippet_tags:
                 - python.example_code.sfn.DescribeExecution
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sfn/scenario
+          excerpts:
+            - snippet_tags:
+                - swift.sfn.import
+                - swift.sfn.DescribeExecution
   services:
     sfn: {DescribeExecution}
 sfn_CreateActivity:
@@ -366,6 +414,14 @@ sfn_CreateActivity:
               snippet_tags:
                 - python.example_code.sfn.Activity_decl
                 - python.example_code.sfn.CreateActivity
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sfn/scenario
+          excerpts:
+            - snippet_tags:
+                - swift.sfn.import
+                - swift.sfn.CreateActivity
   services:
     sfn: {CreateActivity}
 sfn_ListActivities:
@@ -407,6 +463,14 @@ sfn_ListActivities:
               snippet_tags:
                 - python.example_code.sfn.Activity_decl
                 - python.example_code.sfn.ListActivities
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sfn/scenario
+          excerpts:
+            - snippet_tags:
+                - swift.sfn.import
+                - swift.sfn.CreateActivity
   services:
     sfn: {ListActivities}
 sfn_GetActivityTask:
@@ -447,6 +511,14 @@ sfn_GetActivityTask:
               snippet_tags:
                 - python.example_code.sfn.Activity_decl
                 - python.example_code.sfn.GetActivityTask
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sfn/scenario
+          excerpts:
+            - snippet_tags:
+                - swift.sfn.import
+                - swift.sfn.GetActivityTask
   services:
     sfn: {GetActivityTask}
 sfn_SendTaskSuccess:
@@ -488,6 +560,14 @@ sfn_SendTaskSuccess:
               snippet_tags:
                 - python.example_code.sfn.Activity_decl
                 - python.example_code.sfn.SendTaskSuccess
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sfn/scenario
+          excerpts:
+            - snippet_tags:
+                - swift.sfn.import
+                - swift.sfn.SendTaskSuccess
   services:
     sfn: {SendTaskSuccess}
 sfn_DeleteActivity:
@@ -529,6 +609,14 @@ sfn_DeleteActivity:
               snippet_tags:
                 - python.example_code.sfn.Activity_decl
                 - python.example_code.sfn.DeleteActivity
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sfn/scenario
+          excerpts:
+            - snippet_tags:
+                - swift.sfn.import
+                - swift.sfn.DeleteActivity
   services:
     sfn: {DeleteActivity}
 sfn_Scenario_GetStartedStateMachines:
@@ -586,6 +674,21 @@ sfn_Scenario_GetStartedStateMachines:
             - description: Define a class that wraps activity actions.
               snippet_tags:
                 - python.example_code.sfn.Activity_full
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/sfn/scenario
+          excerpts:
+            - description: The main program, <filename>entry.swift</filename>.
+              snippet_tags:
+                - swift.sfn.scenario
+            - description: The activity manager, <filename>Activity.swift</filename>
+              snippet_tags:
+                - swift.sfn.scenario.activity
+            - description: The state machine manager, <filename>StateMachine.swift</filename>
+              snippet_tags:
+                - swift.sfn.scenario.statemachine
+            
   services:
     sfn: {CreateActivity, CreateStateMachine, DeleteActivity, DeleteStateMachine, DescribeExecution, DescribeStateMachine,
           GetActivityTask, ListActivities, ListStateMachines, SendTaskSuccess, StartExecution, StopExecution}
