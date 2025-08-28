@@ -33,6 +33,7 @@ struct ExampleCommand: ParsableCommand {
         let sfnConfig = try await SFNClient.SFNClientConfiguration(region: awsRegion)
         let sfnClient = SFNClient(config: sfnConfig)
 
+        // snippet-start:[swift.sfn.hello.ListStateMachines]
         do {
             let output = try await sfnClient.listStateMachines(
                 input: ListStateMachinesInput(
@@ -52,6 +53,7 @@ struct ExampleCommand: ParsableCommand {
         } catch {
             print("*** Error fetching state machine list: \(error.localizedDescription)")
         }
+        // snippet-end:[swift.sfn.hello.ListStateMachines]
     }
 }
 
