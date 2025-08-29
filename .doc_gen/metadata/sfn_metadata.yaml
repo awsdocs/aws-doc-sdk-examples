@@ -682,10 +682,10 @@ sfn_Scenario_GetStartedStateMachines:
             - description: The main program, <filename>entry.swift</filename>.
               snippet_tags:
                 - swift.sfn.scenario
-            - description: The activity manager, <filename>Activity.swift</filename>
+            - description: The activity manager, <filename>Activity.swift</filename>.
               snippet_tags:
                 - swift.sfn.scenario.activity
-            - description: The state machine manager, <filename>StateMachine.swift</filename>
+            - description: The state machine manager, <filename>StateMachine.swift</filename>.
               snippet_tags:
                 - swift.sfn.scenario.statemachine
             
