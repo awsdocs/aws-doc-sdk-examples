@@ -9,9 +9,14 @@ const putItemsArchiveHandler: Handler = {
     ({ rdsDataClient }) =>
     async (req, res) => {
       const { itemId } = req.params;
-
+      const values = {
+        itemId: { StringValue: itemId },
+      };
       const command = buildStatementCommand(
-        `update items\nset archived = 1\nwhere iditem = "${itemId}"`,
+        `update items
+         set archived = 1
+         where iditem = ":itemId"`,
+        values,
       );
 
       await rdsDataClient.send(command);
