@@ -24,7 +24,7 @@ class CreateDistributionS3Test extends TestCase
         require(__DIR__ . '/../CreateDistributionS3.php');
 
         $originName = 'my-unique-origin-name';
-        $s3BucketURL = 'my-bucket-name.s3.amazonaws.com';
+        $s3BucketURL = 'amzn-s3-demo-bucket.s3.amazonaws.com';
         $callerReference = 'my-unique-caller-reference';
         $comment = 'my-comment-about-this-distribution';
         $defaultCacheBehavior = [
