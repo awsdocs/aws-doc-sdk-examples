@@ -40,7 +40,28 @@ Code excerpts that show you how to call individual service functions.
 
 - [DeleteConfigRule](config_rules.py#L89)
 - [DescribeConfigRules](config_rules.py#L67)
+- [DescribeConfigurationRecorders](config_rules.py#L150)
+- [DescribeConfigurationRecorderStatus](config_rules.py#L175)
+- [GetResourceConfigHistory](config_rules.py#L225)
+- [ListDiscoveredResources](config_rules.py#L200)
 - [PutConfigRule](config_rules.py#L34)
+- [PutConfigurationRecorder](config_rules.py#L105)
+- [PutDeliveryChannel](config_rules.py#L130)
+- [StartConfigurationRecorder](config_rules.py#L155)
+- [StopConfigurationRecorder](config_rules.py#L250)
+
+### Hello
+
+Code example that shows you how to get started using the service.
+
+- [Hello AWS Config](config_hello.py)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Get started with AWS Config](config_basics.py)
 
 
 <!--custom.examples.start-->

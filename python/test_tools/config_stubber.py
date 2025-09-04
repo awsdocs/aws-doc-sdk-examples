@@ -94,3 +94,155 @@ class ConfigStubber(ExampleStubber):
             response,
             error_code=error_code,
         )
+
+    def stub_put_configuration_recorder(self, recorder, error_code=None):
+        expected_params = {"ConfigurationRecorder": recorder}
+        response = {}
+        self._stub_bifurcator(
+            "put_configuration_recorder",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_put_delivery_channel(self, channel, error_code=None):
+        expected_params = {"DeliveryChannel": channel}
+        response = {}
+        self._stub_bifurcator(
+            "put_delivery_channel", expected_params, response, error_code=error_code
+        )
+
+    def stub_start_configuration_recorder(self, recorder_name, error_code=None):
+        expected_params = {"ConfigurationRecorderName": recorder_name}
+        response = {}
+        self._stub_bifurcator(
+            "start_configuration_recorder",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_describe_configuration_recorders(
+        self, recorder_names, recorders=None, error_code=None
+    ):
+        if recorder_names:
+            expected_params = {"ConfigurationRecorderNames": recorder_names}
+        else:
+            expected_params = {}
+
+        if recorders is None:
+            recorders = [
+                {"name": name} for name in (recorder_names or ["default-recorder"])
+            ]
+
+        response = {"ConfigurationRecorders": recorders}
+        self._stub_bifurcator(
+            "describe_configuration_recorders",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_describe_configuration_recorder_status(
+        self, recorder_names, statuses=None, error_code=None
+    ):
+        if recorder_names:
+            expected_params = {"ConfigurationRecorderNames": recorder_names}
+        else:
+            expected_params = {}
+
+        if statuses is None:
+            statuses = [
+                {"name": name, "recording": True, "lastStatus": "SUCCESS"}
+                for name in (recorder_names or ["default-recorder"])
+            ]
+
+        response = {"ConfigurationRecordersStatus": statuses}
+        self._stub_bifurcator(
+            "describe_configuration_recorder_status",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_list_discovered_resources(
+        self, resource_type, resources=None, error_code=None
+    ):
+        expected_params = {"resourceType": resource_type, "limit": 20}
+
+        if resources is None:
+            resources = [
+                {
+                    "resourceType": resource_type,
+                    "resourceId": f"test-resource-{i}",
+                    "resourceName": f"TestResource{i}",
+                }
+                for i in range(1, 4)
+            ]
+
+        response = {"resourceIdentifiers": resources}
+        self._stub_bifurcator(
+            "list_discovered_resources",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_get_resource_config_history(
+        self, resource_type, resource_id, config_items=None, error_code=None
+    ):
+        expected_params = {
+            "resourceType": resource_type,
+            "resourceId": resource_id,
+            "limit": 10,
+        }
+
+        if config_items is None:
+            config_items = [
+                {
+                    "configurationItemCaptureTime": "2023-01-01T00:00:00.000Z",
+                    "configurationStateId": "test-state-id",
+                    "configurationItemStatus": "OK",
+                    "resourceType": resource_type,
+                    "resourceId": resource_id,
+                    "configuration": {"key": "value"},
+                }
+            ]
+
+        response = {"configurationItems": config_items}
+        self._stub_bifurcator(
+            "get_resource_config_history",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_stop_configuration_recorder(self, recorder_name, error_code=None):
+        expected_params = {"ConfigurationRecorderName": recorder_name}
+        response = {}
+        self._stub_bifurcator(
+            "stop_configuration_recorder",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_delete_configuration_recorder(self, recorder_name, error_code=None):
+        expected_params = {"ConfigurationRecorderName": recorder_name}
+        response = {}
+        self._stub_bifurcator(
+            "delete_configuration_recorder",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
+
+    def stub_delete_delivery_channel(self, channel_name, error_code=None):
+        expected_params = {"DeliveryChannelName": channel_name}
+        response = {}
+        self._stub_bifurcator(
+            "delete_delivery_channel",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
