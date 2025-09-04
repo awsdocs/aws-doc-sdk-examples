@@ -33,7 +33,7 @@ $sdk = new Aws\Sdk([
 $s3Client = $sdk->createS3();
 
 try {
-    $s3Client->createBucket(['Bucket' => 'my-bucket']);
+    $s3Client->createBucket(['Bucket' => 'amzn-s3-demo-bucket']);
 } catch (S3Exception $e) {
     // Catch an S3 specific exception.
     echo $e->getMessage();
@@ -53,7 +53,7 @@ try {
 // snippet-start:[s3.php.error_handling.async]
 //Asynchronous Error Handling
 // snippet-start:[s3.php.error_handling.promise]
-$promise = $s3Client->createBucketAsync(['Bucket' => 'my-bucket']);
+$promise = $s3Client->createBucketAsync(['Bucket' => 'amzn-s3-demo-bucket']);
 // snippet-end:[s3.php.error_handling.promise]
 $promise->otherwise(function ($reason) {
     var_dump($reason);
