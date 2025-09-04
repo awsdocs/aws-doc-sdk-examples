@@ -16,12 +16,16 @@ class Example {
 
     var cognitoIdentityClient: CognitoIdentityClient!
     var iamClient: IAMClient!
-
-    let identityPoolName: String
-    var identityPoolID: String!
     var roleName: String
 
+    /// The name of the AWS Cognito Identity Pool to use.
+    let identityPoolName: String
+    /// The ID of the Identity Pool.
+    var identityPoolID: String!
+
+    /// The name of the managed policy granting Amazon S3 permissions.
     let managedPolicyName: String
+    /// The ARN of the managed policy granting S3 permissions.
     var managedPolicyArn: String?
 
     /// Initialize the example.
@@ -48,6 +52,16 @@ class Example {
     /// 
     /// - Throws: Errors from IAM, STS, or Cognito.
     func run() async throws {
+        // Set up the cleanup function to run automatically when this object
+        // is discarded. This way, we clean up AWS artifacts whether the run
+        // is successful or an error occurs.
+
+        defer {
+            blocking {
+                await self.cleanup()
+            }
+        }
+
         // Create an identity pool to use for this example.
 
         print("Creating a Cognito identity pool named \(identityPoolName)...")
@@ -84,7 +98,6 @@ class Example {
 
         guard let role = createRoleOutput.role else {
             print("*** No role returned by CreateRole!")
-            await cleanup()
             return
         }
 
@@ -158,7 +171,6 @@ class Example {
 
         guard let managedPolicy = createPolicyOutput.policy else {
             print("No policy returned by CreatePolicy!")
-            await cleanup()
             return
         }
 
@@ -193,7 +205,6 @@ class Example {
         )
         guard let buckets = listBucketsOutput.buckets else {
             print("No buckets returned by S3!")
-            await cleanup()
             return
         }
 
@@ -201,12 +212,6 @@ class Example {
         for bucket in buckets {
             print("    \(bucket.name ?? "<unnamed>")")
         }
-        
-        //======================================================================
-        // Clean up before exiting.
-        //======================================================================
-
-        await cleanup()
     }
 
     /// Clean up by deleting AWS assets created by the example. Ignores
@@ -228,5 +233,17 @@ class Example {
         _ = try? await iamClient.deleteRole(
             input: DeleteRoleInput(roleName: roleName)
         )
+    }
+
+    /// Create a function that blocks the caller until execution is complete.
+    /// 
+    /// - Parameter block: The function to call and wait for its return.
+    private func blocking(_ block: @escaping @Sendable () async -> Void) {
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            await block()
+            semaphore.signal()
+        }
+        semaphore.wait()
     }
 }
