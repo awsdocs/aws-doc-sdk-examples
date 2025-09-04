@@ -10,6 +10,7 @@ manage configuration rules.
 
 import logging
 from pprint import pprint
+import time
 
 import boto3
 from botocore.exceptions import ClientError
@@ -102,6 +103,199 @@ class ConfigWrapper:
 
 
 # snippet-end:[python.example_code.config-service.DeleteConfigRule]
+
+    # snippet-start:[python.example_code.config-service.PutConfigurationRecorder]
+    def put_configuration_recorder(self, recorder_name, role_arn, resource_types=None):
+        """
+        Creates a configuration recorder to track AWS resource configurations.
+
+        :param recorder_name: The name of the configuration recorder.
+        :param role_arn: The ARN of the IAM role that grants AWS Config permissions.
+        :param resource_types: List of resource types to record. If None, records all supported types.
+        """
+        try:
+            recording_group = {
+                'allSupported': resource_types is None,
+                'includeGlobalResourceTypes': True
+            }
+            
+            if resource_types:
+                recording_group['allSupported'] = False
+                recording_group['resourceTypes'] = resource_types
+
+            self.config_client.put_configuration_recorder(
+                ConfigurationRecorder={
+                    'name': recorder_name,
+                    'roleARN': role_arn,
+                    'recordingGroup': recording_group
+                }
+            )
+            logger.info("Created configuration recorder %s.", recorder_name)
+        except ClientError:
+            logger.exception("Couldn't create configuration recorder %s.", recorder_name)
+            raise
+
+    # snippet-end:[python.example_code.config-service.PutConfigurationRecorder]
+
+    # snippet-start:[python.example_code.config-service.PutDeliveryChannel]
+    def put_delivery_channel(self, channel_name, bucket_name, bucket_prefix=None):
+        """
+        Creates a delivery channel to specify where AWS Config sends configuration snapshots.
+
+        :param channel_name: The name of the delivery channel.
+        :param bucket_name: The name of the S3 bucket where Config delivers configuration snapshots.
+        :param bucket_prefix: The prefix for the S3 bucket (optional).
+        """
+        try:
+            delivery_channel = {
+                'name': channel_name,
+                's3BucketName': bucket_name
+            }
+            
+            if bucket_prefix:
+                delivery_channel['s3KeyPrefix'] = bucket_prefix
+
+            self.config_client.put_delivery_channel(DeliveryChannel=delivery_channel)
+            logger.info("Created delivery channel %s.", channel_name)
+        except ClientError:
+            logger.exception("Couldn't create delivery channel %s.", channel_name)
+            raise
+
+    # snippet-end:[python.example_code.config-service.PutDeliveryChannel]
+
+    # snippet-start:[python.example_code.config-service.StartConfigurationRecorder]
+    def start_configuration_recorder(self, recorder_name):
+        """
+        Starts the configuration recorder to begin monitoring resources.
+
+        :param recorder_name: The name of the configuration recorder to start.
+        """
+        try:
+            self.config_client.start_configuration_recorder(
+                ConfigurationRecorderName=recorder_name
+            )
+            logger.info("Started configuration recorder %s.", recorder_name)
+        except ClientError:
+            logger.exception("Couldn't start configuration recorder %s.", recorder_name)
+            raise
+
+    # snippet-end:[python.example_code.config-service.StartConfigurationRecorder]
+
+    # snippet-start:[python.example_code.config-service.DescribeConfigurationRecorders]
+    def describe_configuration_recorders(self, recorder_names=None):
+        """
+        Gets data for configuration recorders.
+
+        :param recorder_names: List of recorder names to describe. If None, describes all recorders.
+        :return: List of configuration recorder data.
+        """
+        try:
+            if recorder_names:
+                response = self.config_client.describe_configuration_recorders(
+                    ConfigurationRecorderNames=recorder_names
+                )
+            else:
+                response = self.config_client.describe_configuration_recorders()
+            
+            recorders = response.get('ConfigurationRecorders', [])
+            logger.info("Got data for %d configuration recorder(s).", len(recorders))
+            return recorders
+        except ClientError:
+            logger.exception("Couldn't get configuration recorder data.")
+            raise
+
+    # snippet-end:[python.example_code.config-service.DescribeConfigurationRecorders]
+
+    # snippet-start:[python.example_code.config-service.DescribeConfigurationRecorderStatus]
+    def describe_configuration_recorder_status(self, recorder_names=None):
+        """
+        Gets the status of configuration recorders.
+
+        :param recorder_names: List of recorder names to check. If None, checks all recorders.
+        :return: List of configuration recorder status data.
+        """
+        try:
+            if recorder_names:
+                response = self.config_client.describe_configuration_recorder_status(
+                    ConfigurationRecorderNames=recorder_names
+                )
+            else:
+                response = self.config_client.describe_configuration_recorder_status()
+            
+            statuses = response.get('ConfigurationRecordersStatus', [])
+            logger.info("Got status for %d configuration recorder(s).", len(statuses))
+            return statuses
+        except ClientError:
+            logger.exception("Couldn't get configuration recorder status.")
+            raise
+
+    # snippet-end:[python.example_code.config-service.DescribeConfigurationRecorderStatus]
+
+    # snippet-start:[python.example_code.config-service.ListDiscoveredResources]
+    def list_discovered_resources(self, resource_type, limit=20):
+        """
+        Lists discovered AWS resources of a specific type.
+
+        :param resource_type: The type of resources to list (e.g., 'AWS::S3::Bucket').
+        :param limit: Maximum number of resources to return.
+        :return: List of discovered resources.
+        """
+        try:
+            response = self.config_client.list_discovered_resources(
+                resourceType=resource_type,
+                limit=limit
+            )
+            resources = response.get('resourceIdentifiers', [])
+            logger.info("Found %d resources of type %s.", len(resources), resource_type)
+            return resources
+        except ClientError:
+            logger.exception("Couldn't list discovered resources of type %s.", resource_type)
+            raise
+
+    # snippet-end:[python.example_code.config-service.ListDiscoveredResources]
+
+    # snippet-start:[python.example_code.config-service.GetResourceConfigHistory]
+    def get_resource_config_history(self, resource_type, resource_id, limit=10):
+        """
+        Gets the configuration history for a specific resource.
+
+        :param resource_type: The type of the resource (e.g., 'AWS::S3::Bucket').
+        :param resource_id: The ID of the resource.
+        :param limit: Maximum number of configuration items to return.
+        :return: List of configuration items showing the resource's history.
+        """
+        try:
+            response = self.config_client.get_resource_config_history(
+                resourceType=resource_type,
+                resourceId=resource_id,
+                limit=limit
+            )
+            config_items = response.get('configurationItems', [])
+            logger.info("Got %d configuration items for resource %s.", len(config_items), resource_id)
+            return config_items
+        except ClientError:
+            logger.exception("Couldn't get configuration history for resource %s.", resource_id)
+            raise
+
+    # snippet-end:[python.example_code.config-service.GetResourceConfigHistory]
+
+    # snippet-start:[python.example_code.config-service.StopConfigurationRecorder]
+    def stop_configuration_recorder(self, recorder_name):
+        """
+        Stops the configuration recorder.
+
+        :param recorder_name: The name of the configuration recorder to stop.
+        """
+        try:
+            self.config_client.stop_configuration_recorder(
+                ConfigurationRecorderName=recorder_name
+            )
+            logger.info("Stopped configuration recorder %s.", recorder_name)
+        except ClientError:
+            logger.exception("Couldn't stop configuration recorder %s.", recorder_name)
+            raise
+
+    # snippet-end:[python.example_code.config-service.StopConfigurationRecorder]
 
 
 def usage_demo():

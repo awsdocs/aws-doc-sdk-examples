@@ -1,0 +1,196 @@
+# zexi 0.4.0
+config_PutConfigurationRecorder:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/config
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.config.ConfigWrapper
+                - python.example_code.config.PutConfigurationRecorder
+  services:
+    config-service: {PutConfigurationRecorder}
+config_PutDeliveryChannel:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/config
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.config.ConfigWrapper
+                - python.example_code.config.PutDeliveryChannel
+  services:
+    config-service: {PutDeliveryChannel}
+config_StartConfigurationRecorder:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/config
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.config.ConfigWrapper
+                - python.example_code.config.StartConfigurationRecorder
+  services:
+    config-service: {StartConfigurationRecorder}
+config_DescribeConfigurationRecorders:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/config
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.config.ConfigWrapper
+                - python.example_code.config.DescribeConfigurationRecorders
+  services:
+    config-service: {DescribeConfigurationRecorders}
+config_DescribeConfigurationRecorderStatus:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/config
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.config.ConfigWrapper
+                - python.example_code.config.DescribeConfigurationRecorderStatus
+  services:
+    config-service: {DescribeConfigurationRecorderStatus}
+config_ListDiscoveredResources:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/config
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.config.ConfigWrapper
+                - python.example_code.config.ListDiscoveredResources
+  services:
+    config-service: {ListDiscoveredResources}
+config_GetResourceConfigHistory:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/config
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.config.ConfigWrapper
+                - python.example_code.config.GetResourceConfigHistory
+  services:
+    config-service: {GetResourceConfigHistory}
+config_StopConfigurationRecorder:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/config
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.config.ConfigWrapper
+                - python.example_code.config.StopConfigurationRecorder
+  services:
+    config-service: {StopConfigurationRecorder}
+config_DeleteConfigurationRecorder:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/config
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.config.ConfigWrapper
+                - python.example_code.config.DeleteConfigurationRecorder
+  services:
+    config-service: {DeleteConfigurationRecorder}
+config_DeleteDeliveryChannel:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/config
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.config.ConfigWrapper
+                - python.example_code.config.DeleteDeliveryChannel
+  services:
+    config-service: {DeleteDeliveryChannel}
+config_Hello:
+  title: Hello &Config;
+  title_abbrev: Hello &Config;
+  synopsis: get started using &Config; by listing existing configuration recorders.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/config
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - python.example_code.config.HelloConfig
+  services:
+    config-service: {DescribeConfigurationRecorders}
+config_Scenario:
+  title: Get started with &Config; using an &AWS; SDK
+  title_abbrev: Get started with &Config;
+  synopsis_list:
+    - Create a configuration recorder to track &AWS; resource configurations.
+    - Set up a delivery channel to specify where &Config; sends configuration snapshots.
+    - Start the configuration recorder to begin monitoring resources.
+    - Monitor configuration recorder status and settings.
+    - Discover &AWS; resources in your account.
+    - View configuration history for specific resources.
+    - Clean up &Config; resources.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/config
+          sdkguide:
+          excerpts:
+            - description: Create a wrapper class for &Config; operations.
+              snippet_tags:
+                - python.example_code.config.ConfigWrapper
+                - python.example_code.config.PutConfigurationRecorder
+                - python.example_code.config.PutDeliveryChannel
+                - python.example_code.config.StartConfigurationRecorder
+                - python.example_code.config.DescribeConfigurationRecorders
+                - python.example_code.config.DescribeConfigurationRecorderStatus
+                - python.example_code.config.ListDiscoveredResources
+                - python.example_code.config.GetResourceConfigHistory
+                - python.example_code.config.StopConfigurationRecorder
+                - python.example_code.config.DeleteConfigurationRecorder
+                - python.example_code.config.DeleteDeliveryChannel
+            - description: Run a comprehensive scenario demonstrating &Config; setup and resource monitoring.
+              snippet_tags:
+                - python.example_code.config.Scenario_ConfigBasics
+  services:
+    config-service: {PutConfigurationRecorder, PutDeliveryChannel, StartConfigurationRecorder, DescribeConfigurationRecorders, DescribeConfigurationRecorderStatus, ListDiscoveredResources, GetResourceConfigHistory, StopConfigurationRecorder, DeleteConfigurationRecorder, DeleteDeliveryChannel}
+
