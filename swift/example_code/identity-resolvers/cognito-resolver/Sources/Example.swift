@@ -124,11 +124,15 @@ class Example {
         //======================================================================
 
         // snippet-start:[swift.identity.cognito.resolve]
+        // Create a Cognito credential resolver that uses the Cognito Identity
+        // Pool created above.
         let cognitoCredentialResolver = try CognitoAWSCredentialIdentityResolver(
             identityPoolId: identityPoolID,
             identityPoolRegion: region
         )
 
+        // Create an AWS STS client that uses the new Cognito credential
+        // resolver to do credential identity resolution.
         let cognitoSTSConfig = try await STSClient.STSClientConfiguration(
             awsCredentialIdentityResolver: cognitoCredentialResolver,
             region: "us-east-1"
@@ -194,6 +198,7 @@ class Example {
         // In this example, we list S3 buckets.
         //======================================================================
 
+        // snippet-start:[swift.identity.cognito.s3]
         let s3Config = try await S3Client.S3ClientConfiguration(
             awsCredentialIdentityResolver: cognitoCredentialResolver,
             region: region
@@ -203,6 +208,7 @@ class Example {
         let listBucketsOutput = try await s3Client.listBuckets(
             input: ListBucketsInput()
         )
+        // snippet-end:[swift.identity.cognito.s3]
         guard let buckets = listBucketsOutput.buckets else {
             print("No buckets returned by S3!")
             return
