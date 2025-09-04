@@ -147,7 +147,7 @@ function getTheMetricStatistics()
         ],
         [
             'Name' => 'BucketName',
-            'Value' => 'my-bucket'
+            'Value' => 'amzn-s3-demo-bucket'
         ]
     ];
     $startTime = strtotime('-3 days');
