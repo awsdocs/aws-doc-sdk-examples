@@ -25,7 +25,7 @@ $s3Client = new S3Client([
     'version' => '2006-03-01'
 ]);
 
-$bucket = 'my-s3-bucket';
+$bucket = 'amzn-s3-demo-bucket';
 
 // Get the policy of a specific bucket
 try {

@@ -46,7 +46,7 @@ function createTheBucket()
         'version' => '2006-03-01'
     ]);
 
-    echo createBucket($s3Client, 'my-bucket');
+    echo createBucket($s3Client, 'amzn-s3-demo-bucket');
 }
 
 // Uncomment the following line to run this code in an AWS account.

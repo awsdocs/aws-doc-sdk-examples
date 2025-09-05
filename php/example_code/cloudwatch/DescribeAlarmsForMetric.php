@@ -79,7 +79,7 @@ function describeTheAlarmsForMetric()
         ],
         [
             'Name' => 'BucketName',
-            'Value' => 'my-bucket'
+            'Value' => 'amzn-s3-demo-bucket'
         ]
     ];
 
