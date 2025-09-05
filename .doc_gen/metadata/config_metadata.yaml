@@ -193,4 +193,3 @@ config_Scenario:
                 - python.example_code.config.Scenario_ConfigBasics
   services:
     config-service: {PutConfigurationRecorder, PutDeliveryChannel, StartConfigurationRecorder, DescribeConfigurationRecorders, DescribeConfigurationRecorderStatus, ListDiscoveredResources, GetResourceConfigHistory, StopConfigurationRecorder, DeleteConfigurationRecorder, DeleteDeliveryChannel}
-
