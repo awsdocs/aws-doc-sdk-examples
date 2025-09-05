@@ -9,7 +9,7 @@ config-service_PutConfigRule:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.config-service.ConfigWrapper
+                - python.example_code.config.ConfigWrapper
                 - python.example_code.config-service.PutConfigRule
   services:
     config-service: {PutConfigRule}
@@ -23,7 +23,7 @@ config-service_DescribeConfigRules:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.config-service.ConfigWrapper
+                - python.example_code.config.ConfigWrapper
                 - python.example_code.config-service.DescribeConfigRules
   services:
     config-service: {DescribeConfigRules}
@@ -37,7 +37,7 @@ config-service_DeleteConfigRule:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.config-service.ConfigWrapper
+                - python.example_code.config.ConfigWrapper
                 - python.example_code.config-service.DeleteConfigRule
   services:
     config-service: {DeleteConfigRule}
