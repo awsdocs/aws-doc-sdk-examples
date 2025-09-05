@@ -13,7 +13,7 @@ from pprint import pprint
 import time
 
 import boto3
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError, BotoCoreError
 
 logger = logging.getLogger(__name__)
 
@@ -57,9 +57,9 @@ class ConfigWrapper:
                 }
             )
             logger.info("Created configuration rule %s.", rule_name)
-        except ClientError:
+        except ClientError as error:
             logger.exception("Couldn't create configuration rule %s.", rule_name)
-            raise
+            raise error
 
     # snippet-end:[python.example_code.config-service.PutConfigRule]
 
@@ -77,9 +77,9 @@ class ConfigWrapper:
             )
             rule = response["ConfigRules"]
             logger.info("Got data for rule %s.", rule_name)
-        except ClientError:
+        except ClientError as error:
             logger.exception("Couldn't get data for rule %s.", rule_name)
-            raise
+            raise error
         else:
             return rule
 
@@ -95,9 +95,9 @@ class ConfigWrapper:
         try:
             self.config_client.delete_config_rule(ConfigRuleName=rule_name)
             logger.info("Deleted rule %s.", rule_name)
-        except ClientError:
+        except ClientError as error:
             logger.exception("Couldn't delete rule %s.", rule_name)
-            raise
+            raise error
 
 
 # snippet-end:[python.example_code.config-service.DeleteConfigRule]
@@ -129,9 +129,9 @@ class ConfigWrapper:
                 }
             )
             logger.info("Created configuration recorder %s.", recorder_name)
-        except ClientError:
+        except ClientError as error:
             logger.exception("Couldn't create configuration recorder %s.", recorder_name)
-            raise
+            raise error
 
     # snippet-end:[python.example_code.config.PutConfigurationRecorder]
 
@@ -155,9 +155,9 @@ class ConfigWrapper:
 
             self.config_client.put_delivery_channel(DeliveryChannel=delivery_channel)
             logger.info("Created delivery channel %s.", channel_name)
-        except ClientError:
+        except ClientError as error:
             logger.exception("Couldn't create delivery channel %s.", channel_name)
-            raise
+            raise error
 
     # snippet-end:[python.example_code.config.PutDeliveryChannel]
 
@@ -173,9 +173,9 @@ class ConfigWrapper:
                 ConfigurationRecorderName=recorder_name
             )
             logger.info("Started configuration recorder %s.", recorder_name)
-        except ClientError:
+        except ClientError as error:
             logger.exception("Couldn't start configuration recorder %s.", recorder_name)
-            raise
+            raise error
 
     # snippet-end:[python.example_code.config.StartConfigurationRecorder]
 
@@ -198,9 +198,9 @@ class ConfigWrapper:
             recorders = response.get('ConfigurationRecorders', [])
             logger.info("Got data for %d configuration recorder(s).", len(recorders))
             return recorders
-        except ClientError:
+        except ClientError as error:
             logger.exception("Couldn't get configuration recorder data.")
-            raise
+            raise error
 
     # snippet-end:[python.example_code.config.DescribeConfigurationRecorders]
 
@@ -223,9 +223,9 @@ class ConfigWrapper:
             statuses = response.get('ConfigurationRecordersStatus', [])
             logger.info("Got status for %d configuration recorder(s).", len(statuses))
             return statuses
-        except ClientError:
+        except ClientError as error:
             logger.exception("Couldn't get configuration recorder status.")
-            raise
+            raise error
 
     # snippet-end:[python.example_code.config.DescribeConfigurationRecorderStatus]
 
@@ -246,9 +246,9 @@ class ConfigWrapper:
             resources = response.get('resourceIdentifiers', [])
             logger.info("Found %d resources of type %s.", len(resources), resource_type)
             return resources
-        except ClientError:
+        except ClientError as error:
             logger.exception("Couldn't list discovered resources of type %s.", resource_type)
-            raise
+            raise error
 
     # snippet-end:[python.example_code.config.ListDiscoveredResources]
 
@@ -271,9 +271,9 @@ class ConfigWrapper:
             config_items = response.get('configurationItems', [])
             logger.info("Got %d configuration items for resource %s.", len(config_items), resource_id)
             return config_items
-        except ClientError:
+        except ClientError as error:
             logger.exception("Couldn't get configuration history for resource %s.", resource_id)
-            raise
+            raise error
 
     # snippet-end:[python.example_code.config.GetResourceConfigHistory]
 
@@ -289,9 +289,9 @@ class ConfigWrapper:
                 ConfigurationRecorderName=recorder_name
             )
             logger.info("Stopped configuration recorder %s.", recorder_name)
-        except ClientError:
+        except ClientError as error:
             logger.exception("Couldn't stop configuration recorder %s.", recorder_name)
-            raise
+            raise error
 
     # snippet-end:[python.example_code.config.StopConfigurationRecorder]
 
@@ -307,9 +307,9 @@ class ConfigWrapper:
                 ConfigurationRecorderName=recorder_name
             )
             logger.info("Deleted configuration recorder %s.", recorder_name)
-        except ClientError:
+        except ClientError as error:
             logger.exception("Couldn't delete configuration recorder %s.", recorder_name)
-            raise
+            raise error
 
     # snippet-end:[python.example_code.config.DeleteConfigurationRecorder]
 
@@ -325,9 +325,9 @@ class ConfigWrapper:
                 DeliveryChannelName=channel_name
             )
             logger.info("Deleted delivery channel %s.", channel_name)
-        except ClientError:
+        except ClientError as error:
             logger.exception("Couldn't delete delivery channel %s.", channel_name)
-            raise
+            raise error
 
     # snippet-end:[python.example_code.config.DeleteDeliveryChannel]
 # snippet-end:[python.example_code.config.ConfigWrapper]
