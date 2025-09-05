@@ -15,6 +15,8 @@ import com.example.dynamodb.scenario.ScenarioPartiQ;
 import com.example.dynamodb.SyncPagination;
 import com.example.dynamodb.UpdateItem;
 import com.example.dynamodb.UpdateTable;
+import com.example.dynamodb.BasicAdaptiveRetryImplementation;
+import com.example.dynamodb.MigrationExamples;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -38,6 +40,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * To run these integration tests, you must set the required values
@@ -232,6 +235,78 @@ public class DynamoDBTest {
         assertDoesNotThrow(() -> ScenarioPartiQ.queryTable(ddb));
         assertDoesNotThrow(() -> ScenarioPartiQ.deleteDynamoDBTable(ddb, "MoviesPartiQ"));
         logger.info("\n Test 14 passed");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(15)
+    public void testBasicAdaptiveRetryImplementation() {
+        assertDoesNotThrow(() -> {
+            DynamoDbClient client = BasicAdaptiveRetryImplementation.createDynamoDbClientWithAdaptiveRetry();
+            assertNotNull(client);
+            client.close();
+        });
+        assertDoesNotThrow(() -> {
+            DynamoDbClient client = BasicAdaptiveRetryImplementation.createDynamoDbClientWithCustomAdaptiveRetry();
+            assertNotNull(client);
+            client.close();
+        });
+        assertDoesNotThrow(() -> {
+            DynamoDbClient client = BasicAdaptiveRetryImplementation.createDynamoDbClientWithRetryMode();
+            assertNotNull(client);
+            client.close();
+        });
+        logger.info("\n Test 15 passed");
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(16)
+    public void testMigrationExamples() {
+        // Test BEFORE methods
+        assertDoesNotThrow(() -> {
+            DynamoDbClient client = MigrationExamples.createClientWithStandardRetry_BEFORE();
+            assertNotNull(client);
+            client.close();
+        });
+        assertDoesNotThrow(() -> {
+            DynamoDbClient client = MigrationExamples.createClientWithCustomStandardRetry_BEFORE();
+            assertNotNull(client);
+            client.close();
+        });
+        assertDoesNotThrow(() -> {
+            DynamoDbClient client = MigrationExamples.createHighThroughputClient_BEFORE();
+            assertNotNull(client);
+            client.close();
+        });
+        assertDoesNotThrow(() -> {
+            DynamoDbClient client = MigrationExamples.createBatchOperationClient_BEFORE();
+            assertNotNull(client);
+            client.close();
+        });
+        
+        // Test AFTER methods
+        assertDoesNotThrow(() -> {
+            DynamoDbClient client = MigrationExamples.createClientWithAdaptiveRetry_AFTER();
+            assertNotNull(client);
+            client.close();
+        });
+        assertDoesNotThrow(() -> {
+            DynamoDbClient client = MigrationExamples.createClientWithCustomAdaptiveRetry_AFTER();
+            assertNotNull(client);
+            client.close();
+        });
+        assertDoesNotThrow(() -> {
+            DynamoDbClient client = MigrationExamples.createHighThroughputClient_AFTER();
+            assertNotNull(client);
+            client.close();
+        });
+        assertDoesNotThrow(() -> {
+            DynamoDbClient client = MigrationExamples.createBatchOperationClient_AFTER();
+            assertNotNull(client);
+            client.close();
+        });
+        logger.info("\n Test 16 passed");
     }
 
     private static String getSecretValues() {
