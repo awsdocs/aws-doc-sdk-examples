@@ -32,7 +32,7 @@ class DescribeAlarmsForMetricTest extends TestCase
             ],
             [
                 'Name' => 'BucketName',
-                'Value' => 'my-bucket'
+                'Value' => 'amzn-s3-demo-bucket'
             ]
         ];
 

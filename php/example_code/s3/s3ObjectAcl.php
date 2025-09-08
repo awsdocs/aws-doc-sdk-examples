@@ -19,7 +19,7 @@ $s3Client = new S3Client([
 ]);
 
 // Gets the access control list (ACL) of an object.
-$bucket = 'my-s3-bucket';
+$bucket = 'amzn-s3-demo-bucket';
 $key = 'my-object';
 try {
     $resp = $s3Client->getObjectAcl([
