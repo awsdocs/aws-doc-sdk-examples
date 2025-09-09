@@ -10,11 +10,25 @@ CLASS zcl_aws1_s3_scenario DEFINITION
 
     METHODS getting_started_with_s3
       IMPORTING
-      !iv_bucket_name TYPE /aws1/s3_bucketname
-      !iv_key TYPE /aws1/s3_objectkey
-      !iv_copy_to_folder TYPE /aws1/s3_bucketname
+        !iv_bucket_name    TYPE /aws1/s3_bucketname
+        !iv_key            TYPE /aws1/s3_objectkey
+        !iv_copy_to_folder TYPE /aws1/s3_bucketname
       EXPORTING
-      !oo_result TYPE REF TO /aws1/cl_knsputrecordoutput .
+        !oo_result         TYPE REF TO /aws1/cl_knsputrecordoutput
+      RAISING
+        /aws1/cx_rt_service_generic
+        /aws1/cx_rt_technical_generic
+        /aws1/cx_rt_no_auth_generic .
+    METHODS presigner_get
+      IMPORTING
+        !iv_bucket_name TYPE /aws1/s3_bucketname
+        !iv_key         TYPE /aws1/s3_objectkey
+      RETURNING
+        VALUE(ov_url)   TYPE string
+      RAISING
+        /aws1/cx_rt_service_generic
+        /aws1/cx_rt_technical_generic
+        /aws1/cx_rt_no_auth_generic .
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
@@ -138,6 +152,46 @@ CLASS ZCL_AWS1_S3_SCENARIO IMPLEMENTATION.
         MESSAGE 'Bucket does not exist.' TYPE 'E'.
     ENDTRY.
     "snippet-end:[s3.abapv1.getting_started_with_s3]
+
+  ENDMETHOD.
+
+
+  METHOD presigner_get.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    "snippet-start:[s3.abapv1.s3_presigned_url_get]
+    " iv_bucket_name is the bucket name
+    " iv_key is the object name like "myfile.txt"
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_s3) = /aws1/cl_s3_factory=>create( lo_session ).
+
+    "Upload a nice Hello World file to an S3 bucket."
+    TRY.
+        DATA(lv_contents) = cl_abap_codepage=>convert_to( 'Hello, World' ).
+        lo_s3->putobject(
+            iv_bucket = iv_bucket_name
+            iv_key = iv_key
+            iv_body = lv_contents
+            iv_contenttype = 'text/plain' ).
+        MESSAGE 'Object uploaded to S3 bucket.' TYPE 'I'.
+      CATCH /aws1/cx_s3_nosuchbucket.
+        MESSAGE 'Bucket does not exist.' TYPE 'E'.
+    ENDTRY.
+
+    " now generate a presigned URL with a 600-second expiration
+    DATA(lo_presigner) = lo_s3->get_presigner( iv_expires_sec = 600 ).
+    " the presigner getobject() method has the same signature as
+    " lo_s3->getobject(), but it doesn't actually make the call.
+    " to the service.  It just prepares a presigned URL for a future call
+    DATA(lo_presigned_req) = lo_presigner->getobject(
+      iv_bucket = iv_bucket_name
+      iv_key = iv_key ).
+
+    " You can provide this URL to a web page, user, email etc so they
+    " can retrieve the file.  The URL will expire in 10 minutes.
+    ov_url = lo_presigned_req->get_url( ).
+    "snippet-end:[s3.abapv1.s3_presigned_url_get]
 
   ENDMETHOD.
 ENDCLASS.
