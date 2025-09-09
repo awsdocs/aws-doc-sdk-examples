@@ -18,7 +18,7 @@ CLASS ltc_zcl_aws1_s3_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL 
     DATA ao_s3_scenario TYPE REF TO zcl_aws1_s3_scenario.
 
     METHODS getting_started_scenario FOR TESTING RAISING /aws1/cx_rt_generic.
-
+    METHODS presigner_get_scenario FOR TESTING RAISING /aws1/cx_rt_generic cx_uuid_error.
     METHODS setup RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
     METHODS teardown RAISING /aws1/cx_rt_generic zcx_aws1_ex_generic.
 
@@ -75,4 +75,39 @@ CLASS ltc_zcl_aws1_s3_scenario IMPLEMENTATION.
       act = lv_found
       msg = |Bucket { av_bucket } should have been deleted| ).
   ENDMETHOD.
+
+  METHOD presigner_get_scenario.
+    " we don't show the customer the bucket creation in this scenario.
+    " So we'll create a separate bucket just for this scenario
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_s3) = /aws1/cl_s3_factory=>create( lo_session ).
+
+    DATA(lv_region) = CONV /aws1/s3_bucketlocationcnstrnt( lo_session->get_region( ) ).
+    DATA lo_constraint TYPE REF TO /aws1/cl_s3_createbucketconf.
+    IF lv_region = 'us-east-1'.
+      CLEAR lo_constraint.
+    ELSE.
+      lo_constraint = NEW /aws1/cl_s3_createbucketconf( lv_region ).
+    ENDIF.
+
+    DATA(lv_uuid) = cl_system_uuid=>if_system_uuid_static~create_uuid_c32( ).
+    TRANSLATE lv_uuid TO LOWER CASE.
+    DATA(lv_bucket_name) = |sap-abap-s3-scenario-presigner-{ lv_uuid }|.
+
+    lo_s3->createbucket(
+        iv_bucket = lv_bucket_name
+        io_createbucketconfiguration  = lo_constraint ).
+
+
+    DATA(lv_url) = ao_s3_scenario->presigner_get(
+      iv_bucket_name = lv_bucket_name
+      iv_key = cv_file ).
+    ASSERT lv_url IS NOT INITIAL.
+
+    " cleanup
+    lo_s3->deleteobject( iv_bucket = lv_bucket_name iv_key = cv_file ).
+    lo_s3->deletebucket( iv_bucket = lv_bucket_name ).
+
+  ENDMETHOD.
+
 ENDCLASS.

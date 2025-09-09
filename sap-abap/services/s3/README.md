@@ -48,6 +48,13 @@ Code excerpts that show you how to call individual service functions.
 - [ListObjectsV2](zcl_aws1_s3_actions.clas.abap#L197)
 - [PutObject](zcl_aws1_s3_actions.clas.abap#L216)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Create a presigned URL](zcl_aws1_s3_scenario.clas.abap)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -78,6 +85,18 @@ This example shows you how to do the following:
 <!--custom.basics.s3_Scenario_GettingStarted.start-->
 <!--custom.basics.s3_Scenario_GettingStarted.end-->
 
+
+#### Create a presigned URL
+
+This example shows you how to create a presigned URL for Amazon S3 and upload an object.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.end-->
+
+
+<!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
 
 ### Tests
 
