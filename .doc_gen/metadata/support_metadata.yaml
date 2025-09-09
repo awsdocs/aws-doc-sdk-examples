@@ -48,6 +48,17 @@ support_Hello:
             - description:
               snippet_tags:
                 - python.example_code.support.Hello
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/support
+          excerpts:
+            - description: The <filename>Package.swift</filename> file.
+              snippet_tags:
+                - swift.support.hello.package
+            - description: The <filename>entry.swift</filename> file.
+              snippet_tags:
+                - swift.support.hello
   services:
     support: {DescribeServices}
 support_AddAttachmentsToSet:
@@ -97,6 +108,15 @@ support_AddAttachmentsToSet:
               snippet_tags:
                 - python.example_code.support.SupportWrapper_decl
                 - python.example_code.support.AddAttachmentToSet
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.support.import
+                - swift.support.AddAttachmentsToSet
   services:
     support: {AddAttachmentsToSet}
 support_AddCommunicationToCase:
@@ -146,6 +166,15 @@ support_AddCommunicationToCase:
               snippet_tags:
                 - python.example_code.support.SupportWrapper_decl
                 - python.example_code.support.AddCommunicationToCase
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.support.import
+                - swift.support.AddCommunicationToCase
   services:
     support: {AddCommunicationToCase}
 support_CreateCase:
@@ -195,6 +224,15 @@ support_CreateCase:
               snippet_tags:
                 - python.example_code.support.SupportWrapper_decl
                 - python.example_code.support.CreateCase
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.support.import
+                - swift.support.CreateCase
   services:
     support: {CreateCase}
 support_DescribeAttachment:
@@ -244,6 +282,15 @@ support_DescribeAttachment:
               snippet_tags:
                 - python.example_code.support.SupportWrapper_decl
                 - python.example_code.support.DescribeAttachment
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.support.import
+                - swift.support.DescribeAttachment
   services:
     support: {DescribeAttachment}
 support_DescribeCases:
@@ -293,6 +340,15 @@ support_DescribeCases:
               snippet_tags:
                 - python.example_code.support.SupportWrapper_decl
                 - python.example_code.support.DescribeCases
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.support.import
+                - swift.support.DescribeCases
   services:
     support: {DescribeCases}
 support_DescribeCommunications:
@@ -342,6 +398,15 @@ support_DescribeCommunications:
               snippet_tags:
                 - python.example_code.support.SupportWrapper_decl
                 - python.example_code.support.DescribeCommunications
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.support.import
+                - swift.support.DescribeCommunications
   services:
     support: {DescribeCommunications}
 support_DescribeServices:
@@ -382,6 +447,15 @@ support_DescribeServices:
               snippet_tags:
                 - python.example_code.support.SupportWrapper_decl
                 - python.example_code.support.DescribeServices
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.support.import
+                - swift.support.DescribeServices
   services:
     support: {DescribeServices}
 support_DescribeSeverityLevels:
@@ -430,6 +504,15 @@ support_DescribeSeverityLevels:
               snippet_tags:
                 - python.example_code.support.SupportWrapper_decl
                 - python.example_code.support.DescribeSeverityLevels
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.support.import
+                - swift.support.DescribeSeverityLevels
   services:
     support: {DescribeSeverityLevels}
 support_ResolveCase:
@@ -479,6 +562,15 @@ support_ResolveCase:
               snippet_tags:
                 - python.example_code.support.SupportWrapper_decl
                 - python.example_code.support.ResolveCase
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.support.import
+                - swift.support.ResolveCase
   services:
     support: {ResolveCase}
 support_Scenario_GetStartedSupportCases:
@@ -543,6 +635,20 @@ support_Scenario_GetStartedSupportCases:
             - description: Define a class that wraps support client actions.
               snippet_tags:
                 - python.example_code.support.SupportWrapper_full
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/support
+          excerpts:
+            - description: The <filename>Package.swift</filename> file.
+              snippet_tags:
+                - swift.support.scenario.package
+            - description: The <filename>entry.swift</filename> file.
+              snippet_tags:
+                - swift.support.scenario.entry
+            - description: The <filename>Scenario.swift</filename> file.
+              snippet_tags:
+                - swift.support.scenario.scenario
   services:
     support: {AddAttachmentsToSet, AddCommunicationToCase, CreateCase, DescribeAttachment, DescribeCases, DescribeCommunications,
               DescribeServices, DescribeSeverityLevels, ResolveCase}
