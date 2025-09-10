@@ -3,7 +3,7 @@
 //
 // snippet-start:[swift.support.hello]
 // An example that shows how to use the AWS SDK for Swift to perform a simple
-// operation using Amazon Elastic Compute Cloud (EC2).
+// operation using AWS Support.
 //
 
 import ArgumentParser
