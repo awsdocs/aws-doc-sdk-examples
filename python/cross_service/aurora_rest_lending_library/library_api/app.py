@@ -93,7 +93,7 @@ def list_books_by_author(author_id):
     :param author_id: The ID of the author to query.
     :return: The list of books written by the specified author.
     """
-    author_id = int(urllib.parse.unquote_plus(author_id))
+    author_id = int(urllib.parse.unquote(author_id))
     return {"books": get_storage().get_books(author_id=author_id)}
 
 
@@ -151,7 +151,7 @@ def delete_patron(patron_id):
 
     :param patron_id: The ID of the patron to remove.
     """
-    patron_id = int(urllib.parse.unquote_plus(patron_id))
+    patron_id = int(urllib.parse.unquote(patron_id))
     get_storage().delete_patron(patron_id)
 
 
@@ -185,8 +185,8 @@ def book_lending(book_id, patron_id):
     :param book_id: The ID of the book.
     :param patron_id: The ID of the patron.
     """
-    book_id = int(urllib.parse.unquote_plus(book_id))
-    patron_id = int(urllib.parse.unquote_plus(patron_id))
+    book_id = int(urllib.parse.unquote(book_id))
+    patron_id = int(urllib.parse.unquote(patron_id))
     if app.current_request.method == "PUT":
         get_storage().borrow_book(book_id, patron_id)
     elif app.current_request.method == "DELETE":
