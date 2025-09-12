@@ -212,7 +212,7 @@ s3-control_Basics:
           excerpts:
             - description: Learn S3 Batch Basics Scenario.
               snippet_tags:
-                - python.example_code.s3control.Batch.scenario
+                - python.example_code.s3control.helper.S3BatchScenario
   services:
     s3-control:
       {
