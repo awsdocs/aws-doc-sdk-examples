@@ -176,6 +176,12 @@ class S3BatchScenario:
 
         except Exception as e:
             print(f"An error occurred: {e}")
+            print("\nCleaning up resources due to failure...")
+            try:
+                self.s3_batch_wrapper.cleanup_resources(bucket_name, file_names)
+                self.cfn_helper.destroy_cloudformation_stack(self.STACK_NAME)
+            except Exception as cleanup_error:
+                print(f"Error during cleanup: {cleanup_error}")
             raise
 
         print("\nThe Amazon S3 Batch scenario has successfully completed.")
