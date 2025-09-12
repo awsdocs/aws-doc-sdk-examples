@@ -40,12 +40,12 @@ To run these examples, you need:
 To run this workflow, pull AWS tokens and run the command below:
 
 ```bash
-python s3_batch.py
+python s3_batch_scenario.py
 ```
 
 ## Additional resources
 
-- [Amazon S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html)
+- [Amazon S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops-create-job.html)
 - [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
 - [boto3 Amazon S3 reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html)
 
