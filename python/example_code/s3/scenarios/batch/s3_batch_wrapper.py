@@ -306,6 +306,7 @@ class S3BatchWrapper:
             return
     # snippet-end:[python.example_code.s3control.update_job_priority]
 
+    # snippet-start:[python.example_code.s3control.update_job_status]
     def cancel_job(self, job_id: str, account_id: str) -> None:
         """
         Cancel an S3 batch job.
@@ -324,6 +325,7 @@ class S3BatchWrapper:
         except ClientError as e:
             print(f"Error canceling job: {e}")
             raise
+    # snippet-end:[python.example_code.s3control.update_job_status]
 
     # snippet-start:[python.example_code.s3control.describe_job]
     def describe_job_details(self, job_id: str, account_id: str) -> None:
