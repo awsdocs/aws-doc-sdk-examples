@@ -36,14 +36,14 @@ $s3Client = $sdk->createS3();
 
 // Send a PutObject request and get the result object.
 $result = $s3Client->putObject([
-    'Bucket' => 'my-bucket',
+    'Bucket' => 'amzn-s3-demo-bucket',
     'Key' => 'my-key',
     'Body' => 'this is the body!'
 ]);
 
 // Download the contents of the object.
 $result = $s3Client->getObject([
-    'Bucket' => 'my-bucket',
+    'Bucket' => 'amzn-s3-demo-bucket',
     'Key' => 'my-key'
 ]);
 

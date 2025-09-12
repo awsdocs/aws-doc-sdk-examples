@@ -12,4 +12,14 @@ describe("command-helper", () => {
       expect(command.input.sql).toBe(sql);
     });
   });
+  it("should create an ExecuteStatementCommand with the provided SQL statement and parameters", () => {
+    const sql = "select * from some_table where id = :id";
+    const parameters = {
+      id: { StringValue: "123" },
+    };
+    const command = buildStatementCommand(sql, parameters);
+    expect(command.constructor.name).toBe("ExecuteStatementCommand");
+    expect(command.input.sql).toBe(sql);
+    expect(command.input.parameters).toEqual([parameters]);
+  });
 });

@@ -11,10 +11,17 @@ const postItemsHandler: Handler = {
     ({ rdsDataClient }) =>
     async (req, res) => {
       const { description, guide, status, name }: Item = req.body;
+      const values = {
+        description: { StringValue: description },
+        guide: { StringValue: guide },
+        status: { StringValue: status },
+        name: { StringValue: name },
+      };
       const command = buildStatementCommand(
-        `insert into items (iditem, description, guide, status, username, archived)\nvalues ("${uuidv4()}", "${description}", "${guide}", "${status}", "${name}", 0)`,
+        `insert into items (iditem, description, guide, status, username, archived)
+         values ("${uuidv4()}", ":description", ":guide", ":status", ":name", 0)`,
+        values,
       );
-
       await rdsDataClient.send(command);
       res.status(200).send({});
     },

@@ -82,7 +82,7 @@ class UpdateDistributionTest extends TestCase
             'Origins' => [
                 'Items' => [
                     [
-                        'DomainName' => 'my-bucket-name.s3.amazonaws.com',
+                        'DomainName' => 'amzn-s3-demo-bucket.s3.amazonaws.com',
                         'Id' => 'my-unique-origin-name',
                         'OriginPath' => '',
                         'CustomHeaders' => [

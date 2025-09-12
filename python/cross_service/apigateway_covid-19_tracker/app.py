@@ -106,7 +106,7 @@ def state_cases(state):
     logger.info("Got %s to /states/%s.", app.current_request.method, state)
     logger.info("JSON body: %s", app.current_request.json_body)
 
-    state = urllib.parse.unquote(state)
+    state = urllib.parse.unquote_plus(state)
     verify_input(state, data=app.current_request.json_body)
 
     response = None
@@ -145,8 +145,8 @@ def state_date_cases(state, date):
     """
     logger.info("Got %s to /states/%s/%s.", app.current_request.method, state, date)
 
-    state = urllib.parse.unquote(state)
-    date = urllib.parse.unquote(date)
+    state = urllib.parse.unquote_plus(state)
+    date = urllib.parse.unquote_plus(date)
     verify_input(state, date=date)
 
     response = None

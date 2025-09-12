@@ -94,7 +94,8 @@ namespace AwsDoc {
                           const Aws::String &granteeID, const Aws::String &granteeEmailAddress,
                           const Aws::String &granteeURI, const Aws::S3::S3ClientConfiguration &clientConfig);
 
-        bool putObjectAsync(const Aws::S3::S3Client &s3Client,
+        bool uploadFileAsync(const Aws::S3::S3Client &s3Client,
+                            Aws::S3::Model::PutObjectRequest &request,
                             const Aws::String &bucketName,
                             const Aws::String &fileName);
 

@@ -53,7 +53,7 @@ class LambdaTest extends TestCase
                 }
             ]
         }";
-        $bucketName = "test-example-bucket-$uniqid";
+        $bucketName = "amzn-s3-demo-bucket-$uniqid";
         $this->s3client->createBucket([
             'Bucket' => $bucketName,
         ]);

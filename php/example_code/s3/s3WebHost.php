@@ -26,7 +26,7 @@ $s3Client = new S3Client([
 ]);
 
 // Retrieving the Bucket Website Configuration
-$bucket = 'my-s3-bucket';
+$bucket = 'amzn-s3-demo-bucket';
 try {
     $resp = $s3Client->getBucketWebsite([
         'Bucket' => $bucket

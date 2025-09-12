@@ -53,7 +53,7 @@ class GettingStartedWithLambda
         echo "Attached the AWSLambdaBasicExecutionRole to {$role['RoleName']}.\n";
 
         echo "\nNow let's create an S3 bucket and upload our Lambda code there.\n";
-        $bucketName = "test-example-bucket-$uniqid";
+        $bucketName = "amzn-s3-demo-bucket-$uniqid";
         $s3client->createBucket([
             'Bucket' => $bucketName,
         ]);

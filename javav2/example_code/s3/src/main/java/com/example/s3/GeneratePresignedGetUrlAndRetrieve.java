@@ -60,7 +60,7 @@ public class GeneratePresignedGetUrlAndRetrieve {
             String presignedUrlString = presign.createPresignedGetUrl(bucketName, keyName);
             presign.useHttpUrlConnectionToGet(presignedUrlString);
             presign.useHttpClientToGet(presignedUrlString);
-            presign.useSdkHttpClientToPut(presignedUrlString);
+            presign.useSdkHttpClientToGet(presignedUrlString);
         } finally {
             PresignUrlUtils.deleteObject(bucketName, keyName, s3Client);
             PresignUrlUtils.deleteBucket(bucketName, s3Client);
@@ -142,7 +142,7 @@ public class GeneratePresignedGetUrlAndRetrieve {
 
     // snippet-start:[presigned.java2.generatepresignedgeturlandretrieve.sdkhttpclient]
     /* Use the AWS SDK for Java SdkHttpClient class to do the download. */
-    public byte[] useSdkHttpClientToPut(String presignedUrlString) {
+    public byte[] useSdkHttpClientToGet(String presignedUrlString) {
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); // Capture the response body to a byte array.
         try {

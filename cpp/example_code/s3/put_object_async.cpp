@@ -47,15 +47,15 @@ std::condition_variable AwsDoc::S3::upload_variable;
 */
 
 // snippet-start:[s3.cpp.put_object_async_finished.code]
-void putObjectAsyncFinished(const Aws::S3::S3Client *s3Client,
+void uploadFileAsyncFinished(const Aws::S3::S3Client *s3Client,
                             const Aws::S3::Model::PutObjectRequest &request,
                             const Aws::S3::Model::PutObjectOutcome &outcome,
                             const std::shared_ptr<const Aws::Client::AsyncCallerContext> &context) {
     if (outcome.IsSuccess()) {
-        std::cout << "Success: putObjectAsyncFinished: Finished uploading '"
+        std::cout << "Success: uploadFileAsyncFinished: Finished uploading '"
                   << context->GetUUID() << "'." << std::endl;
     } else {
-        std::cerr << "Error: putObjectAsyncFinished: " <<
+        std::cerr << "Error: uploadFileAsyncFinished: " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
 
@@ -68,17 +68,17 @@ void putObjectAsyncFinished(const Aws::S3::S3Client *s3Client,
 //! Routine which demonstrates adding an object to an Amazon S3 bucket, asynchronously.
 /*!
   \param s3Client: Instance of the S3 Client.
+  \param request: Instance of the put object request.
   \param bucketName: Name of the bucket.
   \param fileName: Name of the file to put in the bucket.
   \return bool: Function succeeded.
 */
 
 // snippet-start:[s3.cpp.put_object_async.code]
-bool AwsDoc::S3::putObjectAsync(const Aws::S3::S3Client &s3Client,
+bool AwsDoc::S3::uploadFileAsync(const Aws::S3::S3Client &s3Client,
+                                Aws::S3::Model::PutObjectRequest &request,
                                 const Aws::String &bucketName,
                                 const Aws::String &fileName) {
-    // Create and configure the asynchronous put object request.
-    Aws::S3::Model::PutObjectRequest request;
     request.SetBucket(bucketName);
     request.SetKey(fileName);
 
@@ -100,9 +100,9 @@ bool AwsDoc::S3::putObjectAsync(const Aws::S3::S3Client &s3Client,
     context->SetUUID(fileName);
 
     // Make the asynchronous put object call. Queue the request into a 
-    // thread executor and call the putObjectAsyncFinished function when the
+    // thread executor and call the uploadFileAsyncFinished function when the
     // operation has finished. 
-    s3Client.PutObjectAsync(request, putObjectAsyncFinished, context);
+    s3Client.PutObjectAsync(request, uploadFileAsyncFinished, context);
 
     return true;
 }
@@ -135,7 +135,7 @@ Where:
         return 1;
     }
 
-    Aws::SDKOptions options;
+    const Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
         const Aws::String fileName = argv[1];
@@ -150,13 +150,18 @@ Where:
         // Create and configure the Amazon S3 client.
         // This client must be declared here, as this client must exist
         // until the put object operation finishes.
-        Aws::S3::S3ClientConfiguration config;
+        const Aws::S3::S3ClientConfiguration config;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // config.region = "us-east-1";
 
-        Aws::S3::S3Client s3Client(config);
+        const Aws::S3::S3Client s3Client(config);
 
-        AwsDoc::S3::putObjectAsync(s3Client, bucketName, fileName);
+        // Create the request object.
+        // This request object must be declared here, because the object must exist
+        // until the put object operation finishes.
+        Aws::S3::Model::PutObjectRequest request;
+
+        AwsDoc::S3::uploadFileAsync(s3Client, request, bucketName, fileName);
 
         std::cout << "main: Waiting for file upload attempt..." <<
                   std::endl << std::endl;

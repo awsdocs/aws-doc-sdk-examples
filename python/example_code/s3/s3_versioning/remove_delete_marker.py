@@ -41,7 +41,7 @@ def lambda_handler(event, context):
     task_id = task["taskId"]
 
     try:
-        obj_key = parse.unquote(task["s3Key"], encoding="utf-8")
+        obj_key = parse.unquote_plus(task["s3Key"], encoding="utf-8")
         obj_version_id = task["s3VersionId"]
         bucket_name = task["s3BucketArn"].split(":")[-1]
 

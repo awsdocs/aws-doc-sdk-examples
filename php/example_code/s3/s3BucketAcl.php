@@ -26,7 +26,7 @@ $s3Client = new S3Client([
 ]);
 
 // Gets the access control policy for a bucket
-$bucket = 'my-s3-bucket';
+$bucket = 'amzn-s3-demo-bucket';
 try {
     $resp = $s3Client->getBucketAcl([
         'Bucket' => $bucket

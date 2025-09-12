@@ -37,7 +37,7 @@ $client = new S3Client([]);
 
 $s3Service = new S3Service($client, true);
 
-$bucket = 'my-bucket-' . uniqid(); // This bucket will be deleted at the end of this example.
+$bucket = 'amzn-s3-demo-bucket-' . uniqid(); // This bucket will be deleted at the end of this example.
 
 $client->createBucket([
     "Bucket" => $bucket,
