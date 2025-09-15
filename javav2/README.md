@@ -2,27 +2,25 @@
 
 To build and run these AWS SDK for Java (v2) code examples, you need the following:
 
-- [Apache Maven](https://maven.apache.org/) (>3.0)
-- [AWS SDK for Java](https://aws.amazon.com/sdk-for-java/) (downloaded and extracted somewhere on
-  your machine)
-- **All Java (v2) examples assume that you have set up your credentials in the credentials file in the .aws folder**. For information about how to set AWS credentials and the AWS Region, see [Set up AWS credentials and Region for development](http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html) in the _AWS SDK for Java Developer Guide_. You should also set the _AWS Region_ within which the operations will be performed. If a Region is not set, the default Region used is **us-east-1**.
+- Local access to [this repository](https://github.com/awsdocs/aws-doc-sdk-examples) by cloning, forking, or downloading a zip file.
+- An installation of [Apache Maven](https://maven.apache.org/) (>3.0)
+- **All Java (v2) examples assume that the Java SDK can obtain AWS credentials using its default credentials provider chain**. 
+  - You can set up the [default profile](https://docs.aws.amazon.com/sdkref/latest/guide/file-format.html#file-format-profile) in the shared AWS configuration files:
+    - with [IAM Identity Center SSO](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials-temporary.html#credentials-temporary-idc) settings in `~/.aws/config`
+    - [temporary credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials-temporary.html#credentials-temporary-from-portal) in `~/.aws/credentials`
+- Default Region configuration. You can set this in your default profile along with settings for access to AWS credentials. If a Region is not set, the default Region used is **us-east-1**.
 
-  After you set your AWS credentials in the credentials file located in the .aws folder, you can create a service client like this.
-
-           Region region = Region.US_WEST_2;
-           S3Client s3 = S3Client.builder()
-             .region(region)
-             .build();
-
-**Note**: For more information about setting your AWS credentials, see [Supplying and retrieving AWS credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+**Note**: For more information about configuring access to your AWS credentials, see [Supplying and retrieving AWS credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
 ## AWS SDK for Java
 
 The **javav2** folder in this repository contains examples of complete use cases, and AWS service-based code examples.
 
+Each use case example and service-based code example directory includes an Apache Maven `pom.xml` file with dependency and configuration settings for that example.
+
 ### Use cases
 
-In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java. Most of these AWS SDK for Java tutorials use synchronous Java clients.
+In the **usecases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java. Most of these AWS SDK for Java tutorials use synchronous Java clients.
 
 If you are interested in using asynchronous Java service clients, see one of these tutorials:
 
