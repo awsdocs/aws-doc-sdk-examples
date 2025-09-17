@@ -13,8 +13,6 @@ CLASS zcl_aws1_s3_scenario DEFINITION
         !iv_bucket_name    TYPE /aws1/s3_bucketname
         !iv_key            TYPE /aws1/s3_objectkey
         !iv_copy_to_folder TYPE /aws1/s3_bucketname
-      EXPORTING
-        !oo_result         TYPE REF TO /aws1/cl_knsputrecordoutput
       RAISING
         /aws1/cx_rt_service_generic
         /aws1/cx_rt_technical_generic
