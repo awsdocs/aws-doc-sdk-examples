@@ -12,18 +12,8 @@ import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.transcribestreaming.TranscribeStreamingAsyncClient;
 import software.amazon.awssdk.services.transcribestreaming.model.*;
-
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.TargetDataLine;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.UncheckedIOException;
+import javax.sound.sampled.*;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -38,7 +28,7 @@ public class TranscribeStreamingDemoApp {
     private static final Region REGION = Region.US_EAST_1;
     private static TranscribeStreamingAsyncClient client;
 
-    public static void main(String[] args)
+    public static void main(String args[])
             throws URISyntaxException, ExecutionException, InterruptedException, LineUnavailableException {
 
         client = TranscribeStreamingAsyncClient.builder()
@@ -95,7 +85,7 @@ public class TranscribeStreamingDemoApp {
                     System.out.println(e.getMessage());
                     StringWriter sw = new StringWriter();
                     e.printStackTrace(new PrintWriter(sw));
-                    System.out.println("Error Occurred: " + sw);
+                    System.out.println("Error Occurred: " + sw.toString());
                 })
                 .onComplete(() -> {
                     System.out.println("=== All records stream successfully ===");
@@ -111,10 +101,19 @@ public class TranscribeStreamingDemoApp {
                 .build();
     }
 
-    
+    private InputStream getStreamFromFile(String audioFileName) {
+        try {
+            File inputFile = new File(getClass().getClassLoader().getResource(audioFileName).getFile());
+            InputStream audioStream = new FileInputStream(inputFile);
+            return audioStream;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private static class AudioStreamPublisher implements Publisher<AudioStream> {
-        private static Subscription currentSubscription;
         private final InputStream inputStream;
+        private static Subscription currentSubscription;
 
         private AudioStreamPublisher(InputStream inputStream) {
             this.inputStream = inputStream;
@@ -123,22 +122,22 @@ public class TranscribeStreamingDemoApp {
         @Override
         public void subscribe(Subscriber<? super AudioStream> s) {
 
-            if (currentSubscription == null) {
-                currentSubscription = new SubscriptionImpl(s, inputStream);
+            if (this.currentSubscription == null) {
+                this.currentSubscription = new SubscriptionImpl(s, inputStream);
             } else {
-                currentSubscription.cancel();
-                currentSubscription = new SubscriptionImpl(s, inputStream);
+                this.currentSubscription.cancel();
+                this.currentSubscription = new SubscriptionImpl(s, inputStream);
             }
             s.onSubscribe(currentSubscription);
         }
     }
 
     public static class SubscriptionImpl implements Subscription {
-        private static final int CHUNK_SIZE_IN_BYTES = 1024;
+        private static final int CHUNK_SIZE_IN_BYTES = 1024 * 1;
         private final Subscriber<? super AudioStream> subscriber;
         private final InputStream inputStream;
-        private final ExecutorService executor = Executors.newFixedThreadPool(1);
-        private final AtomicLong demand = new AtomicLong(0);
+        private ExecutorService executor = Executors.newFixedThreadPool(1);
+        private AtomicLong demand = new AtomicLong(0);
 
         SubscriptionImpl(Subscriber<? super AudioStream> s, InputStream inputStream) {
             this.subscriber = s;

@@ -17,8 +17,7 @@ class DynamoDBService extends AWSServiceClass
     public function __construct(
         DynamoDbClient $client = null,
         string $region = 'us-west-2',
-        string $version = 'latest',
-        string $profile = 'default'
+        string $version = 'latest'
     ) {
         if (gettype($client) == DynamoDbClient::class) {
             $this->dynamoDbClient = $client;
@@ -27,7 +26,6 @@ class DynamoDBService extends AWSServiceClass
         $this->dynamoDbClient = new DynamoDbClient([
             'region' => $region,
             'version' => $version,
-            'profile' => $profile,
             'http' => [
                 'verify' => false,
             ],

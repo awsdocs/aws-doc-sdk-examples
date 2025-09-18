@@ -40,14 +40,14 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchExecuteStatement](DynamoDBService.php#L319)
-- [BatchWriteItem](DynamoDBService.php#L201)
+- [BatchExecuteStatement](DynamoDBService.php#L317)
+- [BatchWriteItem](DynamoDBService.php#L199)
 - [CreateTable](dynamodb_basics/GettingStartedWithDynamoDB.php#L52)
 - [DeleteItem](dynamodb_basics/GettingStartedWithDynamoDB.php#L148)
-- [DeleteTable](DynamoDBService.php#L84)
-- [ExecuteStatement](DynamoDBService.php#L263)
+- [DeleteTable](DynamoDBService.php#L82)
+- [ExecuteStatement](DynamoDBService.php#L261)
 - [GetItem](dynamodb_basics/GettingStartedWithDynamoDB.php#L131)
-- [ListTables](DynamoDBService.php#L64)
+- [ListTables](DynamoDBService.php#L62)
 - [PutItem](dynamodb_basics/GettingStartedWithDynamoDB.php#L67)
 - [Query](dynamodb_basics/GettingStartedWithDynamoDB.php#L158)
 - [Scan](dynamodb_basics/GettingStartedWithDynamoDB.php#L178)

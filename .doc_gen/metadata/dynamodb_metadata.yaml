@@ -1960,7 +1960,7 @@ dynamodb_Scenario_GettingStartedMovies:
         - sdk_version: 3
           github: php/example_code/dynamodb
           excerpts:
-            - description:
+            - description: Because this example uses supporting files, be sure to <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/php/README.md#prerequisites">read the guidance</ulink> in the PHP examples README.md file.
               snippet_tags:
                 - php.example_code.dynamodb.basics.scenario
     Python:
