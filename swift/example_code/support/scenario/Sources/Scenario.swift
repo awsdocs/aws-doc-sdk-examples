@@ -62,6 +62,8 @@ class Scenario {
         //    DescribeServices.
         //======================================================================
 
+        print("Getting available services...")
+
         let services = await getServices().sorted { $0.name ?? "<unnamed>" < $1.name ?? "<unnamed>" }
         if services.count == 0 {
             print("No services found. Exiting.")
@@ -307,7 +309,7 @@ class Scenario {
                 print("*** You need a subscription to use AWS Support.")
                 return []
             } else {
-                print("*** An unknown error occurred getting support information.")
+                print("*** An unanticipated error occurred getting support information: \(error.errorCode ?? "<unknown>").")
                 return []
             }
         } catch {
