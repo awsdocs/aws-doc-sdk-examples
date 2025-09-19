@@ -45,15 +45,15 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AddAttachmentsToSet](scenario/Sources/Scenario.swift#L456)
-- [AddCommunicationToCase](scenario/Sources/Scenario.swift#L505)
-- [CreateCase](scenario/Sources/Scenario.swift#L354)
-- [DescribeAttachment](scenario/Sources/Scenario.swift#L593)
-- [DescribeCases](scenario/Sources/Scenario.swift#L403)
-- [DescribeCommunications](scenario/Sources/Scenario.swift#L555)
-- [DescribeServices](scenario/Sources/Scenario.swift#L279)
-- [DescribeSeverityLevels](scenario/Sources/Scenario.swift#L315)
-- [ResolveCase](scenario/Sources/Scenario.swift#L633)
+- [AddAttachmentsToSet](scenario/Sources/Scenario.swift#L463)
+- [AddCommunicationToCase](scenario/Sources/Scenario.swift#L512)
+- [CreateCase](scenario/Sources/Scenario.swift#L361)
+- [DescribeAttachment](scenario/Sources/Scenario.swift#L600)
+- [DescribeCases](scenario/Sources/Scenario.swift#L410)
+- [DescribeCommunications](scenario/Sources/Scenario.swift#L562)
+- [DescribeServices](scenario/Sources/Scenario.swift#L286)
+- [DescribeSeverityLevels](scenario/Sources/Scenario.swift#L322)
+- [ResolveCase](scenario/Sources/Scenario.swift#L640)
 
 
 <!--custom.examples.start-->
