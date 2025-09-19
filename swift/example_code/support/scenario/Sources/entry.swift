@@ -2,8 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 // snippet-start:[swift.support.scenario.entry]
-// An example that shows how to use the AWS SDK for Swift to perform a simple
-// operation using AWS Support.
+// An example that shows how to use the AWS SDK for Swift to perform a series
+// of operations using AWS Support
+//
+// NOTE: You must have a business class AWS account to use AWS Support
+// features.
 //
 
 import ArgumentParser
