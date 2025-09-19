@@ -14,7 +14,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "hello-support",
+    name: "support-scenario",
     // Let Xcode know the minimum Apple platforms supported.
     platforms: [
         .macOS(.v13),
@@ -35,7 +35,7 @@ let package = Package(
         // Targets can depend on other targets in this package and products
         // from dependencies.
         .executableTarget(
-            name: "hello-support",
+            name: "support-scenario",
             dependencies: [
                 .product(name: "AWSSupport", package: "aws-sdk-swift"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser")
