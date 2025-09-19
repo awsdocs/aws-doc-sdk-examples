@@ -5,9 +5,9 @@
 // An example that shows how to use the AWS SDK for Swift to perform a series
 // of operations using AWS Support
 //
-// NOTE: You must have a business class AWS account to use AWS Support
-// features. See https://aws.amazon.com/premiumsupport/plans/.
-//
+// NOTE: You must have one of the following AWS Support plans to use the AWS
+// Support API: Business, Enterprise On-Ramp, or Enterprise. For more
+// information, see: https://aws.amazon.com/premiumsupport/plans/.
 
 import ArgumentParser
 import AWSClientRuntime

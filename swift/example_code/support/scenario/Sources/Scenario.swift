@@ -309,7 +309,7 @@ class Scenario {
                 print("*** You need a subscription to use AWS Support.")
                 return []
             } else {
-                print("*** An unanticipated error occurred getting support information: \(error.errorCode ?? "<unknown>").")
+                print("*** An unanticipated error occurred getting support information: \(error.message ?? "") (\(error.errorCode ?? "<unknown>")).")
                 return []
             }
         } catch {
