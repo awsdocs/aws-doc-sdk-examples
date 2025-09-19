@@ -333,7 +333,7 @@ class Renderer:
         self.readme_text += "\n" # Jinja is the worst and strips trailing new lines
         [text, errors] = expand_all_entities(self.readme_text, self.scanner.doc_gen.entities)
         if errors:
-            raise errors
+            raise RuntimeError(f"Entity expansion errors: {errors}")
         self.readme_text = text
 
         # Check if the rendered text is different from the existing file
