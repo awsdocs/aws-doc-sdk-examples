@@ -63,6 +63,11 @@ class Scenario {
         //======================================================================
 
         let services = await getServices().sorted { $0.name ?? "<unnamed>" < $1.name ?? "<unnamed>" }
+        if services.count == 0 {
+            print("No services found. Exiting.")
+            return
+        }
+
         print("Select a service:")
         for (index, service) in services.enumerated() {
             let numberPart = String(format: "%*d", 3, index+1)
