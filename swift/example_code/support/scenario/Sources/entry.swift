@@ -6,7 +6,7 @@
 // of operations using AWS Support
 //
 // NOTE: You must have a business class AWS account to use AWS Support
-// features.
+// features. See https://aws.amazon.com/premiumsupport/plans/.
 //
 
 import ArgumentParser
