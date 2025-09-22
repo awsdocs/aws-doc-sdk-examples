@@ -292,13 +292,19 @@ class Scenario {
     /// - Returns: An array of services.
     func getServices() async -> [SupportClientTypes.Service] {
         do {
+            print("Calling describeServices...")
             let output = try await supportClient.describeServices(
                 input: DescribeServicesInput()
             )
 
+            print("Back from describeServices.")
+
             guard let services = output.services else {
+                print("No service list returned.")
                 return []
             }
+
+            print("Found \(services.count) services.")
 
             return services
         } catch let error as AWSServiceError {
