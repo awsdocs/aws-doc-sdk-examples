@@ -125,28 +125,11 @@ class Example {
 
         // snippet-start:[swift.identity.cognito.resolve]
         // Create a Cognito credential resolver that uses the Cognito Identity
-        // Pool created above.
+        // Pool.
         let cognitoCredentialResolver = try CognitoAWSCredentialIdentityResolver(
             identityPoolId: identityPoolID,
             identityPoolRegion: region
         )
-
-        // Create an AWS STS client that uses the new Cognito credential
-        // resolver to do credential identity resolution.
-        let cognitoSTSConfig = try await STSClient.STSClientConfiguration(
-            awsCredentialIdentityResolver: cognitoCredentialResolver,
-            region: "us-east-1"
-        )
-        let cognitoSTSClient = STSClient(config: cognitoSTSConfig)
-
-        let output = try await cognitoSTSClient.getCallerIdentity(
-            input: GetCallerIdentityInput()
-        )
-
-        print("Authenticated with AWS using Cognito!")
-        print("           ARN: \(output.arn ?? "<unknown>")")
-        print("    Account ID: \(output.account ?? "<unknown>")")
-        print("       User ID: \(output.userId ?? "<unknown>")")
         // snippet-end:[swift.identity.cognito.resolve]
 
         //======================================================================
