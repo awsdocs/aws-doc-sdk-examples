@@ -4,7 +4,6 @@
 // snippet-start:[swift.identity.cognito.imports]
 import AWSCognitoIdentity
 import AWSSDKIdentity
-import AWSSTS
 // snippet-end:[swift.identity.cognito.imports]
 import AWSIAM
 import AWSS3

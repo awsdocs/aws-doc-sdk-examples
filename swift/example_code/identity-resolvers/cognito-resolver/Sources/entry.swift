@@ -10,7 +10,6 @@ import AWSCognitoIdentity
 import AWSIAM
 import AWSS3
 import AWSSDKIdentity
-import AWSSTS
 import Foundation
 import SmithyIdentity
 // snippet-end:[swift.identity.cognito.imports]
