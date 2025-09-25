@@ -58,18 +58,6 @@ Code excerpts that show you how to call individual service functions.
 - [Scan](src/main/java/com/example/dynamodb/DynamoDBScanItems.java#L6)
 - [UpdateItem](src/main/java/com/example/dynamodb/UpdateItem.java#L6)
 
-### Retry Strategies
-
-Code examples that show you how to configure and use different retry strategies for improved resilience.
-
-- [Basic Adaptive Retry Implementation](src/main/java/com/example/dynamodb/BasicAdaptiveRetryImplementation.java) - Shows how to configure DynamoDB clients with AdaptiveRetryStrategy for better performance and resilience
-- [Migration Examples](src/main/java/com/example/dynamodb/MigrationExamples.java) - Demonstrates migrating from StandardRetryStrategy to AdaptiveRetryStrategy with before/after comparisons
-
-For comprehensive documentation on adaptive retry strategies, see the [adaptive_retry_docs](adaptive_retry_docs/) directory which includes:
-- [Adaptive Retry Concepts](adaptive_retry_docs/concepts.md)
-- [Migration Guide](adaptive_retry_docs/migration-guide.md) 
-- [Configuration Reference](adaptive_retry_docs/configuration-reference.md)
-
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
