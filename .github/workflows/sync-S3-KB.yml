@@ -1,7 +1,7 @@
 name: syncS3andKB
 on:
   push:
-    branches: [ "sync-S3-KB" ] # Once merged into main, update branch name to main
+    branches: [ "sync-S3-KB" ] # Once merged, update branch name to main.
   workflow_dispatch:
     inputs:
       sdk_name:
@@ -38,7 +38,7 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@main # Or a specific version
       with:
-        role-to-assume: arn:aws:iam::358157044386:role/AWS_GITOIDC_Role
+        role-to-assume: arn:aws:iam::358157044386:role/AWS_GITOIDC_Role #once merged, update trust policy of the role to point to main
         aws-region: us-west-2
 
     - name: Set SDK and language mapping for S3
