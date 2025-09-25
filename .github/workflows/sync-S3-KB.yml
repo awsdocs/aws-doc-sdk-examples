@@ -1,0 +1,120 @@
+name: syncS3andKB
+on:
+  push:
+    branches: [ "sync-S3-KB" ] # Once merged into main, update branch name to main
+  workflow_dispatch:
+    inputs:
+      sdk_name:
+        description: 'SDK Name'
+        required: true
+        default: 'python'
+        type: choice
+        options:
+        - javascriptv3
+        - dotnetv4
+        - javav2
+        - rustv1
+        - gov2
+        - swift
+        - python
+        - ruby
+        - php
+        - cpp
+        - kotlin
+
+permissions:
+  id-token: write
+
+jobs:
+  run_job_with_aws:
+    runs-on: ubuntu-latest
+    env:
+      sdk_name: ${{ github.event.inputs.sdk_name || 'python' }}
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@main # Or a specific version
+      with:
+        role-to-assume: arn:aws:iam::358157044386:role/AWS_GITOIDC_Role
+        aws-region: us-west-2
+
+    - name: Set SDK and language mapping for S3
+      run: |
+        if [ "$sdk_name" == "javascriptv3" ]; then
+            echo "S3_LANGUAGE=javascript" >> $GITHUB_ENV
+        elif [ "$sdk_name" == "dotnetv4" ]; then
+            echo "S3_LANGUAGE=dotnet" >> $GITHUB_ENV
+        elif [ "$sdk_name" == "javav2" ]; then
+            echo "S3_LANGUAGE=java" >> $GITHUB_ENV
+        elif [ "$sdk_name" == "rustv1" ]; then
+            echo "S3_LANGUAGE=rust" >> $GITHUB_ENV
+        elif [ "$sdk_name" == "gov2" ]; then
+            echo "S3_LANGUAGE=go" >> $GITHUB_ENV
+        else
+            echo "S3_LANGUAGE=$sdk_name" >> $GITHUB_ENV
+        fi
+
+    - name: Extract and copy premium examples in temp. dir.
+      run: |
+        MARKDOWN_FILE="./$sdk_name/premium-ex.md"
+        
+        if [ ! -f "$MARKDOWN_FILE" ]; then
+          echo "Premium examples file not found: $MARKDOWN_FILE"
+          exit 1
+        fi
+
+        extract_paths() {
+          local level="$1"
+          local section_found=false
+          
+          while IFS= read -r line; do
+            if [[ "$line" =~ ^##[[:space:]]*${level}:[[:space:]]*$ ]]; then
+              section_found=true
+              continue
+            elif [[ "$line" =~ ^##[[:space:]] ]] && [ "$section_found" = true ]; then
+              break
+            elif [ "$section_found" = true ] && [[ "$line" =~ ^/ ]]; then
+              echo "$line"
+            fi
+          done < "$MARKDOWN_FILE"
+        }
+        
+        for level in "basics" "feature-scenario" "complex-feature-scenario"; do
+          paths=$(extract_paths "$level")
+          
+          if [ -n "$paths" ]; then
+            mkdir -p "./extracted_snippets/$level"
+            
+            while IFS= read -r path; do
+              if [ -n "$path" ]; then
+                source_path="./$sdk_name$path"
+                if [ -e "$source_path" ]; then
+                  cp -r "$source_path" "./extracted_snippets/$level/"
+                fi
+              fi
+            done <<< "$paths"
+          fi
+        done
+
+    - name: Upload/Sync to S3
+      run: |
+        for level in "basics" "feature-scenario" "complex-feature-scenario"; do
+          if [ -d "./extracted_snippets/$level" ]; then
+            aws s3 sync "./extracted_snippets/$level/" "s3://$S3_LANGUAGE-premium-bucket/$level/" --delete
+            echo "Uploaded $level examples to S3"
+          fi
+        done
+
+    - name: Sync Knowledge Base Data Source
+      run: |
+        aws lambda invoke \
+          --function-name KB_Updater \
+          --payload "{\"language\":\"$S3_LANGUAGE\",\"region\":\"us-west-2\"}" \
+          --cli-binary-format raw-in-base64-out \
+          response.json
+        
+        echo "Knowledge Base sync initiated"
+        cat response.json
