@@ -316,12 +316,28 @@ class S3BatchWrapper:
             account_id (str): AWS account ID
         """
         try:
-            self.s3control_client.update_job_status(
+            response = self.s3control_client.describe_job(
                 AccountId=account_id,
-                JobId=job_id,
-                RequestedJobStatus='Cancelled'
+                JobId=job_id
             )
-            print(f"Job {job_id} was successfully canceled.")
+            current_status = response['Job']['Status']
+            print(f"Current job status: {current_status}")
+
+            if current_status in ['Ready', 'Suspended', 'Active']:
+                self.s3control_client.update_job_status(
+                    AccountId=account_id,
+                    JobId=job_id,
+                    RequestedJobStatus='Cancelled'
+                )
+                print(f"Job {job_id} was successfully canceled.")
+            elif current_status in ['Completing', 'Complete']:
+                print(f"Job is in '{current_status}' state - cannot be cancelled")
+                if current_status == 'Completing':
+                    print("Job is finishing up and will complete soon.")
+                elif current_status == 'Complete':
+                    print("Job has already completed successfully.")
+            else:
+                print(f"Job is in '{current_status}' state - cancel not allowed")
         except ClientError as e:
             print(f"Error canceling job: {e}")
             raise
