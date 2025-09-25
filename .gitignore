@@ -18,6 +18,7 @@ Package.resolved
 build_dir
 node_modules
 super-linter.log
+debug.log
 target
 vendor
 venv
