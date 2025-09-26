@@ -123,35 +123,36 @@ class MedicalImagingWrapper:
 
     # snippet-start:[python.example_code.medical-imaging.StartDICOMImportJob]
     def start_dicom_import_job(
-        self, job_name, datastore_id, role_arn, input_s3_uri, output_s3_uri
-    ):
-        """
-        Start a DICOM import job.
+            self, job_name, datastore_id, role_arn, input_s3_uri, output_s3_uri, import_configuration
+        ):
+            """
+            Start a DICOM import job.
 
-        :param job_name: The name of the job.
-        :param datastore_id: The ID of the data store.
-        :param role_arn: The Amazon Resource Name (ARN) of the role to use for the job.
-        :param input_s3_uri: The S3 bucket input prefix path containing the DICOM files.
-        :param output_s3_uri: The S3 bucket output prefix path for the result.
-        :return: The job ID.
-        """
-        try:
-            job = self.health_imaging_client.start_dicom_import_job(
-                jobName=job_name,
-                datastoreId=datastore_id,
-                dataAccessRoleArn=role_arn,
-                inputS3Uri=input_s3_uri,
-                outputS3Uri=output_s3_uri,
-            )
-        except ClientError as err:
-            logger.error(
-                "Couldn't start DICOM import job. Here's why: %s: %s",
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
-            )
-            raise
-        else:
-            return job["jobId"]
+            :param job_name: The name of the job.
+            :param datastore_id: The ID of the data store.
+            :param role_arn: The Amazon Resource Name (ARN) of the role to use for the job.
+            :param input_s3_uri: The S3 bucket input prefix path containing the DICOM files.
+            :param output_s3_uri: The S3 bucket output prefix path for the result.
+            :return: The job ID.
+            """
+            try:
+                job = self.health_imaging_client.start_dicom_import_job(
+                    jobName=job_name,
+                    datastoreId=datastore_id,
+                    dataAccessRoleArn=role_arn,
+                    inputS3Uri=input_s3_uri,
+                    outputS3Uri=output_s3_uri,
+                    importConfiguration=import_configuration
+                )
+            except ClientError as err:
+                logger.error(
+                    "Couldn't start DICOM import job. Here's why: %s: %s",
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
+                raise
+            else:
+                return job["jobId"]
 
     # snippet-end:[python.example_code.medical-imaging.StartDICOMImportJob]
 

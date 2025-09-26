@@ -29,6 +29,7 @@
   \param outputBucketName: The name of the S3 bucket for the output.
   \param outputDirectory: The directory in the S3 bucket to store the output.
   \param roleArn: The ARN of the IAM role with permissions for the import.
+  \param importConfigJson: The import configuration JSON string (optional).
   \param importJobId: A string to receive the import job ID.
   \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.
@@ -37,6 +38,7 @@ bool AwsDoc::Medical_Imaging::startDICOMImportJob(
         const Aws::String &dataStoreID, const Aws::String &inputBucketName,
         const Aws::String &inputDirectory, const Aws::String &outputBucketName,
         const Aws::String &outputDirectory, const Aws::String &roleArn,
+        const Aws::String &importConfigJson,
         Aws::String &importJobId,
         const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::MedicalImaging::MedicalImagingClient medicalImagingClient(clientConfig);
@@ -48,8 +50,20 @@ bool AwsDoc::Medical_Imaging::startDICOMImportJob(
     startDICOMImportJobRequest.SetInputS3Uri(inputURI);
     startDICOMImportJobRequest.SetOutputS3Uri(outputURI);
 
-    Aws::MedicalImaging::Model::StartDICOMImportJobOutcome startDICOMImportJobOutcome = medicalImagingClient.StartDICOMImportJob(
-            startDICOMImportJobRequest);
+    if (!importConfigJson.empty()) {
+        Aws::Utils::Json::JsonValue jsonValue(importConfigJson);
+        if (jsonValue.WasParseSuccessful()) {
+            startDICOMImportJobRequest.SetImportConfiguration(
+                Aws::MedicalImaging::Model::ImportConfiguration(jsonValue));
+        }
+        else {
+            std::cerr << "Failed to parse import configuration JSON" << std::endl;
+            return false;
+        }
+    }
+
+    Aws::MedicalImaging::Model::StartDICOMImportJobOutcome startDICOMImportJobOutcome = 
+        medicalImagingClient.StartDICOMImportJob(startDICOMImportJobRequest);
 
     if (startDICOMImportJobOutcome.IsSuccess()) {
         importJobId = startDICOMImportJobOutcome.GetResult().GetJobId();
