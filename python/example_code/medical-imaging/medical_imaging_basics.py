@@ -709,6 +709,17 @@ class MedicalImagingWrapper:
         print(f"datastores : {datastores}")
 
         job_name = "python_usage_demo_job"
+        import_configuration = {
+            "digitalPathologyImportConfiguration": {
+                "qualityFactor": 85,
+                "fileMetadataMappings": [
+                    {
+                        "imageFilePath": "image.svs",
+                        "metadataFilePath": "metadata.json"
+                    }
+                ]
+            }
+        }
         job_id = self.start_dicom_import_job(
             job_name, data_store_id, data_access_role_arn, source_s3_uri, dest_s3_uri, import_configuration
         )

@@ -27,9 +27,9 @@ export const startDicomImportJob = async (
       fileMetadataMappings: [
         {
           imageFilePath: "image.svs",
-          metadataFilePath: "metadata.json"
-        }
-      ]
+          metadataFilePath: "metadata.json",
+        },
+      ],
     }
   }
 ) => {
