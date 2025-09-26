@@ -30,8 +30,8 @@ export const startDicomImportJob = async (
           metadataFilePath: "metadata.json",
         },
       ],
-    }
-  }
+    },
+  },
 ) => {
   const response = await medicalImagingClient.send(
     new StartDICOMImportJobCommand({
