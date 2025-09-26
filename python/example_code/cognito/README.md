@@ -62,6 +62,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Sign up a user with a user pool that requires MFA](cognito_idp_actions.py)
+- [Use Amazon Cognito identity pools](../../example_code/cognito/scenarios/identity_pools_example_demo)
 
 
 <!--custom.examples.start-->
@@ -113,6 +114,18 @@ python cognito_idp_actions.py
 
 <!--custom.scenarios.cognito-identity-provider_Scenario_SignUpUserWithMfa.start-->
 <!--custom.scenarios.cognito-identity-provider_Scenario_SignUpUserWithMfa.end-->
+
+#### Use Amazon Cognito identity pools
+
+This example shows you how to create a web-based demo application that demonstrates identity pools authentication flows.
+
+
+<!--custom.scenario_prereqs.cross_CognitoFlows.start-->
+<!--custom.scenario_prereqs.cross_CognitoFlows.end-->
+
+
+<!--custom.scenarios.cross_CognitoFlows.start-->
+<!--custom.scenarios.cross_CognitoFlows.end-->
 
 ### Tests
 
