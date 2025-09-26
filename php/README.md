@@ -22,8 +22,54 @@ Cross-service examples are located in the [*cross-services folder*](cross_servic
 *  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
+## Prerequisites
 
-### Prerequisites
+To run these code examples, you need:
+
+* [PHP](https://www.php.net/) version 8.1 or higher
+* [Composer](https://getcomposer.org) for dependency management
+* [PHPUnit](https://phpunit.de/) for unit testing
+* The [AWS SDK for PHP](https://aws.amazon.com/sdk-for-php/)
+* [AWS credentials](https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html) set up
+
+For more information, see [Getting Started](https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started_index.html) in the AWS SDK for PHP Developer Guide.
+
+## Set up the examples
+
+Some examples require supporting files from the GitHub repository in addition to the AWS SDK for PHP. For these examples:
+
+1. Clone, fork, or download the entire [aws-doc-sdk-examples repository](https://github.com/awsdocs/aws-doc-sdk-examples) from GitHub. 
+
+   You need the entire repository, not just individual files, so supporting files can be accessed by the examples.
+
+2. Install dependencies
+
+   From the directory that contains the composer.json file for the example, run:
+   ```bash
+   composer install
+   ```
+
+3. Run examples from within the repository structure and from the directory that contains the initiating code
+
+   Run examples from within the cloned directory structure to ensure access to supporting files.
+
+## Run the examples
+
+By default, these code examples run using the default AWS credential provider chain, which includes using the AWS shared credentials and config files with a `default` profile.
+For more information, about using AWS shared files and the `default` profile, see [Using shared config and credentials files to globally configure AWS SDKs and tools](https://docs.aws.amazon.com/sdkref/latest/guide/file-format.html) in the *AWS SDKs and Tools
+Reference Guide*.
+
+Important: Running these code examples might result in charges to the AWS account associated with the AWS credentials being used.
+
+Many examples include a `Runner.php` file to abstract the logic from running the code. From any example directory with a Runner.php file, run:
+
+```bash
+php Runner.php
+```
+
+---------
+
+## Prerequisites
 To run or test these code examples, you need the following:
 
 - [PHP](https://www.php.net/) version 8.1 or higher
@@ -31,13 +77,20 @@ To run or test these code examples, you need the following:
 - [PHPUnit](https://phpunit.de/), for unit testing
 - The [AWS SDK for PHP](https://aws.amazon.com/sdk-for-php/)
 - [AWS credentials](https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html) set up
+- For examples that use supporting files that are available only in the GitHub repository
+and not available for installation by Composer, you need to
+  - clone, fork, or download a zip of the entire [aws-doc-sdk-examples repository](https://github.com/awsdocs/aws-doc-sdk-examples) from GitHub.
+You want the entire repository, not just indvidual files, so supporting files can be accessed by the examples.
+  - Run the example from within the directory structure and from within the directory that contains the composer.json file.
+  - Install the dependencies and configuration settings with Composer.
 
 For more information, see [Getting Started](https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started_index.html) in the *AWS SDK for PHP Developer Guide*.
 
 ## Run the code
 
-By default, these code examples run using the default AWS credential provider chain, which includes using an AWS shared credentials file and profiles.
-For more information, see [Using the AWS Credentials File and Credential Profiles](https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials_profiles.html) in the *AWS SDK for PHP Developer Guide*.
+By default, these code examples run using the default AWS credential provider chain, which includes using the AWS shared credentials and config files with a `default` profile.
+For more information, about using AWS shared files and the `default` profile, see [Using shared config and credentials files to globally configure AWS SDKs and tools](https://docs.aws.amazon.com/sdkref/latest/guide/file-format.html) in the *AWS SDKs and Tools
+Reference Guide*.
 
 Running these code examples might result in charges to the AWS account that is associated with the AWS credentials being used.
 

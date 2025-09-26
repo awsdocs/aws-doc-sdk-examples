@@ -4,7 +4,7 @@
 
 use DynamoDb\Basics\GettingStartedWithDynamoDB;
 
-include "vendor\autoload.php";
+include "vendor/autoload.php";
 
 include "GettingStartedWithDynamoDB.php";
 
