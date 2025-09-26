@@ -1005,3 +1005,18 @@ cross_MonitorDynamoDB:
   services:
     dynamodb:
     cloudwatch:
+cross_CognitoFlows:
+  title: Use &COG; identity pools and authentication flows
+  title_abbrev: Use &COG; identity pools
+  synopsis:
+    create a web-based demo application that demonstrates identity pools authentication flows.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito/scenarios/identity_pools_example_demo
+          block_content: cross_CognitoFlows_Python_block.xml
+  service_main: cognito-identity-provider
+  services:
+    cognito-identity-provider:

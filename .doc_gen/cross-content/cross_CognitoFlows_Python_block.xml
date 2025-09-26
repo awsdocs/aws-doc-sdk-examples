@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd" [
+    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+    %phrases-shared;
+]>
+<block>
+    <para>
+        Shows web-based demo application that demonstrates &COG; identity 
+        pools authentication flows, allowing users to interactively explore both enhanced and 
+        basic authentication flows with various identity providers.
+    </para>
+    <para>For complete source code and instructions on how to set up and run, see the full example
+        on <ulink
+            url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/example_code/cognito/scenarios/identity_pools_example_demo">
+        GitHub</ulink>.</para>
+</block>
