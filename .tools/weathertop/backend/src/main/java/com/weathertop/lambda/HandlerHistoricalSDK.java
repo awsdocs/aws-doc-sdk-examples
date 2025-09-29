@@ -8,8 +8,6 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.weathertop.service.HistoricalSDK;
-
-
 import java.util.Map;
 
 public class HandlerHistoricalSDK implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
