@@ -23,7 +23,7 @@ import java.util.concurrent.CompletionException;
 public class EntityResScenario {
     private static final Logger logger = LoggerFactory.getLogger(EntityResScenario.class);
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-    private static final String STACK_NAME = "EntityResolutionCdkStack";
+    private static final String STACK_NAME = "EntityResolutionCdkStack2";
     private static final String ENTITY_RESOLUTION_ROLE_ARN_KEY = "EntityResolutionRoleArn";
     private static final String GLUE_DATA_BUCKET_NAME_KEY = "GlueDataBucketName";
     private static final String JSON_GLUE_TABLE_ARN_KEY = "JsonErGlueTableArn";

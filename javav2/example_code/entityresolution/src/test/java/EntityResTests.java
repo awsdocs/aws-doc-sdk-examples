@@ -4,6 +4,7 @@
 
 import com.example.entity.scenario.CloudFormationHelper;
 import com.example.entity.scenario.EntityResActions;
+import java.util.concurrent.ThreadLocalRandom;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -39,7 +40,7 @@ public class EntityResTests {
 
     private static String jsonGlueTableArn = "";
 
-    private static final String STACK_NAME = "EntityResolutionCdkStack";
+    private static final String STACK_NAME = "EntityResolutionCdkStack" + ThreadLocalRandom.current().nextInt(0, 201); // 0-200 inclusive;
 
     private static final String ENTITY_RESOLUTION_ROLE_ARN_KEY = "EntityResolutionRoleArn";
     private static final String GLUE_DATA_BUCKET_NAME_KEY = "GlueDataBucketName";
