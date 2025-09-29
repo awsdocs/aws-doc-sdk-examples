@@ -249,52 +249,5 @@ public class EcsEventBridgeInspector {
         }
         return "Schedule: " + expr;
     }
-
-    public static void main(String[] args) {
-        try {
-
-             /*
-            // PHP
-            String clusterName = "MyPHPWeathertopCluster";
-            String taskDefinitionFamily = "WeathertopPhp";
-            String logGroup = "WeathertopPhpContainerLogs";
-            String ruleName = "ecs-php-schedule";
-
-            // jAVA
-            String clusterName = "MyJavaWeathertopCluster";
-            String taskDefinitionFamily = "WeathertopJava";
-            String logGroup = "WeathertopJavaLogs";
-            String ruleName = "ecs-java-schedule"; // exact rule name now
-
-*/
-            String clusterName = "MyKotlinWeathertopCluster";
-            String taskDefinitionFamily = "WeathertopKotlin";
-            String logGroup = "WeathertopKotlinContainerLogs";
-            String ruleName = "ecs-kotlin-schedule";
-
-
-         //   String clusterName = "MyPythonWeathertopCluster";
-         //   String taskDefinitionFamily = "WeathertopPython";
-        //    String logGroup = "WeathertopPythonContainerLogs";
-        //    String ruleName = "ecs-python-schedule";
-
-
-            EcsEventBridgeInspector inspector = new EcsEventBridgeInspector(
-                    clusterName,
-                    taskDefinitionFamily,
-                    logGroup,
-                    ruleName
-            );
-
-            Map<String, Object> data = inspector.inspect();
-
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String json = gson.toJson(data);
-            System.out.println(json);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
 
