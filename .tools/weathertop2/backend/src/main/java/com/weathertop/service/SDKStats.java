@@ -154,7 +154,6 @@ public class SDKStats {
         throw new RuntimeException("Invalid timestamp format in key: " + key);
     }
 
-
     /**
      * Retrieves a list of services that have no tests for each specified SDK language.
      * <p>

@@ -16,7 +16,6 @@ import software.amazon.awssdk.services.eventbridge.model.PutRuleRequest;
 import software.amazon.awssdk.services.eventbridge.model.PutTargetsRequest;
 import software.amazon.awssdk.services.eventbridge.model.RuleState;
 import software.amazon.awssdk.services.eventbridge.model.Target;
-
 import java.util.Locale;
 import java.util.UUID;
 
@@ -74,7 +73,4 @@ public class EventBridgeScheduler {
         String msg = "✅ EventBridge rule set for: " + cron;
         return msg;
     }
-
-
-
 }
