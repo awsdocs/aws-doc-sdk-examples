@@ -156,3 +156,4 @@ struct S3ExampleLambda: LambdaHandler {
     // snippet-end:[lambda.swift.function.handler.handle]
 }
 // snippet-end:[lambda.swift.function.handler]
+// snippet-end:[lambda.swift.function.complete]
