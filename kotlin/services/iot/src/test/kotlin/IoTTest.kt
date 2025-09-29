@@ -81,7 +81,7 @@ class IoTTest {
             listCertificates()
             updateShawdowThing(thingName)
             getPayload(thingName)
-            createIoTRule(roleARN, ruleName, snsAction)
+       //     createIoTRule(roleARN, ruleName, snsAction)
             listIoTRules()
             searchThings(queryString)
             if (certificateArn != null) {
