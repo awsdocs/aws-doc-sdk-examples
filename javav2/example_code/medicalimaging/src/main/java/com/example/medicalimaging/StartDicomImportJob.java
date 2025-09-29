@@ -64,28 +64,53 @@ public class StartDicomImportJob {
 
     // snippet-start:[medicalimaging.java2.start_dicom_import_job.main]
     public static String startDicomImportJob(MedicalImagingClient medicalImagingClient,
-            String jobName,
-            String datastoreId,
-            String dataAccessRoleArn,
-            String inputS3Uri,
-            String outputS3Uri) {
+                String jobName,
+                String datastoreId,
+                String dataAccessRoleArn,
+                String inputS3Uri,
+                String outputS3Uri,
+                String importConfigJson) {
 
-        try {
-            StartDicomImportJobRequest startDicomImportJobRequest = StartDicomImportJobRequest.builder()
-                    .jobName(jobName)
-                    .datastoreId(datastoreId)
-                    .dataAccessRoleArn(dataAccessRoleArn)
-                    .inputS3Uri(inputS3Uri)
-                    .outputS3Uri(outputS3Uri)
+            try {
+                software.amazon.awssdk.utils.json.JsonNode jsonNode = 
+                    software.amazon.awssdk.utils.json.JsonFactory.jsonParser().parse(importConfigJson);
+
+                ImportConfiguration importConfiguration = ImportConfiguration.builder()
+                    .digitalPathologyImportConfiguration(
+                        DigitalPathologyImportConfiguration.builder()
+                            .qualityFactor(jsonNode.get("digitalPathologyImportConfiguration")
+                                .get("qualityFactor").asInt())
+                            .fileMetadataMappings(
+                                jsonNode.get("digitalPathologyImportConfiguration")
+                                    .get("fileMetadataMappings")
+                                    .elements()
+                                    .map(mapping -> FileMetadataMapping.builder()
+                                        .imageFilePath(mapping.get("imageFilePath").asString())
+                                        .metadataFilePath(mapping.get("metadataFilePath").asString())
+                                        .build())
+                                    .collect(java.util.stream.Collectors.toList())
+                            )
+                            .build()
+                    )
                     .build();
-            StartDicomImportJobResponse response = medicalImagingClient.startDICOMImportJob(startDicomImportJobRequest);
-            return response.jobId();
-        } catch (MedicalImagingException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
 
-        return "";
-    }
+                StartDicomImportJobRequest startDicomImportJobRequest = StartDicomImportJobRequest.builder()
+                        .jobName(jobName)
+                        .datastoreId(datastoreId)
+                        .dataAccessRoleArn(dataAccessRoleArn)
+                        .inputS3Uri(inputS3Uri)
+                        .outputS3Uri(outputS3Uri)
+                        .importConfiguration(importConfiguration)
+                        .build();
+
+                StartDicomImportJobResponse response = medicalImagingClient.startDICOMImportJob(startDicomImportJobRequest);
+                return response.jobId();
+            } catch (MedicalImagingException e) {
+                System.err.println(e.awsErrorDetails().errorMessage());
+                System.exit(1);
+            }
+
+            return "";
+        }
     // snippet-end:[medicalimaging.java2.start_dicom_import_job.main]
 }

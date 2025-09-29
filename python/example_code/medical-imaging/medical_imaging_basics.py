@@ -123,8 +123,8 @@ class MedicalImagingWrapper:
 
     # snippet-start:[python.example_code.medical-imaging.StartDICOMImportJob]
     def start_dicom_import_job(
-        self, job_name, datastore_id, role_arn, input_s3_uri, output_s3_uri
-    ):
+            self, job_name, datastore_id, role_arn, input_s3_uri, output_s3_uri, import_configuration
+        ):
         """
         Start a DICOM import job.
 
@@ -142,6 +142,7 @@ class MedicalImagingWrapper:
                 dataAccessRoleArn=role_arn,
                 inputS3Uri=input_s3_uri,
                 outputS3Uri=output_s3_uri,
+                importConfiguration=import_configuration
             )
         except ClientError as err:
             logger.error(
@@ -152,7 +153,6 @@ class MedicalImagingWrapper:
             raise
         else:
             return job["jobId"]
-
     # snippet-end:[python.example_code.medical-imaging.StartDICOMImportJob]
 
     # snippet-start:[python.example_code.medical-imaging.GetDICOMImportJob]
@@ -709,8 +709,19 @@ class MedicalImagingWrapper:
         print(f"datastores : {datastores}")
 
         job_name = "python_usage_demo_job"
+        import_configuration = {
+            "digitalPathologyImportConfiguration": {
+                "qualityFactor": 85,
+                "fileMetadataMappings": [
+                    {
+                        "imageFilePath": "image.svs",
+                        "metadataFilePath": "metadata.json"
+                    }
+                ]
+            }
+        }
         job_id = self.start_dicom_import_job(
-            job_name, data_store_id, data_access_role_arn, source_s3_uri, dest_s3_uri
+            job_name, data_store_id, data_access_role_arn, source_s3_uri, dest_s3_uri, import_configuration
         )
         print(f"Started import job with id: {job_id}")
 
