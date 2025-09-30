@@ -49,25 +49,11 @@ public class GetJob {
 
     public static void getSpecificJob(MediaConvertClient mc, String jobId) {
         try {
-            DescribeEndpointsResponse res = mc.describeEndpoints(DescribeEndpointsRequest.builder()
-                    .maxResults(20)
-                    .build());
-
-            if (res.endpoints().size() <= 0) {
-                System.out.println("Cannot find MediaConvert service endpoint URL!");
-                System.exit(1);
-            }
-            String endpointURL = res.endpoints().get(0).url();
-            MediaConvertClient emc = MediaConvertClient.builder()
-                    .region(Region.US_WEST_2)
-                    .endpointOverride(URI.create(endpointURL))
-                    .build();
-
             GetJobRequest jobRequest = GetJobRequest.builder()
                     .id(jobId)
                     .build();
 
-            GetJobResponse response = emc.getJob(jobRequest);
+            GetJobResponse response = mc.getJob(jobRequest);
             System.out.println("The ARN of the job is " + response.job().arn());
 
         } catch (MediaConvertException e) {
