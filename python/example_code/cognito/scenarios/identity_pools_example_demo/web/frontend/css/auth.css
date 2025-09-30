@@ -1,0 +1,508 @@
+/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* Authentication Flow Components */
+
+/* Demo Section Styles */
+.demo-step {
+    margin-bottom: var(--space-16);
+    padding: var(--space-10);
+    background: var(--bg-surface);
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-card);
+}
+
+.step-title {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-4);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--leading-tight);
+    font-kerning: normal;
+    text-align: center;
+}
+
+.step-description {
+    color: var(--color-accent);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-8);
+    line-height: var(--leading-normal);
+    font-kerning: normal;
+    text-align: center;
+}
+
+.trust-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+}
+
+.trust-card {
+    padding: var(--space-8);
+    background: var(--bg-surface-card);
+    border-radius: var(--radius-lg);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    text-align: center;
+}
+
+.trust-card:hover {
+    border-color: var(--color-primary-light);
+    transform: translateY(-0.125rem);
+}
+
+.trust-card.selected {
+    border-color: var(--color-primary-light);
+    background: var(--bg-surface-elevated);
+}
+
+.trust-icon {
+    font-size: var(--font-size-5xl);
+    margin-bottom: var(--space-4);
+}
+
+.trust-card h4 {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-tight);
+    font-kerning: normal; 
+}
+
+.trust-card p {
+    color: var(--color-accent);
+    font-size: var(--font-size-sm);
+    line-height: var(--leading-normal);
+    font-kerning: normal; 
+}
+
+/* Success containers */
+.auth-success-container {
+    background: var(--bg-success);
+    border: 1px solid var(--border-success);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    margin: var(--space-5) 0;
+}
+
+.flow-success-container {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin: var(--space-5) 0;
+}
+
+.credentials-display-container {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    margin: var(--space-5) 0;
+}
+
+/* Headers and titles */
+.success-title {
+    color: var(--color-success);
+    margin-top: 0;
+}
+
+.flow-title {
+    color: var(--color-primary-light);
+    margin-top: 0;
+}
+
+.credentials-title {
+    color: var(--color-primary-light);
+    margin-top: 0;
+}
+
+.section-title {
+    color: var(--color-primary-light);
+    margin: var(--space-4) 0 var(--space-2) 0;
+}
+
+/* Credential JSON display */
+.credentials-json {
+    background: var(--bg-code);
+    padding: var(--space-5);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: var(--space-5) 0;
+    text-align: left;
+    font-family: var(--font-family-mono);
+    border: 1px solid var(--border-light);
+    font-size: var(--font-size-xs);
+}
+
+.credentials-json-basic {
+    background: var(--bg-code);
+    padding: var(--space-4);
+    border-radius: var(--radius-sm);
+    overflow-x: auto;
+    margin: var(--space-4) 0;
+    text-align: left;
+    font-family: var(--font-family-mono);
+}
+
+/* Info boxes */
+.next-steps-box {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-secondary);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+    margin: var(--space-4) 0;
+    text-align: left;
+}
+
+.info-box-blue {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-secondary);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin: var(--space-5) 0;
+}
+
+.warning-box {
+    background: var(--bg-warning);
+    border: 1px solid var(--border-warning);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin-bottom: var(--space-5);
+}
+
+.warning-box h4 {
+    color: var(--color-warning);
+    margin-bottom: var(--space-2);
+    line-height: var(--leading-tight);
+    font-kerning: normal;
+}
+
+.warning-box p {
+    color: var(--color-warning);
+    font-size: var(--font-size-sm);
+    line-height: var(--leading-normal);
+    font-kerning: normal;
+}
+
+/* Error container */
+.error-container {
+    background: var(--bg-error);
+    border: 1px solid var(--border-error);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin: var(--space-5) 0;
+}
+
+.error-title {
+    color: var(--color-error);
+    margin-top: 0;
+}
+
+/* Lists */
+.info-list {
+    margin: var(--space-2) 0;
+    padding-left: var(--space-5);
+}
+
+/* Auth Buttons */
+.btn-auth-primary {
+    background: var(--color-primary-light);
+    color: var(--color-white);
+    padding: var(--space-3) var(--space-5);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: var(--font-weight-semibold);
+}
+
+.btn-auth-secondary {
+    background: var(--color-white);
+    color: var(--color-primary-light);
+    padding: var(--space-3) var(--space-5);
+    border: 2px solid var(--color-primary-light);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: var(--font-weight-semibold);
+}
+
+.btn-auth-tertiary {
+    background: var(--color-secondary);
+    color: var(--color-white);
+    padding: var(--space-2) var(--space-5);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    margin-top: var(--space-4);
+}
+
+.btn-auth-tertiary-light {
+    background: var(--bg-surface);
+    color: var(--color-text-primary);
+    padding: var(--space-3) var(--space-5);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: var(--font-weight-semibold);
+}
+
+.btn-reset {
+    background: var(--color-secondary);
+    color: var(--color-white);
+    padding: var(--space-3) var(--space-5);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: var(--font-weight-semibold);
+    margin-left: var(--space-4);
+}
+
+/* Action button containers */
+.action-buttons {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    flex-wrap: wrap;
+}
+
+/* API flow explanation modal styles */
+.api-flow-explanation-container {
+    max-width: 50rem;
+    margin: var(--space-5) auto;
+    padding: var(--space-8);
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+}
+
+.explanation-header {
+    text-align: center;
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-5);
+    border-bottom: 2px solid var(--color-secondary);
+}
+
+.explanation-title {
+    color: var(--color-primary);
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-2);
+    font-family: var(--font-family-primary);
+}
+
+.explanation-subtitle {
+    color: var(--color-accent);
+    font-size: var(--font-size-lg);
+    margin: 0;
+    font-family: var(--font-family-primary);
+}
+
+.explanation-content {
+    display: grid;
+    gap: var(--space-5);
+    margin-bottom: var(--space-8);
+}
+
+.flow-info-box, .flow-details-box, .learning-objectives-box {
+    background: var(--bg-surface);
+    padding: var(--space-5);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--color-secondary);
+    box-shadow: var(--shadow-sm);
+}
+
+.info-title {
+    color: var(--color-primary);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-family-primary);
+}
+
+.explanation-list {
+    margin: 0;
+    padding-left: var(--space-5);
+    color: var(--color-accent);
+    font-family: var(--font-family-primary);
+}
+
+.explanation-list li {
+    margin-bottom: var(--space-2);
+    line-height: var(--leading-relaxed);
+}
+
+.flow-type-badge {
+    display: inline-block;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-3);
+    font-family: var(--font-family-primary);
+}
+
+.flow-type-badge.enhanced {
+    background: var(--color-primary-light);
+    color: var(--color-white);
+}
+
+.flow-type-badge.basic {
+    background: var(--color-secondary);
+    color: var(--color-white);
+}
+
+.flow-description {
+    color: var(--color-accent);
+    line-height: var(--leading-loose);
+    margin: 0;
+    font-family: var(--font-family-primary);
+}
+
+.visualization-note {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-secondary);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin-top: var(--space-5);
+}
+
+.visualization-note p {
+    margin: 0;
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    font-family: var(--font-family-primary);
+}
+
+.explanation-actions {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border-primary);
+}
+
+/* Loading visualization styles */
+.loading-visualization {
+    text-align: center;
+    padding: var(--space-16) var(--space-5);
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    margin: var(--space-5);
+}
+
+.loading-title {
+    color: var(--color-primary);
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-3);
+    font-family: var(--font-family-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.loading-visualization p {
+    color: var(--color-accent);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-8);
+    font-family: var(--font-family-primary);
+}
+
+.loading-spinner {
+    width: var(--space-10);
+    height: var(--space-10);
+    border: 4px solid var(--border-secondary);
+    border-top: 4px solid var(--color-secondary);
+    border-radius: var(--radius-full);
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Flow completion actions styles */
+.flow-completion-actions {
+    margin-top: var(--space-8);
+    padding: var(--space-6);
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    text-align: center;
+    box-shadow: var(--shadow-card);
+}
+
+.completion-header {
+    margin-bottom: var(--space-5);
+}
+
+.completion-title {
+    color: var(--color-primary);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-2);
+    font-family: var(--font-family-primary);
+}
+
+.completion-message {
+    color: var(--color-accent);
+    font-size: var(--font-size-lg);
+    margin: 0;
+    font-family: var(--font-family-primary);
+    line-height: var(--leading-relaxed);
+}
+
+.completion-buttons {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    margin-bottom: var(--space-5);
+    flex-wrap: wrap;
+}
+
+.completion-note {
+    background: var(--bg-surface);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--color-secondary);
+}
+
+.completion-note p {
+    margin: 0;
+    color: var(--color-accent);
+    font-size: var(--font-size-sm);
+    font-family: var(--font-family-primary);
+    line-height: var(--leading-relaxed);
+}
+
+/* Responsive design for auth components */
+@media (max-width: 48rem) {
+    .api-flow-explanation-container {
+        margin: var(--space-2);
+        padding: var(--space-5);
+    }
+    
+    .explanation-actions {
+        flex-direction: column;
+    }
+    
+    .explanation-actions button {
+        width: 100%;
+    }
+    
+    .completion-buttons {
+        flex-direction: column;
+    }
+    
+    .completion-buttons button {
+        width: 100%;
+    }
+}

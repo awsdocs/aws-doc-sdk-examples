@@ -9,7 +9,6 @@ import AWSLambdaRuntime
 import protocol AWSClientRuntime.AWSServiceError
 import enum Smithy.ByteStream
 // snippet-end:[lambda.swift.function.imports]
-
 // snippet-start:[lambda.swift.function.types]
 // snippet-start:[lambda.swift.function.struct.request]
 /// Represents the contents of the requests being received from the client.
@@ -20,7 +19,6 @@ struct Request: Decodable, Sendable {
     let body: String
 }
 // snippet-end:[lambda.swift.function.struct.request]
-
 // snippet-start:[lambda.swift.function.struct.response]
 /// The contents of the response sent back to the client. This must be
 /// `Encodable`.
@@ -31,7 +29,6 @@ struct Response: Encodable, Sendable {
     let body: String
 }
 // snippet-end:[lambda.swift.function.struct.response]
-
 // snippet-start:[lambda.swift.function.errors]
 /// The errors that the Lambda function can return.
 enum S3ExampleLambdaErrors: Error {

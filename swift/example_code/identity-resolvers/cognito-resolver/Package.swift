@@ -33,7 +33,6 @@ let package = Package(
             dependencies: [
                 .product(name: "AWSCognitoIdentity", package: "aws-sdk-swift"),
                 .product(name: "AWSIAM", package: "aws-sdk-swift"),
-                .product(name: "AWSSTS", package: "aws-sdk-swift"),
                 .product(name: "AWSS3", package: "aws-sdk-swift"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
