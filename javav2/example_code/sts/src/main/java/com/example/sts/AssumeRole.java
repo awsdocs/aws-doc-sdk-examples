@@ -29,8 +29,7 @@ import java.util.Locale;
  * {
  * "Effect": "Allow",
  * "Principal": {
- * "AWS": "<Specify the ARN of your IAM user you are using in this code
- * example>"
+ * "AWS": "<Specify the ARN of your IAM user you are using in this code example>"
  * },
  * "Action": "sts:AssumeRole"
  * }
@@ -54,7 +53,7 @@ public class AssumeRole {
                     <roleArn> <roleSessionName>\s
 
                 Where:
-                    roleArn - The Amazon Resource Name (ARN) of the role to assume (for example, rn:aws:iam::000008047983:role/s3role).\s
+                    roleArn - The Amazon Resource Name (ARN) of the role to assume (for example, arn:aws:iam::000008047983:role/s3role).\s
                     roleSessionName - An identifier for the assumed role session (for example, mysession).\s
                 """;
 
