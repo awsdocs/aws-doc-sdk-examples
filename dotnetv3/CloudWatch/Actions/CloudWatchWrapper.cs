@@ -243,6 +243,8 @@ public class CloudWatchWrapper
         var startTimeUtc = endDateUtc.Value.AddMinutes(-minutesOfData);
         // The timezone string should be in the format +0000, so use the timezone offset to format it correctly.
         var timeZoneString = $"{timeZoneOffset.Hours:D2}{timeZoneOffset.Minutes:D2}";
+        // Add the plus sign for positive offsets.
+        timeZoneString = timeZoneString.StartsWith('-') ? timeZoneString : "+" + timeZoneString;
         var paginatedMetricData = _amazonCloudWatch.Paginators.GetMetricData(
             new GetMetricDataRequest()
             {
