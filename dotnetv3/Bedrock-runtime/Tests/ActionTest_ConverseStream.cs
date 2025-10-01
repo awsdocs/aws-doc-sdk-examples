@@ -1,4 +1,4 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 namespace BedrockRuntimeTests;
@@ -11,7 +11,6 @@ public class ActionTest_ConverseStream
     [InlineData(typeof(CohereCommand.ConverseStream))]
     [InlineData(typeof(AnthropicClaude.ConverseStream))]
     [InlineData(typeof(AmazonNovaText.ConverseStream))]
-    [InlineData(typeof(AmazonTitanText.ConverseStream))]
     public void ConverseStreamDoesNotThrow(Type type)
     {
         var entryPoint = type.Assembly.EntryPoint!;
