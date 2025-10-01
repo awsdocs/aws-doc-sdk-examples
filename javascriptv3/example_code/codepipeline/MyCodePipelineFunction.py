@@ -2,15 +2,15 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from __future__ import print_function
-from boto3.session import Session
 
-import json
-import urllib
 import boto3
-import zipfile
-import tempfile
 import botocore
+import json
+import tempfile
 import traceback
+import urllib
+import zipfile
+from boto3.session import Session
 
 print("Loading function")
 
