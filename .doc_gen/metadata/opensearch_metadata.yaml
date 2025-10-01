@@ -131,7 +131,7 @@ opensearch_DescribeDomain:
           excerpts:
             - description:
               snippet_tags:
-                - opensearch.java2.update_domain.main
+                - opensearch.java2.describe_domain.main
   services:
     opensearch: {DescribeDomain}
 opensearch_UpdateDomainConfig:
