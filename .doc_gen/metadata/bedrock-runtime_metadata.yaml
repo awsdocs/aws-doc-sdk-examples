@@ -327,14 +327,6 @@ bedrock-runtime_Converse_CohereCommand:
             - description: Send a text message to Cohere Command, using Bedrock's Converse API with the async Java client.
               snippet_tags:
                 - bedrock-runtime.java2.ConverseAsync_CohereCommand
-    .NET:
-      versions:
-        - sdk_version: 4
-          github: dotnetv4/Bedrock-runtime
-          excerpts:
-            - description: Send a text message to Cohere Command, using Bedrock's Converse API.
-              snippet_tags:
-                - BedrockRuntime.dotnetv4.Converse_CohereCommand
     Python:
       versions:
         - sdk_version: 3
@@ -623,14 +615,6 @@ bedrock-runtime_ConverseStream_CohereCommand:
             - description: Send a text message to Cohere Command, using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
                 - bedrock-runtime.java2.ConverseStream_CohereCommand
-    .NET:
-      versions:
-        - sdk_version: 4
-          github: dotnetv4/Bedrock-runtime
-          excerpts:
-            - description: Send a text message to Cohere Command, using Bedrock's Converse API and process the response stream in real-time.
-              snippet_tags:
-                - BedrockRuntime.dotnetv4.ConverseStream_CohereCommand
     Python:
       versions:
         - sdk_version: 3
@@ -886,14 +870,6 @@ bedrock-runtime_InvokeModel_CohereCommand:
             - description: Use the Invoke Model API to send a text message.
               snippet_tags:
                 - bedrock-runtime.java2.InvokeModel_CohereCommand
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModel_CohereCommand
     Python:
       versions:
         - sdk_version: 3
@@ -1118,14 +1094,6 @@ bedrock-runtime_InvokeModelWithResponseStream_CohereCommand:
             - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
               snippet_tags:
                 - bedrock-runtime.java2.InvokeModelWithResponseStream_CohereCommand
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_CohereCommand
     Python:
       versions:
         - sdk_version: 3

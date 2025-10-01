@@ -9,7 +9,6 @@ namespace BedrockRuntimeTests
         [InlineData(typeof(AmazonTitanText.InvokeModelWithResponseStream))]
         [InlineData(typeof(Mistral.InvokeModelWithResponseStream))]
         [InlineData(typeof(MetaLlama3.InvokeModelWithResponseStream))]
-        [InlineData(typeof(CohereCommand.InvokeModelWithResponseStream))]
         [InlineData(typeof(CohereCommandR.InvokeModelWithResponseStream))]
         [InlineData(typeof(AnthropicClaude.InvokeModelWithResponseStream))]
 
