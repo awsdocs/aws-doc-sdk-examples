@@ -1,4 +1,4 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 namespace BedrockRuntimeTests;
@@ -6,7 +6,6 @@ namespace BedrockRuntimeTests;
 public class ActionTest_Converse
 {
     [Theory, Trait("Category", "Integration")]
-    [InlineData(typeof(AmazonTitanText.Converse))]
     [InlineData(typeof(Mistral.Converse))]
     [InlineData(typeof(MetaLlama.Converse))]
     [InlineData(typeof(CohereCommand.Converse))]
