@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {describe, expect, test, vi} from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import path from "node:path";
 
 describe("Converse with text generation models", () => {

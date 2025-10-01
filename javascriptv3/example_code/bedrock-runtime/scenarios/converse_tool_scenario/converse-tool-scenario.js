@@ -8,13 +8,21 @@ This demo illustrates a tool use scenario using Amazon Bedrock's Converse API an
 The script interacts with a foundation model on Amazon Bedrock to provide weather information based on user
 input. It uses the Open-Meteo API (https://open-meteo.com) to retrieve current weather data for a given location.*/
 
-import {Scenario, ScenarioAction, ScenarioInput, ScenarioOutput,} from "@aws-doc-sdk-examples/lib/scenario/index.js";
-import {BedrockRuntimeClient, ConverseCommand,} from "@aws-sdk/client-bedrock-runtime";
+import {
+  Scenario,
+  ScenarioAction,
+  ScenarioInput,
+  ScenarioOutput,
+} from "@aws-doc-sdk-examples/lib/scenario/index.js";
+import {
+  BedrockRuntimeClient,
+  ConverseCommand,
+} from "@aws-sdk/client-bedrock-runtime";
 
-import {parseArgs} from "node:util";
-import {fileURLToPath} from "node:url";
-import data from "./questions.json" with {type: "json"};
-import toolConfig from "./tool_config.json" with {type: "json"};
+import { parseArgs } from "node:util";
+import { fileURLToPath } from "node:url";
+import data from "./questions.json" with { type: "json" };
+import toolConfig from "./tool_config.json" with { type: "json" };
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -190,7 +198,7 @@ async function callWeatherTool(longitude, latitude) {
  */
 const pressEnter = new ScenarioInput("continue", "Press Enter to continue", {
   type: "input",
-    default: "",
+  default: "",
 });
 
 const greet = new ScenarioOutput(

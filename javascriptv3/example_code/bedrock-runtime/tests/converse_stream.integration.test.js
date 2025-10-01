@@ -1,9 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import {describe, expect, test, vi} from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import path from "node:path";
-import {Writable} from "node:stream";
+import { Writable } from "node:stream";
 
 describe("ConverseStream with text generation models", () => {
   const fileName = "converseStream.js";
