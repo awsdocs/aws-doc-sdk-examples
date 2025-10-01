@@ -80,63 +80,6 @@ func (wrapper InvokeModelWrapper) InvokeClaude(ctx context.Context, prompt strin
 
 // snippet-end:[gov2.bedrock-runtime.InvokeClaude]
 
-// snippet-start:[gov2.bedrock-runtime.InvokeJurassic2]
-
-// Each model provider has their own individual request and response formats.
-// For the format, ranges, and default values for AI21 Labs Jurassic-2, refer to:
-// https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html
-
-type Jurassic2Request struct {
-	Prompt      string  `json:"prompt"`
-	MaxTokens   int     `json:"maxTokens,omitempty"`
-	Temperature float64 `json:"temperature,omitempty"`
-}
-
-type Jurassic2Response struct {
-	Completions []Completion `json:"completions"`
-}
-type Completion struct {
-	Data Data `json:"data"`
-}
-type Data struct {
-	Text string `json:"text"`
-}
-
-// Invokes AI21 Labs Jurassic-2 on Amazon Bedrock to run an inference using the input
-// provided in the request body.
-func (wrapper InvokeModelWrapper) InvokeJurassic2(ctx context.Context, prompt string) (string, error) {
-	modelId := "ai21.j2-mid-v1"
-
-	body, err := json.Marshal(Jurassic2Request{
-		Prompt:      prompt,
-		MaxTokens:   200,
-		Temperature: 0.5,
-	})
-
-	if err != nil {
-		log.Fatal("failed to marshal", err)
-	}
-
-	output, err := wrapper.BedrockRuntimeClient.InvokeModel(ctx, &bedrockruntime.InvokeModelInput{
-		ModelId:     aws.String(modelId),
-		ContentType: aws.String("application/json"),
-		Body:        body,
-	})
-
-	if err != nil {
-		ProcessError(err, modelId)
-	}
-
-	var response Jurassic2Response
-	if err := json.Unmarshal(output.Body, &response); err != nil {
-		log.Fatal("failed to unmarshal", err)
-	}
-
-	return response.Completions[0].Data.Text, nil
-}
-
-// snippet-end:[gov2.bedrock-runtime.InvokeJurassic2]
-
 // snippet-start:[gov2.bedrock-runtime.InvokeTitanImage]
 
 type TitanImageRequest struct {
@@ -206,70 +149,6 @@ func (wrapper InvokeModelWrapper) InvokeTitanImage(ctx context.Context, prompt s
 }
 
 // snippet-end:[gov2.bedrock-runtime.InvokeTitanImage]
-
-// snippet-start:[gov2.bedrock-runtime.InvokeTitanText]
-
-// Each model provider has their own individual request and response formats.
-// For the format, ranges, and default values for Amazon Titan Text, refer to:
-// https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-text.html
-type TitanTextRequest struct {
-	InputText            string               `json:"inputText"`
-	TextGenerationConfig TextGenerationConfig `json:"textGenerationConfig"`
-}
-
-type TextGenerationConfig struct {
-	Temperature   float64  `json:"temperature"`
-	TopP          float64  `json:"topP"`
-	MaxTokenCount int      `json:"maxTokenCount"`
-	StopSequences []string `json:"stopSequences,omitempty"`
-}
-
-type TitanTextResponse struct {
-	InputTextTokenCount int      `json:"inputTextTokenCount"`
-	Results             []Result `json:"results"`
-}
-
-type Result struct {
-	TokenCount       int    `json:"tokenCount"`
-	OutputText       string `json:"outputText"`
-	CompletionReason string `json:"completionReason"`
-}
-
-func (wrapper InvokeModelWrapper) InvokeTitanText(ctx context.Context, prompt string) (string, error) {
-	modelId := "amazon.titan-text-express-v1"
-
-	body, err := json.Marshal(TitanTextRequest{
-		InputText: prompt,
-		TextGenerationConfig: TextGenerationConfig{
-			Temperature:   0,
-			TopP:          1,
-			MaxTokenCount: 4096,
-		},
-	})
-
-	if err != nil {
-		log.Fatal("failed to marshal", err)
-	}
-
-	output, err := wrapper.BedrockRuntimeClient.InvokeModel(ctx, &bedrockruntime.InvokeModelInput{
-		ModelId:     aws.String(modelId),
-		ContentType: aws.String("application/json"),
-		Body:        body,
-	})
-
-	if err != nil {
-		ProcessError(err, modelId)
-	}
-
-	var response TitanTextResponse
-	if err := json.Unmarshal(output.Body, &response); err != nil {
-		log.Fatal("failed to unmarshal", err)
-	}
-
-	return response.Results[0].OutputText, nil
-}
-
-// snippet-end:[gov2.bedrock-runtime.InvokeTitanText]
 
 func ProcessError(err error, modelId string) {
 	errMsg := err.Error()
