@@ -56,12 +56,6 @@ functions within the same service.
 
 - [InvokeModel](models/amazonNovaCanvas/invokeModel.js#L4)
 
-### Amazon Titan Text
-
-- [Converse](models/amazonTitanText/converse.js#L4)
-- [ConverseStream](models/amazonTitanText/converseStream.js#L4)
-- [InvokeModel](models/amazonTitanText/invoke_model.js)
-
 ### Anthropic Claude
 
 - [Converse](models/anthropicClaude/converse.js#L4)

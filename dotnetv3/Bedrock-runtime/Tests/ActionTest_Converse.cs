@@ -11,7 +11,6 @@ public class ActionTest_Converse
     [InlineData(typeof(CohereCommand.Converse))]
     [InlineData(typeof(AnthropicClaude.Converse))]
     [InlineData(typeof(AmazonNovaText.Converse))]
-    // [InlineData(typeof(AmazonTitanText.Converse))]
 
     public void ConverseDoesNotThrow(Type type)
     {
