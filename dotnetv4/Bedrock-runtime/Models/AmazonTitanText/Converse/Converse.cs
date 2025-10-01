@@ -13,8 +13,8 @@ using Amazon.BedrockRuntime.Model;
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
 
-// Set the model ID, e.g., Titan Text Premier.
-var modelId = "amazon.titan-text-premier-v1:0";
+// Set the model ID, e.g., Titan Text Lite.
+var modelId = "amazon.titan-text-lite-v1";
 
 // Define the user message.
 var userMessage = "Describe the purpose of a 'hello world' program in one line.";

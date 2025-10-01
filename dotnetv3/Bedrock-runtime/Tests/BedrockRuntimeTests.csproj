@@ -39,8 +39,6 @@
 	  <ProjectReference Include="..\Models\AnthropicClaude\Converse\Converse.csproj" />
 	  <ProjectReference Include="..\Models\AnthropicClaude\InvokeModelWithResponseStream\InvokeModelWithResponseStream.csproj" />
 	  <ProjectReference Include="..\Models\AnthropicClaude\InvokeModel\InvokeModel.csproj" />
-	  <ProjectReference Include="..\Models\CohereCommand\Command_InvokeModelWithResponseStream\Command_InvokeModelWithResponseStream.csproj" />
-	  <ProjectReference Include="..\Models\CohereCommand\Command_InvokeModel\Command_InvokeModel.csproj" />
 	  <ProjectReference Include="..\Models\CohereCommand\Command_R_InvokeModelWithResponseStream\Command_R_InvokeModelWithResponseStream.csproj" />
 	  <ProjectReference Include="..\Models\CohereCommand\Command_R_InvokeModel\Command_R_InvokeModel.csproj" />
 	  <ProjectReference Include="..\Models\CohereCommand\ConverseStream\ConverseStream.csproj" />

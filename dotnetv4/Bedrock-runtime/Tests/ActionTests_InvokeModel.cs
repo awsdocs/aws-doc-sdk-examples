@@ -9,7 +9,6 @@ public class ActionTest_InvokeModel
     [InlineData(typeof(AmazonTitanText.InvokeModel))]
     [InlineData(typeof(Mistral.InvokeModel))]
     [InlineData(typeof(MetaLlama3.InvokeModel))]
-    [InlineData(typeof(CohereCommand.InvokeModel))]
     [InlineData(typeof(CohereCommandR.InvokeModel))]
     [InlineData(typeof(AnthropicClaude.InvokeModel))]
 
