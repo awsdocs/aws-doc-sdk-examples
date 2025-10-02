@@ -95,24 +95,24 @@ We rely on [pylint](https://pylint.pycqa.org/en/latest/) and [black](https://bla
 To contribute Python code to this project, please refer to the following installation and usage steps.
 
 ### Using Pylint
-We run Pylint using [a custom configuration file](.github/linters/.python-lint) against any changed file or directory. See the [Python Github Action workflow](../.github/workflows/python.yml) for details.
+We run Pylint using [a custom configuration file](../.github/linters/.python-lint) against any changed file or directory. See the [Python Github Action workflow](../.github/workflows/lint-python.yml) for details.
 
 To invoke Pylint yourself, first install it with `pip install pylint`. 
 
 Next, run:
 
 ```bash
-pylint --rcfile=.github/linters/.python-lint path/to/python/file_or_directory
+pylint --rcfile=../.github/linters/.python-lint path/to/python/file_or_directory
 ```
 
 To lint all Python files in the current directory and its subdirectories, run:
 
 ```bash
-pylint --rcfile=.github/linters/.python-lint .
+pylint --rcfile=../.github/linters/.python-lint .
 ```
 
 ### Using Black
-We run Black against any changed file or directory. See the [Python Github Action workflow](../.github/workflows/python.yml) for details.
+We run Black against any changed file or directory. See the [Python Github Action workflow](../.github/workflows/lint-python.yml) for details.
 
 To invoke Black yourself, first install it with `pip install black`. 
 
