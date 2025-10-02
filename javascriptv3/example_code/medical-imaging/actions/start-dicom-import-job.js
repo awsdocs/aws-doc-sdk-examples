@@ -44,7 +44,20 @@ export const startDicomImportJob = async (
     }),
   );
   console.log(response);
-   // {// '$metadata': {// httpStatusCode: 200,// requestId: '6e81d191-d46b-4e48-a08a-cdcc7e11eb79',// extendedRequestId: undefined,// cfId: undefined,// attempts: 1,// totalRetryDelay: 0// },// datastoreId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',// jobId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',// jobStatus: 'SUBMITTED',// submittedAt: 2023-09-22T14:48:45.767Z// }
+  // {
+  //     '$metadata': {
+  //     httpStatusCode: 200,
+  //         requestId: '6e81d191-d46b-4e48-a08a-cdcc7e11eb79',
+  //         extendedRequestId: undefined,
+  //         cfId: undefined,
+  //         attempts: 1,
+  //         totalRetryDelay: 0
+  // },
+  //     datastoreId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+  //     jobId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+  //     jobStatus: 'SUBMITTED',
+  //     submittedAt: 2023-09-22T14:48:45.767Z
+  // }
   return response;
 };
 // snippet-end:[medical-imaging.JavaScript.dicom.startDicomImportJobV3]
