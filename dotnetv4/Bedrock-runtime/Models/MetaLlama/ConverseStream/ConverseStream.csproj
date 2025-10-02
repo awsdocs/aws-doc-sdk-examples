@@ -6,7 +6,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AWSSDK.BedrockRuntime" Version="4.0.0-preview.4" />
-		<PackageReference Include="AWSSDK.Core" Version="4.0.0-preview.4" />
+		<PackageReference Include="AWSSDK.BedrockRuntime" Version="4.0.7.1" />
+		<PackageReference Include="AWSSDK.Core" Version="4.0.0.31" />
 	</ItemGroup>
 </Project>

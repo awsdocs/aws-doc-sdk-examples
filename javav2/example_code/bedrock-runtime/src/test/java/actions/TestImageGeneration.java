@@ -9,8 +9,7 @@ public class TestImageGeneration extends AbstractModelTest {
     protected Stream<ModelTest> modelProvider() {
         return Stream.of(
                 new ModelTest("NovaCanvas", com.example.bedrockruntime.models.amazon.nova.canvas.InvokeModel::invokeModel),
-                new ModelTest("StableDiffusion", com.example.bedrockruntime.models.stabilityAi.InvokeModel::invokeModel),
-                new ModelTest("TitanImage", com.example.bedrockruntime.models.amazonTitanText.InvokeModel::invokeModel)
+                new ModelTest("StableDiffusion", com.example.bedrockruntime.models.stabilityAi.InvokeModel::invokeModel)
         );
     }
 }

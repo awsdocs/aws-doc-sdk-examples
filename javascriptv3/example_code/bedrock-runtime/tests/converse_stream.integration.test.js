@@ -11,7 +11,6 @@ describe("ConverseStream with text generation models", () => {
 
   const models = {
     amazonNovaText: "Amazon Nova",
-    amazonTitanText: "Amazon Titan",
     anthropicClaude: "Anthropic Claude",
     cohereCommand: "Cohere Command",
     metaLlama: "Meta Llama",

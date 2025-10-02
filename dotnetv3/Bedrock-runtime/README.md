@@ -45,10 +45,6 @@ functions within the same service.
 
 - [InvokeModel](Models/AmazonNova/AmazonNovaCanvas/InvokeModel/InvokeModel.cs#L4)
 
-### Amazon Titan Text
-
-- [InvokeModelWithResponseStream](Models/AmazonTitanText/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
-
 ### Anthropic Claude
 
 - [InvokeModelWithResponseStream](Models/AnthropicClaude/InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
@@ -56,9 +52,7 @@ functions within the same service.
 ### Cohere Command
 
 - [InvokeModel: Command R and R+](Models/CohereCommand/Command_R_InvokeModel/InvokeModel.cs#L4)
-- [InvokeModel: Command and Command Light](Models/CohereCommand/Command_InvokeModel/InvokeModel.cs#L4)
 - [InvokeModelWithResponseStream: Command R and R+](Models/CohereCommand/Command_R_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
-- [InvokeModelWithResponseStream: Command and Command Light](Models/CohereCommand/Command_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 ### Meta Llama
 

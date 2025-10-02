@@ -56,13 +56,6 @@ functions within the same service.
 
 - [InvokeModel](src/main/java/com/example/bedrockruntime/models/amazonTitanImage/InvokeModel.java#L6)
 
-### Amazon Titan Text
-
-- [Converse](src/main/java/com/example/bedrockruntime/models/amazonTitanText/Converse.java#L7)
-- [ConverseStream](src/main/java/com/example/bedrockruntime/models/amazonTitanText/ConverseStream.java#L6)
-- [InvokeModel](src/main/java/com/example/bedrockruntime/models/amazonTitanText/InvokeModel.java#L6)
-- [InvokeModelWithResponseStream](src/main/java/com/example/bedrockruntime/models/amazonTitanText/InvokeModelWithResponseStream.java#L6)
-
 ### Amazon Titan Text Embeddings
 
 - [InvokeModel](src/main/java/com/example/bedrockruntime/models/amazonTitanTextEmbeddings/InvokeModel.java#L6)
@@ -81,9 +74,7 @@ functions within the same service.
 - [Converse](src/main/java/com/example/bedrockruntime/models/cohereCommand/Converse.java#L6)
 - [ConverseStream](src/main/java/com/example/bedrockruntime/models/cohereCommand/ConverseStream.java#L6)
 - [InvokeModel: Command R and R+](src/main/java/com/example/bedrockruntime/models/cohereCommand/Command_R_InvokeModel.java#L6)
-- [InvokeModel: Command and Command Light](src/main/java/com/example/bedrockruntime/models/cohereCommand/Command_InvokeModel.java#L6)
 - [InvokeModelWithResponseStream: Command R and R+](src/main/java/com/example/bedrockruntime/models/cohereCommand/Command_R_InvokeModelWithResponseStream.java#L6)
-- [InvokeModelWithResponseStream: Command and Command Light](src/main/java/com/example/bedrockruntime/models/cohereCommand/Command_InvokeModelWithResponseStream.java#L6)
 
 ### Meta Llama
 

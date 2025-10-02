@@ -38,11 +38,6 @@ python -m pip install -r requirements.txt
 > see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 >
 <!--custom.prerequisites.end-->
-
-### Get started
-
-- [Hello Amazon Bedrock Runtime](hello/hello_bedrock_runtime_invoke.py#L5) (`InvokeModel`)
-
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
@@ -69,13 +64,6 @@ functions within the same service.
 
 - [InvokeModel](models/amazon_titan_image_generator/invoke_model.py#L4)
 
-### Amazon Titan Text
-
-- [Converse](models/amazon_titan_text/converse.py#L4)
-- [ConverseStream](models/amazon_titan_text/converse_stream.py#L4)
-- [InvokeModel](models/amazon_titan_text/invoke_model.py#L4)
-- [InvokeModelWithResponseStream](models/amazon_titan_text/invoke_model_with_response_stream.py#L4)
-
 ### Amazon Titan Text Embeddings
 
 - [InvokeModel](models/amazon_titan_text_embeddings/invoke_model.py#L4)
@@ -95,9 +83,7 @@ functions within the same service.
 - [ConverseStream](models/cohere_command/converse_stream.py#L4)
 - [Document understanding](models/cohere_command/document_understanding.py#L4)
 - [InvokeModel: Command R and R+](models/cohere_command/command_r_invoke_model.py#L4)
-- [InvokeModel: Command and Command Light](models/cohere_command/command_invoke_model.py#L4)
 - [InvokeModelWithResponseStream: Command R and R+](models/cohere_command/command_r_invoke_model_with_response_stream.py#L4)
-- [InvokeModelWithResponseStream: Command and Command Light](models/cohere_command/command_invoke_model_with_response_stream.py#L4)
 - [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
 
 ### DeepSeek
@@ -150,13 +136,6 @@ Mistral AI.
 
 <!--custom.instructions.end-->
 
-#### Hello Amazon Bedrock Runtime
-
-This example shows you how to get started using Amazon Bedrock Runtime.
-
-```
-python hello/hello_bedrock_runtime_invoke.py
-```
 
 
 #### Create and invoke a managed prompt
