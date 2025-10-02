@@ -43,24 +43,24 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [CopyImageSet](medical_imaging_basics.py#L417)
+- [CopyImageSet](medical_imaging_basics.py#L418)
 - [CreateDatastore](medical_imaging_basics.py#L31)
 - [DeleteDatastore](medical_imaging_basics.py#L104)
-- [DeleteImageSet](medical_imaging_basics.py#L489)
-- [GetDICOMImportJob](medical_imaging_basics.py#L158)
+- [DeleteImageSet](medical_imaging_basics.py#L490)
+- [GetDICOMImportJob](medical_imaging_basics.py#L159)
 - [GetDatastore](medical_imaging_basics.py#L54)
-- [GetImageFrame](medical_imaging_basics.py#L318)
-- [GetImageSet](medical_imaging_basics.py#L241)
-- [GetImageSetMetadata](medical_imaging_basics.py#L274)
-- [ListDICOMImportJobs](medical_imaging_basics.py#L183)
+- [GetImageFrame](medical_imaging_basics.py#L319)
+- [GetImageSet](medical_imaging_basics.py#L242)
+- [GetImageSetMetadata](medical_imaging_basics.py#L275)
+- [ListDICOMImportJobs](medical_imaging_basics.py#L184)
 - [ListDatastores](medical_imaging_basics.py#L79)
-- [ListImageSetVersions](medical_imaging_basics.py#L350)
-- [ListTagsForResource](medical_imaging_basics.py#L556)
-- [SearchImageSets](medical_imaging_basics.py#L211)
+- [ListImageSetVersions](medical_imaging_basics.py#L351)
+- [ListTagsForResource](medical_imaging_basics.py#L557)
+- [SearchImageSets](medical_imaging_basics.py#L212)
 - [StartDICOMImportJob](medical_imaging_basics.py#L124)
-- [TagResource](medical_imaging_basics.py#L514)
-- [UntagResource](medical_imaging_basics.py#L534)
-- [UpdateImageSetMetadata](medical_imaging_basics.py#L381)
+- [TagResource](medical_imaging_basics.py#L515)
+- [UntagResource](medical_imaging_basics.py#L535)
+- [UpdateImageSetMetadata](medical_imaging_basics.py#L382)
 
 ### Scenarios
 
