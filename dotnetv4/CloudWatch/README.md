@@ -36,6 +36,38 @@ To enable billing metrics and statistics for these examples, make sure to
 - [Hello CloudWatch](Actions/HelloCloudWatch.cs#L4) (`ListMetrics`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/CloudWatchScenario.cs)
+
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [DeleteAlarms](Actions/CloudWatchWrapper.cs#L402)
+- [DeleteAnomalyDetector](Actions/CloudWatchWrapper.cs#L500)
+- [DeleteDashboards](Actions/CloudWatchWrapper.cs#L518)
+- [DescribeAlarmHistory](Actions/CloudWatchWrapper.cs#L375)
+- [DescribeAlarms](Actions/CloudWatchWrapper.cs#L332)
+- [DescribeAlarmsForMetric](Actions/CloudWatchWrapper.cs#L355)
+- [DescribeAnomalyDetectors](Actions/CloudWatchWrapper.cs#L474)
+- [DisableAlarmActions](Actions/CloudWatchWrapper.cs#L420)
+- [EnableAlarmActions](Actions/CloudWatchWrapper.cs#L438)
+- [GetDashboard](Actions/CloudWatchWrapper.cs#L115)
+- [GetMetricData](Actions/CloudWatchWrapper.cs#L226)
+- [GetMetricStatistics](Actions/CloudWatchWrapper.cs#L61)
+- [GetMetricWidgetImage](Actions/CloudWatchWrapper.cs#L175)
+- [ListDashboards](Actions/CloudWatchWrapper.cs#L134)
+- [ListMetrics](Actions/CloudWatchWrapper.cs#L33)
+- [PutAnomalyDetector](Actions/CloudWatchWrapper.cs#L456)
+- [PutDashboard](Actions/CloudWatchWrapper.cs#L91)
+- [PutMetricAlarm](Actions/CloudWatchWrapper.cs#L271)
+- [PutMetricData](Actions/CloudWatchWrapper.cs#L154)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 
@@ -51,6 +83,25 @@ To enable billing metrics and statistics for these examples, make sure to
 
 This example shows you how to get started using CloudWatch.
 
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- List CloudWatch namespaces and metrics.
+- Get statistics for a metric and for estimated billing.
+- Create and update a dashboard.
+- Create and add data to a metric.
+- Create and trigger an alarm, then view alarm history.
+- Add an anomaly detector.
+- Get a metric image, then clean up resources.
+
+<!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
+<!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
+
+
+<!--custom.basics.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
+<!--custom.basics.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
 
 
 ### Tests
