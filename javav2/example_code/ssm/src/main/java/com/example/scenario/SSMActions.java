@@ -80,7 +80,7 @@ public class SSMActions {
                     .build();
 
             ssmAsyncClient = SsmAsyncClient.builder()
-                    .region(Region.US_EAST_1)
+                    .region(Region.US_WEST_2)
                     .httpClient(httpClient)
                     .overrideConfiguration(overrideConfig)
                     .build();
