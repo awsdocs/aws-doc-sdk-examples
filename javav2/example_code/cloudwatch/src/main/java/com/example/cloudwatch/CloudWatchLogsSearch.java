@@ -25,17 +25,33 @@ import java.util.List;
  */
 public class CloudWatchLogsSearch {
 
-    private static final String LOG_GROUP_NAME = "WeathertopJavaContainerLogs";
-    private static final String LOG_STREAM_PREFIX = "weathertop-java-stream";
-    private static final String PATTERN = "INFO";
-    private static final Region REGION = Region.US_EAST_1;
-
     public static void main(String[] args) {
+        final String usage = """
+
+                Usage:
+                  <logGroupName> <logStreamName> 
+
+                Where:
+                  logGroupName - The name of the log group (for example, WeathertopJavaContainerLogs).
+                  logStreamName - The name of the log stream (for example, weathertop-java-stream).
+                  pattern - the pattern to use (for example, INFO) 
+                  
+                """;
+
+        if (args.length != 3) {
+            System.out.print(usage);
+            System.exit(1);
+        }
+
+        String logGroupName = args[0] ;
+        String logStreamName = args[1] ;
+        String pattern = args[2] ;
+
         CloudWatchLogsClient cwlClient = CloudWatchLogsClient.builder()
-                .region(REGION)
+                .region(Region.US_EAST_1)
                 .build();
 
-        searchLogStreamsAndFilterEvents(cwlClient, LOG_GROUP_NAME, LOG_STREAM_PREFIX, PATTERN);
+        searchLogStreamsAndFilterEvents(cwlClient, logGroupName, logStreamName, pattern);
     }
 
     /**
