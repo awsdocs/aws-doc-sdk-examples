@@ -1,0 +1,89 @@
+Resources:
+  SSMEC2Role116353F9:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/AmazonSSMManagedInstanceCore
+    Metadata:
+      aws:cdk:path: SsmStack3/SSMEC2Role/Resource
+  EC2SecurityGroup05DEE054:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow SSH and SSM access
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow all outbound traffic by default
+          IpProtocol: "-1"
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          Description: Allow SSH Access
+          FromPort: 22
+          IpProtocol: tcp
+          ToPort: 22
+      VpcId: vpc-573b5f2f
+    Metadata:
+      aws:cdk:path: SsmStack3/EC2SecurityGroup/Resource
+  SSMInstanceInstanceProfileCEDAF98B:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - Ref: SSMEC2Role116353F9
+    Metadata:
+      aws:cdk:path: SsmStack3/SSMInstance/InstanceProfile
+  SSMInstance0FC4E7D0:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone: us-west-2a
+      IamInstanceProfile:
+        Ref: SSMInstanceInstanceProfileCEDAF98B
+      ImageId:
+        Ref: SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter
+      InstanceType: t2.micro
+      SecurityGroupIds:
+        - Fn::GetAtt:
+            - EC2SecurityGroup05DEE054
+            - GroupId
+      SubnetId: subnet-206a9c58
+      Tags:
+        - Key: Name
+          Value: SsmStack3/SSMInstance
+      UserData:
+        Fn::Base64: |-
+          #!/bin/bash
+          sudo systemctl enable amazon-ssm-agent
+          sudo systemctl start amazon-ssm-agent
+    DependsOn:
+      - SSMEC2Role116353F9
+    Metadata:
+      aws:cdk:path: SsmStack3/SSMInstance/Resource
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Analytics: v2:deflate64:H4sIAAAAAAAA/22QTWvDMAyGf0t9HG7WFjZGbtkGI7u0tLuFMlRH7bQ6cuaPlmLy30e+WAs7GFkv0qtHWiTzp4dkNoGzm6ryONW0S+LGgzrKNToTrMJC3An5z9tKOLvPSFAlcW00FlGAc6HC8vki0ihqS6yoBp0pZQJ7kXaNfU3bkClPhju5kaIChgOWK6NJETqRFvFGu2R2qN02W/my59aijTk7D6xwZc2eNDYS1SKJG1TBkr+8WRPqIopTrUYArc0503oZ/M4ELkXqbUApSnTKUn3FFAWUZc4Hi86tg8aOSQHnrImxV/peZZixW8cNUwLTT8C8HK2a7mQ9+Q2bHPmLKGj4flxqHHwqUF/EmFdwGKW/VazRo+iuPUcGh/YVPAxnuz5W07TZCixU6NG2yTL4OvhGvsMJ7hfzZJY8Tr4d0dQG9lRhsu7jLxfV5p8zAgAA
+    Metadata:
+      aws:cdk:path: SsmStack3/CDKMetadata/Default
+Parameters:
+  SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+  BootstrapVersion:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cdk-bootstrap/hnb659fds/version
+    Description: Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]
+Outputs:
+  InstanceId:
+    Description: EC2 Instance ID (SSM-ready, safe to delete stack)
+    Value:
+      Ref: SSMInstance0FC4E7D0
+
