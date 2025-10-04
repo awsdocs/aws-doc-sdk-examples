@@ -7,33 +7,34 @@ package com.example.scenario;
 import software.amazon.awssdk.services.ssm.model.DocumentAlreadyExistsException;
 import software.amazon.awssdk.services.ssm.model.SsmException;
 
+import java.util.Map;
 import java.util.Scanner;
 public class SSMScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
+    private static final String ROLES_STACK = "SsmStack3`1";
 
     public static void main(String[] args) {
         String usage = """
             Usage:
-              <instanceId> <title> <source> <category> <severity>
+              <title> <source> <category> <severity>
       
             Where:
-                instanceId - The Amazon EC2 Linux/UNIX instance Id that AWS Systems Manager uses (ie, i-0149338494ed95f06). 
                 title - The title of the parameter (default is Disk Space Alert).
                 source - The source of the parameter (default is EC2).
                 category - The category of the parameter. Valid values are 'Availability', 'Cost', 'Performance', 'Recovery', 'Security' (default is Performance).
                 severity - The severity of the parameter. Severity should be a number from 1 to 4 (default is 2).
         """;
 
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
-
         Scanner scanner = new Scanner(System.in);
         SSMActions actions = new SSMActions();
         String documentName;
         String windowName;
-        String instanceId = args[0];
+
+        System.out.println("Use AWS CloudFormation to create the EC2 instance that is required for this scenario.");
+        CloudFormationHelper.deployCloudFormationStack(ROLES_STACK);
+        Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputsAsync(ROLES_STACK).join();
+        String instanceId = stackOutputs.get("InstanceId");
+        System.out.println("The Instance ID: " + instanceId +" was created.");
         String title = "Disk Space Alert" ;
         String source = "EC2" ;
         String category = "Availability" ;
@@ -230,7 +231,7 @@ public class SSMScenario {
             System.out.println("The AWS Systems Manager resources will not be deleted");
         }
         System.out.println(DASHES);
-
+        CloudFormationHelper.destroyCloudFormationStack(ROLES_STACK);
         System.out.println("This concludes the AWS Systems Manager SDK Basics scenario.");
         System.out.println(DASHES);
     }
