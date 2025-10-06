@@ -36,9 +36,9 @@ CLASS ZCL_AWS1_CPD_ACTIONS IMPLEMENTATION.
           iv_text = lv_text
         ).
 
-        MESSAGE 'Detected sentiment.' TYPE 'I'.
+        MESSAGE |Detected sentiment: { oo_result->get_sentiment( ) }| TYPE 'I'.
 
-      CATCH /aws1/cx_cpdserverexc INTO DATA(lo_cpdex) .
+      CATCH /aws1/cx_cpdtextsizelmtexcdex INTO DATA(lo_cpdex) .
         MESSAGE 'The size of the input text exceeds the limit. Use a smaller document.' TYPE 'E'.
 
     ENDTRY.
