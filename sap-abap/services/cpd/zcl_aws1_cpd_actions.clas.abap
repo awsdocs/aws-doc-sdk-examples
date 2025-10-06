@@ -7,10 +7,11 @@ class ZCL_AWS1_CPD_ACTIONS definition
   create public .
 
 public section.
+  METHODS detectsentiment
+    EXPORTING VALUE(oo_result) TYPE REF TO /aws1/cl_cpddetectsentimentrsp .
 protected section.
 private section.
-  METHODS detectsentiment
-    RETURNING VALUE(oo_result) TYPE REF TO /aws1/cl_cpddetectsentimentrsp .
+
 ENDCLASS.
 
 
@@ -25,7 +26,7 @@ CLASS ZCL_AWS1_CPD_ACTIONS IMPLEMENTATION.
     DATA(lo_cpd) = /aws1/cl_cpd_factory=>create( lo_session ).
 
     DATA(lv_text) = |I love unicorns!|  .
-    DATA(lv_language_code) = |EN|  .
+    DATA(lv_language_code) = |en| .
 
 
     " snippet-start:[cpd.abapv1.detect_sentiment]
@@ -38,7 +39,7 @@ CLASS ZCL_AWS1_CPD_ACTIONS IMPLEMENTATION.
         MESSAGE 'Detected sentiment.' TYPE 'I'.
 
       CATCH /aws1/cx_cpdserverexc INTO DATA(lo_cpdex) .
-        MESSAGE 'CPD exception' TYPE 'E'.
+        MESSAGE 'The size of the input text exceeds the limit. Use a smaller document.' TYPE 'E'.
 
     ENDTRY.
     " snippet-end:[cpd.abapv1.detect_sentiment]

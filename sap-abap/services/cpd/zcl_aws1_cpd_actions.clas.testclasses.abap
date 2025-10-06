@@ -6,9 +6,7 @@ CLASS ltc_zcl_aws1_cpd_actions DEFINITION FOR TESTING
   RISK LEVEL HARMLESS.
 
   PRIVATE SECTION.
-    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
-    CONSTANTS cv_languagecode VALUE |EN|.
-
+    DATA ao_cpd_actions TYPE REF TO zcl_aws1_cpd_actions.
     METHODS: detectsentiment FOR TESTING.
 ENDCLASS.       "ltc_Zcl_Aws1_Cpd_Actions
 
@@ -16,6 +14,7 @@ ENDCLASS.       "ltc_Zcl_Aws1_Cpd_Actions
 CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
 
   METHOD detectsentiment.
+    ao_cpd_actions = NEW zcl_aws1_cpd_actions( ).
     DATA lo_output TYPE REF TO /aws1/cl_cpddetectsentimentrsp.
     DATA(lv_expected_output) = |POSITIVE|.
 
@@ -24,8 +23,8 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
         oo_result = lo_output ).
 
     DATA(lv_found) = abap_true.
-    IF lo_output->has_sentiment() = abap_true.
-      IF lo_output->get_sentiment() = lv_expected_output.
+    IF lo_output->has_sentiment( ) = abap_true.
+      IF lo_output->ask_sentiment( ) = lv_expected_output.
           lv_found = abap_true.
       ENDIF.
     ENDIF.
