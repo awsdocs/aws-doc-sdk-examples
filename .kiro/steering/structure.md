@@ -91,20 +91,29 @@ Each programming language has its own top-level directory:
 
 ### Service Implementation Research
 Before implementing examples for any AWS service, follow this mandatory sequence:
-1. **Tejas Knowledge Base consultation**: Use `query_tejas_kb` to understand service fundamentals, API operations, parameters, use cases, and best practices
-2. **Local knowledge base search**: Use `search` to find existing service implementations and established patterns within this repository
+1. **AWS Knowledge MCP Server consultation**: Use `search_documentation` and `read_documentation` to understand service fundamentals, API operations, parameters, use cases, and best practices
+2. **Amazon Bedrock Knowledge Base search**: Use `ListKnowledgeBases` and `QueryKnowledgeBases` to find existing service implementations and established patterns within this repository
 3. **Cross-language analysis**: Examine how the service is implemented across different language directories (python/, javav2/, dotnetv3/, etc.)
 4. **Pattern identification**: Look for consistent patterns across languages to understand service-specific requirements and conventions
 
-**CRITICAL REQUIREMENT**: Every AWS service implementation must begin with comprehensive Tejas KB research using `query_tejas_kb`.
+**CRITICAL REQUIREMENT**: Every AWS service implementation must begin with comprehensive AWS Knowledge MCP Server research and Amazon Bedrock Knowledge Base consultation.
 
 ### Language Structure Guidelines
 When working within a specific language directory:
-1. **Tejas KB for service context**: Query `query_tejas_kb` for service-specific implementation considerations and language-specific guidance
-2. **Local knowledge base priority**: Use `search` to consult the local knowledge base for language-specific structural guidance and exemplary implementations
-3. **Template selection**: Use the best examples identified in the knowledge base as templates for new code
-4. **Consistency maintenance**: Follow the established patterns and conventions documented in the knowledge base for the target language
+1. **AWS Knowledge MCP Server for service context**: Use `search_documentation` and `read_documentation` for service-specific implementation considerations and guidance
+2. **Amazon Bedrock Knowledge Base priority**: Use `ListKnowledgeBases` and `QueryKnowledgeBases` to consult both "coding-standards-KB" and "[language]-premium-KB" for language-specific structural guidance and exemplary implementations
+3. **Template selection**: Use the best examples identified in the knowledge bases as templates for new code
+4. **Consistency maintenance**: Follow the established patterns and conventions documented in the knowledge bases for the target language
 5. **Structure validation**: Verify new implementations match the proven structures outlined in knowledge base examples
+
+### Mandatory Knowledge Base Workflow
+**BEFORE ANY CODE CREATION:**
+1. **IMMEDIATELY** execute: `ListKnowledgeBases` and `QueryKnowledgeBases("coding-standards-KB", "[language]-code-example-standards")`
+2. **IMMEDIATELY** execute: `QueryKnowledgeBases("[language]-premium-KB", "[language] implementation patterns")`
+3. **Use AWS Knowledge MCP Server tools**: `search_documentation` and `read_documentation` for service understanding
+4. **WAIT** for KB search results before proceeding
+5. **DOCUMENT** the KB findings in your response
+6. **USE** KB results as the single source of truth for all structural decisions
 
 ### Command Execution Standards
 - **Single command execution**: Execute CLI commands individually rather than chaining them together

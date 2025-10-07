@@ -3,108 +3,27 @@
 ## Multi-Language Architecture
 This repository supports 12+ programming languages, each with their own build systems and conventions:
 
-**Note for validation**: Focus validation efforts on the primary languages (Python, JavaScript, Java, Go, .NET, PHP, Kotlin, C++, Rust). Skip validation for Swift, Ruby, and SAP ABAP as they require specialized environments or have version compatibility issues.
+**NOTE for validation**: Focus validation efforts on the primary languages (Python, JavaScript, Java, Go, .NET, PHP, Kotlin, C++, Rust). Skip validation for Swift, Ruby, and SAP ABAP as they require specialized environments or have version compatibility issues.
+
+## Language-Specific Guidelines
+
+For detailed language-specific guidelines, refer to the individual steering files:
 
 ### Primary Languages & Build Tools (Validation Priority)
-- **Python 3.6+**: pip, venv, pytest, black, pylint, flake8
-- **Java v2**: Maven, JUnit 5, Apache Maven Shade Plugin
-- **.NET 3.5+**: dotnet CLI, NuGet, dotnet-format, xUnit
-- **JavaScript/Node.js**: npm, Jest, Prettier, Biome
+- **Python**: See `python-tech.md` for Python specific guidelines (pip, venv, pytest, black, pylint, flake8)
+- **Java**: See `java-tech.md` for Java v2 specific guidelines (Maven, JUnit 5, Apache Maven Shade Plugin)
+- **JavaScript/Node.js**: See `javascript-tech.md` for JavaScript v3 specific guidelines (npm, Jest, Prettier, Biome)
+- **Rust**: See `rust-tech.md` for Rust v1 specific guidelines (Cargo, cargo test, cargo check)
+- **.NET**: See `dotnet-tech.md` for .NET specific guidelines (dotnet CLI, NuGet, dotnet-format, xUnit)
 - **Go v2**: go mod, go test, go fmt
 - **Kotlin**: Gradle, JUnit
 - **PHP**: Composer, PHPUnit
 - **C++**: CMake, custom build scripts
-- **Rust**: Cargo, cargo test, cargo check
 
 ### Secondary Languages (Skip During Validation)
 - **Ruby**: Bundler, RSpec (version compatibility issues)
 - **Swift**: Swift Package Manager (requires macOS-specific setup)
 - **SAP ABAP**: ABAP development tools (requires specialized SAP environment)
-
-## Common Build Commands
-
-### Python
-```bash
-python -m venv .venv
-source .venv/bin/activate  # Linux/macOS
-.venv\Scripts\activate     # Windows
-pip install -r requirements.txt
-python -m pytest -m "not integ"  # Unit tests
-python -m pytest -m "integ"      # Integration tests
-black .                           # Format code
-pylint --rcfile=.github/linters/.python-lint .
-```
-
-### Java
-```bash
-mvn package                # Build with dependencies
-mvn test                   # Run tests
-java -cp target/PROJECT-1.0-SNAPSHOT.jar com.example.Main
-```
-
-### .NET
-```bash
-dotnet build SOLUTION.sln  # Build solution
-dotnet run                 # Run project
-dotnet test                # Run tests
-dotnet format              # Format code
-```
-
-#### AWS Credentials Testing
-- **CRITICAL**: Before assuming AWS credential issues, always test credentials first with `aws sts get-caller-identity`
-- **NEVER** assume credentials are incorrect without verification
-- If credentials test passes but .NET SDK fails, investigate SDK-specific credential chain issues
-- Common .NET SDK credential issues: EC2 instance metadata service conflicts, credential provider chain order
-
-#### DotNetV4 Build Troubleshooting
-- **CRITICAL**: When you get a response that the project file does not exist, use `listDirectory` to find the correct project/solution file path before trying to build again
-- **NEVER** repeatedly attempt the same build command without first locating the actual file structure
-- Always verify file existence with directory listing before executing build commands
-
-### JavaScript
-```bash
-npm install                # Install dependencies
-npm test                   # Run tests
-npm run lint               # Lint code
-```
-
-### Rust
-```bash
-cargo check                # Check compilation
-cargo test                 # Run tests
-cargo build                # Build project
-cargo run --bin getting-started  # Run getting started scenario
-```
-
-#### Rust Project Structure Pattern
-**CRITICAL**: Rust examples follow a specific directory structure pattern. Always examine existing Rust examples (like EC2) before creating new ones:
-
-**Correct Structure for Rust Scenarios:**
-```
-rustv1/examples/{service}/
-├── Cargo.toml
-├── README.md
-├── src/
-│   ├── lib.rs
-│   ├── {service}.rs              # Service wrapper
-│   ├── bin/
-│   │   ├── hello.rs              # MANDATORY: Hello scenario
-│   │   ├── {action-one}.rs       # Individual action file
-│   │   ├── {action-two}.rs       # Individual action file, etc.
-│   │   └── {scenario-name}.rs    # Other scenario entry points
-│   └── {scenario_name}/
-│       ├── mod.rs
-│       ├── scenario.rs           # Main scenario logic
-│       └── tests/
-│           └── mod.rs            # Integration tests
-```
-
-**Key Points:**
-- **MANDATORY**: Every service must include `src/bin/hello.rs` as the simplest example
-- **Follow the EC2 example structure exactly** - it's the canonical pattern
-- **Service wrapper goes in `src/{service}.rs`** (e.g., `src/comprehend.rs`)
-- **Tests go in `getting_started/tests/mod.rs`** for integration testing
-- **Hello scenario**: Should demonstrate the most basic service operation
 
 ## Development Tools & Standards
 
@@ -129,68 +48,72 @@ rustv1/examples/{service}/
 
 ### Understanding AWS Services
 When working with AWS services, follow this mandatory research sequence:
-1. **Query Tejas Knowledge Base FIRST**: Use `query_tejas_kb` to understand service fundamentals, API operations, parameters, and best practices
-2. **Search local knowledge base**: Use `search` to find existing implementation patterns and proven code structures in this repository
+1. **Use AWS Knowledge MCP Server tools FIRST**: Use `search_documentation` and `read_documentation` to understand service fundamentals, API operations, parameters, and best practices
+2. **Query Amazon Bedrock Knowledge Base**: Use `ListKnowledgeBases` and `QueryKnowledgeBases` to find existing implementation patterns and proven code structures
 3. **Check other SDK implementations**: Look at how other language directories implement the same service for patterns and best practices
 4. **Cross-reference examples**: Compare implementations across languages to identify common patterns and service-specific requirements
 
-**CRITICAL**: Every code example must begin with Tejas KB consultation using `query_tejas_kb` before any implementation work begins.
+**CRITICAL**: Every code example must begin with AWS Knowledge MCP Server consultation and Amazon Bedrock Knowledge Base research before any implementation work begins.
 
 ### MANDATORY Tool Usage Sequence
 
-**FIRST - Quality Code Examples Knowledge Base Search:**
+**FIRST - Amazon Bedrock Knowledge Base Search for Standards:**
 ```
-mcp_Quality_Code_Examples_Knowledge_Base_search(query="[language] code example standards")
+ListKnowledgeBases()
+QueryKnowledgeBases("coding-standards-KB", "[language]-code-example-standards")
 ```
 - **REQUIRED** before any other research
 - **REQUIRED** before reading any existing files
 - **REQUIRED** before making structural decisions
 
-**SECOND - AWS Service Understanding:**
+**SECOND - Amazon Bedrock Knowledge Base Search for Language Patterns:**
 ```
-query_tejas_kb("What is [AWS Service] and what are its key API operations?")
+QueryKnowledgeBases("[language]-premium-KB", "[language] implementation patterns")
+```
+- Use for language-specific coding patterns and quality benchmarks
+- Required for understanding language-specific requirements
+
+**THIRD - AWS Service Understanding:**
+```
+search_documentation("What is [AWS Service] and what are its key API operations?")
+read_documentation("https://docs.aws.amazon.com/[service]/latest/[relevant-page]")
 ```
 - Use for service fundamentals, API operations, parameters, and best practices
 - Required for understanding service-specific requirements
-
-**THIRD - Pattern Verification (ONLY AFTER KB SEARCHES):**
-- Use `readFile` or `listDirectory` ONLY to verify KB-documented patterns
-- Never use existing code as primary source of structural decisions
-
-**TOOL USAGE RESTRICTIONS:**
-- **NEVER** use `readFile`/`readMultipleFiles` on existing code before KB search
-- **NEVER** use `listDirectory` to discover patterns before KB search  
-- **NEVER** assume patterns without KB consultation first
 
 ### Understanding Language Structure
 When working with a specific programming language, follow this MANDATORY sequence:
 
 **STEP 1 - MANDATORY FIRST ACTION**: 
-- **IMMEDIATELY** search Quality Code Examples Knowledge Base for "[language] code example standards"
+- **IMMEDIATELY** use `ListKnowledgeBases` and `QueryKnowledgeBases` to search "coding-standards-KB" for "[language]-code-example-standards"
 - **DO NOT** read any existing code files until this search is complete
 - **DO NOT** make any assumptions about structure until KB search is done
 
-**STEP 2 - Service Context**:
-- Query `query_tejas_kb` for service-specific implementation guidance
+**STEP 2 - Language Pattern Discovery**:
+- Query "[language]-premium-KB" through `QueryKnowledgeBases` for implementation patterns and quality benchmarks
 
-**STEP 3 - Pattern Validation**:
+**STEP 3 - Service Context**:
+- Use AWS Knowledge MCP Server tools for service-specific implementation guidance
+
+**STEP 4 - Pattern Validation**:
 - Use KB search results as the AUTHORITATIVE guide for all structure decisions
 - Only examine existing code files to VERIFY the KB-documented patterns
 - Never use existing code as the primary source of truth
 
-**STEP 4 - Implementation**:
+**STEP 5 - Implementation**:
 - Follow KB-documented patterns exactly
 - Use KB examples as templates for new implementations
 
-**CRITICAL FAILURE POINT**: Creating code without first searching the Quality Code Examples Knowledge Base for language standards will result in incorrect structure.
+**CRITICAL FAILURE POINT**: Creating code without first searching the Amazon Bedrock Knowledge Base for language standards will result in incorrect structure.
 
 **MANDATORY WORKFLOW ENFORCEMENT:**
 
 **BEFORE ANY CODE CREATION - REQUIRED FIRST ACTIONS:**
-1. **IMMEDIATELY** execute: `mcp_Quality_Code_Examples_Knowledge_Base_search` with query "[language] code example standards"
-2. **WAIT** for KB search results before proceeding
-3. **DOCUMENT** the KB findings in your response
-4. **USE** KB results as the single source of truth for all structural decisions
+1. **IMMEDIATELY** execute: `ListKnowledgeBases` and `QueryKnowledgeBases("coding-standards-KB", "[language]-code-example-standards")`
+2. **IMMEDIATELY** execute: `QueryKnowledgeBases("[language]-premium-KB", "[language] implementation patterns")`
+3. **WAIT** for KB search results before proceeding
+4. **DOCUMENT** the KB findings in your response
+5. **USE** KB results as the single source of truth for all structural decisions
 
 **PROHIBITED ACTIONS UNTIL KB SEARCH IS COMPLETE:**
 - ❌ **DO NOT** use `readFile` or `readMultipleFiles` on existing code examples
@@ -212,32 +135,16 @@ When working with a specific programming language, follow this MANDATORY sequenc
 
 ## Common Mistakes to Avoid
 
-- **Testing**
-  - ** NEVER accept an error as "expected." When you are given code that runs without errors, your result should run and test without errors.**
+### Testing
+- **NEVER accept an error as "expected." When you are given code that runs without errors, your result should run and test without errors.**
 
 ### Language-Specific Pattern Errors
-- **Rust**: 
-  - ❌ **NEVER assume file naming patterns** without checking existing examples
-  - ✅ **ALWAYS examine `rustv1/examples/ec2/` structure first**
-
-- **Python**:
-  - ❌ **NEVER create scenarios without checking existing patterns**
-  - ✅ **ALWAYS follow the established `{service}_basics.py` or scenario patterns**
-
-- **Java**:
-  - ❌ **NEVER assume class naming without checking existing examples**
-  - ✅ **ALWAYS follow the established Maven project structure**
-
-- **DotNet**:
-  -  **NEVER create examples for dotnetv3 UNLESS explicitly instructed to by the user**
-
-- **.YML**:
-  -  **ALWAYS end a .yml or .yaml file with a single new line character.**
+- **.YML**: **ALWAYS end a .yml or .yaml file with a single new line character.**
 
 ### Pattern Discovery Failures
-- **Root Cause**: Assuming patterns instead of examining existing code
-- **Solution**: Always run `listDirectory` on existing examples in the target language before creating new ones
-- **Verification**: Compare your structure against at least 2 existing examples in the same language
+- **Root Cause**: Assuming patterns instead of consulting knowledge bases
+- **Solution**: Always use Amazon Bedrock Knowledge Base tools before examining existing code
+- **Verification**: Compare your structure against KB-documented patterns and at least 2 existing examples in the same language
 
 ## Service Example Requirements
 
@@ -264,20 +171,13 @@ When working with a specific programming language, follow this MANDATORY sequenc
 - **Standalone**: Hello scenarios should work independently of other examples
 - **Minimal dependencies**: Should require minimal setup or configuration
 
-**Hello Scenario Structure by Language:**
-- **Python**: `{service}_hello.py` or hello function in main module
-- **Java**: `Hello{Service}.java` class with main method
-- **Rust**: `hello.rs` in `src/bin/` directory or hello function in scenario
-- **JavaScript**: `hello-{service}.js` or hello function in main module
-- **.NET**: `Hello{Service}.cs` class with main method
-
 ## Development Workflow Requirements
 
 ### Pre-Push Validation Pipeline
 When creating or modifying code examples, the following steps must be completed successfully before the work is considered complete:
 
-1. **MANDATORY Quality Code Examples KB Research**: Search Quality Code Examples Knowledge Base for "[language] code example standards" - REQUIRED FIRST STEP
-2. **Knowledge Base Research**: Query `query_tejas_kb` for comprehensive service understanding and search Quality Code Examples Knowledge Base for patterns
+1. **MANDATORY Amazon Bedrock Knowledge Base Research**: Use `ListKnowledgeBases` and `QueryKnowledgeBases` for both "coding-standards-KB" and "[language]-premium-KB" - REQUIRED FIRST STEP
+2. **MANDATORY AWS Knowledge MCP Server Research**: Use `search_documentation` and `read_documentation` for comprehensive service understanding
 3. **README Generation**: Run `.tools/readmes/writeme.py` to update documentation
 4. **Integration Testing**: Execute integration tests to verify AWS service interactions
 5. **Test Validation**: All tests must pass with zero errors before considering work complete
@@ -286,9 +186,9 @@ When creating or modifying code examples, the following steps must be completed 
 **MANDATORY COMPLETION REQUIREMENTS**: 
 
 **PRE-IMPLEMENTATION CHECKLIST (MUST BE COMPLETED FIRST):**
-- [ ] **KB SEARCH COMPLETED**: Executed `mcp_Quality_Code_Examples_Knowledge_Base_search` for "[language] code example standards"
+- [ ] **KB SEARCH COMPLETED**: Executed `ListKnowledgeBases` and `QueryKnowledgeBases` for both knowledge bases
 - [ ] **KB RESULTS DOCUMENTED**: Included KB findings in response showing evidence of consultation
-- [ ] **TEJAS KB CONSULTED**: Queried `query_tejas_kb` for service understanding
+- [ ] **AWS KNOWLEDGE MCP SERVER CONSULTED**: Used `search_documentation` and `read_documentation` for service understanding
 - [ ] **PATTERNS IDENTIFIED**: Used KB results to determine file structure, naming, and organization
 
 **IMPLEMENTATION REQUIREMENTS:**
@@ -298,7 +198,7 @@ When creating or modifying code examples, the following steps must be completed 
 - Hello scenarios must be created first, before any complex scenarios
 
 **FAILURE CONDITIONS:**
-- **FAILURE TO SEARCH QUALITY CODE EXAMPLES KB FIRST WILL RESULT IN REJECTED CODE**
+- **FAILURE TO SEARCH AMAZON BEDROCK KNOWLEDGE BASE FIRST WILL RESULT IN REJECTED CODE**
 - **FAILURE TO DOCUMENT KB CONSULTATION WILL RESULT IN REJECTED CODE**
 - **FAILURE TO ENSURE ALL TESTS PASS WILL RESULT IN INCOMPLETE WORK**
 
@@ -316,31 +216,25 @@ When creating or modifying code examples, the following steps must be completed 
 - **Cost Awareness**: Integration tests may incur AWS charges - ensure proper resource cleanup
 - **Cleanup Requirements**: All integration tests must properly clean up created resources
 
-### Validation Commands by Language
-```bash
-# Python
-python .tools/readmes/writeme.py
-python -m pytest -m "integ"
+### Update/Write READMEs
 
-# Java
-python .tools/readmes/writeme.py
-mvn test
+Use virtual environment to run the WRITEME tool. Navigate to .tools/readmes and run the below commands:
 
-# .NET
-python .tools/readmes/writeme.py
-dotnet test
+```
+python -m venv .venv
 
-# JavaScript
-python .tools/readmes/writeme.py
-npm test
+# Windows
+.venv\Scripts\activate
+python -m pip install -r requirements_freeze.txt
 
-# Rust
-python .tools/readmes/writeme.py
-cargo test
+# Linux or MacOS
+source .venv/bin/activate
+
+python -m writeme --languages [language]:[version] --services [service]
 ```
 
 ### Error Handling Protocol
-- If `writeme.py` fails: Fix documentation issues, missing metadata, or file structure problems
+- If WRITEME fails: Fix documentation issues, missing metadata, or file structure problems
 - If tests fail: Debug AWS service interactions, fix credential issues, or resolve resource conflicts
 - Re-run both steps until both pass successfully
 - Only then is the example considered complete and ready for commit
@@ -350,4 +244,3 @@ cargo test
 - Follow SDK-specific best practices and patterns
 - Maintain backward compatibility where possible
 - Credential configuration via AWS credentials file or environment variables
-
