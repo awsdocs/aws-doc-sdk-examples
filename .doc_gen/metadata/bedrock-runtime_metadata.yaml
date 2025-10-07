@@ -1500,5 +1500,3 @@ bedrock-runtime_InvokeModel_TitanText:
                 - python.example_code.bedrock-runtime.InvokeModel_TitanText
   services:
     bedrock-runtime: {InvokeModel}
-
-
