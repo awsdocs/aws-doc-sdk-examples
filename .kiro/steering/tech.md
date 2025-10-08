@@ -1,5 +1,25 @@
 # Technology Stack & Build System
 
+## Knowledge Base Workflow Enforcement
+
+### CRITICAL EFFICIENCY RULE:
+**After completing mandatory Knowledge Base consultation, NEVER examine existing code files for patterns. The KB consultation is designed to provide all necessary patterns and standards.**
+
+### Post-KB Consultation Behavior:
+- **IMMEDIATELY implement** based on KB findings
+- **TRUST KB results completely** - they contain the authoritative patterns
+- **DO NOT second-guess** by examining existing implementations
+- **REFERENCE KB findings** in your implementation decisions
+
+### Efficiency Violation Examples:
+❌ "Let me check how other services implement this"
+❌ "Let me examine existing patterns"
+❌ "Let me look at a similar service structure"
+
+### Correct Efficiency Examples:
+✅ "Based on my KB consultation, I'll implement using these patterns: [KB findings]"
+✅ "The KB consultation revealed these requirements: [implement directly]"
+
 ## Multi-Language Architecture
 This repository supports 12+ programming languages, each with their own build systems and conventions:
 
@@ -114,17 +134,6 @@ When working with a specific programming language, follow this MANDATORY sequenc
 3. **WAIT** for KB search results before proceeding
 4. **DOCUMENT** the KB findings in your response
 5. **USE** KB results as the single source of truth for all structural decisions
-
-**PROHIBITED ACTIONS UNTIL KB SEARCH IS COMPLETE:**
-- ❌ **DO NOT** use `readFile` or `readMultipleFiles` on existing code examples
-- ❌ **DO NOT** use `listDirectory` to examine existing project structures  
-- ❌ **DO NOT** make assumptions about naming conventions
-- ❌ **DO NOT** assume file organization patterns
-
-**ONLY AFTER KB SEARCH:**
-- ✅ Use existing code files to VERIFY KB-documented patterns
-- ✅ Follow KB examples as authoritative templates
-- ✅ Reference existing code to confirm KB guidance
 
 **FAILURE TO FOLLOW THIS EXACT SEQUENCE WILL RESULT IN INCORRECT CODE STRUCTURE**
 
