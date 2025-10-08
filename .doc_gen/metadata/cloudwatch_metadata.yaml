@@ -46,13 +46,13 @@ cloudwatch_DeleteAlarms:
                 - cloudwatch.kotlin.scenario.del.alarm.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.DeleteAlarms
+                - CloudWatch.dotnetv4.DeleteAlarms
     Java:
       versions:
         - sdk_version: 2
@@ -137,13 +137,13 @@ cloudwatch_DeleteAnomalyDetector:
                 - cloudwatch.java2.scenario.del.anomalydetector.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.DeleteAnomalyDetector
+                - CloudWatch.dotnetv4.DeleteAnomalyDetector
   services:
     cloudwatch: {DeleteAnomalyDetector}
 cloudwatch_DeleteDashboards:
@@ -168,13 +168,13 @@ cloudwatch_DeleteDashboards:
                 - cloudwatch.java2.scenario.del.dashboard.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.DeleteDashboards
+                - CloudWatch.dotnetv4.DeleteDashboards
   services:
     cloudwatch: {DeleteDashboards}
 cloudwatch_DescribeAlarmHistory:
@@ -199,13 +199,13 @@ cloudwatch_DescribeAlarmHistory:
                 - cloudwatch.java2.scenario.get.alarm.history.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.DescribeAlarmHistory
+                - CloudWatch.dotnetv4.DescribeAlarmHistory
   services:
     cloudwatch: {DescribeAlarmHistory}
 cloudwatch_DescribeAlarms:
@@ -230,13 +230,13 @@ cloudwatch_DescribeAlarms:
                 - cloudwatch.java2.describe_alarms.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.DescribeAlarms
+                - CloudWatch.dotnetv4.DescribeAlarms
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -260,13 +260,13 @@ cloudwatch_DescribeAlarmsForMetric:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.DescribeAlarmsForMetric
+                - CloudWatch.dotnetv4.DescribeAlarmsForMetric
     Kotlin:
       versions:
         - sdk_version: 1
@@ -361,13 +361,13 @@ cloudwatch_DescribeAnomalyDetectors:
                 - cloudwatch.java2.scenario.describe.anomalydetector.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.DescribeAnomalyDetectors
+                - CloudWatch.dotnetv4.DescribeAnomalyDetectors
   services:
     cloudwatch: {DescribeAnomalyDetectors}
 cloudwatch_DisableAlarmActions:
@@ -383,13 +383,13 @@ cloudwatch_DisableAlarmActions:
                 - cloudwatch.kotlin.disable_alarm_actions.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.DisableAlarmActions
+                - CloudWatch.dotnetv4.DisableAlarmActions
     Java:
       versions:
         - sdk_version: 2
@@ -465,13 +465,13 @@ cloudwatch_EnableAlarmActions:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.EnableAlarmActions
+                - CloudWatch.dotnetv4.EnableAlarmActions
     Kotlin:
       versions:
         - sdk_version: 1
@@ -547,13 +547,13 @@ cloudwatch_GetDashboard:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.GetDashboard
+                - CloudWatch.dotnetv4.GetDashboard
   services:
     cloudwatch: {GetDashboard}
 cloudwatch_GetMetricData:
@@ -578,13 +578,13 @@ cloudwatch_GetMetricData:
                 - cloudwatch.java2.scenario.get.met.data.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.GetMetricData
+                - CloudWatch.dotnetv4.GetMetricData
   services:
     cloudwatch: {GetMetricData}
 cloudwatch_GetMetricStatistics:
@@ -609,14 +609,14 @@ cloudwatch_GetMetricStatistics:
                 - cloudwatch.java2.scenario.display.metrics.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.GetMetricStatisticsSetup
-                - CloudWatch.dotnetv3.GetMetricStatistics
+                - CloudWatch.dotnetv4.GetMetricStatisticsSetup
+                - CloudWatch.dotnetv4.GetMetricStatistics
     Python:
       versions:
         - sdk_version: 3
@@ -651,13 +651,13 @@ cloudwatch_GetMetricWidgetImage:
                 - cloudwatch.java2.scenario.get.metric.image.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.GetMetricImage
+                - CloudWatch.dotnetv4.GetMetricImage
   services:
     cloudwatch: {GetMetricWidgetImage}
 cloudwatch_ListDashboards:
@@ -682,13 +682,13 @@ cloudwatch_ListDashboards:
                 - cloudwatch.java2.scenario.list.dashboard.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.ListDashboards
+                - CloudWatch.dotnetv4.ListDashboards
   services:
     cloudwatch: {ListDashboards}
 cloudwatch_ListMetrics:
@@ -704,13 +704,13 @@ cloudwatch_ListMetrics:
                 - cloudwatch.kotlin.scenario.list.metrics.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.ListMetrics
+                - CloudWatch.dotnetv4.ListMetrics
     Java:
       versions:
         - sdk_version: 2
@@ -804,13 +804,13 @@ cloudwatch_PutAnomalyDetector:
                 - cloudwatch.java2.scenario.add.anomalydetector.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.PutAnomalyDetector
+                - CloudWatch.dotnetv4.PutAnomalyDetector
   services:
     cloudwatch: {PutAnomalyDetector}
 cloudwatch_PutDashboard:
@@ -835,14 +835,14 @@ cloudwatch_PutDashboard:
                 - cloudwatch.java2.scenario.create.dashboard.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.PutDashboardSetup
-                - CloudWatch.dotnetv3.PutDashboard
+                - CloudWatch.dotnetv4.PutDashboardSetup
+                - CloudWatch.dotnetv4.PutDashboard
   services:
     cloudwatch: {PutDashboard}
 cloudwatch_PutMetricAlarm:
@@ -858,13 +858,13 @@ cloudwatch_PutMetricAlarm:
                 - cloudwatch.java2.scenario.create.alarm.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.PutMetricAlarm
+                - CloudWatch.dotnetv4.PutMetricAlarm
     Kotlin:
       versions:
         - sdk_version: 1
@@ -940,14 +940,14 @@ cloudwatch_PutMetricData:
   languages:
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.PutMetricDataSetup
-                - CloudWatch.dotnetv3.PutMetricData
+                - CloudWatch.dotnetv4.PutMetricDataSetup
+                - CloudWatch.dotnetv4.PutMetricData
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1060,16 +1060,16 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
                 - cloudwatch.java2.actions.main
     .NET:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/CloudWatch
+        - sdk_version: 4
+          github: dotnetv4/CloudWatch
           sdkguide:
           excerpts:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
-                - CloudWatch.dotnetv3.GettingStarted
+                - CloudWatch.dotnetv4.GettingStarted
             - description: Wrapper methods used by the scenario for &CW; actions.
               snippet_tags:
-                - CloudWatch.dotnetv3.CloudWatchWrapper
+                - CloudWatch.dotnetv4.CloudWatchWrapper
   services:
     cloudwatch: {ListMetrics, GetMetricStatistics, PutDashboard, PutMetricData, GetMetricData, PutMetricAlarm, DescribeAlarms,
                  DescribeAlarmsForMetric, DescribeAlarmHistory, DeleteAlarms, PutAnomalyDetector, GetMetricWidgetImage, DescribeAnomalyDetectors,
