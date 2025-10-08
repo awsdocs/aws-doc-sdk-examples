@@ -18,9 +18,7 @@ import (
 )
 
 const CLAUDE_MODEL_ID = "anthropic.claude-v2"
-const JURASSIC2_MODEL_ID = "ai21.j2-mid-v1"
 const TITAN_IMAGE_MODEL_ID = "amazon.titan-image-generator-v1"
-const TITAN_TEXT_EXPRESS_MODEL_ID = "amazon.titan-text-express-v1"
 
 const prompt = "A test prompt"
 
@@ -41,24 +39,12 @@ func CallInvokeModelActions(sdkConfig aws.Config) {
 	}
 	log.Println(claudeCompletion)
 
-	jurassic2Completion, err := wrapper.InvokeJurassic2(ctx, prompt)
-	if err != nil {
-		panic(err)
-	}
-	log.Println(jurassic2Completion)
-
 	seed := int64(0)
 	titanImageCompletion, err := wrapper.InvokeTitanImage(ctx, prompt, seed)
 	if err != nil {
 		panic(err)
 	}
 	log.Println(titanImageCompletion)
-
-	titanTextCompletion, err := wrapper.InvokeTitanText(ctx, prompt)
-	if err != nil {
-		panic(err)
-	}
-	log.Println(titanTextCompletion)
 
 	log.Printf("Thanks for watching!")
 }
@@ -73,9 +59,7 @@ type InvokeModelActionsTest struct{}
 func (scenTest *InvokeModelActionsTest) SetupDataAndStubs() []testtools.Stub {
 	var stubList []testtools.Stub
 	stubList = append(stubList, stubInvokeModel(CLAUDE_MODEL_ID))
-	stubList = append(stubList, stubInvokeModel(JURASSIC2_MODEL_ID))
 	stubList = append(stubList, stubInvokeModel(TITAN_IMAGE_MODEL_ID))
-	stubList = append(stubList, stubInvokeModel(TITAN_TEXT_EXPRESS_MODEL_ID))
 
 	return stubList
 }
@@ -102,18 +86,6 @@ func stubInvokeModel(modelId string) testtools.Stub {
 			Completion: "A fake response",
 		})
 
-	case JURASSIC2_MODEL_ID:
-		request, _ = json.Marshal(Jurassic2Request{
-			Prompt:      prompt,
-			MaxTokens:   200,
-			Temperature: 0.5,
-		})
-		response, _ = json.Marshal(Jurassic2Response{
-			Completions: []Completion{
-				{Data: Data{Text: "A fake response"}},
-			},
-		})
-
 	case TITAN_IMAGE_MODEL_ID:
 		request, _ = json.Marshal(TitanImageRequest{
 			TaskType: "TEXT_IMAGE",
@@ -131,23 +103,6 @@ func stubInvokeModel(modelId string) testtools.Stub {
 		})
 		response, _ = json.Marshal(TitanImageResponse{
 			Images: []string{"FakeBase64String=="},
-		})
-
-	case TITAN_TEXT_EXPRESS_MODEL_ID:
-		request, _ = json.Marshal(TitanTextRequest{
-			InputText: prompt,
-			TextGenerationConfig: TextGenerationConfig{
-				Temperature:   0,
-				TopP:          1,
-				MaxTokenCount: 4096,
-			},
-		})
-		response, _ = json.Marshal(TitanTextResponse{
-			Results: []Result{
-				{
-					OutputText: "A fake response",
-				},
-			},
 		})
 
 	default:

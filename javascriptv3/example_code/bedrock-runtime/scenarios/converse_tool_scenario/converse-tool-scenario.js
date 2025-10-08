@@ -21,10 +21,10 @@ import {
 
 import { parseArgs } from "node:util";
 import { fileURLToPath } from "node:url";
-import { dirname } from "node:path";
-const __filename = fileURLToPath(import.meta.url);
 import data from "./questions.json" with { type: "json" };
 import toolConfig from "./tool_config.json" with { type: "json" };
+
+const __filename = fileURLToPath(import.meta.url);
 
 const systemPrompt = [
   {
@@ -198,6 +198,7 @@ async function callWeatherTool(longitude, latitude) {
  */
 const pressEnter = new ScenarioInput("continue", "Press Enter to continue", {
   type: "input",
+  default: "",
 });
 
 const greet = new ScenarioOutput(

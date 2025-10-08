@@ -1,4 +1,4 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 namespace BedrockRuntimeTests;
@@ -11,7 +11,6 @@ public class ActionTest_Converse
     [InlineData(typeof(CohereCommand.Converse))]
     [InlineData(typeof(AnthropicClaude.Converse))]
     [InlineData(typeof(AmazonNovaText.Converse))]
-    [InlineData(typeof(AmazonTitanText.Converse))]
 
     public void ConverseDoesNotThrow(Type type)
     {

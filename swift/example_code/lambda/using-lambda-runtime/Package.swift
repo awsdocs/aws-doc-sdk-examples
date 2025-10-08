@@ -1,4 +1,4 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 6.0
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -20,7 +20,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/swift-server/swift-aws-lambda-runtime.git",
-            from: "1.0.0-alpha"),
+            from: "2.0.0-beta.1"),
         .package(url: "https://github.com/awslabs/aws-sdk-swift.git",
             from: "1.0.0"),
     ],

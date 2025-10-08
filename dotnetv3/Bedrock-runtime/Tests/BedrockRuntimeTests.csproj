@@ -30,11 +30,7 @@
 		<ProjectReference Include="..\Models\AmazonNova\AmazonNovaCanvas\InvokeModel\InvokeModel.csproj" />
 	  <ProjectReference Include="..\Models\AmazonNova\AmazonNovaText\ConverseStream\ConverseStream.csproj" />
 	  <ProjectReference Include="..\Models\AmazonNova\AmazonNovaText\Converse\Converse.csproj" />
-	  <ProjectReference Include="..\Models\AmazonTitanText\Converse\Converse.csproj" />
-	  <ProjectReference Include="..\Models\AmazonTitanText\ConverseStream\ConverseStream.csproj" />
-	  <ProjectReference Include="..\Models\AmazonTitanText\Converse\Converse.csproj" />
-	  <ProjectReference Include="..\Models\AmazonTitanText\InvokeModelWithResponseStream\InvokeModelWithResponseStream.csproj" />
-	  <ProjectReference Include="..\Models\AmazonTitanText\InvokeModel\InvokeModel.csproj" />
+
 	  <ProjectReference Include="..\Models\AnthropicClaude\ConverseStream\ConverseStream.csproj" />
 	  <ProjectReference Include="..\Models\AnthropicClaude\Converse\Converse.csproj" />
 	  <ProjectReference Include="..\Models\AnthropicClaude\InvokeModelWithResponseStream\InvokeModelWithResponseStream.csproj" />

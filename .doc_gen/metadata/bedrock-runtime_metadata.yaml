@@ -22,19 +22,6 @@ bedrock-runtime_Hello:
               snippet_files:
                 - javascriptv3/example_code/bedrock-runtime/hello.js
 
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          sdkguide:
-          excerpts:
-            - description: Send a prompt to a model with the InvokeModel operation.
-              snippet_tags:
-                - bedrock-runtime.example_code.hello_bedrock_invoke.complete
-            - description: Send a user message to a model with the Converse operation.
-              snippet_tags:
-                - bedrock-runtime.example_code.hello_bedrock_converse.complete
-
   services:
     bedrock-runtime: {InvokeModel}
 
@@ -112,50 +99,6 @@ bedrock-runtime_Converse_AmazonNovaText:
             - description: Send a text message to Amazon Nova, using Bedrock's Converse API.
               snippet_tags:
                 - swift.example_code.bedrock-runtime.Converse_AmazonNovaText
-  services:
-    bedrock-runtime: {Converse}
-
-bedrock-runtime_Converse_AmazonTitanText:
-  title: Invoke Amazon Titan Text on &BR; using Bedrock's Converse API
-  title_abbrev: "Converse"
-  synopsis: send a text message to Amazon Titan Text, using Bedrock's Converse API.
-  category: Amazon Titan Text
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Send a text message to Amazon Titan Text, using Bedrock's Converse API.
-              snippet_tags:
-                - bedrock-runtime.java2.Converse_AmazonTitanText
-            - description: Send a text message to Amazon Titan Text, using Bedrock's Converse API with the async Java client.
-              snippet_tags:
-                - bedrock-runtime.java2.ConverseAsync_AmazonTitanText
-    .NET:
-      versions:
-        - sdk_version: 4
-          github: dotnetv4/Bedrock-runtime
-          excerpts:
-            - description: Send a text message to Amazon Titan Text, using Bedrock's Converse API.
-              snippet_tags:
-                - BedrockRuntime.dotnetv4.Converse_AmazonTitanText
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Send a text message to Amazon Titan Text, using Bedrock's Converse API.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.Converse_AmazonTitanText
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Send a text message to Amazon Titan Text, using Bedrock's Converse API.
-              snippet_tags:
-                - javascript.v3.bedrock-runtime.Converse_AmazonTitanText
   services:
     bedrock-runtime: {Converse}
 
@@ -508,47 +451,6 @@ bedrock-runtime_ConverseStream_AmazonNovaText:
   services:
     bedrock-runtime: {ConverseStream}
 
-bedrock-runtime_ConverseStream_AmazonTitanText:
-  title: Invoke Amazon Titan Text on &BR; using Bedrock's Converse API with a response stream
-  title_abbrev: "ConverseStream"
-  synopsis: send a text message to Amazon Titan Text, using Bedrock's Converse API and process the response stream in real-time.
-  category: Amazon Titan Text
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Send a text message to Amazon Titan Text, using Bedrock's Converse API and process the response stream in real-time.
-              snippet_tags:
-                - bedrock-runtime.java2.ConverseStream_AmazonTitanText
-    .NET:
-      versions:
-        - sdk_version: 4
-          github: dotnetv4/Bedrock-runtime
-          excerpts:
-            - description: Send a text message to Amazon Titan Text, using Bedrock's Converse API and process the response stream in real-time.
-              snippet_tags:
-                - BedrockRuntime.dotnetv4.ConverseStream_AmazonTitanText
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Send a text message to Amazon Titan Text, using Bedrock's Converse API and process the response stream in real-time.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.ConverseStream_AmazonTitanText
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Send a text message to Amazon Titan Text, using Bedrock's Converse API and process the response stream in real-time.
-              snippet_tags:
-                - javascript.v3.bedrock-runtime.ConverseStream_AmazonTitanText
-  services:
-    bedrock-runtime: {ConverseStream}
-
 bedrock-runtime_ConverseStream_AnthropicClaude:
   title: Invoke Anthropic Claude on &BR; using Bedrock's Converse API with a response stream
   title_abbrev: "ConverseStream"
@@ -741,64 +643,6 @@ bedrock-runtime_ConverseStream_Mistral:
     bedrock-runtime: {ConverseStream}
 
 # Invoke Model
-bedrock-runtime_InvokeModel_TitanText:
-  title: Invoke Amazon Titan Text models on &BR; using the Invoke Model API
-  title_abbrev: "InvokeModel"
-  synopsis: send a text message to Amazon Titan Text, using the Invoke Model API.
-  category: Amazon Titan Text
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModel_AmazonTitanText
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to generate a short story.
-              snippet_tags:
-                - bedrock-runtime.kotlin.InvokeModel_AmazonTitanText
-    .NET:
-      versions:
-        - sdk_version: 4
-          github: dotnetv4/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - BedrockRuntime.dotnetv4.InvokeModel_AmazonTitanText
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModel_TitanText
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/models/amazonTitanText/invoke_model.js
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - gov2.bedrock-runtime.InvokeModelWrapper.struct
-                - gov2.bedrock-runtime.InvokeTitanText
-  services:
-    bedrock-runtime: {InvokeModel}
-
 bedrock-runtime_InvokeModel_AnthropicClaude:
   title: Invoke Anthropic Claude on &BR; using the Invoke Model API
   title_abbrev: "InvokeModel"
@@ -869,39 +713,6 @@ bedrock-runtime_InvokeModel_AnthropicClaude:
             - description: Invoke the Anthropic Claude 3 foundation model to generate text using L2 high level client.
               snippet_tags:
                 - bdr.abapv1.invokemodel_l2_claude_v3
-  services:
-    bedrock-runtime: {InvokeModel}
-
-bedrock-runtime_InvokeModel_CohereCommand:
-  title: Invoke Cohere Command on &BR; using the Invoke Model API
-  title_abbrev: "InvokeModel: Command and Command Light"
-  synopsis: send a text message to Cohere Command, using the Invoke Model API.
-  category: Cohere Command
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModel_CohereCommand
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModel_CohereCommand
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModel_CohereCommand
   services:
     bedrock-runtime: {InvokeModel}
 
@@ -1021,39 +832,6 @@ bedrock-runtime_InvokeModel_MistralAi:
     bedrock-runtime: {InvokeModel}
 
 # Invoke Model with Response Stream
-bedrock-runtime_InvokeModelWithResponseStream_TitanText:
-  title: Invoke Amazon Titan Text models on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "InvokeModelWithResponseStream"
-  synopsis: send a text message to Amazon Titan Text models, using the Invoke Model API, and print the response stream.
-  category: Amazon Titan Text
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModelWithResponseStream_AmazonTitanText
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_AmazonTitanText
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_TitanText
-  services:
-    bedrock-runtime: {InvokeModelWithResponseStream}
-
 bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude:
   title: Invoke Anthropic Claude models on &BR; using the Invoke Model API with a response stream
   title_abbrev: "InvokeModelWithResponseStream"
@@ -1103,39 +881,6 @@ bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude:
                 - javascriptv3/example_code/bedrock-runtime/models/anthropicClaude/invoke_claude_3.js
   services:
     bedrock-runtime: {InvokeModelWithResponseStream}
-
-bedrock-runtime_InvokeModelWithResponseStream_CohereCommand:
-  title: Invoke Cohere Command on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "InvokeModelWithResponseStream: Command and Command Light"
-  synopsis: send a text message to Cohere Command, using the Invoke Model API with a response stream.
-  category: Cohere Command
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModelWithResponseStream_CohereCommand
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_CohereCommand
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_CohereCommand
-  services:
-    bedrock-runtime: {InvokeModel}
 
 bedrock-runtime_InvokeModelWithResponseStream_CohereCommandR:
   title: Invoke Cohere Command R and R+ on &BR; using the Invoke Model API with a response stream
@@ -1738,3 +1483,20 @@ bedrock-runtime_Scenario_GenerateVideos_NovaReel:
                 - bedrock-runtime.java2.NovaReel.VideoGeneration
   services:
     bedrock-runtime: {StartAsyncInvoke, GetAsyncInvoke}
+
+bedrock-runtime_InvokeModel_TitanText:
+  title: Invoke Amazon Titan Text models on &BR; using the Invoke Model API
+  title_abbrev: "InvokeModel"
+  synopsis: send a text message to Amazon Titan Text, using the Invoke Model API.
+  category: Amazon Titan Text
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModel_TitanText
+  services:
+    bedrock-runtime: {InvokeModel}

@@ -154,24 +154,10 @@ public class CreateJob {
 
                 try {
                         // snippet-start:[mediaconvert.java.createjob.getendpointurl]
-                        DescribeEndpointsResponse res = mc
-                                        .describeEndpoints(DescribeEndpointsRequest.builder().maxResults(20).build());
-
-                        if (res.endpoints().size() <= 0) {
-                                System.out.println("Cannot find MediaConvert service endpoint URL!");
-                                System.exit(1);
-                        }
-                        String endpointURL = res.endpoints().get(0).url();
-                        System.out.println("MediaConvert service URL: " + endpointURL);
                         System.out.println("MediaConvert role arn: " + mcRoleARN);
                         System.out.println("MediaConvert input file: " + fileInput);
                         System.out.println("MediaConvert output path: " + s3path);
                         // snippet-end:[mediaconvert.java.createjob.getendpointurl]
-
-                        MediaConvertClient emc = MediaConvertClient.builder()
-                                        .region(Region.US_WEST_2)
-                                        .endpointOverride(URI.create(endpointURL))
-                                        .build();
 
                         // output group Preset HLS low profile
                         Output hlsLow = createOutput("hls_low", "_low", "_$dt$", 750000, 7, 1920, 1080, 640);
@@ -369,7 +355,7 @@ public class CreateJob {
                                         .settings(jobSettings)
                                         .build();
 
-                        CreateJobResponse createJobResponse = emc.createJob(createJobRequest);
+                        CreateJobResponse createJobResponse = mc.createJob(createJobRequest);
                         return createJobResponse.job().id();
 
                 } catch (MediaConvertException e) {

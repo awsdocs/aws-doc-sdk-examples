@@ -44,10 +44,6 @@ functions within the same service.
 
 - [InvokeModel](actions/invoke_model.go#L7)
 
-### Amazon Titan Text
-
-- [InvokeModel](actions/invoke_model.go#L7)
-
 ### Anthropic Claude
 
 - [Converse](actions/converse.go#L7)
