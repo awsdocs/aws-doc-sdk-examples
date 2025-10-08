@@ -71,6 +71,38 @@ When developing AWS SDK code examples, agents should leverage the available reso
    - Validate service-specific requirements
    - Confirm best practice adherence
    ```
+## CRITICAL: Post-Knowledge Base Consultation Workflow
+
+### 🚨 MANDATORY BEHAVIOR AFTER KB CONSULTATION 🚨
+
+Once you have completed the mandatory knowledge base consultation (ListKnowledgeBases + QueryKnowledgeBases for both "coding-standards-KB" and "[language]-premium-KB"), you MUST follow this strict workflow:
+
+#### IMMEDIATELY AFTER KB CONSULTATION:
+1. **STOP examining existing code files**
+2. **PROCEED DIRECTLY to implementation using KB findings**
+3. **DO NOT waste time reading existing service implementations**
+4. **USE KB results as the complete and authoritative guide**
+
+#### FORBIDDEN ACTIONS POST-KB CONSULTATION:
+- ❌ **NEVER examine other service directories for "patterns"**
+- ❌ **NEVER read existing code files to "understand structure"**
+- ❌ **NEVER use phrases like "let me check existing implementations"**
+- ❌ **NEVER second-guess the KB findings by looking at code**
+
+#### REQUIRED ACTIONS POST-KB CONSULTATION:
+- ✅ **IMMEDIATELY begin implementation using KB patterns**
+- ✅ **TRUST the KB results completely**
+- ✅ **Reference KB findings in your implementation decisions**
+- ✅ **Only examine existing code IF KB results are unclear (rare)**
+
+### Efficiency Enforcement
+
+**The Knowledge Base consultation is designed to eliminate the need for code examination.** 
+
+If you find yourself wanting to "check existing patterns" after KB consultation, this indicates:
+1. You didn't trust the KB results (WRONG)
+2. You didn't query the KB thoroughly enough (FIX: query again)
+3. You're falling back to old inefficient habits (STOP)
 
 ## Required Knowledge Base Queries by Development Phase
 
