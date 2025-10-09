@@ -36,13 +36,13 @@ public class CloudWatchLogsTest {
     private static String logStreamName = "";
     private static String pattern = "";
 
-
     @BeforeAll
     public static void setUp() throws IOException {
        logsClient = CloudWatchLogsClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
+       // CHANGE THESE VALUES TO RUN THE TESTS
        logGroupName = "WeathertopJavaContainerLogs";
        logStreamName = "weathertop-java-stream";
        pattern = "INFO";
