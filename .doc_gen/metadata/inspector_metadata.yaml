@@ -1,0 +1,146 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# snippet-start:[inspector.yaml]
+# Inspector code examples for the AWS SDK for Python (Boto3).
+inspector_Hello:
+  title: Hello &Inspector;
+  title_abbrev: Hello &Inspector;
+  synopsis: get started using &Inspector;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector.Hello
+  services:
+    inspector2: {BatchGetAccountStatus}
+inspector_Enable:
+  title: Enable &Inspector; scanning
+  title_abbrev: Enable scanning
+  synopsis: enable &Inspector; scanning for your account.
+  category: Basics
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector.InspectorWrapper.class
+                - python.example_code.inspector.InspectorWrapper.decl
+                - python.example_code.inspector.Enable
+  services:
+    inspector2: {Enable}
+inspector_BatchGetAccountStatus:
+  title: Get &Inspector; account status
+  title_abbrev: Get account status
+  synopsis: get the status of &Inspector; for your account.
+  category: Basics
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector.InspectorWrapper.class
+                - python.example_code.inspector.InspectorWrapper.decl
+                - python.example_code.inspector.BatchGetAccountStatus
+  services:
+    inspector2: {BatchGetAccountStatus}
+inspector_ListFindings:
+  title: List &Inspector; findings
+  title_abbrev: List findings
+  synopsis: list security findings from &Inspector;.
+  category: Basics
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector.InspectorWrapper.class
+                - python.example_code.inspector.InspectorWrapper.decl
+                - python.example_code.inspector.ListFindings
+  services:
+    inspector2: {ListFindings}
+inspector_BatchGetFindingDetails:
+  title: Get &Inspector; finding details
+  title_abbrev: Get finding details
+  synopsis: get detailed information for specific &Inspector; findings.
+  category: Basics
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector.InspectorWrapper.class
+                - python.example_code.inspector.InspectorWrapper.decl
+                - python.example_code.inspector.BatchGetFindingDetails
+  services:
+    inspector2: {BatchGetFindingDetails}
+inspector_ListCoverage:
+  title: List &Inspector; coverage
+  title_abbrev: List coverage
+  synopsis: list coverage statistics for resources scanned by &Inspector;.
+  category: Basics
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector.InspectorWrapper.class
+                - python.example_code.inspector.InspectorWrapper.decl
+                - python.example_code.inspector.ListCoverage
+  services:
+    inspector2: {ListCoverage}
+inspector_Disable:
+  title: Disable &Inspector; scanning
+  title_abbrev: Disable scanning
+  synopsis: disable &Inspector; scanning for your account.
+  category: Basics
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.inspector.InspectorWrapper.class
+                - python.example_code.inspector.InspectorWrapper.decl
+                - python.example_code.inspector.Disable
+  services:
+    inspector2: {Disable}
+inspector_Scenario:
+  title: Learn the basics of &Inspector;
+  title_abbrev: Learn the basics
+  synopsis: learn the basics of &Inspector;.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/inspector
+          excerpts:
+            - description: Run an interactive scenario demonstrating &Inspector; features.
+              snippet_tags:
+                - python.example_code.inspector.InspectorScenario
+  services:
+    inspector2: {Enable, BatchGetAccountStatus, ListFindings, BatchGetFindingDetails, ListCoverage, Disable}
+# snippet-end:[inspector.yaml]

@@ -36,6 +36,7 @@ from test_tools.eventbridge_stubber import EventBridgeStubber
 from test_tools.glacier_stubber import GlacierStubber
 from test_tools.glue_stubber import GlueStubber
 from test_tools.iam_stubber import IamStubber
+from test_tools.inspector_stubber import InspectorStubber
 from test_tools.iot_sitewise_stubber import IoTSitewiseStubber
 from test_tools.healthlake_stubber import HealthLakeStubber
 from test_tools.keyspaces_stubber import KeyspacesStubber
