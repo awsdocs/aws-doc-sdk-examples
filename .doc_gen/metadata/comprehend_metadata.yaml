@@ -291,6 +291,14 @@ comprehend_DetectSentiment:
               snippet_tags:
                 - python.example_code.comprehend.ComprehendDetect
                 - python.example_code.comprehend.DetectSentiment
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cpd
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpd.abapv1.detect_sentiment
   services:
     comprehend: {DetectSentiment}
 comprehend_DetectSyntax:
