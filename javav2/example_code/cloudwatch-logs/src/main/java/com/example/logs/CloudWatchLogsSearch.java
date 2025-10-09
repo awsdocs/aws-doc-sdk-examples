@@ -71,7 +71,6 @@ public class CloudWatchLogsSearch {
                 .build();
 
         DescribeLogStreamsResponse describeLogStreamsResponse = cwlClient.describeLogStreams(describeLogStreamsRequest);
-
         List<LogStream> logStreams = describeLogStreamsResponse.logStreams();
 
         for (LogStream logStream : logStreams) {
