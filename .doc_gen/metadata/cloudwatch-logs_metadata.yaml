@@ -119,7 +119,10 @@ cloudwatch-logs_DescribeLogStreams:
           github: javav2/example_code/cloudwatch
           sdkguide:
           excerpts:
-            - description:
+            - description: Searches for log streams within a specified log group that match a given prefix.
+              snippet_tags:
+                - cloudwatch.javav2.read.log.streams.main
+            - description: Prints metadata about the most recent log stream in a specified log group.
               snippet_tags:
                 - cloudwatch.javav2.describe.log.streams.main
   services:
