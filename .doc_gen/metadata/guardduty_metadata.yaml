@@ -1,0 +1,158 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# GuardDuty code examples for the SDK for Python.
+guardduty_Hello:
+  title: Hello &GD;
+  title_abbrev: Hello &GD;
+  synopsis: get started using &GD;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/guardduty
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.guardduty.Hello
+  services:
+    guardduty: {ListDetectors}
+guardduty_CreateDetector:
+  title: Create a &GD; detector using an &AWS; SDK
+  title_abbrev: Create a detector
+  synopsis: create a &GD; detector.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/guardduty
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.guardduty.GuardDutyWrapper.decl
+                - python.example_code.guardduty.CreateDetector
+  services:
+    guardduty: {CreateDetector}
+guardduty_GetDetector:
+  title: Get a &GD; detector using an &AWS; SDK
+  title_abbrev: Get a detector
+  synopsis: get a &GD; detector.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/guardduty
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.guardduty.GuardDutyWrapper.decl
+                - python.example_code.guardduty.GetDetector
+  services:
+    guardduty: {GetDetector}
+guardduty_ListDetectors:
+  title: List &GD; detectors using an &AWS; SDK
+  title_abbrev: List detectors
+  synopsis: list &GD; detectors.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/guardduty
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.guardduty.GuardDutyWrapper.decl
+                - python.example_code.guardduty.ListDetectors
+  services:
+    guardduty: {ListDetectors}
+guardduty_CreateSampleFindings:
+  title: Create &GD; sample findings using an &AWS; SDK
+  title_abbrev: Create sample findings
+  synopsis: create &GD; sample findings.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/guardduty
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.guardduty.GuardDutyWrapper.decl
+                - python.example_code.guardduty.CreateSampleFindings
+  services:
+    guardduty: {CreateSampleFindings}
+guardduty_ListFindings:
+  title: List &GD; findings using an &AWS; SDK
+  title_abbrev: List findings
+  synopsis: list &GD; findings.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/guardduty
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.guardduty.GuardDutyWrapper.decl
+                - python.example_code.guardduty.ListFindings
+  services:
+    guardduty: {ListFindings}
+guardduty_GetFindings:
+  title: Get &GD; findings using an &AWS; SDK
+  title_abbrev: Get findings
+  synopsis: get &GD; findings.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/guardduty
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.guardduty.GuardDutyWrapper.decl
+                - python.example_code.guardduty.GetFindings
+  services:
+    guardduty: {GetFindings}
+guardduty_DeleteDetector:
+  title: Delete a &GD; detector using an &AWS; SDK
+  title_abbrev: Delete a detector
+  synopsis: delete a &GD; detector.
+  category: Actions
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/guardduty
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.guardduty.GuardDutyWrapper.decl
+                - python.example_code.guardduty.DeleteDetector
+  services:
+    guardduty: {DeleteDetector}
+guardduty_Scenario:
+  title: Learn the basics of &GD; using an &AWS; SDK
+  title_abbrev: Learn the basics
+  synopsis: learn the basics of &GD;.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/guardduty
+          excerpts:
+            - description: Create a wrapper class that encapsulates &GD; functions.
+              snippet_tags:
+                - python.example_code.guardduty.GuardDutyWrapper.class
+            - description: Use the wrapper class to run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.guardduty.GuardDutyScenario
+  services:
+    guardduty: {CreateDetector, GetDetector, ListDetectors, CreateSampleFindings, ListFindings, GetFindings, DeleteDetector}
