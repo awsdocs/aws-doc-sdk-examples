@@ -210,6 +210,33 @@ When creating or modifying code examples, the following steps must be completed 
 - **FAILURE TO SEARCH AMAZON BEDROCK KNOWLEDGE BASE FIRST WILL RESULT IN REJECTED CODE**
 - **FAILURE TO DOCUMENT KB CONSULTATION WILL RESULT IN REJECTED CODE**
 - **FAILURE TO ENSURE ALL TESTS PASS WILL RESULT IN INCOMPLETE WORK**
+- **FAILURE TO EXECUTE ALL GENERATED EXAMPLE FILES WILL RESULT IN INCOMPLETE VALIDATION**
+
+### 🚨 MANDATORY EXAMPLE FILE EXECUTION VALIDATION
+
+**CRITICAL REQUIREMENT**: All generated example files MUST be executed to validate their creation and functionality.
+
+**MANDATORY EXECUTION CHECKLIST:**
+- [ ] **Hello Examples**: All `{service}_hello` or hello scenario files must run without errors
+- [ ] **Scenario Examples**: All scenario files must run interactively and complete all phases
+- [ ] **Wrapper Classes**: All wrapper classes must be importable and instantiable
+- [ ] **Integration Tests**: All integration tests must pass against real AWS services
+- [ ] **Error-Free Execution**: Any runtime errors, import failures, or execution issues indicate incomplete implementation
+
+**EXECUTION VALIDATION REQUIREMENTS:**
+- ✅ **All examples must run without compilation/interpretation errors**
+- ✅ **All examples must connect to AWS services successfully (or handle credentials gracefully)**
+- ✅ **All examples must display expected output and complete execution**
+- ✅ **Interactive scenarios must accept user input and progress through all phases**
+- ✅ **Any errors during execution indicate incomplete or incorrect implementation**
+
+**COMMON EXECUTION ISSUES TO FIX:**
+- Import/module path errors
+- Missing dependencies
+- Incorrect AWS service client configuration
+- Malformed AWS API calls
+- Missing error handling for credential issues
+- Incomplete scenario logic or user interaction flows
 
 ### Test Execution Requirements
 - **Unit Tests**: Must pass completely with no failures or errors
