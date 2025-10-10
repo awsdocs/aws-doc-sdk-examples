@@ -19,12 +19,10 @@ import SmithyStreams
 // snippet-end:[swift.s3tm.upload.imports]
 
 class Example {
-    let region: String
     let filePath: String
     let bucketName: String
     
-    init(region: String, path: String, bucket: String) {
-        self.region = region
+    init(path: String, bucket: String) {
         self.filePath = path
         self.bucketName = bucket
     }
