@@ -5,8 +5,6 @@ import ArgumentParser
 import Foundation
 
 struct ExampleCommand: ParsableCommand {
-    @Option(help: "AWS Region name")
-    var region = "us-east-1"
     @Argument(help: "Path of the file to write to Amazon S3")
     var filePath: String
     @Argument(help: "Name of the Amazon S3 bucket to upload the file to")
@@ -24,7 +22,7 @@ struct ExampleCommand: ParsableCommand {
     /// Called by ``main()`` to do the actual running of the AWS
     /// example.
     func runAsync() async throws {
-        let example = Example(region: region, path: filePath, bucket: bucketName)
+        let example = Example(path: filePath, bucket: bucketName)
 
         try await example.run()
     }
