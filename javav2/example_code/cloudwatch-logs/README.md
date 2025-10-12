@@ -34,7 +34,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 Code excerpts that show you how to call individual service functions.
 
 - [DeleteSubscriptionFilter](src/main/java/com/example/logs/DeleteSubscriptionFilter.java#L6)
-- [DescribeLogStreams](src/main/java/com/example/logs/CloudWatchLogQuery.java#L17)
+- [DescribeLogStreams](src/main/java/com/example/logs/CloudWatchLogsSearch.java#L18)
 - [DescribeSubscriptionFilters](src/main/java/com/example/logs/DescribeSubscriptionFilters.java#L6)
 - [GetLogEvents](src/main/java/com/example/logs/GetLogEvents.java#L6)
 - [PutSubscriptionFilter](src/main/java/com/example/logs/PutSubscriptionFilter.java#L6)
