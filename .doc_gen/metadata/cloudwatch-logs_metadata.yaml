@@ -116,10 +116,13 @@ cloudwatch-logs_DescribeLogStreams:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/cloudwatch
+          github: javav2/example_code/cloudwatch-logs
           sdkguide:
           excerpts:
-            - description:
+            - description: Searches for log streams within a specified log group that match a given prefix.
+              snippet_tags:
+                - cloudwatch.javav2.read.log.streams.main
+            - description: Prints metadata about the most recent log stream in a specified log group.
               snippet_tags:
                 - cloudwatch.javav2.describe.log.streams.main
   services:
@@ -158,7 +161,7 @@ cloudwatch-logs_DescribeSubscriptionFilters:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/cloudwatch
+          github: javav2/example_code/cloudwatch-logs
           sdkguide:
           excerpts:
             - description:
@@ -208,7 +211,7 @@ cloudwatch-logs_DeleteSubscriptionFilter:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/cloudwatch
+          github: javav2/example_code/cloudwatch-logs
           sdkguide:
           excerpts:
             - description:
@@ -248,7 +251,7 @@ cloudwatch-logs_PutSubscriptionFilter:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/cloudwatch
+          github: javav2/example_code/cloudwatch-logs
           sdkguide:
           excerpts:
             - description:
