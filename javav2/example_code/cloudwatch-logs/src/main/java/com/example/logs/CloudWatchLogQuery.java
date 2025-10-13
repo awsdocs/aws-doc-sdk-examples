@@ -2,21 +2,20 @@
 // SPDX-License-Identifier: Apache-2.0
 
 
-package com.example.cloudwatch;
+package com.example.logs;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudwatchlogs.CloudWatchLogsClient;
 import software.amazon.awssdk.services.cloudwatchlogs.model.CloudWatchLogsException;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeLogStreamsRequest;
 import software.amazon.awssdk.services.cloudwatchlogs.model.DescribeLogStreamsResponse;
-import software.amazon.awssdk.services.cloudwatchlogs.model.GetLogEventsRequest;
-import software.amazon.awssdk.services.cloudwatchlogs.model.GetLogEventsResponse;
 import software.amazon.awssdk.services.cloudwatchlogs.model.LogStream;
 import software.amazon.awssdk.services.cloudwatchlogs.model.OrderBy;
-import software.amazon.awssdk.services.cloudwatchlogs.model.OutputLogEvent;
+
 import java.util.List;
 
 // snippet-start:[cloudwatch.javav2.describe.log.streams.main]
+
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
