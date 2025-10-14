@@ -48,11 +48,11 @@ public class AmazonRedshiftTest {
     @BeforeAll
     public static void setUp() {
         redshiftClient = RedshiftClient.builder()
-            .region(Region.US_EAST_1)
+            .region(Region.US_EAST_2)
             .build();
 
         redshiftDataClient = RedshiftDataClient.builder()
-            .region(Region.US_EAST_1)
+            .region(Region.US_EAST_2)
             .build();
 
         Random rand = new Random();
@@ -184,16 +184,18 @@ public class AmazonRedshiftTest {
         logger.info("Test 10 passed");
     }
 
+
     @Test
     @Tag("IntegrationTest")
     @Order(11)
-    public void testDeleteDatabase() {
+    public void testDeleteCluster() {
         assertDoesNotThrow(() -> {
             CompletableFuture<DeleteClusterResponse> future = redshiftActions.deleteRedshiftClusterAsync(clusterId);;
             future.join();
         });
         logger.info("Test 11 passed");
     }
+
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
