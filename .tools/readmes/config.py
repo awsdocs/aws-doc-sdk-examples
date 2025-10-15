@@ -197,6 +197,7 @@ language = {
             "service_folder_overrides": {
                 "bedrock-runtime": "sap-abap/services/bdr",
                 "bedrock-agent-runtime": "sap-abap/services/bdz",
+                "comprehend": "sap-abap/services/cpd",
                 "dynamodb": "sap-abap/services/dyn",
             },
         }
