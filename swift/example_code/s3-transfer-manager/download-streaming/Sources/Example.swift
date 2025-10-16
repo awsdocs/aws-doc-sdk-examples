@@ -13,10 +13,12 @@ import Foundation
 class Example {
     let region: String
     let bucketName: String
+    let s3Prefix: String?
     
-    init(region: String, bucket: String) {
+    init(region: String, bucket: String, s3Prefix: String?) {
         self.region = region
         self.bucketName = bucket
+        self.s3Prefix = s3Prefix
     }
     
     /// The body of the example.
@@ -81,6 +83,7 @@ class Example {
             input: DownloadBucketInput(
                 bucket: bucketName,
                 destination: targetDirectory,
+                s3Prefix: s3Prefix,
                 // The listener for the overall bucket download process.
                 directoryTransferListeners: [downloadBucketStreamingTransferListener],
                 // A factory that creates a listener for each file being downloaded.
@@ -92,7 +95,7 @@ class Example {
                             switch downloadObjectTransferEvent {
                             // The download of a file has begun.
                             case .initiated(let input, _):
-                                print("    Downloading file \(input.key)...")
+                                print("Downloading file \(input.key)...")
             
                             // The number of bytes received so far has been updated.
                             case .bytesTransferred(let input, let snapshot):
@@ -100,7 +103,7 @@ class Example {
                                 
                             // A file download has completed.
                             case .complete(let input, _, let snapshot):
-                                print("    Finished downloading file \(input.key) (\(snapshot.transferredBytes) bytes).")
+                                print("Finished downloading file \(input.key) (\(snapshot.transferredBytes) bytes).")
                                 objectListener.closeStream()
                                 
                             // The download of the file has failed.
