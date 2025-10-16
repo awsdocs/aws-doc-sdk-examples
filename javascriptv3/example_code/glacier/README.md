@@ -1,13 +1,13 @@
-# S3 Glacier code examples for the SDK for JavaScript (v3)
+# Amazon Glacier code examples for the SDK for JavaScript (v3)
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v3) to work with Amazon S3 Glacier.
+Shows how to use the AWS SDK for JavaScript (v3) to work with Amazon Glacier.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_S3 Glacier provides durable and extremely low-cost storage for infrequently used data with security features for data archiving and backup._
+_Amazon Glacier provides durable and extremely low-cost storage for infrequently used data with security features for data archiving and backup._
 
 ## ⚠ Important
 
@@ -90,9 +90,9 @@ in the `javascriptv3` folder.
 
 ## Additional resources
 
-- [S3 Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html)
-- [S3 Glacier API Reference](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)
-- [SDK for JavaScript (v3) S3 Glacier reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/glacier)
+- [Amazon Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html)
+- [Amazon Glacier API Reference](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)
+- [SDK for JavaScript (v3) Amazon Glacier reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/glacier)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

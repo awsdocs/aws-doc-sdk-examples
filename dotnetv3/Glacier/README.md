@@ -1,13 +1,13 @@
-# S3 Glacier code examples for the SDK for .NET
+# Amazon Glacier code examples for the SDK for .NET
 
 ## Overview
 
-Shows how to use the AWS SDK for .NET to work with Amazon S3 Glacier.
+Shows how to use the AWS SDK for .NET to work with Amazon Glacier.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_S3 Glacier provides durable and extremely low-cost storage for infrequently used data with security features for data archiving and backup._
+_Amazon Glacier provides durable and extremely low-cost storage for infrequently used data with security features for data archiving and backup._
 
 ## ⚠ Important
 
@@ -31,7 +31,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 ### Get started
 
-- [Hello S3 Glacier](Actions/HelloGlacier.cs#L4) (`ListVaults`)
+- [Hello Amazon Glacier](Actions/HelloGlacier.cs#L4) (`ListVaults`)
 
 
 ### Single actions
@@ -76,9 +76,9 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello S3 Glacier
+#### Hello Amazon Glacier
 
-This example shows you how to get started using S3 Glacier.
+This example shows you how to get started using Amazon Glacier.
 
 
 
@@ -97,9 +97,9 @@ in the `dotnetv3` folder.
 
 ## Additional resources
 
-- [S3 Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html)
-- [S3 Glacier API Reference](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)
-- [SDK for .NET S3 Glacier reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Glacier/NGlacier.html)
+- [Amazon Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html)
+- [Amazon Glacier API Reference](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)
+- [SDK for .NET Amazon Glacier reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Glacier/NGlacier.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
