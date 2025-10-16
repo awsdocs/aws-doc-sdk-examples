@@ -2,7 +2,7 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 2 to work with AWS Systems Manager.
+Shows how to use the AWS SDK for Java 2.x to work with AWS Systems Manager.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
