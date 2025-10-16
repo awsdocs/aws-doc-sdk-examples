@@ -2,19 +2,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-// (swift-tools-version has two lines here because it needs to be the first
-// line in the file, but it should also appear in the snippet below)
-//
-// snippet-start:[swift.rds.scenario.package]
-// swift-tools-version: 5.9
-//
 // The swift-tools-version declares the minimum version of Swift required to
 // build this package.
 
 import PackageDescription
 
 let package = Package(
-    name: "getbucket",
+    name: "downloadbucket",
     // Let Xcode know the minimum Apple platforms supported.
     platforms: [
         .macOS(.v13),
@@ -38,7 +32,7 @@ let package = Package(
         // Targets can depend on other targets in this package and products
         // from dependencies.
         .executableTarget(
-            name: "getbucket",
+            name: "downloadbucket",
             dependencies: [
                 .product(name: "AWSS3", package: "aws-sdk-swift"),
                 .product(name: "S3TransferManager", package: "aws-sdk-swift-s3-transfer-manager"),
@@ -48,4 +42,3 @@ let package = Package(
 
     ]
 )
-// snippet-end:[swift.rds.scenario.package]

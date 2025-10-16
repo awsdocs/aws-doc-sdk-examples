@@ -5,7 +5,7 @@
 // (swift-tools-version has two lines here because it needs to be the first
 // line in the file, but it should also appear in the snippet below)
 //
-// snippet-start:[swift.rds.scenario.package]
+// snippet-start:[swift.s3tm.scenario.package]
 // swift-tools-version: 5.9
 //
 // The swift-tools-version declares the minimum version of Swift required to
@@ -48,4 +48,4 @@ let package = Package(
 
     ]
 )
-// snippet-end:[swift.rds.scenario.package]
+// snippet-end:[swift.s3tm.scenario.package]

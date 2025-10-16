@@ -9,11 +9,13 @@ struct ExampleCommand: ParsableCommand {
     var region = "us-east-1"
     @Argument(help: "Name of the Amazon S3 bucket to download")
     var bucketName: String
+    @Argument(help: "Prefix to download (allows downloading a subset of the bucket)")
+    var s3Prefix: String?
 
     static var configuration = CommandConfiguration(
-        commandName: "getbucket",
+        commandName: "downloadbucket",
         abstract: """
-        Downloads a bucket from Amazon S3 using the S3 Transfer Manager.
+        Downloads a bucket from Amazon S3 using the S3 Transfer Manager, with progress updates.
         """,
         discussion: """
         """
@@ -22,7 +24,7 @@ struct ExampleCommand: ParsableCommand {
     /// Called by ``main()`` to do the actual running of the AWS
     /// example.
     func runAsync() async throws {
-        let example = Example(region: region, bucket: bucketName)
+        let example = Example(region: region, bucket: bucketName, s3Prefix: s3Prefix)
 
         try await example.run()
     }
