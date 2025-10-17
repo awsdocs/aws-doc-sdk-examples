@@ -8,7 +8,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "download-streaming",
+    name: "get-bucket",
     // Let Xcode know the minimum Apple platforms supported.
     platforms: [
         .macOS(.v13),
@@ -32,7 +32,7 @@ let package = Package(
         // Targets can depend on other targets in this package and products
         // from dependencies.
         .executableTarget(
-            name: "download-streaming",
+            name: "get-bucket",
             dependencies: [
                 .product(name: "AWSS3", package: "aws-sdk-swift"),
                 .product(name: "S3TransferManager", package: "aws-sdk-swift-s3-transfer-manager"),

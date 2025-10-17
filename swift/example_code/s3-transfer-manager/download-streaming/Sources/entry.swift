@@ -13,7 +13,7 @@ struct ExampleCommand: ParsableCommand {
     var s3Prefix: String?
 
     static var configuration = CommandConfiguration(
-        commandName: "downloadbucket",
+        commandName: "download-streaming",
         abstract: """
         Downloads a bucket from Amazon S3 using the S3 Transfer Manager, with progress updates.
         """,

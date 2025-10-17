@@ -131,6 +131,7 @@ class Example {
             print("Number of failed downloads: \(downloadBucketOutput.objectsFailed)")
         } catch {
             print("*** Error downloading the bucket: \(error.localizedDescription)")
+            dump(error)
         }
         // snippet-end:[swift.s3tm.streaming.wait-for-download]
     }
