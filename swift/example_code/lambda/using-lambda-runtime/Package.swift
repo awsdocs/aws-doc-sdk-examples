@@ -19,8 +19,8 @@ let package = Package(
     // before building the project.
     dependencies: [
         .package(
-            url: "https://github.com/swift-server/swift-aws-lambda-runtime.git",
-            from: "2.0.0-beta.1"),
+            url: "https://github.com/awslabs/swift-aws-lambda-runtime.git",
+            from: "2.0.0"),
         .package(url: "https://github.com/awslabs/aws-sdk-swift.git",
             from: "1.0.0"),
     ],
