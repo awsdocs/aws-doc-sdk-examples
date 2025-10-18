@@ -1,6 +1,6 @@
 [![Build Status](https://github.com/aws/aws-sdk-ruby/workflows/CI/badge.svg)](https://github.com/awsdocs/aws-doc-sdk-examples/actions)
 [![GitHub Super-Linter](https://github.com/awsdocs/aws-doc-sdk-examples/actions/workflows/super-linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
-![[]](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue)
+[![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue)](#copyright-and-license)
 
 # AWS SDK Code Examples
 
