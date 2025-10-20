@@ -8,6 +8,10 @@ on:  # yamllint disable-line rule:truthy
       - ".github/linters/phpcs.xml"
       - ".github/workflows/php-lint.yml"
 
+
+permissions:
+  contents: read
+
 jobs:
   phpcs:
     name: "PHP Linter"
