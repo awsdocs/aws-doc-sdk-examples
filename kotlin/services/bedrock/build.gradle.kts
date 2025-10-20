@@ -27,8 +27,8 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:bedrock:1.4.119")
-    implementation("aws.sdk.kotlin:sts:1.4.119")
+    implementation("aws.sdk.kotlin:bedrock:1.5.63")
+    implementation("aws.sdk.kotlin:sts:1.5.63")
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
 }
 tasks.withType<KotlinCompile> {
