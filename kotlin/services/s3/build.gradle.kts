@@ -27,7 +27,7 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
-val kotlinSdkVersion = "1.4.119"
+val kotlinSdkVersion = "1.5.63"
 val smithyKotlinVersion = "1.4.22"
 dependencies {
     // AWS SDK for Kotlin

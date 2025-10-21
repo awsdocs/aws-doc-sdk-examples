@@ -27,7 +27,7 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation(platform("aws.sdk.kotlin:bom:1.4.119"))
+    implementation(platform("aws.sdk.kotlin:bom:1.5.63"))
     implementation("aws.sdk.kotlin:sts")
     implementation("aws.sdk.kotlin:secretsmanager")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp")
