@@ -1,14 +1,14 @@
 # .NET Technology Stack & Build System
 
-## .NET 3.5+ Development Environment
+## .NET 8+ Development Environment
 
 ### Build Tools & Dependencies
 - **Build System**: dotnet CLI
 - **Package Manager**: NuGet
 - **Testing Framework**: xUnit
 - **Code Formatting**: dotnet-format
-- **SDK Version**: AWS SDK for .NET
-- **.NET Version**: .NET 3.5+ (recommended .NET 6+)
+- **SDK Version**: AWS SDK for .NET v4
+- **.NET Version**: .NET 8+
 
 ### Common Build Commands
 
@@ -51,6 +51,35 @@ dotnet format                      # Format code
 - **Properties**: Use PascalCase for property names
 - **Constants**: Use PascalCase for constants
 - **Async methods**: Suffix with `Async` (e.g., `ListBucketsAsync`)
+
+#### Dependency Injection Patterns
+```csharp
+    /// <summary>
+    /// Main entry point for the AWS Control Tower basics scenario.
+    /// </summary>
+    /// <param name="args">Command line arguments.</param>
+    public static async Task Main(string[] args)
+    {
+        using var host = Host.CreateDefaultBuilder(args)
+            .ConfigureServices((_, services) =>
+                services.AddAWSService<IAmazonControlTower>()
+                .AddAWSService<IAmazonControlCatalog>()
+                .AddAWSService<IAmazonOrganizations>()
+                .AddAWSService<IAmazonSecurityTokenService>()
+                .AddTransient<ControlTowerWrapper>()
+            )
+            .Build();
+
+        logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
+            .CreateLogger<ControlTowerBasics>();
+
+        wrapper = host.Services.GetRequiredService<ControlTowerWrapper>();
+        orgClient = host.Services.GetRequiredService<IAmazonOrganizations>();
+        stsClient = host.Services.GetRequiredService<IAmazonSecurityTokenService>();
+
+        await RunScenario();
+    }
+```
 
 #### Error Handling Patterns
 ```csharp
@@ -127,17 +156,6 @@ src/
 - If credentials test passes but .NET SDK fails, investigate SDK-specific credential chain issues
 - Common .NET SDK credential issues: EC2 instance metadata service conflicts, credential provider chain order
 
-#### Credential Chain Configuration
-```csharp
-// Explicit credential chain setup
-var chain = new CredentialProfileStoreChain();
-if (chain.TryGetAWSCredentials("default", out var credentials))
-{
-    var config = new AmazonS3Config();
-    var client = new AmazonS3Client(credentials, config);
-}
-```
-
 ### Build Troubleshooting
 
 #### DotNetV4 Build Troubleshooting
@@ -152,8 +170,10 @@ if (chain.TryGetAWSCredentials("default", out var credentials))
 - ❌ **NEVER ignore proper exception handling for AWS operations**
 - ❌ **NEVER skip NuGet package management**
 - ❌ **NEVER assume credentials without testing first**
+- ❌ **NEVER use other language folders for patterns**
 
 ### Best Practices
+- ✅ **ALWAYS create examples in the dotnetv4 directory unless instructed otherwise**
 - ✅ **ALWAYS follow the established .NET project structure**
 - ✅ **ALWAYS use PascalCase for .NET identifiers**
 - ✅ **ALWAYS use using statements for AWS client management**
@@ -161,6 +181,10 @@ if (chain.TryGetAWSCredentials("default", out var credentials))
 - ✅ **ALWAYS test AWS credentials before assuming credential issues**
 - ✅ **ALWAYS include comprehensive XML documentation**
 - ✅ **ALWAYS use async/await patterns for AWS operations**
+- ✅ **ALWAYS use dependency injection for AWS services**
+- ✅ **ALWAYS create a separate class in the Actions project for the Hello example**
+- ✅ **ALWAYS add project files to the main solution file DotNetV4Examples.sln**
+- ✅ **ALWAYS put print statements in the action methods if possible**
 
 ### Project Configuration Requirements
 - **Target Framework**: Specify appropriate .NET version in .csproj
