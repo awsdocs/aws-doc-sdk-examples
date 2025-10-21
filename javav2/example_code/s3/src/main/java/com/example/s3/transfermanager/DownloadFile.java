@@ -7,6 +7,7 @@ package com.example.s3.transfermanager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.transfer.s3.S3TransferManager;
 import software.amazon.awssdk.transfer.s3.model.CompletedFileDownload;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
@@ -127,20 +129,25 @@ public class DownloadFile {
     }
 
     public void cleanUp() {
-        S3ClientFactory.s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
-        S3ClientFactory.s3Client.deleteBucket(b -> b.bucket(bucketName));
-        URL url = DownloadFile.class.getClassLoader().getResource(downloadedFileName);
-        if (url != null) {
-            try {
-                Files.delete(Paths.get(url.toURI().getPath()));
-                System.out.println("File deleted successfully");
-            } catch (URISyntaxException e) {
-                System.err.println("Error converting URL to URI: " + e.getMessage());
-            } catch (IOException e) {
-                System.err.println("Error deleting file " + e.getMessage());
+        try {
+            S3ClientFactory.s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
+            S3ClientFactory.s3Client.deleteBucket(b -> b.bucket(bucketName));
+
+            // Directly use the downloadedFileWithPath
+            if (downloadedFileWithPath != null && !downloadedFileWithPath.isEmpty()) {
+                Path filePath = Paths.get(downloadedFileWithPath);
+                try {
+                    Files.deleteIfExists(filePath);
+                    System.out.println("File deleted successfully");
+                } catch (NoSuchFileException e) {
+                    System.err.println("The file wasn't found: " + e.getMessage());
+                } catch (IOException e) {
+                    System.err.println("Error deleting file: " + e.getMessage());
+                }
             }
-        } else {
-            System.err.println("The file wasn't found");
+        } catch (SdkException e) {
+            System.err.println("S3 operation failed: " + e.getMessage());
         }
     }
+
 }
