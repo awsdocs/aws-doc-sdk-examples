@@ -28,7 +28,7 @@ repositories {
 
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation(platform("aws.sdk.kotlin:bom:1.5.63"))
+    implementation(platform("aws.sdk.kotlin:bom:1.5.65"))
     implementation("aws.sdk.kotlin:eventbridge")
     implementation("aws.sdk.kotlin:iam")
     implementation("aws.sdk.kotlin:sns")

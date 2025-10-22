@@ -27,7 +27,7 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation(platform("aws.sdk.kotlin:bom:1.5.63"))
+    implementation(platform("aws.sdk.kotlin:bom:1.5.65"))
     implementation("aws.sdk.kotlin:iot")
     implementation("aws.sdk.kotlin:iotdataplane")
     implementation("aws.sdk.kotlin:secretsmanager")
