@@ -30,6 +30,8 @@ Generate interactive scenarios that demonstrate complete workflows using multipl
 - **Comprehensive**: Cover setup, demonstration, examination, and cleanup
 - **Error Handling**: Graceful error handling with user-friendly messages
 - **Wrapper Classes**: MUST use service wrapper classes for all operations
+- **Namespaces**: MUST use file-level namespaces that match the project names
+- **Using Statements**: MUST cleanup unused using statements
 
 ## File Structure
 ```
