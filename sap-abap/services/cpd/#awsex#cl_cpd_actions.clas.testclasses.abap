@@ -1,6 +1,5 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
-
 CLASS ltc_awsex_cl_cpd_actions DEFINITION FOR TESTING
   DURATION SHORT
   RISK LEVEL HARMLESS.
