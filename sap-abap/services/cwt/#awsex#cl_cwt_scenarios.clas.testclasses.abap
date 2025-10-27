@@ -4,7 +4,7 @@
 CLASS ltc_awsex_cl_cwt_scenario DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
 
   PRIVATE SECTION.
-    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE ' ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA ao_cwt TYPE REF TO /aws1/if_cwt.
     DATA ao_s3 TYPE REF TO /aws1/if_s3.
