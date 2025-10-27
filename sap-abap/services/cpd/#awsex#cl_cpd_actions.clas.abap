@@ -1,17 +1,19 @@
-class /AWSEX/CL_CPD_ACTIONS definition
-  public
-  final
-  create public .
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
+CLASS /awsex/cl_cpd_actions DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  methods DETECTSENTIMENT
-    exporting
-      value(OO_RESULT) type ref to /AWS1/CL_CPDDETECTSENTIMENTRSP
-    raising
-      /AWS1/CX_RT_GENERIC .
-protected section.
-private section.
+    METHODS detectsentiment
+      EXPORTING
+        VALUE(oo_result) TYPE REF TO /aws1/cl_cpddetectsentimentrsp
+      RAISING
+        /aws1/cx_rt_generic .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
 
 ENDCLASS.
 
@@ -20,7 +22,7 @@ ENDCLASS.
 CLASS /AWSEX/CL_CPD_ACTIONS IMPLEMENTATION.
 
 
-  METHOD DETECTSENTIMENT.
+  METHOD detectsentiment.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).

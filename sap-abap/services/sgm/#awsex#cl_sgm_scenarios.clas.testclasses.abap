@@ -1,6 +1,5 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
-
 CLASS ltc_awsex_cl_sgm_scenario DEFINITION DEFERRED.
 CLASS /awsex/cl_sgm_scenarios DEFINITION LOCAL FRIENDS ltc_awsex_cl_sgm_scenario.
 

@@ -1,6 +1,5 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0""
-
 CLASS ltc_awsex_cl_kns_scenario DEFINITION FOR TESTING DURATION SHORT RISK LEVEL DANGEROUS.
 
   PRIVATE SECTION.
