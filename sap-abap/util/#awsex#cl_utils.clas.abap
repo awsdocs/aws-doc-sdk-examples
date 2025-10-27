@@ -1,6 +1,6 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
-CLASS zcl_aws1_ex_utils DEFINITION
+CLASS /awsex/cl_utils DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
@@ -11,27 +11,27 @@ CLASS zcl_aws1_ex_utils DEFINITION
 
     CLASS-METHODS get_random_string
       RETURNING
-      VALUE(ov_str) TYPE string .
+        VALUE(ov_str) TYPE string .
     CLASS-METHODS cleanup_bucket
       IMPORTING
-      !iv_bucket TYPE /aws1/s3_bucketname
-      !io_s3 TYPE REF TO /aws1/if_s3
+        !iv_bucket TYPE /aws1/s3_bucketname
+        !io_s3     TYPE REF TO /aws1/if_s3
       RAISING
-      /aws1/cx_rt_generic .
+        /aws1/cx_rt_generic .
     CLASS-METHODS create_bucket
       IMPORTING
-      !iv_bucket TYPE /aws1/s3_bucketname
-      !io_s3 TYPE REF TO /aws1/if_s3
-      !io_session TYPE REF TO /aws1/cl_rt_session_base
+        !iv_bucket  TYPE /aws1/s3_bucketname
+        !io_s3      TYPE REF TO /aws1/if_s3
+        !io_session TYPE REF TO /aws1/cl_rt_session_base
       RAISING
-      /aws1/cx_rt_generic .
+        /aws1/cx_rt_generic .
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
 
 
 
-CLASS ZCL_AWS1_EX_UTILS IMPLEMENTATION.
+CLASS /AWSEX/CL_UTILS IMPLEMENTATION.
 
 
   METHOD cleanup_bucket.
