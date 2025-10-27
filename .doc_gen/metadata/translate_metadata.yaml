@@ -12,7 +12,7 @@ translate_StartTextTranslationJob:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/translate
+          github: sap-abap/services/xl8
           excerpts:
             - description:
               snippet_tags:
@@ -33,7 +33,7 @@ translate_DescribeTextTranslationJob:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/translate
+          github: sap-abap/services/xl8
           excerpts:
             - description:
               snippet_tags:
@@ -54,7 +54,7 @@ translate_ListTextTranslationJobs:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/translate
+          github: sap-abap/services/xl8
           excerpts:
             - description:
               snippet_tags:
@@ -75,7 +75,7 @@ translate_StopTextTranslationJob:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/translate
+          github: sap-abap/services/xl8
           excerpts:
             - description:
               snippet_tags:
@@ -96,7 +96,7 @@ translate_TranslateText:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/translate
+          github: sap-abap/services/xl8
           excerpts:
             - description:
               snippet_tags:
@@ -115,7 +115,7 @@ translate_Scenario_GettingStarted:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/translate
+          github: sap-abap/services/xl8
           excerpts:
             - description:
               snippet_tags:
