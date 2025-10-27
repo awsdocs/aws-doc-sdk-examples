@@ -5,144 +5,196 @@ inspector_Hello:
   synopsis: get started using &Inspector;.
   category: Hello
   languages:
-    Kotlin:
+    Java:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/inspector
+        - sdk_version: 2
+          github: javav2/example_code/inspector
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.kotlin.hello.main
+                - inspector.java.hello.main
   services:
-    inspector2: {BatchGetAccountStatus, ListFindings, ListUsageTotals}
+    inspector: {BatchGetAccountStatus, ListFindings, ListUsageTotals}
 inspector_EnableInspector:
   languages:
-    Kotlin:
+    Java:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/inspector
+        - sdk_version: 2
+          github: javav2/example_code/inspector
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.kotlin.enable.main
+                - inspector.java.enable.main
   services:
     inspector2: {Enable}
-inspector_DisableInspector:
+inspector_CreateFilter:
   languages:
-    Kotlin:
+    Java:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/inspector
+        - sdk_version: 2
+          github: javav2/example_code/inspector
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.kotlin.disable.main
+                - inspector.java.create.filter.main
+  services:
+    inspector2: {CreateFilter}
+inspector_DisableInspector:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java.disable.main
   services:
     inspector2: {Disable}
 inspector_GetAccountStatus:
   languages:
-    Kotlin:
+    Java:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/inspector
+        - sdk_version: 2
+          github: javav2/example_code/inspector
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.kotlin.get_account_status.main
+                - inspector.java.get_account_status.main
   services:
     inspector2: {BatchGetAccountStatus}
 inspector_ListFindings:
   languages:
-    Kotlin:
+    Java:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/inspector
+        - sdk_version: 2
+          github: javav2/example_code/inspector
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.kotlin.list_findings.main
+                - inspector.java.list_findings.main
   services:
     inspector2: {ListFindings}
 inspector_BatchGetFindingDetails:
   languages:
-    Kotlin:
+    Java:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/inspector
+        - sdk_version: 2
+          github: javav2/example_code/inspector
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.kotlin.batch_get_finding_details.main
+                - inspector.java.batch_get_finding_details.main
   services:
     inspector2: {BatchGetFindingDetails}
 inspector_ListCoverageStatistics:
   languages:
-    Kotlin:
+    Java:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/inspector
+        - sdk_version: 2
+          github: javav2/example_code/inspector
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.kotlin.list_coverage_statistics.main
+                - inspector.java.list_coverage_statistics.main
   services:
     inspector2: {ListCoverageStatistics}
 inspector_ListCoverage:
   languages:
-    Kotlin:
+    Java:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/inspector
+        - sdk_version: 2
+          github: javav2/example_code/inspector
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.kotlin.list_coverage.main
+                - inspector.java.list_coverage.main
   services:
     inspector2: {ListCoverage}
 inspector_ListUsageTotals:
   languages:
-    Kotlin:
+    Java:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/inspector
+        - sdk_version: 2
+          github: javav2/example_code/inspector
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.kotlin.list_usage_totals.main
+                - inspector.java.list_usage_totals.main
   services:
     inspector2: {ListUsageTotals}
 inspector_DescribeOrganizationConfiguration:
   languages:
-    Kotlin:
+    Java:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/inspector
+        - sdk_version: 2
+          github: javav2/example_code/inspector
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.kotlin.describe_organization_configuration.main
+                - inspector.java.describe_organization_configuration.main
   services:
     inspector2: {DescribeOrganizationConfiguration}
-inspector_UpdateOrganizationConfiguration:
+inspector_ListFilters:
   languages:
-    Kotlin:
+    Java:
       versions:
-        - sdk_version: 1
-          github: kotlin/services/inspector
+        - sdk_version: 2
+          github: javav2/example_code/inspector
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.kotlin.update_organization_configuration.main
+                - inspector.java.list_filters.main
+  services:
+    inspector2: {inspector_ListFilters}
+inspector_UpdateOrganizationConfiguration:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java.update_organization_configuration.main
   services:
     inspector2: {UpdateOrganizationConfiguration}
+inspector_Scenario:
+  synopsis_list:
+    - Check Inspector account status.
+    - Ensure Inspector is enabled
+    - Analyze security findings.
+    - Check scan coverage.
+    - Create a findings filter.
+    - List existing filters.
+    - Check usage and costs.
+    - Get coverage statistics.
+  category: Basics
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &Inspector; features.
+              snippet_tags:
+                - inspector.java2_scenario.main
+            - description: A wrapper class for &Inspector; SDK methods.
+              snippet_tags:
+                - inspector.java2_actions.main
+  services:
+    inspector: {}

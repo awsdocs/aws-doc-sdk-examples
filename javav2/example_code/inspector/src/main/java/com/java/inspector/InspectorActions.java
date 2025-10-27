@@ -1,19 +1,36 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.java.inspector;
 
 import software.amazon.awssdk.services.inspector2.Inspector2Client;
 import software.amazon.awssdk.services.inspector2.model.*;
-
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+// snippet-start:[inspector.java2_actions.main]
 public class InspectorActions {
 
-    // ---------------------- ENABLE INSPECTOR ----------------------
-    public EnableResponse enableInspector(
-            Inspector2Client inspectorClient,
-            List<ResourceScanType> resourceTypes,
-            List<String> accountIds // can be null
-    ) {
+    // snippet-start:[inspector.java2_enable.main]
+    /**
+     * Enables AWS Inspector for the provided account(s) and default resource types.
+     *
+     * @param inspectorClient The Inspector2 client.
+     * @param accountIds      Optional list of AWS account IDs.
+     */
+    public void enableInspector(Inspector2Client inspectorClient, List<String> accountIds) {
+
+        // Default resource types to enable
+        List<ResourceScanType> resourceTypes = List.of(
+                ResourceScanType.EC2,
+                ResourceScanType.ECR,
+                ResourceScanType.LAMBDA,
+                ResourceScanType.LAMBDA_CODE
+        );
+
+        // Build request.
         EnableRequest.Builder requestBuilder = EnableRequest.builder()
                 .resourceTypes(resourceTypes);
 
@@ -22,37 +39,67 @@ public class InspectorActions {
         }
 
         EnableRequest request = requestBuilder.build();
-
         try {
             EnableResponse response = inspectorClient.enable(request);
-            System.out.println("✅ Inspector enable request completed");
 
-            if (response.accounts() != null) {
+            if (response.accounts() != null && !response.accounts().isEmpty()) {
+                System.out.println("Inspector enable operation results:");
                 for (Account account : response.accounts()) {
                     String accountId = account.accountId() != null ? account.accountId() : "Unknown";
                     String status = account.status() != null ? account.statusAsString() : "Unknown";
-                    System.out.println("Account: " + accountId + ", Status: " + status);
+                    System.out.println("   • Account: " + accountId + " → Status: " + status);
                 }
+            } else {
+                System.out.println("  Inspector may already be enabled for all target accounts.");
             }
 
-            return response;
+        } catch (ValidationException ve) {
+            System.out.println("  Inspector may already be enabled for this account: " + ve.getMessage());
 
-        } catch (Exception e) {
-            System.err.println("❌ Failed to enable Inspector: " + e.getMessage());
+        } catch (Inspector2Exception e) {
+            System.err.println("AWS Inspector2 service error: " + e.awsErrorDetails().errorMessage());
             throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to enable Inspector: " + e.getMessage(), e);
         }
     }
+    // snippet-end:[inspector.java2_enable.main]
 
-    // ---------------------- COVERAGE STATISTICS ----------------------
-    public static ListCoverageStatisticsResponse listCoverageStatistics(Inspector2Client inspectorClient) {
+    // snippet-start:[inspector.java2.list_coverage.main]
+    /**
+     * Retrieves and prints the coverage statistics using the provided Inspector2Client.
+     *
+     * @param inspectorClient the Inspector2Client used to retrieve the coverage statistics
+     */
+    public void listCoverageStatistics(Inspector2Client inspectorClient) {
         ListCoverageStatisticsRequest request = ListCoverageStatisticsRequest.builder()
                 .build();
 
-        return inspectorClient.listCoverageStatistics(request);
-    }
+        var statsResponse = inspectorClient.listCoverageStatistics(request);
+        List<Counts> counts = statsResponse.countsByGroup();
 
-    // ---------------------- LIST USAGE TOTALS ----------------------
-    public ListUsageTotalsResponse listUsageTotals(
+        if (counts == null || counts.isEmpty()) {
+            System.out.println("No coverage statistics available");
+        } else {
+            System.out.println("Coverage Statistics:");
+            for (Counts count : counts) {
+                System.out.println("   Group: " + count.groupKey());
+                System.out.println("     Total Count: " + count.count());
+                System.out.println();
+            }
+        }
+    }
+    // snippet-end:[inspector.java2.list_coverage.main]
+
+    // snippet-start:[inspector.java2.list_usage_totals.main]
+    /**
+     * Retrieves and prints the usage totals for the specified accounts using the provided Inspector2Client.
+     *
+     * @param inspectorClient the Inspector2Client used to make the API call
+     * @param accountIds a list of account IDs for which to retrieve usage totals. If null or empty, all accounts are considered.
+     * @param maxResults the maximum number of results to return
+     */
+    public void listUsageTotals(
             Inspector2Client inspectorClient,
             List<String> accountIds,
             int maxResults
@@ -65,11 +112,40 @@ public class InspectorActions {
         }
 
         ListUsageTotalsRequest request = requestBuilder.build();
-        return inspectorClient.listUsageTotals(request);
-    }
+        var usageResponse = inspectorClient.listUsageTotals(request);
 
-    // ---------------------- ACCOUNT STATUS ----------------------
-    public BatchGetAccountStatusResponse getAccountStatus(Inspector2Client inspectorClient) {
+        List<UsageTotal> totals = usageResponse.totals();
+
+        if (totals == null || totals.isEmpty()) {
+            System.out.println("No usage data available yet");
+            System.out.println("Usage data appears after Inspector has been active for some time");
+        } else {
+            System.out.println("Usage Totals (Last 30 days):");
+            for (UsageTotal total : totals) {
+                System.out.println("   Account: " + total.accountId());
+                List<Usage> usageList = total.usage();
+                if (usageList != null) {
+                    for (Usage usage : usageList) {
+                        System.out.println("     - " + usage.type() + ": " + usage.total());
+                        if (usage.estimatedMonthlyCost() != null) {
+                            System.out.println("       Estimated Monthly Cost: " +
+                                    usage.estimatedMonthlyCost() + " " + usage.currency());
+                        }
+                    }
+                }
+                System.out.println();
+            }
+        }
+    }
+    // snippet-end:[inspector.java2.list_usage_totals.main]
+
+    // snippet-start:[inspector.java2.get_account_status.main]
+    /**
+     * Retrieves the account status using the Inspector2Client.
+     *
+     * @param inspectorClient the Inspector2Client used to send the request and retrieve the account status
+     */
+    public void getAccountStatus(Inspector2Client inspectorClient) {
         BatchGetAccountStatusRequest request = BatchGetAccountStatusRequest.builder()
                 .accountIds(Collections.emptyList()) // current account
                 .build();
@@ -85,79 +161,138 @@ public class InspectorActions {
             }
         }
 
-        return response;
+        System.out.println("Inspector Account Status:");
+        if (response.accounts() != null) {
+            for (AccountState account : response.accounts()) {
+                System.out.println("   Account ID: " + (account.accountId() != null ? account.accountId() : "Unknown"));
+
+                // Resource state (only status is available)
+                ResourceState resources = account.resourceState();
+                if (resources != null) {
+                    System.out.println("   Resource Status error: ");
+                }
+
+                // Overall account state.
+                if (account.state() != null && account.state().status() != null) {
+                    System.out.println("   Overall State: " + account.state().status());
+                }
+            }
+        }
     }
+    // snippet-end:[inspector.java2.get_account_status.main]
 
-    // ---------------------- LIST FILTERS ----------------------
-    public static ListFiltersResponse listFilters(
-            Inspector2Client inspector2Client,
-            Integer maxResults
-    ) {
+    // snippet-start:[inspector.java.list_filters.main]
+    /**
+     * Retrieves a list of filters configured in AWS Inspector2.
+     *
+     * @param inspector2Client An instance of {@code Inspector2Client} used to interact with AWS Inspector2.
+     * @param maxResults The maximum number of filters to return. If null, the default maximum results will be used.
+     *
+     * @throws Inspector2Exception If an error occurs specific to AWS Inspector2, such as invalid parameters or service issues.
+     */
+    public void listFilters(Inspector2Client inspector2Client, Integer maxResults) {
         try {
-            System.out.println("Listing filters");
+            System.out.println("Listing filters...");
 
+            // Build the request
             ListFiltersRequest.Builder requestBuilder = ListFiltersRequest.builder();
             if (maxResults != null) {
                 requestBuilder.maxResults(maxResults);
             }
 
+            // Execute the request
             ListFiltersResponse response = inspector2Client.listFilters(requestBuilder.build());
+            List<Filter> filters = response.filters();
 
-            int count = response.filters() != null ? response.filters().size() : 0;
-            System.out.println("Successfully listed filters: " + count);
-            return response;
+            // Display results.
+            if (filters == null || filters.isEmpty()) {
+                System.out.println(" No filters found.");
+            } else {
+                System.out.println(" Found " + filters.size() + " filter(s):");
+                for (Filter filter : filters) {
+                    System.out.println("   - " + filter.name());
+                    System.out.println("     ARN: " + filter.arn());
+                    System.out.println("     Action: " + filter.action());
+                    System.out.println("     Owner: " + filter.ownerId());
+                    System.out.println("     Created: " + filter.createdAt());
+                    System.out.println();
+                }
+            }
 
         } catch (Inspector2Exception e) {
-            System.out.println("Failed to list filters: " + e.getMessage());
+            System.err.println("Failed to list filters: " + e.awsErrorDetails().errorMessage());
+            throw e;
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
             throw e;
         }
     }
+    // snippet-end:[inspector.java.list_filters.main]
 
-    // ---------------------- CREATE FILTER ----------------------
-    public static CreateFilterResponse createFilter(
-            Inspector2Client inspector2Client,
-            String description
-    ) {
-        try {
+    // snippet-start:[inspector.java.create.filter.main]
+    /**
+     * Creates a new filter in AWS Inspector2 to suppress findings of low severity.
+     *
+     * @param inspector2Client An instance of {@code Inspector2Client} used to interact with AWS Inspector2.
+     * @param description A descriptive string that explains the purpose of the filter.
+     *
+     *
+     * @throws Inspector2Exception If an error occurs specific to AWS Inspector2, such as invalid parameters or service issues.
+     * @throws Exception If an unexpected error occurs during the filter creation process.
+     *
+     */
+      public void createFilter(Inspector2Client inspector2Client, String description) {
             String filterName = "suppress-low-severity-" + System.currentTimeMillis();
             System.out.println("Creating filter: " + filterName);
 
-            // Build severity filter
-            StringFilter severityFilter = StringFilter.builder()
-                    .value(Severity.LOW.toString())
-                    .comparison(StringComparison.EQUALS)
-                    .build();
+            try {
+                // Define a filter to match LOW severity findings
+                StringFilter severityFilter = StringFilter.builder()
+                        .value(Severity.LOW.toString())
+                        .comparison(StringComparison.EQUALS)
+                        .build();
 
-            FilterCriteria filterCriteria = FilterCriteria.builder()
-                    .severity(List.of(severityFilter))
-                    .build();
+                // Create filter criteria using the severity filter
+                FilterCriteria filterCriteria = FilterCriteria.builder()
+                        .severity(Collections.singletonList(severityFilter))
+                        .build();
 
-            CreateFilterRequest createRequest = CreateFilterRequest.builder()
-                    .name(filterName)
-                    .filterCriteria(filterCriteria)
-                    .action(FilterAction.SUPPRESS)
-                    .description(description)
-                    .build();
+                // Build the filter creation request
+                CreateFilterRequest createRequest = CreateFilterRequest.builder()
+                        .name(filterName)
+                        .filterCriteria(filterCriteria)
+                        .action(FilterAction.SUPPRESS)
+                        .description(description)
+                        .build();
 
-            CreateFilterResponse response = inspector2Client.createFilter(createRequest);
-            System.out.println("✅ Successfully created filter with ARN: " + response.arn());
-            return response;
+                // Execute the request.
+                CreateFilterResponse response = inspector2Client.createFilter(createRequest);
+                System.out.println("Successfully created filter with ARN: " + response.arn());
 
-        } catch (Inspector2Exception e) {
-            System.err.println("❌ Failed to create filter: " + e.awsErrorDetails().errorMessage());
-            throw e;
-        } catch (Exception e) {
-            System.err.println("❌ Unexpected error: " + e.getMessage());
-            throw e;
+            } catch (Inspector2Exception e) {
+                System.err.println("Failed to create filter: " + e.awsErrorDetails().errorMessage());
+                throw e;
+            } catch (Exception e) {
+                System.err.println("Unexpected error: " + e.getMessage());
+                throw e;
+            }
         }
-    }
+    // snippet-end:[inspector.java.create.filter.main]
 
-    // ---------------------- LIST FINDINGS ----------------------
-    public ListFindingsResponse listFindings(
-            Inspector2Client inspectorClient,
-            int maxResults,
-            FilterCriteria filterCriteria // can be null
+    // snippet-start:[inspector.java.list_findings.main]
+    /**
+     * Lists findings from AWS Inspector2, optionally filtered by criteria.
+     *
+     * @param inspectorClient The Inspector2 client.
+     * @param maxResults      Maximum number of results to retrieve.
+     * @param filterCriteria  Optional filter criteria (can be null).
+     */
+    public void listFindings(
+        Inspector2Client inspectorClient,
+        int maxResults,
+        FilterCriteria filterCriteria
     ) {
+        // Build the request
         ListFindingsRequest.Builder requestBuilder = ListFindingsRequest.builder()
                 .maxResults(maxResults);
 
@@ -166,21 +301,122 @@ public class InspectorActions {
         }
 
         ListFindingsRequest request = requestBuilder.build();
-        ListFindingsResponse response = inspectorClient.listFindings(request);
+        try {
+            ListFindingsResponse findingsResponse = inspectorClient.listFindings(request);
+            List<Finding> findings = findingsResponse.findings();
 
-        List<Finding> findings = response.findings();
-        int count = findings != null ? findings.size() : 0;
-        System.out.println("✅ Listed " + count + " findings");
+            if (findings == null || findings.isEmpty()) {
+                System.out.println(" No findings found");
+                System.out.println(" This could mean:");
+                System.out.println("   • Inspector hasn't completed its initial scan yet");
+                System.out.println("   • Your resources don't have any vulnerabilities");
+                System.out.println("   • All findings have been suppressed by filters");
+            } else {
+                System.out.println(" Found " + findings.size() + " finding(s):");
+                Map<String, List<Finding>> findingsBySeverity = findings.stream()
+                        .collect(Collectors.groupingBy(f -> f.severityAsString()));
 
-        return response;
+                for (Map.Entry<String, List<Finding>> entry : findingsBySeverity.entrySet()) {
+                    System.out.println("   " + entry.getKey() + ": " + entry.getValue().size() + " finding(s)");
+                }
+
+                System.out.println();
+                System.out.println("   Recent findings:");
+                for (int i = 0; i < Math.min(findings.size(), 5); i++) {
+                    Finding finding = findings.get(i);
+                    System.out.println("   " + (i + 1) + ". " + finding.title());
+                    System.out.println("      Type: " + finding.type());
+                    System.out.println("      Severity: " + finding.severityAsString());
+                    System.out.println("      Status: " + finding.statusAsString());
+
+                    if (finding.resources() != null && !finding.resources().isEmpty()) {
+                        Resource resource = finding.resources().get(0);
+                        System.out.println("      Resource: " + resource.typeAsString() + " - " + resource.id());
+                    }
+
+                    if (finding.inspectorScore() != null) {
+                        System.out.println("      Inspector Score: " + finding.inspectorScore());
+                    }
+                    System.out.println();
+                }
+            }
+
+        } catch (ValidationException ve) {
+            System.out.println(" Validation error: " + ve.getMessage());
+
+        } catch (Inspector2Exception e) {
+            System.err.println("AWS Inspector2 service error: " + e.awsErrorDetails().errorMessage());
+            throw e;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to list findings: " + e.getMessage(), e);
+        }
     }
+    // snippet-end:[inspector.java.list_findings.main]
 
-    // ---------------------- LIST COVERAGE ----------------------
-    public ListCoverageResponse listCoverage(Inspector2Client inspectorClient, int maxResults) {
+    // snippet-start:[inspector.java.list_coverage.main]
+    /**
+     * Lists AWS Inspector2 coverage details for scanned resources.
+     *
+     * @param inspectorClient The Inspector2 client.
+     * @param maxResults      Maximum number of resources to return.
+     */
+    public void listCoverage(Inspector2Client inspectorClient, int maxResults) {
+
         ListCoverageRequest request = ListCoverageRequest.builder()
                 .maxResults(maxResults)
                 .build();
 
-        return inspectorClient.listCoverage(request);
+        try {
+            ListCoverageResponse response = inspectorClient.listCoverage(request);
+            List<CoveredResource> coveredResources = response.coveredResources();
+
+            if (coveredResources == null || coveredResources.isEmpty()) {
+                System.out.println(" No coverage information available.");
+            } else {
+                System.out.println(" Coverage Information:");
+                System.out.println("   Total resources covered: " + coveredResources.size());
+
+                // Group resources by type
+                Map<String, List<CoveredResource>> resourcesByType = coveredResources.stream()
+                        .collect(Collectors.groupingBy(CoveredResource::resourceTypeAsString));
+
+                for (Map.Entry<String, List<CoveredResource>> entry : resourcesByType.entrySet()) {
+                    System.out.println("   " + entry.getKey() + ": " + entry.getValue().size() + " resource(s)");
+                }
+
+                System.out.println();
+                System.out.println("   Sample covered resources:");
+
+                // Show top 3 sample resources
+                for (int i = 0; i < Math.min(coveredResources.size(), 3); i++) {
+                    CoveredResource resource = coveredResources.get(i);
+                    System.out.println("     - " + resource.resourceTypeAsString() + ": " + resource.resourceId());
+                    System.out.println("       Scan Type: " + resource.scanTypeAsString());
+
+                    if (resource.scanStatus() != null) {
+                        System.out.println("       Status: " + resource.scanStatus().statusCodeAsString());
+                    }
+
+                    if (resource.accountId() != null) {
+                        System.out.println("       Account ID: " + resource.accountId());
+                    }
+                    System.out.println();
+                }
+            }
+
+        } catch (ValidationException ve) {
+            System.out.println(" Validation error: " + ve.getMessage());
+            System.out.println("This likely means no resources are currently covered by Inspector2.");
+
+        } catch (Inspector2Exception e) {
+            System.err.println(" AWS Inspector2 service error: " + e.awsErrorDetails().errorMessage());
+            throw e;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to list coverage: " + e.getMessage(), e);
+        }
     }
+    // snippet-end:[inspector.java.list_coverage.main]
 }
+// snippet-end:[inspector.java2_actions.main]

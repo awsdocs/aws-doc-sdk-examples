@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.java.inspector;
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
@@ -18,6 +21,7 @@ import software.amazon.awssdk.services.inspector2.model.Inspector2Exception;
 
 import java.util.List;
 
+// snippet-start:[inspector.java.hello.main]
 public class HelloInspector {
 
     public static void main(String[] args) {
@@ -150,4 +154,4 @@ public class HelloInspector {
         }
     }
 }
-
+// snippet-end:[inspector.java.hello.main]
