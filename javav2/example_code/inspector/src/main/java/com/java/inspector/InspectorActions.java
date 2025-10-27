@@ -65,7 +65,7 @@ public class InspectorActions {
     }
     // snippet-end:[inspector.java2.enable.main]
 
-    // snippet-start:[inspector.java2.list_coverage.main]
+    // snippet-start:[inspector.java2.list_coverage.stats.main]
     /**
      * Retrieves and prints the coverage statistics using the provided Inspector2Client.
      *
@@ -89,7 +89,7 @@ public class InspectorActions {
             }
         }
     }
-    // snippet-end:[inspector.java2.list_coverage.main]
+    // snippet-end:[inspector.java2.list_coverage.stats.main]
 
     // snippet-start:[inspector.java2.list_usage_totals.main]
     /**

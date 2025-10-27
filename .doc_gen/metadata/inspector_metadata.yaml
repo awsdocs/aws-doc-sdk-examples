@@ -91,7 +91,7 @@ inspector_ListCoverageStatistics:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.java2.list_coverage.main
+                - inspector.java2.list_coverage.stats.main
   services:
     inspector: {ListCoverageStatistics}
 inspector_ListCoverage:
