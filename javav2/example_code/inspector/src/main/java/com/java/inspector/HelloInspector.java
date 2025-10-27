@@ -21,7 +21,7 @@ import software.amazon.awssdk.services.inspector2.model.Inspector2Exception;
 
 import java.util.List;
 
-// snippet-start:[inspector.java.hello.main]
+// snippet-start:[inspector.java2.hello.main]
 public class HelloInspector {
 
     public static void main(String[] args) {
@@ -154,4 +154,4 @@ public class HelloInspector {
         }
     }
 }
-// snippet-end:[inspector.java.hello.main]
+// snippet-end:[inspector.java2.hello.main]

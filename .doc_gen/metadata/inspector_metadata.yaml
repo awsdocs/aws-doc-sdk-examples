@@ -13,7 +13,7 @@ inspector_Hello:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.java.hello.main
+                - inspector.java2.hello.main
   services:
     inspector: {BatchGetAccountStatus, ListFindings, ListUsageTotals}
 inspector_EnableInspector:
@@ -26,9 +26,9 @@ inspector_EnableInspector:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.java.enable.main
+                - inspector.java2.enable.main
   services:
-    inspector2: {Enable}
+    inspector: {Enable}
 inspector_CreateFilter:
   languages:
     Java:
@@ -39,22 +39,9 @@ inspector_CreateFilter:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.java.create.filter.main
+                - inspector.java2.create.filter.main
   services:
-    inspector2: {CreateFilter}
-inspector_DisableInspector:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java.disable.main
-  services:
-    inspector2: {Disable}
+    inspector: {CreateFilter}
 inspector_GetAccountStatus:
   languages:
     Java:
@@ -65,9 +52,9 @@ inspector_GetAccountStatus:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.java.get_account_status.main
+                - inspector.java2.get_account_status.main
   services:
-    inspector2: {BatchGetAccountStatus}
+    inspector: {BatchGetAccountStatus}
 inspector_ListFindings:
   languages:
     Java:
@@ -78,9 +65,9 @@ inspector_ListFindings:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.java.list_findings.main
+                - inspector.java2.list_findings.main
   services:
-    inspector2: {ListFindings}
+    inspector: {ListFindings}
 inspector_BatchGetFindingDetails:
   languages:
     Java:
@@ -91,9 +78,9 @@ inspector_BatchGetFindingDetails:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.java.batch_get_finding_details.main
+                - inspector.java2.get_account_status.main
   services:
-    inspector2: {BatchGetFindingDetails}
+    inspector: {BatchGetFindingDetails}
 inspector_ListCoverageStatistics:
   languages:
     Java:
@@ -104,9 +91,9 @@ inspector_ListCoverageStatistics:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.java.list_coverage_statistics.main
+                - inspector.java2.list_coverage.main
   services:
-    inspector2: {ListCoverageStatistics}
+    inspector: {ListCoverageStatistics}
 inspector_ListCoverage:
   languages:
     Java:
@@ -117,9 +104,9 @@ inspector_ListCoverage:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.java.list_coverage.main
+                - inspector.java2.list_coverage.main
   services:
-    inspector2: {ListCoverage}
+    inspector: {ListCoverage}
 inspector_ListUsageTotals:
   languages:
     Java:
@@ -130,22 +117,9 @@ inspector_ListUsageTotals:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.java.list_usage_totals.main
+                - inspector.java2.list_usage_totals.main
   services:
-    inspector2: {ListUsageTotals}
-inspector_DescribeOrganizationConfiguration:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java.describe_organization_configuration.main
-  services:
-    inspector2: {DescribeOrganizationConfiguration}
+    inspector: {ListUsageTotals}
 inspector_ListFilters:
   languages:
     Java:
@@ -156,22 +130,9 @@ inspector_ListFilters:
           excerpts:
             - description:
               snippet_tags:
-                - inspector.java.list_filters.main
+                - inspector.java2.list_filters.main
   services:
-    inspector2: {inspector_ListFilters}
-inspector_UpdateOrganizationConfiguration:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/inspector
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - inspector.java.update_organization_configuration.main
-  services:
-    inspector2: {UpdateOrganizationConfiguration}
+    inspector: {inspector_ListFilters}
 inspector_Scenario:
   synopsis_list:
     - Check Inspector account status.

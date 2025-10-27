@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 // snippet-start:[inspector.java2_actions.main]
 public class InspectorActions {
 
-    // snippet-start:[inspector.java2_enable.main]
+    // snippet-start:[inspector.java2.enable.main]
     /**
      * Enables AWS Inspector for the provided account(s) and default resource types.
      *
@@ -63,7 +63,7 @@ public class InspectorActions {
             throw new RuntimeException("Failed to enable Inspector: " + e.getMessage(), e);
         }
     }
-    // snippet-end:[inspector.java2_enable.main]
+    // snippet-end:[inspector.java2.enable.main]
 
     // snippet-start:[inspector.java2.list_coverage.main]
     /**
@@ -181,7 +181,7 @@ public class InspectorActions {
     }
     // snippet-end:[inspector.java2.get_account_status.main]
 
-    // snippet-start:[inspector.java.list_filters.main]
+    // snippet-start:[inspector.java2.list_filters.main]
     /**
      * Retrieves a list of filters configured in AWS Inspector2.
      *
@@ -227,9 +227,9 @@ public class InspectorActions {
             throw e;
         }
     }
-    // snippet-end:[inspector.java.list_filters.main]
+    // snippet-end:[inspector.java2.list_filters.main]
 
-    // snippet-start:[inspector.java.create.filter.main]
+    // snippet-start:[inspector.java2.create.filter.main]
     /**
      * Creates a new filter in AWS Inspector2 to suppress findings of low severity.
      *
@@ -277,9 +277,9 @@ public class InspectorActions {
                 throw e;
             }
         }
-    // snippet-end:[inspector.java.create.filter.main]
+    // snippet-end:[inspector.java2.create.filter.main]
 
-    // snippet-start:[inspector.java.list_findings.main]
+    // snippet-start:[inspector.java2.list_findings.main]
     /**
      * Lists findings from AWS Inspector2, optionally filtered by criteria.
      *
@@ -352,9 +352,9 @@ public class InspectorActions {
             throw new RuntimeException("Failed to list findings: " + e.getMessage(), e);
         }
     }
-    // snippet-end:[inspector.java.list_findings.main]
+    // snippet-end:[inspector.java2.list_findings.main]
 
-    // snippet-start:[inspector.java.list_coverage.main]
+    // snippet-start:[inspector.java2.list_coverage.main]
     /**
      * Lists AWS Inspector2 coverage details for scanned resources.
      *
@@ -417,6 +417,6 @@ public class InspectorActions {
             throw new RuntimeException("Failed to list coverage: " + e.getMessage(), e);
         }
     }
-    // snippet-end:[inspector.java.list_coverage.main]
+    // snippet-end:[inspector.java2.list_coverage.main]
 }
 // snippet-end:[inspector.java2_actions.main]
