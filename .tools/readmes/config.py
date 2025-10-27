@@ -198,7 +198,13 @@ language = {
                 "bedrock-runtime": "sap-abap/services/bdr",
                 "bedrock-agent-runtime": "sap-abap/services/bdz",
                 "comprehend": "sap-abap/services/cpd",
+                "cloudwatch": "sap-abap/services/cwt",
                 "dynamodb": "sap-abap/services/dyn",
+                "kinesis": "sap-abap/services/kns",
+                "lambda": "sap-abap/services/lmd",
+                "sagemaker": "sap-abap/services/sgm",
+                "textract": "sap-abap/services/tex",
+                "translate": "sap-abap/services/xl8",
             },
         }
     },
