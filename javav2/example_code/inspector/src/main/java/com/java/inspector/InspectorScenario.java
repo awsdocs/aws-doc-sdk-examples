@@ -5,29 +5,17 @@ package com.java.inspector;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.inspector2.Inspector2Client;
-import software.amazon.awssdk.services.inspector2.model.Account;
-import software.amazon.awssdk.services.inspector2.model.AccountState;
-import software.amazon.awssdk.services.inspector2.model.BatchGetAccountStatusResponse;
-import software.amazon.awssdk.services.inspector2.model.Counts;
-import software.amazon.awssdk.services.inspector2.model.CoveredResource;
-import software.amazon.awssdk.services.inspector2.model.CreateFilterResponse;
-import software.amazon.awssdk.services.inspector2.model.EnableResponse;
-import software.amazon.awssdk.services.inspector2.model.Filter;
-import software.amazon.awssdk.services.inspector2.model.Finding;
-import software.amazon.awssdk.services.inspector2.model.ListCoverageResponse;
-import software.amazon.awssdk.services.inspector2.model.ListCoverageStatisticsResponse;
-import software.amazon.awssdk.services.inspector2.model.ListFiltersResponse;
-import software.amazon.awssdk.services.inspector2.model.ListFindingsResponse;
-import software.amazon.awssdk.services.inspector2.model.ListUsageTotalsResponse;
-import software.amazon.awssdk.services.inspector2.model.Resource;
-import software.amazon.awssdk.services.inspector2.model.ResourceState;
-import software.amazon.awssdk.services.inspector2.model.Usage;
-import software.amazon.awssdk.services.inspector2.model.UsageTotal;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 // snippet-start:[inspector.java2_scenario.main]
+/**
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class InspectorScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
 
@@ -63,31 +51,55 @@ public class InspectorScenario {
 
         waitForInputToContinue(scanner);
 
-        // Step 1: Check current account status
+        // Step 1: Check current account status.
         System.out.println(DASHES);
         System.out.println("Step 1: Checking Inspector account status...");
-        inspectorActions.getAccountStatus(inspectorClient);
+
+        try {
+            inspectorActions.getAccountStatus(inspectorClient);
+
+        } catch (Exception e) {
+            System.err.println(" Could not create example filter: " + e.getMessage());
+        }
         waitForInputToContinue(scanner);
 
-        // Step 2: Enable Inspector for resource types (if not already enabled)
+        // Step 2: Enable Inspector for resource types (if not already enabled).
         System.out.println(DASHES);
         System.out.println("Step 2: Ensuring Inspector is enabled...");
-        inspectorActions.enableInspector(inspectorClient, null);
+
+        try {
+            inspectorActions.enableInspector(inspectorClient, null);
+
+        } catch (Exception e) {
+            System.err.println(" Could not create example filter: " + e.getMessage());
+        }
         waitForInputToContinue(scanner);
 
-        // Step 3: List and analyze findings
+        // Step 3: List and analyze findings.
         System.out.println(DASHES);
         System.out.println("Step 3: Analyzing security findings...");
         int maxResults = 10;
-        inspectorActions.listFindings(inspectorClient, maxResults, null);
+
+        try {
+            inspectorActions.listFindings(inspectorClient, maxResults, null);
+
+        } catch (Exception e) {
+            System.err.println(" Could not create example filter: " + e.getMessage());
+        }
         System.out.println();
         waitForInputToContinue(scanner);
 
-        // Step 4: Show coverage information
+        // Step 4: Show coverage information.
         System.out.println(DASHES);
         System.out.println("Step 4: Checking scan coverage...");
         maxResults = 5;
-        inspectorActions.listCoverage(inspectorClient, maxResults);
+
+        try {
+            inspectorActions.listCoverage(inspectorClient, maxResults);
+
+        } catch (Exception e) {
+            System.err.println(" Could not create example filter: " + e.getMessage());
+        }
         System.out.println();
         waitForInputToContinue(scanner);
 
@@ -103,7 +115,7 @@ public class InspectorScenario {
             System.out.println("Created example filter");
 
         } catch (Exception e) {
-            System.out.println(" Could not create example filter: " + e.getMessage());
+            System.err.println(" Could not create example filter: " + e.getMessage());
         }
         System.out.println();
         waitForInputToContinue(scanner);
@@ -111,21 +123,38 @@ public class InspectorScenario {
         // Step 6: List existing filters
         System.out.println(DASHES);
         System.out.println("Step 6: Listing existing filters...");
-        inspectorActions.listFilters(inspectorClient, 10);
+
+        try {
+            inspectorActions.listFilters(inspectorClient, 10);
+
+        } catch (Exception e) {
+            System.err.println(" Could not create example filter: " + e.getMessage());
+        }
         System.out.println();
         waitForInputToContinue(scanner);
 
         // Step 7: Show usage totals
         System.out.println(DASHES);
         System.out.println("Step 7: Checking usage and costs...");
-        inspectorActions.listUsageTotals(inspectorClient, null, 10);
+
+        try {
+            inspectorActions.listUsageTotals(inspectorClient, null, 10);
+        } catch (Exception e) {
+            System.err.println(" Could not create example filter: " + e.getMessage());
+        }
+
         System.out.println();
         waitForInputToContinue(scanner);
 
         // Step 8: Coverage statistics
         System.out.println(DASHES);
         System.out.println("Step 8: Getting coverage statistics...");
-        inspectorActions.listCoverageStatistics(inspectorClient);
+
+        try{
+            inspectorActions.listCoverageStatistics(inspectorClient);
+        } catch (Exception e) {
+            System.err.println(" Could not create example filter: " + e.getMessage());
+        }
         System.out.println();
 
         System.out.println("🎉 Inspector Basics scenario completed successfully!");

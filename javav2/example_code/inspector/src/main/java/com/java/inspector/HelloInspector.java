@@ -3,7 +3,6 @@
 
 package com.java.inspector;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.inspector2.Inspector2Client;
 import software.amazon.awssdk.services.inspector2.model.BatchGetAccountStatusRequest;
@@ -18,37 +17,46 @@ import software.amazon.awssdk.services.inspector2.model.ListUsageTotalsRequest;
 import software.amazon.awssdk.services.inspector2.model.ListUsageTotalsResponse;
 import software.amazon.awssdk.services.inspector2.model.UsageTotal;
 import software.amazon.awssdk.services.inspector2.model.Inspector2Exception;
-
+import software.amazon.awssdk.services.inspector2.paginators.ListUsageTotalsIterable;
 import java.util.List;
+import java.util.ArrayList;
 
 // snippet-start:[inspector.java2.hello.main]
+/**
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class HelloInspector {
 
     public static void main(String[] args) {
-        System.out.println("🔍 Hello Amazon Inspector!");
+        System.out.println(" Hello Amazon Inspector!");
         Region region = Region.US_EAST_1;
 
         try (Inspector2Client inspectorClient = Inspector2Client.builder()
                 .region(region)
                 .build()) {
 
-            System.out.println("🔍 Checking Inspector account status...");
+            System.out.println("Checking Inspector account status...");
             checkAccountStatus(inspectorClient);
             System.out.println();
 
-            System.out.println("📋 Checking for recent findings...");
+            System.out.println("Checking for recent findings...");
             listRecentFindings(inspectorClient);
             System.out.println();
 
-            System.out.println("💰 Checking usage totals...");
+            System.out.println("Checking usage totals...");
             showUsageTotals(inspectorClient);
             System.out.println();
 
-            System.out.println("🎉 Hello Inspector example completed successfully!");
+            System.out.println("Hello Inspector example completed successfully!");
 
         } catch (Inspector2Exception e) {
-            System.err.println("❌ Error: " + e.getMessage());
-            System.err.println("🔧 Troubleshooting:");
+            System.err.println(" Error: " + e.getMessage());
+            System.err.println(" Troubleshooting:");
             System.err.println("1. Verify AWS credentials are configured");
             System.err.println("2. Check IAM permissions for Inspector2");
             System.err.println("3. Ensure Inspector2 is enabled in your account");
@@ -56,20 +64,25 @@ public class HelloInspector {
         }
     }
 
-    // ✅ Fixed version using BatchGetAccountStatus
-    private static void checkAccountStatus(Inspector2Client inspectorClient) {
+    /**
+     * Checks the account status using the provided Inspector2Client.
+     * This method sends a request to retrieve the account status and prints the details of each account's resource states.
+     *
+     * @param inspectorClient The Inspector2Client used to interact with the AWS Inspector service.
+     */
+    public static void checkAccountStatus(Inspector2Client inspectorClient) {
         try {
             BatchGetAccountStatusRequest request = BatchGetAccountStatusRequest.builder().build();
             BatchGetAccountStatusResponse response = inspectorClient.batchGetAccountStatus(request);
 
             List<AccountState> accounts = response.accounts();
             if (accounts == null || accounts.isEmpty()) {
-                System.out.println("❌ No account information returned.");
+                System.out.println(" No account information returned.");
                 return;
             }
 
             for (AccountState account : accounts) {
-                System.out.println("✅ Account: " + account.accountId());
+                System.out.println(" Account: " + account.accountId());
                 ResourceState resources = account.resourceState();
                 if (resources == null) {
                     System.out.println("   No resource state data available.");
@@ -85,11 +98,11 @@ public class HelloInspector {
             }
 
         } catch (Inspector2Exception e) {
-            System.err.println("❌ Failed to retrieve account status: " + e.awsErrorDetails().errorMessage());
+            System.err.println(" Failed to retrieve account status: " + e.awsErrorDetails().errorMessage());
         }
     }
 
-    private static void printState(String name, State state) {
+    public static void printState(String name, State state) {
         if (state == null) {
             System.out.println("     - " + name + ": (no data)");
             return;
@@ -98,7 +111,12 @@ public class HelloInspector {
         System.out.println("     - " + name + ": " + state.status() + err);
     }
 
-    private static void listRecentFindings(Inspector2Client inspectorClient) {
+    /**
+     * Retrieves and prints the most recent findings from the Inspector2 service.
+     *
+     * @param inspectorClient the Inspector2Client used to interact with the AWS Inspector2 service
+     */
+    public static void listRecentFindings(Inspector2Client inspectorClient) {
         try {
             ListFindingsRequest request = ListFindingsRequest.builder()
                     .maxResults(10)
@@ -108,9 +126,9 @@ public class HelloInspector {
             List<Finding> findings = response.findings();
 
             if (findings == null || findings.isEmpty()) {
-                System.out.println("📭 No findings found.");
+                System.out.println(" No findings found.");
             } else {
-                System.out.println("✅ Found " + findings.size() + " recent finding(s):");
+                System.out.println(" Found " + findings.size() + " recent finding(s):");
                 for (Finding finding : findings) {
                     System.out.println("   Title: " + finding.title());
                     System.out.println("   Severity: " + finding.severity());
@@ -121,34 +139,64 @@ public class HelloInspector {
             }
 
         } catch (Inspector2Exception e) {
-            System.err.println("❌ Error listing findings: " + e.awsErrorDetails().errorMessage());
+            System.err.println(" Error listing findings: " + e.awsErrorDetails().errorMessage());
         }
     }
 
-    private static void showUsageTotals(Inspector2Client inspectorClient) {
+    /**
+     * Displays the usage totals for the Inspector2 service.
+     *
+     * @param inspectorClient the {@code Inspector2Client} used to make the API call to
+     *                         retrieve the usage totals.
+     *
+     * @throws Inspector2Exception if there is an error while retrieving the usage totals.
+     *                             The error message is printed to the standard error output.
+     */
+    public static void showUsageTotals(Inspector2Client inspectorClient) {
         try {
+            System.out.println("Listing usage totals using paginator...");
             ListUsageTotalsRequest request = ListUsageTotalsRequest.builder()
                     .maxResults(10)
                     .build();
 
-            ListUsageTotalsResponse response = inspectorClient.listUsageTotals(request);
-            List<UsageTotal> totals = response.totals();
+            // Create paginator.
+            ListUsageTotalsIterable paginator = inspectorClient.listUsageTotalsPaginator(request);
+            List<UsageTotal> allTotals = new ArrayList<>();
 
-            if (totals == null || totals.isEmpty()) {
-                System.out.println("📊 No usage data available yet.");
+            // Iterate through all pages.
+            for (ListUsageTotalsResponse response : paginator) {
+                List<UsageTotal> totals = response.totals();
+                if (totals != null && !totals.isEmpty()) {
+                    allTotals.addAll(totals);
+                }
+            }
+
+            // Display results.
+            if (allTotals.isEmpty()) {
+                System.out.println(" No usage data available yet.");
+                System.out.println(" Usage data appears after Inspector has been active for some time.");
             } else {
-                System.out.println("✅ Usage Totals (Last 30 days):");
-                for (UsageTotal total : totals) {
+                System.out.println(" Usage Totals (Last 30 days):");
+                for (UsageTotal total : allTotals) {
                     System.out.println("   Account: " + total.accountId());
-                    total.usage().forEach(u ->
-                            System.out.println("     - " + u.type() + ": " + u.total() +
-                                    " (Est. Monthly: " + u.estimatedMonthlyCost() + " " + u.currency() + ")"));
+                    if (total.usage() != null && !total.usage().isEmpty()) {
+                        total.usage().forEach(u -> {
+                            System.out.println("     - " + u.type() + ": " + u.total());
+                            if (u.estimatedMonthlyCost() != null) {
+                                System.out.println("       Estimated Monthly Cost: " +
+                                        u.estimatedMonthlyCost() + " " + u.currency());
+                            }
+                        });
+                    }
                     System.out.println();
                 }
             }
 
         } catch (Inspector2Exception e) {
-            System.err.println("❌ Error getting usage totals: " + e.awsErrorDetails().errorMessage());
+            System.err.println(" Error getting usage totals: " + e.awsErrorDetails().errorMessage());
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Unexpected error while listing usage totals: " + e.getMessage(), e);
         }
     }
 }
