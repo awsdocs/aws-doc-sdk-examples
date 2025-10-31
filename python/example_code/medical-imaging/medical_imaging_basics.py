@@ -133,7 +133,6 @@ class MedicalImagingWrapper:
         :param role_arn: The Amazon Resource Name (ARN) of the role to use for the job.
         :param input_s3_uri: The S3 bucket input prefix path containing the DICOM files.
         :param output_s3_uri: The S3 bucket output prefix path for the result.
-        :param importConfiguration: The configuration for digital pathology import.
         :return: The job ID.
         """
         try:
