@@ -9,7 +9,7 @@ import sesClientModule from "@aws-sdk/client-ses";
  * nodemailer wraps the SES SDK and calls SendRawEmail. Use this for more advanced
  * functionality like adding attachments to your email.
  *
- * https://nodemailer.com/transports/ses/
+ * https://nodemailer.com/transports/ses
  */
 import nodemailer from "nodemailer";
 

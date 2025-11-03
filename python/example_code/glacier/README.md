@@ -1,13 +1,13 @@
-# S3 Glacier code examples for the SDK for Python
+# Amazon Glacier code examples for the SDK for Python
 
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to work with Amazon S3 Glacier.
+Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Glacier.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_S3 Glacier provides durable and extremely low-cost storage for infrequently used data with security features for data archiving and backup._
+_Amazon Glacier provides durable and extremely low-cost storage for infrequently used data with security features for data archiving and backup._
 
 ## ⚠ Important
 
@@ -77,7 +77,7 @@ functions within the same service.
 
 This example shows you how to do the following:
 
-- Create an Amazon S3 Glacier vault.
+- Create an Amazon Glacier vault.
 - Configure the vault to publish notifications to an Amazon SNS topic.
 - Upload an archive file to the vault.
 - Initiate an archive retrieval job.
@@ -99,7 +99,7 @@ python glacier_basics.py
 
 This example shows you how to do the following:
 
-- List jobs for an Amazon S3 Glacier vault and get job status.
+- List jobs for an Amazon Glacier vault and get job status.
 - Get the output of a completed archive retrieval job.
 - Delete an archive.
 - Delete a vault.
@@ -134,9 +134,9 @@ in the `python` folder.
 
 ## Additional resources
 
-- [S3 Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html)
-- [S3 Glacier API Reference](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)
-- [SDK for Python S3 Glacier reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/glacier.html)
+- [Amazon Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html)
+- [Amazon Glacier API Reference](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)
+- [SDK for Python Amazon Glacier reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/glacier.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

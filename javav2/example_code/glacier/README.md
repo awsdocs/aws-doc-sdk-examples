@@ -1,13 +1,13 @@
-# S3 Glacier code examples for the SDK for Java 2.x
+# Amazon Glacier code examples for the SDK for Java 2.x
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 2.x to work with Amazon S3 Glacier.
+Shows how to use the AWS SDK for Java 2.x to work with Amazon Glacier.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_S3 Glacier provides durable and extremely low-cost storage for infrequently used data with security features for data archiving and backup._
+_Amazon Glacier provides durable and extremely low-cost storage for infrequently used data with security features for data archiving and backup._
 
 ## ⚠ Important
 
@@ -69,9 +69,9 @@ in the `javav2` folder.
 
 ## Additional resources
 
-- [S3 Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html)
-- [S3 Glacier API Reference](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)
-- [SDK for Java 2.x S3 Glacier reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/glacier/package-summary.html)
+- [Amazon Glacier Developer Guide](https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html)
+- [Amazon Glacier API Reference](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-api.html)
+- [SDK for Java 2.x Amazon Glacier reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/glacier/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

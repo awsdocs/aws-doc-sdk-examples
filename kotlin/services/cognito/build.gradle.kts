@@ -27,7 +27,7 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation(platform("aws.sdk.kotlin:bom:1.4.119"))
+    implementation(platform("aws.sdk.kotlin:bom:1.5.63"))
     implementation("aws.sdk.kotlin:cognitoidentityprovider")
     implementation("aws.sdk.kotlin:cognitoidentity")
     implementation("aws.sdk.kotlin:secretsmanager")

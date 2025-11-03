@@ -39,14 +39,14 @@ public class ImportCert {
                 privateKeyKey - The object key for the private key file in S3.
             """;
 
-        //if (args.length != 3) {
-        //    System.out.println(usage);
-        //    return;
-       // }
+        if (args.length != 3) {
+            System.out.println(usage);
+            return;
+        }
 
-        String bucketName = "certbucket100" ; //args[0];
-        String certificateKey = "certificate.pem" ; // args[1];
-        String privateKeyKey = "private_key.pem" ; //args[2];
+        String bucketName = args[0];
+        String certificateKey = args[1];
+        String privateKeyKey = args[2];
 
         String certificateArn = importCertificate(bucketName, certificateKey, privateKeyKey);
         System.out.println("Certificate imported with ARN: " + certificateArn);

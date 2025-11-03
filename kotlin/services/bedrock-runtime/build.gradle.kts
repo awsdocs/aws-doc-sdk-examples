@@ -13,7 +13,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-val awsSdkVersion = "1.4.119"
+val awsSdkVersion = "1.5.63"
 val junitVersion = "5.12.0"
 
 repositories {

@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import com.example.scenario.CloudFormationHelper;
 import com.example.scenario.SSMActions;
 import com.example.scenario.SSMScenario;
 import com.example.ssm.*;
@@ -18,6 +19,7 @@ import software.amazon.awssdk.services.ssm.SsmClient;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * To run these integration tests, you must set the required values
@@ -36,12 +38,12 @@ public class AWSSSMTest {
     private static String category = "";
     private static String severity = "";
     private static String opsItemId = "";
-
+    private static final String ROLES_STACK = "SsmStack3";
     private static String account = "";
 
     @BeforeAll
     public static void setUp() {
-        Region region = Region.US_EAST_1;
+        Region region = Region.US_WEST_2;
         ssmClient = SsmClient.builder()
                 .region(region)
                 .build();
@@ -56,8 +58,12 @@ public class AWSSSMTest {
         source = values.getSource();
         category = values.getCategory();
         account = values.getAccount();
-        instance = values.getInstanceId();
         severity = values.getSeverity();
+
+        CloudFormationHelper.deployCloudFormationStack(ROLES_STACK);
+        Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputsAsync(ROLES_STACK).join();
+        instance = stackOutputs.get("InstanceId");
+        logger.info("The Instance ID: " + instance +" was created.");
     }
 
     @Test
@@ -68,17 +74,10 @@ public class AWSSSMTest {
         logger.info("Integration Test 1 passed");
     }
 
-    @Test
-    @Tag("IntegrationTest")
-    @Order(2)
-    public void testGetParameter() {
-        assertDoesNotThrow(() -> GetParameter.getParaValue(ssmClient, paraName));
-        logger.info("Integration Test 2 passed");
-    }
 
     @Test
     @Tag("IntegrationTest")
-    @Order(3)
+    @Order(2)
     public void testInvokeScenario() {
         SSMActions actions = new SSMActions();
         String currentDateTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -104,7 +103,8 @@ public class AWSSSMTest {
         assertDoesNotThrow(() -> actions.deleteDoc(documentName));
         assertDoesNotThrow(() -> actions.deleteMaintenanceWindow(maintenanceWindowId));
 
-        logger.info("Test 3 passed");
+        CloudFormationHelper.destroyCloudFormationStack(ROLES_STACK);
+        logger.info("Test 2 passed");
     }
 
    private static String getSecretValues() {

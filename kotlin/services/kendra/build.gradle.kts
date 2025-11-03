@@ -28,7 +28,7 @@ repositories {
 
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation(platform("aws.sdk.kotlin:bom:1.4.119"))
+    implementation(platform("aws.sdk.kotlin:bom:1.5.63"))
     implementation("aws.sdk.kotlin:kendra")
     implementation("aws.sdk.kotlin:secretsmanager")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
