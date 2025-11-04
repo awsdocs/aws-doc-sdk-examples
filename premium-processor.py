@@ -78,8 +78,6 @@ def process_python_file(file_path: str, level: str):
         
         with open(output_file, 'w') as f:
             f.write(chunk_text)
-    except Exception as e:
-        print(f"Error processing {file_path}: {e}")
 
 def main():
     sdk_name = os.environ.get('sdk_name', 'python')
