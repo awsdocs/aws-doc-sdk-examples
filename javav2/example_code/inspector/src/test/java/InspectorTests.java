@@ -38,7 +38,7 @@ public class InspectorTests {
             HelloInspector.listRecentFindings(inspector);
             HelloInspector.showUsageTotals(inspector);
         });
-            System.out.println("Test 1 passed");
+        System.out.println("Test 1 passed");
     }
 
     @Test
