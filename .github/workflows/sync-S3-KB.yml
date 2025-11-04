@@ -1,5 +1,7 @@
 name: syncS3andKB
 on:
+  push:
+    branches: ["configure-ast"]
   workflow_dispatch:
     inputs:
       sdk_name:
@@ -39,7 +41,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ASSUME_ROLE }}     # once merged, update trust policy of the role to point to main branch
           aws-region: us-west-2
 
-      - name: Setup Python (for tree-sitter processing)
+      - name: Setup Python for processing with tree-sitter 
         if: ${{ env.sdk_name == 'python' }}
         uses: actions/setup-python@v4
         with:
