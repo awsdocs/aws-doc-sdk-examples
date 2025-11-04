@@ -27,15 +27,6 @@ def extract_paths_from_markdown(markdown_file: str, sdk_name: str) -> dict:
     
     return paths
 
-def get_python_files(directory: str) -> List[str]:
-    """Get all Python files in directory recursively"""
-    python_files = []
-    for root, dirs, files in os.walk(directory):
-        for file in files:
-            if file.endswith('.py'):
-                python_files.append(os.path.join(root, file))
-    return python_files
-
 def extract_subtrees(tree: Tree) -> List[Node]:
     """Extract terminal subtrees from AST"""
     terminal = [
@@ -70,29 +61,23 @@ def extract_subtrees(tree: Tree) -> List[Node]:
             queue.extend(children)
     return all_subtrees
 
-def process_python_file(file_path: str, s3_client, bucket_name: str, level: str):
-    """Process a single Python file and upload chunks to S3"""
-    try:
-        PY_LANGUAGE = Language(tree_sitter_python.language())
-        parser = Parser()
-        parser.language = PY_LANGUAGE
+def process_python_file(file_path: str, level: str):
+    PY_LANGUAGE = Language(tree_sitter_python.language())
+    parser = Parser()
+    parser.language = PY_LANGUAGE
+    
+    code = Path(file_path).read_text()
+    tree = parser.parse(bytes(code, "utf8"))
+    subtrees = extract_subtrees(tree)
+    
+    os.makedirs(f"./extracted_snippets/{level}", exist_ok=True)
+    
+    for i, subtree in enumerate(subtrees):
+        chunk_text = code[subtree.start_byte:subtree.end_byte]
+        output_file = f"./extracted_snippets/{level}/{Path(file_path).stem}_chunk_{i}_{subtree.type}.py"
         
-        code = Path(file_path).read_text()
-        tree = parser.parse(bytes(code, "utf8"))
-        
-        subtrees = extract_subtrees(tree)
-        
-        for i, subtree in enumerate(subtrees):
-            chunk_text = code[subtree.start_byte:subtree.end_byte]
-            file_key = f"{level}/{Path(file_path).stem}_chunk_{i}_{subtree.type}.py"
-            
-            s3_client.put_object(
-                Bucket=bucket_name,
-                Key=file_key,
-                Body=chunk_text,
-                ContentType='text/plain'
-            )
-            
+        with open(output_file, 'w') as f:
+            f.write(chunk_text)
     except Exception as e:
         print(f"Error processing {file_path}: {e}")
 
