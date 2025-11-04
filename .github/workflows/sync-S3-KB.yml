@@ -1,7 +1,5 @@
 name: syncS3andKB
 on:
-  push:
-    branches: ["main"]
   workflow_dispatch:
     inputs:
       sdk_name:
@@ -40,6 +38,22 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ASSUME_ROLE }}     # once merged, update trust policy of the role to point to main branch
           aws-region: us-west-2
+
+      - name: Setup Python (for tree-sitter processing)
+        if: ${{ env.sdk_name == 'python' }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install tree-sitter dependencies
+        if: ${{ env.sdk_name == 'python' }}
+        run: |
+          pip install tree-sitter tree-sitter-python boto3
+
+      - name: Process Python files with tree-sitter
+        if: ${{ env.sdk_name == 'python' }}
+        run: |
+          python premium-processor.py
 
       - name: Set SDK and language mapping for S3
         run: |
@@ -103,7 +117,7 @@ jobs:
         run: |
           for level in "basics" "feature-scenario" "complex-feature-scenario"; do
             if [ -d "./extracted_snippets/$level" ]; then
-              aws s3 sync "./extracted_snippets/$level/" "s3://$S3_LANGUAGE-premium-bucket/$level/" --delete
+              aws s3 sync "./extracted_snippets/$level/" "s3://ast-$S3_LANGUAGE-premium-bucket/$level/" --delete
               echo "Uploaded $level examples to S3"
             fi
           done

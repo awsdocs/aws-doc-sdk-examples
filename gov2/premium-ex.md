@@ -2,10 +2,11 @@
 //Don't forget to add new line at the end of this file 
 
 ## basics:
-/s3/actions/bucket_basics.go
+/s3
 
 ## feature-scenario:
-/s3/actions/bucket_basics.go
+/dynamodb/scenarios
 
 ## complex-feature-scenario:
-/dynamodb/scenarios/scenario_movie_table.go
+
+
