@@ -246,11 +246,11 @@ javav2/example_code/{service}/src/main/java/com/example/{service}/
 ### Snippet Tag Placement
 Place snippet tags around entire classes or methods:
 ```java
-// snippet-start:[{service}.java2.hello.main]
+// snippet-start:[{service}.java2.{actionName}.main]
 public class Hello{Service} {
     // Entire class content
 }
-// snippet-end:[{service}.java2.hello.main]
+// snippet-end:[{service}.java2.{actionName}.main]
 ```
 
 ### Multiple Excerpts
@@ -263,4 +263,5 @@ excerpts:
   - description: Run an interactive scenario demonstrating {Service} basics.
     snippet_tags:
       - {service}.java2.{service}_scenario.main
+
 ```
