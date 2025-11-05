@@ -243,16 +243,6 @@ kotlin/services/{service}/src/main/kotlin/com/kotlin/{service}/
 - Actions classes: `{Service}Actions.kt`
 - Scenarios: `{Service}Basics.kt` or `{Service}Scenario.kt`
 
-### Snippet Tag Placement
-Place snippet tags around entire functions or classes:
-```kotlin
-// snippet-start:[{service}.kotlin.hello.main]
-suspend fun main() {
-    // Entire function content
-}
-// snippet-end:[{service}.kotlin.hello.main]
-```
-
 ### Multiple Excerpts
 For complex examples, use multiple excerpts:
 ```yaml
@@ -263,14 +253,4 @@ excerpts:
   - description: Run an interactive scenario demonstrating {Service} basics.
     snippet_tags:
       - {service}.kotlin.{service}_scenario.main
-```
-
-### Suspend Functions
-Kotlin examples often use suspend functions for async operations:
-```kotlin
-// snippet-start:[{service}.kotlin.{action_name}.main]
-suspend fun {actionMethod}({service}Client: {Service}Client, param: String): {ActionName}Response {
-    // Implementation
-}
-// snippet-end:[{service}.kotlin.{action_name}.main]
 ```
