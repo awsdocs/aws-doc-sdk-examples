@@ -1,19 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import com.example.autoscaling.scenario.AutoScalingScenario;
-import com.example.autoscaling.CreateAutoScalingGroup;
-import com.example.autoscaling.DeleteAutoScalingGroup;
-import com.example.autoscaling.DescribeAutoScalingInstances;
-import com.example.autoscaling.DetachInstances;
 import com.example.autoscaling.scenario.CloudFormationHelper;
-import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -25,9 +17,6 @@ import java.util.Map;
 import java.util.Random;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
-import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
-import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
-import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 
 /**
  * To run these integration tests, you must set the required values
