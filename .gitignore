@@ -38,3 +38,4 @@ kotlin/services/**/gradlew
 kotlin/services/**/gradlew.bat
 kotlin/services/**/.kotlin/
 /.local/
+/.kiro/settings

@@ -1,0 +1,40 @@
+{
+  "mcpServers": {
+    "awslabs.bedrock-kb-retrieval-mcp-server": {
+      "command": "uv",
+      "args": [
+        "tool",
+        "run",
+        "--from",
+        "awslabs.bedrock-kb-retrieval-mcp-server@latest",
+        "awslabs.bedrock-kb-retrieval-mcp-server.exe"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR",
+        "AWS_PROFILE": "cex-ai-kb-access",
+        "AWS_REGION": "us-west-2"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "QueryKnowledgeBases"
+      ],
+      "disabledTools": [
+        "ListKnowledgeBases"
+      ]
+    },
+    "aws-knowledge-mcp-server": {
+      "command": "uvx",
+      "args": [
+        "mcp-proxy",
+        "--transport",
+        "streamablehttp",
+        "https://knowledge-mcp.global.api.aws"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "aws___search_documentation",
+        "aws___read_documentation"
+      ]
+    }
+  }
+}
