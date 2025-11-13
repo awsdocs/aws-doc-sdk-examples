@@ -3,6 +3,12 @@
 ## Purpose
 Generate feature scenarios that demonstrate complete workflows using multiple service operations in a guided, educational manner. Implementation must be based on the service SPECIFICATION.md file.
 
+## Target Directory
+**IMPORTANT**: All new feature scenarios MUST be created in the `dotnetv4` directory, NOT `dotnetv3`.
+
+- **New scenarios**: `dotnetv4/{Service}/`
+- **Legacy examples**: `dotnetv3/{Service}/` (Must NOT add new examples here)
+
 ## Requirements
 - **Specification-Driven**: MUST read the `scenarios/features/{service_feature}/SPECIFICATION.md`
 - **Interactive**: Use Console.WriteLine and Console.ReadLine for user input and guidance
@@ -19,7 +25,7 @@ Generate feature scenarios that demonstrate complete workflows using multiple se
 Feature scenarios use a multi-project structure with separate projects for actions, scenarios, and tests:
 
 ```
-dotnetv3/{Service}/
+dotnetv4/{Service}/
 ├── {Service}.sln                           # Solution file
 ├── Actions/
 │   ├── {Service}Wrapper.cs                 # Wrapper class for service operations
@@ -34,6 +40,8 @@ dotnetv3/{Service}/
     ├── Usings.cs                           # Global usings for tests
     └── {Service}Tests.csproj               # Test project file (references Scenarios)
 ```
+
+**Note**: Use `dotnetv4` for all new feature scenarios. The `dotnetv3` directory is for legacy examples only.
 
 ## MANDATORY Pre-Implementation Steps
 
@@ -538,16 +546,16 @@ public class {Service}Workflow
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AWSSDK.{Service}" Version="3.7.x" />
-    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.2" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.301" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
   </ItemGroup>
 
 </Project>
@@ -585,23 +593,24 @@ public class {Service}Workflow
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-    <PackageReference Include="Moq" Version="4.20.70" />
-    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="Xunit.Extensions.Ordering" Version="1.4.5" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="3.1.2">
+    <PackageReference Include="coverlet.collector" Version="6.0.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
