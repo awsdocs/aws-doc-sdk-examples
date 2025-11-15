@@ -93,7 +93,7 @@ suspend fun hello{Service}(region: String) {
 
             val response = {service}Client.{basicOperation}(request)
 
-            println("🔍 Hello, {AWS Service}!")
+            println("Hello, {AWS Service}!")
             
             // Display appropriate result information
             response.{resultField}?.let { results ->
