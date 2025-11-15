@@ -119,38 +119,30 @@ Look for the metadata table:
 All code must include proper snippet tags that match metadata:
 
 ```kotlin
-// snippet-start:[{service}.kotlin.{action_name}.main]
 suspend fun {actionMethod}({service}Client: {Service}Client, param: String): {ActionName}Response {
     // Action implementation
 }
-// snippet-end:[{service}.kotlin.{action_name}.main]
 ```
 
 ### Actions Class Tags
 ```kotlin
-// snippet-start:[{service}.kotlin.{service}_actions.main]
 class {Service}Actions {
     // Actions class implementation
 }
-// snippet-end:[{service}.kotlin.{service}_actions.main]
 ```
 
 ### Scenario Tags
 ```kotlin
-// snippet-start:[{service}.kotlin.{service}_scenario.main]
 class {Service}Scenario {
     // Scenario class implementation
 }
-// snippet-end:[{service}.kotlin.{service}_scenario.main]
 ```
 
 ### Hello Tags
 ```kotlin
-// snippet-start:[{service}.kotlin.hello.main]
 suspend fun main() {
     // Hello implementation
 }
-// snippet-end:[{service}.kotlin.hello.main]
 ```
 
 ## Service Abbreviations

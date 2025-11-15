@@ -119,7 +119,7 @@ class {Service}Scenario {
                 try {
                     runScenario({service}Client)
                 } catch (e: Exception) {
-                    println("❌ Scenario failed: ${e.message}")
+                    println("Scenario failed: ${e.message}")
                     e.printStackTrace()
                 } finally {
                     cleanupPhase({service}Client)
@@ -133,7 +133,7 @@ class {Service}Scenario {
                 demonstrationPhase({service}Client)
                 examinationPhase({service}Client)
             } catch (e: Exception) {
-                println("❌ Error during scenario execution: ${e.message}")
+                println("Error during scenario execution: ${e.message}")
                 throw e
             }
         }
@@ -163,10 +163,10 @@ class {Service}Scenario {
                 // Create new resource as specified
                 println("Creating new resource...")
                 resourceId = {service}Actions.createResource({service}Client)
-                println("✅ Resource created successfully: $resourceId")
+                println("Resource created successfully: $resourceId")
 
             } catch (e: {Service}Exception) {
-                println("❌ Error during setup: ${e.message}")
+                println("Error during setup: ${e.message}")
                 throw e
             }
         }
@@ -181,7 +181,7 @@ class {Service}Scenario {
                 // Example: Generate sample data if specified
                 resourceId?.let { id ->
                     {service}Actions.createSampleData({service}Client, id)
-                    println("✅ Sample data created successfully")
+                    println("Sample data created successfully")
 
                     // Wait if specified in the specification
                     println("Waiting for data to be processed...")
@@ -189,7 +189,7 @@ class {Service}Scenario {
                 }
 
             } catch (e: {Service}Exception) {
-                println("❌ Error during demonstration: ${e.message}")
+                println("Error during demonstration: ${e.message}")
                 throw e
             }
         }
@@ -232,7 +232,7 @@ class {Service}Scenario {
                 }
 
             } catch (e: {Service}Exception) {
-                println("❌ Error during examination: ${e.message}")
+                println("Error during examination: ${e.message}")
                 throw e
             }
         }
@@ -250,9 +250,9 @@ class {Service}Scenario {
                 if (deleteResource) {
                     try {
                         {service}Actions.deleteResource({service}Client, id)
-                        println("✅ Deleted resource: $id")
+                        println("Deleted resource: $id")
                     } catch (e: {Service}Exception) {
-                        println("❌ Error deleting resource: ${e.message}")
+                        println("Error deleting resource: ${e.message}")
                     }
                 } else {
                     println("Resource $id will continue running.")
@@ -335,9 +335,9 @@ val count = readLine()?.toIntOrNull() ?: 0
 ### Information Display
 ```kotlin
 // Progress indicators
-println("✅ Operation completed successfully")
-println("⚠️ Warning message")
-println("❌ Error occurred")
+println("Operation completed successfully")
+println("Warning message")
+println("Error occurred")
 
 // Formatted output
 println(DASHES)
@@ -361,20 +361,20 @@ try {
     when (e.errorDetails?.errorCode) {
         "BadRequestException" -> {
             // Handle as specified: "Validate input parameters and notify user"
-            println("❌ Invalid configuration. Please check your parameters.")
+            println("Invalid configuration. Please check your parameters.")
         }
         "InternalServerErrorException" -> {
             // Handle as specified: "Retry operation with exponential backoff"
-            println("⚠️ Service temporarily unavailable. Retrying...")
+            println("Service temporarily unavailable. Retrying...")
             // Implement retry logic
         }
         else -> {
-            println("❌ Unexpected error: ${e.message}")
+            println("Unexpected error: ${e.message}")
         }
     }
     throw e
 } catch (e: ClientException) {
-    println("❌ Client error: ${e.message}")
+    println("Client error: ${e.message}")
     throw e
 }
 ```
