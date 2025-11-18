@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[CloudWatchLogs.dotnetv3.CloudWatchLogsWrapper]
+// snippet-start:[CloudWatchLogs.dotnetv4.CloudWatchLogsWrapper]
 using Amazon.CloudWatchLogs;
 using Amazon.CloudWatchLogs.Model;
 using Microsoft.Extensions.Logging;
@@ -27,7 +27,7 @@ public class CloudWatchLogsWrapper
         _logger = logger;
     }
 
-    // snippet-start:[CloudWatchLogs.dotnetv3.StartQuery]
+    // snippet-start:[CloudWatchLogs.dotnetv4.StartQuery]
     /// <summary>
     /// Starts a CloudWatch Logs Insights query.
     /// </summary>
@@ -74,9 +74,9 @@ public class CloudWatchLogsWrapper
             return null;
         }
     }
-    // snippet-end:[CloudWatchLogs.dotnetv3.StartQuery]
+    // snippet-end:[CloudWatchLogs.dotnetv4.StartQuery]
 
-    // snippet-start:[CloudWatchLogs.dotnetv3.GetQueryResults]
+    // snippet-start:[CloudWatchLogs.dotnetv4.GetQueryResults]
     /// <summary>
     /// Gets the results of a CloudWatch Logs Insights query.
     /// </summary>
@@ -105,9 +105,9 @@ public class CloudWatchLogsWrapper
             return null;
         }
     }
-    // snippet-end:[CloudWatchLogs.dotnetv3.GetQueryResults]
+    // snippet-end:[CloudWatchLogs.dotnetv4.GetQueryResults]
 
-    // snippet-start:[CloudWatchLogs.dotnetv3.PutLogEvents]
+    // snippet-start:[CloudWatchLogs.dotnetv4.PutLogEvents]
     /// <summary>
     /// Puts log events to a CloudWatch Logs log stream.
     /// </summary>
@@ -143,6 +143,6 @@ public class CloudWatchLogsWrapper
             return false;
         }
     }
-    // snippet-end:[CloudWatchLogs.dotnetv3.PutLogEvents]
+    // snippet-end:[CloudWatchLogs.dotnetv4.PutLogEvents]
 }
-// snippet-end:[CloudWatchLogs.dotnetv3.CloudWatchLogsWrapper]
+// snippet-end:[CloudWatchLogs.dotnetv4.CloudWatchLogsWrapper]

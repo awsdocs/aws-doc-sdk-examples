@@ -2,7 +2,7 @@ Resources:
   LargeQueryLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: /workflows/cloudwatch-logs/large-query
+      LogGroupName: /workflows/cloudwatch-logs/large-query12
   LargeQueryLogGroupStream1:
     Type: AWS::Logs::LogStream
     Properties:

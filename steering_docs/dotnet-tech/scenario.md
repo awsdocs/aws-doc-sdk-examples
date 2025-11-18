@@ -67,7 +67,7 @@ From the specification, identify:
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[{Service}.dotnetv3.{Service}Workflow]
+// snippet-start:[{Service}.dotnetv4.{Service}Workflow]
 using Amazon.{Service};
 using Amazon.CloudFormation;
 using Amazon.CloudFormation.Model;
@@ -534,7 +534,7 @@ public class {Service}Workflow
         return "";
     }
 }
-// snippet-end:[{Service}.dotnetv3.{Service}Workflow]
+// snippet-end:[{Service}.dotnetv4.{Service}Workflow]
 ```
 
 ## Project Files
@@ -552,10 +552,10 @@ public class {Service}Workflow
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.{Service}" Version="3.7.x" />
-    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.301" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageReference Include="AWSSDK.{Service}" Version="3.7.*" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.*" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.*" />
   </ItemGroup>
 
 </Project>
@@ -574,10 +574,10 @@ public class {Service}Workflow
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.CloudFormation" Version="3.7.x" />
-    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.2" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="AWSSDK.CloudFormation" Version="3.7.*" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.*" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.*" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -598,19 +598,20 @@ public class {Service}Workflow
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <NoWarn>$(NoWarn);NETSDK1206</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
-    <PackageReference Include="Moq" Version="4.20.72" />
-    <PackageReference Include="xunit" Version="2.9.2" />
-    <PackageReference Include="Xunit.Extensions.Ordering" Version="1.4.5" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.*" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
+    <PackageReference Include="Moq" Version="4.*" />
+    <PackageReference Include="xunit" Version="2.*" />
+    <PackageReference Include="Xunit.Extensions.Ordering" Version="1.*" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.*">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="6.0.2">
+    <PackageReference Include="coverlet.collector" Version="6.*">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -758,7 +759,7 @@ foreach (var item in items)
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[{Service}.dotnetv3.{Service}Wrapper]
+// snippet-start:[{Service}.dotnetv4.{Service}Wrapper]
 using Amazon.{Service};
 using Amazon.{Service}.Model;
 using Microsoft.Extensions.Logging;
@@ -784,7 +785,7 @@ public class {Service}Wrapper
         _logger = logger;
     }
 
-    // snippet-start:[{Service}.dotnetv3.OperationName]
+    // snippet-start:[{Service}.dotnetv4.OperationName]
     /// <summary>
     /// Description of what this operation does.
     /// </summary>
@@ -820,9 +821,9 @@ public class {Service}Wrapper
             return false;
         }
     }
-    // snippet-end:[{Service}.dotnetv3.OperationName]
+    // snippet-end:[{Service}.dotnetv4.OperationName]
 }
-// snippet-end:[{Service}.dotnetv3.{Service}Wrapper]
+// snippet-end:[{Service}.dotnetv4.{Service}Wrapper]
 ```
 
 ### Wrapper Method Guidelines

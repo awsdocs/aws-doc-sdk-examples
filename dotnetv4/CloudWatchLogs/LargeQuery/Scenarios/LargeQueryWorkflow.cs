@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[CloudWatchLogs.dotnetv3.LargeQueryWorkflow]
+// snippet-start:[CloudWatchLogs.dotnetv4.LargeQueryWorkflow]
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Amazon.CloudFormation;
@@ -24,7 +24,7 @@ public class LargeQueryWorkflow
     1. Prepare the Application:
        - Prompt the user to deploy CloudFormation stack and generate sample logs.
        - Deploy the CloudFormation template for resource creation.
-       - Generate 50,000 sample log entries using a Python script.
+       - Generate 50,000 sample log entries using CloudWatch Logs API.
        - Wait 5 minutes for logs to be fully ingested.
 
     2. Execute Large Query:
@@ -48,8 +48,7 @@ public class LargeQueryWorkflow
 
     public static bool _interactive = true;
     private static string _stackName = "CloudWatchLargeQueryStack";
-    private static string _stackResourcePath = "../../../../../../scenarios/features/cloudwatch_logs_large_query/resources/stack.yaml";
-    private static string _pythonScriptPath = "../../../../../../scenarios/features/cloudwatch_logs_large_query/resources/create_logs.py";
+    private static string _stackResourcePath = "../../../../../../../scenarios/features/cloudwatch_logs_large_query/resources/stack.yaml";
 
     public static async Task Main(string[] args)
     {
@@ -147,8 +146,8 @@ public class LargeQueryWorkflow
             }
             else
             {
-                _logGroupName = PromptUserForInput("Enter the log group name: ", _logGroupName);
-                _logStreamName = PromptUserForInput("Enter the log stream name: ", _logStreamName);
+                _logGroupName = PromptUserForInput("Enter the log group name ", _logGroupName);
+                _logStreamName = PromptUserForInput("Enter the log stream name ", _logStreamName);
 
                 var startDateMs = PromptUserForLong("Enter the query start date (milliseconds since epoch): ");
                 var endDateMs = PromptUserForLong("Enter the query end date (milliseconds since epoch): ");
@@ -267,65 +266,65 @@ public class LargeQueryWorkflow
     }
 
     /// <summary>
-    /// Generates sample logs using a Python script.
+    /// Generates sample logs directly using CloudWatch Logs API.
+    /// Creates 50,000 log entries spanning 5 minutes.
     /// </summary>
     /// <returns>True if logs were generated successfully.</returns>
     private static async Task<bool> GenerateSampleLogs()
     {
+        const int totalEntries = 50000;
+        const int entriesPerBatch = 10000;
+        const int fiveMinutesMs = 5 * 60 * 1000;
+
         try
         {
-            if (!File.Exists(_pythonScriptPath))
+            // Calculate timestamps
+            var startTimeMs = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            var timestampIncrement = fiveMinutesMs / totalEntries;
+
+            Console.WriteLine($"Generating {totalEntries} log entries...");
+
+            var entryCount = 0;
+            var currentTimestamp = startTimeMs;
+            var numBatches = totalEntries / entriesPerBatch;
+
+            // Generate and upload logs in batches
+            for (int batchNum = 0; batchNum < numBatches; batchNum++)
             {
-                _logger.LogError($"Python script not found at: {_pythonScriptPath}");
-                Console.WriteLine("Please run the script manually from:");
-                Console.WriteLine($"  {_pythonScriptPath}");
-                return false;
+                var logEvents = new List<InputLogEvent>();
+
+                for (int i = 0; i < entriesPerBatch; i++)
+                {
+                    logEvents.Add(new InputLogEvent
+                    {
+                        Timestamp = DateTimeOffset.FromUnixTimeMilliseconds(currentTimestamp).UtcDateTime,
+                        Message = $"Entry {entryCount}"
+                    });
+
+                    entryCount++;
+                    currentTimestamp += timestampIncrement;
+                }
+
+                // Upload batch
+                var success = await _wrapper.PutLogEventsAsync(_logGroupName, _logStreamName, logEvents);
+                if (!success)
+                {
+                    _logger.LogError($"Failed to upload batch {batchNum + 1}/{numBatches}");
+                    return false;
+                }
+
+                Console.WriteLine($"Uploaded batch {batchNum + 1}/{numBatches}");
             }
 
-            var processStartInfo = new ProcessStartInfo
-            {
-                FileName = "python",
-                Arguments = _pythonScriptPath,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
+            // Set query date range (convert milliseconds to seconds for query API)
+            _queryStartDate = startTimeMs / 1000;
+            _queryEndDate = (currentTimestamp - timestampIncrement) / 1000;
 
-            using var process = Process.Start(processStartInfo);
-            if (process == null)
-            {
-                _logger.LogError("Failed to start Python process.");
-                return false;
-            }
+            Console.WriteLine($"Query start date: {DateTimeOffset.FromUnixTimeSeconds(_queryStartDate):yyyy-MM-ddTHH:mm:ss.fffZ}");
+            Console.WriteLine($"Query end date: {DateTimeOffset.FromUnixTimeSeconds(_queryEndDate):yyyy-MM-ddTHH:mm:ss.fffZ}");
+            Console.WriteLine($"Successfully uploaded {totalEntries} log entries");
 
-            var output = await process.StandardOutput.ReadToEndAsync();
-            var error = await process.StandardError.ReadToEndAsync();
-            await process.WaitForExitAsync();
-
-            if (process.ExitCode != 0)
-            {
-                _logger.LogError($"Python script failed: {error}");
-                return false;
-            }
-
-            var startMatch = Regex.Match(output, @"QUERY_START_DATE=(\d+)");
-            var endMatch = Regex.Match(output, @"QUERY_END_DATE=(\d+)");
-
-            if (startMatch.Success && endMatch.Success)
-            {
-                _queryStartDate = long.Parse(startMatch.Groups[1].Value) / 1000;
-                _queryEndDate = long.Parse(endMatch.Groups[1].Value) / 1000;
-
-                Console.WriteLine($"Query start date: {DateTimeOffset.FromUnixTimeSeconds(_queryStartDate):yyyy-MM-ddTHH:mm:ss.fffZ}");
-                Console.WriteLine($"Query end date: {DateTimeOffset.FromUnixTimeSeconds(_queryEndDate):yyyy-MM-ddTHH:mm:ss.fffZ}");
-                return true;
-            }
-            else
-            {
-                _logger.LogError("Failed to parse timestamps from script output.");
-                return false;
-            }
+            return true;
         }
         catch (Exception ex)
         {
@@ -342,7 +341,7 @@ public class LargeQueryWorkflow
         Console.WriteLine("Starting recursive query to retrieve all logs...");
         Console.WriteLine();
 
-        var queryLimit = PromptUserForInteger("Enter the query limit (default 10000, max 10000): ", 10000);
+        var queryLimit = PromptUserForInteger("Enter the query limit (max 10000) ", 10000);
         if (queryLimit > 10000) queryLimit = 10000;
 
         var queryString = "fields @timestamp, @message | sort @timestamp asc";
@@ -407,17 +406,70 @@ public class LargeQueryWorkflow
             return results;
         }
 
+        // Parse the timestamp - CloudWatch returns ISO 8601 format with milliseconds
         var lastTime = DateTimeOffset.Parse(lastTimestamp).ToUnixTimeSeconds();
-        var midpoint = (lastTime + endTime) / 2;
+        
+        // Check if there's any time range left to query
+        if (lastTime >= endTime)
+        {
+            return results;
+        }
 
+        // Calculate midpoint between last result and end time
+        var midpoint = (lastTime + endTime) / 2;
+        
+        // Ensure we have enough range to split
+        if (midpoint <= lastTime || midpoint >= endTime)
+        {
+            // Range too small to split, just query the remaining range
+            var remainingResults = await PerformLargeQuery(logGroupName, queryString, lastTime, endTime, limit);
+            
+            var allResults = new List<List<ResultField>>(results);
+            // Skip the first result if it's a duplicate of the last result from previous query
+            if (remainingResults.Count > 0)
+            {
+                var firstTimestamp = remainingResults[0].Find(f => f.Field == "@timestamp")?.Value;
+                if (firstTimestamp == lastTimestamp)
+                {
+                    remainingResults.RemoveAt(0);
+                }
+            }
+            allResults.AddRange(remainingResults);
+            return allResults;
+        }
+
+        // Split the remaining range in half
         var results1 = await PerformLargeQuery(logGroupName, queryString, lastTime, midpoint, limit);
         var results2 = await PerformLargeQuery(logGroupName, queryString, midpoint, endTime, limit);
 
-        var allResults = new List<List<ResultField>>(results);
-        allResults.AddRange(results1);
-        allResults.AddRange(results2);
+        var combinedResults = new List<List<ResultField>>(results);
+        
+        // Remove duplicate from results1 if it matches the last result
+        if (results1.Count > 0)
+        {
+            var firstTimestamp1 = results1[0].Find(f => f.Field == "@timestamp")?.Value;
+            if (firstTimestamp1 == lastTimestamp)
+            {
+                results1.RemoveAt(0);
+            }
+        }
+        
+        combinedResults.AddRange(results1);
+        
+        // Remove duplicate from results2 if it matches the last result from results1
+        if (results2.Count > 0 && results1.Count > 0)
+        {
+            var lastTimestamp1 = results1[results1.Count - 1].Find(f => f.Field == "@timestamp")?.Value;
+            var firstTimestamp2 = results2[0].Find(f => f.Field == "@timestamp")?.Value;
+            if (firstTimestamp2 == lastTimestamp1)
+            {
+                results2.RemoveAt(0);
+            }
+        }
+        
+        combinedResults.AddRange(results2);
 
-        return allResults;
+        return combinedResults;
     }
 
     /// <summary>
@@ -592,9 +644,9 @@ public class LargeQueryWorkflow
     /// </summary>
     private static string PromptUserForStackName()
     {
-        Console.WriteLine($"Enter a name for the CloudFormation stack (default: {_stackName}): ");
         if (_interactive)
         {
+            Console.Write($"Enter a name for the CloudFormation stack (press Enter for default '{_stackName}'): ");
             string? input = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(input))
             {
@@ -617,7 +669,7 @@ public class LargeQueryWorkflow
     {
         if (_interactive)
         {
-            Console.Write(prompt);
+            Console.Write($"{prompt}(press Enter for default '{defaultValue}'): ");
             string? input = Console.ReadLine();
             return string.IsNullOrWhiteSpace(input) ? defaultValue : input;
         }
@@ -631,7 +683,7 @@ public class LargeQueryWorkflow
     {
         if (_interactive)
         {
-            Console.Write(prompt);
+            Console.Write($"{prompt}(press Enter for default '{defaultValue}'): ");
             string? input = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(input) || !int.TryParse(input, out var result))
             {
@@ -659,4 +711,4 @@ public class LargeQueryWorkflow
         return 0;
     }
 }
-// snippet-end:[CloudWatchLogs.dotnetv3.LargeQueryWorkflow]
+// snippet-end:[CloudWatchLogs.dotnetv4.LargeQueryWorkflow]
