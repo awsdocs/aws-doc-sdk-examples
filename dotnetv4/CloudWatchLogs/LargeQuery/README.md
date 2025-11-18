@@ -54,7 +54,6 @@ LargeQuery/
 
 - .NET 8.0 or later
 - AWS credentials configured
-- Python 3.x (for log generation)
 - Permissions for CloudWatch Logs and CloudFormation
 
 ## Related Resources

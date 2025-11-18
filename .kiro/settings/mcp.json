@@ -35,6 +35,20 @@
         "aws___search_documentation",
         "aws___read_documentation"
       ]
+    },
+    "codeloom-mcp": {
+      "disabled": false,
+      "command": "code-loom-mcp",
+      "args": [],
+      "env": {},
+      "transportType": "stdio",
+      "autoApprove": [
+        "loomer",
+        "search_aws_docs",
+        "read_aws_docs",
+        "query_knowledge_bases",
+        "list_knowledge_bases"
+      ]
     }
   }
 }
