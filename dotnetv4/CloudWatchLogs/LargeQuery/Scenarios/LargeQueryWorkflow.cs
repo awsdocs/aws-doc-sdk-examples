@@ -393,83 +393,104 @@ public class LargeQueryWorkflow
 
         var startDate = DateTimeOffset.FromUnixTimeSeconds(startTime).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
         var endDate = DateTimeOffset.FromUnixTimeSeconds(endTime).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
-        Console.WriteLine($"Query date range: {startDate} to {endDate}. Found {results.Count} logs.");
+        Console.WriteLine($"Query date range: {startDate} ({startTime}s) to {endDate} ({endTime}s). Found {results.Count} logs.");
 
         if (results.Count < limit)
         {
+            Console.WriteLine($"  -> Returning {results.Count} logs (less than limit of {limit})");
             return results;
         }
 
-        var lastTimestamp = results[results.Count - 1].Find(f => f.Field == "@timestamp")?.Value;
-        if (lastTimestamp == null)
+        Console.WriteLine($"  -> Hit limit of {limit}. Need to split and recurse.");
+
+        // Get the timestamp of the last log (sorted to find the actual last one)
+        var lastLogTimestamp = GetLastLogTimestamp(results);
+        if (lastLogTimestamp == null)
         {
+            Console.WriteLine($"  -> No timestamp found in results. Returning {results.Count} logs.");
             return results;
         }
 
-        // Parse the timestamp - CloudWatch returns ISO 8601 format with milliseconds
-        var lastTime = DateTimeOffset.Parse(lastTimestamp).ToUnixTimeSeconds();
+        Console.WriteLine($"  -> Last log timestamp: {lastLogTimestamp}");
+
+        // Parse the timestamp and add 1 millisecond to avoid querying the same log again
+        var lastLogDate = DateTimeOffset.Parse(lastLogTimestamp + " +0000");
+        Console.WriteLine($"  -> Last log as DateTimeOffset: {lastLogDate:yyyy-MM-ddTHH:mm:ss.fffZ} ({lastLogDate.ToUnixTimeSeconds()}s)");
         
+        var offsetLastLogDate = lastLogDate.AddMilliseconds(1);
+        Console.WriteLine($"  -> Offset timestamp (last + 1ms): {offsetLastLogDate:yyyy-MM-ddTHH:mm:ss.fffZ} ({offsetLastLogDate.ToUnixTimeSeconds()}s)");
+        
+        // Convert back to seconds for the API
+        var offsetLastLogTime = offsetLastLogDate.ToUnixTimeSeconds();
+        
+        Console.WriteLine($"  -> Comparing: offsetLastLogTime={offsetLastLogTime}s vs endTime={endTime}s");
+        Console.WriteLine($"  -> End time as date: {DateTimeOffset.FromUnixTimeSeconds(endTime):yyyy-MM-ddTHH:mm:ss.fffZ}");
+
         // Check if there's any time range left to query
-        if (lastTime >= endTime)
+        if (offsetLastLogTime >= endTime)
         {
+            Console.WriteLine($"  -> No time range left to query. Offset time ({offsetLastLogTime}s) >= end time ({endTime}s)");
             return results;
         }
 
-        // Calculate midpoint between last result and end time
-        var midpoint = (lastTime + endTime) / 2;
+        // Split the remaining date range in half
+        var (range1Start, range1End, range2Start, range2End) = SplitDateRange(offsetLastLogTime, endTime);
         
-        // Ensure we have enough range to split
-        if (midpoint <= lastTime || midpoint >= endTime)
+        var range1StartDate = DateTimeOffset.FromUnixTimeSeconds(range1Start).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+        var range1EndDate = DateTimeOffset.FromUnixTimeSeconds(range1End).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+        var range2StartDate = DateTimeOffset.FromUnixTimeSeconds(range2Start).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+        var range2EndDate = DateTimeOffset.FromUnixTimeSeconds(range2End).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+        
+        Console.WriteLine($"  -> Splitting remaining range:");
+        Console.WriteLine($"     Range 1: {range1StartDate} ({range1Start}s) to {range1EndDate} ({range1End}s)");
+        Console.WriteLine($"     Range 2: {range2StartDate} ({range2Start}s) to {range2EndDate} ({range2End}s)");
+
+        // Query both halves recursively
+        Console.WriteLine($"  -> Querying range 1...");
+        var results1 = await PerformLargeQuery(logGroupName, queryString, range1Start, range1End, limit);
+        Console.WriteLine($"  -> Range 1 returned {results1.Count} logs");
+        
+        Console.WriteLine($"  -> Querying range 2...");
+        var results2 = await PerformLargeQuery(logGroupName, queryString, range2Start, range2End, limit);
+        Console.WriteLine($"  -> Range 2 returned {results2.Count} logs");
+
+        // Combine all results
+        var allResults = new List<List<ResultField>>(results);
+        allResults.AddRange(results1);
+        allResults.AddRange(results2);
+
+        Console.WriteLine($"  -> Combined total: {allResults.Count} logs ({results.Count} + {results1.Count} + {results2.Count})");
+
+        return allResults;
+    }
+
+    /// <summary>
+    /// Gets the timestamp string of the most recent log from a list of logs.
+    /// Sorts timestamps to find the actual last one.
+    /// </summary>
+    private static string? GetLastLogTimestamp(List<List<ResultField>> logs)
+    {
+        var timestamps = logs
+            .Select(log => log.Find(f => f.Field == "@timestamp")?.Value)
+            .Where(t => !string.IsNullOrEmpty(t))
+            .OrderBy(t => t)
+            .ToList();
+
+        if (timestamps.Count == 0)
         {
-            // Range too small to split, just query the remaining range
-            var remainingResults = await PerformLargeQuery(logGroupName, queryString, lastTime, endTime, limit);
-            
-            var allResults = new List<List<ResultField>>(results);
-            // Skip the first result if it's a duplicate of the last result from previous query
-            if (remainingResults.Count > 0)
-            {
-                var firstTimestamp = remainingResults[0].Find(f => f.Field == "@timestamp")?.Value;
-                if (firstTimestamp == lastTimestamp)
-                {
-                    remainingResults.RemoveAt(0);
-                }
-            }
-            allResults.AddRange(remainingResults);
-            return allResults;
+            return null;
         }
 
-        // Split the remaining range in half
-        var results1 = await PerformLargeQuery(logGroupName, queryString, lastTime, midpoint, limit);
-        var results2 = await PerformLargeQuery(logGroupName, queryString, midpoint, endTime, limit);
+        return timestamps[timestamps.Count - 1];
+    }
 
-        var combinedResults = new List<List<ResultField>>(results);
-        
-        // Remove duplicate from results1 if it matches the last result
-        if (results1.Count > 0)
-        {
-            var firstTimestamp1 = results1[0].Find(f => f.Field == "@timestamp")?.Value;
-            if (firstTimestamp1 == lastTimestamp)
-            {
-                results1.RemoveAt(0);
-            }
-        }
-        
-        combinedResults.AddRange(results1);
-        
-        // Remove duplicate from results2 if it matches the last result from results1
-        if (results2.Count > 0 && results1.Count > 0)
-        {
-            var lastTimestamp1 = results1[results1.Count - 1].Find(f => f.Field == "@timestamp")?.Value;
-            var firstTimestamp2 = results2[0].Find(f => f.Field == "@timestamp")?.Value;
-            if (firstTimestamp2 == lastTimestamp1)
-            {
-                results2.RemoveAt(0);
-            }
-        }
-        
-        combinedResults.AddRange(results2);
-
-        return combinedResults;
+    /// <summary>
+    /// Splits a date range in half.
+    /// </summary>
+    private static (long range1Start, long range1End, long range2Start, long range2End) SplitDateRange(long startTime, long endTime)
+    {
+        var midpoint = startTime + (endTime - startTime) / 2;
+        return (startTime, midpoint, midpoint, endTime);
     }
 
     /// <summary>
