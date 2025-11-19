@@ -353,6 +353,27 @@ public class LargeQueryWorkflow
         Console.WriteLine();
         Console.WriteLine($"Queries finished in {stopwatch.Elapsed.TotalSeconds:F3} seconds.");
         Console.WriteLine($"Total logs found: {allResults.Count}");
+        
+        // Check for duplicates
+        Console.WriteLine();
+        Console.WriteLine("Checking for duplicate logs...");
+        var duplicates = FindDuplicateLogs(allResults);
+        if (duplicates.Count > 0)
+        {
+            Console.WriteLine($"WARNING: Found {duplicates.Count} duplicate log entries!");
+            Console.WriteLine("Duplicate entries (showing first 10):");
+            foreach (var dup in duplicates.Take(10))
+            {
+                Console.WriteLine($"  [{dup.Timestamp}] {dup.Message} (appears {dup.Count} times)");
+            }
+            
+            var uniqueCount = allResults.Count - duplicates.Sum(d => d.Count - 1);
+            Console.WriteLine($"Unique logs: {uniqueCount}");
+        }
+        else
+        {
+            Console.WriteLine("No duplicates found. All logs are unique.");
+        }
         Console.WriteLine();
 
         var viewSample = !_interactive || GetYesNoResponse("Would you like to see a sample of the logs? (y/n) ");
@@ -420,8 +441,14 @@ public class LargeQueryWorkflow
         var offsetLastLogDate = lastLogDate.AddMilliseconds(1);
         Console.WriteLine($"  -> Offset timestamp (last + 1ms): {offsetLastLogDate:yyyy-MM-ddTHH:mm:ss.fffZ} ({offsetLastLogDate.ToUnixTimeSeconds()}s)");
         
-        // Convert back to seconds for the API
+        // Convert to seconds, but round UP to the next second to avoid overlapping with logs in the same second
+        // This ensures we don't re-query logs that share the same second as the last log
         var offsetLastLogTime = offsetLastLogDate.ToUnixTimeSeconds();
+        if (offsetLastLogDate.Millisecond > 0)
+        {
+            offsetLastLogTime++; // Move to the next full second
+            Console.WriteLine($"  -> Adjusted to next full second: {offsetLastLogTime}s ({DateTimeOffset.FromUnixTimeSeconds(offsetLastLogTime):yyyy-MM-ddTHH:mm:ss.fffZ})");
+        }
         
         Console.WriteLine($"  -> Comparing: offsetLastLogTime={offsetLastLogTime}s vs endTime={endTime}s");
         Console.WriteLine($"  -> End time as date: {DateTimeOffset.FromUnixTimeSeconds(endTime):yyyy-MM-ddTHH:mm:ss.fffZ}");
@@ -486,11 +513,13 @@ public class LargeQueryWorkflow
 
     /// <summary>
     /// Splits a date range in half.
+    /// Range 2 starts at midpoint + 1 second to avoid overlap.
     /// </summary>
     private static (long range1Start, long range1End, long range2Start, long range2End) SplitDateRange(long startTime, long endTime)
     {
         var midpoint = startTime + (endTime - startTime) / 2;
-        return (startTime, midpoint, midpoint, endTime);
+        // Range 2 starts at midpoint + 1 to avoid querying the same second twice
+        return (startTime, midpoint, midpoint + 1, endTime);
     }
 
     /// <summary>
@@ -730,6 +759,40 @@ public class LargeQueryWorkflow
             }
         }
         return 0;
+    }
+
+    /// <summary>
+    /// Finds duplicate log entries based on timestamp and message.
+    /// </summary>
+    private static List<(string Timestamp, string Message, int Count)> FindDuplicateLogs(List<List<ResultField>> logs)
+    {
+        var logSignatures = new Dictionary<string, int>();
+        
+        foreach (var log in logs)
+        {
+            var timestamp = log.Find(f => f.Field == "@timestamp")?.Value ?? "";
+            var message = log.Find(f => f.Field == "@message")?.Value ?? "";
+            var signature = $"{timestamp}|{message}";
+            
+            if (logSignatures.ContainsKey(signature))
+            {
+                logSignatures[signature]++;
+            }
+            else
+            {
+                logSignatures[signature] = 1;
+            }
+        }
+        
+        return logSignatures
+            .Where(kvp => kvp.Value > 1)
+            .Select(kvp =>
+            {
+                var parts = kvp.Key.Split('|');
+                return (Timestamp: parts[0], Message: parts[1], Count: kvp.Value);
+            })
+            .OrderByDescending(x => x.Count)
+            .ToList();
     }
 }
 // snippet-end:[CloudWatchLogs.dotnetv4.LargeQueryWorkflow]
