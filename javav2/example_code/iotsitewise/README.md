@@ -48,14 +48,14 @@ Code excerpts that show you how to call individual service functions.
 - [BatchPutAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L169)
 - [CreateAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L138)
 - [CreateAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L88)
-- [CreateGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L468)
+- [CreateGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L378)
 - [DeleteAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L293)
 - [DeleteAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L320)
-- [DeleteGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L513)
+- [DeleteGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L423)
 - [DescribeAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L264)
-- [DescribeGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L540)
+- [DescribeGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L450)
 - [GetAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L233)
-- [ListAssetModels](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L408)
+- [ListAssetModels](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L347)
 
 
 <!--custom.examples.start-->
