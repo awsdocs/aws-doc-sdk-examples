@@ -393,7 +393,7 @@ public class LargeQueryWorkflow
         Console.WriteLine();
         Console.WriteLine($"Queries finished in {stopwatch.Elapsed.TotalSeconds:F3} seconds.");
         Console.WriteLine($"Total logs found: {allResults.Count}");
-        
+
         // Check for duplicates
         Console.WriteLine();
         Console.WriteLine("Checking for duplicate logs...");
@@ -406,7 +406,7 @@ public class LargeQueryWorkflow
             {
                 Console.WriteLine($"  [{dup.Timestamp}] {dup.Message} (appears {dup.Count} times)");
             }
-            
+
             var uniqueCount = allResults.Count - duplicates.Sum(d => d.Count - 1);
             Console.WriteLine($"Unique logs: {uniqueCount}");
         }
@@ -477,10 +477,10 @@ public class LargeQueryWorkflow
         // Parse the timestamp and add 1 millisecond to avoid querying the same log again
         var lastLogDate = DateTimeOffset.Parse(lastLogTimestamp + " +0000");
         Console.WriteLine($"  -> Last log as DateTimeOffset: {lastLogDate:yyyy-MM-ddTHH:mm:ss.fffZ} ({lastLogDate.ToUnixTimeSeconds()}s)");
-        
+
         var offsetLastLogDate = lastLogDate.AddMilliseconds(1);
         Console.WriteLine($"  -> Offset timestamp (last + 1ms): {offsetLastLogDate:yyyy-MM-ddTHH:mm:ss.fffZ} ({offsetLastLogDate.ToUnixTimeSeconds()}s)");
-        
+
         // Convert to seconds, but round UP to the next second to avoid overlapping with logs in the same second
         // This ensures we don't re-query logs that share the same second as the last log
         var offsetLastLogTime = offsetLastLogDate.ToUnixTimeSeconds();
@@ -489,7 +489,7 @@ public class LargeQueryWorkflow
             offsetLastLogTime++; // Move to the next full second
             Console.WriteLine($"  -> Adjusted to next full second: {offsetLastLogTime}s ({DateTimeOffset.FromUnixTimeSeconds(offsetLastLogTime):yyyy-MM-ddTHH:mm:ss.fffZ})");
         }
-        
+
         Console.WriteLine($"  -> Comparing: offsetLastLogTime={offsetLastLogTime}s vs endTime={endTime}s");
         Console.WriteLine($"  -> End time as date: {DateTimeOffset.FromUnixTimeSeconds(endTime):yyyy-MM-ddTHH:mm:ss.fffZ}");
 
@@ -502,12 +502,12 @@ public class LargeQueryWorkflow
 
         // Split the remaining date range in half
         var (range1Start, range1End, range2Start, range2End) = SplitDateRange(offsetLastLogTime, endTime);
-        
+
         var range1StartDate = DateTimeOffset.FromUnixTimeSeconds(range1Start).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
         var range1EndDate = DateTimeOffset.FromUnixTimeSeconds(range1End).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
         var range2StartDate = DateTimeOffset.FromUnixTimeSeconds(range2Start).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
         var range2EndDate = DateTimeOffset.FromUnixTimeSeconds(range2End).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
-        
+
         Console.WriteLine($"  -> Splitting remaining range:");
         Console.WriteLine($"     Range 1: {range1StartDate} ({range1Start}s) to {range1EndDate} ({range1End}s)");
         Console.WriteLine($"     Range 2: {range2StartDate} ({range2Start}s) to {range2EndDate} ({range2End}s)");
@@ -516,7 +516,7 @@ public class LargeQueryWorkflow
         Console.WriteLine($"  -> Querying range 1...");
         var results1 = await PerformLargeQuery(logGroupName, queryString, range1Start, range1End, limit);
         Console.WriteLine($"  -> Range 1 returned {results1.Count} logs");
-        
+
         Console.WriteLine($"  -> Querying range 2...");
         var results2 = await PerformLargeQuery(logGroupName, queryString, range2Start, range2End, limit);
         Console.WriteLine($"  -> Range 2 returned {results2.Count} logs");
@@ -807,13 +807,13 @@ public class LargeQueryWorkflow
     private static List<(string Timestamp, string Message, int Count)> FindDuplicateLogs(List<List<ResultField>> logs)
     {
         var logSignatures = new Dictionary<string, int>();
-        
+
         foreach (var log in logs)
         {
             var timestamp = log.Find(f => f.Field == "@timestamp")?.Value ?? "";
             var message = log.Find(f => f.Field == "@message")?.Value ?? "";
             var signature = $"{timestamp}|{message}";
-            
+
             if (logSignatures.ContainsKey(signature))
             {
                 logSignatures[signature]++;
@@ -823,7 +823,7 @@ public class LargeQueryWorkflow
                 logSignatures[signature] = 1;
             }
         }
-        
+
         return logSignatures
             .Where(kvp => kvp.Value > 1)
             .Select(kvp =>
