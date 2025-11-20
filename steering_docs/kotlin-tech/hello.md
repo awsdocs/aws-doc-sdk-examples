@@ -93,7 +93,7 @@ suspend fun hello{Service}(region: String) {
 
             val response = {service}Client.{basicOperation}(request)
 
-            println("🔍 Hello, {AWS Service}!")
+            println("Hello, {AWS Service}!")
             
             // Display appropriate result information
             response.{resultField}?.let { results ->
@@ -110,24 +110,24 @@ suspend fun hello{Service}(region: String) {
             }
 
         } catch (e: {Service}Exception) {
-            println("❌ {AWS Service} error occurred: ${e.message}")
+            println("{AWS Service} error occurred: ${e.message}")
             when (e.errorDetails?.errorCode) {
                 "UnauthorizedOperation" -> {
-                    println("💡 You don't have permission to access {AWS Service}.")
+                    println("You don't have permission to access {AWS Service}.")
                     println("   Please check your IAM permissions.")
                 }
                 "InvalidParameterValue" -> {
-                    println("💡 Invalid parameter provided to {AWS Service}.")
+                    println("Invalid parameter provided to {AWS Service}.")
                     println("   Please check your input parameters.")
                 }
                 else -> {
-                    println("💡 Please check your AWS credentials and region configuration.")
+                    println("Please check your AWS credentials and region configuration.")
                 }
             }
             exitProcess(1)
         } catch (e: ClientException) {
-            println("❌ Client error occurred: ${e.message}")
-            println("💡 Please check your AWS credentials and network connectivity.")
+            println("Client error occurred: ${e.message}")
+            println("Please check your AWS credentials and network connectivity.")
             exitProcess(1)
         }
     }
@@ -159,7 +159,7 @@ suspend fun hello{Service}(region: String) {
             val request = List{Resources}Request { }
             val response = {service}Client.list{Resources}(request)
 
-            println("🔍 Hello, {AWS Service}!")
+            println("Hello, {AWS Service}!")
             
             response.{resources}?.let { resources ->
                 println("Found ${resources.size} {resources}:")
@@ -169,7 +169,7 @@ suspend fun hello{Service}(region: String) {
             }
 
         } catch (e: {Service}Exception) {
-            println("❌ {AWS Service} error: ${e.message}")
+            println("{AWS Service} error: ${e.message}")
             exitProcess(1)
         }
     }
@@ -184,12 +184,12 @@ suspend fun hello{Service}(region: String) {
             val request = Get{Service}StatusRequest { }
             val response = {service}Client.get{Service}Status(request)
 
-            println("🔍 Hello, {AWS Service}!")
+            println("Hello, {AWS Service}!")
             println("Service status: ${response.status}")
             println("{AWS Service} is ready to use.")
 
         } catch (e: {Service}Exception) {
-            println("❌ {AWS Service} error: ${e.message}")
+            println("{AWS Service} error: ${e.message}")
             exitProcess(1)
         }
     }
@@ -206,7 +206,7 @@ suspend fun hello{Service}(region: String) {
             }
             val response = {service}Client.describe{Resources}(request)
 
-            println("🔍 Hello, {AWS Service}!")
+            println("Hello, {AWS Service}!")
             
             response.{resources}?.let { resources ->
                 println("Found ${resources.size} {resources}:")
@@ -216,7 +216,7 @@ suspend fun hello{Service}(region: String) {
             }
 
         } catch (e: {Service}Exception) {
-            println("❌ {AWS Service} error: ${e.message}")
+            println("{AWS Service} error: ${e.message}")
             exitProcess(1)
         }
     }
@@ -235,28 +235,28 @@ try {
     // Service-specific errors
     when (e.errorDetails?.errorCode) {
         "UnauthorizedOperation" -> {
-            println("❌ You don't have permission to access {AWS Service}.")
-            println("💡 Please check your IAM permissions.")
+            println("You don't have permission to access {AWS Service}.")
+            println("Please check your IAM permissions.")
         }
         "InvalidParameterValue" -> {
-            println("❌ Invalid parameter provided to {AWS Service}.")
-            println("💡 Please verify your input parameters.")
+            println("Invalid parameter provided to {AWS Service}.")
+            println("Please verify your input parameters.")
         }
         "ResourceNotFoundException" -> {
-            println("❌ Resource not found in {AWS Service}.")
-            println("💡 Please check if the resource exists.")
+            println("Resource not found in {AWS Service}.")
+            println("Please check if the resource exists.")
         }
         else -> {
-            println("❌ {AWS Service} error: ${e.message}")
-            println("💡 Please check your AWS configuration.")
+            println("{AWS Service} error: ${e.message}")
+            println("Please check your AWS configuration.")
         }
     }
     exitProcess(1)
     
 } catch (e: ClientException) {
     // General client errors (network, credentials, etc.)
-    println("❌ Client error: ${e.message}")
-    println("💡 Please check your AWS credentials and network connectivity.")
+    println("Client error: ${e.message}")
+    println("Please check your AWS credentials and network connectivity.")
     exitProcess(1)
 }
 ```
