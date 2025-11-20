@@ -895,8 +895,90 @@ catch (Exception ex)
 4. **Implement Workflow**: Create workflow class with phases from specification
 5. **Add CloudFormation**: Integrate stack deployment and deletion
 6. **Add User Interaction**: Implement prompts and validation
-7. **Test**: Create unit tests for workflow methods
+7. **Test**: Create integration tests for workflow methods
 8. **Document**: Add README.md with scenario description
+
+## Integration Tests
+
+### Single Integration Test Pattern
+
+Integration tests should use a single test method that verifies no errors are logged:
+
+```csharp
+/// <summary>
+/// Verifies the scenario with an integration test. No errors should be logged.
+/// </summary>
+/// <returns>Async task.</returns>
+[Fact]
+[Trait("Category", "Integration")]
+public async Task TestScenarioIntegration()
+{
+    // Arrange
+    {Service}Workflow._interactive = false;
+
+    var loggerScenarioMock = new Mock<ILogger<{Service}Workflow>>();
+    loggerScenarioMock.Setup(logger => logger.Log(
+        It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
+        It.IsAny<EventId>(),
+        It.Is<It.IsAnyType>((@object, @type) => true),
+        It.IsAny<Exception>(),
+        It.IsAny<Func<It.IsAnyType, Exception?, string>>()));
+
+    // Act
+    {Service}Workflow._logger = loggerScenarioMock.Object;
+    {Service}Workflow._wrapper = new {Service}Wrapper(
+        new Amazon{Service}Client(),
+        new Mock<ILogger<{Service}Wrapper>>().Object);
+    {Service}Workflow._amazonCloudFormation = new AmazonCloudFormationClient();
+
+    await {Service}Workflow.RunScenario();
+
+    // Assert no errors logged
+    loggerScenarioMock.Verify(logger => logger.Log(
+        It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
+        It.IsAny<EventId>(),
+        It.Is<It.IsAnyType>((@object, @type) => true),
+        It.IsAny<Exception>(),
+        It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+        Times.Never);
+}
+```
+
+### RunScenario Method
+
+The workflow must include a public RunScenario method for testing:
+
+```csharp
+/// <summary>
+/// Runs the scenario workflow. Used for testing.
+/// </summary>
+public static async Task RunScenario()
+{
+    Console.WriteLine(new string('-', 80));
+    Console.WriteLine("Welcome to the {Service} Scenario.");
+    Console.WriteLine(new string('-', 80));
+
+    try
+    {
+        var prepareSuccess = await PrepareApplication();
+        
+        if (prepareSuccess)
+        {
+            await ExecutePhase2();
+        }
+
+        await Cleanup();
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "There was a problem with the scenario, initiating cleanup...");
+        _interactive = false;
+        await Cleanup();
+    }
+
+    Console.WriteLine("Scenario completed.");
+}
+```
 
 ### Specification Sections to Implement
 - **API Actions Used**: All operations must be in wrapper class

@@ -41,6 +41,16 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteLogGroup](DeleteLogGroupExample/DeleteLogGroup.cs#L6)
 - [DescribeExportTasks](DescribeExportTasksExample/DescribeExportTasks.cs#L6)
 - [DescribeLogGroups](DescribeLogGroupsExample/DescribeLogGroups.cs#L6)
+- [GetQueryResults](../../dotnetv4/CloudWatchLogs/LargeQuery/Actions/CloudWatchLogsWrapper.cs#L79)
+- [PutLogEvents](../../dotnetv4/CloudWatchLogs/LargeQuery/Actions/CloudWatchLogsWrapper.cs#L110)
+- [StartQuery](../../dotnetv4/CloudWatchLogs/LargeQuery/Actions/CloudWatchLogsWrapper.cs#L30)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Run a large query](../../dotnetv4/CloudWatchLogs/LargeQuery/Scenarios/LargeQueryWorkflow.cs)
 
 
 <!--custom.examples.start-->
@@ -72,6 +82,18 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.end-->
 
 
+
+#### Run a large query
+
+This example shows you how to use CloudWatch Logs to query more than 10,000 records.
+
+
+<!--custom.scenario_prereqs.cloudwatch-logs_Scenario_BigQuery.start-->
+<!--custom.scenario_prereqs.cloudwatch-logs_Scenario_BigQuery.end-->
+
+
+<!--custom.scenarios.cloudwatch-logs_Scenario_BigQuery.start-->
+<!--custom.scenarios.cloudwatch-logs_Scenario_BigQuery.end-->
 
 ### Tests
 

@@ -47,7 +47,7 @@ public class LargeQueryWorkflow
     private static long _queryEndDate;
 
     public static bool _interactive = true;
-    private static string _stackName = "CloudWatchLargeQueryStack";
+    public static string _stackName = "CloudWatchLargeQueryStack";
     private static string _stackResourcePath = "../../../../../../../scenarios/features/cloudwatch_logs_large_query/resources/stack.yaml";
 
     public static async Task Main(string[] args)
@@ -72,6 +72,46 @@ public class LargeQueryWorkflow
             _amazonCloudFormation = host.Services.GetRequiredService<IAmazonCloudFormation>();
         }
 
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine("Welcome to the CloudWatch Logs Large Query Scenario.");
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine("This scenario demonstrates how to perform large-scale queries on");
+        Console.WriteLine("CloudWatch Logs using recursive binary search to retrieve more than");
+        Console.WriteLine("the 10,000 result limit.");
+        Console.WriteLine();
+
+        try
+        {
+            Console.WriteLine(new string('-', 80));
+            var prepareSuccess = await PrepareApplication();
+            Console.WriteLine(new string('-', 80));
+
+            if (prepareSuccess)
+            {
+                Console.WriteLine(new string('-', 80));
+                await ExecuteLargeQuery();
+                Console.WriteLine(new string('-', 80));
+            }
+
+            Console.WriteLine(new string('-', 80));
+            await Cleanup();
+            Console.WriteLine(new string('-', 80));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "There was a problem with the scenario, initiating cleanup...");
+            _interactive = false;
+            await Cleanup();
+        }
+
+        Console.WriteLine("CloudWatch Logs Large Query scenario completed.");
+    }
+
+    /// <summary>
+    /// Runs the scenario workflow. Used for testing.
+    /// </summary>
+    public static async Task RunScenario()
+    {
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Welcome to the CloudWatch Logs Large Query Scenario.");
         Console.WriteLine(new string('-', 80));

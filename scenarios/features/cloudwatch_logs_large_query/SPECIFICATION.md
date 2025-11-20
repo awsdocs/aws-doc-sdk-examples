@@ -2,12 +2,18 @@
 
 ## Overview
 
-This feature scenario demonstrates how to perform large-scale queries on Amazon CloudWatch Logs using recursive binary search to retrieve more than the 10,000 result limit. The scenario showcases:
+This feature scenario demonstrates how to perform large-scale queries on Amazon CloudWatch Logs using recursive binary search to retrieve more than the 10,000 result limit. 
+
+**Important**: This is a complete, self-contained scenario that handles all setup and cleanup automatically. The scenario includes:
 
 1. Deploying CloudFormation resources (log group and stream)
 2. Generating and ingesting 50,000 sample log entries
 3. Performing recursive queries to retrieve all logs using binary search
-4. Cleaning up resources
+4. Cleaning up all resources
+
+**The scenario must be runnable in both interactive and non-interactive modes** to support:
+- Interactive mode: User runs the scenario manually with prompts
+- Non-interactive mode: Automated integration tests run the scenario without user input
 
 For an introduction, see the [README.md](README.md).
 
@@ -78,33 +84,40 @@ This scenario uses the following CloudFormation API actions:
 
 ### Phase 1: Setup
 
-**Purpose**: Deploy resources and generate sample data
+**Purpose**: Deploy resources and generate sample data as part of the scenario
 
-**Steps**:
+**Interactive Mode Steps**:
 1. Welcome message explaining the scenario
 2. Prompt user: "Would you like to deploy the CloudFormation stack and generate sample logs? (y/n)"
 3. If yes:
    - Prompt for CloudFormation stack name (default: "CloudWatchLargeQueryStack")
    - Deploy CloudFormation stack from `resources/stack.yaml`
    - Wait for stack creation to complete (status: CREATE_COMPLETE)
-   - Execute log generation:
-     - **Option A** (Bash): Run `make-log-files.sh` then `put-log-events.sh`
-     - **Option B** (Python): Run `create_logs.py` (recommended for cross-platform)
-   - Capture `QUERY_START_DATE` and `QUERY_END_DATE` from script output
+   - Generate logs directly using CloudWatch Logs API:
+     - Create 50,000 log entries with timestamps spanning 5 minutes
+     - Upload in batches of 10,000 entries using PutLogEvents
+     - Display progress for each batch uploaded
+   - Capture start and end timestamps for query configuration
    - Display message: "Sample logs created. Waiting 5 minutes for logs to be fully ingested..."
-   - Wait 5 minutes (300 seconds) for log ingestion
+   - Wait 5 minutes (300 seconds) for log ingestion with countdown display
 4. If no:
    - Prompt user for existing log group name
    - Prompt user for log stream name
    - Prompt user for query start date (ISO 8601 format with milliseconds)
    - Prompt user for query end date (ISO 8601 format with milliseconds)
 
+**Non-Interactive Mode Behavior**:
+- Automatically deploys stack with default name
+- Automatically generates 50,000 sample logs
+- Waits 5 minutes for log ingestion
+- Uses default values for all configuration
+
 **Variables Set**:
 - `stackName` - CloudFormation stack name
 - `logGroupName` - Log group name (default: `/workflows/cloudwatch-logs/large-query`)
 - `logStreamName` - Log stream name (default: `stream1`)
-- `queryStartDate` - Start timestamp for query (milliseconds since epoch)
-- `queryEndDate` - End timestamp for query (milliseconds since epoch)
+- `queryStartDate` - Start timestamp for query (seconds since epoch)
+- `queryEndDate` - End timestamp for query (seconds since epoch)
 
 ### Phase 2: Query Execution
 
@@ -130,7 +143,7 @@ This scenario uses the following CloudFormation API actions:
 
 **Purpose**: Remove created resources
 
-**Steps**:
+**Interactive Mode Steps**:
 1. Prompt user: "Would you like to delete the CloudFormation stack and all resources? (y/n)"
 2. If yes:
    - Delete CloudFormation stack
@@ -139,6 +152,11 @@ This scenario uses the following CloudFormation API actions:
 3. If no:
    - Display message: "Resources will remain. You can delete them later through the AWS Console."
    - Display stack name and log group name for reference
+
+**Non-Interactive Mode Behavior**:
+- Automatically deletes the CloudFormation stack
+- Waits for deletion to complete
+- Ensures cleanup happens even if errors occur during the scenario
 
 ---
 
