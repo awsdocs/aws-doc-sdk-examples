@@ -95,11 +95,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudWatchActions", "CloudW
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloudWatchLogs", "CloudWatchLogs", "{A1B2C3D4-E5F6-7890-1234-567890ABCDEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudWatchLogsTests", "CloudWatchLogs\Tests\CloudWatchLogsTests.csproj", "{B2C3D4E5-F6A7-8901-2345-678901BCDEFG}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudWatchLogsTests", "CloudWatchLogs\LargeQuery\Tests\CloudWatchLogsTests.csproj", "{B2C3D4E5-F6A7-8901-2345-678901BCDEFG}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudWatchLogsScenarios", "CloudWatchLogs\Scenarios\CloudWatchLogsScenarios.csproj", "{C3D4E5F6-A7B8-9012-3456-789012CDEFGH}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudWatchLogsScenario", "CloudWatchLogs\LargeQuery\Scenarios\CloudWatchLogsScenario.csproj", "{C3D4E5F6-A7B8-9012-3456-789012CDEFGH}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudWatchLogsActions", "CloudWatchLogs\Actions\CloudWatchLogsActions.csproj", "{D4E5F6A7-B8C9-0123-4567-890123DEFGHI}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudWatchLogsActions", "CloudWatchLogs\LargeQuery\Actions\CloudWatchLogsActions.csproj", "{D4E5F6A7-B8C9-0123-4567-890123DEFGHI}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EC2", "EC2", "{9424FB14-B6DE-44CE-B675-AC2B57EC1E69}"
 EndProject
