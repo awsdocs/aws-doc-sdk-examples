@@ -34,7 +34,6 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 Code excerpts that show you how to call individual service functions.
 
 - [GetQueryResults](LargeQuery/Actions/CloudWatchLogsWrapper.cs#L79)
-- [PutLogEvents](LargeQuery/Actions/CloudWatchLogsWrapper.cs#L110)
 - [StartQuery](LargeQuery/Actions/CloudWatchLogsWrapper.cs#L30)
 
 ### Scenarios
