@@ -1,27 +1,64 @@
-# PHP README and Documentation Generation
-
-## MANDATORY: Knowledge Base Consultation (FIRST STEP)
-**🚨 CRITICAL - Must be completed BEFORE any code generation**
-
-```bash
-# Step 1: List available knowledge bases
-ListKnowledgeBases()
-
-# Step 2: Query coding standards (REQUIRED)
-QueryKnowledgeBases("coding-standards-KB", "PHP-code-example-standards")
-
-# Step 3: Query implementation patterns (REQUIRED)  
-QueryKnowledgeBases("PHP-premium-KB", "PHP implementation patterns documentation")
-
-# Step 4: AWS service research (REQUIRED)
-search_documentation("What is [AWS Service] and what are its key API operations?")
-read_documentation("https://docs.aws.amazon.com/[service]/latest/[relevant-page]")
-```
-
-**FAILURE TO COMPLETE KNOWLEDGE BASE CONSULTATION WILL RESULT IN INCORRECT CODE STRUCTURE**
+# PHP README/WRITEME and Documentation Generation
 
 ## Purpose
-Generate comprehensive README documentation for PHP AWS SDK examples with setup instructions, usage examples, and troubleshooting guidance.
+Generate and update README files and documentation using the writeme tool to ensure consistency and completeness.
+
+## Requirements
+- **Automated Generation**: Use writeme tool for README generation
+- **Metadata Dependency**: Requires complete metadata files
+- **Virtual Environment**: Run writeme in isolated environment
+- **Validation**: Ensure all documentation is up-to-date
+
+## File Structure
+```
+php/example_code/{service}/
+├── README.md                   # Generated service README
+├── composer.json               # Dependencies
+└── {service}_metadata.yaml     # Metadata (in .doc_gen/metadata/)
+```
+
+## README Generation Process
+
+### Step 1: Setup Writeme Environment
+```bash
+cd .tools/readmes
+
+# Create virtual environment
+python -m venv .venv
+
+# Activate environment (Linux/macOS)
+source .venv/bin/activate
+
+# Activate environment (Windows)
+.venv\Scripts\activate
+
+# Install dependencies
+python -m pip install -r requirements_freeze.txt
+```
+
+### Step 2: Generate README
+```bash
+# Generate README for specific service
+python -m writeme --languages PHP:3 --services {service}
+```
+
+### Step 3: Validate Generation
+- ✅ **README.md created/updated** in service directory
+- ✅ **No generation errors** in writeme output
+- ✅ **All examples listed** in README
+- ✅ **Proper formatting** and structure
+- ✅ **Working links** to code files
+
+## README Content Structure
+
+### Generated README Sections
+1. **Service Overview**: Description of AWS service
+2. **Code Examples**: List of available examples
+3. **Prerequisites**: Setup requirements
+4. **Installation**: Dependency installation
+5. **Usage**: How to run examples
+6. **Tests**: Testing instructions
+7. **Additional Resources**: Links to documentation
 
 ## README Structure Template
 
@@ -277,48 +314,74 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 ```
 
-## Documentation Requirements
+## Documentation Dependencies
 
-### Essential Sections
-- ✅ **Overview**: Clear service description and use cases
-- ✅ **Prerequisites**: PHP version, SDK version, credentials
-- ✅ **Setup**: Step-by-step installation and configuration
-- ✅ **Code Examples**: Links to all example files with descriptions
-- ✅ **Running Examples**: Clear execution instructions
-- ✅ **Testing**: Unit and integration test instructions
-- ✅ **Troubleshooting**: Common issues and solutions
-- ✅ **Additional Resources**: Links to AWS documentation
+### Required Files for README Generation
+- ✅ **Metadata file**: `.doc_gen/metadata/{service}_metadata.yaml`
+- ✅ **Code files**: All referenced PHP files must exist
+- ✅ **Snippet tags**: All snippet tags in metadata must exist in code
+- ✅ **Composer file**: `composer.json` with dependencies
 
-### Code Example Documentation
-- **Hello Examples**: Basic connectivity demonstration
-- **Scenarios**: Complete workflow examples
-- **Actions**: Individual API operation examples
-- **Service Classes**: Wrapper class usage examples
+### Metadata Integration
+The writeme tool uses metadata to:
+- Generate example lists and descriptions
+- Create links to specific code sections
+- Include proper service information
+- Format documentation consistently
 
-### Setup Instructions
-- **Dependencies**: Composer install process
-- **Credentials**: Multiple configuration methods
-- **Verification**: Test setup with Hello example
-- **Environment**: PHP and extension requirements
+## Troubleshooting README Generation
 
-### Troubleshooting Guide
-- **Common Errors**: Installation, credentials, permissions
-- **Debug Methods**: Environment variables, client configuration
-- **Service Errors**: Specific error codes and solutions
-- **Performance**: Memory and timeout considerations
+### Common Issues
+- **Missing metadata**: Ensure metadata file exists and is valid
+- **Broken snippet tags**: Verify all snippet tags exist in code
+- **File not found**: Check all file paths in metadata
+- **Invalid YAML**: Validate metadata YAML syntax
 
-### Testing Documentation
-- **Unit Tests**: Mock-based testing approach
-- **Integration Tests**: Real AWS service testing
-- **Code Quality**: Linting and formatting tools
-- **CI/CD**: Automated testing workflows
+### Error Resolution
+```bash
+# Check for metadata errors
+python -m writeme --languages PHP:3 --services {service} --verbose
 
-## README Generation Checklist
-- ✅ **Service-specific content** customized for the AWS service
-- ✅ **Working code examples** with actual file references
-- ✅ **Complete setup instructions** from prerequisites to execution
-- ✅ **Comprehensive troubleshooting** covering common issues
-- ✅ **Testing instructions** for both unit and integration tests
-- ✅ **Code quality guidelines** with linting commands
-- ✅ **Resource links** to official AWS documentation
-- ✅ **Copyright and license** information included
+# Validate specific metadata file
+python -c "import yaml; yaml.safe_load(open('.doc_gen/metadata/{service}_metadata.yaml'))"
+
+# Check for missing snippet tags
+grep -r "snippet-start" php/example_code/{service}/
+```
+
+## README Maintenance
+
+### When to Regenerate README
+- ✅ **After adding new examples**
+- ✅ **After updating metadata**
+- ✅ **After changing code structure**
+- ✅ **Before committing changes**
+- ✅ **During regular maintenance**
+
+### README Quality Checklist
+- ✅ **All examples listed** and properly linked
+- ✅ **Prerequisites accurate** and complete
+- ✅ **Installation instructions** work correctly
+- ✅ **Usage examples** are clear and correct
+- ✅ **Links functional** and point to right locations
+- ✅ **Formatting consistent** with other services
+
+## Integration with CI/CD
+
+### Automated README Validation
+```bash
+# In CI/CD pipeline, validate README is up-to-date
+cd .tools/readmes
+source .venv/bin/activate
+python -m writeme --languages PHP:3 --services {service} --check
+
+# Exit with error if README needs updates
+if git diff --exit-code php/example_code/{service}/README.md; then
+    echo "README is up-to-date"
+else
+    echo "README needs to be regenerated"
+    exit 1
+fi
+```
+
+This ensures documentation stays synchronized with code changes.
