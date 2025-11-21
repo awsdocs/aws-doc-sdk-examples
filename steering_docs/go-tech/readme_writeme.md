@@ -1,41 +1,64 @@
-# Go README Generation
-
-## MANDATORY: Knowledge Base Consultation (FIRST STEP)
-**🚨 CRITICAL - Must be completed BEFORE any code generation**
-
-```bash
-# Step 1: List available knowledge bases
-ListKnowledgeBases()
-
-# Step 2: Query coding standards (REQUIRED)
-QueryKnowledgeBases("coding-standards-KB", "Go-code-example-standards")
-
-# Step 3: Query implementation patterns (REQUIRED)  
-QueryKnowledgeBases("Go-premium-KB", "Go documentation patterns")
-
-# Step 4: AWS service research (REQUIRED)
-search_documentation("What is [AWS Service] and what are its key API operations?")
-read_documentation("https://docs.aws.amazon.com/[service]/latest/[relevant-page]")
-```
-
-**FAILURE TO COMPLETE KNOWLEDGE BASE CONSULTATION WILL RESULT IN INCORRECT CODE STRUCTURE**
+# Go README/WRITEME and Documentation Generation
 
 ## Purpose
-Generate comprehensive README.md files for Go AWS SDK examples that provide clear documentation, setup instructions, and usage examples.
+Generate and update README files and documentation using the writeme tool to ensure consistency and completeness.
 
 ## Requirements
-- **Service Overview**: Clear description of the AWS service and its purpose
-- **Code Examples**: List all available examples with descriptions
-- **Prerequisites**: Setup and credential configuration instructions
-- **Usage Instructions**: Step-by-step instructions for running examples
-- **Testing**: Instructions for running unit and integration tests
-- **Resources**: Links to relevant documentation
+- **Automated Generation**: Use writeme tool for README generation
+- **Metadata Dependency**: Requires complete metadata files
+- **Virtual Environment**: Run writeme in isolated environment
+- **Validation**: Ensure all documentation is up-to-date
 
 ## File Structure
 ```
 gov2/{service}/
-└── README.md                       # Main service documentation
+├── README.md                   # Generated service README
+├── go.mod                      # Module dependencies
+└── {service}_metadata.yaml     # Metadata (in .doc_gen/metadata/)
 ```
+
+## README Generation Process
+
+### Step 1: Setup Writeme Environment
+```bash
+cd .tools/readmes
+
+# Create virtual environment
+python -m venv .venv
+
+# Activate environment (Linux/macOS)
+source .venv/bin/activate
+
+# Activate environment (Windows)
+.venv\Scripts\activate
+
+# Install dependencies
+python -m pip install -r requirements_freeze.txt
+```
+
+### Step 2: Generate README
+```bash
+# Generate README for specific service
+python -m writeme --languages Go:2 --services {service}
+```
+
+### Step 3: Validate Generation
+- ✅ **README.md created/updated** in service directory
+- ✅ **No generation errors** in writeme output
+- ✅ **All examples listed** in README
+- ✅ **Proper formatting** and structure
+- ✅ **Working links** to code files
+
+## README Content Structure
+
+### Generated README Sections
+1. **Service Overview**: Description of AWS service
+2. **Code Examples**: List of available examples
+3. **Prerequisites**: Setup requirements
+4. **Installation**: Dependency installation
+5. **Usage**: How to run examples
+6. **Tests**: Testing instructions
+7. **Additional Resources**: Links to documentation
 
 ## README Template Structure
 ```markdown
@@ -144,6 +167,58 @@ go test ./... -tags=integration
 * [{AWS Service} API Reference](https://docs.aws.amazon.com/{service}/latest/api/)
 * [AWS SDK for Go V2 API Reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2)
 ```
+
+## Documentation Dependencies
+
+### Required Files for README Generation
+- ✅ **Metadata file**: `.doc_gen/metadata/{service}_metadata.yaml`
+- ✅ **Code files**: All referenced Go files must exist
+- ✅ **Snippet tags**: All snippet tags in metadata must exist in code
+- ✅ **Module file**: `go.mod` with dependencies
+
+### Metadata Integration
+The writeme tool uses metadata to:
+- Generate example lists and descriptions
+- Create links to specific code sections
+- Include proper service information
+- Format documentation consistently
+
+## Troubleshooting README Generation
+
+### Common Issues
+- **Missing metadata**: Ensure metadata file exists and is valid
+- **Broken snippet tags**: Verify all snippet tags exist in code
+- **File not found**: Check all file paths in metadata
+- **Invalid YAML**: Validate metadata YAML syntax
+
+### Error Resolution
+```bash
+# Check for metadata errors
+python -m writeme --languages Go:2 --services {service} --verbose
+
+# Validate specific metadata file
+python -c "import yaml; yaml.safe_load(open('.doc_gen/metadata/{service}_metadata.yaml'))"
+
+# Check for missing snippet tags
+grep -r "snippet-start" gov2/{service}/
+```
+
+## README Maintenance
+
+### When to Regenerate README
+- ✅ **After adding new examples**
+- ✅ **After updating metadata**
+- ✅ **After changing code structure**
+- ✅ **Before committing changes**
+- ✅ **During regular maintenance**
+
+### README Quality Checklist
+- ✅ **All examples listed** and properly linked
+- ✅ **Prerequisites accurate** and complete
+- ✅ **Installation instructions** work correctly
+- ✅ **Usage examples** are clear and correct
+- ✅ **Links functional** and point to right locations
+- ✅ **Formatting consistent** with other services
 
 ## Service-Specific README Examples
 
@@ -399,23 +474,22 @@ go test ./... -tags=integration
 - Add AWS SDK for Go V2 API reference
 - Use consistent link formatting
 
-## README Requirements
-- ✅ **ALWAYS** include service name and abbreviation in title
-- ✅ **ALWAYS** provide clear service description and purpose
-- ✅ **ALWAYS** list all available code examples with descriptions
-- ✅ **ALWAYS** include prerequisites and setup instructions
-- ✅ **ALWAYS** provide exact commands for running examples
-- ✅ **ALWAYS** include testing instructions with warnings
-- ✅ **ALWAYS** add links to relevant AWS documentation
-- ✅ **ALWAYS** use consistent formatting and structure
-- ✅ **ALWAYS** include important warnings about charges and permissions
-- ✅ **ALWAYS** reference the main gov2 README for additional details
+## Integration with CI/CD
 
-## Common Patterns
-- Use consistent section headers across all service READMEs
-- Include the same warning section in all READMEs
-- Use code blocks for all commands and file paths
-- Maintain consistent link formatting
-- Include scenario step descriptions based on SPECIFICATION.md
-- Use bullet points for action lists
-- Keep descriptions concise but informative
+### Automated README Validation
+```bash
+# In CI/CD pipeline, validate README is up-to-date
+cd .tools/readmes
+source .venv/bin/activate
+python -m writeme --languages Go:2 --services {service} --check
+
+# Exit with error if README needs updates
+if git diff --exit-code gov2/{service}/README.md; then
+    echo "README is up-to-date"
+else
+    echo "README needs to be regenerated"
+    exit 1
+fi
+```
+
+This ensures documentation stays synchronized with code changes.
