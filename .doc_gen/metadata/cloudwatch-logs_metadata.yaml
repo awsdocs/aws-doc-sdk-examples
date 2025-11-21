@@ -314,18 +314,6 @@ cloudwatch-logs_GetQueryResults:
                 - python.example_code.cloudwatch_logs.get_query_results
   services:
     cloudwatch-logs: {GetQueryResults}
-cloudwatch-logs_PutLogEvents:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 4
-          github: dotnetv4/CloudWatchLogs/LargeQuery
-          excerpts:
-            - description:
-              snippet_tags:
-                - CloudWatchLogs.dotnetv4.PutLogEvents
-  services:
-    cloudwatch-logs: {PutLogEvents}
 cloudwatch-logs_StartQuery:
   languages:
     .NET:

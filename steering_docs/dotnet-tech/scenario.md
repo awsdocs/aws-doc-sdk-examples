@@ -7,7 +7,6 @@ Generate feature scenarios that demonstrate complete workflows using multiple se
 **IMPORTANT**: All new feature scenarios MUST be created in the `dotnetv4` directory, NOT `dotnetv3`.
 
 - **New scenarios**: `dotnetv4/{Service}/`
-- **Legacy examples**: `dotnetv3/{Service}/` (Must NOT add new examples here)
 
 ## Requirements
 - **Specification-Driven**: MUST read the `scenarios/features/{service_feature}/SPECIFICATION.md`
@@ -168,7 +167,7 @@ public class {Service}Workflow
             await Cleanup();
         }
 
-        Console.WriteLine("{AWS Service} scenario completed.");
+        Console.WriteLine("{AWS Service} feature scenario completed.");
     }
 
     /// <summary>

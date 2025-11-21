@@ -11,10 +11,6 @@ This feature scenario demonstrates how to perform large-scale queries on Amazon 
 3. Performing recursive queries to retrieve all logs using binary search
 4. Cleaning up all resources
 
-**The scenario must be runnable in both interactive and non-interactive modes** to support:
-- Interactive mode: User runs the scenario manually with prompts
-- Non-interactive mode: Automated integration tests run the scenario without user input
-
 For an introduction, see the [README.md](README.md).
 
 ---
@@ -23,8 +19,9 @@ For an introduction, see the [README.md](README.md).
 
 - [API Actions Used](#api-actions-used)
 - [Resources](#resources)
-- [Proposed Example Structure](#proposed-example-structure)
-- [Implementation Details](#implementation-details)
+- [Variables](#variables)
+- [Building the queries](#building-the-queries)
+- [Example Structure](#example-structure)
 - [Output Format](#output-format)
 - [Errors](#errors)
 - [Metadata](#metadata)
@@ -38,12 +35,6 @@ This scenario uses the following CloudWatch Logs API actions:
 - `StartQuery` - Initiates a CloudWatch Logs Insights query
 - `GetQueryResults` - Retrieves results from a query, polling until complete
 
-This scenario uses the following CloudFormation API actions:
-
-- `CreateStack` - Deploys the CloudFormation template
-- `DescribeStacks` - Checks stack status and retrieves outputs
-- `DeleteStack` - Removes the CloudFormation stack
-
 ---
 
 ## Resources
@@ -56,37 +47,69 @@ This scenario uses the following CloudFormation API actions:
 - CloudWatch Logs Log Group: `/workflows/cloudwatch-logs/large-query`
 - CloudWatch Logs Log Stream: `stream1`
 
-**Stack Outputs**: None (resources use fixed names)
+### Helper files
+These files are for reference only. New versions of this example should create and upload logs as part of the scenario.
 
-### Sample Data Generation Scripts
+- [put-log-events](resources/put-log-events.sh) is a bash script that ingests log data and uploads it to CloudWatch.
+- [make-log-files.sh](resources/make-log-files.sh) is a bash script that creates log data. **Five minutes of logs, starting at the time of execution, will be created. Wait at least five minutes after running this script before attempting to query.**
+---
 
-**Script 1**: `scenarios/features/cloudwatch_logs_large_query/resources/make-log-files.sh`
-- Creates 50,000 log entries divided into 5 JSON files (10,000 entries each)
-- Generates timestamps spanning 5 minutes from execution time
-- Outputs `QUERY_START_DATE` and `QUERY_END_DATE` environment variables
-- Creates files: `file1.json`, `file2.json`, `file3.json`, `file4.json`, `file5.json`
+## Variables
 
-**Script 2**: `scenarios/features/cloudwatch_logs_large_query/resources/put-log-events.sh`
-- Uploads the generated JSON files to CloudWatch Logs
-- Uses AWS CLI `put-log-events` command
-- Targets log group: `/workflows/cloudwatch-logs/large-query`
-- Targets log stream: `stream1`
-
-**Python Alternative**: `scenarios/features/cloudwatch_logs_large_query/resources/create_logs.py`
-- Python script that combines both generation and upload
-- Creates 50,000 log entries and uploads them directly
-- Returns start and end timestamps for query configuration
-- Preferred for cross-platform compatibility
+| Variable Name | Description | Type | Default |
+|--------------|-------------|------|---------|
+| `stackName` | CloudFormation stack name | String | "CloudWatchLargeQueryStack" |
+| `queryStartDate` | Query start timestamp | Long/Integer | From script output | 
+| `queryEndDate` | Query end timestamp | Long/Integer | From script output | 
+| `queryLimit` | Maximum results per query | Integer | 10000 |
+| `logGroupName` | Log group name (if not using stack) | String | "/workflows/cloudwatch-logs/large-query" |
+| `logStreamName` | Log stream name (if not using stack) | String | "stream1" |
 
 ---
 
-## Proposed Example Structure
+## Building the queries
+
+### Building and waiting for single query
+
+The query itself is a "CloudWatch Logs Insights query syntax" string. The query must return the `@timestamp` field so follow-up queries can use that information. Here's a sample query string: `fields @timestamp, @message | sort @timestamp asc`. Notice it sorts in ascending order. You can sort in either `asc` or `desc`, but the recursive strategy described later will need to match accordingly.
+
+Queries are jobs. You can start a query with `StartQuery`, but it immediately returns the `queryId`. You must poll a query using `GetQueryResults` until the query has finished. For the purpose of this example, a query has "finished" when `GetQueryResults` has returned a status of one of "Complete", "Failed", "Cancelled", "Timeout", or "Unknown".
+
+`StartQuery` responds with an error if the query's start or end date occurs out of bounds of the log group creation date. The error message starts with "Query's end date and time".
+
+Start the query and wait for it to "finish". Store the `results`. If the count of the results is less than the configured LIMIT, return the results. If the results are greater than or equal to the limit, go to [Recursive queries](#recursive-queries).
+
+---
+
+### Recursive queries
+
+If the result count from the previous step is 10000 (or the configured LIMIT), it is very likely that there are more results. **The example must do a binary search of the remaining logs**. To do this, get the date of the last log (earliest or latest, depending on sort order). Use that date as the start date of a new date range. The end date can remain the same.
+
+Split that date range in half, resulting in two new date ranges. Call your query function twice; once for each new date range.
+
+Concatenate the results of the first query with the results of the two new queries.
+
+The following pseudocode illustrates this.
+
+```pseudocode
+func large_query(date_range):
+  query_results = get_query_results(date_range)
+
+  if query_results.length < LIMIT
+    return query_results
+  else
+    date_range = [query_results.end, date_range.end]
+    d1, d2 = split(date_range)
+    return concat(query_results, large_query(d1), large_query(d2))
+```
+
+
+## Example Structure
 
 ### Phase 1: Setup
 
 **Purpose**: Deploy resources and generate sample data as part of the scenario
 
-**Interactive Mode Steps**:
 1. Welcome message explaining the scenario
 2. Prompt user: "Would you like to deploy the CloudFormation stack and generate sample logs? (y/n)"
 3. If yes:
@@ -101,23 +124,17 @@ This scenario uses the following CloudFormation API actions:
    - Display message: "Sample logs created. Waiting 5 minutes for logs to be fully ingested..."
    - Wait 5 minutes (300 seconds) for log ingestion with countdown display
 4. If no:
-   - Prompt user for existing log group name
-   - Prompt user for log stream name
+   - Prompt user for existing log group name, or enter to use the default name
+   - Prompt user for log stream name, or enter to use the default name
    - Prompt user for query start date (ISO 8601 format with milliseconds)
    - Prompt user for query end date (ISO 8601 format with milliseconds)
 
-**Non-Interactive Mode Behavior**:
+**Fully Self-Contained Behavior**:
 - Automatically deploys stack with default name
 - Automatically generates 50,000 sample logs
 - Waits 5 minutes for log ingestion
 - Uses default values for all configuration
 
-**Variables Set**:
-- `stackName` - CloudFormation stack name
-- `logGroupName` - Log group name (default: `/workflows/cloudwatch-logs/large-query`)
-- `logStreamName` - Log stream name (default: `stream1`)
-- `queryStartDate` - Start timestamp for query (seconds since epoch)
-- `queryEndDate` - End timestamp for query (seconds since epoch)
 
 ### Phase 2: Query Execution
 
@@ -133,7 +150,7 @@ This scenario uses the following CloudFormation API actions:
    - Start date
    - End date
    - Limit
-5. Display progress for each query executed (see [Output Format](#output-format))
+5. Display progress for each query executed
 6. Display total execution time
 7. Display total logs found
 8. Prompt user: "Would you like to see a sample of the logs? (y/n)"
@@ -153,120 +170,6 @@ This scenario uses the following CloudFormation API actions:
    - Display message: "Resources will remain. You can delete them later through the AWS Console."
    - Display stack name and log group name for reference
 
-**Non-Interactive Mode Behavior**:
-- Automatically deletes the CloudFormation stack
-- Waits for deletion to complete
-- Ensures cleanup happens even if errors occur during the scenario
-
----
-
-## Implementation Details
-
-### CloudFormation Stack Deployment
-
-**Deployment**:
-```
-Stack Name: User-provided or default "CloudWatchLargeQueryStack"
-Template: scenarios/features/cloudwatch_logs_large_query/resources/stack.yaml
-Capabilities: None required (no IAM resources)
-```
-
-**Polling for Completion**:
-- Poll `DescribeStacks` every 5-10 seconds
-- Success: `StackStatus` = `CREATE_COMPLETE`
-- Failure: `StackStatus` = `CREATE_FAILED`, `ROLLBACK_COMPLETE`, or `ROLLBACK_FAILED`
-- Timeout: 5 minutes maximum wait time
-
-### Log Generation Execution
-
-**Cross-Platform Considerations**:
-- Bash scripts work on Linux, macOS, and Git Bash on Windows
-- Python script is preferred for true cross-platform support
-- Check for script availability before execution
-- Handle script execution errors gracefully
-
-**Capturing Output**:
-- Parse stdout for `QUERY_START_DATE` and `QUERY_END_DATE`
-- Convert timestamps to appropriate format for SDK
-- Store timestamps for query configuration
-
-**Wait Time**:
-- CloudWatch Logs requires time to ingest and index logs
-- Minimum wait: 5 minutes (300 seconds)
-- Display countdown or progress indicator during wait
-
-### Building and Executing Queries
-
-**Query String**:
-```
-fields @timestamp, @message | sort @timestamp asc
-```
-
-**Important**: The query MUST return `@timestamp` field for recursive queries to work.
-
-**StartQuery Parameters**:
-- `logGroupName` - The log group to query
-- `startTime` - Start of date range (seconds since epoch)
-- `endTime` - End of date range (seconds since epoch)
-- `queryString` - CloudWatch Logs Insights query syntax
-- `limit` - Maximum results (default: 10000, max: 10000)
-
-**GetQueryResults Polling**:
-- Poll every 1-2 seconds
-- Continue until status is one of: `Complete`, `Failed`, `Cancelled`, `Timeout`, `Unknown`
-- Timeout after 60 seconds of polling
-
-**Error Handling**:
-- If `StartQuery` returns error starting with "Query's end date and time", the date range is out of bounds
-- Handle this by adjusting the date range or informing the user
-
-### Recursive Query Algorithm
-
-**Purpose**: Retrieve more than 10,000 results by splitting date ranges
-
-**Algorithm**:
-```
-function LargeQuery(startDate, endDate, limit):
-    results = ExecuteQuery(startDate, endDate, limit)
-    
-    if results.count < limit:
-        return results
-    else:
-        // Get timestamp of last result
-        lastTimestamp = results[results.count - 1].timestamp
-        
-        // Calculate midpoint between last result and end date
-        midpoint = (lastTimestamp + endDate) / 2
-        
-        // Query first half
-        results1 = LargeQuery(lastTimestamp, midpoint, limit)
-        
-        // Query second half
-        results2 = LargeQuery(midpoint, endDate, limit)
-        
-        // Combine results
-        return Concatenate(results, results1, results2)
-```
-
-**Key Points**:
-- Use binary search to split remaining date range
-- Recursively query each half
-- Concatenate all results
-- Log each query's date range and result count (see [Output Format](#output-format))
-
-### Stack Deletion
-
-**Deletion**:
-```
-Stack Name: Same as used during creation
-```
-
-**Polling for Completion**:
-- Poll `DescribeStacks` every 5-10 seconds
-- Success: Stack not found (ValidationError) or `StackStatus` = `DELETE_COMPLETE`
-- Failure: `StackStatus` = `DELETE_FAILED`
-- If `DELETE_FAILED`, optionally retry with force delete
-- Timeout: 5 minutes maximum wait time
 
 ---
 
@@ -316,51 +219,10 @@ Sample logs (first 10 of 50000):
 
 ## Errors
 
-### CloudFormation Errors
-
-| Error Code | Error Message Pattern | Handling Strategy |
-|------------|----------------------|-------------------|
-| `AlreadyExistsException` | Stack already exists | Prompt user for different stack name and retry |
-| `ValidationError` | Template validation failed | Display error message and exit setup |
-| `InsufficientCapabilitiesException` | Requires capabilities | Should not occur (template has no IAM resources) |
-
-### CloudWatch Logs Errors
-
 | Error Code | Error Message Pattern | Handling Strategy |
 |------------|----------------------|-------------------|
 | `InvalidParameterException` | "Query's end date and time" | Date range is out of bounds; inform user and adjust dates |
 | `ResourceNotFoundException` | Log group not found | Verify log group exists; prompt user to run setup |
-| `LimitExceededException` | Too many concurrent queries | Wait and retry after 5 seconds |
-| `ServiceUnavailableException` | Service temporarily unavailable | Retry with exponential backoff (max 3 retries) |
-
-### Script Execution Errors
-
-| Error Type | Handling Strategy |
-|------------|-------------------|
-| Script not found | Display error message; provide manual instructions |
-| Script execution failed | Display error output; allow user to retry or skip |
-| Permission denied | Suggest making script executable (`chmod +x`) |
-| AWS CLI not available | Inform user AWS CLI is required for bash scripts; suggest Python alternative |
-
----
-
-## User Input Variables
-
-### Required Variables
-
-| Variable Name | Description | Type | Default | Validation |
-|--------------|-------------|------|---------|------------|
-| `stackName` | CloudFormation stack name | String | "CloudWatchLargeQueryStack" | Must match pattern: `[a-zA-Z][-a-zA-Z0-9]*` |
-| `queryStartDate` | Query start timestamp | Long/Integer | From script output | Milliseconds since epoch |
-| `queryEndDate` | Query end timestamp | Long/Integer | From script output | Milliseconds since epoch |
-| `queryLimit` | Maximum results per query | Integer | 10000 | Min: 1, Max: 10000 |
-
-### Optional Variables
-
-| Variable Name | Description | Type | Default |
-|--------------|-------------|------|---------|
-| `logGroupName` | Log group name (if not using stack) | String | "/workflows/cloudwatch-logs/large-query" |
-| `logStreamName` | Log stream name (if not using stack) | String | "stream1" |
 
 ---
 
@@ -370,4 +232,4 @@ Sample logs (first 10 of 50000):
 | ----------------- | ----------------------------- | --------------------------------- |
 | `GetQueryResults` | cloudwatch-logs_metadata.yaml | cloudwatch-logs_GetQueryResults   |
 | `StartQuery`      | cloudwatch-logs_metadata.yaml | cloudwatch-logs_StartQuery        |
-| `Large Query`       | cloudwatch-logs_metadata.yaml | cloudwatch-logs_Scenario_LargeQuery |
+| `Large Query`     | cloudwatch-logs_metadata.yaml | cloudwatch-logs_Scenario_LargeQuery |
