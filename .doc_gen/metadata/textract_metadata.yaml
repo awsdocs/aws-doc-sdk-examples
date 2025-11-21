@@ -159,4 +159,3 @@ textract_Scenario_GettingStarted:
                 - tex.abapv1.getting_started_with_tex
   services:
     textract: {StartDocumentAnalysis, GetDocumentAnalysis}
-
