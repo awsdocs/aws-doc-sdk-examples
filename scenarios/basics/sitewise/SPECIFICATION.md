@@ -45,27 +45,17 @@ The AWS IoT SiteWise Basics scenario executes the following operations.
    - This step uses the method `getAssetPropertyValue`.
    - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
-6. **Create an IoT SiteWise Portal**:
-   - Description: This operation creates an IoT SiteWise portal.
-   - The method `createPortal` is called.
-   - Exception Handling: Check to see if an `IoTSiteWiseException` is thrown. If so, display the message and end the program. 
-
-7. **Describe the Portal**:
-   - Description: This operation describes the portal and returns a URL for the portal.
-   - The method `describePortal` is called and returns the URL.
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
-
-8.  **Create an IoT SiteWise Gateway**:
+6.  **Create an IoT SiteWise Gateway**:
    - Description: This operation creates an IoT SiteWise Gateway.
    - The method `createGateway` is called.
    - Exception Handling: Check to see if an `IoTSiteWiseException` is thrown. If so, display the message and end the program.
 
-9. **Describe the IoT SiteWise Gateway**:
+7. **Describe the IoT SiteWise Gateway**:
    - Description: This operation describes the Gateway.
    - The method `describeGateway` is called.
    - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
-10. **Delete the AWS IoT SiteWise Assets**:
+8. **Delete the AWS IoT SiteWise Assets**:
     - The `delete` methods are called to clean up the resources.
     - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program."
 
@@ -204,41 +194,8 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-6. Create an IoT SiteWise Portal
- An IoT SiteWise Portal allows you to aggregate data from multiple industrial sources,
- such as sensors, equipment, and control systems, into a centralized platform.
 
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-Portal created successfully. Portal ID 63e65729-b7a1-410a-aa36-94145fe92153
-The portal Id is 63e65729-b7a1-410a-aa36-94145fe92153
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-7. Describe the Portal
- In this step, we will describe the step and provide the portal URL.
-
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-Portal URL: https://p-fy9qnrqy.app.iotsitewise.aws
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-8. Create an IoTSitewise Gateway
+6 Create an IoTSitewise Gateway
 IoTSitewise Gateway serves as the bridge between industrial equipment, sensors, and the
 cloud-based IoTSitewise service. It is responsible for securely collecting, processing, and
 transmitting data from various industrial assets to the IoTSitewise platform,
@@ -254,7 +211,7 @@ The ARN of the gateway is arn:aws:iotsitewise:us-east-1:814548047983:gateway/503
 Gateway creation completed successfully. id is 50320670-1d88-4a7e-9013-1d7e8a3af832
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-9. Describe the IoTSitewise Gateway
+7. Describe the IoTSitewise Gateway
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -266,24 +223,13 @@ Gateway Platform: GatewayPlatform(GreengrassV2=GreengrassV2(CoreDeviceThingName=
 Gateway Creation Date: 2024-09-18T20:34:13.117Z
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-10. Delete the AWS IoT SiteWise Assets
+8. Delete the AWS IoT SiteWise Assets
 Before you can delete the Asset Model, you must delete the assets.
 
 
 Would you like to delete the IoT Sitewise Assets? (y/n)
 y
 You selected to delete the Sitewise assets.
-
-Enter 'c' followed by <ENTER> to continue:
-c
-Continuing with the program...
-
-Portal 63e65729-b7a1-410a-aa36-94145fe92153 was deleted successfully.
-An unexpected error occurred: Cannot invoke "java.util.concurrent.CompletableFuture.join()" because "future" is null
-Asset deleted successfully.
-Lets wait 1 min for the asset to be deleted
-01:00The Gateway was deleted successfully
-00:00Countdown complete!
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -316,10 +262,7 @@ The following table describes the metadata used in this Basics Scenario.
 | `describeGateway`              | iot_sitewise_metadata.yaml        | iotsitewise_DescribeGateway             |
 | `deleteGateway `               | iot_sitewise_metadata.yaml        | iotsitewise_DeleteGateway               |
 | `createGateway `               | iot_sitewise_metadata.yaml        | iotsitewise_CreateGateway               |
-| `describePortal`               | iot_sitewise_metadata.yaml        | iotsitewise_DescribePortal              |
 | `listAssetModels`              | iot_sitewise_metadata.yaml        | iotsitewise_ListAssetModels             |
-| `deletePortal`                 | iot_sitewise_metadata.yaml        | iotsitewise_DeletePortal                |
-| `createPortal`                 | iot_sitewise_metadata.yaml        | iotsitewise_CreatePortal                |
 | `deleteAssetModel`             | iot_sitewise_metadata.yaml        | iotsitewise_DeleteAssetModel            |
 | `deleteAsset`                  | iot_sitewise_metadata.yaml        | iotsitewise_DeleteAsset                 |
 | `describeAssetModel`           | iot_sitewise_metadata.yaml        | iotsitewise_DescribeAssetModel          |
