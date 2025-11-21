@@ -327,4 +327,3 @@ kinesis_Scenario_GettingStarted:
                 - kns.abapv1.getting_started_with_kns
   services:
     kinesis: {CreateStream, PutRecord, GetShardIterator, GetRecords, DeleteStream}
-
