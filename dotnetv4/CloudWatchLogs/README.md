@@ -1,8 +1,8 @@
-# CloudWatch Logs code examples for the SDK for .NET
+# CloudWatch Logs code examples for the SDK for .NET (v4)
 
 ## Overview
 
-Shows how to use the AWS SDK for .NET to work with Amazon CloudWatch Logs.
+Shows how to use the AWS SDK for .NET (v4) to work with Amazon CloudWatch Logs.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
@@ -23,7 +23,7 @@ _CloudWatch Logs monitor, store, and access your log files from Amazon Elastic C
 
 ### Prerequisites
 
-For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3` folder.
+For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4` folder.
 
 
 <!--custom.prerequisites.start-->
@@ -33,14 +33,15 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [AssociateKmsKey](AssociateKmsKeyExample/AssociateKmsKey.cs#L6)
-- [CancelExportTask](CancelExportTaskExample/CancelExportTask.cs#L6)
-- [CreateExportTask](CreateExportTaskExample/CreateExportTask.cs#L6)
-- [CreateLogGroup](CreateLogGroupExample/CreateLogGroup.cs#L6)
-- [CreateLogStream](CreateLogStreamExample/CreateLogStream.cs#L6)
-- [DeleteLogGroup](DeleteLogGroupExample/DeleteLogGroup.cs#L6)
-- [DescribeExportTasks](DescribeExportTasksExample/DescribeExportTasks.cs#L6)
-- [DescribeLogGroups](DescribeLogGroupsExample/DescribeLogGroups.cs#L6)
+- [GetQueryResults](LargeQuery/Actions/CloudWatchLogsWrapper.cs#L79)
+- [StartQuery](LargeQuery/Actions/CloudWatchLogsWrapper.cs#L30)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Run a large query](LargeQuery/Scenarios/LargeQueryWorkflow.cs)
 
 
 <!--custom.examples.start-->
@@ -50,28 +51,23 @@ Code excerpts that show you how to call individual service functions.
 
 ### Instructions
 
-For general instructions to run the examples, see the
-[README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
-
-Some projects might include a settings.json file. Before compiling the project,
-you can change these values to match your own account and resources. Alternatively,
-add a settings.local.json file with your local settings, which will be loaded automatically
-when the application runs.
-
-After the example compiles, you can run it from the command line. To do so, navigate to
-the folder that contains the .csproj file and run the following command:
-
-```
-dotnet run
-```
-
-Alternatively, you can run the example from within your IDE.
-
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
 
+
+#### Run a large query
+
+This example shows you how to use CloudWatch Logs to query more than 10,000 records.
+
+
+<!--custom.scenario_prereqs.cloudwatch-logs_Scenario_BigQuery.start-->
+<!--custom.scenario_prereqs.cloudwatch-logs_Scenario_BigQuery.end-->
+
+
+<!--custom.scenarios.cloudwatch-logs_Scenario_BigQuery.start-->
+<!--custom.scenarios.cloudwatch-logs_Scenario_BigQuery.end-->
 
 ### Tests
 
@@ -79,7 +75,7 @@ Alternatively, you can run the example from within your IDE.
 
 
 To find instructions for running these tests, see the [README](../README.md#Tests)
-in the `dotnetv3` folder.
+in the `dotnetv4` folder.
 
 
 
@@ -90,7 +86,7 @@ in the `dotnetv3` folder.
 
 - [CloudWatch Logs User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
 - [CloudWatch Logs API Reference](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/Welcome.html)
-- [SDK for .NET CloudWatch Logs reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/CloudWatchLogs/NCloudWatchLogs.html)
+- [SDK for .NET (v4) CloudWatch Logs reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Cloudwatch-logs/NCloudwatch-logs.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
