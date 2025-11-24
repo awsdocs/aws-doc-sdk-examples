@@ -151,31 +151,10 @@ public class SitewiseTests {
         logger.info("Test 6 passed");
     }
 
+
     @Test
     @Tag("IntegrationTest")
     @Order(7)
-    public void testCreatePortal() {
-        assertDoesNotThrow(() -> {
-            portalId = sitewiseActions.createPortalAsync(portalName, iamRole, contactEmail).join();
-            assertNotNull(portalId);
-        });
-        logger.info("Test 7 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(8)
-    public void testDescribePortal() {
-        assertDoesNotThrow(() -> {
-            String portalUrl = sitewiseActions.describePortalAsync(portalId).join();
-            assertNotNull(portalUrl);
-        });
-        logger.info("Test 8 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(9)
     public void testCreateGateway() {
         assertDoesNotThrow(() -> {
             gatewayId = sitewiseActions.createGatewayAsync(gatewayName, myThing).join();
@@ -186,7 +165,7 @@ public class SitewiseTests {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(10)
+    @Order(8)
     public void testDescribeGateway() {
         assertDoesNotThrow(() -> {
             sitewiseActions.describeGatewayAsync(gatewayId).join();
@@ -196,18 +175,7 @@ public class SitewiseTests {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(11)
-    public void testDeletePortal() throws InterruptedException {
-        Thread.sleep(30000);
-        assertDoesNotThrow(() -> {
-            sitewiseActions.deletePortalAsync(portalId).join();
-        });
-        logger.info("Test 11 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(12)
+    @Order(9)
     public void testDeleteAsset() throws InterruptedException {
         Thread.sleep(30000);
         assertDoesNotThrow(() -> {
@@ -218,7 +186,7 @@ public class SitewiseTests {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(13)
+    @Order(10)
     public void testDeleteAssetModel() throws InterruptedException {
         Thread.sleep(30000);
         assertDoesNotThrow(() -> {

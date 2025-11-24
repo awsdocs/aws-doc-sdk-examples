@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.example.autoscaling.createAutoScalingGroup
@@ -57,24 +56,6 @@ class AutoScalingTest {
             serviceLinkedRoleARN = values.serviceLinkedRoleARN.toString()
             groupNameSc = values.groupNameSc.toString() + randomNum
             // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-        /*
-        try {
-            AutoScalingTest::class.java.getClassLoader().getResourceAsStream("config.properties").use { input ->
-                val prop = Properties()
-                if (input == null) {
-                    println("Sorry, unable to find config.properties")
-                    return
-                }
-                prop.load(input)
-                groupName = prop.getProperty("groupName")
-                launchTemplateName = prop.getProperty("launchTemplateName")
-                subnetId = prop.getProperty("subnetId")
-                vpcZoneId = "subnet-0ddc451b8a8a1aa44"  //prop.getProperty("vpcZoneId")
-            }
-        } catch (ex:IOException) {
-            ex.printStackTrace()
-        }
-         */
         }
 
     @Test
@@ -140,7 +121,6 @@ class AutoScalingTest {
             }
         SecretsManagerClient {
             region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
         }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
