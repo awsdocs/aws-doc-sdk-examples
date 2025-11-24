@@ -39,26 +39,26 @@ CLASS ltc_zcl_aws1_cpd_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     METHODS describe_topics_detect_job FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS list_topics_detection_jobs FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    METHODS setup_training_data
+    CLASS-METHODS setup_training_data
       IMPORTING
         io_s3 TYPE REF TO /aws1/if_s3
         iv_bucket TYPE /aws1/s3_bucketname
       RAISING /aws1/cx_rt_generic.
 
-    METHODS wait_for_classifier
+    CLASS-METHODS wait_for_classifier
       IMPORTING
         iv_classifier_arn TYPE /aws1/cpddocumentclassifierarn
         iv_max_wait_mins TYPE i DEFAULT 60
       RAISING /aws1/cx_rt_generic.
 
-    METHODS wait_for_job
+    CLASS-METHODS wait_for_job
       IMPORTING
         iv_job_id TYPE /aws1/cpdjobid
         iv_job_type TYPE string
         iv_max_wait_mins TYPE i DEFAULT 30
       RAISING /aws1/cx_rt_generic.
 
-    METHODS setup_job_input_data
+    CLASS-METHODS setup_job_input_data
       IMPORTING
         io_s3 TYPE REF TO /aws1/if_s3
         iv_bucket TYPE /aws1/s3_bucketname
@@ -195,7 +195,7 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
     lo_s3 = /aws1/cl_s3_factory=>create( ao_session ).
 
     " Clean up training bucket
-    DATA lo_list_result TYPE REF TO /aws1/cl_listobjsv2output.
+    DATA lo_list_result TYPE REF TO /aws1/cl_s3_listobjsv2output.
     DATA lo_object TYPE REF TO /aws1/cl_s3_object.
 
     TRY.
@@ -305,12 +305,14 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
   METHOD wait_for_classifier.
     DATA lv_wait_time TYPE i VALUE 0.
     DATA lv_status TYPE /aws1/cpdmodelstatus.
+    DATA lo_result TYPE REF TO /aws1/cl_cpddescrdocclifierrsp.
+    DATA lv_message TYPE /aws1/cpdanylengthstring.
 
     DO.
       WAIT UP TO 30 SECONDS.
       lv_wait_time = lv_wait_time + 1.
 
-      DATA(lo_result) = ao_cpd->describedocumentclassifier(
+      lo_result = ao_cpd->describedocumentclassifier(
         iv_documentclassifierarn = iv_classifier_arn
       ).
 
@@ -319,7 +321,7 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
       IF lv_status = 'TRAINED'.
         RETURN.
       ELSEIF lv_status = 'IN_ERROR'.
-        DATA(lv_message) = lo_result->get_documentclassifierprps( )->get_message( ).
+        lv_message = lo_result->get_documentclassifierprps( )->get_message( ).
         MESSAGE |Classifier training failed: { lv_message }| TYPE 'E'.
       ENDIF.
 
@@ -333,6 +335,8 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
   METHOD wait_for_job.
     DATA lv_wait_time TYPE i VALUE 0.
     DATA lv_status TYPE /aws1/cpdjobstatus.
+    DATA lo_doc_job_result TYPE REF TO /aws1/cl_cpddescrdocclssjbrsp.
+    DATA lo_topics_job_result TYPE REF TO /aws1/cl_cpddscrbtpcsdtctjbrsp.
 
     DO.
       WAIT UP TO 30 SECONDS.
@@ -340,13 +344,13 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
 
       CASE iv_job_type.
         WHEN 'DOCUMENT_CLASSIFICATION'.
-          DATA(lo_doc_job_result) = ao_cpd->describedocclassificationjob(
+          lo_doc_job_result = ao_cpd->describedocclassificationjob(
             iv_jobid = iv_job_id
           ).
           lv_status = lo_doc_job_result->get_docclassificationjobprps( )->get_jobstatus( ).
 
         WHEN 'TOPICS_DETECTION'.
-          DATA(lo_topics_job_result) = ao_cpd->describetopicsdetectionjob(
+          lo_topics_job_result = ao_cpd->describetopicsdetectionjob(
             iv_jobid = iv_job_id
           ).
           lv_status = lo_topics_job_result->get_topicsdetectionjobprps( )->get_jobstatus( ).
