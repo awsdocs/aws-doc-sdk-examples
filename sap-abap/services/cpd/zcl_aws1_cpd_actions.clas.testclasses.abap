@@ -203,7 +203,7 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
         TRY.
             DATA lo_list_result TYPE REF TO /aws1/cl_cpdlistdocclifiersrsp.
             lo_list_result = ao_cpd->listdocumentclassifiers( ).
-            DATA lt_classifiers TYPE /aws1/cl_cpddocclassifierprps=>tt_documentclassifierpropertieslist.
+            DATA lt_classifiers TYPE /aws1/cl_cpddocclassifierprps=>tt_documentclassifierprpslist.
             lt_classifiers = lo_list_result->get_documentclassifierprpslist( ).
             
             " Find classifier with our name
