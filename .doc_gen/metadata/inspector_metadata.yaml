@@ -136,7 +136,7 @@ inspector_ListFilters:
 inspector_Scenario:
   synopsis_list:
     - Check Inspector account status.
-    - Ensure Inspector is enabled
+    - Ensure Inspector is enabled.
     - Analyze security findings.
     - Check scan coverage.
     - Create a findings filter.
