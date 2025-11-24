@@ -204,14 +204,15 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
             DATA lo_list_result TYPE REF TO /aws1/cl_cpdlistdocclifiersrsp.
             lo_list_result = ao_cpd->listdocumentclassifiers( ).
             DATA lt_classifiers TYPE /aws1/cl_cpddocclassifierprps=>tt_documentclassifierprpslist.
-            lt_classifiers = lo_list_result->get_documentclassifierprpslist( ).
+            lt_classifiers = lo_list_result->get_docclassifierprpslist( ).
             
-            " Find classifier with our name
+            " Find classifier with our name by checking if ARN contains the name
             LOOP AT lt_classifiers INTO DATA(lo_classifier).
-              DATA lv_name TYPE /aws1/cpdcomprehendarnname.
-              lv_name = lo_classifier->get_documentclassifiername( ).
-              IF lv_name = av_classifier_name.
-                av_classifier_arn = lo_classifier->get_documentclassifierarn( ).
+              DATA lv_classifier_arn_temp TYPE /aws1/cpddocumentclassifierarn.
+              lv_classifier_arn_temp = lo_classifier->get_documentclassifierarn( ).
+              " Check if the ARN contains our classifier name
+              IF lv_classifier_arn_temp CS av_classifier_name.
+                av_classifier_arn = lv_classifier_arn_temp.
                 EXIT.
               ENDIF.
             ENDLOOP.
