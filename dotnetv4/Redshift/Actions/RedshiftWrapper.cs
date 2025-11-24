@@ -17,15 +17,15 @@ namespace RedshiftActions;
 /// </summary>
 public class RedshiftWrapper
 {
-    private readonly AmazonRedshiftClient _redshiftClient;
-    private readonly AmazonRedshiftDataAPIServiceClient _redshiftDataClient;
+    private readonly IAmazonRedshift _redshiftClient;
+    private readonly IAmazonRedshiftDataAPIService _redshiftDataClient;
 
     /// <summary>
     /// Constructor for RedshiftWrapper.
     /// </summary>
     /// <param name="redshiftClient">Amazon Redshift client.</param>
     /// <param name="redshiftDataClient">Amazon Redshift Data API client.</param>
-    public RedshiftWrapper(AmazonRedshiftClient redshiftClient, AmazonRedshiftDataAPIServiceClient redshiftDataClient)
+    public RedshiftWrapper(IAmazonRedshift redshiftClient, IAmazonRedshiftDataAPIService redshiftDataClient)
     {
         _redshiftClient = redshiftClient;
         _redshiftDataClient = redshiftDataClient;
@@ -468,12 +468,16 @@ public class RedshiftWrapper
     /// Wait for a cluster to become available.
     /// </summary>
     /// <param name="clusterIdentifier">The cluster identifier.</param>
+    /// <param name="isInteractive">Whether to prompt for user input.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    public async Task WaitForClusterAvailableAsync(string clusterIdentifier)
+    public async Task WaitForClusterAvailableAsync(string clusterIdentifier, bool isInteractive = true)
     {
         Console.WriteLine($"Wait until {clusterIdentifier} is available.");
-        Console.WriteLine("Press Enter to continue...");
-        Console.ReadLine();
+        if (isInteractive)
+        {
+            Console.WriteLine("Press Enter to continue...");
+            Console.ReadLine();
+        }
 
         Console.WriteLine("Waiting for cluster to become available. This may take a few minutes.");
 

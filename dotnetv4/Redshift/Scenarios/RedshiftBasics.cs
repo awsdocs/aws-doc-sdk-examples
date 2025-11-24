@@ -8,6 +8,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Amazon.Redshift;
 using Amazon.RedshiftDataAPIService;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using RedshiftActions;
 
 namespace RedshiftBasics;
@@ -18,7 +20,8 @@ namespace RedshiftBasics;
 /// </summary>
 public class RedshiftBasics
 {
-    private static RedshiftWrapper? _redshiftWrapper;
+    public static bool IsInteractive = true;
+    public static RedshiftWrapper? Wrapper = null;
     private static readonly string _moviesFilePath = "../../../../../../resources/sample_files/movies.json";
 
     /// <summary>
@@ -27,78 +30,80 @@ public class RedshiftBasics
     /// <param name="args">Command line arguments.</param>
     public static async Task Main(string[] args)
     {
-        // Initialize the Amazon Redshift clients
-        var redshiftClient = new AmazonRedshiftClient();
-        var redshiftDataClient = new AmazonRedshiftDataAPIServiceClient();
-        _redshiftWrapper = new RedshiftWrapper(redshiftClient, redshiftDataClient);
+        using var host = Host.CreateDefaultBuilder(args)
+            .ConfigureServices((_, services) =>
+                services.AddAWSService<IAmazonRedshift>()
+                    .AddAWSService<IAmazonRedshiftDataAPIService>()
+                    .AddTransient<RedshiftWrapper>()
+            )
+            .Build();
 
-        Console.WriteLine(
-            "================================================================================");
-        Console.WriteLine("Welcome to the Amazon Redshift SDK Getting Started scenario.");
-        Console.WriteLine(
-            "This .NET program demonstrates how to interact with Amazon Redshift by using the AWS SDK for .NET.");
-        Console.WriteLine(
-            "Upon completion of the program, all resources are cleaned up.");
-        Console.WriteLine("Let's get started...");
-        Console.WriteLine(
-            "================================================================================");
+        Wrapper = host.Services.GetRequiredService<RedshiftWrapper>();
 
-        try
-        {
-            await RunScenarioAsync();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An error occurred: {ex.Message}");
-            Console.WriteLine(ex.StackTrace);
-        }
-        finally
-        {
-            redshiftClient.Dispose();
-            redshiftDataClient.Dispose();
-        }
+        await RunScenarioAsync();
     }
 
     /// <summary>
     /// Run the complete Amazon Redshift scenario.
     /// </summary>
-    private static async Task RunScenarioAsync()
+    public static async Task RunScenarioAsync()
     {
-        // Step 1: Get user credentials
-        if (!File.Exists(_moviesFilePath))
-            Console.WriteLine("filenotfound");
-
-        Console.WriteLine("Please enter your user name (default is awsuser):");
-        var userName = Console.ReadLine();
-        if (string.IsNullOrEmpty(userName))
-            userName = "awsuser";
-
-        Console.WriteLine("================================================================================");
-        Console.WriteLine("Please enter your user password (default is AwsUser1000):");
-        var userPassword = Console.ReadLine();
-        if (string.IsNullOrEmpty(userPassword))
-            userPassword = "AwsUser1000";
-
-        Console.WriteLine("================================================================================");
-        Console.WriteLine("A Redshift cluster refers to the collection of computing resources and storage that work together to process and analyze large volumes of data.");
-
-        // Step 2: Get cluster identifier
-        Console.WriteLine("Enter a cluster id value (default is redshift-cluster-movies):");
-        var clusterIdentifier = Console.ReadLine();
-        if (string.IsNullOrEmpty(clusterIdentifier))
-            clusterIdentifier = "redshift-cluster-movies";
-
-        var databaseName = "dev";
-
         try
         {
+            Console.WriteLine(
+                "================================================================================");
+            Console.WriteLine("Welcome to the Amazon Redshift SDK Getting Started scenario.");
+            Console.WriteLine(
+                "This .NET program demonstrates how to interact with Amazon Redshift by using the AWS SDK for .NET.");
+            Console.WriteLine(
+                "Upon completion of the program, all resources are cleaned up.");
+            Console.WriteLine("Let's get started...");
+            Console.WriteLine(
+                "================================================================================");
+
+            // Set all variables to default values
+            string userName = "awsuser";
+            string userPassword = "AwsUser1000";
+            string clusterIdentifier = "redshift-cluster-movies";
+            var databaseName = "dev";
+            int recordCount = 50;
+            int year = 2013;
+
+            // Step 1: Get user credentials (if interactive)
+            if (IsInteractive)
+            {
+                Console.WriteLine("Please enter your user name (default is awsuser):");
+                var userInput = Console.ReadLine();
+                if (!string.IsNullOrEmpty(userInput))
+                    userName = userInput;
+
+                Console.WriteLine("================================================================================");
+                Console.WriteLine("Please enter your user password (default is AwsUser1000):");
+                var passwordInput = Console.ReadLine();
+                if (!string.IsNullOrEmpty(passwordInput))
+                    userPassword = passwordInput;
+
+                Console.WriteLine("================================================================================");
+                Console.WriteLine("A Redshift cluster refers to the collection of computing resources and storage that work together to process and analyze large volumes of data.");
+
+                // Step 2: Get cluster identifier
+                Console.WriteLine("Enter a cluster id value (default is redshift-cluster-movies):");
+                var clusterInput = Console.ReadLine();
+                if (!string.IsNullOrEmpty(clusterInput))
+                    clusterIdentifier = clusterInput;
+            }
+            else
+            {
+                Console.WriteLine($"Using default values: userName={userName}, clusterIdentifier={clusterIdentifier}");
+            }
+
             // Step 3: Create Redshift cluster
-            await _redshiftWrapper!.CreateClusterAsync(clusterIdentifier, databaseName, userName, userPassword);
+            await Wrapper!.CreateClusterAsync(clusterIdentifier, databaseName, userName, userPassword);
             Console.WriteLine("================================================================================");
 
             // Step 4: Wait for cluster to become available
             Console.WriteLine("================================================================================");
-            await _redshiftWrapper.WaitForClusterAvailableAsync(clusterIdentifier);
+            await Wrapper.WaitForClusterAvailableAsync(clusterIdentifier, IsInteractive);
             Console.WriteLine("================================================================================");
 
             // Step 5: List databases
@@ -106,37 +111,57 @@ public class RedshiftBasics
             Console.WriteLine($" When you created {clusterIdentifier}, the dev database is created by default and used in this scenario.");
             Console.WriteLine(" To create a custom database, you need to have a CREATEDB privilege.");
             Console.WriteLine(" For more information, see the documentation here: https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_DATABASE.html.");
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
+            if (IsInteractive)
+            {
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+            }
             Console.WriteLine("================================================================================");
 
             Console.WriteLine("================================================================================");
             Console.WriteLine($"List databases in {clusterIdentifier}");
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
-            await _redshiftWrapper.ListDatabasesAsync(clusterIdentifier, userName, databaseName);
+            if (IsInteractive)
+            {
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+            }
+            await Wrapper.ListDatabasesAsync(clusterIdentifier, userName, databaseName);
             Console.WriteLine("================================================================================");
 
             // Step 6: Create Movies table
             Console.WriteLine("================================================================================");
             Console.WriteLine("Now you will create a table named Movies.");
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
-            await _redshiftWrapper.CreateTableAsync(clusterIdentifier, databaseName, userName);
+            if (IsInteractive)
+            {
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+            }
+            await Wrapper.CreateTableAsync(clusterIdentifier, databaseName, userName);
             Console.WriteLine("================================================================================");
 
             // Step 7: Populate the Movies table
             Console.WriteLine("================================================================================");
             Console.WriteLine("Populate the Movies table using the Movies.json file.");
-            Console.WriteLine("Specify the number of records you would like to add to the Movies Table.");
-            Console.WriteLine("Please enter a value between 50 and 200.");
-            Console.Write("Enter a value: ");
-
-            var recordCountInput = Console.ReadLine();
-            if (!int.TryParse(recordCountInput, out var recordCount) || recordCount < 50 || recordCount > 200)
+            
+            if (IsInteractive)
             {
-                recordCount = 50;
-                Console.WriteLine($"Invalid input. Using default value of {recordCount}.");
+                Console.WriteLine("Specify the number of records you would like to add to the Movies Table.");
+                Console.WriteLine("Please enter a value between 50 and 200.");
+                Console.Write("Enter a value: ");
+
+                var recordCountInput = Console.ReadLine();
+                if (int.TryParse(recordCountInput, out var inputCount) && inputCount >= 50 && inputCount <= 200)
+                {
+                    recordCount = inputCount;
+                }
+                else
+                {
+                    Console.WriteLine($"Invalid input. Using default value of {recordCount}.");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Using default record count: {recordCount}");
             }
 
             await PopulateMoviesTableAsync(clusterIdentifier, databaseName, userName, recordCount);
@@ -146,55 +171,66 @@ public class RedshiftBasics
             // Step 8 & 9: Query movies by year
             Console.WriteLine("================================================================================");
             Console.WriteLine("Query the Movies table by year. Enter a value between 2012-2014.");
-            Console.Write("Enter a year: ");
-            var yearInput = Console.ReadLine();
-            if (!int.TryParse(yearInput, out var year) || year < 2012 || year > 2014)
+            
+            if (IsInteractive)
             {
-                year = 2013;
-                Console.WriteLine($"Invalid input. Using default value of {year}.");
+                Console.Write("Enter a year: ");
+                var yearInput = Console.ReadLine();
+                if (int.TryParse(yearInput, out var inputYear) && inputYear >= 2012 && inputYear <= 2014)
+                {
+                    year = inputYear;
+                }
+                else
+                {
+                    Console.WriteLine($"Invalid input. Using default value of {year}.");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Using default year: {year}");
             }
 
-            await _redshiftWrapper.QueryMoviesByYearAsync(clusterIdentifier, databaseName, userName, year);
+            await Wrapper.QueryMoviesByYearAsync(clusterIdentifier, databaseName, userName, year);
             Console.WriteLine("================================================================================");
 
             // Step 10: Modify the cluster
             Console.WriteLine("================================================================================");
             Console.WriteLine("Now you will modify the Redshift cluster.");
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
-            await _redshiftWrapper.ModifyClusterAsync(clusterIdentifier, "wed:07:30-wed:08:00");
+            if (IsInteractive)
+            {
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+            }
+            await Wrapper.ModifyClusterAsync(clusterIdentifier, "wed:07:30-wed:08:00");
             Console.WriteLine("================================================================================");
 
             // Step 11 & 12: Delete cluster confirmation
             Console.WriteLine("================================================================================");
-            Console.WriteLine("Would you like to delete the Amazon Redshift cluster? (y/n)");
-            var deleteResponse = Console.ReadLine();
-            if (deleteResponse?.ToLower() == "y" || deleteResponse?.ToLower() == "yes")
+            if (IsInteractive)
             {
-                await _redshiftWrapper.DeleteClusterAsync(clusterIdentifier);
+                Console.WriteLine("Would you like to delete the Amazon Redshift cluster? (y/n)");
+                var deleteResponse = Console.ReadLine();
+                if (deleteResponse?.ToLower() == "y" || deleteResponse?.ToLower() == "yes")
+                {
+                    await Wrapper.DeleteClusterAsync(clusterIdentifier);
+                }
             }
+            else
+            {
+                Console.WriteLine("Deleting the Amazon Redshift cluster (non-interactive mode)...");
+                await Wrapper.DeleteClusterAsync(clusterIdentifier);
+            }
+            Console.WriteLine("================================================================================");
+
+            Console.WriteLine("================================================================================");
+            Console.WriteLine("This concludes the Amazon Redshift SDK Getting Started scenario.");
             Console.WriteLine("================================================================================");
         }
         catch (Exception ex)
         {
             Console.WriteLine($"An error occurred during the scenario: {ex.Message}");
-
-            // Attempt cleanup
-            Console.WriteLine("Attempting to clean up resources...");
-            try
-            {
-                await _redshiftWrapper!.DeleteClusterAsync(clusterIdentifier);
-            }
-            catch (Exception cleanupEx)
-            {
-                Console.WriteLine($"Cleanup failed: {cleanupEx.Message}");
-            }
             throw;
         }
-
-        Console.WriteLine("================================================================================");
-        Console.WriteLine("This concludes the Amazon Redshift SDK Getting Started scenario.");
-        Console.WriteLine("================================================================================");
     }
 
     /// <summary>
@@ -228,7 +264,7 @@ public class RedshiftBasics
         for (int i = 0; i < insertCount; i++)
         {
             var movie = movies[i];
-            await _redshiftWrapper!.InsertMovieAsync(clusterIdentifier, database, dbUser, i, movie.Title, movie.Year);
+            await Wrapper!.InsertMovieAsync(clusterIdentifier, database, dbUser, i, movie.Title, movie.Year);
         }
     }
 
@@ -237,7 +273,6 @@ public class RedshiftBasics
     /// </summary>
     private class Movie
     {
-        public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public int Year { get; set; }
     }
