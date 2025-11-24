@@ -90,22 +90,37 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
       av_output_bucket = av_output_bucket+0(63).
     ENDIF.
 
-    " Create S3 buckets
+    " Create S3 buckets with proper region configuration
     DATA lo_s3 TYPE REF TO /aws1/if_s3.
+    DATA lv_region TYPE /aws1/s3_bucketlocationcnstrnt.
+    DATA lo_constraint TYPE REF TO /aws1/cl_s3_createbucketconf.
+    
     lo_s3 = /aws1/cl_s3_factory=>create( ao_session ).
+    
+    " Determine region and create location constraint
+    lv_region = ao_session->get_region( ).
+    IF lv_region = 'us-east-1'.
+      CLEAR lo_constraint.
+    ELSE.
+      lo_constraint = NEW /aws1/cl_s3_createbucketconf( lv_region ).
+    ENDIF.
 
     TRY.
-        lo_s3->createbucket( iv_bucket = av_training_bucket ).
+        lo_s3->createbucket(
+          iv_bucket = av_training_bucket
+          io_createbucketconfiguration = lo_constraint ).
         WAIT UP TO 2 SECONDS.
-      CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bktalrdyownedbyyou.
-        " Bucket already exists, continue
+      CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bktalrdyownedbyyou /aws1/cx_s3_clientexc.
+        " Bucket already exists or other client error, continue
     ENDTRY.
 
     TRY.
-        lo_s3->createbucket( iv_bucket = av_output_bucket ).
+        lo_s3->createbucket(
+          iv_bucket = av_output_bucket
+          io_createbucketconfiguration = lo_constraint ).
         WAIT UP TO 2 SECONDS.
-      CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bktalrdyownedbyyou.
-        " Bucket already exists, continue
+      CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bktalrdyownedbyyou /aws1/cx_s3_clientexc.
+        " Bucket already exists or other client error, continue
     ENDTRY.
 
     " Setup training data
