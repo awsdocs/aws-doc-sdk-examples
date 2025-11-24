@@ -263,18 +263,32 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
   METHOD setup_training_data.
     " Create sample training data for document classification
     " Format: label,text (CSV format)
-    DATA(lv_training_data) = |CLASS1,This is a positive example document.\n| &&
-                              |CLASS2,This is a negative example document.\n| &&
-                              |CLASS1,Another positive example for training.\n| &&
-                              |CLASS2,Another negative example for training.\n| &&
-                              |CLASS1,Positive sentiment and good quality.\n| &&
-                              |CLASS2,Negative sentiment and poor quality.\n| &&
-                              |CLASS1,Excellent service and great experience.\n| &&
-                              |CLASS2,Poor quality and bad experience.\n| &&
-                              |CLASS1,Wonderful product highly recommend.\n| &&
-                              |CLASS2,Terrible product would not recommend.\n|.
+    DATA lv_training_data TYPE string.
+    
+    lv_training_data = |CLASS1,This is a positive example document.\n| &&
+                       |CLASS2,This is a negative example document.\n| &&
+                       |CLASS1,Another positive example for training.\n| &&
+                       |CLASS2,Another negative example for training.\n| &&
+                       |CLASS1,Positive sentiment and good quality.\n| &&
+                       |CLASS2,Negative sentiment and poor quality.\n| &&
+                       |CLASS1,Excellent service and great experience.\n| &&
+                       |CLASS2,Poor quality and bad experience.\n| &&
+                       |CLASS1,Wonderful product highly recommend.\n| &&
+                       |CLASS2,Terrible product would not recommend.\n|.
 
-    DATA(lv_training_data_xstring) = cl_abap_conv_codepage=>create_out( )->convert( lv_training_data ).
+    " Convert string to xstring for S3 upload
+    DATA lv_training_data_xstring TYPE xstring.
+    DATA lo_conv_out TYPE REF TO cl_abap_conv_out_ce.
+    
+    TRY.
+        lo_conv_out = cl_abap_conv_out_ce=>create( encoding = 'UTF-8' ).
+        lo_conv_out->convert(
+          EXPORTING data = lv_training_data
+          IMPORTING buffer = lv_training_data_xstring ).
+      CATCH cx_parameter_invalid_range cx_sy_codepage_converter_init cx_sy_conversion_codepage cx_parameter_invalid_type.
+        " If conversion fails, try simple conversion
+        lv_training_data_xstring = cl_abap_codepage=>convert_to( source = lv_training_data ).
+    ENDTRY.
 
     io_s3->putobject(
       iv_bucket = iv_bucket
@@ -286,13 +300,27 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
 
   METHOD setup_job_input_data.
     " Create sample input data for classification and topic detection jobs
-    DATA(lv_input_data) = |This is a sample document for classification.\n| &&
-                           |Another document with different content.\n| &&
-                           |Third document for testing purposes.\n| &&
-                           |Fourth document with various topics.\n| &&
-                           |Fifth document discussing technology.\n|.
+    DATA lv_input_data TYPE string.
+    
+    lv_input_data = |This is a sample document for classification.\n| &&
+                    |Another document with different content.\n| &&
+                    |Third document for testing purposes.\n| &&
+                    |Fourth document with various topics.\n| &&
+                    |Fifth document discussing technology.\n|.
 
-    DATA(lv_input_data_xstring) = cl_abap_conv_codepage=>create_out( )->convert( lv_input_data ).
+    " Convert string to xstring for S3 upload
+    DATA lv_input_data_xstring TYPE xstring.
+    DATA lo_conv_out TYPE REF TO cl_abap_conv_out_ce.
+    
+    TRY.
+        lo_conv_out = cl_abap_conv_out_ce=>create( encoding = 'UTF-8' ).
+        lo_conv_out->convert(
+          EXPORTING data = lv_input_data
+          IMPORTING buffer = lv_input_data_xstring ).
+      CATCH cx_parameter_invalid_range cx_sy_codepage_converter_init cx_sy_conversion_codepage cx_parameter_invalid_type.
+        " If conversion fails, try simple conversion
+        lv_input_data_xstring = cl_abap_codepage=>convert_to( source = lv_input_data ).
+    ENDTRY.
 
     io_s3->putobject(
       iv_bucket = iv_bucket
