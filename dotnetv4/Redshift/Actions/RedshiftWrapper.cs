@@ -42,7 +42,7 @@ public class RedshiftWrapper
     /// <param name="nodeType">The node type for the cluster.</param>
     /// <returns>The cluster that was created.</returns>
     public async Task<Cluster> CreateClusterAsync(string clusterIdentifier, string databaseName,
-        string masterUsername, string masterUserPassword, string nodeType = "dc2.large")
+        string masterUsername, string masterUserPassword, string nodeType = "ra3.large")
     {
         try
         {
@@ -159,15 +159,17 @@ public class RedshiftWrapper
     /// </summary>
     /// <param name="clusterIdentifier">The cluster identifier.</param>
     /// <param name="dbUser">The database user.</param>
+    /// <param name="dbUser">The database name for authentication.</param>
     /// <returns>A list of database names.</returns>
-    public async Task<List<string>> ListDatabasesAsync(string clusterIdentifier, string dbUser)
+    public async Task<List<string>> ListDatabasesAsync(string clusterIdentifier, string dbUser, string databaseName)
     {
         try
         {
             var request = new ListDatabasesRequest
             {
                 ClusterIdentifier = clusterIdentifier,
-                DbUser = dbUser
+                DbUser = dbUser,
+                Database = databaseName
             };
 
             var response = await _redshiftDataClient.ListDatabasesAsync(request);
@@ -231,7 +233,7 @@ public class RedshiftWrapper
 
     // snippet-start:[Redshift.dotnetv4.Insert]
     /// <summary>
-    /// Insert a record into the Movies table.
+    /// Insert a record into the Movies table using parameterized query.
     /// </summary>
     /// <param name="clusterIdentifier">The cluster identifier.</param>
     /// <param name="database">The database name.</param>
@@ -245,14 +247,20 @@ public class RedshiftWrapper
     {
         try
         {
-            var sqlStatement = $"INSERT INTO Movies (id, title, year) VALUES ({id}, '{title}', {year})";
+            var sqlStatement = "INSERT INTO Movies (id, title, year) VALUES (:id, :title, :year)";
 
             var request = new ExecuteStatementRequest
             {
                 ClusterIdentifier = clusterIdentifier,
                 Database = database,
                 DbUser = dbUser,
-                Sql = sqlStatement
+                Sql = sqlStatement,
+                Parameters = new List<SqlParameter>
+                {
+                    new SqlParameter { Name = "id", Value = id.ToString() },
+                    new SqlParameter { Name = "title", Value = title },
+                    new SqlParameter { Name = "year", Value = year.ToString() }
+                }
             };
 
             var response = await _redshiftDataClient.ExecuteStatementAsync(request);
@@ -270,7 +278,7 @@ public class RedshiftWrapper
 
     // snippet-start:[Redshift.dotnetv4.Query]
     /// <summary>
-    /// Query movies by year.
+    /// Query movies by year using parameterized query.
     /// </summary>
     /// <param name="clusterIdentifier">The cluster identifier.</param>
     /// <param name="database">The database name.</param>
@@ -282,14 +290,18 @@ public class RedshiftWrapper
     {
         try
         {
-            var sqlStatement = $"SELECT title FROM Movies WHERE year = {year}";
+            var sqlStatement = "SELECT title FROM Movies WHERE year = :year";
 
             var request = new ExecuteStatementRequest
             {
                 ClusterIdentifier = clusterIdentifier,
                 Database = database,
                 DbUser = dbUser,
-                Sql = sqlStatement
+                Sql = sqlStatement,
+                Parameters = new List<SqlParameter>
+                {
+                    new SqlParameter { Name = "year", Value = year.ToString() }
+                }
             };
 
             var response = await _redshiftDataClient.ExecuteStatementAsync(request);
@@ -380,11 +392,12 @@ public class RedshiftWrapper
     private async Task WaitForStatementToCompleteAsync(string statementId)
     {
         var status = StatusString.SUBMITTED;
+        DescribeStatementResponse? response = null;
 
         while (status == StatusString.SUBMITTED || status == StatusString.PICKED || status == StatusString.STARTED)
         {
             await Task.Delay(1000); // Wait 1 second
-            var response = await DescribeStatementAsync(statementId);
+            response = await DescribeStatementAsync(statementId);
             status = response.Status;
             Console.WriteLine($"...{status}");
         }
@@ -395,8 +408,10 @@ public class RedshiftWrapper
         }
         else
         {
+            var errorMessage = response?.Error ?? "Unknown error";
             Console.WriteLine($"The statement failed with status: {status}");
-            throw new Exception($"Statement execution failed with status: {status}");
+            Console.WriteLine($"Error message: {errorMessage}");
+            throw new Exception($"Statement execution failed with status: {status}. Error: {errorMessage}");
         }
     }
 

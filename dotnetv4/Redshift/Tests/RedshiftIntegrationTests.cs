@@ -99,7 +99,7 @@ public class RedshiftIntegrationTests
 
             // Step 3: List databases
             Console.WriteLine("Listing databases...");
-            var databases = await _redshiftWrapper.ListDatabasesAsync(_testClusterIdentifier!, TestUsername);
+            var databases = await _redshiftWrapper.ListDatabasesAsync(_testClusterIdentifier!, TestUsername, TestDatabaseName);
             Assert.IsNotNull(databases);
             Assert.IsTrue(databases.Count > 0);
             Console.WriteLine($"Found {databases.Count} databases.");
@@ -343,7 +343,8 @@ public class RedshiftDataIntegrationTests
         {
             var databases = await _redshiftWrapper.ListDatabasesAsync(
                 availableCluster.ClusterIdentifier,
-                TestUsername);
+                TestUsername,
+                TestDatabaseName);
 
             Assert.IsNotNull(databases);
             Console.WriteLine($"Found {databases.Count} databases in cluster {availableCluster.ClusterIdentifier}");

@@ -19,7 +19,7 @@ namespace RedshiftBasics;
 public class RedshiftBasics
 {
     private static RedshiftWrapper? _redshiftWrapper;
-    private static readonly string MoviesFilePath = "../../../../../../../resources/sample_files/movies.json";
+    private static readonly string _moviesFilePath = "../../../../../../resources/sample_files/movies.json";
 
     /// <summary>
     /// Main method for the Amazon Redshift Getting Started scenario.
@@ -32,16 +32,16 @@ public class RedshiftBasics
         var redshiftDataClient = new AmazonRedshiftDataAPIServiceClient();
         _redshiftWrapper = new RedshiftWrapper(redshiftClient, redshiftDataClient);
 
-        Console.WriteLine("================================================================================");
+        Console.WriteLine(
+            "================================================================================");
         Console.WriteLine("Welcome to the Amazon Redshift SDK Getting Started scenario.");
-        Console.WriteLine("This .NET program demonstrates how to interact with Amazon Redshift by using the AWS SDK for .NET.");
-        Console.WriteLine("Amazon Redshift is a fully managed, petabyte-scale data warehouse service hosted in the cloud.");
-        Console.WriteLine("The program's primary functionality includes cluster creation, verification of cluster readiness,");
-        Console.WriteLine("list databases, table creation, data population within the table, and execution of SQL statements.");
-        Console.WriteLine("Furthermore, it demonstrates the process of querying data from the Movie table.");
-        Console.WriteLine("Upon completion of the program, all AWS resources are cleaned up.");
+        Console.WriteLine(
+            "This .NET program demonstrates how to interact with Amazon Redshift by using the AWS SDK for .NET.");
+        Console.WriteLine(
+            "Upon completion of the program, all resources are cleaned up.");
         Console.WriteLine("Let's get started...");
-        Console.WriteLine("================================================================================");
+        Console.WriteLine(
+            "================================================================================");
 
         try
         {
@@ -65,6 +65,9 @@ public class RedshiftBasics
     private static async Task RunScenarioAsync()
     {
         // Step 1: Get user credentials
+        if (!File.Exists(_moviesFilePath))
+            Console.WriteLine("filenotfound");
+
         Console.WriteLine("Please enter your user name (default is awsuser):");
         var userName = Console.ReadLine();
         if (string.IsNullOrEmpty(userName))
@@ -76,7 +79,6 @@ public class RedshiftBasics
         if (string.IsNullOrEmpty(userPassword))
             userPassword = "AwsUser1000";
 
-        Console.WriteLine("================================================================================");
         Console.WriteLine("================================================================================");
         Console.WriteLine("A Redshift cluster refers to the collection of computing resources and storage that work together to process and analyze large volumes of data.");
 
@@ -112,7 +114,7 @@ public class RedshiftBasics
             Console.WriteLine($"List databases in {clusterIdentifier}");
             Console.WriteLine("Press Enter to continue...");
             Console.ReadLine();
-            await _redshiftWrapper.ListDatabasesAsync(clusterIdentifier, userName);
+            await _redshiftWrapper.ListDatabasesAsync(clusterIdentifier, userName, databaseName);
             Console.WriteLine("================================================================================");
 
             // Step 6: Create Movies table
@@ -204,99 +206,29 @@ public class RedshiftBasics
     /// <param name="recordCount">Number of records to insert.</param>
     private static async Task PopulateMoviesTableAsync(string clusterIdentifier, string database, string dbUser, int recordCount)
     {
-        try
+        if (!File.Exists(_moviesFilePath))
         {
-            if (!File.Exists(MoviesFilePath))
-            {
-                Console.WriteLine($"Movies file not found at {MoviesFilePath}. Using sample data instead.");
-                await PopulateWithSampleDataAsync(clusterIdentifier, database, dbUser, recordCount);
-                return;
-            }
-
-            var jsonContent = await File.ReadAllTextAsync(MoviesFilePath);
-            var movies = JsonSerializer.Deserialize<List<Movie>>(jsonContent);
-
-            if (movies == null)
-            {
-                Console.WriteLine("Failed to parse movies JSON file. Using sample data instead.");
-                await PopulateWithSampleDataAsync(clusterIdentifier, database, dbUser, recordCount);
-                return;
-            }
-
-            var insertCount = Math.Min(recordCount, movies.Count);
-
-            for (int i = 0; i < insertCount; i++)
-            {
-                var movie = movies[i];
-                await _redshiftWrapper!.InsertMovieAsync(clusterIdentifier, database, dbUser, movie.Id, movie.Title, movie.Year);
-            }
+            throw new FileNotFoundException($"Required movies data file not found at: {_moviesFilePath}");
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error populating movies table: {ex.Message}");
-            Console.WriteLine("Using sample data instead.");
-            await PopulateWithSampleDataAsync(clusterIdentifier, database, dbUser, recordCount);
-        }
-    }
 
-    /// <summary>
-    /// Populate the table with sample movie data when JSON file is not available.
-    /// </summary>
-    /// <param name="clusterIdentifier">The cluster identifier.</param>
-    /// <param name="database">The database name.</param>
-    /// <param name="dbUser">The database user.</param>
-    /// <param name="recordCount">Number of records to insert.</param>
-    private static async Task PopulateWithSampleDataAsync(string clusterIdentifier, string database, string dbUser, int recordCount)
-    {
-        var sampleMovies = new List<Movie>
+        var jsonContent = await File.ReadAllTextAsync(_moviesFilePath);
+        var options = new JsonSerializerOptions
         {
-            new Movie { Id = 1, Title = "Rush", Year = 2013 },
-            new Movie { Id = 2, Title = "Prisoners", Year = 2013 },
-            new Movie { Id = 3, Title = "The Hunger Games: Catching Fire", Year = 2013 },
-            new Movie { Id = 4, Title = "Thor: The Dark World", Year = 2013 },
-            new Movie { Id = 5, Title = "This Is the End", Year = 2013 },
-            new Movie { Id = 6, Title = "Despicable Me 2", Year = 2013 },
-            new Movie { Id = 7, Title = "Man of Steel", Year = 2013 },
-            new Movie { Id = 8, Title = "Gravity", Year = 2013 },
-            new Movie { Id = 9, Title = "Pacific Rim", Year = 2013 },
-            new Movie { Id = 10, Title = "World War Z", Year = 2013 },
-            new Movie { Id = 11, Title = "Iron Man 3", Year = 2013 },
-            new Movie { Id = 12, Title = "Star Trek Into Darkness", Year = 2013 },
-            new Movie { Id = 13, Title = "Fast & Furious 6", Year = 2013 },
-            new Movie { Id = 14, Title = "Monsters University", Year = 2013 },
-            new Movie { Id = 15, Title = "Elysium", Year = 2013 },
-            new Movie { Id = 16, Title = "The Hobbit: The Desolation of Smaug", Year = 2013 },
-            new Movie { Id = 17, Title = "Captain Phillips", Year = 2013 },
-            new Movie { Id = 18, Title = "Ender's Game", Year = 2013 },
-            new Movie { Id = 19, Title = "The Wolverine", Year = 2013 },
-            new Movie { Id = 20, Title = "Now You See Me", Year = 2013 }
+            PropertyNameCaseInsensitive = true
         };
+        var movies = JsonSerializer.Deserialize<List<Movie>>(jsonContent, options);
 
-        // Generate more movies if needed
-        var movieList = new List<Movie>(sampleMovies);
-        var random = new Random();
-        var years = new[] { 2012, 2013, 2014 };
-        var baseMovieTitles = new[] { "Action Movie", "Drama Film", "Comedy Show", "Thriller Movie", "Adventure Film", "Sci-Fi Movie", "Horror Film" };
-
-        while (movieList.Count < recordCount)
+        if (movies == null || movies.Count == 0)
         {
-            var baseTitle = baseMovieTitles[random.Next(baseMovieTitles.Length)];
-            var year = years[random.Next(years.Length)];
-            var movie = new Movie
-            {
-                Id = movieList.Count + 1,
-                Title = $"{baseTitle} {movieList.Count + 1}",
-                Year = year
-            };
-            movieList.Add(movie);
+            throw new InvalidOperationException("Failed to parse movies JSON file or file is empty.");
         }
 
-        var insertCount = Math.Min(recordCount, movieList.Count);
+        var insertCount = Math.Min(recordCount, movies.Count);
 
         for (int i = 0; i < insertCount; i++)
         {
-            var movie = movieList[i];
-            await _redshiftWrapper!.InsertMovieAsync(clusterIdentifier, database, dbUser, movie.Id, movie.Title, movie.Year);
+            var movie = movies[i];
+            await _redshiftWrapper!.InsertMovieAsync(clusterIdentifier, database, dbUser, i, movie.Title, movie.Year);
         }
     }
 
