@@ -51,6 +51,12 @@ CLASS ltc_zcl_aws1_cpd_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
         iv_max_wait_mins TYPE i DEFAULT 60
       RAISING /aws1/cx_rt_generic.
 
+    CLASS-METHODS wait_for_classifier_deletion
+      IMPORTING
+        iv_classifier_arn TYPE /aws1/cpddocumentclassifierarn
+        iv_max_wait_mins TYPE i DEFAULT 10
+      RAISING /aws1/cx_rt_generic.
+
     CLASS-METHODS wait_for_job
       IMPORTING
         iv_job_id TYPE /aws1/cpdjobid
@@ -415,6 +421,34 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
 
   ENDMETHOD.
 
+  METHOD wait_for_classifier_deletion.
+    DATA lv_wait_time TYPE i VALUE 0.
+    DATA lv_deleted TYPE abap_bool VALUE abap_false.
+
+    DO.
+      WAIT UP TO 10 SECONDS.
+      lv_wait_time = lv_wait_time + 1.
+
+      TRY.
+          ao_cpd->describedocumentclassifier(
+            iv_documentclassifierarn = iv_classifier_arn
+          ).
+          " Classifier still exists, check its status
+          " If we can describe it, it's not deleted yet
+        CATCH /aws1/cx_cpdresourcenotfoundex.
+          " Classifier is deleted
+          lv_deleted = abap_true.
+          RETURN.
+      ENDTRY.
+
+      IF lv_wait_time >= iv_max_wait_mins * 6. " 10 second intervals
+        " Timeout - just return
+        RETURN.
+      ENDIF.
+    ENDDO.
+
+  ENDMETHOD.
+
   METHOD detect_dominant_language.
     DATA(lv_text) = |This is a sample text in English for language detection.|.
 
@@ -656,6 +690,12 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
     cl_abap_unit_assert=>assert_bound(
       act = lo_result
       msg = 'Result should not be null'
+    ).
+
+    " Wait for deletion to complete
+    wait_for_classifier_deletion(
+      iv_classifier_arn = lv_del_classifier_arn
+      iv_max_wait_mins = 5
     ).
 
     " Verify deletion by trying to describe (should fail)
