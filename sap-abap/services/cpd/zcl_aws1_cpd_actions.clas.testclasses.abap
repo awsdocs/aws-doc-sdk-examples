@@ -363,8 +363,8 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
   METHOD wait_for_job.
     DATA lv_wait_time TYPE i VALUE 0.
     DATA lv_status TYPE /aws1/cpdjobstatus.
-    DATA lo_doc_job_result TYPE REF TO /aws1/cl_cpddescrdocclssjbrsp.
-    DATA lo_topics_job_result TYPE REF TO /aws1/cl_cpddscrbtpcsdtctjbrsp.
+    DATA lo_doc_job_result TYPE REF TO /aws1/cl_cpddscdocclificatio01.
+    DATA lo_topics_job_result TYPE REF TO /aws1/cl_cpddsctopicsdetjobrsp.
 
     DO.
       WAIT UP TO 30 SECONDS.
