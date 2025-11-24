@@ -107,7 +107,7 @@ CLASS zcl_aws1_cpd_actions DEFINITION
       IMPORTING
         !iv_job_id TYPE /aws1/cpdjobid
       RETURNING
-        VALUE(oo_result) TYPE REF TO /aws1/cl_cpddsceventsdetjobrsp .
+        VALUE(oo_result) TYPE REF TO /aws1/cl_cpddsctopicsdetjobrsp .
 
     METHODS list_topics_detection_jobs
       RETURNING
