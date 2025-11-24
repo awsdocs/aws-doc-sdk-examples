@@ -61,9 +61,14 @@ public class RedshiftWrapper
             Console.WriteLine($"Created cluster {clusterIdentifier}");
             return response.Cluster;
         }
+        catch (ClusterAlreadyExistsException ex)
+        {
+            Console.WriteLine($"Cluster already exists: {ex.Message}");
+            throw;
+        }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error creating cluster: {ex.Message}");
+            Console.WriteLine($"Couldn't create cluster. Here's why: {ex.Message}");
             throw;
         }
     }
@@ -88,9 +93,14 @@ public class RedshiftWrapper
             var response = await _redshiftClient.DescribeClustersAsync(request);
             return response.Clusters;
         }
+        catch (ClusterNotFoundException ex)
+        {
+            Console.WriteLine($"Cluster not found: {ex.Message}");
+            throw;
+        }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error describing clusters: {ex.Message}");
+            Console.WriteLine($"Couldn't describe clusters. Here's why: {ex.Message}");
             throw;
         }
     }
@@ -117,9 +127,14 @@ public class RedshiftWrapper
             Console.WriteLine($"The modified cluster was successfully modified and has {preferredMaintenanceWindow} as the maintenance window");
             return response.Cluster;
         }
+        catch (ClusterNotFoundException ex)
+        {
+            Console.WriteLine($"Cluster not found: {ex.Message}");
+            throw;
+        }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error modifying cluster: {ex.Message}");
+            Console.WriteLine($"Couldn't modify cluster. Here's why: {ex.Message}");
             throw;
         }
     }
@@ -145,9 +160,14 @@ public class RedshiftWrapper
             Console.WriteLine($"The {clusterIdentifier} was deleted");
             return response.Cluster;
         }
+        catch (ClusterNotFoundException ex)
+        {
+            Console.WriteLine($"Cluster not found: {ex.Message}");
+            throw;
+        }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error deleting cluster: {ex.Message}");
+            Console.WriteLine($"Couldn't delete cluster. Here's why: {ex.Message}");
             throw;
         }
     }
@@ -183,9 +203,14 @@ public class RedshiftWrapper
 
             return databases;
         }
+        catch (Amazon.RedshiftDataAPIService.Model.ValidationException ex)
+        {
+            Console.WriteLine($"Validation error: {ex.Message}");
+            throw;
+        }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error listing databases: {ex.Message}");
+            Console.WriteLine($"Couldn't list databases. Here's why: {ex.Message}");
             throw;
         }
     }
@@ -223,9 +248,14 @@ public class RedshiftWrapper
             Console.WriteLine("Table created: Movies");
             return response.Id;
         }
+        catch (Amazon.RedshiftDataAPIService.Model.ValidationException ex)
+        {
+            Console.WriteLine($"Validation error: {ex.Message}");
+            throw;
+        }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error creating table: {ex.Message}");
+            Console.WriteLine($"Couldn't create table. Here's why: {ex.Message}");
             throw;
         }
     }
@@ -268,9 +298,14 @@ public class RedshiftWrapper
             Console.WriteLine($"Inserted: {title} ({year})");
             return response.Id;
         }
+        catch (Amazon.RedshiftDataAPIService.Model.ValidationException ex)
+        {
+            Console.WriteLine($"Validation error: {ex.Message}");
+            throw;
+        }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error inserting movie: {ex.Message}");
+            Console.WriteLine($"Couldn't insert movie. Here's why: {ex.Message}");
             throw;
         }
     }
@@ -324,9 +359,14 @@ public class RedshiftWrapper
 
             return movieTitles;
         }
+        catch (Amazon.RedshiftDataAPIService.Model.ValidationException ex)
+        {
+            Console.WriteLine($"Validation error: {ex.Message}");
+            throw;
+        }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error querying movies: {ex.Message}");
+            Console.WriteLine($"Couldn't query movies. Here's why: {ex.Message}");
             throw;
         }
     }
@@ -350,9 +390,14 @@ public class RedshiftWrapper
             var response = await _redshiftDataClient.DescribeStatementAsync(request);
             return response;
         }
+        catch (Amazon.RedshiftDataAPIService.Model.ResourceNotFoundException ex)
+        {
+            Console.WriteLine($"Statement not found: {ex.Message}");
+            throw;
+        }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error describing statement: {ex.Message}");
+            Console.WriteLine($"Couldn't describe statement. Here's why: {ex.Message}");
             throw;
         }
     }
@@ -376,9 +421,14 @@ public class RedshiftWrapper
             var response = await _redshiftDataClient.GetStatementResultAsync(request);
             return response.Records;
         }
+        catch (Amazon.RedshiftDataAPIService.Model.ResourceNotFoundException ex)
+        {
+            Console.WriteLine($"Statement not found: {ex.Message}");
+            throw;
+        }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error getting statement result: {ex.Message}");
+            Console.WriteLine($"Couldn't get statement result. Here's why: {ex.Message}");
             throw;
         }
     }
@@ -411,7 +461,6 @@ public class RedshiftWrapper
             var errorMessage = response?.Error ?? "Unknown error";
             Console.WriteLine($"The statement failed with status: {status}");
             Console.WriteLine($"Error message: {errorMessage}");
-            throw new Exception($"Statement execution failed with status: {status}. Error: {errorMessage}");
         }
     }
 
