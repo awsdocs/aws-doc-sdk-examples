@@ -35,7 +35,6 @@ public class HelloInspector {
     public static void main(String[] args) {
         System.out.println(" Hello Amazon Inspector!");
         Region region = Region.US_EAST_1;
-
         try (Inspector2Client inspectorClient = Inspector2Client.builder()
                 .region(region)
                 .build()) {
