@@ -498,4 +498,3 @@ public class RedshiftWrapper
     }
 }
 // snippet-end:[Redshift.dotnetv4.RedshiftWrapper]
-

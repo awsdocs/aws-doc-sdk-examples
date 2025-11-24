@@ -13,7 +13,7 @@ redshift_CreateCluster:
           excerpts:
             - description:
               snippet_tags:
-                - dotnetv4.example_code.redshift.CreateCluster
+                - Redshift.dotnetv4.CreateCluster
   services:
     redshift: {CreateCluster}
 
@@ -30,7 +30,7 @@ redshift_DeleteCluster:
           excerpts:
             - description:
               snippet_tags:
-                - dotnetv4.example_code.redshift.DeleteCluster
+                - Redshift.dotnetv4.DeleteCluster
   services:
     redshift: {DeleteCluster}
 
@@ -47,7 +47,7 @@ redshift_DescribeClusters:
           excerpts:
             - description:
               snippet_tags:
-                - dotnetv4.example_code.redshift.DescribeClusters
+                - Redshift.dotnetv4.DescribeClusters
   services:
     redshift: {DescribeClusters}
 
@@ -64,7 +64,7 @@ redshift_ModifyCluster:
           excerpts:
             - description:
               snippet_tags:
-                - dotnetv4.example_code.redshift.ModifyCluster
+                - Redshift.dotnetv4.ModifyCluster
   services:
     redshift: {ModifyCluster}
 
@@ -81,7 +81,7 @@ redshift_CreateTable:
           excerpts:
             - description:
               snippet_tags:
-                - dotnetv4.example_code.redshift.CreateTable
+                - Redshift.dotnetv4.CreateTable
   services:
     redshift-data: {ExecuteStatement}
 
@@ -98,7 +98,7 @@ redshift_Insert:
           excerpts:
             - description:
               snippet_tags:
-                - dotnetv4.example_code.redshift.Insert
+                - Redshift.dotnetv4.Insert
   services:
     redshift-data: {ExecuteStatement}
 
@@ -115,7 +115,7 @@ redshift_Query:
           excerpts:
             - description:
               snippet_tags:
-                - dotnetv4.example_code.redshift.Query
+                - Redshift.dotnetv4.Query
   services:
     redshift-data: {ExecuteStatement, GetStatementResult}
 
@@ -132,7 +132,7 @@ redshift_DescribeStatement:
           excerpts:
             - description:
               snippet_tags:
-                - dotnetv4.example_code.redshift.DescribeStatement
+                - Redshift.dotnetv4.DescribeStatement
   services:
     redshift-data: {DescribeStatement}
 
@@ -149,7 +149,7 @@ redshift_GetStatementResult:
           excerpts:
             - description:
               snippet_tags:
-                - dotnetv4.example_code.redshift.GetStatementResult
+                - Redshift.dotnetv4.GetStatementResult
   services:
     redshift-data: {GetStatementResult}
 
@@ -166,7 +166,7 @@ redshift_ListDatabases:
           excerpts:
             - description:
               snippet_tags:
-                - dotnetv4.example_code.redshift.ListDatabases
+                - Redshift.dotnetv4.ListDatabases
   services:
     redshift-data: {ListDatabases}
 
@@ -183,7 +183,7 @@ redshift_Hello:
           excerpts:
             - description:
               snippet_tags:
-                - dotnetv4.example_code.redshift.Hello
+                - Redshift.dotnetv4.Hello
   services:
     redshift: {DescribeClusters}
 
@@ -200,10 +200,10 @@ redshift_Scenario:
           excerpts:
             - description: Create a Redshift wrapper class to manage operations.
               snippet_tags:
-                - dotnetv4.example_code.redshift.RedshiftWrapper
+                - Redshift.dotnetv4.RedshiftWrapper
             - description: Run an interactive scenario demonstrating Redshift basics.
               snippet_tags:
-                - dotnetv4.example_code.redshift.RedshiftScenario
+                - Redshift.dotnetv4.RedshiftScenario
   services:
     redshift: {CreateCluster, DeleteCluster, DescribeClusters, ModifyCluster}
     redshift-data: {ExecuteStatement, DescribeStatement, GetStatementResult, ListDatabases}

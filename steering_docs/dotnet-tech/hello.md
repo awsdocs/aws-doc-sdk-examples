@@ -187,6 +187,7 @@ public static async Task Main(string[] args)
 
 // ❌ WRONG - Old format
 // snippet-start:[dotnetv4.example_code.redshift.Hello]
+// snippet-end:[dotnetv4.example_code.redshift.Hello]
 ```
 
 **Format**: `[{Service}.dotnetv4.Hello]`

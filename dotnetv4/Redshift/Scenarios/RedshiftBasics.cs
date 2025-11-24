@@ -60,8 +60,6 @@ public class RedshiftBasics
             Console.WriteLine("Welcome to the Amazon Redshift SDK Getting Started scenario.");
             Console.WriteLine(
                 "This .NET program demonstrates how to interact with Amazon Redshift by using the AWS SDK for .NET.");
-            Console.WriteLine(
-                "Upon completion of the program, all resources are cleaned up.");
             Console.WriteLine("Let's get started...");
             Console.WriteLine(
                 "================================================================================");
@@ -89,7 +87,6 @@ public class RedshiftBasics
                     userPassword = passwordInput;
 
                 Console.WriteLine("================================================================================");
-                Console.WriteLine("A Redshift cluster refers to the collection of computing resources and storage that work together to process and analyze large volumes of data.");
 
                 // Step 2: Get cluster identifier
                 Console.WriteLine("Enter a cluster id value (default is redshift-cluster-movies):");
@@ -147,7 +144,7 @@ public class RedshiftBasics
             // Step 7: Populate the Movies table
             Console.WriteLine("================================================================================");
             Console.WriteLine("Populate the Movies table using the Movies.json file.");
-            
+
             if (IsInteractive)
             {
                 Console.WriteLine("Specify the number of records you would like to add to the Movies Table.");
@@ -176,7 +173,7 @@ public class RedshiftBasics
             // Step 8 & 9: Query movies by year
             Console.WriteLine("================================================================================");
             Console.WriteLine("Query the Movies table by year. Enter a value between 2012-2014.");
-            
+
             if (IsInteractive)
             {
                 Console.Write("Enter a year: ");
@@ -283,4 +280,3 @@ public class RedshiftBasics
     }
 }
 // snippet-end:[Redshift.dotnetv4.RedshiftScenario]
-

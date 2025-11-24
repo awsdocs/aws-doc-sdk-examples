@@ -667,6 +667,7 @@ public async Task<Cluster> CreateClusterAsync(...)
 
 // ❌ WRONG - Old format
 // snippet-start:[dotnetv4.example_code.redshift.CreateCluster]
+// snippet-end:[dotnetv4.example_code.redshift.CreateCluster]
 ```
 
 **Format**: `[{Service}.dotnetv4.{ActionName}]`
