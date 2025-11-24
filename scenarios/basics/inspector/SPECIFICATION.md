@@ -1,6 +1,8 @@
 # Amazon Inspector Specification
 
-This document contains the specification for the *Amazon Inspector Basics Scenario*, based on the implemented Java code examples in `javav2/example_code/inspector/`. The specification describes the actual code example scenario that demonstrates Amazon Inspector V2 vulnerability management capabilities using the AWS SDK for Java V2.
+This document contains the specification for the *Amazon Inspector Basics Scenario*, based on the implemented Java code examples in `javav2/example_code/inspector/`. 
+
+The specification describes the actual code example scenario that demonstrates Amazon Inspector V2 vulnerability management capabilities using the AWS SDK for Java V2.
 
 ### Relevant documentation
 
