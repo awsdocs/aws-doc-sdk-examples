@@ -10,6 +10,7 @@ using Amazon.Redshift;
 using Amazon.RedshiftDataAPIService;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using RedshiftActions;
 
 namespace RedshiftBasics;
@@ -22,6 +23,7 @@ public class RedshiftBasics
 {
     public static bool IsInteractive = true;
     public static RedshiftWrapper? Wrapper = null;
+    public static ILogger logger = null!;
     private static readonly string _moviesFilePath = "../../../../../../resources/sample_files/movies.json";
 
     /// <summary>
@@ -37,6 +39,9 @@ public class RedshiftBasics
                     .AddTransient<RedshiftWrapper>()
             )
             .Build();
+
+        logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
+            .CreateLogger<RedshiftBasics>();
 
         Wrapper = host.Services.GetRequiredService<RedshiftWrapper>();
 
