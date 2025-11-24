@@ -74,7 +74,8 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
     ao_cpd = /aws1/cl_cpd_factory=>create( ao_session ).
     ao_cpd_actions = NEW zcl_aws1_cpd_actions( ).
 
-    DATA(lv_uuid) = cl_system_uuid=>create_uuid_x16_static( ).
+    DATA lv_uuid TYPE sysuuid_x16.
+    lv_uuid = cl_system_uuid=>create_uuid_x16_static( ).
     av_lv_account_id = ao_session->get_account_id( ).
 
     " Setup buckets for classifier training and job output
@@ -90,7 +91,8 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
     ENDIF.
 
     " Create S3 buckets
-    DATA(lo_s3) = /aws1/cl_s3_factory=>create( ao_session ).
+    DATA lo_s3 TYPE REF TO /aws1/if_s3.
+    lo_s3 = /aws1/cl_s3_factory=>create( ao_session ).
 
     TRY.
         lo_s3->createbucket( iv_bucket = av_training_bucket ).
@@ -119,9 +121,10 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
     ).
 
     " Create IAM role for Comprehend with necessary permissions
-    DATA(lo_iam) = /aws1/cl_iam_factory=>create( ao_session ).
+    DATA lo_iam TYPE REF TO /aws1/if_iam.
+    lo_iam = /aws1/cl_iam_factory=>create( ao_session ).
 
-    DATA lv_role_name TYPE /aws1/iamrolename.
+    DATA lv_role_name TYPE /aws1/iamrolenametype.
     lv_role_name = |ComprehendS3AccessRole|.
 
     DATA lv_assume_role_policy TYPE /aws1/iampolicydocumenttype.
@@ -134,7 +137,8 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
       |\}]\}|.
 
     TRY.
-        DATA(lo_role_result) = lo_iam->createrole(
+        DATA lo_role_result TYPE REF TO /aws1/cl_iamcreateroleresponse.
+        lo_role_result = lo_iam->createrole(
           iv_rolename = lv_role_name
           iv_assumerolepolicydocument = lv_assume_role_policy
           iv_description = 'Role for Comprehend to access S3'
@@ -150,16 +154,18 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
         " Wait for role to propagate
         WAIT UP TO 10 SECONDS.
 
-      CATCH /aws1/cx_iamentityalrdyexists.
+      CATCH /aws1/cx_iamentityalrdyexex.
         " Role already exists, get it
-        DATA(lo_get_role) = lo_iam->getrole( iv_rolename = lv_role_name ).
+        DATA lo_get_role TYPE REF TO /aws1/cl_iamgetroleresponse.
+        lo_get_role = lo_iam->getrole( iv_rolename = lv_role_name ).
         av_role_arn = lo_get_role->get_role( )->get_arn( ).
     ENDTRY.
 
     " Create a document classifier for testing
     av_classifier_name = |test-classifier-{ lv_uuid+0(8) }|.
 
-    DATA(lo_classifier_result) = ao_cpd->createdocumentclassifier(
+    DATA lo_classifier_result TYPE REF TO /aws1/cl_cpdcredocclifierrsp.
+    lo_classifier_result = ao_cpd->createdocumentclassifier(
       iv_documentclassifiername = av_classifier_name
       iv_languagecode = 'en'
       io_inputdataconfig = NEW /aws1/cl_cpddocclifierinpdat00(
@@ -185,12 +191,16 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
 
   METHOD class_teardown.
     " Clean up S3 buckets
-    DATA(lo_s3) = /aws1/cl_s3_factory=>create( ao_session ).
+    DATA lo_s3 TYPE REF TO /aws1/if_s3.
+    lo_s3 = /aws1/cl_s3_factory=>create( ao_session ).
 
     " Clean up training bucket
+    DATA lo_list_result TYPE REF TO /aws1/cl_listobjsv2output.
+    DATA lo_object TYPE REF TO /aws1/cl_s3_object.
+
     TRY.
-        DATA(lo_list_result) = lo_s3->listobjectsv2( iv_bucket = av_training_bucket ).
-        LOOP AT lo_list_result->get_contents( ) INTO DATA(lo_object).
+        lo_list_result = lo_s3->listobjectsv2( iv_bucket = av_training_bucket ).
+        LOOP AT lo_list_result->get_contents( ) INTO lo_object.
           lo_s3->deleteobject(
             iv_bucket = av_training_bucket
             iv_key = lo_object->get_key( )
@@ -225,9 +235,12 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
     ENDIF.
 
     " Clean up IAM role
+    DATA lo_iam TYPE REF TO /aws1/if_iam.
+    DATA lv_role_name TYPE /aws1/iamrolenametype.
+
     TRY.
-        DATA(lo_iam) = /aws1/cl_iam_factory=>create( ao_session ).
-        DATA(lv_role_name) = |ComprehendS3AccessRole|.
+        lo_iam = /aws1/cl_iam_factory=>create( ao_session ).
+        lv_role_name = |ComprehendS3AccessRole|.
 
         " Detach policies first
         TRY.
@@ -235,13 +248,13 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
               iv_rolename = lv_role_name
               iv_policyarn = 'arn:aws:iam::aws:policy/AmazonS3FullAccess'
             ).
-          CATCH /aws1/cx_iamnosuchentity.
+          CATCH /aws1/cx_iamnosuchentityex.
             " Policy not attached
         ENDTRY.
 
         " Delete role
         lo_iam->deleterole( iv_rolename = lv_role_name ).
-      CATCH /aws1/cx_iamnosuchentity.
+      CATCH /aws1/cx_iamnosuchentityex.
         " Role doesn't exist
     ENDTRY.
 
