@@ -95,14 +95,14 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
     TRY.
         lo_s3->createbucket( iv_bucket = av_training_bucket ).
         WAIT UP TO 2 SECONDS.
-      CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bucketalrdyownedbyyou.
+      CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bktalrdyownedbyyou.
         " Bucket already exists, continue
     ENDTRY.
 
     TRY.
         lo_s3->createbucket( iv_bucket = av_output_bucket ).
         WAIT UP TO 2 SECONDS.
-      CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bucketalrdyownedbyyou.
+      CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bktalrdyownedbyyou.
         " Bucket already exists, continue
     ENDTRY.
 
