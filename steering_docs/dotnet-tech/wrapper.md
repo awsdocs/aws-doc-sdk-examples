@@ -41,94 +41,86 @@ dotnetv4/{Service}/Actions/
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-/// <summary>
-/// Purpose
-/// 
-/// Shows how to use the AWS SDK for .NET with {AWS Service} to
-/// {service description and main use cases}.
-/// </summary>
-
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Amazon.{Service};
 using Amazon.{Service}.Model;
-using Microsoft.Extensions.Logging;
+using Amazon.{ServiceDataAPI};
+using Amazon.{ServiceDataAPI}.Model;
 
-namespace Amazon.DocSamples.{Service}
+namespace {Service}Actions;
+
+// snippet-start:[{Service}.dotnetv4.{Service}Wrapper]
+/// <summary>
+/// Wrapper class for Amazon {Service} operations.
+/// </summary>
+public class {Service}Wrapper
 {
-    // snippet-start:[dotnetv4.example_code.{service}.{Service}Wrapper]
+    private readonly Amazon{Service}Client _{service}Client;
+    private readonly Amazon{ServiceDataAPI}Client _{service}DataClient;
+
     /// <summary>
-    /// Encapsulates {AWS Service} functionality.
+    /// Constructor for {Service}Wrapper.
     /// </summary>
-    public class {Service}Wrapper
+    /// <param name="{service}Client">Amazon {Service} client.</param>
+    /// <param name="{service}DataClient">Amazon {Service} Data API client.</param>
+    public {Service}Wrapper(Amazon{Service}Client {service}Client, Amazon{ServiceDataAPI}Client {service}DataClient)
     {
-        private readonly IAmazon{Service} _{service}Client;
-        private readonly ILogger<{Service}Wrapper> _logger;
-
-        /// <summary>
-        /// Initializes a new instance of the {Service}Wrapper class.
-        /// </summary>
-        /// <param name="{service}Client">The {AWS Service} client.</param>
-        /// <param name="logger">The logger instance.</param>
-        public {Service}Wrapper(IAmazon{Service} {service}Client, ILogger<{Service}Wrapper> logger)
-        {
-            _{service}Client = {service}Client;
-            _logger = logger;
-        }
-
+        _{service}Client = {service}Client;
+        _{service}DataClient = {service}DataClient;
     }
-    // snippet-end:[dotnetv4.example_code.{service}.{Service}Wrapper]
 
     // Individual action methods follow...
 }
+// snippet-end:[{Service}.dotnetv4.{Service}Wrapper]
+```
+
+**Key Changes:**
+- ✅ Use file-scoped namespaces
+- ✅ Use concrete client types (not interfaces) for simpler construction
+- ✅ No logger dependency (use Console.WriteLine for output)
+- ✅ Include both service client and data API client if needed
 ```
 
 ## Action Method Pattern
 ```csharp
-        // snippet-start:[dotnetv4.example_code.{service}.{ActionName}]
-        /// <summary>
-        /// {Action description}.
-        /// </summary>
-        /// <param name="param">Parameter description.</param>
-        /// <returns>Response description.</returns>
-        public async Task<{ActionName}Response> {ActionMethod}Async(string param)
+    // snippet-start:[{Service}.dotnetv4.{ActionName}]
+    /// <summary>
+    /// {Action description}.
+    /// </summary>
+    /// <param name="param">Parameter description.</param>
+    /// <returns>Response description.</returns>
+    public async Task<{ReturnType}> {ActionMethod}Async(string param)
+    {
+        try
         {
-            try
+            var request = new {ActionName}Request
             {
-                var request = new {ActionName}Request
-                {
-                    Parameter = param
-                };
-                
-                var response = await _{service}Client.{ActionName}Async(request);
-                _logger.LogInformation("{Action} completed successfully", "{ActionName}");
-                return response;
-            }
-            catch (Amazon{Service}Exception ex)
-            {
-                var errorCode = ex.ErrorCode;
-                if (errorCode == "SpecificError")
-                {
-                    _logger.LogError("Specific error handling message");
-                }
-                else if (errorCode == "AnotherSpecificError")
-                {
-                    _logger.LogError("Another specific error handling message");
-                }
-                else
-                {
-                    _logger.LogError("Error in {ActionName}: {Message}", ex.Message);
-                }
-                throw;
-            }
+                Parameter = param
+            };
+            
+            var response = await _{service}Client.{ActionName}Async(request);
+            Console.WriteLine($"{Action} completed successfully");
+            return response.{Property};
         }
-        // snippet-end:[dotnetv4.example_code.{service}.{ActionName}]
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in {ActionName}: {ex.Message}");
+            throw;
+        }
+    }
+    // snippet-end:[{Service}.dotnetv4.{ActionName}]
 ```
+
+**Key Changes:**
+- ✅ Use Console.WriteLine instead of logger
+- ✅ Simplified error handling (catch Exception instead of service-specific)
+- ✅ Return specific types instead of full response objects when appropriate
 
 ## Paginator Pattern for List Operations
 ```csharp
-        // snippet-start:[dotnetv4.example_code.{service}.List{Resources}]
+        // snippet-start:[{Service}.dotnetv4.List{Resources}]
         /// <summary>
         /// Lists all {resources} using pagination to retrieve complete results.
         /// </summary>
@@ -162,12 +154,12 @@ namespace Amazon.DocSamples.{Service}
                 throw;
             }
         }
-        // snippet-end:[dotnetv4.example_code.{service}.List{Resources}]
+        // snippet-end:[{Service}.dotnetv4.List{Resources}]
 ```
 
 ## Paginator with Parameters Pattern
 ```csharp
-        // snippet-start:[dotnetv4.example_code.{service}.List{Resources}WithFilter]
+        // snippet-start:[{Service}.dotnetv4.List{Resources}WithFilter]
         /// <summary>
         /// Lists {resources} with optional filtering, using pagination.
         /// </summary>
@@ -200,7 +192,7 @@ namespace Amazon.DocSamples.{Service}
                 throw;
             }
         }
-        // snippet-end:[dotnetv4.example_code.{service}.List{Resources}WithFilter]
+        // snippet-end:[{Service}.dotnetv4.List{Resources}WithFilter]
 ```
 
 ## Error Handling Requirements
@@ -291,3 +283,24 @@ await foreach (var response in itemsPaginator.Responses)
 - Include usage examples in XML documentation where helpful
 - Use proper snippet tags for documentation generation
 - Document pagination behavior in list method XML documentation
+
+## Snippet Tag Format
+**CRITICAL**: Use the correct snippet tag format for all code examples:
+
+```csharp
+// ✅ CORRECT - Service name first, then dotnetv4
+// snippet-start:[Redshift.dotnetv4.CreateCluster]
+public async Task<Cluster> CreateClusterAsync(...)
+{
+    // Implementation
+}
+// snippet-end:[Redshift.dotnetv4.CreateCluster]
+
+// ❌ WRONG - Old format
+// snippet-start:[dotnetv4.example_code.redshift.CreateCluster]
+```
+
+**Format**: `[{Service}.dotnetv4.{ActionName}]`
+- Service name in PascalCase (e.g., Redshift, S3, DynamoDB)
+- Followed by `.dotnetv4.`
+- Action name in PascalCase (e.g., CreateCluster, ListBuckets, Hello)

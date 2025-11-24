@@ -45,12 +45,16 @@ dotnet format                      # Format code
 - **Documentation**: Include XML documentation explaining the hello example purpose
 
 #### Code Structure Standards
-- **Namespace naming**: Use reverse domain notation (e.g., `Amazon.DocSamples.S3`)
+- **Namespace naming**: Use file-scoped namespaces (e.g., `namespace RedshiftActions;`)
 - **Class structure**: One public class per file matching filename
 - **Method naming**: Use PascalCase for method names
 - **Properties**: Use PascalCase for property names
 - **Constants**: Use PascalCase for constants
 - **Async methods**: Suffix with `Async` (e.g., `ListBucketsAsync`)
+- **Indentation**: Use 4 spaces (no tabs), proper indentation after file-scoped namespace
+- **Target Framework**: .NET 8.0 (`<TargetFramework>net8.0</TargetFramework>`)
+- **Language Version**: Latest (`<LangVersion>latest</LangVersion>`)
+- **Snippet tags**: Use format `[{Service}.dotnetv4.{ActionName}]` (e.g., `[Redshift.dotnetv4.CreateCluster]`)
 
 #### Dependency Injection Patterns
 ```csharp
@@ -130,16 +134,27 @@ public class ExampleClass
 
 #### Project Structure
 ```
-src/
-├── {Service}Examples/
-│   ├── Hello{Service}.cs
-│   ├── {Service}Actions.cs
-│   ├── {Service}Scenarios.cs
-│   └── {Service}Examples.csproj
-└── {Service}Examples.Tests/
-    ├── {Service}Tests.cs
-    └── {Service}Examples.Tests.csproj
+dotnetv4/{Service}/
+├── Actions/
+│   ├── Hello{Service}.cs          # Hello example (with Main method)
+│   ├── {Service}Wrapper.cs        # Service wrapper class
+│   └── {Service}Actions.csproj    # Actions project file
+├── Scenarios/
+│   ├── {Service}Basics.cs         # Basics scenario
+│   └── {Service}Basics.csproj     # Scenarios project file
+├── Tests/
+│   ├── {Service}IntegrationTests.cs  # Integration tests only
+│   └── {Service}Tests.csproj      # Test project file
+└── {Service}Examples.sln          # Service-specific solution file
 ```
+
+**CRITICAL Project Organization Rules:**
+- ✅ **Hello examples MUST be in the Actions project** with a Main method
+- ✅ **Integration tests ONLY** - no separate unit tests for wrapper methods
+- ✅ **No separate Hello project** - Hello is part of Actions
+- ✅ **No separate IntegrationTests project** - all tests in Tests project
+- ✅ **Create a service-specific solution file** named {Service}Examples.sln
+- ✅ **Solution must include**: Actions, Scenarios, and Tests projects only
 
 #### Documentation Requirements
 - **XML documentation**: Use `///` for class and method documentation
@@ -176,21 +191,49 @@ src/
 - ✅ **ALWAYS create examples in the dotnetv4 directory unless instructed otherwise**
 - ✅ **ALWAYS follow the established .NET project structure**
 - ✅ **ALWAYS use PascalCase for .NET identifiers**
+- ✅ **ALWAYS use file-scoped namespaces** (namespace Name; instead of namespace Name { })
 - ✅ **ALWAYS use using statements for AWS client management**
 - ✅ **ALWAYS include proper exception handling for AWS service calls**
 - ✅ **ALWAYS test AWS credentials before assuming credential issues**
 - ✅ **ALWAYS include comprehensive XML documentation**
 - ✅ **ALWAYS use async/await patterns for AWS operations**
 - ✅ **ALWAYS use dependency injection for AWS services**
-- ✅ **ALWAYS create a separate class in the Actions project for the Hello example**
-- ✅ **ALWAYS add project files to the main solution file DotNetV4Examples.sln**
+- ✅ **ALWAYS create Hello example in the Actions project** with a Main method
+- ✅ **ALWAYS create a service-specific solution file** (e.g., Redshift.sln)
+- ✅ **ALWAYS target .NET 8.0** with latest language version
+- ✅ **ALWAYS put integration tests in the Tests project** (no separate IntegrationTests project)
 - ✅ **ALWAYS put print statements in the action methods if possible**
+- ✅ **ALWAYS update package versions** to avoid NU1603 warnings
 
 ### Project Configuration Requirements
-- **Target Framework**: Specify appropriate .NET version in .csproj
-- **AWS SDK packages**: Include specific AWS service NuGet packages
-- **Test packages**: Include xUnit and test runner packages
+- **Target Framework**: .NET 8.0 (`<TargetFramework>net8.0</TargetFramework>`)
+- **Language Version**: Latest (`<LangVersion>latest</LangVersion>`)
+- **AWS SDK packages**: Include specific AWS service NuGet packages (use latest versions)
+- **Test packages**: Include MSTest and test runner packages
 - **Configuration**: Support for appsettings.json and environment variables
+- **Nullable**: Enable nullable reference types (`<Nullable>enable</Nullable>`)
+
+### Solution File Management
+Each service should have its own solution file in the service directory:
+
+```bash
+# Create solution file
+dotnet new sln -n {Service}Examples -o dotnetv4/{Service}
+
+# Add projects to solution
+dotnet sln dotnetv4/{Service}/{Service}Examples.sln add dotnetv4/{Service}/Actions/{Service}Actions.csproj
+dotnet sln dotnetv4/{Service}/{Service}Examples.sln add dotnetv4/{Service}/Scenarios/{Service}Basics.csproj
+dotnet sln dotnetv4/{Service}/{Service}Examples.sln add dotnetv4/{Service}/Tests/{Service}Tests.csproj
+
+# Build solution
+dotnet build dotnetv4/{Service}/{Service}Examples.sln
+```
+
+**Solution Structure:**
+- ✅ **3 projects only**: Actions, Scenarios, Tests
+- ✅ **No solution folders** - flat structure
+- ✅ **Service-specific naming**: {Service}Examples.sln (e.g., RedshiftExamples.sln)
+- ✅ **Located in service directory**: dotnetv4/{Service}/{Service}Examples.sln
 
 ### Integration with Knowledge Base
 Before creating .NET code examples:

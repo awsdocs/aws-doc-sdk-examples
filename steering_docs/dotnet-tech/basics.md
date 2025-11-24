@@ -393,3 +393,394 @@ catch (Amazon{Service}Exception ex)
 - Provide context about service capabilities from specification
 - Include tips and best practices mentioned in specification
 - Follow the educational flow described in specification structure
+
+---
+
+# 
+.NET v4 Project Organization Standards
+
+## Overview
+This section outlines the standardized project structure and organization for .NET v4 AWS SDK examples, based on the Redshift implementation.
+
+## Project Structure
+
+### Directory Layout
+```
+dotnetv4/{Service}/
+├── Actions/
+│   ├── Hello{Service}.cs          # Hello example (with Main method)
+│   ├── {Service}Wrapper.cs        # Service wrapper class
+│   └── {Service}Actions.csproj    # Actions project file
+├── Scenarios/
+│   ├── {Service}Basics.cs         # Basics scenario
+│   └── {Service}Basics.csproj     # Scenarios project file
+├── Tests/
+│   ├── {Service}IntegrationTests.cs  # Integration tests
+│   └── {Service}Tests.csproj      # Test project file
+└── {Service}Examples.sln          # Service-specific solution file
+```
+
+## Critical Organization Rules
+
+### ✅ DO
+- **Create service-specific solution files** in the service directory (e.g., `RedshiftExamples.sln`)
+- **Name solution files** as `{Service}Examples.sln` for consistency
+- **Include Hello example in Actions project** with a Main method
+- **Put integration tests in Tests project** (no separate IntegrationTests project)
+- **Use 3 projects only**: Actions, Scenarios, Tests
+- **Use flat solution structure** (no solution folders)
+- **Target .NET 8.0** with latest language version
+- **Use file-scoped namespaces** (namespace Name; instead of namespace Name { })
+- **Update package versions** to latest to avoid NU1603 warnings
+
+### ❌ DON'T
+- **Don't create separate Hello project** - it belongs in Actions
+- **Don't create separate IntegrationTests project** - use Tests project
+- **Don't use solution folders** - keep flat structure
+- **Don't target .NET Framework 4.8** - use .NET 8.0
+- **Don't use traditional namespaces** - use file-scoped
+- **Don't create unit tests with mocks** - use integration tests only
+
+## Project Configuration
+
+### Actions Project (.csproj)
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>{Service}Actions</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.301" />
+    <PackageReference Include="AWSSDK.{Service}" Version="3.7.500" />
+    <PackageReference Include="AWSSDK.{ServiceDataAPI}" Version="3.7.500" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="settings.*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DependentUpon>settings.json</DependentUpon>
+    </Content>
+  </ItemGroup>
+</Project>
+```
+
+**Key Points:**
+- `<OutputType>Exe</OutputType>` - Required for Hello example Main method
+- `<TargetFramework>net8.0</TargetFramework>` - Use .NET 8.0
+- `<LangVersion>latest</LangVersion>` - Enable latest C# features
+- Include Microsoft.Extensions packages for dependency injection in Hello example
+- Use latest stable AWS SDK package versions (3.7.500 for AWS services)
+
+### Scenarios Project (.csproj)
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>{Service}Basics</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.{Service}" Version="3.7.500" />
+    <PackageReference Include="AWSSDK.{ServiceDataAPI}" Version="3.7.500" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Actions\{Service}Actions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="settings.*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DependentUpon>settings.json</DependentUpon>
+    </Content>
+  </ItemGroup>
+</Project>
+```
+
+### Tests Project (.csproj)
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>{Service}Tests</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.6.3" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.6.3" />
+    <PackageReference Include="coverlet.collector" Version="6.0.2" />
+    <PackageReference Include="AWSSDK.{Service}" Version="3.7.500" />
+    <PackageReference Include="AWSSDK.{ServiceDataAPI}" Version="3.7.500" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Actions\{Service}Actions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="settings.*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DependentUpon>settings.json</DependentUpon>
+    </Content>
+  </ItemGroup>
+</Project>
+```
+
+**Key Points:**
+- Use MSTest framework (not xUnit)
+- No `<OutputType>` - tests are libraries
+- Reference Actions project only
+- Use latest stable test framework versions
+
+## Solution File Management
+
+### Creating Solution File
+```bash
+# Navigate to service directory
+cd dotnetv4/{Service}
+
+# Create solution file
+dotnet new sln -n {Service}Examples
+
+# Add projects
+dotnet sln {Service}Examples.sln add Actions/{Service}Actions.csproj
+dotnet sln {Service}Examples.sln add Scenarios/{Service}Basics.csproj
+dotnet sln {Service}Examples.sln add Tests/{Service}Tests.csproj
+
+# Build solution
+dotnet build {Service}Examples.sln
+```
+
+### Solution File Structure
+```
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "{Service}Actions", "Actions\{Service}Actions.csproj", "{GUID1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "{Service}Basics", "Scenarios\{Service}Basics.csproj", "{GUID2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "{Service}Tests", "Tests\{Service}Tests.csproj", "{GUID3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{GUID1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{GUID1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{GUID1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{GUID1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{GUID2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{GUID2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{GUID2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{GUID2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{GUID3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{GUID3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{GUID3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{GUID3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {SOLUTION-GUID}
+	EndGlobalSection
+EndGlobal
+```
+
+## Code Style Standards
+
+### File-Scoped Namespaces
+```csharp
+// ✅ CORRECT - File-scoped namespace
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+using System;
+using System.Threading.Tasks;
+using Amazon.Redshift;
+
+namespace RedshiftActions;
+
+public class HelloRedshift
+{
+    public static async Task Main(string[] args)
+    {
+        // Implementation
+    }
+}
+```
+
+```csharp
+// ❌ WRONG - Traditional namespace
+namespace RedshiftActions
+{
+    public class HelloRedshift
+    {
+        public static async Task Main(string[] args)
+        {
+            // Implementation
+        }
+    }
+}
+```
+
+### Indentation
+- Use 4 spaces (no tabs)
+- No extra indentation after file-scoped namespace
+- Consistent indentation throughout
+
+### Snippet Tags
+**CRITICAL**: Use the correct snippet tag format for all code examples:
+
+```csharp
+// ✅ CORRECT - Service name first, then dotnetv4
+// snippet-start:[Redshift.dotnetv4.CreateCluster]
+public async Task<Cluster> CreateClusterAsync(...)
+{
+    // Implementation
+}
+// snippet-end:[Redshift.dotnetv4.CreateCluster]
+
+// ❌ WRONG - Old format
+// snippet-start:[dotnetv4.example_code.redshift.CreateCluster]
+```
+
+**Format**: `[{Service}.dotnetv4.{ActionName}]`
+- Service name in PascalCase (e.g., Redshift, S3, DynamoDB)
+- Followed by `.dotnetv4.`
+- Action name in PascalCase (e.g., CreateCluster, ListBuckets, Hello)
+- For wrapper class: `[{Service}.dotnetv4.{Service}Wrapper]`
+- For scenarios: `[{Service}.dotnetv4.{Service}Scenario]`
+
+## Testing Standards
+
+### Integration Tests Only
+- **No unit tests with mocks** - test against real AWS services
+- **Use MSTest framework** - not xUnit
+- **Test complete workflows** - not individual methods
+- **Proper resource cleanup** - use ClassCleanup method
+- **Use TestCategory attributes** - for test organization
+
+### Test Class Structure
+```csharp
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+using System;
+using System.Threading.Tasks;
+using Amazon.Redshift;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RedshiftActions;
+
+namespace RedshiftTests;
+
+[TestClass]
+public class RedshiftIntegrationTests
+{
+    private static RedshiftWrapper? _redshiftWrapper;
+    
+    [ClassInitialize]
+    public static void ClassInitialize(TestContext context)
+    {
+        // Initialize clients
+    }
+    
+    [ClassCleanup]
+    public static async Task ClassCleanup()
+    {
+        // Clean up resources
+    }
+    
+    [TestMethod]
+    [TestCategory("Integration")]
+    public async Task TestOperation()
+    {
+        // Test implementation
+    }
+}
+```
+
+## Migration Checklist
+
+When updating existing projects to new standards:
+
+- [ ] Create service-specific solution file
+- [ ] Move Hello example to Actions project
+- [ ] Add `<OutputType>Exe</OutputType>` to Actions project
+- [ ] Consolidate integration tests into Tests project
+- [ ] Remove separate IntegrationTests project
+- [ ] Update all projects to target .NET 8.0
+- [ ] Add `<LangVersion>latest</LangVersion>` to all projects
+- [ ] Convert all namespaces to file-scoped
+- [ ] Fix indentation (remove extra level after namespace)
+- [ ] Update AWS SDK package versions to latest
+- [ ] Remove solution folders (use flat structure)
+- [ ] Update test framework to MSTest if using xUnit
+- [ ] Remove unit tests with mocks
+- [ ] Verify solution builds without warnings
+
+## Build and Test Commands
+
+```bash
+# Build solution
+dotnet build dotnetv4/{Service}/{Service}Examples.sln
+
+# Run all tests
+dotnet test dotnetv4/{Service}/{Service}Examples.sln
+
+# Run integration tests only
+dotnet test dotnetv4/{Service}/Tests/{Service}Tests.csproj --filter TestCategory=Integration
+
+# Run Hello example
+dotnet run --project dotnetv4/{Service}/Actions/{Service}Actions.csproj
+
+# Run Basics scenario
+dotnet run --project dotnetv4/{Service}/Scenarios/{Service}Basics.csproj
+```
+
+## Common Issues and Solutions
+
+### Issue: Package version warnings (NU1603)
+**Solution:** Update all AWS SDK packages to latest version (e.g., 3.7.401)
+
+### Issue: C# language version errors
+**Solution:** Add `<LangVersion>latest</LangVersion>` to all project files
+
+### Issue: Hello example won't run
+**Solution:** Ensure Actions project has `<OutputType>Exe</OutputType>`
+
+### Issue: Build errors after namespace conversion
+**Solution:** Check indentation - no extra level after file-scoped namespace
+
+### Issue: Tests not discovered
+**Solution:** Ensure using MSTest attributes ([TestClass], [TestMethod])
+
+## References
+- Main steering doc: `steering_docs/dotnet-tech.md`
+- Hello examples: `steering_docs/dotnet-tech/hello.md`
+- Tests: `steering_docs/dotnet-tech/tests.md`
+- Wrapper: `steering_docs/dotnet-tech/wrapper.md`
