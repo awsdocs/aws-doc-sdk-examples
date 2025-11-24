@@ -622,9 +622,14 @@ CLASS ltc_zcl_aws1_cpd_actions IMPLEMENTATION.
 
   METHOD create_document_classifier.
     " This test creates a new classifier (separate from the one in class_setup)
-    DATA(lv_uuid) = cl_system_uuid=>create_uuid_x16_static( ).
-    DATA(lv_timestamp) = cl_abap_tstmp=>get_timestamp( ).
-    DATA(lv_test_classifier_name) = |test-create-{ lv_uuid+0(6) }-{ lv_timestamp+8(6) }|.
+    DATA lv_uuid TYPE sysuuid_x16.
+    DATA lv_timestamp TYPE timestamp.
+    DATA lv_timestamp_string TYPE string.
+    
+    lv_uuid = cl_system_uuid=>create_uuid_x16_static( ).
+    GET TIME STAMP FIELD lv_timestamp.
+    lv_timestamp_string = lv_timestamp.
+    DATA(lv_test_classifier_name) = |test-create-{ lv_uuid+0(6) }-{ lv_timestamp_string+8(6) }|.
 
     TRY.
         DATA(lo_result) = ao_cpd_actions->create_document_classifier(
