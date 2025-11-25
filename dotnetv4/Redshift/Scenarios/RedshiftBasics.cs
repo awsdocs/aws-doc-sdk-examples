@@ -53,6 +53,13 @@ public class RedshiftBasics
     /// </summary>
     public static async Task RunScenarioAsync()
     {
+        // Set all variables to default values
+        string userName = "awsuser";
+        string userPassword = "AwsUser1000";
+        string clusterIdentifier = "redshift-cluster-movies";
+        var databaseName = "dev";
+        int recordCount = 50;
+        int year = 2013;
         try
         {
             Console.WriteLine(
@@ -64,24 +71,16 @@ public class RedshiftBasics
             Console.WriteLine(
                 "================================================================================");
 
-            // Set all variables to default values
-            string userName = "awsuser";
-            string userPassword = "AwsUser1000";
-            string clusterIdentifier = "redshift-cluster-movies";
-            var databaseName = "dev";
-            int recordCount = 50;
-            int year = 2013;
-
             // Step 1: Get user credentials (if interactive)
             if (IsInteractive)
             {
-                Console.WriteLine("Please enter your user name (default is awsuser):");
+                Console.WriteLine("Please enter a user name for the cluster (default is awsuser):");
                 var userInput = Console.ReadLine();
                 if (!string.IsNullOrEmpty(userInput))
                     userName = userInput;
 
                 Console.WriteLine("================================================================================");
-                Console.WriteLine("Please enter your user password (default is AwsUser1000):");
+                Console.WriteLine("Please enter a user password for the cluster (default is AwsUser1000):");
                 var passwordInput = Console.ReadLine();
                 if (!string.IsNullOrEmpty(passwordInput))
                     userPassword = passwordInput;
@@ -105,7 +104,7 @@ public class RedshiftBasics
 
             // Step 4: Wait for cluster to become available
             Console.WriteLine("================================================================================");
-            await Wrapper.WaitForClusterAvailableAsync(clusterIdentifier, IsInteractive);
+            await Wrapper.WaitForClusterAvailableAsync(clusterIdentifier);
             Console.WriteLine("================================================================================");
 
             // Step 5: List databases
@@ -152,7 +151,7 @@ public class RedshiftBasics
                 Console.Write("Enter a value: ");
 
                 var recordCountInput = Console.ReadLine();
-                if (int.TryParse(recordCountInput, out var inputCount) && inputCount >= 50 && inputCount <= 200)
+                if (int.TryParse(recordCountInput, out var inputCount) && inputCount is >= 50 and <= 200)
                 {
                     recordCount = inputCount;
                 }
@@ -178,7 +177,7 @@ public class RedshiftBasics
             {
                 Console.Write("Enter a year: ");
                 var yearInput = Console.ReadLine();
-                if (int.TryParse(yearInput, out var inputYear) && inputYear >= 2012 && inputYear <= 2014)
+                if (int.TryParse(yearInput, out var inputYear) && inputYear is >= 2012 and <= 2014)
                 {
                     year = inputYear;
                 }
@@ -212,15 +211,15 @@ public class RedshiftBasics
             {
                 Console.WriteLine("Would you like to delete the Amazon Redshift cluster? (y/n)");
                 var deleteResponse = Console.ReadLine();
-                if (deleteResponse?.ToLower() == "y" || deleteResponse?.ToLower() == "yes")
+                if (deleteResponse?.ToLower() == "y")
                 {
-                    await Wrapper.DeleteClusterAsync(clusterIdentifier);
+                    await Wrapper.DeleteClusterWithoutSnapshotAsync(clusterIdentifier);
                 }
             }
             else
             {
-                Console.WriteLine("Deleting the Amazon Redshift cluster (non-interactive mode)...");
-                await Wrapper.DeleteClusterAsync(clusterIdentifier);
+                Console.WriteLine("Deleting the Amazon Redshift cluster...");
+                await Wrapper.DeleteClusterWithoutSnapshotAsync(clusterIdentifier);
             }
             Console.WriteLine("================================================================================");
 
@@ -231,6 +230,8 @@ public class RedshiftBasics
         catch (Exception ex)
         {
             Console.WriteLine($"An error occurred during the scenario: {ex.Message}");
+            Console.WriteLine("Deleting the Amazon Redshift cluster...");
+            await Wrapper!.DeleteClusterWithoutSnapshotAsync(clusterIdentifier);
             throw;
         }
     }

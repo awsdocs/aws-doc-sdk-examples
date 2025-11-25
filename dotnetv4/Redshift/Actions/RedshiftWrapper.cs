@@ -84,18 +84,31 @@ public class RedshiftWrapper
     {
         try
         {
+            var clusters = new List<Cluster>();
             var request = new DescribeClustersRequest();
             if (!string.IsNullOrEmpty(clusterIdentifier))
             {
                 request.ClusterIdentifier = clusterIdentifier;
             }
 
-            var response = await _redshiftClient.DescribeClustersAsync(request);
-            return response.Clusters;
+            var clustersPaginator = _redshiftClient.Paginators.DescribeClusters(request);
+            await foreach (var response in clustersPaginator.Responses)
+            {
+                if (response.Clusters != null)
+                    clusters.AddRange(response.Clusters);
+            }
+
+            Console.WriteLine($"{clusters.Count} cluster(s) retrieved.");
+            foreach (var cluster in clusters)
+            {
+                Console.WriteLine($"\t{cluster.ClusterIdentifier} (Status: {cluster.ClusterStatus})");
+            }
+
+            return clusters;
         }
         catch (ClusterNotFoundException ex)
         {
-            Console.WriteLine($"Cluster not found: {ex.Message}");
+            Console.WriteLine($"Cluster {clusterIdentifier} not found: {ex.Message}");
             throw;
         }
         catch (Exception ex)
@@ -112,8 +125,8 @@ public class RedshiftWrapper
     /// </summary>
     /// <param name="clusterIdentifier">The identifier for the cluster.</param>
     /// <param name="preferredMaintenanceWindow">The preferred maintenance window.</param>
-    /// <returns>The modified cluster.</returns>
-    public async Task<Cluster> ModifyClusterAsync(string clusterIdentifier, string preferredMaintenanceWindow)
+    /// <returns>True if successful.</returns>
+    public async Task<bool> ModifyClusterAsync(string clusterIdentifier, string preferredMaintenanceWindow)
     {
         try
         {
@@ -124,29 +137,29 @@ public class RedshiftWrapper
             };
 
             var response = await _redshiftClient.ModifyClusterAsync(request);
-            Console.WriteLine($"The modified cluster was successfully modified and has {preferredMaintenanceWindow} as the maintenance window");
-            return response.Cluster;
+            Console.WriteLine($"The modified cluster was successfully modified and has {response.Cluster.PreferredMaintenanceWindow} as the maintenance window");
+            return true;
         }
         catch (ClusterNotFoundException ex)
         {
-            Console.WriteLine($"Cluster not found: {ex.Message}");
-            throw;
+            Console.WriteLine($"Cluster {clusterIdentifier} not found: {ex.Message}");
+            return false;
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Couldn't modify cluster. Here's why: {ex.Message}");
-            throw;
+            return false;
         }
     }
     // snippet-end:[Redshift.dotnetv4.ModifyCluster]
 
     // snippet-start:[Redshift.dotnetv4.DeleteCluster]
     /// <summary>
-    /// Delete an Amazon Redshift cluster.
+    /// Delete an Amazon Redshift cluster without a final snapshot.
     /// </summary>
     /// <param name="clusterIdentifier">The identifier for the cluster.</param>
-    /// <returns>The deleted cluster.</returns>
-    public async Task<Cluster> DeleteClusterAsync(string clusterIdentifier)
+    /// <returns>True if successful.</returns>
+    public async Task<bool> DeleteClusterWithoutSnapshotAsync(string clusterIdentifier)
     {
         try
         {
@@ -158,17 +171,17 @@ public class RedshiftWrapper
 
             var response = await _redshiftClient.DeleteClusterAsync(request);
             Console.WriteLine($"The {clusterIdentifier} was deleted");
-            return response.Cluster;
+            return true;
         }
         catch (ClusterNotFoundException ex)
         {
             Console.WriteLine($"Cluster not found: {ex.Message}");
-            throw;
+            return false;
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Couldn't delete cluster. Here's why: {ex.Message}");
-            throw;
+            return false;
         }
     }
     // snippet-end:[Redshift.dotnetv4.DeleteCluster]
@@ -468,18 +481,10 @@ public class RedshiftWrapper
     /// Wait for a cluster to become available.
     /// </summary>
     /// <param name="clusterIdentifier">The cluster identifier.</param>
-    /// <param name="isInteractive">Whether to prompt for user input.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    public async Task WaitForClusterAvailableAsync(string clusterIdentifier, bool isInteractive = true)
+    public async Task WaitForClusterAvailableAsync(string clusterIdentifier)
     {
-        Console.WriteLine($"Wait until {clusterIdentifier} is available.");
-        if (isInteractive)
-        {
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
-        }
-
-        Console.WriteLine("Waiting for cluster to become available. This may take a few minutes.");
+        Console.WriteLine($"Wait until {clusterIdentifier} is available. This may take a few minutes.");
 
         var startTime = DateTime.Now;
         var clusters = await DescribeClustersAsync(clusterIdentifier);

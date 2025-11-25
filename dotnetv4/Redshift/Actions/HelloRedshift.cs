@@ -26,12 +26,7 @@ public class HelloRedshift
     {
         var redshiftClient = new AmazonRedshiftClient();
 
-        logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
-            .CreateLogger<HelloRedshift>();
-
-        Console.Clear();
         Console.WriteLine("Hello, Amazon Redshift! Let's list available clusters:");
-        Console.WriteLine();
 
         var clusters = new List<Cluster>();
 
@@ -55,12 +50,10 @@ public class HelloRedshift
         }
         catch (AmazonRedshiftException ex)
         {
-            logger.LogError("Error listing clusters: {Message}", ex.Message);
-            Console.WriteLine($"Couldn't list clusters. Error: {ex.Message}");
+            Console.WriteLine($"Couldn't list clusters. Here's why: {ex.Message}");
         }
         catch (Exception ex)
         {
-            logger.LogError("An error occurred: {Message}", ex.Message);
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
     }
