@@ -159,7 +159,7 @@ public class {Service}Wrapper
 
 ## Paginator with Parameters Pattern
 ```csharp
-        // snippet-start:[{Service}.dotnetv4.List{Resources}WithFilter]
+        // snippet-start:[{Service}.dotnetv4.List{Resources}WithFilterSteering]
         /// <summary>
         /// Lists {resources} with optional filtering, using pagination.
         /// </summary>

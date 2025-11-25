@@ -658,16 +658,16 @@ namespace RedshiftActions
 
 ```csharp
 // ✅ CORRECT - Service name first, then dotnetv4
-// snippet-start:[Redshift.dotnetv4.CreateCluster]
+// snippet-start:[Redshift.dotnetv4.CreateClusterSteering]
 public async Task<Cluster> CreateClusterAsync(...)
 {
     // Implementation
 }
-// snippet-end:[Redshift.dotnetv4.CreateCluster]
+// snippet-end:[Redshift.dotnetv4.CreateClusterSteering]
 
 // ❌ WRONG - Old format
-// snippet-start:[dotnetv4.example_code.redshift.CreateCluster]
-// snippet-end:[dotnetv4.example_code.redshift.CreateCluster]
+// snippet-start:[dotnetv4.example_code.redshift.CreateClusterSteering]
+// snippet-end:[dotnetv4.example_code.redshift.CreateClusterSteering]
 ```
 
 **Format**: `[{Service}.dotnetv4.{ActionName}]`
