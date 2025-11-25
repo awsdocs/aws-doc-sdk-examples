@@ -42,7 +42,6 @@ members = [
     "medialive",
     "mediapackage",
     "polly",
-    "qldb",
     "rds",
     "rdsdata",
     "route53",
