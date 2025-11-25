@@ -183,7 +183,7 @@ public static async Task Main(string[] args)
 {
     // Implementation
 }
-// snippet-end:[{Service}.dotnetv4.Hello]
+// snippet-end:[{Service}.dotnetv4.HelloSteering]
 
 // ❌ WRONG - Old format
 // snippet-start:[dotnetv4.example_code.{Service}.HelloSteering]
