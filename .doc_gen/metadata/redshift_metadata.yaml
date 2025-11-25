@@ -390,42 +390,6 @@ redshift_GetStatementResult:
                 - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
   services:
     redshift: {GetStatementResult}
-redshift_CreateTable:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 4
-          github: dotnetv4/Redshift
-          excerpts:
-            - description:
-              snippet_tags:
-                - Redshift.dotnetv4.CreateTable
-  services:
-    redshift-data: {ExecuteStatement}
-redshift_Insert:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 4
-          github: dotnetv4/Redshift
-          excerpts:
-            - description:
-              snippet_tags:
-                - Redshift.dotnetv4.Insert
-  services:
-    redshift-data: {ExecuteStatement}
-redshift_Query:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 4
-          github: dotnetv4/Redshift
-          excerpts:
-            - description:
-              snippet_tags:
-                - Redshift.dotnetv4.Query
-  services:
-    redshift-data: {ExecuteStatement, GetStatementResult}
 redshift_ExecuteStatement:
   languages:
     Java:
