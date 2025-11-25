@@ -178,16 +178,16 @@ public class Hello{Service}
 
 ```csharp
 // ✅ CORRECT
-// snippet-start:[Redshift.dotnetv4.Hello]
+// snippet-start:[{Service}.dotnetv4.HelloSteering]
 public static async Task Main(string[] args)
 {
     // Implementation
 }
-// snippet-end:[Redshift.dotnetv4.Hello]
+// snippet-end:[{Service}.dotnetv4.Hello]
 
 // ❌ WRONG - Old format
-// snippet-start:[dotnetv4.example_code.redshift.Hello]
-// snippet-end:[dotnetv4.example_code.redshift.Hello]
+// snippet-start:[dotnetv4.example_code.{Service}.HelloSteering]
+// snippet-end:[dotnetv4.example_code.{Service}.HelloSteering]
 ```
 
 **Format**: `[{Service}.dotnetv4.Hello]`

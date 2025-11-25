@@ -289,16 +289,16 @@ await foreach (var response in itemsPaginator.Responses)
 
 ```csharp
 // ✅ CORRECT - Service name first, then dotnetv4
-// snippet-start:[Redshift.dotnetv4.CreateClusterSteering]
+// snippet-start:[{Service}.dotnetv4.CreateClusterSteering]
 public async Task<Cluster> CreateClusterAsync(...)
 {
     // Implementation
 }
-// snippet-end:[Redshift.dotnetv4.CreateClusterSteering]
+// snippet-end:[{Service}.dotnetv4.CreateClusterSteering]
 
 // ❌ WRONG - Old format
-// snippet-start:[dotnetv4.example_code.redshift.CreateClusterSteering]
-// snippet-end:[dotnetv4.example_code.redshift.CreateClusterSteering]
+// snippet-start:[dotnetv4.example_code.{Service}.CreateClusterSteering]
+// snippet-end:[dotnetv4.example_code.{Service}.CreateClusterSteering]
 ```
 
 **Format**: `[{Service}.dotnetv4.{ActionName}]`
