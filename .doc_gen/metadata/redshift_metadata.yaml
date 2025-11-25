@@ -5,6 +5,14 @@ redshift_Hello:
   synopsis: get started using &RS;.
   category: Hello
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/Redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - Redshift.dotnetv4.Hello
     Go:
       versions:
         - sdk_version: 2
@@ -35,6 +43,14 @@ redshift_Hello:
     redshift: {DescribeClusters}
 redshift_ListDatabases:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/Redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - Redshift.dotnetv4.ListDatabases
     Java:
       versions:
         - sdk_version: 2
@@ -48,6 +64,14 @@ redshift_ListDatabases:
     redshift: {ListDatabases}    
 redshift_CreateCluster:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/Redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - Redshift.dotnetv4.CreateCluster
     Go:
       versions:
         - sdk_version: 2
@@ -105,6 +129,14 @@ redshift_CreateCluster:
     redshift: {CreateCluster}
 redshift_DeleteCluster:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/Redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - Redshift.dotnetv4.DeleteCluster
     Go:
       versions:
         - sdk_version: 2
@@ -162,6 +194,14 @@ redshift_DeleteCluster:
     redshift: {DeleteCluster}
 redshift_DescribeClusters:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/Redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - Redshift.dotnetv4.DescribeClusters
     Go:
       versions:
         - sdk_version: 2
@@ -219,6 +259,14 @@ redshift_DescribeClusters:
     redshift: {DescribeClusters}
 redshift_ModifyCluster:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/Redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - Redshift.dotnetv4.ModifyCluster
     Go:
       versions:
         - sdk_version: 2
@@ -276,6 +324,14 @@ redshift_ModifyCluster:
     redshift: {ModifyCluster}
 redshift_DescribeStatement:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/Redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - Redshift.dotnetv4.DescribeStatement
     Java:
       versions:
         - sdk_version: 2
@@ -302,6 +358,14 @@ redshift_DescribeStatement:
     redshift: {DescribeStatement}
 redshift_GetStatementResult:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/Redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - Redshift.dotnetv4.GetStatementResult
     Java:
       versions:
         - sdk_version: 2
@@ -326,6 +390,42 @@ redshift_GetStatementResult:
                 - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
   services:
     redshift: {GetStatementResult}
+redshift_CreateTable:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/Redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - Redshift.dotnetv4.CreateTable
+  services:
+    redshift-data: {ExecuteStatement}
+redshift_Insert:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/Redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - Redshift.dotnetv4.Insert
+  services:
+    redshift-data: {ExecuteStatement}
+redshift_Query:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/Redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - Redshift.dotnetv4.Query
+  services:
+    redshift-data: {ExecuteStatement, GetStatementResult}
 redshift_ExecuteStatement:
   languages:
     Java:
@@ -356,6 +456,17 @@ redshift_Scenario:
     - Delete the Amazon Redshift cluster.
   category: Basics
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/Redshift
+          excerpts:
+            - description: Create a Redshift wrapper class to manage operations.
+              snippet_tags:
+                - Redshift.dotnetv4.RedshiftWrapper
+            - description: Run an interactive scenario demonstrating Redshift basics.
+              snippet_tags:
+                - Redshift.dotnetv4.RedshiftScenario
     Go:
       versions:
         - sdk_version: 2
