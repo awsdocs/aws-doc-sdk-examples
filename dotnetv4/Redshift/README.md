@@ -46,12 +46,12 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [CreateCluster](Actions/RedshiftWrapper.cs#L34)
-- [DeleteCluster](Actions/RedshiftWrapper.cs#L143)
+- [DeleteCluster](Actions/RedshiftWrapper.cs#L156)
 - [DescribeClusters](Actions/RedshiftWrapper.cs#L77)
-- [DescribeStatement](Actions/RedshiftWrapper.cs#L375)
-- [GetStatementResult](Actions/RedshiftWrapper.cs#L406)
-- [ListDatabases](Actions/RedshiftWrapper.cs#L176)
-- [ModifyCluster](Actions/RedshiftWrapper.cs#L109)
+- [DescribeStatement](Actions/RedshiftWrapper.cs#L388)
+- [GetStatementResult](Actions/RedshiftWrapper.cs#L419)
+- [ListDatabases](Actions/RedshiftWrapper.cs#L189)
+- [ModifyCluster](Actions/RedshiftWrapper.cs#L122)
 
 
 <!--custom.examples.start-->
