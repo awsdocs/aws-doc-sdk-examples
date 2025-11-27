@@ -13,6 +13,20 @@ The following user input is required for this SDK getting started scenario:
 - The year to use to query records from the database.
 - Whether or not to delete the Amazon Redshift cluster.
 
+## SQL Statement Requirements
+
+All SQL statements that include user input or variable data MUST use parameterized queries to prevent SQL injection vulnerabilities. This applies to:
+
+- INSERT statements when adding movie records (use parameters for id, title, and year values)
+- SELECT statements when querying by year (use parameters for the year value)
+- Any other SQL operations that incorporate dynamic values
+
+Example of parameterized query usage:
+- Instead of: `SELECT * FROM Movies WHERE year = 2013`
+- Use: `SELECT * FROM Movies WHERE year = :year` with a parameter binding for `:year`
+
+This security best practice ensures that user input is properly escaped and prevents malicious SQL code injection.
+
 ## Hello Redshift
 This program is intended for users not familiar with the Redshift SDK to easily get up an running. The logic is to show use of `redshiftClient.describeClustersPaginator()`.
 
@@ -147,6 +161,21 @@ This concludes the Amazon Redshift SDK Getting Started scenario.
 
 
 ```
+
+## Exception Handling
+
+The following table lists the exceptions that should be caught and handled for each action in the scenario:
+
+| Action                    | Exception                      | Handling                                                                                    |
+|---------------------------|--------------------------------|---------------------------------------------------------------------------------------------|
+| `createCluster`           | ClusterAlreadyExistsFault      | Notify the user that a cluster with this identifier already exists and exit.                |
+| `describeClusters`        | ClusterNotFoundFault           | Notify the user that the specified cluster was not found.                                   |
+| `listDatabases`           | ValidationException            | Notify the user that the cluster is not available or parameters are invalid.                |
+| `executeStatement`        | ValidationException            | Notify the user of SQL syntax errors or invalid query parameters.                           |
+| `describeStatement`       | ResourceNotFoundException      | Notify the user that the statement ID was not found.                                        |
+| `getStatementResult`      | ResourceNotFoundException      | Notify the user that results are not available for the statement ID.                        |
+| `modifyCluster`           | ClusterNotFoundFault           | Notify the user that the cluster to modify was not found.                                   |
+| `deleteCluster`           | ClusterNotFoundFault           | Notify the user that the cluster to delete was not found.                                   |
 
 ## SOS Tags
 
