@@ -39,7 +39,7 @@ kinesis_CreateStream:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/kinesis
+          github: sap-abap/services/kns
           excerpts:
             - description:
               snippet_tags:
@@ -82,7 +82,7 @@ kinesis_DescribeStream:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/kinesis
+          github: sap-abap/services/kns
           excerpts:
             - description:
               snippet_tags:
@@ -124,7 +124,7 @@ kinesis_ListStreams:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/kinesis
+          github: sap-abap/services/kns
           excerpts:
             - description:
               snippet_tags:
@@ -185,7 +185,7 @@ kinesis_DeleteStream:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/kinesis
+          github: sap-abap/services/kns
           excerpts:
             - description:
               snippet_tags:
@@ -224,7 +224,7 @@ kinesis_PutRecord:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/kinesis
+          github: sap-abap/services/kns
           excerpts:
             - description:
               snippet_tags:
@@ -269,7 +269,7 @@ kinesis_GetRecords:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/kinesis
+          github: sap-abap/services/kns
           excerpts:
             - description:
               snippet_tags:
@@ -290,7 +290,7 @@ kinesis_RegisterStreamConsumer:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/kinesis
+          github: sap-abap/services/kns
           excerpts:
             - description:
               snippet_tags:
@@ -320,7 +320,7 @@ kinesis_Scenario_GettingStarted:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/kinesis
+          github: sap-abap/services/kns
           excerpts:
             - description:
               snippet_tags:

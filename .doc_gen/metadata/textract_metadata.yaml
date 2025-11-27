@@ -22,7 +22,7 @@ textract_AnalyzeDocument:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/textract
+          github: sap-abap/services/tex
           sdkguide:
           excerpts:
             - description:
@@ -56,7 +56,7 @@ textract_DetectDocumentText:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/textract
+          github: sap-abap/services/tex
           sdkguide:
           excerpts:
             - description:
@@ -87,7 +87,7 @@ textract_StartDocumentAnalysis:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/textract
+          github: sap-abap/services/tex
           sdkguide:
           excerpts:
             - description:
@@ -110,7 +110,7 @@ textract_StartDocumentTextDetection:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/textract
+          github: sap-abap/services/tex
           sdkguide:
           excerpts:
             - description:
@@ -133,7 +133,7 @@ textract_GetDocumentAnalysis:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/textract
+          github: sap-abap/services/tex
           sdkguide:
           excerpts:
             - description:
@@ -152,7 +152,7 @@ textract_Scenario_GettingStarted:
     SAP ABAP:
       versions:
         - sdk_version: 1
-          github: sap-abap/services/textract
+          github: sap-abap/services/tex
           excerpts:
             - description:
               snippet_tags:
