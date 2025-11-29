@@ -9,7 +9,6 @@ import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.services.iotsitewise.model.AssetModelPropertySummary;
 import software.amazon.awssdk.services.iotsitewise.model.BatchPutAssetPropertyValueResponse;
 import software.amazon.awssdk.services.iotsitewise.model.CreateGatewayRequest;
-import software.amazon.awssdk.services.iotsitewise.model.CreateGatewayResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DeleteGatewayRequest;
 import software.amazon.awssdk.services.iotsitewise.model.DeleteGatewayResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DescribeGatewayRequest;
