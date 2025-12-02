@@ -21,300 +21,212 @@ read_documentation("https://docs.aws.amazon.com/[service]/latest/[relevant-page]
 **FAILURE TO COMPLETE KNOWLEDGE BASE CONSULTATION WILL RESULT IN INCORRECT CODE STRUCTURE**
 
 ## Purpose
-Generate comprehensive test suites including unit tests and integration tests using xUnit framework with proper mocking and AWS data structures.
+Generate integration test suites using xUnit framework to validate complete scenario workflows against real AWS services.
 
 ## Requirements
-- **Complete Data**: Use complete AWS data structures in tests
+- **Integration Tests Only**: Focus on end-to-end scenario testing, not unit tests
+- **Real AWS Services**: Tests run against actual AWS infrastructure
 - **Proper Attributes**: Use xUnit attributes for test categorization
-- **Error Coverage**: Test all error conditions from specification
 - **Async Testing**: Use async Task for async test methods
+- **Resource Cleanup**: Ensure proper cleanup of AWS resources after tests
 
 ## File Structure
 ```
 dotnetv4/{Service}/Tests/
-├── {Service}Tests.csproj           # Test project file
-├── {Service}Tests.cs               # Unit and integration tests
+├── {Service}Tests.csproj              # Test project file
+├── {Service}IntegrationTests.cs       # Integration tests
 ```
+
+**CRITICAL:**
+- ✅ **Integration tests ONLY** - no separate unit tests for wrapper methods
+- ✅ **All tests in one project** - no separate IntegrationTests project
+- ✅ **Use xUnit framework** - not MSTest
+- ✅ **Test against real AWS** - not mocks
 
 ## Test Project Setup
 
 ### Step 1: Create Test Project File
 ```xml
 <!-- dotnetv4/{Service}/Tests/{Service}Tests.csproj -->
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
-    <IsTestProject>true</IsTestProject>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>{Service}Tests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
-    <PackageReference Include="xunit" Version="2.4.2" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" />
-    <PackageReference Include="coverlet.collector" Version="6.0.0" />
-    <PackageReference Include="Moq" Version="4.20.69" />
-    <PackageReference Include="AWSSDK.{Service}" Version="3.7.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="AWSSDK.{Service}" Version="3.7.401" />
+    <PackageReference Include="AWSSDK.{ServiceDataAPI}" Version="3.7.401" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Actions\{Service}Wrapper.csproj" />
-    <ProjectReference Include="..\Scenarios\{Service}_Basics\{Service}Basics.csproj" />
+    <ProjectReference Include="..\Actions\{Service}Actions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="settings.*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DependentUpon>settings.json</DependentUpon>
+    </Content>
+  </ItemGroup>
 </Project>
 ```
 
-### Step 2: Create Test Class Structure
+**Key Changes:**
+- ✅ Use xUnit packages (not MSTest)
+- ✅ Target .NET 8.0 with latest language version
+- ✅ Use latest AWS SDK package versions
+- ✅ Reference Actions project only (no Scenarios reference needed)
+
+### Step 2: Create Integration Test Class Structure
 ```csharp
-// dotnetv4/{Service}/Tests/{Service}Tests.cs
-using System;
+// dotnetv4/{Service}/Tests/{Service}IntegrationTests.cs
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 using System.Threading.Tasks;
 using Amazon.{Service};
-using Amazon.{Service}.Model;
-using Moq;
-using Xunit;
-using Xunit.Abstractions;
-
-namespace Amazon.DocSamples.{Service}.Tests
-{
-    public class {Service}Tests
-    {
-        private readonly ITestOutputHelper _output;
-        private readonly Mock<IAmazon{Service}> _mock{Service}Client;
-        private readonly {Service}Wrapper _wrapper;
-
-        public {Service}Tests(ITestOutputHelper output)
-        {
-            _output = output;
-            _mock{Service}Client = new Mock<IAmazon{Service}>();
-            _wrapper = new {Service}Wrapper(_mock{Service}Client.Object);
-        }
-    }
-}
-```
-
-## Unit Test Pattern
-```csharp
-[Theory]
-[InlineData(null)]
-[InlineData("BadRequestException")]
-[InlineData("InternalServerErrorException")]
-public async Task Test{ActionName}Async_WithVariousConditions_ReturnsExpectedResult(string? errorCode)
-{
-    // Arrange
-    var paramValue = "test-value";
-    var expectedResponse = new {ActionName}Response
-    {
-        ResponseKey = "response-value"
-    };
-    
-    if (errorCode == null)
-    {
-        _mock{Service}Client
-            .Setup(x => x.{ActionName}Async(It.IsAny<{ActionName}Request>(), default))
-            .ReturnsAsync(expectedResponse);
-    }
-    else
-    {
-        _mock{Service}Client
-            .Setup(x => x.{ActionName}Async(It.IsAny<{ActionName}Request>(), default))
-            .ThrowsAsync(new Amazon{Service}Exception(errorCode));
-    }
-    
-    // Act & Assert
-    if (errorCode == null)
-    {
-        var result = await _wrapper.{ActionName}Async(paramValue);
-        Assert.Equal("response-value", result.ResponseKey);
-    }
-    else
-    {
-        var exception = await Assert.ThrowsAsync<Amazon{Service}Exception>(
-            () => _wrapper.{ActionName}Async(paramValue));
-        Assert.Equal(errorCode, exception.ErrorCode);
-    }
-}
-```
-
-## Complete AWS Data Structures
-
-### CRITICAL: Use Complete AWS Response Data
-```csharp
-// ❌ WRONG - Minimal data that fails validation
-var findings = new List<Finding>
-{
-    new Finding { Id = "finding-1", Type = "SomeType", Severity = 8.0 }
-};
-
-// ✅ CORRECT - Complete AWS data structure
-var findings = new List<Finding>
-{
-    new Finding
-    {
-        Id = "finding-1",
-        AccountId = "123456789012",
-        Arn = "arn:aws:service:region:account:resource/id",
-        Type = "SomeType",
-        Severity = 8.0,
-        CreatedAt = DateTime.Parse("2023-01-01T00:00:00.000Z"),
-        UpdatedAt = DateTime.Parse("2023-01-01T00:00:00.000Z"),
-        Region = "us-east-1",
-        SchemaVersion = "2.0",
-        Resource = new Resource { ResourceType = "Instance" }
-    }
-};
-```
-
-## Integration Test Pattern
-Create a single integration test for the scenario by setting IsInteractive to false:
-
-```csharp
-using {Service}Basics;
-using Microsoft.Extensions.Logging;
-using Moq;
+using Amazon.{ServiceDataAPI};
+using {Service}Actions;
 using Xunit;
 
 namespace {Service}Tests;
 
 /// <summary>
-/// Integration tests for the Amazon {Service} Basics scenario.
+/// Integration tests for Amazon {Service} operations.
+/// These tests require actual AWS credentials and will create real AWS resources.
 /// </summary>
-public class {Service}BasicsTest
+public class {Service}IntegrationTests
 {
     /// <summary>
-    /// Verifies the scenario with an integration test. No errors should be logged.
+    /// Verifies the scenario with an integration test. No exceptions should be thrown.
     /// </summary>
-    /// <returns>A task representing the asynchronous test operation.</returns>
+    /// <returns>Async task.</returns>
     [Fact]
     [Trait("Category", "Integration")]
-    public async Task TestScenario()
+    public async Task TestScenarioIntegration()
     {
-        // Arrange.
-        {Service}Basics.IsInteractive = false;
-        var loggerMock = new Mock<ILogger<{Service}Basics>>();
-        loggerMock.Setup(logger => logger.Log(
-            It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
-            It.IsAny<EventId>(),
-            It.Is<It.IsAnyType>((@object, @type) => true),
-            It.IsAny<Exception>(),
-            It.IsAny<Func<It.IsAnyType, Exception?, string>>()));
+        // Arrange
+        {Service}Basics.{Service}Basics.IsInteractive = false;
 
-        // Act.
-        await {Service}Basics.Main(new string[] { "" });
+        // Act
+        {Service}Basics.{Service}Basics.Wrapper = new {Service}Wrapper(
+            new Amazon{Service}Client(),
+            new Amazon{ServiceDataAPI}Client());
 
-        // Assert no exceptions or errors logged.
-        loggerMock.Verify(logger => logger.Log(
-            It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
-            It.IsAny<EventId>(),
-            It.Is<It.IsAnyType>((@object, @type) => true),
-            It.IsAny<Exception>(),
-            It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
-            Times.Never);
+        await {Service}Basics.{Service}Basics.RunScenarioAsync();
+
+        // Assert - if we get here without exceptions, the test passes
     }
 }
 ```
 
-## Additional Integration Test Patterns (Optional)
-If needed, you can add specific wrapper method tests:
+**Key Changes:**
+- ✅ Use file-scoped namespaces
+- ✅ Use xUnit attributes ([Fact], [Trait])
+- ✅ No mocking - test against real AWS services
+- ✅ Test runs the complete scenario end-to-end
+- ✅ Set IsInteractive = false for non-interactive test execution
+
+## Integration Test Patterns
+
+### Integration Test Pattern
+The integration test should run the complete scenario end-to-end:
 
 ```csharp
+/// <summary>
+/// Verifies the scenario with an integration test. No exceptions should be thrown.
+/// </summary>
+/// <returns>Async task.</returns>
 [Fact]
 [Trait("Category", "Integration")]
-public async Task Test{ActionName}Integration()
+public async Task TestScenarioIntegration()
 {
     // Arrange
-    var wrapper = new {Service}Wrapper(new Amazon{Service}Client());
-    
-    // Act - This should not raise an exception
-    var result = await wrapper.{ActionName}Async();
-    
-    // Assert - Verify result structure
-    Assert.NotNull(result);
-}
+    {Service}Basics.{Service}Basics.IsInteractive = false;
 
-[Fact]
-[Trait("Category", "Integration")]
-public async Task TestResourceLifecycleIntegration()
-{
-    // Arrange
-    var wrapper = new {Service}Wrapper(new Amazon{Service}Client());
-    string? resourceId = null;
-    
-    try
-    {
-        // Act - Create resource
-        resourceId = await wrapper.CreateResourceAsync();
-        Assert.NotNull(resourceId);
-        
-        // Use resource
-        var result = await wrapper.GetResourceAsync(resourceId);
-        Assert.NotNull(result);
-    }
-    finally
-    {
-        // Clean up
-        if (!string.IsNullOrEmpty(resourceId))
-        {
-            try
-            {
-                await wrapper.DeleteResourceAsync(resourceId);
-            }
-            catch
-            {
-                // Ignore cleanup errors
-            }
-        }
-    }
+    // Act
+    {Service}Basics.{Service}Basics.Wrapper = new {Service}Wrapper(
+        new Amazon{Service}Client(),
+        new Amazon{ServiceDataAPI}Client());
+
+    await {Service}Basics.{Service}Basics.RunScenarioAsync();
+
+    // Assert - if we get here without exceptions, the test passes
 }
 ```
+
+**Key Points:**
+- ✅ Use `[Fact]` attribute for test methods
+- ✅ Use `[Trait("Category", "Integration")]` for categorization
+- ✅ Set `IsInteractive = false` to run without user input
+- ✅ Create real AWS clients (not mocked)
+- ✅ Call the scenario's `RunScenarioAsync()` method
+- ✅ Test passes if no exceptions are thrown
 
 ## Test Execution Commands
 
-### Unit Tests
+### All Tests
 ```bash
-dotnet test dotnetv4/{Service}/Tests/{Service}Tests.csproj --filter "Category!=Integration"
+dotnet test dotnetv4/{Service}/{Service}Examples.sln
 ```
 
-### Integration Tests (Runs Complete Scenario)
+### Integration Tests Only
 ```bash
-dotnet test dotnetv4/{Service}/Tests/{Service}Tests.csproj --filter Category=Integration
+dotnet test dotnetv4/{Service}/Tests/{Service}Tests.csproj --filter TestCategory=Integration
+```
+
+### Exclude Long-Running Tests
+```bash
+dotnet test dotnetv4/{Service}/Tests/{Service}Tests.csproj --filter "TestCategory=Integration&TestCategory!=LongRunning"
 ```
 
 ## Test Requirements Checklist
 - ✅ **Test project file created** with proper dependencies
-- ✅ **Mock framework setup** (Moq for mocking AWS clients and loggers)
-- ✅ **Complete AWS data structures** in all tests
-- ✅ **Proper xUnit attributes** (`[Trait("Category", "Integration")]`)
-- ✅ **Error condition coverage** per specification
-- ✅ **Integration test sets IsInteractive to false** for automated testing
-- ✅ **Logger verification** to ensure no errors are logged
+- ✅ **xUnit framework** (not MSTest)
+- ✅ **Integration tests only** (no unit tests with mocks)
+- ✅ **Proper xUnit attributes** (`[Fact]`, `[Trait("Category", "Integration")]`)
+- ✅ **Test against real AWS services** (not mocks)
+- ✅ **Test runs complete scenario** via `RunScenarioAsync()`
 - ✅ **Async test methods** using `async Task`
+- ✅ **File-scoped namespaces** for modern C# style
 
 ## Integration Test Focus
 
 ### Primary Test: Complete Scenario Integration
 The main integration test should:
-- ✅ **Run the entire scenario** from start to finish
-- ✅ **Set IsInteractive to false** to automate the interactive parts
-- ✅ **Test against real AWS** services (not mocks)
-- ✅ **Verify no errors are logged** using mock logger verification
-- ✅ **Handle cleanup automatically** through scenario logic
+- ✅ **Run the entire scenario** from start to finish via `RunScenarioAsync()`
+- ✅ **Test against real AWS services** (not mocks)
+- ✅ **Set IsInteractive = false** for non-interactive execution
+- ✅ **Create real AWS clients** (not mocked)
+- ✅ **Use xUnit attributes** (`[Fact]`, `[Trait]`) for test organization
+- ✅ **Pass if no exceptions** are thrown during execution
 
-### Test Structure Priority
-1. **Integration Test** - Most important, tests complete workflow
-2. **Unit Tests** - Test individual wrapper methods
-3. **Additional Integration Tests** - Optional, for specific edge cases
+### Test Structure
+- **Single Integration Test** - Tests the complete scenario workflow
+- **No separate unit tests** - Focus on end-to-end integration only
+- **No mocking** - Use real AWS clients and services
 
 ## Common Test Failures to Avoid
-- ❌ **Not setting IsInteractive to false** in scenario integration tests
-- ❌ **Using incomplete AWS data structures** in unit tests
-- ❌ **Missing xUnit attributes** for integration tests
-- ❌ **Not verifying logger mock** to ensure no errors are logged
+- ❌ **Using mocks instead of real AWS services** in integration tests
+- ❌ **Missing xUnit attributes** (`[Fact]`, `[Trait]`) for integration tests
+- ❌ **Not setting IsInteractive = false** for non-interactive execution
 - ❌ **Forgetting to set AWS region** in test clients
-- ❌ **Not testing all error conditions** from specification
-- ❌ **Not calling Main method properly** in scenario integration tests
 - ❌ **Missing proper async/await patterns** in test methods
+- ❌ **Using MSTest instead of xUnit** framework
+- ❌ **Creating separate IntegrationTests project** instead of using Tests project
+- ❌ **Not referencing the Scenarios project** when testing scenarios
