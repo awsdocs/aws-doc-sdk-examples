@@ -51,7 +51,7 @@ public class HelloInspector {
             showUsageTotals(inspectorClient);
             System.out.println();
 
-            System.out.println("Hello Inspector example completed successfully!");
+            System.out.println("The Hello Inspector example completed successfully!");
 
         } catch (Inspector2Exception e) {
             System.err.println(" Error: " + e.getMessage());

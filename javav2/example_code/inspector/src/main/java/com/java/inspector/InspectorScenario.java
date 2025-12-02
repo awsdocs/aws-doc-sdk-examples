@@ -23,12 +23,11 @@ public class InspectorScenario {
     public static void main(String[] args) {
 
         InspectorActions inspectorActions = new InspectorActions();
-
         Inspector2Client inspectorClient = Inspector2Client.builder()
                 .region(Region.US_EAST_1)
                 .build() ;
 
-        System.out.println("🔍 Amazon Inspector Basics Scenario");
+        System.out.println("Amazon Inspector Basics Scenario");
         System.out.println(DASHES);
         System.out.println();
 
@@ -71,7 +70,7 @@ public class InspectorScenario {
             inspectorActions.enableInspector(inspectorClient, null);
 
         } catch (Exception e) {
-            System.err.println(" Could not create example filter: " + e.getMessage());
+            System.err.println("Could not create  an example filter: " + e.getMessage());
         }
         waitForInputToContinue(scanner);
 
@@ -84,7 +83,7 @@ public class InspectorScenario {
             inspectorActions.listFindings(inspectorClient, maxResults, null);
 
         } catch (Exception e) {
-            System.err.println(" Could not create example filter: " + e.getMessage());
+            System.err.println("Could not create example filter: " + e.getMessage());
         }
         System.out.println();
         waitForInputToContinue(scanner);
