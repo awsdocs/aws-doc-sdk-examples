@@ -68,6 +68,29 @@ This scenario demonstrates the following key AWS IoT Service operations:
 
  Note: We have buy off on these operations from IoT SME. 
 
+## Exception Handling
+
+Each AWS IoT operation can throw specific exceptions that should be handled appropriately. The following table lists the potential exceptions for each action:
+
+| Action                 | Error                           | Handling                                                               |
+|------------------------|---------------------------------|------------------------------------------------------------------------|
+| **CreateThing**        | ResourceAlreadyExistsException  | Skip the creation and notify the user
+| **CreateKeysAndCertificate** | ThrottlingException       | Notify the user to try again later
+| **AttachThingPrincipal** | ResourceNotFoundException     | Notify cannot perform action and return
+| **UpdateThing** | ResourceNotFoundException     | Notify cannot perform action and return
+| **DescribeEndpoint** | ThrottlingException       | Notify the user to try again later
+| **ListCertificates** | ThrottlingException       | Notify the user to try again later
+| **UpdateThingShadow** | ResourceNotFoundException     | Notify cannot perform action and return
+| **GetThingShadow** | ResourceNotFoundException     | Notify cannot perform action and return
+| **CreateTopicRule** | ResourceAlreadyExistsException  | Skip the creation and notify the user
+| **ListTopicRules** | ThrottlingException       | Notify the user to try again later
+| **SearchIndex** |  ThrottlingException       | Notify the user to try again later
+| **DetachThingPrincipal** | ResourceNotFoundException     | Notify cannot perform action and return
+| **DeleteCertificate** | ResourceNotFoundException     | Notify cannot perform action and return
+| **DeleteThing** | ResourceNotFoundException     | Notify cannot perform action and return
+| **ListThings** | ThrottlingException       | Notify the user to try again later
+
+
 ### Program execution
 
 This scenario does have user interaction. The following shows the output of the program. 
@@ -220,5 +243,5 @@ The following table describes the metadata used in this scenario.
 | `updateThing`                | iot_metadata.yaml            | iot_UpdateThing                         |
 | `createTopicRule`            | iot_metadata.yaml            | iot_CreateTopicRule                     |
 | `createThing`                | iot_metadata.yaml            | iot_CreateThing                         |
-| `hello               `       | iot_metadata.yaml            | iot_Hello                               |
+| `hello`                      | iot_metadata.yaml            | iot_Hello                               |
 | `scenario                    | iot_metadata.yaml            | iot_Scenario                            |

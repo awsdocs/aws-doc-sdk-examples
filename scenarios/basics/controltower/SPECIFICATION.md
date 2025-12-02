@@ -210,7 +210,7 @@ Thanks for watching!
 ## Errors
 The following errors are handled in the Control Tower wrapper class:
 
-| action                 | Error                 | Handling                                                               |
+| Action                 | Error                 | Handling                                                               |
 |------------------------|-----------------------|------------------------------------------------------------------------|
 | `ListBaselines`        | AccessDeniedException | Notify the user of insufficient permissions and exit.                  |
 | `ListEnabledBaselines` | AccessDeniedException | Notify the user of insufficient permissions and exit.                  |
