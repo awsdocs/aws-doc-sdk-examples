@@ -106,33 +106,48 @@ public class IoTBasics
 
             if (createCert?.ToLower() == "y")
             {
-                var (certArn, certPem, certId) = await _iotWrapper.CreateKeysAndCertificateAsync();
-                certificateArn = certArn;
-                certificateId = certId;
-
-                Console.WriteLine($"\nCertificate:");
-                // Show only first few lines of certificate for brevity
-                var lines = certPem.Split('\n');
-                for (int i = 0; i < Math.Min(lines.Length, 5); i++)
+                var certificateResult = await _iotWrapper.CreateKeysAndCertificateAsync();
+                if (certificateResult.HasValue)
                 {
-                    Console.WriteLine(lines[i]);
+                    var (certArn, certPem, certId) = certificateResult.Value;
+                    certificateArn = certArn;
+                    certificateId = certId;
+
+                    Console.WriteLine($"\nCertificate:");
+                    // Show only first few lines of certificate for brevity
+                    var lines = certPem.Split('\n');
+                    for (int i = 0; i < Math.Min(lines.Length, 5); i++)
+                    {
+                        Console.WriteLine(lines[i]);
+                    }
+                    if (lines.Length > 5)
+                    {
+                        Console.WriteLine("...");
+                    }
+
+                    Console.WriteLine($"\nCertificate ARN:");
+                    Console.WriteLine(certificateArn);
+
+                    // Step 3: Attach the Certificate to the AWS IoT Thing
+                    Console.WriteLine("Attach the certificate to the AWS IoT Thing.");
+                    var attachResult = await _iotWrapper.AttachThingPrincipalAsync(thingName, certificateArn);
+                    if (attachResult)
+                    {
+                        Console.WriteLine("Certificate attached to Thing successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Failed to attach certificate to Thing.");
+                    }
+
+                    Console.WriteLine("Thing Details:");
+                    Console.WriteLine($"Thing Name: {thingName}");
+                    Console.WriteLine($"Thing ARN: {thingArn}");
                 }
-                if (lines.Length > 5)
+                else
                 {
-                    Console.WriteLine("...");
+                    Console.WriteLine("Failed to create certificate.");
                 }
-
-                Console.WriteLine($"\nCertificate ARN:");
-                Console.WriteLine(certificateArn);
-
-                // Step 3: Attach the Certificate to the AWS IoT Thing
-                Console.WriteLine("Attach the certificate to the AWS IoT Thing.");
-                await _iotWrapper.AttachThingPrincipalAsync(thingName, certificateArn);
-                Console.WriteLine("Certificate attached to Thing successfully.");
-
-                Console.WriteLine("Thing Details:");
-                Console.WriteLine($"Thing Name: {thingName}");
-                Console.WriteLine($"Thing ARN: {thingArn}");
             }
             Console.WriteLine(new string('-', 80));
 
@@ -165,9 +180,16 @@ public class IoTBasics
             Console.ReadLine();
 
             var endpoint = await _iotWrapper.DescribeEndpointAsync();
-            var subdomain = endpoint.Split('.')[0];
-            Console.WriteLine($"Extracted subdomain: {subdomain}");
-            Console.WriteLine($"Full Endpoint URL: https://{endpoint}");
+            if (endpoint != null)
+            {
+                var subdomain = endpoint.Split('.')[0];
+                Console.WriteLine($"Extracted subdomain: {subdomain}");
+                Console.WriteLine($"Full Endpoint URL: https://{endpoint}");
+            }
+            else
+            {
+                Console.WriteLine("Failed to retrieve endpoint.");
+            }
             Console.WriteLine(new string('-', 80));
 
             // Step 6: List your AWS IoT certificates

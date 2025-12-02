@@ -65,7 +65,9 @@ public class IoTIntegrationTests
 
             // 2. Create a certificate
             _output.WriteLine("Creating device certificate...");
-            var (certArn, certPem, certId) = await _iotWrapper.CreateKeysAndCertificateAsync();
+            var certificateResult = await _iotWrapper.CreateKeysAndCertificateAsync();
+            Assert.True(certificateResult.HasValue);
+            var (certArn, certPem, certId) = certificateResult.Value;
             certificateArn = certArn;
             certificateId = certId;
             Assert.False(string.IsNullOrEmpty(certificateArn));
