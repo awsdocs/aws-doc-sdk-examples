@@ -219,53 +219,7 @@ public class SitewiseScenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("6. Create an IoT SiteWise Portal");
-        logger.info("""
-             An IoT SiteWise Portal allows you to aggregate data from multiple industrial sources, 
-             such as sensors, equipment, and control systems, into a centralized platform.
-            """);
-        waitForInputToContinue(scanner);
-        String portalId;
-        try {
-            portalId = sitewiseActions.createPortalAsync(portalName, iamRole, contactEmail).join();
-            logger.info("Portal created successfully. Portal ID {}", portalId);
-        } catch (CompletionException ce) {
-            Throwable cause = ce.getCause();
-            if (cause instanceof IoTSiteWiseException siteWiseEx) {
-                logger.error("IoT SiteWise error occurred: Error message: {}, Error code {}",
-                        siteWiseEx.getMessage(), siteWiseEx.awsErrorDetails().errorCode(), siteWiseEx);
-            } else {
-                logger.error("An unexpected error occurred: {}", cause.getMessage());
-            }
-            return;
-        }
-        waitForInputToContinue(scanner);
-        logger.info(DASHES);
-
-        logger.info(DASHES);
-        logger.info("7. Describe the Portal");
-        logger.info("""
-             In this step, we get a description of the portal and display the portal URL.
-            """);
-        waitForInputToContinue(scanner);
-        try {
-            String portalUrl = sitewiseActions.describePortalAsync(portalId).join();
-            logger.info("Portal URL: {}", portalUrl);
-        } catch (CompletionException ce) {
-            Throwable cause = ce.getCause();
-            if (cause instanceof ResourceNotFoundException notFoundException) {
-                logger.error("A ResourceNotFoundException occurred: Error message: {}, Error code {}",
-                        notFoundException.getMessage(), notFoundException.awsErrorDetails().errorCode(), notFoundException);
-            } else {
-                logger.error("An unexpected error occurred: {}", cause.getMessage());
-            }
-            return;
-        }
-        waitForInputToContinue(scanner);
-        logger.info(DASHES);
-
-        logger.info(DASHES);
-        logger.info("8. Create an IoT SiteWise Gateway");
+        logger.info("6. Create an IoT SiteWise Gateway");
         logger.info(
             """
                 IoT SiteWise Gateway serves as the bridge between industrial equipment, sensors, and the 
@@ -292,7 +246,7 @@ public class SitewiseScenario {
         logger.info(DASHES);
         logger.info(DASHES);
 
-        logger.info("9. Describe the IoT SiteWise Gateway");
+        logger.info("7. Describe the IoT SiteWise Gateway");
          waitForInputToContinue(scanner);
         try {
             sitewiseActions.describeGatewayAsync(gatewayId)
@@ -315,7 +269,7 @@ public class SitewiseScenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("10. Delete the AWS IoT SiteWise Assets");
+        logger.info("8. Delete the AWS IoT SiteWise Assets");
         logger.info(
             """
             Before you can delete the Asset Model, you must delete the assets.  
@@ -325,20 +279,6 @@ public class SitewiseScenario {
         String delAns = scanner.nextLine().trim();
         if (delAns.equalsIgnoreCase("y")) {
             logger.info("You selected to delete the SiteWise assets.");
-            waitForInputToContinue(scanner);
-            try {
-                sitewiseActions.deletePortalAsync(portalId).join();
-                logger.info("Portal {} was deleted successfully.", portalId);
-
-            } catch (CompletionException ce) {
-                Throwable cause = ce.getCause();
-                if (cause instanceof ResourceNotFoundException notFoundException) {
-                    logger.error("A ResourceNotFoundException occurred: Error message: {}, Error code {}",
-                            notFoundException.getMessage(), notFoundException.awsErrorDetails().errorCode(), notFoundException);
-                } else {
-                    logger.error("An unexpected error occurred: {}", cause.getMessage());
-                }
-            }
 
             try {
                 sitewiseActions.deleteGatewayAsync(gatewayId).join();

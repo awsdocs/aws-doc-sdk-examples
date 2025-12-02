@@ -119,35 +119,6 @@ iotsitewise_CreateGateway:
                 - iotsitewise.JavaScript.Basics.createGateway
   services:
     iotsitewise: {CreateGateway}
-iotsitewise_DescribePortal:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/iotsitewise
-          excerpts:
-            - description:
-              snippet_tags:
-                - sitewise.java2.describe.portal.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iotsitewise
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
-                - python.example_code.iotsitewise.CreateGateway
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/iotsitewise
-          excerpts:
-            - description:
-              snippet_tags:
-                - iotsitewise.JavaScript.Basics.describePortal
-  services:
-    iotsitewise: {DescribePortal}
 iotsitewise_ListAssetModels:
   languages:
     Java:
@@ -177,64 +148,6 @@ iotsitewise_ListAssetModels:
                 - iotsitewise.JavaScript.Basics.listAssetModels
   services:
     iotsitewise: {ListAssetModels}
-iotsitewise_DeletePortal:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/iotsitewise
-          excerpts:
-            - description:
-              snippet_tags:
-                - sitewise.java2.delete.portal.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iotsitewise
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
-                - python.example_code.iotsitewise.DeletePortal
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/iotsitewise
-          excerpts:
-            - description:
-              snippet_tags:
-                - iotsitewise.JavaScript.Basics.deletePortal
-  services:
-    iotsitewise: {DeletePortal}
-iotsitewise_CreatePortal:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/iotsitewise
-          excerpts:
-            - description:
-              snippet_tags:
-                - sitewise.java2.create.portal.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iotsitewise
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
-                - python.example_code.iotsitewise.CreatePortal
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/iotsitewise
-          excerpts:
-            - description:
-              snippet_tags:
-                - iotsitewise.JavaScript.Basics.createPortal
-  services:
-    iotsitewise: {CreatePortal}
 iotsitewise_DeleteAssetModel:
   languages:
     Java:
