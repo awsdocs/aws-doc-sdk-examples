@@ -38,8 +38,8 @@ public class IoTWrapper
     /// Creates an AWS IoT Thing.
     /// </summary>
     /// <param name="thingName">The name of the Thing to create.</param>
-    /// <returns>The ARN of the Thing created.</returns>
-    public async Task<string> CreateThingAsync(string thingName)
+    /// <returns>The ARN of the Thing created, or null if creation failed.</returns>
+    public async Task<string?> CreateThingAsync(string thingName)
     {
         try
         {
@@ -52,10 +52,15 @@ public class IoTWrapper
             _logger.LogInformation($"Created Thing {thingName} with ARN {response.ThingArn}");
             return response.ThingArn;
         }
+        catch (Amazon.IoT.Model.ResourceAlreadyExistsException ex)
+        {
+            _logger.LogWarning($"Thing {thingName} already exists: {ex.Message}");
+            return null;
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error creating Thing {thingName}: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't create Thing {thingName}. Here's why: {ex.Message}");
+            return null;
         }
     }
     // snippet-end:[iot.dotnetv4.CreateThing]
@@ -64,8 +69,8 @@ public class IoTWrapper
     /// <summary>
     /// Creates a device certificate for AWS IoT.
     /// </summary>
-    /// <returns>The certificate details including ARN and certificate PEM.</returns>
-    public async Task<(string CertificateArn, string CertificatePem, string CertificateId)> CreateKeysAndCertificateAsync()
+    /// <returns>The certificate details including ARN and certificate PEM, or null if creation failed.</returns>
+    public async Task<(string CertificateArn, string CertificatePem, string CertificateId)?> CreateKeysAndCertificateAsync()
     {
         try
         {
@@ -78,10 +83,15 @@ public class IoTWrapper
             _logger.LogInformation($"Created certificate with ARN {response.CertificateArn}");
             return (response.CertificateArn, response.CertificatePem, response.CertificateId);
         }
+        catch (Amazon.IoT.Model.ThrottlingException ex)
+        {
+            _logger.LogWarning($"Request throttled, please try again later: {ex.Message}");
+            return null;
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error creating certificate: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't create certificate. Here's why: {ex.Message}");
+            return null;
         }
     }
     // snippet-end:[iot.dotnetv4.CreateKeysAndCertificate]
@@ -92,7 +102,7 @@ public class IoTWrapper
     /// </summary>
     /// <param name="thingName">The name of the Thing.</param>
     /// <param name="certificateArn">The ARN of the certificate to attach.</param>
-    /// <returns>True if successful.</returns>
+    /// <returns>True if successful, false otherwise.</returns>
     public async Task<bool> AttachThingPrincipalAsync(string thingName, string certificateArn)
     {
         try
@@ -107,10 +117,15 @@ public class IoTWrapper
             _logger.LogInformation($"Attached certificate {certificateArn} to Thing {thingName}");
             return true;
         }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot attach certificate - resource not found: {ex.Message}");
+            return false;
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error attaching certificate to Thing: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't attach certificate to Thing. Here's why: {ex.Message}");
+            return false;
         }
     }
     // snippet-end:[iot.dotnetv4.AttachThingPrincipal]
@@ -121,7 +136,7 @@ public class IoTWrapper
     /// </summary>
     /// <param name="thingName">The name of the Thing to update.</param>
     /// <param name="attributes">Dictionary of attributes to add.</param>
-    /// <returns>True if successful.</returns>
+    /// <returns>True if successful, false otherwise.</returns>
     public async Task<bool> UpdateThingAsync(string thingName, Dictionary<string, string> attributes)
     {
         try
@@ -140,10 +155,15 @@ public class IoTWrapper
             _logger.LogInformation($"Updated Thing {thingName} with attributes");
             return true;
         }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot update Thing - resource not found: {ex.Message}");
+            return false;
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error updating Thing attributes: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't update Thing attributes. Here's why: {ex.Message}");
+            return false;
         }
     }
     // snippet-end:[iot.dotnetv4.UpdateThing]
@@ -152,8 +172,8 @@ public class IoTWrapper
     /// <summary>
     /// Gets the AWS IoT endpoint URL.
     /// </summary>
-    /// <returns>The endpoint URL.</returns>
-    public async Task<string> DescribeEndpointAsync()
+    /// <returns>The endpoint URL, or null if retrieval failed.</returns>
+    public async Task<string?> DescribeEndpointAsync()
     {
         try
         {
@@ -166,10 +186,15 @@ public class IoTWrapper
             _logger.LogInformation($"Retrieved endpoint: {response.EndpointAddress}");
             return response.EndpointAddress;
         }
+        catch (Amazon.IoT.Model.ThrottlingException ex)
+        {
+            _logger.LogWarning($"Request throttled, please try again later: {ex.Message}");
+            return null;
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error describing endpoint: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't describe endpoint. Here's why: {ex.Message}");
+            return null;
         }
     }
     // snippet-end:[iot.dotnetv4.DescribeEndpoint]
@@ -178,7 +203,7 @@ public class IoTWrapper
     /// <summary>
     /// Lists all certificates associated with the account.
     /// </summary>
-    /// <returns>List of certificate information.</returns>
+    /// <returns>List of certificate information, or empty list if listing failed.</returns>
     public async Task<List<Certificate>> ListCertificatesAsync()
     {
         try
@@ -189,10 +214,15 @@ public class IoTWrapper
             _logger.LogInformation($"Retrieved {response.Certificates.Count} certificates");
             return response.Certificates;
         }
+        catch (Amazon.IoT.Model.ThrottlingException ex)
+        {
+            _logger.LogWarning($"Request throttled, please try again later: {ex.Message}");
+            return new List<Certificate>();
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error listing certificates: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't list certificates. Here's why: {ex.Message}");
+            return new List<Certificate>();
         }
     }
     // snippet-end:[iot.dotnetv4.ListCertificates]
@@ -203,7 +233,7 @@ public class IoTWrapper
     /// </summary>
     /// <param name="thingName">The name of the Thing.</param>
     /// <param name="shadowPayload">The shadow payload in JSON format.</param>
-    /// <returns>True if successful.</returns>
+    /// <returns>True if successful, false otherwise.</returns>
     public async Task<bool> UpdateThingShadowAsync(string thingName, string shadowPayload)
     {
         try
@@ -218,10 +248,15 @@ public class IoTWrapper
             _logger.LogInformation($"Updated shadow for Thing {thingName}");
             return true;
         }
+        catch (Amazon.IotData.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot update Thing shadow - resource not found: {ex.Message}");
+            return false;
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error updating Thing shadow: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't update Thing shadow. Here's why: {ex.Message}");
+            return false;
         }
     }
     // snippet-end:[iot.dotnetv4.UpdateThingShadow]
@@ -231,8 +266,8 @@ public class IoTWrapper
     /// Gets the Thing's shadow information.
     /// </summary>
     /// <param name="thingName">The name of the Thing.</param>
-    /// <returns>The shadow data as a string.</returns>
-    public async Task<string> GetThingShadowAsync(string thingName)
+    /// <returns>The shadow data as a string, or null if retrieval failed.</returns>
+    public async Task<string?> GetThingShadowAsync(string thingName)
     {
         try
         {
@@ -248,10 +283,15 @@ public class IoTWrapper
             _logger.LogInformation($"Retrieved shadow for Thing {thingName}");
             return shadowData;
         }
+        catch (Amazon.IotData.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot get Thing shadow - resource not found: {ex.Message}");
+            return null;
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error getting Thing shadow: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't get Thing shadow. Here's why: {ex.Message}");
+            return null;
         }
     }
     // snippet-end:[iot.dotnetv4.GetThingShadow]
@@ -263,7 +303,7 @@ public class IoTWrapper
     /// <param name="ruleName">The name of the rule.</param>
     /// <param name="snsTopicArn">The ARN of the SNS topic for the action.</param>
     /// <param name="roleArn">The ARN of the IAM role.</param>
-    /// <returns>True if successful.</returns>
+    /// <returns>True if successful, false otherwise.</returns>
     public async Task<bool> CreateTopicRuleAsync(string ruleName, string snsTopicArn, string roleArn)
     {
         try
@@ -294,10 +334,15 @@ public class IoTWrapper
             _logger.LogInformation($"Created IoT rule {ruleName}");
             return true;
         }
+        catch (Amazon.IoT.Model.ResourceAlreadyExistsException ex)
+        {
+            _logger.LogWarning($"Rule {ruleName} already exists: {ex.Message}");
+            return false;
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error creating topic rule: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't create topic rule. Here's why: {ex.Message}");
+            return false;
         }
     }
     // snippet-end:[iot.dotnetv4.CreateTopicRule]
@@ -306,7 +351,7 @@ public class IoTWrapper
     /// <summary>
     /// Lists all IoT topic rules.
     /// </summary>
-    /// <returns>List of topic rules.</returns>
+    /// <returns>List of topic rules, or empty list if listing failed.</returns>
     public async Task<List<TopicRuleListItem>> ListTopicRulesAsync()
     {
         try
@@ -317,10 +362,15 @@ public class IoTWrapper
             _logger.LogInformation($"Retrieved {response.Rules.Count} IoT rules");
             return response.Rules;
         }
+        catch (Amazon.IoT.Model.ThrottlingException ex)
+        {
+            _logger.LogWarning($"Request throttled, please try again later: {ex.Message}");
+            return new List<TopicRuleListItem>();
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error listing topic rules: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't list topic rules. Here's why: {ex.Message}");
+            return new List<TopicRuleListItem>();
         }
     }
     // snippet-end:[iot.dotnetv4.ListTopicRules]
@@ -330,7 +380,7 @@ public class IoTWrapper
     /// Searches for IoT Things using the search index.
     /// </summary>
     /// <param name="queryString">The search query string.</param>
-    /// <returns>List of Things that match the search criteria.</returns>
+    /// <returns>List of Things that match the search criteria, or empty list if search failed.</returns>
     public async Task<List<ThingDocument>> SearchIndexAsync(string queryString)
     {
         try
@@ -345,10 +395,15 @@ public class IoTWrapper
             _logger.LogInformation($"Search found {response.Things.Count} Things");
             return response.Things;
         }
+        catch (Amazon.IoT.Model.ThrottlingException ex)
+        {
+            _logger.LogWarning($"Request throttled, please try again later: {ex.Message}");
+            return new List<ThingDocument>();
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error searching index: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't search index. Here's why: {ex.Message}");
+            return new List<ThingDocument>();
         }
     }
     // snippet-end:[iot.dotnetv4.SearchIndex]
@@ -359,7 +414,7 @@ public class IoTWrapper
     /// </summary>
     /// <param name="thingName">The name of the Thing.</param>
     /// <param name="certificateArn">The ARN of the certificate to detach.</param>
-    /// <returns>True if successful.</returns>
+    /// <returns>True if successful, false otherwise.</returns>
     public async Task<bool> DetachThingPrincipalAsync(string thingName, string certificateArn)
     {
         try
@@ -374,10 +429,15 @@ public class IoTWrapper
             _logger.LogInformation($"Detached certificate {certificateArn} from Thing {thingName}");
             return true;
         }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot detach certificate - resource not found: {ex.Message}");
+            return false;
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error detaching certificate from Thing: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't detach certificate from Thing. Here's why: {ex.Message}");
+            return false;
         }
     }
     // snippet-end:[iot.dotnetv4.DetachThingPrincipal]
@@ -387,7 +447,7 @@ public class IoTWrapper
     /// Deletes an IoT certificate.
     /// </summary>
     /// <param name="certificateId">The ID of the certificate to delete.</param>
-    /// <returns>True if successful.</returns>
+    /// <returns>True if successful, false otherwise.</returns>
     public async Task<bool> DeleteCertificateAsync(string certificateId)
     {
         try
@@ -410,10 +470,15 @@ public class IoTWrapper
             _logger.LogInformation($"Deleted certificate {certificateId}");
             return true;
         }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot delete certificate - resource not found: {ex.Message}");
+            return false;
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error deleting certificate: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't delete certificate. Here's why: {ex.Message}");
+            return false;
         }
     }
     // snippet-end:[iot.dotnetv4.DeleteCertificate]
@@ -423,7 +488,7 @@ public class IoTWrapper
     /// Deletes an IoT Thing.
     /// </summary>
     /// <param name="thingName">The name of the Thing to delete.</param>
-    /// <returns>True if successful.</returns>
+    /// <returns>True if successful, false otherwise.</returns>
     public async Task<bool> DeleteThingAsync(string thingName)
     {
         try
@@ -437,10 +502,15 @@ public class IoTWrapper
             _logger.LogInformation($"Deleted Thing {thingName}");
             return true;
         }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot delete Thing - resource not found: {ex.Message}");
+            return false;
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error deleting Thing: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't delete Thing. Here's why: {ex.Message}");
+            return false;
         }
     }
     // snippet-end:[iot.dotnetv4.DeleteThing]
@@ -449,7 +519,7 @@ public class IoTWrapper
     /// <summary>
     /// Lists IoT Things with pagination support.
     /// </summary>
-    /// <returns>List of Things.</returns>
+    /// <returns>List of Things, or empty list if listing failed.</returns>
     public async Task<List<ThingAttribute>> ListThingsAsync()
     {
         try
@@ -460,10 +530,15 @@ public class IoTWrapper
             _logger.LogInformation($"Retrieved {response.Things.Count} Things");
             return response.Things;
         }
+        catch (Amazon.IoT.Model.ThrottlingException ex)
+        {
+            _logger.LogWarning($"Request throttled, please try again later: {ex.Message}");
+            return new List<ThingAttribute>();
+        }
         catch (Exception ex)
         {
-            _logger.LogError($"Error listing Things: {ex.Message}");
-            throw;
+            _logger.LogError($"Couldn't list Things. Here's why: {ex.Message}");
+            return new List<ThingAttribute>();
         }
     }
     // snippet-end:[iot.dotnetv4.ListThings]

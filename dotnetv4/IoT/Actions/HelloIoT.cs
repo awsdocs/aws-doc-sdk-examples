@@ -33,7 +33,7 @@ public class HelloIoT
 
             var response = await iotClient.ListThingsAsync(request);
 
-            if (response.Things.Count > 0)
+            if (response.Things is { Count: > 0 })
             {
                 Console.WriteLine($"Found {response.Things.Count} IoT Things:");
                 foreach (var thing in response.Things)
