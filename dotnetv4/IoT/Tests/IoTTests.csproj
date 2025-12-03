@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Actions\IoTActions.csproj" />
+    <ProjectReference Include="..\Scenarios\IoTBasics.csproj" />
   </ItemGroup>
 
 </Project>

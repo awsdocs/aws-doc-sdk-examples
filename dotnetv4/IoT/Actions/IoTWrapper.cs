@@ -6,7 +6,6 @@ using Amazon.IoT.Model;
 using Amazon.IotData;
 using Amazon.IotData.Model;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
 
 namespace IoTActions;
 
@@ -542,5 +541,6 @@ public class IoTWrapper
         }
     }
     // snippet-end:[iot.dotnetv4.ListThings]
+
 }
 // snippet-end:[iot.dotnetv4.IoTWrapper]
