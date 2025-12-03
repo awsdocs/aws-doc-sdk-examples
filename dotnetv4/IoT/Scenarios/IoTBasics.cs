@@ -1,14 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+using System.Text.Json;
+using Amazon;
+using Amazon.Extensions.NETCore.Setup;
+using Amazon.IdentityManagement;
 using Amazon.IoT;
+//using Amazon.IoT.Model;
 using Amazon.IotData;
-using Amazon.IoT.Model;
+using Amazon.SimpleNotificationService;
 using IoTActions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
 
 namespace IoTScenarios;
 
@@ -18,7 +23,10 @@ namespace IoTScenarios;
 /// </summary>
 public class IoTBasics
 {
+    public static bool IsInteractive = true;
     private static IoTWrapper _iotWrapper = null!;
+    private static IAmazonSimpleNotificationService _amazonSNS = null!;
+    private static IAmazonIdentityManagementService _amazonIAM = null!;
     private static ILogger<IoTBasics> _logger = null!;
 
     /// <summary>
@@ -28,20 +36,35 @@ public class IoTBasics
     /// <returns>A Task object.</returns>
     public static async Task Main(string[] args)
     {
+        //var config = new ConfigurationBuilder()
+        //    .AddJsonFile("appsettings.json")
+        //    .Build();
+
         // Set up dependency injection for the Amazon service.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
-                services.AddAWSService<IAmazonIoT>()
-                        .AddAWSService<IAmazonIotData>()
+                services.AddAWSService<IAmazonIoT>(new AWSOptions(){Region = RegionEndpoint.USEast1})
+                        //.AddAWSService<IAmazonIotData>(new AWSOptions(){DefaultClientConfig = new AmazonIotDataConfig(){ServiceURL = "https://data.iot.us-east-1.amazonaws.com/"}})
+                        .AddAWSService<IAmazonSimpleNotificationService>()
+                        .AddAWSService<IAmazonIdentityManagementService>()
                         .AddTransient<IoTWrapper>()
                         .AddLogging(builder => builder.AddConsole())
+                        .AddSingleton<IAmazonIotData>(sp =>
+                        {
+                            return new AmazonIotDataClient(
+                                "https://data.iot.us-east-1.amazonaws.com/");
+                        })
             )
             .Build();
+
+        
 
         _logger = LoggerFactory.Create(builder => builder.AddConsole())
             .CreateLogger<IoTBasics>();
 
         _iotWrapper = host.Services.GetRequiredService<IoTWrapper>();
+        _amazonSNS = host.Services.GetRequiredService<IAmazonSimpleNotificationService>();
+        _amazonIAM = host.Services.GetRequiredService<IAmazonIdentityManagementService>();
 
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Welcome to the AWS IoT example workflow.");
@@ -52,8 +75,11 @@ public class IoTBasics
         Console.WriteLine("The program aims to showcase AWS IoT capabilities and provides a comprehensive example for");
         Console.WriteLine("developers working with AWS IoT in a .NET environment.");
         Console.WriteLine();
-        Console.WriteLine("Press Enter to continue...");
-        Console.ReadLine();
+        if (IsInteractive)
+        {
+            Console.WriteLine("Press Enter to continue...");
+            Console.ReadLine();
+        }
         Console.WriteLine(new string('-', 80));
 
         try
@@ -77,10 +103,12 @@ public class IoTBasics
     /// <returns>A Task object.</returns>
     private static async Task RunScenarioAsync()
     {
-        string thingName = "";
+        string thingName = $"iot-thing-{Guid.NewGuid():N}";
         string certificateArn = "";
         string certificateId = "";
-        string ruleName = "";
+        string ruleName = $"iot-rule-{Guid.NewGuid():N}";
+        string snsTopicArn = "";
+        string iotRoleName = "";
 
         try
         {
@@ -89,8 +117,18 @@ public class IoTBasics
             Console.WriteLine("1. Create an AWS IoT Thing.");
             Console.WriteLine("An AWS IoT Thing represents a virtual entity in the AWS IoT service that can be associated with a physical device.");
             Console.WriteLine();
-            Console.Write("Enter Thing name: ");
-            thingName = Console.ReadLine()!;
+            
+            if (IsInteractive)
+            {
+                Console.Write("Enter Thing name: ");
+                var userInput = Console.ReadLine();
+                if (!string.IsNullOrEmpty(userInput))
+                    thingName = userInput;
+            }
+            else
+            {
+                Console.WriteLine($"Using default Thing name: {thingName}");
+            }
             
             var thingArn = await _iotWrapper.CreateThingAsync(thingName);
             Console.WriteLine($"{thingName} was successfully created. The ARN value is {thingArn}");
@@ -101,8 +139,17 @@ public class IoTBasics
             Console.WriteLine("2. Generate a device certificate.");
             Console.WriteLine("A device certificate performs a role in securing the communication between devices (Things) and the AWS IoT platform.");
             Console.WriteLine();
-            Console.Write($"Do you want to create a certificate for {thingName}? (y/n)");
-            var createCert = Console.ReadLine();
+            
+            var createCert = "y";
+            if (IsInteractive)
+            {
+                Console.Write($"Do you want to create a certificate for {thingName}? (y/n)");
+                createCert = Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine($"Creating certificate for {thingName}...");
+            }
 
             if (createCert?.ToLower() == "y")
             {
@@ -157,8 +204,11 @@ public class IoTBasics
             Console.WriteLine("IoT Thing attributes, represented as key-value pairs, offer a pivotal advantage in facilitating efficient data");
             Console.WriteLine("management and retrieval within the AWS IoT ecosystem.");
             Console.WriteLine();
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
+            if (IsInteractive)
+            {
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+            }
 
             var attributes = new Dictionary<string, string>
             {
@@ -176,8 +226,11 @@ public class IoTBasics
             Console.WriteLine("4. Return a unique endpoint specific to the Amazon Web Services account.");
             Console.WriteLine("An IoT Endpoint refers to a specific URL or Uniform Resource Locator that serves as the entry point for communication between IoT devices and the AWS IoT service.");
             Console.WriteLine();
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
+            if (IsInteractive)
+            {
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+            }
 
             var endpoint = await _iotWrapper.DescribeEndpointAsync();
             if (endpoint != null)
@@ -195,8 +248,11 @@ public class IoTBasics
             // Step 6: List your AWS IoT certificates
             Console.WriteLine(new string('-', 80));
             Console.WriteLine("5. List your AWS IoT certificates");
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
+            if (IsInteractive)
+            {
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+            }
 
             var certificates = await _iotWrapper.ListCertificatesAsync();
             foreach (var cert in certificates.Take(5)) // Show first 5 certificates
@@ -214,8 +270,11 @@ public class IoTBasics
             Console.WriteLine("of a physical device or thing. The Thing Shadow allows you to synchronize and control the state of a device between");
             Console.WriteLine("the cloud and the device itself. and the AWS IoT service. For example, you can write and retrieve JSON data from a Thing Shadow.");
             Console.WriteLine();
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
+            if (IsInteractive)
+            {
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+            }
 
             var shadowPayload = JsonSerializer.Serialize(new
             {
@@ -236,46 +295,75 @@ public class IoTBasics
             // Step 8: Write out the state information, in JSON format
             Console.WriteLine(new string('-', 80));
             Console.WriteLine("7. Write out the state information, in JSON format.");
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
+            if (IsInteractive)
+            {
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+            }
 
             var shadowData = await _iotWrapper.GetThingShadowAsync(thingName);
             Console.WriteLine($"Received Shadow Data: {shadowData}");
             Console.WriteLine(new string('-', 80));
 
-            // Step 9: Creates a rule
+            // Step 9: Set up resources (SNS topic and IAM role) and create a rule
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("8. Creates a rule");
+            Console.WriteLine("8. Set up resources and create a rule");
             Console.WriteLine("Creates a rule that is an administrator-level action.");
             Console.WriteLine("Any user who has permission to create rules will be able to access data processed by the rule.");
             Console.WriteLine();
-            Console.Write("Enter Rule name: ");
-            ruleName = Console.ReadLine()!;
-
-            // Note: For demonstration, we'll use placeholder ARNs
-            // In real usage, these should be actual SNS topic and IAM role ARNs
-            var snsTopicArn = "arn:aws:sns:us-east-1:123456789012:example-topic";
-            var roleArn = "arn:aws:iam::123456789012:role/IoTRole";
             
-            Console.WriteLine("Note: Using placeholder ARNs for SNS topic and IAM role.");
-            Console.WriteLine("In production, ensure these ARNs exist and have proper permissions.");
-            
-            try
+            if (IsInteractive)
             {
-                await _iotWrapper.CreateTopicRuleAsync(ruleName, snsTopicArn, roleArn);
-                Console.WriteLine("IoT Rule created successfully.");
+                Console.Write("Enter Rule name: ");
+                var userRuleName = Console.ReadLine();
+                if (!string.IsNullOrEmpty(userRuleName))
+                    ruleName = userRuleName;
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine($"Note: Rule creation failed (expected with placeholder ARNs): {ex.Message}");
+                Console.WriteLine($"Using default rule name: {ruleName}");
+            }
+
+            // Set up SNS topic and IAM role for the IoT rule
+            var topicName = $"iot-topic-{Guid.NewGuid():N}";
+            iotRoleName = $"iot-role-{Guid.NewGuid():N}";
+            
+            Console.WriteLine("Setting up SNS topic and IAM role for the IoT rule...");
+            var setupResult = await SetupAsync(topicName, iotRoleName);
+            
+            string roleArn = "";
+            
+            if (setupResult.HasValue)
+            {
+                (snsTopicArn, roleArn) = setupResult.Value;
+                Console.WriteLine($"Successfully created SNS topic: {snsTopicArn}");
+                Console.WriteLine($"Successfully created IAM role: {roleArn}");
+                
+                // Now create the IoT rule with the actual ARNs
+                var ruleResult = await _iotWrapper.CreateTopicRuleAsync(ruleName, snsTopicArn, roleArn);
+                if (ruleResult)
+                {
+                    Console.WriteLine("IoT Rule created successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("Failed to create IoT rule.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Failed to set up SNS topic and IAM role. Skipping rule creation.");
             }
             Console.WriteLine(new string('-', 80));
 
             // Step 10: List your rules
             Console.WriteLine(new string('-', 80));
             Console.WriteLine("9. List your rules.");
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
+            if (IsInteractive)
+            {
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+            }
 
             var rules = await _iotWrapper.ListTopicRulesAsync();
             Console.WriteLine("List of IoT Rules:");
@@ -291,8 +379,11 @@ public class IoTBasics
             // Step 11: Search things using the Thing name
             Console.WriteLine(new string('-', 80));
             Console.WriteLine("10. Search things using the Thing name.");
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
+            if (IsInteractive)
+            {
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+            }
 
             var searchResults = await _iotWrapper.SearchIndexAsync($"thingName:{thingName}");
             if (searchResults.Any())
@@ -309,14 +400,25 @@ public class IoTBasics
             if (!string.IsNullOrEmpty(certificateArn))
             {
                 Console.WriteLine(new string('-', 80));
-                Console.Write($"Do you want to detach and delete the certificate for {thingName}? (y/n)");
-                var deleteCert = Console.ReadLine();
+                var deleteCert = "y";
+                if (IsInteractive)
+                {
+                    Console.Write($"Do you want to detach and delete the certificate for {thingName}? (y/n)");
+                    deleteCert = Console.ReadLine();
+                }
+                else
+                {
+                    Console.WriteLine($"Detaching and deleting certificate for {thingName}...");
+                }
 
                 if (deleteCert?.ToLower() == "y")
                 {
                     Console.WriteLine("11. You selected to detach and delete the certificate.");
-                    Console.WriteLine("Press Enter to continue...");
-                    Console.ReadLine();
+                    if (IsInteractive)
+                    {
+                        Console.WriteLine("Press Enter to continue...");
+                        Console.ReadLine();
+                    }
 
                     await _iotWrapper.DetachThingPrincipalAsync(thingName, certificateArn);
                     Console.WriteLine($"{certificateArn} was successfully removed from {thingName}");
@@ -330,8 +432,16 @@ public class IoTBasics
             // Step 13: Delete the AWS IoT Thing
             Console.WriteLine(new string('-', 80));
             Console.WriteLine("12. Delete the AWS IoT Thing.");
-            Console.Write($"Do you want to delete the IoT Thing? (y/n)");
-            var deleteThing = Console.ReadLine();
+            var deleteThing = "y";
+            if (IsInteractive)
+            {
+                Console.Write($"Do you want to delete the IoT Thing? (y/n)");
+                deleteThing = Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine($"Deleting IoT Thing {thingName}...");
+            }
 
             if (deleteThing?.ToLower() == "y")
             {
@@ -339,6 +449,25 @@ public class IoTBasics
                 Console.WriteLine($"Deleted Thing {thingName}");
             }
             Console.WriteLine(new string('-', 80));
+
+            // Step 14: Clean up SNS topic and IAM role
+            if (!string.IsNullOrEmpty(snsTopicArn) && !string.IsNullOrEmpty(iotRoleName))
+            {
+                Console.WriteLine(new string('-', 80));
+                Console.WriteLine("13. Clean up SNS topic and IAM role.");
+                Console.WriteLine("Cleaning up the resources created for the IoT rule...");
+                
+                var cleanupSuccess = await CleanupAsync(snsTopicArn, iotRoleName);
+                if (cleanupSuccess)
+                {
+                    Console.WriteLine("Successfully cleaned up SNS topic and IAM role.");
+                }
+                else
+                {
+                    Console.WriteLine("Some cleanup operations failed. Check the logs for details.");
+                }
+                Console.WriteLine(new string('-', 80));
+            }
         }
         catch (Exception ex)
         {
@@ -369,9 +498,178 @@ public class IoTBasics
                     _logger.LogError(cleanupEx, "Error during Thing cleanup.");
                 }
             }
+
+            // Clean up SNS topic and IAM role on error
+            if (!string.IsNullOrEmpty(snsTopicArn) && !string.IsNullOrEmpty(iotRoleName))
+            {
+                try
+                {
+                    await CleanupAsync(snsTopicArn, iotRoleName);
+                }
+                catch (Exception cleanupEx)
+                {
+                    _logger.LogError(cleanupEx, "Error during SNS and IAM cleanup.");
+                }
+            }
             
             throw;
         }
     }
+
+    // snippet-start:[iot.dotnetv4.Setup]
+    /// <summary>
+    /// Sets up the necessary resources for the IoT scenario (SNS topic and IAM role).
+    /// </summary>
+    /// <param name="topicName">The name of the SNS topic to create.</param>
+    /// <param name="roleName">The name of the IAM role to create.</param>
+    /// <returns>A tuple containing the SNS topic ARN and IAM role ARN, or null if setup failed.</returns>
+    private static async Task<(string SnsTopicArn, string RoleArn)?> SetupAsync(string topicName, string roleName)
+    {
+        try
+        {
+            // Create SNS topic
+            var createTopicRequest = new Amazon.SimpleNotificationService.Model.CreateTopicRequest
+            {
+                Name = topicName
+            };
+
+            var topicResponse = await _amazonSNS.CreateTopicAsync(createTopicRequest);
+            var snsTopicArn = topicResponse.TopicArn;
+            _logger.LogInformation($"Created SNS topic {topicName} with ARN {snsTopicArn}");
+
+            // Create IAM role for IoT
+            var trustPolicy = @"{
+                ""Version"": ""2012-10-17"",
+                ""Statement"": [
+                    {
+                        ""Effect"": ""Allow"",
+                        ""Principal"": {
+                            ""Service"": ""iot.amazonaws.com""
+                        },
+                        ""Action"": ""sts:AssumeRole""
+                    }
+                ]
+            }";
+
+            var createRoleRequest = new Amazon.IdentityManagement.Model.CreateRoleRequest
+            {
+                RoleName = roleName,
+                AssumeRolePolicyDocument = trustPolicy,
+                Description = "Role for AWS IoT to publish to SNS topic"
+            };
+
+            var roleResponse = await _amazonIAM.CreateRoleAsync(createRoleRequest);
+            var roleArn = roleResponse.Role.Arn;
+            _logger.LogInformation($"Created IAM role {roleName} with ARN {roleArn}");
+
+            // Attach policy to allow SNS publishing
+            var policyDocument = $@"{{
+                ""Version"": ""2012-10-17"",
+                ""Statement"": [
+                    {{
+                        ""Effect"": ""Allow"",
+                        ""Action"": ""sns:Publish"",
+                        ""Resource"": ""{snsTopicArn}""
+                    }}
+                ]
+            }}";
+
+            var putRolePolicyRequest = new Amazon.IdentityManagement.Model.PutRolePolicyRequest
+            {
+                RoleName = roleName,
+                PolicyName = "IoTSNSPolicy",
+                PolicyDocument = policyDocument
+            };
+
+            await _amazonIAM.PutRolePolicyAsync(putRolePolicyRequest);
+            _logger.LogInformation($"Attached SNS policy to role {roleName}");
+
+            // Wait a bit for the role to propagate
+            await Task.Delay(10000);
+
+            return (snsTopicArn, roleArn);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't set up resources. Here's why: {ex.Message}");
+            return null;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.Setup]
+
+    // snippet-start:[iot.dotnetv4.Cleanup]
+    /// <summary>
+    /// Cleans up the resources created during setup (SNS topic and IAM role).
+    /// </summary>
+    /// <param name="snsTopicArn">The ARN of the SNS topic to delete.</param>
+    /// <param name="roleName">The name of the IAM role to delete.</param>
+    /// <returns>True if cleanup was successful, false otherwise.</returns>
+    private static async Task<bool> CleanupAsync(string snsTopicArn, string roleName)
+    {
+        var success = true;
+
+        try
+        {
+            // Delete role policy first
+            try
+            {
+                var deleteRolePolicyRequest = new Amazon.IdentityManagement.Model.DeleteRolePolicyRequest
+                {
+                    RoleName = roleName,
+                    PolicyName = "IoTSNSPolicy"
+                };
+
+                await _amazonIAM.DeleteRolePolicyAsync(deleteRolePolicyRequest);
+                _logger.LogInformation($"Deleted role policy for {roleName}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning($"Failed to delete role policy: {ex.Message}");
+                success = false;
+            }
+
+            // Delete IAM role
+            try
+            {
+                var deleteRoleRequest = new Amazon.IdentityManagement.Model.DeleteRoleRequest
+                {
+                    RoleName = roleName
+                };
+
+                await _amazonIAM.DeleteRoleAsync(deleteRoleRequest);
+                _logger.LogInformation($"Deleted IAM role {roleName}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning($"Failed to delete IAM role: {ex.Message}");
+                success = false;
+            }
+
+            // Delete SNS topic
+            try
+            {
+                var deleteTopicRequest = new Amazon.SimpleNotificationService.Model.DeleteTopicRequest
+                {
+                    TopicArn = snsTopicArn
+                };
+
+                await _amazonSNS.DeleteTopicAsync(deleteTopicRequest);
+                _logger.LogInformation($"Deleted SNS topic {snsTopicArn}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning($"Failed to delete SNS topic: {ex.Message}");
+                success = false;
+            }
+
+            return success;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't clean up resources. Here's why: {ex.Message}");
+            return false;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.Cleanup]
 }
 // snippet-end:[iot.dotnetv4.IoTScenario]
