@@ -33,19 +33,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [DeleteAlarms](zcl_aws1_cwt_actions.clas.abap#L60)
-- [DescribeAlarms](zcl_aws1_cwt_actions.clas.abap#L80)
-- [DisableAlarmActions](zcl_aws1_cwt_actions.clas.abap#L101)
-- [EnableAlarmActions](zcl_aws1_cwt_actions.clas.abap#L124)
-- [ListMetrics](zcl_aws1_cwt_actions.clas.abap#L147)
-- [PutMetricAlarm](zcl_aws1_cwt_actions.clas.abap#L169)
+- [DeleteAlarms](#awsex#cl_cwt_actions.clas.abap#L71)
+- [DescribeAlarms](#awsex#cl_cwt_actions.clas.abap#L91)
+- [DisableAlarmActions](#awsex#cl_cwt_actions.clas.abap#L112)
+- [EnableAlarmActions](#awsex#cl_cwt_actions.clas.abap#L135)
+- [ListMetrics](#awsex#cl_cwt_actions.clas.abap#L158)
+- [PutMetricAlarm](#awsex#cl_cwt_actions.clas.abap#L180)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with alarms](zcl_aws1_cwt_scenario.clas.abap)
+- [Get started with alarms](#awsex#cl_cwt_scenarios.clas.abap)
 
 
 <!--custom.examples.start-->

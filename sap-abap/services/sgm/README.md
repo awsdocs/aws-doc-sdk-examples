@@ -33,24 +33,24 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateEndpoint](zcl_aws1_sgm_actions.clas.abap#L120)
-- [CreateModel](zcl_aws1_sgm_actions.clas.abap#L166)
-- [CreateTrainingJob](zcl_aws1_sgm_actions.clas.abap#L194)
-- [CreateTransformJob](zcl_aws1_sgm_actions.clas.abap#L306)
-- [DeleteEndpoint](zcl_aws1_sgm_actions.clas.abap#L360)
-- [DeleteModel](zcl_aws1_sgm_actions.clas.abap#L391)
-- [DescribeTrainingJob](zcl_aws1_sgm_actions.clas.abap#L412)
-- [ListAlgorithms](zcl_aws1_sgm_actions.clas.abap#L432)
-- [ListModels](zcl_aws1_sgm_actions.clas.abap#L452)
-- [ListNotebookInstances](zcl_aws1_sgm_actions.clas.abap#L472)
-- [ListTrainingJobs](zcl_aws1_sgm_actions.clas.abap#L491)
+- [CreateEndpoint](#awsex#cl_sgm_actions.clas.abap#L130)
+- [CreateModel](#awsex#cl_sgm_actions.clas.abap#L176)
+- [CreateTrainingJob](#awsex#cl_sgm_actions.clas.abap#L204)
+- [CreateTransformJob](#awsex#cl_sgm_actions.clas.abap#L316)
+- [DeleteEndpoint](#awsex#cl_sgm_actions.clas.abap#L370)
+- [DeleteModel](#awsex#cl_sgm_actions.clas.abap#L401)
+- [DescribeTrainingJob](#awsex#cl_sgm_actions.clas.abap#L422)
+- [ListAlgorithms](#awsex#cl_sgm_actions.clas.abap#L442)
+- [ListModels](#awsex#cl_sgm_actions.clas.abap#L462)
+- [ListNotebookInstances](#awsex#cl_sgm_actions.clas.abap#L482)
+- [ListTrainingJobs](#awsex#cl_sgm_actions.clas.abap#L501)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with models and endpoints](zcl_aws1_sgm_scenario.clas.abap)
+- [Get started with models and endpoints](#awsex#cl_sgm_scenarios.clas.abap)
 
 
 <!--custom.examples.start-->

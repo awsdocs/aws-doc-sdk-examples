@@ -33,18 +33,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [AnalyzeDocument](zcl_aws1_tex_actions.clas.abap#L61)
-- [DetectDocumentText](zcl_aws1_tex_actions.clas.abap#L136)
-- [GetDocumentAnalysis](zcl_aws1_tex_actions.clas.abap#L197)
-- [StartDocumentAnalysis](zcl_aws1_tex_actions.clas.abap#L255)
-- [StartDocumentTextDetection](zcl_aws1_tex_actions.clas.abap#L326)
+- [AnalyzeDocument](#awsex#cl_tex_actions.clas.abap#L66)
+- [DetectDocumentText](#awsex#cl_tex_actions.clas.abap#L141)
+- [GetDocumentAnalysis](#awsex#cl_tex_actions.clas.abap#L202)
+- [StartDocumentAnalysis](#awsex#cl_tex_actions.clas.abap#L260)
+- [StartDocumentTextDetection](#awsex#cl_tex_actions.clas.abap#L331)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with document analysis](zcl_aws1_tex_scenario.clas.abap)
+- [Get started with document analysis](#awsex#cl_tex_scenarios.clas.abap)
 
 
 <!--custom.examples.start-->
