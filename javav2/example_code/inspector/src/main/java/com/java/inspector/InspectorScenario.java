@@ -155,9 +155,9 @@ public class InspectorScenario {
         }
         System.out.println();
 
-        System.out.println("🎉 Inspector Basics scenario completed successfully!");
+        System.out.println(" Inspector Basics scenario completed successfully!");
         System.out.println();
-        System.out.println("📚 What you learned:");
+        System.out.println(" What you learned:");
         System.out.println("   ✓ How to check Inspector account status and configuration");
         System.out.println("   ✓ How to enable Inspector for different resource types");
         System.out.println("   ✓ How to list and analyze security findings");

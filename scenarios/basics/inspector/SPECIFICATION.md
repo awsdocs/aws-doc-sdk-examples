@@ -25,38 +25,65 @@ This Basics scenario does not require any additional AWS resources.
 
 ## Hello Amazon Inspector
 
-The Hello example is a separate runnable example. - Set up the Inspector service client, checks the current account status for Inspector and displays available scan types.
+The Hello example is intended for users not familiar with this service to easily get up and running. It sets up the Inspector service client, checks the current account status for Inspector and displays available scan types.
 
 ## Scenario
 
-#### Setup
+## Scenario
 
-* Enable Amazon Inspector for the account
-* Verify Inspector is successfully activated
-* Display account status and enabled scan types
+This scenario demonstrates the basic usage of **Amazon Inspector** using a Java program. It focuses on checking account status, enabling Inspector, listing findings, reviewing coverage, and managing filters.
 
-#### Coverage Assessment
+---
 
-* List coverage statistics for EC2 instances, ECR repositories, and Lambda functions
-* Display resource coverage details
-* Show scanning status for different resource types
+### Setup
 
-#### Findings Management
+* Check Amazon Inspector account status
+* Enable Inspector for available resource types (if not already enabled)
+* Display account status summary
+
+---
+
+### Coverage Assessment
+
+* List coverage details for scanned resources
+* Display overall coverage statistics
+* Review scan status for resources (general overview)
+
+---
+
+### Findings Management
 
 * List security findings across all resource types
-* Filter findings by severity level (CRITICAL, HIGH, MEDIUM, LOW)
-* Retrieve detailed information for specific findings
+* Create an example filter to suppress low-severity findings
+* List existing filters
 
-#### Vulnerability Analysis
+---
 
-* Display vulnerability details including CVE information
-* Show affected resources and remediation guidance
-* Filter findings by resource type (EC2, ECR, Lambda)
+### Usage and Costs
 
-#### Cleanup
+* Check usage totals and metrics for Inspector
+* Review coverage statistics
 
-* Optionally disable Inspector scanning (with user confirmation)
-* Display final account status
+---
+
+### Notes
+
+* The program **does not retrieve detailed vulnerability (CVE) information**.
+* Resource-specific filtering (e.g., EC2, ECR, Lambda) is **not implemented**.
+* Cleanup (disabling Inspector) is **not performed**.
+
+---
+
+### Outcome
+
+By following this scenario, users learn how to:
+
+* Check Inspector account status and configuration
+* Enable Inspector for different resource types
+* List and analyze security findings
+* Monitor scan coverage
+* Create and manage filters
+* Track usage and coverage statistics
 
 ## Errors
 
