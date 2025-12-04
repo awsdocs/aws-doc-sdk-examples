@@ -99,13 +99,6 @@ CLASS zcl_aws1_fnt_actions IMPLEMENTATION.
             iv_isipv6enabled = lo_distribution_config->get_isipv6enabled( )
             iv_webaclid = lo_distribution_config->get_webaclid( )
             iv_defaultrootobject = lo_distribution_config->get_defaultrootobject( )
-            iv_contdeploymentpolicyid = lo_distribution_config->get_contdeploymentpolicyid( )
-            iv_staging = lo_distribution_config->get_staging( )
-            iv_anycastiplistid = lo_distribution_config->get_anycastiplistid( )
-            io_tenantconfig = lo_distribution_config->get_tenantconfig( )
-            iv_connectionmode = lo_distribution_config->get_connectionmode( )
-            io_viewermtlsconfig = lo_distribution_config->get_viewermtlsconfig( )
-            io_connectionfunctionassoc = lo_distribution_config->get_connectionfunctionassoc( )
           ).
 
           " Update the distribution with the new configuration
