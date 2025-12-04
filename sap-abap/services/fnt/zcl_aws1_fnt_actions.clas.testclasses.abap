@@ -209,7 +209,12 @@ CLASS ltc_zcl_aws1_fnt_actions IMPLEMENTATION.
 
   METHOD list_distributions.
     " Call the list_distributions method
-    ao_fnt_actions->list_distributions( ).
+    DATA(lo_actions_result) = ao_fnt_actions->list_distributions( ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_actions_result
+      msg = 'Result from list_distributions should not be null'
+    ).
 
     " Verify that we can list distributions successfully
     DATA(lo_result) = ao_fnt->listdistributions( ).
@@ -239,7 +244,8 @@ CLASS ltc_zcl_aws1_fnt_actions IMPLEMENTATION.
 
   METHOD update_distribution.
     " Define a new comment
-    DATA(lv_new_comment) = 'Updated test distribution comment'.
+    DATA lv_new_comment TYPE /aws1/fntcommenttype.
+    lv_new_comment = 'Updated test distribution comment'.
 
     " Call the update_distribution method
     ao_fnt_actions->update_distribution(
