@@ -85,21 +85,33 @@ By following this scenario, users learn how to:
 
 ## Errors
 
-SDK Code examples include basic exception handling for each action used. The table below describes an appropriate exception which will be handled in the code for each service action.
+The Java SDK examples include basic exception handling for each Inspector action. The table below describes the exceptions actually handled in the program for each action.
 
-|Action	|Error	|Handling	|
-|---	|---	|---	|
-|`Enable`	|ValidationException	|Validate resource types and account permissions.	|
-|`Enable`	|AccessDeniedException	|Notify user of insufficient permissions and exit.	|
-|`BatchGetAccountStatus`	|ValidationException	|Validate account IDs format.	|
-|`BatchGetAccountStatus`	|AccessDeniedException	|Handle permission errors gracefully.	|
-|`ListFindings`	|ValidationException	|Validate filter criteria and pagination parameters.	|
-|`ListFindings`	|InternalServerException	|Retry operation with exponential backoff.	|
-|`BatchGetFindingDetails`	|ValidationException	|Validate finding ARNs format.	|
-|`BatchGetFindingDetails`	|AccessDeniedException	|Handle access denied for specific findings.	|
-|`ListCoverage`	|ValidationException	|Validate filter and pagination parameters.	|
-|`Disable`	|ValidationException	|Validate resource types for disabling.	|
-|`Disable`	|ConflictException	|Handle cases where Inspector cannot be disabled.	|
+| Action                       | Exception                  | Handling                                                                 |
+|-------------------------------|---------------------------|--------------------------------------------------------------------------|
+| `Enable`                      | `ValidationException`      | Prints a message indicating Inspector may already be enabled.           |
+| `Enable`                      | `Inspector2Exception`      | Prints AWS service error details and rethrows the exception.            |
+| `Enable`                      | `Exception`                | Wraps and throws a `RuntimeException` for unexpected errors.           |
+| `BatchGetAccountStatus`       | `Inspector2Exception`      | Prints AWS service error details and rethrows the exception.            |
+| `BatchGetAccountStatus`       | `Exception`                | Wraps and throws a `RuntimeException` for unexpected errors.           |
+| `ListFindings`                | `ValidationException`      | Prints validation error details.                                         |
+| `ListFindings`                | `Inspector2Exception`      | Prints AWS service error details and rethrows the exception.            |
+| `ListFindings`                | `Exception`                | Wraps and throws a `RuntimeException` for unexpected errors.           |
+| `ListCoverage`                | `ValidationException`      | Prints validation error details.                                         |
+| `ListCoverage`                | `Inspector2Exception`      | Prints AWS service error details and rethrows the exception.            |
+| `ListCoverage`                | `Exception`                | Wraps and throws a `RuntimeException` for unexpected errors.           |
+| `ListCoverageStatistics`      | `ValidationException`      | Prints validation error details.                                         |
+| `ListCoverageStatistics`      | `Inspector2Exception`      | Prints AWS service error details and rethrows the exception.            |
+| `ListCoverageStatistics`      | `Exception`                | Wraps and throws a `RuntimeException` for unexpected errors.           |
+| `ListUsageTotals`             | `ValidationException`      | Prints validation error details.                                         |
+| `ListUsageTotals`             | `Inspector2Exception`      | Prints AWS service error details and rethrows the exception.            |
+| `ListUsageTotals`             | `Exception`                | Wraps and throws a `RuntimeException` for unexpected errors.           |
+| `CreateFilter`                | `Inspector2Exception`      | Prints AWS service error details and rethrows the exception.            |
+| `CreateFilter`                | `Exception`                | Prints unexpected error message and rethrows the exception.             |
+| `ListFilters`                 | `Inspector2Exception`      | Prints AWS service error details and rethrows the exception.            |
+| `ListFilters`                 | `Exception`                | Prints unexpected error message and rethrows the exception.             |
+| `getAccountStatus`            | `Inspector2Exception`      | Prints AWS service error details and rethrows the exception.            |
+| `getAccountStatus`            | `Exception`                | Wraps and throws a `RuntimeException` for unexpected errors.           |
 
 ## Metadata
 
