@@ -4,6 +4,15 @@ controltower_Hello:
   synopsis: get started using &CTower;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - controltower.java2.hello.main
     Python:
       versions:
         - sdk_version: 3
@@ -25,6 +34,15 @@ controltower_Hello:
 
 controltower_ListBaselines:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - controltower.java2.list_baselines.main
     Python:
       versions:
         - sdk_version: 3
@@ -47,6 +65,15 @@ controltower_ListBaselines:
 
 controltower_ListEnabledBaselines:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - controltower.java2.list_enabled_baselines.main
     Python:
       versions:
         - sdk_version: 3
@@ -69,6 +96,15 @@ controltower_ListEnabledBaselines:
 
 controltower_EnableBaseline:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - controltower.java2.enable_baseline.main
     Python:
       versions:
         - sdk_version: 3
@@ -91,6 +127,15 @@ controltower_EnableBaseline:
 
 controltower_ResetEnabledBaseline:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - controltower.java2.reset_enabled_baseline.main
     Python:
       versions:
         - sdk_version: 3
@@ -113,6 +158,15 @@ controltower_ResetEnabledBaseline:
 
 controltower_DisableBaseline:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - controltower.java2.disable_baseline.main
     Python:
       versions:
         - sdk_version: 3
@@ -135,6 +189,15 @@ controltower_DisableBaseline:
 
 controltower_ListEnabledControls:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - controltower.java2.list_enabled_controls.main
     Python:
       versions:
         - sdk_version: 3
@@ -157,6 +220,15 @@ controltower_ListEnabledControls:
 
 controltower_EnableControl:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - controltower.java2.enable_control.main
     Python:
       versions:
         - sdk_version: 3
@@ -179,6 +251,15 @@ controltower_EnableControl:
 
 controltower_GetControlOperation:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - controltower.java2.get_control_operation.main
     Python:
       versions:
         - sdk_version: 3
@@ -201,6 +282,15 @@ controltower_GetControlOperation:
 
 controltower_DisableControl:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - controltower.java2.disable_control.main
     Python:
       versions:
         - sdk_version: 3
@@ -223,6 +313,15 @@ controltower_DisableControl:
 
 controltower_ListLandingZones:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - controltower.java2.list_landing_zones.main
     Python:
       versions:
         - sdk_version: 3
@@ -245,6 +344,15 @@ controltower_ListLandingZones:
 
 controltower_GetBaselineOperation:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - controltower.java2.list_landing_zones.main
     Python:
       versions:
         - sdk_version: 3
@@ -272,6 +380,16 @@ controltower_Scenario:
     - List, enable, get, and disable controls.
   category: Basics
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/controltower
+          sdkguide:
+          excerpts:
+            - description: un an interactive scenario demonstrating &CTowerlong; features.
+              snippet_tags:
+                - controltower.java2.controltower_scenario.main
+                - controltower.java2.controltower_actions.main
     Python:
       versions:
         - sdk_version: 3
