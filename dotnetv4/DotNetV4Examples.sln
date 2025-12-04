@@ -91,6 +91,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudWatchScenario", "Cloud
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudWatchActions", "CloudWatch\Actions\CloudWatchActions.csproj", "{EAF4A3B8-5CD0-48ED-B848-0EA6D451B8D3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloudWatchLogs", "CloudWatchLogs", "{A1B2C3D4-E5F6-7890-1234-567890ABCDEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudWatchLogsTests", "CloudWatchLogs\LargeQuery\Tests\CloudWatchLogsTests.csproj", "{B1A4BF4B-D2AE-4E7D-AAA2-5D77877848B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudWatchLogsScenario", "CloudWatchLogs\LargeQuery\Scenarios\CloudWatchLogsScenario.csproj", "{EEDAB42C-1106-42C9-9601-D44F21B475DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudWatchLogsActions", "CloudWatchLogs\LargeQuery\Actions\CloudWatchLogsActions.csproj", "{7781E31F-CABB-484A-AD52-EBC02D2EB274}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EC2", "EC2", "{9424FB14-B6DE-44CE-B675-AC2B57EC1E69}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC2Tests", "EC2\Tests\EC2Tests.csproj", "{C99A0F7C-9477-4985-90F6-8EED38ECAC10}"
@@ -531,6 +539,18 @@ Global
 		{EAF4A3B8-5CD0-48ED-B848-0EA6D451B8D3}.Debug|x86.Build.0 = Debug|Any CPU
 		{EAF4A3B8-5CD0-48ED-B848-0EA6D451B8D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAF4A3B8-5CD0-48ED-B848-0EA6D451B8D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1A4BF4B-D2AE-4E7D-AAA2-5D77877848B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1A4BF4B-D2AE-4E7D-AAA2-5D77877848B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1A4BF4B-D2AE-4E7D-AAA2-5D77877848B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1A4BF4B-D2AE-4E7D-AAA2-5D77877848B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEDAB42C-1106-42C9-9601-D44F21B475DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEDAB42C-1106-42C9-9601-D44F21B475DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEDAB42C-1106-42C9-9601-D44F21B475DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEDAB42C-1106-42C9-9601-D44F21B475DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7781E31F-CABB-484A-AD52-EBC02D2EB274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7781E31F-CABB-484A-AD52-EBC02D2EB274}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7781E31F-CABB-484A-AD52-EBC02D2EB274}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7781E31F-CABB-484A-AD52-EBC02D2EB274}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EAF4A3B8-5CD0-48ED-B848-0EA6D451B8D3}.Release|x64.ActiveCfg = Release|Any CPU
 		{EAF4A3B8-5CD0-48ED-B848-0EA6D451B8D3}.Release|x64.Build.0 = Release|Any CPU
 		{EAF4A3B8-5CD0-48ED-B848-0EA6D451B8D3}.Release|x86.ActiveCfg = Release|Any CPU
