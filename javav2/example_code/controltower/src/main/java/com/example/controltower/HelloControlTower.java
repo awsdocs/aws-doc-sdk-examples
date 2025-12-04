@@ -25,7 +25,7 @@ import java.util.List;
  * and config files.
  */
 
-// snippet-start:[python.example_code.controltower.Hello]
+// snippet-start:[controltower.java2.hello.main]
 public class HelloControlTower {
 
     public static void main(String[] args) {
@@ -74,4 +74,4 @@ public class HelloControlTower {
         }
     }
 }
-// snippet-end:[python.example_code.controltower.Hello]
+// snippet-end:[controltower.java2.hello.main]
