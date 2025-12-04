@@ -150,7 +150,7 @@ CLASS ltc_zcl_aws1_fnt_actions IMPLEMENTATION.
           ao_s3->createbucket( iv_bucket = rv_bucket_name ).
         ELSE.
           " Other regions require location constraint
-          DATA(lo_bucket_config) = NEW /aws1/cl_s3_createbucketcfg(
+          DATA(lo_bucket_config) = NEW /aws1/cl_s3_createbucketconf(
             iv_locationconstraint = lv_region
           ).
           ao_s3->createbucket(
