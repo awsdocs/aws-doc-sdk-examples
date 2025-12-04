@@ -115,13 +115,14 @@ The Java SDK examples include basic exception handling for each Inspector action
 
 ## Metadata
 
-|action / scenario	|metadata file	|metadata key	|
-|---	|---	|---	|
-|`Enable`	|inspector_metadata.yaml	|inspector_Enable	|
-|`BatchGetAccountStatus`	|inspector_metadata.yaml	|inspector_BatchGetAccountStatus	|
-|`ListFindings`	|inspector_metadata.yaml	|inspector_ListFindings	|
-|`BatchGetFindingDetails`	|inspector_metadata.yaml	|inspector_BatchGetFindingDetails	|
-|`ListCoverage`	|inspector_metadata.yaml	|inspector_ListCoverage	|
-|`Disable`	|inspector_metadata.yaml	|inspector_Disable	|
-|`Amazon Inspector Basics Scenario`	|inspector_metadata.yaml	|inspector_Scenario	|
-
+| Action / Scenario                        | Metadata File           | Metadata Key                  |
+|-----------------------------------------|------------------------|-------------------------------|
+| `Enable`                                 | inspector_metadata.yaml | inspector_EnableInspector     |
+| `BatchGetAccountStatus`                  | inspector_metadata.yaml | inspector_GetAccountStatus    |
+| `ListFindings`                           | inspector_metadata.yaml | inspector_ListFindings        |
+| `ListCoverage`                           | inspector_metadata.yaml | inspector_ListCoverage        |
+| `ListCoverageStatistics`                 | inspector_metadata.yaml | inspector_ListCoverageStatistics |
+| `ListUsageTotals`                         | inspector_metadata.yaml | inspector_ListUsageTotals     |
+| `CreateFilter`                           | inspector_metadata.yaml | inspector_CreateFilter        |
+| `ListFilters`                            | inspector_metadata.yaml | inspector_ListFilters         |
+| `Amazon Inspector Basics Scenario`       | inspector_metadata.yaml | inspector_Scenario            |
