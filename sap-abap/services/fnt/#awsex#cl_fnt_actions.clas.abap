@@ -1,4 +1,4 @@
-CLASS zcl_aws1_fnt_actions DEFINITION
+CLASS /awsex/cl_fnt_actions DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
@@ -19,7 +19,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_aws1_fnt_actions IMPLEMENTATION.
+CLASS /awsex/cl_fnt_actions IMPLEMENTATION.
 
 
   METHOD list_distributions.

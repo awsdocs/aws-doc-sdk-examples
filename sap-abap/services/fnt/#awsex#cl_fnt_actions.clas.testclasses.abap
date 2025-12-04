@@ -1,14 +1,17 @@
-CLASS ltc_zcl_aws1_fnt_actions DEFINITION DEFERRED.
-CLASS zcl_aws1_fnt_actions DEFINITION LOCAL FRIENDS ltc_zcl_aws1_fnt_actions.
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
 
-CLASS ltc_zcl_aws1_fnt_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
+CLASS ltc_awsex_cl_fnt_actions DEFINITION DEFERRED.
+CLASS awsex_cl_fnt_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_fnt_actions.
+
+CLASS ltc_awsex_cl_fnt_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
 
   PRIVATE SECTION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     CLASS-DATA ao_fnt TYPE REF TO /aws1/if_fnt.
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
-    CLASS-DATA ao_fnt_actions TYPE REF TO zcl_aws1_fnt_actions.
+    CLASS-DATA ao_fnt_actions TYPE REF TO awsex_cl_fnt_actions.
     CLASS-DATA av_test_distribution_id TYPE /aws1/fntstring.
     CLASS-DATA av_test_bucket_name TYPE /aws1/s3_bucketname.
 
@@ -26,13 +29,13 @@ CLASS ltc_zcl_aws1_fnt_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 ENDCLASS.
 
 
-CLASS ltc_zcl_aws1_fnt_actions IMPLEMENTATION.
+CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
 
   METHOD class_setup.
     " Create session and CloudFront client
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_fnt = /aws1/cl_fnt_factory=>create( ao_session ).
-    ao_fnt_actions = NEW zcl_aws1_fnt_actions( ).
+    ao_fnt_actions = NEW awsex_cl_fnt_actions( ).
 
     " Create a test S3 bucket for CloudFront origin
     DATA(lo_s3) = /aws1/cl_s3_factory=>create( ao_session ).

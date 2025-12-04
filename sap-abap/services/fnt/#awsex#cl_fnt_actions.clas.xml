@@ -3,7 +3,7 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <VSEOCLASS>
-    <CLSNAME>ZCL_AWS1_FNT_ACTIONS</CLSNAME>
+    <CLSNAME>/AWSEX/CL_FNT_ACTIONS</CLSNAME>
     <LANGU>E</LANGU>
     <DESCRIPT>Cloudfront Code Example</DESCRIPT>
     <STATE>1</STATE>
