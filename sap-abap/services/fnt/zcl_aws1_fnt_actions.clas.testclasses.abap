@@ -142,7 +142,7 @@ CLASS ltc_zcl_aws1_fnt_actions IMPLEMENTATION.
     ENDIF.
 
     " Create the bucket with proper configuration
-    DATA(lv_region) = ao_session->get_region( ).
+    DATA(lv_region) = CONV /aws1/s3_bucketlocationcnstrnt( ao_session->get_region( ) ).
 
     TRY.
         IF lv_region = 'us-east-1'.
