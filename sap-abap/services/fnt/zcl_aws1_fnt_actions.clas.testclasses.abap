@@ -48,7 +48,7 @@ CLASS ltc_zcl_aws1_fnt_actions IMPLEMENTATION.
         IF lv_region = 'us-east-1'.
           lo_s3->createbucket( iv_bucket = av_test_bucket_name ).
         ELSE.
-          DATA(lo_create_bucket_config) = NEW /aws1/cl_s3_createbucketconfig( iv_locationconstraint = lv_region ).
+          DATA(lo_create_bucket_config) = NEW /aws1/cl_s3_createbucketconf( iv_locationconstraint = lv_region ).
           lo_s3->createbucket(
             iv_bucket = av_test_bucket_name
             io_createbucketconfiguration = lo_create_bucket_config
