@@ -5,8 +5,8 @@ CLASS zcl_aws1_fnt_actions DEFINITION
 
   PUBLIC SECTION.
     METHODS list_distributions
-      EXPORTING
-        VALUE(oo_result) TYPE REF TO /aws1/if_fnt_paginator .
+      RETURNING
+        VALUE(oo_result) TYPE REF TO /aws1/cl_fntlstdistributionsrs .
 
     METHODS update_distribution
       IMPORTING
