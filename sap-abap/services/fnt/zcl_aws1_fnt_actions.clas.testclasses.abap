@@ -37,6 +37,8 @@ CLASS ltc_zcl_aws1_fnt_actions IMPLEMENTATION.
     " Create a test S3 bucket for CloudFront origin
     DATA(lo_s3) = /aws1/cl_s3_factory=>create( ao_session ).
     DATA(lv_region) = ao_session->get_region( ).
+    DATA lv_region_string TYPE /aws1/s3_bucketlocationcnstrnt.
+    lv_region_string = lv_region.
     DATA(lv_uuid) = cl_system_uuid=>create_uuid_x16_static( ).
     DATA lv_uuid_string TYPE string.
     lv_uuid_string = lv_uuid.
@@ -48,7 +50,7 @@ CLASS ltc_zcl_aws1_fnt_actions IMPLEMENTATION.
         IF lv_region = 'us-east-1'.
           lo_s3->createbucket( iv_bucket = av_test_bucket_name ).
         ELSE.
-          DATA(lo_create_bucket_config) = NEW /aws1/cl_s3_createbucketconf( iv_locationconstraint = lv_region ).
+          DATA(lo_create_bucket_config) = NEW /aws1/cl_s3_createbucketconf( iv_locationconstraint = lv_region_string ).
           lo_s3->createbucket(
             iv_bucket = av_test_bucket_name
             io_createbucketconfiguration = lo_create_bucket_config
@@ -78,7 +80,7 @@ CLASS ltc_zcl_aws1_fnt_actions IMPLEMENTATION.
         " Create a CloudFront distribution
         DATA(lv_caller_ref) = |test-dist-{ lv_uuid_string }|.
         DATA(lv_origin_id) = |S3-{ av_test_bucket_name }|.
-        DATA(lv_domain) = |{ av_test_bucket_name }.s3.{ lv_region }.amazonaws.com|.
+        DATA(lv_domain) = |{ av_test_bucket_name }.s3.{ lv_region_string }.amazonaws.com|.
 
         " Create origin configuration
         DATA(lo_origins) = NEW /aws1/cl_fntorigins(
