@@ -21,7 +21,6 @@ public class InspectorScenario {
 
     static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-
         InspectorActions inspectorActions = new InspectorActions();
         Inspector2Client inspectorClient = Inspector2Client.builder()
                 .region(Region.US_EAST_1)
