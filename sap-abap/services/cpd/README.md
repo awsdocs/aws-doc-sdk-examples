@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [DetectSentiment](zcl_aws1_cpd_actions.clas.abap#L32)
+- [DetectSentiment](#awsex#cl_cpd_actions.clas.abap#L35)
 
 
 <!--custom.examples.start-->
