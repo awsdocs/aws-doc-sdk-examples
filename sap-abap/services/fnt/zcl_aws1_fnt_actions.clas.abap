@@ -113,12 +113,12 @@ CLASS zcl_aws1_fnt_actions IMPLEMENTATION.
           MESSAGE 'Failed to retrieve distribution configuration.' TYPE 'E'.
         ENDIF.
 
+      CATCH /aws1/cx_fntpreconditionfailed INTO DATA(lo_precond_ex).
+        MESSAGE 'Precondition failed - ETag mismatch.' TYPE 'E'.
       CATCH /aws1/cx_fntclientexc INTO DATA(lo_client_ex).
         MESSAGE lo_client_ex->get_text( ) TYPE 'E'.
       CATCH /aws1/cx_fntserverexc INTO DATA(lo_server_ex).
         MESSAGE lo_server_ex->get_text( ) TYPE 'E'.
-      CATCH /aws1/cx_fntpreconditionfailed INTO DATA(lo_precond_ex).
-        MESSAGE 'Precondition failed - ETag mismatch.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[fnt.abapv1.update_distribution]
   ENDMETHOD.
