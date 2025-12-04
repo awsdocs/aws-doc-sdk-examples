@@ -29,8 +29,21 @@ import software.amazon.awssdk.services.autoscaling.model.UpdateAutoScalingGroupR
 import software.amazon.awssdk.services.autoscaling.model.TerminateInstanceInAutoScalingGroupRequest;
 import software.amazon.awssdk.services.autoscaling.model.DescribeAutoScalingInstancesRequest;
 import software.amazon.awssdk.services.ec2.Ec2Client;
+import software.amazon.awssdk.services.ec2.model.CreateLaunchTemplateVersionRequest;
+import software.amazon.awssdk.services.ec2.model.CreateLaunchTemplateVersionResponse;
+import software.amazon.awssdk.services.ec2.model.DescribeSubnetsRequest;
+import software.amazon.awssdk.services.ec2.model.DescribeSubnetsResponse;
+import software.amazon.awssdk.services.ec2.model.DescribeVpcsRequest;
+import software.amazon.awssdk.services.ec2.model.DescribeVpcsResponse;
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+import software.amazon.awssdk.services.ec2.model.Filter;
+import software.amazon.awssdk.services.ec2.model.ModifyLaunchTemplateRequest;
+import software.amazon.awssdk.services.ec2.model.RequestLaunchTemplateData;
+import software.amazon.awssdk.services.ec2.model.ResponseLaunchTemplateData;
+import software.amazon.awssdk.services.ec2.model.Vpc;
 
 import java.util.List;
+import java.util.Map;
 // snippet-end:[autoscale.java2.create_scaling_scenario.import]
 
 // snippet-start:[autoscale.java2.create_scaling_scenario.main]
@@ -65,41 +78,42 @@ import java.util.List;
 
 public class AutoScalingScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-
+    private static final String ROLES_STACK = "MyCdkAutoScaleStack";
     public static void main(String[] args) throws InterruptedException {
         final String usage = """
 
                 Usage:
-                    <groupName> <launchTemplateName> <vpcZoneId>
+                    <groupName>
 
                 Where:
                     groupName - The name of the Auto Scaling group.
-                    launchTemplateName - The name of the launch template.\s
-                    vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.
                 """;
 
-        //if (args.length != 3) {
-        //    System.out.println(usage);
-        //    System.exit(1);
-       // }
-
-        String groupName = "Scott250" ; //rgs[0];
-        String launchTemplateName = "MyTemplate5" ;//args[1];
-        String vpcZoneId = "subnet-0ddc451b8a8a1aa44" ; //args[2];
-
+        String groupName = "MyAutoScalingGroup2";
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
-                .region(Region.US_EAST_1)
+                .region(Region.US_WEST_2)
                 .build();
 
-        Ec2Client ec2 = Ec2Client.create();
+        Ec2Client ec2 = Ec2Client.builder()
+                .region(Region.US_WEST_2)
+                .build();
 
         System.out.println(DASHES);
         System.out.println("Welcome to the Amazon EC2 Auto Scaling example scenario.");
         System.out.println(DASHES);
 
         System.out.println(DASHES);
+        System.out.println("First, we will create a launch template using a CloudFormation script");
+        CloudFormationHelper.deployCloudFormationStack(ROLES_STACK);
+        Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputsAsync(ROLES_STACK).join();
+        String launchTemplateName = stackOutputs.get("LaunchTemplateNameOutput");
+        String vpcZoneId = getVPC(ec2);
+        updateTemlate(ec2, launchTemplateName );
+        System.out.println("The VPC zone id created by the CloudFormation stack is"+vpcZoneId);
+
         System.out.println("1. Create an Auto Scaling group named " + groupName);
-        createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, vpcZoneId);
+        createAutoScalingGroup(autoScalingClient, ec2, groupName, launchTemplateName, vpcZoneId);
+
         System.out.println(
                 "Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned");
         Thread.sleep(60000);
@@ -170,7 +184,8 @@ public class AutoScalingScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("13. Delete the Auto Scaling group");
+        System.out.println("13. Delete the Auto Scaling group and cloud formation resources");
+        CloudFormationHelper.destroyCloudFormationStack(ROLES_STACK);
         deleteAutoScalingGroup(autoScalingClient, groupName);
         System.out.println(DASHES);
 
@@ -181,6 +196,56 @@ public class AutoScalingScenario {
         autoScalingClient.close();
     }
 
+    public static String getVPC(Ec2Client ec2) {
+        try {
+            DescribeVpcsRequest request = DescribeVpcsRequest.builder()
+                    .filters(f -> f.name("isDefault").values("true"))
+                    .build();
+
+            DescribeVpcsResponse response = ec2.describeVpcs(request);
+
+            if (!response.vpcs().isEmpty()) {
+                Vpc defaultVpc = response.vpcs().get(0);
+                System.out.println("Default VPC ID: " + defaultVpc.vpcId());
+                return defaultVpc.vpcId();
+            } else {
+                System.out.println("No default VPC found.");
+                return null; // Return null if no default VPC is found
+            }
+
+        } catch (Ec2Exception e) {
+            System.err.println("EC2 error: " + e.awsErrorDetails().errorMessage());
+            return null; // Return null in case of an error
+        }
+    }
+
+
+    public static void updateTemlate(Ec2Client ec2, String launchTemplateName ) {
+        // Step 1: Create new launch template version
+        String newAmiId = "ami-0025f0db847eb6254";
+        RequestLaunchTemplateData launchTemplateData = RequestLaunchTemplateData.builder()
+                .imageId(newAmiId)
+                .build();
+
+        CreateLaunchTemplateVersionRequest createVersionRequest = CreateLaunchTemplateVersionRequest.builder()
+                .launchTemplateName(launchTemplateName)
+                .versionDescription("Updated with valid AMI")
+                .sourceVersion("1")
+                .launchTemplateData(launchTemplateData)
+                .build();
+
+        CreateLaunchTemplateVersionResponse createResponse = ec2.createLaunchTemplateVersion(createVersionRequest);
+        int newVersionNumber = createResponse.launchTemplateVersion().versionNumber().intValue();
+
+        // Step 2: Modify default version
+        ModifyLaunchTemplateRequest modifyRequest = ModifyLaunchTemplateRequest.builder()
+                .launchTemplateName(launchTemplateName)
+                .defaultVersion(String.valueOf(newVersionNumber))
+                .build();
+
+        ec2.modifyLaunchTemplate(modifyRequest);
+        System.out.println("Updated launch template to version " + newVersionNumber + " with AMI " + newAmiId);
+    }
 
 
     // snippet-start:[autoscale.java2.describe_scaling_activites.main]
@@ -226,36 +291,55 @@ public class AutoScalingScenario {
 
     // snippet-start:[autoscale.java2.create_autoscalinggroup.main]
     public static void createAutoScalingGroup(AutoScalingClient autoScalingClient,
-            String groupName,
-            String launchTemplateName,
-            String vpcZoneId) {
+                                              Ec2Client ec2Client,
+                                              String groupName,
+                                              String launchTemplateName,
+                                              String vpcId) {
         try {
-            AutoScalingWaiter waiter = autoScalingClient.waiter();
+            // Step 1: Get one subnet ID in the given VPC
+            DescribeSubnetsRequest subnetRequest = DescribeSubnetsRequest.builder()
+                    .filters(Filter.builder().name("vpc-id").values(vpcId).build())
+                    .build();
+
+            DescribeSubnetsResponse subnetResponse = ec2Client.describeSubnets(subnetRequest);
+
+            if (subnetResponse.subnets().isEmpty()) {
+                throw new RuntimeException("No subnets found in VPC: " + vpcId);
+            }
+
+            String subnetId = subnetResponse.subnets().get(0).subnetId(); // Use first subnet
+            System.out.println("Using subnet: " + subnetId);
+
+            // Step 2: Create launch template reference
             LaunchTemplateSpecification templateSpecification = LaunchTemplateSpecification.builder()
                     .launchTemplateName(launchTemplateName)
                     .build();
 
+            // Step 3: Create Auto Scaling group
             CreateAutoScalingGroupRequest request = CreateAutoScalingGroupRequest.builder()
                     .autoScalingGroupName(groupName)
-                    .availabilityZones("us-east-1a")
                     .launchTemplate(templateSpecification)
-                    .maxSize(1)
                     .minSize(1)
-                    .vpcZoneIdentifier(vpcZoneId)
+                    .maxSize(1)
+                    .vpcZoneIdentifier(subnetId)  // Correct: subnet ID, not VPC ID
                     .build();
 
             autoScalingClient.createAutoScalingGroup(request);
+
+            // Step 4: Wait until group is created
+            AutoScalingWaiter waiter = autoScalingClient.waiter();
             DescribeAutoScalingGroupsRequest groupsRequest = DescribeAutoScalingGroupsRequest.builder()
                     .autoScalingGroupNames(groupName)
                     .build();
 
-            WaiterResponse<DescribeAutoScalingGroupsResponse> waiterResponse = waiter
-                    .waitUntilGroupExists(groupsRequest);
+            WaiterResponse<DescribeAutoScalingGroupsResponse> waiterResponse =
+                    waiter.waitUntilGroupExists(groupsRequest);
+
             waiterResponse.matched().response().ifPresent(System.out::println);
             System.out.println("Auto Scaling Group created");
 
-        } catch (AutoScalingException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
+        } catch (Ec2Exception | AutoScalingException e) {
+            System.err.println("Error: " + e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }

@@ -1,1 +1,0 @@
-{"source-ref":"s3://bucket/cookies/Anomaly/anomaly-1.jpg","auto-label":0,"auto-label-metadata":{"confidence":1,"job-name":"labeling-job/auto-label","class-name":"Anomaly","human-annotated":"yes","creation-date":"2022-04-28T00:35:57.102","type":"groundtruth/image-classification"}}
