@@ -45,17 +45,17 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchPutAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L169)
-- [CreateAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L138)
-- [CreateAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L88)
-- [CreateGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L378)
-- [DeleteAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L293)
-- [DeleteAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L320)
-- [DeleteGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L423)
-- [DescribeAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L264)
-- [DescribeGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L450)
-- [GetAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L233)
-- [ListAssetModels](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L347)
+- [BatchPutAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L168)
+- [CreateAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L137)
+- [CreateAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L87)
+- [CreateGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L377)
+- [DeleteAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L292)
+- [DeleteAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L319)
+- [DeleteGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L422)
+- [DescribeAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L263)
+- [DescribeGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L449)
+- [GetAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L232)
+- [ListAssetModels](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L346)
 
 
 <!--custom.examples.start-->
