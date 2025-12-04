@@ -29,8 +29,6 @@ The Hello example is intended for users not familiar with this service to easily
 
 ## Scenario
 
-## Scenario
-
 This scenario demonstrates the basic usage of **Amazon Inspector** using a Java program. It focuses on checking account status, enabling Inspector, listing findings, reviewing coverage, and managing filters.
 
 ---
