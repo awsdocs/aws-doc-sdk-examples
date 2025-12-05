@@ -23,6 +23,9 @@ namespace IoTBasics;
 public class IoTBasics
 {
     public static bool IsInteractive = true;
+    public static IoTWrapper? Wrapper = null;
+    public static IAmazonCloudFormation? CloudFormationClient = null;
+    public static ILogger<IoTBasics> logger = null!;
     private static IoTWrapper _iotWrapper = null!;
     private static IAmazonCloudFormation _amazonCloudFormation = null!;
     private static ILogger<IoTBasics> _logger = null!;
@@ -37,10 +40,6 @@ public class IoTBasics
     /// <returns>A Task object.</returns>
     public static async Task Main(string[] args)
     {
-        //var config = new ConfigurationBuilder()
-        //    .AddJsonFile("appsettings.json")
-        //    .Build();
-
         // Set up dependency injection for the Amazon service.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
@@ -61,13 +60,16 @@ public class IoTBasics
             )
             .Build();
 
-        
-
-        _logger = LoggerFactory.Create(builder => builder.AddConsole())
+        logger = LoggerFactory.Create(builder => builder.AddConsole())
             .CreateLogger<IoTBasics>();
 
-        _iotWrapper = host.Services.GetRequiredService<IoTWrapper>();
-        _amazonCloudFormation = host.Services.GetRequiredService<IAmazonCloudFormation>();
+        Wrapper = host.Services.GetRequiredService<IoTWrapper>();
+        CloudFormationClient = host.Services.GetRequiredService<IAmazonCloudFormation>();
+
+        // Set the private fields for backwards compatibility
+        _logger = logger;
+        _iotWrapper = Wrapper;
+        _amazonCloudFormation = CloudFormationClient;
 
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Welcome to the AWS IoT example workflow.");
@@ -99,7 +101,24 @@ public class IoTBasics
     /// Run the IoT Basics scenario.
     /// </summary>
     /// <returns>A Task object.</returns>
-    private static async Task RunScenarioAsync()
+    public static async Task RunScenarioAsync()
+    {
+        // Use static properties if available, otherwise use private fields
+        var iotWrapper = Wrapper ?? _iotWrapper;
+        var cloudFormationClient = CloudFormationClient ?? _amazonCloudFormation;
+        var scenarioLogger = logger ?? _logger;
+
+        await RunScenarioInternalAsync(iotWrapper, cloudFormationClient, scenarioLogger);
+    }
+
+    /// <summary>
+    /// Internal method to run the IoT Basics scenario with injected dependencies.
+    /// </summary>
+    /// <param name="iotWrapper">The IoT wrapper instance.</param>
+    /// <param name="cloudFormationClient">The CloudFormation client instance.</param>
+    /// <param name="scenarioLogger">The logger instance.</param>
+    /// <returns>A Task object.</returns>
+    private static async Task RunScenarioInternalAsync(IoTWrapper iotWrapper, IAmazonCloudFormation cloudFormationClient, ILogger<IoTBasics> scenarioLogger)
     {
         string thingName = $"iot-thing-{Guid.NewGuid():N}";
         string certificateArn = "";
@@ -127,7 +146,7 @@ public class IoTBasics
                 Console.WriteLine($"Using default Thing name: {thingName}");
             }
             
-            var thingArn = await _iotWrapper.CreateThingAsync(thingName);
+            var thingArn = await iotWrapper.CreateThingAsync(thingName);
             Console.WriteLine($"{thingName} was successfully created. The ARN value is {thingArn}");
             Console.WriteLine(new string('-', 80));
 
@@ -150,7 +169,7 @@ public class IoTBasics
 
             if (createCert?.ToLower() == "y")
             {
-                var certificateResult = await _iotWrapper.CreateKeysAndCertificateAsync();
+                var certificateResult = await iotWrapper.CreateKeysAndCertificateAsync();
                 if (certificateResult.HasValue)
                 {
                     var (certArn, certPem, certId) = certificateResult.Value;
@@ -174,7 +193,7 @@ public class IoTBasics
 
                     // Step 3: Attach the Certificate to the AWS IoT Thing
                     Console.WriteLine("Attach the certificate to the AWS IoT Thing.");
-                    var attachResult = await _iotWrapper.AttachThingPrincipalAsync(thingName, certificateArn);
+                    var attachResult = await iotWrapper.AttachThingPrincipalAsync(thingName, certificateArn);
                     if (attachResult)
                     {
                         Console.WriteLine("Certificate attached to Thing successfully.");
@@ -214,7 +233,7 @@ public class IoTBasics
                 { "Firmware", "1.2.3" }
             };
 
-            await _iotWrapper.UpdateThingAsync(thingName, attributes);
+            await iotWrapper.UpdateThingAsync(thingName, attributes);
             Console.WriteLine("Thing attributes updated successfully.");
             Console.WriteLine(new string('-', 80));
 
@@ -229,7 +248,7 @@ public class IoTBasics
                 Console.ReadLine();
             }
 
-            var endpoint = await _iotWrapper.DescribeEndpointAsync();
+            var endpoint = await iotWrapper.DescribeEndpointAsync();
             if (endpoint != null)
             {
                 var subdomain = endpoint.Split('.')[0];
@@ -251,7 +270,7 @@ public class IoTBasics
                 Console.ReadLine();
             }
 
-            var certificates = await _iotWrapper.ListCertificatesAsync();
+            var certificates = await iotWrapper.ListCertificatesAsync();
             foreach (var cert in certificates.Take(5)) // Show first 5 certificates
             {
                 Console.WriteLine($"Cert id: {cert.CertificateId}");
@@ -285,7 +304,7 @@ public class IoTBasics
                 }
             });
 
-            await _iotWrapper.UpdateThingShadowAsync(thingName, shadowPayload);
+            await iotWrapper.UpdateThingShadowAsync(thingName, shadowPayload);
             Console.WriteLine("Thing Shadow updated successfully.");
             Console.WriteLine(new string('-', 80));
 
@@ -298,7 +317,7 @@ public class IoTBasics
                 Console.ReadLine();
             }
 
-            var shadowData = await _iotWrapper.GetThingShadowAsync(thingName);
+            var shadowData = await iotWrapper.GetThingShadowAsync(thingName);
             Console.WriteLine($"Received Shadow Data: {shadowData}");
             Console.WriteLine(new string('-', 80));
 
@@ -329,12 +348,12 @@ public class IoTBasics
             {
                 _stackName = PromptUserForStackName();
 
-                var deploySuccess = await DeployCloudFormationStack(_stackName);
+                var deploySuccess = await DeployCloudFormationStack(_stackName, cloudFormationClient, scenarioLogger);
 
                 if (deploySuccess)
                 {
                     // Get stack outputs
-                    var stackOutputs = await GetStackOutputs(_stackName);
+                    var stackOutputs = await GetStackOutputs(_stackName, cloudFormationClient, scenarioLogger);
                     if (stackOutputs != null)
                     {
                         snsTopicArn = stackOutputs["SNSTopicArn"];
@@ -344,7 +363,7 @@ public class IoTBasics
                         Console.WriteLine($"Successfully deployed stack. IAM role: {roleArn}");
                         
                         // Now create the IoT rule with the CloudFormation outputs
-                        var ruleResult = await _iotWrapper.CreateTopicRuleAsync(ruleName, snsTopicArn, roleArn);
+                        var ruleResult = await iotWrapper.CreateTopicRuleAsync(ruleName, snsTopicArn, roleArn);
                         if (ruleResult)
                         {
                             Console.WriteLine("IoT Rule created successfully.");
@@ -379,7 +398,7 @@ public class IoTBasics
                 Console.ReadLine();
             }
 
-            var rules = await _iotWrapper.ListTopicRulesAsync();
+            var rules = await iotWrapper.ListTopicRulesAsync();
             Console.WriteLine("List of IoT Rules:");
             foreach (var rule in rules.Take(5)) // Show first 5 rules
             {
@@ -399,7 +418,7 @@ public class IoTBasics
                 Console.ReadLine();
             }
 
-            var searchResults = await _iotWrapper.SearchIndexAsync($"thingName:{thingName}");
+            var searchResults = await iotWrapper.SearchIndexAsync($"thingName:{thingName}");
             if (searchResults.Any())
             {
                 Console.WriteLine($"Thing id found using search is {searchResults.First().ThingId}");
@@ -434,10 +453,10 @@ public class IoTBasics
                         Console.ReadLine();
                     }
 
-                    await _iotWrapper.DetachThingPrincipalAsync(thingName, certificateArn);
+                    await iotWrapper.DetachThingPrincipalAsync(thingName, certificateArn);
                     Console.WriteLine($"{certificateArn} was successfully removed from {thingName}");
 
-                    await _iotWrapper.DeleteCertificateAsync(certificateId);
+                    await iotWrapper.DeleteCertificateAsync(certificateId);
                     Console.WriteLine($"{certificateArn} was successfully deleted.");
                 }
                 Console.WriteLine(new string('-', 80));
@@ -459,7 +478,7 @@ public class IoTBasics
 
             if (deleteThing?.ToLower() == "y")
             {
-                await _iotWrapper.DeleteThingAsync(thingName);
+                await iotWrapper.DeleteThingAsync(thingName);
                 Console.WriteLine($"Deleted Thing {thingName}");
             }
             Console.WriteLine(new string('-', 80));
@@ -474,7 +493,7 @@ public class IoTBasics
                 var cleanup = !IsInteractive || GetYesNoResponse("Do you want to delete the CloudFormation stack and all resources? (y/n) ");
                 if (cleanup)
                 {
-                    var cleanupSuccess = await DeleteCloudFormationStack(_stackName);
+                    var cleanupSuccess = await DeleteCloudFormationStack(_stackName, cloudFormationClient, scenarioLogger);
                     if (cleanupSuccess)
                     {
                         Console.WriteLine("Successfully cleaned up CloudFormation stack and all resources.");
@@ -493,19 +512,19 @@ public class IoTBasics
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred during scenario execution.");
+            scenarioLogger.LogError(ex, "Error occurred during scenario execution.");
             
             // Cleanup on error
             if (!string.IsNullOrEmpty(certificateArn) && !string.IsNullOrEmpty(thingName))
             {
                 try
                 {
-                    await _iotWrapper.DetachThingPrincipalAsync(thingName, certificateArn);
-                    await _iotWrapper.DeleteCertificateAsync(certificateId);
+                    await iotWrapper.DetachThingPrincipalAsync(thingName, certificateArn);
+                    await iotWrapper.DeleteCertificateAsync(certificateId);
                 }
                 catch (Exception cleanupEx)
                 {
-                    _logger.LogError(cleanupEx, "Error during cleanup.");
+                    scenarioLogger.LogError(cleanupEx, "Error during cleanup.");
                 }
             }
             
@@ -513,11 +532,11 @@ public class IoTBasics
             {
                 try
                 {
-                    await _iotWrapper.DeleteThingAsync(thingName);
+                    await iotWrapper.DeleteThingAsync(thingName);
                 }
                 catch (Exception cleanupEx)
                 {
-                    _logger.LogError(cleanupEx, "Error during Thing cleanup.");
+                    scenarioLogger.LogError(cleanupEx, "Error during Thing cleanup.");
                 }
             }
 
@@ -526,11 +545,11 @@ public class IoTBasics
             {
                 try
                 {
-                    await DeleteCloudFormationStack(_stackName);
+                    await DeleteCloudFormationStack(_stackName, cloudFormationClient, scenarioLogger);
                 }
                 catch (Exception cleanupEx)
                 {
-                    _logger.LogError(cleanupEx, "Error during CloudFormation stack cleanup.");
+                    scenarioLogger.LogError(cleanupEx, "Error during CloudFormation stack cleanup.");
                 }
             }
             
@@ -542,8 +561,10 @@ public class IoTBasics
     /// Deploys the CloudFormation stack with the necessary resources.
     /// </summary>
     /// <param name="stackName">The name of the CloudFormation stack.</param>
+    /// <param name="cloudFormationClient">The CloudFormation client.</param>
+    /// <param name="scenarioLogger">The logger.</param>
     /// <returns>True if the stack was deployed successfully.</returns>
-    private static async Task<bool> DeployCloudFormationStack(string stackName)
+    private static async Task<bool> DeployCloudFormationStack(string stackName, IAmazonCloudFormation cloudFormationClient, ILogger<IoTBasics> scenarioLogger)
     {
         Console.WriteLine($"\nDeploying CloudFormation stack: {stackName}");
 
@@ -556,13 +577,13 @@ public class IoTBasics
                 Capabilities = new List<string>{ Capability.CAPABILITY_NAMED_IAM }
             };
 
-            var response = await _amazonCloudFormation.CreateStackAsync(request);
+            var response = await cloudFormationClient.CreateStackAsync(request);
 
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
                 Console.WriteLine($"CloudFormation stack creation started: {stackName}");
 
-                bool stackCreated = await WaitForStackCompletion(response.StackId);
+                bool stackCreated = await WaitForStackCompletion(response.StackId, cloudFormationClient, scenarioLogger);
 
                 if (stackCreated)
                 {
@@ -571,25 +592,25 @@ public class IoTBasics
                 }
                 else
                 {
-                    _logger.LogError($"CloudFormation stack creation failed: {stackName}");
+                    scenarioLogger.LogError($"CloudFormation stack creation failed: {stackName}");
                     return false;
                 }
             }
             else
             {
-                _logger.LogError($"Failed to create CloudFormation stack: {stackName}");
+                scenarioLogger.LogError($"Failed to create CloudFormation stack: {stackName}");
                 return false;
             }
         }
         catch (AlreadyExistsException)
         {
-            _logger.LogWarning($"CloudFormation stack '{stackName}' already exists. Please provide a unique name.");
+            scenarioLogger.LogWarning($"CloudFormation stack '{stackName}' already exists. Please provide a unique name.");
             var newStackName = PromptUserForStackName();
-            return await DeployCloudFormationStack(newStackName);
+            return await DeployCloudFormationStack(newStackName, cloudFormationClient, scenarioLogger);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"An error occurred while deploying the CloudFormation stack: {stackName}");
+            scenarioLogger.LogError(ex, $"An error occurred while deploying the CloudFormation stack: {stackName}");
             return false;
         }
     }
@@ -598,8 +619,10 @@ public class IoTBasics
     /// Waits for the CloudFormation stack to be in the CREATE_COMPLETE state.
     /// </summary>
     /// <param name="stackId">The ID of the CloudFormation stack.</param>
+    /// <param name="cloudFormationClient">The CloudFormation client.</param>
+    /// <param name="scenarioLogger">The logger.</param>
     /// <returns>True if the stack was created successfully.</returns>
-    private static async Task<bool> WaitForStackCompletion(string stackId)
+    private static async Task<bool> WaitForStackCompletion(string stackId, IAmazonCloudFormation cloudFormationClient, ILogger<IoTBasics> scenarioLogger)
     {
         int retryCount = 0;
         const int maxRetries = 30;
@@ -612,7 +635,7 @@ public class IoTBasics
                 StackName = stackId
             };
 
-            var describeStacksResponse = await _amazonCloudFormation.DescribeStacksAsync(describeStacksRequest);
+            var describeStacksResponse = await cloudFormationClient.DescribeStacksAsync(describeStacksRequest);
 
             if (describeStacksResponse.Stacks.Count > 0)
             {
@@ -632,7 +655,7 @@ public class IoTBasics
             retryCount++;
         }
 
-        _logger.LogError("Timed out waiting for CloudFormation stack creation to complete.");
+        scenarioLogger.LogError("Timed out waiting for CloudFormation stack creation to complete.");
         return false;
     }
 
@@ -640,8 +663,10 @@ public class IoTBasics
     /// Gets the outputs from the CloudFormation stack.
     /// </summary>
     /// <param name="stackName">The name of the CloudFormation stack.</param>
+    /// <param name="cloudFormationClient">The CloudFormation client.</param>
+    /// <param name="scenarioLogger">The logger.</param>
     /// <returns>A dictionary of stack outputs.</returns>
-    private static async Task<Dictionary<string, string>?> GetStackOutputs(string stackName)
+    private static async Task<Dictionary<string, string>?> GetStackOutputs(string stackName, IAmazonCloudFormation cloudFormationClient, ILogger<IoTBasics> scenarioLogger)
     {
         try
         {
@@ -650,7 +675,7 @@ public class IoTBasics
                 StackName = stackName
             };
 
-            var response = await _amazonCloudFormation.DescribeStacksAsync(describeStacksRequest);
+            var response = await cloudFormationClient.DescribeStacksAsync(describeStacksRequest);
             
             if (response.Stacks.Count > 0)
             {
@@ -666,7 +691,7 @@ public class IoTBasics
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Failed to get stack outputs for {stackName}");
+            scenarioLogger.LogError(ex, $"Failed to get stack outputs for {stackName}");
             return null;
         }
     }
@@ -674,7 +699,11 @@ public class IoTBasics
     /// <summary>
     /// Deletes the CloudFormation stack and waits for confirmation.
     /// </summary>
-    private static async Task<bool> DeleteCloudFormationStack(string stackName)
+    /// <param name="stackName">The name of the CloudFormation stack.</param>
+    /// <param name="cloudFormationClient">The CloudFormation client.</param>
+    /// <param name="scenarioLogger">The logger.</param>
+    /// <returns>True if the stack was deleted successfully.</returns>
+    private static async Task<bool> DeleteCloudFormationStack(string stackName, IAmazonCloudFormation cloudFormationClient, ILogger<IoTBasics> scenarioLogger)
     {
         try
         {
@@ -683,10 +712,10 @@ public class IoTBasics
                 StackName = stackName
             };
 
-            await _amazonCloudFormation.DeleteStackAsync(request);
+            await cloudFormationClient.DeleteStackAsync(request);
             Console.WriteLine($"CloudFormation stack '{stackName}' is being deleted. This may take a few minutes.");
 
-            bool stackDeleted = await WaitForStackDeletion(stackName);
+            bool stackDeleted = await WaitForStackDeletion(stackName, cloudFormationClient, scenarioLogger);
 
             if (stackDeleted)
             {
@@ -695,13 +724,13 @@ public class IoTBasics
             }
             else
             {
-                _logger.LogError($"Failed to delete CloudFormation stack '{stackName}'.");
+                scenarioLogger.LogError($"Failed to delete CloudFormation stack '{stackName}'.");
                 return false;
             }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"An error occurred while deleting the CloudFormation stack: {stackName}");
+            scenarioLogger.LogError(ex, $"An error occurred while deleting the CloudFormation stack: {stackName}");
             return false;
         }
     }
@@ -709,7 +738,11 @@ public class IoTBasics
     /// <summary>
     /// Waits for the stack to be deleted.
     /// </summary>
-    private static async Task<bool> WaitForStackDeletion(string stackName)
+    /// <param name="stackName">The name of the CloudFormation stack.</param>
+    /// <param name="cloudFormationClient">The CloudFormation client.</param>
+    /// <param name="scenarioLogger">The logger.</param>
+    /// <returns>True if the stack was deleted successfully.</returns>
+    private static async Task<bool> WaitForStackDeletion(string stackName, IAmazonCloudFormation cloudFormationClient, ILogger<IoTBasics> scenarioLogger)
     {
         int retryCount = 0;
         const int maxRetries = 30;
@@ -724,7 +757,7 @@ public class IoTBasics
 
             try
             {
-                var describeStacksResponse = await _amazonCloudFormation.DescribeStacksAsync(describeStacksRequest);
+                var describeStacksResponse = await cloudFormationClient.DescribeStacksAsync(describeStacksRequest);
 
                 if (describeStacksResponse.Stacks.Count == 0 ||
                     describeStacksResponse.Stacks[0].StackStatus == StackStatus.DELETE_COMPLETE)
@@ -742,7 +775,7 @@ public class IoTBasics
             retryCount++;
         }
 
-        _logger.LogError($"Timed out waiting for CloudFormation stack '{stackName}' to be deleted.");
+        scenarioLogger.LogError($"Timed out waiting for CloudFormation stack '{stackName}' to be deleted.");
         return false;
     }
 
