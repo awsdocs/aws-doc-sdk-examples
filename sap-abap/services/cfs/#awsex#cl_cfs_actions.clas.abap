@@ -54,7 +54,7 @@ CLASS /AWSEX/CL_CFS_ACTIONS IMPLEMENTATION.
               iv_owner = |AWS|
               iv_sourceidentifier = |S3_BUCKET_PUBLIC_READ_PROHIBITED|
             )
-            iv_inputparameters = |{ }|
+            iv_inputparameters = '{}'
             iv_configrulestate = |ACTIVE|
           )
         ).

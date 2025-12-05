@@ -75,7 +75,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
               iv_owner = |AWS|
               iv_sourceidentifier = |S3_BUCKET_PUBLIC_READ_PROHIBITED|
             )
-            iv_inputparameters = |{ }|
+            iv_inputparameters = '{}'
             iv_configrulestate = |ACTIVE|
           )
           it_tags = VALUE /aws1/cl_cfstag=>tt_tagslist(
@@ -104,7 +104,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
               iv_owner = |AWS|
               iv_sourceidentifier = |S3_BUCKET_PUBLIC_READ_PROHIBITED|
             )
-            iv_inputparameters = |{ }|
+            iv_inputparameters = '{}'
             iv_configrulestate = |ACTIVE|
           )
           it_tags = VALUE /aws1/cl_cfstag=>tt_tagslist(
