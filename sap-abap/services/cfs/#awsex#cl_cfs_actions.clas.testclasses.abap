@@ -15,8 +15,8 @@ CLASS ltc_awsex_cl_cfs_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_config_bucket TYPE /aws1/s3_bucketname.
     CLASS-DATA av_config_recorder_name TYPE /aws1/cfsrecordername.
     CLASS-DATA av_delivery_channel_name TYPE /aws1/cfschannelname.
-    CLASS-DATA av_config_role_name TYPE /aws1/iamrolename.
-    CLASS-DATA av_config_role_arn TYPE /aws1/cfsarn.
+    CLASS-DATA av_config_role_name TYPE /aws1/iamrolenametype.
+    CLASS-DATA av_config_role_arn TYPE /aws1/cfsstring.
 
     CLASS-DATA ao_cfs TYPE REF TO /aws1/if_cfs.
     CLASS-DATA ao_s3 TYPE REF TO /aws1/if_s3.
