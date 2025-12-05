@@ -31,12 +31,10 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
     ao_fnt_actions = NEW /awsex/cl_fnt_actions( ).
 
     DATA(lo_s3) = /aws1/cl_s3_factory=>create( ao_session ).
-    DATA lv_region_string TYPE /aws1/s3_bucketlocationcnstrnt.
-    lv_region_string = ao_session->get_region( ).
-    
+    DATA(lv_region_string) = CONV /aws1/s3_bucketlocationcnstrnt( ao_session->get_region( ) ).
     DATA(lv_acct) = ao_session->get_account_id( ).
-    DATA lv_timestamp TYPE timestamp.
-    GET TIME STAMP FIELD lv_timestamp.
+    DATA(lv_timestamp) = cl_abap_context_info=>get_system_time( ).
+    
     av_test_bucket_name = |aws-abap-fnt-test-{ lv_acct }-{ lv_timestamp }|.
     av_test_bucket_name = to_lower( av_test_bucket_name ).
 
@@ -57,10 +55,9 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
           io_tagging = lo_s3_tags
         ).
 
-        DATA lv_start_time TYPE timestamp.
-        DATA lv_current_time TYPE timestamp.
-        DATA lv_elapsed TYPE i.
-        GET TIME STAMP FIELD lv_start_time.
+        DATA(lv_start_time) = cl_abap_context_info=>get_system_time( ).
+        DATA(lv_current_time) = lv_start_time.
+        DATA(lv_elapsed) = 0.
 
         DO 30 TIMES.
           TRY.
@@ -68,7 +65,7 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
               EXIT.
             CATCH /aws1/cx_s3_nosuchbucket.
               WAIT UP TO 2 SECONDS.
-              GET TIME STAMP FIELD lv_current_time.
+              lv_current_time = cl_abap_context_info=>get_system_time( ).
               lv_elapsed = lv_current_time - lv_start_time.
               IF lv_elapsed > 60.
                 EXIT.
@@ -145,7 +142,6 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
     ENDTRY.
   ENDMETHOD.
 
-
   METHOD class_teardown.
     IF av_test_distribution_id IS NOT INITIAL.
       TRY.
@@ -186,7 +182,6 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
     ENDIF.
   ENDMETHOD.
 
-
   METHOD list_distributions.
     DATA(lo_actions_result) = ao_fnt_actions->list_distributions( ).
 
@@ -203,7 +198,7 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
       msg = 'Distribution list should not be null'
     ).
 
-    DATA lv_found TYPE abap_bool VALUE abap_false.
+    DATA(lv_found) = abap_false.
     LOOP AT lo_distribution_list->get_items( ) INTO DATA(lo_summary).
       IF lo_summary->get_id( ) = av_test_distribution_id.
         lv_found = abap_true.
@@ -218,10 +213,8 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
     ).
   ENDMETHOD.
 
-
   METHOD update_distribution.
-    DATA lv_new_comment TYPE /aws1/fntcommenttype.
-    lv_new_comment = 'Updated test distribution comment'.
+    DATA(lv_new_comment) = CONV /aws1/fntcommenttype( 'Updated test distribution comment' ).
 
     ao_fnt_actions->update_distribution(
       iv_distribution_id = av_test_distribution_id
