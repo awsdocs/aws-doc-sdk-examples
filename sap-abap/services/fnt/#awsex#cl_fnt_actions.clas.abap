@@ -1,20 +1,24 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
-
 CLASS /awsex/cl_fnt_actions DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
 
   PUBLIC SECTION.
+
     METHODS list_distributions
-      RETURNING
-        VALUE(oo_result) TYPE REF TO /aws1/cl_fntlstdistributionsrs .
+      EXPORTING
+        !oo_result TYPE REF TO /aws1/cl_fntlstdistributionsrs
+      RAISING
+        /aws1/cx_rt_generic.
 
     METHODS update_distribution
       IMPORTING
         !iv_distribution_id TYPE /aws1/fntstring
-        !iv_new_comment     TYPE /aws1/fntcommenttype .
+        !iv_comment         TYPE /aws1/fntcommenttype
+      RAISING
+        /aws1/cx_rt_generic.
 
   PROTECTED SECTION.
   PRIVATE SECTION.
@@ -22,10 +26,11 @@ ENDCLASS.
 
 
 
-CLASS /awsex/cl_fnt_actions IMPLEMENTATION.
+CLASS /AWSEX/CL_FNT_ACTIONS IMPLEMENTATION.
 
 
   METHOD list_distributions.
+
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
@@ -33,35 +38,18 @@ CLASS /awsex/cl_fnt_actions IMPLEMENTATION.
 
     " snippet-start:[fnt.abapv1.list_distributions]
     TRY.
-        oo_result = lo_fnt->listdistributions( ).
-
-        DATA(lo_distribution_list) = oo_result->get_distributionlist( ).
-
-        IF lo_distribution_list IS NOT INITIAL.
-          DATA(lv_quantity) = lo_distribution_list->get_quantity( ).
-          MESSAGE 'Listed CloudFront distributions.' TYPE 'I'.
-
-          LOOP AT lo_distribution_list->get_items( ) INTO DATA(lo_distribution_summary).
-            DATA(lv_id) = lo_distribution_summary->get_id( ).
-            DATA(lv_domain_name) = lo_distribution_summary->get_domainname( ).
-            DATA(lv_status) = lo_distribution_summary->get_status( ).
-
-            MESSAGE |Distribution ID: { lv_id }, Domain: { lv_domain_name }, Status: { lv_status }| TYPE 'I'.
-          ENDLOOP.
-        ELSE.
-          MESSAGE 'No CloudFront distributions detected.' TYPE 'I'.
-        ENDIF.
-
-      CATCH /aws1/cx_fntclientexc INTO DATA(lo_client_ex).
-        MESSAGE lo_client_ex->get_text( ) TYPE 'E'.
-      CATCH /aws1/cx_fntserverexc INTO DATA(lo_server_ex).
-        MESSAGE lo_server_ex->get_text( ) TYPE 'E'.
+        oo_result = lo_fnt->listdistributions( ). " oo_result is returned for testing purposes. "
+        MESSAGE 'Retrieved list of CloudFront distributions.' TYPE 'I'.
+      CATCH /aws1/cx_fntinvalidargument.
+        MESSAGE 'Invalid argument provided.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[fnt.abapv1.list_distributions]
+
   ENDMETHOD.
 
 
   METHOD update_distribution.
+
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
@@ -69,52 +57,28 @@ CLASS /awsex/cl_fnt_actions IMPLEMENTATION.
 
     " snippet-start:[fnt.abapv1.update_distribution]
     TRY.
-        DATA(lo_config_result) = lo_fnt->getdistributionconfig( iv_distribution_id ).
-        DATA(lo_distribution_config) = lo_config_result->get_distributionconfig( ).
-        DATA(lv_etag) = lo_config_result->get_etag( ).
+        " Get the current distribution configuration and ETag "
+        DATA(lo_distribution_config_result) = lo_fnt->getdistributionconfig( iv_id = iv_distribution_id ).
+        DATA(lo_distribution_config) = lo_distribution_config_result->get_distributionconfig( ).
+        DATA(lv_etag) = lo_distribution_config_result->get_etag( ).
 
-        IF lo_distribution_config IS NOT INITIAL.
-          DATA(lv_old_comment) = lo_distribution_config->get_comment( ).
-          MESSAGE |Current comment: { lv_old_comment }| TYPE 'I'.
+        " Update the comment field "
+        lo_distribution_config->set_comment( iv_comment ).
 
-          DATA(lo_new_config) = NEW /aws1/cl_fntdistributionconfig(
-            iv_callerreference = lo_distribution_config->get_callerreference( )
-            io_origins = lo_distribution_config->get_origins( )
-            io_defaultcachebehavior = lo_distribution_config->get_defaultcachebehavior( )
-            iv_comment = iv_new_comment
-            iv_enabled = lo_distribution_config->get_enabled( )
-            io_aliases = lo_distribution_config->get_aliases( )
-            io_cachebehaviors = lo_distribution_config->get_cachebehaviors( )
-            io_customerrorresponses = lo_distribution_config->get_customerrorresponses( )
-            io_logging = lo_distribution_config->get_logging( )
-            io_origingroups = lo_distribution_config->get_origingroups( )
-            io_restrictions = lo_distribution_config->get_restrictions( )
-            io_viewercertificate = lo_distribution_config->get_viewercertificate( )
-            iv_priceclass = lo_distribution_config->get_priceclass( )
-            iv_httpversion = lo_distribution_config->get_httpversion( )
-            iv_isipv6enabled = lo_distribution_config->get_isipv6enabled( )
-            iv_webaclid = lo_distribution_config->get_webaclid( )
-            iv_defaultrootobject = lo_distribution_config->get_defaultrootobject( )
-          ).
-
-          DATA(lo_update_result) = lo_fnt->updatedistribution(
-            iv_id = iv_distribution_id
-            io_distributionconfig = lo_new_config
-            iv_ifmatch = lv_etag
-          ).
-
-          MESSAGE 'Distribution updated successfully.' TYPE 'I'.
-        ELSE.
-          MESSAGE 'Failed to retrieve distribution configuration.' TYPE 'E'.
-        ENDIF.
-
-      CATCH /aws1/cx_fntpreconditionfailed INTO DATA(lo_precond_ex).
+        " Update the distribution with the modified configuration "
+        lo_fnt->updatedistribution(
+          io_distributionconfig = lo_distribution_config
+          iv_id = iv_distribution_id
+          iv_ifmatch = lv_etag ).
+        MESSAGE 'CloudFront distribution updated successfully.' TYPE 'I'.
+      CATCH /aws1/cx_fntnosuchdistribution.
+        MESSAGE 'Distribution does not exist.' TYPE 'E'.
+      CATCH /aws1/cx_fntpreconditionfailed.
         MESSAGE 'Precondition failed - ETag mismatch.' TYPE 'E'.
-      CATCH /aws1/cx_fntclientexc INTO DATA(lo_client_ex).
-        MESSAGE lo_client_ex->get_text( ) TYPE 'E'.
-      CATCH /aws1/cx_fntserverexc INTO DATA(lo_server_ex).
-        MESSAGE lo_server_ex->get_text( ) TYPE 'E'.
+      CATCH /aws1/cx_fntinvalidifmatchvrs.
+        MESSAGE 'Invalid If-Match version.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[fnt.abapv1.update_distribution]
+
   ENDMETHOD.
 ENDCLASS.
