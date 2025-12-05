@@ -386,7 +386,7 @@ controltower_Scenario:
           github: javav2/example_code/controltower
           sdkguide:
           excerpts:
-            - description: un an interactive scenario demonstrating &CTowerlong; features.
+            - description: Run an interactive scenario demonstrating &CTowerlong; features.
               snippet_tags:
                 - controltower.java2.controltower_scenario.main
                 - controltower.java2.controltower_actions.main

@@ -2,101 +2,118 @@
 
 ## Overview
 
-This is a workspace where you can find the following AWS SDK for Java 2.x AWS Control Tower examples.
+Shows how to use the AWS SDK for Java 2.x to work with AWS Control Tower.
+
+<!--custom.overview.start-->
+<!--custom.overview.end-->
+
+_AWS Control Tower enables you to enforce and manage governance rules for security, operations, and compliance at scale across all your organizations and accounts._
 
 ## ⚠ Important
 
-* Running this code might result in charges to your AWS account.
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+<!--custom.important.start-->
+<!--custom.important.end-->
 
 ## Code examples
 
-### Actions
+### Prerequisites
 
-The following examples show you how to perform actions using the AWS SDK for Java 2.x.
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
 
-* [List landing zones](src/main/java/com/example/controltower/ControlTowerActions.java) (`ListLandingZones`)
-* [List baselines](src/main/java/com/example/controltower/ControlTowerActions.java) (`ListBaselines`)
-* [List enabled baselines](src/main/java/com/example/controltower/ControlTowerActions.java) (`ListEnabledBaselines`)
-* [Enable baseline](src/main/java/com/example/controltower/ControlTowerActions.java) (`EnableBaseline`)
-* [Disable baseline](src/main/java/com/example/controltower/ControlTowerActions.java) (`DisableBaseline`)
-* [Get baseline operation](src/main/java/com/example/controltower/ControlTowerActions.java) (`GetBaselineOperation`)
-* [List enabled controls](src/main/java/com/example/controltower/ControlTowerActions.java) (`ListEnabledControls`)
-* [Enable control](src/main/java/com/example/controltower/ControlTowerActions.java) (`EnableControl`)
-* [Disable control](src/main/java/com/example/controltower/ControlTowerActions.java) (`DisableControl`)
-* [Get control operation](src/main/java/com/example/controltower/ControlTowerActions.java) (`GetControlOperation`)
 
-### Scenarios
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-The following examples show you how to implement common scenarios.
+### Get started
 
-* [Learn the basics](src/main/java/com/example/controltower/ControlTowerScenario.java) - Learn the basics by checking setup, managing baselines and controls.
+- [Hello AWS Control Tower](src/main/java/com/example/controltower/HelloControlTower.java#L28) (`ListBaselines`)
 
-### Hello
 
-* [Hello Control Tower](src/main/java/com/example/controltower/HelloControlTower.java) - Get started with AWS Control Tower.
+### Basics
 
-## Prerequisites
+Code examples that show you how to perform the essential operations within a service.
 
-- You must have an AWS account, and have your default credentials and AWS Region configured.
-- Java 17 or later
-- Maven 3.6 or later
-- AWS Control Tower must be set up in your account
+- [Learn the basics](src/main/java/com/example/controltower/ControlTowerActions.java)
 
-## Install
 
-To build and run the examples, navigate to the directory that contains a `pom.xml` file and run the following command:
+### Single actions
 
-```
-mvn compile
-```
+Code excerpts that show you how to call individual service functions.
+
+- [DisableBaseline](src/main/java/com/example/controltower/ControlTowerActions.java#L241)
+- [DisableControl](src/main/java/com/example/controltower/ControlTowerActions.java#L431)
+- [EnableBaseline](src/main/java/com/example/controltower/ControlTowerActions.java#L188)
+- [EnableControl](src/main/java/com/example/controltower/ControlTowerActions.java#L377)
+- [GetBaselineOperation](src/main/java/com/example/controltower/ControlTowerActions.java#L38)
+- [GetControlOperation](src/main/java/com/example/controltower/ControlTowerActions.java#L474)
+- [ListBaselines](src/main/java/com/example/controltower/ControlTowerActions.java#L88)
+- [ListEnabledBaselines](src/main/java/com/example/controltower/ControlTowerActions.java#L138)
+- [ListEnabledControls](src/main/java/com/example/controltower/ControlTowerActions.java#L324)
+- [ListLandingZones](src/main/java/com/example/controltower/ControlTowerActions.java#L38)
+- [ResetEnabledBaseline](src/main/java/com/example/controltower/ControlTowerActions.java#L548)
+
+
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
 ## Run the examples
 
 ### Instructions
 
-All examples can be run individually. For example:
 
-```
-mvn exec:java -Dexec.mainClass="com.example.controltower.HelloControlTower" -Dexec.args="us-east-1"
-```
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
 
-### Hello Control Tower
+#### Hello AWS Control Tower
 
 This example shows you how to get started using AWS Control Tower.
 
-```
-mvn exec:java -Dexec.mainClass="com.example.controltower.HelloControlTower" -Dexec.args="us-east-1"
-```
 
-### Learn the basics
+#### Learn the basics
 
-This interactive scenario runs at a command prompt and shows you how to use AWS Control Tower to do the following:
+This example shows you how to do the following:
 
-1. Check Control Tower setup and list landing zones
-2. List available baselines for governance
-3. List currently enabled baselines
-4. Enable baselines for organizational units
-5. List and enable controls for compliance
-6. Monitor operation status
-7. Clean up resources
+- List landing zones.
+- List, enable, get, reset, and disable baselines.
+- List, enable, get, and disable controls.
 
-```
-mvn exec:java -Dexec.mainClass="com.example.controltower.ControlTowerScenario" -Dexec.args="us-east-1"
-```
+<!--custom.basic_prereqs.controltower_Scenario.start-->
+<!--custom.basic_prereqs.controltower_Scenario.end-->
 
-## Run the tests
 
-Unit tests in this module use JUnit 5. To run all of the tests, 
-run the following in your [GitHub root]/javav2/example_code/controltower folder.
+<!--custom.basics.controltower_Scenario.start-->
+<!--custom.basics.controltower_Scenario.end-->
 
-```
-mvn test
-```
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `javav2` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
 
 ## Additional resources
 
-- [AWS Control Tower User Guide](https://docs.aws.amazon.com/controltower/latest/userguide/)
-- [AWS Control Tower API Reference](https://docs.aws.amazon.com/controltower/latest/APIReference/)
-- [AWS SDK for Java 2.x (AWS Control Tower)](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/controltower/package-summary.html)
+- [AWS Control Tower User Guide](https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html)
+- [AWS Control Tower API Reference](https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html)
+- [SDK for Java 2.x AWS Control Tower reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/controltower/package-summary.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
