@@ -146,53 +146,68 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD put_config_rule.
-    ao_cfs_actions->put_config_rule( av_rule_name_put ).
+    TRY.
+        ao_cfs_actions->put_config_rule( av_rule_name_put ).
 
-    " Wait for rule creation to propagate
-    wait_for_rule_creation( av_rule_name_put ).
+        " Wait for rule creation to propagate
+        wait_for_rule_creation( av_rule_name_put ).
 
-    " Verify the rule was created
-    assert_rule_exists(
-      iv_rule_name = av_rule_name_put
-      iv_exp = abap_true
-      iv_msg = |Config rule { av_rule_name_put }  was not created| ).
+        " Verify the rule was created
+        assert_rule_exists(
+          iv_rule_name = av_rule_name_put
+          iv_exp = abap_true
+          iv_msg = |Config rule { av_rule_name_put }  was not created| ).
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+        cl_abap_unit_assert=>fail( |Failed to create config rule: { lo_exception->get_text( ) } | ).
+    ENDTRY.
 
   ENDMETHOD.
 
   METHOD describe_config_rule.
-    DATA(lt_rules) = ao_cfs_actions->describe_config_rule( av_rule_name_describe ).
+    TRY.
+        DATA(lt_rules) = ao_cfs_actions->describe_config_rule( av_rule_name_describe ).
 
-    " Verify we got at least one rule back
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lt_rules
-      msg = |No config rules returned for { av_rule_name_describe } | ).
+        " Verify we got at least one rule back
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lt_rules
+          msg = |No config rules returned for { av_rule_name_describe } | ).
 
-    " Verify the rule name matches
-    DATA(lv_found) = abap_false.
-    LOOP AT lt_rules INTO DATA(lo_rule).
-      IF lo_rule->get_configrulename( ) = av_rule_name_describe.
-        lv_found = abap_true.
-        EXIT.
-      ENDIF.
-    ENDLOOP.
+        " Verify the rule name matches
+        DATA(lv_found) = abap_false.
+        LOOP AT lt_rules INTO DATA(lo_rule).
+          IF lo_rule->get_configrulename( ) = av_rule_name_describe.
+            lv_found = abap_true.
+            EXIT.
+          ENDIF.
+        ENDLOOP.
 
-    cl_abap_unit_assert=>assert_true(
-      act = lv_found
-      msg = |Config rule { av_rule_name_describe }  not found in results| ).
+        cl_abap_unit_assert=>assert_true(
+          act = lv_found
+          msg = |Config rule { av_rule_name_describe }  not found in results| ).
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+        cl_abap_unit_assert=>fail( |Failed to describe config rule: { lo_exception->get_text( ) } | ).
+    ENDTRY.
 
   ENDMETHOD.
 
   METHOD delete_config_rule.
-    ao_cfs_actions->delete_config_rule( av_rule_name_delete ).
+    TRY.
+        ao_cfs_actions->delete_config_rule( av_rule_name_delete ).
 
-    " Wait for deletion to propagate
-    WAIT UP TO 5 SECONDS.
+        " Wait for deletion to propagate
+        WAIT UP TO 5 SECONDS.
 
-    " Verify the rule was deleted
-    assert_rule_exists(
-      iv_rule_name = av_rule_name_delete
-      iv_exp = abap_false
-      iv_msg = |Config rule { av_rule_name_delete }  should have been deleted| ).
+        " Verify the rule was deleted
+        assert_rule_exists(
+          iv_rule_name = av_rule_name_delete
+          iv_exp = abap_false
+          iv_msg = |Config rule { av_rule_name_delete }  should have been deleted| ).
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+        cl_abap_unit_assert=>fail( |Failed to delete config rule: { lo_exception->get_text( ) } | ).
+    ENDTRY.
 
   ENDMETHOD.
 
