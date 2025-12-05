@@ -384,15 +384,7 @@ public class IoTWrapper
     {
         try
         {
-            await _amazonIoT.UpdateIndexingConfigurationAsync(
-                new UpdateIndexingConfigurationRequest()
-                {
-                    ThingIndexingConfiguration = new ThingIndexingConfiguration()
-                    {
-                        ThingIndexingMode = ThingIndexingMode.REGISTRY
-                    }
-                });
-
+            // First, try to perform the search
             var request = new SearchIndexRequest
             {
                 QueryString = queryString
@@ -402,6 +394,16 @@ public class IoTWrapper
             _logger.LogInformation($"Search found {response.Things.Count} Things");
             return response.Things;
         }
+        catch (Amazon.IoT.Model.IndexNotReadyException ex)
+        {
+            _logger.LogWarning($"Search index not ready, setting up indexing configuration: {ex.Message}");
+            return await SetupIndexAndRetrySearchAsync(queryString);
+        }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex) when (ex.Message.Contains("index") || ex.Message.Contains("Index"))
+        {
+            _logger.LogWarning($"Search index not configured, setting up indexing configuration: {ex.Message}");
+            return await SetupIndexAndRetrySearchAsync(queryString);
+        }
         catch (Amazon.IoT.Model.ThrottlingException ex)
         {
             _logger.LogWarning($"Request throttled, please try again later: {ex.Message}");
@@ -410,6 +412,78 @@ public class IoTWrapper
         catch (Exception ex)
         {
             _logger.LogError($"Couldn't search index. Here's why: {ex.Message}");
+            return new List<ThingDocument>();
+        }
+    }
+
+    /// <summary>
+    /// Sets up the indexing configuration and retries the search after waiting for the index to be ready.
+    /// </summary>
+    /// <param name="queryString">The search query string.</param>
+    /// <returns>List of Things that match the search criteria, or empty list if setup/search failed.</returns>
+    private async Task<List<ThingDocument>> SetupIndexAndRetrySearchAsync(string queryString)
+    {
+        try
+        {
+            // Update indexing configuration to REGISTRY mode
+            _logger.LogInformation("Setting up IoT search indexing configuration...");
+            await _amazonIoT.UpdateIndexingConfigurationAsync(
+                new UpdateIndexingConfigurationRequest()
+                {
+                    ThingIndexingConfiguration = new ThingIndexingConfiguration()
+                    {
+                        ThingIndexingMode = ThingIndexingMode.REGISTRY
+                    }
+                });
+
+            _logger.LogInformation("Indexing configuration updated. Waiting for index to be ready...");
+
+            // Wait for the index to be set up - this can take some time
+            const int maxRetries = 10;
+            const int retryDelaySeconds = 10;
+
+            for (int attempt = 1; attempt <= maxRetries; attempt++)
+            {
+                try
+                {
+                    _logger.LogInformation($"Waiting for index to be ready (attempt {attempt}/{maxRetries})...");
+                    await Task.Delay(TimeSpan.FromSeconds(retryDelaySeconds));
+
+                    // Try to get the current indexing configuration to see if it's ready
+                    var configResponse = await _amazonIoT.GetIndexingConfigurationAsync(new GetIndexingConfigurationRequest());
+                    if (configResponse.ThingIndexingConfiguration?.ThingIndexingMode == ThingIndexingMode.REGISTRY)
+                    {
+                        // Try the search again
+                        var request = new SearchIndexRequest
+                        {
+                            QueryString = queryString
+                        };
+
+                        var response = await _amazonIoT.SearchIndexAsync(request);
+                        _logger.LogInformation($"Search found {response.Things.Count} Things after index setup");
+                        return response.Things;
+                    }
+                }
+                catch (Amazon.IoT.Model.IndexNotReadyException)
+                {
+                    // Index still not ready, continue waiting
+                    _logger.LogInformation("Index still not ready, continuing to wait...");
+                    continue;
+                }
+                catch (Amazon.IoT.Model.InvalidRequestException ex) when (ex.Message.Contains("index") || ex.Message.Contains("Index"))
+                {
+                    // Index still not ready, continue waiting
+                    _logger.LogInformation("Index still not ready, continuing to wait...");
+                    continue;
+                }
+            }
+
+            _logger.LogWarning("Timeout waiting for search index to be ready after configuration update");
+            return new List<ThingDocument>();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't set up search index configuration. Here's why: {ex.Message}");
             return new List<ThingDocument>();
         }
     }

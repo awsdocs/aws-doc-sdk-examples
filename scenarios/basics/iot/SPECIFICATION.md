@@ -69,7 +69,14 @@ This scenario demonstrates the following key AWS IoT Service operations:
     - Use the `ListTopicRules` API to retrieve a list of all AWS IoT Rules.
 
 12. **Search AWS IoT Things**:
-    - Use the `SearchThings` API to search for AWS IoT Things based on various criteria, such as Thing name, attributes, or shadow state.
+    - Use the `SearchIndex` API to search for AWS IoT Things based on various criteria, such as Thing name, attributes, or shadow state.
+    - **Automatic Index Configuration**: The search functionality includes intelligent handling of index setup:
+      - If the search index is not configured, the system automatically detects this condition through exception handling
+      - Catches `IndexNotReadyException` and `InvalidRequestException` that indicate the search index needs to be set up
+      - Automatically configures the Thing indexing mode to `REGISTRY` to enable search functionality
+      - Implements a retry mechanism with up to 10 attempts, waiting 10 seconds between each attempt for the index to become ready
+      - Validates the indexing configuration status before retrying search operations
+      - Provides detailed logging throughout the index setup process to keep users informed of progress
 
 13. **Delete an AWS IoT Thing**:
     - Use the `DeleteThing` API to delete an AWS IoT Thing.
