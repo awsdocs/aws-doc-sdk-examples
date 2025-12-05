@@ -1,7 +1,7 @@
 name: syncSteerSpecs
 on:
   push:
-    branches: ["main"]
+    branches: ["sync-for-steer-specs"]
   workflow_dispatch:
     inputs:
       dir_name:
@@ -53,7 +53,7 @@ jobs:
           else
             aws s3 sync "./$dir_name/" "s3://$S3_NAME-bucket/" --delete
           fi
-          
+
       - name: Sync Knowledge Base Data Source
         run: |
           aws lambda invoke \
