@@ -3,19 +3,18 @@
 
 using System.Text.Json;
 using Amazon;
+using Amazon.CloudFormation;
+using Amazon.CloudFormation.Model;
 using Amazon.Extensions.NETCore.Setup;
-using Amazon.IdentityManagement;
 using Amazon.IoT;
-//using Amazon.IoT.Model;
+using Amazon.IoT.Model;
 using Amazon.IotData;
-using Amazon.SimpleNotificationService;
 using IoTActions;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace IoTScenarios;
+namespace IoTBasics;
 
 // snippet-start:[iot.dotnetv4.IoTScenario]
 /// <summary>
@@ -25,9 +24,11 @@ public class IoTBasics
 {
     public static bool IsInteractive = true;
     private static IoTWrapper _iotWrapper = null!;
-    private static IAmazonSimpleNotificationService _amazonSNS = null!;
-    private static IAmazonIdentityManagementService _amazonIAM = null!;
+    private static IAmazonCloudFormation _amazonCloudFormation = null!;
     private static ILogger<IoTBasics> _logger = null!;
+
+    private static string _stackName = "IoTBasicsStack";
+    private static string _stackResourcePath = "../../../../../../scenarios/basics/iot/iot_usecase/resources/cfn_template.yaml";
 
     /// <summary>
     /// Main method for the IoT Basics scenario.
@@ -44,15 +45,18 @@ public class IoTBasics
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
                 services.AddAWSService<IAmazonIoT>(new AWSOptions(){Region = RegionEndpoint.USEast1})
-                        //.AddAWSService<IAmazonIotData>(new AWSOptions(){DefaultClientConfig = new AmazonIotDataConfig(){ServiceURL = "https://data.iot.us-east-1.amazonaws.com/"}})
-                        .AddAWSService<IAmazonSimpleNotificationService>()
-                        .AddAWSService<IAmazonIdentityManagementService>()
+                    .AddAWSService<IAmazonCloudFormation>()
                         .AddTransient<IoTWrapper>()
                         .AddLogging(builder => builder.AddConsole())
                         .AddSingleton<IAmazonIotData>(sp =>
                         {
-                            return new AmazonIotDataClient(
-                                "https://data.iot.us-east-1.amazonaws.com/");
+                            var iotService = sp.GetService<IAmazonIoT>();
+                            var request = new DescribeEndpointRequest
+                            {
+                                EndpointType = "iot:Data-ATS"
+                            };
+                            var response = iotService.DescribeEndpointAsync(request).Result;
+                            return new AmazonIotDataClient($"https://{response.EndpointAddress}/");
                         })
             )
             .Build();
@@ -63,17 +67,11 @@ public class IoTBasics
             .CreateLogger<IoTBasics>();
 
         _iotWrapper = host.Services.GetRequiredService<IoTWrapper>();
-        _amazonSNS = host.Services.GetRequiredService<IAmazonSimpleNotificationService>();
-        _amazonIAM = host.Services.GetRequiredService<IAmazonIdentityManagementService>();
+        _amazonCloudFormation = host.Services.GetRequiredService<IAmazonCloudFormation>();
 
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Welcome to the AWS IoT example workflow.");
         Console.WriteLine("This example program demonstrates various interactions with the AWS Internet of Things (IoT) Core service.");
-        Console.WriteLine("The program guides you through a series of steps, including creating an IoT Thing, generating a device certificate,");
-        Console.WriteLine("updating the Thing with attributes, and so on. It utilizes the AWS SDK for .NET and incorporates functionalities");
-        Console.WriteLine("for creating and managing IoT Things, certificates, rules, shadows, and performing searches.");
-        Console.WriteLine("The program aims to showcase AWS IoT capabilities and provides a comprehensive example for");
-        Console.WriteLine("developers working with AWS IoT in a .NET environment.");
         Console.WriteLine();
         if (IsInteractive)
         {
@@ -108,7 +106,6 @@ public class IoTBasics
         string certificateId = "";
         string ruleName = $"iot-rule-{Guid.NewGuid():N}";
         string snsTopicArn = "";
-        string iotRoleName = "";
 
         try
         {
@@ -324,35 +321,52 @@ public class IoTBasics
                 Console.WriteLine($"Using default rule name: {ruleName}");
             }
 
-            // Set up SNS topic and IAM role for the IoT rule
-            var topicName = $"iot-topic-{Guid.NewGuid():N}";
-            iotRoleName = $"iot-role-{Guid.NewGuid():N}";
+            // Deploy CloudFormation stack to create SNS topic and IAM role
+            Console.WriteLine("Deploying CloudFormation stack to create SNS topic and IAM role...");
             
-            Console.WriteLine("Setting up SNS topic and IAM role for the IoT rule...");
-            var setupResult = await SetupAsync(topicName, iotRoleName);
-            
-            string roleArn = "";
-            
-            if (setupResult.HasValue)
+            var deployStack = !IsInteractive || GetYesNoResponse("Would you like to deploy the CloudFormation stack? (y/n) ");
+            if (deployStack)
             {
-                (snsTopicArn, roleArn) = setupResult.Value;
-                Console.WriteLine($"Successfully created SNS topic: {snsTopicArn}");
-                Console.WriteLine($"Successfully created IAM role: {roleArn}");
-                
-                // Now create the IoT rule with the actual ARNs
-                var ruleResult = await _iotWrapper.CreateTopicRuleAsync(ruleName, snsTopicArn, roleArn);
-                if (ruleResult)
+                _stackName = PromptUserForStackName();
+
+                var deploySuccess = await DeployCloudFormationStack(_stackName);
+
+                if (deploySuccess)
                 {
-                    Console.WriteLine("IoT Rule created successfully.");
+                    // Get stack outputs
+                    var stackOutputs = await GetStackOutputs(_stackName);
+                    if (stackOutputs != null)
+                    {
+                        snsTopicArn = stackOutputs["SNSTopicArn"];
+                        string roleArn = stackOutputs["RoleArn"];
+                        
+                        Console.WriteLine($"Successfully deployed stack. SNS topic: {snsTopicArn}");
+                        Console.WriteLine($"Successfully deployed stack. IAM role: {roleArn}");
+                        
+                        // Now create the IoT rule with the CloudFormation outputs
+                        var ruleResult = await _iotWrapper.CreateTopicRuleAsync(ruleName, snsTopicArn, roleArn);
+                        if (ruleResult)
+                        {
+                            Console.WriteLine("IoT Rule created successfully.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Failed to create IoT rule.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Failed to get stack outputs. Skipping rule creation.");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Failed to create IoT rule.");
+                    Console.WriteLine("Failed to deploy CloudFormation stack. Skipping rule creation.");
                 }
             }
             else
             {
-                Console.WriteLine("Failed to set up SNS topic and IAM role. Skipping rule creation.");
+                Console.WriteLine("Skipping CloudFormation stack deployment and rule creation.");
             }
             Console.WriteLine(new string('-', 80));
 
@@ -450,21 +464,29 @@ public class IoTBasics
             }
             Console.WriteLine(new string('-', 80));
 
-            // Step 14: Clean up SNS topic and IAM role
-            if (!string.IsNullOrEmpty(snsTopicArn) && !string.IsNullOrEmpty(iotRoleName))
+            // Step 14: Clean up CloudFormation stack
+            if (!string.IsNullOrEmpty(snsTopicArn))
             {
                 Console.WriteLine(new string('-', 80));
-                Console.WriteLine("13. Clean up SNS topic and IAM role.");
-                Console.WriteLine("Cleaning up the resources created for the IoT rule...");
+                Console.WriteLine("13. Clean up CloudFormation stack.");
+                Console.WriteLine("Deleting the CloudFormation stack and all resources...");
                 
-                var cleanupSuccess = await CleanupAsync(snsTopicArn, iotRoleName);
-                if (cleanupSuccess)
+                var cleanup = !IsInteractive || GetYesNoResponse("Do you want to delete the CloudFormation stack and all resources? (y/n) ");
+                if (cleanup)
                 {
-                    Console.WriteLine("Successfully cleaned up SNS topic and IAM role.");
+                    var cleanupSuccess = await DeleteCloudFormationStack(_stackName);
+                    if (cleanupSuccess)
+                    {
+                        Console.WriteLine("Successfully cleaned up CloudFormation stack and all resources.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Some cleanup operations failed. Check the logs for details.");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Some cleanup operations failed. Check the logs for details.");
+                    Console.WriteLine($"Resources will remain. Stack name: {_stackName}");
                 }
                 Console.WriteLine(new string('-', 80));
             }
@@ -499,16 +521,16 @@ public class IoTBasics
                 }
             }
 
-            // Clean up SNS topic and IAM role on error
-            if (!string.IsNullOrEmpty(snsTopicArn) && !string.IsNullOrEmpty(iotRoleName))
+            // Clean up CloudFormation stack on error
+            if (!string.IsNullOrEmpty(snsTopicArn))
             {
                 try
                 {
-                    await CleanupAsync(snsTopicArn, iotRoleName);
+                    await DeleteCloudFormationStack(_stackName);
                 }
                 catch (Exception cleanupEx)
                 {
-                    _logger.LogError(cleanupEx, "Error during SNS and IAM cleanup.");
+                    _logger.LogError(cleanupEx, "Error during CloudFormation stack cleanup.");
                 }
             }
             
@@ -516,160 +538,246 @@ public class IoTBasics
         }
     }
 
-    // snippet-start:[iot.dotnetv4.Setup]
     /// <summary>
-    /// Sets up the necessary resources for the IoT scenario (SNS topic and IAM role).
+    /// Deploys the CloudFormation stack with the necessary resources.
     /// </summary>
-    /// <param name="topicName">The name of the SNS topic to create.</param>
-    /// <param name="roleName">The name of the IAM role to create.</param>
-    /// <returns>A tuple containing the SNS topic ARN and IAM role ARN, or null if setup failed.</returns>
-    private static async Task<(string SnsTopicArn, string RoleArn)?> SetupAsync(string topicName, string roleName)
+    /// <param name="stackName">The name of the CloudFormation stack.</param>
+    /// <returns>True if the stack was deployed successfully.</returns>
+    private static async Task<bool> DeployCloudFormationStack(string stackName)
     {
-        try
-        {
-            // Create SNS topic
-            var createTopicRequest = new Amazon.SimpleNotificationService.Model.CreateTopicRequest
-            {
-                Name = topicName
-            };
-
-            var topicResponse = await _amazonSNS.CreateTopicAsync(createTopicRequest);
-            var snsTopicArn = topicResponse.TopicArn;
-            _logger.LogInformation($"Created SNS topic {topicName} with ARN {snsTopicArn}");
-
-            // Create IAM role for IoT
-            var trustPolicy = @"{
-                ""Version"": ""2012-10-17"",
-                ""Statement"": [
-                    {
-                        ""Effect"": ""Allow"",
-                        ""Principal"": {
-                            ""Service"": ""iot.amazonaws.com""
-                        },
-                        ""Action"": ""sts:AssumeRole""
-                    }
-                ]
-            }";
-
-            var createRoleRequest = new Amazon.IdentityManagement.Model.CreateRoleRequest
-            {
-                RoleName = roleName,
-                AssumeRolePolicyDocument = trustPolicy,
-                Description = "Role for AWS IoT to publish to SNS topic"
-            };
-
-            var roleResponse = await _amazonIAM.CreateRoleAsync(createRoleRequest);
-            var roleArn = roleResponse.Role.Arn;
-            _logger.LogInformation($"Created IAM role {roleName} with ARN {roleArn}");
-
-            // Attach policy to allow SNS publishing
-            var policyDocument = $@"{{
-                ""Version"": ""2012-10-17"",
-                ""Statement"": [
-                    {{
-                        ""Effect"": ""Allow"",
-                        ""Action"": ""sns:Publish"",
-                        ""Resource"": ""{snsTopicArn}""
-                    }}
-                ]
-            }}";
-
-            var putRolePolicyRequest = new Amazon.IdentityManagement.Model.PutRolePolicyRequest
-            {
-                RoleName = roleName,
-                PolicyName = "IoTSNSPolicy",
-                PolicyDocument = policyDocument
-            };
-
-            await _amazonIAM.PutRolePolicyAsync(putRolePolicyRequest);
-            _logger.LogInformation($"Attached SNS policy to role {roleName}");
-
-            // Wait a bit for the role to propagate
-            await Task.Delay(10000);
-
-            return (snsTopicArn, roleArn);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"Couldn't set up resources. Here's why: {ex.Message}");
-            return null;
-        }
-    }
-    // snippet-end:[iot.dotnetv4.Setup]
-
-    // snippet-start:[iot.dotnetv4.Cleanup]
-    /// <summary>
-    /// Cleans up the resources created during setup (SNS topic and IAM role).
-    /// </summary>
-    /// <param name="snsTopicArn">The ARN of the SNS topic to delete.</param>
-    /// <param name="roleName">The name of the IAM role to delete.</param>
-    /// <returns>True if cleanup was successful, false otherwise.</returns>
-    private static async Task<bool> CleanupAsync(string snsTopicArn, string roleName)
-    {
-        var success = true;
+        Console.WriteLine($"\nDeploying CloudFormation stack: {stackName}");
 
         try
         {
-            // Delete role policy first
-            try
+            var request = new CreateStackRequest
             {
-                var deleteRolePolicyRequest = new Amazon.IdentityManagement.Model.DeleteRolePolicyRequest
+                StackName = stackName,
+                TemplateBody = await File.ReadAllTextAsync(_stackResourcePath),
+                Capabilities = new List<string>{ Capability.CAPABILITY_NAMED_IAM }
+            };
+
+            var response = await _amazonCloudFormation.CreateStackAsync(request);
+
+            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+            {
+                Console.WriteLine($"CloudFormation stack creation started: {stackName}");
+
+                bool stackCreated = await WaitForStackCompletion(response.StackId);
+
+                if (stackCreated)
                 {
-                    RoleName = roleName,
-                    PolicyName = "IoTSNSPolicy"
-                };
-
-                await _amazonIAM.DeleteRolePolicyAsync(deleteRolePolicyRequest);
-                _logger.LogInformation($"Deleted role policy for {roleName}");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning($"Failed to delete role policy: {ex.Message}");
-                success = false;
-            }
-
-            // Delete IAM role
-            try
-            {
-                var deleteRoleRequest = new Amazon.IdentityManagement.Model.DeleteRoleRequest
+                    Console.WriteLine("CloudFormation stack created successfully.");
+                    return true;
+                }
+                else
                 {
-                    RoleName = roleName
-                };
-
-                await _amazonIAM.DeleteRoleAsync(deleteRoleRequest);
-                _logger.LogInformation($"Deleted IAM role {roleName}");
+                    _logger.LogError($"CloudFormation stack creation failed: {stackName}");
+                    return false;
+                }
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogWarning($"Failed to delete IAM role: {ex.Message}");
-                success = false;
+                _logger.LogError($"Failed to create CloudFormation stack: {stackName}");
+                return false;
             }
-
-            // Delete SNS topic
-            try
-            {
-                var deleteTopicRequest = new Amazon.SimpleNotificationService.Model.DeleteTopicRequest
-                {
-                    TopicArn = snsTopicArn
-                };
-
-                await _amazonSNS.DeleteTopicAsync(deleteTopicRequest);
-                _logger.LogInformation($"Deleted SNS topic {snsTopicArn}");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning($"Failed to delete SNS topic: {ex.Message}");
-                success = false;
-            }
-
-            return success;
+        }
+        catch (AlreadyExistsException)
+        {
+            _logger.LogWarning($"CloudFormation stack '{stackName}' already exists. Please provide a unique name.");
+            var newStackName = PromptUserForStackName();
+            return await DeployCloudFormationStack(newStackName);
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Couldn't clean up resources. Here's why: {ex.Message}");
+            _logger.LogError(ex, $"An error occurred while deploying the CloudFormation stack: {stackName}");
             return false;
         }
     }
-    // snippet-end:[iot.dotnetv4.Cleanup]
+
+    /// <summary>
+    /// Waits for the CloudFormation stack to be in the CREATE_COMPLETE state.
+    /// </summary>
+    /// <param name="stackId">The ID of the CloudFormation stack.</param>
+    /// <returns>True if the stack was created successfully.</returns>
+    private static async Task<bool> WaitForStackCompletion(string stackId)
+    {
+        int retryCount = 0;
+        const int maxRetries = 30;
+        const int retryDelay = 10000;
+
+        while (retryCount < maxRetries)
+        {
+            var describeStacksRequest = new DescribeStacksRequest
+            {
+                StackName = stackId
+            };
+
+            var describeStacksResponse = await _amazonCloudFormation.DescribeStacksAsync(describeStacksRequest);
+
+            if (describeStacksResponse.Stacks.Count > 0)
+            {
+                if (describeStacksResponse.Stacks[0].StackStatus == StackStatus.CREATE_COMPLETE)
+                {
+                    return true;
+                }
+                if (describeStacksResponse.Stacks[0].StackStatus == StackStatus.CREATE_FAILED ||
+                    describeStacksResponse.Stacks[0].StackStatus == StackStatus.ROLLBACK_COMPLETE)
+                {
+                    return false;
+                }
+            }
+
+            Console.WriteLine("Waiting for CloudFormation stack creation to complete...");
+            await Task.Delay(retryDelay);
+            retryCount++;
+        }
+
+        _logger.LogError("Timed out waiting for CloudFormation stack creation to complete.");
+        return false;
+    }
+
+    /// <summary>
+    /// Gets the outputs from the CloudFormation stack.
+    /// </summary>
+    /// <param name="stackName">The name of the CloudFormation stack.</param>
+    /// <returns>A dictionary of stack outputs.</returns>
+    private static async Task<Dictionary<string, string>?> GetStackOutputs(string stackName)
+    {
+        try
+        {
+            var describeStacksRequest = new DescribeStacksRequest
+            {
+                StackName = stackName
+            };
+
+            var response = await _amazonCloudFormation.DescribeStacksAsync(describeStacksRequest);
+            
+            if (response.Stacks.Count > 0)
+            {
+                var outputs = new Dictionary<string, string>();
+                foreach (var output in response.Stacks[0].Outputs)
+                {
+                    outputs[output.OutputKey] = output.OutputValue;
+                }
+                return outputs;
+            }
+            
+            return null;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Failed to get stack outputs for {stackName}");
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Deletes the CloudFormation stack and waits for confirmation.
+    /// </summary>
+    private static async Task<bool> DeleteCloudFormationStack(string stackName)
+    {
+        try
+        {
+            var request = new DeleteStackRequest
+            {
+                StackName = stackName
+            };
+
+            await _amazonCloudFormation.DeleteStackAsync(request);
+            Console.WriteLine($"CloudFormation stack '{stackName}' is being deleted. This may take a few minutes.");
+
+            bool stackDeleted = await WaitForStackDeletion(stackName);
+
+            if (stackDeleted)
+            {
+                Console.WriteLine($"CloudFormation stack '{stackName}' has been deleted.");
+                return true;
+            }
+            else
+            {
+                _logger.LogError($"Failed to delete CloudFormation stack '{stackName}'.");
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"An error occurred while deleting the CloudFormation stack: {stackName}");
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Waits for the stack to be deleted.
+    /// </summary>
+    private static async Task<bool> WaitForStackDeletion(string stackName)
+    {
+        int retryCount = 0;
+        const int maxRetries = 30;
+        const int retryDelay = 10000;
+
+        while (retryCount < maxRetries)
+        {
+            var describeStacksRequest = new DescribeStacksRequest
+            {
+                StackName = stackName
+            };
+
+            try
+            {
+                var describeStacksResponse = await _amazonCloudFormation.DescribeStacksAsync(describeStacksRequest);
+
+                if (describeStacksResponse.Stacks.Count == 0 ||
+                    describeStacksResponse.Stacks[0].StackStatus == StackStatus.DELETE_COMPLETE)
+                {
+                    return true;
+                }
+            }
+            catch (AmazonCloudFormationException ex) when (ex.ErrorCode == "ValidationError")
+            {
+                return true;
+            }
+
+            Console.WriteLine($"Waiting for CloudFormation stack '{stackName}' to be deleted...");
+            await Task.Delay(retryDelay);
+            retryCount++;
+        }
+
+        _logger.LogError($"Timed out waiting for CloudFormation stack '{stackName}' to be deleted.");
+        return false;
+    }
+
+    /// <summary>
+    /// Helper method to get a yes or no response from the user.
+    /// </summary>
+    private static bool GetYesNoResponse(string question)
+    {
+        Console.WriteLine(question);
+        var ynResponse = Console.ReadLine();
+        var response = ynResponse != null && ynResponse.Equals("y", StringComparison.InvariantCultureIgnoreCase);
+        return response;
+    }
+
+    /// <summary>
+    /// Prompts the user for a stack name.
+    /// </summary>
+    private static string PromptUserForStackName()
+    {
+        if (IsInteractive)
+        {
+            Console.Write($"Enter a name for the CloudFormation stack (press Enter for default '{_stackName}'): ");
+            string? input = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(input))
+            {
+                var regex = new System.Text.RegularExpressions.Regex("[a-zA-Z][-a-zA-Z0-9]*");
+                if (!regex.IsMatch(input))
+                {
+                    Console.WriteLine($"Invalid stack name. Using default: {_stackName}");
+                    return _stackName;
+                }
+                return input;
+            }
+        }
+        return _stackName;
+    }
 }
 // snippet-end:[iot.dotnetv4.IoTScenario]
