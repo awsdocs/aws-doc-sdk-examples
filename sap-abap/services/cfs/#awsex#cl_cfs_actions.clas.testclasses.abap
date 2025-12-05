@@ -50,15 +50,15 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA lv_uuid_string TYPE string.
     lv_uuid_string = lv_uuid.
-    av_rule_name_put = |sap-abap-cfs-demo-rule-put-{ lv_uuid_string }|.
+    av_rule_name_put = |sap-abap-cfs-demo-rule-put-{ lv_uuid_string } |.
 
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
     lv_uuid_string = lv_uuid.
-    av_rule_name_describe = |sap-abap-cfs-demo-rule-describe-{ lv_uuid_string }|.
+    av_rule_name_describe = |sap-abap-cfs-demo-rule-describe-{ lv_uuid_string } |.
 
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
     lv_uuid_string = lv_uuid.
-    av_rule_name_delete = |sap-abap-cfs-demo-rule-delete-{ lv_uuid_string }|.
+    av_rule_name_delete = |sap-abap-cfs-demo-rule-delete-{ lv_uuid_string } |.
 
     " Create rule for describe test with convert_test tag
     TRY.
@@ -155,7 +155,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
     assert_rule_exists(
       iv_rule_name = av_rule_name_put
       iv_exp = abap_true
-      iv_msg = |Config rule { av_rule_name_put } was not created| ).
+      iv_msg = |Config rule { av_rule_name_put }  was not created| ).
 
   ENDMETHOD.
 
@@ -165,7 +165,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
     " Verify we got at least one rule back
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_rules
-      msg = |No config rules returned for { av_rule_name_describe }| ).
+      msg = |No config rules returned for { av_rule_name_describe } | ).
 
     " Verify the rule name matches
     DATA(lv_found) = abap_false.
@@ -178,7 +178,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Config rule { av_rule_name_describe } not found in results| ).
+      msg = |Config rule { av_rule_name_describe }  not found in results| ).
 
   ENDMETHOD.
 
@@ -192,7 +192,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
     assert_rule_exists(
       iv_rule_name = av_rule_name_delete
       iv_exp = abap_false
-      iv_msg = |Config rule { av_rule_name_delete } should have been deleted| ).
+      iv_msg = |Config rule { av_rule_name_delete }  should have been deleted| ).
 
   ENDMETHOD.
 

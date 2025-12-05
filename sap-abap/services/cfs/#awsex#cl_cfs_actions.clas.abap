@@ -60,19 +60,19 @@ CLASS /AWSEX/CL_CFS_ACTIONS IMPLEMENTATION.
         ).
         MESSAGE 'Created AWS Config rule.' TYPE 'I'.
       CATCH /aws1/cx_cfsinsufficientperm00 INTO DATA(lo_insufficientperm_ex).
-        DATA(lv_error) = |{ lo_insufficientperm_ex->get_text( ) }|.
+        DATA(lv_error) = |{ lo_insufficientperm_ex->get_text( ) } |.
         MESSAGE lv_error TYPE 'E'.
       CATCH /aws1/cx_cfsinvparamvalueex INTO DATA(lo_invparamvalue_ex).
-        lv_error = |{ lo_invparamvalue_ex->get_text( ) }|.
+        lv_error = |{ lo_invparamvalue_ex->get_text( ) } |.
         MESSAGE lv_error TYPE 'E'.
       CATCH /aws1/cx_cfsmaxnoofcfgrlsexc00 INTO DATA(lo_maxnoofrules_ex).
-        lv_error = |{ lo_maxnoofrules_ex->get_text( ) }|.
+        lv_error = |{ lo_maxnoofrules_ex->get_text( ) } |.
         MESSAGE lv_error TYPE 'E'.
       CATCH /aws1/cx_cfsnoavailableconfr00 INTO DATA(lo_noavailableconfig_ex).
-        lv_error = |{ lo_noavailableconfig_ex->get_text( ) }|.
+        lv_error = |{ lo_noavailableconfig_ex->get_text( ) } |.
         MESSAGE lv_error TYPE 'E'.
       CATCH /aws1/cx_cfsresourceinuseex INTO DATA(lo_resourceinuse_ex).
-        lv_error = |{ lo_resourceinuse_ex->get_text( ) }|.
+        lv_error = |{ lo_resourceinuse_ex->get_text( ) } |.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
     "snippet-end:[cfs.abapv1.put_config_rule]
@@ -97,13 +97,13 @@ CLASS /AWSEX/CL_CFS_ACTIONS IMPLEMENTATION.
         ot_cfg_rules = lo_result->get_configrules( ).
         MESSAGE 'Retrieved AWS Config rule data.' TYPE 'I'.
       CATCH /aws1/cx_cfsinvalidnexttokenex INTO DATA(lo_invalidtoken_ex).
-        DATA(lv_error) = |{ lo_invalidtoken_ex->get_text( ) }|.
+        DATA(lv_error) = |{ lo_invalidtoken_ex->get_text( ) } |.
         MESSAGE lv_error TYPE 'E'.
       CATCH /aws1/cx_cfsinvparamvalueex INTO DATA(lo_invparamvalue_ex).
-        lv_error = |{ lo_invparamvalue_ex->get_text( ) }|.
+        lv_error = |{ lo_invparamvalue_ex->get_text( ) } |.
         MESSAGE lv_error TYPE 'E'.
       CATCH /aws1/cx_cfsnosuchconfigruleex INTO DATA(lo_nosuchrule_ex).
-        lv_error = |{ lo_nosuchrule_ex->get_text( ) }|.
+        lv_error = |{ lo_nosuchrule_ex->get_text( ) } |.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
     "snippet-end:[cfs.abapv1.describe_config_rule]
@@ -123,10 +123,10 @@ CLASS /AWSEX/CL_CFS_ACTIONS IMPLEMENTATION.
         lo_cfs->deleteconfigrule( iv_rule_name ).
         MESSAGE 'Deleted AWS Config rule.' TYPE 'I'.
       CATCH /aws1/cx_cfsnosuchconfigruleex INTO DATA(lo_nosuchrule_ex).
-        DATA(lv_error) = |{ lo_nosuchrule_ex->get_text( ) }|.
+        DATA(lv_error) = |{ lo_nosuchrule_ex->get_text( ) } |.
         MESSAGE lv_error TYPE 'E'.
       CATCH /aws1/cx_cfsresourceinuseex INTO DATA(lo_resourceinuse_ex).
-        lv_error = |{ lo_resourceinuse_ex->get_text( ) }|.
+        lv_error = |{ lo_resourceinuse_ex->get_text( ) } |.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
     "snippet-end:[cfs.abapv1.delete_config_rule]
