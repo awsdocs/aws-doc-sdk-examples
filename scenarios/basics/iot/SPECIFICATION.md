@@ -6,12 +6,18 @@ This example shows how to use AWS SDKs to perform device management use cases us
 The AWS Iot API provides secure, bi-directional communication between Internet-connected devices (such as sensors, actuators, embedded devices, or smart appliances) and the Amazon Web Services cloud. This example shows some typical use cases such as creating things, creating certifications, applying the certifications to the IoT Thing and so on. 
 
 ## Resources
-This program should create and manage these AWS resources automatically:
+This program should create and manage these AWS resources automatically using CloudFormation:
 
-1. **roleARN** - The ARN of an IAM role that has permission to work with AWS IOT. This role must be automatically created during the scenario execution with proper permissions to publish to SNS topics.
-2. **snsAction** - An ARN of an SNS topic. This topic must be automatically created during the scenario execution for use with IoT rules.
+1. **roleARN** - The ARN of an IAM role that has permission to work with AWS IoT. This role is created through CloudFormation stack deployment with proper permissions to publish to SNS topics.
+2. **snsAction** - An ARN of an SNS topic. This topic is created through CloudFormation stack deployment for use with IoT rules.
 
-Both resources must be created during scenario setup and automatically cleaned up at the end of the scenario execution.
+### CloudFormation Integration
+- **Setup**: The scenario deploys a CloudFormation stack using the template file `iot_usecase/resources/cfn_template.yaml`
+- **Resource Creation**: All required resources (SNS topic and IAM role) are defined in the CloudFormation template
+- **Output Retrieval**: The scenario retrieves the SNS topic ARN and IAM role ARN from the CloudFormation stack outputs
+- **Cleanup**: At the end of the scenario execution, the entire CloudFormation stack is deleted, ensuring all resources are properly cleaned up
+
+The CloudFormation template provides Infrastructure as Code (IaC) benefits, ensuring consistent and repeatable resource deployment across different environments.
 
 ## Hello AWS IoT
 

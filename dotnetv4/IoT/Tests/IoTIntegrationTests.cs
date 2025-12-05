@@ -4,7 +4,6 @@
 using Amazon.IoT;
 using Amazon.IotData;
 using IoTActions;
-using IoTScenarios;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -51,7 +50,7 @@ public class IoTIntegrationTests
     public async Task IoTWrapperMethodsTest()
     {
         // Set to non-interactive mode for testing
-        IoTScenarios.IoTBasics.IsInteractive = false;
+        IoTBasics.IoTBasics.IsInteractive = false;
         
         var thingName = $"test-thing-{Guid.NewGuid():N}";
         var certificateArn = "";

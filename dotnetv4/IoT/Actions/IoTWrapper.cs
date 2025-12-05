@@ -384,9 +384,17 @@ public class IoTWrapper
     {
         try
         {
+            await _amazonIoT.UpdateIndexingConfigurationAsync(
+                new UpdateIndexingConfigurationRequest()
+                {
+                    ThingIndexingConfiguration = new ThingIndexingConfiguration()
+                    {
+                        ThingIndexingMode = ThingIndexingMode.REGISTRY
+                    }
+                });
+
             var request = new SearchIndexRequest
             {
-                IndexName = "AWS_Things",
                 QueryString = queryString
             };
 
