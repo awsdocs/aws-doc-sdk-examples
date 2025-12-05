@@ -446,7 +446,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
             )
           )
         ).
-      CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bucketalrdyownedbyu.
+      CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bktalrdyownedbyyou.
         " Bucket already exists
     ENDTRY.
 
