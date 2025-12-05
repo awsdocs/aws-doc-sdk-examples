@@ -507,7 +507,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
     " Delete delivery channel
     TRY.
         ao_cfs->deletedeliverychannel(
-          iv_deliverychannel = av_delivery_channel_name
+          iv_deliverychannelname = av_delivery_channel_name
         ).
       CATCH /aws1/cx_rt_generic.
         " Ignore errors
