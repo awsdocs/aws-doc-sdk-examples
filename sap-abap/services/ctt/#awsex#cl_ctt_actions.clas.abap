@@ -28,14 +28,6 @@ CLASS /awsex/cl_ctt_actions DEFINITION
       RAISING
         /aws1/cx_rt_generic .
 
-    METHODS list_controls
-      IMPORTING
-        !io_ccg            TYPE REF TO /aws1/if_ccg
-      RETURNING
-        VALUE(ot_controls) TYPE /aws1/cl_ccgcontrolsummary=>tt_controls
-      RAISING
-        /aws1/cx_rt_generic .
-
     METHODS enable_control
       IMPORTING
         !io_ctt                   TYPE REF TO /aws1/if_ctt
@@ -220,41 +212,6 @@ CLASS /AWSEX/CL_CTT_ACTIONS IMPLEMENTATION.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
     " snippet-end:[ctt.abapv1.enable_baseline]
-
-  ENDMETHOD.
-
-
-  METHOD list_controls.
-
-    " snippet-start:[ctt.abapv1.list_controls]
-    TRY.
-        DATA lt_controls TYPE /aws1/cl_ccgcontrolsummary=>tt_controls.
-        DATA lv_nexttoken TYPE /aws1/ccgpaginationtoken.
-
-        " List all controls using pagination
-        DO.
-          DATA(lo_output) = io_ccg->listcontrols(
-            iv_nexttoken = lv_nexttoken
-          ).
-
-          APPEND LINES OF lo_output->get_controls( ) TO lt_controls.
-
-          lv_nexttoken = lo_output->get_nexttoken( ).
-          IF lv_nexttoken IS INITIAL.
-            EXIT.
-          ENDIF.
-        ENDDO.
-
-        ot_controls = lt_controls.
-        MESSAGE 'Listed controls successfully.' TYPE 'I'.
-      CATCH /aws1/cx_ccgaccessdeniedex INTO DATA(lo_access_denied).
-        DATA(lv_error) = |Access denied: { lo_access_denied->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        lv_error = |An exception occurred: { lo_exception->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
-    ENDTRY.
-    " snippet-end:[ctt.abapv1.list_controls]
 
   ENDMETHOD.
 

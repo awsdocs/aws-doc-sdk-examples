@@ -181,31 +181,7 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
     ENDIF.
   ENDMETHOD.
 
-  METHOD list_controls.
-    " Test listing controls from Control Catalog
-    DATA(lt_controls) = ao_ctt_actions->list_controls(
-      io_ccg = ao_ccg
-    ).
 
-    " Assert that we got some results
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lt_controls
-      msg = |Should have returned at least one control|
-    ).
-
-    " Verify the control has expected properties
-    IF lines( lt_controls ) > 0.
-      READ TABLE lt_controls INDEX 1 ASSIGNING FIELD-SYMBOL(<control>).
-      cl_abap_unit_assert=>assert_not_initial(
-        act = <control>->get_arn( )
-        msg = |Control should have an ARN|
-      ).
-      cl_abap_unit_assert=>assert_not_initial(
-        act = <control>->get_name( )
-        msg = |Control should have a name|
-      ).
-    ENDIF.
-  ENDMETHOD.
 
   METHOD list_landing_zones.
     " Test listing landing zones
@@ -627,6 +603,25 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
 
         cl_abap_unit_assert=>assert_not_initial(
           act = lv_operation_id
+          msg = |Should have returned an operation ID|
+        ).
+      CATCH /aws1/cx_cttresourcenotfoundex INTO DATA(lo_ex).
+        " Resource not found is acceptable (control may not be enabled)
+        cl_abap_unit_assert=>assert_true(
+          act = abap_true
+          msg = |Resource not found is acceptable for disable control|
+        ).
+      CATCH /aws1/cx_cttconflictexception INTO DATA(lo_ex2).
+        " Conflict is acceptable (e.g., operation in progress)
+        cl_abap_unit_assert=>assert_true(
+          act = abap_true
+          msg = |Conflict is acceptable for disable control|
+        ).
+    ENDTRY.
+  ENDMETHOD.
+
+ENDCLASS.
+peration_id
           msg = |Should have returned an operation ID|
         ).
       CATCH /aws1/cx_cttresourcenotfoundex INTO DATA(lo_ex).
