@@ -50,76 +50,137 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA lv_uuid_string TYPE string.
     lv_uuid_string = lv_uuid.
-    av_rule_name_put = |sap-abap-cfs-demo-rule-put-{ lv_uuid_string } |.
+    CONDENSE lv_uuid_string NO-GAPS.
+    av_rule_name_put = |sap-abap-cfs-rule-put-{ lv_uuid_string }|.
 
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
     lv_uuid_string = lv_uuid.
-    av_rule_name_describe = |sap-abap-cfs-demo-rule-describe-{ lv_uuid_string } |.
+    CONDENSE lv_uuid_string NO-GAPS.
+    av_rule_name_describe = |sap-abap-cfs-rule-dsc-{ lv_uuid_string }|.
 
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
     lv_uuid_string = lv_uuid.
-    av_rule_name_delete = |sap-abap-cfs-demo-rule-delete-{ lv_uuid_string } |.
+    CONDENSE lv_uuid_string NO-GAPS.
+    av_rule_name_delete = |sap-abap-cfs-rule-del-{ lv_uuid_string }|.
 
     " Create rule for describe test with convert_test tag
-    TRY.
-        ao_cfs->putconfigrule(
-          io_configrule = NEW /aws1/cl_cfsconfigrule(
-            iv_configrulename = av_rule_name_describe
-            iv_description = |Test S3 Public Read Rule for Describe|
-            io_scope = NEW /aws1/cl_cfsscope(
-              it_complianceresourcetypes = VALUE /aws1/cl_cfscplncresrctypes_w=>tt_complianceresourcetypes(
-                ( NEW /aws1/cl_cfscplncresrctypes_w( |AWS::S3::Bucket| ) )
-              )
-            )
-            io_source = NEW /aws1/cl_cfssource(
-              iv_owner = |AWS|
-              iv_sourceidentifier = |S3_BUCKET_PUBLIC_READ_PROHIBITED|
-            )
-            iv_inputparameters = '{}'
-            iv_configrulestate = |ACTIVE|
+    ao_cfs->putconfigrule(
+      io_configrule = NEW /aws1/cl_cfsconfigrule(
+        iv_configrulename = av_rule_name_describe
+        iv_description = |Test S3 Public Read Rule for Describe|
+        io_scope = NEW /aws1/cl_cfsscope(
+          it_complianceresourcetypes = VALUE /aws1/cl_cfscplncresrctypes_w=>tt_complianceresourcetypes(
+            ( NEW /aws1/cl_cfscplncresrctypes_w( |AWS::S3::Bucket| ) )
           )
-          it_tags = VALUE /aws1/cl_cfstag=>tt_tagslist(
-            ( NEW /aws1/cl_cfstag(
-                iv_key = |convert_test|
-                iv_value = |true|
-              ) )
-          )
-        ).
-      CATCH /aws1/cx_rt_generic.
-        " Ignore if rule already exists
-    ENDTRY.
+        )
+        io_source = NEW /aws1/cl_cfssource(
+          iv_owner = |AWS|
+          iv_sourceidentifier = |S3_BUCKET_PUBLIC_READ_PROHIBITED|
+        )
+        iv_inputparameters = '{}'
+        iv_configrulestate = |ACTIVE|
+      )
+      it_tags = VALUE /aws1/cl_cfstag=>tt_tagslist(
+        ( NEW /aws1/cl_cfstag(
+            iv_key = |convert_test|
+            iv_value = |true|
+          ) )
+      )
+    ).
+
+    " Wait for describe rule to be available
+    DATA lv_start_time TYPE timestamp.
+    DATA lv_current_time TYPE timestamp.
+    DATA lv_elapsed_seconds TYPE i.
+    DATA lv_describe_ready TYPE abap_bool.
+    lv_describe_ready = abap_false.
+
+    GET TIME STAMP FIELD lv_start_time.
+
+    DO.
+      TRY.
+          DATA(lo_check_result) = ao_cfs->describeconfigrules(
+            it_configrulenames = VALUE /aws1/cl_cfsconfigrulenames_w=>tt_configrulenames(
+              ( NEW /aws1/cl_cfsconfigrulenames_w( av_rule_name_describe ) )
+            )
+          ).
+          IF lo_check_result IS BOUND AND lo_check_result->get_configrules( ) IS NOT INITIAL.
+            lv_describe_ready = abap_true.
+            EXIT.
+          ENDIF.
+        CATCH /aws1/cx_rt_generic.
+          " Rule not yet available
+      ENDTRY.
+
+      WAIT UP TO 2 SECONDS.
+
+      GET TIME STAMP FIELD lv_current_time.
+      lv_elapsed_seconds = cl_abap_tstmp=>subtract(
+        tstmp1 = lv_current_time
+        tstmp2 = lv_start_time ).
+
+      IF lv_elapsed_seconds > 120.
+        EXIT.
+      ENDIF.
+    ENDDO.
 
     " Create rule for delete test with convert_test tag
-    TRY.
-        ao_cfs->putconfigrule(
-          io_configrule = NEW /aws1/cl_cfsconfigrule(
-            iv_configrulename = av_rule_name_delete
-            iv_description = |Test S3 Public Read Rule for Delete|
-            io_scope = NEW /aws1/cl_cfsscope(
-              it_complianceresourcetypes = VALUE /aws1/cl_cfscplncresrctypes_w=>tt_complianceresourcetypes(
-                ( NEW /aws1/cl_cfscplncresrctypes_w( |AWS::S3::Bucket| ) )
-              )
-            )
-            io_source = NEW /aws1/cl_cfssource(
-              iv_owner = |AWS|
-              iv_sourceidentifier = |S3_BUCKET_PUBLIC_READ_PROHIBITED|
-            )
-            iv_inputparameters = '{}'
-            iv_configrulestate = |ACTIVE|
+    ao_cfs->putconfigrule(
+      io_configrule = NEW /aws1/cl_cfsconfigrule(
+        iv_configrulename = av_rule_name_delete
+        iv_description = |Test S3 Public Read Rule for Delete|
+        io_scope = NEW /aws1/cl_cfsscope(
+          it_complianceresourcetypes = VALUE /aws1/cl_cfscplncresrctypes_w=>tt_complianceresourcetypes(
+            ( NEW /aws1/cl_cfscplncresrctypes_w( |AWS::S3::Bucket| ) )
           )
-          it_tags = VALUE /aws1/cl_cfstag=>tt_tagslist(
-            ( NEW /aws1/cl_cfstag(
-                iv_key = |convert_test|
-                iv_value = |true|
-              ) )
-          )
-        ).
-      CATCH /aws1/cx_rt_generic.
-        " Ignore if rule already exists
-    ENDTRY.
+        )
+        io_source = NEW /aws1/cl_cfssource(
+          iv_owner = |AWS|
+          iv_sourceidentifier = |S3_BUCKET_PUBLIC_READ_PROHIBITED|
+        )
+        iv_inputparameters = '{}'
+        iv_configrulestate = |ACTIVE|
+      )
+      it_tags = VALUE /aws1/cl_cfstag=>tt_tagslist(
+        ( NEW /aws1/cl_cfstag(
+            iv_key = |convert_test|
+            iv_value = |true|
+          ) )
+      )
+    ).
 
-    " Wait for rules to be created
-    WAIT UP TO 10 SECONDS.
+    " Wait for delete rule to be available
+    DATA lv_delete_ready TYPE abap_bool.
+    lv_delete_ready = abap_false.
+
+    GET TIME STAMP FIELD lv_start_time.
+
+    DO.
+      TRY.
+          lo_check_result = ao_cfs->describeconfigrules(
+            it_configrulenames = VALUE /aws1/cl_cfsconfigrulenames_w=>tt_configrulenames(
+              ( NEW /aws1/cl_cfsconfigrulenames_w( av_rule_name_delete ) )
+            )
+          ).
+          IF lo_check_result IS BOUND AND lo_check_result->get_configrules( ) IS NOT INITIAL.
+            lv_delete_ready = abap_true.
+            EXIT.
+          ENDIF.
+        CATCH /aws1/cx_rt_generic.
+          " Rule not yet available
+      ENDTRY.
+
+      WAIT UP TO 2 SECONDS.
+
+      GET TIME STAMP FIELD lv_current_time.
+      lv_elapsed_seconds = cl_abap_tstmp=>subtract(
+        tstmp1 = lv_current_time
+        tstmp2 = lv_start_time ).
+
+      IF lv_elapsed_seconds > 120.
+        EXIT.
+      ENDIF.
+    ENDDO.
 
   ENDMETHOD.
 
