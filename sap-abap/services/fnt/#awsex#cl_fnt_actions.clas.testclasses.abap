@@ -49,18 +49,25 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
     av_test_bucket_name = to_lower( av_test_bucket_name ).
 
     TRY.
-        " Create S3 bucket
-        IF lv_region = 'us-east-1'.
-          lo_s3->createbucket( iv_bucket = av_test_bucket_name ).
-        ELSE.
-          DATA(lo_create_bucket_config) = NEW /aws1/cl_s3_createbucketconf( iv_locationconstraint = lv_region_string ).
-          lo_s3->createbucket(
-            iv_bucket = av_test_bucket_name
-            io_createbucketconfiguration = lo_create_bucket_config
-          ).
-        ENDIF.
+        " Create S3 bucket using utils
+        /awsex/cl_utils=>create_bucket(
+          iv_bucket = av_test_bucket_name
+          io_s3 = lo_s3
+          io_session = ao_session
+        ).
 
-        " Wait for bucket to be created
+        " Tag the S3 bucket with convert_test tag
+        DATA(lo_s3_tags) = NEW /aws1/cl_s3_tagging(
+          it_tagset = VALUE /aws1/cl_s3_tag=>tt_tagset(
+            ( NEW /aws1/cl_s3_tag( iv_key = 'convert_test' iv_value = 'true' ) )
+          )
+        ).
+        lo_s3->putbuckettagging(
+          iv_bucket = av_test_bucket_name
+          io_tagging = lo_s3_tags
+        ).
+
+        " Wait for bucket to be available
         DATA lv_start_time TYPE timestamp.
         DATA lv_current_time TYPE timestamp.
         DATA lv_elapsed TYPE i.
@@ -80,7 +87,7 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
           ENDTRY.
         ENDDO.
 
-        " Create a CloudFront distribution
+        " Create a CloudFront distribution with tags
         DATA(lv_caller_ref) = |test-dist-{ lv_uuid_string }|.
         DATA(lv_origin_id) = |S3-{ av_test_bucket_name }|.
         DATA(lv_domain) = |{ av_test_bucket_name }.s3.{ lv_region_string }.amazonaws.com|.
@@ -131,8 +138,20 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
           iv_enabled = abap_true
         ).
 
-        " Create the distribution
-        DATA(lo_create_result) = ao_fnt->createdistribution( io_distributionconfig = lo_distribution_config ).
+        " Create distribution configuration with tags
+        DATA(lo_distrib_config_with_tags) = NEW /aws1/cl_fntdistributioncfgw00(
+          io_distributionconfig = lo_distribution_config
+          io_tags = NEW /aws1/cl_fnttags(
+            it_items = VALUE /aws1/cl_fnttag=>tt_taglist(
+              ( NEW /aws1/cl_fnttag( iv_key = 'convert_test' iv_value = 'true' ) )
+            )
+          )
+        ).
+
+        " Create the distribution with tags
+        DATA(lo_create_result) = ao_fnt->createdistributionwithtags(
+          io_distributioncfgwithtags = lo_distrib_config_with_tags
+        ).
         DATA(lo_distribution) = lo_create_result->get_distribution( ).
         av_test_distribution_id = lo_distribution->get_id( ).
 
@@ -146,6 +165,12 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
 
 
   METHOD class_teardown.
+    " NOTE: CloudFront distributions and S3 buckets are tagged with 'convert_test'
+    " and should be manually cleaned up after distribution is fully disabled and deleted.
+    " This is because CloudFront distributions take a very long time (15+ minutes) to
+    " disable and delete, and the S3 bucket cannot be deleted while the distribution
+    " still references it. To clean up manually, filter resources by tag 'convert_test'.
+
     IF av_test_distribution_id IS NOT INITIAL.
       TRY.
           " First, disable the distribution
@@ -180,33 +205,16 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
             iv_ifmatch = lv_etag
           ).
 
-          " Wait for distribution to be disabled
-          WAIT UP TO 60 SECONDS.
-
-          " Get the updated ETag
-          lo_config_result = ao_fnt->getdistributionconfig( av_test_distribution_id ).
-          lv_etag = lo_config_result->get_etag( ).
-
-          " Delete the distribution
-          ao_fnt->deletedistribution(
-            iv_id = av_test_distribution_id
-            iv_ifmatch = lv_etag
-          ).
+          MESSAGE 'Distribution disable initiated. Distribution and S3 bucket tagged with convert_test for manual cleanup.' TYPE 'I'.
 
         CATCH /aws1/cx_rt_generic.
           " Ignore errors during cleanup
       ENDTRY.
     ENDIF.
 
-    " Clean up S3 bucket
-    IF av_test_bucket_name IS NOT INITIAL.
-      TRY.
-          DATA(lo_s3) = /aws1/cl_s3_factory=>create( ao_session ).
-          lo_s3->deletebucket( iv_bucket = av_test_bucket_name ).
-        CATCH /aws1/cx_rt_generic.
-          " Ignore errors during cleanup
-      ENDTRY.
-    ENDIF.
+    " NOTE: S3 bucket is NOT deleted here because it's still referenced by the
+    " CloudFront distribution. Both resources are tagged with 'convert_test' and
+    " should be cleaned up manually after the distribution is fully deleted.
   ENDMETHOD.
 
 
