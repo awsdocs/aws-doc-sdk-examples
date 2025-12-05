@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="AWSSDK.IoT" Version="4.0.3.7" />
     <PackageReference Include="AWSSDK.IotData" Version="4.0.2.7" />
+    <PackageReference Include="AWSSDK.CloudFormation" Version="4.0.3.7" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.3.14" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
