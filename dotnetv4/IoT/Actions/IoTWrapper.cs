@@ -209,7 +209,7 @@ public class IoTWrapper
         {
             var request = new ListCertificatesRequest();
             var response = await _amazonIoT.ListCertificatesAsync(request);
-            
+
             _logger.LogInformation($"Retrieved {response.Certificates.Count} certificates");
             return response.Certificates;
         }
@@ -278,7 +278,7 @@ public class IoTWrapper
             var response = await _amazonIotData.GetThingShadowAsync(request);
             using var reader = new StreamReader(response.Payload);
             var shadowData = await reader.ReadToEndAsync();
-            
+
             _logger.LogInformation($"Retrieved shadow for Thing {thingName}");
             return shadowData;
         }
@@ -357,7 +357,7 @@ public class IoTWrapper
         {
             var request = new ListTopicRulesRequest();
             var response = await _amazonIoT.ListTopicRulesAsync(request);
-            
+
             _logger.LogInformation($"Retrieved {response.Rules.Count} IoT rules");
             return response.Rules;
         }
@@ -607,7 +607,7 @@ public class IoTWrapper
         {
             var request = new ListThingsRequest();
             var response = await _amazonIoT.ListThingsAsync(request);
-            
+
             _logger.LogInformation($"Retrieved {response.Things.Count} Things");
             return response.Things;
         }

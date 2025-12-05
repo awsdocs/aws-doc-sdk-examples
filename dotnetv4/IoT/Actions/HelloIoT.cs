@@ -42,7 +42,7 @@ public class HelloIoT
                     Console.WriteLine($"  Thing ARN: {thing.ThingArn}");
                     Console.WriteLine($"  Thing Type: {thing.ThingTypeName ?? "No type specified"}");
                     Console.WriteLine($"  Version: {thing.Version}");
-                    
+
                     if (thing.Attributes?.Count > 0)
                     {
                         Console.WriteLine("  Attributes:");

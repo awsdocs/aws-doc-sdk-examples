@@ -43,13 +43,13 @@ public class IoTBasics
         // Set up dependency injection for the Amazon service.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
-                services.AddAWSService<IAmazonIoT>(new AWSOptions(){Region = RegionEndpoint.USEast1})
+                services.AddAWSService<IAmazonIoT>(new AWSOptions() { Region = RegionEndpoint.USEast1 })
                     .AddAWSService<IAmazonCloudFormation>()
                         .AddTransient<IoTWrapper>()
                         .AddLogging(builder => builder.AddConsole())
                         .AddSingleton<IAmazonIotData>(sp =>
                         {
-                            var iotService = sp.GetService<IAmazonIoT>();
+                            var iotService = sp.GetRequiredService<IAmazonIoT>();
                             var request = new DescribeEndpointRequest
                             {
                                 EndpointType = "iot:Data-ATS"
@@ -133,7 +133,7 @@ public class IoTBasics
             Console.WriteLine("1. Create an AWS IoT Thing.");
             Console.WriteLine("An AWS IoT Thing represents a virtual entity in the AWS IoT service that can be associated with a physical device.");
             Console.WriteLine();
-            
+
             if (IsInteractive)
             {
                 Console.Write("Enter Thing name: ");
@@ -145,7 +145,7 @@ public class IoTBasics
             {
                 Console.WriteLine($"Using default Thing name: {thingName}");
             }
-            
+
             var thingArn = await iotWrapper.CreateThingAsync(thingName);
             Console.WriteLine($"{thingName} was successfully created. The ARN value is {thingArn}");
             Console.WriteLine(new string('-', 80));
@@ -155,7 +155,7 @@ public class IoTBasics
             Console.WriteLine("2. Generate a device certificate.");
             Console.WriteLine("A device certificate performs a role in securing the communication between devices (Things) and the AWS IoT platform.");
             Console.WriteLine();
-            
+
             var createCert = "y";
             if (IsInteractive)
             {
@@ -327,7 +327,7 @@ public class IoTBasics
             Console.WriteLine("Creates a rule that is an administrator-level action.");
             Console.WriteLine("Any user who has permission to create rules will be able to access data processed by the rule.");
             Console.WriteLine();
-            
+
             if (IsInteractive)
             {
                 Console.Write("Enter Rule name: ");
@@ -342,7 +342,7 @@ public class IoTBasics
 
             // Deploy CloudFormation stack to create SNS topic and IAM role
             Console.WriteLine("Deploying CloudFormation stack to create SNS topic and IAM role...");
-            
+
             var deployStack = !IsInteractive || GetYesNoResponse("Would you like to deploy the CloudFormation stack? (y/n) ");
             if (deployStack)
             {
@@ -358,10 +358,10 @@ public class IoTBasics
                     {
                         snsTopicArn = stackOutputs["SNSTopicArn"];
                         string roleArn = stackOutputs["RoleArn"];
-                        
+
                         Console.WriteLine($"Successfully deployed stack. SNS topic: {snsTopicArn}");
                         Console.WriteLine($"Successfully deployed stack. IAM role: {roleArn}");
-                        
+
                         // Now create the IoT rule with the CloudFormation outputs
                         var ruleResult = await iotWrapper.CreateTopicRuleAsync(ruleName, snsTopicArn, roleArn);
                         if (ruleResult)
@@ -489,7 +489,7 @@ public class IoTBasics
                 Console.WriteLine(new string('-', 80));
                 Console.WriteLine("13. Clean up CloudFormation stack.");
                 Console.WriteLine("Deleting the CloudFormation stack and all resources...");
-                
+
                 var cleanup = !IsInteractive || GetYesNoResponse("Do you want to delete the CloudFormation stack and all resources? (y/n) ");
                 if (cleanup)
                 {
@@ -513,7 +513,7 @@ public class IoTBasics
         catch (Exception ex)
         {
             scenarioLogger.LogError(ex, "Error occurred during scenario execution.");
-            
+
             // Cleanup on error
             if (!string.IsNullOrEmpty(certificateArn) && !string.IsNullOrEmpty(thingName))
             {
@@ -527,7 +527,7 @@ public class IoTBasics
                     scenarioLogger.LogError(cleanupEx, "Error during cleanup.");
                 }
             }
-            
+
             if (!string.IsNullOrEmpty(thingName))
             {
                 try
@@ -552,7 +552,7 @@ public class IoTBasics
                     scenarioLogger.LogError(cleanupEx, "Error during CloudFormation stack cleanup.");
                 }
             }
-            
+
             throw;
         }
     }
@@ -574,7 +574,7 @@ public class IoTBasics
             {
                 StackName = stackName,
                 TemplateBody = await File.ReadAllTextAsync(_stackResourcePath),
-                Capabilities = new List<string>{ Capability.CAPABILITY_NAMED_IAM }
+                Capabilities = new List<string> { Capability.CAPABILITY_NAMED_IAM }
             };
 
             var response = await cloudFormationClient.CreateStackAsync(request);
@@ -676,7 +676,7 @@ public class IoTBasics
             };
 
             var response = await cloudFormationClient.DescribeStacksAsync(describeStacksRequest);
-            
+
             if (response.Stacks.Count > 0)
             {
                 var outputs = new Dictionary<string, string>();
@@ -686,7 +686,7 @@ public class IoTBasics
                 }
                 return outputs;
             }
-            
+
             return null;
         }
         catch (Exception ex)
