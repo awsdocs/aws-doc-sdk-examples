@@ -42,10 +42,12 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
     DATA(lv_region) = ao_session->get_region( ).
     DATA lv_region_string TYPE /aws1/s3_bucketlocationcnstrnt.
     lv_region_string = lv_region.
-    DATA(lv_uuid) = cl_system_uuid=>create_uuid_x16_static( ).
-    DATA lv_uuid_string TYPE string.
-    lv_uuid_string = lv_uuid.
-    av_test_bucket_name = |aws-abap-fnt-test-{ lv_uuid_string }|.
+    
+    " Use account ID and timestamp for unique bucket name
+    DATA(lv_acct) = ao_session->get_account_id( ).
+    DATA lv_timestamp TYPE timestamp.
+    GET TIME STAMP FIELD lv_timestamp.
+    av_test_bucket_name = |aws-abap-fnt-test-{ lv_acct }-{ lv_timestamp }|.
     av_test_bucket_name = to_lower( av_test_bucket_name ).
 
     TRY.
@@ -88,7 +90,7 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
         ENDDO.
 
         " Create a CloudFront distribution with tags
-        DATA(lv_caller_ref) = |test-dist-{ lv_uuid_string }|.
+        DATA(lv_caller_ref) = |test-dist-{ lv_acct }-{ lv_timestamp }|.
         DATA(lv_origin_id) = |S3-{ av_test_bucket_name }|.
         DATA(lv_domain) = |{ av_test_bucket_name }.s3.{ lv_region_string }.amazonaws.com|.
 
