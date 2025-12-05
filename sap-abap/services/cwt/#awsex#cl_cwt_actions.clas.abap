@@ -52,6 +52,44 @@ CLASS /awsex/cl_cwt_actions DEFINITION
         !iv_period              TYPE /aws1/cwtperiod
       RAISING
         /aws1/cx_rt_generic .
+    METHODS put_metric_data
+      IMPORTING
+        !iv_namespace   TYPE /aws1/cwtnamespace
+        !iv_metric_name TYPE /aws1/cwtmetricname
+        !iv_value       TYPE /aws1/rt_double_as_string
+        !iv_unit        TYPE /aws1/cwtstandardunit
+      RAISING
+        /aws1/cx_rt_generic .
+    METHODS put_metric_data_set
+      IMPORTING
+        !iv_namespace   TYPE /aws1/cwtnamespace
+        !iv_metric_name TYPE /aws1/cwtmetricname
+        !iv_timestamp   TYPE /aws1/cwttimestamp
+        !iv_unit        TYPE /aws1/cwtstandardunit
+        !it_values      TYPE /aws1/cl_cwtvalues_w=>tt_values
+        !it_counts      TYPE /aws1/cl_cwtcounts_w=>tt_counts
+      RAISING
+        /aws1/cx_rt_generic .
+    METHODS get_metric_statistics
+      IMPORTING
+        !iv_namespace   TYPE /aws1/cwtnamespace
+        !iv_metric_name TYPE /aws1/cwtmetricname
+        !iv_start_time  TYPE /aws1/cwttimestamp
+        !iv_end_time    TYPE /aws1/cwttimestamp
+        !iv_period      TYPE /aws1/cwtperiod
+        !it_statistics  TYPE /aws1/cl_cwtstatistics_w=>tt_statistics
+      EXPORTING
+        !oo_result      TYPE REF TO /aws1/cl_cwtgetmettatsoutput
+      RAISING
+        /aws1/cx_rt_generic .
+    METHODS get_metric_alarms
+      IMPORTING
+        !iv_namespace   TYPE /aws1/cwtnamespace
+        !iv_metric_name TYPE /aws1/cwtmetricname
+      EXPORTING
+        !oo_result      TYPE REF TO /aws1/cl_cwtdscalrmsformetri01
+      RAISING
+        /aws1/cx_rt_generic .
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
@@ -197,6 +235,121 @@ CLASS /AWSEX/CL_CWT_ACTIONS IMPLEMENTATION.
         MESSAGE 'The request processing has exceeded the limit' TYPE 'E'.
     ENDTRY.
     "snippet-end:[cwt.abapv1.put_metric_alarm]
+
+  ENDMETHOD.
+
+
+  METHOD put_metric_data.
+
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_cwt) = /aws1/cl_cwt_factory=>create( lo_session ).
+
+    "snippet-start:[cwt.abapv1.put_metric_data]
+
+    DATA lt_metricdata TYPE /aws1/cl_cwtmetricdatum=>tt_metricdata.
+
+    "Create metric data object.
+    DATA(lo_metricdatum) = NEW /aws1/cl_cwtmetricdatum(
+      iv_metricname = iv_metric_name
+      iv_value      = iv_value
+      iv_unit       = iv_unit ).
+
+    INSERT lo_metricdatum INTO TABLE lt_metricdata.
+
+    TRY.
+        lo_cwt->putmetricdata(
+          iv_namespace   = iv_namespace
+          it_metricdata  = lt_metricdata ).
+        MESSAGE 'Metric data added.' TYPE 'I'.
+      CATCH /aws1/cx_cwtinvparamvalueex.
+        MESSAGE 'The specified argument was not valid.' TYPE 'E'.
+    ENDTRY.
+    "snippet-end:[cwt.abapv1.put_metric_data]
+
+  ENDMETHOD.
+
+
+  METHOD put_metric_data_set.
+
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_cwt) = /aws1/cl_cwt_factory=>create( lo_session ).
+
+    "snippet-start:[cwt.abapv1.put_metric_data_set]
+
+    DATA lt_metricdata TYPE /aws1/cl_cwtmetricdatum=>tt_metricdata.
+
+    "Create metric data object with values and counts.
+    DATA(lo_metricdatum) = NEW /aws1/cl_cwtmetricdatum(
+      iv_metricname = iv_metric_name
+      iv_timestamp  = iv_timestamp
+      iv_unit       = iv_unit
+      it_values     = it_values
+      it_counts     = it_counts ).
+
+    INSERT lo_metricdatum INTO TABLE lt_metricdata.
+
+    TRY.
+        lo_cwt->putmetricdata(
+          iv_namespace   = iv_namespace
+          it_metricdata  = lt_metricdata ).
+        MESSAGE 'Metric data set added.' TYPE 'I'.
+      CATCH /aws1/cx_cwtinvparamvalueex.
+        MESSAGE 'The specified argument was not valid.' TYPE 'E'.
+    ENDTRY.
+    "snippet-end:[cwt.abapv1.put_metric_data_set]
+
+  ENDMETHOD.
+
+
+  METHOD get_metric_statistics.
+
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_cwt) = /aws1/cl_cwt_factory=>create( lo_session ).
+
+    "snippet-start:[cwt.abapv1.get_metric_statistics]
+
+    TRY.
+        oo_result = lo_cwt->getmetricstatistics(              " oo_result is returned for testing purposes. "
+          iv_namespace   = iv_namespace
+          iv_metricname  = iv_metric_name
+          iv_starttime   = iv_start_time
+          iv_endtime     = iv_end_time
+          iv_period      = iv_period
+          it_statistics  = it_statistics ).
+        MESSAGE 'Metric statistics retrieved.' TYPE 'I'.
+      CATCH /aws1/cx_cwtinvparamvalueex.
+        MESSAGE 'The specified argument was not valid.' TYPE 'E'.
+    ENDTRY.
+    "snippet-end:[cwt.abapv1.get_metric_statistics]
+
+  ENDMETHOD.
+
+
+  METHOD get_metric_alarms.
+
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_cwt) = /aws1/cl_cwt_factory=>create( lo_session ).
+
+    "snippet-start:[cwt.abapv1.get_metric_alarms]
+
+    TRY.
+        oo_result = lo_cwt->describealarmsformetric(          " oo_result is returned for testing purposes. "
+          iv_namespace   = iv_namespace
+          iv_metricname  = iv_metric_name ).
+        MESSAGE 'Alarms for metric retrieved.' TYPE 'I'.
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+        DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+        MESSAGE lv_error TYPE 'E'.
+    ENDTRY.
+    "snippet-end:[cwt.abapv1.get_metric_alarms]
 
   ENDMETHOD.
 ENDCLASS.
