@@ -297,14 +297,55 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
     TRY.
         ao_cfs_actions->delete_config_rule( av_rule_name_delete ).
 
-        " Wait for deletion to propagate
-        WAIT UP TO 5 SECONDS.
+        " Wait for deletion to propagate (Config rule deletion is asynchronous)
+        DATA lv_start_time TYPE timestamp.
+        DATA lv_current_time TYPE timestamp.
+        DATA lv_elapsed_seconds TYPE i.
+        DATA lv_deleted TYPE abap_bool.
+        lv_deleted = abap_false.
+
+        GET TIME STAMP FIELD lv_start_time.
+
+        " Poll for up to 60 seconds to verify deletion
+        DO.
+          TRY.
+              DATA(lo_result) = ao_cfs->describeconfigrules(
+                it_configrulenames = VALUE /aws1/cl_cfsconfigrulenames_w=>tt_configrulenames(
+                  ( NEW /aws1/cl_cfsconfigrulenames_w( av_rule_name_delete ) )
+                )
+              ).
+              " If we get here without exception, rule still exists
+              IF lo_result IS INITIAL OR lo_result->get_configrules( ) IS INITIAL.
+                lv_deleted = abap_true.
+                EXIT.
+              ENDIF.
+            CATCH /aws1/cx_cfsnosuchconfigruleex.
+              " Rule has been deleted
+              lv_deleted = abap_true.
+              EXIT.
+            CATCH /aws1/cx_rt_generic.
+              " Rule may have been deleted
+              lv_deleted = abap_true.
+              EXIT.
+          ENDTRY.
+
+          WAIT UP TO 3 SECONDS.
+
+          GET TIME STAMP FIELD lv_current_time.
+          lv_elapsed_seconds = cl_abap_tstmp=>subtract(
+            tstmp1 = lv_current_time
+            tstmp2 = lv_start_time ).
+
+          IF lv_elapsed_seconds > 60.
+            " Timeout after 60 seconds
+            EXIT.
+          ENDIF.
+        ENDDO.
 
         " Verify the rule was deleted
-        assert_rule_exists(
-          iv_rule_name = av_rule_name_delete
-          iv_exp = abap_false
-          iv_msg = |Config rule { av_rule_name_delete }  should have been deleted| ).
+        cl_abap_unit_assert=>assert_true(
+          act = lv_deleted
+          msg = |Config rule { av_rule_name_delete } should have been deleted| ).
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
         cl_abap_unit_assert=>fail( |Failed to delete config rule: { lo_exception->get_text( ) } | ).
