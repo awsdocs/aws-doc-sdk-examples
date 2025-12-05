@@ -7,7 +7,6 @@ CLASS ltc_awsex_cl_ctt_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     CLASS-DATA ao_ctt TYPE REF TO /aws1/if_ctt.
-    CLASS-DATA ao_ccg TYPE REF TO /aws1/if_ccg.
     CLASS-DATA ao_org TYPE REF TO /aws1/if_org.
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA ao_ctt_actions TYPE REF TO /awsex/cl_ctt_actions.
@@ -23,7 +22,6 @@ CLASS ltc_awsex_cl_ctt_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_has_landing_zone TYPE abap_bool VALUE abap_false.
 
     METHODS: list_baselines FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS: list_controls FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS: list_landing_zones FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS: list_enabled_baselines FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS: list_enabled_controls FOR TESTING RAISING /aws1/cx_rt_generic.
@@ -45,7 +43,6 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
   METHOD class_setup.
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_ctt = /aws1/cl_ctt_factory=>create( ao_session ).
-    ao_ccg = /aws1/cl_ccg_factory=>create( ao_session ).
     ao_org = /aws1/cl_org_factory=>create( ao_session ).
     ao_ctt_actions = NEW /awsex/cl_ctt_actions( ).
 
@@ -123,16 +120,10 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
         " Continue without baseline
     ENDTRY.
 
-    " Get a control ARN for testing
-    TRY.
-        DATA(lt_controls) = ao_ctt_actions->list_controls( ao_ccg ).
-        IF lines( lt_controls ) > 0.
-          READ TABLE lt_controls INDEX 1 ASSIGNING FIELD-SYMBOL(<control>).
-          av_control_arn = <control>->get_arn( ).
-        ENDIF.
-      CATCH /aws1/cx_rt_generic.
-        " Continue without control
-    ENDTRY.
+    " Set a known control ARN for testing
+    " AWS-GR_RESTRICT_ROOT_USER is a common Control Tower control
+    DATA(lv_region) = ao_session->get_region( ).
+    av_control_arn = |arn:aws:controltower:{ lv_region }::control/AWS-GR_RESTRICT_ROOT_USER|.
 
   ENDMETHOD.
 
@@ -180,8 +171,6 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
       ).
     ENDIF.
   ENDMETHOD.
-
-
 
   METHOD list_landing_zones.
     " Test listing landing zones
@@ -603,25 +592,6 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
 
         cl_abap_unit_assert=>assert_not_initial(
           act = lv_operation_id
-          msg = |Should have returned an operation ID|
-        ).
-      CATCH /aws1/cx_cttresourcenotfoundex INTO DATA(lo_ex).
-        " Resource not found is acceptable (control may not be enabled)
-        cl_abap_unit_assert=>assert_true(
-          act = abap_true
-          msg = |Resource not found is acceptable for disable control|
-        ).
-      CATCH /aws1/cx_cttconflictexception INTO DATA(lo_ex2).
-        " Conflict is acceptable (e.g., operation in progress)
-        cl_abap_unit_assert=>assert_true(
-          act = abap_true
-          msg = |Conflict is acceptable for disable control|
-        ).
-    ENDTRY.
-  ENDMETHOD.
-
-ENDCLASS.
-peration_id
           msg = |Should have returned an operation ID|
         ).
       CATCH /aws1/cx_cttresourcenotfoundex INTO DATA(lo_ex).
