@@ -13,7 +13,7 @@ CLASS ltc_awsex_cl_ctt_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     " Test resources
     CLASS-DATA av_ou_id TYPE /aws1/orgorganizationalunitid.
-    CLASS-DATA av_ou_arn TYPE /aws1/orgarn.
+    CLASS-DATA av_ou_arn TYPE /aws1/orgorganizationalunitarn.
     CLASS-DATA av_root_id TYPE /aws1/orgrootid.
     CLASS-DATA av_control_arn TYPE /aws1/cttcontrolidentifier.
     CLASS-DATA av_baseline_arn TYPE /aws1/cttarn.
@@ -43,6 +43,7 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
   METHOD class_setup.
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_ctt = /aws1/cl_ctt_factory=>create( ao_session ).
+    ao_ccg = /aws1/cl_ccg_factory=>create( ao_session ).
     ao_org = /aws1/cl_org_factory=>create( ao_session ).
     ao_ctt_actions = NEW /awsex/cl_ctt_actions( ).
 
@@ -120,10 +121,16 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
         " Continue without baseline
     ENDTRY.
 
-    " Set a known control ARN for testing
-    " AWS-GR_RESTRICT_ROOT_USER is a common Control Tower control
-    DATA(lv_region) = ao_session->get_region( ).
-    av_control_arn = |arn:aws:controltower:{ lv_region }::control/AWS-GR_RESTRICT_ROOT_USER|.
+    " Get a control ARN for testing
+    TRY.
+        DATA(lt_controls) = ao_ctt_actions->list_controls( ao_ccg ).
+        IF lines( lt_controls ) > 0.
+          READ TABLE lt_controls INDEX 1 ASSIGNING FIELD-SYMBOL(<control>).
+          av_control_arn = <control>->get_arn( ).
+        ENDIF.
+      CATCH /aws1/cx_rt_generic.
+        " Continue without control
+    ENDTRY.
 
   ENDMETHOD.
 
@@ -168,6 +175,32 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
       cl_abap_unit_assert=>assert_not_initial(
         act = <baseline>->get_name( )
         msg = |Baseline should have a name|
+      ).
+    ENDIF.
+  ENDMETHOD.
+
+  METHOD list_controls.
+    " Test listing controls from Control Catalog
+    DATA(lt_controls) = ao_ctt_actions->list_controls(
+      io_ccg = ao_ccg
+    ).
+
+    " Assert that we got some results
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lt_controls
+      msg = |Should have returned at least one control|
+    ).
+
+    " Verify the control has expected properties
+    IF lines( lt_controls ) > 0.
+      READ TABLE lt_controls INDEX 1 ASSIGNING FIELD-SYMBOL(<control>).
+      cl_abap_unit_assert=>assert_not_initial(
+        act = <control>->get_arn( )
+        msg = |Control should have an ARN|
+      ).
+      cl_abap_unit_assert=>assert_not_initial(
+        act = <control>->get_name( )
+        msg = |Control should have a name|
       ).
     ENDIF.
   ENDMETHOD.
