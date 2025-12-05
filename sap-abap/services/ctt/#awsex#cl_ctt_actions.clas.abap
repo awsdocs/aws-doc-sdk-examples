@@ -12,7 +12,7 @@ CLASS /awsex/cl_ctt_actions DEFINITION
       IMPORTING
         !io_ctt              TYPE REF TO /aws1/if_ctt
       RETURNING
-        VALUE(ot_baselines) TYPE /aws1/cl_cttbaselinesummary=>tt_baselinesummaries
+        VALUE(ot_baselines) TYPE /aws1/cl_cttbaselinesummary=>tt_baselines
       RAISING
         /aws1/cx_rt_generic .
 
@@ -32,7 +32,7 @@ CLASS /awsex/cl_ctt_actions DEFINITION
       IMPORTING
         !io_ccg            TYPE REF TO /aws1/if_ccg
       RETURNING
-        VALUE(ot_controls) TYPE /aws1/cl_ccgcontrolsummary=>tt_controlsummarylist
+        VALUE(ot_controls) TYPE /aws1/cl_ccgcontrolsummary=>tt_controls
       RAISING
         /aws1/cx_rt_generic .
 
@@ -78,7 +78,7 @@ CLASS /awsex/cl_ctt_actions DEFINITION
       IMPORTING
         !io_ctt                  TYPE REF TO /aws1/if_ctt
       RETURNING
-        VALUE(ot_landing_zones)  TYPE /aws1/cl_cttlandingzonesummary=>tt_landingzonesummarylist
+        VALUE(ot_landing_zones)  TYPE /aws1/cl_cttlandingzonesummary=>tt_landingzonesummaries
       RAISING
         /aws1/cx_rt_generic .
 
@@ -86,7 +86,7 @@ CLASS /awsex/cl_ctt_actions DEFINITION
       IMPORTING
         !io_ctt                       TYPE REF TO /aws1/if_ctt
       RETURNING
-        VALUE(ot_enabled_baselines)   TYPE /aws1/cl_cttenbdbaselinesumm=>tt_enabledbaselinesummaries
+        VALUE(ot_enabled_baselines)   TYPE /aws1/cl_cttenbdbaselinesumm=>tt_enabledbaselines
       RAISING
         /aws1/cx_rt_generic .
 
@@ -113,7 +113,7 @@ CLASS /awsex/cl_ctt_actions DEFINITION
         !io_ctt                      TYPE REF TO /aws1/if_ctt
         !iv_target_identifier        TYPE /aws1/ctttargetidentifier
       RETURNING
-        VALUE(ot_enabled_controls)   TYPE /aws1/cl_cttenabledcontrolsumm=>tt_enabledcontrolsummarylist
+        VALUE(ot_enabled_controls)   TYPE /aws1/cl_cttenabledcontrolsumm=>tt_enabledcontrols
       RAISING
         /aws1/cx_rt_generic .
 
@@ -130,7 +130,7 @@ CLASS /AWSEX/CL_CTT_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[ctt.abapv1.list_baselines]
     TRY.
-        DATA lt_baselines TYPE /aws1/cl_cttbaselinesummary=>tt_baselinesummaries.
+        DATA lt_baselines TYPE /aws1/cl_cttbaselinesummary=>tt_baselines.
         DATA lv_nexttoken TYPE /aws1/cttstring.
 
         " List all baselines using pagination
@@ -228,7 +228,7 @@ CLASS /AWSEX/CL_CTT_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[ctt.abapv1.list_controls]
     TRY.
-        DATA lt_controls TYPE /aws1/cl_ccgcontrolsummary=>tt_controlsummarylist.
+        DATA lt_controls TYPE /aws1/cl_ccgcontrolsummary=>tt_controls.
         DATA lv_nexttoken TYPE /aws1/ccgpaginationtoken.
 
         " List all controls using pagination
@@ -406,7 +406,7 @@ CLASS /AWSEX/CL_CTT_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[ctt.abapv1.list_landing_zones]
     TRY.
-        DATA lt_landing_zones TYPE /aws1/cl_cttlandingzonesummary=>tt_landingzonesummarylist.
+        DATA lt_landing_zones TYPE /aws1/cl_cttlandingzonesummary=>tt_landingzonesummaries.
         DATA lv_nexttoken TYPE /aws1/cttstring.
 
         " List all landing zones using pagination
@@ -441,7 +441,7 @@ CLASS /AWSEX/CL_CTT_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[ctt.abapv1.list_enabled_baselines]
     TRY.
-        DATA lt_enabled_baselines TYPE /aws1/cl_cttenbdbaselinesumm=>tt_enabledbaselinesummaries.
+        DATA lt_enabled_baselines TYPE /aws1/cl_cttenbdbaselinesumm=>tt_enabledbaselines.
         DATA lv_nexttoken TYPE /aws1/cttlstenbdbaselinesnex00.
 
         " List all enabled baselines using pagination
@@ -564,7 +564,7 @@ CLASS /AWSEX/CL_CTT_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[ctt.abapv1.list_enabled_controls]
     TRY.
-        DATA lt_enabled_controls TYPE /aws1/cl_cttenabledcontrolsumm=>tt_enabledcontrolsummarylist.
+        DATA lt_enabled_controls TYPE /aws1/cl_cttenabledcontrolsumm=>tt_enabledcontrols.
         DATA lv_nexttoken TYPE /aws1/cttstring.
 
         " List all enabled controls using pagination
