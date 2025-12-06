@@ -84,9 +84,9 @@ CLASS ltc_awsex_cl_cgp_actions IMPLEMENTATION.
           iv_userpoolid = av_user_pool_id
           iv_clientname = |test-client-{ lv_uuid_string }|
           it_explicitauthflows = VALUE /aws1/cl_cgpexplicitauthflow00=>tt_explicitauthflowslisttype(
-            ( NEW /aws1/cl_cgpexplicitauthflow00( 'ADMIN_NO_SRP_AUTH' ) )
             ( NEW /aws1/cl_cgpexplicitauthflow00( 'ALLOW_ADMIN_USER_PASSWORD_AUTH' ) )
             ( NEW /aws1/cl_cgpexplicitauthflow00( 'ALLOW_REFRESH_TOKEN_AUTH' ) )
+            ( NEW /aws1/cl_cgpexplicitauthflow00( 'ALLOW_USER_SRP_AUTH' ) )
           )
         ).
 
