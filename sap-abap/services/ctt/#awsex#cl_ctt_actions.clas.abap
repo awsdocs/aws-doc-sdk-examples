@@ -162,9 +162,11 @@ CLASS /AWSEX/CL_CTT_ACTIONS IMPLEMENTATION.
 
         " Add Identity Center baseline parameter if provided
         IF iv_identity_center_baseline IS NOT INITIAL.
+          " Create a JSON document with the baseline ARN value
+          DATA(lv_json) = |\{ "IdentityCenterEnabledBaselineArn": "{ iv_identity_center_baseline }" \}|.
           DATA(lo_param) = NEW /aws1/cl_cttenbdbaselineparam(
             iv_key = 'IdentityCenterEnabledBaselineArn'
-            iv_value = iv_identity_center_baseline
+            io_value = /aws1/cl_rt_document=>from_json_str( lv_json )
           ).
           APPEND lo_param TO lt_parameters.
         ENDIF.
