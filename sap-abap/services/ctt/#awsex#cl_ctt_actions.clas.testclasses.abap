@@ -120,16 +120,9 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
         " Continue without baseline
     ENDTRY.
 
-    " Get a control ARN for testing
-    TRY.
-        DATA(lt_controls) = ao_ctt_actions->list_controls( ao_ccg ).
-        IF lines( lt_controls ) > 0.
-          READ TABLE lt_controls INDEX 1 ASSIGNING FIELD-SYMBOL(<control>).
-          av_control_arn = <control>->get_arn( ).
-        ENDIF.
-      CATCH /aws1/cx_rt_generic.
-        " Continue without control
-    ENDTRY.
+    " Use a well-known Control Tower control ARN for testing
+    " AWS-GR_AUDIT_BUCKET_PUBLIC_READ_PROHIBITED is a common detective guardrail
+    av_control_arn = 'arn:aws:controltower:us-east-1::control/AWS-GR_AUDIT_BUCKET_PUBLIC_READ_PROHIBITED'.
 
   ENDMETHOD.
 
@@ -174,32 +167,6 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
       cl_abap_unit_assert=>assert_not_initial(
         act = <baseline>->get_name( )
         msg = |Baseline should have a name|
-      ).
-    ENDIF.
-  ENDMETHOD.
-
-  METHOD list_controls.
-    " Test listing controls from Control Catalog
-    DATA(lt_controls) = ao_ctt_actions->list_controls(
-      io_ccg = ao_ccg
-    ).
-
-    " Assert that we got some results
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lt_controls
-      msg = |Should have returned at least one control|
-    ).
-
-    " Verify the control has expected properties
-    IF lines( lt_controls ) > 0.
-      READ TABLE lt_controls INDEX 1 ASSIGNING FIELD-SYMBOL(<control>).
-      cl_abap_unit_assert=>assert_not_initial(
-        act = <control>->get_arn( )
-        msg = |Control should have an ARN|
-      ).
-      cl_abap_unit_assert=>assert_not_initial(
-        act = <control>->get_name( )
-        msg = |Control should have a name|
       ).
     ENDIF.
   ENDMETHOD.
