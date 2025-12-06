@@ -65,14 +65,14 @@ CLASS ltc_awsex_cl_cgp_actions IMPLEMENTATION.
     DATA(lv_pool_name) = |test-pool-{ lv_uuid_string }|.
 
     TRY.
-        " Create user pool
+        " Create user pool with convert_test tag
         DATA(lo_pool_result) = ao_cgp->createuserpool(
           iv_poolname = lv_pool_name
           iv_deletionprotection = 'INACTIVE'
-          it_userpooltags = VALUE /aws1/cl_cgpuserpooltgstype_w=>tt_userpooltags(
-            ( VALUE /aws1/cl_cgpuserpooltgstype_w=>ts_userpooltags_maprow(
+          it_userpooltags = VALUE /aws1/cl_cgpuserpooltagstype_w=>tt_userpooltagstype(
+            ( VALUE /aws1/cl_cgpuserpooltagstype_w=>ts_userpooltagstype_maprow(
                 key = 'convert_test'
-                value = NEW /aws1/cl_cgpuserpooltgstype_w( 'true' ) ) )
+                value = NEW /aws1/cl_cgpuserpooltagstype_w( 'true' ) ) )
           )
         ).
 
