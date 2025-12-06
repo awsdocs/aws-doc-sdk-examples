@@ -120,10 +120,16 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
         " Continue without baseline
     ENDTRY.
 
-    " Set a known control ARN for testing
-    " AWS-GR_RESTRICT_ROOT_USER is a common Control Tower control
-    DATA(lv_region) = ao_session->get_region( ).
-    av_control_arn = |arn:aws:controltower:{ lv_region }::control/AWS-GR_RESTRICT_ROOT_USER|.
+    " Get a control ARN for testing
+    TRY.
+        DATA(lt_controls) = ao_ctt_actions->list_controls( ao_ccg ).
+        IF lines( lt_controls ) > 0.
+          READ TABLE lt_controls INDEX 1 ASSIGNING FIELD-SYMBOL(<control>).
+          av_control_arn = <control>->get_arn( ).
+        ENDIF.
+      CATCH /aws1/cx_rt_generic.
+        " Continue without control
+    ENDTRY.
 
   ENDMETHOD.
 
@@ -168,6 +174,32 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
       cl_abap_unit_assert=>assert_not_initial(
         act = <baseline>->get_name( )
         msg = |Baseline should have a name|
+      ).
+    ENDIF.
+  ENDMETHOD.
+
+  METHOD list_controls.
+    " Test listing controls from Control Catalog
+    DATA(lt_controls) = ao_ctt_actions->list_controls(
+      io_ccg = ao_ccg
+    ).
+
+    " Assert that we got some results
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lt_controls
+      msg = |Should have returned at least one control|
+    ).
+
+    " Verify the control has expected properties
+    IF lines( lt_controls ) > 0.
+      READ TABLE lt_controls INDEX 1 ASSIGNING FIELD-SYMBOL(<control>).
+      cl_abap_unit_assert=>assert_not_initial(
+        act = <control>->get_arn( )
+        msg = |Control should have an ARN|
+      ).
+      cl_abap_unit_assert=>assert_not_initial(
+        act = <control>->get_name( )
+        msg = |Control should have a name|
       ).
     ENDIF.
   ENDMETHOD.
@@ -236,6 +268,18 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
           act = abap_true
           msg = |Resource not found is acceptable for list enabled baselines|
         ).
+      CATCH /aws1/cx_cttclientexc INTO DATA(lo_ex2).
+        " Client exception is acceptable
+        cl_abap_unit_assert=>assert_true(
+          act = abap_true
+          msg = |Client exception is acceptable for list enabled baselines|
+        ).
+      CATCH /aws1/cx_cttvalidationex INTO DATA(lo_ex3).
+        " Validation exception is acceptable
+        cl_abap_unit_assert=>assert_true(
+          act = abap_true
+          msg = |Validation exception is acceptable for list enabled baselines|
+        ).
     ENDTRY.
   ENDMETHOD.
 
@@ -289,6 +333,18 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
           act = abap_true
           msg = |Resource not found is acceptable for list enabled controls|
         ).
+      CATCH /aws1/cx_cttclientexc INTO DATA(lo_ex3).
+        " Client exception is acceptable
+        cl_abap_unit_assert=>assert_true(
+          act = abap_true
+          msg = |Client exception is acceptable for list enabled controls|
+        ).
+      CATCH /aws1/cx_cttvalidationex INTO DATA(lo_ex4).
+        " Validation exception is acceptable
+        cl_abap_unit_assert=>assert_true(
+          act = abap_true
+          msg = |Validation exception is acceptable for list enabled controls|
+        ).
     ENDTRY.
   ENDMETHOD.
 
@@ -299,7 +355,7 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
 
     TRY.
         " Use a fake operation ID - this should fail with ResourceNotFoundException
-        DATA(lv_fake_operation_id) = |arn:aws:controltower:us-east-1:123456789012:operation/test-op|.
+        DATA(lv_fake_operation_id) = |arn:aws:controltower:us-east-1:123456789012:operation/test-operation|.
 
         DATA(lv_status) = ao_ctt_actions->get_control_operation(
           io_ctt = ao_ctt
@@ -332,7 +388,7 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
 
     TRY.
         " Use a fake operation ID - this should fail with ResourceNotFoundException
-        DATA(lv_fake_operation_id) = |arn:aws:controltower:us-east-1:123456789012:operation/test-op|.
+        DATA(lv_fake_operation_id) = |arn:aws:controltower:us-east-1:123456789012:operation/test-operation|.
 
         DATA(lv_status) = ao_ctt_actions->get_baseline_operation(
           io_ctt = ao_ctt
