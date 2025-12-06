@@ -52,7 +52,8 @@ CLASS ltc_awsex_cl_cgp_actions IMPLEMENTATION.
 
   METHOD class_setup.
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
-    ao_cgp = /aws1/cl_cgp_factory=>create( ao_session ).
+    DATA(lv_region) = ao_session->get_region( ).
+    ao_cgp = /aws1/cl_cgp_factory=>create( io_session = ao_session iv_region = lv_region ).
     ao_cgp_actions = NEW /awsex/cl_cgp_actions( ).
 
     " Generate unique identifiers for testing
