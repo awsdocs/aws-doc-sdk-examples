@@ -44,14 +44,17 @@ jobs:
       - name: Filter SPECIFICATION.md files for scenarios
         if: ${{ github.event.inputs.dir_name == 'scenarios' }}
         run: |
-          find ./scenarios -name "SPECIFICATION.md" -exec cp --parents {} ./filtered_scenarios/ \;
+          find ./scenarios -name "SPECIFICATION.md" | while read file; do
+            mkdir -p "./filtered_scenarios/$(dirname "$file")"
+            cp "$file" "./filtered_scenarios/$file"
+          done
 
       - name: Upload/Sync to S3
         run: |
-          if [ "$dir_name" == "scenarios" ]; then
-            aws s3 sync "./filtered_scenarios/scenarios/" "s3://$S3_NAME-bucket/" --delete
-          else
+          if [ "$dir_name" == "steering_docs" ]; then
             aws s3 sync "./$dir_name/" "s3://$S3_NAME-bucket/" --delete
+          else
+            aws s3 sync "./filtered_scenarios/scenarios/" "s3://$S3_NAME-bucket/" --delete
           fi
 
       - name: Sync Knowledge Base Data Source
