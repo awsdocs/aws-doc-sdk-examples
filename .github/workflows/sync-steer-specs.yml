@@ -21,7 +21,7 @@ jobs:
   run_job_with_aws:
     runs-on: ubuntu-latest
     env:
-      sdk_name: ${{ github.event.inputs.sdk_name || 'steering_docs' }}
+      dir_name: ${{ github.event.inputs.dir_name || 'steering_docs' }}
     
     steps:
       - name: Checkout
@@ -54,7 +54,7 @@ jobs:
           if [ "$dir_name" == "steering_docs" ]; then
             aws s3 sync "./$dir_name/" "s3://$S3_NAME-bucket/" --delete
           else
-            aws s3 sync "./filtered_scenarios/scenarios/" "s3://$S3_NAME-bucket/" --delete
+            aws s3 sync "./filtered_scenarios/" "s3://$S3_NAME-bucket/" --delete
           fi
 
       - name: Sync Knowledge Base Data Source
