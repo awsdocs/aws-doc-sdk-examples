@@ -33,7 +33,7 @@ CLASS ltc_awsex_cl_cgp_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     METHODS test_respond_to_mfa_challenge FOR TESTING RAISING /aws1/cx_rt_generic.
 
     " Helper methods
-    METHODS wait_seconds
+    CLASS-METHODS wait_seconds
       IMPORTING
         iv_seconds TYPE i.
     METHODS create_test_user
@@ -390,7 +390,7 @@ CLASS ltc_awsex_cl_cgp_actions IMPLEMENTATION.
             ao_cgp->setuserpoolmfaconfig(
               iv_userpoolid = av_user_pool_id
               iv_mfaconfiguration = 'OPTIONAL'
-              io_softwaretokenmfaconfiguration = NEW /aws1/cl_cgpsoftwaretokmfacf00( iv_enabled = abap_true )
+              io_softwaretokenmfaconf = NEW /aws1/cl_cgpsoftwaretokmfacf00( iv_enabled = abap_true )
             ).
           CATCH /aws1/cx_rt_generic.
             " MFA config might already be set
