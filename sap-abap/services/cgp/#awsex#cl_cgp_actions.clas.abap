@@ -274,10 +274,10 @@ CLASS /AWSEX/CL_CGP_ACTIONS IMPLEMENTATION.
 
         " Add SECRET_HASH if provided
         IF iv_secret_hash IS NOT INITIAL.
-          APPEND VALUE #(
+          INSERT VALUE #(
             key = 'SECRET_HASH'
             value = NEW /aws1/cl_cgpauthparamstype_w( iv_secret_hash )
-          ) TO lt_auth_params.
+          ) INTO TABLE lt_auth_params.
         ENDIF.
 
         oo_result = lo_cgp->admininitiateauth(
@@ -389,10 +389,10 @@ CLASS /AWSEX/CL_CGP_ACTIONS IMPLEMENTATION.
 
         " Add SECRET_HASH if provided
         IF iv_secret_hash IS NOT INITIAL.
-          APPEND VALUE #(
+          INSERT VALUE #(
             key = 'SECRET_HASH'
             value = NEW /aws1/cl_cgpchallengerspstyp00( iv_secret_hash )
-          ) TO lt_challenge_responses.
+          ) INTO TABLE lt_challenge_responses.
         ENDIF.
 
         DATA(lo_result) = lo_cgp->adminrespondtoauthchallenge(
