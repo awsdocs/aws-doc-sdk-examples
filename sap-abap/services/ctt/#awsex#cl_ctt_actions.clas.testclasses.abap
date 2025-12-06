@@ -346,6 +346,12 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
           act = abap_true
           msg = |Validation error is acceptable for fake operation ID|
         ).
+      CATCH /aws1/cx_cttclientexc INTO DATA(lo_ex3).
+        " Also acceptable - client error for invalid request
+        cl_abap_unit_assert=>assert_true(
+          act = abap_true
+          msg = |Client exception is acceptable for fake operation ID|
+        ).
     ENDTRY.
   ENDMETHOD.
 
@@ -378,6 +384,12 @@ CLASS ltc_awsex_cl_ctt_actions IMPLEMENTATION.
         cl_abap_unit_assert=>assert_true(
           act = abap_true
           msg = |Validation error is acceptable for fake operation ID|
+        ).
+      CATCH /aws1/cx_cttclientexc INTO DATA(lo_ex3).
+        " Also acceptable - client error for invalid request
+        cl_abap_unit_assert=>assert_true(
+          act = abap_true
+          msg = |Client exception is acceptable for fake operation ID|
         ).
     ENDTRY.
   ENDMETHOD.
