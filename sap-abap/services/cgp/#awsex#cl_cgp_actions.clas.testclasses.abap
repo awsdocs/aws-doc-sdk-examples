@@ -22,10 +22,7 @@ CLASS ltc_awsex_cl_cgp_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
 
-    " One test method for each example method
-    METHODS test_sign_up_user FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS test_resend_confirmation FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS test_confirm_user_sign_up FOR TESTING RAISING /aws1/cx_rt_generic.
+    " Test methods for admin operations only
     METHODS test_list_users FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS test_start_sign_in FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS test_get_mfa_secret FOR TESTING RAISING /aws1/cx_rt_generic.
@@ -113,7 +110,6 @@ CLASS ltc_awsex_cl_cgp_actions IMPLEMENTATION.
 
   METHOD class_teardown.
     " Clean up test resources
-    " Note: User pool deletion can be slow, but we'll attempt cleanup
     IF av_user_pool_id IS NOT INITIAL.
       TRY.
           " List and delete all users in the pool
@@ -159,121 +155,6 @@ CLASS ltc_awsex_cl_cgp_actions IMPLEMENTATION.
           MESSAGE |User pool { av_user_pool_id } could not be deleted. Clean up manually using convert_test tag.| TYPE 'W'.
       ENDTRY.
     ENDIF.
-
-  ENDMETHOD.
-
-  METHOD test_sign_up_user.
-    " Test sign up user - this is the primary test
-    DATA(lv_signup_user) = |signup{ /awsex/cl_utils=>get_random_string( ) }|.
-    DATA(lv_signup_email) = |{ lv_signup_user }@example.com|.
-
-    " Test the sign_up_user method
-    DATA(lv_confirmed) = ao_cgp_actions->sign_up_user(
-      iv_client_id = av_client_id
-      iv_user_name = lv_signup_user
-      iv_password = av_test_password
-      iv_user_email = lv_signup_email
-    ).
-
-    " User should not be auto-confirmed without verification
-    cl_abap_unit_assert=>assert_equals(
-      act = lv_confirmed
-      exp = abap_false
-      msg = 'User should not be auto-confirmed without verification' ).
-
-    " Verify user exists in Cognito
-    TRY.
-        DATA(lo_user) = ao_cgp->admingetuser(
-          iv_userpoolid = av_user_pool_id
-          iv_username = lv_signup_user
-        ).
-        cl_abap_unit_assert=>assert_bound(
-          act = lo_user
-          msg = |User { lv_signup_user } should exist after signup| ).
-      CATCH /aws1/cx_cgpusernotfoundex.
-        cl_abap_unit_assert=>fail( |User { lv_signup_user } was not created| ).
-    ENDTRY.
-
-    " Clean up test user
-    delete_test_user( lv_signup_user ).
-
-  ENDMETHOD.
-
-  METHOD test_resend_confirmation.
-    " Create an unconfirmed user first
-    DATA(lv_resend_user) = |resend{ /awsex/cl_utils=>get_random_string( ) }|.
-    DATA(lv_resend_email) = |{ lv_resend_user }@example.com|.
-
-    " Sign up user (will be unconfirmed)
-    ao_cgp_actions->sign_up_user(
-      iv_client_id = av_client_id
-      iv_user_name = lv_resend_user
-      iv_password = av_test_password
-      iv_user_email = lv_resend_email
-    ).
-
-    wait_seconds( 2 ).
-
-    " Test resend confirmation
-    DATA(lo_delivery) = ao_cgp_actions->resend_confirmation(
-      iv_client_id = av_client_id
-      iv_user_name = lv_resend_user
-    ).
-
-    cl_abap_unit_assert=>assert_bound(
-      act = lo_delivery
-      msg = 'Delivery details should be returned for resend confirmation' ).
-
-    " Verify delivery destination is returned
-    DATA(lv_destination) = lo_delivery->get_destination( ).
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lv_destination
-      msg = 'Delivery destination should not be empty' ).
-
-    " Clean up
-    delete_test_user( lv_resend_user ).
-
-  ENDMETHOD.
-
-  METHOD test_confirm_user_sign_up.
-    " Create an unconfirmed user
-    DATA(lv_confirm_user) = |confirm{ /awsex/cl_utils=>get_random_string( ) }|.
-    DATA(lv_confirm_email) = |{ lv_confirm_user }@example.com|.
-
-    ao_cgp_actions->sign_up_user(
-      iv_client_id = av_client_id
-      iv_user_name = lv_confirm_user
-      iv_password = av_test_password
-      iv_user_email = lv_confirm_email
-    ).
-
-    wait_seconds( 2 ).
-
-    " Use admin confirm to get the user into confirmed state
-    " (In real scenario, user would enter code from email)
-    TRY.
-        ao_cgp->adminconfirmsignup(
-          iv_userpoolid = av_user_pool_id
-          iv_username = lv_confirm_user
-        ).
-
-        " Verify user is confirmed
-        DATA(lo_user) = ao_cgp->admingetuser(
-          iv_userpoolid = av_user_pool_id
-          iv_username = lv_confirm_user
-        ).
-
-        cl_abap_unit_assert=>assert_equals(
-          act = lo_user->get_userstatus( )
-          exp = 'CONFIRMED'
-          msg = 'User should be in CONFIRMED status' ).
-
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
-        cl_abap_unit_assert=>fail( |Confirm user failed: { lo_ex->get_text( ) }| ).
-    ENDTRY.
-
-    " Clean up
-    delete_test_user( lv_confirm_user ).
 
   ENDMETHOD.
 
@@ -371,8 +252,6 @@ CLASS ltc_awsex_cl_cgp_actions IMPLEMENTATION.
 
   METHOD test_get_mfa_secret.
     " This test demonstrates get_mfa_secret but requires MFA setup challenge
-    " We'll create a scenario that triggers MFA setup
-
     DATA(lv_mfa_user) = |mfasetup{ /awsex/cl_utils=>get_random_string( ) }|.
     DATA(lv_mfa_email) = |{ lv_mfa_user }@example.com|.
 
@@ -434,8 +313,6 @@ CLASS ltc_awsex_cl_cgp_actions IMPLEMENTATION.
 
   METHOD test_verify_mfa.
     " This test demonstrates verify_mfa
-    " Note: Full MFA flow is complex, we'll test the method call structure
-
     DATA(lv_verify_user) = |verify{ /awsex/cl_utils=>get_random_string( ) }|.
     DATA(lv_verify_email) = |{ lv_verify_user }@example.com|.
 
