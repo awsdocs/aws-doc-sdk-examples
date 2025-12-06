@@ -57,6 +57,7 @@ CLASS ltc_awsex_cl_cgp_actions IMPLEMENTATION.
 
     " Generate unique identifiers for testing
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
+    DATA(lv_timestamp) = |{ sy-datum }{ sy-uzeit }|.
     DATA lv_uuid_string TYPE string.
     lv_uuid_string = lv_uuid.
 
@@ -64,10 +65,10 @@ CLASS ltc_awsex_cl_cgp_actions IMPLEMENTATION.
     DATA(lv_pool_name) = |test-pool-{ lv_uuid_string }|.
 
     TRY.
-        " Create user pool with convert_test tag
+        " Create user pool
         DATA(lo_pool_result) = ao_cgp->createuserpool(
           iv_poolname = lv_pool_name
-          iv_deletionprotectiontype = 'INACTIVE'
+          iv_deletionprotection = 'INACTIVE'
           it_userpooltags = VALUE /aws1/cl_cgpuserpooltgstype_w=>tt_userpooltags(
             ( VALUE /aws1/cl_cgpuserpooltgstype_w=>ts_userpooltags_maprow(
                 key = 'convert_test'
@@ -86,7 +87,6 @@ CLASS ltc_awsex_cl_cgp_actions IMPLEMENTATION.
             ( NEW /aws1/cl_cgpexplicitauthflow00( 'ADMIN_NO_SRP_AUTH' ) )
             ( NEW /aws1/cl_cgpexplicitauthflow00( 'ALLOW_ADMIN_USER_PASSWORD_AUTH' ) )
             ( NEW /aws1/cl_cgpexplicitauthflow00( 'ALLOW_REFRESH_TOKEN_AUTH' ) )
-            ( NEW /aws1/cl_cgpexplicitauthflow00( 'ALLOW_USER_PASSWORD_AUTH' ) )
           )
         ).
 
