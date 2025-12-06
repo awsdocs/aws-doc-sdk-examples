@@ -379,10 +379,10 @@ CLASS /AWSEX/CL_CGP_ACTIONS IMPLEMENTATION.
     TRY.
         " Build challenge responses
         DATA(lt_challenge_responses) = VALUE /aws1/cl_cgpchallengerspstyp00=>tt_challengeresponsestype(
-          ( VALUE /aws1/cl_cgpchallengerspstyp00=>ts_challengeresponsestype_maprow(
+          ( VALUE /aws1/cl_cgpchallengerspstyp00=>ts_challengerspstype_maprow(
               key = 'USERNAME'
               value = NEW /aws1/cl_cgpchallengerspstyp00( iv_user_name ) ) )
-          ( VALUE /aws1/cl_cgpchallengerspstyp00=>ts_challengeresponsestype_maprow(
+          ( VALUE /aws1/cl_cgpchallengerspstyp00=>ts_challengerspstype_maprow(
               key = 'SOFTWARE_TOKEN_MFA_CODE'
               value = NEW /aws1/cl_cgpchallengerspstyp00( iv_mfa_code ) ) )
         ).
