@@ -87,13 +87,35 @@ use {service}_code_examples::{run_scenario, ScenarioError};
 async fn main() -> Result<(), ScenarioError> {
     tracing_subscriber::fmt::init();
 
+    // Initialize client once in main
     let sdk_config = aws_config::defaults(BehaviorVersion::latest())
         .load()
         .await;
     let client = aws_sdk_{service}::Client::new(&sdk_config);
 
+    // Pass client to scenario (clone when necessary)
     run_scenario(client).await
 }
+```
+
+**Client Initialization Pattern:**
+- ✅ **Initialize once**: Create the client once in main using `BehaviorVersion::latest()`
+- ✅ **Pass by reference**: Pass `&Client` to functions when possible
+- ✅ **Clone when needed**: Clone the client when passing to async tasks or storing in structs
+- ✅ **Efficient cloning**: Client cloning is cheap (Arc internally), so don't worry about performance
+
+```rust
+// Passing client by reference
+async fn operation_one(client: &Client) -> Result<(), Error> {
+    client.list_resources().send().await?;
+    Ok(())
+}
+
+// Cloning client for async tasks
+let client_clone = client.clone();
+tokio::spawn(async move {
+    client_clone.list_resources().send().await
+});
 ```
 
 ## Scenario Implementation Pattern (src/{scenario_name}/scenario.rs)
@@ -248,7 +270,13 @@ async fn examination_phase(client: &Client, resource_id: &str) -> Result<(), Sce
 }
 
 /// Cleanup phase: Implement cleanup options from specification
-async fn cleanup_phase(client: &Client, resource_id: &str) -> Result<(), ScenarioError> {
+async fn cleanup_phase(client: &Client, resource_id: &str, skip_cleanup: bool) -> Result<(), ScenarioError> {
+    if skip_cleanup {
+        println!("Skipping cleanup (--no-cleanup flag set)");
+        println!("Resource {} will continue running.", resource_id);
+        return Ok(());
+    }
+
     println!("Cleanup options:");
     println!("Note: Deleting the resource will stop all monitoring/processing.");
 
@@ -348,6 +376,8 @@ fn filter_data_by_criteria(items: &[String]) {
 - Handle cleanup errors gracefully
 - Provide alternative management options as specified
 - Confirm completion per specification
+- **Support --no-cleanup flag**: Scenarios may add a `--no-cleanup` or `--cleanup=false` flag to skip cleanup
+- **Start with cleanup**: When implementing a scenario, try to start with the cleanup logic first
 
 ## User Interaction Patterns
 
@@ -465,6 +495,174 @@ aws-sdk-{service} = "1.0"
 tokio = { version = "1.0", features = ["full"] }
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 inquire = "0.7"
+clap = { version = "4.0", features = ["derive"] }  # For command line arguments
+```
+
+## Configuration and Command Line Arguments
+
+### Using clap for Command Line Arguments
+For command line examples, prefer using clap with derive macros:
+
+```rust
+use clap::Parser;
+
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+struct Args {
+    /// Name of the resource to create
+    #[arg(short, long)]
+    name: String,
+
+    /// AWS region to use
+    #[arg(short, long, default_value = "us-east-1")]
+    region: String,
+
+    /// Enable verbose output
+    #[arg(short, long)]
+    verbose: bool,
+}
+
+#[tokio::main]
+async fn main() -> Result<(), ScenarioError> {
+    let args = Args::parse();
+    
+    println!("Creating resource: {}", args.name);
+    // Use args.name, args.region, etc.
+}
+```
+
+### Configuration Files
+For server and lambda examples, prefer loading configuration from environment or config files:
+
+```rust
+use std::env;
+
+let region = env::var("AWS_REGION").unwrap_or_else(|_| "us-east-1".to_string());
+let endpoint = env::var("SERVICE_ENDPOINT").ok();
+```
+
+### S3 Bucket Naming
+When creating S3 buckets, follow these guidelines:
+
+```rust
+use std::env;
+use uuid::Uuid;
+
+// When creating a new bucket
+fn generate_bucket_name() -> Result<String, ScenarioError> {
+    let prefix = env::var("S3_BUCKET_NAME_PREFIX")
+        .map_err(|_| ScenarioError::with(
+            "S3_BUCKET_NAME_PREFIX environment variable not set. \
+             Please set it to create buckets."
+        ))?;
+    
+    let unique_id = Uuid::new_v4();
+    Ok(format!("{}-{}", prefix, unique_id))
+}
+
+// When referencing an existing bucket
+fn get_existing_bucket() -> Result<String, ScenarioError> {
+    // Get from user input, config file, or command line args
+    // Do NOT use S3_BUCKET_NAME_PREFIX for existing buckets
+    let bucket_name = inquire::Text::new("Enter existing bucket name:")
+        .prompt()
+        .map_err(|e| ScenarioError::with(format!("Failed to get bucket name: {}", e)))?;
+    
+    Ok(bucket_name)
+}
+```
+
+**Requirements:**
+- ✅ **New buckets**: Require `S3_BUCKET_NAME_PREFIX` environment variable
+- ✅ **Unique suffix**: Append UUID or timestamp to prefix
+- ✅ **Exit if missing**: Don't create buckets without prefix
+- ✅ **Existing buckets**: Don't use `S3_BUCKET_NAME_PREFIX` for existing buckets
+- ✅ **Integration tests**: Same rules apply - tests should fail without prefix
+
+## Code Style and Readability
+
+### Loop vs Iterator
+When to prefer Loop vs Iterator:
+- **Use Iterator** if there is a clear transformation from `T` to `U`
+- **Do not nest control flow** inside an iterator
+  - Extract the logic to a dedicated function
+  - Prefer a for loop if the function would be difficult to extract
+  - Prefer an extracted function if the logic is nuanced and should be tested
+
+```rust
+// ✅ GOOD - Clear transformation
+let names: Vec<String> = resources
+    .iter()
+    .map(|r| r.name().to_string())
+    .collect();
+
+// ✅ GOOD - Simple for loop for complex logic
+for resource in resources {
+    if resource.status() == "ACTIVE" {
+        process_resource(&resource).await?;
+    }
+}
+
+// ❌ BAD - Nested control flow in iterator
+let results: Vec<_> = resources
+    .iter()
+    .map(|r| {
+        if r.status() == "ACTIVE" {
+            Some(process_resource(r))
+        } else {
+            None
+        }
+    })
+    .collect();
+```
+
+### Function Nesting Depth
+How deep to go in nesting vs when to extract a new function:
+- **Two levels deep** is fine
+- **Three levels deep** is pushing it
+- **Four levels deep** is probably too much
+- **Extract a function** if the logic is nuanced and should be tested
+
+```rust
+// ✅ GOOD - Extracted function for complex logic
+async fn process_active_resources(resources: &[Resource]) -> Result<(), ScenarioError> {
+    for resource in resources {
+        if resource.status() == "ACTIVE" {
+            validate_and_process(resource).await?;
+        }
+    }
+    Ok(())
+}
+
+async fn validate_and_process(resource: &Resource) -> Result<(), ScenarioError> {
+    // Complex validation and processing logic
+    Ok(())
+}
+```
+
+### Trait vs Bare Functions
+When to use Trait vs bare functions:
+- **Examples rarely need traits** - they add mental overhead
+- **Prefer bare functions** or a struct to manage the Epic communication saga
+- **Use traits only** when mocking is required for testing
+
+```rust
+// ✅ GOOD - Bare functions for simple cases
+pub async fn create_resource(client: &Client, name: &str) -> Result<String, Error> {
+    // Implementation
+}
+
+// ✅ GOOD - Struct for managing scenario state
+pub struct ScenarioState {
+    client: Client,
+    resource_id: Option<String>,
+}
+
+impl ScenarioState {
+    pub async fn setup(&mut self) -> Result<(), ScenarioError> {
+        // Setup logic
+    }
+}
 ```
 
 ## Scenario Requirements
@@ -478,6 +676,8 @@ inquire = "0.7"
 - ✅ **ALWAYS** provide educational context and explanations from specification
 - ✅ **ALWAYS** handle edge cases (no resources found, etc.) as specified
 - ✅ **ALWAYS** use custom ScenarioError type for error handling
+- ✅ **ALWAYS** prefer iterators for clear transformations, loops for complex logic
+- ✅ **ALWAYS** extract functions when nesting exceeds 2-3 levels
 
 ## Implementation Workflow
 
@@ -488,6 +688,81 @@ inquire = "0.7"
 4. **Implement Phases**: Follow the "Proposed example structure" section exactly
 5. **Add Error Handling**: Implement error handling per the "Errors" section
 6. **Test Against Specification**: Verify implementation matches specification requirements
+
+## Runtime Resources and File Handling
+
+### Compile-Time Data
+Use `include_bytes!` or `include_str!` for compile-time data:
+
+```rust
+// Include text file at compile time
+const CONFIG_TEMPLATE: &str = include_str!("../resources/config_template.json");
+
+// Include binary file at compile time
+const SAMPLE_DATA: &[u8] = include_bytes!("../resources/sample.dat");
+
+fn use_embedded_data() {
+    println!("Config template: {}", CONFIG_TEMPLATE);
+    println!("Sample data size: {} bytes", SAMPLE_DATA.len());
+}
+```
+
+### Runtime File Operations
+For runtime file operations:
+
+```rust
+use std::fs;
+use aws_sdk_s3::primitives::ByteStream;
+
+// Read entire file as string
+let content = fs::read_to_string("data.txt")?;
+
+// Stream file for upload to S3
+let body = ByteStream::from_path("large_file.dat").await?;
+client.put_object()
+    .bucket("my-bucket")
+    .key("large_file.dat")
+    .body(body)
+    .send()
+    .await?;
+```
+
+### Handling PII and Sensitive Data
+When showing examples that handle PII, use the [secrets](https://crates.io/crates/secrets) crate:
+
+```rust
+use secrets::SecretString;
+
+// Store sensitive data securely
+let password = SecretString::new("sensitive_password".to_string());
+
+// Use the secret (automatically zeroed on drop)
+let result = authenticate_user(&password).await?;
+
+// Password is automatically zeroed when dropped
+```
+
+### HTTP Servers
+For HTTP server examples, use the actix-web crate:
+
+```rust
+use actix_web::{web, App, HttpResponse, HttpServer};
+
+async fn health_check() -> HttpResponse {
+    HttpResponse::Ok().body("OK")
+}
+
+#[tokio::main]
+async fn main() -> std::io::Result<()> {
+    HttpServer::new(|| {
+        App::new()
+            .route("/health", web::get().to(health_check))
+    })
+    .bind(("127.0.0.1", 8080))?
+    .run()
+    .await
+}
+```
 
 ## Educational Elements
 - **Use specification descriptions**: Explain operations using specification language
