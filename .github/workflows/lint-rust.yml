@@ -27,7 +27,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         if: steps.changed-files.outputs.any_changed == 'true'
         with:
-          toolchain: "1.87.0"
+          toolchain: "1.88.0"
           components: clippy, rustfmt
       - name: Set Environment
         if: steps.changed-files.outputs.any_changed == 'true'
