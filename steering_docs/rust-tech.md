@@ -1,5 +1,16 @@
 # Rust Technology Stack & Build System
 
+## Overview
+This document provides an overview of the Rust technology stack and build system for AWS SDK code examples. For detailed guidance on specific components, see the modular steering documents in the `rust-tech/` directory:
+
+- **[basics.md](rust-tech/basics.md)** - Interactive scenario generation
+- **[hello.md](rust-tech/hello.md)** - Hello example generation
+- **[wrapper.md](rust-tech/wrapper.md)** - Service wrapper generation
+- **[tests.md](rust-tech/tests.md)** - Test generation and patterns
+- **[metadata.md](rust-tech/metadata.md)** - Metadata generation
+- **[orchestration.md](rust-tech/orchestration.md)** - Component orchestration
+- **[readme_writeme.md](rust-tech/readme_writeme.md)** - README generation
+
 ## Rust SDK v1 Development Environment
 
 ### Build Tools & Dependencies
