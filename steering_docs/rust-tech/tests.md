@@ -62,41 +62,27 @@ tokio = { version = "1.0", features = ["full", "test-util"] }
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{service}::Mock{Service}Impl;
+    use crate::rds::MockRdsImpl;
     use mockall::predicate::*;
 
     #[tokio::test]
-    async fn test_setup_phase_success() {
-        let mut mock_{service} = Mock{Service}Impl::default();
+    async fn test_scenario_set_engine_not_create() {
+        let mut mock_rds = MockRdsImpl::default();
 
-        // Setup mock expectations
-        mock_{service}
-            .expect_list_resources()
-            .return_once(|| Ok(vec![]));
+        mock_rds
+            .expect_create_db_cluster_parameter_group()
+            .with(
+                eq("RustSDKCodeExamplesDBParameterGroup"),
+                eq("Parameter Group created by Rust SDK Code Example"),
+                eq("aurora-mysql"),
+            )
+            .return_once(|_, _, _| Ok(CreateDbClusterParameterGroupOutput::builder().build()));
 
-        mock_{service}
-            .expect_create_resource()
-            .with(eq("test-resource"))
-            .return_once(|_| Ok("resource-123".to_string()));
+        let mut scenario = AuroraScenario::new(mock_rds);
 
-        // Test the function
-        let result = setup_phase(&mock_{service}, "test-resource").await;
-        
-        assert!(result.is_ok());
-        assert_eq!(result.unwrap(), "resource-123");
-    }
+        let set_engine = scenario.set_engine("aurora-mysql", "aurora-mysql8.0").await;
 
-    #[tokio::test]
-    async fn test_setup_phase_error() {
-        let mut mock_{service} = Mock{Service}Impl::default();
-
-        mock_{service}
-            .expect_list_resources()
-            .return_once(|| Err(ScenarioError::with("Failed to list resources")));
-
-        let result = setup_phase(&mock_{service}, "test-resource").await;
-        
-        assert!(result.is_err());
+        assert!(set_engine.is_err());
     }
 }
 ```
@@ -207,6 +193,10 @@ mock_{service}
 // In src/{service}.rs
 
 use aws_sdk_{service}::Client as {Service}Client;
+use aws_sdk_{service}::operation::describe_db_engine_versions::{
+    DescribeDbEngineVersionsOutput, DescribeDBEngineVersionsError
+};
+use aws_sdk_{service}::error::SdkError;
 
 #[cfg(test)]
 use mockall::automock;
@@ -226,31 +216,18 @@ impl {Service}Impl {
         {Service}Impl { inner }
     }
 
-    pub async fn list_resources(&self) -> Result<Vec<String>, ScenarioError> {
-        let response = self.inner
-            .list_resources()
+    pub async fn describe_db_engine_versions(
+        &self,
+        engine: &str,
+    ) -> Result<DescribeDbEngineVersionsOutput, SdkError<DescribeDBEngineVersionsError>> {
+        self.inner
+            .describe_db_engine_versions()
+            .engine(engine)
             .send()
             .await
-            .map_err(|e| ScenarioError::new("Failed to list resources", &e))?;
-
-        Ok(response
-            .resources()
-            .iter()
-            .filter_map(|r| r.name())
-            .map(String::from)
-            .collect())
     }
 
-    pub async fn create_resource(&self, name: &str) -> Result<String, ScenarioError> {
-        let response = self.inner
-            .create_resource()
-            .name(name)
-            .send()
-            .await
-            .map_err(|e| ScenarioError::new("Failed to create resource", &e))?;
-
-        Ok(response.resource_id().unwrap_or("").to_string())
-    }
+    // etc
 }
 ```
 

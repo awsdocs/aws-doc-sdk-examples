@@ -124,13 +124,14 @@ tokio::spawn(async move {
 // SPDX-License-Identifier: Apache-2.0
 
 use aws_sdk_{service}::Client;
+use aws_sdk_{service}::error::ProvideErrorMetadata;
 use std::fmt::Display;
 
 /// Custom error type for scenario operations
 #[derive(Debug, PartialEq, Eq)]
 pub struct ScenarioError {
     message: String,
-    context: Option<String>,
+    context: Option<MetadataError>,
 }
 
 impl ScenarioError {
@@ -141,10 +142,10 @@ impl ScenarioError {
         }
     }
 
-    pub fn new(message: impl Into<String>, err: &dyn std::error::Error) -> Self {
+    pub fn new(message: impl Into<String>, err: &dyn ProvideErrorMetadata) -> Self {
         ScenarioError {
             message: message.into(),
-            context: Some(err.to_string()),
+            context: Some(MetadataError::from(err)),
         }
     }
 }
@@ -433,10 +434,13 @@ for item in items {
 
 ### Custom ScenarioError Type
 ```rust
+use aws_sdk_{service}::error::ProvideErrorMetadata;
+use std::fmt::Display;
+
 #[derive(Debug, PartialEq, Eq)]
 pub struct ScenarioError {
     message: String,
-    context: Option<String>,
+    context: Option<MetadataError>,
 }
 
 impl ScenarioError {
@@ -447,10 +451,21 @@ impl ScenarioError {
         }
     }
 
-    pub fn new(message: impl Into<String>, err: &dyn std::error::Error) -> Self {
+    pub fn new(message: impl Into<String>, err: &dyn ProvideErrorMetadata) -> Self {
         ScenarioError {
             message: message.into(),
-            context: Some(err.to_string()),
+            context: Some(MetadataError::from(err)),
+        }
+    }
+}
+
+impl std::error::Error for ScenarioError {}
+
+impl Display for ScenarioError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match &self.context {
+            Some(c) => write!(f, "{}: {}", self.message, c),
+            None => write!(f, "{}", self.message),
         }
     }
 }

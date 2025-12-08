@@ -57,67 +57,46 @@ rustv1/examples/{service}/
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-use aws_sdk_{service}::{
-    Client as {Service}Client,
-    operation::{
-        operation_one::OperationOneOutput,
-        operation_two::OperationTwoOutput,
-    },
-    error::SdkError,
+use aws_sdk_rds::Client as RdsClient;
+use aws_sdk_rds::operation::describe_db_engine_versions::{
+    DescribeDbEngineVersionsOutput, DescribeDBEngineVersionsError
 };
+use aws_sdk_rds::error::SdkError;
 
 #[cfg(test)]
 use mockall::automock;
 
 // Use the mock in tests, real implementation in production
 #[cfg(test)]
-pub use Mock{Service}Impl as {Service};
+pub use MockRdsImpl as Rds;
 #[cfg(not(test))]
-pub use {Service}Impl as {Service};
+pub use RdsImpl as Rds;
 
-/// Wrapper for {Service} operations to enable mocking in tests
-pub struct {Service}Impl {
-    pub inner: {Service}Client,
+/// Wrapper for RDS operations to enable mocking in tests
+pub struct RdsImpl {
+    pub inner: RdsClient,
 }
 
 #[cfg_attr(test, automock)]
-impl {Service}Impl {
-    /// Create a new {Service} wrapper
-    pub fn new(inner: {Service}Client) -> Self {
-        {Service}Impl { inner }
+impl RdsImpl {
+    /// Create a new RDS wrapper
+    pub fn new(inner: RdsClient) -> Self {
+        RdsImpl { inner }
     }
 
-    /// Perform operation one
-    pub async fn operation_one(
+    /// Describe DB engine versions
+    pub async fn describe_db_engine_versions(
         &self,
-        param: &str,
-    ) -> Result<OperationOneOutput, SdkError<OperationOneError>> {
+        engine: &str,
+    ) -> Result<DescribeDbEngineVersionsOutput, SdkError<DescribeDBEngineVersionsError>> {
         self.inner
-            .operation_one()
-            .parameter(param)
+            .describe_db_engine_versions()
+            .engine(engine)
             .send()
             .await
     }
 
-    /// Perform operation two with pagination
-    pub async fn operation_two_paginated(
-        &self,
-        param: &str,
-    ) -> Result<Vec<Item>, SdkError<OperationTwoError>> {
-        let mut items = Vec::new();
-        let mut paginator = self.inner
-            .operation_two()
-            .parameter(param)
-            .into_paginator()
-            .send();
-
-        while let Some(page) = paginator.next().await {
-            let page = page?;
-            items.extend(page.items().to_vec());
-        }
-
-        Ok(items)
-    }
+    // etc
 }
 ```
 
@@ -194,25 +173,9 @@ pub async fn list_all_items(
 ```rust
 pub async fn list_all_items(
     &self,
+    page_size: Option<i32>,
 ) -> Result<Vec<Item>, SdkError<ListItemsError>> {
-    let items: Result<Vec<_>, _> = self.inner
-        .list_items()
-        .into_paginator()
-        .items()
-        .send()
-        .collect()
-        .await;
-
-    items
-}
-```
-
-### Paginator with Limit
-```rust
-pub async fn list_items_limited(
-    &self,
-    page_size: i32,
-) -> Result<Vec<Item>, SdkError<ListItemsError>> {
+    let page_size = page_size.unwrap_or(10);
     let items: Result<Vec<_>, _> = self.inner
         .list_items()
         .limit(page_size)
@@ -222,6 +185,38 @@ pub async fn list_items_limited(
         .collect()
         .await;
 
+    println!("Items retrieved (up to {page_size} per page):");
+    for item in items.as_ref().unwrap_or(&vec![]) {
+        println!("   {:?}", item);
+    }
+
+    items
+}
+```
+
+### Paginator with Limit (DynamoDB Example)
+```rust
+pub async fn scan_table(
+    &self,
+    table: &str,
+    page_size: Option<i32>,
+) -> Result<Vec<Item>, SdkError<ScanError>> {
+    let page_size = page_size.unwrap_or(10);
+    let items: Result<Vec<_>, _> = self.inner
+        .scan()
+        .table_name(table)
+        .limit(page_size)
+        .into_paginator()
+        .items()
+        .send()
+        .collect()
+        .await;
+
+    println!("Items in table (up to {page_size}):");
+    for item in items.as_ref().unwrap_or(&vec![]) {
+        println!("   {:?}", item);
+    }
+
     items
 }
 ```
@@ -230,11 +225,15 @@ pub async fn list_items_limited(
 
 ### Using Client::Error for Simple Cases
 ```rust
-use aws_sdk_{service}::{Client, Error};
+use aws_sdk_ec2::{Client, Error};
 
-pub async fn simple_operation(client: &Client) -> Result<(), Error> {
-    let response = client.operation().send().await?;
-    println!("Operation successful");
+async fn show_regions(client: &Client) -> Result<(), Error> {
+    let rsp = client.describe_regions().send().await?;
+
+    for region in rsp.regions() {
+        // ...
+    }
+
     Ok(())
 }
 ```
@@ -260,30 +259,31 @@ pub async fn detailed_operation(
 }
 ```
 
-### Using into_service_error for Error Matching
+### Using anyhow and into_service_error
 ```rust
-use aws_sdk_{service}::operation::operation_name::OperationNameError;
+use anyhow::anyhow;
 
-pub async fn handle_specific_errors(
-    &self,
-) -> Result<Output, Box<dyn std::error::Error>> {
-    match self.inner.operation().send().await {
-        Ok(response) => Ok(response),
-        Err(e) => {
-            match e.into_service_error() {
-                OperationNameError::ResourceNotFoundException(_) => {
-                    eprintln!("Resource not found");
-                }
-                OperationNameError::ValidationException(_) => {
-                    eprintln!("Invalid parameters");
-                }
-                e => {
-                    eprintln!("Other error: {:?}", e);
-                }
-            }
-            Err(Box::new(e))
+pub async fn list_contacts(&self) -> Result<Vec<Contact>, anyhow::Error> {
+    let contacts: Vec<Contact> = match self
+        .client
+        .list_contacts()
+        .contact_list_name(CONTACT_LIST_NAME)
+        .send()
+        .await
+    {
+        Ok(list_contacts_output) => {
+            list_contacts_output.contacts.unwrap().into_iter().collect()
         }
-    }
+        Err(e) => {
+            return Err(anyhow!(
+                "Error retrieving contact list {}: {}",
+                CONTACT_LIST_NAME,
+                e
+            ))
+        }
+    };
+
+    Ok(contacts)
 }
 ```
 
@@ -293,26 +293,22 @@ pub async fn handle_specific_errors(
 ```rust
 use std::time::Duration;
 
-pub async fn wait_for_resource_ready(
+pub async fn wait_for_instance_ready(
     &self,
-    resource_id: &str,
+    id: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let wait_result = self.inner
-        .wait_until_resource_ready()
-        .resource_id(resource_id)
+    let wait_status_ok = self.inner
+        .wait_until_instance_status_ok()
+        .instance_ids(id)
         .wait(Duration::from_secs(60))
         .await;
 
-    match wait_result {
-        Ok(_) => {
-            println!("Resource {} is ready", resource_id);
-            Ok(())
-        }
-        Err(err) => {
-            eprintln!("Error waiting for resource: {:?}", err);
-            Err(Box::new(err))
-        }
+    match wait_status_ok {
+        Ok(_) => println!("Rebooted instance {id}, it is started with status OK."),
+        Err(err) => return Err(err.into()),
     }
+
+    Ok(())
 }
 ```
 

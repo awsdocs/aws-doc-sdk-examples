@@ -155,7 +155,27 @@ async fn main() -> Result<(), aws_sdk_{service}::Error> {
 
 ## Pagination Pattern
 ```rust
-// Use pagination to retrieve all results
+// Use pagination to retrieve all results with collect
+let page_size = page_size.unwrap_or(10);
+let items: Result<Vec<_>, _> = client
+    .scan()
+    .table_name(table)
+    .limit(page_size)
+    .into_paginator()
+    .items()
+    .send()
+    .collect()
+    .await;
+
+println!("Items in table (up to {page_size}):");
+for item in items? {
+    println!("   {:?}", item);
+}
+```
+
+## Alternative Pagination Pattern (Using while let)
+```rust
+// Use while let to iterate through pages
 let mut items_paginator = client
     .list_items()
     .into_paginator()
@@ -167,21 +187,6 @@ while let Some(page) = items_paginator.next().await {
     items.extend(page.items().to_vec());
 }
 
-println!("Retrieved {} items", items.len());
-```
-
-## Alternative Pagination Pattern (Using collect)
-```rust
-// Collect all items from paginator
-let items: Result<Vec<_>, _> = client
-    .list_items()
-    .into_paginator()
-    .items()
-    .send()
-    .collect()
-    .await;
-
-let items = items?;
 println!("Retrieved {} items", items.len());
 ```
 
