@@ -6,7 +6,7 @@ This example shows how to use AWS SDKs to perform device management use cases us
 The AWS Iot API provides secure, bi-directional communication between Internet-connected devices (such as sensors, actuators, embedded devices, or smart appliances) and the Amazon Web Services cloud. This example shows some typical use cases such as creating things, creating certifications, applying the certifications to the IoT Thing and so on. 
 
 ## Resources
-This program should create and manage these AWS resources automatically using CloudFormation:
+This program should create and manage these AWS resources automatically using CloudFormation and the provided stack .yaml file:
 
 1. **roleARN** - The ARN of an IAM role that has permission to work with AWS IoT. This role is created through CloudFormation stack deployment with proper permissions to publish to SNS topics.
 2. **snsAction** - An ARN of an SNS topic. This topic is created through CloudFormation stack deployment for use with IoT rules.
