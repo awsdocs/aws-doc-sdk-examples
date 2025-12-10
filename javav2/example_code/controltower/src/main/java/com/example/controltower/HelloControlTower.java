@@ -3,6 +3,7 @@
 
 package com.example.controltower;
 
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.controltower.ControlTowerClient;
 import software.amazon.awssdk.services.controltower.model.ControlTowerException;
@@ -32,6 +33,7 @@ public class HelloControlTower {
         try {
             ControlTowerClient controlTowerClient = ControlTowerClient.builder()
                 .region(Region.US_EAST_1)
+                .credentialsProvider(ProfileCredentialsProvider.create("default"))
                 .build() ;
             helloControlTower(controlTowerClient);
         } catch (ControlTowerException e) {
