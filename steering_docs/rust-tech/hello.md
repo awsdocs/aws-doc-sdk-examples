@@ -109,7 +109,7 @@ For services where pagination is not available or not needed:
 use aws_config::BehaviorVersion;
 use aws_sdk_{service}::Client;
 
-// snippet-start:[{service}.rust.hello]
+// snippet-start:[{service4}.rust.hello]
 #[tokio::main]
 async fn main() -> Result<(), aws_sdk_{service}::Error> {
     tracing_subscriber::fmt::init();
@@ -133,7 +133,7 @@ async fn main() -> Result<(), aws_sdk_{service}::Error> {
 
     Ok(())
 }
-// snippet-end:[{service}.rust.hello]
+// snippet-end:[{service4}.rust.hello]
 ```
 
 ## Hello Examples by Service Type
