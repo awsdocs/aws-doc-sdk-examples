@@ -605,11 +605,33 @@ public class IoTWrapper
     {
         try
         {
-            var request = new ListThingsRequest();
+            // Use pages of 10.
+            var request = new ListThingsRequest()
+            {
+                MaxResults = 10
+            };
             var response = await _amazonIoT.ListThingsAsync(request);
 
-            _logger.LogInformation($"Retrieved {response.Things.Count} Things");
-            return response.Things;
+            // Since there is not a built-in paginator, use the NextMarker to paginate.
+            bool hasMoreResults = true;
+
+            var things = new List<ThingAttribute>();
+            while (hasMoreResults)
+            {
+                things.AddRange(response.Things);
+
+                // If NextMarker is not null, there are more results. Get the next page of results.
+                if (!String.IsNullOrEmpty(response.NextMarker))
+                {
+                    request.Marker = response.NextMarker;
+                    response = await _amazonIoT.ListThingsAsync(request);
+                }
+                else
+                    hasMoreResults = false;
+            }
+
+            _logger.LogInformation($"Retrieved {things.Count} Things");
+            return things;
         }
         catch (Amazon.IoT.Model.ThrottlingException ex)
         {

@@ -23,7 +23,7 @@ public class HelloIoT
 
         try
         {
-            Console.WriteLine("Hello AWS IoT! Let's list your IoT Things:");
+            Console.WriteLine("Hello AWS IoT! Let's list a few of your IoT Things:");
             Console.WriteLine(new string('-', 80));
 
             var request = new ListThingsRequest

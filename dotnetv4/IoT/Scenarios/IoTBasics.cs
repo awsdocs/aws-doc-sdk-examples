@@ -18,7 +18,7 @@ namespace IoTBasics;
 
 // snippet-start:[iot.dotnetv4.IoTScenario]
 /// <summary>
-/// Scenario class for AWS IoT basics workflow.
+/// Scenario class for AWS IoT basics.
 /// </summary>
 public class IoTBasics
 {
@@ -72,7 +72,7 @@ public class IoTBasics
         _amazonCloudFormation = CloudFormationClient;
 
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine("Welcome to the AWS IoT example workflow.");
+        Console.WriteLine("Welcome to the AWS IoT example scenario.");
         Console.WriteLine("This example program demonstrates various interactions with the AWS Internet of Things (IoT) Core service.");
         Console.WriteLine();
         if (IsInteractive)
@@ -93,7 +93,7 @@ public class IoTBasics
         }
 
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine("The AWS IoT workflow has successfully completed.");
+        Console.WriteLine("The AWS IoT scenario has successfully completed.");
         Console.WriteLine(new string('-', 80));
     }
 
@@ -123,7 +123,7 @@ public class IoTBasics
         string thingName = $"iot-thing-{Guid.NewGuid():N}";
         string certificateArn = "";
         string certificateId = "";
-        string ruleName = $"iot-rule-{Guid.NewGuid():N}";
+        string ruleName = $"iotruledefault";
         string snsTopicArn = "";
 
         try
@@ -150,9 +150,39 @@ public class IoTBasics
             Console.WriteLine($"{thingName} was successfully created. The ARN value is {thingArn}");
             Console.WriteLine(new string('-', 80));
 
+            // Step 1.1: List AWS IoT Things
+            Console.WriteLine(new string('-', 80));
+            Console.WriteLine("2. List AWS IoT Things.");
+            Console.WriteLine("Now let's list the IoT Things to see the Thing we just created.");
+            Console.WriteLine();
+            if (IsInteractive)
+            {
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+            }
+
+            var things = await iotWrapper.ListThingsAsync();
+            Console.WriteLine($"Found {things.Count} IoT Things:");
+            foreach (var thing in things.Take(10)) // Show first 10 things
+            {
+                Console.WriteLine($"Thing Name: {thing.ThingName}");
+                Console.WriteLine($"Thing ARN: {thing.ThingArn}");
+                if (thing.Attributes != null && thing.Attributes.Any())
+                {
+                    Console.WriteLine("Attributes:");
+                    foreach (var attr in thing.Attributes)
+                    {
+                        Console.WriteLine($"  {attr.Key}: {attr.Value}");
+                    }
+                }
+                Console.WriteLine("--------------");
+            }
+            Console.WriteLine();
+            Console.WriteLine(new string('-', 80));
+
             // Step 2: Generate a Device Certificate
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("2. Generate a device certificate.");
+            Console.WriteLine("3. Generate a device certificate.");
             Console.WriteLine("A device certificate performs a role in securing the communication between devices (Things) and the AWS IoT platform.");
             Console.WriteLine();
 
@@ -216,7 +246,7 @@ public class IoTBasics
 
             // Step 4: Update an AWS IoT Thing with Attributes
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("3. Update an AWS IoT Thing with Attributes.");
+            Console.WriteLine("4. Update an AWS IoT Thing with Attributes.");
             Console.WriteLine("IoT Thing attributes, represented as key-value pairs, offer a pivotal advantage in facilitating efficient data");
             Console.WriteLine("management and retrieval within the AWS IoT ecosystem.");
             Console.WriteLine();
@@ -239,8 +269,7 @@ public class IoTBasics
 
             // Step 5: Return a unique endpoint specific to the Amazon Web Services account
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("4. Return a unique endpoint specific to the Amazon Web Services account.");
-            Console.WriteLine("An IoT Endpoint refers to a specific URL or Uniform Resource Locator that serves as the entry point for communication between IoT devices and the AWS IoT service.");
+            Console.WriteLine("5. Return a unique endpoint specific to the Amazon Web Services account.");
             Console.WriteLine();
             if (IsInteractive)
             {
@@ -263,7 +292,7 @@ public class IoTBasics
 
             // Step 6: List your AWS IoT certificates
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("5. List your AWS IoT certificates");
+            Console.WriteLine("6. List your AWS IoT certificates");
             if (IsInteractive)
             {
                 Console.WriteLine("Press Enter to continue...");
@@ -281,10 +310,7 @@ public class IoTBasics
 
             // Step 7: Create an IoT shadow
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("6. Create an IoT shadow that refers to a digital representation or virtual twin of a physical IoT device");
-            Console.WriteLine("A Thing Shadow refers to a feature that enables you to create a virtual representation, or \"shadow,\"");
-            Console.WriteLine("of a physical device or thing. The Thing Shadow allows you to synchronize and control the state of a device between");
-            Console.WriteLine("the cloud and the device itself. and the AWS IoT service. For example, you can write and retrieve JSON data from a Thing Shadow.");
+            Console.WriteLine("7. Create an IoT shadow that refers to a digital representation or virtual twin of a physical IoT device");
             Console.WriteLine();
             if (IsInteractive)
             {
@@ -310,7 +336,7 @@ public class IoTBasics
 
             // Step 8: Write out the state information, in JSON format
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("7. Write out the state information, in JSON format.");
+            Console.WriteLine("8. Write out the state information, in JSON format.");
             if (IsInteractive)
             {
                 Console.WriteLine("Press Enter to continue...");
@@ -323,14 +349,12 @@ public class IoTBasics
 
             // Step 9: Set up resources (SNS topic and IAM role) and create a rule
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("8. Set up resources and create a rule");
-            Console.WriteLine("Creates a rule that is an administrator-level action.");
-            Console.WriteLine("Any user who has permission to create rules will be able to access data processed by the rule.");
+            Console.WriteLine("9. Set up resources and create a rule");
             Console.WriteLine();
 
             if (IsInteractive)
             {
-                Console.Write("Enter Rule name: ");
+                Console.Write($"Enter Rule name (press Enter for default '{ruleName}'):: ");
                 var userRuleName = Console.ReadLine();
                 if (!string.IsNullOrEmpty(userRuleName))
                     ruleName = userRuleName;
@@ -391,7 +415,7 @@ public class IoTBasics
 
             // Step 10: List your rules
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("9. List your rules.");
+            Console.WriteLine("10. List your rules.");
             if (IsInteractive)
             {
                 Console.WriteLine("Press Enter to continue...");
@@ -411,7 +435,7 @@ public class IoTBasics
 
             // Step 11: Search things using the Thing name
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("10. Search things using the Thing name.");
+            Console.WriteLine("11. Search things using the Thing name.");
             if (IsInteractive)
             {
                 Console.WriteLine("Press Enter to continue...");
@@ -446,7 +470,7 @@ public class IoTBasics
 
                 if (deleteCert?.ToLower() == "y")
                 {
-                    Console.WriteLine("11. You selected to detach and delete the certificate.");
+                    Console.WriteLine("12. You selected to detach and delete the certificate.");
                     if (IsInteractive)
                     {
                         Console.WriteLine("Press Enter to continue...");
@@ -464,7 +488,7 @@ public class IoTBasics
 
             // Step 13: Delete the AWS IoT Thing
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("12. Delete the AWS IoT Thing.");
+            Console.WriteLine("13. Delete the AWS IoT Thing.");
             var deleteThing = "y";
             if (IsInteractive)
             {
@@ -487,7 +511,7 @@ public class IoTBasics
             if (!string.IsNullOrEmpty(snsTopicArn))
             {
                 Console.WriteLine(new string('-', 80));
-                Console.WriteLine("13. Clean up CloudFormation stack.");
+                Console.WriteLine("14. Clean up CloudFormation stack.");
                 Console.WriteLine("Deleting the CloudFormation stack and all resources...");
 
                 var cleanup = !IsInteractive || GetYesNoResponse("Do you want to delete the CloudFormation stack and all resources? (y/n) ");
