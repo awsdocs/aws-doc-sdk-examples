@@ -204,9 +204,11 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     lv_tstmp_seconds = lv_ts.
     lv_timestamp = ( lv_tstmp_seconds - 2208988800 ) * 1000.
 
-    " Query for logs from last hour
-    DATA(lv_start_time) = lv_timestamp - ( 3600 * 1000 ).
-    DATA(lv_end_time) = lv_timestamp.
+    " Query for logs from last hour - use proper type
+    DATA lv_start_time TYPE /aws1/cwltimestamp.
+    DATA lv_end_time TYPE /aws1/cwltimestamp.
+    lv_start_time = lv_timestamp - ( 3600 * 1000 ).
+    lv_end_time = lv_timestamp.
 
     DATA(lo_result) = ao_cwl_actions->start_query(
       iv_log_group_name = av_log_group_name
@@ -237,8 +239,11 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     lv_tstmp_seconds = lv_ts.
     lv_timestamp = ( lv_tstmp_seconds - 2208988800 ) * 1000.
 
-    DATA(lv_start_time) = lv_timestamp - ( 3600 * 1000 ).
-    DATA(lv_end_time) = lv_timestamp.
+    " Use proper type for timestamps
+    DATA lv_start_time TYPE /aws1/cwltimestamp.
+    DATA lv_end_time TYPE /aws1/cwltimestamp.
+    lv_start_time = lv_timestamp - ( 3600 * 1000 ).
+    lv_end_time = lv_timestamp.
 
     DATA(lo_start_result) = ao_cwl_actions->start_query(
       iv_log_group_name = av_log_group_name
