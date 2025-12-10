@@ -44,25 +44,25 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     av_log_group_name = |/sap-abap/cwl-demo-{ lv_uuid }|.
     av_log_stream_name = |test-stream-{ lv_uuid }|.
 
-    " Create tags for the log group
+    " Create tags for the log group - correct structure
     DATA lt_tags TYPE /aws1/cl_cwltags_w=>tt_tags.
-    APPEND NEW /aws1/cl_cwltags_w(
-      iv_key = 'convert_test'
-      iv_value = 'true'
-    ) TO lt_tags.
+    DATA ls_tag TYPE /aws1/cl_cwltags_w=>ts_tags_maprow.
+    ls_tag-key = 'convert_test'.
+    ls_tag-value = NEW /aws1/cl_cwltags_w( iv_value = 'true' ).
+    INSERT ls_tag INTO TABLE lt_tags.
 
     " Create log group with convert_test tag
     TRY.
         ao_cwl->createloggroup(
           iv_loggroupname = av_log_group_name
-          io_tags = NEW /aws1/cl_cwltags_w( it_tags = lt_tags )
+          it_tags = lt_tags
         ).
       CATCH /aws1/cx_cwlresrcalrdyexistsex.
         " Log group already exists, tag it
         TRY.
             ao_cwl->tagloggroup(
               iv_loggroupname = av_log_group_name
-              io_tags = NEW /aws1/cl_cwltags_w( it_tags = lt_tags )
+              it_tags = lt_tags
             ).
           CATCH /aws1/cx_rt_generic.
             " Continue if tagging fails
@@ -147,10 +147,16 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     " Put some log events
     DATA lt_events TYPE /aws1/cl_cwlinputlogevent=>tt_inputlogevents.
     DATA lv_timestamp TYPE /aws1/cwltimestamp.
-    GET TIME STAMP FIELD DATA(lv_ts).
-    lv_timestamp = cl_abap_tstmp=>normalize(
-      tstmp = lv_ts ).
-    lv_timestamp = lv_timestamp * 1000.
+    DATA lv_ts TYPE timestamp.
+    GET TIME STAMP FIELD lv_ts.
+    " Convert timestamp to Unix milliseconds (CloudWatch Logs format)
+    " Timestamp is in format YYYYMMDDhhmmss.mmmuuun
+    " We need to convert to milliseconds since epoch
+    DATA lv_tstmp_seconds TYPE p DECIMALS 0.
+    lv_tstmp_seconds = lv_ts.
+    " Convert ABAP timestamp (seconds since 1900) to Unix timestamp (seconds since 1970)
+    " Difference between 1900 and 1970 is 2208988800 seconds
+    lv_timestamp = ( lv_tstmp_seconds - 2208988800 ) * 1000.
 
     DO 5 TIMES.
       APPEND NEW /aws1/cl_cwlinputlogevent(
@@ -191,9 +197,12 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
   METHOD start_query.
     " Get current timestamp for query time range
     DATA lv_timestamp TYPE /aws1/cwltimestamp.
-    GET TIME STAMP FIELD DATA(lv_ts).
-    lv_timestamp = cl_abap_tstmp=>normalize( tstmp = lv_ts ).
-    lv_timestamp = lv_timestamp * 1000.
+    DATA lv_ts TYPE timestamp.
+    GET TIME STAMP FIELD lv_ts.
+    " Convert timestamp to Unix milliseconds
+    DATA lv_tstmp_seconds TYPE p DECIMALS 0.
+    lv_tstmp_seconds = lv_ts.
+    lv_timestamp = ( lv_tstmp_seconds - 2208988800 ) * 1000.
 
     " Query for logs from last hour
     DATA(lv_start_time) = lv_timestamp - ( 3600 * 1000 ).
@@ -221,9 +230,12 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
   METHOD get_query_results.
     " First start a query
     DATA lv_timestamp TYPE /aws1/cwltimestamp.
-    GET TIME STAMP FIELD DATA(lv_ts).
-    lv_timestamp = cl_abap_tstmp=>normalize( tstmp = lv_ts ).
-    lv_timestamp = lv_timestamp * 1000.
+    DATA lv_ts TYPE timestamp.
+    GET TIME STAMP FIELD lv_ts.
+    " Convert timestamp to Unix milliseconds
+    DATA lv_tstmp_seconds TYPE p DECIMALS 0.
+    lv_tstmp_seconds = lv_ts.
+    lv_timestamp = ( lv_tstmp_seconds - 2208988800 ) * 1000.
 
     DATA(lv_start_time) = lv_timestamp - ( 3600 * 1000 ).
     DATA(lv_end_time) = lv_timestamp.
@@ -266,7 +278,6 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     rv_complete = abap_false.
     DATA lv_start_time TYPE timestamp.
     DATA lv_current_time TYPE timestamp.
-    DATA lv_elapsed_seconds TYPE i.
     GET TIME STAMP FIELD lv_start_time.
 
     " Wait up to 60 seconds for query to complete
@@ -292,6 +303,8 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
       WAIT UP TO 1 SECONDS.
 
       GET TIME STAMP FIELD lv_current_time.
+      " Check if 60 seconds have elapsed
+      DATA lv_elapsed_seconds TYPE i.
       lv_elapsed_seconds = cl_abap_tstmp=>subtract(
         tstmp1 = lv_current_time
         tstmp2 = lv_start_time ).
