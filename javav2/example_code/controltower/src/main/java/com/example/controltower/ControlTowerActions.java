@@ -33,8 +33,6 @@ import java.util.ArrayList;
 // snippet-start:[controltower.java2.controltower_actions.main]
 public class ControlTowerActions {
 
-    private static final Logger logger = LoggerFactory.getLogger(ControlTowerActions.class);
-
     // snippet-start:[controltower.java2.list_landing_zones.main]
     /**
      * Lists all landing zones using pagination to retrieve complete results.
@@ -47,39 +45,39 @@ public class ControlTowerActions {
     public static List<LandingZoneSummary> listLandingZones(ControlTowerClient controlTowerClient) {
         try {
             List<LandingZoneSummary> landingZones = new ArrayList<>();
-            
+
             String nextToken = null;
-            
+
             do {
                 ListLandingZonesRequest.Builder requestBuilder = ListLandingZonesRequest.builder();
                 if (nextToken != null) {
                     requestBuilder.nextToken(nextToken);
                 }
-                
+
                 ListLandingZonesResponse response = controlTowerClient.listLandingZones(requestBuilder.build());
-                
+
                 if (response.landingZones() != null) {
                     landingZones.addAll(response.landingZones());
                 }
-                
+
                 nextToken = response.nextToken();
             } while (nextToken != null);
-            
-            logger.info("Retrieved {} landing zones", landingZones.size());
+
+            System.out.format("Retrieved {} landing zones", landingZones.size());
             return landingZones;
 
         } catch (ControlTowerException e) {
             String errorCode = e.awsErrorDetails().errorCode();
             switch (errorCode) {
                 case "AccessDeniedException":
-                    logger.error("Access denied when listing landing zones: {}", e.getMessage());
+                    System.out.format("Access denied when listing landing zones: {}", e.getMessage());
                     break;
                 default:
-                    logger.error("Error listing landing zones: {}", e.getMessage());
+                    System.out.format("Error listing landing zones: {}", e.getMessage());
             }
             throw e;
         } catch (SdkException e) {
-            logger.error("SDK error listing landing zones: {}", e.getMessage());
+            System.out.format("SDK error listing landing zones: {}", e.getMessage());
             throw e;
         }
     }
@@ -115,21 +113,21 @@ public class ControlTowerActions {
                 nextToken = response.nextToken();
             } while (nextToken != null);
             
-            logger.info("Retrieved {} baselines", baselines.size());
+            System.out.format("Retrieved {} baselines", baselines.size());
             return baselines;
 
         } catch (ControlTowerException e) {
             String errorCode = e.awsErrorDetails().errorCode();
             switch (errorCode) {
                 case "AccessDeniedException":
-                    logger.error("Access denied when listing baselines: {}", e.getMessage());
+                    System.out.format("Access denied when listing baselines: {}", e.getMessage());
                     break;
                 default:
-                    logger.error("Error listing baselines: {}", e.getMessage());
+                    System.out.format("Error listing baselines: {}", e.getMessage());
             }
             throw e;
         } catch (SdkException e) {
-            logger.error("SDK error listing baselines: {}", e.getMessage());
+            System.out.format("SDK error listing baselines: {}", e.getMessage());
             throw e;
         }
     }
@@ -164,22 +162,22 @@ public class ControlTowerActions {
                 
                 nextToken = response.nextToken();
             } while (nextToken != null);
-            
-            logger.info("Retrieved {} enabled baselines", enabledBaselines.size());
+
+            System.out.format("Retrieved {} enabled baselines", enabledBaselines.size());
             return enabledBaselines;
 
         } catch (ControlTowerException e) {
             String errorCode = e.awsErrorDetails().errorCode();
             switch (errorCode) {
                 case "ResourceNotFoundException":
-                    logger.error("Target not found when listing enabled baselines: {}", e.getMessage());
+                    System.out.format("Target not found when listing enabled baselines: {}", e.getMessage());
                     break;
                 default:
-                    logger.error("Error listing enabled baselines: {}", e.getMessage());
+                    System.out.format("Error listing enabled baselines: {}", e.getMessage());
             }
             throw e;
         } catch (SdkException e) {
-            logger.error("SDK error listing enabled baselines: {}", e.getMessage());
+            System.out.format("SDK error listing enabled baselines: {}", e.getMessage());
             throw e;
         }
     }
@@ -210,8 +208,8 @@ public class ControlTowerActions {
 
             EnableBaselineResponse response = controlTowerClient.enableBaseline(request);
             String operationId = response.operationIdentifier();
-            
-            logger.info("Enabled baseline with operation ID: {}", operationId);
+
+            System.out.format("Enabled baseline with operation ID: {}", operationId);
             return operationId;
 
         } catch (ControlTowerException e) {
@@ -219,20 +217,20 @@ public class ControlTowerActions {
             switch (errorCode) {
                 case "ValidationException":
                     if (e.getMessage().contains("already enabled")) {
-                        logger.info("Baseline is already enabled for this target");
+                        System.out.format("Baseline is already enabled for this target");
                         return null;
                     }
-                    logger.error("Validation error enabling baseline: {}", e.getMessage());
+                    System.out.format("Validation error enabling baseline: {}", e.getMessage());
                     break;
                 case "ConflictException":
-                    logger.error("Conflict enabling baseline: {}", e.getMessage());
+                    System.out.format("Conflict enabling baseline: {}", e.getMessage());
                     break;
                 default:
-                    logger.error("Error enabling baseline: {}", e.getMessage());
+                    System.out.format("Error enabling baseline: {}", e.getMessage());
             }
             throw e;
         } catch (SdkException e) {
-            logger.error("SDK error enabling baseline: {}", e.getMessage());
+            System.out.format("SDK error enabling baseline: {}", e.getMessage());
             throw e;
         }
     }
@@ -257,25 +255,25 @@ public class ControlTowerActions {
 
             DisableBaselineResponse response = controlTowerClient.disableBaseline(request);
             String operationId = response.operationIdentifier();
-            
-            logger.info("Disabled baseline with operation ID: {}", operationId);
+
+            System.out.format("Disabled baseline with operation ID: {}", operationId);
             return operationId;
 
         } catch (ControlTowerException e) {
             String errorCode = e.awsErrorDetails().errorCode();
             switch (errorCode) {
                 case "ConflictException":
-                    logger.error("Conflict disabling baseline: {}", e.getMessage());
+                    System.out.format("Conflict disabling baseline: {}", e.getMessage());
                     break;
                 case "ResourceNotFoundException":
-                    logger.error("Baseline not found for disabling: {}", e.getMessage());
+                    System.out.format("Baseline not found for disabling: {}", e.getMessage());
                     break;
                 default:
-                    logger.error("Error disabling baseline: {}", e.getMessage());
+                    System.out.format("Error disabling baseline: {}", e.getMessage());
             }
             throw e;
         } catch (SdkException e) {
-            logger.error("SDK error disabling baseline: {}", e.getMessage());
+            System.out.format("SDK error disabling baseline: {}", e.getMessage());
             throw e;
         }
     }
@@ -300,22 +298,22 @@ public class ControlTowerActions {
 
             GetBaselineOperationResponse response = controlTowerClient.getBaselineOperation(request);
             BaselineOperationStatus status = response.baselineOperation().status();
-            
-            logger.info("Baseline operation status: {}", status);
+
+            System.out.format("Baseline operation status: {}", status);
             return status;
 
         } catch (ControlTowerException e) {
             String errorCode = e.awsErrorDetails().errorCode();
             switch (errorCode) {
                 case "ResourceNotFoundException":
-                    logger.error("Baseline operation not found: {}", e.getMessage());
+                    System.out.format("Baseline operation not found: {}", e.getMessage());
                     break;
                 default:
-                    logger.error("Error getting baseline operation status: {}", e.getMessage());
+                    System.out.format("Error getting baseline operation status: {}", e.getMessage());
             }
             throw e;
         } catch (SdkException e) {
-            logger.error("SDK error getting baseline operation status: {}", e.getMessage());
+            System.out.format("SDK error getting baseline operation status: {}", e.getMessage());
             throw e;
         }
     }
@@ -346,29 +344,29 @@ public class ControlTowerActions {
             listIterable.stream()
                     .flatMap(response -> response.enabledControls().stream())
                     .forEach(enabledControls::add);
-            
-            logger.info("Retrieved {} enabled controls for target {}", enabledControls.size(), targetIdentifier);
+
+            System.out.format("Retrieved {} enabled controls for target {}", enabledControls.size(), targetIdentifier);
             return enabledControls;
 
         } catch (ControlTowerException e) {
             String errorCode = e.awsErrorDetails().errorCode();
             switch (errorCode) {
                 case "AccessDeniedException":
-                    logger.error("Access denied when listing enabled controls: {}", e.getMessage());
+                    System.out.format("Access denied when listing enabled controls: {}", e.getMessage());
                     break;
                 case "ResourceNotFoundException":
                     if (e.getMessage().contains("not registered with AWS Control Tower")) {
-                        logger.error("Control Tower must be enabled to work with controls");
+                        System.out.format("Control Tower must be enabled to work with controls");
                     } else {
-                        logger.error("Target not found when listing enabled controls: {}", e.getMessage());
+                        System.out.format("Target not found when listing enabled controls: {}", e.getMessage());
                     }
                     break;
                 default:
-                    logger.error("Error listing enabled controls: {}", e.getMessage());
+                    System.out.format("Error listing enabled controls: {}", e.getMessage());
             }
             throw e;
         } catch (SdkException e) {
-            logger.error("SDK error listing enabled controls: {}", e.getMessage());
+            System.out.format("SDK error listing enabled controls: {}", e.getMessage());
             throw e;
         }
     }
@@ -396,8 +394,8 @@ public class ControlTowerActions {
 
             EnableControlResponse response = controlTowerClient.enableControl(request);
             String operationId = response.operationIdentifier();
-            
-            logger.info("Enabled control with operation ID: {}", operationId);
+
+            System.out.format("Enabled control with operation ID: {}", operationId);
             return operationId;
 
         } catch (ControlTowerException e) {
@@ -405,24 +403,24 @@ public class ControlTowerActions {
             switch (errorCode) {
                 case "ValidationException":
                     if (e.getMessage().contains("already enabled")) {
-                        logger.info("Control is already enabled for this target");
+                        System.out.format("Control is already enabled for this target");
                         return null;
                     }
-                    logger.error("Validation error enabling control: {}", e.getMessage());
+                    System.out.format("Validation error enabling control: {}", e.getMessage());
                     break;
                 case "ResourceNotFoundException":
                     if (e.getMessage().contains("not registered with AWS Control Tower")) {
-                        logger.error("Control Tower must be enabled to work with controls");
+                        System.out.format("Control Tower must be enabled to work with controls");
                     } else {
-                        logger.error("Control not found: {}", e.getMessage());
+                        System.out.format("Control not found: {}", e.getMessage());
                     }
                     break;
                 default:
-                    logger.error("Error enabling control: {}", e.getMessage());
+                    System.out.format("Error enabling control: {}", e.getMessage());
             }
             throw e;
         } catch (SdkException e) {
-            logger.error("SDK error enabling control: {}", e.getMessage());
+            System.out.format("SDK error enabling control: {}", e.getMessage());
             throw e;
         }
     }
@@ -450,22 +448,22 @@ public class ControlTowerActions {
 
             DisableControlResponse response = controlTowerClient.disableControl(request);
             String operationId = response.operationIdentifier();
-            
-            logger.info("Disabled control with operation ID: {}", operationId);
+
+            System.out.format("Disabled control with operation ID: {}", operationId);
             return operationId;
 
         } catch (ControlTowerException e) {
             String errorCode = e.awsErrorDetails().errorCode();
             switch (errorCode) {
                 case "ResourceNotFoundException":
-                    logger.error("Control not found for disabling: {}", e.getMessage());
+                    System.out.format("Control not found for disabling: {}", e.getMessage());
                     break;
                 default:
-                    logger.error("Error disabling control: {}", e.getMessage());
+                    System.out.format("Error disabling control: {}", e.getMessage());
             }
             throw e;
         } catch (SdkException e) {
-            logger.error("SDK error disabling control: {}", e.getMessage());
+            System.out.format("SDK error disabling control: {}", e.getMessage());
             throw e;
         }
     }
@@ -490,22 +488,22 @@ public class ControlTowerActions {
 
             GetControlOperationResponse response = controlTowerClient.getControlOperation(request);
             ControlOperationStatus status = response.controlOperation().status();
-            
-            logger.info("Control operation status: {}", status);
+
+            System.out.format("Control operation status: {}", status);
             return status;
 
         } catch (ControlTowerException e) {
             String errorCode = e.awsErrorDetails().errorCode();
             switch (errorCode) {
                 case "ResourceNotFoundException":
-                    logger.error("Control operation not found: {}", e.getMessage());
+                    System.out.format("Control operation not found: {}", e.getMessage());
                     break;
                 default:
-                    logger.error("Error getting control operation status: {}", e.getMessage());
+                    System.out.format("Error getting control operation status: {}", e.getMessage());
             }
             throw e;
         } catch (SdkException e) {
-            logger.error("SDK error getting control operation status: {}", e.getMessage());
+            System.out.format("SDK error getting control operation status: {}", e.getMessage());
             throw e;
         }
     }
@@ -530,15 +528,15 @@ public class ControlTowerActions {
             paginator.stream()
                     .flatMap(response -> response.controls().stream())
                     .forEach(controls::add);
-            
-            logger.info("Retrieved {} controls", controls.size());
+
+            System.out.format("Retrieved {} controls", controls.size());
             return controls;
 
         } catch (SdkException e) {
             if (e.getMessage().contains("AccessDeniedException")) {
-                logger.error("Access denied. Please ensure you have the necessary permissions.");
+                System.out.format("Access denied. Please ensure you have the necessary permissions.");
             } else {
-                logger.error("Couldn't list controls. Here's why: {}", e.getMessage());
+                System.out.format("Couldn't list controls. Here's why: {}", e.getMessage());
             }
             throw e;
         }
@@ -564,22 +562,22 @@ public class ControlTowerActions {
 
             ResetEnabledBaselineResponse response = controlTowerClient.resetEnabledBaseline(request);
             String operationId = response.operationIdentifier();
-            
-            logger.info("Reset enabled baseline with operation ID: {}", operationId);
+
+            System.out.format("Reset enabled baseline with operation ID: {}", operationId);
             return operationId;
 
         } catch (ControlTowerException e) {
             String errorCode = e.awsErrorDetails().errorCode();
             switch (errorCode) {
                 case "ResourceNotFoundException":
-                    logger.error("Target not found: {}", e.getMessage());
+                    System.out.format("Target not found: {}", e.getMessage());
                     break;
                 default:
-                    logger.error("Couldn't reset enabled baseline. Here's why: {}", e.getMessage());
+                    System.out.format("Couldn't reset enabled baseline. Here's why: {}", e.getMessage());
             }
             throw e;
         } catch (SdkException e) {
-            logger.error("SDK error resetting enabled baseline: {}", e.getMessage());
+            System.out.format("SDK error resetting enabled baseline: {}", e.getMessage());
             throw e;
         }
     }
