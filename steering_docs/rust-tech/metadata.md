@@ -150,15 +150,15 @@ pub async fn run_scenario(client: Client) -> Result<(), ScenarioError> {
 ### Examples
 ```rust
 // ✅ CORRECT
-// snippet-start:[s3.rust.create_bucket]
-// snippet-start:[dynamodb.rust.list_tables]
-// snippet-start:[ec2.rust.describe_instances]
-// snippet-start:[guardduty.rust.hello]
+// s3.rust.create_bucket
+// dynamodb.rust.list_tables
+// ec2.rust.describe_instances
+// guardduty.rust.hello
 
 // ❌ WRONG - Don't use these formats
-// snippet-start:[rust.example_code.s3.create_bucket]
-// snippet-start:[S3.Rust.CreateBucket]
-// snippet-start:[s3-rust-create-bucket]
+// rust.example_code.s3.create_bucket
+// S3.Rust.CreateBucket
+// s3-rust-create-bucket
 ```
 
 ## Service Abbreviations

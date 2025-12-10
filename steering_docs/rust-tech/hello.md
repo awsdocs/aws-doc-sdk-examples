@@ -255,16 +255,16 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 
 ```rust
 // ✅ CORRECT
-// snippet-start:[{service}.rust.hello]
+// snippet-start:[{service2}.rust.hello]
 #[tokio::main]
 async fn main() -> Result<(), aws_sdk_{service}::Error> {
     // Implementation
 }
-// snippet-end:[{service}.rust.hello]
+// snippet-end:[{service2}.rust.hello]
 
 // ❌ WRONG - Old format
-// snippet-start:[rust.example_code.{service}.hello]
-// snippet-end:[rust.example_code.{service}.hello]
+// snippet-start:[rust.example_code.{service3}.hello]
+// snippet-end:[rust.example_code.{service3}.hello]
 ```
 
 **Format**: `[{service}.rust.hello]`
