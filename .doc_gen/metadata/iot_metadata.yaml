@@ -420,14 +420,6 @@ iot_UpdateThing:
             - description:
               snippet_tags:
                 - iot.kotlin.update.thing.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/iot
-          excerpts:
-            - description:
-              snippet_tags:
-                - iot.java2.update.shadow.thing.main
     .NET:
       versions:
         - sdk_version: 4
@@ -446,6 +438,43 @@ iot_UpdateThing:
                 - cpp.example_code.iot.UpdateThing
   services:
     iot: {UpdateThing}
+iot_UpdateThingShadow:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/iot
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.kotlin.update.shadow.thing.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.java2.update.shadow.thing.main
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.UpdateThingShadow
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iot
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iot.UpdateThingShadow
+  services:
+    iot: {UpdateThingShadow}
 iot_CreateTopicRule:
   languages:
     Kotlin:

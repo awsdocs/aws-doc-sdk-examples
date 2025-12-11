@@ -310,7 +310,7 @@ public class IoTBasics
 
             // Step 7: Create an IoT shadow
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("7. Create an IoT shadow that refers to a digital representation or virtual twin of a physical IoT device");
+            Console.WriteLine("7. Update an IoT shadow that refers to a digital representation or virtual twin of a physical IoT device");
             Console.WriteLine();
             if (IsInteractive)
             {

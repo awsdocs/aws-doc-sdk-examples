@@ -57,6 +57,7 @@ Code excerpts that show you how to call individual service functions.
 - [ListCertificates](src/main/kotlin/com/example/iot/IotScenario.kt#L384)
 - [SearchIndex](src/main/kotlin/com/example/iot/IotScenario.kt#L295)
 - [UpdateThing](src/main/kotlin/com/example/iot/IotScenario.kt#L429)
+- [UpdateThingShadow](src/main/kotlin/com/example/iot/IotScenario.kt#L456)
 
 
 <!--custom.examples.start-->

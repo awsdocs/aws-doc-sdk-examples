@@ -1,13 +1,13 @@
-# Amazon IoT code examples for the SDK for .NET (v4)
+# AWS IoT code examples for the SDK for .NET (v4)
 
 ## Overview
 
-Shows how to use the AWS SDK for .NET (v4) to work with AWS IoT Core.
+Shows how to use the AWS SDK for .NET (v4) to work with AWS IoT.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_AWS IoT Core is a managed cloud service that lets connected devices easily and securely interact with cloud applications and other devices._
+_AWS IoT provides secure, bi-directional communication for Internet-connected devices (such as sensors, actuators, embedded devices, wireless devices, and smart appliances) to connect to the AWS Cloud over MQTT, HTTPS, and LoRaWAN._
 
 ## ⚠ Important
 
@@ -31,7 +31,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4
 
 ### Get started
 
-- [Hello AWS IoT](Actions/HelloIoT.cs#L20) (`ListThings`)
+- [Hello AWS IoT](Actions/HelloIoT.cs#L9) (`listThings`)
 
 
 ### Basics
@@ -45,21 +45,19 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachThingPrincipal](Actions/IoTWrapper.cs#L156)
-- [CreateKeysAndCertificate](Actions/IoTWrapper.cs#L84)
-- [CreateThing](Actions/IoTWrapper.cs#L34)
-- [CreateTopicRule](Actions/IoTWrapper.cs#L336)
-- [DeleteCertificate](Actions/IoTWrapper.cs#L556)
-- [DeleteThing](Actions/IoTWrapper.cs#L589)
-- [DescribeEndpoint](Actions/IoTWrapper.cs#L213)
-- [DetachThingPrincipal](Actions/IoTWrapper.cs#L526)
-- [GetThingShadow](Actions/IoTWrapper.cs#L312)
-- [ListCertificates](Actions/IoTWrapper.cs#L243)
-- [ListThings](Actions/IoTWrapper.cs#L614)
-- [ListTopicRules](Actions/IoTWrapper.cs#L373)
-- [SearchIndex](Actions/IoTWrapper.cs#L402)
-- [UpdateThing](Actions/IoTWrapper.cs#L119)
-- [UpdateThingShadow](Actions/IoTWrapper.cs#L280)
+- [AttachThingPrincipal](Actions/IoTWrapper.cs#L98)
+- [CreateKeysAndCertificate](Actions/IoTWrapper.cs#L67)
+- [CreateThing](Actions/IoTWrapper.cs#L35)
+- [CreateTopicRule](Actions/IoTWrapper.cs#L298)
+- [DeleteCertificate](Actions/IoTWrapper.cs#L526)
+- [DeleteThing](Actions/IoTWrapper.cs#L567)
+- [DescribeEndpoint](Actions/IoTWrapper.cs#L170)
+- [DetachThingPrincipal](Actions/IoTWrapper.cs#L492)
+- [ListCertificates](Actions/IoTWrapper.cs#L201)
+- [ListThings](Actions/IoTWrapper.cs#L599)
+- [SearchIndex](Actions/IoTWrapper.cs#L377)
+- [UpdateThing](Actions/IoTWrapper.cs#L132)
+- [UpdateThingShadow](Actions/IoTWrapper.cs#L229)
 
 
 <!--custom.examples.start-->
@@ -75,7 +73,7 @@ Code excerpts that show you how to call individual service functions.
 
 #### Hello AWS IoT
 
-This example shows you how to get started using AWS IoT Core.
+This example shows you how to get started using AWS IoT.
 
 
 #### Learn the basics
@@ -85,14 +83,14 @@ This example shows you how to do the following:
 - Create an AWS IoT Thing.
 - Generate a device certificate.
 - Update an AWS IoT Thing with Attributes.
-- Return a unique endpoint specific to the Amazon Web Services account.
+- Return a unique endpoint.
 - List your AWS IoT certificates.
-- Create an AWS IoT shadow that refers to a digital representation or virtual twin of a physical IoT device.
-- Write out the state information, in JSON format.
-- Creates a rule that is an administrator-level action.
+- Create an AWS IoT shadow.
+- Write out state information.
+- Creates a rule.
 - List your rules.
 - Search things using the Thing name.
-- Clean up resources.
+- Delete an AWS IoT Thing.
 
 <!--custom.basic_prereqs.iot_Scenario.start-->
 <!--custom.basic_prereqs.iot_Scenario.end-->
@@ -117,8 +115,8 @@ in the `dotnetv4` folder.
 
 ## Additional resources
 
-- [AWS IoT Core Developer Guide](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html)
-- [AWS IoT Core API Reference](https://docs.aws.amazon.com/iot/latest/apireference/Welcome.html)
+- [AWS IoT Developer Guide](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html)
+- [AWS IoT API Reference](https://docs.aws.amazon.com/iot/latest/apireference/Welcome.html)
 - [SDK for .NET (v4) AWS IoT reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/IoT/NIoT.html)
 
 <!--custom.resources.start-->

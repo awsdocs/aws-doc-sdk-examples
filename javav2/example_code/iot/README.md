@@ -56,7 +56,7 @@ Code excerpts that show you how to call individual service functions.
 - [DetachThingPrincipal](src/main/java/com/example/iot/scenario/IotActions.java#L572)
 - [ListCertificates](src/main/java/com/example/iot/scenario/IotActions.java#L368)
 - [SearchIndex](src/main/java/com/example/iot/scenario/IotActions.java#L531)
-- [UpdateThing](src/main/java/com/example/iot/scenario/IotActions.java#L267)
+- [UpdateThingShadow](src/main/java/com/example/iot/scenario/IotActions.java#L267)
 
 
 <!--custom.examples.start-->

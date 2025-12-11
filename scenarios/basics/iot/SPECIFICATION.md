@@ -282,8 +282,9 @@ The following table describes the metadata used in this scenario.
 | `attachThingPrincipal`       | iot_metadata.yaml            | iot_AttachThingPrincipal                |
 | `detachThingPrincipal`       | iot_metadata.yaml            | iot_DetachThingPrincipal                |
 | `updateThing`                | iot_metadata.yaml            | iot_UpdateThing                         |
+| `updateThingShadow`          | iot_metadata.yaml            | iot_UpdateThingShadow                   |
 | `createTopicRule`            | iot_metadata.yaml            | iot_CreateTopicRule                     |
 | `createThing`                | iot_metadata.yaml            | iot_CreateThing                         |
 | `listThings`                 | iot_metadata.yaml            | iot_ListThings                          |
 | `hello`                      | iot_metadata.yaml            | iot_Hello                               |
-| `scenario                    | iot_metadata.yaml            | iot_Scenario                            |
+| `scenario`                   | iot_metadata.yaml            | iot_Scenario                            |

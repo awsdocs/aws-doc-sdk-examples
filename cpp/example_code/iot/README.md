@@ -67,6 +67,7 @@ Code excerpts that show you how to call individual service functions.
 - [SearchIndex](search_index.cpp#L22)
 - [UpdateIndexingConfiguration](update_indexing_configuration.cpp#L22)
 - [UpdateThing](update_thing.cpp#L23)
+- [UpdateThingShadow](update_thing_shadow.cpp#L22)
 
 
 <!--custom.examples.start-->
