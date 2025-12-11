@@ -56,7 +56,6 @@ Code excerpts that show you how to call individual service functions.
 - [DetachThingPrincipal](src/main/java/com/example/iot/scenario/IotActions.java#L572)
 - [ListCertificates](src/main/java/com/example/iot/scenario/IotActions.java#L368)
 - [SearchIndex](src/main/java/com/example/iot/scenario/IotActions.java#L531)
-- [UpdateThingShadow](src/main/java/com/example/iot/scenario/IotActions.java#L267)
 
 
 <!--custom.examples.start-->
@@ -84,7 +83,7 @@ This example shows you how to do the following:
 - Update an AWS IoT Thing with Attributes.
 - Return a unique endpoint.
 - List your AWS IoT certificates.
-- Create an AWS IoT shadow.
+- Update an AWS IoT shadow.
 - Write out state information.
 - Creates a rule.
 - List your rules.

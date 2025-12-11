@@ -352,24 +352,21 @@ public class IoTBasics
             Console.WriteLine("9. Set up resources and create a rule");
             Console.WriteLine();
 
-            if (IsInteractive)
-            {
-                Console.Write($"Enter Rule name (press Enter for default '{ruleName}'):: ");
-                var userRuleName = Console.ReadLine();
-                if (!string.IsNullOrEmpty(userRuleName))
-                    ruleName = userRuleName;
-            }
-            else
-            {
-                Console.WriteLine($"Using default rule name: {ruleName}");
-            }
-
             // Deploy CloudFormation stack to create SNS topic and IAM role
             Console.WriteLine("Deploying CloudFormation stack to create SNS topic and IAM role...");
 
             var deployStack = !IsInteractive || GetYesNoResponse("Would you like to deploy the CloudFormation stack? (y/n) ");
             if (deployStack)
             {
+                if (IsInteractive)
+                {
+                    Console.Write(
+                        $"Enter stack resource file path (or press Enter for default '{_stackResourcePath}'): ");
+                    var userResourcePath = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(userResourcePath))
+                        _stackResourcePath = userResourcePath;
+                }
+
                 _stackName = PromptUserForStackName();
 
                 var deploySuccess = await DeployCloudFormationStack(_stackName, cloudFormationClient, scenarioLogger);
@@ -385,6 +382,18 @@ public class IoTBasics
 
                         Console.WriteLine($"Successfully deployed stack. SNS topic: {snsTopicArn}");
                         Console.WriteLine($"Successfully deployed stack. IAM role: {roleArn}");
+
+                        if (IsInteractive)
+                        {
+                            Console.Write($"Enter Rule name (press Enter for default '{ruleName}'): ");
+                            var userRuleName = Console.ReadLine();
+                            if (!string.IsNullOrEmpty(userRuleName))
+                                ruleName = userRuleName;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Using default rule name: {ruleName}");
+                        }
 
                         // Now create the IoT rule with the CloudFormation outputs
                         var ruleResult = await iotWrapper.CreateTopicRuleAsync(ruleName, snsTopicArn, roleArn);
@@ -517,8 +526,10 @@ public class IoTBasics
                 var cleanup = !IsInteractive || GetYesNoResponse("Do you want to delete the CloudFormation stack and all resources? (y/n) ");
                 if (cleanup)
                 {
-                    var cleanupSuccess = await DeleteCloudFormationStack(_stackName, cloudFormationClient, scenarioLogger);
-                    if (cleanupSuccess)
+                    var ruleCleanupSuccess = await iotWrapper.DeleteTopicRuleAsync(ruleName);
+
+                    var stackCleanupSuccess = await DeleteCloudFormationStack(_stackName, cloudFormationClient, scenarioLogger);
+                    if (ruleCleanupSuccess && stackCleanupSuccess)
                     {
                         Console.WriteLine("Successfully cleaned up CloudFormation stack and all resources.");
                     }
@@ -569,6 +580,7 @@ public class IoTBasics
             {
                 try
                 {
+                    await _iotWrapper.DeleteTopicRuleAsync(ruleName);
                     await DeleteCloudFormationStack(_stackName, cloudFormationClient, scenarioLogger);
                 }
                 catch (Exception cleanupEx)

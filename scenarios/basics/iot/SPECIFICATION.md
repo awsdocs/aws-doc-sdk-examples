@@ -64,7 +64,7 @@ This scenario demonstrates the following key AWS IoT Service operations:
    - The Thing's shadow represents the device's state and properties.
 
 10. **Write State Information in JSON Format**:
-    - The state information is written in JSON format, which is the standard data format used by AWS IoT.
+    - Use the 'GetThingShadow' to get the state information. The state information is written in JSON format, which is the standard data format used by AWS IoT.
 
 11. **Create an AWS IoT Rule**:
     - Use the `CreateTopicRule` API to create a new AWS IoT Rule.
@@ -86,7 +86,10 @@ This scenario demonstrates the following key AWS IoT Service operations:
 14. **Delete an AWS IoT Thing**:
     - Use the `DeleteThing` API to delete an AWS IoT Thing.
 
- Note: We have buy off on these operations from IoT SME. 
+
+15. **Clean up resources**:
+    - Clean up the stack and rule.
+
 
 ## Exception Handling
 
@@ -259,6 +262,17 @@ arn:aws:iot:us-east-1:814548047983:cert/1c9cd9a0f315b58e549e84c38ada37ced24e8904
 Do you want to delete the IoT Thing? (y/n)y
 Deleted Thing foo5543
 --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+14. Clean up CloudFormation stack.
+Deleting the CloudFormation stack and all resources...
+CloudFormation stack 'IoTBasicsStack' is being deleted. This may take a few minutes.
+Waiting for CloudFormation stack 'IoTBasicsStack' to be deleted...
+Waiting for CloudFormation stack 'IoTBasicsStack' to be deleted...
+Waiting for CloudFormation stack 'IoTBasicsStack' to be deleted...
+Waiting for CloudFormation stack 'IoTBasicsStack' to be deleted...
+Waiting for CloudFormation stack 'IoTBasicsStack' to be deleted...
+CloudFormation stack 'IoTBasicsStack' has been deleted.
+Successfully cleaned up CloudFormation stack and all resources.
 --------------------------------------------------------------------------------
 The AWS IoT workflow has successfully completed.
 --------------------------------------------------------------------------------

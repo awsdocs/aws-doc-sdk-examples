@@ -346,6 +346,38 @@ public class IoTWrapper
     }
     // snippet-end:[iot.dotnetv4.CreateTopicRule]
 
+    // snippet-start:[iot.dotnetv4.DeleteTopicRule]
+    /// <summary>
+    /// Deletes an IoT topic rule.
+    /// </summary>
+    /// <param name="ruleName">The name of the rule.</param>
+    /// <returns>True if successful, false otherwise.</returns>
+    public async Task<bool> DeleteTopicRuleAsync(string ruleName)
+    {
+        try
+        {
+            var request = new DeleteTopicRuleRequest
+            {
+                RuleName = ruleName,
+            };
+
+            await _amazonIoT.DeleteTopicRuleAsync(request);
+            _logger.LogInformation($"Deleted IoT rule {ruleName}");
+            return true;
+        }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogWarning($"Rule {ruleName} not found: {ex.Message}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't delete topic rule. Here's why: {ex.Message}");
+            return false;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.DeleteTopicRule]
+
     // snippet-start:[iot.dotnetv4.ListTopicRules]
     /// <summary>
     /// Lists all IoT topic rules.

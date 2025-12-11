@@ -49,15 +49,14 @@ Code excerpts that show you how to call individual service functions.
 - [CreateKeysAndCertificate](Actions/IoTWrapper.cs#L67)
 - [CreateThing](Actions/IoTWrapper.cs#L35)
 - [CreateTopicRule](Actions/IoTWrapper.cs#L298)
-- [DeleteCertificate](Actions/IoTWrapper.cs#L526)
-- [DeleteThing](Actions/IoTWrapper.cs#L567)
+- [DeleteCertificate](Actions/IoTWrapper.cs#L558)
+- [DeleteThing](Actions/IoTWrapper.cs#L599)
 - [DescribeEndpoint](Actions/IoTWrapper.cs#L170)
-- [DetachThingPrincipal](Actions/IoTWrapper.cs#L492)
+- [DetachThingPrincipal](Actions/IoTWrapper.cs#L524)
 - [ListCertificates](Actions/IoTWrapper.cs#L201)
-- [ListThings](Actions/IoTWrapper.cs#L599)
-- [SearchIndex](Actions/IoTWrapper.cs#L377)
+- [ListThings](Actions/IoTWrapper.cs#L631)
+- [SearchIndex](Actions/IoTWrapper.cs#L409)
 - [UpdateThing](Actions/IoTWrapper.cs#L132)
-- [UpdateThingShadow](Actions/IoTWrapper.cs#L229)
 
 
 <!--custom.examples.start-->
@@ -85,7 +84,7 @@ This example shows you how to do the following:
 - Update an AWS IoT Thing with Attributes.
 - Return a unique endpoint.
 - List your AWS IoT certificates.
-- Create an AWS IoT shadow.
+- Update an AWS IoT shadow.
 - Write out state information.
 - Creates a rule.
 - List your rules.

@@ -67,7 +67,6 @@ Code excerpts that show you how to call individual service functions.
 - [SearchIndex](search_index.cpp#L22)
 - [UpdateIndexingConfiguration](update_indexing_configuration.cpp#L22)
 - [UpdateThing](update_thing.cpp#L23)
-- [UpdateThingShadow](update_thing_shadow.cpp#L22)
 
 
 <!--custom.examples.start-->
@@ -107,7 +106,7 @@ This example shows you how to do the following:
 - Update an AWS IoT Thing with Attributes.
 - Return a unique endpoint.
 - List your AWS IoT certificates.
-- Create an AWS IoT shadow.
+- Update an AWS IoT shadow.
 - Write out state information.
 - Creates a rule.
 - List your rules.
