@@ -111,9 +111,9 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
         oo_result = lo_acm->describecertificate( iv_certificatearn = iv_certificate_arn ).
         MESSAGE 'Certificate details retrieved.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidarnex.
-        MESSAGE 'The certificate ARN is not valid.' TYPE 'E'.
+        MESSAGE 'The certificate ARN is not valid.' TYPE 'I'.
       CATCH /aws1/cx_acmresourcenotfoundex.
-        MESSAGE 'Certificate not found.' TYPE 'E'.
+        MESSAGE 'Certificate not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[acm.abapv1.describe_certificate]
 
@@ -132,11 +132,11 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
         oo_result = lo_acm->getcertificate( iv_certificatearn = iv_certificate_arn ).
         MESSAGE 'Certificate body and chain retrieved.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidarnex.
-        MESSAGE 'The certificate ARN is not valid.' TYPE 'E'.
+        MESSAGE 'The certificate ARN is not valid.' TYPE 'I'.
       CATCH /aws1/cx_acmresourcenotfoundex.
-        MESSAGE 'Certificate not found.' TYPE 'E'.
+        MESSAGE 'Certificate not found.' TYPE 'I'.
       CATCH /aws1/cx_acmrequestinprgssex.
-        MESSAGE 'Certificate request is in progress.' TYPE 'E'.
+        MESSAGE 'Certificate request is in progress.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[acm.abapv1.get_certificate]
 
@@ -158,9 +158,9 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
         ).
         MESSAGE 'Certificates listed successfully.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidargsex.
-        MESSAGE 'Invalid arguments provided.' TYPE 'E'.
+        MESSAGE 'Invalid arguments provided.' TYPE 'I'.
       CATCH /aws1/cx_acmvalidationex.
-        MESSAGE 'Validation error occurred.' TYPE 'E'.
+        MESSAGE 'Validation error occurred.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[acm.abapv1.list_certificates]
 
@@ -183,9 +183,9 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
         ov_certificate_arn = lo_result->get_certificatearn( ).
         MESSAGE 'Certificate imported successfully.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidparameterex.
-        MESSAGE 'Invalid parameter provided.' TYPE 'E'.
+        MESSAGE 'Invalid parameter provided.' TYPE 'I'.
       CATCH /aws1/cx_acmlimitexceededex.
-        MESSAGE 'Certificate limit exceeded.' TYPE 'E'.
+        MESSAGE 'Certificate limit exceeded.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[acm.abapv1.import_certificate]
 
@@ -204,11 +204,11 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
         lo_acm->deletecertificate( iv_certificatearn = iv_certificate_arn ).
         MESSAGE 'Certificate deleted successfully.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidarnex.
-        MESSAGE 'The certificate ARN is not valid.' TYPE 'E'.
+        MESSAGE 'The certificate ARN is not valid.' TYPE 'I'.
       CATCH /aws1/cx_acmresourcenotfoundex.
-        MESSAGE 'Certificate not found.' TYPE 'E'.
+        MESSAGE 'Certificate not found.' TYPE 'I'.
       CATCH /aws1/cx_acmresourceinuseex.
-        MESSAGE 'Certificate is in use and cannot be deleted.' TYPE 'E'.
+        MESSAGE 'Certificate is in use and cannot be deleted.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[acm.abapv1.delete_certificate]
 
@@ -230,13 +230,13 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
         ).
         MESSAGE 'Tags added to certificate successfully.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidarnex.
-        MESSAGE 'The certificate ARN is not valid.' TYPE 'E'.
+        MESSAGE 'The certificate ARN is not valid.' TYPE 'I'.
       CATCH /aws1/cx_acmresourcenotfoundex.
-        MESSAGE 'Certificate not found.' TYPE 'E'.
+        MESSAGE 'Certificate not found.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidtagex.
-        MESSAGE 'Invalid tag provided.' TYPE 'E'.
+        MESSAGE 'Invalid tag provided.' TYPE 'I'.
       CATCH /aws1/cx_acmtoomanytagsex.
-        MESSAGE 'Too many tags for certificate.' TYPE 'E'.
+        MESSAGE 'Too many tags for certificate.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[acm.abapv1.add_tags_to_certificate]
 
@@ -258,9 +258,9 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
         ot_tags = lo_result->get_tags( ).
         MESSAGE 'Certificate tags retrieved successfully.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidarnex.
-        MESSAGE 'The certificate ARN is not valid.' TYPE 'E'.
+        MESSAGE 'The certificate ARN is not valid.' TYPE 'I'.
       CATCH /aws1/cx_acmresourcenotfoundex.
-        MESSAGE 'Certificate not found.' TYPE 'E'.
+        MESSAGE 'Certificate not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[acm.abapv1.list_tags_for_certificate]
 
@@ -282,11 +282,11 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
         ).
         MESSAGE 'Tags removed from certificate successfully.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidarnex.
-        MESSAGE 'The certificate ARN is not valid.' TYPE 'E'.
+        MESSAGE 'The certificate ARN is not valid.' TYPE 'I'.
       CATCH /aws1/cx_acmresourcenotfoundex.
-        MESSAGE 'Certificate not found.' TYPE 'E'.
+        MESSAGE 'Certificate not found.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidtagex.
-        MESSAGE 'Invalid tag provided.' TYPE 'E'.
+        MESSAGE 'Invalid tag provided.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[acm.abapv1.remove_tags_from_certificate]
 
@@ -312,11 +312,11 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
         ov_certificate_arn = lo_result->get_certificatearn( ).
         MESSAGE 'Certificate requested successfully.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidparameterex.
-        MESSAGE 'Invalid parameter provided.' TYPE 'E'.
+        MESSAGE 'Invalid parameter provided.' TYPE 'I'.
       CATCH /aws1/cx_acmlimitexceededex.
-        MESSAGE 'Certificate limit exceeded.' TYPE 'E'.
+        MESSAGE 'Certificate limit exceeded.' TYPE 'I'.
       CATCH /aws1/cx_acminvdomvationoptsex.
-        MESSAGE 'Invalid domain validation options.' TYPE 'E'.
+        MESSAGE 'Invalid domain validation options.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[acm.abapv1.request_certificate]
 
@@ -341,13 +341,13 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
         ).
         MESSAGE 'Validation email resent successfully.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidarnex.
-        MESSAGE 'The certificate ARN is not valid.' TYPE 'E'.
+        MESSAGE 'The certificate ARN is not valid.' TYPE 'I'.
       CATCH /aws1/cx_acmresourcenotfoundex.
-        MESSAGE 'Certificate not found.' TYPE 'E'.
+        MESSAGE 'Certificate not found.' TYPE 'I'.
       CATCH /aws1/cx_acminvalidstateex.
-        MESSAGE 'Certificate is not in a valid state.' TYPE 'E'.
+        MESSAGE 'Certificate is not in a valid state.' TYPE 'I'.
       CATCH /aws1/cx_acminvdomvationoptsex.
-        MESSAGE 'Invalid domain validation options.' TYPE 'E'.
+        MESSAGE 'Invalid domain validation options.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[acm.abapv1.resend_validation_email]
 
