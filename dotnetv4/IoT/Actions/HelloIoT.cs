@@ -23,20 +23,38 @@ public class HelloIoT
 
         try
         {
-            Console.WriteLine("Hello AWS IoT! Let's list a few of your IoT Things:");
+            Console.WriteLine("Hello AWS IoT! Let's list your IoT Things:");
             Console.WriteLine(new string('-', 80));
 
-            var request = new ListThingsRequest
+            // Use pages of 10.
+            var request = new ListThingsRequest()
             {
                 MaxResults = 10
             };
-
             var response = await iotClient.ListThingsAsync(request);
 
-            if (response.Things is { Count: > 0 })
+            // Since there is not a built-in paginator, use the NextMarker to paginate.
+            bool hasMoreResults = true;
+
+            var things = new List<ThingAttribute>();
+            while (hasMoreResults)
             {
-                Console.WriteLine($"Found {response.Things.Count} IoT Things:");
-                foreach (var thing in response.Things)
+                things.AddRange(response.Things);
+
+                // If NextMarker is not null, there are more results. Get the next page of results.
+                if (!String.IsNullOrEmpty(response.NextMarker))
+                {
+                    request.Marker = response.NextMarker;
+                    response = await iotClient.ListThingsAsync(request);
+                }
+                else
+                    hasMoreResults = false;
+            }
+
+            if (things is { Count: > 0 })
+            {
+                Console.WriteLine($"Found {things.Count} IoT Things:");
+                foreach (var thing in things)
                 {
                     Console.WriteLine($"- Thing Name: {thing.ThingName}");
                     Console.WriteLine($"  Thing ARN: {thing.ThingArn}");
@@ -62,13 +80,13 @@ public class HelloIoT
 
             Console.WriteLine("Hello IoT completed successfully.");
         }
+        catch (Amazon.IoT.Model.ThrottlingException ex)
+        {
+            Console.WriteLine($"Request throttled, please try again later: {ex.Message}");
+        }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
-        }
-        finally
-        {
-            iotClient.Dispose();
+            Console.WriteLine($"Couldn't list Things. Here's why: {ex.Message}");
         }
     }
 }
