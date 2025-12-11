@@ -163,6 +163,17 @@ public class LargeQueryWorkflow
 
             if (deployStack)
             {
+                if (_interactive)
+                {
+                    Console.Write(
+                        $"Enter a path for the CloudFormation stack resource .yaml file (or press Enter for default '{_stackResourcePath}'): ");
+                    string? inputPath = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(inputPath))
+                    {
+                        _stackResourcePath = inputPath;
+                    }
+                }
+
                 _stackName = PromptUserForStackName();
 
                 var deploySuccess = await DeployCloudFormationStack(_stackName);
