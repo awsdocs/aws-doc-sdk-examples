@@ -63,7 +63,6 @@ CLASS ltc_awsex_cl_acm_actions IMPLEMENTATION.
     ENDTRY.
 
     DATA(lv_domain) = |acm-test-{ lv_uuid_string }.example.com|.
-    DATA lt_alternate_domains TYPE /aws1/cl_acmdomainlist_w=>tt_domainlist.
 
     " Add convert_test tag to help with cleanup
     DATA lt_tags TYPE /aws1/cl_acmtag=>tt_taglist.
@@ -71,9 +70,9 @@ CLASS ltc_awsex_cl_acm_actions IMPLEMENTATION.
     APPEND lo_tag TO lt_tags.
 
     TRY.
+        " Don't pass subjectAlternativeNames if empty - it's optional
         DATA(lo_result) = ao_acm->requestcertificate(
           iv_domainname = lv_domain
-          it_subjectalternativenames = lt_alternate_domains
           iv_validationmethod = 'DNS'
           it_tags = lt_tags
         ).
@@ -85,7 +84,6 @@ CLASS ltc_awsex_cl_acm_actions IMPLEMENTATION.
         lv_domain = |acm-test-tags-{ lv_uuid_string }.example.com|.
         lo_result = ao_acm->requestcertificate(
           iv_domainname = lv_domain
-          it_subjectalternativenames = lt_alternate_domains
           iv_validationmethod = 'DNS'
           it_tags = lt_tags
         ).
@@ -323,15 +321,14 @@ CLASS ltc_awsex_cl_acm_actions IMPLEMENTATION.
     lv_uuid_string = lv_uuid.
 
     DATA(lv_domain) = |acm-test-delete-{ lv_uuid_string }.example.com|.
-    DATA lt_alternate_domains TYPE /aws1/cl_acmdomainlist_w=>tt_domainlist.
 
     DATA lt_tags TYPE /aws1/cl_acmtag=>tt_taglist.
     DATA(lo_tag) = NEW /aws1/cl_acmtag( iv_key = 'convert_test' iv_value = 'true' ).
     APPEND lo_tag TO lt_tags.
 
+    " Don't pass subjectAlternativeNames if empty
     DATA(lo_result) = ao_acm->requestcertificate(
       iv_domainname = lv_domain
-      it_subjectalternativenames = lt_alternate_domains
       iv_validationmethod = 'DNS'
       it_tags = lt_tags
     ).
@@ -425,7 +422,11 @@ CLASS ltc_awsex_cl_acm_actions IMPLEMENTATION.
     lv_uuid_string = lv_uuid.
 
     DATA(lv_domain) = |acm-req-test-{ lv_uuid_string }.example.com|.
+    
+    " Create a non-empty alternate domains list with the main domain
     DATA lt_alternate_domains TYPE /aws1/cl_acmdomainlist_w=>tt_domainlist.
+    DATA(lo_alt_domain) = NEW /aws1/cl_acmdomainlist_w( iv_value = lv_domain ).
+    APPEND lo_alt_domain TO lt_alternate_domains.
 
     " Request a certificate
     DATA(lv_cert_arn) = ao_acm_actions->request_certificate(
@@ -461,17 +462,15 @@ CLASS ltc_awsex_cl_acm_actions IMPLEMENTATION.
     lv_uuid_string = lv_uuid.
 
     DATA(lv_domain) = |acm-email-test-{ lv_uuid_string }.example.com|.
-    DATA lt_alternate_domains TYPE /aws1/cl_acmdomainlist_w=>tt_domainlist.
 
     " Add convert_test tag
     DATA lt_tags TYPE /aws1/cl_acmtag=>tt_taglist.
     DATA(lo_tag) = NEW /aws1/cl_acmtag( iv_key = 'convert_test' iv_value = 'true' ).
     APPEND lo_tag TO lt_tags.
 
-    " Request certificate with EMAIL validation
+    " Request certificate with EMAIL validation (don't pass empty subjectAlternativeNames)
     DATA(lo_result) = ao_acm->requestcertificate(
       iv_domainname = lv_domain
-      it_subjectalternativenames = lt_alternate_domains
       iv_validationmethod = 'EMAIL'
       it_tags = lt_tags
     ).

@@ -305,7 +305,8 @@ CLASS /awsex/cl_acm_actions IMPLEMENTATION.
         " iv_validation_method = 'DNS' or 'EMAIL'
         DATA(lo_result) = lo_acm->requestcertificate(
           iv_domainname = iv_domain_name
-          it_subjectalternativenames = it_alternate_domains
+          it_subjectalternativenames = COND #( WHEN it_alternate_domains IS NOT INITIAL 
+                                                THEN it_alternate_domains )
           iv_validationmethod = iv_validation_method
         ).
         ov_certificate_arn = lo_result->get_certificatearn( ).
