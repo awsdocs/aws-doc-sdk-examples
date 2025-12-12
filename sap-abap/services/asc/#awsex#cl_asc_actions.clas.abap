@@ -144,13 +144,23 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
 
         " Create the Auto Scaling group
         " Use VPCZoneIdentifier for VPC subnets, or AvailabilityZones for EC2-Classic
-        ao_asc->createautoscalinggroup(
-          iv_autoscalinggroupname = iv_group_name
-          it_availabilityzones = it_group_zones
-          iv_vpczoneidentifier = iv_vpc_zone_identifier
-          io_launchtemplate = lo_launch_template
-          iv_minsize = iv_min_size
-          iv_maxsize = iv_max_size ).
+        IF iv_vpc_zone_identifier IS NOT INITIAL.
+          " VPC-based deployment - use subnet IDs
+          ao_asc->createautoscalinggroup(
+            iv_autoscalinggroupname = iv_group_name
+            iv_vpczoneidentifier = iv_vpc_zone_identifier
+            io_launchtemplate = lo_launch_template
+            iv_minsize = iv_min_size
+            iv_maxsize = iv_max_size ).
+        ELSE.
+          " EC2-Classic or default VPC - use availability zones
+          ao_asc->createautoscalinggroup(
+            iv_autoscalinggroupname = iv_group_name
+            it_availabilityzones = it_group_zones
+            io_launchtemplate = lo_launch_template
+            iv_minsize = iv_min_size
+            iv_maxsize = iv_max_size ).
+        ENDIF.
 
         " Wait for the group to be created (simplified - in production use proper polling)
         WAIT UP TO 10 SECONDS.
