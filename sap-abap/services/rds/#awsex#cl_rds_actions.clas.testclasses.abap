@@ -52,15 +52,23 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     GET TIME STAMP FIELD lv_timestamp.
     lv_timestamp_str = lv_timestamp.
     CONDENSE lv_timestamp_str NO-GAPS.
-    gv_uuid = lv_timestamp_str+8(14).  " Use last 14 digits for uniqueness
+    " Timestamp format is typically 14 digits: YYYYMMDDHHMMSS
+    " Use last 10 digits (DDHHMMSS + SS) for uniqueness
+    DATA lv_len TYPE i.
+    lv_len = strlen( lv_timestamp_str ).
+    IF lv_len >= 10.
+      gv_uuid = lv_timestamp_str+4(10).  " Skip YYYYMM, use rest
+    ELSE.
+      gv_uuid = lv_timestamp_str.
+    ENDIF.
 
-    gv_param_group_name = |abap-rds-pg-{ gv_uuid+0(8) }|.
-    gv_cluster_id = |abap-rds-cl-{ gv_uuid+0(8) }|.
-    gv_instance_id = |abap-rds-in-{ gv_uuid+0(8) }|.
-    gv_snapshot_id = |abap-rds-sn-{ gv_uuid+0(8) }|.
-    gv_param_group_name_2 = |abap-rds-pg2-{ gv_uuid+0(7) }|.
-    gv_cluster_id_2 = |abap-rds-cl2-{ gv_uuid+0(7) }|.
-    gv_instance_id_2 = |abap-rds-in2-{ gv_uuid+0(7) }|.
+    gv_param_group_name = |abap-pg-{ gv_uuid+0(8) }|.
+    gv_cluster_id = |abap-cl-{ gv_uuid+0(8) }|.
+    gv_instance_id = |abap-in-{ gv_uuid+0(8) }|.
+    gv_snapshot_id = |abap-sn-{ gv_uuid+0(8) }|.
+    gv_param_group_name_2 = |abap-pg2-{ gv_uuid+0(7) }|.
+    gv_cluster_id_2 = |abap-cl2-{ gv_uuid+0(7) }|.
+    gv_instance_id_2 = |abap-in2-{ gv_uuid+0(7) }|.
 
     " Create shared resources for tests with convert_test tag
     DATA lt_tags TYPE /aws1/cl_rdstag=>tt_taglist.
