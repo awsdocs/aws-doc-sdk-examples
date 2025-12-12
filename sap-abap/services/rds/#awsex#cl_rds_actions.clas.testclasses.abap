@@ -98,7 +98,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         
         " If no 8.0 version found, use the first available version
         IF lv_engine_version IS INITIAL AND lines( lt_versions ) > 0.
-          lv_engine_version = lt_versions[ 1 ]->get_engineversion( ).
+          DATA(lo_first_version) = lt_versions[ 1 ].
+          lv_engine_version = lo_first_version->get_engineversion( ).
         ENDIF.
 
         " Create parameter group for shared use
