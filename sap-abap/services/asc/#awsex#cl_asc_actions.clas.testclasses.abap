@@ -65,21 +65,21 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     av_launch_template_name = |asc-test-tmpl-{ lv_uuid }|.
 
     " Create a launch template for testing
-    DATA lt_tags TYPE /aws1/cl_ec2_tag=>tt_taglist.
-    DATA lo_tag TYPE REF TO /aws1/cl_ec2_tag.
-    lo_tag = NEW /aws1/cl_ec2_tag(
+    DATA lt_tags TYPE /aws1/cl_ec2tag=>tt_taglist.
+    DATA lo_tag TYPE REF TO /aws1/cl_ec2tag.
+    lo_tag = NEW /aws1/cl_ec2tag(
       iv_key = 'convert_test'
       iv_value = 'true' ).
     APPEND lo_tag TO lt_tags.
 
-    DATA(lo_tag_spec) = NEW /aws1/cl_ec2_lnchtmpltgspfc(
+    DATA(lo_tag_spec) = NEW /aws1/cl_ec2launchtmpltagspec(
       iv_resourcetype = 'instance'
       it_tags = lt_tags ).
-    DATA lt_tag_specs TYPE /aws1/cl_ec2_lnchtmpltgspfc=>tt_launchtemplatetagspecificationlist.
+    DATA lt_tag_specs TYPE /aws1/cl_ec2launchtmpltagspec=>tt_launchtemplatetagspecificationlist.
     APPEND lo_tag_spec TO lt_tag_specs.
 
     " Use Amazon Linux 2023 AMI (this is a commonly available AMI)
-    DATA(lo_template_data) = NEW /aws1/cl_ec2_rqstlnchtmpldata(
+    DATA(lo_template_data) = NEW /aws1/cl_ec2reqlaunchtmpldata(
       iv_imageid = 'ami-0aa28dab1f2852040'  " Amazon Linux 2023 in us-east-1
       iv_instancetype = 't2.micro'
       it_tagspecifications = lt_tag_specs ).
@@ -92,8 +92,8 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         " If template already exists, try to retrieve it
         TRY.
-            DATA lt_names TYPE /aws1/cl_ec2_lnchtmpltname_w=>tt_launchtemplatename.
-            DATA lo_name TYPE REF TO /aws1/cl_ec2_lnchtmpltname_w.
+            DATA lt_names TYPE /aws1/cl_ec2launchtmplnamest00=>tt_launchtmplnamestringlist.
+            DATA lo_name TYPE REF TO /aws1/cl_ec2launchtmplnamest00.
             CREATE OBJECT lo_name EXPORTING iv_value = av_launch_template_name.
             APPEND lo_name TO lt_names.
             DATA(lo_describe) = ao_ec2->describelaunchtemplates(
