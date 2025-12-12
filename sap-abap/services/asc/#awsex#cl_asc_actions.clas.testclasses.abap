@@ -65,7 +65,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     DATA lt_names TYPE /aws1/cl_ec2launchtmplnamest00=>tt_launchtmplnamestringlist.
     DATA lo_name TYPE REF TO /aws1/cl_ec2launchtmplnamest00.
     DATA lo_describe TYPE REF TO /aws1/cl_ec2dsclaunchtmplsrs.
-    DATA lt_templates TYPE /aws1/cl_ec2launchtemplate=>tt_launchtemplates.
+    DATA lt_templates TYPE /aws1/cl_ec2launchtemplate=>tt_launchtemplateset.
     DATA lo_template TYPE REF TO /aws1/cl_ec2launchtemplate.
 
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
