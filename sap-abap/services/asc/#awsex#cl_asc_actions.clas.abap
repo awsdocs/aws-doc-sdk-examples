@@ -154,11 +154,11 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
         MESSAGE 'Auto Scaling group created successfully' TYPE 'I'.
 
       CATCH /aws1/cx_ascalreadyexistsfault INTO DATA(lo_already_exists).
-        MESSAGE lo_already_exists->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_already_exists.
       CATCH /aws1/cx_asclimitexceededfault INTO DATA(lo_limit_exceeded).
-        MESSAGE lo_limit_exceeded->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_limit_exceeded.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_generic_exception).
-        MESSAGE lo_generic_exception->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_generic_exception.
     ENDTRY.
     " snippet-end:[asc.abapv1.create_group]
   ENDMETHOD.
@@ -178,11 +178,11 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
         MESSAGE 'Auto Scaling group updated successfully' TYPE 'I'.
 
       CATCH /aws1/cx_ascresrccontionfault INTO DATA(lo_contention).
-        MESSAGE lo_contention->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_contention.
       CATCH /aws1/cx_ascscaactivityinprg00 INTO DATA(lo_activity_in_progress).
-        MESSAGE lo_activity_in_progress->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_activity_in_progress.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_generic_exception).
-        MESSAGE lo_generic_exception->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_generic_exception.
     ENDTRY.
     " snippet-end:[asc.abapv1.update_group]
   ENDMETHOD.
@@ -202,11 +202,11 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
         MESSAGE 'Auto Scaling group deleted successfully' TYPE 'I'.
 
       CATCH /aws1/cx_ascscaactivityinprg00 INTO DATA(lo_activity_in_progress).
-        MESSAGE lo_activity_in_progress->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_activity_in_progress.
       CATCH /aws1/cx_ascresourceinusefault INTO DATA(lo_resource_in_use).
-        MESSAGE lo_resource_in_use->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_resource_in_use.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_generic_exception).
-        MESSAGE lo_generic_exception->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_generic_exception.
     ENDTRY.
     " snippet-end:[asc.abapv1.delete_group]
   ENDMETHOD.
@@ -240,9 +240,9 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
         MESSAGE 'Auto Scaling group information retrieved successfully' TYPE 'I'.
 
       CATCH /aws1/cx_ascresrccontionfault INTO DATA(lo_contention).
-        MESSAGE lo_contention->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_contention.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_generic_exception).
-        MESSAGE lo_generic_exception->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_generic_exception.
     ENDTRY.
     " snippet-end:[asc.abapv1.describe_group]
   ENDMETHOD.
@@ -263,11 +263,11 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
         MESSAGE 'Instance terminated successfully' TYPE 'I'.
 
       CATCH /aws1/cx_ascscaactivityinprg00 INTO DATA(lo_activity_in_progress).
-        MESSAGE lo_activity_in_progress->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_activity_in_progress.
       CATCH /aws1/cx_ascresrccontionfault INTO DATA(lo_contention).
-        MESSAGE lo_contention->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_contention.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_generic_exception).
-        MESSAGE lo_generic_exception->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_generic_exception.
     ENDTRY.
     " snippet-end:[asc.abapv1.terminate_instance]
   ENDMETHOD.
@@ -287,9 +287,9 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
         MESSAGE 'Desired capacity set successfully' TYPE 'I'.
 
       CATCH /aws1/cx_ascscaactivityinprg00 INTO DATA(lo_activity_in_progress).
-        MESSAGE lo_activity_in_progress->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_activity_in_progress.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_generic_exception).
-        MESSAGE lo_generic_exception->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_generic_exception.
     ENDTRY.
     " snippet-end:[asc.abapv1.set_desired_capacity]
   ENDMETHOD.
@@ -308,9 +308,9 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
         MESSAGE 'Auto Scaling instances information retrieved successfully' TYPE 'I'.
 
       CATCH /aws1/cx_ascresrccontionfault INTO DATA(lo_contention).
-        MESSAGE lo_contention->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_contention.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_generic_exception).
-        MESSAGE lo_generic_exception->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_generic_exception.
     ENDTRY.
     " snippet-end:[asc.abapv1.describe_instances]
   ENDMETHOD.
@@ -329,9 +329,9 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
         MESSAGE 'Scaling activities retrieved successfully' TYPE 'I'.
 
       CATCH /aws1/cx_ascresrccontionfault INTO DATA(lo_contention).
-        MESSAGE lo_contention->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_contention.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_generic_exception).
-        MESSAGE lo_generic_exception->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_generic_exception.
     ENDTRY.
     " snippet-end:[asc.abapv1.describe_scaling_activities]
   ENDMETHOD.
@@ -351,9 +351,9 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
         MESSAGE 'Metrics collection enabled successfully' TYPE 'I'.
 
       CATCH /aws1/cx_ascresrccontionfault INTO DATA(lo_contention).
-        MESSAGE lo_contention->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_contention.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_generic_exception).
-        MESSAGE lo_generic_exception->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_generic_exception.
     ENDTRY.
     " snippet-end:[asc.abapv1.enable_metrics]
   ENDMETHOD.
@@ -370,9 +370,9 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
         MESSAGE 'Metrics collection disabled successfully' TYPE 'I'.
 
       CATCH /aws1/cx_ascresrccontionfault INTO DATA(lo_contention).
-        MESSAGE lo_contention->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_contention.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_generic_exception).
-        MESSAGE lo_generic_exception->get_text( ) TYPE 'E'.
+        RAISE EXCEPTION lo_generic_exception.
     ENDTRY.
     " snippet-end:[asc.abapv1.disable_metrics]
   ENDMETHOD.
