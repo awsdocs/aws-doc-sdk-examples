@@ -46,8 +46,13 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     ao_rds = /aws1/cl_rds_factory=>create( ao_session ).
     ao_rds_actions = NEW /awsex/cl_rds_actions( ).
 
-    " Generate unique identifiers using UUID
-    gv_uuid = /awsex/cl_utl=>uuid_get_c36( ).
+    " Generate unique identifiers using timestamp
+    DATA lv_timestamp TYPE timestamp.
+    DATA lv_timestamp_str TYPE string.
+    GET TIME STAMP FIELD lv_timestamp.
+    lv_timestamp_str = lv_timestamp.
+    CONDENSE lv_timestamp_str NO-GAPS.
+    gv_uuid = lv_timestamp_str+8(14).  " Use last 14 digits for uniqueness
 
     gv_param_group_name = |abap-rds-pg-{ gv_uuid+0(8) }|.
     gv_cluster_id = |abap-rds-cl-{ gv_uuid+0(8) }|.
@@ -92,7 +97,9 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         MESSAGE 'Created DB cluster for testing' TYPE 'I'.
 
         " Wait for cluster to be available
-        DATA(lv_status) = lo_cluster_output->get_dbcluster( )->get_status( ).
+        DATA lo_cluster TYPE REF TO /aws1/cl_rdsdbcluster.
+        lo_cluster = lo_cluster_output->get_dbcluster( ).
+        DATA(lv_status) = lo_cluster->get_status( ).
         DATA lv_max_wait TYPE i VALUE 180.
         DATA lv_waited TYPE i VALUE 0.
 
@@ -121,7 +128,9 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         MESSAGE 'Created DB instance for testing' TYPE 'I'.
 
         " Wait for instance to be available
-        DATA(lv_inst_status) = lo_inst_output->get_dbinstance( )->get_dbinstancestatus( ).
+        DATA lo_instance TYPE REF TO /aws1/cl_rdsdbinstance.
+        lo_instance = lo_inst_output->get_dbinstance( ).
+        DATA(lv_inst_status) = lo_instance->get_dbinstancestatus( ).
         lv_waited = 0.
         lv_max_wait = 180.
 
@@ -569,7 +578,9 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         ).
 
         " Wait for snapshot to be available
-        DATA(lv_status) = lo_create->get_dbclustersnapshot( )->get_status( ).
+        DATA lo_snapshot TYPE REF TO /aws1/cl_rdsdbclustersnapshot.
+        lo_snapshot = lo_create->get_dbclustersnapshot( ).
+        DATA(lv_status) = lo_snapshot->get_status( ).
         DATA lv_max_wait TYPE i VALUE 180.
         DATA lv_waited TYPE i VALUE 0.
 
@@ -618,7 +629,9 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         ).
 
         " Wait for snapshot to be available
-        DATA(lv_status) = lo_create->get_dbclustersnapshot( )->get_status( ).
+        DATA lo_snapshot TYPE REF TO /aws1/cl_rdsdbclustersnapshot.
+        lo_snapshot = lo_create->get_dbclustersnapshot( ).
+        DATA(lv_status) = lo_snapshot->get_status( ).
         DATA lv_max_wait TYPE i VALUE 180.
         DATA lv_waited TYPE i VALUE 0.
 
