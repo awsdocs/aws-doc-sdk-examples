@@ -207,24 +207,28 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD create_and_describe_group.
-    " Get availability zones for the current region
-    DATA(lo_az_result) = ao_ec2->describeavailabilityzones( ).
-    DATA(lt_azs_raw) = lo_az_result->get_availabilityzones( ).
+    DATA lt_subnets_raw TYPE /aws1/cl_ec2subnet=>tt_subnetlist.
+    DATA lo_subnet TYPE REF TO /aws1/cl_ec2subnet.
+    DATA lv_subnet_ids TYPE string.
+    DATA lo_group TYPE REF TO /aws1/cl_ascautoscalinggroup.
 
-    " Convert to Auto Scaling format
-    DATA lt_zones TYPE /aws1/cl_ascazs_w=>tt_availabilityzones.
-    DATA lo_zone TYPE REF TO /aws1/cl_ascazs_w.
+    " Get subnets from the default VPC or any available VPC
+    DATA(lo_subnets_result) = ao_ec2->describesubnets( ).
+    lt_subnets_raw = lo_subnets_result->get_subnets( ).
 
-    LOOP AT lt_azs_raw INTO DATA(lo_az).
-      CREATE OBJECT lo_zone EXPORTING iv_value = lo_az->get_zonename( ).
-      APPEND lo_zone TO lt_zones.
-      " Only use first zone for simplicity
-      EXIT.
-    ENDLOOP.
+    " Build comma-separated list of subnet IDs (use first subnet)
+    IF lines( lt_subnets_raw ) > 0.
+      READ TABLE lt_subnets_raw INDEX 1 INTO lo_subnet.
+      lv_subnet_ids = lo_subnet->get_subnetid( ).
+    ELSE.
+      cl_abap_unit_assert=>fail( |No subnets available for testing| ).
+      RETURN.
+    ENDIF.
 
+    " Create group using VPC subnet (not availability zones)
     ao_asc_actions->create_group(
       iv_group_name = av_group_name
-      it_group_zones = lt_zones
+      iv_vpc_zone_identifier = lv_subnet_ids
       iv_launch_template_name = av_launch_template_name
       iv_min_size = 0
       iv_max_size = 1 ).
@@ -232,7 +236,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     WAIT UP TO 3 SECONDS.
 
     " Verify the group was created
-    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
+    lo_group = ao_asc_actions->describe_group( av_group_name ).
     cl_abap_unit_assert=>assert_bound(
       act = lo_group
       msg = |Auto Scaling group { av_group_name } was not created| ).
