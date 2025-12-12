@@ -99,6 +99,15 @@ CLASS /awsex/cl_asc_actions DEFINITION
       RAISING
         /aws1/cx_rt_generic.
 
+    " Helper method to get instances in a group
+    METHODS get_group_instances
+      IMPORTING
+        !iv_group_name     TYPE /aws1/ascxmlstringmaxlen255
+      RETURNING
+        VALUE(rt_instances) TYPE /aws1/cl_ascinstance=>tt_instances
+      RAISING
+        /aws1/cx_rt_generic.
+
   PROTECTED SECTION.
   PRIVATE SECTION.
     DATA ao_asc TYPE REF TO /aws1/if_asc.
@@ -366,5 +375,23 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
         MESSAGE lo_generic_exception->get_text( ) TYPE 'E'.
     ENDTRY.
     " snippet-end:[asc.abapv1.disable_metrics]
+  ENDMETHOD.
+
+
+  METHOD get_group_instances.
+    DATA lt_group_names TYPE /aws1/cl_ascautoscgroupnames_w=>tt_autoscalinggroupnames.
+    DATA lo_group_name TYPE REF TO /aws1/cl_ascautoscgroupnames_w.
+
+    CREATE OBJECT lo_group_name EXPORTING iv_value = iv_group_name.
+    APPEND lo_group_name TO lt_group_names.
+
+    DATA(lo_output) = ao_asc->describeautoscalinggroups(
+      it_autoscalinggroupnames = lt_group_names ).
+
+    DATA(lt_groups) = lo_output->get_autoscalinggroups( ).
+    IF lines( lt_groups ) > 0.
+      READ TABLE lt_groups INDEX 1 INTO DATA(lo_group).
+      rt_instances = lo_group->get_instances( ).
+    ENDIF.
   ENDMETHOD.
 ENDCLASS.
