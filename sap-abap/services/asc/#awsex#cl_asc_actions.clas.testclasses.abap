@@ -287,11 +287,23 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD describe_scaling_activities.
-    DATA(lt_activities) = ao_asc_actions->describe_scaling_activities( av_group_name ).
+    DATA lt_activities TYPE /aws1/cl_ascactivity=>tt_activities.
+    DATA lv_retry TYPE i VALUE 0.
 
+    " Wait for activities to be recorded (can take a few seconds after group creation)
+    WHILE lv_retry < 3.
+      WAIT UP TO 3 SECONDS.
+      lt_activities = ao_asc_actions->describe_scaling_activities( av_group_name ).
+      IF lt_activities IS NOT INITIAL.
+        EXIT.
+      ENDIF.
+      lv_retry = lv_retry + 1.
+    ENDWHILE.
+
+    " Verify we got at least one activity (group creation activity)
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_activities
-      msg = |No scaling activities were returned| ).
+      msg = |No scaling activities were returned after waiting| ).
   ENDMETHOD.
 
   METHOD enable_and_disable_metrics.
