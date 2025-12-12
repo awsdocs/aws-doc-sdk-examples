@@ -288,7 +288,7 @@ The following table describes the metadata used in this scenario.
 | `describeEndpoint`           | iot_metadata.yaml            | iot_DescribeEndpoint                    |
 | `listThings`                 | iot_metadata.yaml            | iot_ListThings                          |
 | `listCertificates`           | iot_metadata.yaml            | iot_ListCertificates                    |
-| `CreateKeysAndCertificate`   | iot_metadata.yaml            | iot_CreateKeysAndCertificate            |
+| `createKeysAndCertificate`   | iot_metadata.yaml            | iot_CreateKeysAndCertificate            |
 | `deleteCertificate`          | iot_metadata.yaml            | iot_DeleteCertificate                   |
 | `searchIndex`                | iot_metadata.yaml            | iot_SearchIndex                         |
 | `deleteThing`                | iot_metadata.yaml            | iot_DeleteThing                         |
@@ -296,7 +296,8 @@ The following table describes the metadata used in this scenario.
 | `attachThingPrincipal`       | iot_metadata.yaml            | iot_AttachThingPrincipal                |
 | `detachThingPrincipal`       | iot_metadata.yaml            | iot_DetachThingPrincipal                |
 | `updateThing`                | iot_metadata.yaml            | iot_UpdateThing                         |
-| `updateThingShadow`          | iot_metadata.yaml            | iot_UpdateThingShadow                   |
+| `updateThingShadow`          | iot-data_metadata.yaml       | io-data-plane_UpdateThingShadow         |
+| `getThingShadow`             | iot-data_metadata.yaml       | io-data-plane_GetThingShadow            |
 | `createTopicRule`            | iot_metadata.yaml            | iot_CreateTopicRule                     |
 | `createThing`                | iot_metadata.yaml            | iot_CreateThing                         |
 | `listThings`                 | iot_metadata.yaml            | iot_ListThings                          |
