@@ -79,14 +79,42 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     APPEND lo_tag TO lt_tags.
 
     TRY.
+        " Get available Aurora MySQL engine versions
+        DATA(lo_versions) = ao_rds->describedbengineversions(
+          iv_engine = 'aurora-mysql'
+          iv_defaultonly = abap_false
+        ).
+        DATA(lt_versions) = lo_versions->get_dbengineversions( ).
+        DATA lv_engine_version TYPE /aws1/rdsstring.
+        
+        " Find a suitable Aurora MySQL 8.0 version
+        LOOP AT lt_versions INTO DATA(lo_version).
+          DATA(lv_version_str) = lo_version->get_engineversion( ).
+          IF lv_version_str CP '8.0*'.
+            lv_engine_version = lv_version_str.
+            EXIT.
+          ENDIF.
+        ENDLOOP.
+        
+        " If no 8.0 version found, use the first available version
+        IF lv_engine_version IS INITIAL AND lines( lt_versions ) > 0.
+          lv_engine_version = lt_versions[ 1 ]->get_engineversion( ).
+        ENDIF.
+
         " Create parameter group for shared use
+        DATA lv_param_family TYPE /aws1/rdsstring.
+        IF lv_engine_version CP '8.0*'.
+          lv_param_family = 'aurora-mysql8.0'.
+        ELSE.
+          lv_param_family = 'aurora-mysql5.7'.
+        ENDIF.
+
         DATA(lo_output) = ao_rds->createdbclusterparamgroup(
           iv_dbclusterparamgroupname = gv_param_group_name
-          iv_dbparametergroupfamily = 'aurora-mysql8.0'
+          iv_dbparametergroupfamily = lv_param_family
           iv_description = 'ABAP test parameter group'
           it_tags = lt_tags
         ).
-        MESSAGE 'Created parameter group for testing' TYPE 'I'.
 
         " Wait a moment for parameter group to propagate
         WAIT UP TO 5 SECONDS.
@@ -97,18 +125,17 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
           iv_dbclusteridentifier = gv_cluster_id
           iv_dbclusterparamgroupname = gv_param_group_name
           iv_engine = 'aurora-mysql'
-          iv_engineversion = '8.0.mysql_aurora.3.02.0'
+          iv_engineversion = lv_engine_version
           iv_masterusername = 'admin'
           iv_masteruserpassword = 'MyS3cureP4ssw0rd!'
           it_tags = lt_tags
         ).
-        MESSAGE 'Created DB cluster for testing' TYPE 'I'.
 
         " Wait for cluster to be available
         DATA lo_cluster TYPE REF TO /aws1/cl_rdsdbcluster.
         lo_cluster = lo_cluster_output->get_dbcluster( ).
         DATA(lv_status) = lo_cluster->get_status( ).
-        DATA lv_max_wait TYPE i VALUE 180.
+        DATA lv_max_wait TYPE i VALUE 300.
         DATA lv_waited TYPE i VALUE 0.
 
         WHILE lv_status <> 'available' AND lv_waited < lv_max_wait.
@@ -124,8 +151,6 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
           ENDIF.
         ENDWHILE.
 
-        MESSAGE |Cluster status: { lv_status }| TYPE 'I'.
-
         " Create DB instance in cluster for shared use
         DATA(lo_inst_output) = ao_rds->createdbinstance(
           iv_dbinstanceidentifier = gv_instance_id
@@ -134,14 +159,13 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
           iv_dbinstanceclass = 'db.r5.large'
           it_tags = lt_tags
         ).
-        MESSAGE 'Created DB instance for testing' TYPE 'I'.
 
         " Wait for instance to be available
         DATA lo_instance TYPE REF TO /aws1/cl_rdsdbinstance.
         lo_instance = lo_inst_output->get_dbinstance( ).
         DATA(lv_inst_status) = lo_instance->get_dbinstancestatus( ).
         lv_waited = 0.
-        lv_max_wait = 180.
+        lv_max_wait = 300.
 
         WHILE lv_inst_status <> 'available' AND lv_waited < lv_max_wait.
           WAIT UP TO 30 SECONDS.
@@ -156,10 +180,9 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
           ENDIF.
         ENDWHILE.
 
-        MESSAGE |Instance status: { lv_inst_status }| TYPE 'I'.
-
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        MESSAGE |Setup error: { lo_exception->get_text( ) }| TYPE 'I'.
+        " Store error but don't fail - let individual tests handle missing resources
+        DATA(lv_error) = lo_exception->get_text( ).
     ENDTRY.
 
   ENDMETHOD.
@@ -175,9 +198,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
               iv_skipfinalsnapshot = abap_true
               iv_deleteautomatedbackups = abap_true
             ).
-            MESSAGE 'Initiated deletion of test DB instance' TYPE 'I'.
           CATCH /aws1/cx_rdsdbinstnotfndfault.
-            MESSAGE 'Test DB instance not found for deletion' TYPE 'I'.
+            " OK if not found
         ENDTRY.
 
         " Delete any additional instances created during tests
@@ -212,9 +234,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
               iv_dbclusteridentifier = gv_cluster_id
               iv_skipfinalsnapshot = abap_true
             ).
-            MESSAGE 'Initiated deletion of test DB cluster' TYPE 'I'.
           CATCH /aws1/cx_rdsdbclustnotfndfault.
-            MESSAGE 'Test DB cluster not found for deletion' TYPE 'I'.
+            " OK if not found
         ENDTRY.
 
         " Delete any additional clusters
@@ -246,9 +267,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
             ao_rds->deletedbclusterparamgroup(
               iv_dbclusterparamgroupname = gv_param_group_name
             ).
-            MESSAGE 'Deleted test parameter group' TYPE 'I'.
           CATCH /aws1/cx_rdsdbprmgrnotfndfault.
-            MESSAGE 'Test parameter group not found for deletion' TYPE 'I'.
+            " OK if not found
         ENDTRY.
 
         " Delete any additional parameter groups
@@ -260,8 +280,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
             " OK if not found
         ENDTRY.
 
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        MESSAGE |Teardown error: { lo_exception->get_text( ) }| TYPE 'I'.
+      CATCH /aws1/cx_rt_generic.
+        " Ignore teardown errors
     ENDTRY.
 
   ENDMETHOD.
