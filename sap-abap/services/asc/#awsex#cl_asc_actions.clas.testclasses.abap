@@ -11,10 +11,12 @@ CLASS ltc_awsex_cl_asc_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA ao_asc TYPE REF TO /aws1/if_asc.
     CLASS-DATA ao_ec2 TYPE REF TO /aws1/if_ec2.
+    CLASS-DATA ao_ssm TYPE REF TO /aws1/if_ssm.
     CLASS-DATA ao_asc_actions TYPE REF TO /awsex/cl_asc_actions.
     CLASS-DATA av_group_name TYPE /aws1/ascxmlstringmaxlen255.
     CLASS-DATA av_launch_template_name TYPE /aws1/asclaunchtemplatename.
     CLASS-DATA av_launch_template_id TYPE /aws1/ascxmlstringmaxlen255.
+    CLASS-DATA av_ami_id TYPE /aws1/ec2_string.
 
     METHODS: create_and_describe_group FOR TESTING RAISING /aws1/cx_rt_generic,
       update_group FOR TESTING RAISING /aws1/cx_rt_generic,
@@ -26,9 +28,31 @@ CLASS ltc_awsex_cl_asc_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
+    CLASS-METHODS get_latest_ami_id RETURNING VALUE(rv_ami_id) TYPE /aws1/ec2_string RAISING /aws1/cx_rt_generic.
 ENDCLASS.
 
 CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
+
+  METHOD get_latest_ami_id.
+    " Get the latest Amazon Linux 2023 AMI from SSM Parameter Store
+    TRY.
+        DATA(lo_result) = ao_ssm->getparameter(
+          iv_name = '/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64' ).
+        rv_ami_id = lo_result->get_parameter( )->get_value( ).
+      CATCH /aws1/cx_rt_generic.
+        " Fallback AMIs for common regions
+        CASE ao_session->get_region( ).
+          WHEN 'us-west-2'.
+            rv_ami_id = 'ami-0a38c1c38a15fed74'.  " Amazon Linux 2023 us-west-2
+          WHEN 'us-east-1'.
+            rv_ami_id = 'ami-0aa7d40eeae50c9a9'.  " Amazon Linux 2023 us-east-1
+          WHEN 'eu-west-1'.
+            rv_ami_id = 'ami-0d940f23d527c3ab1'.  " Amazon Linux 2023 eu-west-1
+          WHEN OTHERS.
+            rv_ami_id = 'ami-0a38c1c38a15fed74'.  " Default to us-west-2
+        ENDCASE.
+    ENDTRY.
+  ENDMETHOD.
 
   METHOD class_setup.
     DATA lv_uuid TYPE string.
@@ -42,7 +66,11 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_asc = /aws1/cl_asc_factory=>create( ao_session ).
     ao_ec2 = /aws1/cl_ec2_factory=>create( ao_session ).
+    ao_ssm = /aws1/cl_ssm_factory=>create( ao_session ).
     ao_asc_actions = NEW /awsex/cl_asc_actions( ao_session ).
+
+    " Get region-appropriate AMI
+    av_ami_id = get_latest_ami_id( ).
 
     " Generate unique names
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
@@ -61,7 +89,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     APPEND lo_tag_spec TO lt_tag_specs.
 
     lo_template_data = NEW /aws1/cl_ec2reqlaunchtmpldata(
-      iv_imageid = 'ami-0aa28dab1f2852040'
+      iv_imageid = av_ami_id
       iv_instancetype = 't2.micro'
       it_tagspecifications = lt_tag_specs ).
 
@@ -71,6 +99,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
           io_launchtemplatedata = lo_template_data ).
         av_launch_template_id = lo_create_result->get_launchtemplate( )->get_launchtemplateid( ).
       CATCH /aws1/cx_rt_generic.
+        " Ignore if exists
     ENDTRY.
   ENDMETHOD.
 
@@ -144,7 +173,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
       APPEND lo_zone TO lt_zones.
     ENDIF.
 
-    " Create group
+    " Create group with min=0 to avoid launching instances
     ao_asc_actions->create_group(
       iv_group_name = av_group_name
       it_group_zones = lt_zones
@@ -215,7 +244,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     " Get activities
     DATA(lt_activities) = ao_asc_actions->describe_scaling_activities( av_group_name ).
 
-    " Should have activities
+    " Should have activities from group creation
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_activities
       msg = |No activities found| ).
@@ -279,6 +308,8 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     DATA lt_instances TYPE /aws1/cl_ascinstance=>tt_instances.
     DATA lo_instance TYPE REF TO /aws1/cl_ascinstance.
     DATA lo_activity TYPE REF TO /aws1/cl_ascactivity.
+    DATA lt_group_names TYPE /aws1/cl_ascautoscgroupnames_w=>tt_autoscalinggroupnames.
+    DATA lo_group_name TYPE REF TO /aws1/cl_ascautoscgroupnames_w.
 
     " Create temp resources
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
@@ -293,7 +324,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
       it_tags = lt_tags ).
     APPEND lo_tag_spec TO lt_tag_specs.
     lo_template_data = NEW /aws1/cl_ec2reqlaunchtmpldata(
-      iv_imageid = 'ami-0aa28dab1f2852040'
+      iv_imageid = av_ami_id
       iv_instancetype = 't2.micro'
       it_tagspecifications = lt_tag_specs ).
 
@@ -328,7 +359,15 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
         WAIT UP TO 10 SECONDS.
 
         " Get instances
-        lt_instances = ao_asc_actions->get_group_instances( lv_test_group ).
+        CREATE OBJECT lo_group_name EXPORTING iv_value = lv_test_group.
+        APPEND lo_group_name TO lt_group_names.
+        DATA(lo_output) = ao_asc->describeautoscalinggroups(
+          it_autoscalinggroupnames = lt_group_names ).
+        DATA(lt_groups) = lo_output->get_autoscalinggroups( ).
+        IF lines( lt_groups ) > 0.
+          READ TABLE lt_groups INDEX 1 INTO DATA(lo_group).
+          lt_instances = lo_group->get_instances( ).
+        ENDIF.
 
         " Terminate if exists
         IF lines( lt_instances ) > 0.
