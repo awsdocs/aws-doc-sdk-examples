@@ -16,7 +16,8 @@ CLASS /awsex/cl_asc_actions DEFINITION
     METHODS create_group
       IMPORTING
         !iv_group_name           TYPE /aws1/ascxmlstringmaxlen255
-        !it_group_zones          TYPE /aws1/cl_ascazs_w=>tt_availabilityzones
+        !it_group_zones          TYPE /aws1/cl_ascazs_w=>tt_availabilityzones OPTIONAL
+        !iv_vpc_zone_identifier  TYPE /aws1/ascxmlstringmaxlen2047 OPTIONAL
         !iv_launch_template_name TYPE /aws1/asclaunchtemplatename
         !iv_min_size             TYPE /aws1/ascautoscgroupminsize
         !iv_max_size             TYPE /aws1/ascautoscgroupmaxsize
@@ -133,6 +134,7 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
     " Example: iv_launch_template_name = 'my-launch-template'
     " Example: iv_min_size = 1
     " Example: iv_max_size = 3
+    " Example: iv_vpc_zone_identifier = 'subnet-12345,subnet-67890' (for VPC)
     
     TRY.
         " Create launch template specification
@@ -141,9 +143,11 @@ CLASS /AWSEX/CL_ASC_ACTIONS IMPLEMENTATION.
           iv_version = '$Default' ).
 
         " Create the Auto Scaling group
+        " Use VPCZoneIdentifier for VPC subnets, or AvailabilityZones for EC2-Classic
         ao_asc->createautoscalinggroup(
           iv_autoscalinggroupname = iv_group_name
           it_availabilityzones = it_group_zones
+          iv_vpczoneidentifier = iv_vpc_zone_identifier
           io_launchtemplate = lo_launch_template
           iv_minsize = iv_min_size
           iv_maxsize = iv_max_size ).
