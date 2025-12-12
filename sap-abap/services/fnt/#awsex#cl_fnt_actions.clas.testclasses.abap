@@ -284,10 +284,8 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
 
           IF lv_elapsed_seconds > lv_max_wait_seconds.
             " Timeout - distribution is taking too long to deploy "
-            RAISE EXCEPTION TYPE /aws1/cx_rt_generic
-              EXPORTING
-                av_err_code = 'TIMEOUT'
-                av_err_msg  = 'Distribution deployment timeout after 30 minutes'.
+            " Exit and let caller handle the timeout scenario "
+            EXIT.
           ENDIF.
 
           " Wait 60 seconds before checking again "
