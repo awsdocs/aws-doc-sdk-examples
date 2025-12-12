@@ -54,53 +54,62 @@ ENDCLASS.
 CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
 
   METHOD class_setup.
+    DATA lv_uuid TYPE string.
+    DATA lt_tags TYPE /aws1/cl_ec2tag=>tt_taglist.
+    DATA lo_tag TYPE REF TO /aws1/cl_ec2tag.
+    DATA lo_tag_spec TYPE REF TO /aws1/cl_ec2launchtmpltgspec00.
+    DATA lt_tag_specs TYPE /aws1/cl_ec2launchtmpltgspec00=>tt_launchtmpltagspecreqlist.
+    DATA lo_template_data TYPE REF TO /aws1/cl_ec2reqlaunchtmpldata.
+    DATA lo_create_result TYPE REF TO /aws1/cl_ec2crelaunchtmplrslt.
+    DATA lo_ex TYPE REF TO /aws1/cx_rt_generic.
+    DATA lt_names TYPE /aws1/cl_ec2launchtmplnamest00=>tt_launchtmplnamestringlist.
+    DATA lo_name TYPE REF TO /aws1/cl_ec2launchtmplnamest00.
+    DATA lo_describe TYPE REF TO /aws1/cl_ec2dsclaunchtmplsrs.
+    DATA lt_templates TYPE /aws1/cl_ec2launchtemplate=>tt_launchtemplates.
+    DATA lo_template TYPE REF TO /aws1/cl_ec2launchtemplate.
+
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_asc = /aws1/cl_asc_factory=>create( ao_session ).
     ao_ec2 = /aws1/cl_ec2_factory=>create( ao_session ).
     ao_asc_actions = NEW /awsex/cl_asc_actions( ao_session ).
 
     " Generate unique names using utility function
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
     av_group_name = |asc-test-group-{ lv_uuid }|.
     av_launch_template_name = |asc-test-tmpl-{ lv_uuid }|.
 
     " Create a launch template for testing
-    DATA lt_tags TYPE /aws1/cl_ec2tag=>tt_taglist.
-    DATA lo_tag TYPE REF TO /aws1/cl_ec2tag.
     lo_tag = NEW /aws1/cl_ec2tag(
       iv_key = 'convert_test'
       iv_value = 'true' ).
     APPEND lo_tag TO lt_tags.
 
-    DATA(lo_tag_spec) = NEW /aws1/cl_ec2launchtmpltgspec00(
+    lo_tag_spec = NEW /aws1/cl_ec2launchtmpltgspec00(
       iv_resourcetype = 'instance'
       it_tags = lt_tags ).
-    DATA lt_tag_specs TYPE /aws1/cl_ec2launchtmpltgspec00=>tt_launchtmpltagspecreqlist.
     APPEND lo_tag_spec TO lt_tag_specs.
 
     " Use Amazon Linux 2023 AMI (this is a commonly available AMI)
-    DATA(lo_template_data) = NEW /aws1/cl_ec2reqlaunchtmpldata(
+    lo_template_data = NEW /aws1/cl_ec2reqlaunchtmpldata(
       iv_imageid = 'ami-0aa28dab1f2852040'  " Amazon Linux 2023 in us-east-1
       iv_instancetype = 't2.micro'
       it_tagspecifications = lt_tag_specs ).
 
     TRY.
-        DATA(lo_create_result) = ao_ec2->createlaunchtemplate(
+        lo_create_result = ao_ec2->createlaunchtemplate(
           iv_launchtemplatename = av_launch_template_name
           io_launchtemplatedata = lo_template_data ).
         av_launch_template_id = lo_create_result->get_launchtemplate( )->get_launchtemplateid( ).
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+      CATCH /aws1/cx_rt_generic INTO lo_ex.
         " If template already exists, try to retrieve it
         TRY.
-            DATA lt_names TYPE /aws1/cl_ec2launchtmplnamest00=>tt_launchtmplnamestringlist.
-            DATA lo_name TYPE REF TO /aws1/cl_ec2launchtmplnamest00.
             CREATE OBJECT lo_name EXPORTING iv_value = av_launch_template_name.
             APPEND lo_name TO lt_names.
-            DATA(lo_describe) = ao_ec2->describelaunchtemplates(
+            lo_describe = ao_ec2->describelaunchtemplates(
               it_launchtemplatenames = lt_names ).
-            DATA(lt_templates) = lo_describe->get_launchtemplates( ).
+            lt_templates = lo_describe->get_launchtemplates( ).
             IF lines( lt_templates ) > 0.
-              READ TABLE lt_templates INDEX 1 INTO DATA(lo_template).
+              READ TABLE lt_templates INDEX 1 INTO lo_template.
               av_launch_template_id = lo_template->get_launchtemplateid( ).
             ENDIF.
           CATCH /aws1/cx_rt_generic.
@@ -110,6 +119,14 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD class_teardown.
+    DATA lt_instances TYPE /aws1/cl_ascinstance=>tt_instances.
+    DATA lo_instance TYPE REF TO /aws1/cl_ascinstance.
+    DATA lt_group_names TYPE /aws1/cl_ascautoscgroupnames_w=>tt_autoscalinggroupnames.
+    DATA lo_group_name TYPE REF TO /aws1/cl_ascautoscgroupnames_w.
+    DATA lo_output TYPE REF TO /aws1/cl_ascautoscgroupstype.
+    DATA lt_groups TYPE /aws1/cl_ascautoscalinggroup=>tt_autoscalinggroups.
+    DATA lo_group TYPE REF TO /aws1/cl_ascautoscalinggroup.
+
     " Clean up Auto Scaling group
     IF av_group_name IS NOT INITIAL.
       TRY.
@@ -119,10 +136,18 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
             iv_minsize = 0 ).
 
           " Get all instances in the group
-          DATA(lt_instances) = get_group_instances( av_group_name ).
+          CREATE OBJECT lo_group_name EXPORTING iv_value = av_group_name.
+          APPEND lo_group_name TO lt_group_names.
+          lo_output = ao_asc->describeautoscalinggroups(
+            it_autoscalinggroupnames = lt_group_names ).
+          lt_groups = lo_output->get_autoscalinggroups( ).
+          IF lines( lt_groups ) > 0.
+            READ TABLE lt_groups INDEX 1 INTO lo_group.
+            lt_instances = lo_group->get_instances( ).
+          ENDIF.
 
           " Terminate all instances
-          LOOP AT lt_instances INTO DATA(lo_instance).
+          LOOP AT lt_instances INTO lo_instance.
             TRY.
                 ao_asc->terminateinstinautoscgroup(
                   iv_instanceid = lo_instance->get_instanceid( )
