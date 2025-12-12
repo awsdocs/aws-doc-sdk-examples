@@ -119,7 +119,7 @@ CLASS /awsex/cl_rds_actions DEFINITION
         !iv_db_engine               TYPE /aws1/rdsstring
         !iv_db_engine_version       TYPE /aws1/rdsstring
       RETURNING
-        VALUE(ot_inst_opts)         TYPE /aws1/cl_rdsorderabledbinsto01=>tt_orderabledbinstooptlist
+        VALUE(ot_inst_opts)         TYPE /aws1/cl_rdsorderabledbinsto01=>tt_orderabledbinstoptionslist
       RAISING
         /aws1/cx_rt_generic.
 
@@ -481,7 +481,7 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
         " iv_db_engine = 'aurora-mysql'
         " iv_db_engine_version = '8.0.mysql_aurora.3.02.0'
         DATA lv_marker TYPE /aws1/rdsstring VALUE ''.
-        DATA lt_all_options TYPE /aws1/cl_rdsorderabledbinsto01=>tt_orderabledbinstooptlist.
+        DATA lt_all_options TYPE /aws1/cl_rdsorderabledbinsto01=>tt_orderabledbinstoptionslist.
 
         DO.
           DATA(lo_output) = lo_rds->descrorderabledbinstoptions(
