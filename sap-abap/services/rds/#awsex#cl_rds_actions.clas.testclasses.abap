@@ -6,20 +6,20 @@ CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
-    DATA ao_rds TYPE REF TO /aws1/if_rds.
-    DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
-    DATA ao_rds_actions TYPE REF TO /awsex/cl_rds_actions.
-    DATA gv_uuid TYPE string.
-    DATA gv_param_group_name TYPE /aws1/rdsstring.
-    DATA gv_cluster_id TYPE /aws1/rdsstring.
-    DATA gv_instance_id TYPE /aws1/rdsstring.
-    DATA gv_snapshot_id TYPE /aws1/rdsstring.
-    DATA gv_param_group_name_2 TYPE /aws1/rdsstring.
-    DATA gv_cluster_id_2 TYPE /aws1/rdsstring.
-    DATA gv_instance_id_2 TYPE /aws1/rdsstring.
+    CLASS-DATA ao_rds TYPE REF TO /aws1/if_rds.
+    CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
+    CLASS-DATA ao_rds_actions TYPE REF TO /awsex/cl_rds_actions.
+    CLASS-DATA gv_uuid TYPE string.
+    CLASS-DATA gv_param_group_name TYPE /aws1/rdsstring.
+    CLASS-DATA gv_cluster_id TYPE /aws1/rdsstring.
+    CLASS-DATA gv_instance_id TYPE /aws1/rdsstring.
+    CLASS-DATA gv_snapshot_id TYPE /aws1/rdsstring.
+    CLASS-DATA gv_param_group_name_2 TYPE /aws1/rdsstring.
+    CLASS-DATA gv_cluster_id_2 TYPE /aws1/rdsstring.
+    CLASS-DATA gv_instance_id_2 TYPE /aws1/rdsstring.
 
-    METHODS class_setup RAISING /aws1/cx_rt_generic.
-    METHODS class_teardown RAISING /aws1/cx_rt_generic.
+    CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
+    CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
     METHODS create_parameter_group FOR TESTING.
     METHODS get_parameter_group FOR TESTING.
     METHODS get_parameters FOR TESTING.
