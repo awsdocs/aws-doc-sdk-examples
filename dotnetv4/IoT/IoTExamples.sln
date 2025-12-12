@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoTActions", "Actions\IoTActions.csproj", "{A8F2F404-F1A3-4C0C-9478-2D99B95F0001}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoTBasics", "Scenarios\IoTBasics.csproj", "{A8F2F404-F1A3-4C0C-9478-2D99B95F0002}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoTTests", "Tests\IoTTests.csproj", "{A8F2F404-F1A3-4C0C-9478-2D99B95F0003}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8F2F404-F1A3-4C0C-9478-2D99B95F0001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8F2F404-F1A3-4C0C-9478-2D99B95F0001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8F2F404-F1A3-4C0C-9478-2D99B95F0001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8F2F404-F1A3-4C0C-9478-2D99B95F0001}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8F2F404-F1A3-4C0C-9478-2D99B95F0002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8F2F404-F1A3-4C0C-9478-2D99B95F0002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8F2F404-F1A3-4C0C-9478-2D99B95F0002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8F2F404-F1A3-4C0C-9478-2D99B95F0002}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8F2F404-F1A3-4C0C-9478-2D99B95F0003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8F2F404-F1A3-4C0C-9478-2D99B95F0003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8F2F404-F1A3-4C0C-9478-2D99B95F0003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8F2F404-F1A3-4C0C-9478-2D99B95F0003}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C73BCD70-F2E4-4A89-9E94-47E8C2B48A41}
+	EndGlobalSection
+EndGlobal

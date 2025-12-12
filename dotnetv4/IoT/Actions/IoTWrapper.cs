@@ -1,0 +1,682 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+using Amazon.IoT;
+using Amazon.IoT.Model;
+using Amazon.IotData;
+using Amazon.IotData.Model;
+using Microsoft.Extensions.Logging;
+
+namespace IoTActions;
+
+// snippet-start:[iot.dotnetv4.IoTWrapper]
+/// <summary>
+/// Wrapper methods to use Amazon IoT Core with .NET.
+/// </summary>
+public class IoTWrapper
+{
+    private readonly IAmazonIoT _amazonIoT;
+    private readonly IAmazonIotData _amazonIotData;
+    private readonly ILogger<IoTWrapper> _logger;
+
+    /// <summary>
+    /// Constructor for the IoT wrapper.
+    /// </summary>
+    /// <param name="amazonIoT">The injected IoT client.</param>
+    /// <param name="amazonIotData">The injected IoT Data client.</param>
+    /// <param name="logger">The injected logger.</param>
+    public IoTWrapper(IAmazonIoT amazonIoT, IAmazonIotData amazonIotData, ILogger<IoTWrapper> logger)
+    {
+        _amazonIoT = amazonIoT;
+        _amazonIotData = amazonIotData;
+        _logger = logger;
+    }
+
+    // snippet-start:[iot.dotnetv4.CreateThing]
+    /// <summary>
+    /// Creates an AWS IoT Thing.
+    /// </summary>
+    /// <param name="thingName">The name of the Thing to create.</param>
+    /// <returns>The ARN of the Thing created, or null if creation failed.</returns>
+    public async Task<string?> CreateThingAsync(string thingName)
+    {
+        try
+        {
+            var request = new CreateThingRequest
+            {
+                ThingName = thingName
+            };
+
+            var response = await _amazonIoT.CreateThingAsync(request);
+            _logger.LogInformation($"Created Thing {thingName} with ARN {response.ThingArn}");
+            return response.ThingArn;
+        }
+        catch (Amazon.IoT.Model.ResourceAlreadyExistsException ex)
+        {
+            _logger.LogWarning($"Thing {thingName} already exists: {ex.Message}");
+            return null;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't create Thing {thingName}. Here's why: {ex.Message}");
+            return null;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.CreateThing]
+
+    // snippet-start:[iot.dotnetv4.CreateKeysAndCertificate]
+    /// <summary>
+    /// Creates a device certificate for AWS IoT.
+    /// </summary>
+    /// <returns>The certificate details including ARN and certificate PEM, or null if creation failed.</returns>
+    public async Task<(string CertificateArn, string CertificatePem, string CertificateId)?> CreateKeysAndCertificateAsync()
+    {
+        try
+        {
+            var request = new CreateKeysAndCertificateRequest
+            {
+                SetAsActive = true
+            };
+
+            var response = await _amazonIoT.CreateKeysAndCertificateAsync(request);
+            _logger.LogInformation($"Created certificate with ARN {response.CertificateArn}");
+            return (response.CertificateArn, response.CertificatePem, response.CertificateId);
+        }
+        catch (Amazon.IoT.Model.ThrottlingException ex)
+        {
+            _logger.LogWarning($"Request throttled, please try again later: {ex.Message}");
+            return null;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't create certificate. Here's why: {ex.Message}");
+            return null;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.CreateKeysAndCertificate]
+
+    // snippet-start:[iot.dotnetv4.AttachThingPrincipal]
+    /// <summary>
+    /// Attaches a certificate to an IoT Thing.
+    /// </summary>
+    /// <param name="thingName">The name of the Thing.</param>
+    /// <param name="certificateArn">The ARN of the certificate to attach.</param>
+    /// <returns>True if successful, false otherwise.</returns>
+    public async Task<bool> AttachThingPrincipalAsync(string thingName, string certificateArn)
+    {
+        try
+        {
+            var request = new AttachThingPrincipalRequest
+            {
+                ThingName = thingName,
+                Principal = certificateArn
+            };
+
+            await _amazonIoT.AttachThingPrincipalAsync(request);
+            _logger.LogInformation($"Attached certificate {certificateArn} to Thing {thingName}");
+            return true;
+        }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot attach certificate - resource not found: {ex.Message}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't attach certificate to Thing. Here's why: {ex.Message}");
+            return false;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.AttachThingPrincipal]
+
+    // snippet-start:[iot.dotnetv4.UpdateThing]
+    /// <summary>
+    /// Updates an IoT Thing with attributes.
+    /// </summary>
+    /// <param name="thingName">The name of the Thing to update.</param>
+    /// <param name="attributes">Dictionary of attributes to add.</param>
+    /// <returns>True if successful, false otherwise.</returns>
+    public async Task<bool> UpdateThingAsync(string thingName, Dictionary<string, string> attributes)
+    {
+        try
+        {
+            var request = new UpdateThingRequest
+            {
+                ThingName = thingName,
+                AttributePayload = new AttributePayload
+                {
+                    Attributes = attributes,
+                    Merge = true
+                }
+            };
+
+            await _amazonIoT.UpdateThingAsync(request);
+            _logger.LogInformation($"Updated Thing {thingName} with attributes");
+            return true;
+        }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot update Thing - resource not found: {ex.Message}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't update Thing attributes. Here's why: {ex.Message}");
+            return false;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.UpdateThing]
+
+    // snippet-start:[iot.dotnetv4.DescribeEndpoint]
+    /// <summary>
+    /// Gets the AWS IoT endpoint URL.
+    /// </summary>
+    /// <returns>The endpoint URL, or null if retrieval failed.</returns>
+    public async Task<string?> DescribeEndpointAsync()
+    {
+        try
+        {
+            var request = new DescribeEndpointRequest
+            {
+                EndpointType = "iot:Data-ATS"
+            };
+
+            var response = await _amazonIoT.DescribeEndpointAsync(request);
+            _logger.LogInformation($"Retrieved endpoint: {response.EndpointAddress}");
+            return response.EndpointAddress;
+        }
+        catch (Amazon.IoT.Model.ThrottlingException ex)
+        {
+            _logger.LogWarning($"Request throttled, please try again later: {ex.Message}");
+            return null;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't describe endpoint. Here's why: {ex.Message}");
+            return null;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.DescribeEndpoint]
+
+    // snippet-start:[iot.dotnetv4.ListCertificates]
+    /// <summary>
+    /// Lists all certificates associated with the account.
+    /// </summary>
+    /// <returns>List of certificate information, or empty list if listing failed.</returns>
+    public async Task<List<Certificate>> ListCertificatesAsync()
+    {
+        try
+        {
+            var request = new ListCertificatesRequest();
+            var response = await _amazonIoT.ListCertificatesAsync(request);
+
+            _logger.LogInformation($"Retrieved {response.Certificates.Count} certificates");
+            return response.Certificates;
+        }
+        catch (Amazon.IoT.Model.ThrottlingException ex)
+        {
+            _logger.LogWarning($"Request throttled, please try again later: {ex.Message}");
+            return new List<Certificate>();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't list certificates. Here's why: {ex.Message}");
+            return new List<Certificate>();
+        }
+    }
+    // snippet-end:[iot.dotnetv4.ListCertificates]
+
+    // snippet-start:[iot.dotnetv4.UpdateThingShadow]
+    /// <summary>
+    /// Updates the Thing's shadow with new state information.
+    /// </summary>
+    /// <param name="thingName">The name of the Thing.</param>
+    /// <param name="shadowPayload">The shadow payload in JSON format.</param>
+    /// <returns>True if successful, false otherwise.</returns>
+    public async Task<bool> UpdateThingShadowAsync(string thingName, string shadowPayload)
+    {
+        try
+        {
+            var request = new UpdateThingShadowRequest
+            {
+                ThingName = thingName,
+                Payload = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(shadowPayload))
+            };
+
+            await _amazonIotData.UpdateThingShadowAsync(request);
+            _logger.LogInformation($"Updated shadow for Thing {thingName}");
+            return true;
+        }
+        catch (Amazon.IotData.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot update Thing shadow - resource not found: {ex.Message}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't update Thing shadow. Here's why: {ex.Message}");
+            return false;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.UpdateThingShadow]
+
+    // snippet-start:[iot.dotnetv4.GetThingShadow]
+    /// <summary>
+    /// Gets the Thing's shadow information.
+    /// </summary>
+    /// <param name="thingName">The name of the Thing.</param>
+    /// <returns>The shadow data as a string, or null if retrieval failed.</returns>
+    public async Task<string?> GetThingShadowAsync(string thingName)
+    {
+        try
+        {
+            var request = new GetThingShadowRequest
+            {
+                ThingName = thingName
+            };
+
+            var response = await _amazonIotData.GetThingShadowAsync(request);
+            using var reader = new StreamReader(response.Payload);
+            var shadowData = await reader.ReadToEndAsync();
+
+            _logger.LogInformation($"Retrieved shadow for Thing {thingName}");
+            return shadowData;
+        }
+        catch (Amazon.IotData.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot get Thing shadow - resource not found: {ex.Message}");
+            return null;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't get Thing shadow. Here's why: {ex.Message}");
+            return null;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.GetThingShadow]
+
+    // snippet-start:[iot.dotnetv4.CreateTopicRule]
+    /// <summary>
+    /// Creates an IoT topic rule.
+    /// </summary>
+    /// <param name="ruleName">The name of the rule.</param>
+    /// <param name="snsTopicArn">The ARN of the SNS topic for the action.</param>
+    /// <param name="roleArn">The ARN of the IAM role.</param>
+    /// <returns>True if successful, false otherwise.</returns>
+    public async Task<bool> CreateTopicRuleAsync(string ruleName, string snsTopicArn, string roleArn)
+    {
+        try
+        {
+            var request = new CreateTopicRuleRequest
+            {
+                RuleName = ruleName,
+                TopicRulePayload = new TopicRulePayload
+                {
+                    Sql = "SELECT * FROM 'topic/subtopic'",
+                    Description = $"Rule created by .NET example: {ruleName}",
+                    Actions = new List<Amazon.IoT.Model.Action>
+                    {
+                        new Amazon.IoT.Model.Action
+                        {
+                            Sns = new SnsAction
+                            {
+                                TargetArn = snsTopicArn,
+                                RoleArn = roleArn
+                            }
+                        }
+                    },
+                    RuleDisabled = false
+                }
+            };
+
+            await _amazonIoT.CreateTopicRuleAsync(request);
+            _logger.LogInformation($"Created IoT rule {ruleName}");
+            return true;
+        }
+        catch (Amazon.IoT.Model.ResourceAlreadyExistsException ex)
+        {
+            _logger.LogWarning($"Rule {ruleName} already exists: {ex.Message}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't create topic rule. Here's why: {ex.Message}");
+            return false;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.CreateTopicRule]
+
+    // snippet-start:[iot.dotnetv4.DeleteTopicRule]
+    /// <summary>
+    /// Deletes an IoT topic rule.
+    /// </summary>
+    /// <param name="ruleName">The name of the rule.</param>
+    /// <returns>True if successful, false otherwise.</returns>
+    public async Task<bool> DeleteTopicRuleAsync(string ruleName)
+    {
+        try
+        {
+            var request = new DeleteTopicRuleRequest
+            {
+                RuleName = ruleName,
+            };
+
+            await _amazonIoT.DeleteTopicRuleAsync(request);
+            _logger.LogInformation($"Deleted IoT rule {ruleName}");
+            return true;
+        }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogWarning($"Rule {ruleName} not found: {ex.Message}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't delete topic rule. Here's why: {ex.Message}");
+            return false;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.DeleteTopicRule]
+
+    // snippet-start:[iot.dotnetv4.ListTopicRules]
+    /// <summary>
+    /// Lists all IoT topic rules.
+    /// </summary>
+    /// <returns>List of topic rules, or empty list if listing failed.</returns>
+    public async Task<List<TopicRuleListItem>> ListTopicRulesAsync()
+    {
+        try
+        {
+            var request = new ListTopicRulesRequest();
+            var response = await _amazonIoT.ListTopicRulesAsync(request);
+
+            _logger.LogInformation($"Retrieved {response.Rules.Count} IoT rules");
+            return response.Rules;
+        }
+        catch (Amazon.IoT.Model.ThrottlingException ex)
+        {
+            _logger.LogWarning($"Request throttled, please try again later: {ex.Message}");
+            return new List<TopicRuleListItem>();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't list topic rules. Here's why: {ex.Message}");
+            return new List<TopicRuleListItem>();
+        }
+    }
+    // snippet-end:[iot.dotnetv4.ListTopicRules]
+
+    // snippet-start:[iot.dotnetv4.SearchIndex]
+    /// <summary>
+    /// Searches for IoT Things using the search index.
+    /// </summary>
+    /// <param name="queryString">The search query string.</param>
+    /// <returns>List of Things that match the search criteria, or empty list if search failed.</returns>
+    public async Task<List<ThingDocument>> SearchIndexAsync(string queryString)
+    {
+        try
+        {
+            // First, try to perform the search
+            var request = new SearchIndexRequest
+            {
+                QueryString = queryString
+            };
+
+            var response = await _amazonIoT.SearchIndexAsync(request);
+            _logger.LogInformation($"Search found {response.Things.Count} Things");
+            return response.Things;
+        }
+        catch (Amazon.IoT.Model.IndexNotReadyException ex)
+        {
+            _logger.LogWarning($"Search index not ready, setting up indexing configuration: {ex.Message}");
+            return await SetupIndexAndRetrySearchAsync(queryString);
+        }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex) when (ex.Message.Contains("index") || ex.Message.Contains("Index"))
+        {
+            _logger.LogWarning($"Search index not configured, setting up indexing configuration: {ex.Message}");
+            return await SetupIndexAndRetrySearchAsync(queryString);
+        }
+        catch (Amazon.IoT.Model.ThrottlingException ex)
+        {
+            _logger.LogWarning($"Request throttled, please try again later: {ex.Message}");
+            return new List<ThingDocument>();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't search index. Here's why: {ex.Message}");
+            return new List<ThingDocument>();
+        }
+    }
+
+    /// <summary>
+    /// Sets up the indexing configuration and retries the search after waiting for the index to be ready.
+    /// </summary>
+    /// <param name="queryString">The search query string.</param>
+    /// <returns>List of Things that match the search criteria, or empty list if setup/search failed.</returns>
+    private async Task<List<ThingDocument>> SetupIndexAndRetrySearchAsync(string queryString)
+    {
+        try
+        {
+            // Update indexing configuration to REGISTRY mode
+            _logger.LogInformation("Setting up IoT search indexing configuration...");
+            await _amazonIoT.UpdateIndexingConfigurationAsync(
+                new UpdateIndexingConfigurationRequest()
+                {
+                    ThingIndexingConfiguration = new ThingIndexingConfiguration()
+                    {
+                        ThingIndexingMode = ThingIndexingMode.REGISTRY
+                    }
+                });
+
+            _logger.LogInformation("Indexing configuration updated. Waiting for index to be ready...");
+
+            // Wait for the index to be set up - this can take some time
+            const int maxRetries = 10;
+            const int retryDelaySeconds = 10;
+
+            for (int attempt = 1; attempt <= maxRetries; attempt++)
+            {
+                try
+                {
+                    _logger.LogInformation($"Waiting for index to be ready (attempt {attempt}/{maxRetries})...");
+                    await Task.Delay(TimeSpan.FromSeconds(retryDelaySeconds));
+
+                    // Try to get the current indexing configuration to see if it's ready
+                    var configResponse = await _amazonIoT.GetIndexingConfigurationAsync(new GetIndexingConfigurationRequest());
+                    if (configResponse.ThingIndexingConfiguration?.ThingIndexingMode == ThingIndexingMode.REGISTRY)
+                    {
+                        // Try the search again
+                        var request = new SearchIndexRequest
+                        {
+                            QueryString = queryString
+                        };
+
+                        var response = await _amazonIoT.SearchIndexAsync(request);
+                        _logger.LogInformation($"Search found {response.Things.Count} Things after index setup");
+                        return response.Things;
+                    }
+                }
+                catch (Amazon.IoT.Model.IndexNotReadyException)
+                {
+                    // Index still not ready, continue waiting
+                    _logger.LogInformation("Index still not ready, continuing to wait...");
+                    continue;
+                }
+                catch (Amazon.IoT.Model.InvalidRequestException ex) when (ex.Message.Contains("index") || ex.Message.Contains("Index"))
+                {
+                    // Index still not ready, continue waiting
+                    _logger.LogInformation("Index still not ready, continuing to wait...");
+                    continue;
+                }
+            }
+
+            _logger.LogWarning("Timeout waiting for search index to be ready after configuration update");
+            return new List<ThingDocument>();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't set up search index configuration. Here's why: {ex.Message}");
+            return new List<ThingDocument>();
+        }
+    }
+    // snippet-end:[iot.dotnetv4.SearchIndex]
+
+    // snippet-start:[iot.dotnetv4.DetachThingPrincipal]
+    /// <summary>
+    /// Detaches a certificate from an IoT Thing.
+    /// </summary>
+    /// <param name="thingName">The name of the Thing.</param>
+    /// <param name="certificateArn">The ARN of the certificate to detach.</param>
+    /// <returns>True if successful, false otherwise.</returns>
+    public async Task<bool> DetachThingPrincipalAsync(string thingName, string certificateArn)
+    {
+        try
+        {
+            var request = new DetachThingPrincipalRequest
+            {
+                ThingName = thingName,
+                Principal = certificateArn
+            };
+
+            await _amazonIoT.DetachThingPrincipalAsync(request);
+            _logger.LogInformation($"Detached certificate {certificateArn} from Thing {thingName}");
+            return true;
+        }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot detach certificate - resource not found: {ex.Message}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't detach certificate from Thing. Here's why: {ex.Message}");
+            return false;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.DetachThingPrincipal]
+
+    // snippet-start:[iot.dotnetv4.DeleteCertificate]
+    /// <summary>
+    /// Deletes an IoT certificate.
+    /// </summary>
+    /// <param name="certificateId">The ID of the certificate to delete.</param>
+    /// <returns>True if successful, false otherwise.</returns>
+    public async Task<bool> DeleteCertificateAsync(string certificateId)
+    {
+        try
+        {
+            // First, update the certificate to inactive state
+            var updateRequest = new UpdateCertificateRequest
+            {
+                CertificateId = certificateId,
+                NewStatus = CertificateStatus.INACTIVE
+            };
+            await _amazonIoT.UpdateCertificateAsync(updateRequest);
+
+            // Then delete the certificate
+            var deleteRequest = new DeleteCertificateRequest
+            {
+                CertificateId = certificateId
+            };
+
+            await _amazonIoT.DeleteCertificateAsync(deleteRequest);
+            _logger.LogInformation($"Deleted certificate {certificateId}");
+            return true;
+        }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot delete certificate - resource not found: {ex.Message}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't delete certificate. Here's why: {ex.Message}");
+            return false;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.DeleteCertificate]
+
+    // snippet-start:[iot.dotnetv4.DeleteThing]
+    /// <summary>
+    /// Deletes an IoT Thing.
+    /// </summary>
+    /// <param name="thingName">The name of the Thing to delete.</param>
+    /// <returns>True if successful, false otherwise.</returns>
+    public async Task<bool> DeleteThingAsync(string thingName)
+    {
+        try
+        {
+            var request = new DeleteThingRequest
+            {
+                ThingName = thingName
+            };
+
+            await _amazonIoT.DeleteThingAsync(request);
+            _logger.LogInformation($"Deleted Thing {thingName}");
+            return true;
+        }
+        catch (Amazon.IoT.Model.ResourceNotFoundException ex)
+        {
+            _logger.LogError($"Cannot delete Thing - resource not found: {ex.Message}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't delete Thing. Here's why: {ex.Message}");
+            return false;
+        }
+    }
+    // snippet-end:[iot.dotnetv4.DeleteThing]
+
+    // snippet-start:[iot.dotnetv4.ListThings]
+    /// <summary>
+    /// Lists IoT Things with pagination support.
+    /// </summary>
+    /// <returns>List of Things, or empty list if listing failed.</returns>
+    public async Task<List<ThingAttribute>> ListThingsAsync()
+    {
+        try
+        {
+            // Use pages of 10.
+            var request = new ListThingsRequest()
+            {
+                MaxResults = 10
+            };
+            var response = await _amazonIoT.ListThingsAsync(request);
+
+            // Since there is not a built-in paginator, use the NextMarker to paginate.
+            bool hasMoreResults = true;
+
+            var things = new List<ThingAttribute>();
+            while (hasMoreResults)
+            {
+                things.AddRange(response.Things);
+
+                // If NextMarker is not null, there are more results. Get the next page of results.
+                if (!String.IsNullOrEmpty(response.NextMarker))
+                {
+                    request.Marker = response.NextMarker;
+                    response = await _amazonIoT.ListThingsAsync(request);
+                }
+                else
+                    hasMoreResults = false;
+            }
+
+            _logger.LogInformation($"Retrieved {things.Count} Things");
+            return things;
+        }
+        catch (Amazon.IoT.Model.ThrottlingException ex)
+        {
+            _logger.LogWarning($"Request throttled, please try again later: {ex.Message}");
+            return new List<ThingAttribute>();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Couldn't list Things. Here's why: {ex.Message}");
+            return new List<ThingAttribute>();
+        }
+    }
+    // snippet-end:[iot.dotnetv4.ListThings]
+
+}
+// snippet-end:[iot.dotnetv4.IoTWrapper]

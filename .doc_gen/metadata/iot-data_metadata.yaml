@@ -1,6 +1,14 @@
 # zexi 0.4.0
 iot-data-plane_GetThingShadow:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.GetThingShadow
     Kotlin:
       versions:
         - sdk_version: 1
@@ -30,6 +38,14 @@ iot-data-plane_GetThingShadow:
     iot-data-plane: {GetThingShadow}
 iot-data-plane_UpdateThingShadow:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 4
+          github: dotnetv4/IoT
+          excerpts:
+            - description:
+              snippet_tags:
+                - iot.dotnetv4.UpdateThingShadow
     Kotlin:
       versions:
         - sdk_version: 1
