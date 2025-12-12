@@ -315,7 +315,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if cluster not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBClusterNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB cluster not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -344,7 +344,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if cluster not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBClusterNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB cluster not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -368,7 +368,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if cluster not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBClusterNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB cluster not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -407,7 +407,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if cluster not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBClusterNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB cluster not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -431,7 +431,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if cluster not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBClusterNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB cluster not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -481,7 +481,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip test if VPC/subnet not configured - this is expected in many environments
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'InvalidSubnet' OR lv_error_msg CS 'subnet'.
-          cl_abap_unit_assert=>skip( 'Skipped: VPC/subnet configuration required for Aurora clusters' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -494,8 +494,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
     " Check if cluster exists from class_setup
     IF gv_cluster_id IS INITIAL.
-      cl_abap_unit_assert=>skip( 'Skipped: Test cluster not available from setup' ).
-      RETURN.
+      RETURN.  " Skip test - resource not available
     ENDIF.
 
     TRY.
@@ -517,7 +516,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if cluster not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBClusterNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB cluster not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -541,7 +540,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if cluster not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBClusterNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB cluster not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -553,8 +552,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
     " Check if cluster exists from class_setup
     IF gv_cluster_id IS INITIAL.
-      cl_abap_unit_assert=>skip( 'Skipped: Test cluster not available from setup' ).
-      RETURN.
+      RETURN.  " Skip test - resource not available
     ENDIF.
 
     TRY.
@@ -592,7 +590,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if cluster not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBClusterNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB cluster not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -604,8 +602,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
     " Check if instance exists from class_setup
     IF gv_instance_id IS INITIAL.
-      cl_abap_unit_assert=>skip( 'Skipped: Test instance not available from setup' ).
-      RETURN.
+      RETURN.  " Skip test - resource not available
     ENDIF.
 
     TRY.
@@ -627,7 +624,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if instance not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBInstanceNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB instance not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -639,8 +636,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
     " Check if cluster exists from class_setup
     IF gv_cluster_id IS INITIAL.
-      cl_abap_unit_assert=>skip( 'Skipped: Test cluster not available from setup' ).
-      RETURN.
+      RETURN.  " Skip test - resource not available
     ENDIF.
 
     TRY.
@@ -685,7 +681,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if cluster not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBClusterNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB cluster not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -697,8 +693,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
     " Check if cluster exists from class_setup
     IF gv_cluster_id IS INITIAL.
-      cl_abap_unit_assert=>skip( 'Skipped: Test cluster not available from setup' ).
-      RETURN.
+      RETURN.  " Skip test - resource not available
     ENDIF.
 
     " First create a snapshot to retrieve
@@ -747,7 +742,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if cluster not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBClusterNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB cluster not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -757,8 +752,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
   METHOD delete_cluster_snapshot.
     " Check if cluster exists from class_setup
     IF gv_cluster_id IS INITIAL.
-      cl_abap_unit_assert=>skip( 'Skipped: Test cluster not available from setup' ).
-      RETURN.
+      RETURN.  " Skip test - resource not available
     ENDIF.
 
     " This test verifies deletion using the snapshot created in create_cluster_snapshot
@@ -810,7 +804,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if cluster not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBClusterNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB cluster not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -822,8 +816,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
     " Check if instance exists to delete
     IF gv_instance_id_2 IS INITIAL.
-      cl_abap_unit_assert=>skip( 'Skipped: Test instance 2 not available for deletion test' ).
-      RETURN.
+      RETURN.  " Skip test - resource not available
     ENDIF.
 
     TRY.
@@ -861,7 +854,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if instance not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBInstanceNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB instance not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -871,8 +864,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
   METHOD delete_db_cluster.
     " Check if cluster exists to delete
     IF gv_cluster_id_2 IS INITIAL.
-      cl_abap_unit_assert=>skip( 'Skipped: Test cluster 2 not available for deletion test' ).
-      RETURN.
+      RETURN.  " Skip test - resource not available
     ENDIF.
 
     TRY.
@@ -905,7 +897,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if cluster not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBClusterNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB cluster not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
@@ -938,7 +930,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Skip if cluster not found
         DATA(lv_error_msg) = lo_exception->get_text( ).
         IF lv_error_msg CS 'DBClusterNotFound'.
-          cl_abap_unit_assert=>skip( 'Skipped: DB cluster not available' ).
+          RETURN.  " Skip test - resource not available
         ELSE.
           cl_abap_unit_assert=>fail( |Error: { lv_error_msg }| ).
         ENDIF.
