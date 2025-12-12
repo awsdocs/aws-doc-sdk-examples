@@ -99,6 +99,7 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
           " Disable the distribution if it's currently enabled "
           IF lo_config->get_enabled( ) = abap_true.
             " Create a new config with enabled = false "
+            " Note: Only including parameters that are available in NetWeaver 7.4 version "
             DATA(lo_new_config) = NEW /aws1/cl_fntdistributionconfig(
               iv_callerreference = lo_config->get_callerreference( )
               io_aliases = lo_config->get_aliases( )
@@ -116,14 +117,7 @@ CLASS ltc_awsex_cl_fnt_actions IMPLEMENTATION.
               io_restrictions = lo_config->get_restrictions( )
               iv_webaclid = lo_config->get_webaclid( )
               iv_httpversion = lo_config->get_httpversion( )
-              iv_isipv6enabled = lo_config->get_isipv6enabled( )
-              iv_contdeploymentpolicyid = lo_config->get_contdeploymentpolicyid( )
-              iv_staging = lo_config->get_staging( )
-              iv_anycastiplistid = lo_config->get_anycastiplistid( )
-              io_tenantconfig = lo_config->get_tenantconfig( )
-              iv_connectionmode = lo_config->get_connectionmode( )
-              io_viewermtlsconfig = lo_config->get_viewermtlsconfig( )
-              io_connectionfunctionassoc = lo_config->get_connectionfunctionassoc( ) ).
+              iv_isipv6enabled = lo_config->get_isipv6enabled( ) ).
 
             ao_fnt->updatedistribution(
               io_distributionconfig = lo_new_config

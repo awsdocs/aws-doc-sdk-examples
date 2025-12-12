@@ -82,14 +82,7 @@ CLASS /AWSEX/CL_FNT_ACTIONS IMPLEMENTATION.
           io_restrictions = lo_old_config->get_restrictions( )
           iv_webaclid = lo_old_config->get_webaclid( )
           iv_httpversion = lo_old_config->get_httpversion( )
-          iv_isipv6enabled = lo_old_config->get_isipv6enabled( )
-          iv_contdeploymentpolicyid = lo_old_config->get_contdeploymentpolicyid( )
-          iv_staging = lo_old_config->get_staging( )
-          iv_anycastiplistid = lo_old_config->get_anycastiplistid( )
-          io_tenantconfig = lo_old_config->get_tenantconfig( )
-          iv_connectionmode = lo_old_config->get_connectionmode( )
-          io_viewermtlsconfig = lo_old_config->get_viewermtlsconfig( )
-          io_connectionfunctionassoc = lo_old_config->get_connectionfunctionassoc( ) ).
+          iv_isipv6enabled = lo_old_config->get_isipv6enabled( ) ).
 
         " Update the distribution with the modified configuration "
         lo_fnt->updatedistribution(
