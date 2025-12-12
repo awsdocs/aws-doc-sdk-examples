@@ -75,7 +75,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     DATA(lo_tag_spec) = NEW /aws1/cl_ec2launchtmpltagspec(
       iv_resourcetype = 'instance'
       it_tags = lt_tags ).
-    DATA lt_tag_specs TYPE /aws1/cl_ec2launchtmpltagspec=>tt_launchtemplatetagspecificationlist.
+    DATA lt_tag_specs TYPE /aws1/cl_ec2launchtmpltagspec=>tt_launchtemplatetagspeclist.
     APPEND lo_tag_spec TO lt_tag_specs.
 
     " Use Amazon Linux 2023 AMI (this is a commonly available AMI)
