@@ -38,7 +38,7 @@ CLASS ltc_awsex_cl_fnt_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     CLASS-METHODS tag_distribution
       IMPORTING
-                iv_distribution_arn TYPE /aws1/fntresourceid
+                iv_distribution_arn TYPE /aws1/fntresourcearn
       RAISING   /aws1/cx_rt_generic.
 
 ENDCLASS.
