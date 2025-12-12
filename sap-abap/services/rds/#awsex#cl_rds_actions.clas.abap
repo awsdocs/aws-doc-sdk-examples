@@ -163,9 +163,7 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
         IF lines( lt_param_groups ) > 0.
           oo_result = lt_param_groups[ 1 ].
         ENDIF.
-        MESSAGE 'Retrieved DB cluster parameter group.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbprmgrnotfndfault.
-        MESSAGE 'Parameter group does not exist.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.get_parameter_group]
   ENDMETHOD.
@@ -185,11 +183,12 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
           iv_description = iv_description
         ).
         oo_result = lo_output->get_dbclusterparametergroup( ).
-        MESSAGE 'Created DB cluster parameter group.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbparmgralrexfault.
-        MESSAGE 'DB parameter group already exists.' TYPE 'E'.
+        " Re-raise exception - parameter group already exists
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbparmgralrexfault.
       CATCH /aws1/cx_rdsdbprmgrquotaexcd00.
-        MESSAGE 'DB parameter group quota exceeded.' TYPE 'E'.
+        " Re-raise exception - quota exceeded
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbprmgrquotaexcd00.
     ENDTRY.
     " snippet-end:[rds.abapv1.create_parameter_group]
   ENDMETHOD.
@@ -206,11 +205,12 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
         lo_rds->deletedbclusterparamgroup(
           iv_dbclusterparamgroupname = iv_param_group_name
         ).
-        MESSAGE 'Deleted DB cluster parameter group.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbprmgrnotfndfault.
-        MESSAGE 'DB parameter group not found.' TYPE 'E'.
+        " Re-raise exception - parameter group not found
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbprmgrnotfndfault.
       CATCH /aws1/cx_rdsinvdbprmgrstatef00.
-        MESSAGE 'Invalid DB parameter group state.' TYPE 'E'.
+        " Re-raise exception - invalid state
+        RAISE EXCEPTION TYPE /aws1/cx_rdsinvdbprmgrstatef00.
     ENDTRY.
     " snippet-end:[rds.abapv1.delete_parameter_group]
   ENDMETHOD.
@@ -248,9 +248,9 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
         ENDDO.
 
         ot_parameters = lt_all_parameters.
-        MESSAGE 'Retrieved DB cluster parameters.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbprmgrnotfndfault.
-        MESSAGE 'DB parameter group not found.' TYPE 'E'.
+        " Re-raise exception - parameter group not found
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbprmgrnotfndfault.
     ENDTRY.
     " snippet-end:[rds.abapv1.get_parameters]
   ENDMETHOD.
@@ -268,11 +268,12 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
           iv_dbclusterparamgroupname = iv_param_group_name
           it_parameters = it_update_parameters
         ).
-        MESSAGE 'Updated DB cluster parameter group.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbprmgrnotfndfault.
-        MESSAGE 'DB parameter group not found.' TYPE 'E'.
+        " Re-raise exception - parameter group not found
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbprmgrnotfndfault.
       CATCH /aws1/cx_rdsinvdbprmgrstatef00.
-        MESSAGE 'Invalid DB parameter group state.' TYPE 'E'.
+        " Re-raise exception - invalid state
+        RAISE EXCEPTION TYPE /aws1/cx_rdsinvdbprmgrstatef00.
     ENDTRY.
     " snippet-end:[rds.abapv1.update_parameters]
   ENDMETHOD.
@@ -293,9 +294,7 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
         IF lines( lt_clusters ) > 0.
           oo_result = lt_clusters[ 1 ].
         ENDIF.
-        MESSAGE 'Retrieved DB cluster information.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbclustnotfndfault.
-        MESSAGE 'DB cluster not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.get_db_cluster]
   ENDMETHOD.
@@ -326,15 +325,18 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
           iv_masteruserpassword = iv_admin_password
         ).
         oo_result = lo_output->get_dbcluster( ).
-        MESSAGE 'Created DB cluster.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbclstalrexfault.
-        MESSAGE 'DB cluster already exists.' TYPE 'I'.
+        " Cluster already exists - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbclstalrexfault.
       CATCH /aws1/cx_rdsdbclstquotaexcdf00.
-        MESSAGE 'DB cluster quota exceeded.' TYPE 'E'.
+        " Quota exceeded - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbclstquotaexcdf00.
       CATCH /aws1/cx_rdsdbclstprmgrnotfn00.
-        MESSAGE 'DB cluster parameter group not found.' TYPE 'E'.
+        " Parameter group not found - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbclstprmgrnotfn00.
       CATCH /aws1/cx_rdsinsufficientstrg00.
-        MESSAGE 'Insufficient storage capacity.' TYPE 'E'.
+        " Insufficient storage - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsinsufficientstrg00.
     ENDTRY.
     " snippet-end:[rds.abapv1.create_db_cluster]
   ENDMETHOD.
@@ -352,11 +354,12 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
           iv_dbclusteridentifier = iv_cluster_name
           iv_skipfinalsnapshot = abap_true
         ).
-        MESSAGE 'Deleted DB cluster.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbclustnotfndfault.
-        MESSAGE 'DB cluster not found.' TYPE 'I'.
+        " Cluster not found - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbclustnotfndfault.
       CATCH /aws1/cx_rdsinvdbclststatefa00.
-        MESSAGE 'Invalid DB cluster state.' TYPE 'E'.
+        " Invalid state - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsinvdbclststatefa00.
     ENDTRY.
     " snippet-end:[rds.abapv1.delete_db_cluster]
   ENDMETHOD.
@@ -377,15 +380,18 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
           iv_dbclusteridentifier = iv_cluster_id
         ).
         oo_result = lo_output->get_dbclustersnapshot( ).
-        MESSAGE 'Created DB cluster snapshot.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbclustnotfndfault.
-        MESSAGE 'DB cluster not found.' TYPE 'E'.
+        " Cluster not found - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbclustnotfndfault.
       CATCH /aws1/cx_rdsdbclstsnapalrexf00.
-        MESSAGE 'DB cluster snapshot already exists.' TYPE 'I'.
+        " Snapshot already exists - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbclstsnapalrexf00.
       CATCH /aws1/cx_rdsinvdbclststatefa00.
-        MESSAGE 'Invalid DB cluster state.' TYPE 'E'.
+        " Invalid cluster state - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsinvdbclststatefa00.
       CATCH /aws1/cx_rdssnapquotaexcdfault.
-        MESSAGE 'Snapshot quota exceeded.' TYPE 'E'.
+        " Snapshot quota exceeded - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdssnapquotaexcdfault.
     ENDTRY.
     " snippet-end:[rds.abapv1.create_cluster_snapshot]
   ENDMETHOD.
@@ -406,9 +412,7 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
         IF lines( lt_snapshots ) > 0.
           oo_result = lt_snapshots[ 1 ].
         ENDIF.
-        MESSAGE 'Retrieved DB cluster snapshot.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbclstsnapnotfnd00.
-        MESSAGE 'DB cluster snapshot not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.get_cluster_snapshot]
   ENDMETHOD.
@@ -433,15 +437,18 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
           iv_dbinstanceclass = iv_instance_class
         ).
         oo_result = lo_output->get_dbinstance( ).
-        MESSAGE 'Created DB instance in cluster.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbinstalrdyexfault.
-        MESSAGE 'DB instance already exists.' TYPE 'I'.
+        " Instance already exists - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbinstalrdyexfault.
       CATCH /aws1/cx_rdsdbclustnotfndfault.
-        MESSAGE 'DB cluster not found.' TYPE 'E'.
+        " Cluster not found - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbclustnotfndfault.
       CATCH /aws1/cx_rdsinstquotaexcdfault.
-        MESSAGE 'DB instance quota exceeded.' TYPE 'E'.
+        " Quota exceeded - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsinstquotaexcdfault.
       CATCH /aws1/cx_rdsinsufficientdbin00.
-        MESSAGE 'Insufficient DB instance capacity.' TYPE 'E'.
+        " Insufficient capacity - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsinsufficientdbin00.
     ENDTRY.
     " snippet-end:[rds.abapv1.create_instance_in_cluster]
   ENDMETHOD.
@@ -462,9 +469,9 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
           iv_dbparametergroupfamily = iv_param_group_family
         ).
         ot_versions = lo_output->get_dbengineversions( ).
-        MESSAGE 'Retrieved DB engine versions.' TYPE 'I'.
       CATCH /aws1/cx_rt_generic.
-        MESSAGE 'Error retrieving DB engine versions.' TYPE 'E'.
+        " Re-raise exception
+        RAISE EXCEPTION TYPE /aws1/cx_rt_generic.
     ENDTRY.
     " snippet-end:[rds.abapv1.get_engine_versions]
   ENDMETHOD.
@@ -499,9 +506,9 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
         ENDDO.
 
         ot_inst_opts = lt_all_options.
-        MESSAGE 'Retrieved orderable DB instance options.' TYPE 'I'.
       CATCH /aws1/cx_rt_generic.
-        MESSAGE 'Error retrieving orderable DB instance options.' TYPE 'E'.
+        " Re-raise exception
+        RAISE EXCEPTION TYPE /aws1/cx_rt_generic.
     ENDTRY.
     " snippet-end:[rds.abapv1.get_orderable_instances]
   ENDMETHOD.
@@ -522,9 +529,7 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
         IF lines( lt_instances ) > 0.
           oo_result = lt_instances[ 1 ].
         ENDIF.
-        MESSAGE 'Retrieved DB instance information.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbinstnotfndfault.
-        MESSAGE 'DB instance not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.get_db_instance]
   ENDMETHOD.
@@ -544,11 +549,12 @@ CLASS /awsex/cl_rds_actions IMPLEMENTATION.
           iv_deleteautomatedbackups = abap_true
         ).
         oo_result = lo_output->get_dbinstance( ).
-        MESSAGE 'Deleted DB instance.' TYPE 'I'.
       CATCH /aws1/cx_rdsdbinstnotfndfault.
-        MESSAGE 'DB instance not found.' TYPE 'I'.
+        " Instance not found - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsdbinstnotfndfault.
       CATCH /aws1/cx_rdsinvdbinststatefa00.
-        MESSAGE 'Invalid DB instance state.' TYPE 'E'.
+        " Invalid state - re-raise
+        RAISE EXCEPTION TYPE /aws1/cx_rdsinvdbinststatefa00.
     ENDTRY.
     " snippet-end:[rds.abapv1.delete_db_instance]
   ENDMETHOD.
