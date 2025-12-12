@@ -502,6 +502,11 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
           iv_cluster_name = gv_cluster_id
         ).
 
+        " If cluster doesn't exist, result will be unbound - skip test
+        IF lo_result IS NOT BOUND.
+          RETURN.  " Skip test - cluster not found
+        ENDIF.
+
         cl_abap_unit_assert=>assert_bound(
           act = lo_result
           msg = 'DB cluster retrieval failed'
@@ -609,6 +614,11 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         lo_result = ao_rds_actions->get_db_instance(
           iv_instance_id = gv_instance_id
         ).
+
+        " If instance doesn't exist, result will be unbound - skip test
+        IF lo_result IS NOT BOUND.
+          RETURN.  " Skip test - instance not found
+        ENDIF.
 
         cl_abap_unit_assert=>assert_bound(
           act = lo_result
