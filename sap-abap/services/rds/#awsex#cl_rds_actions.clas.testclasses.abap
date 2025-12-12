@@ -111,7 +111,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
           ).
           DATA(lt_clusters) = lo_desc_output->get_dbclusters( ).
           IF lines( lt_clusters ) > 0.
-            lv_status = lt_clusters[ 1 ]->get_status( ).
+            DATA(lo_cluster_wa) = lt_clusters[ 1 ].
+            lv_status = lo_cluster_wa->get_status( ).
           ENDIF.
         ENDWHILE.
 
@@ -142,7 +143,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
           ).
           DATA(lt_instances) = lo_inst_desc->get_dbinstances( ).
           IF lines( lt_instances ) > 0.
-            lv_inst_status = lt_instances[ 1 ]->get_dbinstancestatus( ).
+            DATA(lo_instance_wa) = lt_instances[ 1 ].
+            lv_inst_status = lo_instance_wa->get_dbinstancestatus( ).
           ENDIF.
         ENDWHILE.
 
