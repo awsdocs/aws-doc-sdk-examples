@@ -60,15 +60,40 @@ CLASS /AWSEX/CL_FNT_ACTIONS IMPLEMENTATION.
     TRY.
         " Get the current distribution configuration and ETag "
         DATA(lo_distribution_config_result) = lo_fnt->getdistributionconfig( iv_id = iv_distribution_id ).
-        DATA(lo_distribution_config) = lo_distribution_config_result->get_distributionconfig( ).
+        DATA(lo_old_config) = lo_distribution_config_result->get_distributionconfig( ).
         DATA(lv_etag) = lo_distribution_config_result->get_etag( ).
 
-        " Update the comment field "
-        lo_distribution_config->set_comment( iv_comment ).
+        " Create a new distribution config with the updated comment "
+        " Since the config object is immutable, we need to create a new one with all existing values "
+        DATA(lo_new_config) = NEW /aws1/cl_fntdistributionconfig(
+          iv_callerreference = lo_old_config->get_callerreference( )
+          io_aliases = lo_old_config->get_aliases( )
+          iv_defaultrootobject = lo_old_config->get_defaultrootobject( )
+          io_origins = lo_old_config->get_origins( )
+          io_origingroups = lo_old_config->get_origingroups( )
+          io_defaultcachebehavior = lo_old_config->get_defaultcachebehavior( )
+          io_cachebehaviors = lo_old_config->get_cachebehaviors( )
+          io_customerrorresponses = lo_old_config->get_customerrorresponses( )
+          iv_comment = iv_comment
+          io_logging = lo_old_config->get_logging( )
+          iv_priceclass = lo_old_config->get_priceclass( )
+          iv_enabled = lo_old_config->get_enabled( )
+          io_viewercertificate = lo_old_config->get_viewercertificate( )
+          io_restrictions = lo_old_config->get_restrictions( )
+          iv_webaclid = lo_old_config->get_webaclid( )
+          iv_httpversion = lo_old_config->get_httpversion( )
+          iv_isipv6enabled = lo_old_config->get_isipv6enabled( )
+          iv_contdeploymentpolicyid = lo_old_config->get_contdeploymentpolicyid( )
+          iv_staging = lo_old_config->get_staging( )
+          iv_anycastiplistid = lo_old_config->get_anycastiplistid( )
+          io_tenantconfig = lo_old_config->get_tenantconfig( )
+          iv_connectionmode = lo_old_config->get_connectionmode( )
+          io_viewermtlsconfig = lo_old_config->get_viewermtlsconfig( )
+          io_connectionfunctionassoc = lo_old_config->get_connectionfunctionassoc( ) ).
 
         " Update the distribution with the modified configuration "
         lo_fnt->updatedistribution(
-          io_distributionconfig = lo_distribution_config
+          io_distributionconfig = lo_new_config
           iv_id = iv_distribution_id
           iv_ifmatch = lv_etag ).
         MESSAGE 'CloudFront distribution updated successfully.' TYPE 'I'.
