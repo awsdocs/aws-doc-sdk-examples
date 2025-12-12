@@ -17,6 +17,7 @@ CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA gv_param_group_name_2 TYPE /aws1/rdsstring.
     CLASS-DATA gv_cluster_id_2 TYPE /aws1/rdsstring.
     CLASS-DATA gv_instance_id_2 TYPE /aws1/rdsstring.
+    CLASS-DATA gv_engine_version TYPE /aws1/rdsstring.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
@@ -101,6 +102,9 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
           DATA(lo_first_version) = lt_versions[ 1 ].
           lv_engine_version = lo_first_version->get_engineversion( ).
         ENDIF.
+        
+        " Store engine version for use in tests
+        gv_engine_version = lv_engine_version.
 
         " Create parameter group for shared use
         DATA lv_param_family TYPE /aws1/rdsstring.
@@ -415,7 +419,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
           iv_param_group_name = gv_param_group_name
           iv_db_name = 'mydb2'
           iv_db_engine = 'aurora-mysql'
-          iv_db_engine_version = '8.0.mysql_aurora.3.02.0'
+          iv_db_engine_version = gv_engine_version
           iv_admin_name = 'admin'
           iv_admin_password = 'MyS3cureP4ssw0rd!'
         ).
@@ -451,6 +455,12 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
   METHOD get_db_cluster.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbcluster.
 
+    " Check if cluster exists from class_setup
+    IF gv_cluster_id IS INITIAL.
+      cl_abap_unit_assert=>fail( 'Test cluster not available from setup' ).
+      RETURN.
+    ENDIF.
+
     TRY.
         lo_result = ao_rds_actions->get_db_cluster(
           iv_cluster_name = gv_cluster_id
@@ -477,7 +487,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     TRY.
         lt_options = ao_rds_actions->get_orderable_instances(
           iv_db_engine = 'aurora-mysql'
-          iv_db_engine_version = '8.0.mysql_aurora.3.02.0'
+          iv_db_engine_version = gv_engine_version
         ).
 
         cl_abap_unit_assert=>assert_not_initial(
@@ -491,6 +501,12 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   METHOD create_instance_cluster.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbinstance.
+
+    " Check if cluster exists from class_setup
+    IF gv_cluster_id IS INITIAL.
+      cl_abap_unit_assert=>fail( 'Test cluster not available from setup' ).
+      RETURN.
+    ENDIF.
 
     TRY.
         lo_result = ao_rds_actions->create_instance_cluster(
@@ -531,6 +547,12 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
   METHOD get_db_instance.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbinstance.
 
+    " Check if instance exists from class_setup
+    IF gv_instance_id IS INITIAL.
+      cl_abap_unit_assert=>fail( 'Test instance not available from setup' ).
+      RETURN.
+    ENDIF.
+
     TRY.
         lo_result = ao_rds_actions->get_db_instance(
           iv_instance_id = gv_instance_id
@@ -553,6 +575,12 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   METHOD create_cluster_snapshot.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbclustersnapshot.
+
+    " Check if cluster exists from class_setup
+    IF gv_cluster_id IS INITIAL.
+      cl_abap_unit_assert=>fail( 'Test cluster not available from setup' ).
+      RETURN.
+    ENDIF.
 
     TRY.
         lo_result = ao_rds_actions->create_cluster_snapshot(
@@ -599,6 +627,12 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   METHOD get_cluster_snapshot.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbclustersnapshot.
+
+    " Check if cluster exists from class_setup
+    IF gv_cluster_id IS INITIAL.
+      cl_abap_unit_assert=>fail( 'Test cluster not available from setup' ).
+      RETURN.
+    ENDIF.
 
     " First create a snapshot to retrieve
     TRY.
@@ -648,6 +682,12 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD delete_cluster_snapshot.
+    " Check if cluster exists from class_setup
+    IF gv_cluster_id IS INITIAL.
+      cl_abap_unit_assert=>fail( 'Test cluster not available from setup' ).
+      RETURN.
+    ENDIF.
+
     " This test verifies deletion using the snapshot created in create_cluster_snapshot
     " Since create_cluster_snapshot already cleans up, this test creates its own snapshot
     TRY.
@@ -701,6 +741,12 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
   METHOD delete_db_instance.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbinstance.
 
+    " Check if instance exists to delete
+    IF gv_instance_id_2 IS INITIAL.
+      cl_abap_unit_assert=>fail( 'Test instance 2 not available for deletion test' ).
+      RETURN.
+    ENDIF.
+
     TRY.
         " Delete the second instance created in create_instance_cluster test
         lo_result = ao_rds_actions->delete_db_instance(
@@ -738,6 +784,12 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD delete_db_cluster.
+    " Check if cluster exists to delete
+    IF gv_cluster_id_2 IS INITIAL.
+      cl_abap_unit_assert=>fail( 'Test cluster 2 not available for deletion test' ).
+      RETURN.
+    ENDIF.
+
     TRY.
         " Delete the second cluster created in create_db_cluster test
         ao_rds_actions->delete_db_cluster(
