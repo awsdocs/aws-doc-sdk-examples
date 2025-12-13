@@ -19,7 +19,7 @@ CLASS ltc_awsex_cl_agw_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_root_id TYPE /aws1/agwstring.
     CLASS-DATA av_resource_id TYPE /aws1/agwstring.
     CLASS-DATA av_integration_resource_id TYPE /aws1/agwstring.
-    CLASS-DATA av_lmd_uuid TYPE sysuuid_c36.
+    CLASS-DATA av_lmd_uuid TYPE string.
     CLASS-DATA av_role_name TYPE /aws1/iamrolename.
     CLASS-DATA av_role_arn TYPE /aws1/iamarntype.
     CLASS-DATA av_table_name TYPE /aws1/dyntablename.
@@ -66,14 +66,13 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     av_account_id = ao_session->get_account_id( ).
 
     " Generate unique API name
-    TRY.
-        av_lmd_uuid = cl_system_uuid=>create_uuid_x16_static( ).
-      CATCH cx_uuid_error.
-        " Fallback
-        DATA lv_timestamp TYPE timestamp.
-        GET TIME STAMP FIELD lv_timestamp.
-        av_lmd_uuid = lv_timestamp.
-    ENDTRY.
+    DATA lv_timestamp TYPE timestamp.
+    DATA lv_random TYPE string.
+    GET TIME STAMP FIELD lv_timestamp.
+    
+    " Use timestamp and random string for uniqueness
+    lv_random = /awsex/cl_utils=>get_random_string( ).
+    av_lmd_uuid = |{ lv_timestamp }{ lv_random }|.
 
     DATA lv_uuid_string TYPE string.
     lv_uuid_string = av_lmd_uuid.
