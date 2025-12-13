@@ -85,6 +85,7 @@ This example shows you how to do the following:
 - List existing filters.
 - Check usage and costs.
 - Get coverage statistics.
+- Delete a filter.
 
 <!--custom.basic_prereqs.inspector_Scenario.start-->
 <!--custom.basic_prereqs.inspector_Scenario.end-->
