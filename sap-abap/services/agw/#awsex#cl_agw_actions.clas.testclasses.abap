@@ -35,7 +35,7 @@ CLASS ltc_awsex_cl_agw_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
 
-    METHODS get_root_resource_id
+    CLASS-METHODS get_root_resource_id
       IMPORTING
         iv_rest_api_id   TYPE /aws1/agwstring
       RETURNING
@@ -410,17 +410,21 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD delete_rest_api.
-    " Create a dedicated API for delete test
-    DATA(lv_delete_api_name) = |agwtestdelete{ av_lmd_uuid }|.
+    DATA lv_delete_api_name TYPE string.
     DATA lv_delete_api_id TYPE /aws1/agwstring.
+    DATA lo_api TYPE REF TO /aws1/cl_agwrestapi.
+    DATA lt_tags TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
+    DATA ls_tag TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
+    DATA lo_ex TYPE REF TO /aws1/cx_rt_generic.
+
+    " Create a dedicated API for delete test
+    lv_delete_api_name = |agwtestdelete{ av_lmd_uuid }|.
 
     TRY.
-        DATA(lo_api) = ao_agw->createrestapi( iv_name = lv_delete_api_name ).
+        lo_api = ao_agw->createrestapi( iv_name = lv_delete_api_name ).
         lv_delete_api_id = lo_api->get_id( ).
 
         " Tag the API
-        DATA lt_tags TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
-        DATA ls_tag TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
         ls_tag-key = 'convert_test'.
         ls_tag-value = NEW /aws1/cl_agwmapofstrtostr_w( iv_value = 'true' ).
         INSERT ls_tag INTO TABLE lt_tags.
@@ -436,7 +440,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail( msg = 'API should have been deleted' ).
       CATCH /aws1/cx_agwnotfoundexception.
         " Expected - API was deleted successfully
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+      CATCH /aws1/cx_rt_generic INTO lo_ex.
         cl_abap_unit_assert=>fail( msg = |Delete test failed: { lo_ex->get_text( ) }| ).
     ENDTRY.
   ENDMETHOD.
@@ -522,7 +526,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     DATA lv_max_attempts TYPE i VALUE 10.
     DATA lv_attempt TYPE i VALUE 0.
     DATA lv_table_active TYPE abap_bool VALUE abap_false.
-    DATA lo_table_desc TYPE REF TO /aws1/cl_dyndescrtblresponse.
+    DATA lo_table_desc TYPE REF TO /aws1/cl_dyndescrtableoutput.
     DATA lv_table_arn TYPE string.
     DATA lt_tags TYPE /aws1/cl_dyntag=>tt_taglist.
 
