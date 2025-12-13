@@ -81,12 +81,14 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
     " Create a primary REST API for testing
     TRY.
-        DATA(lo_api) = ao_agw->createrestapi( iv_name = av_api_name ).
+        DATA lo_api TYPE REF TO /aws1/cl_agwrestapi.
+        DATA lt_tags TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
+        DATA ls_tag TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
+        
+        lo_api = ao_agw->createrestapi( iv_name = av_api_name ).
         av_rest_api_id = lo_api->get_id( ).
         
         " Tag the API
-        DATA lt_tags TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
-        DATA ls_tag TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
         ls_tag-key = 'convert_test'.
         ls_tag-value = NEW /aws1/cl_agwmapofstrtostr_w( iv_value = 'true' ).
         INSERT ls_tag INTO TABLE lt_tags.
@@ -96,7 +98,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         
         " Get root resource ID
         av_root_id = get_root_resource_id( av_rest_api_id ).
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+      CATCH /aws1/cx_rt_generic.
         " If setup fails, tests will be skipped
     ENDTRY.
 
@@ -105,6 +107,16 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD class_teardown.
+    DATA lo_attached_policies TYPE REF TO /aws1/cl_iamlistattrolpol00.
+    DATA lo_policy TYPE REF TO /aws1/cl_iamattachedpolicy.
+    DATA lo_policy_names TYPE REF TO /aws1/cl_iamlistrolepolrsp.
+    DATA lo_policy_name TYPE REF TO /aws1/cl_iamplynamelisttype_w.
+    DATA lo_apis TYPE REF TO /aws1/cl_agwrestapis.
+    DATA lo_api TYPE REF TO /aws1/cl_agwrestapi.
+    DATA lv_api_name TYPE /aws1/agwstring.
+    DATA lv_api_id TYPE /aws1/agwstring.
+    DATA lv_tags TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
+
     " Clean up DynamoDB table first
     IF av_table_name IS NOT INITIAL.
       TRY.
@@ -122,16 +134,16 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     IF av_role_name IS NOT INITIAL.
       TRY.
           " Detach policies first
-          DATA(lo_attached_policies) = ao_iam->listattachedrolepolicies( iv_rolename = av_role_name ).
-          LOOP AT lo_attached_policies->get_attachedpolicies( ) INTO DATA(lo_policy).
+          lo_attached_policies = ao_iam->listattachedrolepolicies( iv_rolename = av_role_name ).
+          LOOP AT lo_attached_policies->get_attachedpolicies( ) INTO lo_policy.
             ao_iam->detachrolepolicy(
               iv_rolename = av_role_name
               iv_policyarn = lo_policy->get_policyarn( ) ).
           ENDLOOP.
           
           " Delete inline policies
-          DATA(lo_policy_names) = ao_iam->listrolepolicies( iv_rolename = av_role_name ).
-          LOOP AT lo_policy_names->get_policynames( ) INTO DATA(lo_policy_name).
+          lo_policy_names = ao_iam->listrolepolicies( iv_rolename = av_role_name ).
+          LOOP AT lo_policy_names->get_policynames( ) INTO lo_policy_name.
             ao_iam->deleterolepolicy(
               iv_rolename = av_role_name
               iv_policyname = lo_policy_name->get_value( ) ).
@@ -168,13 +180,13 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
     " Clean up any APIs matching our test pattern with convert_test tag
     TRY.
-        DATA(lo_apis) = ao_agw->getrestapis( ).
-        LOOP AT lo_apis->get_items( ) INTO DATA(lo_api).
-          DATA(lv_api_name) = lo_api->get_name( ).
+        lo_apis = ao_agw->getrestapis( ).
+        LOOP AT lo_apis->get_items( ) INTO lo_api.
+          lv_api_name = lo_api->get_name( ).
           IF lv_api_name CP 'agwtest*' OR lv_api_name CP 'agwintg*'.
             TRY.
-                DATA(lv_api_id) = lo_api->get_id( ).
-                DATA(lv_tags) = ao_agw->gettags( 
+                lv_api_id = lo_api->get_id( ).
+                lv_tags = ao_agw->gettags( 
                   iv_resourcearn = |arn:aws:apigateway:{ ao_session->get_region( ) }::/restapis/{ lv_api_id }| 
                 )->get_tags( ).
                 IF line_exists( lv_tags[ key = 'convert_test' ] ).
@@ -431,17 +443,19 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
   METHOD get_root_resource_id.
     DATA lo_resources TYPE REF TO /aws1/cl_agwresources.
+    DATA lo_resource TYPE REF TO /aws1/cl_agwresource.
+    DATA lo_ex TYPE REF TO /aws1/cx_rt_generic.
 
     TRY.
         lo_resources = ao_agw->getresources( iv_restapiid = iv_rest_api_id ).
 
-        LOOP AT lo_resources->get_items( ) INTO DATA(lo_resource).
+        LOOP AT lo_resources->get_items( ) INTO lo_resource.
           IF lo_resource->get_path( ) = '/'.
             rv_root_id = lo_resource->get_id( ).
             EXIT.
           ENDIF.
         ENDLOOP.
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+      CATCH /aws1/cx_rt_generic INTO lo_ex.
         cl_abap_unit_assert=>fail( msg = |Failed to get root resource: { lo_ex->get_text( ) }| ).
     ENDTRY.
 
@@ -451,8 +465,14 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD create_iam_role.
+    DATA lv_trust_policy TYPE string.
+    DATA lv_policy_doc TYPE string.
+    DATA lo_role TYPE REF TO /aws1/cl_iamcreateroleresponse.
+    DATA lt_tags TYPE /aws1/cl_iamtag=>tt_taglisttype.
+    DATA lo_existing_role TYPE REF TO /aws1/cl_iamgetroleresponse.
+
     " Create trust policy document for API Gateway
-    DATA(lv_trust_policy) = `{` &&
+    lv_trust_policy = `{` &&
       `"Version":"2012-10-17",` &&
       `"Statement":[{` &&
       `"Effect":"Allow",` &&
@@ -462,20 +482,20 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
     TRY.
         " Create the IAM role
-        DATA(lo_role) = ao_iam->createrole(
+        lo_role = ao_iam->createrole(
           iv_rolename = av_role_name
           iv_assumerolepolicydocument = lv_trust_policy ).
         av_role_arn = lo_role->get_role( )->get_arn( ).
 
         " Tag the role
-        DATA(lt_tags) = VALUE /aws1/cl_iamtag=>tt_taglisttype(
+        lt_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
           ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) ) ).
         ao_iam->tagrole(
           iv_rolename = av_role_name
           it_tags     = lt_tags ).
 
         " Create and attach policy for DynamoDB access
-        DATA(lv_policy_doc) = `{` &&
+        lv_policy_doc = `{` &&
           `"Version":"2012-10-17",` &&
           `"Statement":[{` &&
           `"Effect":"Allow",` &&
@@ -490,26 +510,36 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
       CATCH /aws1/cx_iamentityalrdyexex.
         " Role already exists, try to use it
-        DATA(lo_existing_role) = ao_iam->getrole( iv_rolename = av_role_name ).
+        lo_existing_role = ao_iam->getrole( iv_rolename = av_role_name ).
         av_role_arn = lo_existing_role->get_role( )->get_arn( ).
     ENDTRY.
   ENDMETHOD.
 
   METHOD create_dynamodb_table.
+    DATA lt_key_schema TYPE /aws1/cl_dynkeyschemaelement=>tt_keyschema.
+    DATA lt_attributes TYPE /aws1/cl_dynattributedefn=>tt_attributedefinitions.
+    DATA lo_throughput TYPE REF TO /aws1/cl_dynprovthroughput.
+    DATA lv_max_attempts TYPE i VALUE 10.
+    DATA lv_attempt TYPE i VALUE 0.
+    DATA lv_table_active TYPE abap_bool VALUE abap_false.
+    DATA lo_table_desc TYPE REF TO /aws1/cl_dyndescrtblresponse.
+    DATA lv_table_arn TYPE string.
+    DATA lt_tags TYPE /aws1/cl_dyntag=>tt_taglist.
+
     " Create key schema
-    DATA(lt_key_schema) = VALUE /aws1/cl_dynkeyschemaelement=>tt_keyschema(
+    lt_key_schema = VALUE /aws1/cl_dynkeyschemaelement=>tt_keyschema(
       ( NEW /aws1/cl_dynkeyschemaelement(
           iv_attributename = 'id'
           iv_keytype = 'HASH' ) ) ).
 
     " Create attribute definitions
-    DATA(lt_attributes) = VALUE /aws1/cl_dynattributedefn=>tt_attributedefinitions(
+    lt_attributes = VALUE /aws1/cl_dynattributedefn=>tt_attributedefinitions(
       ( NEW /aws1/cl_dynattributedefn(
           iv_attributename = 'id'
           iv_attributetype = 'S' ) ) ).
 
     " Create provisioned throughput
-    DATA(lo_throughput) = NEW /aws1/cl_dynprovthroughput(
+    lo_throughput = NEW /aws1/cl_dynprovthroughput(
       iv_readcapacityunits = 5
       iv_writecapacityunits = 5 ).
 
@@ -522,14 +552,10 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           io_provisionedthroughput = lo_throughput ).
 
         " Wait for table to become active before tagging
-        DATA lv_max_attempts TYPE i VALUE 10.
-        DATA lv_attempt TYPE i VALUE 0.
-        DATA lv_table_active TYPE abap_bool VALUE abap_false.
-
         WHILE lv_attempt < lv_max_attempts AND lv_table_active = abap_false.
           WAIT UP TO 3 SECONDS.
           TRY.
-              DATA(lo_table_desc) = ao_dyn->describetable( iv_tablename = av_table_name ).
+              lo_table_desc = ao_dyn->describetable( iv_tablename = av_table_name ).
               IF lo_table_desc->get_table( )->get_tablestatus( ) = 'ACTIVE'.
                 lv_table_active = abap_true.
               ENDIF.
@@ -541,8 +567,8 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
         " Tag the table after it's active
         IF lv_table_active = abap_true.
-          DATA(lv_table_arn) = |arn:aws:dynamodb:{ ao_session->get_region( ) }:{ av_account_id }:table/{ av_table_name }|.
-          DATA(lt_tags) = VALUE /aws1/cl_dyntag=>tt_taglist(
+          lv_table_arn = |arn:aws:dynamodb:{ ao_session->get_region( ) }:{ av_account_id }:table/{ av_table_name }|.
+          lt_tags = VALUE /aws1/cl_dyntag=>tt_taglist(
             ( NEW /aws1/cl_dyntag( iv_key = 'convert_test' iv_value = 'true' ) ) ).
           ao_dyn->tagresource(
             iv_resourcearn = lv_table_arn
