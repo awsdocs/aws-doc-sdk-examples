@@ -42,7 +42,7 @@ inspector_DeleteFilter:
                 - inspector.java2.delete.filter.main
   services:
     inspector: {DeleteFilter}
-inspector_EnableInspector:
+inspector_Enable:
   languages:
     Java:
       versions:
