@@ -192,32 +192,7 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
     ENDTRY.
     " snippet-end:[agw.abapv1.add_integration_method]
   ENDMETHOD.
-          iv_type                  = 'AWS'
-          iv_integrationhttpmethod = iv_service_method
-          iv_credentials           = iv_role_arn
-          it_requesttemplates      = lo_request_templates->get_map( )
-          iv_uri                   = lv_service_uri
-          iv_passthroughbehavior   = 'WHEN_NO_TEMPLATES' ).
 
-        " Create integration response
-        lo_agw->putintegrationresponse(
-          iv_restapiid  = iv_rest_api_id
-          iv_resourceid = iv_resource_id
-          iv_httpmethod = iv_rest_method
-          iv_statuscode = '200' ).
-
-        MESSAGE 'Integration method added successfully.' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex.
-        MESSAGE 'Bad request - Invalid integration configuration.' TYPE 'E'.
-      CATCH /aws1/cx_agwnotfoundexception.
-        MESSAGE 'API or resource not found.' TYPE 'E'.
-      CATCH /aws1/cx_agwconflictexception.
-        MESSAGE 'Method already exists.' TYPE 'E'.
-      CATCH /aws1/cx_agwlimitexceededex.
-        MESSAGE 'Method limit exceeded.' TYPE 'E'.
-    ENDTRY.
-    " snippet-end:[agw.abapv1.add_integration_method]
-  ENDMETHOD.
 
 
   METHOD deploy_api.
