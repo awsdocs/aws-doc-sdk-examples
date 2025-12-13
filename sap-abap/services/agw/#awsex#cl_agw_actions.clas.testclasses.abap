@@ -282,11 +282,8 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           iv_pathpart  = 'items' ).
         av_integration_resource_id = lo_resource->get_id( ).
 
-        " Create mapping template data
-        DATA: BEGIN OF ls_template,
-                tablename TYPE string,
-              END OF ls_template.
-        ls_template-tablename = av_table_name.
+        " Create mapping template as JSON string
+        DATA(lv_mapping_template) = |{ '{"TableName":"' }{ av_table_name }{ '"}' }|.
 
         " Call add_integration_method
         ao_agw_actions->add_integration_method(
@@ -297,7 +294,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           iv_service_action       = 'Scan'
           iv_service_method       = 'POST'
           iv_role_arn             = av_role_arn
-          io_mapping_template     = REF #( ls_template ) ).
+          iv_mapping_template     = lv_mapping_template ).
 
         " Verify the method was created
         DATA(lo_method) = ao_agw->getmethod(

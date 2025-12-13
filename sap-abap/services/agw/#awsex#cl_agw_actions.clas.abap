@@ -34,7 +34,7 @@ CLASS /awsex/cl_agw_actions DEFINITION
         !iv_service_action       TYPE /aws1/agwstring
         !iv_service_method       TYPE /aws1/agwstring
         !iv_role_arn             TYPE /aws1/agwstring
-        !io_mapping_template     TYPE REF TO data
+        !iv_mapping_template     TYPE /aws1/agwstring
       RAISING
         /aws1/cx_rt_generic.
 
@@ -129,8 +129,8 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[agw.abapv1.add_integration_method]
     DATA lv_service_uri TYPE /aws1/agwstring.
-    DATA lo_request_templates TYPE REF TO /aws1/cl_agwmapofstrtostr_w.
-    DATA lv_template_json TYPE /aws1/agwstring.
+    DATA lt_request_templates TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
+    DATA ls_request_template TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
 
     TRY.
         " Create the HTTP method (e.g., GET, POST, etc.)
@@ -153,13 +153,11 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
         " iv_service_action = 'Scan'
         lv_service_uri = |arn:aws:apigateway:{ lo_session->get_region( ) }:{ iv_service_endpt_prefix }:action/{ iv_service_action }|.
 
-        " Convert mapping template to JSON string
-        DATA(lo_json_ser) = /aws1/cl_rt_xjson_serializer=>create( ).
-        lv_template_json = lo_json_ser->serialize_json( io_mapping_template ).
-
         " Create request templates map
-        lo_request_templates = NEW /aws1/cl_agwmapofstrtostr_w( ).
-        lo_request_templates->add( iv_key = 'application/json' iv_value = lv_template_json ).
+        " iv_mapping_template = '{"TableName":"my-table"}'
+        ls_request_template-key = 'application/json'.
+        ls_request_template-value = NEW /aws1/cl_agwmapofstrtostr_w( iv_value = iv_mapping_template ).
+        INSERT ls_request_template INTO TABLE lt_request_templates.
 
         " Create the integration
         " iv_service_method = 'POST'
@@ -168,6 +166,32 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
           iv_restapiid             = iv_rest_api_id
           iv_resourceid            = iv_resource_id
           iv_httpmethod            = iv_rest_method
+          iv_type                  = 'AWS'
+          iv_integrationhttpmethod = iv_service_method
+          iv_credentials           = iv_role_arn
+          it_requesttemplates      = lt_request_templates
+          iv_uri                   = lv_service_uri
+          iv_passthroughbehavior   = 'WHEN_NO_TEMPLATES' ).
+
+        " Create integration response
+        lo_agw->putintegrationresponse(
+          iv_restapiid  = iv_rest_api_id
+          iv_resourceid = iv_resource_id
+          iv_httpmethod = iv_rest_method
+          iv_statuscode = '200' ).
+
+        MESSAGE 'Integration method added successfully.' TYPE 'I'.
+      CATCH /aws1/cx_agwbadrequestex.
+        MESSAGE 'Bad request - Invalid integration configuration.' TYPE 'E'.
+      CATCH /aws1/cx_agwnotfoundexception.
+        MESSAGE 'API or resource not found.' TYPE 'E'.
+      CATCH /aws1/cx_agwconflictexception.
+        MESSAGE 'Method already exists.' TYPE 'E'.
+      CATCH /aws1/cx_agwlimitexceededex.
+        MESSAGE 'Method limit exceeded.' TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[agw.abapv1.add_integration_method]
+  ENDMETHOD.
           iv_type                  = 'AWS'
           iv_integrationhttpmethod = iv_service_method
           iv_credentials           = iv_role_arn
