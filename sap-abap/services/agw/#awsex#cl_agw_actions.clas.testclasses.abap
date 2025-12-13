@@ -65,20 +65,15 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     " Get account ID
     av_account_id = ao_session->get_account_id( ).
 
-    " Generate unique API name
-    DATA lv_timestamp TYPE timestamp.
+    " Generate unique identifiers using random string only
     DATA lv_random TYPE string.
-    GET TIME STAMP FIELD lv_timestamp.
-    
-    " Use timestamp and random string for uniqueness
     lv_random = /awsex/cl_utils=>get_random_string( ).
-    av_lmd_uuid = |{ lv_timestamp }{ lv_random }|.
-
-    DATA lv_uuid_string TYPE string.
-    lv_uuid_string = av_lmd_uuid.
-    av_api_name = |agw-test-{ lv_uuid_string(8) }|.
-    av_role_name = |agw-test-role-{ lv_uuid_string(8) }|.
-    av_table_name = |agw-test-tbl-{ lv_uuid_string(8) }|.
+    TRANSLATE lv_random TO LOWER CASE.
+    
+    av_api_name = |agwtest{ lv_random }|.
+    av_role_name = |agwtstrole{ lv_random }|.
+    av_table_name = |agwtsttbl{ lv_random }|.
+    av_lmd_uuid = lv_random.
 
     " Create IAM role and DynamoDB table for integration method test
     create_iam_role( ).
@@ -155,7 +150,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         DATA(lo_apis) = ao_agw->getrestapis( ).
         LOOP AT lo_apis->get_items( ) INTO DATA(lo_api).
           DATA(lv_api_name) = lo_api->get_name( ).
-          IF lv_api_name CP 'agw-test-*'.
+          IF lv_api_name CP 'agwtest*' OR lv_api_name CP 'agwintg*'.
             TRY.
                 DATA(lv_api_id) = lo_api->get_id( ).
                 DATA(lv_tags) = ao_agw->gettags( 
@@ -254,9 +249,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
     " Create a separate API for integration test to avoid conflicts
     DATA lo_api TYPE REF TO /aws1/cl_agwrestapi.
-    DATA lv_uuid_string TYPE string.
-    lv_uuid_string = av_lmd_uuid.
-    DATA(lv_integration_api_name) = |agw-intg-{ lv_uuid_string(8) }|.
+    DATA(lv_integration_api_name) = |agwintg{ av_lmd_uuid }|.
 
     TRY.
         lo_api = ao_agw->createrestapi( iv_name = lv_integration_api_name ).
