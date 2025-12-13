@@ -435,7 +435,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         DATA(lo_role) = ao_iam->createrole(
           iv_rolename = av_role_name
           iv_assumerolepolicydocument = lv_trust_policy ).
-        av_role_arn = lo_role->get_arn( ).
+        av_role_arn = lo_role->get_role( )->get_arn( ).
 
         " Tag the role
         DATA(lt_tags) = VALUE /aws1/cl_iamtag=>tt_taglisttype(
@@ -458,7 +458,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           iv_policyname = 'DynamoDBAccess'
           iv_policydocument = lv_policy_doc ).
 
-      CATCH /aws1/cx_iamentityalrdyexistsex.
+      CATCH /aws1/cx_iamentityalrdyexex.
         " Role already exists, try to use it
         DATA(lo_existing_role) = ao_iam->getrole( iv_rolename = av_role_name ).
         av_role_arn = lo_existing_role->get_role( )->get_arn( ).
