@@ -80,11 +80,11 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     create_dynamodb_table( ).
 
     " Create a primary REST API for testing
+    DATA lo_api TYPE REF TO /aws1/cl_agwrestapi.
+    DATA lt_tags TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
+    DATA ls_tag TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
+
     TRY.
-        DATA lo_api TYPE REF TO /aws1/cl_agwrestapi.
-        DATA lt_tags TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
-        DATA ls_tag TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
-        
         lo_api = ao_agw->createrestapi( iv_name = av_api_name ).
         av_rest_api_id = lo_api->get_id( ).
         
@@ -107,7 +107,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD class_teardown.
-    DATA lo_attached_policies TYPE REF TO /aws1/cl_iamlistattrolpol00.
+    DATA lo_attached_policies TYPE REF TO /aws1/cl_iamlistattrolepolrsp.
     DATA lo_policy TYPE REF TO /aws1/cl_iamattachedpolicy.
     DATA lo_policy_names TYPE REF TO /aws1/cl_iamlistrolepolrsp.
     DATA lo_policy_name TYPE REF TO /aws1/cl_iamplynamelisttype_w.
