@@ -156,6 +156,7 @@ inspector_Scenario:
     - List existing filters.
     - Check usage and costs.
     - Get coverage statistics.
+    - Delete a filter.
   category: Basics
   languages:
     Java:
