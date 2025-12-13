@@ -523,10 +523,6 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     DATA lt_key_schema TYPE /aws1/cl_dynkeyschemaelement=>tt_keyschema.
     DATA lt_attributes TYPE /aws1/cl_dynattributedefn=>tt_attributedefinitions.
     DATA lo_throughput TYPE REF TO /aws1/cl_dynprovthroughput.
-    DATA lv_max_attempts TYPE i VALUE 10.
-    DATA lv_attempt TYPE i VALUE 0.
-    DATA lv_table_active TYPE abap_bool VALUE abap_false.
-    DATA lo_table_desc TYPE REF TO /aws1/cl_dyndescrtableoutput.
     DATA lv_table_arn TYPE string.
     DATA lt_tags TYPE /aws1/cl_dyntag=>tt_taglist.
 
@@ -555,29 +551,18 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           it_attributedefinitions = lt_attributes
           io_provisionedthroughput = lo_throughput ).
 
-        " Wait for table to become active before tagging
-        WHILE lv_attempt < lv_max_attempts AND lv_table_active = abap_false.
-          WAIT UP TO 3 SECONDS.
-          TRY.
-              lo_table_desc = ao_dyn->describetable( iv_tablename = av_table_name ).
-              IF lo_table_desc->get_table( )->get_tablestatus( ) = 'ACTIVE'.
-                lv_table_active = abap_true.
-              ENDIF.
-            CATCH /aws1/cx_rt_generic.
-              " Continue waiting
-          ENDTRY.
-          lv_attempt = lv_attempt + 1.
-        ENDWHILE.
+        " Use waiter to wait for table to become active
+        ao_dyn->get_waiter( )->tableexists(
+          iv_max_wait_time = 200
+          iv_tablename     = av_table_name ).
 
         " Tag the table after it's active
-        IF lv_table_active = abap_true.
-          lv_table_arn = |arn:aws:dynamodb:{ ao_session->get_region( ) }:{ av_account_id }:table/{ av_table_name }|.
-          lt_tags = VALUE /aws1/cl_dyntag=>tt_taglist(
-            ( NEW /aws1/cl_dyntag( iv_key = 'convert_test' iv_value = 'true' ) ) ).
-          ao_dyn->tagresource(
-            iv_resourcearn = lv_table_arn
-            it_tags        = lt_tags ).
-        ENDIF.
+        lv_table_arn = |arn:aws:dynamodb:{ ao_session->get_region( ) }:{ av_account_id }:table/{ av_table_name }|.
+        lt_tags = VALUE /aws1/cl_dyntag=>tt_taglist(
+          ( NEW /aws1/cl_dyntag( iv_key = 'convert_test' iv_value = 'true' ) ) ).
+        ao_dyn->tagresource(
+          iv_resourcearn = lv_table_arn
+          it_tags        = lt_tags ).
 
       CATCH /aws1/cx_dynresourceinuseex.
         " Table already exists, ignore
