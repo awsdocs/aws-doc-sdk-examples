@@ -481,15 +481,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           it_attributedefinitions = lt_attributes
           io_provisionedthroughput = lo_throughput ).
 
-        " Tag the table
-        DATA(lv_table_arn) = |arn:aws:dynamodb:{ ao_session->get_region( ) }:{ av_account_id }:table/{ av_table_name }|.
-        DATA(lt_tags) = VALUE /aws1/cl_dyntag=>tt_taglist(
-          ( NEW /aws1/cl_dyntag( iv_key = 'convert_test' iv_value = 'true' ) ) ).
-        ao_dyn->tagresource(
-          iv_resourcearn = lv_table_arn
-          it_tags        = lt_tags ).
-
-        " Wait for table to become active
+        " Wait for table to become active before tagging
         DATA lv_max_attempts TYPE i VALUE 10.
         DATA lv_attempt TYPE i VALUE 0.
         DATA lv_table_active TYPE abap_bool VALUE abap_false.
@@ -506,6 +498,16 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           ENDTRY.
           lv_attempt = lv_attempt + 1.
         ENDWHILE.
+
+        " Tag the table after it's active
+        IF lv_table_active = abap_true.
+          DATA(lv_table_arn) = |arn:aws:dynamodb:{ ao_session->get_region( ) }:{ av_account_id }:table/{ av_table_name }|.
+          DATA(lt_tags) = VALUE /aws1/cl_dyntag=>tt_taglist(
+            ( NEW /aws1/cl_dyntag( iv_key = 'convert_test' iv_value = 'true' ) ) ).
+          ao_dyn->tagresource(
+            iv_resourcearn = lv_table_arn
+            it_tags        = lt_tags ).
+        ENDIF.
 
       CATCH /aws1/cx_dynresourceinuseex.
         " Table already exists, ignore
