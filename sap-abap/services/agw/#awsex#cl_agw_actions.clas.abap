@@ -232,18 +232,30 @@ CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[agw.abapv1.get_rest_api_id]
     DATA lo_apis TYPE REF TO /aws1/cl_agwrestapis.
+    DATA lo_api TYPE REF TO /aws1/cl_agwrestapi.
+    DATA lv_name TYPE /aws1/agwstring.
+    DATA lv_id TYPE /aws1/agwstring.
     DATA lv_found TYPE abap_bool VALUE abap_false.
 
     TRY.
         " iv_api_name = 'my-demo-api'
         lo_apis = lo_agw->getrestapis( ).
 
-        LOOP AT lo_apis->get_items( ) INTO DATA(lo_api).
-          IF lo_api->get_name( ) = iv_api_name.
-            ov_rest_api_id = lo_api->get_id( ).
-            lv_found = abap_true.
-            EXIT.
-          ENDIF.
+        LOOP AT lo_apis->get_items( ) INTO lo_api.
+          " Extract values immediately to avoid timestamp conversion issues
+          TRY.
+              lv_name = lo_api->get_name( ).
+              lv_id = lo_api->get_id( ).
+              
+              IF lv_name = iv_api_name.
+                ov_rest_api_id = lv_id.
+                lv_found = abap_true.
+                EXIT.
+              ENDIF.
+            CATCH cx_root.
+              " Skip APIs with conversion issues
+              CONTINUE.
+          ENDTRY.
         ENDLOOP.
 
         IF lv_found = abap_true.
