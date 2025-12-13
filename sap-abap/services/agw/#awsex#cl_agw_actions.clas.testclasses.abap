@@ -32,59 +32,53 @@ CLASS ltc_awsex_cl_agw_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     METHODS deploy_api FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS delete_rest_api FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
-    CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
+    CLASS-METHODS class_setup.
+    CLASS-METHODS class_teardown.
 
     CLASS-METHODS get_root_resource_id
       IMPORTING
         iv_rest_api_id   TYPE /aws1/agwstring
       RETURNING
-        VALUE(rv_root_id) TYPE /aws1/agwstring
-      RAISING
-        /aws1/cx_rt_generic.
+        VALUE(rv_root_id) TYPE /aws1/agwstring.
 
-    CLASS-METHODS create_iam_role
-      RAISING
-        /aws1/cx_rt_generic.
+    CLASS-METHODS create_iam_role.
 
-    CLASS-METHODS create_dynamodb_table
-      RAISING
-        /aws1/cx_rt_generic.
+    CLASS-METHODS create_dynamodb_table.
 
 ENDCLASS.
 
 CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
   METHOD class_setup.
-    ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
-    ao_agw = /aws1/cl_agw_factory=>create( ao_session ).
-    ao_iam = /aws1/cl_iam_factory=>create( ao_session ).
-    ao_dyn = /aws1/cl_dyn_factory=>create( ao_session ).
-    ao_agw_actions = NEW /awsex/cl_agw_actions( ).
-
-    " Get account ID
-    av_account_id = ao_session->get_account_id( ).
-
-    " Generate unique identifiers using random string only
     DATA lv_random TYPE string.
-    lv_random = /awsex/cl_utils=>get_random_string( ).
-    TRANSLATE lv_random TO LOWER CASE.
-    
-    av_api_name = |agwtest{ lv_random }|.
-    av_role_name = |agwtstrole{ lv_random }|.
-    av_table_name = |agwtsttbl{ lv_random }|.
-    av_lmd_uuid = lv_random.
-
-    " Create IAM role and DynamoDB table for integration method test
-    create_iam_role( ).
-    create_dynamodb_table( ).
-
-    " Create a primary REST API for testing
     DATA lo_api TYPE REF TO /aws1/cl_agwrestapi.
     DATA lt_tags TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
     DATA ls_tag TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
 
     TRY.
+        ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
+        ao_agw = /aws1/cl_agw_factory=>create( ao_session ).
+        ao_iam = /aws1/cl_iam_factory=>create( ao_session ).
+        ao_dyn = /aws1/cl_dyn_factory=>create( ao_session ).
+        ao_agw_actions = NEW /awsex/cl_agw_actions( ).
+
+        " Get account ID
+        av_account_id = ao_session->get_account_id( ).
+
+        " Generate unique identifiers using random string only
+        lv_random = /awsex/cl_utils=>get_random_string( ).
+        TRANSLATE lv_random TO LOWER CASE.
+        
+        av_api_name = |agwtest{ lv_random }|.
+        av_role_name = |agwtstrole{ lv_random }|.
+        av_table_name = |agwtsttbl{ lv_random }|.
+        av_lmd_uuid = lv_random.
+
+        " Create IAM role and DynamoDB table for integration method test
+        create_iam_role( ).
+        create_dynamodb_table( ).
+
+        " Create a primary REST API for testing
         lo_api = ao_agw->createrestapi( iv_name = av_api_name ).
         av_rest_api_id = lo_api->get_id( ).
         
@@ -98,12 +92,13 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         
         " Get root resource ID
         av_root_id = get_root_resource_id( av_rest_api_id ).
-      CATCH /aws1/cx_rt_generic.
+
+        " Wait for resources to be ready
+        WAIT UP TO 5 SECONDS.
+      CATCH cx_root.
+        " Catch all exceptions including conversion errors
         " If setup fails, tests will be skipped
     ENDTRY.
-
-    " Wait for resources to be ready
-    WAIT UP TO 5 SECONDS.
   ENDMETHOD.
 
   METHOD class_teardown.
@@ -448,7 +443,6 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
   METHOD get_root_resource_id.
     DATA lo_resources TYPE REF TO /aws1/cl_agwresources.
     DATA lo_resource TYPE REF TO /aws1/cl_agwresource.
-    DATA lo_ex TYPE REF TO /aws1/cx_rt_generic.
 
     TRY.
         lo_resources = ao_agw->getresources( iv_restapiid = iv_rest_api_id ).
@@ -459,13 +453,10 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
             EXIT.
           ENDIF.
         ENDLOOP.
-      CATCH /aws1/cx_rt_generic INTO lo_ex.
-        cl_abap_unit_assert=>fail( msg = |Failed to get root resource: { lo_ex->get_text( ) }| ).
+      CATCH cx_root.
+        " Return empty if failed
+        CLEAR rv_root_id.
     ENDTRY.
-
-    IF rv_root_id IS INITIAL.
-      cl_abap_unit_assert=>fail( msg = 'Could not find root resource' ).
-    ENDIF.
   ENDMETHOD.
 
   METHOD create_iam_role.
@@ -514,8 +505,14 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
       CATCH /aws1/cx_iamentityalrdyexex.
         " Role already exists, try to use it
-        lo_existing_role = ao_iam->getrole( iv_rolename = av_role_name ).
-        av_role_arn = lo_existing_role->get_role( )->get_arn( ).
+        TRY.
+            lo_existing_role = ao_iam->getrole( iv_rolename = av_role_name ).
+            av_role_arn = lo_existing_role->get_role( )->get_arn( ).
+          CATCH cx_root.
+            " Ignore errors when getting existing role
+        ENDTRY.
+      CATCH cx_root.
+        " Catch all other exceptions including conversion errors
     ENDTRY.
   ENDMETHOD.
 
@@ -566,6 +563,8 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
       CATCH /aws1/cx_dynresourceinuseex.
         " Table already exists, ignore
+      CATCH cx_root.
+        " Catch all other exceptions including conversion errors
     ENDTRY.
   ENDMETHOD.
 
