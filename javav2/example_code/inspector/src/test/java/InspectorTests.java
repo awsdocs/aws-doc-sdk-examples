@@ -115,7 +115,6 @@ public class InspectorTests {
     @Order(3)
     public void testInspectorScenarioEndToEnd() {
         assertDoesNotThrow(() -> {
-
             // The scenario calls scanner.nextLine() repeatedly.
             // We simulate user input by providing many "c" lines.
             String simulatedInput = String.join("\n",
