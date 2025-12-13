@@ -20,7 +20,7 @@ CLASS ltc_awsex_cl_agw_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_resource_id TYPE /aws1/agwstring.
     CLASS-DATA av_integration_resource_id TYPE /aws1/agwstring.
     CLASS-DATA av_lmd_uuid TYPE string.
-    CLASS-DATA av_role_name TYPE /aws1/iamrolename.
+    CLASS-DATA av_role_name TYPE /aws1/iamrolenametype.
     CLASS-DATA av_role_arn TYPE /aws1/iamarntype.
     CLASS-DATA av_table_name TYPE /aws1/dyntablename.
     CLASS-DATA av_account_id TYPE /aws1/rt_account_id.
