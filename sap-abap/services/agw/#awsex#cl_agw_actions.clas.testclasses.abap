@@ -206,7 +206,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         WAIT UP TO 2 SECONDS.
         ao_agw->deleterestapi( iv_restapiid = lv_new_api_id ).
         
-      CATCH /aws1/cx_agwtoomanyreqex.
+      CATCH /aws1/cx_agwtoomanyrequestsex.
         " Rate limit hit - skip this test
         MESSAGE 'Rate limit reached, skipping create_rest_api test' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
@@ -409,7 +409,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail( msg = 'API should have been deleted' ).
       CATCH /aws1/cx_agwnotfoundexception.
         " Expected - API was deleted successfully
-      CATCH /aws1/cx_agwtoomanyreqex.
+      CATCH /aws1/cx_agwtoomanyrequestsex.
         " Rate limit hit - skip this test
         MESSAGE 'Rate limit reached, skipping delete_rest_api test' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
