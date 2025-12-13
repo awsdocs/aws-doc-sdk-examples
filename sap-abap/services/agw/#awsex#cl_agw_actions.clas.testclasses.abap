@@ -115,10 +115,10 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           
           " Delete inline policies
           DATA(lo_policy_names) = ao_iam->listrolepolicies( iv_rolename = av_role_name ).
-          LOOP AT lo_policy_names->get_policynames( ) INTO DATA(lv_policy_name).
+          LOOP AT lo_policy_names->get_policynames( ) INTO DATA(lo_policy_name).
             ao_iam->deleterolepolicy(
               iv_rolename = av_role_name
-              iv_policyname = lv_policy_name ).
+              iv_policyname = lo_policy_name->get_value( ) ).
           ENDLOOP.
 
           ao_iam->deleterole( iv_rolename = av_role_name ).
@@ -196,8 +196,11 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
     " Tag the resource for cleanup
     TRY.
-        DATA(lt_tags) = VALUE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring(
-          ( NEW /aws1/cl_agwmapofstrtostr_w( iv_key = 'convert_test' iv_value = 'true' ) ) ).
+        DATA lt_tags TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
+        DATA ls_tag TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
+        ls_tag-key = 'convert_test'.
+        ls_tag-value = NEW /aws1/cl_agwmapofstrtostr_w( iv_value = 'true' ).
+        INSERT ls_tag INTO TABLE lt_tags.
         ao_agw->tagresource(
           iv_resourcearn = |arn:aws:apigateway:{ ao_session->get_region( ) }::/restapis/{ av_rest_api_id }|
           it_tags        = lt_tags ).
@@ -260,11 +263,14 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         av_rest_api_id2 = lo_api->get_id( ).
 
         " Tag the API
-        DATA(lt_tags) = VALUE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring(
-          ( NEW /aws1/cl_agwmapofstrtostr_w( iv_key = 'convert_test' iv_value = 'true' ) ) ).
+        DATA lt_tags2 TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
+        DATA ls_tag2 TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
+        ls_tag2-key = 'convert_test'.
+        ls_tag2-value = NEW /aws1/cl_agwmapofstrtostr_w( iv_value = 'true' ).
+        INSERT ls_tag2 INTO TABLE lt_tags2.
         ao_agw->tagresource(
           iv_resourcearn = |arn:aws:apigateway:{ ao_session->get_region( ) }::/restapis/{ av_rest_api_id2 }|
-          it_tags        = lt_tags ).
+          it_tags        = lt_tags2 ).
 
         " Get root resource ID
         DATA(lv_intg_root_id) = get_root_resource_id( av_rest_api_id2 ).
