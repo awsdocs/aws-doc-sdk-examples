@@ -79,8 +79,29 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     create_iam_role( ).
     create_dynamodb_table( ).
 
+    " Create a primary REST API for testing
+    TRY.
+        DATA(lo_api) = ao_agw->createrestapi( iv_name = av_api_name ).
+        av_rest_api_id = lo_api->get_id( ).
+        
+        " Tag the API
+        DATA lt_tags TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
+        DATA ls_tag TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
+        ls_tag-key = 'convert_test'.
+        ls_tag-value = NEW /aws1/cl_agwmapofstrtostr_w( iv_value = 'true' ).
+        INSERT ls_tag INTO TABLE lt_tags.
+        ao_agw->tagresource(
+          iv_resourcearn = |arn:aws:apigateway:{ ao_session->get_region( ) }::/restapis/{ av_rest_api_id }|
+          it_tags        = lt_tags ).
+        
+        " Get root resource ID
+        av_root_id = get_root_resource_id( av_rest_api_id ).
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        " If setup fails, tests will be skipped
+    ENDTRY.
+
     " Wait for resources to be ready
-    WAIT UP TO 10 SECONDS.
+    WAIT UP TO 5 SECONDS.
   ENDMETHOD.
 
   METHOD class_teardown.
@@ -172,10 +193,11 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
   METHOD create_rest_api.
     DATA lo_result TYPE REF TO /aws1/cl_agwrestapi.
+    DATA(lv_test_api_name) = |agwtestcreate{ av_lmd_uuid }|.
 
     ao_agw_actions->create_rest_api(
       EXPORTING
-        iv_api_name = av_api_name
+        iv_api_name = lv_test_api_name
       IMPORTING
         oo_result   = lo_result ).
 
@@ -183,10 +205,10 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
       act = lo_result
       msg = |REST API was not created| ).
 
-    av_rest_api_id = lo_result->get_id( ).
+    DATA(lv_new_api_id) = lo_result->get_id( ).
 
     cl_abap_unit_assert=>assert_not_initial(
-      act = av_rest_api_id
+      act = lv_new_api_id
       msg = |REST API ID should not be empty| ).
 
     " Tag the resource for cleanup
@@ -197,14 +219,18 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         ls_tag-value = NEW /aws1/cl_agwmapofstrtostr_w( iv_value = 'true' ).
         INSERT ls_tag INTO TABLE lt_tags.
         ao_agw->tagresource(
-          iv_resourcearn = |arn:aws:apigateway:{ ao_session->get_region( ) }::/restapis/{ av_rest_api_id }|
+          iv_resourcearn = |arn:aws:apigateway:{ ao_session->get_region( ) }::/restapis/{ lv_new_api_id }|
           it_tags        = lt_tags ).
       CATCH /aws1/cx_rt_generic.
         " Tagging failed, but test should continue
     ENDTRY.
 
-    " Get root resource ID for later use
-    av_root_id = get_root_resource_id( av_rest_api_id ).
+    " Clean up the test API immediately
+    TRY.
+        ao_agw->deleterestapi( iv_restapiid = lv_new_api_id ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore cleanup errors
+    ENDTRY.
   ENDMETHOD.
 
   METHOD add_rest_resource.
@@ -372,20 +398,34 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD delete_rest_api.
-    " Ensure we have an API to delete
-    IF av_rest_api_id IS INITIAL.
-      cl_abap_unit_assert=>fail( msg = 'No REST API available for testing' ).
-    ENDIF.
+    " Create a dedicated API for delete test
+    DATA(lv_delete_api_name) = |agwtestdelete{ av_lmd_uuid }|.
+    DATA lv_delete_api_id TYPE /aws1/agwstring.
 
-    ao_agw_actions->delete_rest_api( av_rest_api_id ).
-
-    " Verify the API is deleted
     TRY.
-        ao_agw->getrestapi( iv_restapiid = av_rest_api_id ).
+        DATA(lo_api) = ao_agw->createrestapi( iv_name = lv_delete_api_name ).
+        lv_delete_api_id = lo_api->get_id( ).
+
+        " Tag the API
+        DATA lt_tags TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
+        DATA ls_tag TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
+        ls_tag-key = 'convert_test'.
+        ls_tag-value = NEW /aws1/cl_agwmapofstrtostr_w( iv_value = 'true' ).
+        INSERT ls_tag INTO TABLE lt_tags.
+        ao_agw->tagresource(
+          iv_resourcearn = |arn:aws:apigateway:{ ao_session->get_region( ) }::/restapis/{ lv_delete_api_id }|
+          it_tags        = lt_tags ).
+
+        " Now test the delete
+        ao_agw_actions->delete_rest_api( lv_delete_api_id ).
+
+        " Verify the API is deleted
+        ao_agw->getrestapi( iv_restapiid = lv_delete_api_id ).
         cl_abap_unit_assert=>fail( msg = 'API should have been deleted' ).
       CATCH /aws1/cx_agwnotfoundexception.
-        " Expected - API was deleted
-        CLEAR av_rest_api_id.
+        " Expected - API was deleted successfully
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( msg = |Delete test failed: { lo_ex->get_text( ) }| ).
     ENDTRY.
   ENDMETHOD.
 
