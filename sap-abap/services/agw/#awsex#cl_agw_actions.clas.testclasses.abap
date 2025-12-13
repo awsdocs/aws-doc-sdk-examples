@@ -467,8 +467,8 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
   METHOD create_dynamodb_table.
     " Create key schema
-    DATA(lt_key_schema) = VALUE /aws1/cl_dynkeyschemelement=>tt_keyschemalist(
-      ( NEW /aws1/cl_dynkeyschemelement(
+    DATA(lt_key_schema) = VALUE /aws1/cl_dynkeyschemaelement=>tt_keyschema(
+      ( NEW /aws1/cl_dynkeyschemaelement(
           iv_attributename = 'id'
           iv_keytype = 'HASH' ) ) ).
 
