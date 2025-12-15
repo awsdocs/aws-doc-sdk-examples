@@ -120,6 +120,22 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
   METHOD send_message.
     CONSTANTS cv_message TYPE /aws1/sqsstring VALUE 'Sample text message to test send message action'.
 
+    " First, purge any existing messages in the queue
+    DATA(lo_purge_result) = ao_sqs->receivemessage(
+      iv_queueurl = av_test_queue_url
+      iv_maxnumberofmessages = 10
+      iv_waittimeseconds = 1 ).
+    LOOP AT lo_purge_result->get_messages( ) INTO DATA(lo_old_msg).
+      TRY.
+          ao_sqs->deletemessage(
+            iv_queueurl = av_test_queue_url
+            iv_receipthandle = lo_old_msg->get_receipthandle( ) ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore cleanup errors
+      ENDTRY.
+    ENDLOOP.
+
+    " Test the action method
     DATA(lo_send_result) = ao_sqs_actions->send_message(
       iv_queue_url = av_test_queue_url
       iv_message = cv_message ).
@@ -128,10 +144,14 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       act = lo_send_result->get_messageid( )
       msg = |Message sending failed| ).
 
+    " Wait a moment for message to be available
+    WAIT UP TO 2 SECONDS.
+
     " Verify message was sent by receiving it
     DATA(lo_receive_result) = ao_sqs->receivemessage(
       iv_queueurl = av_test_queue_url
-      iv_maxnumberofmessages = 10 ).
+      iv_maxnumberofmessages = 10
+      iv_waittimeseconds = 5 ).
 
     DATA lv_found TYPE abap_bool VALUE abap_false.
     LOOP AT lo_receive_result->get_messages( ) INTO DATA(lo_message).
@@ -146,18 +166,40 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
 
     " Clean up messages from the queue
     LOOP AT lo_receive_result->get_messages( ) INTO lo_message.
-      ao_sqs->deletemessage(
-        iv_queueurl = av_test_queue_url
-        iv_receipthandle = lo_message->get_receipthandle( ) ).
+      TRY.
+          ao_sqs->deletemessage(
+            iv_queueurl = av_test_queue_url
+            iv_receipthandle = lo_message->get_receipthandle( ) ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore cleanup errors
+      ENDTRY.
     ENDLOOP.
   ENDMETHOD.
   METHOD receive_message.
     CONSTANTS cv_message TYPE /aws1/sqsstring VALUE 'Sample text message to test receive message action'.
 
+    " First, purge any existing messages in the queue
+    DATA(lo_purge_result) = ao_sqs->receivemessage(
+      iv_queueurl = av_test_queue_url
+      iv_maxnumberofmessages = 10
+      iv_waittimeseconds = 1 ).
+    LOOP AT lo_purge_result->get_messages( ) INTO DATA(lo_old_msg).
+      TRY.
+          ao_sqs->deletemessage(
+            iv_queueurl = av_test_queue_url
+            iv_receipthandle = lo_old_msg->get_receipthandle( ) ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore cleanup errors
+      ENDTRY.
+    ENDLOOP.
+
     " Send a message first
     DATA(lo_send_result) = ao_sqs->sendmessage(
       iv_queueurl = av_test_queue_url
       iv_messagebody = cv_message ).
+
+    " Wait a moment for message to be available
+    WAIT UP TO 2 SECONDS.
 
     " Test the action method
     DATA(lo_receive_result) = ao_sqs_actions->receive_message( av_test_queue_url ).
@@ -175,9 +217,13 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
 
     " Clean up messages from the queue
     LOOP AT lo_receive_result->get_messages( ) INTO lo_message.
-      ao_sqs->deletemessage(
-        iv_queueurl = av_test_queue_url
-        iv_receipthandle = lo_message->get_receipthandle( ) ).
+      TRY.
+          ao_sqs->deletemessage(
+            iv_queueurl = av_test_queue_url
+            iv_receipthandle = lo_message->get_receipthandle( ) ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore cleanup errors
+      ENDTRY.
     ENDLOOP.
   ENDMETHOD.
   METHOD long_polling_on_msg_receipt.
@@ -347,6 +393,21 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD send_message_batch.
+    " First, purge any existing messages in the queue
+    DATA(lo_purge_result) = ao_sqs->receivemessage(
+      iv_queueurl = av_test_queue_url
+      iv_maxnumberofmessages = 10
+      iv_waittimeseconds = 1 ).
+    LOOP AT lo_purge_result->get_messages( ) INTO DATA(lo_old_msg).
+      TRY.
+          ao_sqs->deletemessage(
+            iv_queueurl = av_test_queue_url
+            iv_receipthandle = lo_old_msg->get_receipthandle( ) ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore cleanup errors
+      ENDTRY.
+    ENDLOOP.
+
     " Create batch messages
     DATA lt_messages TYPE /aws1/cl_sqssendmsgbtcreqentry=>tt_sendmsgbatchreqentrylist.
     DATA lv_counter TYPE i.
@@ -377,10 +438,14 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       exp = 0
       msg = |Expected no failed messages| ).
 
+    " Wait a moment for messages to be available
+    WAIT UP TO 2 SECONDS.
+
     " Verify messages can be received
     DATA(lo_receive_result) = ao_sqs->receivemessage(
       iv_queueurl = av_test_queue_url
-      iv_maxnumberofmessages = 10 ).
+      iv_maxnumberofmessages = 10
+      iv_waittimeseconds = 5 ).
 
     cl_abap_unit_assert=>assert_equals(
       act = lines( lo_receive_result->get_messages( ) )
@@ -389,23 +454,46 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
 
     " Clean up messages from the queue
     LOOP AT lo_receive_result->get_messages( ) INTO DATA(lo_message).
-      ao_sqs->deletemessage(
-        iv_queueurl = av_test_queue_url
-        iv_receipthandle = lo_message->get_receipthandle( ) ).
+      TRY.
+          ao_sqs->deletemessage(
+            iv_queueurl = av_test_queue_url
+            iv_receipthandle = lo_message->get_receipthandle( ) ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore cleanup errors
+      ENDTRY.
     ENDLOOP.
   ENDMETHOD.
 
   METHOD delete_message.
     CONSTANTS cv_message TYPE /aws1/sqsstring VALUE 'Sample message to test delete message'.
 
+    " First, purge any existing messages in the queue
+    DATA(lo_purge_result) = ao_sqs->receivemessage(
+      iv_queueurl = av_test_queue_url
+      iv_maxnumberofmessages = 10
+      iv_waittimeseconds = 1 ).
+    LOOP AT lo_purge_result->get_messages( ) INTO DATA(lo_old_msg).
+      TRY.
+          ao_sqs->deletemessage(
+            iv_queueurl = av_test_queue_url
+            iv_receipthandle = lo_old_msg->get_receipthandle( ) ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore cleanup errors
+      ENDTRY.
+    ENDLOOP.
+
     " Send a message
     DATA(lo_send_result) = ao_sqs->sendmessage(
       iv_queueurl = av_test_queue_url
       iv_messagebody = cv_message ).
 
+    " Wait a moment for message to be available
+    WAIT UP TO 2 SECONDS.
+
     " Receive the message to get receipt handle
     DATA(lo_receive_result) = ao_sqs->receivemessage(
-      iv_queueurl = av_test_queue_url ).
+      iv_queueurl = av_test_queue_url
+      iv_waittimeseconds = 5 ).
 
     DATA(lt_messages) = lo_receive_result->get_messages( ).
     cl_abap_unit_assert=>assert_not_initial(
@@ -420,6 +508,9 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       iv_queue_url = av_test_queue_url
       iv_receipt_handle = lv_receipt_handle ).
 
+    " Wait a moment for delete to propagate
+    WAIT UP TO 2 SECONDS.
+
     " Verify message is deleted - receive should return empty
     DATA(lo_verify_result) = ao_sqs->receivemessage(
       iv_queueurl = av_test_queue_url
@@ -432,6 +523,21 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD delete_message_batch.
+    " First, purge any existing messages in the queue
+    DATA(lo_purge_result) = ao_sqs->receivemessage(
+      iv_queueurl = av_test_queue_url
+      iv_maxnumberofmessages = 10
+      iv_waittimeseconds = 1 ).
+    LOOP AT lo_purge_result->get_messages( ) INTO DATA(lo_old_msg).
+      TRY.
+          ao_sqs->deletemessage(
+            iv_queueurl = av_test_queue_url
+            iv_receipthandle = lo_old_msg->get_receipthandle( ) ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore cleanup errors
+      ENDTRY.
+    ENDLOOP.
+
     " Send multiple messages
     DATA lt_send_entries TYPE /aws1/cl_sqssendmsgbtcreqentry=>tt_sendmsgbatchreqentrylist.
     DO 3 TIMES.
@@ -447,10 +553,14 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       iv_queueurl = av_test_queue_url
       it_entries = lt_send_entries ).
 
+    " Wait a moment for messages to be available
+    WAIT UP TO 2 SECONDS.
+
     " Receive messages to get receipt handles
     DATA(lo_receive_result) = ao_sqs->receivemessage(
       iv_queueurl = av_test_queue_url
-      iv_maxnumberofmessages = 10 ).
+      iv_maxnumberofmessages = 10
+      iv_waittimeseconds = 5 ).
 
     DATA(lt_received_messages) = lo_receive_result->get_messages( ).
     cl_abap_unit_assert=>assert_equals(
@@ -485,6 +595,9 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       act = lines( lo_delete_result->get_failed( ) )
       exp = 0
       msg = |Expected no failed deletes| ).
+
+    " Wait a moment for delete to propagate
+    WAIT UP TO 2 SECONDS.
 
     " Verify queue is empty
     DATA(lo_verify_result) = ao_sqs->receivemessage(
