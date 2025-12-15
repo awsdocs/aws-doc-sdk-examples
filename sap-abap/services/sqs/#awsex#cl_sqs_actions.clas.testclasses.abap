@@ -400,36 +400,15 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       exp = 0
       msg = |Expected no failed messages| ).
 
-    " Wait for messages to propagate using queue attributes
-    DATA lv_msg_count TYPE i VALUE 0.
-    DATA lo_attr_result TYPE REF TO /aws1/cl_sqsgetqueueattrsrslt.
-    DATA lt_attr_names TYPE /aws1/cl_sqsattrnamelist_w=>tt_attributenamelist.
-    APPEND NEW /aws1/cl_sqsattrnamelist_w( iv_value = 'ApproximateNumberOfMessages' ) TO lt_attr_names.
-    
-    " Poll queue attributes until we see 3 messages
-    DO 10 TIMES.
-      WAIT UP TO 5 SECONDS.
-      lo_attr_result = ao_sqs->getqueueattributes(
-        iv_queueurl = lv_queue_url
-        it_attributenames = lt_attr_names ).
-      
-      LOOP AT lo_attr_result->get_attributes( ) INTO DATA(lo_attr).
-        IF lo_attr-key = 'ApproximateNumberOfMessages'.
-          lv_msg_count = lo_attr-value->get_value( ).
-          EXIT.
-        ENDIF.
-      ENDLOOP.
-      
-      IF lv_msg_count >= 3.
-        EXIT.
-      ENDIF.
-    ENDDO.
+    " Wait a significant amount of time for messages to propagate and become visible
+    " For batch operations, longer wait is needed
+    WAIT UP TO 15 SECONDS.
 
-    " Now receive the messages once to verify they're there
+    " Now receive the messages once with long polling
     DATA(lo_receive_result) = ao_sqs->receivemessage(
       iv_queueurl = lv_queue_url
       iv_maxnumberofmessages = 10
-      iv_waittimeseconds = 10 ).
+      iv_waittimeseconds = 20 ).
 
     cl_abap_unit_assert=>assert_equals(
       act = lines( lo_receive_result->get_messages( ) )
@@ -522,36 +501,15 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       iv_queueurl = lv_queue_url
       it_entries = lt_send_entries ).
 
-    " Wait for messages to propagate using queue attributes
-    DATA lv_msg_count TYPE i VALUE 0.
-    DATA lo_attr_result TYPE REF TO /aws1/cl_sqsgetqueueattrsrslt.
-    DATA lt_attr_names TYPE /aws1/cl_sqsattrnamelist_w=>tt_attributenamelist.
-    APPEND NEW /aws1/cl_sqsattrnamelist_w( iv_value = 'ApproximateNumberOfMessages' ) TO lt_attr_names.
-    
-    " Poll queue attributes until we see 3 messages
-    DO 10 TIMES.
-      WAIT UP TO 5 SECONDS.
-      lo_attr_result = ao_sqs->getqueueattributes(
-        iv_queueurl = lv_queue_url
-        it_attributenames = lt_attr_names ).
-      
-      LOOP AT lo_attr_result->get_attributes( ) INTO DATA(lo_attr).
-        IF lo_attr-key = 'ApproximateNumberOfMessages'.
-          lv_msg_count = lo_attr-value->get_value( ).
-          EXIT.
-        ENDIF.
-      ENDLOOP.
-      
-      IF lv_msg_count >= 3.
-        EXIT.
-      ENDIF.
-    ENDDO.
+    " Wait a significant amount of time for messages to propagate and become visible
+    " For batch operations, longer wait is needed
+    WAIT UP TO 15 SECONDS.
 
-    " Now receive the messages once
+    " Now receive the messages once with long polling
     DATA(lo_receive_result) = ao_sqs->receivemessage(
       iv_queueurl = lv_queue_url
       iv_maxnumberofmessages = 10
-      iv_waittimeseconds = 10 ).
+      iv_waittimeseconds = 20 ).
 
     DATA(lt_received_messages) = lo_receive_result->get_messages( ).
     
