@@ -148,7 +148,7 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
     ao_s3_actions->create_bucket( av_bucket_create ).
 
     assert_bucket_exists(
-      iv_bucket = av_bucket
+      iv_bucket = av_bucket_create
       iv_exp = abap_true
       iv_msg = |Bucket { av_bucket_create } was not created| ).
 
@@ -359,7 +359,7 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
   METHOD assert_bucket_exists.
     DATA(lv_found) = abap_true.
     TRY.
-        ao_s3->headbucket( iv_bucket = av_bucket_delete ).
+        ao_s3->headbucket( iv_bucket = iv_bucket ).
       CATCH /aws1/cx_s3_nosuchbucket INTO DATA(lo_ex).
         lv_found = abap_false.
       CATCH /aws1/cx_s3_clientexc INTO DATA(lo_ex2).
