@@ -146,21 +146,25 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       act = lo_send_result->get_messageid( )
       msg = |Message sending failed| ).
 
-    " Wait a moment for message to be available
-    WAIT UP TO 3 SECONDS.
-
-    " Verify message was sent by receiving it
-    DATA(lo_receive_result) = ao_sqs->receivemessage(
-      iv_queueurl = lv_queue_url
-      iv_maxnumberofmessages = 10
-      iv_waittimeseconds = 10 ).
-
+    " Retry logic to receive message
     DATA lv_found TYPE abap_bool VALUE abap_false.
-    LOOP AT lo_receive_result->get_messages( ) INTO DATA(lo_message).
-      IF lo_message->get_messageid( ) = lo_send_result->get_messageid( ) AND lo_message->get_body( ) = cv_message.
-        lv_found = abap_true.
+    DO 5 TIMES.
+      WAIT UP TO 3 SECONDS.
+      DATA(lo_receive_result) = ao_sqs->receivemessage(
+        iv_queueurl = lv_queue_url
+        iv_maxnumberofmessages = 10
+        iv_waittimeseconds = 10 ).
+
+      LOOP AT lo_receive_result->get_messages( ) INTO DATA(lo_message).
+        IF lo_message->get_messageid( ) = lo_send_result->get_messageid( ) AND lo_message->get_body( ) = cv_message.
+          lv_found = abap_true.
+          EXIT.
+        ENDIF.
+      ENDLOOP.
+      IF lv_found = abap_true.
+        EXIT.
       ENDIF.
-    ENDLOOP.
+    ENDDO.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
@@ -185,18 +189,22 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       iv_queueurl = lv_queue_url
       iv_messagebody = cv_message ).
 
-    " Wait a moment for message to be available
-    WAIT UP TO 3 SECONDS.
-
-    " Test the action method
-    DATA(lo_receive_result) = ao_sqs_actions->receive_message( lv_queue_url ).
-
+    " Retry logic to receive message
     DATA lv_found TYPE abap_bool VALUE abap_false.
-    LOOP AT lo_receive_result->get_messages( ) INTO DATA(lo_message).
-      IF lo_message->get_messageid( ) = lo_send_result->get_messageid( ) AND lo_message->get_body( ) = cv_message.
-        lv_found = abap_true.
+    DO 5 TIMES.
+      WAIT UP TO 3 SECONDS.
+      DATA(lo_receive_result) = ao_sqs_actions->receive_message( lv_queue_url ).
+
+      LOOP AT lo_receive_result->get_messages( ) INTO DATA(lo_message).
+        IF lo_message->get_messageid( ) = lo_send_result->get_messageid( ) AND lo_message->get_body( ) = cv_message.
+          lv_found = abap_true.
+          EXIT.
+        ENDIF.
+      ENDLOOP.
+      IF lv_found = abap_true.
+        EXIT.
       ENDIF.
-    ENDLOOP.
+    ENDDO.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
@@ -390,17 +398,23 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       exp = 0
       msg = |Expected no failed messages| ).
 
-    " Wait a moment for messages to be available
-    WAIT UP TO 3 SECONDS.
-
-    " Verify messages can be received
-    DATA(lo_receive_result) = ao_sqs->receivemessage(
-      iv_queueurl = lv_queue_url
-      iv_maxnumberofmessages = 10
-      iv_waittimeseconds = 10 ).
+    " Retry logic to receive messages (SQS eventual consistency)
+    DATA lo_receive_result TYPE REF TO /aws1/cl_sqsreceivemsgresult.
+    DATA lv_msg_count TYPE i VALUE 0.
+    DO 5 TIMES.
+      WAIT UP TO 3 SECONDS.
+      lo_receive_result = ao_sqs->receivemessage(
+        iv_queueurl = lv_queue_url
+        iv_maxnumberofmessages = 10
+        iv_waittimeseconds = 10 ).
+      lv_msg_count = lines( lo_receive_result->get_messages( ) ).
+      IF lv_msg_count = 3.
+        EXIT.
+      ENDIF.
+    ENDDO.
 
     cl_abap_unit_assert=>assert_equals(
-      act = lines( lo_receive_result->get_messages( ) )
+      act = lv_msg_count
       exp = 3
       msg = |Expected 3 messages in queue| ).
 
@@ -423,15 +437,19 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       iv_queueurl = lv_queue_url
       iv_messagebody = cv_message ).
 
-    " Wait a moment for message to be available
-    WAIT UP TO 3 SECONDS.
+    " Retry logic to receive message
+    DATA(lt_messages) TYPE /aws1/cl_sqsmessage=>tt_messagelist.
+    DO 5 TIMES.
+      WAIT UP TO 3 SECONDS.
+      DATA(lo_receive_result) = ao_sqs->receivemessage(
+        iv_queueurl = lv_queue_url
+        iv_waittimeseconds = 10 ).
+      lt_messages = lo_receive_result->get_messages( ).
+      IF lines( lt_messages ) > 0.
+        EXIT.
+      ENDIF.
+    ENDDO.
 
-    " Receive the message to get receipt handle
-    DATA(lo_receive_result) = ao_sqs->receivemessage(
-      iv_queueurl = lv_queue_url
-      iv_waittimeseconds = 10 ).
-
-    DATA(lt_messages) = lo_receive_result->get_messages( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_messages
       msg = |No messages received| ).
@@ -485,16 +503,20 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       iv_queueurl = lv_queue_url
       it_entries = lt_send_entries ).
 
-    " Wait a moment for messages to be available
-    WAIT UP TO 3 SECONDS.
+    " Retry logic to receive messages (SQS eventual consistency)
+    DATA(lt_received_messages) TYPE /aws1/cl_sqsmessage=>tt_messagelist.
+    DO 5 TIMES.
+      WAIT UP TO 3 SECONDS.
+      DATA(lo_receive_result) = ao_sqs->receivemessage(
+        iv_queueurl = lv_queue_url
+        iv_maxnumberofmessages = 10
+        iv_waittimeseconds = 10 ).
+      lt_received_messages = lo_receive_result->get_messages( ).
+      IF lines( lt_received_messages ) = 3.
+        EXIT.
+      ENDIF.
+    ENDDO.
 
-    " Receive messages to get receipt handles
-    DATA(lo_receive_result) = ao_sqs->receivemessage(
-      iv_queueurl = lv_queue_url
-      iv_maxnumberofmessages = 10
-      iv_waittimeseconds = 10 ).
-
-    DATA(lt_received_messages) = lo_receive_result->get_messages( ).
     cl_abap_unit_assert=>assert_equals(
       act = lines( lt_received_messages )
       exp = 3
