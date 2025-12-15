@@ -123,7 +123,7 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
         ao_s3->createbucket(
           iv_bucket = av_lock_bucket
           io_createbucketconfiguration = lo_constraint
-          iv_objectlockenabledforbucket = abap_true ).
+          iv_objectlockenabledforbkt = abap_true ).
         " Tag the lock bucket
         ao_s3->putbuckettagging( iv_bucket = av_lock_bucket io_tagging = NEW /aws1/cl_s3_tagging( it_tagset = lt_tags ) ).
       CATCH /aws1/cx_s3_bktalrdyownedbyyou.
@@ -427,7 +427,8 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD put_bucket_acl.
-    DATA(lv_grantwrite) = 'uri=http://acs.amazonaws.com/groups/s3/LogDelivery'.
+    DATA lv_grantwrite TYPE /aws1/s3_grantwrite.
+    lv_grantwrite = 'uri=http://acs.amazonaws.com/groups/s3/LogDelivery'.
 
     ao_s3_actions->put_bucket_acl(
       iv_bucket_name = av_bucket
@@ -544,7 +545,12 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
 
   METHOD get_bucket_policy.
     " First set a policy
-    DATA(lv_policy) = |{ '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":"*","Action":"s3:GetObject","Resource":"arn:aws:s3:::' }{ av_bucket }/*"}]}|.
+    DATA lv_policy TYPE /aws1/s3_policy.
+    lv_policy = |{ '{"Version":"2012-10-17","Statement":[' }| &&
+                |{ '{"Effect":"Allow","Principal":"*",' }| &&
+                |{ '"Action":"s3:GetObject",' }| &&
+                |{ '"Resource":"arn:aws:s3:::' }{ av_bucket }{ '/*"' }| &&
+                |{ '\}]\}' }|.
 
     ao_s3->putbucketpolicy(
       iv_bucket = av_bucket
@@ -567,7 +573,12 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD put_bucket_policy.
-    DATA(lv_policy) = |{ '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":"*","Action":"s3:GetObject","Resource":"arn:aws:s3:::' }{ av_bucket }/*"}]}|.
+    DATA lv_policy TYPE /aws1/s3_policy.
+    lv_policy = |{ '{"Version":"2012-10-17","Statement":[' }| &&
+                |{ '{"Effect":"Allow","Principal":"*",' }| &&
+                |{ '"Action":"s3:GetObject",' }| &&
+                |{ '"Resource":"arn:aws:s3:::' }{ av_bucket }{ '/*"' }| &&
+                |{ '\}]\}' }|.
 
     ao_s3_actions->put_bucket_policy(
       iv_bucket_name = av_bucket
@@ -585,7 +596,12 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
 
   METHOD delete_bucket_policy.
     " First set a policy
-    DATA(lv_policy) = |{ '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":"*","Action":"s3:GetObject","Resource":"arn:aws:s3:::' }{ av_bucket }/*"}]}|.
+    DATA lv_policy TYPE /aws1/s3_policy.
+    lv_policy = |{ '{"Version":"2012-10-17","Statement":[' }| &&
+                |{ '{"Effect":"Allow","Principal":"*",' }| &&
+                |{ '"Action":"s3:GetObject",' }| &&
+                |{ '"Resource":"arn:aws:s3:::' }{ av_bucket }{ '/*"' }| &&
+                |{ '\}]\}' }|.
 
     ao_s3->putbucketpolicy(
       iv_bucket = av_bucket
@@ -979,7 +995,7 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
         ao_s3->createbucket(
           iv_bucket = lv_test_bucket
           io_createbucketconfiguration = lo_constraint
-          iv_objectlockenabledforbucket = abap_true ).
+          iv_objectlockenabledforbkt = abap_true ).
 
         " Tag the bucket
         DATA lt_tags TYPE /aws1/cl_s3_tag=>tt_tagset.
