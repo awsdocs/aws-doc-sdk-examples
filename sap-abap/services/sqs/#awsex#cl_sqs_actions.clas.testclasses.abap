@@ -400,35 +400,41 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       exp = 0
       msg = |Expected no failed messages| ).
 
-    " Retry logic to receive messages (SQS eventual consistency)
-    " Increase retry attempts and wait times for batch operations
-    DATA lo_receive_result TYPE REF TO /aws1/cl_sqsreceivemsgresult.
+    " Wait for messages to propagate using queue attributes
     DATA lv_msg_count TYPE i VALUE 0.
-    DATA lv_total_received TYPE i VALUE 0.
+    DATA lo_attr_result TYPE REF TO /aws1/cl_sqsgetqueueattrsrslt.
+    DATA lt_attr_names TYPE /aws1/cl_sqsattrnamelist_w=>tt_attributenamelist.
+    APPEND NEW /aws1/cl_sqsattrnamelist_w( iv_value = 'ApproximateNumberOfMessages' ) TO lt_attr_names.
     
-    " Try up to 10 times with longer waits
+    " Poll queue attributes until we see 3 messages
     DO 10 TIMES.
       WAIT UP TO 5 SECONDS.
-      lo_receive_result = ao_sqs->receivemessage(
+      lo_attr_result = ao_sqs->getqueueattributes(
         iv_queueurl = lv_queue_url
-        iv_maxnumberofmessages = 10
-        iv_waittimeseconds = 10 ).
-      lv_msg_count = lines( lo_receive_result->get_messages( ) ).
+        it_attributenames = lt_attr_names ).
       
-      " Accumulate total messages received
-      IF lv_msg_count > lv_total_received.
-        lv_total_received = lv_msg_count.
-      ENDIF.
+      LOOP AT lo_attr_result->get_attributes( ) INTO DATA(lo_attr).
+        IF lo_attr-key = 'ApproximateNumberOfMessages'.
+          lv_msg_count = lo_attr-value->get_value( ).
+          EXIT.
+        ENDIF.
+      ENDLOOP.
       
       IF lv_msg_count >= 3.
         EXIT.
       ENDIF.
     ENDDO.
 
+    " Now receive the messages once to verify they're there
+    DATA(lo_receive_result) = ao_sqs->receivemessage(
+      iv_queueurl = lv_queue_url
+      iv_maxnumberofmessages = 10
+      iv_waittimeseconds = 10 ).
+
     cl_abap_unit_assert=>assert_equals(
-      act = lv_total_received
+      act = lines( lo_receive_result->get_messages( ) )
       exp = 3
-      msg = |Expected 3 messages in queue, got { lv_total_received }| ).
+      msg = |Expected 3 messages in queue, got { lines( lo_receive_result->get_messages( ) ) }| ).
 
     " Cleanup
     TRY.
@@ -516,38 +522,43 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       iv_queueurl = lv_queue_url
       it_entries = lt_send_entries ).
 
-    " Retry logic to receive messages (SQS eventual consistency)
-    " Increase retry attempts and wait times for batch operations
-    DATA lt_received_messages TYPE /aws1/cl_sqsmessage=>tt_messagelist.
-    DATA lo_receive_result TYPE REF TO /aws1/cl_sqsreceivemsgresult.
+    " Wait for messages to propagate using queue attributes
     DATA lv_msg_count TYPE i VALUE 0.
-    DATA lv_total_received TYPE i VALUE 0.
+    DATA lo_attr_result TYPE REF TO /aws1/cl_sqsgetqueueattrsrslt.
+    DATA lt_attr_names TYPE /aws1/cl_sqsattrnamelist_w=>tt_attributenamelist.
+    APPEND NEW /aws1/cl_sqsattrnamelist_w( iv_value = 'ApproximateNumberOfMessages' ) TO lt_attr_names.
     
-    " Try up to 10 times with longer waits
+    " Poll queue attributes until we see 3 messages
     DO 10 TIMES.
       WAIT UP TO 5 SECONDS.
-      lo_receive_result = ao_sqs->receivemessage(
+      lo_attr_result = ao_sqs->getqueueattributes(
         iv_queueurl = lv_queue_url
-        iv_maxnumberofmessages = 10
-        iv_waittimeseconds = 10 ).
-      lt_received_messages = lo_receive_result->get_messages( ).
-      lv_msg_count = lines( lt_received_messages ).
+        it_attributenames = lt_attr_names ).
       
-      " Accumulate total messages received
-      IF lv_msg_count > lv_total_received.
-        lv_total_received = lv_msg_count.
-      ENDIF
-.
+      LOOP AT lo_attr_result->get_attributes( ) INTO DATA(lo_attr).
+        IF lo_attr-key = 'ApproximateNumberOfMessages'.
+          lv_msg_count = lo_attr-value->get_value( ).
+          EXIT.
+        ENDIF.
+      ENDLOOP.
       
       IF lv_msg_count >= 3.
         EXIT.
       ENDIF.
     ENDDO.
 
+    " Now receive the messages once
+    DATA(lo_receive_result) = ao_sqs->receivemessage(
+      iv_queueurl = lv_queue_url
+      iv_maxnumberofmessages = 10
+      iv_waittimeseconds = 10 ).
+
+    DATA(lt_received_messages) = lo_receive_result->get_messages( ).
+    
     cl_abap_unit_assert=>assert_equals(
-      act = lv_total_received
+      act = lines( lt_received_messages )
       exp = 3
-      msg = |Expected 3 messages to be received, got { lv_total_received }| ).
+      msg = |Expected 3 messages to be received, got { lines( lt_received_messages ) }| ).
 
     " Build batch delete entries
     DATA lt_delete_entries TYPE /aws1/cl_sqsdelmsgbtcreqentry=>tt_deletemsgbatchreqentrylist.
@@ -568,8 +579,8 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
     " Verify successful deletes
     cl_abap_unit_assert=>assert_equals(
       act = lines( lo_delete_result->get_successful( ) )
-      exp = lv_total_received
-      msg = |Expected { lv_total_received } successful deletes| ).
+      exp = 3
+      msg = |Expected 3 successful deletes| ).
 
     " Verify no failures
     cl_abap_unit_assert=>assert_equals(
