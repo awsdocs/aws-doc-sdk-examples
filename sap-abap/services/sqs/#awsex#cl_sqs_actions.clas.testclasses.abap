@@ -148,9 +148,10 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
 
     " Retry logic to receive message
     DATA lv_found TYPE abap_bool VALUE abap_false.
+    DATA lo_receive_result TYPE REF TO /aws1/cl_sqsreceivemsgresult.
     DO 5 TIMES.
       WAIT UP TO 3 SECONDS.
-      DATA(lo_receive_result) = ao_sqs->receivemessage(
+      lo_receive_result = ao_sqs->receivemessage(
         iv_queueurl = lv_queue_url
         iv_maxnumberofmessages = 10
         iv_waittimeseconds = 10 ).
@@ -191,9 +192,10 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
 
     " Retry logic to receive message
     DATA lv_found TYPE abap_bool VALUE abap_false.
+    DATA lo_receive_result TYPE REF TO /aws1/cl_sqsreceivemsgresult.
     DO 5 TIMES.
       WAIT UP TO 3 SECONDS.
-      DATA(lo_receive_result) = ao_sqs_actions->receive_message( lv_queue_url ).
+      lo_receive_result = ao_sqs_actions->receive_message( lv_queue_url ).
 
       LOOP AT lo_receive_result->get_messages( ) INTO DATA(lo_message).
         IF lo_message->get_messageid( ) = lo_send_result->get_messageid( ) AND lo_message->get_body( ) = cv_message.
@@ -438,10 +440,11 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       iv_messagebody = cv_message ).
 
     " Retry logic to receive message
-    DATA(lt_messages) TYPE /aws1/cl_sqsmessage=>tt_messagelist.
+    DATA lt_messages TYPE /aws1/cl_sqsmessage=>tt_messagelist.
+    DATA lo_receive_result TYPE REF TO /aws1/cl_sqsreceivemsgresult.
     DO 5 TIMES.
       WAIT UP TO 3 SECONDS.
-      DATA(lo_receive_result) = ao_sqs->receivemessage(
+      lo_receive_result = ao_sqs->receivemessage(
         iv_queueurl = lv_queue_url
         iv_waittimeseconds = 10 ).
       lt_messages = lo_receive_result->get_messages( ).
@@ -504,10 +507,11 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       it_entries = lt_send_entries ).
 
     " Retry logic to receive messages (SQS eventual consistency)
-    DATA(lt_received_messages) TYPE /aws1/cl_sqsmessage=>tt_messagelist.
+    DATA lt_received_messages TYPE /aws1/cl_sqsmessage=>tt_messagelist.
+    DATA lo_receive_result TYPE REF TO /aws1/cl_sqsreceivemsgresult.
     DO 5 TIMES.
       WAIT UP TO 3 SECONDS.
-      DATA(lo_receive_result) = ao_sqs->receivemessage(
+      lo_receive_result = ao_sqs->receivemessage(
         iv_queueurl = lv_queue_url
         iv_maxnumberofmessages = 10
         iv_waittimeseconds = 10 ).
