@@ -125,7 +125,7 @@ CLASS /awsex/cl_s3_actions DEFINITION
       IMPORTING
                 !iv_bucket_name TYPE /aws1/s3_bucketname
                 !iv_object_key  TYPE /aws1/s3_objectkey
-                !iv_grantre TYPE /aws1/s3_grantread
+                !iv_grantread TYPE /aws1/s3_grantread
       RAISING   /aws1/cx_rt_generic.
     METHODS get_object_legal_hold
       IMPORTING

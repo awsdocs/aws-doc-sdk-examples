@@ -729,7 +729,8 @@ CLASS ltc_awsex_cl_s3_actions IMPLEMENTATION.
     create_file( cv_file ).
     put_file_in_bucket( iv_bucket = av_bucket iv_file = cv_file ).
 
-    DATA(lv_grantread) = 'uri=http://acs.amazonaws.com/groups/global/AllUsers'.
+    DATA lv_grantread TYPE /aws1/s3_grantread.
+    lv_grantread = 'uri=http://acs.amazonaws.com/groups/global/AllUsers'.
 
     ao_s3_actions->put_object_acl(
       iv_bucket_name = av_bucket
