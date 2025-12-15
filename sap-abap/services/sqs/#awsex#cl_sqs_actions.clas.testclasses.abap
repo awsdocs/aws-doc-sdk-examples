@@ -401,24 +401,34 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       msg = |Expected no failed messages| ).
 
     " Retry logic to receive messages (SQS eventual consistency)
+    " Increase retry attempts and wait times for batch operations
     DATA lo_receive_result TYPE REF TO /aws1/cl_sqsreceivemsgresult.
     DATA lv_msg_count TYPE i VALUE 0.
-    DO 5 TIMES.
-      WAIT UP TO 3 SECONDS.
+    DATA lv_total_received TYPE i VALUE 0.
+    
+    " Try up to 10 times with longer waits
+    DO 10 TIMES.
+      WAIT UP TO 5 SECONDS.
       lo_receive_result = ao_sqs->receivemessage(
         iv_queueurl = lv_queue_url
         iv_maxnumberofmessages = 10
         iv_waittimeseconds = 10 ).
       lv_msg_count = lines( lo_receive_result->get_messages( ) ).
-      IF lv_msg_count = 3.
+      
+      " Accumulate total messages received
+      IF lv_msg_count > lv_total_received.
+        lv_total_received = lv_msg_count.
+      ENDIF.
+      
+      IF lv_msg_count >= 3.
         EXIT.
       ENDIF.
     ENDDO.
 
     cl_abap_unit_assert=>assert_equals(
-      act = lv_msg_count
+      act = lv_total_received
       exp = 3
-      msg = |Expected 3 messages in queue| ).
+      msg = |Expected 3 messages in queue, got { lv_total_received }| ).
 
     " Cleanup
     TRY.
@@ -507,24 +517,37 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       it_entries = lt_send_entries ).
 
     " Retry logic to receive messages (SQS eventual consistency)
+    " Increase retry attempts and wait times for batch operations
     DATA lt_received_messages TYPE /aws1/cl_sqsmessage=>tt_messagelist.
     DATA lo_receive_result TYPE REF TO /aws1/cl_sqsreceivemsgresult.
-    DO 5 TIMES.
-      WAIT UP TO 3 SECONDS.
+    DATA lv_msg_count TYPE i VALUE 0.
+    DATA lv_total_received TYPE i VALUE 0.
+    
+    " Try up to 10 times with longer waits
+    DO 10 TIMES.
+      WAIT UP TO 5 SECONDS.
       lo_receive_result = ao_sqs->receivemessage(
         iv_queueurl = lv_queue_url
         iv_maxnumberofmessages = 10
         iv_waittimeseconds = 10 ).
       lt_received_messages = lo_receive_result->get_messages( ).
-      IF lines( lt_received_messages ) = 3.
+      lv_msg_count = lines( lt_received_messages ).
+      
+      " Accumulate total messages received
+      IF lv_msg_count > lv_total_received.
+        lv_total_received = lv_msg_count.
+      ENDIF
+.
+      
+      IF lv_msg_count >= 3.
         EXIT.
       ENDIF.
     ENDDO.
 
     cl_abap_unit_assert=>assert_equals(
-      act = lines( lt_received_messages )
+      act = lv_total_received
       exp = 3
-      msg = |Expected 3 messages to be received| ).
+      msg = |Expected 3 messages to be received, got { lv_total_received }| ).
 
     " Build batch delete entries
     DATA lt_delete_entries TYPE /aws1/cl_sqsdelmsgbtcreqentry=>tt_deletemsgbatchreqentrylist.
@@ -545,8 +568,8 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
     " Verify successful deletes
     cl_abap_unit_assert=>assert_equals(
       act = lines( lo_delete_result->get_successful( ) )
-      exp = 3
-      msg = |Expected 3 successful deletes| ).
+      exp = lv_total_received
+      msg = |Expected { lv_total_received } successful deletes| ).
 
     " Verify no failures
     cl_abap_unit_assert=>assert_equals(
