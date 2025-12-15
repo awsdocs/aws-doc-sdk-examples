@@ -400,20 +400,35 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       exp = 0
       msg = |Expected no failed messages| ).
 
-    " Wait a significant amount of time for messages to propagate and become visible
-    " For batch operations, longer wait is needed
+    " Wait for messages to propagate
     WAIT UP TO 15 SECONDS.
 
-    " Now receive the messages once with long polling
-    DATA(lo_receive_result) = ao_sqs->receivemessage(
-      iv_queueurl = lv_queue_url
-      iv_maxnumberofmessages = 10
-      iv_waittimeseconds = 20 ).
+    " Receive messages multiple times to get all messages
+    " SQS may not return all messages in a single call even with MaxNumberOfMessages=10
+    DATA lt_all_messages TYPE /aws1/cl_sqsmessage=>tt_messagelist.
+    DATA lo_receive_result TYPE REF TO /aws1/cl_sqsreceivemsgresult.
+    DATA lv_attempts TYPE i VALUE 0.
+    
+    " Try to receive until we get 3 messages total or max 5 attempts
+    WHILE lines( lt_all_messages ) < 3 AND lv_attempts < 5.
+      lv_attempts = lv_attempts + 1.
+      WAIT UP TO 5 SECONDS.
+      
+      lo_receive_result = ao_sqs->receivemessage(
+        iv_queueurl = lv_queue_url
+        iv_maxnumberofmessages = 10
+        iv_waittimeseconds = 20 ).
+      
+      " Add newly received messages to collection
+      LOOP AT lo_receive_result->get_messages( ) INTO DATA(lo_msg).
+        APPEND lo_msg TO lt_all_messages.
+      ENDLOOP.
+    ENDWHILE.
 
     cl_abap_unit_assert=>assert_equals(
-      act = lines( lo_receive_result->get_messages( ) )
+      act = lines( lt_all_messages )
       exp = 3
-      msg = |Expected 3 messages in queue, got { lines( lo_receive_result->get_messages( ) ) }| ).
+      msg = |Expected 3 messages in queue, got { lines( lt_all_messages ) }| ).
 
     " Cleanup
     TRY.
@@ -501,17 +516,30 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
       iv_queueurl = lv_queue_url
       it_entries = lt_send_entries ).
 
-    " Wait a significant amount of time for messages to propagate and become visible
-    " For batch operations, longer wait is needed
+    " Wait for messages to propagate
     WAIT UP TO 15 SECONDS.
 
-    " Now receive the messages once with long polling
-    DATA(lo_receive_result) = ao_sqs->receivemessage(
-      iv_queueurl = lv_queue_url
-      iv_maxnumberofmessages = 10
-      iv_waittimeseconds = 20 ).
-
-    DATA(lt_received_messages) = lo_receive_result->get_messages( ).
+    " Receive messages multiple times to get all messages
+    " SQS may not return all messages in a single call
+    DATA lt_received_messages TYPE /aws1/cl_sqsmessage=>tt_messagelist.
+    DATA lo_receive_result TYPE REF TO /aws1/cl_sqsreceivemsgresult.
+    DATA lv_attempts TYPE i VALUE 0.
+    
+    " Try to receive until we get 3 messages total or max 5 attempts
+    WHILE lines( lt_received_messages ) < 3 AND lv_attempts < 5.
+      lv_attempts = lv_attempts + 1.
+      WAIT UP TO 5 SECONDS.
+      
+      lo_receive_result = ao_sqs->receivemessage(
+        iv_queueurl = lv_queue_url
+        iv_maxnumberofmessages = 10
+        iv_waittimeseconds = 20 ).
+      
+      " Add newly received messages to collection
+      LOOP AT lo_receive_result->get_messages( ) INTO DATA(lo_msg).
+        APPEND lo_msg TO lt_received_messages.
+      ENDLOOP.
+    ENDWHILE.
     
     cl_abap_unit_assert=>assert_equals(
       act = lines( lt_received_messages )
@@ -521,7 +549,7 @@ CLASS ltc_awsex_cl_sqs_actions IMPLEMENTATION.
     " Build batch delete entries
     DATA lt_delete_entries TYPE /aws1/cl_sqsdelmsgbtcreqentry=>tt_deletemsgbatchreqentrylist.
     DATA lv_counter TYPE i VALUE 1.
-    LOOP AT lt_received_messages INTO DATA(lo_msg).
+    LOOP AT lt_received_messages INTO lo_msg.
       APPEND NEW /aws1/cl_sqsdelmsgbtcreqentry(
         iv_id = |del-{ lv_counter }|
         iv_receipthandle = lo_msg->get_receipthandle( )
