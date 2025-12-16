@@ -59,16 +59,25 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
     ao_ses_actions = NEW /awsex/cl_ses_actions( ).
 
     " Get unique identifiers
-    DATA(lv_uuid) = /aws1/cl_rt_util=>uuid_get_c32( ).
+    DATA lv_uuid TYPE guid_32.
+    TRY.
+        lv_uuid = cl_system_uuid=>create_uuid_x16_static( ).
+      CATCH cx_uuid_error.
+        " Fallback to random string
+        lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    ENDTRY.
     DATA lv_uuid_string TYPE string.
     lv_uuid_string = lv_uuid.
-    av_email = |sestest{ lv_uuid_string }@example.com|.
-    av_domain = |sestest{ lv_uuid_string }.example.com|.
-    av_template_name = |ses-tmpl-{ lv_uuid_string }|.
-    av_filter_name = |ses-filter-{ lv_uuid_string }|.
-    av_rule_set_name = |ses-ruleset-{ lv_uuid_string }|.
+    TRANSLATE lv_uuid_string TO LOWER CASE.
+    REPLACE ALL OCCURRENCES OF '-' IN lv_uuid_string WITH ''.
+    
+    av_email = |sestest{ lv_uuid_string(8) }@example.com|.
+    av_domain = |sestest{ lv_uuid_string(8) }.example.com|.
+    av_template_name = |ses-tmpl-{ lv_uuid_string(10) }|.
+    av_filter_name = |ses-filter-{ lv_uuid_string(10) }|.
+    av_rule_set_name = |ses-ruleset-{ lv_uuid_string(8) }|.
     DATA(lv_acct) = ao_session->get_account_id( ).
-    av_bucket_name = |ses-test-bucket-{ lv_acct }-{ lv_uuid_string }|.
+    av_bucket_name = |ses-test-bkt-{ lv_acct }-{ lv_uuid_string(8) }|.
 
     " Create S3 bucket for receipt rule tests
     /awsex/cl_utils=>create_bucket(
@@ -696,10 +705,18 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
 
   METHOD delete_receipt_rule_set.
     " Create a unique rule set for deletion test
-    DATA(lv_uuid) = /aws1/cl_rt_util=>uuid_get_c32( ).
+    DATA lv_uuid TYPE guid_32.
+    TRY.
+        lv_uuid = cl_system_uuid=>create_uuid_x16_static( ).
+      CATCH cx_uuid_error.
+        " Fallback to random string
+        lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    ENDTRY.
     DATA lv_uuid_string TYPE string.
     lv_uuid_string = lv_uuid.
-    DATA(lv_delete_rule_set) = |ses-del-ruleset-{ lv_uuid_string }|.
+    TRANSLATE lv_uuid_string TO LOWER CASE.
+    REPLACE ALL OCCURRENCES OF '-' IN lv_uuid_string WITH ''.
+    DATA(lv_delete_rule_set) = |ses-del-rs-{ lv_uuid_string(10) }|.
 
     TRY.
         ao_ses->createreceiptruleset( iv_rulesetname = lv_delete_rule_set ).
