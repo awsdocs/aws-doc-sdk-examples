@@ -252,7 +252,8 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
 
     " Skip test if no default VPC
     IF av_has_default_vpc = abap_false.
-      cl_abap_unit_assert=>skip( 'No default VPC available - test skipped' ).
+      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
+      RETURN.
     ENDIF.
 
     " Create group using default VPC subnet
@@ -409,7 +410,8 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
 
     " Skip test if no default VPC
     IF av_has_default_vpc = abap_false.
-      cl_abap_unit_assert=>skip( 'No default VPC available - test skipped' ).
+      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
+      RETURN.
     ENDIF.
 
     " Create a separate group for terminate testing with min_size=1 to ensure an instance launches
