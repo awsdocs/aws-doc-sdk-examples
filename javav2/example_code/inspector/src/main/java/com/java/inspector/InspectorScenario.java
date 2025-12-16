@@ -162,7 +162,7 @@ public class InspectorScenario {
         logger.info(DASHES);
         logger.info("Step 9: Delete filter?");
         logger.info("Filter ARN: {}", filterArn);
-        logger.info("Delete filter? (y/n)");
+        logger.info("Delete the filter and disable Inspector? (y/n)");
 
         if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
             actions.deleteFilterAsync(filterArn).join();
