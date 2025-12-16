@@ -60,12 +60,16 @@ CLASS ltc_awsex_cl_scd_actions IMPLEMENTATION.
 
     TRY.
         " Create SQS queue with tags for cleanup
-        DATA(lo_tags) = NEW /aws1/cl_sqstagmap_w( ).
-        lo_tags->add( iv_key = 'convert_test' iv_value = 'true' ).
-
         DATA(lo_create_result) = ao_sqs->createqueue(
           iv_queuename = lv_queue_name
-          io_tags = lo_tags ).
+          it_tags = VALUE /aws1/cl_sqstagmap_w=>tt_tagmap(
+            (
+              VALUE /aws1/cl_sqstagmap_w=>ts_tagmap_maprow(
+                key = 'convert_test'
+                value = NEW /aws1/cl_sqstagmap_w( 'true' )
+              )
+            )
+          ) ).
         av_queue_url = lo_create_result->get_queueurl( ).
 
         " Get queue ARN
