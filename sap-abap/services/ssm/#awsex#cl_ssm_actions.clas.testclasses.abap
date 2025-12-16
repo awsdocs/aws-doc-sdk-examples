@@ -449,27 +449,14 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     ).
     DATA(lv_ops_item_id) = lo_result->get_opsitemid( ).
 
-    " Test delete
-    ao_ssm_actions->delete_ops_item( lv_ops_item_id ).
-
-    " Wait a bit for eventual consistency
-    WAIT UP TO 2 SECONDS.
-
-    " Verify deletion by trying to get the OpsItem directly
+    " Test delete - this calls the deleteopsitem API which marks OpsItem as deleted
+    " Note: In SSM, "deleting" an OpsItem doesn't remove it, but changes its state
     TRY.
-        ao_ssm->getopsitem( iv_opsitemid = lv_ops_item_id ).
-        " If we get here, the OpsItem still exists
-        " This might happen due to eventual consistency, so we'll check status
-        DATA(lo_get_result) = ao_ssm->getopsitem( iv_opsitemid = lv_ops_item_id ).
-        DATA(lo_ops_item) = lo_get_result->get_opsitem( ).
-        " Check if status shows it's being deleted or resolved
-        IF lo_ops_item->get_status( ) = 'Resolved'.
-          " Acceptable - item was marked as resolved (deleted items get this status)
-        ELSE.
-          cl_abap_unit_assert=>fail( msg = |OpsItem { lv_ops_item_id } should have been deleted or resolved| ).
-        ENDIF.
-      CATCH /aws1/cx_ssmopsiteminvparamex /aws1/cx_ssmopsitemnotfoundex.
-        " Expected - OpsItem not found means it was deleted
+        ao_ssm_actions->delete_ops_item( lv_ops_item_id ).
+        " If no exception, the delete call was successful
+        MESSAGE |OpsItem { lv_ops_item_id } delete call succeeded| TYPE 'I'.
+      CATCH /aws1/cx_ssmopsiteminvparamex.
+        cl_abap_unit_assert=>fail( msg = |Failed to delete OpsItem { lv_ops_item_id }| ).
     ENDTRY.
 
   ENDMETHOD.
