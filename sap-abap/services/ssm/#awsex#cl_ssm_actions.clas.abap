@@ -305,13 +305,14 @@ CLASS /AWSEX/CL_SSM_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[ssm.abapv1.update_maintenance_window]
     TRY.
+        " Only pass parameters that have been provided (non-initial)
         lo_ssm->updatemaintenancewindow(
           iv_windowid = iv_window_id
-          iv_name = iv_name
+          iv_name = COND #( WHEN iv_name IS NOT INITIAL THEN iv_name )
           iv_enabled = iv_enabled
-          iv_schedule = iv_schedule
-          iv_duration = iv_duration
-          iv_cutoff = iv_cutoff
+          iv_schedule = COND #( WHEN iv_schedule IS NOT INITIAL THEN iv_schedule )
+          iv_duration = COND #( WHEN iv_duration IS NOT INITIAL THEN iv_duration )
+          iv_cutoff = COND #( WHEN iv_cutoff IS NOT INITIAL THEN iv_cutoff )
           iv_allowunassociatedtargets = iv_allow_unassociated_targets
         ).
         MESSAGE 'Maintenance window updated.' TYPE 'I'.
