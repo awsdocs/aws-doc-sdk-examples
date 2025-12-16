@@ -30,6 +30,9 @@ import static java.lang.System.*;
 
 public class ControlTowerScenario {
 
+
+
+
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     static Scanner scanner = new Scanner(in);
 
@@ -42,51 +45,37 @@ public class ControlTowerScenario {
     private String landingZoneArn = null;
     private boolean useLandingZone = false;
 
+    static {
+        // Disable AWS CRT logging completely
+        System.setProperty("aws.crt.log.level", "OFF");
+    }
+
     public static void main(String[] args) {
+
+
 
         out.println(DASHES);
         out.println("Welcome to the AWS Control Tower basics scenario!");
         out.println(DASHES);
 
+
         try {
-            ControlTowerClient controlTowerClient = ControlTowerClient.builder()
-                    .region(Region.US_EAST_1)
-                    .credentialsProvider(ProfileCredentialsProvider.create("default"))
-                    .build();
-
-            OrganizationsClient orgClient = OrganizationsClient.builder()
-                    .region(Region.AWS_GLOBAL)
-                    .credentialsProvider(ProfileCredentialsProvider.create("default"))
-                    .build();
-
-            ControlCatalogClient catClient = ControlCatalogClient.builder()
-                    .region(Region.US_EAST_1)
-                    .credentialsProvider(ProfileCredentialsProvider.create("default"))
-                    .build();
-
-            ControlTowerScenario scenario = new ControlTowerScenario(orgClient, catClient);
-            scenario.runScenario(controlTowerClient);
+           runScenario();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    // ----------------------------------------------------------
-    // Constructor: store orgClient for setupOrganization()
-    // ----------------------------------------------------------
-    public ControlTowerScenario(OrganizationsClient orgClient, ControlCatalogClient catClient) {
-        this.orgClient = orgClient;
-        this.catClient = catClient;
-    }
 
     // ----------------------------------------------------------
     // Main scenario flow
     // ----------------------------------------------------------
-    private void runScenario(ControlTowerClient controlTowerClient) {
-        try {
-            out.println(DASHES);
-            System.out.println("""
+    private static void runScenario() {
+        ControlTowerActions actions = new ControlTowerActions();
+
+        out.println(DASHES);
+        System.out.println("""
                                Some demo operations require the use of a landing zone.
                                You can use an existing landing zone or opt out of these operations in the demo.
                                For instructions on how to set up a landing zone,
@@ -96,19 +85,19 @@ public class ControlTowerScenario {
             out.println("Step 1: Listing landing zones...");
             waitForInputToContinue(scanner);
 
-            // CALL: ControlTowerActions.listLandingZones()
-            List<LandingZoneSummary> landingZones =
-                    ControlTowerActions.listLandingZones(controlTowerClient);
-
+            List<LandingZoneSummary> landingZones = actions.listLandingZonesAsync().join();
             if (!landingZones.isEmpty()) {
                 System.out.println("\nAvailable Landing Zones:");
-
                 for (int i = 0; i < landingZones.size(); i++) {
                     LandingZoneSummary lz = landingZones.get(i);
-                    System.out.printf("%d %s)%n", i + 1, lz.arn());
+                    System.out.printf("%d) %s%n", i + 1, lz.arn());
                 }
+            } else {
+                System.out.println("No landing zones found.");
+            }
 
-                if (askYesNo(
+        /*
+            if (askYesNo(
                         "Do you want to use the first landing zone in the list (" +
                                 landingZones.get(0).arn() + ")? (y/n): ")) {
 
@@ -134,6 +123,7 @@ public class ControlTowerScenario {
                     ouId = sandboxOuId;
                 }
             }
+            */
             waitForInputToContinue(scanner);
 
             // ----------------------------------------------------------
@@ -142,15 +132,14 @@ public class ControlTowerScenario {
             out.println(DASHES);
             out.println("Step 2: Listing available baselines...");
 
-            List<BaselineSummary> baselines =
-                    ControlTowerActions.listBaselines(controlTowerClient);
-
+            List<BaselineSummary> baselines = actions.listBaselinesAsync().join();
             baselines.forEach(b -> {
                 out.println("Baseline: " + b.name());
                 out.println("  ARN: " + b.arn());
             });
             waitForInputToContinue(scanner);
 
+            /*
             // ----------------------------------------------------------
             // CALL: ControlTowerActions.listControls()
             // ----------------------------------------------------------
@@ -233,7 +222,8 @@ public class ControlTowerScenario {
 
                     out.println("Disable operation ID: " + operationId);
                 }
-            }
+
+
 
             // Final pause
             waitForInputToContinue(scanner);
@@ -247,6 +237,8 @@ public class ControlTowerScenario {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+         */
     }
 
     public String setupOrganization() {

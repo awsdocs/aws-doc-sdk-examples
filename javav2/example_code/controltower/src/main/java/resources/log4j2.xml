@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%msg%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!-- Kill AWS SDK logs -->
+        <Logger name="software.amazon.awssdk" level="ERROR" additivity="false"/>
+
+        <!-- Kill Netty logs -->
+        <Logger name="io.netty" level="ERROR" additivity="false"/>
+
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
