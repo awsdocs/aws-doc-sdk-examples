@@ -198,7 +198,7 @@ CLASS ltc_awsex_cl_sfn_actions IMPLEMENTATION.
       |\}|.
 
     TRY.
-        DATA(lo_role) = ao_iam->createrole(
+        DATA(lo_create_role_result) = ao_iam->createrole(
           iv_rolename = av_role_name
           iv_assumerolepolicydocument = lv_trust_policy
           it_tags = VALUE #( ( NEW /aws1/cl_iamtag(
@@ -206,11 +206,13 @@ CLASS ltc_awsex_cl_sfn_actions IMPLEMENTATION.
             iv_value = 'true'
           ) ) )
         ).
+        DATA(lo_role) = lo_create_role_result->get_role( ).
         ov_role_arn = lo_role->get_arn( ).
-      CATCH /aws1/cx_iamentityalrdyex.
+      CATCH /aws1/cx_iamentityalrdyexex.
         " Role already exists, get its ARN
-        DATA(lo_get_role) = ao_iam->getrole( iv_rolename = av_role_name ).
-        ov_role_arn = lo_get_role->get_arn( ).
+        DATA(lo_get_role_result) = ao_iam->getrole( iv_rolename = av_role_name ).
+        DATA(lo_existing_role) = lo_get_role_result->get_role( ).
+        ov_role_arn = lo_existing_role->get_arn( ).
     ENDTRY.
 
     " Attach basic execution policy
