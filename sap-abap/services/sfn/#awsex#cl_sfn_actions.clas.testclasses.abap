@@ -451,15 +451,32 @@ CLASS ltc_awsex_cl_sfn_actions IMPLEMENTATION.
       iv_state_machine_arn = lv_temp_arn
     ).
 
-    " Verify deletion
-    TRY.
-        ao_sfn->describestatemachine(
-          iv_statemachinearn = lv_temp_arn
-        ).
-        cl_abap_unit_assert=>fail( msg = 'State machine should have been deleted' ).
-      CATCH /aws1/cx_sfnstatemachinedoes00.
-        " Expected - state machine was deleted
-    ENDTRY.
+    " Wait for deletion to propagate and verify
+    DATA lv_waited TYPE i VALUE 0.
+    DATA lv_deleted TYPE abap_bool VALUE abap_false.
+    DO.
+      TRY.
+          ao_sfn->describestatemachine(
+            iv_statemachinearn = lv_temp_arn
+          ).
+          " If we can still describe it, wait a bit more
+          WAIT UP TO 2 SECONDS.
+          lv_waited = lv_waited + 2.
+        CATCH /aws1/cx_sfnstatemachinedoes00.
+          " Expected - state machine was deleted
+          lv_deleted = abap_true.
+          EXIT.
+      ENDTRY.
+
+      IF lv_waited >= 30.
+        EXIT.
+      ENDIF.
+    ENDDO.
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_deleted
+      msg = 'State machine should have been deleted'
+    ).
   ENDMETHOD.
 
   METHOD create_activity.
