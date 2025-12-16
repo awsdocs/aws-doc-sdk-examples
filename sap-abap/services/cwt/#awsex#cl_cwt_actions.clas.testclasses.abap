@@ -600,14 +600,16 @@ CLASS ltc_awsex_cl_cwt_actions IMPLEMENTATION.
     DATA lv_timestamp TYPE /aws1/cwttimestamp.
     DATA lv_uuid_16 TYPE sysuuid_x16.
     DATA lv_namespace TYPE /aws1/cwtnamespace.
+    DATA lv_temp_tstmpl TYPE timestampl.
 
     "Create unique namespace for test.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_namespace = cv_namespace && '-' && lv_uuid_16.
     TRANSLATE lv_namespace TO LOWER CASE.
 
-    "Create timestamp - TIMESTAMPL type accepts native ABAP timestamp.
-    GET TIME STAMP FIELD lv_timestamp.
+    "Create timestamp in TIMESTAMPL format.
+    GET TIME STAMP FIELD lv_temp_tstmpl.
+    lv_timestamp = lv_temp_tstmpl.
 
     "Create values and counts.
     DATA(lo_value) = NEW /aws1/cl_cwtvalues_w( '10' ).
@@ -676,11 +678,13 @@ CLASS ltc_awsex_cl_cwt_actions IMPLEMENTATION.
     DATA lo_stats_result TYPE REF TO /aws1/cl_cwtgetmettatsoutput.
     DATA lv_start_time TYPE /aws1/cwttimestamp.
     DATA lv_end_time TYPE /aws1/cwttimestamp.
+    DATA lv_temp_tstmpl TYPE timestampl.
 
     "Set time range - last 7 days.
-    "TIMESTAMPL type accepts native ABAP timestamp format
-    GET TIME STAMP FIELD lv_end_time.
-    lv_start_time = lv_end_time - ( 7 * 86400 ).
+    "Get current timestamp and ensure it's in proper TIMESTAMPL format.
+    GET TIME STAMP FIELD lv_temp_tstmpl.
+    lv_end_time = lv_temp_tstmpl.
+    lv_start_time = lv_temp_tstmpl - ( 7 * 24 * 3600 ).
 
     "Create statistics list.
     " Example: 'Average', 'Minimum', 'Maximum'
