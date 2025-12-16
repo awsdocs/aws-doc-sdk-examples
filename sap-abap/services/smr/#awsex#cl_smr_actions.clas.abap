@@ -19,7 +19,7 @@ CLASS /awsex/cl_smr_actions DEFINITION
       IMPORTING
         !iv_filter_name TYPE /aws1/smrfiltervaluestringtype
       EXPORTING
-        !ot_secret_values TYPE /aws1/cl_smrsecretvalueentry=>tt_secretvaluesentrylist
+        !ot_secret_values TYPE /aws1/cl_smrsecretvalueentry=>tt_secretvaluestype
       RAISING
         /aws1/cx_rt_generic.
 
