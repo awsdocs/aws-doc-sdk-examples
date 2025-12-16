@@ -138,8 +138,11 @@ CLASS ltc_awsex_cl_sns_actions IMPLEMENTATION.
     DATA(lv_topic_arn) = lo_create_result->get_topicarn( ).
 
     " Create queue with tag
-    DATA lt_queue_tags TYPE /aws1/cl_sqstag=>tt_tagmap.
-    INSERT VALUE #( key = 'convert_test' value = 'true' ) INTO TABLE lt_queue_tags.
+    DATA lt_queue_tags TYPE /aws1/cl_sqstagmap_w=>tt_tagmap.
+    DATA ls_queue_tag LIKE LINE OF lt_queue_tags.
+    ls_queue_tag-key = 'convert_test'.
+    ls_queue_tag-value = NEW /aws1/cl_sqstagmap_w( iv_value = 'true' ).
+    INSERT ls_queue_tag INTO TABLE lt_queue_tags.
     DATA(lo_create_queue_result) = ao_sqs->createqueue( iv_queuename = cv_queue_name it_tags = lt_queue_tags ).
     DATA(lv_queue_url) = lo_create_queue_result->get_queueurl( ).
     DATA lt_required_attributes TYPE /aws1/cl_sqsattrnamelist_w=>tt_attributenamelist.
@@ -175,8 +178,11 @@ CLASS ltc_awsex_cl_sns_actions IMPLEMENTATION.
     DATA(lv_topic_arn) = lo_create_result->get_topicarn( ).
 
     " Create queue with tag
-    DATA lt_queue_tags TYPE /aws1/cl_sqstag=>tt_tagmap.
-    INSERT VALUE #( key = 'convert_test' value = 'true' ) INTO TABLE lt_queue_tags.
+    DATA lt_queue_tags TYPE /aws1/cl_sqstagmap_w=>tt_tagmap.
+    DATA ls_queue_tag LIKE LINE OF lt_queue_tags.
+    ls_queue_tag-key = 'convert_test'.
+    ls_queue_tag-value = NEW /aws1/cl_sqstagmap_w( iv_value = 'true' ).
+    INSERT ls_queue_tag INTO TABLE lt_queue_tags.
     DATA(lo_create_queue_result) = ao_sqs->createqueue( iv_queuename = cv_queue_name it_tags = lt_queue_tags ).
     DATA(lv_queue_url) = lo_create_queue_result->get_queueurl( ).
     DATA lt_required_attributes TYPE /aws1/cl_sqsattrnamelist_w=>tt_attributenamelist.
@@ -357,8 +363,11 @@ CLASS ltc_awsex_cl_sns_actions IMPLEMENTATION.
     DATA(lv_topic_arn) = lo_create_result->get_topicarn( ).
 
     " Create SQS queue for subscription with tag
-    DATA lt_queue_tags TYPE /aws1/cl_sqstag=>tt_tagmap.
-    INSERT VALUE #( key = 'convert_test' value = 'true' ) INTO TABLE lt_queue_tags.
+    DATA lt_queue_tags TYPE /aws1/cl_sqstagmap_w=>tt_tagmap.
+    DATA ls_queue_tag LIKE LINE OF lt_queue_tags.
+    ls_queue_tag-key = 'convert_test'.
+    ls_queue_tag-value = NEW /aws1/cl_sqstagmap_w( iv_value = 'true' ).
+    INSERT ls_queue_tag INTO TABLE lt_queue_tags.
     DATA(lo_create_queue_result) = ao_sqs->createqueue( iv_queuename = cv_queue_name it_tags = lt_queue_tags ).
     DATA(lv_queue_url) = lo_create_queue_result->get_queueurl( ).
     DATA lt_required_attributes TYPE /aws1/cl_sqsattrnamelist_w=>tt_attributenamelist.
@@ -396,7 +405,6 @@ CLASS ltc_awsex_cl_sns_actions IMPLEMENTATION.
     ao_sqs->deletequeue( iv_queueurl = lv_queue_url ).
     ao_sns->deletetopic( iv_topicarn = lv_topic_arn ).
   ENDMETHOD.
-
 
   METHOD publish_multi_message.
     CONSTANTS cv_topic_name TYPE /aws1/snstopicname VALUE 'code-example-multi-msg'.
