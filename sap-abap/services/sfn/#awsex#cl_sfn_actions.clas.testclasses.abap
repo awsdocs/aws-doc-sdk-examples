@@ -12,7 +12,7 @@ CLASS ltc_awsex_cl_sfn_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA ao_sfn TYPE REF TO /aws1/if_sfn.
     CLASS-DATA ao_iam TYPE REF TO /aws1/if_iam.
     CLASS-DATA ao_sfn_actions TYPE REF TO /awsex/cl_sfn_actions.
-    CLASS-DATA av_role_name TYPE /aws1/iamrolename.
+    CLASS-DATA av_role_name TYPE /aws1/iamrolenametype.
     CLASS-DATA av_role_arn TYPE /aws1/sfnarn.
     CLASS-DATA av_state_machine_name TYPE /aws1/sfnname.
     CLASS-DATA av_activity_name TYPE /aws1/sfnname.
