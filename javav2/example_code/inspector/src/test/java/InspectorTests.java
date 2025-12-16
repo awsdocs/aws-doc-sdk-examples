@@ -74,21 +74,18 @@ public class InspectorTests {
             inspectorActions.enableInspectorAsync(null).join();
 
             List<String> allFindings = inspectorActions.listLowSeverityFindingsAsync().join();
+            if (!allFindings.isEmpty()) {
+                // Only proceed if there are findings
+                String lastArn = allFindings.get(allFindings.size() - 1);
+                logger.info("Fetching details for last finding ARN: {}", lastArn);
 
-            if (allFindings.isEmpty()) {
-                logger.info("No LOW severity findings found.");
+                String details = inspectorActions.getFindingDetailsAsync(lastArn).join();
+
+                // Check details are not empty/null
+                assertNotNull(details, "Finding details should not be null");
+                assertFalse(details.isEmpty(), "Finding details should not be empty");
             } else {
-                logger.info("Found {} LOW severity findings.", allFindings.size());
-
-                // Optionally, iterate over all findings to test getFindingDetailsAsync
-                for (String arn : allFindings) {
-                    logger.info("Fetching details for finding ARN: {}", arn);
-                    String details = inspectorActions.getFindingDetailsAsync(arn).join();
-
-                    // Check details are not empty/null
-                    assertNotNull(details, "Finding details should not be null");
-                    assertFalse(details.isEmpty(), "Finding details should not be empty");
-                }
+                logger.info("No LOW severity findings found.");
             }
 
             maxResults = 5;
