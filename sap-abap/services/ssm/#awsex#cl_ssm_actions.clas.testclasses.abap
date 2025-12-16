@@ -468,7 +468,7 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
         ELSE.
           cl_abap_unit_assert=>fail( msg = |OpsItem { lv_ops_item_id } should have been deleted or resolved| ).
         ENDIF.
-      CATCH /aws1/cx_ssmopsiteminvparamex /aws1/cx_ssmopsitemnotfound.
+      CATCH /aws1/cx_ssmopsiteminvparamex /aws1/cx_ssmopsitemnotfoundex.
         " Expected - OpsItem not found means it was deleted
     ENDTRY.
 
