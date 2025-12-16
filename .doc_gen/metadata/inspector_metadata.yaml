@@ -15,7 +15,7 @@ inspector_Hello:
               snippet_tags:
                 - inspector.java2.hello.main
   services:
-    inspector: {BatchGetAccountStatus, ListFindings, ListUsageTotals}
+    inspector: {ListMembers}
 inspector_BatchGetFindingDetails:
   languages:
     Java:

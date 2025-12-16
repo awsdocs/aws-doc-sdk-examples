@@ -39,7 +39,7 @@ This Basics scenario does not require any additional AWS resources.
 
 ## Hello Amazon Inspector
 
-The Hello example is intended for users not familiar with this service to easily get up and running. It sets up the Inspector service client, checks the current account status for Inspector and displays available scan types.
+The Hello example is designed for users who are new to Amazon Inspector. It demonstrates how to set up the Inspector service client and retrieve a list of all member accounts associated with the current Inspector administrator account.
 
 ## Scenario
 

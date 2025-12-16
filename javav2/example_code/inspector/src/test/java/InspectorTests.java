@@ -44,9 +44,7 @@ public class InspectorTests {
     @Order(1)
     public void testHelloService() {
         assertDoesNotThrow(() -> {
-            HelloInspector.checkAccountStatus(inspector);
-            HelloInspector.listRecentFindings(inspector);
-            HelloInspector.showUsageTotals(inspector);
+            HelloInspector.listMembers(inspector);
         });
         logger.info("Test 1 passed");
     }

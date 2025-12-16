@@ -11,6 +11,7 @@ import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.services.inspector2.Inspector2AsyncClient;
 import software.amazon.awssdk.services.inspector2.model.*;
+import software.amazon.awssdk.services.inspector2.paginators.ListCoveragePublisher;
 import software.amazon.awssdk.services.inspector2.paginators.ListFiltersPublisher;
 import software.amazon.awssdk.services.inspector2.paginators.ListFindingsPublisher;
 import software.amazon.awssdk.services.inspector2.paginators.ListUsageTotalsPublisher;
@@ -497,101 +498,63 @@ public class InspectorActions {
      *
      * @param maxResults Maximum number of resources to return.
      */
-    public CompletableFuture<String> listCoverageAsync(
-            int maxResults) {
-
-        ListCoverageRequest request = ListCoverageRequest.builder()
+    public CompletableFuture<String> listCoverageAsync(int maxResults) {
+        ListCoverageRequest initialRequest = ListCoverageRequest.builder()
                 .maxResults(maxResults)
                 .build();
 
-        return getAsyncClient().listCoverage(request)
-                .whenComplete((response, exception) -> {
-                    if (exception != null) {
-                        Throwable cause = exception.getCause();
+        ListCoveragePublisher paginator = getAsyncClient().listCoveragePaginator(initialRequest);
+        StringBuilder summary = new StringBuilder();
 
-                        if (cause instanceof ValidationException) {
-                            throw new CompletionException(
-                                    "Validation error listing coverage: " + cause.getMessage(),
-                                    cause
-                            );
-                        }
+        return paginator.subscribe(response -> {
+            List<CoveredResource> coveredResources = response.coveredResources();
 
-                        if (cause instanceof Inspector2Exception) {
-                            Inspector2Exception e = (Inspector2Exception) cause;
-                            throw new CompletionException(
-                                    "Inspector2 service error: " + e.awsErrorDetails().errorMessage(),
-                                    e
-                            );
-                        }
+            if (coveredResources == null || coveredResources.isEmpty()) {
+                summary.append("No coverage information available for this page.\n");
+                return;
+            }
 
-                        throw new CompletionException(
-                                "Unexpected error listing coverage: " + exception.getMessage(),
-                                exception
-                        );
-                    }
-                })
-                .thenApply(response -> {
+            Map<String, List<CoveredResource>> byType = coveredResources.stream()
+                    .collect(Collectors.groupingBy(CoveredResource::resourceTypeAsString));
 
-                    List<CoveredResource> coveredResources = response.coveredResources();
+            byType.forEach((type, list) ->
+                    summary.append("  ").append(type)
+                            .append(": ").append(list.size())
+                            .append(" resource(s)\n")
+            );
 
-                    // Build output summary
-                    StringBuilder sb = new StringBuilder();
+            // Include up to 3 sample resources per page
+            for (int i = 0; i < Math.min(coveredResources.size(), 3); i++) {
+                CoveredResource r = coveredResources.get(i);
+                summary.append("  - ").append(r.resourceTypeAsString())
+                        .append(": ").append(r.resourceId()).append("\n");
+                summary.append("    Scan Type: ").append(r.scanTypeAsString()).append("\n");
+                if (r.scanStatus() != null) {
+                    summary.append("    Status: ").append(r.scanStatus().statusCodeAsString()).append("\n");
+                }
+                if (r.accountId() != null) {
+                    summary.append("    Account ID: ").append(r.accountId()).append("\n");
+                }
+                summary.append("\n");
+            }
 
-                    if (coveredResources == null || coveredResources.isEmpty()) {
-                        sb.append("No coverage information available.\n")
-                                .append("This likely means Inspector hasn't scanned your resources yet ")
-                                .append("or no supported resource types are present.\n");
-
-                        return sb.toString();
-                    }
-
-                    // Summary counts
-                    sb.append("Coverage Information:\n")
-                            .append("  Total resources covered: ")
-                            .append(coveredResources.size())
-                            .append("\n");
-
-                    // Group by resource type
-                    Map<String, List<CoveredResource>> byType =
-                            coveredResources.stream()
-                                    .collect(Collectors.groupingBy(CoveredResource::resourceTypeAsString));
-
-                    byType.forEach((type, list) ->
-                            sb.append("  ").append(type)
-                                    .append(": ").append(list.size())
-                                    .append(" resource(s)\n")
-                    );
-
-                    sb.append("\nSample covered resources:\n");
-                    for (int i = 0; i < Math.min(coveredResources.size(), 3); i++) {
-                        CoveredResource r = coveredResources.get(i);
-
-                        sb.append("  - ")
-                                .append(r.resourceTypeAsString())
-                                .append(": ")
-                                .append(r.resourceId())
-                                .append("\n");
-
-                        sb.append("    Scan Type: ")
-                                .append(r.scanTypeAsString())
-                                .append("\n");
-
-                        if (r.scanStatus() != null) {
-                            sb.append("    Status: ")
-                                    .append(r.scanStatus().statusCodeAsString())
-                                    .append("\n");
-                        }
-
-                        if (r.accountId() != null) {
-                            sb.append("    Account ID: ")
-                                    .append(r.accountId())
-                                    .append("\n");
-                        }
-
-                        sb.append("\n");
-                    }
-                    return sb.toString();
-                });
+        }).thenApply(v -> {
+            if (summary.length() == 0) {
+                return "No coverage information found across all pages.";
+            } else {
+                return "Coverage Information:\n" + summary.toString();
+            }
+        }).exceptionally(ex -> {
+            Throwable cause = ex.getCause();
+            if (cause instanceof ValidationException) {
+                throw new CompletionException(
+                        "Validation error listing coverage: " + cause.getMessage(), cause);
+            } else if (cause instanceof Inspector2Exception e) {
+                throw new CompletionException(
+                        "Inspector2 service error: " + e.awsErrorDetails().errorMessage(), e);
+            }
+            throw new CompletionException("Unexpected error listing coverage: " + ex.getMessage(), ex);
+        });
     }
     // snippet-end:[inspector.java2.list_coverage.main]
 

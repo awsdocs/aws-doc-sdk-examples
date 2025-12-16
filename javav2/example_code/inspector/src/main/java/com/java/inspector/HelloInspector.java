@@ -9,6 +9,9 @@ import software.amazon.awssdk.services.inspector2.Inspector2Client;
 import software.amazon.awssdk.services.inspector2.model.BatchGetAccountStatusRequest;
 import software.amazon.awssdk.services.inspector2.model.BatchGetAccountStatusResponse;
 import software.amazon.awssdk.services.inspector2.model.AccountState;
+import software.amazon.awssdk.services.inspector2.model.ListMembersRequest;
+import software.amazon.awssdk.services.inspector2.model.ListMembersResponse;
+import software.amazon.awssdk.services.inspector2.model.Member;
 import software.amazon.awssdk.services.inspector2.model.ResourceState;
 import software.amazon.awssdk.services.inspector2.model.State;
 import software.amazon.awssdk.services.inspector2.model.ListFindingsRequest;
@@ -34,20 +37,20 @@ import java.util.ArrayList;
  */
 public class HelloInspector {
     private static final Logger logger = LoggerFactory.getLogger(HelloInspector.class);
-    public static void main(String[] args) {
-        logger.info(" Hello Amazon Inspector!");
-        try (Inspector2Client inspectorClient = Inspector2Client.builder()
-                .build()) {
 
-            logger.info("Checking Inspector account status...");
-            checkAccountStatus(inspectorClient);
-            logger.info("");
+    public static void main(String[] args) {
+        logger.info("Hello Amazon Inspector!");
+
+        try (Inspector2Client inspectorClient = Inspector2Client.builder().build()) {
+
+            logger.info("Listing member accounts for this Inspector administrator account...");
+            listMembers(inspectorClient);
 
             logger.info("The Hello Inspector example completed successfully.");
 
         } catch (Inspector2Exception e) {
-            logger.info(" Error: {}" , e.getMessage());
-            logger.info(" Troubleshooting:");
+            logger.error("Error: {}", e.getMessage());
+            logger.info("Troubleshooting:");
             logger.info("1. Verify AWS credentials are configured");
             logger.info("2. Check IAM permissions for Inspector2");
             logger.info("3. Ensure Inspector2 is enabled in your account");
@@ -56,50 +59,34 @@ public class HelloInspector {
     }
 
     /**
-     * Checks the account status using the provided Inspector2Client.
-     * This method sends a request to retrieve the account status and prints the details of each account's resource states.
+     * Lists all member accounts associated with the current Inspector administrator account.
      *
-     * @param inspectorClient The Inspector2Client used to interact with the AWS Inspector service.
+     * @param inspectorClient The Inspector2Client used to interact with AWS Inspector.
      */
-    public static void checkAccountStatus(Inspector2Client inspectorClient) {
+    public static void listMembers(Inspector2Client inspectorClient) {
         try {
-            BatchGetAccountStatusRequest request = BatchGetAccountStatusRequest.builder().build();
-            BatchGetAccountStatusResponse response = inspectorClient.batchGetAccountStatus(request);
+            ListMembersRequest request = ListMembersRequest.builder()
+                    .maxResults(50) // optional: limit results
+                    .build();
 
-            List<AccountState> accounts = response.accounts();
-            if (accounts == null || accounts.isEmpty()) {
-                logger.info(" No account information returned.");
+            ListMembersResponse response = inspectorClient.listMembers(request);
+            List<Member> members = response.members();
+
+            if (members == null || members.isEmpty()) {
+                logger.info("No member accounts found for this Inspector administrator account.");
                 return;
             }
 
-            for (AccountState account : accounts) {
-                logger.info(" Account: " + account.accountId());
-                ResourceState resources = account.resourceState();
-                if (resources == null) {
-                    System.out.println("   No resource state data available.");
-                    continue;
-                }
-
-                logger.info("   Resource States:");
-                printState("EC2", resources.ec2());
-                printState("ECR", resources.ecr());
-                printState("Lambda", resources.lambda());
-                printState("Lambda Code", resources.lambdaCode());
-                System.out.println();
+            logger.info("Found {} member account(s):", members.size());
+            for (Member member : members) {
+                logger.info(" - Account ID: {}, Status: {}",
+                        member.accountId(),
+                        member.relationshipStatusAsString());
             }
 
         } catch (Inspector2Exception e) {
-            System.err.println(" Failed to retrieve account status: " + e.awsErrorDetails().errorMessage());
+            logger.error("Failed to list members: {}", e.awsErrorDetails().errorMessage());
         }
-    }
-
-    public static void printState(String name, State state) {
-        if (state == null) {
-            logger.info("     - {} : (no data)", name);
-            return;
-        }
-        String err = state.errorMessage() != null ? " (Error: " + state.errorMessage() + ")" : "";
-        logger.info("     - {}: {}{}", name, state.status(), err);
     }
 }
 // snippet-end:[inspector.java2.hello.main]
