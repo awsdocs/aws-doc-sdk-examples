@@ -1,3 +1,6 @@
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
+
 CLASS ltc_awsex_cl_asc_actions DEFINITION DEFERRED.
 CLASS /awsex/cl_asc_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_asc_actions.
 
@@ -16,6 +19,8 @@ CLASS ltc_awsex_cl_asc_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_launch_template_id TYPE /aws1/ascxmlstringmaxlen255.
     CLASS-DATA av_lnch_tmpl_name_term TYPE /aws1/asclaunchtemplatename.
     CLASS-DATA av_lnch_tmpl_id_term TYPE /aws1/ascxmlstringmaxlen255.
+    CLASS-DATA av_default_subnet_id TYPE /aws1/ec2string.
+    CLASS-DATA av_has_default_vpc TYPE abap_bool.
 
     METHODS: create_and_describe_group FOR TESTING RAISING /aws1/cx_rt_generic,
       update_group FOR TESTING RAISING /aws1/cx_rt_generic,
@@ -23,6 +28,7 @@ CLASS ltc_awsex_cl_asc_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
       describe_instances FOR TESTING RAISING /aws1/cx_rt_generic,
       describe_scaling_activities FOR TESTING RAISING /aws1/cx_rt_generic,
       enable_and_disable_metrics FOR TESTING RAISING /aws1/cx_rt_generic,
+      get_group_instances FOR TESTING RAISING /aws1/cx_rt_generic,
       terminate_inst_and_del_group FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
@@ -39,11 +45,48 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     DATA lt_tag_specs TYPE /aws1/cl_ec2launchtmpltgspec00=>tt_launchtmpltagspecreqlist.
     DATA lo_template_data TYPE REF TO /aws1/cl_ec2reqlaunchtmpldata.
     DATA lo_create_result TYPE REF TO /aws1/cl_ec2crelaunchtmplrslt.
+    DATA lt_vpcs TYPE /aws1/cl_ec2vpc=>tt_vpclist.
+    DATA lo_vpc TYPE REF TO /aws1/cl_ec2vpc.
+    DATA lt_subnets TYPE /aws1/cl_ec2subnet=>tt_subnetlist.
+    DATA lo_subnet TYPE REF TO /aws1/cl_ec2subnet.
 
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_asc = /aws1/cl_asc_factory=>create( ao_session ).
     ao_ec2 = /aws1/cl_ec2_factory=>create( ao_session ).
     ao_asc_actions = NEW /awsex/cl_asc_actions( ao_session ).
+
+    " Find the default VPC and a subnet in it
+    TRY.
+        " Describe VPCs to find the default one
+        DATA(lo_vpcs_result) = ao_ec2->describevpcs( ).
+        lt_vpcs = lo_vpcs_result->get_vpcs( ).
+        
+        LOOP AT lt_vpcs INTO lo_vpc.
+          IF lo_vpc->get_isdefault( ) = abap_true.
+            " Found default VPC, now get a subnet from it
+            DATA(lo_subnets_result) = ao_ec2->describesubnets( ).
+            lt_subnets = lo_subnets_result->get_subnets( ).
+            
+            LOOP AT lt_subnets INTO lo_subnet.
+              IF lo_subnet->get_vpcid( ) = lo_vpc->get_vpcid( ).
+                av_default_subnet_id = lo_subnet->get_subnetid( ).
+                av_has_default_vpc = abap_true.
+                EXIT.
+              ENDIF.
+            ENDLOOP.
+            EXIT.
+          ENDIF.
+        ENDLOOP.
+      CATCH /aws1/cx_rt_generic.
+        " No default VPC found, tests will be skipped
+        av_has_default_vpc = abap_false.
+    ENDTRY.
+
+    IF av_has_default_vpc = abap_false.
+      " Skip all tests if no default VPC
+      MESSAGE 'No default VPC found. Auto Scaling tests will be skipped.' TYPE 'W'.
+      RETURN.
+    ENDIF.
 
     " Generate unique names using utility function
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
@@ -52,7 +95,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     av_group_name_term = |asc-term-{ lv_uuid }|.
     av_lnch_tmpl_name_term = |asc-tmpl-t-{ lv_uuid }|.
 
-    " Create a launch template for testing
+    " Create tags for all resources
     lo_tag = NEW /aws1/cl_ec2tag(
       iv_key = 'convert_test'
       iv_value = 'true' ).
@@ -205,28 +248,17 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD create_and_describe_group.
-    DATA lt_subnets_raw TYPE /aws1/cl_ec2subnet=>tt_subnetlist.
-    DATA lo_subnet TYPE REF TO /aws1/cl_ec2subnet.
-    DATA lv_subnet_ids TYPE string.
     DATA lo_group TYPE REF TO /aws1/cl_ascautoscalinggroup.
 
-    " Get subnets from the default VPC or any available VPC
-    DATA(lo_subnets_result) = ao_ec2->describesubnets( ).
-    lt_subnets_raw = lo_subnets_result->get_subnets( ).
-
-    " Build comma-separated list of subnet IDs (use first subnet)
-    IF lines( lt_subnets_raw ) > 0.
-      READ TABLE lt_subnets_raw INDEX 1 INTO lo_subnet.
-      lv_subnet_ids = lo_subnet->get_subnetid( ).
-    ELSE.
-      cl_abap_unit_assert=>fail( |No subnets available for testing| ).
-      RETURN.
+    " Skip test if no default VPC
+    IF av_has_default_vpc = abap_false.
+      cl_abap_unit_assert=>skip( 'No default VPC available - test skipped' ).
     ENDIF.
 
-    " Create group using VPC subnet (not availability zones)
+    " Create group using default VPC subnet
     ao_asc_actions->create_group(
       iv_group_name = av_group_name
-      iv_vpc_zone_identifier = lv_subnet_ids
+      iv_vpc_zone_identifier = av_default_subnet_id
       iv_launch_template_name = av_launch_template_name
       iv_min_size = 0
       iv_max_size = 1 ).
@@ -356,10 +388,17 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
       msg = |Metrics not disabled| ).
   ENDMETHOD.
 
+  METHOD get_group_instances.
+    DATA lt_instances TYPE /aws1/cl_ascinstance=>tt_instances.
+
+    " Test get_group_instances helper method
+    lt_instances = ao_asc_actions->get_group_instances( av_group_name ).
+
+    " Verify the method doesn't crash (instances may or may not exist)
+    MESSAGE |get_group_instances returned { lines( lt_instances ) } instances| TYPE 'I'.
+  ENDMETHOD.
+
   METHOD terminate_inst_and_del_group.
-    DATA lt_subnets_raw TYPE /aws1/cl_ec2subnet=>tt_subnetlist.
-    DATA lo_subnet TYPE REF TO /aws1/cl_ec2subnet.
-    DATA lv_subnet_ids TYPE string.
     DATA lo_activity TYPE REF TO /aws1/cl_ascactivity.
     DATA lt_instances TYPE /aws1/cl_ascinstance=>tt_instances.
     DATA lo_instance TYPE REF TO /aws1/cl_ascinstance.
@@ -368,22 +407,15 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     DATA lv_max_retries TYPE i VALUE 30.
     DATA lv_instance_ready TYPE abap_bool VALUE abap_false.
 
-    " Get subnets from the default VPC
-    DATA(lo_subnets_result) = ao_ec2->describesubnets( ).
-    lt_subnets_raw = lo_subnets_result->get_subnets( ).
-
-    IF lines( lt_subnets_raw ) > 0.
-      READ TABLE lt_subnets_raw INDEX 1 INTO lo_subnet.
-      lv_subnet_ids = lo_subnet->get_subnetid( ).
-    ELSE.
-      cl_abap_unit_assert=>fail( |No subnets available for testing| ).
-      RETURN.
+    " Skip test if no default VPC
+    IF av_has_default_vpc = abap_false.
+      cl_abap_unit_assert=>skip( 'No default VPC available - test skipped' ).
     ENDIF.
 
     " Create a separate group for terminate testing with min_size=1 to ensure an instance launches
     ao_asc_actions->create_group(
       iv_group_name = av_group_name_term
-      iv_vpc_zone_identifier = lv_subnet_ids
+      iv_vpc_zone_identifier = av_default_subnet_id
       iv_launch_template_name = av_lnch_tmpl_name_term
       iv_min_size = 1
       iv_max_size = 1 ).
