@@ -5,7 +5,6 @@ package com.java.inspector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.Scanner;
 
 // snippet-start:[inspector.java2_scenario.main]
@@ -71,17 +70,8 @@ public class InspectorScenario {
      * Runs the Inspector scenario in a step-by-step sequence.
      *
      * All InspectorActions methods are asynchronous and return CompletableFutures.
-     * Each step ends with .join().
+     * Each step ends with .join(). Any async exception thrown during .join() will bubble up
      *
-     *
-     * Error handling:
-     *   • runScenario() intentionally does not catch any exceptions
-     *   • Any async exception thrown during .join() will bubble up
-     *   • The main() method contains a single top-level try/catch,
-     *     which logs failures and ends the scenario gracefully
-     *
-     * This design keeps the scenario readable while still demonstrating proper
-     * asynchronous Inspector2 usage, pagination, and exception propagation.
      */
     public static void runScenario(InspectorActions actions) {
 
