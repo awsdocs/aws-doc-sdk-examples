@@ -322,8 +322,8 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
 
         DATA(lt_attrs) = lo_result->get_verificationattributes( ).
         IF lt_attrs IS NOT INITIAL.
-          LOOP AT lt_attrs ASSIGNING FIELD-SYMBOL(<attr>).
-            ov_status = <attr>->get_value( )->get_verificationstatus( ).
+          LOOP AT lt_attrs ASSIGNING FIELD-SYMBOL(<ls_attr>).
+            ov_status = <ls_attr>-value->get_verificationstatus( ).
             EXIT.
           ENDLOOP.
         ELSE.
