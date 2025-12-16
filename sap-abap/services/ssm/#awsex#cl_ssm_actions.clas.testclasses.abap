@@ -63,15 +63,18 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     av_document_name = |test-doc-{ lv_uuid_string }|.
 
     " Create a test document for use in multiple tests
-    " Example SSM document content in YAML format
-    DATA(lv_content) = |schemaVersion: '2.2'\n| &&
-                       |description: Test document for SSM examples\n| &&
-                       |mainSteps:\n| &&
-                       |  - action: 'aws:runShellScript'\n| &&
-                       |    name: runEchoCommand\n| &&
-                       |    inputs:\n| &&
-                       |      runCommand:\n| &&
-                       |        - echo "Hello from SSM"|.
+    " Example SSM document content in JSON format
+    DATA(lv_content) = '{' &&
+                       '"schemaVersion":"2.2",' &&
+                       '"description":"Test document for SSM examples",' &&
+                       '"mainSteps":[{' &&
+                       '"action":"aws:runShellScript",' &&
+                       '"name":"runEchoCommand",' &&
+                       '"inputs":{' &&
+                       '"runCommand":["echo Hello from SSM"]' &&
+                       '}' &&
+                       '}]' &&
+                       '}'.
 
     " Create document with convert_test tag
     DATA lt_tags TYPE /aws1/cl_ssmtag=>tt_taglist.
@@ -189,15 +192,18 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     lv_uuid_string = lv_uuid.
     DATA(lv_doc_name) = |doc-create-{ lv_uuid_string }|.
 
-    " Example SSM document content in YAML format
-    DATA(lv_content) = |schemaVersion: '2.2'\n| &&
-                       |description: Simple document\n| &&
-                       |mainSteps:\n| &&
-                       |  - action: 'aws:runShellScript'\n| &&
-                       |    name: runEchoCommand\n| &&
-                       |    inputs:\n| &&
-                       |      runCommand:\n| &&
-                       |        - echo "Hello World"|.
+    " Example SSM document content in JSON format
+    DATA(lv_content) = '{' &&
+                       '"schemaVersion":"2.2",' &&
+                       '"description":"Simple document",' &&
+                       '"mainSteps":[{' &&
+                       '"action":"aws:runShellScript",' &&
+                       '"name":"runEchoCommand",' &&
+                       '"inputs":{' &&
+                       '"runCommand":["echo Hello World"]' &&
+                       '}' &&
+                       '}]' &&
+                       '}'.
 
     DATA(lo_result) = ao_ssm_actions->create_document(
       iv_name = lv_doc_name
@@ -228,14 +234,17 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     DATA(lv_doc_name) = |doc-delete-{ lv_uuid_string }|.
 
     " Create document first
-    DATA(lv_content) = |schemaVersion: '2.2'\n| &&
-                       |description: Document for delete test\n| &&
-                       |mainSteps:\n| &&
-                       |  - action: 'aws:runShellScript'\n| &&
-                       |    name: runEchoCommand\n| &&
-                       |    inputs:\n| &&
-                       |      runCommand:\n| &&
-                       |        - echo "Delete test"|.
+    DATA(lv_content) = '{' &&
+                       '"schemaVersion":"2.2",' &&
+                       '"description":"Document for delete test",' &&
+                       '"mainSteps":[{' &&
+                       '"action":"aws:runShellScript",' &&
+                       '"name":"runEchoCommand",' &&
+                       '"inputs":{' &&
+                       '"runCommand":["echo Delete test"]' &&
+                       '}' &&
+                       '}]' &&
+                       '}'.
 
     ao_ssm->createdocument(
       iv_name = lv_doc_name
