@@ -78,7 +78,13 @@ CLASS ltc_awsex_cl_scd_actions IMPLEMENTATION.
           it_attributenames = VALUE /aws1/cl_sqsattrnamelist_w=>tt_attributenamelist(
             ( NEW /aws1/cl_sqsattrnamelist_w( 'QueueArn' ) ) ) ).
 
-        av_queue_arn = lo_attrs->get_attributes( )->get_item( 'QueueArn' )->get_value( ).
+        " Extract QueueArn from attributes
+        LOOP AT lo_attrs->get_attributes( ) INTO DATA(ls_attr_row).
+          IF ls_attr_row-key = 'QueueArn'.
+            av_queue_arn = ls_attr_row-value->get_value( ).
+            EXIT.
+          ENDIF.
+        ENDLOOP.
 
         " Create IAM role for EventBridge Scheduler with permissions
         av_role_name = |scd-test-role-{ lv_uuid_string }|.
