@@ -1,7 +1,7 @@
 name: syncSteerSpecs
 on:
   push:
-    branches: ["sync-for-steer-specs"]
+    branches: ["main"]
   workflow_dispatch:
     inputs:
       dir_name:

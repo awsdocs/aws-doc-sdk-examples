@@ -1,7 +1,7 @@
 name: syncS3andKB
 on:
   push:
-    branches: ["main"]
+    branches: ["sync-for-steer-specs"]
   workflow_dispatch:
     inputs:
       sdk_name:
@@ -21,6 +21,9 @@ on:
           - php
           - cpp
           - kotlin
+          - steering_docs
+          - specs
+          - coding-standards
 
 permissions:
   id-token: write
@@ -53,11 +56,35 @@ jobs:
               echo "S3_LANGUAGE=rust" >> $GITHUB_ENV
           elif [ "$sdk_name" == "gov2" ]; then
               echo "S3_LANGUAGE=go" >> $GITHUB_ENV
+          elif [ "$sdk_name" == "steering_docs" ]; then
+              echo "S3_LANGUAGE=steering-docs" >> $GITHUB_ENV
+          elif [ "$sdk_name" == "coding-standards" ]; then
+              echo "S3_LANGUAGE=coding-standards" >> $GITHUB_ENV
+          elif [ "$sdk_name" == "specs" ]; then
+              echo "S3_LANGUAGE=final-specs" >> $GITHUB_ENV
           else
               echo "S3_LANGUAGE=$sdk_name" >> $GITHUB_ENV
           fi
-
+    
+      - name: Filter SPECIFICATION.md files for specs
+        if: ${{ github.event.inputs.sdk_name == 'specs' }}
+        run: |
+          find ./scenarios -name "SPECIFICATION.md" | while read file; do
+            mkdir -p "./filtered_specs/$(dirname "$file")"
+            cp "$file" "./filtered_specs/$file"
+          done
+      
+      - name: Clone and filter for coding standards
+        if: ${{ github.event.inputs.sdk_name == 'coding-standards' }}
+        run: |
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git wiki-repo
+          mkdir -p ./filtered-wiki
+          find ./wiki-repo -type f -name "*[Gg]uidelines*.md" -o -name "*[Ss]tandards*.md" | while read file; do
+            cp "$file" ./filtered-wiki/
+          done
+      
       - name: Extract and copy premium examples in temp. dir.
+        if: ${{ contains(fromJSON('["javascriptv3","dotnetv4","javav2","rustv1","gov2","swift","python","ruby","php","cpp","kotlin"]'), github.event.inputs.sdk_name) }}
         run: |
           MARKDOWN_FILE="./$sdk_name/premium-ex.md"
           
@@ -99,7 +126,8 @@ jobs:
             fi
           done
 
-      - name: Upload/Sync to S3
+      - name: Upload/Sync to S3 (SDK languages)
+        if: ${{ contains(fromJSON('["javascriptv3","dotnetv4","javav2","rustv1","gov2","swift","python","ruby","php","cpp","kotlin"]'), github.event.inputs.sdk_name) }}
         run: |
           for level in "basics" "feature-scenario" "complex-feature-scenario"; do
             if [ -d "./extracted_snippets/$level" ]; then
@@ -107,6 +135,17 @@ jobs:
               echo "Uploaded $level examples to S3"
             fi
           done
+      
+      - name: Upload/Sync to S3 (Other directories)
+        if: ${{ contains(fromJSON('["steering_docs","coding-standards","specs"]'), github.event.inputs.sdk_name) }}
+        run: |
+          if [ "$sdk_name" == "steering_docs" ]; then
+            aws s3 sync "./$sdk_name/" "s3://$S3_LANGUAGE-bucket/" --delete
+          elif [ "$sdk_name" == "coding-standards" ]; then
+            aws s3 sync "./filtered-wiki/" "s3://$S3_LANGUAGE-bucket/" --delete
+          else
+            aws s3 sync "./filtered_specs/" "s3://$S3_LANGUAGE-bucket/" --delete
+          fi
 
       - name: Sync Knowledge Base Data Source
         run: |
