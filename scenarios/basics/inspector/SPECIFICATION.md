@@ -35,6 +35,8 @@ This Basics scenario does not require any additional AWS resources.
 
 * [DeleteFilter](https://docs.aws.amazon.com/inspector/v2/APIReference/API_DeleteFilter.html)
 
+- [Disable](https://docs.aws.amazon.com/inspector/v2/APIReference/API_Disable.html)
+
 
 ## Hello Amazon Inspector
 
@@ -77,6 +79,13 @@ This scenario demonstrates the basic usage of **Amazon Inspector** using a Java 
 
 ---
 
+### Cleanup
+
+* Delete the filter
+* Diable inspector
+
+---
+
 ### Outcome
 
 By following this scenario, users learn how to:
@@ -87,6 +96,7 @@ By following this scenario, users learn how to:
 * Monitor scan coverage
 * Create and manage filters
 * Track usage and coverage statistics
+* Cleanup the resources
 
 ## Errors
 
@@ -95,6 +105,7 @@ The table below describes the exceptions handled in the program for each action.
 | Action                       | Exception                  | Handling                                                                 |
 |-------------------------------|---------------------------|--------------------------------------------------------------------------|
 | `Enable`                      | `ValidationException`      | Prints a message indicating Inspector may already be enabled.           |
+| `Disable`                      | `ValidationException`      | Prints a message indicating Inspector may already be disabled.           |
 | `listUsageTotals`                      | `ValidationException`      | Validation error listing usage totals. 
 | `BatchGetAccountStatus`       | `AccessDeniedException`      | Prints AWS service error details and rethrows the exception.            |
 | `ListFindings`                | `ValidationException`      | Prints validation error details.                                         |
@@ -111,6 +122,7 @@ The table below describes the exceptions handled in the program for each action.
 | Action / Scenario                        | Metadata File           | Metadata Key                  |
 |-----------------------------------------|------------------------|-------------------------------|
 | `Enable`                                 | inspector_metadata.yaml | inspector_EnableInspector     |
+| `Disable`                                 | inspector_metadata.yaml | inspector_DisableInspector     |
 | `BatchGetAccountStatus`                  | inspector_metadata.yaml | inspector_GetAccountStatus    |
 | `ListFindings`                           | inspector_metadata.yaml | inspector_ListFindings        |
 | `ListCoverage`                           | inspector_metadata.yaml | inspector_ListCoverage        |
