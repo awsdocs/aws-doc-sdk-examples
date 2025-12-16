@@ -274,6 +274,12 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD update_group.
+    " Skip test if no default VPC
+    IF av_has_default_vpc = abap_false.
+      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
+      RETURN.
+    ENDIF.
+
     " Update max size
     ao_asc_actions->update_group(
       iv_group_name = av_group_name
@@ -290,6 +296,12 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD set_desired_capacity.
+    " Skip test if no default VPC
+    IF av_has_default_vpc = abap_false.
+      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
+      RETURN.
+    ENDIF.
+
     " Set desired capacity to 0 (no instances launched)
     ao_asc_actions->set_desired_capacity(
       iv_group_name = av_group_name
@@ -321,6 +333,12 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     DATA lt_activities TYPE /aws1/cl_ascactivity=>tt_activities.
     DATA lv_retry TYPE i VALUE 0.
     DATA lv_max_retries TYPE i VALUE 5.
+
+    " Skip test if no default VPC
+    IF av_has_default_vpc = abap_false.
+      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
+      RETURN.
+    ENDIF.
 
     " Trigger an activity by setting desired capacity
     ao_asc_actions->set_desired_capacity(
@@ -355,6 +373,12 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     DATA lo_metric TYPE REF TO /aws1/cl_ascmetrics_w.
     DATA lo_group TYPE REF TO /aws1/cl_ascautoscalinggroup.
     DATA lt_enabled_metrics TYPE /aws1/cl_ascenabledmetric=>tt_enabledmetrics.
+
+    " Skip test if no default VPC
+    IF av_has_default_vpc = abap_false.
+      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
+      RETURN.
+    ENDIF.
 
     " Build metrics list
     CREATE OBJECT lo_metric EXPORTING iv_value = 'GroupMinSize'.
@@ -391,6 +415,12 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
 
   METHOD get_group_instances.
     DATA lt_instances TYPE /aws1/cl_ascinstance=>tt_instances.
+
+    " Skip test if no default VPC
+    IF av_has_default_vpc = abap_false.
+      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
+      RETURN.
+    ENDIF.
 
     " Test get_group_instances helper method
     lt_instances = ao_asc_actions->get_group_instances( av_group_name ).
