@@ -706,5 +706,84 @@ public class InspectorActions {
                 });
     }
     // snippet-end:[inspector.java2.finding.details.main]
+
+
+    // snippet-start:[inspector.java2.disable.main]
+    /**
+     * Asynchronously disables AWS Inspector for the specified accounts and resource types.
+     *
+     * @param accountIds a {@link List} of AWS account IDs for which to disable Inspector;
+     *                   may be {@code null} or empty to target the current account
+     * @return a {@link CompletableFuture} that, when completed, returns a {@link String}
+     *         summarizing the disable results for each account
+     * @throws CompletionException if the disable operation fails due to validation errors,
+     *                             service errors, or other exceptions
+     * @see <a href="https://docs.aws.amazon.com/inspector/latest/APIReference/API_Disable.html">
+     *      AWS Inspector2 Disable API</a>
+     */
+    public CompletableFuture<String> disableInspectorAsync(List<String> accountIds) {
+
+        // The resource types to disable.
+        List<ResourceScanType> resourceTypes = List.of(
+                ResourceScanType.EC2,
+                ResourceScanType.ECR,
+                ResourceScanType.LAMBDA,
+                ResourceScanType.LAMBDA_CODE
+        );
+
+        // Build the request.
+        DisableRequest.Builder requestBuilder = DisableRequest.builder()
+                .resourceTypes(resourceTypes);
+
+        if (accountIds != null && !accountIds.isEmpty()) {
+            requestBuilder.accountIds(accountIds);
+        }
+
+        DisableRequest request = requestBuilder.build();
+
+        return getAsyncClient().disable(request)
+                .whenComplete((response, exception) -> {
+                    if (exception != null) {
+                        Throwable cause = exception.getCause();
+                        if (cause instanceof ValidationException) {
+                            throw new CompletionException(
+                                    "Inspector may already be disabled for this account: %s".formatted(cause.getMessage()),
+                                    cause
+                            );
+                        }
+
+                        if (cause instanceof Inspector2Exception) {
+                            Inspector2Exception e = (Inspector2Exception) cause;
+                            throw new CompletionException(
+                                    "AWS Inspector2 service error: %s".formatted(e.awsErrorDetails().errorMessage()),
+                                    cause
+                            );
+                        }
+
+                        throw new CompletionException(
+                                "Failed to disable Inspector: %s".formatted(exception.getMessage()),
+                                exception
+                        );
+                    }
+                })
+                .thenApply(response -> {
+                    StringBuilder summary = new StringBuilder("Disable results:\n");
+
+                    if (response.accounts() == null || response.accounts().isEmpty()) {
+                        summary.append("Inspector may already be disabled for all target accounts.");
+                        return summary.toString();
+                    }
+
+                    for (Account account : response.accounts()) {
+                        String accountId = account.accountId() != null ? account.accountId() : "Unknown";
+                        String status = account.status() != null ? account.statusAsString() : "Unknown";
+                        summary.append(" • Account: ").append(accountId)
+                                .append(" → Status: ").append(status).append("\n");
+                    }
+
+                    return summary.toString();
+                });
+    }
+    // snippet-end:[inspector.java2.disable.main]
 }
 // snippet-end:[inspector.java2_actions.main]

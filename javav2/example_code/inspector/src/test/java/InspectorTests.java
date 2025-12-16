@@ -104,6 +104,8 @@ public class InspectorTests {
             inspectorActions.listCoverageStatisticsAsync().join();
 
             inspectorActions.deleteFilterAsync(filterARN).join();
+
+            inspectorActions.disableInspectorAsync(null).join();
         });
 
         logger.info("Test 2 passed");

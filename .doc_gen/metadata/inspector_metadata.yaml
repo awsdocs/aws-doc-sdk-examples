@@ -42,6 +42,19 @@ inspector_DeleteFilter:
                 - inspector.java2.delete.filter.main
   services:
     inspector: {DeleteFilter}
+inspector_Disable:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java2.disable.main
+  services:
+    inspector: {Disable}
 inspector_Enable:
   languages:
     Java:

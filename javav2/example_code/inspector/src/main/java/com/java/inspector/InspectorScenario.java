@@ -55,6 +55,7 @@ public class InspectorScenario {
             logger.info("  - How to check coverage information");
             logger.info("  - How to create and manage filters");
             logger.info("  - How to track usage and costs");
+            logger.info("  - How to clean up resources");
             logger.info("");
 
         } catch (Exception ex) {
@@ -167,6 +168,8 @@ public class InspectorScenario {
             actions.deleteFilterAsync(filterArn).join();
             logger.info("Filter deleted.");
             logger.info("Disable Inspector .");
+            String disableMsg = actions.disableInspectorAsync(null).join();
+            logger.info(disableMsg);
         }
 
         waitForInputToContinue();

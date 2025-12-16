@@ -120,8 +120,8 @@ The table below describes the exceptions handled in the program for each action.
 
 | Action / Scenario                        | Metadata File           | Metadata Key                  |
 |-----------------------------------------|------------------------|-------------------------------|
-| `Enable`                                 | inspector_metadata.yaml | inspector_EnableInspector     |
-| `Disable`                                 | inspector_metadata.yaml | inspector_DisableInspector     |
+| `Enable`                                 | inspector_metadata.yaml | inspector_Enable     |
+| `Disable`                                 | inspector_metadata.yaml | inspector_Disable     |
 | `BatchGetAccountStatus`                  | inspector_metadata.yaml | inspector_GetAccountStatus    |
 | `ListFindings`                           | inspector_metadata.yaml | inspector_ListFindings        |
 | `ListCoverage`                           | inspector_metadata.yaml | inspector_ListCoverage        |
@@ -129,7 +129,7 @@ The table below describes the exceptions handled in the program for each action.
 | `ListUsageTotals`                         | inspector_metadata.yaml | inspector_ListUsageTotals     |
 | `CreateFilter`                           | inspector_metadata.yaml | inspector_CreateFilter        |
 | `ListFilters`                            | inspector_metadata.yaml | inspector_ListFilters         |
-| `DeleteFilter`       | inspector_metadata.yaml | inspector_DeleteFilter`           |
-| `batchGetFindingDetails`       | inspector_metadata.yaml | inspector_BatchGetFindingDetails           |
+| `DeleteFilter`       | inspector_metadata.yaml | inspector_DeleteFilter           |
+| `BatchGetFindingDetails`       | inspector_metadata.yaml | inspector_BatchGetFindingDetails           |
 | `Amazon Inspector Hello`       | inspector_metadata.yaml | inspector_Hello            |
 | `Amazon Inspector Basics Scenario`       | inspector_metadata.yaml | inspector_Scenario     
