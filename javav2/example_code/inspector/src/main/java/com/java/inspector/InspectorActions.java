@@ -437,9 +437,10 @@ public class InspectorActions {
     /**
      * Lists all AWS Inspector findings of LOW severity asynchronously.
      *
-     * @return CompletableFuture containing either "No findings found." or the ARNs of all LOW findings.
+     * @return CompletableFuture containing a List of finding ARNs.
+     * Returns an empty list if no LOW severity findings are found.
      */
-    public CompletableFuture<String> listLowSeverityFindingsAsync() {
+    public CompletableFuture<ArrayList<String>> listLowSeverityFindingsAsync() {
         logger.info("Starting async LOW severity findings paginator…");
 
         // Build a filter criteria for LOW severity.
@@ -471,13 +472,7 @@ public class InspectorActions {
                     }
                 })
                 .thenRun(() -> logger.info("Successfully listed all LOW severity findings."))
-                .thenApply(v -> {
-                    if (allArns.isEmpty()) {
-                        return "No LOW severity findings found.";
-                    } else {
-                        return String.join("\n", allArns);
-                    }
-                })
+                .thenApply(v -> new ArrayList<>(allArns)) // Return list instead of a formatted string
                 .exceptionally(ex -> {
                     Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
                     if (cause instanceof ValidationException ve) {
@@ -489,6 +484,7 @@ public class InspectorActions {
                     throw new RuntimeException("Failed to list LOW severity findings", ex);
                 });
     }
+
     // snippet-end:[inspector.java2.list_findings.main]
 
     // snippet-start:[inspector.java2.list_coverage.main]

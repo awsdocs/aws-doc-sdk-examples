@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -72,19 +73,23 @@ public class InspectorTests {
 
             inspectorActions.enableInspectorAsync(null).join();
 
-            String allFindings = inspectorActions.listLowSeverityFindingsAsync().join();
-            // Check if any findings were returned
-            if (allFindings == null || allFindings.startsWith("No LOW severity findings")) {
-                logger.info("No LOW severity findings available. Skipping details lookup.");
+            List<String> allFindings = inspectorActions.listLowSeverityFindingsAsync().join();
+
+            if (allFindings.isEmpty()) {
+                logger.info("No LOW severity findings found.");
             } else {
-                String[] arns = allFindings.split("\\r?\\n");
-                String lastArn = arns[arns.length - 1];
+                logger.info("Found {} LOW severity findings.", allFindings.size());
 
-                // Fetch details safely
-                String details = inspectorActions.getFindingDetailsAsync(lastArn).join();
-                logger.info("Details for last LOW severity finding:\n{}", details);
+                // Optionally, iterate over all findings to test getFindingDetailsAsync
+                for (String arn : allFindings) {
+                    logger.info("Fetching details for finding ARN: {}", arn);
+                    String details = inspectorActions.getFindingDetailsAsync(arn).join();
+
+                    // Check details are not empty/null
+                    assertNotNull(details, "Finding details should not be null");
+                    assertFalse(details.isEmpty(), "Finding details should not be empty");
+                }
             }
-
 
             maxResults = 5;
             inspectorActions.listCoverageAsync(maxResults).join();

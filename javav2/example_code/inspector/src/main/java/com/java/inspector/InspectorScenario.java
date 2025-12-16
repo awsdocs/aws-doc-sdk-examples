@@ -5,6 +5,8 @@ package com.java.inspector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 import java.util.Scanner;
 
 // snippet-start:[inspector.java2_scenario.main]
@@ -95,19 +97,20 @@ public class InspectorScenario {
 
             // Step 3
             logger.info(DASHES);
-            logger.info("Step 3: Listing findings...");
-            String allFindings = actions.listLowSeverityFindingsAsync().join();
+            logger.info("Step 3: Listing LOW severity findings...");
 
-            if (!allFindings.equals("No findings found.")) {
-                String[] arns = allFindings.split("\\r?\\n");
-                String lastArn = arns[arns.length - 1];
+            // Call the service method
+            List<String> allFindings = actions.listLowSeverityFindingsAsync().join();
 
+            if (!allFindings.isEmpty()) {
+                // Only proceed if there are findings
+                String lastArn = allFindings.get(allFindings.size() - 1);
                 logger.info("Look up details on: {}", lastArn);
                 waitForInputToContinue();
                 String details = actions.getFindingDetailsAsync(lastArn).join();
                 logger.info(details);
             } else {
-                logger.info("No findings found.");
+                logger.info("No LOW severity findings found.");
             }
 
             waitForInputToContinue();
