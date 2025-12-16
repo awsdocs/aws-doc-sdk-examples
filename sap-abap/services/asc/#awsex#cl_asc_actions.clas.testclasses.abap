@@ -1,3 +1,6 @@
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
+
 CLASS ltc_awsex_cl_asc_actions DEFINITION DEFERRED.
 CLASS /awsex/cl_asc_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_asc_actions.
 
@@ -357,8 +360,107 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD terminate_inst_and_del_group.
-    " This test is simplified - just verifies the methods don't crash
-    MESSAGE 'terminate_inst_and_del_group test skipped for performance' TYPE 'I'.
+    DATA lt_subnets_raw TYPE /aws1/cl_ec2subnet=>tt_subnetlist.
+    DATA lo_subnet TYPE REF TO /aws1/cl_ec2subnet.
+    DATA lv_subnet_ids TYPE string.
+    DATA lo_activity TYPE REF TO /aws1/cl_ascactivity.
+    DATA lt_instances TYPE /aws1/cl_ascinstance=>tt_instances.
+    DATA lo_instance TYPE REF TO /aws1/cl_ascinstance.
+    DATA lv_instance_id TYPE /aws1/ascxmlstringmaxlen19.
+    DATA lv_retry TYPE i VALUE 0.
+    DATA lv_max_retries TYPE i VALUE 30.
+    DATA lv_instance_ready TYPE abap_bool VALUE abap_false.
+
+    " Get subnets from the default VPC
+    DATA(lo_subnets_result) = ao_ec2->describesubnets( ).
+    lt_subnets_raw = lo_subnets_result->get_subnets( ).
+
+    IF lines( lt_subnets_raw ) > 0.
+      READ TABLE lt_subnets_raw INDEX 1 INTO lo_subnet.
+      lv_subnet_ids = lo_subnet->get_subnetid( ).
+    ELSE.
+      cl_abap_unit_assert=>fail( |No subnets available for testing| ).
+      RETURN.
+    ENDIF.
+
+    " Create a separate group for terminate testing with min_size=1 to ensure an instance launches
+    ao_asc_actions->create_group(
+      iv_group_name = av_group_name_term
+      iv_vpc_zone_identifier = lv_subnet_ids
+      iv_launch_template_name = av_lnch_tmpl_name_term
+      iv_min_size = 1
+      iv_max_size = 1 ).
+
+    " Wait for instance to be in service with polling
+    WHILE lv_retry < lv_max_retries AND lv_instance_ready = abap_false.
+      WAIT UP TO 10 SECONDS.
+      
+      TRY.
+          DATA(lo_group) = ao_asc_actions->describe_group( av_group_name_term ).
+          lt_instances = lo_group->get_instances( ).
+          
+          IF lines( lt_instances ) > 0.
+            READ TABLE lt_instances INDEX 1 INTO lo_instance.
+            " Check if instance is in InService state
+            IF lo_instance->get_lifecyclestate( ) = 'InService'.
+              lv_instance_id = lo_instance->get_instanceid( ).
+              lv_instance_ready = abap_true.
+              MESSAGE |Instance { lv_instance_id } is ready| TYPE 'I'.
+            ELSE.
+              MESSAGE |Waiting for instance, current state: { lo_instance->get_lifecyclestate( ) }| TYPE 'I'.
+            ENDIF.
+          ENDIF.
+        CATCH /aws1/cx_rt_generic.
+          " Continue retrying
+      ENDTRY.
+      
+      lv_retry = lv_retry + 1.
+    ENDWHILE.
+
+    IF lv_instance_ready = abap_false.
+      cl_abap_unit_assert=>fail( |Instance did not reach InService state within timeout| ).
+      RETURN.
+    ENDIF.
+
+    " Test terminate_instance
+    lo_activity = ao_asc_actions->terminate_instance(
+      iv_instance_id = lv_instance_id
+      iv_decrease_capacity = abap_true ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_activity
+      msg = |terminate_instance did not return activity| ).
+
+    " Wait for instance to terminate
+    WAIT UP TO 30 SECONDS.
+
+    " Set min size to 0 to allow deletion
+    ao_asc_actions->update_group(
+      iv_group_name = av_group_name_term
+      iv_min_size = 0 ).
+
+    WAIT UP TO 5 SECONDS.
+
+    " Test delete_group
+    ao_asc_actions->delete_group( av_group_name_term ).
+
+    " Wait for deletion to complete
+    WAIT UP TO 10 SECONDS.
+
+    " Verify group was deleted by checking it no longer exists
+    TRY.
+        lo_group = ao_asc_actions->describe_group( av_group_name_term ).
+        " If we reach here, group still exists
+        IF lo_group IS BOUND.
+          cl_abap_unit_assert=>fail( |Group { av_group_name_term } was not deleted| ).
+        ENDIF.
+      CATCH /aws1/cx_rt_generic.
+        " Group not found is expected - deletion was successful
+        MESSAGE |Group { av_group_name_term } successfully deleted| TYPE 'I'.
+    ENDTRY.
+
+    " Clear the variable so class_teardown doesn't try to delete again
+    CLEAR av_group_name_term.
   ENDMETHOD.
 
 ENDCLASS.
