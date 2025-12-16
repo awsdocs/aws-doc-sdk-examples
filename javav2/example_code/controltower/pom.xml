@@ -43,6 +43,16 @@
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
+            <artifactId>netty-nio-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>aws-crt-client</artifactId>
+            <version>2.25.35</version> <!-- match your SDK version -->
+        </dependency>
+
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
             <artifactId>organizations</artifactId>
          </dependency>
         <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/url-connection-client -->
