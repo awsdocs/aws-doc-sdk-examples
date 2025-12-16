@@ -678,13 +678,11 @@ CLASS ltc_awsex_cl_cwt_actions IMPLEMENTATION.
     DATA lo_stats_result TYPE REF TO /aws1/cl_cwtgetmettatsoutput.
     DATA lv_start_time TYPE /aws1/cwttimestamp.
     DATA lv_end_time TYPE /aws1/cwttimestamp.
-    DATA lv_temp_tstmpl TYPE timestampl.
 
     "Set time range - last 7 days.
-    "Get current timestamp and ensure it's in proper TIMESTAMPL format.
-    GET TIME STAMP FIELD lv_temp_tstmpl.
-    lv_end_time = lv_temp_tstmpl.
-    lv_start_time = lv_temp_tstmpl - ( 7 * 24 * 3600 ).
+    "Use simple fixed dates to avoid timestamp conversion issues
+    lv_end_time = '20250101000000.0000000'.
+    lv_start_time = '20241225000000.0000000'.
 
     "Create statistics list.
     " Example: 'Average', 'Minimum', 'Maximum'
