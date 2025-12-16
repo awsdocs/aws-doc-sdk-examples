@@ -7,12 +7,12 @@ on:
       dir_name:
         description: 'Sync Directories'
         required: true
-        default: 'steering_docs'
+        default: 'scenarios'
         type: choice
         options:
             - steering_docs
             - scenarios
-
+            - coding-standards
 
 permissions:
   id-token: write
@@ -33,26 +33,39 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ASSUME_ROLE }}
           aws-region: us-west-2
 
-      - name: Set SDK and language mapping for S3
+      - name: Configure directory mapping for S3
         run: |
           if [ "$dir_name" == "steering_docs" ]; then
               echo "S3_NAME=steering-docs" >> $GITHUB_ENV
+          elif [ "$dir_name" == "coding-standards" ]; then
+              echo "S3_NAME=coding-standards" >> $GITHUB_ENV
           elif [ "$dir_name" == "scenarios" ]; then
               echo "S3_NAME=final-specs" >> $GITHUB_ENV
           fi
 
-      - name: Filter SPECIFICATION.md files for scenarios
+      - name: Filter SPECIFICATION.md files for specs
         if: ${{ github.event.inputs.dir_name == 'scenarios' }}
         run: |
           find ./scenarios -name "SPECIFICATION.md" | while read file; do
             mkdir -p "./filtered_scenarios/$(dirname "$file")"
             cp "$file" "./filtered_scenarios/$file"
           done
+      
+      - name: Clone and filter for coding standards
+        if: ${{ github.event.inputs.dir_name == 'coding-standards' }}
+        run: |
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git wiki-repo
+          mkdir -p ./filtered-wiki
+          find ./wiki-repo -type f -name "*[Gg]uidelines*.md" -o -name "*[Ss]tandards*.md" | while read file; do
+            cp "$file" ./filtered-wiki/
+          done
 
       - name: Upload/Sync to S3
         run: |
           if [ "$dir_name" == "steering_docs" ]; then
             aws s3 sync "./$dir_name/" "s3://$S3_NAME-bucket/" --delete
+          elif [ "$dir_name" == "coding-standards" ]; then
+            aws s3 sync "./filtered-wiki/" "s3://$S3_NAME-bucket/" --delete
           else
             aws s3 sync "./filtered_scenarios/" "s3://$S3_NAME-bucket/" --delete
           fi
