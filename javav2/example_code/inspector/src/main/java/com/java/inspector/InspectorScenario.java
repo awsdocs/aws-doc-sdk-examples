@@ -166,6 +166,7 @@ public class InspectorScenario {
         if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
             actions.deleteFilterAsync(filterArn).join();
             logger.info("Filter deleted.");
+            logger.info("Disable Inspector .");
         }
 
         waitForInputToContinue();
