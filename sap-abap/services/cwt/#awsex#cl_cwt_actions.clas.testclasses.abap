@@ -600,14 +600,16 @@ CLASS ltc_awsex_cl_cwt_actions IMPLEMENTATION.
     DATA lv_timestamp TYPE /aws1/cwttimestamp.
     DATA lv_uuid_16 TYPE sysuuid_x16.
     DATA lv_namespace TYPE /aws1/cwtnamespace.
+    DATA lv_temp_timestamp TYPE timestamp.
 
     "Create unique namespace for test.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_namespace = cv_namespace && '-' && lv_uuid_16.
     TRANSLATE lv_namespace TO LOWER CASE.
 
-    "Create timestamp.
-    GET TIME STAMP FIELD lv_timestamp.
+    "Create timestamp in ISO8601 format.
+    GET TIME STAMP FIELD lv_temp_timestamp.
+    lv_timestamp = |{ lv_temp_timestamp TIMESTAMP = ISO }|.
 
     "Create values and counts.
     DATA(lo_value) = NEW /aws1/cl_cwtvalues_w( '10' ).
@@ -676,10 +678,16 @@ CLASS ltc_awsex_cl_cwt_actions IMPLEMENTATION.
     DATA lo_stats_result TYPE REF TO /aws1/cl_cwtgetmettatsoutput.
     DATA lv_start_time TYPE /aws1/cwttimestamp.
     DATA lv_end_time TYPE /aws1/cwttimestamp.
+    DATA lv_temp_timestamp TYPE timestamp.
 
     "Set time range - last 7 days.
-    GET TIME STAMP FIELD lv_end_time.
-    lv_start_time = lv_end_time - ( 7 * 86400 ).
+    "Get timestamp and convert to proper format for CloudWatch (YYYYMMDDHHMMSS.SSSSSSS)
+    GET TIME STAMP FIELD lv_temp_timestamp.
+    
+    "Convert timestamp to CloudWatch format
+    lv_end_time = |{ lv_temp_timestamp TIMESTAMP = ISO }|.
+    lv_start_time = lv_temp_timestamp - ( 7 * 86400 ).
+    lv_start_time = |{ lv_start_time TIMESTAMP = ISO }|.
 
     "Create statistics list.
     " Example: 'Average', 'Minimum', 'Maximum'
@@ -719,6 +727,8 @@ CLASS ltc_awsex_cl_cwt_actions IMPLEMENTATION.
     DATA lo_dimensions TYPE REF TO /aws1/cl_cwtdimension.
     DATA lo_alarms_result TYPE REF TO /aws1/cl_cwtdscalrmsformetri01.
     DATA lv_uuid_16 TYPE sysuuid_x16.
+    DATA lv_retry_count TYPE i.
+    DATA lv_max_retries TYPE i VALUE 5.
 
     CONSTANTS cv_metric_name  TYPE /aws1/cwtmetricname VALUE 'NumberOfObjects'.
     CONSTANTS cv_namespace  TYPE /aws1/cwtnamespace VALUE 'AWS/S3'.
@@ -760,26 +770,38 @@ CLASS ltc_awsex_cl_cwt_actions IMPLEMENTATION.
         iv_period              = cv_period
         it_dimensions          = lt_dimensions ).
 
-    "Test get_metric_alarms.
-    ao_cwt_actions->get_metric_alarms(
-      EXPORTING
-        iv_namespace   = cv_namespace
-        iv_metric_name = cv_metric_name
-      IMPORTING
-        oo_result      = lo_alarms_result ).
-
-    "Validation.
+    "Wait for alarm to propagate - retry up to 5 times
     lv_found = abap_false.
-
-    LOOP AT lo_alarms_result->get_metricalarms( ) INTO DATA(lo_alarm).
-      IF lo_alarm->get_alarmname( ) = lv_alarm_name.
-        lv_found = abap_true.
+    lv_retry_count = 0.
+    
+    WHILE lv_retry_count < lv_max_retries AND lv_found = abap_false.
+      "Wait before checking
+      IF lv_retry_count > 0.
+        WAIT UP TO 3 SECONDS.
       ENDIF.
-    ENDLOOP.
+      
+      "Test get_metric_alarms.
+      ao_cwt_actions->get_metric_alarms(
+        EXPORTING
+          iv_namespace   = cv_namespace
+          iv_metric_name = cv_metric_name
+        IMPORTING
+          oo_result      = lo_alarms_result ).
+
+      "Validation.
+      LOOP AT lo_alarms_result->get_metricalarms( ) INTO DATA(lo_alarm).
+        IF lo_alarm->get_alarmname( ) = lv_alarm_name.
+          lv_found = abap_true.
+          EXIT.
+        ENDIF.
+      ENDLOOP.
+      
+      lv_retry_count = lv_retry_count + 1.
+    ENDWHILE.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |Alarm not found in metric alarms| ).
+      msg = |Alarm not found in metric alarms after { lv_retry_count } retries| ).
 
     "Clean up.
     lo_alarmname = NEW #( iv_value = lv_alarm_name ).
