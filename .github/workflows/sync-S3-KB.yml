@@ -31,8 +31,11 @@ permissions:
 jobs:
   run_job_with_aws:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        sdk_name: ${{ github.event_name == 'push' && fromJSON('["javascriptv3","dotnetv4","javav2","rustv1","gov2","swift","python","ruby","php","cpp","kotlin","steering_docs","specs","coding-standards"]') || fromJSON(format('["{0}"]', github.event.inputs.sdk_name)) }}
     env:
-      sdk_name: ${{ github.event.inputs.sdk_name || 'python' }}
+      sdk_name: ${{ matrix.sdk_name }}
     
     steps:
       - name: Checkout
