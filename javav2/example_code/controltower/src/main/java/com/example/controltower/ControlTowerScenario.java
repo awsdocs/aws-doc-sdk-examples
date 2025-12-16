@@ -3,19 +3,17 @@
 
 package com.example.controltower;
 
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
-import software.amazon.awssdk.awscore.exception.AwsServiceException;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.controlcatalog.ControlCatalogClient;
 import software.amazon.awssdk.services.controlcatalog.model.ControlSummary;
-import software.amazon.awssdk.services.organizations.OrganizationsClient;
-import software.amazon.awssdk.services.organizations.model.*;
 import software.amazon.awssdk.services.controltower.ControlTowerClient;
 import software.amazon.awssdk.services.controltower.model.*;
+import software.amazon.awssdk.services.organizations.OrganizationsClient;
+import software.amazon.awssdk.services.organizations.model.*;
+
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import static java.lang.System.*;
 
 /**
@@ -25,25 +23,24 @@ import static java.lang.System.*;
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
- *
  */
-
 public class ControlTowerScenario {
 
-
-
-
+    //private static final Logger logger = LoggerFactory.getLogger(ControlTowerScenario.class);
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-    static Scanner scanner = new Scanner(in);
+
+    private static final Scanner scanner = new Scanner(in);
 
     private OrganizationsClient orgClient;
     private ControlCatalogClient catClient;
-    private String ouArn;
+
+    private static String ouArn;
+    private static String ouId = null;
+    private static String landingZoneArn = null;
+    private static boolean useLandingZone = false;
+
     private String stack = null;
-    private String ouId = null;
     private String accountId = null;
-    private String landingZoneArn = null;
-    private boolean useLandingZone = false;
 
     static {
         // Disable AWS CRT logging completely
@@ -53,285 +50,194 @@ public class ControlTowerScenario {
     public static void main(String[] args) {
 
 
+        // -----------------------------
+        // Your program logic here
+        // -----------------------------
+        System.out.println("Hello! No AWS SDK logging should appear now.");
+
 
         out.println(DASHES);
         out.println("Welcome to the AWS Control Tower basics scenario!");
         out.println(DASHES);
 
-
         try {
-           runScenario();
-
+            runScenario();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     // ----------------------------------------------------------
     // Main scenario flow
     // ----------------------------------------------------------
     private static void runScenario() {
+
         ControlTowerActions actions = new ControlTowerActions();
 
         out.println(DASHES);
-        System.out.println("""
-                               Some demo operations require the use of a landing zone.
-                               You can use an existing landing zone or opt out of these operations in the demo.
-                               For instructions on how to set up a landing zone,
-                               see https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-from-console.html
-                               """);
+        out.println("""
+    Some demo operations require the use of a landing zone.
+    You can use an existing landing zone or opt out of these operations in the demo.
+    For instructions on how to set up a landing zone,
+    see https://docs.aws.amazon.com/controltower/latest/userguide/getting-started-from-console.html
+    """);
 
-            out.println("Step 1: Listing landing zones...");
-            waitForInputToContinue(scanner);
+        out.println("Step 1: Listing landing zones...");
+        waitForInputToContinue(scanner);
 
-            List<LandingZoneSummary> landingZones = actions.listLandingZonesAsync().join();
-            if (!landingZones.isEmpty()) {
-                System.out.println("\nAvailable Landing Zones:");
-                for (int i = 0; i < landingZones.size(); i++) {
-                    LandingZoneSummary lz = landingZones.get(i);
-                    System.out.printf("%d) %s%n", i + 1, lz.arn());
-                }
-            } else {
-                System.out.println("No landing zones found.");
-            }
+        List<LandingZoneSummary> landingZones =
+                actions.listLandingZonesAsync().join();
 
         /*
-            if (askYesNo(
-                        "Do you want to use the first landing zone in the list (" +
-                                landingZones.get(0).arn() + ")? (y/n): ")) {
-
-                    useLandingZone = true;
-                    landingZoneArn = landingZones.get(0).arn();
-
-                    System.out.println("Using landing zone ID: " + landingZoneArn);
-
-                    // CALL: setupOrganization()
-                    String sandboxOuId = setupOrganization();
-                    ouId = sandboxOuId;
-
-                } else if (askYesNo(
-                        "Do you want to use a different existing Landing Zone for this demo? (y/n): ")) {
-
-                    useLandingZone = true;
-
-                    System.out.print("Enter landing zone id: ");
-                    landingZoneArn = scanner.nextLine().trim();
-
-                    // CALL: setupOrganization()
-                    String sandboxOuId = setupOrganization();
-                    ouId = sandboxOuId;
-                }
-            }
-            */
-            waitForInputToContinue(scanner);
-
-            // ----------------------------------------------------------
-            // CALL: ControlTowerActions.listBaselines()
-            // ----------------------------------------------------------
-            out.println(DASHES);
-            out.println("Step 2: Listing available baselines...");
-
-            List<BaselineSummary> baselines = actions.listBaselinesAsync().join();
-            baselines.forEach(b -> {
-                out.println("Baseline: " + b.name());
-                out.println("  ARN: " + b.arn());
-            });
-            waitForInputToContinue(scanner);
-
-            /*
-            // ----------------------------------------------------------
-            // CALL: ControlTowerActions.listControls()
-            // ----------------------------------------------------------
-            out.println(DASHES);
-            out.println("Managing Controls:");
-
-            List<ControlSummary> controls =
-                    ControlTowerActions.listControls(catClient);
-
-            out.println("\nListing first 5 available Controls:");
-
-            for (int i = 0; i < Math.min(5, controls.size()); i++) {
-                ControlSummary c = controls.get(i);
-                out.println(String.format("%d. %s - %s",
-                        (i + 1), c.name(), c.arn()));
-            }
-
-            if (useLandingZone) {
-
-                String targetOu = ouArn;
-                waitForInputToContinue(scanner);
-
-                // ----------------------------------------------------------
-                // CALL: ControlTowerActions.listEnabledControls()
-                // ----------------------------------------------------------
-                List<EnabledControlSummary> enabledControls =
-                        ControlTowerActions.listEnabledControls(controlTowerClient, targetOu);
-
-                out.println("\nListing enabled controls:");
-
-                for (int i = 0; i < enabledControls.size(); i++) {
-                    EnabledControlSummary ec = enabledControls.get(i);
-                    out.println(String.format("%d. %s",
-                            (i + 1), ec.controlIdentifier()));
-                }
-
-                // Determine first non-enabled control
-                Set<String> enabledControlArns = enabledControls.stream()
-                        .map(EnabledControlSummary::arn)
-                        .collect(Collectors.toSet());
-
-                String controlArnToEnable = controls.stream()
-                        .map(ControlSummary::arn)
-                        .filter(arn -> !enabledControlArns.contains(arn))
-                        .findFirst()
-                        .orElse(null);
-
-                waitForInputToContinue(scanner);
-
-                // ----------------------------------------------------------
-                // CALL: ControlTowerActions.enableControl()
-                // ----------------------------------------------------------
-                if (controlArnToEnable != null &&
-                        askYesNo("Do you want to enable the control "
-                                + controlArnToEnable + "? (y/n): ")) {
-
-                    out.println("\nEnabling control: " + controlArnToEnable);
-
-                    String operationId =
-                            ControlTowerActions.enableControl(
-                                    controlTowerClient, controlArnToEnable, targetOu);
-
-                    if (operationId != null) {
-                        out.println("Enabled control with operation id " + operationId);
-                    }
-                }
-                waitForInputToContinue(scanner);
-
-                // ----------------------------------------------------------
-                // CALL: ControlTowerActions.disableControl()
-                // ----------------------------------------------------------
-                if (controlArnToEnable != null &&
-                        askYesNo("Do you want to disable the control? (y/n): ")) {
-
-                    out.println("\nDisabling control...");
-
-                    String operationId =
-                            ControlTowerActions.disableControl(
-                                    controlTowerClient, controlArnToEnable, targetOu);
-
-                    out.println("Disable operation ID: " + operationId);
-                }
-
-
-
-            // Final pause
-            waitForInputToContinue(scanner);
-
-            out.println("\nThis concludes the example scenario.");
-            out.println("Thanks for watching!");
-            out.println(DASHES);
-            out.println(DASHES);
-            out.println("Scenario completed Successfully!");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+         * IMPORTANT:
+         * If no landing zones exist, skip all landing-zone logic
+         * and continue directly to Step 2.
          */
-    }
+        if (landingZones.isEmpty()) {
+            out.println("No landing zones found. Landing-zone-dependent steps will be skipped.");
+            useLandingZone = false;
+            waitForInputToContinue(scanner);
+        } else {
 
-    public String setupOrganization() {
-        System.out.println("\nChecking organization status...");
-        String orgId;
+            // Display landing zones
+            out.println("\nAvailable Landing Zones:");
+            for (int i = 0; i < landingZones.size(); i++) {
+                out.printf("%d) %s%n", i + 1, landingZones.get(i).arn());
+            }
 
-        // -------------------------------
-        // 1. Describe or create organization
-        // -------------------------------
-        try {
-            DescribeOrganizationResponse desc = orgClient.describeOrganization();
-            orgId = desc.organization().id();
-            System.out.println("Account is part of organization: " + orgId);
+            // Ask whether to use the first landing zone
+            if (askYesNo("Do you want to use the first landing zone in the list (" +
+                    landingZones.get(0).arn() + ")? (y/n): ")) {
 
-        } catch (AwsServiceException e) {
+                useLandingZone = true;
+                landingZoneArn = landingZones.get(0).arn();
 
-            if ("AWSOrganizationsNotInUseException".equals(e.awsErrorDetails().errorCode())) {
+            } else if (askYesNo("Do you want to use a different existing Landing Zone for this demo? (y/n): ")) {
 
-                System.out.println("No organization found. Creating one...");
-
-                CreateOrganizationResponse create =
-                        orgClient.createOrganization(
-                                CreateOrganizationRequest.builder()
-                                        .featureSet("ALL")
-                                        .build()
-                        );
-
-                orgId = create.organization().id();
-                System.out.println("Created organization: " + orgId);
-
-                // ✅ NO WAITERS — we simply proceed
-                // Organizations may take time to stabilize,
-                // but this method returns immediately.
+                useLandingZone = true;
+                out.print("Enter landing zone ARN: ");
+                landingZoneArn = scanner.nextLine().trim();
 
             } else {
-                throw e;
+                out.println("Proceeding without a landing zone.");
+                useLandingZone = false;
+                waitForInputToContinue(scanner);
             }
         }
 
-        // -------------------------------
-        // 2. Locate or create Sandbox OU
-        // -------------------------------
-        String sandboxOuId = null;
 
-        ListRootsResponse roots = orgClient.listRoots();
-        String rootId = roots.roots().get(0).id();
+        /*
+        // Setup organization only if a landing zone is used
+        out.println("Using landing zone ARN: " + landingZoneArn);
 
-        System.out.println("Checking Sandbox OU...");
+        ControlTowerActions.OrgSetupResult result =
+                actions.setupOrganizationAsync().join();
 
-        for (ListOrganizationalUnitsForParentResponse page :
-                orgClient.listOrganizationalUnitsForParentPaginator(
-                        ListOrganizationalUnitsForParentRequest.builder()
-                                .parentId(rootId)
-                                .build()
-                )) {
+        ouId = result.sandboxOuArn();
+        logger.info("Organization ID: {}", result.orgId());
+        logger.info("Using Sandbox OU ARN: {}", ouId);
 
-            for (OrganizationalUnit ou : page.organizationalUnits()) {
-                if ("Sandbox".equals(ou.name())) {
-                    sandboxOuId = ou.id();
-                    this.ouArn = ou.arn();
-                    System.out.println("Found Sandbox OU: " + sandboxOuId);
-                    break;
-                }
-            }
 
-            if (sandboxOuId != null) {
-                break;
-            }
+         */
+     //
+
+        // ----------------------------------------------------------
+        // CALL: ControlTowerActions.listBaselines()
+        // ----------------------------------------------------------
+        out.println(DASHES);
+        out.println("Step 2: Listing available baselines...");
+        waitForInputToContinue(scanner);
+
+
+        List<BaselineSummary> baselines = actions.listBaselinesAsync().join();
+        baselines.forEach(b -> {
+            out.println("Baseline: " + b.name());
+            out.println("  ARN: " + b.arn());
+        });
+
+        waitForInputToContinue(scanner);
+
+        // ----------------------------------------------------------
+        // CALL: ControlTowerActions.listControls()
+        // ----------------------------------------------------------
+        out.println(DASHES);
+        out.println("Step 3: Managing Controls:");
+
+        List<ControlSummary> controls = actions.listControlsAsync().join();
+        out.println("\nListing first 5 available Controls:");
+
+        for (int i = 0; i < Math.min(5, controls.size()); i++) {
+            ControlSummary c = controls.get(i);
+            out.println(String.format("%d. %s - %s",
+                    (i + 1), c.name(), c.arn()));
         }
 
-        // -------------------------------
-        // Create OU if missing
-        // -------------------------------
-        if (sandboxOuId == null) {
-            System.out.println("Creating Sandbox OU...");
+        if (useLandingZone) {
 
-            CreateOrganizationalUnitResponse created =
-                    orgClient.createOrganizationalUnit(
-                            CreateOrganizationalUnitRequest.builder()
-                                    .parentId(rootId)
-                                    .name("Sandbox")
-                                    .build()
-                    );
+            String targetOu = ouArn;
+            waitForInputToContinue(scanner);
 
-            sandboxOuId = created.organizationalUnit().id();
-            this.ouArn = created.organizationalUnit().arn();
+            // ----------------------------------------------------------
+            // CALL: ControlTowerActions.listEnabledControls()
+            // ----------------------------------------------------------
+            // List<EnabledControlSummary> enabledControls =
+            //     ControlTowerActions.listEnabledControls(controlTowerClient, targetOu);
 
-            System.out.println("Created Sandbox OU: " + sandboxOuId);
+            out.println("Listing enabled controls:");
 
-            // ✅ NO WAITER — return immediately
+            // for (int i = 0; i < enabledControls.size(); i++) {
+            //     EnabledControlSummary ec = enabledControls.get(i);
+            //     out.println(String.format("%d. %s",
+            //             (i + 1), ec.controlIdentifier()));
+            // }
+
+            // Determine first non-enabled control
+            // Set<String> enabledControlArns = enabledControls.stream()
+            //         .map(EnabledControlSummary::arn)
+            //         .collect(Collectors.toSet());
+
+            // String controlArnToEnable = controls.stream()
+            //         .map(ControlSummary::arn)
+            //         .filter(arn -> !enabledControlArns.contains(arn))
+            //         .findFirst()
+            //         .orElse(null);
+
+            waitForInputToContinue(scanner);
+
+            // ----------------------------------------------------------
+            // CALL: ControlTowerActions.enableControl()
+            // ----------------------------------------------------------
+            // if (controlArnToEnable != null &&
+            //         askYesNo("Do you want to enable the control "
+            //                 + controlArnToEnable + "? (y/n): ")) {
+
+            // out.println("\nEnabling control: " + controlArnToEnable);
+
+            // String operationId =
+            //     ControlTowerActions.enableControl(controlTowerClient,
+            //         controlArnToEnable, targetOu);
+
+            // if (operationId != null) {
+            //     out.println("Enabled control with operation id " + operationId);
+            // }
         }
 
-        return sandboxOuId;
+        waitForInputToContinue(scanner);
+
+        // ----------------------------------------------------------
+        // CALL: ControlTowerActions.disableControl()
+        // ----------------------------------------------------------
+        // if (controlArnToEnable != null &&
+        //         askYesNo("Do you want to disable the control? (y/n): ")) {
+
+        //     out.println("\nDisabling control...");
+
+        //     String operationId =
+        //         ControlTowerActions.disableControl(controlTowerClient,
+        //             controlArnToEnable, targetOu);
+
+        //     out.println("Disable operation ID: " + operationId);
+        // }
     }
 
     // ----------------------------------------------------------
@@ -345,8 +251,8 @@ public class ControlTowerScenario {
     private static void waitForInputToContinue(Scanner sc) {
         out.println("\nEnter 'c' then <ENTER> to continue:");
         while (true) {
-            String in = sc.nextLine();
-            if ("c".equalsIgnoreCase(in.trim())) {
+            String input = sc.nextLine();
+            if ("c".equalsIgnoreCase(input.trim())) {
                 out.println("Continuing...");
                 break;
             }
