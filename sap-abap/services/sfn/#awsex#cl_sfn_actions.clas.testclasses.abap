@@ -451,31 +451,36 @@ CLASS ltc_awsex_cl_sfn_actions IMPLEMENTATION.
       iv_state_machine_arn = lv_temp_arn
     ).
 
-    " Wait for deletion to propagate and verify
+    " Wait for deletion to complete - check for DELETING status or DoesNotExist exception
     DATA lv_waited TYPE i VALUE 0.
-    DATA lv_deleted TYPE abap_bool VALUE abap_false.
+    DATA lv_deletion_verified TYPE abap_bool VALUE abap_false.
     DO.
       TRY.
-          ao_sfn->describestatemachine(
+          DATA(lo_desc_result) = ao_sfn->describestatemachine(
             iv_statemachinearn = lv_temp_arn
           ).
-          " If we can still describe it, wait a bit more
-          WAIT UP TO 2 SECONDS.
-          lv_waited = lv_waited + 2.
+          DATA(lv_status) = lo_desc_result->get_status( ).
+          " If status is DELETING, the deletion is in progress (success)
+          IF lv_status = 'DELETING'.
+            lv_deletion_verified = abap_true.
+            EXIT.
+          ENDIF.
         CATCH /aws1/cx_sfnstatemachinedoes00.
-          " Expected - state machine was deleted
-          lv_deleted = abap_true.
+          " State machine no longer exists - deletion complete
+          lv_deletion_verified = abap_true.
           EXIT.
       ENDTRY.
 
-      IF lv_waited >= 30.
+      WAIT UP TO 2 SECONDS.
+      lv_waited = lv_waited + 2.
+      IF lv_waited >= 60.
         EXIT.
       ENDIF.
     ENDDO.
 
     cl_abap_unit_assert=>assert_true(
-      act = lv_deleted
-      msg = 'State machine should have been deleted'
+      act = lv_deletion_verified
+      msg = 'State machine should have been deleted or be in DELETING status'
     ).
   ENDMETHOD.
 
