@@ -46,12 +46,12 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [BatchGetAccountStatus](src/main/java/com/java/inspector/InspectorActions.java#L246)
-- [BatchGetFindingDetails](src/main/java/com/java/inspector/InspectorActions.java#L591)
+- [BatchGetFindingDetails](src/main/java/com/java/inspector/InspectorActions.java#L587)
 - [CreateFilter](src/main/java/com/java/inspector/InspectorActions.java#L371)
-- [DeleteFilter](src/main/java/com/java/inspector/InspectorActions.java#L561)
-- [Disable](src/main/java/com/java/inspector/InspectorActions.java#L674)
+- [DeleteFilter](src/main/java/com/java/inspector/InspectorActions.java#L557)
+- [Disable](src/main/java/com/java/inspector/InspectorActions.java#L670)
 - [Enable](src/main/java/com/java/inspector/InspectorActions.java#L55)
-- [ListCoverage](src/main/java/com/java/inspector/InspectorActions.java#L494)
+- [ListCoverage](src/main/java/com/java/inspector/InspectorActions.java#L490)
 - [ListCoverageStatistics](src/main/java/com/java/inspector/InspectorActions.java#L127)
 - [ListFilters](src/main/java/com/java/inspector/InspectorActions.java#L325)
 - [ListFindings](src/main/java/com/java/inspector/InspectorActions.java#L435)
