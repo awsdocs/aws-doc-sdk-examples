@@ -76,7 +76,7 @@ CLASS ltc_awsex_cl_smr_actions IMPLEMENTATION.
     TRY.
         ao_smr->deletesecret(
           iv_secretid = av_secret_name
-          iv_forcedeletewithoutrecovery = abap_true
+          iv_forcedeletewithoutrec = abap_true
         ).
       CATCH /aws1/cx_smrresourcenotfoundex.
         " Secret already deleted
@@ -85,7 +85,7 @@ CLASS ltc_awsex_cl_smr_actions IMPLEMENTATION.
     TRY.
         ao_smr->deletesecret(
           iv_secretid = av_secret_name_2
-          iv_forcedeletewithoutrecovery = abap_true
+          iv_forcedeletewithoutrec = abap_true
         ).
       CATCH /aws1/cx_smrresourcenotfoundex.
         " Secret already deleted
@@ -94,7 +94,7 @@ CLASS ltc_awsex_cl_smr_actions IMPLEMENTATION.
     TRY.
         ao_smr->deletesecret(
           iv_secretid = av_secret_name_3
-          iv_forcedeletewithoutrecovery = abap_true
+          iv_forcedeletewithoutrec = abap_true
         ).
       CATCH /aws1/cx_smrresourcenotfoundex.
         " Secret already deleted
@@ -117,9 +117,9 @@ CLASS ltc_awsex_cl_smr_actions IMPLEMENTATION.
       msg = |Secret value should not be empty|
     ).
 
-    cl_abap_unit_assert=>assert_char_cp(
-      act = lv_secret_value
-      pattern = '*username*'
+    " Verify that the secret contains expected content
+    cl_abap_unit_assert=>assert_true(
+      act = xsdbool( lv_secret_value CS 'username' )
       msg = |Secret value should contain expected content|
     ).
 
