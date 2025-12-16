@@ -74,95 +74,121 @@ public class InspectorScenario {
      *
      */
     public static void runScenario(InspectorActions actions) {
+        String filterArn = null;
+        boolean inspectorEnabled = false;
 
-        // Step 1
-        logger.info(DASHES);
-        logger.info("Step 1: Checking Inspector account status...");
-        String status = actions.getAccountStatusAsync().join();
-        logger.info(status);
-        waitForInputToContinue();
-
-        // Step 2
-        logger.info(DASHES);
-        logger.info("Step 2: Enabling Inspector...");
-        String message = actions.enableInspectorAsync(null).join();
-        logger.info(message);
-        waitForInputToContinue();
-
-        // Step 3
-        logger.info(DASHES);
-        logger.info("Step 3: Listing findings...");
-        String allFindings = actions.listLowSeverityFindingsAsync().join();
-
-        if (!allFindings.equals("No findings found.")) {
-            // Split by newline and get the last ARN
-            String[] arns = allFindings.split("\\r?\\n");
-            String lastArn = arns[arns.length - 1];
-
-            // Looks up details
-            logger.info("Look up details on: {}" , lastArn);
+        try {
+            // Step 1
+            logger.info(DASHES);
+            logger.info("Step 1: Checking Inspector account status...");
+            String status = actions.getAccountStatusAsync().join();
+            logger.info(status);
             waitForInputToContinue();
-            String details = actions.getFindingDetailsAsync(lastArn).join() ;
-            logger.info(details);
-        } else {
-            System.out.println("No findings found.");
+
+            // Step 2
+            logger.info(DASHES);
+            logger.info("Step 2: Enabling Inspector...");
+            String message = actions.enableInspectorAsync(null).join();
+            logger.info(message);
+            inspectorEnabled = true;  // track that Inspector was enabled
+            waitForInputToContinue();
+
+            // Step 3
+            logger.info(DASHES);
+            logger.info("Step 3: Listing findings...");
+            String allFindings = actions.listLowSeverityFindingsAsync().join();
+
+            if (!allFindings.equals("No findings found.")) {
+                String[] arns = allFindings.split("\\r?\\n");
+                String lastArn = arns[arns.length - 1];
+
+                logger.info("Look up details on: {}", lastArn);
+                waitForInputToContinue();
+                String details = actions.getFindingDetailsAsync(lastArn).join();
+                logger.info(details);
+            } else {
+                logger.info("No findings found.");
+            }
+
+            waitForInputToContinue();
+
+            // Step 4
+            logger.info(DASHES);
+            logger.info("Step 4: Listing coverage...");
+            String coverage = actions.listCoverageAsync(5).join();
+            logger.info(coverage);
+            waitForInputToContinue();
+
+            // Step 5
+            logger.info(DASHES);
+            logger.info("Step 5: Creating filter...");
+            String filterName = "suppress-low-" + System.currentTimeMillis();
+            filterArn = actions.createLowSeverityFilterAsync(filterName, "Suppress low severity findings").join();
+            logger.info("Created filter: {}", filterArn);
+            waitForInputToContinue();
+
+            // Step 6
+            logger.info(DASHES);
+            logger.info("Step 6: Listing filters...");
+            String filters = actions.listFiltersAsync(10).join();
+            logger.info(filters);
+            waitForInputToContinue();
+
+            // Step 7
+            logger.info(DASHES);
+            logger.info("Step 7: Usage totals...");
+            String usage = actions.listUsageTotalsAsync(null, 10).join();
+            logger.info(usage);
+            waitForInputToContinue();
+
+            // Step 8
+            logger.info(DASHES);
+            logger.info("Step 8: Coverage statistics...");
+            String stats = actions.listCoverageStatisticsAsync().join();
+            logger.info(stats);
+            waitForInputToContinue();
+
+            // Step 9
+            logger.info(DASHES);
+            logger.info("Step 9: Delete filter?");
+            logger.info("Filter ARN: {}", filterArn);
+            logger.info("Delete the filter and disable Inspector? (y/n)");
+
+            if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
+                actions.deleteFilterAsync(filterArn).join();
+                logger.info("Filter deleted.");
+                String disableMsg = actions.disableInspectorAsync(null).join();
+                logger.info(disableMsg);
+                inspectorEnabled = false; // track that Inspector was disabled
+            }
+
+            waitForInputToContinue();
+
+        } catch (Exception ex) {
+            logger.error("Scenario encountered an error: {}", ex.getMessage(), ex);
+            // Rethrow the exception
+            throw ex;
+
+        } finally {
+            // Cleanup in case of an exception
+            if (filterArn != null) {
+                try {
+                    actions.deleteFilterAsync(filterArn).join();
+                    logger.info("Cleanup: Filter deleted.");
+                } catch (Exception e) {
+                    logger.warn("Failed to delete filter during cleanup: {}", e.getMessage(), e);
+                }
+            }
+
+            if (inspectorEnabled) {
+                try {
+                    actions.disableInspectorAsync(null).join();
+                    logger.info("Cleanup: Inspector disabled.");
+                } catch (Exception e) {
+                    logger.warn("Failed to disable Inspector during cleanup: {}", e.getMessage(), e);
+                }
+            }
         }
-
-        waitForInputToContinue();
-
-        // Step 4
-        logger.info(DASHES);
-        logger.info("Step 4: Listing coverage...");
-        String coverage = actions.listCoverageAsync(5).join();
-        logger.info(coverage);
-        waitForInputToContinue();
-
-        // Step 5
-        logger.info(DASHES);
-        logger.info("Step 5: Creating filter...");
-        String filterName = "suppress-low-" + System.currentTimeMillis();
-        String filterArn = actions
-                .createLowSeverityFilterAsync(filterName, "Suppress low severity findings")
-                .join();
-        logger.info("Created filter: {}", filterArn);
-        waitForInputToContinue();
-
-        // Step 6
-        logger.info(DASHES);
-        logger.info("Step 6: Listing filters...");
-        String filters = actions.listFiltersAsync(10).join();
-        logger.info(filters);
-        waitForInputToContinue();
-
-        // Step 7
-        logger.info(DASHES);
-        logger.info("Step 7: Usage totals...");
-        String usage = actions.listUsageTotalsAsync(null, 10).join();
-        logger.info(usage);
-        waitForInputToContinue();
-
-        // Step 8
-        logger.info(DASHES);
-        logger.info("Step 8: Coverage statistics...");
-        String stats = actions.listCoverageStatisticsAsync().join();
-        logger.info(stats);
-        waitForInputToContinue();
-
-        // Step 9
-        logger.info(DASHES);
-        logger.info("Step 9: Delete filter?");
-        logger.info("Filter ARN: {}", filterArn);
-        logger.info("Delete the filter and disable Inspector? (y/n)");
-
-        if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
-            actions.deleteFilterAsync(filterArn).join();
-            logger.info("Filter deleted.");
-            logger.info("Disable Inspector .");
-            String disableMsg = actions.disableInspectorAsync(null).join();
-            logger.info(disableMsg);
-        }
-
-        waitForInputToContinue();
     }
 
     // Utility Method
