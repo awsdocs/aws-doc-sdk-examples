@@ -33,7 +33,22 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
+- [CreateDocumentClassifier](#awsex#cl_cpd_actions.clas.abap#L298)
+- [DeleteDocumentClassifier](#awsex#cl_cpd_actions.clas.abap#L385)
+- [DescribeDocumentClassificationJob](#awsex#cl_cpd_actions.clas.abap#L458)
+- [DescribeDocumentClassifier](#awsex#cl_cpd_actions.clas.abap#L333)
+- [DescribeTopicsDetectionJob](#awsex#cl_cpd_actions.clas.abap#L549)
+- [DetectDominantLanguage](#awsex#cl_cpd_actions.clas.abap#L135)
+- [DetectEntities](#awsex#cl_cpd_actions.clas.abap#L158)
+- [DetectKeyPhrases](#awsex#cl_cpd_actions.clas.abap#L186)
+- [DetectPiiEntities](#awsex#cl_cpd_actions.clas.abap#L214)
 - [DetectSentiment](#awsex#cl_cpd_actions.clas.abap#L242)
+- [DetectSyntax](#awsex#cl_cpd_actions.clas.abap#L270)
+- [ListDocumentClassificationJobs](#awsex#cl_cpd_actions.clas.abap#L485)
+- [ListDocumentClassifiers](#awsex#cl_cpd_actions.clas.abap#L360)
+- [ListTopicsDetectionJobs](#awsex#cl_cpd_actions.clas.abap#L576)
+- [StartDocumentClassificationJob](#awsex#cl_cpd_actions.clas.abap#L414)
+- [StartTopicsDetectionJob](#awsex#cl_cpd_actions.clas.abap#L510)
 
 
 <!--custom.examples.start-->
