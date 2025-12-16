@@ -381,7 +381,7 @@ CLASS ltc_awsex_cl_sns_actions IMPLEMENTATION.
     " Create topic with tag
     DATA lt_topic_tags TYPE /aws1/cl_snstag=>tt_taglist.
     APPEND NEW /aws1/cl_snstag( iv_key = 'convert_test' iv_value = 'true' ) TO lt_topic_tags.
-    DATA(lo_create_result) = ao_sns->createtopic( iv_name = cv_topic_name it_tags = lt_topic_tags ).
+    DATA(lo_create_result) = ao_sns->createtopic( iv_name = lv_topic_name it_tags = lt_topic_tags ).
     DATA(lv_topic_arn) = lo_create_result->get_topicarn( ).
 
     " Create SQS queue for subscription with tag
@@ -390,7 +390,7 @@ CLASS ltc_awsex_cl_sns_actions IMPLEMENTATION.
     ls_queue_tag-key = 'convert_test'.
     ls_queue_tag-value = NEW /aws1/cl_sqstagmap_w( iv_value = 'true' ).
     INSERT ls_queue_tag INTO TABLE lt_queue_tags.
-    DATA(lo_create_queue_result) = ao_sqs->createqueue( iv_queuename = cv_queue_name it_tags = lt_queue_tags ).
+    DATA(lo_create_queue_result) = ao_sqs->createqueue( iv_queuename = lv_queue_name it_tags = lt_queue_tags ).
     DATA(lv_queue_url) = lo_create_queue_result->get_queueurl( ).
     DATA lt_required_attributes TYPE /aws1/cl_sqsattrnamelist_w=>tt_attributenamelist.
     APPEND NEW /aws1/cl_sqsattrnamelist_w( iv_value = 'QueueArn' ) TO lt_required_attributes.
@@ -439,7 +439,7 @@ CLASS ltc_awsex_cl_sns_actions IMPLEMENTATION.
     " Create topic with tag
     DATA lt_topic_tags TYPE /aws1/cl_snstag=>tt_taglist.
     APPEND NEW /aws1/cl_snstag( iv_key = 'convert_test' iv_value = 'true' ) TO lt_topic_tags.
-    DATA(lo_create_result) = ao_sns->createtopic( iv_name = cv_topic_name it_tags = lt_topic_tags ).
+    DATA(lo_create_result) = ao_sns->createtopic( iv_name = lv_topic_name it_tags = lt_topic_tags ).
     DATA(lv_topic_arn) = lo_create_result->get_topicarn( ).
 
     DATA(lo_publish_result) = ao_sns_actions->publish_multi_message(
