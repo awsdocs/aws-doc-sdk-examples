@@ -1,13 +1,13 @@
-# Amazon Comprehend code examples for the SDK for SAP ABAP
+# AWS Control Tower code examples for the SDK for SAP ABAP
 
 ## Overview
 
-Shows how to use the AWS SDK for SAP ABAP to work with Amazon Comprehend.
+Shows how to use the AWS SDK for SAP ABAP to work with AWS Control Tower.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon Comprehend uses natural language processing (NLP) to extract insights about the content of documents without the need of any special preprocessing._
+_AWS Control Tower enables you to enforce and manage governance rules for security, operations, and compliance at scale across all your organizations and accounts._
 
 ## ⚠ Important
 
@@ -33,22 +33,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDocumentClassifier](#awsex#cl_cpd_actions.clas.abap#L298)
-- [DeleteDocumentClassifier](#awsex#cl_cpd_actions.clas.abap#L385)
-- [DescribeDocumentClassificationJob](#awsex#cl_cpd_actions.clas.abap#L458)
-- [DescribeDocumentClassifier](#awsex#cl_cpd_actions.clas.abap#L333)
-- [DescribeTopicsDetectionJob](#awsex#cl_cpd_actions.clas.abap#L549)
-- [DetectDominantLanguage](#awsex#cl_cpd_actions.clas.abap#L135)
-- [DetectEntities](#awsex#cl_cpd_actions.clas.abap#L158)
-- [DetectKeyPhrases](#awsex#cl_cpd_actions.clas.abap#L186)
-- [DetectPiiEntities](#awsex#cl_cpd_actions.clas.abap#L214)
-- [DetectSentiment](#awsex#cl_cpd_actions.clas.abap#L242)
-- [DetectSyntax](#awsex#cl_cpd_actions.clas.abap#L270)
-- [ListDocumentClassificationJobs](#awsex#cl_cpd_actions.clas.abap#L485)
-- [ListDocumentClassifiers](#awsex#cl_cpd_actions.clas.abap#L360)
-- [ListTopicsDetectionJobs](#awsex#cl_cpd_actions.clas.abap#L576)
-- [StartDocumentClassificationJob](#awsex#cl_cpd_actions.clas.abap#L414)
-- [StartTopicsDetectionJob](#awsex#cl_cpd_actions.clas.abap#L510)
+- [DisableBaseline](#awsex#cl_ctt_actions.clas.abap#L393)
+- [DisableControl](#awsex#cl_ctt_actions.clas.abap#L266)
+- [EnableBaseline](#awsex#cl_ctt_actions.clas.abap#L150)
+- [EnableControl](#awsex#cl_ctt_actions.clas.abap#L203)
+- [GetBaselineOperation](#awsex#cl_ctt_actions.clas.abap#L253)
+- [GetControlOperation](#awsex#cl_ctt_actions.clas.abap#L240)
+- [ListBaselines](#awsex#cl_ctt_actions.clas.abap#L123)
+- [ListEnabledBaselines](#awsex#cl_ctt_actions.clas.abap#L330)
+- [ListEnabledControls](#awsex#cl_ctt_actions.clas.abap#L436)
+- [ListLandingZones](#awsex#cl_ctt_actions.clas.abap#L303)
+- [ResetEnabledBaseline](#awsex#cl_ctt_actions.clas.abap#L357)
 
 
 <!--custom.examples.start-->
@@ -79,9 +74,9 @@ in the `sap-abap` folder.
 
 ## Additional resources
 
-- [Amazon Comprehend Developer Guide](https://docs.aws.amazon.com/comprehend/latest/dg/what-is.html)
-- [Amazon Comprehend API Reference](https://docs.aws.amazon.com/comprehend/latest/APIReference/welcome.html)
-- [SDK for SAP ABAP Amazon Comprehend reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/comprehend/index.html)
+- [AWS Control Tower User Guide](https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html)
+- [AWS Control Tower API Reference](https://docs.aws.amazon.com/controltower/latest/APIReference/Welcome.html)
+- [SDK for SAP ABAP AWS Control Tower reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/controltower/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
