@@ -86,6 +86,31 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
       io_session = ao_session
     ).
 
+    " Add bucket policy to allow SES to write to the bucket
+    DATA(lv_account_id) = ao_session->get_account_id( ).
+    DATA(lv_policy) = |\{| &&
+      |"Version":"2012-10-17",| &&
+      |"Statement":[| &&
+      |\{| &&
+      |"Sid":"AllowSESPuts",| &&
+      |"Effect":"Allow",| &&
+      |"Principal":\{"Service":"ses.amazonaws.com"\},| &&
+      |"Action":"s3:PutObject",| &&
+      |"Resource":"arn:aws:s3:::{ av_bucket_name }/*",| &&
+      |"Condition":\{"StringEquals":\{"AWS:Referer":"{ lv_account_id }"\}\}| &&
+      |\}| &&
+      |]| &&
+      |\}|.
+
+    TRY.
+        ao_s3->putbucketpolicy(
+          iv_bucket = av_bucket_name
+          iv_policy = lv_policy
+        ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore policy errors for now
+    ENDTRY.
+
     " Tag resources for cleanup
     DATA lt_tags TYPE /aws1/cl_s3_tag=>tt_tagset.
     DATA(lo_tag) = NEW /aws1/cl_s3_tag(

@@ -227,13 +227,16 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Email sent successfully' TYPE 'I'.
       CATCH /aws1/cx_sesacctsendingpause00 INTO DATA(lo_ex1).
         DATA(lv_error) = |Account sending paused: { lo_ex1->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex1.
       CATCH /aws1/cx_sesmessagerejected INTO DATA(lo_ex2).
         lv_error = |Message rejected: { lo_ex2->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex2.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex_generic).
         lv_error = |An error occurred: { lo_ex_generic->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex_generic.
     ENDTRY.
     " snippet-end:[ses.abapv1.send_email]
   ENDMETHOD.
@@ -259,10 +262,12 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Templated email sent successfully' TYPE 'I'.
       CATCH /aws1/cx_sestmpldoesnotexistex INTO DATA(lo_ex1).
         DATA(lv_error) = |Template does not exist: { lo_ex1->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex1.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex_generic).
         lv_error = |An error occurred: { lo_ex_generic->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex_generic.
     ENDTRY.
     " snippet-end:[ses.abapv1.send_templated_email]
   ENDMETHOD.
@@ -280,7 +285,8 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Email verification initiated' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         DATA(lv_error) = |An error occurred: { lo_ex->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex.
     ENDTRY.
     " snippet-end:[ses.abapv1.verify_email_identity]
   ENDMETHOD.
@@ -299,7 +305,8 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Domain verification initiated' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         DATA(lv_error) = |An error occurred: { lo_ex->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex.
     ENDTRY.
     " snippet-end:[ses.abapv1.verify_domain_identity]
   ENDMETHOD.
@@ -331,7 +338,8 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         ENDIF.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         DATA(lv_error) = |An error occurred: { lo_ex->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex.
     ENDTRY.
     " snippet-end:[ses.abapv1.get_identity_verification_attributes]
   ENDMETHOD.
@@ -349,7 +357,8 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Identity deleted successfully' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         DATA(lv_error) = |An error occurred: { lo_ex->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex.
     ENDTRY.
     " snippet-end:[ses.abapv1.delete_identity]
   ENDMETHOD.
@@ -371,7 +380,8 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Identities retrieved successfully' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         DATA(lv_error) = |An error occurred: { lo_ex->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex.
     ENDTRY.
     " snippet-end:[ses.abapv1.list_identities]
   ENDMETHOD.
@@ -396,13 +406,16 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Template created successfully' TYPE 'I'.
       CATCH /aws1/cx_sesalreadyexistsex INTO DATA(lo_ex1).
         DATA(lv_error) = |Template already exists: { lo_ex1->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex1.
       CATCH /aws1/cx_sesinvalidtemplateex INTO DATA(lo_ex2).
         lv_error = |Invalid template: { lo_ex2->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex2.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex_generic).
         lv_error = |An error occurred: { lo_ex_generic->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex_generic.
     ENDTRY.
     " snippet-end:[ses.abapv1.create_template]
   ENDMETHOD.
@@ -420,7 +433,8 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Template deleted successfully' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         DATA(lv_error) = |An error occurred: { lo_ex->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex.
     ENDTRY.
     " snippet-end:[ses.abapv1.delete_template]
   ENDMETHOD.
@@ -439,10 +453,12 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Template retrieved successfully' TYPE 'I'.
       CATCH /aws1/cx_sestmpldoesnotexistex INTO DATA(lo_ex1).
         DATA(lv_error) = |Template does not exist: { lo_ex1->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex1.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex_generic).
         lv_error = |An error occurred: { lo_ex_generic->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex_generic.
     ENDTRY.
     " snippet-end:[ses.abapv1.get_template]
   ENDMETHOD.
@@ -461,7 +477,8 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Templates retrieved successfully' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         DATA(lv_error) = |An error occurred: { lo_ex->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex.
     ENDTRY.
     " snippet-end:[ses.abapv1.list_templates]
   ENDMETHOD.
@@ -486,13 +503,16 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Template updated successfully' TYPE 'I'.
       CATCH /aws1/cx_sestmpldoesnotexistex INTO DATA(lo_ex1).
         DATA(lv_error) = |Template does not exist: { lo_ex1->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex1.
       CATCH /aws1/cx_sesinvalidtemplateex INTO DATA(lo_ex2).
         lv_error = |Invalid template: { lo_ex2->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex2.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex_generic).
         lv_error = |An error occurred: { lo_ex_generic->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex_generic.
     ENDTRY.
     " snippet-end:[ses.abapv1.update_template]
   ENDMETHOD.
@@ -526,10 +546,12 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Receipt filter created successfully' TYPE 'I'.
       CATCH /aws1/cx_sesalreadyexistsex INTO DATA(lo_ex1).
         DATA(lv_error) = |Filter already exists: { lo_ex1->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex1.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex_generic).
         lv_error = |An error occurred: { lo_ex_generic->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex_generic.
     ENDTRY.
     " snippet-end:[ses.abapv1.create_receipt_filter]
   ENDMETHOD.
@@ -548,7 +570,8 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Receipt filters retrieved successfully' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         DATA(lv_error) = |An error occurred: { lo_ex->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex.
     ENDTRY.
     " snippet-end:[ses.abapv1.list_receipt_filters]
   ENDMETHOD.
@@ -566,7 +589,8 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Receipt filter deleted successfully' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         DATA(lv_error) = |An error occurred: { lo_ex->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex.
     ENDTRY.
     " snippet-end:[ses.abapv1.delete_receipt_filter]
   ENDMETHOD.
@@ -584,10 +608,12 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Receipt rule set created successfully' TYPE 'I'.
       CATCH /aws1/cx_sesalreadyexistsex INTO DATA(lo_ex1).
         DATA(lv_error) = |Rule set already exists: { lo_ex1->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex1.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex_generic).
         lv_error = |An error occurred: { lo_ex_generic->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex_generic.
     ENDTRY.
     " snippet-end:[ses.abapv1.create_receipt_rule_set]
   ENDMETHOD.
@@ -631,10 +657,12 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Receipt rule created successfully' TYPE 'I'.
       CATCH /aws1/cx_sesinvalids3confex INTO DATA(lo_ex1).
         DATA(lv_error) = |Invalid S3 configuration: { lo_ex1->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex1.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex_generic).
         lv_error = |An error occurred: { lo_ex_generic->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex_generic.
     ENDTRY.
     " snippet-end:[ses.abapv1.create_receipt_rule]
   ENDMETHOD.
@@ -654,10 +682,12 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Receipt rule set described successfully' TYPE 'I'.
       CATCH /aws1/cx_sesrulesetdoesnotexex INTO DATA(lo_ex1).
         DATA(lv_error) = |Rule set does not exist: { lo_ex1->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex1.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex_generic).
         lv_error = |An error occurred: { lo_ex_generic->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex_generic.
     ENDTRY.
     " snippet-end:[ses.abapv1.describe_receipt_rule_set]
   ENDMETHOD.
@@ -678,10 +708,12 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Receipt rule deleted successfully' TYPE 'I'.
       CATCH /aws1/cx_sesrulesetdoesnotexex INTO DATA(lo_ex1).
         DATA(lv_error) = |Rule set does not exist: { lo_ex1->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex1.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex_generic).
         lv_error = |An error occurred: { lo_ex_generic->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex_generic.
     ENDTRY.
     " snippet-end:[ses.abapv1.delete_receipt_rule]
   ENDMETHOD.
@@ -699,10 +731,12 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         MESSAGE 'Receipt rule set deleted successfully' TYPE 'I'.
       CATCH /aws1/cx_sescannotdeleteex INTO DATA(lo_ex1).
         DATA(lv_error) = |Cannot delete rule set: { lo_ex1->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex1.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex_generic).
         lv_error = |An error occurred: { lo_ex_generic->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
+        RAISE EXCEPTION lo_ex_generic.
     ENDTRY.
     " snippet-end:[ses.abapv1.delete_receipt_rule_set]
   ENDMETHOD.
