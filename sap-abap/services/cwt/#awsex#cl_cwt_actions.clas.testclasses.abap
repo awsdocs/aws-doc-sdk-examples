@@ -1,5 +1,3 @@
-" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-" SPDX-License-Identifier: Apache-2.0
 CLASS ltc_awsex_cl_cwt_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
 
   PRIVATE SECTION.
