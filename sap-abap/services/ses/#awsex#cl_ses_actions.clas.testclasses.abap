@@ -11,7 +11,6 @@ CLASS ltc_awsex_cl_ses_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     CLASS-DATA ao_ses TYPE REF TO /aws1/if_ses.
     CLASS-DATA ao_s3 TYPE REF TO /aws1/if_s3.
-    CLASS-DATA ao_iam TYPE REF TO /aws1/if_iam.
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA ao_ses_actions TYPE REF TO /awsex/cl_ses_actions.
     CLASS-DATA av_email TYPE /aws1/sesaddress.
@@ -20,7 +19,6 @@ CLASS ltc_awsex_cl_ses_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_filter_name TYPE /aws1/sesreceiptfiltername.
     CLASS-DATA av_rule_set_name TYPE /aws1/sesreceiptrulesetname.
     CLASS-DATA av_bucket_name TYPE /aws1/s3_bucketname.
-    CLASS-DATA av_role_name TYPE /aws1/iamrolename.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown.
@@ -58,7 +56,6 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_ses = /aws1/cl_ses_factory=>create( ao_session ).
     ao_s3 = /aws1/cl_s3_factory=>create( ao_session ).
-    ao_iam = /aws1/cl_iam_factory=>create( ao_session ).
     ao_ses_actions = NEW /awsex/cl_ses_actions( ).
 
     " Get unique identifiers
@@ -72,7 +69,6 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
     av_rule_set_name = |ses-ruleset-{ lv_uuid_string }|.
     DATA(lv_acct) = ao_session->get_account_id( ).
     av_bucket_name = |ses-test-bucket-{ lv_acct }-{ lv_uuid_string }|.
-    av_role_name = |ses-test-role-{ lv_uuid_string }|.
 
     " Create S3 bucket for receipt rule tests
     /awsex/cl_utils=>create_bucket(
