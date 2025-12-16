@@ -160,7 +160,7 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
 
     " Verify that the identity exists in pending state
     DATA lt_identities TYPE /aws1/cl_sesidentitylist_w=>tt_identitylist.
-    APPEND av_email TO lt_identities.
+    APPEND NEW /aws1/cl_sesidentitylist_w( iv_value = av_email ) TO lt_identities.
 
     DATA(lo_result) = ao_ses->getidentityverificationattrs(
       it_identities = lt_identities
@@ -187,7 +187,7 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
 
     " Verify that the domain identity exists
     DATA lt_identities TYPE /aws1/cl_sesidentitylist_w=>tt_identitylist.
-    APPEND av_domain TO lt_identities.
+    APPEND NEW /aws1/cl_sesidentitylist_w( iv_value = av_domain ) TO lt_identities.
 
     DATA(lo_result) = ao_ses->getidentityverificationattrs(
       it_identities = lt_identities
@@ -264,7 +264,7 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
     " iv_source = 'sender@example.com'
     " Create destination with to addresses
     DATA lt_to_addresses TYPE /aws1/cl_sesaddresslist_w=>tt_addresslist.
-    APPEND av_email TO lt_to_addresses.
+    APPEND NEW /aws1/cl_sesaddresslist_w( iv_value = av_email ) TO lt_to_addresses.
 
     DATA(lo_destination) = NEW /aws1/cl_sesdestination(
       it_toaddresses = lt_to_addresses
@@ -401,7 +401,7 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
 
     " iv_source = 'sender@example.com'
     DATA lt_to_addresses TYPE /aws1/cl_sesaddresslist_w=>tt_addresslist.
-    APPEND av_email TO lt_to_addresses.
+    APPEND NEW /aws1/cl_sesaddresslist_w( iv_value = av_email ) TO lt_to_addresses.
 
     DATA(lo_destination) = NEW /aws1/cl_sesdestination(
       it_toaddresses = lt_to_addresses
@@ -604,7 +604,7 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
     " iv_rule_name = 'test-rule'
     " it_recipients contains email addresses
     DATA lt_recipients TYPE /aws1/cl_sesrecipientslist_w=>tt_recipientslist.
-    APPEND av_email TO lt_recipients.
+    APPEND NEW /aws1/cl_sesrecipientslist_w( iv_value = av_email ) TO lt_recipients.
 
     " iv_bucket_name = 'test-bucket'
     " iv_prefix = 'emails/'
@@ -653,7 +653,7 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
     ENDTRY.
 
     DATA lt_recipients TYPE /aws1/cl_sesrecipientslist_w=>tt_recipientslist.
-    APPEND av_email TO lt_recipients.
+    APPEND NEW /aws1/cl_sesrecipientslist_w( iv_value = av_email ) TO lt_recipients.
 
     DATA(lo_s3_action) = NEW /aws1/cl_sess3action(
       iv_bucketname = av_bucket_name
@@ -753,7 +753,7 @@ CLASS ltc_awsex_cl_ses_actions IMPLEMENTATION.
 
     " Verify identity was deleted by checking status
     DATA lt_identities TYPE /aws1/cl_sesidentitylist_w=>tt_identitylist.
-    APPEND av_email TO lt_identities.
+    APPEND NEW /aws1/cl_sesidentitylist_w( iv_value = av_email ) TO lt_identities.
 
     DATA(lo_result) = ao_ses->getidentityverificationattrs(
       it_identities = lt_identities

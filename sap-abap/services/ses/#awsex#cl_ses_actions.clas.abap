@@ -313,7 +313,7 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[ses.abapv1.get_identity_verification_attributes]
     DATA lt_identities TYPE /aws1/cl_sesidentitylist_w=>tt_identitylist.
-    APPEND iv_identity TO lt_identities.
+    APPEND NEW /aws1/cl_sesidentitylist_w( iv_value = iv_identity ) TO lt_identities.
 
     TRY.
         DATA(lo_result) = lo_ses->getidentityverificationattrs(
@@ -321,11 +321,11 @@ CLASS /AWSEX/CL_SES_ACTIONS IMPLEMENTATION.
         ).
 
         DATA(lt_attrs) = lo_result->get_verificationattributes( ).
-        IF lines( lt_attrs ) > 0.
-          READ TABLE lt_attrs INDEX 1 ASSIGNING FIELD-SYMBOL(<attr>).
-          IF sy-subrc = 0.
+        IF lt_attrs IS NOT INITIAL.
+          LOOP AT lt_attrs ASSIGNING FIELD-SYMBOL(<attr>).
             ov_status = <attr>->get_value( )->get_verificationstatus( ).
-          ENDIF.
+            EXIT.
+          ENDLOOP.
         ELSE.
           ov_status = 'NotFound'.
         ENDIF.
