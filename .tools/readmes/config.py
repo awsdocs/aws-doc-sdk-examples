@@ -197,6 +197,9 @@ language = {
             "service_folder_overrides": {
                 "bedrock-runtime": "sap-abap/services/bdr",
                 "bedrock-agent-runtime": "sap-abap/services/bdz",
+                "cloudfront": "sap-abap/services/fnt",
+                "controltower": "sap-abap/services/ctt",
+                "cognito-identity-provider": "sap-abap/services/cgp",
                 "comprehend": "sap-abap/services/cpd",
                 "cloudwatch": "sap-abap/services/cwt",
                 "dynamodb": "sap-abap/services/dyn",
