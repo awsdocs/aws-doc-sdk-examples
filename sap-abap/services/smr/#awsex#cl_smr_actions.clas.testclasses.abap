@@ -126,7 +126,7 @@ CLASS ltc_awsex_cl_smr_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD batch_get_secret_value.
-    DATA lt_secret_values TYPE /aws1/cl_smrsecretvalueentry=>tt_secretvaluesentrylist.
+    DATA lt_secret_values TYPE /aws1/cl_smrsecretvalueentry=>tt_secretvaluestype.
 
     " Use a filter that matches the prefix of our test secrets
     " Extract just the prefix before the last hyphen
