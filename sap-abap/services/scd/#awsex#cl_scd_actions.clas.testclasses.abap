@@ -306,16 +306,28 @@ CLASS ltc_awsex_cl_scd_actions IMPLEMENTATION.
     " Delete the schedule group
     ao_scd_actions->delete_schedule_group( iv_name = lv_test_group_name ).
 
-    " Wait a bit for deletion to complete
-    WAIT UP TO 2 SECONDS.
+    " Wait for deletion to complete with polling
+    DATA lv_max_attempts TYPE i VALUE 20.
+    DATA lv_attempts TYPE i VALUE 0.
+    DATA lv_deleted TYPE abap_bool VALUE abap_false.
+
+    WHILE lv_attempts < lv_max_attempts.
+      TRY.
+          ao_scd->getschedulegroup( iv_name = lv_test_group_name ).
+          " Schedule group still exists, wait and try again
+          WAIT UP TO 3 SECONDS.
+          lv_attempts = lv_attempts + 1.
+        CATCH /aws1/cx_scdresourcenotfoundex.
+          " Expected - schedule group was deleted
+          lv_deleted = abap_true.
+          EXIT.
+      ENDTRY.
+    ENDWHILE.
 
     " Verify the schedule group was deleted
-    TRY.
-        ao_scd->getschedulegroup( iv_name = lv_test_group_name ).
-        cl_abap_unit_assert=>fail( msg = |Schedule group should have been deleted| ).
-      CATCH /aws1/cx_scdresourcenotfoundex.
-        " Expected - schedule group was deleted
-    ENDTRY.
+    cl_abap_unit_assert=>assert_true(
+      act = lv_deleted
+      msg = |Schedule group should have been deleted| ).
   ENDMETHOD.
 
   METHOD wait_for_schedule_deletion.
