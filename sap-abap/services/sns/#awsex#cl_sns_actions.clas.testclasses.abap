@@ -133,10 +133,7 @@ CLASS ltc_awsex_cl_sns_actions IMPLEMENTATION.
 
     " Create topic with tag
     DATA lt_topic_tags TYPE /aws1/cl_snstag=>tt_taglist.
-    DATA ls_topic_tag TYPE /aws1/cl_snstag=>ts_tag.
-    ls_topic_tag-key = 'convert_test'.
-    ls_topic_tag-value = 'true'.
-    APPEND NEW /aws1/cl_snstag( iv_key = ls_topic_tag-key iv_value = ls_topic_tag-value ) TO lt_topic_tags.
+    APPEND NEW /aws1/cl_snstag( iv_key = 'convert_test' iv_value = 'true' ) TO lt_topic_tags.
     DATA(lo_create_result) = ao_sns->createtopic( iv_name = cv_topic_name it_tags = lt_topic_tags ).
     DATA(lv_topic_arn) = lo_create_result->get_topicarn( ).
 
@@ -173,10 +170,7 @@ CLASS ltc_awsex_cl_sns_actions IMPLEMENTATION.
 
     " Create topic with tag
     DATA lt_topic_tags TYPE /aws1/cl_snstag=>tt_taglist.
-    DATA ls_topic_tag TYPE /aws1/cl_snstag=>ts_tag.
-    ls_topic_tag-key = 'convert_test'.
-    ls_topic_tag-value = 'true'.
-    APPEND NEW /aws1/cl_snstag( iv_key = ls_topic_tag-key iv_value = ls_topic_tag-value ) TO lt_topic_tags.
+    APPEND NEW /aws1/cl_snstag( iv_key = 'convert_test' iv_value = 'true' ) TO lt_topic_tags.
     DATA(lo_create_result) = ao_sns->createtopic( iv_name = cv_topic_name it_tags = lt_topic_tags ).
     DATA(lv_topic_arn) = lo_create_result->get_topicarn( ).
 
@@ -358,10 +352,7 @@ CLASS ltc_awsex_cl_sns_actions IMPLEMENTATION.
 
     " Create topic with tag
     DATA lt_topic_tags TYPE /aws1/cl_snstag=>tt_taglist.
-    DATA ls_topic_tag TYPE /aws1/cl_snstag=>ts_tag.
-    ls_topic_tag-key = 'convert_test'.
-    ls_topic_tag-value = 'true'.
-    APPEND NEW /aws1/cl_snstag( iv_key = ls_topic_tag-key iv_value = ls_topic_tag-value ) TO lt_topic_tags.
+    APPEND NEW /aws1/cl_snstag( iv_key = 'convert_test' iv_value = 'true' ) TO lt_topic_tags.
     DATA(lo_create_result) = ao_sns->createtopic( iv_name = cv_topic_name it_tags = lt_topic_tags ).
     DATA(lv_topic_arn) = lo_create_result->get_topicarn( ).
 
