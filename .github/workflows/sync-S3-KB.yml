@@ -1,7 +1,7 @@
 name: syncS3andKB
 on:
   push:
-    branches: ["sync-for-steer-specs"]
+    branches: ["main"]
   workflow_dispatch:
     inputs:
       sdk_name:
