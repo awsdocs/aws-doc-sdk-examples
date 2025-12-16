@@ -16,7 +16,7 @@ CLASS ltc_awsex_cl_scd_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_queue_url TYPE /aws1/sqsstring.
     CLASS-DATA av_queue_arn TYPE /aws1/sqsstring.
     CLASS-DATA av_role_arn TYPE /aws1/iamarntype.
-    CLASS-DATA av_role_name TYPE /aws1/iamrolenametyp.
+    CLASS-DATA av_role_name TYPE /aws1/iamrolenametype.
     CLASS-DATA av_schedule_group_name TYPE /aws1/scdschedulegroupname.
     CLASS-DATA av_schedule_name TYPE /aws1/scdname.
 
