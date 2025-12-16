@@ -600,16 +600,14 @@ CLASS ltc_awsex_cl_cwt_actions IMPLEMENTATION.
     DATA lv_timestamp TYPE /aws1/cwttimestamp.
     DATA lv_uuid_16 TYPE sysuuid_x16.
     DATA lv_namespace TYPE /aws1/cwtnamespace.
-    DATA lv_temp_timestamp TYPE timestamp.
 
     "Create unique namespace for test.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_namespace = cv_namespace && '-' && lv_uuid_16.
     TRANSLATE lv_namespace TO LOWER CASE.
 
-    "Create timestamp in ISO8601 format.
-    GET TIME STAMP FIELD lv_temp_timestamp.
-    lv_timestamp = |{ lv_temp_timestamp TIMESTAMP = ISO }|.
+    "Create timestamp - TIMESTAMPL type accepts native ABAP timestamp.
+    GET TIME STAMP FIELD lv_timestamp.
 
     "Create values and counts.
     DATA(lo_value) = NEW /aws1/cl_cwtvalues_w( '10' ).
@@ -678,16 +676,11 @@ CLASS ltc_awsex_cl_cwt_actions IMPLEMENTATION.
     DATA lo_stats_result TYPE REF TO /aws1/cl_cwtgetmettatsoutput.
     DATA lv_start_time TYPE /aws1/cwttimestamp.
     DATA lv_end_time TYPE /aws1/cwttimestamp.
-    DATA lv_temp_timestamp TYPE timestamp.
 
     "Set time range - last 7 days.
-    "Get timestamp and convert to proper format for CloudWatch (YYYYMMDDHHMMSS.SSSSSSS)
-    GET TIME STAMP FIELD lv_temp_timestamp.
-    
-    "Convert timestamp to CloudWatch format
-    lv_end_time = |{ lv_temp_timestamp TIMESTAMP = ISO }|.
-    lv_start_time = lv_temp_timestamp - ( 7 * 86400 ).
-    lv_start_time = |{ lv_start_time TIMESTAMP = ISO }|.
+    "TIMESTAMPL type accepts native ABAP timestamp format
+    GET TIME STAMP FIELD lv_end_time.
+    lv_start_time = lv_end_time - ( 7 * 86400 ).
 
     "Create statistics list.
     " Example: 'Average', 'Minimum', 'Maximum'
@@ -780,11 +773,15 @@ CLASS ltc_awsex_cl_cwt_actions IMPLEMENTATION.
         WAIT UP TO 3 SECONDS.
       ENDIF.
       
-      "Test get_metric_alarms.
+      "Test get_metric_alarms - pass dimensions, statistic, period, and unit for exact match.
       ao_cwt_actions->get_metric_alarms(
         EXPORTING
           iv_namespace   = cv_namespace
           iv_metric_name = cv_metric_name
+          it_dimensions  = lt_dimensions
+          iv_statistic   = cv_statistic
+          iv_period      = cv_period
+          iv_unit        = cv_unit
         IMPORTING
           oo_result      = lo_alarms_result ).
 
