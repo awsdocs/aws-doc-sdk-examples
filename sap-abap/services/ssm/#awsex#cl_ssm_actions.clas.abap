@@ -1,4 +1,5 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 CLASS /awsex/cl_ssm_actions DEFINITION
   PUBLIC
@@ -221,8 +222,8 @@ CLASS /AWSEX/CL_SSM_ACTIONS IMPLEMENTATION.
 
         " Count total invocations
         DATA lt_invocations TYPE /aws1/cl_ssmcommandinvocation=>tt_commandinvocationlist.
-        WHILE lo_iterator->hasnext( ).
-          DATA(lo_page) = lo_iterator->next( ).
+        WHILE lo_iterator->has_next( ).
+          DATA(lo_page) = lo_iterator->get_next( ).
           APPEND LINES OF lo_page->get_commandinvocations( ) TO lt_invocations.
         ENDWHILE.
 
@@ -388,8 +389,8 @@ CLASS /AWSEX/CL_SSM_ACTIONS IMPLEMENTATION.
         ).
 
         ov_found = abap_false.
-        WHILE lo_iterator->hasnext( ).
-          DATA(lo_page) = lo_iterator->next( ).
+        WHILE lo_iterator->has_next( ).
+          DATA(lo_page) = lo_iterator->get_next( ).
           LOOP AT lo_page->get_opsitemsummaries( ) INTO DATA(lo_item).
             MESSAGE |The item title is { lo_item->get_title( ) } and the status is { lo_item->get_status( ) }| TYPE 'I'.
             ov_found = abap_true.
