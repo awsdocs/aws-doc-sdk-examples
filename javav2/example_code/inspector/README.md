@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Amazon Inspector](src/main/java/com/java/inspector/HelloInspector.java#L26) (`BatchGetAccountStatus`)
+- [Hello Amazon Inspector](src/main/java/com/java/inspector/HelloInspector.java#L29) (`ListMembers`)
 
 
 ### Basics
@@ -45,16 +45,17 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchGetAccountStatus](src/main/java/com/java/inspector/InspectorActions.java#L245)
-- [BatchGetFindingDetails](src/main/java/com/java/inspector/InspectorActions.java#L628)
-- [CreateFilter](src/main/java/com/java/inspector/InspectorActions.java#L370)
-- [DeleteFilter](src/main/java/com/java/inspector/InspectorActions.java#L598)
-- [Enable](src/main/java/com/java/inspector/InspectorActions.java#L54)
-- [ListCoverage](src/main/java/com/java/inspector/InspectorActions.java#L493)
-- [ListCoverageStatistics](src/main/java/com/java/inspector/InspectorActions.java#L126)
-- [ListFilters](src/main/java/com/java/inspector/InspectorActions.java#L324)
-- [ListFindings](src/main/java/com/java/inspector/InspectorActions.java#L434)
-- [ListUsageTotals](src/main/java/com/java/inspector/InspectorActions.java#L183)
+- [BatchGetAccountStatus](src/main/java/com/java/inspector/InspectorActions.java#L246)
+- [BatchGetFindingDetails](src/main/java/com/java/inspector/InspectorActions.java#L591)
+- [CreateFilter](src/main/java/com/java/inspector/InspectorActions.java#L371)
+- [DeleteFilter](src/main/java/com/java/inspector/InspectorActions.java#L561)
+- [Disable](src/main/java/com/java/inspector/InspectorActions.java#L674)
+- [Enable](src/main/java/com/java/inspector/InspectorActions.java#L55)
+- [ListCoverage](src/main/java/com/java/inspector/InspectorActions.java#L494)
+- [ListCoverageStatistics](src/main/java/com/java/inspector/InspectorActions.java#L127)
+- [ListFilters](src/main/java/com/java/inspector/InspectorActions.java#L325)
+- [ListFindings](src/main/java/com/java/inspector/InspectorActions.java#L435)
+- [ListUsageTotals](src/main/java/com/java/inspector/InspectorActions.java#L184)
 
 
 <!--custom.examples.start-->
