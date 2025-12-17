@@ -19,6 +19,88 @@ Generate feature scenarios that demonstrate complete workflows using multiple se
 - **Type Hints**: MUST use proper type annotations throughout
 - **Documentation**: MUST include comprehensive docstrings
 
+## User Interaction Patterns
+
+### Standard demo_tools.question Functions
+**MUST USE**: All user interactions should use the standard functions in `demo_tools.question`. These functions provide consistent validation and error handling.
+
+#### Available Functions
+
+```python
+import demo_tools.question as q
+
+# Basic question with no validation
+answer = q.ask("Enter your name: ")
+
+# Yes/No questions
+use_existing = q.ask("Use existing resource? (y/n): ", q.is_yesno)
+
+# Text input with validation
+resource_name = q.ask("Enter resource name: ", q.non_empty)
+
+# Integer input with validation
+count = q.ask("How many items? ", q.is_int)
+
+# Integer input with range validation
+priority = q.ask("Enter priority (1-10): ", q.is_int, q.in_range(1, 10))
+
+# Float input
+price = q.ask("Enter price: ", q.is_float)
+
+# Single letter input
+option = q.ask("Select option (a-z): ", q.is_letter)
+
+# Regular expression validation
+email = q.ask("Enter email: ", q.re_match(r'^[^@]+@[^@]+\.[^@]+$'))
+
+# Multiple choice selection
+choices = ["Option A", "Option B", "Option C"]
+selection = q.choose("Select an option: ", choices)
+print(f"You selected: {choices[selection]}")
+```
+
+#### Validator Functions
+
+- **`q.non_empty`** - Validates that the answer is not empty
+- **`q.is_yesno`** - Validates yes/no answers (accepts 'y' or 'Y' as True)
+- **`q.is_int`** - Validates integer input
+- **`q.is_float`** - Validates floating-point input
+- **`q.is_letter`** - Validates single letter input (converts to uppercase)
+- **`q.in_range(lower, upper)`** - Validates numeric input within a range
+- **`q.re_match(pattern)`** - Validates input against a regular expression pattern
+
+#### Multiple Validators
+You can chain multiple validators for complex validation:
+
+```python
+# Integer between 1 and 100
+value = q.ask("Enter value (1-100): ", q.is_int, q.in_range(1, 100))
+
+# Non-empty string matching pattern
+code = q.ask("Enter code: ", q.non_empty, q.re_match(r'^[A-Z]{3}-\d{3}$'))
+```
+
+### Information Display Patterns
+
+```python
+# Progress indicators
+print("✓ Operation completed successfully")
+print("⚠ Warning: Resource may take time to initialize")
+print("✗ Error occurred during operation")
+
+# Section separators
+print("-" * 80)
+print("=" * 80)
+
+# Formatted output
+print(f"Found {len(items)} items:")
+for i, item in enumerate(items, 1):
+    print(f"  {i}. {item}")
+
+# Wait for user acknowledgment
+q.ask("\nPress Enter to continue...")
+```
+
 ## Project Structure
 
 Feature scenarios use a structured approach with separate modules for scenarios, wrappers, and CloudFormation helpers:
