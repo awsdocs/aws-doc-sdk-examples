@@ -173,22 +173,15 @@ CLASS /AWSEX/CL_SSM_ACTIONS IMPLEMENTATION.
           it_opsitemfilters = lt_filters ).
 
         rv_found = abap_false.
-        DATA lv_has_next TYPE abap_bool VALUE abap_true.
 
-        WHILE lv_has_next = abap_true.
-          DATA(lo_page) = lo_iterator->next( ).
-          IF lo_page IS BOUND.
-            DATA(lo_result) = CAST /aws1/cl_ssmdescropsitemsrsp( lo_page ).
-            LOOP AT lo_result->get_opsitemsummaries( ) INTO DATA(lo_item).
-              DATA(lv_title) = lo_item->get_title( ).
-              DATA(lv_status) = lo_item->get_status( ).
-              MESSAGE |The OpsItem title is { lv_title } and the status is { lv_status }| TYPE 'I'.
-              rv_found = abap_true.
-            ENDLOOP.
-            lv_has_next = lo_iterator->has_next( ).
-          ELSE.
-            lv_has_next = abap_false.
-          ENDIF.
+        WHILE lo_iterator->has_next( ).
+          DATA(lo_result) = CAST /aws1/cl_ssmdescropsitemsrsp( lo_iterator->get_next( ) ).
+          LOOP AT lo_result->get_opsitemsummaries( ) INTO DATA(lo_item).
+            DATA(lv_title) = lo_item->get_title( ).
+            DATA(lv_status) = lo_item->get_status( ).
+            MESSAGE |The OpsItem title is { lv_title } and the status is { lv_status }| TYPE 'I'.
+            rv_found = abap_true.
+          ENDLOOP.
         ENDWHILE.
       CATCH /aws1/cx_ssminternalservererr.
         MESSAGE 'Internal server error occurred.' TYPE 'I'.
@@ -394,21 +387,14 @@ CLASS /AWSEX/CL_SSM_ACTIONS IMPLEMENTATION.
           iv_instanceid = iv_instance_id ).
 
         DATA lv_count TYPE i VALUE 0.
-        DATA lv_has_next TYPE abap_bool VALUE abap_true.
 
-        WHILE lv_has_next = abap_true.
-          DATA(lo_page) = lo_iterator->next( ).
-          IF lo_page IS BOUND.
-            DATA(lo_result) = CAST /aws1/cl_ssmlistcmdinvcsresult( lo_page ).
-            LOOP AT lo_result->get_commandinvocations( ) INTO DATA(lo_invocation).
-              lv_count = lv_count + 1.
-              DATA(lv_requested_datetime) = lo_invocation->get_requesteddatetime( ).
-              MESSAGE |Command invocation requested at: { lv_requested_datetime }| TYPE 'I'.
-            ENDLOOP.
-            lv_has_next = lo_iterator->has_next( ).
-          ELSE.
-            lv_has_next = abap_false.
-          ENDIF.
+        WHILE lo_iterator->has_next( ).
+          DATA(lo_result) = CAST /aws1/cl_ssmlistcmdinvcsresult( lo_iterator->get_next( ) ).
+          LOOP AT lo_result->get_commandinvocations( ) INTO DATA(lo_invocation).
+            lv_count = lv_count + 1.
+            DATA(lv_requested_datetime) = lo_invocation->get_requesteddatetime( ).
+            MESSAGE |Command invocation requested at: { lv_requested_datetime }| TYPE 'I'.
+          ENDLOOP.
         ENDWHILE.
 
         MESSAGE |{ lv_count } command invocation(s) found for instance { iv_instance_id }.| TYPE 'I'.
