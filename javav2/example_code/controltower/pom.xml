@@ -32,16 +32,6 @@
             <artifactId>controlcatalog</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.7</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.4.8</version>
-        </dependency>
-        <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>netty-nio-client</artifactId>
         </dependency>
@@ -95,7 +85,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <mainClass>com.example.controltower.ControlTowerScenario</mainClass>
+                    <mainClass>com.example.controltower.scenario.ControlTowerScenario</mainClass>
                     <commandlineArgs>us-east-1</commandlineArgs>
                 </configuration>
             </plugin>
