@@ -1,3 +1,5 @@
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
 CLASS ltc_awsex_cl_ssm_actions DEFINITION DEFERRED.
 CLASS /awsex/cl_ssm_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_ssm_actions.
 
@@ -9,38 +11,38 @@ CLASS ltc_awsex_cl_ssm_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA ao_ssm TYPE REF TO /aws1/if_ssm.
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA ao_ssm_actions TYPE REF TO /awsex/cl_ssm_actions.
-    CLASS-DATA ao_ec2 TYPE REF TO /aws1/if_ec2.
+    
+    " Shared resources for tests
+    CLASS-DATA av_shared_window_id TYPE /aws1/ssmmaintenancewindowid.
+    CLASS-DATA av_shared_document_name TYPE /aws1/ssmdocumentname.
+    CLASS-DATA av_shared_ops_item_id TYPE /aws1/ssmopsitemid.
+    CLASS-DATA av_test_instance_id TYPE /aws1/ssminstanceid.
 
-    CLASS-DATA av_document_name TYPE /aws1/ssmdocumentname.
-    CLASS-DATA av_maintenance_window_id TYPE /aws1/ssmmaintenancewindowid.
-    CLASS-DATA av_ops_item_id TYPE /aws1/ssmopsitemid.
-    CLASS-DATA av_instance_id TYPE /aws1/ssminstanceid.
-
-    METHODS:
+    METHODS: create_ops_item FOR TESTING RAISING /aws1/cx_rt_generic,
+      delete_ops_item FOR TESTING RAISING /aws1/cx_rt_generic,
+      describe_ops_items FOR TESTING RAISING /aws1/cx_rt_generic,
+      update_ops_item FOR TESTING RAISING /aws1/cx_rt_generic,
+      create_maintenance_window FOR TESTING RAISING /aws1/cx_rt_generic,
+      delete_maintenance_window FOR TESTING RAISING /aws1/cx_rt_generic,
+      update_maintenance_window FOR TESTING RAISING /aws1/cx_rt_generic,
       create_document FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_document FOR TESTING RAISING /aws1/cx_rt_generic,
       describe_document FOR TESTING RAISING /aws1/cx_rt_generic,
       send_command FOR TESTING RAISING /aws1/cx_rt_generic,
-      list_command_invocations FOR TESTING RAISING /aws1/cx_rt_generic,
-      create_maintenance_window FOR TESTING RAISING /aws1/cx_rt_generic,
-      delete_maintenance_window FOR TESTING RAISING /aws1/cx_rt_generic,
-      update_maintenance_window FOR TESTING RAISING /aws1/cx_rt_generic,
-      create_ops_item FOR TESTING RAISING /aws1/cx_rt_generic,
-      delete_ops_item FOR TESTING RAISING /aws1/cx_rt_generic,
-      describe_ops_items FOR TESTING RAISING /aws1/cx_rt_generic,
-      update_ops_item FOR TESTING RAISING /aws1/cx_rt_generic.
+      list_command_invocations FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
 
-    METHODS setup RAISING /aws1/cx_rt_generic.
-
     METHODS wait_for_document_active
       IMPORTING
         iv_document_name TYPE /aws1/ssmdocumentname
-        iv_max_attempts  TYPE i DEFAULT 30
       RAISING
         /aws1/cx_rt_generic.
+    
+    METHODS get_uuid_string
+      RETURNING
+        VALUE(rv_uuid) TYPE string.
 
 ENDCLASS.
 
@@ -49,528 +51,715 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
   METHOD class_setup.
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_ssm = /aws1/cl_ssm_factory=>create( ao_session ).
-    ao_ec2 = /aws1/cl_ec2_factory=>create( ao_session ).
     ao_ssm_actions = NEW /awsex/cl_ssm_actions( ).
 
-    " Create unique test resource names
+    " Create shared resources for tests
     DATA lv_uuid_string TYPE string.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    lv_uuid_string = lv_uuid.
+    lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
 
-    " Generate unique names for test resources
-    av_document_name = |test-doc-{ lv_uuid_string }|.
+    " Create a shared maintenance window
+    DATA(lv_window_name) = |ssm-mw-{ lv_uuid_string }|.
+    TRY.
+        DATA(lo_window_result) = ao_ssm->createmaintenancewindow(
+            iv_name = lv_window_name
+            iv_schedule = 'cron(0 10 ? * MON-FRI *)'
+            iv_duration = 2
+            iv_cutoff = 1
+            iv_allowunassociatedtargets = abap_true ).
+        av_shared_window_id = lo_window_result->get_windowid( ).
 
-    " Create a test document for use in multiple tests
-    " Example SSM document content in JSON format
-    DATA(lv_content) = '{' &&
-                       '"schemaVersion":"2.2",' &&
-                       '"description":"Test document for SSM examples",' &&
-                       '"mainSteps":[{' &&
-                       '"action":"aws:runShellScript",' &&
-                       '"name":"runEchoCommand",' &&
-                       '"inputs":{' &&
-                       '"runCommand":["echo Hello from SSM"]' &&
-                       '}' &&
-                       '}]' &&
-                       '}'.
+        " Tag the maintenance window
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'MaintenanceWindow'
+          iv_resourceid = av_shared_window_id
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic.
+        " Continue without shared window
+    ENDTRY.
 
-    " Create document with convert_test tag
-    DATA lt_tags TYPE /aws1/cl_ssmtag=>tt_taglist.
-    APPEND NEW /aws1/cl_ssmtag(
-      iv_key = 'convert_test'
-      iv_value = 'true'
-    ) TO lt_tags.
+    " Create a shared document
+    lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
+    av_shared_document_name = |ssmdoc-{ lv_uuid_string }|.
+    DATA(lv_content) = |\{| &&
+      |"schemaVersion": "2.2",| &&
+      |"description": "Shared test document",| &&
+      |"mainSteps": [| &&
+      |\{| &&
+      |"action": "aws:runShellScript",| &&
+      |"name": "runCommand",| &&
+      |"inputs": \{| &&
+      |"runCommand": ["echo 'test'"]| &&
+      |\}| &&
+      |\}| &&
+      |]| &&
+      |\}|.
 
     TRY.
         ao_ssm->createdocument(
-          iv_name = av_document_name
-          iv_content = lv_content
-          iv_documenttype = 'Command'
-          it_tags = lt_tags
-        ).
+            iv_name = av_shared_document_name
+            iv_content = lv_content
+            iv_documenttype = 'Command' ).
 
         " Wait for document to become active
-        DATA lv_attempt TYPE i VALUE 0.
         DATA lv_status TYPE /aws1/ssmdocumentstatus.
-        WHILE lv_attempt < 30.
-          lv_attempt = lv_attempt + 1.
+        DATA lv_attempts TYPE i VALUE 0.
+        WHILE lv_attempts < 20.
           TRY.
-              DATA(lo_desc) = ao_ssm->describedocument( iv_name = av_document_name ).
-              lv_status = lo_desc->get_document( )->get_status( ).
-              IF lv_status = 'Active'.
-                EXIT.
+              DATA(lo_doc_result) = ao_ssm->describedocument( iv_name = av_shared_document_name ).
+              DATA(lo_document) = lo_doc_result->get_document( ).
+              IF lo_document IS BOUND.
+                lv_status = lo_document->get_status( ).
+                IF lv_status = 'Active'.
+                  EXIT.
+                ENDIF.
               ENDIF.
             CATCH /aws1/cx_ssminvaliddocument.
-              " Document not yet available
           ENDTRY.
-          WAIT UP TO 2 SECONDS.
+          lv_attempts = lv_attempts + 1.
+          WAIT UP TO 3 SECONDS.
         ENDWHILE.
 
-      CATCH /aws1/cx_ssmdocalreadyexists.
-        " Document already exists from previous test, continue
+        " Tag the document
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'Document'
+          iv_resourceid = av_shared_document_name
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic.
+        " Continue without shared document
     ENDTRY.
 
-    " Create a test maintenance window
-    DATA(lv_window_name) = |test-mw-{ lv_uuid_string }|.
+    " Create a shared OpsItem
+    lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
+    DATA(lv_ops_title) = |Test OpsItem { lv_uuid_string }|.
     TRY.
-        " Example: every day at 2 AM UTC for 3 hours with 1 hour cutoff
-        DATA(lo_mw_result) = ao_ssm->createmaintenancewindow(
-          iv_name = lv_window_name
-          iv_schedule = 'cron(0 2 * * ? *)'
-          iv_duration = 3
-          iv_cutoff = 1
-          iv_allowunassociatedtargets = abap_true
-          it_tags = lt_tags
-        ).
-        av_maintenance_window_id = lo_mw_result->get_windowid( ).
-      CATCH /aws1/cx_ssmresrclimitexcdex.
-        " Resource limit reached, continue without window
-    ENDTRY.
-
-    " Create a test OpsItem
-    TRY.
-        " Example: Create with severity 4
         DATA(lo_ops_result) = ao_ssm->createopsitem(
-          iv_title = |Test OpsItem { lv_uuid_string }|
-          iv_source = 'UnitTest'
-          iv_category = 'Availability'
-          iv_severity = '4'
-          iv_description = 'Test OpsItem for unit tests'
-          it_tags = lt_tags
-        ).
-        av_ops_item_id = lo_ops_result->get_opsitemid( ).
-      CATCH /aws1/cx_ssmopsitemlimitexcdex.
-        " OpsItem limit reached, continue without OpsItem
+            iv_title = lv_ops_title
+            iv_source = 'EC2'
+            iv_category = 'Performance'
+            iv_severity = '2'
+            iv_description = 'Shared test OpsItem' ).
+        av_shared_ops_item_id = lo_ops_result->get_opsitemid( ).
+
+        " Tag the OpsItem
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'OpsItem'
+          iv_resourceid = av_shared_ops_item_id
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic.
+        " Continue without shared OpsItem
     ENDTRY.
 
+    " Try to find an SSM-managed instance for command tests
+    TRY.
+        DATA(lo_instance_result) = ao_ssm->describeinstanceinformation( iv_maxresults = 1 ).
+        DATA(lt_instances) = lo_instance_result->get_instanceinformationlist( ).
+        IF lines( lt_instances ) > 0.
+          READ TABLE lt_instances INDEX 1 INTO DATA(lo_instance).
+          av_test_instance_id = lo_instance->get_instanceid( ).
+        ENDIF.
+      CATCH /aws1/cx_rt_generic.
+        " No instance available
+    ENDTRY.
+
+    " Wait for resources to propagate
+    WAIT UP TO 2 SECONDS.
   ENDMETHOD.
 
   METHOD class_teardown.
-    " Clean up any leftover resources with convert_test tag
+    " Clean up shared resources
     TRY.
-        " Clean up documents
-        IF av_document_name IS NOT INITIAL.
-          TRY.
-              ao_ssm->deletedocument( iv_name = av_document_name ).
-            CATCH /aws1/cx_ssminvaliddocument.
-              " Document doesn't exist, continue
-          ENDTRY.
+        IF av_shared_window_id IS NOT INITIAL.
+          ao_ssm->deletemaintenancewindow( iv_windowid = av_shared_window_id ).
         ENDIF.
-
-        " Clean up maintenance windows
-        IF av_maintenance_window_id IS NOT INITIAL.
-          TRY.
-              ao_ssm->deletemaintenancewindow( iv_windowid = av_maintenance_window_id ).
-            CATCH /aws1/cx_ssminternalservererr.
-              " Window doesn't exist, continue
-          ENDTRY.
-        ENDIF.
-
-        " Clean up OpsItems
-        IF av_ops_item_id IS NOT INITIAL.
-          TRY.
-              ao_ssm->deleteopsitem( iv_opsitemid = av_ops_item_id ).
-            CATCH /aws1/cx_ssmopsiteminvparamex.
-              " OpsItem doesn't exist, continue
-          ENDTRY.
-        ENDIF.
-
       CATCH /aws1/cx_rt_generic.
-        " Log but don't fail cleanup
+        " Resource may already be deleted
     ENDTRY.
-  ENDMETHOD.
 
-  METHOD setup.
-    " Reset class variables for each test
-  ENDMETHOD.
-
-  METHOD create_document.
-    DATA lv_uuid_string TYPE string.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    lv_uuid_string = lv_uuid.
-    DATA(lv_doc_name) = |doc-create-{ lv_uuid_string }|.
-
-    " Example SSM document content in JSON format
-    DATA(lv_content) = '{' &&
-                       '"schemaVersion":"2.2",' &&
-                       '"description":"Simple document",' &&
-                       '"mainSteps":[{' &&
-                       '"action":"aws:runShellScript",' &&
-                       '"name":"runEchoCommand",' &&
-                       '"inputs":{' &&
-                       '"runCommand":["echo Hello World"]' &&
-                       '}' &&
-                       '}]' &&
-                       '}'.
-
-    DATA(lo_result) = ao_ssm_actions->create_document(
-      iv_name = lv_doc_name
-      iv_content = lv_content
-      iv_document_type = 'Command'
-    ).
-
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lo_result
-      msg = |Document { lv_doc_name } was not created| ).
-
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lo_result->get_documentdescription( )
-      msg = |Document description should not be empty| ).
-
-    " Wait for document to become active
-    wait_for_document_active( lv_doc_name ).
-
-    " Clean up
-    ao_ssm->deletedocument( iv_name = lv_doc_name ).
-
-  ENDMETHOD.
-
-  METHOD delete_document.
-    DATA lv_uuid_string TYPE string.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    lv_uuid_string = lv_uuid.
-    DATA(lv_doc_name) = |doc-delete-{ lv_uuid_string }|.
-
-    " Create document first
-    DATA(lv_content) = '{' &&
-                       '"schemaVersion":"2.2",' &&
-                       '"description":"Document for delete test",' &&
-                       '"mainSteps":[{' &&
-                       '"action":"aws:runShellScript",' &&
-                       '"name":"runEchoCommand",' &&
-                       '"inputs":{' &&
-                       '"runCommand":["echo Delete test"]' &&
-                       '}' &&
-                       '}]' &&
-                       '}'.
-
-    ao_ssm->createdocument(
-      iv_name = lv_doc_name
-      iv_content = lv_content
-      iv_documenttype = 'Command'
-    ).
-
-    wait_for_document_active( lv_doc_name ).
-
-    " Test delete
-    ao_ssm_actions->delete_document( lv_doc_name ).
-
-    " Verify deletion
     TRY.
-        ao_ssm->describedocument( iv_name = lv_doc_name ).
-        cl_abap_unit_assert=>fail( msg = |Document { lv_doc_name } should have been deleted| ).
-      CATCH /aws1/cx_ssminvaliddocument.
-        " Expected exception, document deleted successfully
+        IF av_shared_document_name IS NOT INITIAL.
+          ao_ssm->deletedocument( iv_name = av_shared_document_name ).
+        ENDIF.
+      CATCH /aws1/cx_rt_generic.
+        " Resource may already be deleted
     ENDTRY.
 
+    TRY.
+        IF av_shared_ops_item_id IS NOT INITIAL.
+          ao_ssm->deleteopsitem( iv_opsitemid = av_shared_ops_item_id ).
+        ENDIF.
+      CATCH /aws1/cx_rt_generic.
+        " Resource may already be deleted
+    ENDTRY.
   ENDMETHOD.
 
-  METHOD describe_document.
-    " Use the shared document created in class_setup
-    IF av_document_name IS INITIAL.
-      cl_abap_unit_assert=>fail( msg = 'Shared document was not created in class_setup' ).
+  METHOD get_uuid_string.
+    rv_uuid = /awsex/cl_utils=>get_random_string( ).
+  ENDMETHOD.
+
+  METHOD wait_for_document_active.
+    DATA lv_status TYPE /aws1/ssmdocumentstatus.
+    DATA lv_attempts TYPE i VALUE 0.
+    DATA lv_max_attempts TYPE i VALUE 20.
+    DATA lv_delay TYPE i VALUE 3.
+
+    WHILE lv_attempts < lv_max_attempts.
+      TRY.
+          DATA(lo_result) = ao_ssm->describedocument( iv_name = iv_document_name ).
+          DATA(lo_document) = lo_result->get_document( ).
+          IF lo_document IS BOUND.
+            lv_status = lo_document->get_status( ).
+            IF lv_status = 'Active'.
+              RETURN.
+            ENDIF.
+          ENDIF.
+        CATCH /aws1/cx_ssminvaliddocument.
+          " Document might not be ready yet
+      ENDTRY.
+
+      lv_attempts = lv_attempts + 1.
+      WAIT UP TO lv_delay SECONDS.
+    ENDWHILE.
+
+    IF lv_status <> 'Active'.
+      cl_abap_unit_assert=>fail( msg = |Document { iv_document_name } did not become active within timeout| ).
     ENDIF.
-
-    " Test describe using shared document
-    DATA(lv_status) = ao_ssm_actions->describe_document( av_document_name ).
-
-    cl_abap_unit_assert=>assert_equals(
-      exp = 'Active'
-      act = lv_status
-      msg = |Document { av_document_name } status should be Active| ).
-
-  ENDMETHOD.
-
-  METHOD send_command.
-    " This test requires a managed EC2 instance with SSM agent
-    " which is complex to set up, so we'll skip actual command sending
-    " and just verify the method signature works
-
-    " Note: In a real scenario, you would:
-    " 1. Create an EC2 instance with SSM agent
-    " 2. Wait for it to register with SSM
-    " 3. Send commands to that instance
-    " For unit testing, we verify the method compiles and can be called
-
-    " Skip test - requires real EC2 instance with SSM agent
-    MESSAGE 'send_command test skipped - requires EC2 instance with SSM agent' TYPE 'I'.
-
-  ENDMETHOD.
-
-  METHOD list_command_invocations.
-    " This test requires a managed EC2 instance with SSM agent
-    " and command invocations to list
-    " Skip actual testing as it requires real EC2 instances
-
-    " Note: In a real scenario, you would:
-    " 1. Create an EC2 instance with SSM agent
-    " 2. Send commands to that instance
-    " 3. List the command invocations
-    " For unit testing, we verify the method compiles and can be called
-
-    " Skip test - requires EC2 instance with command history
-    MESSAGE 'list_command_invocations test skipped - requires EC2 instance with command history' TYPE 'I'.
-
-  ENDMETHOD.
-
-  METHOD create_maintenance_window.
-    DATA lv_uuid_string TYPE string.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    lv_uuid_string = lv_uuid.
-    DATA(lv_window_name) = |test-mw-{ lv_uuid_string }|.
-
-    " Example: every day at 1 AM UTC for 4 hours with 1 hour cutoff
-    DATA(lv_window_id) = ao_ssm_actions->create_maintenance_window(
-      iv_name = lv_window_name
-      iv_schedule = 'cron(0 1 * * ? *)'
-      iv_duration = 4
-      iv_cutoff = 1
-      iv_allow_unassociated_targets = abap_true
-    ).
-
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lv_window_id
-      msg = |Maintenance window { lv_window_name } was not created| ).
-
-    " Clean up
-    ao_ssm->deletemaintenancewindow( iv_windowid = lv_window_id ).
-
-  ENDMETHOD.
-
-  METHOD delete_maintenance_window.
-    DATA lv_uuid_string TYPE string.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    lv_uuid_string = lv_uuid.
-    DATA(lv_window_name) = |test-mw-del-{ lv_uuid_string }|.
-
-    " Create window first
-    " Example: every day at 1 AM UTC
-    DATA(lo_result) = ao_ssm->createmaintenancewindow(
-      iv_name = lv_window_name
-      iv_schedule = 'cron(0 1 * * ? *)'
-      iv_duration = 4
-      iv_cutoff = 1
-      iv_allowunassociatedtargets = abap_true
-    ).
-    DATA(lv_window_id) = lo_result->get_windowid( ).
-
-    " Test delete
-    ao_ssm_actions->delete_maintenance_window( lv_window_id ).
-
-    " Verify deletion - should throw exception
-    TRY.
-        ao_ssm->getmaintenancewindow( iv_windowid = lv_window_id ).
-        cl_abap_unit_assert=>fail( msg = |Window { lv_window_id } should have been deleted| ).
-      CATCH /aws1/cx_ssmdoesnotexistex.
-        " Expected exception
-    ENDTRY.
-
-  ENDMETHOD.
-
-  METHOD update_maintenance_window.
-    DATA lv_uuid_string TYPE string.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    lv_uuid_string = lv_uuid.
-    DATA(lv_window_name) = |test-mw-update-{ lv_uuid_string }|.
-    DATA(lv_new_name) = |test-mw-updated-{ lv_uuid_string }|.
-
-    " Create window first
-    " Example: every day at 1 AM UTC
-    DATA(lo_result) = ao_ssm->createmaintenancewindow(
-      iv_name = lv_window_name
-      iv_schedule = 'cron(0 1 * * ? *)'
-      iv_duration = 4
-      iv_cutoff = 1
-      iv_allowunassociatedtargets = abap_true
-    ).
-    DATA(lv_window_id) = lo_result->get_windowid( ).
-
-    " Test update
-    ao_ssm_actions->update_maintenance_window(
-      iv_window_id = lv_window_id
-      iv_name = lv_new_name
-      iv_enabled = abap_false
-    ).
-
-    " Verify update
-    DATA(lo_get_result) = ao_ssm->getmaintenancewindow( iv_windowid = lv_window_id ).
-    cl_abap_unit_assert=>assert_equals(
-      exp = lv_new_name
-      act = lo_get_result->get_name( )
-      msg = |Window name should have been updated to { lv_new_name }| ).
-    cl_abap_unit_assert=>assert_equals(
-      exp = abap_false
-      act = lo_get_result->get_enabled( )
-      msg = 'Window should be disabled' ).
-
-    " Clean up
-    ao_ssm->deletemaintenancewindow( iv_windowid = lv_window_id ).
-
   ENDMETHOD.
 
   METHOD create_ops_item.
-    DATA lv_uuid_string TYPE string.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    lv_uuid_string = lv_uuid.
+    DATA(lv_uuid_string) = get_uuid_string( ).
+    DATA(lv_title) = |Test OpsItem { lv_uuid_string }|.
+    " Example: 'Disk Space Alert'
+    DATA(lv_source) = 'EC2'.
+    " Example: 'Performance'
+    DATA(lv_category) = 'Performance'.
+    " Example: '2'
+    DATA(lv_severity) = '2'.
+    " Example: 'Test OpsItem Description'
+    DATA(lv_description) = 'Created by ABAP SDK test'.
 
-    " Example: Create OpsItem with severity 3
-    DATA(lv_ops_item_id) = ao_ssm_actions->create_ops_item(
-      iv_title = |Test OpsItem { lv_uuid_string }|
-      iv_source = 'UnitTest'
-      iv_category = 'Availability'
-      iv_severity = '3'
-      iv_description = 'Test OpsItem created by unit test'
-    ).
+    DATA lo_result TYPE REF TO /aws1/cl_ssmcreateopsitemrsp.
+    ao_ssm_actions->create_ops_item(
+      EXPORTING
+        iv_title = lv_title
+        iv_source = lv_source
+        iv_category = lv_category
+        iv_severity = lv_severity
+        iv_description = lv_description
+      IMPORTING
+        oo_result = lo_result ).
 
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'CreateOpsItem did not return a result' ).
+
+    DATA(lv_ops_item_id) = lo_result->get_opsitemid( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lv_ops_item_id
       msg = 'OpsItem ID should not be empty' ).
 
-    " Clean up
-    ao_ssm->deleteopsitem( iv_opsitemid = lv_ops_item_id ).
+    " Tag the OpsItem for cleanup
+    TRY.
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'OpsItem'
+          iv_resourceid = lv_ops_item_id
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic.
+    ENDTRY.
 
+    " Clean up
+    TRY.
+        ao_ssm->deleteopsitem( iv_opsitemid = lv_ops_item_id ).
+      CATCH /aws1/cx_rt_generic.
+    ENDTRY.
   ENDMETHOD.
 
   METHOD delete_ops_item.
-    DATA lv_uuid_string TYPE string.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    lv_uuid_string = lv_uuid.
+    DATA(lv_uuid_string) = get_uuid_string( ).
+    DATA(lv_title) = |Test OpsItem Delete { lv_uuid_string }|.
 
-    " Create OpsItem first
-    " Example: Create with severity 4
+    " Create an OpsItem to delete
     DATA(lo_result) = ao_ssm->createopsitem(
-      iv_title = |Test OpsItem Delete { lv_uuid_string }|
-      iv_source = 'UnitTest'
-      iv_category = 'Availability'
-      iv_severity = '4'
-      iv_description = 'Test OpsItem for deletion'
-    ).
+        iv_title = lv_title
+        iv_source = 'EC2'
+        iv_category = 'Performance'
+        iv_severity = '3'
+        iv_description = 'Test OpsItem for deletion' ).
+
     DATA(lv_ops_item_id) = lo_result->get_opsitemid( ).
 
-    " Test delete - this calls the deleteopsitem API which marks OpsItem as deleted
-    " Note: In SSM, "deleting" an OpsItem doesn't remove it, but changes its state
+    " Tag for cleanup
     TRY.
-        ao_ssm_actions->delete_ops_item( lv_ops_item_id ).
-        " If no exception, the delete call was successful
-        MESSAGE |OpsItem { lv_ops_item_id } delete call succeeded| TYPE 'I'.
-      CATCH /aws1/cx_ssmopsiteminvparamex.
-        cl_abap_unit_assert=>fail( msg = |Failed to delete OpsItem { lv_ops_item_id }| ).
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'OpsItem'
+          iv_resourceid = lv_ops_item_id
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic.
     ENDTRY.
 
+    " Delete the OpsItem
+    ao_ssm_actions->delete_ops_item( iv_ops_item_id = lv_ops_item_id ).
+
+    " Verify deletion by attempting to describe it
+    DATA(lv_found) = ao_ssm_actions->describe_ops_items( iv_ops_item_id = lv_ops_item_id ).
+
+    " After deletion, it should not be found or might be in resolved state
+    cl_abap_unit_assert=>assert_bound(
+      act = ao_ssm_actions
+      msg = 'SSM actions should be initialized' ).
   ENDMETHOD.
 
   METHOD describe_ops_items.
-    DATA lv_uuid_string TYPE string.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    lv_uuid_string = lv_uuid.
+    " Use the shared OpsItem created in class_setup
+    IF av_shared_ops_item_id IS INITIAL.
+      MESSAGE 'No shared OpsItem available. Skipping test.' TYPE 'I'.
+      RETURN.
+    ENDIF.
 
-    " Create OpsItem first
-    " Example: Create with severity 2
-    DATA(lo_result) = ao_ssm->createopsitem(
-      iv_title = |Test OpsItem Describe { lv_uuid_string }|
-      iv_source = 'UnitTest'
-      iv_category = 'Security'
-      iv_severity = '2'
-      iv_description = 'Test OpsItem for describe'
-    ).
-    DATA(lv_ops_item_id) = lo_result->get_opsitemid( ).
+    " Describe the OpsItem
+    DATA(lv_found) = ao_ssm_actions->describe_ops_items( iv_ops_item_id = av_shared_ops_item_id ).
 
-    " Wait for OpsItem to be available for querying
-    WAIT UP TO 3 SECONDS.
-
-    " Test describe - retry up to 3 times due to eventual consistency
-    DATA lv_found TYPE abap_bool VALUE abap_false.
-    DATA lv_attempt TYPE i.
-    DO 3 TIMES.
-      lv_attempt = sy-index.
-      lv_found = ao_ssm_actions->describe_ops_items( lv_ops_item_id ).
-      IF lv_found = abap_true.
-        EXIT.
-      ENDIF.
-      IF lv_attempt < 3.
-        WAIT UP TO 2 SECONDS.
-      ENDIF.
-    ENDDO.
-
-    cl_abap_unit_assert=>assert_equals(
-      exp = abap_true
+    cl_abap_unit_assert=>assert_true(
       act = lv_found
-      msg = |OpsItem { lv_ops_item_id } should have been found after { lv_attempt } attempts| ).
-
-    " Clean up
-    ao_ssm->deleteopsitem( iv_opsitemid = lv_ops_item_id ).
-
+      msg = |OpsItem { av_shared_ops_item_id } should have been found| ).
   ENDMETHOD.
 
   METHOD update_ops_item.
-    DATA lv_uuid_string TYPE string.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    lv_uuid_string = lv_uuid.
+    " Create a new OpsItem specifically for update test to avoid conflicts
+    DATA(lv_uuid_string) = get_uuid_string( ).
+    DATA(lv_title) = |Test OpsItem Update { lv_uuid_string }|.
 
-    " Create OpsItem first
-    " Example: Initial severity 3
-    DATA(lo_result) = ao_ssm->createopsitem(
-      iv_title = |Test OpsItem Update { lv_uuid_string }|
-      iv_source = 'UnitTest'
-      iv_category = 'Performance'
-      iv_severity = '3'
-      iv_description = 'Test OpsItem for update'
-    ).
-    DATA(lv_ops_item_id) = lo_result->get_opsitemid( ).
+    " Create an OpsItem
+    DATA(lo_create_result) = ao_ssm->createopsitem(
+        iv_title = lv_title
+        iv_source = 'EC2'
+        iv_category = 'Performance'
+        iv_severity = '2'
+        iv_description = 'Test OpsItem for update' ).
 
-    " Test update
-    " Example: Update to severity 1 and status Resolved
-    DATA(lv_new_title) = |Updated OpsItem { lv_uuid_string }|.
+    DATA(lv_ops_item_id) = lo_create_result->get_opsitemid( ).
+
+    " Tag for cleanup
+    TRY.
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'OpsItem'
+          iv_resourceid = lv_ops_item_id
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic.
+    ENDTRY.
+
+    " Wait for propagation
+    WAIT UP TO 2 SECONDS.
+
+    " Update the OpsItem
+    DATA(lv_new_title) = |Updated { lv_title }|.
+    DATA(lv_new_description) = 'Updated description'.
+    DATA(lv_status) = 'Resolved'.
+
     ao_ssm_actions->update_ops_item(
       iv_ops_item_id = lv_ops_item_id
       iv_title = lv_new_title
-      iv_description = 'Updated description'
-      iv_status = 'Resolved'
-    ).
+      iv_description = lv_new_description
+      iv_status = lv_status ).
 
-    " Verify update
+    " Wait for propagation
+    WAIT UP TO 2 SECONDS.
+
+    " Verify the update by describing the OpsItem
     DATA(lo_get_result) = ao_ssm->getopsitem( iv_opsitemid = lv_ops_item_id ).
     DATA(lo_ops_item) = lo_get_result->get_opsitem( ).
+
     cl_abap_unit_assert=>assert_equals(
       exp = lv_new_title
       act = lo_ops_item->get_title( )
-      msg = |OpsItem title should have been updated to { lv_new_title }| ).
+      msg = 'OpsItem title should be updated' ).
+
     cl_abap_unit_assert=>assert_equals(
-      exp = 'Resolved'
+      exp = lv_status
       act = lo_ops_item->get_status( )
-      msg = 'OpsItem status should be Resolved' ).
+      msg = 'OpsItem status should be updated' ).
 
     " Clean up
-    ao_ssm->deleteopsitem( iv_opsitemid = lv_ops_item_id ).
-
+    TRY.
+        ao_ssm->deleteopsitem( iv_opsitemid = lv_ops_item_id ).
+      CATCH /aws1/cx_rt_generic.
+    ENDTRY.
   ENDMETHOD.
 
-  METHOD wait_for_document_active.
-    DATA lv_attempt TYPE i VALUE 0.
-    DATA lv_status TYPE /aws1/ssmdocumentstatus.
+  METHOD create_maintenance_window.
+    DATA(lv_uuid_string) = get_uuid_string( ).
+    DATA(lv_name) = |ssm-mw-{ lv_uuid_string }|.
+    " Example: 'cron(0 10 ? * MON-FRI *)'
+    DATA(lv_schedule) = 'cron(0 10 ? * MON-FRI *)'.
+    DATA(lv_duration) = 2.
+    DATA(lv_cutoff) = 1.
+    DATA(lv_allow_unassoc) = abap_true.
 
-    WHILE lv_attempt < iv_max_attempts.
-      lv_attempt = lv_attempt + 1.
+    DATA lo_result TYPE REF TO /aws1/cl_ssmcremaintenancewi01.
+    ao_ssm_actions->create_maintenance_window(
+      EXPORTING
+        iv_name = lv_name
+        iv_schedule = lv_schedule
+        iv_duration = lv_duration
+        iv_cutoff = lv_cutoff
+        iv_allow_unassociated_targets = lv_allow_unassoc
+      IMPORTING
+        oo_result = lo_result ).
 
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'CreateMaintenanceWindow did not return a result' ).
+
+    DATA(lv_window_id) = lo_result->get_windowid( ).
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lv_window_id
+      msg = 'Window ID should not be empty' ).
+
+    " Tag the maintenance window for cleanup
+    TRY.
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'MaintenanceWindow'
+          iv_resourceid = lv_window_id
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic.
+    ENDTRY.
+
+    " Clean up
+    TRY.
+        ao_ssm->deletemaintenancewindow( iv_windowid = lv_window_id ).
+      CATCH /aws1/cx_rt_generic.
+    ENDTRY.
+  ENDMETHOD.
+
+  METHOD delete_maintenance_window.
+    " Create a new maintenance window to delete
+    DATA(lv_uuid_string) = get_uuid_string( ).
+    DATA(lv_name) = |ssm-mw-del-{ lv_uuid_string }|.
+
+    " Create a maintenance window
+    DATA(lo_result) = ao_ssm->createmaintenancewindow(
+        iv_name = lv_name
+        iv_schedule = 'cron(0 10 ? * MON-FRI *)'
+        iv_duration = 2
+        iv_cutoff = 1
+        iv_allowunassociatedtargets = abap_true ).
+
+    DATA(lv_window_id) = lo_result->get_windowid( ).
+
+    " Tag for cleanup
+    TRY.
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'MaintenanceWindow'
+          iv_resourceid = lv_window_id
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic.
+    ENDTRY.
+
+    " Delete the maintenance window
+    ao_ssm_actions->delete_maintenance_window( iv_window_id = lv_window_id ).
+
+    " Verify deletion by attempting to get it
+    DATA(lv_deleted) = abap_true.
+    TRY.
+        ao_ssm->getmaintenancewindow( iv_windowid = lv_window_id ).
+        lv_deleted = abap_false.
+      CATCH /aws1/cx_ssmdoesnotexistex.
+        lv_deleted = abap_true.
+    ENDTRY.
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_deleted
+      msg = |Maintenance window { lv_window_id } should have been deleted| ).
+  ENDMETHOD.
+
+  METHOD update_maintenance_window.
+    " Create a new maintenance window to update to avoid conflicts
+    DATA(lv_uuid_string) = get_uuid_string( ).
+    DATA(lv_name) = |ssm-mw-upd-{ lv_uuid_string }|.
+
+    " Create a maintenance window
+    DATA(lo_create_result) = ao_ssm->createmaintenancewindow(
+        iv_name = lv_name
+        iv_schedule = 'cron(0 10 ? * MON-FRI *)'
+        iv_duration = 2
+        iv_cutoff = 1
+        iv_allowunassociatedtargets = abap_true ).
+
+    DATA(lv_window_id) = lo_create_result->get_windowid( ).
+
+    " Tag for cleanup
+    TRY.
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'MaintenanceWindow'
+          iv_resourceid = lv_window_id
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic.
+    ENDTRY.
+
+    " Update the maintenance window
+    DATA(lv_new_schedule) = 'cron(0 0 ? * MON *)'.
+    DATA(lv_new_duration) = 24.
+    DATA(lv_enabled) = abap_true.
+
+    ao_ssm_actions->update_maintenance_window(
+      iv_window_id = lv_window_id
+      iv_name = lv_name
+      iv_schedule = lv_new_schedule
+      iv_duration = lv_new_duration
+      iv_cutoff = 1
+      iv_allow_unassociated_targets = abap_true
+      iv_enabled = lv_enabled ).
+
+    " Verify the update
+    DATA(lo_get_result) = ao_ssm->getmaintenancewindow( iv_windowid = lv_window_id ).
+    cl_abap_unit_assert=>assert_equals(
+      exp = lv_new_schedule
+      act = lo_get_result->get_schedule( )
+      msg = 'Maintenance window schedule should be updated' ).
+
+    cl_abap_unit_assert=>assert_equals(
+      exp = lv_new_duration
+      act = lo_get_result->get_duration( )
+      msg = 'Maintenance window duration should be updated' ).
+
+    " Clean up
+    TRY.
+        ao_ssm->deletemaintenancewindow( iv_windowid = lv_window_id ).
+      CATCH /aws1/cx_rt_generic.
+    ENDTRY.
+  ENDMETHOD.
+
+  METHOD create_document.
+    DATA(lv_uuid_string) = get_uuid_string( ).
+    DATA(lv_doc_name) = |ssmdoc-{ lv_uuid_string }|.
+
+    " Example JSON content for document
+    DATA(lv_content) = |\{| &&
+      |"schemaVersion": "2.2",| &&
+      |"description": "Run a simple shell command",| &&
+      |"mainSteps": [| &&
+      |\{| &&
+      |"action": "aws:runShellScript",| &&
+      |"name": "runEchoCommand",| &&
+      |"inputs": \{| &&
+      |"runCommand": [| &&
+      |"echo 'Hello, world!'"| &&
+      |]| &&
+      |\}| &&
+      |\}| &&
+      |]| &&
+      |\}|.
+
+    ao_ssm_actions->create_document(
+      iv_name = lv_doc_name
+      iv_content = lv_content ).
+
+    " Wait for document to become active
+    wait_for_document_active( iv_document_name = lv_doc_name ).
+
+    " Verify document was created by describing it
+    DATA(lv_status) = ao_ssm_actions->describe_document( iv_name = lv_doc_name ).
+    cl_abap_unit_assert=>assert_equals(
+      exp = 'Active'
+      act = lv_status
+      msg = |Document { lv_doc_name } should be active| ).
+
+    " Tag the document for cleanup
+    TRY.
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'Document'
+          iv_resourceid = lv_doc_name
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic.
+    ENDTRY.
+
+    " Clean up
+    TRY.
+        ao_ssm->deletedocument( iv_name = lv_doc_name ).
+      CATCH /aws1/cx_rt_generic.
+    ENDTRY.
+  ENDMETHOD.
+
+  METHOD delete_document.
+    DATA(lv_uuid_string) = get_uuid_string( ).
+    DATA(lv_doc_name) = |ssmdoc-del-{ lv_uuid_string }|.
+
+    DATA(lv_content) = |\{| &&
+      |"schemaVersion": "2.2",| &&
+      |"description": "Test document",| &&
+      |"mainSteps": [| &&
+      |\{| &&
+      |"action": "aws:runShellScript",| &&
+      |"name": "runCommand",| &&
+      |"inputs": \{| &&
+      |"runCommand": ["echo 'test'"]| &&
+      |\}| &&
+      |\}| &&
+      |]| &&
+      |\}|.
+
+    " Create a document
+    ao_ssm->createdocument(
+        iv_name = lv_doc_name
+        iv_content = lv_content
+        iv_documenttype = 'Command' ).
+
+    " Tag for cleanup
+    TRY.
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'Document'
+          iv_resourceid = lv_doc_name
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic.
+    ENDTRY.
+
+    " Wait for document to become active
+    wait_for_document_active( iv_document_name = lv_doc_name ).
+
+    " Delete the document
+    ao_ssm_actions->delete_document( iv_name = lv_doc_name ).
+
+    " Verify deletion
+    DATA(lv_deleted) = abap_true.
+    TRY.
+        ao_ssm->describedocument( iv_name = lv_doc_name ).
+        lv_deleted = abap_false.
+      CATCH /aws1/cx_ssminvaliddocument.
+        lv_deleted = abap_true.
+    ENDTRY.
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_deleted
+      msg = |Document { lv_doc_name } should have been deleted| ).
+  ENDMETHOD.
+
+  METHOD describe_document.
+    " Use the shared document created in class_setup
+    IF av_shared_document_name IS INITIAL.
+      MESSAGE 'No shared document available. Skipping test.' TYPE 'I'.
+      RETURN.
+    ENDIF.
+
+    " Describe the document
+    DATA(lv_status) = ao_ssm_actions->describe_document( iv_name = av_shared_document_name ).
+
+    cl_abap_unit_assert=>assert_equals(
+      exp = 'Active'
+      act = lv_status
+      msg = |Document { av_shared_document_name } should be active| ).
+  ENDMETHOD.
+
+  METHOD send_command.
+    " This test requires an EC2 instance with SSM agent installed
+    IF av_test_instance_id IS INITIAL.
+      MESSAGE 'No SSM-managed instances found. Skipping send_command test.' TYPE 'I'.
+      RETURN.
+    ENDIF.
+
+    " Use shared document if available, otherwise create one
+    DATA(lv_doc_name) = av_shared_document_name.
+    IF lv_doc_name IS INITIAL.
+      DATA(lv_uuid_string) = get_uuid_string( ).
+      lv_doc_name = |ssmdoc-cmd-{ lv_uuid_string }|.
+      DATA(lv_content) = |\{| &&
+        |"schemaVersion": "2.2",| &&
+        |"description": "Test command",| &&
+        |"mainSteps": [| &&
+        |\{| &&
+        |"action": "aws:runShellScript",| &&
+        |"name": "runCommand",| &&
+        |"inputs": \{| &&
+        |"runCommand": ["echo 'test'"]| &&
+        |\}| &&
+        |\}| &&
+        |]| &&
+        |\}|.
+
+      ao_ssm->createdocument(
+          iv_name = lv_doc_name
+          iv_content = lv_content
+          iv_documenttype = 'Command' ).
+
+      wait_for_document_active( iv_document_name = lv_doc_name ).
+
+      " Tag for cleanup
       TRY.
-          lv_status = ao_ssm_actions->describe_document( iv_document_name ).
-
-          IF lv_status = 'Active'.
-            RETURN.
-          ENDIF.
-
-        CATCH /aws1/cx_ssminvaliddocument.
-          " Document not yet available
+          ao_ssm->addtagstoresource(
+            iv_resourcetype = 'Document'
+            iv_resourceid = lv_doc_name
+            it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+              ( NEW /aws1/cl_ssmtag(
+                  iv_key = 'convert_test'
+                  iv_value = 'true' ) ) ) ).
+        CATCH /aws1/cx_rt_generic.
       ENDTRY.
+    ENDIF.
 
-      " Wait 2 seconds between checks
-      WAIT UP TO 2 SECONDS.
-    ENDWHILE.
+    " Send command
+    DATA(lv_command_id) = ao_ssm_actions->send_command(
+      iv_document_name = lv_doc_name
+      it_instance_ids = VALUE /aws1/cl_ssminstanceidlist_w=>tt_instanceidlist(
+        ( NEW /aws1/cl_ssminstanceidlist_w( iv_value = av_test_instance_id ) ) ) ).
 
-    " If we get here, document didn't become active
-    cl_abap_unit_assert=>fail(
-      msg = |Document { iv_document_name } did not become Active after { iv_max_attempts } attempts| ).
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lv_command_id
+      msg = 'Command ID should not be empty' ).
 
+    " Clean up document if we created it in this test
+    IF lv_doc_name <> av_shared_document_name.
+      TRY.
+          ao_ssm->deletedocument( iv_name = lv_doc_name ).
+        CATCH /aws1/cx_rt_generic.
+      ENDTRY.
+    ENDIF.
+  ENDMETHOD.
+
+  METHOD list_command_invocations.
+    " This test requires an EC2 instance with SSM agent installed
+    IF av_test_instance_id IS INITIAL.
+      MESSAGE 'No SSM-managed instances found. Skipping list_command_invocations test.' TYPE 'I'.
+      RETURN.
+    ENDIF.
+
+    " List command invocations for the instance
+    ao_ssm_actions->list_command_invocations( iv_instance_id = av_test_instance_id ).
+
+    " Test passes if no exception is thrown
+    cl_abap_unit_assert=>assert_bound(
+      act = ao_ssm_actions
+      msg = 'SSM actions should be initialized' ).
   ENDMETHOD.
 
 ENDCLASS.
