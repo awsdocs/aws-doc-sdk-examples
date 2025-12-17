@@ -65,8 +65,10 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     
     lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
 
-    " Find VPC to use - try default first, then any available VPC
+    " Find VPC with subnets - try default first, then any available VPC
     TRY.
+        DATA lv_vpc_found TYPE abap_bool VALUE abap_false.
+        
         " Try to find default VPC first
         DATA(lo_vpcs_result) = ao_ec2->describevpcs(
           it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
@@ -77,7 +79,7 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
 
         DATA(lt_vpcs) = lo_vpcs_result->get_vpcs( ).
         
-        " If no default VPC, get any available VPC
+        " If no default VPC, get all available VPCs
         IF lines( lt_vpcs ) = 0.
           lo_vpcs_result = ao_ec2->describevpcs( ).
           lt_vpcs = lo_vpcs_result->get_vpcs( ).
@@ -87,31 +89,34 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
           ENDIF.
         ENDIF.
 
-        READ TABLE lt_vpcs INDEX 1 INTO DATA(lo_vpc).
-        lv_vpc_id = lo_vpc->get_vpcid( ).
+        " Find a VPC that has subnets
+        LOOP AT lt_vpcs INTO DATA(lo_vpc).
+          lv_vpc_id = lo_vpc->get_vpcid( ).
+          
+          " Check if this VPC has subnets
+          DATA(lo_subnets_result) = ao_ec2->describesubnets(
+            it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
+              ( NEW /aws1/cl_ec2filter(
+                  iv_name = 'vpc-id'
+                  it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+                    ( NEW /aws1/cl_ec2valuestringlist_w( lv_vpc_id ) ) ) ) ) ) ).
 
-        IF lv_vpc_id IS INITIAL.
-          cl_abap_unit_assert=>fail( msg = 'Failed to get VPC: VPC ID is empty' ).
+          DATA(lt_subnets) = lo_subnets_result->get_subnets( ).
+          IF lines( lt_subnets ) > 0.
+            " Found a VPC with subnets
+            READ TABLE lt_subnets INDEX 1 INTO DATA(lo_subnet).
+            lv_subnet_id = lo_subnet->get_subnetid( ).
+            lv_vpc_found = abap_true.
+            EXIT.
+          ENDIF.
+        ENDLOOP.
+
+        IF lv_vpc_found = abap_false.
+          cl_abap_unit_assert=>fail( msg = 'No VPC with subnets found. Tests require at least one VPC with subnets.' ).
         ENDIF.
 
-        " Find a subnet in the VPC
-        DATA(lo_subnets_result) = ao_ec2->describesubnets(
-          it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
-            ( NEW /aws1/cl_ec2filter(
-                iv_name = 'vpc-id'
-                it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
-                  ( NEW /aws1/cl_ec2valuestringlist_w( lv_vpc_id ) ) ) ) ) ) ).
-
-        DATA(lt_subnets) = lo_subnets_result->get_subnets( ).
-        IF lines( lt_subnets ) = 0.
-          cl_abap_unit_assert=>fail( msg = 'No subnets found in VPC.' ).
-        ENDIF.
-
-        READ TABLE lt_subnets INDEX 1 INTO DATA(lo_subnet).
-        lv_subnet_id = lo_subnet->get_subnetid( ).
-
-        IF lv_subnet_id IS INITIAL.
-          cl_abap_unit_assert=>fail( msg = 'Failed to get subnet from VPC: Subnet ID is empty' ).
+        IF lv_vpc_id IS INITIAL OR lv_subnet_id IS INITIAL.
+          cl_abap_unit_assert=>fail( msg = 'Failed to get VPC or Subnet: IDs are empty' ).
         ENDIF.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_vpc_ex).
         cl_abap_unit_assert=>fail( msg = |Failed to get VPC/Subnet: { lo_vpc_ex->get_text( ) }| ).
