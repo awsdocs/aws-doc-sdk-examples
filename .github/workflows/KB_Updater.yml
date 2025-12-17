@@ -1,9 +1,9 @@
-name: Deploy KB_Updater Lambda Function
+name: KB_Updater-Lambda
 on:
   push:
     branches: ["main"]
     paths:
-      - '.tools/lambda/KB_Updater.py'
+      - '.tools/lambda/KB_Updater/lambda_function.py'
   workflow_dispatch:
 
 permissions:
@@ -24,8 +24,8 @@ jobs:
 
       - name: Deploy Lambda
         run: |
-          cd .tools/lambda
-          zip function.zip KB_Updater.py
+          cd .tools/lambda/KB_Updater
+          zip function.zip lambda_function.py
           aws lambda update-function-code \
             --function-name KB_Updater \
             --zip-file fileb://function.zip
