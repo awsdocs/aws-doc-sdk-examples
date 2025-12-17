@@ -238,13 +238,13 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     DATA(lv_uuid_string) = get_uuid_string( ).
     DATA(lv_title) = |Test OpsItem { lv_uuid_string }|.
     " Example: 'Disk Space Alert'
-    DATA(lv_source) = 'EC2'.
+    DATA(lv_source) = CONV /aws1/ssmopsitemsource( 'EC2' ).
     " Example: 'Performance'
-    DATA(lv_category) = 'Performance'.
+    DATA(lv_category) = CONV /aws1/ssmopsitemcategory( 'Performance' ).
     " Example: '2'
-    DATA(lv_severity) = '2'.
+    DATA(lv_severity) = CONV /aws1/ssmopsitemseverity( '2' ).
     " Example: 'Test OpsItem Description'
-    DATA(lv_description) = 'Created by ABAP SDK test'.
+    DATA(lv_description) = CONV /aws1/ssmopsitemdescription( 'Created by ABAP SDK test' ).
 
     DATA lo_result TYPE REF TO /aws1/cl_ssmcreateopsitemrsp.
     ao_ssm_actions->create_ops_item(
@@ -370,8 +370,8 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
 
     " Update the OpsItem
     DATA(lv_new_title) = |Updated { lv_title }|.
-    DATA(lv_new_description) = 'Updated description'.
-    DATA(lv_status) = 'Resolved'.
+    DATA(lv_new_description) = CONV /aws1/ssmopsitemdescription( 'Updated description' ).
+    DATA(lv_status) = CONV /aws1/ssmopsitemstatus( 'Resolved' ).
 
     ao_ssm_actions->update_ops_item(
       iv_ops_item_id = lv_ops_item_id
@@ -407,7 +407,7 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     DATA(lv_uuid_string) = get_uuid_string( ).
     DATA(lv_name) = |ssm-mw-{ lv_uuid_string }|.
     " Example: 'cron(0 10 ? * MON-FRI *)'
-    DATA(lv_schedule) = 'cron(0 10 ? * MON-FRI *)'.
+    DATA(lv_schedule) = CONV /aws1/ssmmaintenancewindowschd( 'cron(0 10 ? * MON-FRI *)' ).
     DATA(lv_duration) = 2.
     DATA(lv_cutoff) = 1.
     DATA(lv_allow_unassoc) = abap_true.
@@ -523,7 +523,7 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     ENDTRY.
 
     " Update the maintenance window
-    DATA(lv_new_schedule) = 'cron(0 0 ? * MON *)'.
+    DATA(lv_new_schedule) = CONV /aws1/ssmmaintenancewindowschd( 'cron(0 0 ? * MON *)' ).
     DATA(lv_new_duration) = 24.
     DATA(lv_enabled) = abap_true.
 
