@@ -1,3 +1,5 @@
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
 CLASS ltc_awsex_cl_ssm_actions DEFINITION DEFERRED.
 CLASS /awsex/cl_ssm_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_ssm_actions.
 
@@ -74,8 +76,8 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
             ( NEW /aws1/cl_ssmtag(
                 iv_key = 'convert_test'
                 iv_value = 'true' ) ) ) ).
-      CATCH /aws1/cx_rt_generic.
-        " Continue without shared window
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_mw_ex).
+        cl_abap_unit_assert=>fail( msg = |Failed to create shared maintenance window: { lo_mw_ex->get_text( ) }| ).
     ENDTRY.
 
     " Create a shared document
@@ -120,6 +122,10 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
           WAIT UP TO 3 SECONDS.
         ENDWHILE.
 
+        IF lv_status <> 'Active'.
+          cl_abap_unit_assert=>fail( msg = |Shared document did not become active within timeout| ).
+        ENDIF.
+
         " Tag the document
         ao_ssm->addtagstoresource(
           iv_resourcetype = 'Document'
@@ -128,8 +134,8 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
             ( NEW /aws1/cl_ssmtag(
                 iv_key = 'convert_test'
                 iv_value = 'true' ) ) ) ).
-      CATCH /aws1/cx_rt_generic.
-        " Continue without shared document
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_doc_ex).
+        cl_abap_unit_assert=>fail( msg = |Failed to create shared document: { lo_doc_ex->get_text( ) }| ).
     ENDTRY.
 
     " Create a shared OpsItem
@@ -152,8 +158,8 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
             ( NEW /aws1/cl_ssmtag(
                 iv_key = 'convert_test'
                 iv_value = 'true' ) ) ) ).
-      CATCH /aws1/cx_rt_generic.
-        " Continue without shared OpsItem
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ops_ex).
+        cl_abap_unit_assert=>fail( msg = |Failed to create shared OpsItem: { lo_ops_ex->get_text( ) }| ).
     ENDTRY.
 
     " Try to find an SSM-managed instance for command tests
@@ -165,7 +171,7 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
           av_test_instance_id = lo_instance->get_instanceid( ).
         ENDIF.
       CATCH /aws1/cx_rt_generic.
-        " No instance available
+        " No instance available - this is optional, command tests will skip if not available
     ENDTRY.
 
     " Wait for resources to propagate
@@ -324,8 +330,7 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
   METHOD describe_ops_items.
     " Use the shared OpsItem created in class_setup
     IF av_shared_ops_item_id IS INITIAL.
-      MESSAGE 'No shared OpsItem available. Skipping test.' TYPE 'I'.
-      RETURN.
+      cl_abap_unit_assert=>fail( msg = 'No shared OpsItem available. Shared resources must be created in class_setup.' ).
     ENDIF.
 
     " Describe the OpsItem
@@ -666,8 +671,7 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
   METHOD describe_document.
     " Use the shared document created in class_setup
     IF av_shared_document_name IS INITIAL.
-      MESSAGE 'No shared document available. Skipping test.' TYPE 'I'.
-      RETURN.
+      cl_abap_unit_assert=>fail( msg = 'No shared document available. Shared resources must be created in class_setup.' ).
     ENDIF.
 
     " Describe the document
@@ -681,48 +685,15 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
 
   METHOD send_command.
     " This test requires an EC2 instance with SSM agent installed
+    " Since we cannot create an EC2 instance in these tests, we check for availability
     IF av_test_instance_id IS INITIAL.
-      MESSAGE 'No SSM-managed instances found. Skipping send_command test.' TYPE 'I'.
-      RETURN.
+      cl_abap_unit_assert=>fail( msg = 'No SSM-managed instances found. This test requires an EC2 instance with SSM agent to be available.' ).
     ENDIF.
 
-    " Use shared document if available, otherwise create one
+    " Use shared document if available, otherwise fail
     DATA(lv_doc_name) = av_shared_document_name.
     IF lv_doc_name IS INITIAL.
-      DATA(lv_uuid_string) = get_uuid_string( ).
-      lv_doc_name = |ssmdoc-cmd-{ lv_uuid_string }|.
-      DATA(lv_content) = |\{| &&
-        |"schemaVersion": "2.2",| &&
-        |"description": "Test command",| &&
-        |"mainSteps": [| &&
-        |\{| &&
-        |"action": "aws:runShellScript",| &&
-        |"name": "runCommand",| &&
-        |"inputs": \{| &&
-        |"runCommand": ["echo 'test'"]| &&
-        |\}| &&
-        |\}| &&
-        |]| &&
-        |\}|.
-
-      ao_ssm->createdocument(
-          iv_name = lv_doc_name
-          iv_content = lv_content
-          iv_documenttype = 'Command' ).
-
-      wait_for_document_active( iv_document_name = lv_doc_name ).
-
-      " Tag for cleanup
-      TRY.
-          ao_ssm->addtagstoresource(
-            iv_resourcetype = 'Document'
-            iv_resourceid = lv_doc_name
-            it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
-              ( NEW /aws1/cl_ssmtag(
-                  iv_key = 'convert_test'
-                  iv_value = 'true' ) ) ) ).
-        CATCH /aws1/cx_rt_generic.
-      ENDTRY.
+      cl_abap_unit_assert=>fail( msg = 'No shared document available. Shared resources must be created in class_setup.' ).
     ENDIF.
 
     " Send command
@@ -734,21 +705,13 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     cl_abap_unit_assert=>assert_not_initial(
       act = lv_command_id
       msg = 'Command ID should not be empty' ).
-
-    " Clean up document if we created it in this test
-    IF lv_doc_name <> av_shared_document_name.
-      TRY.
-          ao_ssm->deletedocument( iv_name = lv_doc_name ).
-        CATCH /aws1/cx_rt_generic.
-      ENDTRY.
-    ENDIF.
   ENDMETHOD.
 
   METHOD list_command_invocations.
     " This test requires an EC2 instance with SSM agent installed
+    " Since we cannot create an EC2 instance in these tests, we check for availability
     IF av_test_instance_id IS INITIAL.
-      MESSAGE 'No SSM-managed instances found. Skipping list_command_invocations test.' TYPE 'I'.
-      RETURN.
+      cl_abap_unit_assert=>fail( msg = 'No SSM-managed instances found. This test requires an EC2 instance with SSM agent to be available.' ).
     ENDIF.
 
     " List command invocations for the instance
