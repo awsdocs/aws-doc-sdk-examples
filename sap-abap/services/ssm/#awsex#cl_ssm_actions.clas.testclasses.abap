@@ -705,8 +705,8 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     " Test the send_command method with error handling for missing instance
     " If no SSM-managed instance is available, we test that the method handles this correctly
     IF av_test_instance_id IS INITIAL.
-      " Use a dummy instance ID to test the method's error handling
-      DATA(lv_dummy_instance_id) = CONV /aws1/ssminstanceid( 'i-nonexistent12345' ).
+      " Use a properly formatted dummy instance ID (matches pattern i-xxxxxxxx or i-xxxxxxxxxxxxxxxxx)
+      DATA(lv_dummy_instance_id) = CONV /aws1/ssminstanceid( 'i-1234567890abcdef0' ).
 
       TRY.
           DATA(lv_command_id) = ao_ssm_actions->send_command(
@@ -748,8 +748,8 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     " This test lists command invocations for an instance
     " If no SSM-managed instance is available, we test the method with a dummy instance ID
     IF av_test_instance_id IS INITIAL.
-      " Use a dummy instance ID to test the method
-      DATA(lv_dummy_instance_id) = CONV /aws1/ssminstanceid( 'i-nonexistent12345' ).
+      " Use a properly formatted dummy instance ID (matches pattern i-xxxxxxxx or i-xxxxxxxxxxxxxxxxx)
+      DATA(lv_dummy_instance_id) = CONV /aws1/ssminstanceid( 'i-1234567890abcdef0' ).
 
       TRY.
           " Test that the method executes without ABAP errors
