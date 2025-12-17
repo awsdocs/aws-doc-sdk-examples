@@ -82,7 +82,7 @@ CLASS /awsex/cl_cwt_actions DEFINITION
         !oo_result      TYPE REF TO /aws1/cl_cwtgetmettatsoutput
       RAISING
         /aws1/cx_rt_generic .
-    METHODS get_metric_alarms
+    METHODS describe_alarms_for_metric
       IMPORTING
         !iv_namespace   TYPE /aws1/cwtnamespace
         !iv_metric_name TYPE /aws1/cwtmetricname
@@ -335,14 +335,14 @@ CLASS /AWSEX/CL_CWT_ACTIONS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD get_metric_alarms.
+  METHOD describe_alarms_for_metric.
 
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_cwt) = /aws1/cl_cwt_factory=>create( lo_session ).
 
-    "snippet-start:[cwt.abapv1.get_metric_alarms]
+    "snippet-start:[cwt.abapv1.describe_alarms_for_metric]
 
     TRY.
         oo_result = lo_cwt->describealarmsformetric(          " oo_result is returned for testing purposes. "
@@ -357,7 +357,7 @@ CLASS /AWSEX/CL_CWT_ACTIONS IMPLEMENTATION.
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
-    "snippet-end:[cwt.abapv1.get_metric_alarms]
+    "snippet-end:[cwt.abapv1.describe_alarms_for_metric]
 
   ENDMETHOD.
 ENDCLASS.
