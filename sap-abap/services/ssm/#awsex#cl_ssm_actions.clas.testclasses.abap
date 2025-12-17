@@ -514,38 +514,65 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     WAIT UP TO 2 SECONDS.
 
     " Get initial status before deletion
-    DATA(lo_get_before) = ao_ssm->getopsitem( iv_opsitemid = lv_ops_item_id ).
-    DATA(lv_status_before) = lo_get_before->get_opsitem( )->get_status( ).
+    DATA lv_status_before TYPE /aws1/ssmopsitemstatus.
+    DATA lv_status_after TYPE /aws1/ssmopsitemstatus.
+    
+    TRY.
+        DATA(lo_get_before) = ao_ssm->getopsitem( iv_opsitemid = lv_ops_item_id ).
+        lv_status_before = lo_get_before->get_opsitem( )->get_status( ).
+      CATCH /aws1/cx_rt_generic.
+        " If we can't get the status, assume it's Open
+        lv_status_before = 'Open'.
+    ENDTRY.
 
     " Delete the OpsItem
     ao_ssm_actions->delete_ops_item( iv_ops_item_id = lv_ops_item_id ).
 
-    " Wait for deletion to propagate
-    WAIT UP TO 3 SECONDS.
-
-    " Verify deletion by checking if status changed to Resolved or item was deleted
+    " Poll for status change with retries
     DATA(lv_deletion_verified) = abap_false.
-    TRY.
-        DATA(lo_get_after) = ao_ssm->getopsitem( iv_opsitemid = lv_ops_item_id ).
-        DATA(lo_ops_item) = lo_get_after->get_opsitem( ).
-        IF lo_ops_item IS BOUND.
-          DATA(lv_status_after) = lo_ops_item->get_status( ).
-          " DeleteOpsItem changes status to Resolved (it doesn't actually delete the item)
-          IF lv_status_after = 'Resolved' OR lv_status_after <> lv_status_before.
-            lv_deletion_verified = abap_true.
+    DATA(lv_max_attempts) = 10.
+    DATA(lv_attempt) = 0.
+
+    WHILE lv_attempt < lv_max_attempts AND lv_deletion_verified = abap_false.
+      WAIT UP TO 2 SECONDS.
+      lv_attempt = lv_attempt + 1.
+
+      TRY.
+          DATA(lo_get_after) = ao_ssm->getopsitem( iv_opsitemid = lv_ops_item_id ).
+          DATA(lo_ops_item) = lo_get_after->get_opsitem( ).
+          
+          IF lo_ops_item IS BOUND.
+            lv_status_after = lo_ops_item->get_status( ).
+            
+            " DeleteOpsItem changes status to Resolved
+            IF lv_status_after = 'Resolved'.
+              lv_deletion_verified = abap_true.
+              EXIT.
+            ENDIF.
+            
+            " Or any status change from initial
+            IF lv_status_after <> lv_status_before AND lv_status_before IS NOT INITIAL.
+              lv_deletion_verified = abap_true.
+              EXIT.
+            ENDIF.
           ENDIF.
-        ENDIF.
-      CATCH /aws1/cx_ssmopsitemnotfoundex.
-        " OpsItem not found means it was actually deleted (rare case)
-        lv_deletion_verified = abap_true.
-      CATCH /aws1/cx_rt_generic.
-        " Other errors might indicate deletion is processing
-        lv_deletion_verified = abap_true.
-    ENDTRY.
+        CATCH /aws1/cx_ssmopsitemnotfoundex.
+          " OpsItem not found means it was actually deleted
+          lv_deletion_verified = abap_true.
+          EXIT.
+        CATCH /aws1/cx_rt_generic.
+          " Continue trying on other errors
+      ENDTRY.
+    ENDWHILE.
+
+    " Assert with detailed message
+    DATA(lv_msg) = |OpsItem { lv_ops_item_id } delete verification failed. | &&
+                   |Before: { lv_status_before }, After: { lv_status_after }, | &&
+                   |Attempts: { lv_attempt }|.
 
     cl_abap_unit_assert=>assert_true(
       act = lv_deletion_verified
-      msg = |OpsItem { lv_ops_item_id } should have been deleted (status changed to Resolved)| ).
+      msg = lv_msg ).
   ENDMETHOD.
 
   METHOD describe_ops_items.
