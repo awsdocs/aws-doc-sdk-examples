@@ -14,6 +14,22 @@ import java.util.Scanner;
 import static java.lang.System.in;
 import static java.lang.System.out;
 
+
+/**
+ * Before running this Java V2 code example, set up your development
+ * environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ * Use the AWS SDK for Java (v2) to create an AWS Control Tower client
+ * and list all available baselines.
+ * This example uses the default settings specified in your shared credentials
+ * and config files.
+ */
+
+// snippet-start:[controltower.java2.controltower_scenario.main]
 public class ControlTowerScenario {
 
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -259,3 +275,4 @@ public class ControlTowerScenario {
         }
     }
 }
+// snippet-end:[controltower.java2.controltower_scenario.main]
