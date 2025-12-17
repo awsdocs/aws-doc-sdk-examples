@@ -62,14 +62,13 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     DATA lv_uuid_string TYPE string.
     DATA lv_vpc_id TYPE /aws1/ec2string.
     DATA lv_subnet_id TYPE /aws1/ec2string.
+    DATA lv_vpc_found TYPE abap_bool VALUE abap_false.
     
     lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
 
-    " Find VPC with subnets - try default first, then any available VPC
+    " Find VPC with subnets - use default VPC only
     TRY.
-        DATA lv_vpc_found TYPE abap_bool VALUE abap_false.
-        
-        " Try to find default VPC first
+        " Find default VPC
         DATA(lo_vpcs_result) = ao_ec2->describevpcs(
           it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
             ( NEW /aws1/cl_ec2filter(
@@ -79,41 +78,31 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
 
         DATA(lt_vpcs) = lo_vpcs_result->get_vpcs( ).
         
-        " If no default VPC, get all available VPCs
         IF lines( lt_vpcs ) = 0.
-          lo_vpcs_result = ao_ec2->describevpcs( ).
-          lt_vpcs = lo_vpcs_result->get_vpcs( ).
-          
-          IF lines( lt_vpcs ) = 0.
-            cl_abap_unit_assert=>fail( msg = 'No VPC found. Tests require at least one VPC to exist.' ).
-          ENDIF.
+          cl_abap_unit_assert=>fail( msg = 'No default VPC found. Tests require default VPC to exist.' ).
         ENDIF.
 
-        " Find a VPC that has subnets
-        LOOP AT lt_vpcs INTO DATA(lo_vpc).
-          lv_vpc_id = lo_vpc->get_vpcid( ).
-          
-          " Check if this VPC has subnets
-          DATA(lo_subnets_result) = ao_ec2->describesubnets(
-            it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
-              ( NEW /aws1/cl_ec2filter(
-                  iv_name = 'vpc-id'
-                  it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
-                    ( NEW /aws1/cl_ec2valuestringlist_w( lv_vpc_id ) ) ) ) ) ) ).
+        " Get the default VPC and its subnets
+        READ TABLE lt_vpcs INDEX 1 INTO DATA(lo_vpc).
+        lv_vpc_id = lo_vpc->get_vpcid( ).
+        
+        " Check if this VPC has subnets
+        DATA(lo_subnets_result) = ao_ec2->describesubnets(
+          it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
+            ( NEW /aws1/cl_ec2filter(
+                iv_name = 'vpc-id'
+                it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+                  ( NEW /aws1/cl_ec2valuestringlist_w( lv_vpc_id ) ) ) ) ) ) ).
 
-          DATA(lt_subnets) = lo_subnets_result->get_subnets( ).
-          IF lines( lt_subnets ) > 0.
-            " Found a VPC with subnets
-            READ TABLE lt_subnets INDEX 1 INTO DATA(lo_subnet).
-            lv_subnet_id = lo_subnet->get_subnetid( ).
-            lv_vpc_found = abap_true.
-            EXIT.
-          ENDIF.
-        ENDLOOP.
-
-        IF lv_vpc_found = abap_false.
-          cl_abap_unit_assert=>fail( msg = 'No VPC with subnets found. Tests require at least one VPC with subnets.' ).
+        DATA(lt_subnets) = lo_subnets_result->get_subnets( ).
+        IF lines( lt_subnets ) = 0.
+          cl_abap_unit_assert=>fail( msg = 'No subnets found in default VPC. Tests require default VPC with subnets.' ).
         ENDIF.
+
+        " Use first subnet
+        READ TABLE lt_subnets INDEX 1 INTO DATA(lo_subnet).
+        lv_subnet_id = lo_subnet->get_subnetid( ).
+        lv_vpc_found = abap_true.
 
         IF lv_vpc_id IS INITIAL OR lv_subnet_id IS INITIAL.
           cl_abap_unit_assert=>fail( msg = 'Failed to get VPC or Subnet: IDs are empty' ).
@@ -499,7 +488,7 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
 
     DATA(lv_ops_item_id) = lo_result->get_opsitemid( ).
 
-    " Tag for cleanup
+    " Tag for cleanup (in case test fails before deletion)
     TRY.
         ao_ssm->addtagstoresource(
           iv_resourcetype = 'OpsItem'
@@ -511,16 +500,36 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
       CATCH /aws1/cx_rt_generic.
     ENDTRY.
 
+    " Wait for propagation
+    WAIT UP TO 2 SECONDS.
+
     " Delete the OpsItem
     ao_ssm_actions->delete_ops_item( iv_ops_item_id = lv_ops_item_id ).
 
-    " Verify deletion by attempting to describe it
-    DATA(lv_found) = ao_ssm_actions->describe_ops_items( iv_ops_item_id = lv_ops_item_id ).
+    " Wait for deletion to propagate
+    WAIT UP TO 2 SECONDS.
 
-    " After deletion, it should not be found or might be in resolved state
-    cl_abap_unit_assert=>assert_bound(
-      act = ao_ssm_actions
-      msg = 'SSM actions should be initialized' ).
+    " Verify deletion by attempting to get it directly
+    DATA(lv_deleted) = abap_false.
+    TRY.
+        DATA(lo_get_result) = ao_ssm->getopsitem( iv_opsitemid = lv_ops_item_id ).
+        " If we get here, the OpsItem might still exist or be in Resolved status
+        DATA(lo_ops_item) = lo_get_result->get_opsitem( ).
+        IF lo_ops_item IS BOUND.
+          DATA(lv_status) = lo_ops_item->get_status( ).
+          " Deletion changes status to Resolved
+          IF lv_status = 'Resolved'.
+            lv_deleted = abap_true.
+          ENDIF.
+        ENDIF.
+      CATCH /aws1/cx_ssmopsitemnotfoundex.
+        " OpsItem not found means it was deleted
+        lv_deleted = abap_true.
+    ENDTRY.
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_deleted
+      msg = |OpsItem { lv_ops_item_id } should have been deleted or resolved| ).
   ENDMETHOD.
 
   METHOD describe_ops_items.
