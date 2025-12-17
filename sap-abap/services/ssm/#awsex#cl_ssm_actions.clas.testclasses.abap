@@ -69,6 +69,10 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
             iv_cutoff = 1
             iv_allowunassociatedtargets = abap_true ).
         av_shared_window_id = lo_window_result->get_windowid( ).
+        
+        IF av_shared_window_id IS INITIAL.
+          cl_abap_unit_assert=>fail( msg = 'Failed to create shared maintenance window: Window ID is empty' ).
+        ENDIF.
 
         " Tag the maintenance window
         ao_ssm->addtagstoresource(
@@ -108,7 +112,7 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
         " Wait for document to become active
         DATA lv_status TYPE /aws1/ssmdocumentstatus.
         DATA lv_attempts TYPE i VALUE 0.
-        WHILE lv_attempts < 20.
+        WHILE lv_attempts < 30.
           TRY.
               DATA(lo_doc_result) = ao_ssm->describedocument( iv_name = av_shared_document_name ).
               DATA(lo_document) = lo_doc_result->get_document( ).
@@ -119,13 +123,14 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
                 ENDIF.
               ENDIF.
             CATCH /aws1/cx_ssminvaliddocument.
+              " Document not ready yet
           ENDTRY.
           lv_attempts = lv_attempts + 1.
           WAIT UP TO 3 SECONDS.
         ENDWHILE.
 
         IF lv_status <> 'Active'.
-          cl_abap_unit_assert=>fail( msg = |Shared document did not become active within timeout| ).
+          cl_abap_unit_assert=>fail( msg = |Shared document did not become active within timeout. Status: { lv_status }| ).
         ENDIF.
 
         " Tag the document
@@ -151,6 +156,10 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
             iv_severity = '2'
             iv_description = 'Shared test OpsItem' ).
         av_shared_ops_item_id = lo_ops_result->get_opsitemid( ).
+        
+        IF av_shared_ops_item_id IS INITIAL.
+          cl_abap_unit_assert=>fail( msg = 'Failed to create shared OpsItem: OpsItem ID is empty' ).
+        ENDIF.
 
         " Tag the OpsItem
         ao_ssm->addtagstoresource(
@@ -173,7 +182,7 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
           av_test_instance_id = lo_instance->get_instanceid( ).
         ENDIF.
       CATCH /aws1/cx_rt_generic.
-        " No instance available - this is optional, command tests will skip if not available
+        " No instance available - command tests will fail if needed
     ENDTRY.
 
     " Wait for resources to propagate
