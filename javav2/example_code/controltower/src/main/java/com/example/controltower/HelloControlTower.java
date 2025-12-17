@@ -32,8 +32,6 @@ public class HelloControlTower {
     public static void main(String[] args) {
         try {
             ControlTowerClient controlTowerClient = ControlTowerClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create("default"))
                 .build() ;
             helloControlTower(controlTowerClient);
         } catch (ControlTowerException e) {

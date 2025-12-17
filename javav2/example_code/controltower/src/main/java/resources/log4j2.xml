@@ -1,8 +1,0 @@
-<Configuration status="OFF">
-    <Loggers>
-        <Logger name="software.amazon.awssdk" level="off" additivity="false"/>
-        <Logger name="io.netty" level="off" additivity="false"/>
-        <Logger name="com.example.controltower" level="off" additivity="false"/>
-        <Root level="off"/>
-    </Loggers>
-</Configuration>

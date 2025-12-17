@@ -1,9 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package com.example.controltower;
+package com.example.controltower.scenario;
 
-import io.netty.handler.logging.LogLevel;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
@@ -11,39 +10,24 @@ import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.crt.AwsCrtAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
-import software.amazon.awssdk.services.controltower.ControlTowerClient;
 import software.amazon.awssdk.services.controlcatalog.ControlCatalogAsyncClient;
 import software.amazon.awssdk.services.controltower.ControlTowerAsyncClient;
 import software.amazon.awssdk.services.controltower.model.*;
-import software.amazon.awssdk.services.controltower.paginators.ListBaselinesIterable;
 import software.amazon.awssdk.services.controltower.paginators.ListBaselinesPublisher;
-import software.amazon.awssdk.services.controltower.paginators.ListEnabledBaselinesIterable;
 import software.amazon.awssdk.services.controltower.paginators.ListEnabledBaselinesPublisher;
-import software.amazon.awssdk.services.controltower.paginators.ListEnabledControlsIterable;
 import software.amazon.awssdk.services.controltower.paginators.ListEnabledControlsPublisher;
-import software.amazon.awssdk.services.controltower.paginators.ListLandingZonesIterable;
-import software.amazon.awssdk.services.controlcatalog.ControlCatalogClient;
-import software.amazon.awssdk.services.controlcatalog.paginators.ListControlsIterable;
 import software.amazon.awssdk.core.exception.SdkException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import software.amazon.awssdk.services.controlcatalog.ControlCatalogAsyncClient;
 import software.amazon.awssdk.services.controlcatalog.model.ControlSummary;
 import software.amazon.awssdk.services.controlcatalog.model.ListControlsRequest;
 import software.amazon.awssdk.services.controlcatalog.paginators.ListControlsPublisher;
-import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.services.controltower.paginators.ListLandingZonesPublisher;
 import software.amazon.awssdk.services.organizations.OrganizationsAsyncClient;
 import software.amazon.awssdk.services.organizations.model.CreateOrganizationRequest;
-import software.amazon.awssdk.services.organizations.model.CreateOrganizationResponse;
-import software.amazon.awssdk.services.organizations.model.DescribeOrganizationResponse;
 import software.amazon.awssdk.services.organizations.model.ListOrganizationalUnitsForParentRequest;
 import software.amazon.awssdk.services.organizations.model.Organization;
 import software.amazon.awssdk.services.organizations.model.OrganizationFeatureSet;
 import software.amazon.awssdk.services.organizations.model.OrganizationalUnit;
 import software.amazon.awssdk.services.organizations.paginators.ListOrganizationalUnitsForParentPublisher;
-import software.amazon.awssdk.utils.Pair;
 
 import java.time.Duration;
 import java.util.List;
@@ -65,12 +49,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 // snippet-start:[controltower.java2.controltower_actions.main]
 public class ControlTowerActions {
-
-
     private static ControlCatalogAsyncClient controlCatalogAsyncClient;
     private static ControlTowerAsyncClient controlTowerAsyncClient;
     private static OrganizationsAsyncClient orgAsyncClient;
-    private static final Logger logger = LoggerFactory.getLogger(ControlTowerActions.class);
 
 
     private static OrganizationsAsyncClient getAsyncOrgClient() {
@@ -137,7 +118,6 @@ public class ControlTowerActions {
             controlTowerAsyncClient =
                     ControlTowerAsyncClient.builder()
                             .httpClient(httpClient)
-                            .credentialsProvider(ProfileCredentialsProvider.create("default"))
                             .overrideConfiguration(overrideConfig)
                             .build();
         }
@@ -148,26 +128,26 @@ public class ControlTowerActions {
     public record OrgSetupResult(String orgId, String sandboxOuArn) {}
 
     public CompletableFuture<OrgSetupResult> setupOrganizationAsync() {
-        logger.info("Starting organization setup…");
+        System.out.println("Starting organization setup…");
 
         OrganizationsAsyncClient client = getAsyncOrgClient();
 
         // Step 1: Describe or create organization
         CompletableFuture<Organization> orgFuture = client.describeOrganization()
                 .thenApply(desc -> {
-                    logger.info("Organization exists: {}", desc.organization().id());
+                    System.out.println("Organization exists: "+ desc.organization().id());
                     return desc.organization();
                 })
                 .exceptionallyCompose(ex -> {
                     Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
                     if (cause instanceof AwsServiceException awsEx &&
                             "AWSOrganizationsNotInUseException".equals(awsEx.awsErrorDetails().errorCode())) {
-                        logger.info("No organization found. Creating one…");
+                        System.out.println("No organization found. Creating one…");
                         return client.createOrganization(CreateOrganizationRequest.builder()
                                         .featureSet(OrganizationFeatureSet.ALL)
                                         .build())
                                 .thenApply(createResp -> {
-                                    logger.info("Created organization: {}", createResp.organization().id());
+                                    System.out.println("Created organization: {}" + createResp.organization().id());
                                     return createResp.organization();
                                 });
                     }
@@ -179,7 +159,7 @@ public class ControlTowerActions {
         // Step 2: Locate Sandbox OU
         return orgFuture.thenCompose(org -> {
             String orgId = org.id();
-            logger.info("Organization ID: {}", orgId);
+            System.out.println("Organization ID: {}"+ orgId);
 
             return client.listRoots()
                     .thenCompose(rootsResp -> {
@@ -204,7 +184,7 @@ public class ControlTowerActions {
                                     for (OrganizationalUnit ou : page.organizationalUnits()) {
                                         if ("Sandbox".equals(ou.name())) {
                                             sandboxOuArnRef.set(ou.arn());
-                                            logger.info("Found Sandbox OU: {}", ou.id());
+                                            System.out.println("Found Sandbox OU: " + ou.id());
                                             break;
                                         }
                                     }
@@ -212,14 +192,14 @@ public class ControlTowerActions {
                                 .thenApply(v -> {
                                     String sandboxArn = sandboxOuArnRef.get();
                                     if (sandboxArn == null) {
-                                        logger.warn("Sandbox OU not found.");
+                                        System.out.println("Sandbox OU not found.");
                                     }
                                     return new OrgSetupResult(orgId, sandboxArn);
                                 });
                     });
         }).exceptionally(ex -> {
             Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
-            logger.error("Failed to setup organization: {}", cause.getMessage());
+            System.out.println("Failed to setup organization: {}" + cause.getMessage());
             throw new CompletionException(cause);
         });
     }
@@ -235,7 +215,7 @@ public class ControlTowerActions {
      * @throws SdkException          if an SDK error occurs
      */
     public CompletableFuture<List<LandingZoneSummary>> listLandingZonesAsync() {
-        logger.info("Starting list landing zones paginator…");
+        System.out.format("Starting list landing zones paginator…");
 
         ListLandingZonesRequest request = ListLandingZonesRequest.builder().build();
         ListLandingZonesPublisher paginator = getAsyncClient().listLandingZonesPaginator(request);
@@ -244,14 +224,14 @@ public class ControlTowerActions {
         return paginator.subscribe(response -> {
                     if (response.landingZones() != null && !response.landingZones().isEmpty()) {
                         response.landingZones().forEach(lz -> {
-                            logger.info("Landing zone ARN: {}", lz.arn());
+                            System.out.format("Landing zone ARN: {}", lz.arn());
                             landingZones.add(lz);
                         });
                     } else {
-                        logger.info("Page contained no landing zones.");
+                        System.out.println("Page contained no landing zones.");
                     }
                 })
-                .thenRun(() -> logger.info("Successfully retrieved {} landing zones.", landingZones.size()))
+                .thenRun(() -> System.out.println("Successfully retrieved {} landing zones."+ landingZones.size()))
                 .thenApply(v -> landingZones)
                 .exceptionally(ex -> {
                     Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
@@ -287,7 +267,7 @@ public class ControlTowerActions {
      * @throws SdkException          if an SDK error occurs
      */
     public CompletableFuture<List<BaselineSummary>> listBaselinesAsync() {
-        logger.info("Starting list baselines paginator…");
+        System.out.format("Starting list baselines paginator…");
         ListBaselinesRequest request = ListBaselinesRequest.builder().build();
         ListBaselinesPublisher paginator =
                 getAsyncClient().listBaselinesPaginator(request);
@@ -296,15 +276,15 @@ public class ControlTowerActions {
         return paginator.subscribe(response -> {
                     if (response.baselines() != null && !response.baselines().isEmpty()) {
                         response.baselines().forEach(baseline -> {
-                            logger.info("Baseline: {}", baseline.name());
+                            System.out.format("Baseline: {}", baseline.name());
                             baselines.add(baseline);
                         });
                     } else {
-                        logger.info("Page contained no baselines.");
+                        System.out.format("Page contained no baselines.");
                     }
                 })
                 .thenRun(() ->
-                        logger.info("Successfully listed baselines. Total: {}", baselines.size())
+                        System.out.format("Successfully listed baselines. Total: {}", baselines.size())
                 )
                 .thenApply(v -> baselines)
                 .exceptionally(ex -> {
@@ -347,7 +327,7 @@ public class ControlTowerActions {
      * @throws SdkException          if an SDK error occurs
      */
     public CompletableFuture<List<EnabledBaselineSummary>> listEnabledBaselinesAsync() {
-        logger.info("Starting list enabled baselines paginator…");
+        System.out.format("Starting list enabled baselines paginator…");
 
         ListEnabledBaselinesRequest request =
                 ListEnabledBaselinesRequest.builder().build();
@@ -361,16 +341,16 @@ public class ControlTowerActions {
                             && !response.enabledBaselines().isEmpty()) {
 
                         response.enabledBaselines().forEach(baseline -> {
-                            logger.info("Enabled baseline: {}", baseline.baselineIdentifier());
+                            System.out.format("Enabled baseline: {}", baseline.baselineIdentifier());
                             enabledBaselines.add(baseline);
                         });
                     } else {
-                        logger.info("Page contained no enabled baselines.");
+                        System.out.format("Page contained no enabled baselines.");
                     }
                 })
                 .thenRun(() ->
-                        logger.info(
-                                "Successfully listed enabled baselines. Total: {}",
+                        System.out.println(
+                                "Successfully listed enabled baselines. Total: {}"+
                                 enabledBaselines.size()
                         )
                 )
@@ -423,8 +403,7 @@ public class ControlTowerActions {
      * @throws ControlTowerException if a service-specific error occurs
      * @throws SdkException          if an SDK error occurs
      */
-    public static CompletableFuture<String> enableBaselineAsync(
-            ControlTowerAsyncClient controlTowerAsyncClient,
+    public CompletableFuture<String> enableBaselineAsync(
             String baselineIdentifier,
             String baselineVersion,
             String targetIdentifier) {
@@ -503,14 +482,13 @@ public class ControlTowerActions {
      * @throws SdkException          if an SDK error occurs
      */
     public CompletableFuture<String> disableBaselineAsync(
-            ControlTowerAsyncClient controlTowerAsyncClient,
             String enabledBaselineIdentifier) {
 
         DisableBaselineRequest request = DisableBaselineRequest.builder()
                 .enabledBaselineIdentifier(enabledBaselineIdentifier)
                 .build();
 
-        return controlTowerAsyncClient.disableBaseline(request)
+        return getAsyncClient().disableBaseline(request)
                 .whenComplete((response, exception) -> {
                     if (exception != null) {
                         Throwable cause = exception.getCause() != null
@@ -575,14 +553,13 @@ public class ControlTowerActions {
      * @throws SdkException          if an SDK error occurs
      */
     public CompletableFuture<BaselineOperationStatus> getBaselineOperationAsync(
-            ControlTowerAsyncClient controlTowerAsyncClient,
             String operationIdentifier) {
 
         GetBaselineOperationRequest request = GetBaselineOperationRequest.builder()
                 .operationIdentifier(operationIdentifier)
                 .build();
 
-        return controlTowerAsyncClient.getBaselineOperation(request)
+        return getAsyncClient().getBaselineOperation(request)
                 .whenComplete((response, exception) -> {
                     if (exception != null) {
                         Throwable cause = exception.getCause() != null
@@ -639,8 +616,7 @@ public class ControlTowerActions {
      * @throws SdkException          if an SDK error occurs
      */
     public CompletableFuture<List<EnabledControlSummary>> listEnabledControlsAsync(String targetIdentifier) {
-        logger.info("Starting list enabled controls paginator for target {}…", targetIdentifier);
-
+        System.out.format("Starting list enabled controls paginator for target {}…", targetIdentifier);
         ListEnabledControlsRequest request = ListEnabledControlsRequest.builder()
                 .targetIdentifier(targetIdentifier)
                 .build();
@@ -652,14 +628,14 @@ public class ControlTowerActions {
         return paginator.subscribe(response -> {
                     if (response.enabledControls() != null && !response.enabledControls().isEmpty()) {
                         response.enabledControls().forEach(control -> {
-                            logger.info("Enabled control: {}", control.controlIdentifier());
+                            System.out.println("Enabled control: {}"+ control.controlIdentifier());
                             enabledControls.add(control);
                         });
                     } else {
-                        logger.info("Page contained no enabled controls.");
+                        System.out.println("Page contained no enabled controls.");
                     }
                 })
-                .thenRun(() -> logger.info(
+                .thenRun(() -> System.out.format(
                         "Successfully retrieved {} enabled controls for target {}",
                         enabledControls.size(),
                         targetIdentifier
@@ -711,7 +687,6 @@ public class ControlTowerActions {
      * @throws SdkException          if an SDK error occurs
      */
     public CompletableFuture<String> enableControlAsync(
-            ControlTowerAsyncClient controlTowerAsyncClient,
             String controlIdentifier,
             String targetIdentifier) {
 
@@ -802,7 +777,6 @@ public class ControlTowerActions {
      * @throws SdkException          if an SDK error occurs
      */
     public CompletableFuture<String> disableControlAsync(
-            ControlTowerAsyncClient controlTowerAsyncClient,
             String controlIdentifier,
             String targetIdentifier) {
 
@@ -811,7 +785,7 @@ public class ControlTowerActions {
                 .targetIdentifier(targetIdentifier)
                 .build();
 
-        return controlTowerAsyncClient.disableControl(request)
+        return getAsyncClient().disableControl(request)
                 .whenComplete((response, exception) -> {
                     if (exception != null) {
                         Throwable cause = exception.getCause() != null
@@ -915,7 +889,7 @@ public class ControlTowerActions {
      * @throws SdkException if a service-specific error occurs
      */
     public CompletableFuture<List<ControlSummary>> listControlsAsync() {
-        logger.info("Starting list controls paginator…");
+        System.out.println("Starting list controls paginator…");
 
         ListControlsRequest request = ListControlsRequest.builder().build();
         ListControlsPublisher paginator = getAsyncCatClient().listControlsPaginator(request);
@@ -924,14 +898,13 @@ public class ControlTowerActions {
         return paginator.subscribe(response -> {
                     if (response.controls() != null && !response.controls().isEmpty()) {
                         response.controls().forEach(control -> {
-                            logger.info("Control name: {}", control.name());
                             controls.add(control);
                         });
                     } else {
-                        logger.info("Page contained no controls.");
+                        System.out.println("Page contained no controls.");
                     }
                 })
-                .thenRun(() -> logger.info("Successfully retrieved {} controls.", controls.size()))
+                .thenRun(() -> System.out.println("Successfully retrieved {} controls."+ controls.size()))
                 .thenApply(v -> controls)
                 .exceptionally(ex -> {
                     Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
@@ -968,7 +941,7 @@ public class ControlTowerActions {
     public CompletableFuture<String> resetEnabledBaselineAsync(
             String enabledBaselineIdentifier) {
 
-        logger.info("Starting reset of enabled baseline…");
+        System.out.println("Starting reset of enabled baseline…");
         ResetEnabledBaselineRequest request = ResetEnabledBaselineRequest.builder()
                 .enabledBaselineIdentifier(enabledBaselineIdentifier)
                 .build();
@@ -976,7 +949,7 @@ public class ControlTowerActions {
         return getAsyncClient().resetEnabledBaseline(request)
                 .thenApply(response -> {
                     String operationId = response.operationIdentifier();
-                    logger.info("Reset enabled baseline with operation ID: {}", operationId);
+                    System.out.println("Reset enabled baseline with operation ID: {}" + operationId);
                     return operationId;
                 })
                 .exceptionally(ex -> {
@@ -986,16 +959,16 @@ public class ControlTowerActions {
                         String errorCode = e.awsErrorDetails().errorCode();
                         switch (errorCode) {
                             case "ResourceNotFoundException":
-                                logger.error("Target not found: {}", e.getMessage());
+                                System.out.println("Target not found: {}"+ e.getMessage());
                                 break;
                             default:
-                                logger.error("Couldn't reset enabled baseline. Here's why: {}", e.getMessage());
+                                System.out.println("Couldn't reset enabled baseline. Here's why: {}" + e.getMessage());
                         }
                         throw new CompletionException(e);
                     }
 
                     if (cause instanceof SdkException sdkEx) {
-                        logger.error("SDK error resetting enabled baseline: {}", sdkEx.getMessage());
+                        System.out.println("SDK error resetting enabled baseline: {}"+ sdkEx.getMessage());
                         throw new CompletionException(sdkEx);
                     }
 
