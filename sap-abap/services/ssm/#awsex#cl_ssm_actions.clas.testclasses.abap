@@ -20,8 +20,6 @@ CLASS ltc_awsex_cl_ssm_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_shared_document_name TYPE /aws1/ssmdocumentname.
     CLASS-DATA av_shared_ops_item_id TYPE /aws1/ssmopsitemid.
     CLASS-DATA av_test_instance_id TYPE /aws1/ssminstanceid.
-    CLASS-DATA av_vpc_id TYPE /aws1/ec2string.
-    CLASS-DATA av_subnet_id TYPE /aws1/ec2string.
 
     METHODS: create_ops_item FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_ops_item FOR TESTING RAISING /aws1/cx_rt_generic,
@@ -62,44 +60,198 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     ao_ssm_actions = NEW /awsex/cl_ssm_actions( ).
 
     DATA lv_uuid_string TYPE string.
+    DATA lv_vpc_id TYPE /aws1/ec2string.
+    DATA lv_subnet_id TYPE /aws1/ec2string.
+    
     lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
 
-    " Create VPC and Subnet for EC2 instance
+    " Find default VPC and use it instead of creating a new one
     TRY.
-        av_vpc_id = ao_ec2->createvpc( iv_cidrblock = '10.10.0.0/16' )->get_vpc( )->get_vpcid( ).
-        
-        IF av_vpc_id IS INITIAL.
-          cl_abap_unit_assert=>fail( msg = 'Failed to create VPC: VPC ID is empty' ).
-        ENDIF.
-        
-        " Tag VPC
-        ao_ec2->createtags(
-          it_resources = VALUE /aws1/cl_ec2resourceidlist_w=>tt_resourceidlist(
-            ( NEW /aws1/cl_ec2resourceidlist_w( av_vpc_id ) ) )
-          it_tags = VALUE /aws1/cl_ec2tag=>tt_taglist(
-            ( NEW /aws1/cl_ec2tag(
-                iv_key = 'convert_test'
-                iv_value = 'true' ) ) ) ).
+        DATA(lo_vpcs_result) = ao_ec2->describevpcs(
+          it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
+            ( NEW /aws1/cl_ec2filter(
+                iv_name = 'isDefault'
+                it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+                  ( NEW /aws1/cl_ec2valuestringlist_w( 'true' ) ) ) ) ) ) ).
 
-        av_subnet_id = ao_ec2->createsubnet(
-          iv_vpcid = av_vpc_id
-          iv_cidrblock = '10.10.0.0/24' )->get_subnet( )->get_subnetid( ).
-          
-        IF av_subnet_id IS INITIAL.
-          cl_abap_unit_assert=>fail( msg = 'Failed to create subnet: Subnet ID is empty' ).
+        DATA(lt_vpcs) = lo_vpcs_result->get_vpcs( ).
+        IF lines( lt_vpcs ) = 0.
+          cl_abap_unit_assert=>fail( msg = 'No default VPC found. Tests require a default VPC to exist.' ).
+        ENDIF.
+
+        READ TABLE lt_vpcs INDEX 1 INTO DATA(lo_vpc).
+        lv_vpc_id = lo_vpc->get_vpcid( ).
+
+        IF lv_vpc_id IS INITIAL.
+          cl_abap_unit_assert=>fail( msg = 'Failed to get default VPC: VPC ID is empty' ).
+        ENDIF.
+
+        " Find a subnet in the default VPC
+        DATA(lo_subnets_result) = ao_ec2->describesubnets(
+          it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
+            ( NEW /aws1/cl_ec2filter(
+                iv_name = 'vpc-id'
+                it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+                  ( NEW /aws1/cl_ec2valuestringlist_w( lv_vpc_id ) ) ) ) ) ) ).
+
+        DATA(lt_subnets) = lo_subnets_result->get_subnets( ).
+        IF lines( lt_subnets ) = 0.
+          cl_abap_unit_assert=>fail( msg = 'No subnets found in default VPC.' ).
+        ENDIF.
+
+        READ TABLE lt_subnets INDEX 1 INTO DATA(lo_subnet).
+        lv_subnet_id = lo_subnet->get_subnetid( ).
+
+        IF lv_subnet_id IS INITIAL.
+          cl_abap_unit_assert=>fail( msg = 'Failed to get subnet from default VPC: Subnet ID is empty' ).
+        ENDIF.
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_vpc_ex).
+        cl_abap_unit_assert=>fail( msg = |Failed to get default VPC/Subnet: { lo_vpc_ex->get_text( ) }| ).
+    ENDTRY.
+
+    " Create EC2 instance for SSM testing
+    TRY.
+        DATA(lv_ami_id) = get_ami_id( ).
+        
+        DATA(lo_instance_result) = ao_ec2->runinstances(
+          iv_imageid = lv_ami_id
+          iv_instancetype = 't3.micro'
+          iv_maxcount = 1
+          iv_mincount = 1
+          iv_subnetid = lv_subnet_id ).
+
+        DATA(lt_instances) = lo_instance_result->get_instances( ).
+        IF lines( lt_instances ) = 0.
+          cl_abap_unit_assert=>fail( msg = 'Failed to create EC2 instance: No instances returned' ).
         ENDIF.
         
-        " Tag Subnet
+        READ TABLE lt_instances INDEX 1 INTO DATA(lo_instance).
+        av_test_instance_id = lo_instance->get_instanceid( ).
+        
+        IF av_test_instance_id IS INITIAL.
+          cl_abap_unit_assert=>fail( msg = 'Failed to create EC2 instance: Instance ID is empty' ).
+        ENDIF.
+
+        " Tag instance
         ao_ec2->createtags(
           it_resources = VALUE /aws1/cl_ec2resourceidlist_w=>tt_resourceidlist(
-            ( NEW /aws1/cl_ec2resourceidlist_w( av_subnet_id ) ) )
+            ( NEW /aws1/cl_ec2resourceidlist_w( av_test_instance_id ) ) )
           it_tags = VALUE /aws1/cl_ec2tag=>tt_taglist(
             ( NEW /aws1/cl_ec2tag(
                 iv_key = 'convert_test'
-                iv_value = 'true' ) ) ) ).
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_vpc_ex).
-        cl_abap_unit_assert=>fail( msg = |Failed to create VPC/Subnet: { lo_vpc_ex->get_text( ) }| ).
+                iv_value = 'true' ) )
+            ( NEW /aws1/cl_ec2tag(
+                iv_key = 'Name'
+                iv_value = |SSM-Test-{ lv_uuid_string }| ) ) ) ).
+
+        " Wait for instance to be running
+        DATA lv_is_ready TYPE abap_bool.
+        lv_is_ready = wait_until_instance_ready( iv_instance_id = av_test_instance_id ).
+        
+        IF lv_is_ready = abap_false.
+          MESSAGE 'EC2 instance created but not fully ready. Some tests may need additional wait time.' TYPE 'I'.
+        ENDIF.
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ec2_ex).
+        cl_abap_unit_assert=>fail( msg = |Failed to create EC2 instance: { lo_ec2_ex->get_text( ) }| ).
     ENDTRY.
+
+    " Create a shared maintenance window
+    lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
+    DATA(lv_window_name) = |ssm-mw-{ lv_uuid_string }|.
+    TRY.
+        DATA(lo_window_result) = ao_ssm->createmaintenancewindow(
+            iv_name = lv_window_name
+            iv_schedule = 'cron(0 10 ? * MON-FRI *)'
+            iv_duration = 2
+            iv_cutoff = 1
+            iv_allowunassociatedtargets = abap_true ).
+        av_shared_window_id = lo_window_result->get_windowid( ).
+        
+        IF av_shared_window_id IS INITIAL.
+          cl_abap_unit_assert=>fail( msg = 'Failed to create shared maintenance window: Window ID is empty' ).
+        ENDIF.
+
+        " Tag the maintenance window
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'MaintenanceWindow'
+          iv_resourceid = av_shared_window_id
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_mw_ex).
+        cl_abap_unit_assert=>fail( msg = |Failed to create shared maintenance window: { lo_mw_ex->get_text( ) }| ).
+    ENDTRY.
+
+    " Create a shared document
+    lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
+    av_shared_document_name = |ssmdoc-{ lv_uuid_string }|.
+    DATA(lv_content) = |\{| &&
+      |"schemaVersion": "2.2",| &&
+      |"description": "Shared test document",| &&
+      |"mainSteps": [| &&
+      |\{| &&
+      |"action": "aws:runShellScript",| &&
+      |"name": "runCommand",| &&
+      |"inputs": \{| &&
+      |"runCommand": ["echo 'test'"]| &&
+      |\}| &&
+      |\}| &&
+      |]| &&
+      |\}|.
+
+    TRY.
+        ao_ssm->createdocument(
+            iv_name = av_shared_document_name
+            iv_content = lv_content
+            iv_documenttype = 'Command' ).
+
+        " Wait for document to become active
+        wait_for_document_active( iv_document_name = av_shared_document_name ).
+
+        " Tag the document
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'Document'
+          iv_resourceid = av_shared_document_name
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_doc_ex).
+        cl_abap_unit_assert=>fail( msg = |Failed to create shared document: { lo_doc_ex->get_text( ) }| ).
+    ENDTRY.
+
+    " Create a shared OpsItem
+    lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
+    DATA(lv_ops_title) = |Test OpsItem { lv_uuid_string }|.
+    TRY.
+        DATA(lo_ops_result) = ao_ssm->createopsitem(
+            iv_title = lv_ops_title
+            iv_source = 'EC2'
+            iv_category = 'Performance'
+            iv_severity = '2'
+            iv_description = 'Shared test OpsItem' ).
+        av_shared_ops_item_id = lo_ops_result->get_opsitemid( ).
+        
+        IF av_shared_ops_item_id IS INITIAL.
+          cl_abap_unit_assert=>fail( msg = 'Failed to create shared OpsItem: OpsItem ID is empty' ).
+        ENDIF.
+
+        " Tag the OpsItem
+        ao_ssm->addtagstoresource(
+          iv_resourcetype = 'OpsItem'
+          iv_resourceid = av_shared_ops_item_id
+          it_tags = VALUE /aws1/cl_ssmtag=>tt_taglist(
+            ( NEW /aws1/cl_ssmtag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) ) ) ).
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ops_ex).
+        cl_abap_unit_assert=>fail( msg = |Failed to create shared OpsItem: { lo_ops_ex->get_text( ) }| ).
+    ENDTRY.
+
+    " Wait for resources to propagate
+    WAIT UP TO 2 SECONDS.
+  ENDMETHOD.
 
     " Create EC2 instance for SSM testing
     TRY.
@@ -316,11 +468,8 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
       ENDTRY.
     ENDIF.
 
-    " Clean up Subnet and VPC - Note: Not deleting as instance takes long to terminate
-    " These are tagged with convert_test and user will clean them up manually
-    " DO NOT DELETE: Subnet and VPC need the EC2 instance to be fully terminated first
-    " which can take several minutes. These resources are tagged with 'convert_test'
-    " for manual cleanup by the user.
+    " Note: VPC and Subnet are NOT deleted as we're using the default VPC
+    " EC2 instance is tagged with 'convert_test' for identification if manual cleanup is needed
   ENDMETHOD.
 
   METHOD get_ami_id.
