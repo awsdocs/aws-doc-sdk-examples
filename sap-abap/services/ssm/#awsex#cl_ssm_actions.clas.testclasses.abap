@@ -20,6 +20,8 @@ CLASS ltc_awsex_cl_ssm_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_shared_document_name TYPE /aws1/ssmdocumentname.
     CLASS-DATA av_shared_ops_item_id TYPE /aws1/ssmopsitemid.
     CLASS-DATA av_test_instance_id TYPE /aws1/ssminstanceid.
+    CLASS-DATA av_vpc_id TYPE /aws1/ec2string.
+    CLASS-DATA av_subnet_id TYPE /aws1/ec2string.
 
     METHODS: create_ops_item FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_ops_item FOR TESTING RAISING /aws1/cx_rt_generic,
@@ -60,55 +62,45 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
     ao_ssm_actions = NEW /awsex/cl_ssm_actions( ).
 
     DATA lv_uuid_string TYPE string.
-    DATA lv_vpc_id TYPE /aws1/ec2string.
-    DATA lv_subnet_id TYPE /aws1/ec2string.
-    DATA lv_vpc_found TYPE abap_bool VALUE abap_false.
     
     lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
 
-    " Find VPC with subnets - use default VPC only
+    " Create VPC and subnet for testing
     TRY.
-        " Find default VPC
-        DATA(lo_vpcs_result) = ao_ec2->describevpcs(
-          it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
-            ( NEW /aws1/cl_ec2filter(
-                iv_name = 'isDefault'
-                it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
-                  ( NEW /aws1/cl_ec2valuestringlist_w( 'true' ) ) ) ) ) ) ).
+        av_vpc_id = ao_ec2->createvpc( iv_cidrblock = '10.20.0.0/16' )->get_vpc( )->get_vpcid( ).
+        av_subnet_id = ao_ec2->createsubnet(
+          iv_vpcid = av_vpc_id
+          iv_cidrblock = '10.20.0.0/24' )->get_subnet( )->get_subnetid( ).
 
-        DATA(lt_vpcs) = lo_vpcs_result->get_vpcs( ).
-        
-        IF lines( lt_vpcs ) = 0.
-          cl_abap_unit_assert=>fail( msg = 'No default VPC found. Tests require default VPC to exist.' ).
-        ENDIF.
+        " Tag VPC for cleanup
+        ao_ec2->createtags(
+          it_resources = VALUE /aws1/cl_ec2resourceidlist_w=>tt_resourceidlist(
+            ( NEW /aws1/cl_ec2resourceidlist_w( av_vpc_id ) ) )
+          it_tags = VALUE /aws1/cl_ec2tag=>tt_taglist(
+            ( NEW /aws1/cl_ec2tag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) )
+            ( NEW /aws1/cl_ec2tag(
+                iv_key = 'Name'
+                iv_value = |SSM-Test-VPC-{ lv_uuid_string }| ) ) ) ).
 
-        " Get the default VPC and its subnets
-        READ TABLE lt_vpcs INDEX 1 INTO DATA(lo_vpc).
-        lv_vpc_id = lo_vpc->get_vpcid( ).
-        
-        " Check if this VPC has subnets
-        DATA(lo_subnets_result) = ao_ec2->describesubnets(
-          it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
-            ( NEW /aws1/cl_ec2filter(
-                iv_name = 'vpc-id'
-                it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
-                  ( NEW /aws1/cl_ec2valuestringlist_w( lv_vpc_id ) ) ) ) ) ) ).
+        " Tag Subnet for cleanup
+        ao_ec2->createtags(
+          it_resources = VALUE /aws1/cl_ec2resourceidlist_w=>tt_resourceidlist(
+            ( NEW /aws1/cl_ec2resourceidlist_w( av_subnet_id ) ) )
+          it_tags = VALUE /aws1/cl_ec2tag=>tt_taglist(
+            ( NEW /aws1/cl_ec2tag(
+                iv_key = 'convert_test'
+                iv_value = 'true' ) )
+            ( NEW /aws1/cl_ec2tag(
+                iv_key = 'Name'
+                iv_value = |SSM-Test-Subnet-{ lv_uuid_string }| ) ) ) ).
 
-        DATA(lt_subnets) = lo_subnets_result->get_subnets( ).
-        IF lines( lt_subnets ) = 0.
-          cl_abap_unit_assert=>fail( msg = 'No subnets found in default VPC. Tests require default VPC with subnets.' ).
-        ENDIF.
-
-        " Use first subnet
-        READ TABLE lt_subnets INDEX 1 INTO DATA(lo_subnet).
-        lv_subnet_id = lo_subnet->get_subnetid( ).
-        lv_vpc_found = abap_true.
-
-        IF lv_vpc_id IS INITIAL OR lv_subnet_id IS INITIAL.
-          cl_abap_unit_assert=>fail( msg = 'Failed to get VPC or Subnet: IDs are empty' ).
+        IF av_vpc_id IS INITIAL OR av_subnet_id IS INITIAL.
+          cl_abap_unit_assert=>fail( msg = 'Failed to create VPC or Subnet: IDs are empty' ).
         ENDIF.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_vpc_ex).
-        cl_abap_unit_assert=>fail( msg = |Failed to get VPC/Subnet: { lo_vpc_ex->get_text( ) }| ).
+        cl_abap_unit_assert=>fail( msg = |Failed to create VPC/Subnet: { lo_vpc_ex->get_text( ) }| ).
     ENDTRY.
 
     " Create EC2 instance for SSM testing
@@ -120,7 +112,7 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
           iv_instancetype = 't3.micro'
           iv_maxcount = 1
           iv_mincount = 1
-          iv_subnetid = lv_subnet_id ).
+          iv_subnetid = av_subnet_id ).
 
         DATA(lt_instances) = lo_instance_result->get_instances( ).
         IF lines( lt_instances ) = 0.
@@ -326,8 +318,39 @@ CLASS ltc_awsex_cl_ssm_actions IMPLEMENTATION.
       ENDTRY.
     ENDIF.
 
-    " Note: VPC and Subnet are NOT deleted as we're using an existing VPC from the account
-    " EC2 instance is tagged with 'convert_test' for identification if manual cleanup is needed
+    " Clean up subnet
+    IF av_subnet_id IS NOT INITIAL.
+      DO 4 TIMES.
+        TRY.
+            ao_ec2->deletesubnet( iv_subnetid = av_subnet_id ).
+            EXIT.
+          CATCH /aws1/cx_ec2clientexc INTO DATA(lo_subnet_ex).
+            IF lo_subnet_ex->get_text( ) CS 'dependencies'.
+              WAIT UP TO 15 SECONDS.
+            ELSE.
+              EXIT.
+            ENDIF.
+        ENDTRY.
+      ENDDO.
+    ENDIF.
+
+    " Clean up VPC
+    IF av_vpc_id IS NOT INITIAL.
+      DO 4 TIMES.
+        TRY.
+            ao_ec2->deletevpc( iv_vpcid = av_vpc_id ).
+            EXIT.
+          CATCH /aws1/cx_ec2clientexc INTO DATA(lo_vpc_ex).
+            IF lo_vpc_ex->av_err_code = 'DependencyViolation'.
+              WAIT UP TO 15 SECONDS.
+            ELSEIF lo_vpc_ex->av_err_code = 'InvalidVpcID.NotFound'.
+              EXIT.
+            ELSE.
+              EXIT.
+            ENDIF.
+        ENDTRY.
+      ENDDO.
+    ENDIF.
   ENDMETHOD.
 
   METHOD get_ami_id.
