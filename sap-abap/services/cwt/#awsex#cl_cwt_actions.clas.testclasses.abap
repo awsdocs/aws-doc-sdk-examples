@@ -25,7 +25,7 @@ CLASS ltc_awsex_cl_cwt_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     METHODS put_metric_data FOR TESTING RAISING /aws1/cx_rt_generic cx_uuid_error.
     METHODS put_metric_data_set FOR TESTING RAISING /aws1/cx_rt_generic cx_uuid_error.
     METHODS get_metric_statistics FOR TESTING RAISING /aws1/cx_rt_generic cx_uuid_error.
-    METHODS get_metric_alarms FOR TESTING RAISING /aws1/cx_rt_generic cx_uuid_error.
+    METHODS describe_alarms_for_metric FOR TESTING RAISING /aws1/cx_rt_generic cx_uuid_error.
 
 ENDCLASS.       "ltc_awsex_cl_cwt_actions
 
@@ -680,7 +680,6 @@ CLASS ltc_awsex_cl_cwt_actions IMPLEMENTATION.
     DATA lv_end_time TYPE /aws1/cwttimestamp.
 
     "Set time range - last 7 days.
-    "Use simple fixed dates to avoid timestamp conversion issues
     lv_end_time = '20250101000000.0000000'.
     lv_start_time = '20241225000000.0000000'.
 
@@ -713,7 +712,7 @@ CLASS ltc_awsex_cl_cwt_actions IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD get_metric_alarms.
+  METHOD describe_alarms_for_metric.
 
     DATA lv_alarm_name  TYPE /aws1/cwtalarmname.
     DATA lt_alarmnames TYPE /aws1/cl_cwtalarmnames_w=>tt_alarmnames.
@@ -775,8 +774,8 @@ CLASS ltc_awsex_cl_cwt_actions IMPLEMENTATION.
         WAIT UP TO 3 SECONDS.
       ENDIF.
       
-      "Test get_metric_alarms - pass dimensions, statistic, period, and unit for exact match.
-      ao_cwt_actions->get_metric_alarms(
+      "Test describe_alarms_for_metric - pass dimensions, statistic, period, and unit for exact match.
+      ao_cwt_actions->describe_alarms_for_metric(
         EXPORTING
           iv_namespace   = cv_namespace
           iv_metric_name = cv_metric_name
