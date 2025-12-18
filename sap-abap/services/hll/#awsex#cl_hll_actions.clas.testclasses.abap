@@ -238,54 +238,107 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
     ENDTRY.
 
     " Create HealthLake datastore for tests
-    DATA lv_datastore_name TYPE /aws1/hlldatastorename.
-    lv_datastore_name = |SAPDS{ lv_uuid_string(20) }|.
-
-    DATA lv_retry_count TYPE i VALUE 0.
-    DATA lv_max_retries TYPE i VALUE 3.
-    DATA lv_datastore_created TYPE abap_bool VALUE abap_false.
-
-    WHILE lv_retry_count < lv_max_retries AND lv_datastore_created = abap_false.
-      TRY.
-          DATA(lo_create_datastore_result) = ao_hll->createfhirdatastore(
-            iv_datastorename = lv_datastore_name
-            iv_datastoretypeversion = 'R4'
-          ).
-
-          av_datastore_id = lo_create_datastore_result->get_datastoreid( ).
-          av_datastore_arn = lo_create_datastore_result->get_datastorearn( ).
-          lv_datastore_created = abap_true.
-
-          " Tag the datastore
-          TRY.
-              ao_hll->tagresource(
-                iv_resourcearn = av_datastore_arn
-                it_tags = VALUE /aws1/cl_hlltag=>tt_taglist(
-                  ( NEW /aws1/cl_hlltag( iv_key = 'convert_test' iv_value = 'true' ) )
-                )
-              ).
-            CATCH /aws1/cx_rt_generic.
-              " Ignore tagging errors
-          ENDTRY.
-
-          " Wait for datastore to become active
-          wait_for_datastore_active( av_datastore_id ).
-
-        CATCH /aws1/cx_hllthrottlingex.
-          " Throttled - wait and retry
-          lv_retry_count = lv_retry_count + 1.
-          IF lv_retry_count < lv_max_retries.
-            WAIT UP TO 10 SECONDS.
-          ELSE.
-            cl_abap_unit_assert=>fail( 'Failed to create datastore due to throttling after retries' ).
+    " First, check if a datastore already exists from a previous test run
+    DATA lv_existing_datastore TYPE abap_bool VALUE abap_false.
+    
+    TRY.
+        DATA(lo_list_result) = ao_hll->listfhirdatastores( ).
+        DATA(lt_existing_datastores) = lo_list_result->get_datastorepropertieslist( ).
+        
+        " Look for an existing ACTIVE datastore with our naming pattern or convert_test tag
+        LOOP AT lt_existing_datastores INTO DATA(lo_existing_ds).
+          DATA(lv_existing_status) = lo_existing_ds->get_datastorestatus( ).
+          DATA(lv_existing_name) = lo_existing_ds->get_datastorename( ).
+          
+          IF lv_existing_status = 'ACTIVE' AND lv_existing_name CP 'SAPDS*'.
+            " Found an existing active datastore - reuse it
+            av_datastore_id = lo_existing_ds->get_datastoreid( ).
+            av_datastore_arn = lo_existing_ds->get_datastorearn( ).
+            lv_existing_datastore = abap_true.
+            EXIT.
           ENDIF.
-        CATCH /aws1/cx_rt_generic INTO lo_ex.
-          cl_abap_unit_assert=>fail( |Failed to create datastore: { lo_ex->get_text( ) }| ).
-      ENDTRY.
-    ENDWHILE.
+        ENDLOOP.
+      CATCH /aws1/cx_rt_generic.
+        " Ignore errors listing datastores
+    ENDTRY.
+
+    " Only create new datastore if none exists
+    IF lv_existing_datastore = abap_false.
+      DATA lv_datastore_name TYPE /aws1/hlldatastorename.
+      lv_datastore_name = |SAPDS{ lv_uuid_string(20) }|.
+
+      DATA lv_retry_count TYPE i VALUE 0.
+      DATA lv_max_retries TYPE i VALUE 10.
+      DATA lv_datastore_created TYPE abap_bool VALUE abap_false.
+      DATA lv_wait_seconds TYPE i.
+
+      WHILE lv_retry_count < lv_max_retries AND lv_datastore_created = abap_false.
+        TRY.
+            DATA(lo_create_datastore_result) = ao_hll->createfhirdatastore(
+              iv_datastorename = lv_datastore_name
+              iv_datastoretypeversion = 'R4'
+            ).
+
+            av_datastore_id = lo_create_datastore_result->get_datastoreid( ).
+            av_datastore_arn = lo_create_datastore_result->get_datastorearn( ).
+            lv_datastore_created = abap_true.
+
+            " Tag the datastore
+            TRY.
+                ao_hll->tagresource(
+                  iv_resourcearn = av_datastore_arn
+                  it_tags = VALUE /aws1/cl_hlltag=>tt_taglist(
+                    ( NEW /aws1/cl_hlltag( iv_key = 'convert_test' iv_value = 'true' ) )
+                  )
+                ).
+              CATCH /aws1/cx_rt_generic.
+                " Ignore tagging errors
+            ENDTRY.
+
+            " Wait for datastore to become active
+            wait_for_datastore_active( av_datastore_id ).
+
+          CATCH /aws1/cx_hllthrottlingex INTO DATA(lo_throttle_ex).
+            " Throttled - use exponential backoff
+            lv_retry_count = lv_retry_count + 1.
+            IF lv_retry_count < lv_max_retries.
+              " Exponential backoff: 15, 30, 60, 120, 240, 300, 300, 300...
+              lv_wait_seconds = 15 * ( 2 ** ( lv_retry_count - 1 ) ).
+              IF lv_wait_seconds > 300.
+                lv_wait_seconds = 300. " Cap at 5 minutes
+              ENDIF.
+              WAIT UP TO lv_wait_seconds SECONDS.
+            ELSE.
+              " After all retries, check if there's an existing datastore we can use
+              TRY.
+                  lo_list_result = ao_hll->listfhirdatastores( ).
+                  lt_existing_datastores = lo_list_result->get_datastorepropertieslist( ).
+                  
+                  LOOP AT lt_existing_datastores INTO lo_existing_ds.
+                    lv_existing_status = lo_existing_ds->get_datastorestatus( ).
+                    IF lv_existing_status = 'ACTIVE'.
+                      " Use any active datastore
+                      av_datastore_id = lo_existing_ds->get_datastoreid( ).
+                      av_datastore_arn = lo_existing_ds->get_datastorearn( ).
+                      lv_datastore_created = abap_true.
+                      EXIT.
+                    ENDIF.
+                  ENDLOOP.
+                CATCH /aws1/cx_rt_generic.
+              ENDTRY.
+              
+              IF av_datastore_id IS INITIAL.
+                cl_abap_unit_assert=>fail( |Failed to create datastore due to throttling after { lv_max_retries } retries. { lo_throttle_ex->get_text( ) }| ).
+              ENDIF.
+            ENDIF.
+          CATCH /aws1/cx_rt_generic INTO lo_ex.
+            cl_abap_unit_assert=>fail( |Failed to create datastore: { lo_ex->get_text( ) }| ).
+        ENDTRY.
+      ENDWHILE.
+    ENDIF.
 
     IF av_datastore_id IS INITIAL.
-      cl_abap_unit_assert=>fail( 'Failed to create datastore for tests' ).
+      cl_abap_unit_assert=>fail( 'Failed to create or find datastore for tests' ).
     ENDIF.
 
   ENDMETHOD.
