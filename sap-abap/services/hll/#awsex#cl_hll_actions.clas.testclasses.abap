@@ -251,7 +251,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
           TRY.
               ao_kms->schedulekeydeletion(
                 iv_keyid = av_kms_key_id
-                iv_pendingwindowndays = 7
+                iv_pendingwindowindays = 7
               ).
             CATCH /aws1/cx_rt_generic.
           ENDTRY.
@@ -549,7 +549,8 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       msg = 'Should have at least one import job'
     ).
 
-    DATA(lv_job_id) = lt_jobs[ 1 ]->get_jobid( ).
+    READ TABLE lt_jobs INDEX 1 INTO DATA(lo_job).
+    DATA(lv_job_id) = lo_job->get_jobid( ).
 
     DATA lo_result TYPE REF TO /aws1/cl_hlldescrfhirimpjobrsp.
     ao_hll_actions->describe_fhir_import_job(
@@ -662,7 +663,8 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       msg = 'Should have at least one export job'
     ).
 
-    DATA(lv_job_id) = lt_jobs[ 1 ]->get_jobid( ).
+    READ TABLE lt_jobs INDEX 1 INTO DATA(lo_job).
+    DATA(lv_job_id) = lo_job->get_jobid( ).
 
     DATA lo_result TYPE REF TO /aws1/cl_hlldescrfhirexpjobrsp.
     ao_hll_actions->describe_fhir_export_job(
