@@ -72,10 +72,10 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
         " Create DynamoDB table with convert_test tag
         av_table_name = |agw-tbl-{ lv_random }|.
-        DATA lt_keyschema TYPE /aws1/cl_dynkeyschema=>tt_keyschema.
+        DATA lt_keyschema TYPE /aws1/cl_dynkeyschemaelement=>tt_keyschema.
         DATA lt_attdef TYPE /aws1/cl_dynattributedefn=>tt_attributedefinitions.
 
-        DATA(lo_key) = NEW /aws1/cl_dynkeyschema( iv_attributename = 'username' iv_keytype = 'HASH' ).
+        DATA(lo_key) = NEW /aws1/cl_dynkeyschemaelement( iv_attributename = 'username' iv_keytype = 'HASH' ).
         APPEND lo_key TO lt_keyschema.
 
         DATA(lo_att) = NEW /aws1/cl_dynattributedefn( iv_attributename = 'username' iv_attributetype = 'S' ).
