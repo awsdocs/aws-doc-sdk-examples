@@ -170,8 +170,8 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_crawler_name = |glu-getcrlr-{ lv_uuid_string(20) }|.
-    av_database_name = |glu_getdb_{ lv_uuid_string(20) }|.
+    av_crawler_name = |glu-getcrlr-{ lv_uuid_string }|.
+    av_database_name = |glu_getdb_{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
@@ -223,8 +223,8 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_crawler_name = |glu-crtcrlr-{ lv_uuid_string(20) }|.
-    av_database_name = |glu_crtdb_{ lv_uuid_string(20) }|.
+    av_crawler_name = |glu-crtcrlr-{ lv_uuid_string }|.
+    av_database_name = |glu_crtdb_{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
@@ -267,8 +267,8 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_crawler_name = |glu-strtcr-{ lv_uuid_string(20) }|.
-    av_database_name = |glu_strtdb_{ lv_uuid_string(20) }|.
+    av_crawler_name = |glu-strtcr-{ lv_uuid_string }|.
+    av_database_name = |glu_strtdb_{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
@@ -320,8 +320,8 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_crawler_name = |glu-getdbcr-{ lv_uuid_string(20) }|.
-    av_database_name = |glu_getdb2_{ lv_uuid_string(20) }|.
+    av_crawler_name = |glu-getdbcr-{ lv_uuid_string }|.
+    av_database_name = |glu_getdb2_{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
@@ -377,8 +377,8 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_crawler_name = |glu-gettblcr-{ lv_uuid_string(20) }|.
-    av_database_name = |glu_gettbl_{ lv_uuid_string(20) }|.
+    av_crawler_name = |glu-gettblcr-{ lv_uuid_string }|.
+    av_database_name = |glu_gettbl_{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
@@ -434,7 +434,7 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_job_name = |glu-job-crt-{ lv_uuid_string(20) }|.
+    av_job_name = |glu-job-crt-{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
@@ -474,9 +474,9 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_job_name = |glu-strjob-{ lv_uuid_string(20) }|.
-    av_crawler_name = |glu-strjcr-{ lv_uuid_string(20) }|.
-    av_database_name = |glu_strjdb_{ lv_uuid_string(20) }|.
+    av_job_name = |glu-strjob-{ lv_uuid_string }|.
+    av_crawler_name = |glu-strjcr-{ lv_uuid_string }|.
+    av_database_name = |glu_strjdb_{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
@@ -533,7 +533,7 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_job_name = |glu-lstjob-{ lv_uuid_string(20) }|.
+    av_job_name = |glu-lstjob-{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
@@ -575,9 +575,9 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_job_name = |glu-getjrs-{ lv_uuid_string(20) }|.
-    av_crawler_name = |glu-getjrc-{ lv_uuid_string(20) }|.
-    av_database_name = |glu_getjrd_{ lv_uuid_string(20) }|.
+    av_job_name = |glu-getjrs-{ lv_uuid_string }|.
+    av_crawler_name = |glu-getjrc-{ lv_uuid_string }|.
+    av_database_name = |glu_getjrd_{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
@@ -631,9 +631,9 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_job_name = |glu-getjr-{ lv_uuid_string(20) }|.
-    av_crawler_name = |glu-getjrc-{ lv_uuid_string(20) }|.
-    av_database_name = |glu_getjrd_{ lv_uuid_string(20) }|.
+    av_job_name = |glu-getjr-{ lv_uuid_string }|.
+    av_crawler_name = |glu-getjrc-{ lv_uuid_string }|.
+    av_database_name = |glu_getjrd_{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
@@ -703,7 +703,7 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_job_name = |glu-deljob-{ lv_uuid_string(20) }|.
+    av_job_name = |glu-deljob-{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
@@ -741,8 +741,8 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_crawler_name = |glu-deltbl-{ lv_uuid_string(20) }|.
-    av_database_name = |glu_deltbl_{ lv_uuid_string(20) }|.
+    av_crawler_name = |glu-deltbl-{ lv_uuid_string }|.
+    av_database_name = |glu_deltbl_{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
@@ -805,8 +805,8 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_crawler_name = |glu-deldb-{ lv_uuid_string(20) }|.
-    av_database_name = |glu_deldb_{ lv_uuid_string(20) }|.
+    av_crawler_name = |glu-deldb-{ lv_uuid_string }|.
+    av_database_name = |glu_deldb_{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
@@ -863,8 +863,8 @@ CLASS ltc_awsex_cl_glu_actions IMPLEMENTATION.
     ao_glu_actions = NEW /awsex/cl_glu_actions( ).
     DATA(lv_uuid_string) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
-    av_crawler_name = |glu-delcrl-{ lv_uuid_string(20) }|.
-    av_database_name = |glu_delcrl_{ lv_uuid_string(20) }|.
+    av_crawler_name = |glu-delcrl-{ lv_uuid_string }|.
+    av_database_name = |glu_delcrl_{ lv_uuid_string }|.
     av_role_arn = gav_role_arn.
     av_test_bucket = gav_test_bucket.
 
