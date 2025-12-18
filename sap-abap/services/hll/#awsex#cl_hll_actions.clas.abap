@@ -394,10 +394,16 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
     " snippet-start:[hll.abapv1.list_fhir_import_jobs]
     TRY.
         " iv_datastore_id = 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6'
-        oo_result = lo_hll->listfhirimportjobs(
-          iv_datastoreid = iv_datastore_id
-          iv_submittedafter = iv_submitted_after
-        ).
+        IF iv_submitted_after IS NOT INITIAL.
+          oo_result = lo_hll->listfhirimportjobs(
+            iv_datastoreid = iv_datastore_id
+            iv_submittedafter = iv_submitted_after
+          ).
+        ELSE.
+          oo_result = lo_hll->listfhirimportjobs(
+            iv_datastoreid = iv_datastore_id
+          ).
+        ENDIF.
         DATA(lt_import_jobs) = oo_result->get_importjobpropertieslist( ).
         DATA(lv_job_count) = lines( lt_import_jobs ).
         MESSAGE |Found { lv_job_count } import job(s).| TYPE 'I'.
@@ -497,10 +503,16 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
     " snippet-start:[hll.abapv1.list_fhir_export_jobs]
     TRY.
         " iv_datastore_id = 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6'
-        oo_result = lo_hll->listfhirexportjobs(
-          iv_datastoreid = iv_datastore_id
-          iv_submittedafter = iv_submitted_after
-        ).
+        IF iv_submitted_after IS NOT INITIAL.
+          oo_result = lo_hll->listfhirexportjobs(
+            iv_datastoreid = iv_datastore_id
+            iv_submittedafter = iv_submitted_after
+          ).
+        ELSE.
+          oo_result = lo_hll->listfhirexportjobs(
+            iv_datastoreid = iv_datastore_id
+          ).
+        ENDIF.
         DATA(lt_export_jobs) = oo_result->get_exportjobpropertieslist( ).
         DATA(lv_job_count) = lines( lt_export_jobs ).
         MESSAGE |Found { lv_job_count } export job(s).| TYPE 'I'.
