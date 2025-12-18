@@ -84,7 +84,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
           io_s3 = ao_s3
           io_session = ao_session
         ).
-      CATCH /aws1/cx_s3_bucketalrdyownedbyyou.
+      CATCH /aws1/cx_s3_bktalrdyownedbyyou.
         " Bucket already exists and is owned by us - this is fine
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         cl_abap_unit_assert=>fail( |Failed to create import bucket: { lo_ex->get_text( ) }| ).
@@ -97,7 +97,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
           io_s3 = ao_s3
           io_session = ao_session
         ).
-      CATCH /aws1/cx_s3_bucketalrdyownedbyyou.
+      CATCH /aws1/cx_s3_bktalrdyownedbyyou.
         " Bucket already exists and is owned by us - this is fine
       CATCH /aws1/cx_rt_generic INTO lo_ex.
         cl_abap_unit_assert=>fail( |Failed to create export bucket: { lo_ex->get_text( ) }| ).
