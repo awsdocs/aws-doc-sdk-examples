@@ -197,12 +197,13 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
     " Put test log events with proper epoch timestamps
     DATA lt_events TYPE /aws1/cl_cwlinputlogevent=>tt_inputlogevents.
     DATA lv_timestamp TYPE /aws1/cwltimestamp.
+    DATA lv_event_timestamp TYPE /aws1/cwltimestamp.
 
     lv_timestamp = get_epoch_milliseconds( ).
 
     " Create 10 test log events with incrementing timestamps
     DO 10 TIMES.
-      DATA(lv_event_timestamp) = lv_timestamp + ( sy-index * 1000 ).
+      lv_event_timestamp = lv_timestamp + ( sy-index * 1000 ).
       APPEND NEW /aws1/cl_cwlinputlogevent(
         iv_message = |Test log message { sy-index } from CloudWatch Logs test at { lv_event_timestamp }|
         iv_timestamp = lv_event_timestamp
