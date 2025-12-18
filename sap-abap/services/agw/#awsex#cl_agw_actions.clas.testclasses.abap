@@ -15,7 +15,7 @@ CLASS ltc_awsex_cl_agw_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_stage_name TYPE /aws1/agwstring.
     CLASS-DATA av_table_name TYPE string.
     CLASS-DATA av_role_arn TYPE /aws1/agwstring.
-    CLASS-DATA av_role_name TYPE /aws1/iamrolename.
+    CLASS-DATA av_role_name TYPE /aws1/iamrolenametype.
     CLASS-DATA av_setup_failed TYPE abap_bool.
 
     CLASS-DATA ao_agw TYPE REF TO /aws1/if_agw.
