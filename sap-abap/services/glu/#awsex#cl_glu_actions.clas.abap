@@ -327,15 +327,15 @@ CLASS /AWSEX/CL_GLU_ACTIONS IMPLEMENTATION.
 
         DATA lt_arguments TYPE /aws1/cl_glugenericmap_w=>tt_genericmap.
         lt_arguments = VALUE #(
-          ( NEW /aws1/cl_glugenericmap_w(
-            iv_key = '--input_database'
-            iv_value = iv_input_database ) )
-          ( NEW /aws1/cl_glugenericmap_w(
-            iv_key = '--input_table'
-            iv_value = iv_input_table ) )
-          ( NEW /aws1/cl_glugenericmap_w(
-            iv_key = '--output_bucket_url'
-            iv_value = iv_output_bucket_url ) ) ).
+          ( VALUE /aws1/cl_glugenericmap_w=>ts_genericmap_maprow(
+            key = '--input_database'
+            value = NEW /aws1/cl_glugenericmap_w( iv_value = iv_input_database ) ) )
+          ( VALUE /aws1/cl_glugenericmap_w=>ts_genericmap_maprow(
+            key = '--input_table'
+            value = NEW /aws1/cl_glugenericmap_w( iv_value = iv_input_table ) ) )
+          ( VALUE /aws1/cl_glugenericmap_w=>ts_genericmap_maprow(
+            key = '--output_bucket_url'
+            value = NEW /aws1/cl_glugenericmap_w( iv_value = iv_output_bucket_url ) ) ) ).
 
         DATA(oo_result) = lo_glu->startjobrun(
           iv_jobname = iv_job_name
