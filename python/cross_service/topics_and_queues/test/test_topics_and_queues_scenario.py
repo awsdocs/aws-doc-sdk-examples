@@ -87,7 +87,8 @@ class TestTopicsAndQueuesScenario:
             runner.add(
                 mock_mgr.sns_stubber.stub_create_topic,
                 "test-topic",
-                "arn:aws:sns:us-east-1:123456789012:test-topic"
+                "arn:aws:sns:us-east-1:123456789012:test-topic",
+                {}  # Empty attributes dict for standard (non-FIFO) topic
             )
             runner.add(
                 mock_mgr.sns_stubber.stub_subscribe,
@@ -155,17 +156,18 @@ class TestTopicsAndQueuesScenario:
                 "https://sqs.us-east-1.amazonaws.com/123456789012/test-queue-2",
                 {"Policy": ""}  # Will be replaced with actual policy
             )
+            # Queue polling - only 1 call per queue since empty results break the polling loop
             runner.add(
                 mock_mgr.sqs_stubber.stub_receive_messages,
                 "https://sqs.us-east-1.amazonaws.com/123456789012/test-queue-1",
-                [],
-                10
+                [],  # messages (empty list - causes polling to stop)
+                10   # receive_count (MaxNumberOfMessages)
             )
             runner.add(
                 mock_mgr.sqs_stubber.stub_receive_messages,
                 "https://sqs.us-east-1.amazonaws.com/123456789012/test-queue-2", 
-                [],
-                10
+                [],  # messages (empty list - causes polling to stop)
+                10   # receive_count (MaxNumberOfMessages)
             )
             runner.add(
                 mock_mgr.sqs_stubber.stub_delete_queue,

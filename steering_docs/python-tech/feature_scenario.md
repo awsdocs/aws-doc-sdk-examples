@@ -980,6 +980,149 @@ moto>=4.0.0
 1. **Stubbed Tests** - Use the established stubbing pattern from `test_tools` for fast, reliable unit testing
 2. **Live Integration Tests** - Use `@pytest.mark.integ` decorator to test against real AWS services
 
+### Stubber Method Verification
+
+**CRITICAL**: Before implementing tests, verify that all wrapper methods have corresponding stubber methods available in `python/test_tools/{service}_stubber.py`. 
+
+#### Available Service Stubbers
+Common service stubbers available in `python/test_tools/`:
+- `sns_stubber.py` - Amazon SNS operations
+- `sqs_stubber.py` - Amazon SQS operations  
+- `s3_stubber.py` - Amazon S3 operations
+- `dynamodb_stubber.py` - Amazon DynamoDB operations
+- `lambda_stubber.py` - AWS Lambda operations
+- `iam_stubber.py` - AWS IAM operations
+- `cloudformation_stubber.py` - AWS CloudFormation operations
+- And many more...
+
+#### Verification Process
+
+1. **Check Stubber Availability**: Verify `{service}_stubber.py` exists in `python/test_tools/`
+2. **Review Available Methods**: Examine the stubber class to see what methods are available
+3. **Map Wrapper to Stubber Methods**: Ensure each wrapper method has a corresponding stub method
+
+#### Example Method Mapping
+
+**SNS Wrapper → SNS Stubber Mapping:**
+```python
+# SNS Wrapper Methods → Available Stubber Methods
+create_topic()              → stub_create_topic()
+subscribe_queue_to_topic()  → stub_subscribe() 
+publish_message()           → stub_publish()
+unsubscribe()              → stub_unsubscribe()
+delete_topic()             → stub_delete_topic()
+list_topics()              → stub_list_topics()
+```
+
+**SQS Wrapper → SQS Stubber Mapping:**
+```python
+# SQS Wrapper Methods → Available Stubber Methods  
+create_queue()             → stub_create_queue()
+get_queue_arn()            → stub_get_queue_attributes()
+set_queue_policy_for_topic() → stub_set_queue_attributes()
+receive_messages()         → stub_receive_messages()
+delete_messages()          → stub_delete_message_batch()
+delete_queue()             → stub_delete_queue()
+list_queues()              → stub_list_queues()
+send_message()             → stub_send_message()
+```
+
+#### Missing Stubber Methods
+
+If a wrapper method doesn't have a corresponding stubber method:
+
+1. **Check Other Services**: Some operations may be available in related service stubbers
+2. **Create Custom Stub**: Add the missing stub method to the appropriate stubber class
+3. **Use Generic Stubs**: For simple operations, use `_stub_bifurcator` directly
+4. **Update Test Strategy**: Consider alternative testing approaches for complex operations
+
+#### Stubber Method Parameters
+
+**CRITICAL**: Always verify that stubber method parameters match the actual wrapper implementation calls. Mismatched parameters will cause "Unexpected API Call" errors.
+
+##### Common Parameter Matching Issues
+
+**Problem**: `Error getting response stub for operation CreateTopic: Unexpected API Call: A call was made but no additional calls expected.`
+
+**Root Cause**: The wrapper method passes different parameters than what the stubber expects.
+
+##### Parameter Verification Process
+
+1. **Check Wrapper Implementation**: Examine how the wrapper method calls the AWS client
+2. **Check Stubber Signature**: Review the stubber method parameter requirements
+3. **Match Parameters Exactly**: Ensure stub parameters match wrapper call parameters
+
+##### Example: SNS CreateTopic Parameter Matching
+
+**Wrapper Implementation Analysis:**
+```python
+# From sns_wrapper.py create_topic method:
+attributes = {}
+if is_fifo:
+    attributes['FifoTopic'] = 'true'
+    if content_based_deduplication:
+        attributes['ContentBasedDeduplication'] = 'true'
+
+response = self.sns_client.create_topic(
+    Name=topic_name,
+    Attributes=attributes  # ALWAYS passed, even if empty for standard topics
+)
+```
+
+**Stubber Method Signature:**
+```python
+# From sns_stubber.py:
+def stub_create_topic(self, topic_name, topic_arn, topic_attributes=None, error_code=None):
+    expected_params = {"Name": topic_name}
+    if topic_attributes is not None:
+        expected_params["Attributes"] = topic_attributes
+```
+
+**Correct Test Stub Usage:**
+```python
+# For standard (non-FIFO) topic - MUST include empty attributes
+runner.add(
+    mock_mgr.sns_stubber.stub_create_topic,
+    "test-topic",                                    # topic_name
+    "arn:aws:sns:us-east-1:123456789012:test-topic", # topic_arn
+    {},                                             # topic_attributes (empty dict for standard)
+)
+
+# For FIFO topic - include FIFO attributes
+runner.add(
+    mock_mgr.sns_stubber.stub_create_topic,
+    "test-topic.fifo",                               # topic_name  
+    "arn:aws:sns:us-east-1:123456789012:test-topic.fifo", # topic_arn
+    {"FifoTopic": "true"},                          # topic_attributes (FIFO settings)
+)
+```
+
+##### Debugging Parameter Mismatches
+
+**Step 1**: Enable detailed logging to see actual vs expected parameters:
+```python
+import logging
+logging.basicConfig(level=logging.DEBUG)
+```
+
+**Step 2**: Compare wrapper client call with stubber expected_params:
+- Print wrapper parameters before AWS client call
+- Check stubber `expected_params` dictionary construction
+- Ensure all parameters match exactly (including optional ones)
+
+**Step 3**: Common parameter patterns:
+```python
+# SNS Operations
+create_topic()    → Always passes Attributes (even if empty dict)
+subscribe()       → May include Attributes for filter policies  
+publish()         → May include MessageAttributes, MessageGroupId, etc.
+
+# SQS Operations  
+create_queue()    → Always passes Attributes (even if empty dict)
+receive_message() → Always passes MessageAttributeNames, WaitTimeSeconds
+send_message()    → May include MessageAttributes, DelaySeconds, etc.
+```
+
 ### Pytest Integration Test Pattern with Stubbing
 
 Integration tests should use the established stubbing pattern from `test_tools` and verify no errors are logged:
@@ -1053,18 +1196,51 @@ class TestScenarioIntegration:
         # Set up stubs for AWS operations
         with mock_mgr.stub_runner(None, None) as runner:
             # Add stubs for each AWS operation the scenario will perform
+            # Example for SNS operations:
             runner.add(
-                mock_mgr.{service}_stubber.stub_create_resource,
-                "test-resource-name",
-                "arn:aws:{service}:us-east-1:123456789012:resource/test-resource",
+                mock_mgr.sns_stubber.stub_create_topic,
+                "test-topic",
+                "arn:aws:sns:us-east-1:123456789012:test-topic",
             )
             runner.add(
-                mock_mgr.{service}_stubber.stub_list_resources,
-                ["arn:aws:{service}:us-east-1:123456789012:resource/test-resource"],
+                mock_mgr.sns_stubber.stub_subscribe,
+                "arn:aws:sns:us-east-1:123456789012:test-topic",
+                "sqs",
+                "arn:aws:sqs:us-east-1:123456789012:test-queue",
+                "arn:aws:sns:us-east-1:123456789012:test-topic:subscription-id",
             )
             runner.add(
-                mock_mgr.{service}_stubber.stub_delete_resource,
-                "arn:aws:{service}:us-east-1:123456789012:resource/test-resource",
+                mock_mgr.sns_stubber.stub_publish,
+                "Test message",
+                "message-id-123",
+                topic_arn="arn:aws:sns:us-east-1:123456789012:test-topic",
+            )
+            runner.add(
+                mock_mgr.sns_stubber.stub_delete_topic,
+                "arn:aws:sns:us-east-1:123456789012:test-topic",
+            )
+            
+            # Example for SQS operations:
+            runner.add(
+                mock_mgr.sqs_stubber.stub_create_queue,
+                "test-queue",
+                {},
+                "https://sqs.us-east-1.amazonaws.com/123456789012/test-queue",
+            )
+            runner.add(
+                mock_mgr.sqs_stubber.stub_get_queue_attributes,
+                "https://sqs.us-east-1.amazonaws.com/123456789012/test-queue",
+                "arn:aws:sqs:us-east-1:123456789012:test-queue",
+            )
+            runner.add(
+                mock_mgr.sqs_stubber.stub_receive_messages,
+                "https://sqs.us-east-1.amazonaws.com/123456789012/test-queue",
+                [{"body": "Test message"}],
+                1,
+            )
+            runner.add(
+                mock_mgr.sqs_stubber.stub_delete_queue,
+                "https://sqs.us-east-1.amazonaws.com/123456789012/test-queue",
             )
 
             # Act - Run the scenario
