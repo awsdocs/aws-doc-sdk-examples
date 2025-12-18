@@ -191,8 +191,8 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
           iv_launchtemplatename = av_launch_template_name
           io_launchtemplatedata = lo_template_data ).
         av_launch_template_id = lo_create_result->get_launchtemplate( )->get_launchtemplateid( ).
-      CATCH /aws1/cx_ec2invalidlnchtmpln00.
-        " Already exists, try to get it
+      CATCH /aws1/cx_rt_generic.
+        " If creation failed, try to get existing template
         TRY.
             DATA(lo_describe_result) = ao_ec2->describelaunchtemplates(
               it_launchtmplnames = VALUE /aws1/cl_ec2lnchtmplnmestrlst=>tt_launchtemplatenamestringlist(
@@ -215,8 +215,8 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
           iv_launchtemplatename = av_lnch_tmpl_name_term
           io_launchtemplatedata = lo_template_data ).
         av_lnch_tmpl_id_term = lo_create_result->get_launchtemplate( )->get_launchtemplateid( ).
-      CATCH /aws1/cx_ec2invalidlnchtmpln00.
-        " Already exists, try to get it
+      CATCH /aws1/cx_rt_generic.
+        " If creation failed, try to get existing template
         TRY.
             lo_describe_result = ao_ec2->describelaunchtemplates(
               it_launchtmplnames = VALUE /aws1/cl_ec2lnchtmplnmestrlst=>tt_launchtemplatenamestringlist(
