@@ -141,7 +141,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
     TRY.
         DATA(lo_create_role_result) = ao_iam->createrole(
           iv_rolename = lv_role_name
-          iv_assumerolepolicydoc = lv_trust_policy
+          iv_assumerolepolicydocument = lv_trust_policy
           it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
             ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
           )
