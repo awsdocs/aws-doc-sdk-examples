@@ -6,7 +6,6 @@ CLASS /awsex/cl_hll_actions DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
-    " snippet-start:[hll.abapv1.create_fhir_datastore]
     "! <p class="shorttext synchronized" lang="en">Creates a new HealthLake data store</p>
     "! @parameter iv_datastore_name | <p class="shorttext synchronized" lang="en">The name of the data store</p>
     "! @parameter oo_result | <p class="shorttext synchronized" lang="en">The response object containing data store information</p>
@@ -18,9 +17,7 @@ CLASS /awsex/cl_hll_actions DEFINITION
         !oo_result         TYPE REF TO /aws1/cl_hllcrefhirdatastore01
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[hll.abapv1.create_fhir_datastore]
 
-    " snippet-start:[hll.abapv1.describe_fhir_datastore]
     "! <p class="shorttext synchronized" lang="en">Describes a HealthLake data store</p>
     "! @parameter iv_datastore_id | <p class="shorttext synchronized" lang="en">The data store ID</p>
     "! @parameter oo_result | <p class="shorttext synchronized" lang="en">The response object containing data store properties</p>
@@ -32,9 +29,7 @@ CLASS /awsex/cl_hll_actions DEFINITION
         !oo_result       TYPE REF TO /aws1/cl_hlldscfhirdatastore01
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[hll.abapv1.describe_fhir_datastore]
 
-    " snippet-start:[hll.abapv1.list_fhir_datastores]
     "! <p class="shorttext synchronized" lang="en">Lists all HealthLake data stores</p>
     "! @parameter oo_result | <p class="shorttext synchronized" lang="en">The response object containing list of data stores</p>
     "! @raising /aws1/cx_rt_generic | <p class="shorttext synchronized" lang="en">Raising exception in case of an error</p>
@@ -43,9 +38,7 @@ CLASS /awsex/cl_hll_actions DEFINITION
         !oo_result TYPE REF TO /aws1/cl_hlllstfhirdatastore01
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[hll.abapv1.list_fhir_datastores]
 
-    " snippet-start:[hll.abapv1.delete_fhir_datastore]
     "! <p class="shorttext synchronized" lang="en">Deletes a HealthLake data store</p>
     "! @parameter iv_datastore_id | <p class="shorttext synchronized" lang="en">The data store ID</p>
     "! @parameter oo_result | <p class="shorttext synchronized" lang="en">The response object</p>
@@ -57,9 +50,7 @@ CLASS /awsex/cl_hll_actions DEFINITION
         !oo_result       TYPE REF TO /aws1/cl_hlldelfhirdatastore01
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[hll.abapv1.delete_fhir_datastore]
 
-    " snippet-start:[hll.abapv1.start_fhir_import_job]
     "! <p class="shorttext synchronized" lang="en">Starts a HealthLake import job</p>
     "! @parameter iv_job_name | <p class="shorttext synchronized" lang="en">The import job name</p>
     "! @parameter iv_datastore_id | <p class="shorttext synchronized" lang="en">The data store ID</p>
@@ -81,9 +72,7 @@ CLASS /awsex/cl_hll_actions DEFINITION
         !oo_result                TYPE REF TO /aws1/cl_hllstartfhirimpjobrsp
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[hll.abapv1.start_fhir_import_job]
 
-    " snippet-start:[hll.abapv1.describe_fhir_import_job]
     "! <p class="shorttext synchronized" lang="en">Describes a HealthLake import job</p>
     "! @parameter iv_datastore_id | <p class="shorttext synchronized" lang="en">The data store ID</p>
     "! @parameter iv_job_id | <p class="shorttext synchronized" lang="en">The import job ID</p>
@@ -97,9 +86,7 @@ CLASS /awsex/cl_hll_actions DEFINITION
         !oo_result       TYPE REF TO /aws1/cl_hlldescrfhirimpjobrsp
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[hll.abapv1.describe_fhir_import_job]
 
-    " snippet-start:[hll.abapv1.list_fhir_import_jobs]
     "! <p class="shorttext synchronized" lang="en">Lists HealthLake import jobs</p>
     "! @parameter iv_datastore_id | <p class="shorttext synchronized" lang="en">The data store ID</p>
     "! @parameter iv_submitted_after | <p class="shorttext synchronized" lang="en">Filter jobs submitted after this date</p>
@@ -113,9 +100,7 @@ CLASS /awsex/cl_hll_actions DEFINITION
         !oo_result           TYPE REF TO /aws1/cl_hlllistfhirimpjobsrsp
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[hll.abapv1.list_fhir_import_jobs]
 
-    " snippet-start:[hll.abapv1.start_fhir_export_job]
     "! <p class="shorttext synchronized" lang="en">Starts a HealthLake export job</p>
     "! @parameter iv_job_name | <p class="shorttext synchronized" lang="en">The export job name</p>
     "! @parameter iv_datastore_id | <p class="shorttext synchronized" lang="en">The data store ID</p>
@@ -135,9 +120,7 @@ CLASS /awsex/cl_hll_actions DEFINITION
         !oo_result                TYPE REF TO /aws1/cl_hllstartfhirexpjobrsp
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[hll.abapv1.start_fhir_export_job]
 
-    " snippet-start:[hll.abapv1.describe_fhir_export_job]
     "! <p class="shorttext synchronized" lang="en">Describes a HealthLake export job</p>
     "! @parameter iv_datastore_id | <p class="shorttext synchronized" lang="en">The data store ID</p>
     "! @parameter iv_job_id | <p class="shorttext synchronized" lang="en">The export job ID</p>
@@ -151,9 +134,7 @@ CLASS /awsex/cl_hll_actions DEFINITION
         !oo_result       TYPE REF TO /aws1/cl_hlldescrfhirexpjobrsp
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[hll.abapv1.describe_fhir_export_job]
 
-    " snippet-start:[hll.abapv1.list_fhir_export_jobs]
     "! <p class="shorttext synchronized" lang="en">Lists HealthLake export jobs</p>
     "! @parameter iv_datastore_id | <p class="shorttext synchronized" lang="en">The data store ID</p>
     "! @parameter iv_submitted_after | <p class="shorttext synchronized" lang="en">Filter jobs submitted after this date</p>
@@ -167,9 +148,7 @@ CLASS /awsex/cl_hll_actions DEFINITION
         !oo_result           TYPE REF TO /aws1/cl_hlllistfhirexpjobsrsp
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[hll.abapv1.list_fhir_export_jobs]
 
-    " snippet-start:[hll.abapv1.tag_resource]
     "! <p class="shorttext synchronized" lang="en">Tags a HealthLake resource</p>
     "! @parameter iv_resource_arn | <p class="shorttext synchronized" lang="en">The resource ARN</p>
     "! @parameter it_tags | <p class="shorttext synchronized" lang="en">The tags to add</p>
@@ -180,9 +159,7 @@ CLASS /awsex/cl_hll_actions DEFINITION
         !it_tags         TYPE /aws1/cl_hlltag=>tt_taglist
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[hll.abapv1.tag_resource]
 
-    " snippet-start:[hll.abapv1.list_tags_for_resource]
     "! <p class="shorttext synchronized" lang="en">Lists tags for a HealthLake resource</p>
     "! @parameter iv_resource_arn | <p class="shorttext synchronized" lang="en">The resource ARN</p>
     "! @parameter ot_tags | <p class="shorttext synchronized" lang="en">The tags for the resource</p>
@@ -194,9 +171,7 @@ CLASS /awsex/cl_hll_actions DEFINITION
         !ot_tags         TYPE /aws1/cl_hlltag=>tt_taglist
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[hll.abapv1.list_tags_for_resource]
 
-    " snippet-start:[hll.abapv1.untag_resource]
     "! <p class="shorttext synchronized" lang="en">Untags a HealthLake resource</p>
     "! @parameter iv_resource_arn | <p class="shorttext synchronized" lang="en">The resource ARN</p>
     "! @parameter it_tag_keys | <p class="shorttext synchronized" lang="en">The tag keys to remove</p>
@@ -207,7 +182,6 @@ CLASS /awsex/cl_hll_actions DEFINITION
         !it_tag_keys     TYPE /aws1/cl_hlltagkeylist_w=>tt_tagkeylist
       RAISING
         /aws1/cx_rt_generic .
-    " snippet-end:[hll.abapv1.untag_resource]
 
   PROTECTED SECTION.
   PRIVATE SECTION.
