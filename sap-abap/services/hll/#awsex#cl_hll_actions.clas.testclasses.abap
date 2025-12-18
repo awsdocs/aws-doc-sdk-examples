@@ -184,7 +184,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
                             |"Version":"2012-10-17",| &&
                             |"Statement":[\{| &&
                             |"Effect":"Allow",| &&
-                            |"Action":["s3:GetObject","s3:PutObject","s3:ListBucket","kms:Decrypt","kms:GenerateDataKey"],| &&
+                            |"Action":["s3:GetObject","s3:PutObject","s3:ListBucket","kms:Decrypt","kms:GenerateDataKey","kms:DescribeKey"],| &&
                             |"Resource":["arn:aws:s3:::{ av_import_bucket }/*","arn:aws:s3:::{ av_import_bucket }",| &&
                             |"arn:aws:s3:::{ av_export_bucket }/*","arn:aws:s3:::{ av_export_bucket }","*"]| &&
                             |\}]| &&
@@ -217,7 +217,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
                        |"Sid":"Allow HealthLake to use the key",| &&
                        |"Effect":"Allow",| &&
                        |"Principal":\{"Service":"healthlake.amazonaws.com"\},| &&
-                       |"Action":["kms:Decrypt","kms:GenerateDataKey"],| &&
+                       |"Action":["kms:Decrypt","kms:GenerateDataKey","kms:DescribeKey"],| &&
                        |"Resource":"*"| &&
                        |\}]| &&
                        |\}|.
@@ -662,14 +662,6 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
         ELSE.
           RAISE EXCEPTION lo_validation_ex.
         ENDIF.
-      CATCH /aws1/cx_hllaccessdeniedex INTO DATA(lo_access_ex).
-        " KMS permission issue - this is expected in test environment
-        " The test verifies the method can be called correctly
-        IF lo_access_ex->av_err_msg CS 'kms:DescribeKey'.
-          MESSAGE 'Start FHIR import job method verified (KMS permission expected in test).' TYPE 'I'.
-        ELSE.
-          RAISE EXCEPTION lo_access_ex.
-        ENDIF.
     ENDTRY.
   ENDMETHOD.
 
@@ -796,14 +788,6 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
           MESSAGE 'Start FHIR export job method verified (role trust policy expected in test).' TYPE 'I'.
         ELSE.
           RAISE EXCEPTION lo_validation_ex.
-        ENDIF.
-      CATCH /aws1/cx_hllaccessdeniedex INTO DATA(lo_access_ex).
-        " KMS permission issue - this is expected in test environment
-        " The test verifies the method can be called correctly
-        IF lo_access_ex->av_err_msg CS 'kms:DescribeKey'.
-          MESSAGE 'Start FHIR export job method verified (KMS permission expected in test).' TYPE 'I'.
-        ELSE.
-          RAISE EXCEPTION lo_access_ex.
         ENDIF.
     ENDTRY.
   ENDMETHOD.
