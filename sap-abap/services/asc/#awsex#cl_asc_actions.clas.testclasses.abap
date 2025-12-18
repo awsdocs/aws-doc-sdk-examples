@@ -20,22 +20,113 @@ CLASS ltc_awsex_cl_asc_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_lnch_tmpl_name_term TYPE /aws1/asclaunchtemplatename.
     CLASS-DATA av_lnch_tmpl_id_term TYPE /aws1/ascxmlstringmaxlen255.
     CLASS-DATA av_default_subnet_id TYPE /aws1/ec2string.
-    CLASS-DATA av_has_default_vpc TYPE abap_bool.
+    CLASS-DATA av_default_vpc_id TYPE /aws1/ec2string.
 
-    METHODS: create_and_describe_group FOR TESTING RAISING /aws1/cx_rt_generic,
-      update_group FOR TESTING RAISING /aws1/cx_rt_generic,
+    METHODS: create_autoscaling_group FOR TESTING RAISING /aws1/cx_rt_generic,
+      describe_autoscaling_groups FOR TESTING RAISING /aws1/cx_rt_generic,
+      update_autoscaling_group FOR TESTING RAISING /aws1/cx_rt_generic,
       set_desired_capacity FOR TESTING RAISING /aws1/cx_rt_generic,
-      describe_instances FOR TESTING RAISING /aws1/cx_rt_generic,
+      describe_autoscaling_insts FOR TESTING RAISING /aws1/cx_rt_generic,
       describe_scaling_activities FOR TESTING RAISING /aws1/cx_rt_generic,
-      enable_and_disable_metrics FOR TESTING RAISING /aws1/cx_rt_generic,
-      get_group_instances FOR TESTING RAISING /aws1/cx_rt_generic,
-      terminate_inst_and_del_group FOR TESTING RAISING /aws1/cx_rt_generic.
+      enable_metrics_collection FOR TESTING RAISING /aws1/cx_rt_generic,
+      disable_metrics_collection FOR TESTING RAISING /aws1/cx_rt_generic,
+      terminate_instance_in_asg FOR TESTING RAISING /aws1/cx_rt_generic,
+      delete_autoscaling_group FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
+    CLASS-METHODS find_default_vpc
+      RETURNING VALUE(rv_subnet_id) TYPE /aws1/ec2string
+      RAISING   /aws1/cx_rt_generic.
+    CLASS-METHODS wait_for_group_ready
+      IMPORTING iv_group_name    TYPE /aws1/ascxmlstringmaxlen255
+                iv_expected_state TYPE string DEFAULT 'InService'
+      RAISING   /aws1/cx_rt_generic.
 ENDCLASS.
 
 CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
+
+  METHOD find_default_vpc.
+    DATA lt_vpcs TYPE /aws1/cl_ec2vpc=>tt_vpclist.
+    DATA lo_vpc TYPE REF TO /aws1/cl_ec2vpc.
+    DATA lt_subnets TYPE /aws1/cl_ec2subnet=>tt_subnetlist.
+    DATA lo_subnet TYPE REF TO /aws1/cl_ec2subnet.
+
+    " Find the default VPC
+    DATA(lo_vpcs_result) = ao_ec2->describevpcs( ).
+    lt_vpcs = lo_vpcs_result->get_vpcs( ).
+
+    LOOP AT lt_vpcs INTO lo_vpc.
+      IF lo_vpc->get_isdefault( ) = abap_true.
+        av_default_vpc_id = lo_vpc->get_vpcid( ).
+        " Found default VPC, now get a subnet from it
+        DATA(lo_subnets_result) = ao_ec2->describesubnets( ).
+        lt_subnets = lo_subnets_result->get_subnets( ).
+
+        LOOP AT lt_subnets INTO lo_subnet.
+          IF lo_subnet->get_vpcid( ) = av_default_vpc_id.
+            rv_subnet_id = lo_subnet->get_subnetid( ).
+            EXIT.
+          ENDIF.
+        ENDLOOP.
+        EXIT.
+      ENDIF.
+    ENDLOOP.
+
+    IF rv_subnet_id IS INITIAL.
+      cl_abap_unit_assert=>fail( 'No default VPC found. Cannot proceed with Auto Scaling tests.' ).
+    ENDIF.
+  ENDMETHOD.
+
+  METHOD wait_for_group_ready.
+    DATA lv_retry TYPE i VALUE 0.
+    DATA lv_max_retries TYPE i VALUE 60.
+    DATA lv_ready TYPE abap_bool VALUE abap_false.
+    DATA lt_group_names TYPE /aws1/cl_ascautoscgroupnames_w=>tt_autoscalinggroupnames.
+    DATA lo_group_name TYPE REF TO /aws1/cl_ascautoscgroupnames_w.
+    DATA lt_instances TYPE /aws1/cl_ascinstance=>tt_instances.
+    DATA lo_instance TYPE REF TO /aws1/cl_ascinstance.
+
+    CREATE OBJECT lo_group_name EXPORTING iv_value = iv_group_name.
+    APPEND lo_group_name TO lt_group_names.
+
+    WHILE lv_retry < lv_max_retries AND lv_ready = abap_false.
+      TRY.
+          DATA(lo_output) = ao_asc->describeautoscalinggroups(
+            it_autoscalinggroupnames = lt_group_names ).
+
+          DATA(lt_groups) = lo_output->get_autoscalinggroups( ).
+          IF lines( lt_groups ) > 0.
+            READ TABLE lt_groups INDEX 1 INTO DATA(lo_group).
+            lt_instances = lo_group->get_instances( ).
+
+            IF lines( lt_instances ) > 0.
+              lv_ready = abap_true.
+              LOOP AT lt_instances INTO lo_instance.
+                IF lo_instance->get_lifecyclestate( ) <> iv_expected_state.
+                  lv_ready = abap_false.
+                  EXIT.
+                ENDIF.
+              ENDLOOP.
+            ELSEIF lo_group->get_desiredcapacity( ) = 0.
+              " If desired capacity is 0, no instances expected
+              lv_ready = abap_true.
+            ENDIF.
+          ENDIF.
+        CATCH /aws1/cx_rt_generic.
+          " Continue retrying
+      ENDTRY.
+
+      IF lv_ready = abap_false.
+        WAIT UP TO 5 SECONDS.
+        lv_retry = lv_retry + 1.
+      ENDIF.
+    ENDWHILE.
+
+    IF lv_ready = abap_false.
+      cl_abap_unit_assert=>fail( |Auto Scaling group { iv_group_name } instances did not reach { iv_expected_state } state within timeout| ).
+    ENDIF.
+  ENDMETHOD.
 
   METHOD class_setup.
     DATA lv_uuid TYPE string.
@@ -45,48 +136,15 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     DATA lt_tag_specs TYPE /aws1/cl_ec2launchtmpltgspec00=>tt_launchtmpltagspecreqlist.
     DATA lo_template_data TYPE REF TO /aws1/cl_ec2reqlaunchtmpldata.
     DATA lo_create_result TYPE REF TO /aws1/cl_ec2crelaunchtmplrslt.
-    DATA lt_vpcs TYPE /aws1/cl_ec2vpc=>tt_vpclist.
-    DATA lo_vpc TYPE REF TO /aws1/cl_ec2vpc.
-    DATA lt_subnets TYPE /aws1/cl_ec2subnet=>tt_subnetlist.
-    DATA lo_subnet TYPE REF TO /aws1/cl_ec2subnet.
 
+    " Initialize session and clients
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_asc = /aws1/cl_asc_factory=>create( ao_session ).
     ao_ec2 = /aws1/cl_ec2_factory=>create( ao_session ).
     ao_asc_actions = NEW /awsex/cl_asc_actions( ao_session ).
 
-    " Find the default VPC and a subnet in it
-    TRY.
-        " Describe VPCs to find the default one
-        DATA(lo_vpcs_result) = ao_ec2->describevpcs( ).
-        lt_vpcs = lo_vpcs_result->get_vpcs( ).
-        
-        LOOP AT lt_vpcs INTO lo_vpc.
-          IF lo_vpc->get_isdefault( ) = abap_true.
-            " Found default VPC, now get a subnet from it
-            DATA(lo_subnets_result) = ao_ec2->describesubnets( ).
-            lt_subnets = lo_subnets_result->get_subnets( ).
-            
-            LOOP AT lt_subnets INTO lo_subnet.
-              IF lo_subnet->get_vpcid( ) = lo_vpc->get_vpcid( ).
-                av_default_subnet_id = lo_subnet->get_subnetid( ).
-                av_has_default_vpc = abap_true.
-                EXIT.
-              ENDIF.
-            ENDLOOP.
-            EXIT.
-          ENDIF.
-        ENDLOOP.
-      CATCH /aws1/cx_rt_generic.
-        " No default VPC found, tests will be skipped
-        av_has_default_vpc = abap_false.
-    ENDTRY.
-
-    IF av_has_default_vpc = abap_false.
-      " Skip all tests if no default VPC
-      MESSAGE 'No default VPC found. Auto Scaling tests will be skipped.' TYPE 'W'.
-      RETURN.
-    ENDIF.
+    " Find the default VPC - MUST succeed or tests will fail
+    av_default_subnet_id = find_default_vpc( ).
 
     " Generate unique names using utility function
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
@@ -95,7 +153,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     av_group_name_term = |asc-term-{ lv_uuid }|.
     av_lnch_tmpl_name_term = |asc-tmpl-t-{ lv_uuid }|.
 
-    " Create tags for all resources
+    " Create tags for all resources with convert_test tag
     lo_tag = NEW /aws1/cl_ec2tag(
       iv_key = 'convert_test'
       iv_value = 'true' ).
@@ -109,83 +167,107 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     " Get region-specific AMI ID based on test region
     DATA lv_ami_id TYPE string.
     DATA(lv_region) = ao_session->get_region( ).
-    
+
     CASE lv_region.
       WHEN 'us-west-2'.
-        lv_ami_id = 'ami-0a38c1c38a15fed74'.  " Amazon Linux 2023
+        lv_ami_id = 'ami-0a38c1c38a15fed74'.
       WHEN 'us-east-1'.
-        lv_ami_id = 'ami-0aa7d40eeae50c9a9'.  " Amazon Linux 2023
+        lv_ami_id = 'ami-0aa7d40eeae50c9a9'.
       WHEN 'eu-west-1'.
-        lv_ami_id = 'ami-0d940f23d527c3ab1'.  " Amazon Linux 2023
+        lv_ami_id = 'ami-0d940f23d527c3ab1'.
       WHEN OTHERS.
-        lv_ami_id = 'ami-0a38c1c38a15fed74'.  " Default to us-west-2
+        lv_ami_id = 'ami-0a38c1c38a15fed74'.
     ENDCASE.
 
-    " Use region-appropriate Amazon Linux 2023 AMI
+    " Create launch template data
     lo_template_data = NEW /aws1/cl_ec2reqlaunchtmpldata(
       iv_imageid = lv_ami_id
       iv_instancetype = 't2.micro'
       it_tagspecifications = lt_tag_specs ).
 
-    " Create main launch template
+    " Create main launch template - MUST succeed
     TRY.
         lo_create_result = ao_ec2->createlaunchtemplate(
           iv_launchtemplatename = av_launch_template_name
           io_launchtemplatedata = lo_template_data ).
         av_launch_template_id = lo_create_result->get_launchtemplate( )->get_launchtemplateid( ).
-      CATCH /aws1/cx_rt_generic.
-        " Ignore if already exists
+      CATCH /aws1/cx_ec2invalidlnchtmpln00.
+        " Already exists, try to get it
+        TRY.
+            DATA(lo_describe_result) = ao_ec2->describelaunchtemplates(
+              it_launchtmplnames = VALUE /aws1/cl_ec2lnchtmplnmestrlst=>tt_launchtemplatenamestringlist(
+                ( NEW /aws1/cl_ec2lnchtmplnmestrlst( iv_value = av_launch_template_name ) ) ) ).
+            DATA(lt_templates) = lo_describe_result->get_launchtemplates( ).
+            IF lines( lt_templates ) > 0.
+              READ TABLE lt_templates INDEX 1 INTO DATA(lo_template).
+              av_launch_template_id = lo_template->get_launchtemplateid( ).
+            ELSE.
+              cl_abap_unit_assert=>fail( |Failed to create or find launch template { av_launch_template_name }| ).
+            ENDIF.
+          CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+            cl_abap_unit_assert=>fail( |Failed to create or find launch template { av_launch_template_name }: { lo_ex->get_text( ) }| ).
+        ENDTRY.
     ENDTRY.
 
-    " Create terminate test launch template
+    " Create terminate test launch template - MUST succeed
     TRY.
         lo_create_result = ao_ec2->createlaunchtemplate(
           iv_launchtemplatename = av_lnch_tmpl_name_term
           io_launchtemplatedata = lo_template_data ).
         av_lnch_tmpl_id_term = lo_create_result->get_launchtemplate( )->get_launchtemplateid( ).
-      CATCH /aws1/cx_rt_generic.
-        " Ignore if already exists
+      CATCH /aws1/cx_ec2invalidlnchtmpln00.
+        " Already exists, try to get it
+        TRY.
+            lo_describe_result = ao_ec2->describelaunchtemplates(
+              it_launchtmplnames = VALUE /aws1/cl_ec2lnchtmplnmestrlst=>tt_launchtemplatenamestringlist(
+                ( NEW /aws1/cl_ec2lnchtmplnmestrlst( iv_value = av_lnch_tmpl_name_term ) ) ) ).
+            lt_templates = lo_describe_result->get_launchtemplates( ).
+            IF lines( lt_templates ) > 0.
+              READ TABLE lt_templates INDEX 1 INTO lo_template.
+              av_lnch_tmpl_id_term = lo_template->get_launchtemplateid( ).
+            ELSE.
+              cl_abap_unit_assert=>fail( |Failed to create or find launch template { av_lnch_tmpl_name_term }| ).
+            ENDIF.
+          CATCH /aws1/cx_rt_generic INTO lo_ex.
+            cl_abap_unit_assert=>fail( |Failed to create or find launch template { av_lnch_tmpl_name_term }: { lo_ex->get_text( ) }| ).
+        ENDTRY.
     ENDTRY.
+
+    MESSAGE 'Class setup completed successfully' TYPE 'I'.
   ENDMETHOD.
 
   METHOD class_teardown.
     DATA lt_instances TYPE /aws1/cl_ascinstance=>tt_instances.
     DATA lo_instance TYPE REF TO /aws1/cl_ascinstance.
-    DATA lt_group_names TYPE /aws1/cl_ascautoscgroupnames_w=>tt_autoscalinggroupnames.
-    DATA lo_group_name TYPE REF TO /aws1/cl_ascautoscgroupnames_w.
-    DATA lo_output TYPE REF TO /aws1/cl_ascautoscgroupstype.
-    DATA lt_groups TYPE /aws1/cl_ascautoscalinggroup=>tt_autoscalinggroups.
-    DATA lo_group TYPE REF TO /aws1/cl_ascautoscalinggroup.
 
     " Clean up main Auto Scaling group
     IF av_group_name IS NOT INITIAL.
       TRY.
+          " Set minimum to 0 and desired capacity to 0
           ao_asc->updateautoscalinggroup(
             iv_autoscalinggroupname = av_group_name
             iv_minsize = 0
             iv_desiredcapacity = 0 ).
           WAIT UP TO 5 SECONDS.
 
-          CREATE OBJECT lo_group_name EXPORTING iv_value = av_group_name.
-          APPEND lo_group_name TO lt_group_names.
-          lo_output = ao_asc->describeautoscalinggroups(
-            it_autoscalinggroupnames = lt_group_names ).
-          lt_groups = lo_output->get_autoscalinggroups( ).
-          IF lines( lt_groups ) > 0.
-            READ TABLE lt_groups INDEX 1 INTO lo_group.
+          " Get instances and terminate them
+          DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
+          IF lo_group IS BOUND.
             lt_instances = lo_group->get_instances( ).
+            LOOP AT lt_instances INTO lo_instance.
+              TRY.
+                  ao_asc->terminateinstinautoscgroup(
+                    iv_instanceid = lo_instance->get_instanceid( )
+                    iv_shoulddecrementdesiredcap = abap_true ).
+                CATCH /aws1/cx_rt_generic.
+              ENDTRY.
+            ENDLOOP.
           ENDIF.
 
-          LOOP AT lt_instances INTO lo_instance.
-            TRY.
-                ao_asc->terminateinstinautoscgroup(
-                  iv_instanceid = lo_instance->get_instanceid( )
-                  iv_shoulddecrementdesiredcap = abap_true ).
-              CATCH /aws1/cx_rt_generic.
-            ENDTRY.
-          ENDLOOP.
+          " Wait for instances to terminate
           WAIT UP TO 30 SECONDS.
 
+          " Delete the group
           ao_asc->deleteautoscalinggroup(
             iv_autoscalinggroupname = av_group_name ).
         CATCH /aws1/cx_rt_generic.
@@ -201,25 +283,20 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
             iv_desiredcapacity = 0 ).
           WAIT UP TO 5 SECONDS.
 
-          CLEAR: lt_group_names, lt_instances, lt_groups.
-          CREATE OBJECT lo_group_name EXPORTING iv_value = av_group_name_term.
-          APPEND lo_group_name TO lt_group_names.
-          lo_output = ao_asc->describeautoscalinggroups(
-            it_autoscalinggroupnames = lt_group_names ).
-          lt_groups = lo_output->get_autoscalinggroups( ).
-          IF lines( lt_groups ) > 0.
-            READ TABLE lt_groups INDEX 1 INTO lo_group.
+          lo_group = ao_asc_actions->describe_group( av_group_name_term ).
+          IF lo_group IS BOUND.
+            CLEAR lt_instances.
             lt_instances = lo_group->get_instances( ).
+            LOOP AT lt_instances INTO lo_instance.
+              TRY.
+                  ao_asc->terminateinstinautoscgroup(
+                    iv_instanceid = lo_instance->get_instanceid( )
+                    iv_shoulddecrementdesiredcap = abap_true ).
+                CATCH /aws1/cx_rt_generic.
+              ENDTRY.
+            ENDLOOP.
           ENDIF.
 
-          LOOP AT lt_instances INTO lo_instance.
-            TRY.
-                ao_asc->terminateinstinautoscgroup(
-                  iv_instanceid = lo_instance->get_instanceid( )
-                  iv_shoulddecrementdesiredcap = abap_true ).
-              CATCH /aws1/cx_rt_generic.
-            ENDTRY.
-          ENDLOOP.
           WAIT UP TO 30 SECONDS.
 
           ao_asc->deleteautoscalinggroup(
@@ -228,8 +305,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
       ENDTRY.
     ENDIF.
 
-    " Clean up launch templates - Note: Instances created from templates take time to terminate
-    " These are tagged with 'convert_test' for manual cleanup if needed
+    " Clean up launch templates - Note: tagged with 'convert_test' for manual cleanup if needed
     IF av_launch_template_id IS NOT INITIAL.
       TRY.
           ao_ec2->deletelaunchtemplate(
@@ -247,16 +323,8 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     ENDIF.
   ENDMETHOD.
 
-  METHOD create_and_describe_group.
-    DATA lo_group TYPE REF TO /aws1/cl_ascautoscalinggroup.
-
-    " Skip test if no default VPC
-    IF av_has_default_vpc = abap_false.
-      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
-      RETURN.
-    ENDIF.
-
-    " Create group using default VPC subnet
+  METHOD create_autoscaling_group.
+    " Test CreateAutoScalingGroup operation
     ao_asc_actions->create_group(
       iv_group_name = av_group_name
       iv_vpc_zone_identifier = av_default_subnet_id
@@ -264,28 +332,48 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
       iv_min_size = 0
       iv_max_size = 1 ).
 
-    WAIT UP TO 3 SECONDS.
+    WAIT UP TO 5 SECONDS.
+
+    " Wait for group to be ready
+    wait_for_group_ready( iv_group_name = av_group_name ).
 
     " Verify the group was created
-    lo_group = ao_asc_actions->describe_group( av_group_name ).
+    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
     cl_abap_unit_assert=>assert_bound(
       act = lo_group
       msg = |Auto Scaling group { av_group_name } was not created| ).
+
+    cl_abap_unit_assert=>assert_equals(
+      exp = av_group_name
+      act = lo_group->get_autoscalinggroupname( )
+      msg = 'Group name does not match' ).
+
+    MESSAGE 'CreateAutoScalingGroup test passed' TYPE 'I'.
   ENDMETHOD.
 
-  METHOD update_group.
-    " Skip test if no default VPC
-    IF av_has_default_vpc = abap_false.
-      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
-      RETURN.
-    ENDIF.
+  METHOD describe_autoscaling_groups.
+    " Test DescribeAutoScalingGroups operation
+    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
 
-    " Update max size
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_group
+      msg = |describe_group returned no result for { av_group_name }| ).
+
+    cl_abap_unit_assert=>assert_equals(
+      exp = av_group_name
+      act = lo_group->get_autoscalinggroupname( )
+      msg = 'Retrieved group name does not match' ).
+
+    MESSAGE |Successfully described Auto Scaling group { av_group_name }| TYPE 'I'.
+  ENDMETHOD.
+
+  METHOD update_autoscaling_group.
+    " Test UpdateAutoScalingGroup operation
     ao_asc_actions->update_group(
       iv_group_name = av_group_name
       iv_max_size = 3 ).
 
-    WAIT UP TO 2 SECONDS.
+    WAIT UP TO 5 SECONDS.
 
     " Verify the update
     DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
@@ -293,21 +381,17 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
       exp = 3
       act = lo_group->get_maxsize( )
       msg = |Max size was not updated to 3| ).
+
+    MESSAGE |Successfully updated Auto Scaling group max size to 3| TYPE 'I'.
   ENDMETHOD.
 
   METHOD set_desired_capacity.
-    " Skip test if no default VPC
-    IF av_has_default_vpc = abap_false.
-      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
-      RETURN.
-    ENDIF.
-
-    " Set desired capacity to 0 (no instances launched)
+    " Test SetDesiredCapacity operation
     ao_asc_actions->set_desired_capacity(
       iv_group_name = av_group_name
       iv_capacity = 0 ).
 
-    WAIT UP TO 2 SECONDS.
+    WAIT UP TO 5 SECONDS.
 
     " Verify the desired capacity
     DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
@@ -315,136 +399,90 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
       exp = 0
       act = lo_group->get_desiredcapacity( )
       msg = |Desired capacity was not set to 0| ).
+
+    MESSAGE 'Successfully set desired capacity to 0' TYPE 'I'.
   ENDMETHOD.
 
-  METHOD describe_instances.
+  METHOD describe_autoscaling_insts.
+    " Test DescribeAutoScalingInstances operation
     DATA lt_instance_ids TYPE /aws1/cl_ascinstanceids_w=>tt_instanceids.
 
-    " Test with empty input - should not fail
+    " Get instances from the group
+    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
+    DATA(lt_group_instances) = lo_group->get_instances( ).
+
+    " Build instance IDs list
+    LOOP AT lt_group_instances INTO DATA(lo_inst).
+      APPEND NEW /aws1/cl_ascinstanceids_w( iv_value = lo_inst->get_instanceid( ) ) TO lt_instance_ids.
+    ENDLOOP.
+
+    " Describe instances - should work even with empty list
     DATA(lt_instances) = ao_asc_actions->describe_instances( lt_instance_ids ).
 
-    " Should not fail
-    cl_abap_unit_assert=>assert_not_initial(
-      act = 'X'
-      msg = |describe_instances failed| ).
+    " Should not fail, instances list may be empty if no instances running
+    MESSAGE |DescribeAutoScalingInstances returned { lines( lt_instances ) } instances| TYPE 'I'.
   ENDMETHOD.
 
   METHOD describe_scaling_activities.
-    DATA lt_activities TYPE /aws1/cl_ascactivity=>tt_activities.
-    DATA lv_retry TYPE i VALUE 0.
-    DATA lv_max_retries TYPE i VALUE 5.
-
-    " Skip test if no default VPC
-    IF av_has_default_vpc = abap_false.
-      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
-      RETURN.
-    ENDIF.
-
+    " Test DescribeScalingActivities operation
     " Trigger an activity by setting desired capacity
     ao_asc_actions->set_desired_capacity(
       iv_group_name = av_group_name
       iv_capacity = 0 ).
 
-    " Poll for activities with retries (they may take time to appear)
-    WHILE lv_retry < lv_max_retries.
-      WAIT UP TO 3 SECONDS.
-      
-      TRY.
-          lt_activities = ao_asc_actions->describe_scaling_activities( av_group_name ).
-          IF lt_activities IS NOT INITIAL.
-            " Activities found!
-            MESSAGE |Found { lines( lt_activities ) } scaling activities| TYPE 'I'.
-            RETURN.
-          ENDIF.
-        CATCH /aws1/cx_rt_generic.
-          " Continue retrying
-      ENDTRY.
-      
-      lv_retry = lv_retry + 1.
-    ENDWHILE.
+    WAIT UP TO 5 SECONDS.
 
-    " If no activities after retries, that's acceptable for this test
-    " The important thing is that the API call works without crashing
-    MESSAGE 'describe_scaling_activities method works (activities may be delayed)' TYPE 'I'.
+    " Describe activities
+    DATA(lt_activities) = ao_asc_actions->describe_scaling_activities( av_group_name ).
+
+    " Activities may take time to appear, but the call should not fail
+    MESSAGE |DescribeScalingActivities returned { lines( lt_activities ) } activities| TYPE 'I'.
   ENDMETHOD.
 
-  METHOD enable_and_disable_metrics.
+  METHOD enable_metrics_collection.
+    " Test EnableMetricsCollection operation
     DATA lt_metrics TYPE /aws1/cl_ascmetrics_w=>tt_metrics.
-    DATA lo_metric TYPE REF TO /aws1/cl_ascmetrics_w.
-    DATA lo_group TYPE REF TO /aws1/cl_ascautoscalinggroup.
-    DATA lt_enabled_metrics TYPE /aws1/cl_ascenabledmetric=>tt_enabledmetrics.
-
-    " Skip test if no default VPC
-    IF av_has_default_vpc = abap_false.
-      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
-      RETURN.
-    ENDIF.
 
     " Build metrics list
-    CREATE OBJECT lo_metric EXPORTING iv_value = 'GroupMinSize'.
-    APPEND lo_metric TO lt_metrics.
-    CREATE OBJECT lo_metric EXPORTING iv_value = 'GroupMaxSize'.
-    APPEND lo_metric TO lt_metrics.
+    APPEND NEW /aws1/cl_ascmetrics_w( iv_value = 'GroupMinSize' ) TO lt_metrics.
+    APPEND NEW /aws1/cl_ascmetrics_w( iv_value = 'GroupMaxSize' ) TO lt_metrics.
 
-    " Test enable_metrics
+    " Enable metrics
     ao_asc_actions->enable_metrics(
       iv_group_name = av_group_name
       it_metrics = lt_metrics ).
 
-    WAIT UP TO 2 SECONDS.
+    WAIT UP TO 5 SECONDS.
 
     " Verify metrics enabled
-    lo_group = ao_asc_actions->describe_group( av_group_name ).
-    lt_enabled_metrics = lo_group->get_enabledmetrics( ).
+    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
+    DATA(lt_enabled_metrics) = lo_group->get_enabledmetrics( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_enabled_metrics
-      msg = |Metrics not enabled| ).
+      msg = |Metrics were not enabled| ).
 
-    " Test disable_metrics
+    MESSAGE 'Successfully enabled metrics collection' TYPE 'I'.
+  ENDMETHOD.
+
+  METHOD disable_metrics_collection.
+    " Test DisableMetricsCollection operation
     ao_asc_actions->disable_metrics( av_group_name ).
 
-    WAIT UP TO 2 SECONDS.
+    WAIT UP TO 5 SECONDS.
 
     " Verify disabled
-    lo_group = ao_asc_actions->describe_group( av_group_name ).
-    lt_enabled_metrics = lo_group->get_enabledmetrics( ).
+    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
+    DATA(lt_enabled_metrics) = lo_group->get_enabledmetrics( ).
     cl_abap_unit_assert=>assert_initial(
       act = lt_enabled_metrics
-      msg = |Metrics not disabled| ).
+      msg = |Metrics were not disabled| ).
+
+    MESSAGE 'Successfully disabled metrics collection' TYPE 'I'.
   ENDMETHOD.
 
-  METHOD get_group_instances.
-    DATA lt_instances TYPE /aws1/cl_ascinstance=>tt_instances.
-
-    " Skip test if no default VPC
-    IF av_has_default_vpc = abap_false.
-      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
-      RETURN.
-    ENDIF.
-
-    " Test get_group_instances helper method
-    lt_instances = ao_asc_actions->get_group_instances( av_group_name ).
-
-    " Verify the method doesn't crash (instances may or may not exist)
-    MESSAGE |get_group_instances returned { lines( lt_instances ) } instances| TYPE 'I'.
-  ENDMETHOD.
-
-  METHOD terminate_inst_and_del_group.
-    DATA lo_activity TYPE REF TO /aws1/cl_ascactivity.
-    DATA lt_instances TYPE /aws1/cl_ascinstance=>tt_instances.
-    DATA lo_instance TYPE REF TO /aws1/cl_ascinstance.
-    DATA lv_instance_id TYPE /aws1/ascxmlstringmaxlen19.
-    DATA lv_retry TYPE i VALUE 0.
-    DATA lv_max_retries TYPE i VALUE 30.
-    DATA lv_instance_ready TYPE abap_bool VALUE abap_false.
-
-    " Skip test if no default VPC
-    IF av_has_default_vpc = abap_false.
-      MESSAGE 'No default VPC available - test skipped' TYPE 'W'.
-      RETURN.
-    ENDIF.
-
-    " Create a separate group for terminate testing with min_size=1 to ensure an instance launches
+  METHOD terminate_instance_in_asg.
+    " Test TerminateInstanceInAutoScalingGroup operation
+    " Create a separate group for terminate testing with min_size=1
     ao_asc_actions->create_group(
       iv_group_name = av_group_name_term
       iv_vpc_zone_identifier = av_default_subnet_id
@@ -452,49 +490,37 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
       iv_min_size = 1
       iv_max_size = 1 ).
 
-    " Wait for instance to be in service with polling
-    WHILE lv_retry < lv_max_retries AND lv_instance_ready = abap_false.
-      WAIT UP TO 10 SECONDS.
-      
-      TRY.
-          DATA(lo_group) = ao_asc_actions->describe_group( av_group_name_term ).
-          lt_instances = lo_group->get_instances( ).
-          
-          IF lines( lt_instances ) > 0.
-            READ TABLE lt_instances INDEX 1 INTO lo_instance.
-            " Check if instance is in InService state
-            IF lo_instance->get_lifecyclestate( ) = 'InService'.
-              lv_instance_id = lo_instance->get_instanceid( ).
-              lv_instance_ready = abap_true.
-              MESSAGE |Instance { lv_instance_id } is ready| TYPE 'I'.
-            ELSE.
-              MESSAGE |Waiting for instance, current state: { lo_instance->get_lifecyclestate( ) }| TYPE 'I'.
-            ENDIF.
-          ENDIF.
-        CATCH /aws1/cx_rt_generic.
-          " Continue retrying
-      ENDTRY.
-      
-      lv_retry = lv_retry + 1.
-    ENDWHILE.
+    " Wait for instance to be in service
+    wait_for_group_ready( iv_group_name = av_group_name_term ).
 
-    IF lv_instance_ready = abap_false.
-      cl_abap_unit_assert=>fail( |Instance did not reach InService state within timeout| ).
-      RETURN.
-    ENDIF.
+    " Get the instance ID
+    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name_term ).
+    DATA(lt_instances) = lo_group->get_instances( ).
 
-    " Test terminate_instance
-    lo_activity = ao_asc_actions->terminate_instance(
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lt_instances
+      msg = 'No instances found in terminate test group' ).
+
+    READ TABLE lt_instances INDEX 1 INTO DATA(lo_instance).
+    DATA(lv_instance_id) = lo_instance->get_instanceid( ).
+
+    " Terminate the instance
+    DATA(lo_activity) = ao_asc_actions->terminate_instance(
       iv_instance_id = lv_instance_id
       iv_decrease_capacity = abap_true ).
 
     cl_abap_unit_assert=>assert_bound(
       act = lo_activity
-      msg = |terminate_instance did not return activity| ).
+      msg = 'terminate_instance did not return activity' ).
+
+    MESSAGE |Successfully terminated instance { lv_instance_id }| TYPE 'I'.
 
     " Wait for instance to terminate
     WAIT UP TO 30 SECONDS.
+  ENDMETHOD.
 
+  METHOD delete_autoscaling_group.
+    " Test DeleteAutoScalingGroup operation
     " Set min size to 0 to allow deletion
     ao_asc_actions->update_group(
       iv_group_name = av_group_name_term
@@ -502,22 +528,21 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
 
     WAIT UP TO 5 SECONDS.
 
-    " Test delete_group
+    " Delete the group
     ao_asc_actions->delete_group( av_group_name_term ).
 
     " Wait for deletion to complete
     WAIT UP TO 10 SECONDS.
 
-    " Verify group was deleted by checking it no longer exists
+    " Verify group was deleted
     TRY.
-        lo_group = ao_asc_actions->describe_group( av_group_name_term ).
-        " If we reach here, group still exists
+        DATA(lo_group) = ao_asc_actions->describe_group( av_group_name_term ).
         IF lo_group IS BOUND.
           cl_abap_unit_assert=>fail( |Group { av_group_name_term } was not deleted| ).
         ENDIF.
       CATCH /aws1/cx_rt_generic.
         " Group not found is expected - deletion was successful
-        MESSAGE |Group { av_group_name_term } successfully deleted| TYPE 'I'.
+        MESSAGE |Successfully deleted Auto Scaling group { av_group_name_term }| TYPE 'I'.
     ENDTRY.
 
     " Clear the variable so class_teardown doesn't try to delete again
