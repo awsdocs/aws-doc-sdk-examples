@@ -1,13 +1,13 @@
-# Amazon SQS code examples for the SDK for SAP ABAP
+# Secrets Manager code examples for the SDK for SAP ABAP
 
 ## Overview
 
-Shows how to use the AWS SDK for SAP ABAP to work with Amazon Simple Queue Service (Amazon SQS).
+Shows how to use the AWS SDK for SAP ABAP to work with AWS Secrets Manager.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon SQS is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications._
+_Secrets Manager helps you to securely encrypt, store, and retrieve credentials for your databases and other services._
 
 ## ⚠ Important
 
@@ -33,22 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateQueue](#awsex#cl_sqs_actions.clas.abap#L91)
-- [DeleteMessage](#awsex#cl_sqs_actions.clas.abap#L271)
-- [DeleteMessageBatch](#awsex#cl_sqs_actions.clas.abap#L292)
-- [DeleteQueue](#awsex#cl_sqs_actions.clas.abap#L110)
-- [GetQueueUrl](#awsex#cl_sqs_actions.clas.abap#L125)
-- [ListQueues](#awsex#cl_sqs_actions.clas.abap#L142)
-- [ReceiveMessage](#awsex#cl_sqs_actions.clas.abap#L203)
-- [SendMessage](#awsex#cl_sqs_actions.clas.abap#L221)
-- [SendMessageBatch](#awsex#cl_sqs_actions.clas.abap#L242)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Create and publish to a FIFO topic](../sns/#awsex#cl_sns_scenarios.clas.abap)
+- [BatchGetSecretValue](#awsex#cl_smr_actions.clas.abap#L66)
+- [GetSecretValue](#awsex#cl_smr_actions.clas.abap#L41)
 
 
 <!--custom.examples.start-->
@@ -63,18 +49,6 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Create and publish to a FIFO topic
-
-This example shows you how to create and publish to a FIFO Amazon SNS topic.
-
-
-<!--custom.scenario_prereqs.sns_PublishFifoTopic.start-->
-<!--custom.scenario_prereqs.sns_PublishFifoTopic.end-->
-
-
-<!--custom.scenarios.sns_PublishFifoTopic.start-->
-<!--custom.scenarios.sns_PublishFifoTopic.end-->
 
 ### Tests
 
@@ -91,9 +65,9 @@ in the `sap-abap` folder.
 
 ## Additional resources
 
-- [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
-- [Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
-- [SDK for SAP ABAP Amazon SQS reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/sqs/index.html)
+- [Secrets Manager User Guide](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
+- [Secrets Manager API Reference](https://docs.aws.amazon.com/secretsmanager/latest/apireference/Welcome.html)
+- [SDK for SAP ABAP Secrets Manager reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/secrets-manager/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

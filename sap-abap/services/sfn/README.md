@@ -1,13 +1,13 @@
-# Amazon SQS code examples for the SDK for SAP ABAP
+# Step Functions code examples for the SDK for SAP ABAP
 
 ## Overview
 
-Shows how to use the AWS SDK for SAP ABAP to work with Amazon Simple Queue Service (Amazon SQS).
+Shows how to use the AWS SDK for SAP ABAP to work with AWS Step Functions.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon SQS is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications._
+_Step Functions makes it easy to coordinate the components of distributed applications as a series of steps in a visual workflow._
 
 ## ⚠ Important
 
@@ -33,22 +33,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateQueue](#awsex#cl_sqs_actions.clas.abap#L91)
-- [DeleteMessage](#awsex#cl_sqs_actions.clas.abap#L271)
-- [DeleteMessageBatch](#awsex#cl_sqs_actions.clas.abap#L292)
-- [DeleteQueue](#awsex#cl_sqs_actions.clas.abap#L110)
-- [GetQueueUrl](#awsex#cl_sqs_actions.clas.abap#L125)
-- [ListQueues](#awsex#cl_sqs_actions.clas.abap#L142)
-- [ReceiveMessage](#awsex#cl_sqs_actions.clas.abap#L203)
-- [SendMessage](#awsex#cl_sqs_actions.clas.abap#L221)
-- [SendMessageBatch](#awsex#cl_sqs_actions.clas.abap#L242)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Create and publish to a FIFO topic](../sns/#awsex#cl_sns_scenarios.clas.abap)
+- [CreateActivity](#awsex#cl_sfn_actions.clas.abap#L254)
+- [CreateStateMachine](#awsex#cl_sfn_actions.clas.abap#L112)
+- [DeleteActivity](#awsex#cl_sfn_actions.clas.abap#L351)
+- [DeleteStateMachine](#awsex#cl_sfn_actions.clas.abap#L233)
+- [DescribeExecution](#awsex#cl_sfn_actions.clas.abap#L212)
+- [DescribeStateMachine](#awsex#cl_sfn_actions.clas.abap#L164)
+- [GetActivityTask](#awsex#cl_sfn_actions.clas.abap#L302)
+- [ListActivities](#awsex#cl_sfn_actions.clas.abap#L278)
+- [ListStateMachines](#awsex#cl_sfn_actions.clas.abap#L140)
+- [SendTaskSuccess](#awsex#cl_sfn_actions.clas.abap#L325)
+- [StartExecution](#awsex#cl_sfn_actions.clas.abap#L185)
 
 
 <!--custom.examples.start-->
@@ -63,18 +58,6 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Create and publish to a FIFO topic
-
-This example shows you how to create and publish to a FIFO Amazon SNS topic.
-
-
-<!--custom.scenario_prereqs.sns_PublishFifoTopic.start-->
-<!--custom.scenario_prereqs.sns_PublishFifoTopic.end-->
-
-
-<!--custom.scenarios.sns_PublishFifoTopic.start-->
-<!--custom.scenarios.sns_PublishFifoTopic.end-->
 
 ### Tests
 
@@ -91,9 +74,9 @@ in the `sap-abap` folder.
 
 ## Additional resources
 
-- [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
-- [Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
-- [SDK for SAP ABAP Amazon SQS reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/sqs/index.html)
+- [Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html)
+- [Step Functions API Reference](https://docs.aws.amazon.com/step-functions/latest/apireference/Welcome.html)
+- [SDK for SAP ABAP Step Functions reference](https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/sfn/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

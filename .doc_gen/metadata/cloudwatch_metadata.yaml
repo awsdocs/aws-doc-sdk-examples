@@ -304,6 +304,14 @@ cloudwatch_DescribeAlarmsForMetric:
             - description:
               snippet_tags:
                 - cloudwatch.Ruby.displayMetricInfo
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cwt
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwt.abapv1.describe_alarms_for_metric
     C++:
       versions:
         - sdk_version: 1
@@ -627,6 +635,14 @@ cloudwatch_GetMetricStatistics:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.GetMetricStatistics
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cwt
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwt.abapv1.get_metric_statistics
   services:
     cloudwatch: {GetMetricStatistics}
 cloudwatch_GetMetricWidgetImage:
@@ -990,6 +1006,17 @@ cloudwatch_PutMetricData:
             - description:
               snippet_tags:
                 - cloudwatch.Ruby.addDataPoint
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/cwt
+          excerpts:
+            - description:
+              snippet_tags:
+                - cwt.abapv1.put_metric_data
+            - description: Put a set of data into a &CW; metric.
+              snippet_tags:
+                - cwt.abapv1.put_metric_data_set
     C++:
       versions:
         - sdk_version: 1
