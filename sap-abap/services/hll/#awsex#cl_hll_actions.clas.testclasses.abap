@@ -39,13 +39,13 @@ CLASS ltc_awsex_cl_hll_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     METHODS list_fhir_export_jobs FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS delete_fhir_datastore FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    METHODS wait_for_datastore_active
+    CLASS-METHODS wait_for_datastore_active
       IMPORTING
         iv_datastore_id TYPE /aws1/hlldatastoreid
       RAISING
         /aws1/cx_rt_generic.
 
-    METHODS wait_for_job_complete
+    CLASS-METHODS wait_for_job_complete
       IMPORTING
         iv_datastore_id TYPE /aws1/hlldatastoreid
         iv_job_id       TYPE /aws1/hlljobid
