@@ -109,7 +109,7 @@ ENDCLASS.
 
 
 
-CLASS /AWSEX/CL_HLL_ACTIONS IMPLEMENTATION.
+CLASS /awsex/cl_hll_actions IMPLEMENTATION.
 
 
   METHOD create_fhir_datastore.
