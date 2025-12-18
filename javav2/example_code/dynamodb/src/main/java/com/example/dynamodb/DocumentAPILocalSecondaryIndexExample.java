@@ -239,3 +239,5 @@ public class DocumentAPILocalSecondaryIndexExample {
         client.putItem(PutItemRequest.builder().tableName(tableName).item(item).build());
     }
 }
+
+// snippet-end:[dynamodb.java.codeexample.DocumentAPILocalSecondaryIndexExample]

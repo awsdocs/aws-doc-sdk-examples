@@ -326,4 +326,4 @@ public class DocumentAPILocalSecondaryIndexExample {
 
 }
 
-// snippet-end:[dynamodb.java.codeexample.DocumentAPILocalSecondaryIndexExample]
+// snippet-end:[dynamodb.java.codeexample.DocumentAPILocalSecondaryIndexExampleV1]
