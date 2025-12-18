@@ -77,21 +77,34 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
     av_import_bucket = |sap-hll-import-{ lv_account_id }-{ lv_uuid_string(8) }|.
     av_export_bucket = |sap-hll-export-{ lv_account_id }-{ lv_uuid_string(8) }|.
 
+    " Create import bucket - ignore if it already exists
     TRY.
-        " Use utility function to create buckets
         /awsex/cl_utils=>create_bucket(
           iv_bucket = av_import_bucket
           io_s3 = ao_s3
           io_session = ao_session
         ).
+      CATCH /aws1/cx_s3_bucketalrdyownedbyyou.
+        " Bucket already exists and is owned by us - this is fine
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |Failed to create import bucket: { lo_ex->get_text( ) }| ).
+    ENDTRY.
 
+    " Create export bucket - ignore if it already exists
+    TRY.
         /awsex/cl_utils=>create_bucket(
           iv_bucket = av_export_bucket
           io_s3 = ao_s3
           io_session = ao_session
         ).
+      CATCH /aws1/cx_s3_bucketalrdyownedbyyou.
+        " Bucket already exists and is owned by us - this is fine
+      CATCH /aws1/cx_rt_generic INTO lo_ex.
+        cl_abap_unit_assert=>fail( |Failed to create export bucket: { lo_ex->get_text( ) }| ).
+    ENDTRY.
 
-        " Tag buckets with convert_test for cleanup
+    " Tag buckets with convert_test for cleanup
+    TRY.
         ao_s3->putbuckettagging(
           iv_bucket = av_import_bucket
           io_tagging = NEW /aws1/cl_s3_tagging(
@@ -100,7 +113,11 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
             )
           )
         ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore tagging errors
+    ENDTRY.
 
+    TRY.
         ao_s3->putbuckettagging(
           iv_bucket = av_export_bucket
           io_tagging = NEW /aws1/cl_s3_tagging(
@@ -109,8 +126,12 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
             )
           )
         ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore tagging errors
+    ENDTRY.
 
-        " Create sample FHIR data in import bucket
+    " Create sample FHIR data in import bucket
+    TRY.
         DATA lv_fhir_data TYPE string.
         lv_fhir_data = '{"resourceType":"Patient","id":"example","name":[{"family":"Test","given":["John"]}]}'.
 
@@ -119,9 +140,8 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
           iv_key = 'patient_example.ndjson'
           iv_body = /aws1/cl_rt_util=>string_to_xstring( lv_fhir_data )
         ).
-
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
-        cl_abap_unit_assert=>fail( |Failed to set up S3 resources: { lo_ex->get_text( ) }| ).
+      CATCH /aws1/cx_rt_generic INTO lo_ex.
+        cl_abap_unit_assert=>fail( |Failed to create sample data: { lo_ex->get_text( ) }| ).
     ENDTRY.
 
     " Create IAM role for HealthLake
@@ -149,7 +169,16 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
 
         av_role_arn = lo_create_role_result->get_role( )->get_arn( ).
 
-        " Attach necessary policies to the role for S3 and KMS access
+      CATCH /aws1/cx_iamentityalrdyexists.
+        " Role already exists - get the role ARN
+        DATA(lo_get_role_result) = ao_iam->getrole( iv_rolename = lv_role_name ).
+        av_role_arn = lo_get_role_result->get_role( )->get_arn( ).
+      CATCH /aws1/cx_rt_generic INTO lo_ex.
+        cl_abap_unit_assert=>fail( |Failed to create IAM role: { lo_ex->get_text( ) }| ).
+    ENDTRY.
+
+    " Attach necessary policies to the role for S3 and KMS access
+    TRY.
         DATA lv_policy_document TYPE string.
         lv_policy_document = |\{| &&
                             |"Version":"2012-10-17",| &&
@@ -166,13 +195,12 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
           iv_policyname = 'HLLAccessPolicy'
           iv_policydocument = lv_policy_document
         ).
-
-        " Wait for IAM role to propagate
-        WAIT UP TO 10 SECONDS.
-
       CATCH /aws1/cx_rt_generic INTO lo_ex.
-        cl_abap_unit_assert=>fail( |Failed to create IAM role: { lo_ex->get_text( ) }| ).
+        " Policy might already be attached, which is fine
     ENDTRY.
+
+    " Wait for IAM role to propagate
+    WAIT UP TO 10 SECONDS.
 
     " Create KMS key for encryption
     TRY.
