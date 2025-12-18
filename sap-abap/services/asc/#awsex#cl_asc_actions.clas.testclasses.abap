@@ -231,6 +231,19 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
       cl_abap_unit_assert=>fail( |Failed to create terminate test launch template { av_lnch_tmpl_name_term }| ).
     ENDIF.
 
+    " Create the terminate test group - MUST succeed
+    TRY.
+        ao_asc_actions->create_group(
+          iv_group_name = av_group_name_term
+          iv_vpc_zone_identifier = av_default_subnet_id
+          iv_launch_template_name = av_lnch_tmpl_name_term
+          iv_min_size = 0
+          iv_max_size = 2 ).
+        WAIT UP TO 5 SECONDS.
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |Failed to create terminate test group: { lo_ex->get_text( ) }| ).
+    ENDTRY.
+
     MESSAGE 'Class setup completed successfully' TYPE 'I'.
   ENDMETHOD.
 
@@ -523,15 +536,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
   METHOD terminateinstinautoscgroup.
     " Test TerminateInstanceInAutoScalingGroup operation
     TRY.
-        " Create a separate group for terminate testing with min_size=0, desired=2
-        ao_asc_actions->create_group(
-          iv_group_name = av_group_name_term
-          iv_vpc_zone_identifier = av_default_subnet_id
-          iv_launch_template_name = av_lnch_tmpl_name_term
-          iv_min_size = 0
-          iv_max_size = 2 ).
-
-        " Set desired capacity to 2 to launch 2 instances
+        " Set desired capacity to 2 to launch 2 instances (group was created in class_setup)
         ao_asc_actions->set_desired_capacity(
           iv_group_name = av_group_name_term
           iv_capacity = 2 ).
@@ -584,12 +589,44 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
   METHOD deleteautoscalinggroup.
     " Test DeleteAutoScalingGroup operation
     TRY.
+        " First, ensure instances are terminated by setting desired capacity to 0
+        ao_asc_actions->set_desired_capacity(
+          iv_group_name = av_group_name_term
+          iv_capacity = 0 ).
+
+        WAIT UP TO 5 SECONDS.
+
         " Set min size to 0 to allow deletion
         ao_asc_actions->update_group(
           iv_group_name = av_group_name_term
-          iv_min_size = 0 ).
+          iv_min_size = 0
+          iv_max_size = 0 ).
 
         WAIT UP TO 5 SECONDS.
+
+        " Wait for all instances to terminate
+        DATA lv_retry TYPE i VALUE 0.
+        DATA lv_max_retries TYPE i VALUE 30.
+        DATA lv_instances_terminated TYPE abap_bool VALUE abap_false.
+
+        WHILE lv_retry < lv_max_retries AND lv_instances_terminated = abap_false.
+          TRY.
+              DATA(lo_group) = ao_asc_actions->describe_group( av_group_name_term ).
+              IF lo_group IS BOUND.
+                DATA(lt_instances) = lo_group->get_instances( ).
+                IF lines( lt_instances ) = 0.
+                  lv_instances_terminated = abap_true.
+                ELSE.
+                  WAIT UP TO 5 SECONDS.
+                  lv_retry = lv_retry + 1.
+                ENDIF.
+              ELSE.
+                lv_instances_terminated = abap_true.
+              ENDIF.
+            CATCH /aws1/cx_rt_generic.
+              lv_instances_terminated = abap_true.
+          ENDTRY.
+        ENDWHILE.
 
         " Delete the group
         ao_asc_actions->delete_group( av_group_name_term ).
@@ -599,7 +636,8 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
 
         " Verify group was deleted by trying to describe it
         TRY.
-            DATA(lo_group) = ao_asc_actions->describe_group( av_group_name_term ).
+            CLEAR lo_group.
+            lo_group = ao_asc_actions->describe_group( av_group_name_term ).
             IF lo_group IS BOUND.
               cl_abap_unit_assert=>fail( |Group { av_group_name_term } was not deleted| ).
             ENDIF.
