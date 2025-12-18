@@ -1,5 +1,4 @@
 " SPDX-License-Identifier: Apache-2.0
-" SPDX-License-Identifier: Apache-2.0
 CLASS /awsex/cl_hll_actions DEFINITION
   PUBLIC
   FINAL
