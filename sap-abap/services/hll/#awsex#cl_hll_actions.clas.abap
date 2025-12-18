@@ -208,13 +208,13 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         MESSAGE 'Data store created successfully.' TYPE 'I'.
       CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
         DATA(lv_error) = |Validation error: { lo_validation_ex->av_err_code }-{ lo_validation_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllinternalserverex INTO DATA(lo_internal_ex).
         lv_error = |Internal server error: { lo_internal_ex->av_err_code }-{ lo_internal_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllthrottlingex INTO DATA(lo_throttling_ex).
         lv_error = |Throttling error: { lo_throttling_ex->av_err_code }-{ lo_throttling_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[hll.abapv1.create_fhir_datastore]
   ENDMETHOD.
@@ -240,10 +240,10 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         ENDIF.
       CATCH /aws1/cx_hllresourcenotfoundex INTO DATA(lo_notfound_ex).
         DATA(lv_error) = |Resource not found: { lo_notfound_ex->av_err_code }-{ lo_notfound_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
         lv_error = |Validation error: { lo_validation_ex->av_err_code }-{ lo_validation_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[hll.abapv1.describe_fhir_datastore]
   ENDMETHOD.
@@ -263,10 +263,10 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         MESSAGE |Found { lv_datastore_count } data store(s).| TYPE 'I'.
       CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
         DATA(lv_error) = |Validation error: { lo_validation_ex->av_err_code }-{ lo_validation_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllthrottlingex INTO DATA(lo_throttling_ex).
         lv_error = |Throttling error: { lo_throttling_ex->av_err_code }-{ lo_throttling_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[hll.abapv1.list_fhir_datastores]
   ENDMETHOD.
@@ -287,13 +287,13 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         MESSAGE 'Data store deleted successfully.' TYPE 'I'.
       CATCH /aws1/cx_hllaccessdeniedex INTO DATA(lo_access_ex).
         DATA(lv_error) = |Access denied: { lo_access_ex->av_err_code }-{ lo_access_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllconflictexception INTO DATA(lo_conflict_ex).
         lv_error = |Conflict error: { lo_conflict_ex->av_err_code }-{ lo_conflict_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllresourcenotfoundex INTO DATA(lo_notfound_ex).
         lv_error = |Resource not found: { lo_notfound_ex->av_err_code }-{ lo_notfound_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[hll.abapv1.delete_fhir_datastore]
   ENDMETHOD.
@@ -328,13 +328,13 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         MESSAGE |Import job started with ID { lv_job_id }.| TYPE 'I'.
       CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
         DATA(lv_error) = |Validation error: { lo_validation_ex->av_err_code }-{ lo_validation_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllthrottlingex INTO DATA(lo_throttling_ex).
         lv_error = |Throttling error: { lo_throttling_ex->av_err_code }-{ lo_throttling_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllaccessdeniedex INTO DATA(lo_access_ex).
         lv_error = |Access denied: { lo_access_ex->av_err_code }-{ lo_access_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[hll.abapv1.start_fhir_import_job]
   ENDMETHOD.
@@ -361,10 +361,10 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         ENDIF.
       CATCH /aws1/cx_hllresourcenotfoundex INTO DATA(lo_notfound_ex).
         DATA(lv_error) = |Resource not found: { lo_notfound_ex->av_err_code }-{ lo_notfound_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
         lv_error = |Validation error: { lo_validation_ex->av_err_code }-{ lo_validation_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[hll.abapv1.describe_fhir_import_job]
   ENDMETHOD.
@@ -388,10 +388,10 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         MESSAGE |Found { lv_job_count } import job(s).| TYPE 'I'.
       CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
         DATA(lv_error) = |Validation error: { lo_validation_ex->av_err_code }-{ lo_validation_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllresourcenotfoundex INTO DATA(lo_notfound_ex).
         lv_error = |Resource not found: { lo_notfound_ex->av_err_code }-{ lo_notfound_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[hll.abapv1.list_fhir_import_jobs]
   ENDMETHOD.
@@ -424,13 +424,13 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         MESSAGE |Export job started with ID { lv_job_id }.| TYPE 'I'.
       CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
         DATA(lv_error) = |Validation error: { lo_validation_ex->av_err_code }-{ lo_validation_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllthrottlingex INTO DATA(lo_throttling_ex).
         lv_error = |Throttling error: { lo_throttling_ex->av_err_code }-{ lo_throttling_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllaccessdeniedex INTO DATA(lo_access_ex).
         lv_error = |Access denied: { lo_access_ex->av_err_code }-{ lo_access_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[hll.abapv1.start_fhir_export_job]
   ENDMETHOD.
@@ -457,10 +457,10 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         ENDIF.
       CATCH /aws1/cx_hllresourcenotfoundex INTO DATA(lo_notfound_ex).
         DATA(lv_error) = |Resource not found: { lo_notfound_ex->av_err_code }-{ lo_notfound_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
         lv_error = |Validation error: { lo_validation_ex->av_err_code }-{ lo_validation_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[hll.abapv1.describe_fhir_export_job]
   ENDMETHOD.
@@ -484,10 +484,10 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         MESSAGE |Found { lv_job_count } export job(s).| TYPE 'I'.
       CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
         DATA(lv_error) = |Validation error: { lo_validation_ex->av_err_code }-{ lo_validation_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllresourcenotfoundex INTO DATA(lo_notfound_ex).
         lv_error = |Resource not found: { lo_notfound_ex->av_err_code }-{ lo_notfound_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[hll.abapv1.list_fhir_export_jobs]
   ENDMETHOD.
@@ -509,10 +509,10 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         MESSAGE 'Resource tagged successfully.' TYPE 'I'.
       CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
         DATA(lv_error) = |Validation error: { lo_validation_ex->av_err_code }-{ lo_validation_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllresourcenotfoundex INTO DATA(lo_notfound_ex).
         lv_error = |Resource not found: { lo_notfound_ex->av_err_code }-{ lo_notfound_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[hll.abapv1.tag_resource]
   ENDMETHOD.
@@ -535,10 +535,10 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         MESSAGE |Found { lv_tag_count } tag(s).| TYPE 'I'.
       CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
         DATA(lv_error) = |Validation error: { lo_validation_ex->av_err_code }-{ lo_validation_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllresourcenotfoundex INTO DATA(lo_notfound_ex).
         lv_error = |Resource not found: { lo_notfound_ex->av_err_code }-{ lo_notfound_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[hll.abapv1.list_tags_for_resource]
   ENDMETHOD.
@@ -560,10 +560,10 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         MESSAGE 'Resource untagged successfully.' TYPE 'I'.
       CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
         DATA(lv_error) = |Validation error: { lo_validation_ex->av_err_code }-{ lo_validation_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_hllresourcenotfoundex INTO DATA(lo_notfound_ex).
         lv_error = |Resource not found: { lo_notfound_ex->av_err_code }-{ lo_notfound_ex->av_err_msg }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[hll.abapv1.untag_resource]
   ENDMETHOD.
