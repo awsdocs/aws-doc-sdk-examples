@@ -129,7 +129,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
         " Create IAM role for API Gateway with convert_test tag
         av_role_name = |agw-role-{ lv_random }|.
-        DATA(lv_policy_document) = '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"Service":"apigateway.amazonaws.com"},"Action":"sts:AssumeRole"}]}'.
+        DATA(lv_policy_document) = CONV /aws1/iampolicydocumenttype( '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"Service":"apigateway.amazonaws.com"},"Action":"sts:AssumeRole"}]}' ).
 
         TRY.
             DATA(lo_role) = ao_iam->createrole(
