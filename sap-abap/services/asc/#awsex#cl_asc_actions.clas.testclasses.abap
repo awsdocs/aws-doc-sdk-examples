@@ -182,8 +182,8 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
         " If creation failed, try to get existing template (may exist from previous failed run)
         TRY.
             DATA(lo_describe_result) = ao_ec2->describelaunchtemplates(
-              it_launchtmplnames = VALUE /aws1/cl_ec2lnchtmplnmestrlst=>tt_launchtemplatenamestringlist(
-                ( NEW /aws1/cl_ec2lnchtmplnmestrlst( iv_value = iv_template_name ) ) ) ).
+              it_launchtemplatenames = VALUE /aws1/cl_ec2launchtmplnamest00=>tt_launchtmplnamestringlist(
+                ( NEW /aws1/cl_ec2launchtmplnamest00( iv_value = iv_template_name ) ) ) ).
             DATA(lt_templates) = lo_describe_result->get_launchtemplates( ).
             IF lines( lt_templates ) > 0.
               READ TABLE lt_templates INDEX 1 INTO DATA(lo_template).
