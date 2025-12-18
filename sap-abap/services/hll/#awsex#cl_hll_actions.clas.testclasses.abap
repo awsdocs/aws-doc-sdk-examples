@@ -125,7 +125,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
     ENDTRY.
 
     " Create IAM role for HealthLake
-    DATA lv_role_name TYPE /aws1/iamrolename.
+    DATA lv_role_name TYPE /aws1/iamrolenametype.
     lv_role_name = |SAPHLLRole{ lv_uuid_string(8) }|.
 
     DATA lv_trust_policy TYPE string.
@@ -229,7 +229,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
 
         " Clean up IAM role
         IF av_role_arn IS NOT INITIAL.
-          DATA lv_role_name TYPE /aws1/iamrolename.
+          DATA lv_role_name TYPE /aws1/iamrolenametype.
           SPLIT av_role_arn AT '/' INTO DATA(lv_dummy) lv_role_name.
 
           TRY.
