@@ -9,12 +9,13 @@ CLASS ltc_awsex_cl_cwl_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
   PRIVATE SECTION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
-    CLASS-DATA av_log_group_name TYPE /aws1/cwlloggroupname.
-    CLASS-DATA av_log_stream_name TYPE /aws1/cwllogstreamname.
+    CLASS-DATA gv_log_group_name TYPE /aws1/cwlloggroupname.
+    CLASS-DATA gv_log_stream_name TYPE /aws1/cwllogstreamname.
+    CLASS-DATA gv_setup_complete TYPE abap_bool.
 
-    CLASS-DATA ao_cwl TYPE REF TO /aws1/if_cwl.
-    CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
-    CLASS-DATA ao_cwl_actions TYPE REF TO /awsex/cl_cwl_actions.
+    CLASS-DATA go_cwl TYPE REF TO /aws1/if_cwl.
+    CLASS-DATA go_session TYPE REF TO /aws1/cl_rt_session_base.
+    CLASS-DATA go_cwl_actions TYPE REF TO /awsex/cl_cwl_actions.
 
     METHODS: start_query FOR TESTING RAISING /aws1/cx_rt_generic,
       get_query_results FOR TESTING RAISING /aws1/cx_rt_generic.
@@ -22,7 +23,7 @@ CLASS ltc_awsex_cl_cwl_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
 
-    METHODS wait_for_query_completion
+    CLASS-METHODS wait_for_query_completion
       IMPORTING
         iv_query_id        TYPE /aws1/cwlqueryid
       RETURNING
@@ -30,223 +31,274 @@ CLASS ltc_awsex_cl_cwl_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
       RAISING
         /aws1/cx_rt_generic.
 
+    CLASS-METHODS get_epoch_milliseconds
+      RETURNING
+        VALUE(rv_timestamp) TYPE /aws1/cwltimestamp.
+
 ENDCLASS.
 
 CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
 
+  METHOD get_epoch_milliseconds.
+    " Get current timestamp in epoch milliseconds format for CloudWatch Logs
+    DATA lv_timestamp TYPE timestamp.
+    DATA lv_seconds TYPE p LENGTH 16 DECIMALS 0.
+
+    GET TIME STAMP FIELD lv_timestamp.
+
+    " Convert ABAP timestamp to seconds
+    lv_seconds = lv_timestamp.
+
+    " Convert to Unix epoch (subtract seconds between 1900-01-01 and 1970-01-01)
+    " Then convert to milliseconds
+    rv_timestamp = ( lv_seconds - 2208988800 ) * 1000.
+  ENDMETHOD.
+
   METHOD class_setup.
-    ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
-    ao_cwl = /aws1/cl_cwl_factory=>create( ao_session ).
-    ao_cwl_actions = NEW /awsex/cl_cwl_actions( ).
+    go_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
+    go_cwl = /aws1/cl_cwl_factory=>create( go_session ).
+    go_cwl_actions = NEW /awsex/cl_cwl_actions( ).
 
-    " Create a unique log group name with convert_test tag
+    " Create unique log group name using utility function
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    av_log_group_name = |/sap-abap/cwl-demo-{ lv_uuid }|.
-    av_log_stream_name = |test-stream-{ lv_uuid }|.
+    gv_log_group_name = |/sap-abap/cwl-test-{ lv_uuid }|.
+    gv_log_stream_name = |test-stream-{ lv_uuid }|.
 
-    " Create tags for the log group - correct structure
+    gv_setup_complete = abap_false.
+
+    " Create tags for resources - convert_test tag for cleanup
     DATA lt_tags TYPE /aws1/cl_cwltags_w=>tt_tags.
     DATA ls_tag TYPE /aws1/cl_cwltags_w=>ts_tags_maprow.
     ls_tag-key = 'convert_test'.
     ls_tag-value = NEW /aws1/cl_cwltags_w( iv_value = 'true' ).
     INSERT ls_tag INTO TABLE lt_tags.
 
-    " Create log group with convert_test tag
+    " Create log group
     TRY.
-        ao_cwl->createloggroup(
-          iv_loggroupname = av_log_group_name
+        go_cwl->createloggroup(
+          iv_loggroupname = gv_log_group_name
           it_tags = lt_tags
         ).
       CATCH /aws1/cx_cwlresrcalrdyexistsex.
-        " Log group already exists, tag it
+        " Log group already exists - tag it with convert_test
         TRY.
-            ao_cwl->tagloggroup(
-              iv_loggroupname = av_log_group_name
+            go_cwl->tagloggroup(
+              iv_loggroupname = gv_log_group_name
               it_tags = lt_tags
             ).
           CATCH /aws1/cx_rt_generic.
-            " Continue if tagging fails
+            " Ignore tagging errors
         ENDTRY.
     ENDTRY.
 
-    " Wait for log group to be created
+    " Wait for log group to be available with status-based polling
     DATA lv_start_time TYPE timestamp.
     DATA lv_current_time TYPE timestamp.
-    DATA lv_elapsed_seconds TYPE i.
+    DATA lv_elapsed TYPE i.
+    DATA lv_found TYPE abap_bool VALUE abap_false.
+
     GET TIME STAMP FIELD lv_start_time.
 
-    DATA lv_found TYPE abap_bool VALUE abap_false.
     DO 30 TIMES.
       TRY.
-          DATA(lo_result) = ao_cwl->describeloggroups(
-            iv_loggroupnameprefix = av_log_group_name
+          DATA(lo_describe_result) = go_cwl->describeloggroups(
+            iv_loggroupnameprefix = gv_log_group_name
           ).
-          LOOP AT lo_result->get_loggroups( ) INTO DATA(lo_log_group).
-            IF lo_log_group->get_loggroupname( ) = av_log_group_name.
+
+          LOOP AT lo_describe_result->get_loggroups( ) INTO DATA(lo_log_group).
+            IF lo_log_group->get_loggroupname( ) = gv_log_group_name.
               lv_found = abap_true.
               EXIT.
             ENDIF.
           ENDLOOP.
+
           IF lv_found = abap_true.
             EXIT.
           ENDIF.
+
         CATCH /aws1/cx_rt_generic.
           " Continue waiting
       ENDTRY.
+
       WAIT UP TO 2 SECONDS.
+
       GET TIME STAMP FIELD lv_current_time.
-      lv_elapsed_seconds = cl_abap_tstmp=>subtract(
+      lv_elapsed = cl_abap_tstmp=>subtract(
         tstmp1 = lv_current_time
         tstmp2 = lv_start_time ).
-      IF lv_elapsed_seconds > 60.
-        EXIT.
+
+      IF lv_elapsed > 60.
+        " Fail the test if log group isn't created within timeout
+        cl_abap_unit_assert=>fail(
+          msg = |Log group { gv_log_group_name } was not created within 60 seconds| ).
       ENDIF.
     ENDDO.
+
+    IF lv_found = abap_false.
+      cl_abap_unit_assert=>fail(
+        msg = |Log group { gv_log_group_name } was not found after creation| ).
+    ENDIF.
 
     " Create log stream
     TRY.
-        ao_cwl->createlogstream(
-          iv_loggroupname = av_log_group_name
-          iv_logstreamname = av_log_stream_name
+        go_cwl->createlogstream(
+          iv_loggroupname = gv_log_group_name
+          iv_logstreamname = gv_log_stream_name
         ).
       CATCH /aws1/cx_cwlresrcalrdyexistsex.
-        " Log stream already exists, continue
+        " Log stream already exists - continue
     ENDTRY.
 
-    " Wait for log stream to be created
-    GET TIME STAMP FIELD lv_start_time.
+    " Wait for log stream to be available
     lv_found = abap_false.
+    GET TIME STAMP FIELD lv_start_time.
+
     DO 30 TIMES.
       TRY.
-          DATA(lo_stream_result) = ao_cwl->describelogstreams(
-            iv_loggroupname = av_log_group_name
-            iv_logstreamnameprefix = av_log_stream_name
+          DATA(lo_stream_result) = go_cwl->describelogstreams(
+            iv_loggroupname = gv_log_group_name
+            iv_logstreamnameprefix = gv_log_stream_name
           ).
+
           LOOP AT lo_stream_result->get_logstreams( ) INTO DATA(lo_log_stream).
-            IF lo_log_stream->get_logstreamname( ) = av_log_stream_name.
+            IF lo_log_stream->get_logstreamname( ) = gv_log_stream_name.
               lv_found = abap_true.
               EXIT.
             ENDIF.
           ENDLOOP.
+
           IF lv_found = abap_true.
             EXIT.
           ENDIF.
+
         CATCH /aws1/cx_rt_generic.
           " Continue waiting
       ENDTRY.
+
       WAIT UP TO 2 SECONDS.
+
       GET TIME STAMP FIELD lv_current_time.
-      lv_elapsed_seconds = cl_abap_tstmp=>subtract(
+      lv_elapsed = cl_abap_tstmp=>subtract(
         tstmp1 = lv_current_time
         tstmp2 = lv_start_time ).
-      IF lv_elapsed_seconds > 60.
-        EXIT.
+
+      IF lv_elapsed > 60.
+        " Fail the test if log stream isn't created
+        cl_abap_unit_assert=>fail(
+          msg = |Log stream { gv_log_stream_name } was not created within 60 seconds| ).
       ENDIF.
     ENDDO.
 
-    " Put some log events
+    IF lv_found = abap_false.
+      cl_abap_unit_assert=>fail(
+        msg = |Log stream { gv_log_stream_name } was not found after creation| ).
+    ENDIF.
+
+    " Put test log events with proper epoch timestamps
     DATA lt_events TYPE /aws1/cl_cwlinputlogevent=>tt_inputlogevents.
     DATA lv_timestamp TYPE /aws1/cwltimestamp.
-    DATA lv_ts TYPE timestamp.
-    GET TIME STAMP FIELD lv_ts.
-    " Convert timestamp to Unix milliseconds (CloudWatch Logs format)
-    " Timestamp is in format YYYYMMDDhhmmss.mmmuuun
-    " We need to convert to milliseconds since epoch
-    DATA lv_tstmp_seconds TYPE p DECIMALS 0.
-    lv_tstmp_seconds = lv_ts.
-    " Convert ABAP timestamp (seconds since 1900) to Unix timestamp (seconds since 1970)
-    " Difference between 1900 and 1970 is 2208988800 seconds
-    lv_timestamp = ( lv_tstmp_seconds - 2208988800 ) * 1000.
 
-    DO 5 TIMES.
+    lv_timestamp = get_epoch_milliseconds( ).
+
+    " Create 10 test log events with incrementing timestamps
+    DO 10 TIMES.
+      DATA(lv_event_timestamp) = lv_timestamp + ( sy-index * 1000 ).
       APPEND NEW /aws1/cl_cwlinputlogevent(
-        iv_message = |Test log message { sy-index } at { lv_timestamp }|
-        iv_timestamp = lv_timestamp + sy-index
+        iv_message = |Test log message { sy-index } from CloudWatch Logs test at { lv_event_timestamp }|
+        iv_timestamp = lv_event_timestamp
       ) TO lt_events.
     ENDDO.
 
+    " Put log events
     TRY.
-        ao_cwl->putlogevents(
-          iv_loggroupname = av_log_group_name
-          iv_logstreamname = av_log_stream_name
+        go_cwl->putlogevents(
+          iv_loggroupname = gv_log_group_name
+          iv_logstreamname = gv_log_stream_name
           it_logevents = lt_events
         ).
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_error).
-        " Log the error but continue - logs may not be immediately available
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_put_error).
+        " Fail the test if we can't put log events
+        cl_abap_unit_assert=>fail(
+          msg = |Failed to put log events: { lo_put_error->get_text( ) }| ).
     ENDTRY.
 
-    " Wait for log events to be indexed (CloudWatch Logs can take time)
+    " Wait for log events to be indexed by CloudWatch Logs (can take up to 30 seconds)
     WAIT UP TO 30 SECONDS.
+
+    gv_setup_complete = abap_true.
 
   ENDMETHOD.
 
   METHOD class_teardown.
-    " Clean up log group (this will also delete the log stream and all log events)
-    TRY.
-        ao_cwl->deleteloggroup(
-          iv_loggroupname = av_log_group_name
-        ).
-      CATCH /aws1/cx_cwlresourcenotfoundex.
-        " Log group already deleted or doesn't exist
-      CATCH /aws1/cx_rt_generic.
-        " Error deleting, but continue - resource is tagged with convert_test
-        " User can manually clean up using the tag
-    ENDTRY.
+    " Clean up: Delete log group (this also deletes streams and events)
+    IF gv_log_group_name IS NOT INITIAL.
+      TRY.
+          go_cwl->deleteloggroup(
+            iv_loggroupname = gv_log_group_name
+          ).
+        CATCH /aws1/cx_cwlresourcenotfoundex.
+          " Already deleted
+        CATCH /aws1/cx_rt_generic.
+          " Log group is tagged with convert_test for manual cleanup
+      ENDTRY.
+    ENDIF.
   ENDMETHOD.
 
   METHOD start_query.
-    " Get current timestamp for query time range
-    DATA lv_timestamp TYPE /aws1/cwltimestamp.
-    DATA lv_ts TYPE timestamp.
-    GET TIME STAMP FIELD lv_ts.
-    " Convert timestamp to Unix milliseconds
-    DATA lv_tstmp_seconds TYPE p DECIMALS 0.
-    lv_tstmp_seconds = lv_ts.
-    lv_timestamp = ( lv_tstmp_seconds - 2208988800 ) * 1000.
+    " Verify setup was successful
+    cl_abap_unit_assert=>assert_true(
+      act = gv_setup_complete
+      msg = 'Test setup must complete successfully' ).
 
-    " Query for logs from last hour - use proper type
+    " Get current time and calculate query time range
+    DATA(lv_current_time) = get_epoch_milliseconds( ).
     DATA lv_start_time TYPE /aws1/cwltimestamp.
     DATA lv_end_time TYPE /aws1/cwltimestamp.
-    lv_start_time = lv_timestamp - ( 3600 * 1000 ).
-    lv_end_time = lv_timestamp.
 
-    DATA(lo_result) = ao_cwl_actions->start_query(
-      iv_log_group_name = av_log_group_name
+    " Query for logs from last hour to now
+    lv_start_time = lv_current_time - ( 3600 * 1000 ).
+    lv_end_time = lv_current_time.
+
+    " Execute start_query
+    DATA(lo_result) = go_cwl_actions->start_query(
+      iv_log_group_name = gv_log_group_name
       iv_start_time = lv_start_time
       iv_end_time = lv_end_time
       iv_query_string = 'fields @timestamp, @message | sort @timestamp desc | limit 20'
       iv_limit = 20
     ).
 
+    " Verify result
     cl_abap_unit_assert=>assert_bound(
       act = lo_result
-      msg = 'Query result should be returned' ).
+      msg = 'start_query should return a result object' ).
 
     DATA(lv_query_id) = lo_result->get_queryid( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lv_query_id
       msg = 'Query ID should not be initial' ).
 
+    MESSAGE 'start_query test passed successfully' TYPE 'I'.
+
   ENDMETHOD.
 
   METHOD get_query_results.
-    " First start a query
-    DATA lv_timestamp TYPE /aws1/cwltimestamp.
-    DATA lv_ts TYPE timestamp.
-    GET TIME STAMP FIELD lv_ts.
-    " Convert timestamp to Unix milliseconds
-    DATA lv_tstmp_seconds TYPE p DECIMALS 0.
-    lv_tstmp_seconds = lv_ts.
-    lv_timestamp = ( lv_tstmp_seconds - 2208988800 ) * 1000.
+    " Verify setup was successful
+    cl_abap_unit_assert=>assert_true(
+      act = gv_setup_complete
+      msg = 'Test setup must complete successfully' ).
 
-    " Use proper type for timestamps
+    " Get time range for query
+    DATA(lv_current_time) = get_epoch_milliseconds( ).
     DATA lv_start_time TYPE /aws1/cwltimestamp.
     DATA lv_end_time TYPE /aws1/cwltimestamp.
-    lv_start_time = lv_timestamp - ( 3600 * 1000 ).
-    lv_end_time = lv_timestamp.
 
-    DATA(lo_start_result) = ao_cwl_actions->start_query(
-      iv_log_group_name = av_log_group_name
+    lv_start_time = lv_current_time - ( 3600 * 1000 ).
+    lv_end_time = lv_current_time.
+
+    " Start a query first
+    DATA(lo_start_result) = go_cwl_actions->start_query(
+      iv_log_group_name = gv_log_group_name
       iv_start_time = lv_start_time
       iv_end_time = lv_end_time
       iv_query_string = 'fields @timestamp, @message | sort @timestamp desc | limit 20'
@@ -263,13 +315,14 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
       msg = 'Query should complete within timeout period' ).
 
     " Get query results
-    DATA(lo_result) = ao_cwl_actions->get_query_results(
+    DATA(lo_result) = go_cwl_actions->get_query_results(
       iv_query_id = lv_query_id
     ).
 
+    " Verify result
     cl_abap_unit_assert=>assert_bound(
       act = lo_result
-      msg = 'Query results should be returned' ).
+      msg = 'get_query_results should return a result object' ).
 
     DATA(lv_status) = lo_result->get_status( ).
     cl_abap_unit_assert=>assert_equals(
@@ -277,22 +330,73 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
       exp = 'Complete'
       msg = 'Query status should be Complete' ).
 
+    " Verify we got results back
+    DATA(lt_results) = lo_result->get_results( ).
+    cl_abap_unit_assert=>assert_bound(
+      act = lt_results
+      msg = 'Query results should be bound' ).
+
+    " Check that we have log entries (we created 10 test events)
+    DATA lv_result_count TYPE i.
+    lv_result_count = lines( lt_results ).
+
+    cl_abap_unit_assert=>assert_differs(
+      act = lv_result_count
+      exp = 0
+      msg = |Query should return log entries, got { lv_result_count } results| ).
+
+    " Verify structure of returned results
+    IF lv_result_count > 0.
+      DATA(lo_first_row) = lt_results[ 1 ].
+      cl_abap_unit_assert=>assert_bound(
+        act = lo_first_row
+        msg = 'First result row should be bound' ).
+
+      " Check fields in the result
+      DATA lv_has_timestamp TYPE abap_bool VALUE abap_false.
+      DATA lv_has_message TYPE abap_bool VALUE abap_false.
+
+      LOOP AT lo_first_row INTO DATA(lo_field).
+        DATA(lv_field_name) = lo_field->get_field( ).
+        IF lv_field_name = '@timestamp'.
+          lv_has_timestamp = abap_true.
+        ELSEIF lv_field_name = '@message'.
+          lv_has_message = abap_true.
+        ENDIF.
+      ENDLOOP.
+
+      cl_abap_unit_assert=>assert_true(
+        act = lv_has_timestamp
+        msg = 'Query results should contain @timestamp field' ).
+
+      cl_abap_unit_assert=>assert_true(
+        act = lv_has_message
+        msg = 'Query results should contain @message field' ).
+
+    ENDIF.
+
+    MESSAGE 'get_query_results test passed successfully' TYPE 'I'.
+
   ENDMETHOD.
 
   METHOD wait_for_query_completion.
     rv_complete = abap_false.
     DATA lv_start_time TYPE timestamp.
     DATA lv_current_time TYPE timestamp.
+    DATA lv_elapsed TYPE i.
+
     GET TIME STAMP FIELD lv_start_time.
 
-    " Wait up to 60 seconds for query to complete
-    DO 60 TIMES.
+    " Wait up to 90 seconds for query to complete
+    DO 90 TIMES.
       TRY.
-          DATA(lo_result) = ao_cwl->getqueryresults(
+          DATA(lo_result) = go_cwl->getqueryresults(
             iv_queryid = iv_query_id
           ).
 
           DATA(lv_status) = lo_result->get_status( ).
+
+          " Check if query is in terminal state
           IF lv_status = 'Complete' OR lv_status = 'Failed' OR
              lv_status = 'Cancelled' OR lv_status = 'Timeout'.
             IF lv_status = 'Complete'.
@@ -308,13 +412,11 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
       WAIT UP TO 1 SECONDS.
 
       GET TIME STAMP FIELD lv_current_time.
-      " Check if 60 seconds have elapsed
-      DATA lv_elapsed_seconds TYPE i.
-      lv_elapsed_seconds = cl_abap_tstmp=>subtract(
+      lv_elapsed = cl_abap_tstmp=>subtract(
         tstmp1 = lv_current_time
         tstmp2 = lv_start_time ).
 
-      IF lv_elapsed_seconds > 60.
+      IF lv_elapsed > 90.
         EXIT.
       ENDIF.
     ENDDO.
