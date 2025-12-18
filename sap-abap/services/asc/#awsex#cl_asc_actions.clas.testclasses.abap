@@ -588,48 +588,38 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
 
   METHOD deleteautoscalinggroup.
     " Test DeleteAutoScalingGroup operation
+    " This test uses a separate group to avoid interfering with other tests
+    DATA lv_delete_test_group TYPE /aws1/ascxmlstringmaxlen255.
+    DATA lv_delete_test_template TYPE /aws1/asclaunchtemplatename.
+    DATA lv_uuid_string TYPE string.
+
     TRY.
-        " First, ensure instances are terminated by setting desired capacity to 0
-        ao_asc_actions->set_desired_capacity(
-          iv_group_name = av_group_name_term
-          iv_capacity = 0 ).
+        " Create a unique group for this delete test
+        lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
+        lv_delete_test_group = |asc-del-{ lv_uuid_string }|.
+        lv_delete_test_template = |asc-del-t-{ lv_uuid_string }|.
 
-        WAIT UP TO 5 SECONDS.
+        " Create launch template for delete test
+        DATA(lv_template_id) = create_launch_template( lv_delete_test_template ).
 
-        " Set min size to 0 to allow deletion
-        ao_asc_actions->update_group(
-          iv_group_name = av_group_name_term
+        " Create the group
+        ao_asc_actions->create_group(
+          iv_group_name = lv_delete_test_group
+          iv_vpc_zone_identifier = av_default_subnet_id
+          iv_launch_template_name = lv_delete_test_template
           iv_min_size = 0
-          iv_max_size = 0 ).
+          iv_max_size = 1 ).
 
         WAIT UP TO 5 SECONDS.
 
-        " Wait for all instances to terminate
-        DATA lv_retry TYPE i VALUE 0.
-        DATA lv_max_retries TYPE i VALUE 30.
-        DATA lv_instances_terminated TYPE abap_bool VALUE abap_false.
+        " Verify group was created
+        DATA(lo_group) = ao_asc_actions->describe_group( lv_delete_test_group ).
+        cl_abap_unit_assert=>assert_bound(
+          act = lo_group
+          msg = |Delete test group { lv_delete_test_group } was not created| ).
 
-        WHILE lv_retry < lv_max_retries AND lv_instances_terminated = abap_false.
-          TRY.
-              DATA(lo_group) = ao_asc_actions->describe_group( av_group_name_term ).
-              IF lo_group IS BOUND.
-                DATA(lt_instances) = lo_group->get_instances( ).
-                IF lines( lt_instances ) = 0.
-                  lv_instances_terminated = abap_true.
-                ELSE.
-                  WAIT UP TO 5 SECONDS.
-                  lv_retry = lv_retry + 1.
-                ENDIF.
-              ELSE.
-                lv_instances_terminated = abap_true.
-              ENDIF.
-            CATCH /aws1/cx_rt_generic.
-              lv_instances_terminated = abap_true.
-          ENDTRY.
-        ENDWHILE.
-
-        " Delete the group
-        ao_asc_actions->delete_group( av_group_name_term ).
+        " Now delete the group
+        ao_asc_actions->delete_group( lv_delete_test_group ).
 
         " Wait for deletion to complete
         WAIT UP TO 10 SECONDS.
@@ -637,17 +627,21 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
         " Verify group was deleted by trying to describe it
         TRY.
             CLEAR lo_group.
-            lo_group = ao_asc_actions->describe_group( av_group_name_term ).
+            lo_group = ao_asc_actions->describe_group( lv_delete_test_group ).
             IF lo_group IS BOUND.
-              cl_abap_unit_assert=>fail( |Group { av_group_name_term } was not deleted| ).
+              cl_abap_unit_assert=>fail( |Group { lv_delete_test_group } was not deleted| ).
             ENDIF.
           CATCH /aws1/cx_rt_generic.
             " Group not found is expected - deletion was successful
-            MESSAGE |Successfully deleted Auto Scaling group { av_group_name_term }| TYPE 'I'.
+            MESSAGE |Successfully deleted Auto Scaling group { lv_delete_test_group }| TYPE 'I'.
         ENDTRY.
 
-        " Clear the variable so class_teardown doesn't try to delete again
-        CLEAR av_group_name_term.
+        " Clean up the launch template
+        TRY.
+            ao_ec2->deletelaunchtemplate( iv_launchtemplateid = lv_template_id ).
+          CATCH /aws1/cx_rt_generic.
+            " Ignore cleanup errors
+        ENDTRY.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         cl_abap_unit_assert=>fail( |DeleteAutoScalingGroup failed: { lo_ex->get_text( ) }| ).
