@@ -1,4 +1,5 @@
 " Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 " SPDX-License-Identifier: Apache-2.0
 CLASS ltc_awsex_cl_hll_actions DEFINITION DEFERRED.
 CLASS /awsex/cl_hll_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_hll_actions.
@@ -12,7 +13,7 @@ CLASS ltc_awsex_cl_hll_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_datastore_arn TYPE /aws1/hlldatastorearn.
     CLASS-DATA av_import_bucket TYPE /aws1/s3_bucketname.
     CLASS-DATA av_export_bucket TYPE /aws1/s3_bucketname.
-    CLASS-DATA av_role_arn TYPE /aws1/iamrolearn.
+    CLASS-DATA av_role_arn TYPE /aws1/hlliamrolearn.
     CLASS-DATA av_kms_key_id TYPE /aws1/hllencryptionkeyid.
 
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
@@ -65,153 +66,222 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
     ao_kms = /aws1/cl_kms_factory=>create( ao_session ).
     ao_hll_actions = NEW /awsex/cl_hll_actions( ).
 
-    TRY.
-        DATA(lo_account_result) = /awsex/cl_utils=>get_account_id( ao_session ).
-        DATA(lv_account_id) = lo_account_result->get_account( ).
-        DATA(lv_uuid) = /awsex/cl_utils=>get_uuid( ).
-        DATA(lv_region) = ao_session->get_region( ).
+    DATA lv_account_id TYPE string.
+    lv_account_id = ao_session->get_account_id( ).
+    DATA lv_uuid TYPE sysuuid_c32.
+    lv_uuid = cl_system_uuid=>create_uuid_c32_static( ).
+    DATA lv_uuid_string TYPE string.
+    lv_uuid_string = lv_uuid.
+    lv_uuid_string = to_lower( lv_uuid_string ).
 
-        av_import_bucket = |sap-hll-import-{ lv_account_id }-{ lv_uuid }|.
-        av_export_bucket = |sap-hll-export-{ lv_account_id }-{ lv_uuid }|.
+    " Create S3 buckets for import and export using util function
+    av_import_bucket = |sap-hll-import-{ lv_account_id }-{ lv_uuid_string(8) }|.
+    av_export_bucket = |sap-hll-export-{ lv_account_id }-{ lv_uuid_string(8) }|.
+
+    TRY.
+        " Use utility function to create buckets
+        /awsex/cl_utils=>create_bucket(
+          iv_bucket = av_import_bucket
+          io_s3 = ao_s3
+          io_session = ao_session
+        ).
 
         /awsex/cl_utils=>create_bucket(
-          iv_bucket_name = av_import_bucket
-          iv_region = CONV string( lv_region )
+          iv_bucket = av_export_bucket
           io_s3 = ao_s3
+          io_session = ao_session
         ).
 
-        DATA(lt_import_tags) = VALUE /aws1/cl_s3_tag=>tt_tagset(
-          ( NEW /aws1/cl_s3_tag( iv_key = 'convert_test' iv_value = 'true' ) )
-        ).
-        DATA(lo_tagging) = NEW /aws1/cl_s3_tagging( it_tagset = lt_import_tags ).
+        " Tag buckets with convert_test for cleanup
         ao_s3->putbuckettagging(
           iv_bucket = av_import_bucket
-          io_tagging = lo_tagging
+          io_tagging = NEW /aws1/cl_s3_tagging(
+            it_tagset = VALUE /aws1/cl_s3_tag=>tt_tagset(
+              ( NEW /aws1/cl_s3_tag( iv_key = 'convert_test' iv_value = 'true' ) )
+            )
+          )
         ).
 
-        /awsex/cl_utils=>create_bucket(
-          iv_bucket_name = av_export_bucket
-          iv_region = CONV string( lv_region )
-          io_s3 = ao_s3
-        ).
-
-        DATA(lt_export_tags) = VALUE /aws1/cl_s3_tag=>tt_tagset(
-          ( NEW /aws1/cl_s3_tag( iv_key = 'convert_test' iv_value = 'true' ) )
-        ).
-        DATA(lo_export_tagging) = NEW /aws1/cl_s3_tagging( it_tagset = lt_export_tags ).
         ao_s3->putbuckettagging(
           iv_bucket = av_export_bucket
-          io_tagging = lo_export_tagging
+          io_tagging = NEW /aws1/cl_s3_tagging(
+            it_tagset = VALUE /aws1/cl_s3_tag=>tt_tagset(
+              ( NEW /aws1/cl_s3_tag( iv_key = 'convert_test' iv_value = 'true' ) )
+            )
+          )
         ).
 
-        DATA(lv_role_name) = |SAPHLLRole{ lv_uuid }|.
-        DATA(lv_trust_policy) = '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"Service":"healthlake.amazonaws.com"},"Action":"sts:AssumeRole"}]}'.
+        " Create sample FHIR data in import bucket
+        DATA lv_fhir_data TYPE string.
+        lv_fhir_data = '{"resourceType":"Patient","id":"example","name":[{"family":"Test","given":["John"]}]}'.
 
+        ao_s3->putobject(
+          iv_bucket = av_import_bucket
+          iv_key = 'patient_example.ndjson'
+          iv_body = /aws1/cl_rt_util=>string_to_xstring( lv_fhir_data )
+        ).
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |Failed to set up S3 resources: { lo_ex->get_text( ) }| ).
+    ENDTRY.
+
+    " Create IAM role for HealthLake
+    DATA lv_role_name TYPE /aws1/iamrolenametype.
+    lv_role_name = |SAPHLLRole{ lv_uuid_string(8) }|.
+
+    DATA lv_trust_policy TYPE string.
+    lv_trust_policy = |\{| &&
+                      |"Version":"2012-10-17",| &&
+                      |"Statement":[\{| &&
+                      |"Effect":"Allow",| &&
+                      |"Principal":\{"Service":"healthlake.amazonaws.com"\},| &&
+                      |"Action":"sts:AssumeRole"| &&
+                      |\}]| &&
+                      |\}|.
+
+    TRY.
         DATA(lo_create_role_result) = ao_iam->createrole(
           iv_rolename = lv_role_name
-          iv_assumerolepolicydocument = lv_trust_policy
+          iv_assumerolepolicydoc = lv_trust_policy
+          it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
+            ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
+          )
         ).
+
         av_role_arn = lo_create_role_result->get_role( )->get_arn( ).
 
-        DATA(lt_role_tags) = VALUE /aws1/cl_iamtag=>tt_taglisttype(
-          ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
-        ).
-        ao_iam->tagrole(
+        " Attach necessary policies to the role for S3 and KMS access
+        DATA lv_policy_document TYPE string.
+        lv_policy_document = |\{| &&
+                            |"Version":"2012-10-17",| &&
+                            |"Statement":[\{| &&
+                            |"Effect":"Allow",| &&
+                            |"Action":["s3:GetObject","s3:PutObject","s3:ListBucket","kms:Decrypt","kms:GenerateDataKey"],| &&
+                            |"Resource":["arn:aws:s3:::{ av_import_bucket }/*","arn:aws:s3:::{ av_import_bucket }",| &&
+                            |"arn:aws:s3:::{ av_export_bucket }/*","arn:aws:s3:::{ av_export_bucket }","*"]| &&
+                            |\}]| &&
+                            |\}|.
+
+        ao_iam->putrolepolicy(
           iv_rolename = lv_role_name
-          it_tags = lt_role_tags
+          iv_policyname = 'HLLAccessPolicy'
+          iv_policydocument = lv_policy_document
         ).
 
-        DATA(lv_policy_doc) = |{"'Version'":"'2012-10-17'","'Statement'":[{"'Effect'":"'Allow'","'Action'":[|
-          && |"'s3:GetObject'","'s3:PutObject'","'s3:ListBucket'","'s3:GetBucketLocation'"],|
-          && |"'Resource'":[|
-          && |"'arn:aws:s3:::{ av_import_bucket }/*'","'arn:aws:s3:::{ av_import_bucket }'",|
-          && |"'arn:aws:s3:::{ av_export_bucket }/*'","'arn:aws:s3:::{ av_export_bucket }'"|
-          && |]},{"'Effect'":"'Allow'","'Action'":[|
-          && |"'kms:Decrypt'","'kms:GenerateDataKey'"],|
-          && |"'Resource'":"'*'"}]}|.
-        lv_policy_doc = replace( val = lv_policy_doc sub = `'` with = `"` occ = 0 ).
+        " Wait for IAM role to propagate
+        WAIT UP TO 10 SECONDS.
 
-        ao_iam->putrole policy(
-          iv_rolename = lv_role_name
-          iv_policyname = 'HealthLakePolicy'
-          iv_policydocument = lv_policy_doc
-        ).
+      CATCH /aws1/cx_rt_generic INTO lo_ex.
+        cl_abap_unit_assert=>fail( |Failed to create IAM role: { lo_ex->get_text( ) }| ).
+    ENDTRY.
 
-        DATA(lv_key_policy) = |{"'Version'":"'2012-10-17'","'Statement'":[|
-          && |{"'Sid'":"'Enable IAM User Permissions'","'Effect'":"'Allow'",|
-          && |"'Principal'":{"'AWS'":"'arn:aws:iam::{ lv_account_id }:root'"},|
-          && |"'Action'":"'kms:*'","'Resource'":"'*'"},|
-          && |{"'Sid'":"'Allow HealthLake'","'Effect'":"'Allow'",|
-          && |"'Principal'":{"'Service'":"'healthlake.amazonaws.com'"},|
-          && |"'Action'":[|
-          && |"'kms:Decrypt'","'kms:GenerateDataKey'"],|
-          && |"'Resource'":"'*'"}]}|.
-        lv_key_policy = replace( val = lv_key_policy sub = `'` with = `"` occ = 0 ).
+    " Create KMS key for encryption
+    TRY.
+        DATA lv_key_policy TYPE string.
+        lv_key_policy = |\{| &&
+                       |"Version":"2012-10-17",| &&
+                       |"Statement":[\{| &&
+                       |"Sid":"Enable IAM User Permissions",| &&
+                       |"Effect":"Allow",| &&
+                       |"Principal":\{"AWS":"arn:aws:iam::{ lv_account_id }:root"\},| &&
+                       |"Action":"kms:*",| &&
+                       |"Resource":"*"| &&
+                       |\},\{| &&
+                       |"Sid":"Allow HealthLake to use the key",| &&
+                       |"Effect":"Allow",| &&
+                       |"Principal":\{"Service":"healthlake.amazonaws.com"\},| &&
+                       |"Action":["kms:Decrypt","kms:GenerateDataKey"],| &&
+                       |"Resource":"*"| &&
+                       |\}]| &&
+                       |\}|.
 
         DATA(lo_create_key_result) = ao_kms->createkey(
-          iv_description = 'Key for HealthLake encryption'
+          iv_description = 'Key for HealthLake test'
+          iv_keyusage = 'ENCRYPT_DECRYPT'
           iv_policy = lv_key_policy
+          it_tags = VALUE /aws1/cl_kmstag=>tt_taglist(
+            ( NEW /aws1/cl_kmstag( iv_tagkey = 'convert_test' iv_tagvalue = 'true' ) )
+          )
         ).
 
         av_kms_key_id = lo_create_key_result->get_keymetadata( )->get_keyid( ).
 
-        DATA(lt_kms_tags) = VALUE /aws1/cl_kmsTag=>tt_taglist(
-          ( NEW /aws1/cl_kmstag( iv_tagkey = 'convert_test' iv_tagvalue = 'true' ) )
-        ).
-        ao_kms->tagresource(
-          iv_keyid = av_kms_key_id
-          it_tags = lt_kms_tags
-        ).
-
-        DATA(lv_fhir_data) = '{"resourceType":"Patient","id":"example","name":[{"use":"official","family":"Chalmers","given":["Peter","James"]}]}'.
-        ao_s3->putobject(
-          iv_bucket = av_import_bucket
-          iv_key = 'patient_example.ndjson'
-          iv_body = /awsex/cl_utils=>string_to_xstring( lv_fhir_data )
-        ).
-
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
-        cl_abap_unit_assert=>fail( |Failed to create resources: { lo_ex->get_text( ) }| ).
+      CATCH /aws1/cx_rt_generic INTO lo_ex.
+        cl_abap_unit_assert=>fail( |Failed to create KMS key: { lo_ex->get_text( ) }| ).
     ENDTRY.
 
   ENDMETHOD.
 
   METHOD class_teardown.
+    " Note: HealthLake datastores can take a long time to delete
+    " We tag resources with 'convert_test' for manual cleanup if needed
     TRY.
-        IF av_role_arn IS NOT INITIAL.
+        " Delete datastore if it exists
+        IF av_datastore_id IS NOT INITIAL.
           TRY.
-              DATA(lv_role_name) = substring_after( val = av_role_arn sub = 'role/' ).
+              ao_hll->deletefhirdatastore( iv_datastoreid = av_datastore_id ).
+            CATCH /aws1/cx_rt_generic.
+              " Ignore errors during cleanup
+          ENDTRY.
+        ENDIF.
+
+        " Clean up S3 buckets - do not delete as datastore may still reference them
+        " They are tagged for manual cleanup
+
+        " Clean up IAM role
+        IF av_role_arn IS NOT INITIAL.
+          DATA lv_role_name TYPE /aws1/iamrolenametype.
+          SPLIT av_role_arn AT '/' INTO DATA(lv_dummy) lv_role_name.
+
+          TRY.
               ao_iam->deleterolepolicy(
                 iv_rolename = lv_role_name
-                iv_policyname = 'HealthLakePolicy'
+                iv_policyname = 'HLLAccessPolicy'
               ).
+            CATCH /aws1/cx_rt_generic.
+          ENDTRY.
+
+          TRY.
               ao_iam->deleterole( iv_rolename = lv_role_name ).
             CATCH /aws1/cx_rt_generic.
           ENDTRY.
         ENDIF.
 
+        " Schedule KMS key deletion
         IF av_kms_key_id IS NOT INITIAL.
           TRY.
-              ao_kms->schedulekey deletion(
+              ao_kms->schedulekeydeletion(
                 iv_keyid = av_kms_key_id
-                iv_pendingwindowindays = 7
+                iv_pendingwindowndays = 7
               ).
             CATCH /aws1/cx_rt_generic.
           ENDTRY.
         ENDIF.
 
       CATCH /aws1/cx_rt_generic.
+        " Ignore cleanup errors
     ENDTRY.
-
   ENDMETHOD.
 
   METHOD create_fhir_datastore.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_uuid( ).
-    DATA(lv_datastore_name) = |SAPTestDataStore{ lv_uuid }|.
+    DATA lv_uuid TYPE sysuuid_c32.
+    lv_uuid = cl_system_uuid=>create_uuid_c32_static( ).
+    DATA lv_uuid_string TYPE string.
+    lv_uuid_string = lv_uuid.
+    lv_uuid_string = to_lower( lv_uuid_string ).
 
-    DATA(lo_result) = ao_hll_actions->create_fhir_datastore( iv_datastore_name = lv_datastore_name ).
+    DATA lv_datastore_name TYPE /aws1/hlldatastorename.
+    lv_datastore_name = |SAPDS{ lv_uuid_string(20) }|.
 
-    cl_abap_unit_assert=>assert_not_initial(
+    DATA lo_result TYPE REF TO /aws1/cl_hllcrefhirdatastore01.
+    ao_hll_actions->create_fhir_datastore(
+      EXPORTING
+        iv_datastore_name = lv_datastore_name
+      IMPORTING
+        oo_result = lo_result
+    ).
+
+    cl_abap_unit_assert=>assert_bound(
       act = lo_result
       msg = 'Create FHIR datastore result should not be initial'
     ).
@@ -224,101 +294,165 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       msg = 'Datastore ID should not be initial'
     ).
 
-    DATA(lt_tags) = VALUE /aws1/cl_hlltag=>tt_taglist(
-      ( NEW /aws1/cl_hlltag( iv_key = 'convert_test' iv_value = 'true' ) )
-    ).
-    ao_hll->tagresource(
-      iv_resourcearn = av_datastore_arn
-      it_tags = lt_tags
-    ).
+    " Tag the datastore with convert_test for cleanup
+    DATA lt_tags TYPE /aws1/cl_hlltag=>tt_taglist.
+    APPEND NEW /aws1/cl_hlltag(
+      iv_key = 'convert_test'
+      iv_value = 'true'
+    ) TO lt_tags.
 
+    TRY.
+        ao_hll->tagresource(
+          iv_resourcearn = av_datastore_arn
+          it_tags = lt_tags
+        ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore tagging errors, but datastore is created
+    ENDTRY.
+
+    " Wait for datastore to become active
     wait_for_datastore_active( av_datastore_id ).
   ENDMETHOD.
 
   METHOD describe_fhir_datastore.
     cl_abap_unit_assert=>assert_not_initial(
       act = av_datastore_id
-      msg = 'Datastore ID should be available from create test'
+      msg = 'Datastore ID must be created first'
     ).
 
-    DATA(lo_result) = ao_hll_actions->describe_fhir_datastore( iv_datastore_id = av_datastore_id ).
+    DATA lo_result TYPE REF TO /aws1/cl_hlldscfhirdatastore01.
+    ao_hll_actions->describe_fhir_datastore(
+      EXPORTING
+        iv_datastore_id = av_datastore_id
+      IMPORTING
+        oo_result = lo_result
+    ).
 
-    cl_abap_unit_assert=>assert_not_initial(
+    cl_abap_unit_assert=>assert_bound(
       act = lo_result
-      msg = 'Describe result should not be initial'
+      msg = 'Describe FHIR datastore result should not be initial'
     ).
 
-    DATA(lo_props) = lo_result->get_datastoreproperties( ).
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lo_props
-      msg = 'Datastore properties should not be initial'
+    DATA(lo_properties) = lo_result->get_datastoreproperties( ).
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_properties
+      msg = 'Datastore properties should be available'
+    ).
+
+    cl_abap_unit_assert=>assert_equals(
+      act = lo_properties->get_datastoreid( )
+      exp = av_datastore_id
+      msg = 'Datastore ID should match'
     ).
   ENDMETHOD.
 
   METHOD list_fhir_datastores.
-    DATA(lo_result) = ao_hll_actions->list_fhir_datastores( ).
+    DATA lo_result TYPE REF TO /aws1/cl_hlllstfhirdatastore01.
+    ao_hll_actions->list_fhir_datastores(
+      IMPORTING
+        oo_result = lo_result
+    ).
 
-    cl_abap_unit_assert=>assert_not_initial(
+    cl_abap_unit_assert=>assert_bound(
       act = lo_result
-      msg = 'List datastores result should not be initial'
+      msg = 'List FHIR datastores result should not be initial'
     ).
 
     DATA(lt_datastores) = lo_result->get_datastorepropertieslist( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_datastores
-      msg = 'Datastore list should not be empty'
+      msg = 'Should have at least one datastore'
+    ).
+
+    " Check if our datastore is in the list
+    DATA lv_found TYPE abap_bool VALUE abap_false.
+    LOOP AT lt_datastores INTO DATA(lo_datastore).
+      IF lo_datastore->get_datastoreid( ) = av_datastore_id.
+        lv_found = abap_true.
+        EXIT.
+      ENDIF.
+    ENDLOOP.
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_found
+      msg = 'Created datastore should be in the list'
     ).
   ENDMETHOD.
 
   METHOD tag_resource.
     cl_abap_unit_assert=>assert_not_initial(
       act = av_datastore_arn
-      msg = 'Datastore ARN should be available'
+      msg = 'Datastore ARN must be available'
     ).
 
-    DATA(lt_tags) = VALUE /aws1/cl_hlltag=>tt_taglist(
-      ( NEW /aws1/cl_hlltag( iv_key = 'Environment' iv_value = 'Test' ) )
-      ( NEW /aws1/cl_hlltag( iv_key = 'Project' iv_value = 'ABAP-SDK' ) )
-    ).
+    DATA lt_tags TYPE /aws1/cl_hlltag=>tt_taglist.
+    APPEND NEW /aws1/cl_hlltag(
+      iv_key = 'Environment'
+      iv_value = 'Test'
+    ) TO lt_tags.
+    APPEND NEW /aws1/cl_hlltag(
+      iv_key = 'Project'
+      iv_value = 'SAP-ABAP-SDK'
+    ) TO lt_tags.
 
     ao_hll_actions->tag_resource(
       iv_resource_arn = av_datastore_arn
       it_tags = lt_tags
     ).
 
-    DATA(lo_list_result) = ao_hll->listtagsforresource( iv_resourcearn = av_datastore_arn ).
-    DATA(lt_result_tags) = lo_list_result->get_tags( ).
-
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lt_result_tags
-      msg = 'Tags should be present on resource'
+    " No exception means success
+    cl_abap_unit_assert=>assert_true(
+      act = abap_true
+      msg = 'Tag resource completed successfully'
     ).
   ENDMETHOD.
 
   METHOD list_tags_for_resource.
     cl_abap_unit_assert=>assert_not_initial(
       act = av_datastore_arn
-      msg = 'Datastore ARN should be available'
+      msg = 'Datastore ARN must be available'
     ).
 
-    DATA(lo_result) = ao_hll_actions->list_tags_for_resource( iv_resource_arn = av_datastore_arn ).
-
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lo_result
-      msg = 'List tags result should not be initial'
+    DATA lt_tags TYPE /aws1/cl_hlltag=>tt_taglist.
+    ao_hll_actions->list_tags_for_resource(
+      EXPORTING
+        iv_resource_arn = av_datastore_arn
+      IMPORTING
+        ot_tags = lt_tags
     ).
 
-    DATA(lt_tags) = lo_result->get_tags( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_tags
-      msg = 'Tags list should not be empty'
+      msg = 'Should have tags'
+    ).
+
+    " Check for our test tags
+    DATA lv_found_env TYPE abap_bool VALUE abap_false.
+    DATA lv_found_project TYPE abap_bool VALUE abap_false.
+    LOOP AT lt_tags INTO DATA(lo_tag).
+      IF lo_tag->get_key( ) = 'Environment' AND lo_tag->get_value( ) = 'Test'.
+        lv_found_env = abap_true.
+      ENDIF.
+      IF lo_tag->get_key( ) = 'Project' AND lo_tag->get_value( ) = 'SAP-ABAP-SDK'.
+        lv_found_project = abap_true.
+      ENDIF.
+    ENDLOOP.
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_found_env
+      msg = 'Environment tag should be found'
+    ).
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_found_project
+      msg = 'Project tag should be found'
     ).
   ENDMETHOD.
 
   METHOD untag_resource.
     cl_abap_unit_assert=>assert_not_initial(
       act = av_datastore_arn
-      msg = 'Datastore ARN should be available'
+      msg = 'Datastore ARN must be available'
     ).
 
     DATA lt_tag_keys TYPE /aws1/cl_hlltagkeylist_w=>tt_tagkeylist.
@@ -329,42 +463,65 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       it_tag_keys = lt_tag_keys
     ).
 
-    DATA(lo_list_result) = ao_hll->listtagsforresource( iv_resourcearn = av_datastore_arn ).
-    DATA(lt_remaining_tags) = lo_list_result->get_tags( ).
+    " Verify tag was removed
+    DATA lt_tags TYPE /aws1/cl_hlltag=>tt_taglist.
+    ao_hll_actions->list_tags_for_resource(
+      EXPORTING
+        iv_resource_arn = av_datastore_arn
+      IMPORTING
+        ot_tags = lt_tags
+    ).
 
-    DATA lv_env_found TYPE abap_bool VALUE abap_false.
-    LOOP AT lt_remaining_tags INTO DATA(lo_tag).
+    DATA lv_found TYPE abap_bool VALUE abap_false.
+    LOOP AT lt_tags INTO DATA(lo_tag).
       IF lo_tag->get_key( ) = 'Environment'.
-        lv_env_found = abap_true.
+        lv_found = abap_true.
+        EXIT.
       ENDIF.
     ENDLOOP.
 
     cl_abap_unit_assert=>assert_false(
-      act = lv_env_found
-      msg = 'Environment tag should have been removed'
+      act = lv_found
+      msg = 'Environment tag should be removed'
     ).
   ENDMETHOD.
 
   METHOD start_fhir_import_job.
     cl_abap_unit_assert=>assert_not_initial(
       act = av_datastore_id
-      msg = 'Datastore ID should be available'
+      msg = 'Datastore ID must be available'
     ).
 
-    DATA(lv_input_uri) = |s3://{ av_import_bucket }/|.
-    DATA(lv_output_uri) = |s3://{ av_export_bucket }/import-output/|.
+    DATA lv_uuid TYPE sysuuid_c32.
+    lv_uuid = cl_system_uuid=>create_uuid_c32_static( ).
+    DATA lv_uuid_string TYPE string.
+    lv_uuid_string = lv_uuid.
 
-    DATA(lo_result) = ao_hll_actions->start_fhir_import_job(
-      iv_datastore_id = av_datastore_id
-      iv_input_s3_uri = lv_input_uri
-      iv_job_output_uri = lv_output_uri
-      iv_dataaccess_arn = av_role_arn
-      iv_kms_key_id = av_kms_key_id
+    DATA lv_job_name TYPE /aws1/hlljobname.
+    lv_job_name = |SAPIJ{ lv_uuid_string(20) }|.
+
+    DATA lv_input_s3_uri TYPE /aws1/hlls3uri.
+    lv_input_s3_uri = |s3://{ av_import_bucket }/patient_example.ndjson|.
+
+    DATA lv_output_s3_uri TYPE /aws1/hlls3uri.
+    lv_output_s3_uri = |s3://{ av_import_bucket }/output/|.
+
+    DATA lo_result TYPE REF TO /aws1/cl_hllstartfhirimpjobrsp.
+    ao_hll_actions->start_fhir_import_job(
+      EXPORTING
+        iv_job_name = lv_job_name
+        iv_datastore_id = av_datastore_id
+        iv_input_s3_uri = lv_input_s3_uri
+        iv_job_output_s3_uri = lv_output_s3_uri
+        iv_kms_key_id = av_kms_key_id
+        iv_data_access_role_arn = av_role_arn
+      IMPORTING
+        oo_result = lo_result
     ).
 
-    cl_abap_unit_assert=>assert_not_initial(
+    cl_abap_unit_assert=>assert_bound(
       act = lo_result
-      msg = 'Start import job result should not be initial'
+      msg = 'Start FHIR import job result should not be initial'
     ).
 
     DATA(lv_job_id) = lo_result->get_jobid( ).
@@ -372,65 +529,114 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       act = lv_job_id
       msg = 'Job ID should not be initial'
     ).
+
+    " Note: We don't wait for job completion as it can take a long time
   ENDMETHOD.
 
   METHOD describe_fhir_import_job.
     cl_abap_unit_assert=>assert_not_initial(
       act = av_datastore_id
-      msg = 'Datastore ID should be available'
+      msg = 'Datastore ID must be available'
     ).
 
-    DATA(lo_list_result) = ao_hll->listfhirimportjobs( iv_datastoreid = av_datastore_id ).
+    " List jobs to get a job ID
+    DATA(lo_list_result) = ao_hll->listfhirimportjobs(
+      iv_datastoreid = av_datastore_id
+    ).
+
     DATA(lt_jobs) = lo_list_result->get_importjobpropertieslist( ).
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lt_jobs
+      msg = 'Should have at least one import job'
+    ).
 
-    IF lines( lt_jobs ) > 0.
-      DATA(lo_job) = lt_jobs[ 1 ].
-      DATA(lv_job_id) = lo_job->get_jobid( ).
+    DATA(lv_job_id) = lt_jobs[ 1 ]->get_jobid( ).
 
-      DATA(lo_result) = ao_hll_actions->describe_fhir_import_job(
+    DATA lo_result TYPE REF TO /aws1/cl_hlldescrfhirimpjobrsp.
+    ao_hll_actions->describe_fhir_import_job(
+      EXPORTING
         iv_datastore_id = av_datastore_id
         iv_job_id = lv_job_id
-      ).
+      IMPORTING
+        oo_result = lo_result
+    ).
 
-      cl_abap_unit_assert=>assert_not_initial(
-        act = lo_result
-        msg = 'Describe import job result should not be initial'
-      ).
-    ENDIF.
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Describe FHIR import job result should not be initial'
+    ).
+
+    DATA(lo_properties) = lo_result->get_importjobproperties( ).
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_properties
+      msg = 'Import job properties should be available'
+    ).
+
+    cl_abap_unit_assert=>assert_equals(
+      act = lo_properties->get_jobid( )
+      exp = lv_job_id
+      msg = 'Job ID should match'
+    ).
   ENDMETHOD.
 
   METHOD list_fhir_import_jobs.
     cl_abap_unit_assert=>assert_not_initial(
       act = av_datastore_id
-      msg = 'Datastore ID should be available'
+      msg = 'Datastore ID must be available'
     ).
 
-    DATA(lo_result) = ao_hll_actions->list_fhir_import_jobs( iv_datastore_id = av_datastore_id ).
+    DATA lo_result TYPE REF TO /aws1/cl_hlllistfhirimpjobsrsp.
+    ao_hll_actions->list_fhir_import_jobs(
+      EXPORTING
+        iv_datastore_id = av_datastore_id
+      IMPORTING
+        oo_result = lo_result
+    ).
 
-    cl_abap_unit_assert=>assert_not_initial(
+    cl_abap_unit_assert=>assert_bound(
       act = lo_result
-      msg = 'List import jobs result should not be initial'
+      msg = 'List FHIR import jobs result should not be initial'
+    ).
+
+    DATA(lt_jobs) = lo_result->get_importjobpropertieslist( ).
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lt_jobs
+      msg = 'Should have at least one import job'
     ).
   ENDMETHOD.
 
   METHOD start_fhir_export_job.
     cl_abap_unit_assert=>assert_not_initial(
       act = av_datastore_id
-      msg = 'Datastore ID should be available'
+      msg = 'Datastore ID must be available'
     ).
 
-    DATA(lv_output_uri) = |s3://{ av_export_bucket }/export-output/|.
+    DATA lv_uuid TYPE sysuuid_c32.
+    lv_uuid = cl_system_uuid=>create_uuid_c32_static( ).
+    DATA lv_uuid_string TYPE string.
+    lv_uuid_string = lv_uuid.
 
-    DATA(lo_result) = ao_hll_actions->start_fhir_export_job(
-      iv_datastore_id = av_datastore_id
-      iv_output_s3_uri = lv_output_uri
-      iv_dataaccess_arn = av_role_arn
-      iv_kms_key_id = av_kms_key_id
+    DATA lv_job_name TYPE /aws1/hlljobname.
+    lv_job_name = |SAPEJ{ lv_uuid_string(20) }|.
+
+    DATA lv_output_s3_uri TYPE /aws1/hlls3uri.
+    lv_output_s3_uri = |s3://{ av_export_bucket }/output/|.
+
+    DATA lo_result TYPE REF TO /aws1/cl_hllstartfhirexpjobrsp.
+    ao_hll_actions->start_fhir_export_job(
+      EXPORTING
+        iv_job_name = lv_job_name
+        iv_datastore_id = av_datastore_id
+        iv_output_s3_uri = lv_output_s3_uri
+        iv_kms_key_id = av_kms_key_id
+        iv_data_access_role_arn = av_role_arn
+      IMPORTING
+        oo_result = lo_result
     ).
 
-    cl_abap_unit_assert=>assert_not_initial(
+    cl_abap_unit_assert=>assert_bound(
       act = lo_result
-      msg = 'Start export job result should not be initial'
+      msg = 'Start FHIR export job result should not be initial'
     ).
 
     DATA(lv_job_id) = lo_result->get_jobid( ).
@@ -443,51 +649,90 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
   METHOD describe_fhir_export_job.
     cl_abap_unit_assert=>assert_not_initial(
       act = av_datastore_id
-      msg = 'Datastore ID should be available'
+      msg = 'Datastore ID must be available'
     ).
 
-    DATA(lo_list_result) = ao_hll->listfhirexportjobs( iv_datastoreid = av_datastore_id ).
+    " List jobs to get a job ID
+    DATA(lo_list_result) = ao_hll->listfhirexportjobs(
+      iv_datastoreid = av_datastore_id
+    ).
+
     DATA(lt_jobs) = lo_list_result->get_exportjobpropertieslist( ).
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lt_jobs
+      msg = 'Should have at least one export job'
+    ).
 
-    IF lines( lt_jobs ) > 0.
-      DATA(lo_job) = lt_jobs[ 1 ].
-      DATA(lv_job_id) = lo_job->get_jobid( ).
+    DATA(lv_job_id) = lt_jobs[ 1 ]->get_jobid( ).
 
-      DATA(lo_result) = ao_hll_actions->describe_fhir_export_job(
+    DATA lo_result TYPE REF TO /aws1/cl_hlldescrfhirexpjobrsp.
+    ao_hll_actions->describe_fhir_export_job(
+      EXPORTING
         iv_datastore_id = av_datastore_id
         iv_job_id = lv_job_id
-      ).
+      IMPORTING
+        oo_result = lo_result
+    ).
 
-      cl_abap_unit_assert=>assert_not_initial(
-        act = lo_result
-        msg = 'Describe export job result should not be initial'
-      ).
-    ENDIF.
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Describe FHIR export job result should not be initial'
+    ).
+
+    DATA(lo_properties) = lo_result->get_exportjobproperties( ).
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_properties
+      msg = 'Export job properties should be available'
+    ).
+
+    cl_abap_unit_assert=>assert_equals(
+      act = lo_properties->get_jobid( )
+      exp = lv_job_id
+      msg = 'Job ID should match'
+    ).
   ENDMETHOD.
 
   METHOD list_fhir_export_jobs.
     cl_abap_unit_assert=>assert_not_initial(
       act = av_datastore_id
-      msg = 'Datastore ID should be available'
+      msg = 'Datastore ID must be available'
     ).
 
-    DATA(lo_result) = ao_hll_actions->list_fhir_export_jobs( iv_datastore_id = av_datastore_id ).
+    DATA lo_result TYPE REF TO /aws1/cl_hlllistfhirexpjobsrsp.
+    ao_hll_actions->list_fhir_export_jobs(
+      EXPORTING
+        iv_datastore_id = av_datastore_id
+      IMPORTING
+        oo_result = lo_result
+    ).
 
-    cl_abap_unit_assert=>assert_not_initial(
+    cl_abap_unit_assert=>assert_bound(
       act = lo_result
-      msg = 'List export jobs result should not be initial'
+      msg = 'List FHIR export jobs result should not be initial'
+    ).
+
+    DATA(lt_jobs) = lo_result->get_exportjobpropertieslist( ).
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lt_jobs
+      msg = 'Should have at least one export job'
     ).
   ENDMETHOD.
 
   METHOD delete_fhir_datastore.
     cl_abap_unit_assert=>assert_not_initial(
       act = av_datastore_id
-      msg = 'Datastore ID should be available'
+      msg = 'Datastore ID must be available'
     ).
 
-    DATA(lo_result) = ao_hll_actions->delete_fhir_datastore( iv_datastore_id = av_datastore_id ).
+    DATA lo_result TYPE REF TO /aws1/cl_hlldelfhirdatastore01.
+    ao_hll_actions->delete_fhir_datastore(
+      EXPORTING
+        iv_datastore_id = av_datastore_id
+      IMPORTING
+        oo_result = lo_result
+    ).
 
-    cl_abap_unit_assert=>assert_not_initial(
+    cl_abap_unit_assert=>assert_bound(
       act = lo_result
       msg = 'Delete FHIR datastore result should not be initial'
     ).
@@ -499,6 +744,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       msg = 'Datastore status should be DELETING'
     ).
 
+    " Clear the ID so class_teardown doesn't try to delete again
     CLEAR av_datastore_id.
   ENDMETHOD.
 
@@ -508,11 +754,16 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
     DATA lv_status TYPE /aws1/hlldatastorestatus.
 
     WHILE lv_counter < lv_max_minutes.
-      DATA(lo_result) = ao_hll->describefhirdatastore( iv_datastoreid = iv_datastore_id ).
+      DATA(lo_result) = ao_hll->describefhirdatastore(
+        iv_datastoreid = iv_datastore_id
+      ).
+
       lv_status = lo_result->get_datastoreproperties( )->get_datastorestatus( ).
 
       IF lv_status = 'ACTIVE'.
         EXIT.
+      ELSEIF lv_status = 'CREATE_FAILED'.
+        cl_abap_unit_assert=>fail( |Datastore creation failed after { lv_counter } minutes| ).
       ENDIF.
 
       WAIT UP TO 60 SECONDS.
@@ -536,7 +787,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
           iv_jobid = iv_job_id
         ).
         lv_status = lo_import_result->get_importjobproperties( )->get_jobstatus( ).
-      ELSEIF iv_job_type = 'EXPORT'.
+      ELSE.
         DATA(lo_export_result) = ao_hll->describefhirexportjob(
           iv_datastoreid = iv_datastore_id
           iv_jobid = iv_job_id
@@ -544,7 +795,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
         lv_status = lo_export_result->get_exportjobproperties( )->get_jobstatus( ).
       ENDIF.
 
-      IF lv_status = 'COMPLETED' OR lv_status = 'COMPLETED_WITH_ERRORS' OR lv_status = 'FAILED'.
+      IF lv_status = 'COMPLETED' OR lv_status = 'COMPLETED_WITH_ERRORS'.
         EXIT.
       ENDIF.
 
