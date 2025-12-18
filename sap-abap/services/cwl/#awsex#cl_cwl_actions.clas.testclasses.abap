@@ -332,10 +332,10 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
       msg = 'Query status should be Complete' ).
 
     " Verify we got results back
-    DATA(lt_results) = lo_result->get_results( ).
-    cl_abap_unit_assert=>assert_bound(
-      act = lt_results
-      msg = 'Query results should be bound' ).
+    " get_results() returns a table of result rows (TT_QUERYRESULTS)
+    " Each row is a table of result fields (TT_RESULTROWS)
+    DATA lt_results TYPE /aws1/cl_cwlresultfield=>tt_queryresults.
+    lt_results = lo_result->get_results( ).
 
     " Check that we have log entries (we created 10 test events)
     DATA lv_result_count TYPE i.
@@ -348,16 +348,24 @@ CLASS ltc_awsex_cl_cwl_actions IMPLEMENTATION.
 
     " Verify structure of returned results
     IF lv_result_count > 0.
-      DATA(lo_first_row) = lt_results[ 1 ].
-      cl_abap_unit_assert=>assert_bound(
-        act = lo_first_row
-        msg = 'First result row should be bound' ).
+      " Get first row (which is a table of result fields)
+      DATA lt_first_row TYPE /aws1/cl_cwlresultfield=>tt_resultrows.
+      READ TABLE lt_results INDEX 1 INTO lt_first_row.
+
+      DATA lv_first_row_count TYPE i.
+      lv_first_row_count = lines( lt_first_row ).
+
+      cl_abap_unit_assert=>assert_differs(
+        act = lv_first_row_count
+        exp = 0
+        msg = 'First result row should contain fields' ).
 
       " Check fields in the result
       DATA lv_has_timestamp TYPE abap_bool VALUE abap_false.
       DATA lv_has_message TYPE abap_bool VALUE abap_false.
+      DATA lo_field TYPE REF TO /aws1/cl_cwlresultfield.
 
-      LOOP AT lo_first_row INTO DATA(lo_field).
+      LOOP AT lt_first_row INTO lo_field.
         DATA(lv_field_name) = lo_field->get_field( ).
         IF lv_field_name = '@timestamp'.
           lv_has_timestamp = abap_true.
