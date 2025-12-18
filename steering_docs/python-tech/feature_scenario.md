@@ -973,9 +973,16 @@ moto>=4.0.0
 
 ## Integration Tests
 
-### Pytest Integration Test Pattern
+### Requirements
 
-Integration tests should verify no errors are logged and the scenario completes successfully:
+**MANDATORY**: All feature scenarios MUST include both stubbed unit tests and live integration tests:
+
+1. **Stubbed Tests** - Use the established stubbing pattern from `test_tools` for fast, reliable unit testing
+2. **Live Integration Tests** - Use `@pytest.mark.integ` decorator to test against real AWS services
+
+### Pytest Integration Test Pattern with Stubbing
+
+Integration tests should use the established stubbing pattern from `test_tools` and verify no errors are logged:
 
 ```python
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -986,47 +993,156 @@ Integration tests for {Service} scenario.
 """
 
 import pytest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 import logging
+import boto3
+
+import sys
+import os
+
+# Add parent directory to path to import scenario modules
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Add test_tools to path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "test_tools"))
 
 from {scenario_name}_scenario import {Service}Scenario
 from {service}_wrapper import {Service}Wrapper
-from cloudformation_helper import CloudFormationHelper
+
+
+class MockManager:
+    """Mock manager for the {Service} scenario tests."""
+    
+    def __init__(self, {service}_client, {service}_stubber, stub_runner):
+        """{Service} test setup manager."""
+        self.{service}_client = {service}_client
+        self.{service}_stubber = {service}_stubber
+        self.stub_runner = stub_runner
+        self.{service}_wrapper = {Service}Wrapper({service}_client)
+        self.scenario = {Service}Scenario(self.{service}_wrapper)
+
+
+@pytest.fixture
+def mock_mgr(make_stubber, stub_runner):
+    """Create a mock manager with AWS service stubbers."""
+    {service}_client = boto3.client('{service}')
+    {service}_stubber = make_stubber({service}_client)
+    
+    return MockManager({service}_client, {service}_stubber, stub_runner)
 
 
 class TestScenarioIntegration:
     """Integration tests for the {Service} scenario."""
 
-    @pytest.fixture
-    def mock_clients(self):
-        """Create mock AWS clients."""
-        mock_{service}_client = Mock()
-        mock_cf_client = Mock()
-        return mock_{service}_client, mock_cf_client
-
-    @pytest.fixture
-    def scenario(self, mock_clients):
-        """Create a scenario instance with mocked dependencies."""
-        mock_{service}_client, mock_cf_client = mock_clients
-        
-        {service}_wrapper = {Service}Wrapper(mock_{service}_client)
-        cf_helper = CloudFormationHelper(mock_cf_client)
-        
-        return {Service}Scenario({service}_wrapper, cf_helper)
-
     @patch('demo_tools.question.ask')
-    def test_scenario_integration_no_errors_logged(self, mock_ask, scenario, caplog):
+    def test_scenario_integration_no_errors_logged(self, mock_ask, mock_mgr, caplog):
         """
         Verify the scenario runs without logging any errors.
         
         Args:
             mock_ask: Mock for user input
-            scenario: The scenario instance
+            mock_mgr: Mock manager with stubbed AWS clients
             caplog: Pytest log capture fixture
         """
+        # Arrange user inputs
+        mock_ask.side_effect = [
+            "test-resource-name",  # Resource name input
+            "test-parameter",      # Parameter input
+            True,                  # Cleanup confirmation
+        ]
+
+        # Set up stubs for AWS operations
+        with mock_mgr.stub_runner(None, None) as runner:
+            # Add stubs for each AWS operation the scenario will perform
+            runner.add(
+                mock_mgr.{service}_stubber.stub_create_resource,
+                "test-resource-name",
+                "arn:aws:{service}:us-east-1:123456789012:resource/test-resource",
+            )
+            runner.add(
+                mock_mgr.{service}_stubber.stub_list_resources,
+                ["arn:aws:{service}:us-east-1:123456789012:resource/test-resource"],
+            )
+            runner.add(
+                mock_mgr.{service}_stubber.stub_delete_resource,
+                "arn:aws:{service}:us-east-1:123456789012:resource/test-resource",
+            )
+
+            # Act - Run the scenario
+            with caplog.at_level(logging.ERROR):
+                mock_mgr.scenario.run_scenario()
+
+            # Assert no errors logged
+            error_logs = [record for record in caplog.records if record.levelno >= logging.ERROR]
+            assert len(error_logs) == 0, f"Expected no error logs, but found: {error_logs}"
+
+    @patch('demo_tools.question.ask')
+    def test_scenario_handles_aws_errors_gracefully(self, mock_ask, mock_mgr):
+        """Test that the scenario handles AWS errors gracefully."""
         # Arrange
         mock_ask.side_effect = [
-            "test-stack-name",  # Stack name input
-            "test-parameter",   # Parameter input
-            True,              # Cleanup confirmation
+            "test-resource-name",  # Resource name
         ]
+
+        # Set up stub to simulate AWS error
+        with mock_mgr.stub_runner("TestException", 0) as runner:
+            runner.add(
+                mock_mgr.{service}_stubber.stub_create_resource,
+                "test-resource-name", 
+                "arn:aws:{service}:us-east-1:123456789012:resource/test-resource",
+            )
+
+            # Act & Assert - Should handle error gracefully
+            mock_mgr.scenario.run_scenario()
+            # Verify error was logged appropriately (scenario should continue or cleanup)
+
+
+### Live Integration Test Pattern
+
+**MANDATORY**: Always include a live integration test that uses real AWS services:
+
+```python
+@pytest.mark.integ
+def test_run_scenario_integ(input_mocker, capsys):
+    """Test the scenario with an integration test using live AWS services."""
+    # Mock user inputs for automated testing
+    answers = [
+        "test-resource-name-integ",  # Resource name
+        "test-parameter",            # Parameter input
+        True,                        # Cleanup confirmation
+    ]
+
+    input_mocker.mock_answers(answers)
+    
+    # Create real AWS clients (no stubs)
+    {service}_client = boto3.client('{service}')
+    
+    # Initialize wrappers and scenario with real clients
+    {service}_wrapper = {Service}Wrapper({service}_client)
+    scenario = {Service}Scenario({service}_wrapper)
+
+    # Run the scenario with live AWS services
+    scenario.run_scenario()
+
+    # Verify the scenario completed successfully
+    captured = capsys.readouterr()
+    assert "scenario completed successfully" in captured.out
+```
+
+**Key Features of Live Integration Tests:**
+- ✅ **`@pytest.mark.integ` decorator** - Allows selective test execution
+- ✅ **Real AWS clients** - Tests against actual AWS services
+- ✅ **User input automation** - Uses `input_mocker` to simulate user interactions  
+- ✅ **Output verification** - Checks console output for completion messages
+- ✅ **Resource cleanup** - Ensures all resources are cleaned up after testing
+
+**Running Integration Tests:**
+```bash
+# Run only unit tests (stubbed)
+pytest test/test_scenario.py
+
+# Run only integration tests (live AWS)
+pytest test/test_scenario.py -m integ
+
+# Run all tests
+pytest test/test_scenario.py -m "not integ" && pytest test/test_scenario.py -m integ
+```

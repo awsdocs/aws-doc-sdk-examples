@@ -31,7 +31,7 @@ from sns_wrapper import SnsWrapper
 from sqs_wrapper import SqsWrapper
 
 # Add relative path to include demo_tools
-sys.path.append("../../..")
+sys.path.append("../..")
 import demo_tools.question as q
 
 logger = logging.getLogger(__name__)
@@ -105,7 +105,7 @@ class TopicsAndQueuesScenario:
             except Exception as cleanup_error:
                 logger.error(f"Error during cleanup: {cleanup_error}")
 
-        print("✓ Messaging with topics and queues scenario is complete.")
+        print("Messaging with topics and queues scenario is complete.")
         print(self.DASHES)
 
     def _setup_topic(self) -> None:
