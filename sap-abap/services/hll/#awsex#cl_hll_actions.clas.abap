@@ -314,7 +314,7 @@ CLASS /awsex/cl_hll_actions IMPLEMENTATION.
         " iv_data_access_role_arn = 'arn:aws:iam::123456789012:role/HealthLakeImportRole'
         oo_result = lo_hll->startfhirimportjob(
           iv_jobname = iv_job_name
-          io_inputdataconfig = NEW /aws1/cl_hllinputdataconfig( iv_input_s3_uri )
+          io_inputdataconfig = NEW /aws1/cl_hllinputdataconfig( iv_s3uri = iv_input_s3_uri )
           io_joboutputdataconfig = NEW /aws1/cl_hlloutputdataconfig(
             io_s3configuration = NEW /aws1/cl_hlls3configuration(
               iv_s3uri = iv_job_output_s3_uri
