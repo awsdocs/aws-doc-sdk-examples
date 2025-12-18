@@ -22,16 +22,16 @@ CLASS ltc_awsex_cl_asc_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_default_subnet_id TYPE /aws1/ec2string.
     CLASS-DATA av_default_vpc_id TYPE /aws1/ec2string.
 
-    METHODS: create_autoscaling_group FOR TESTING RAISING /aws1/cx_rt_generic,
-      describe_autoscaling_groups FOR TESTING RAISING /aws1/cx_rt_generic,
-      update_autoscaling_group FOR TESTING RAISING /aws1/cx_rt_generic,
-      set_desired_capacity FOR TESTING RAISING /aws1/cx_rt_generic,
-      describe_autoscaling_insts FOR TESTING RAISING /aws1/cx_rt_generic,
-      describe_scaling_activities FOR TESTING RAISING /aws1/cx_rt_generic,
-      enable_metrics_collection FOR TESTING RAISING /aws1/cx_rt_generic,
-      disable_metrics_collection FOR TESTING RAISING /aws1/cx_rt_generic,
-      terminate_instance_in_asg FOR TESTING RAISING /aws1/cx_rt_generic,
-      delete_autoscaling_group FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS: createautoscalinggroup FOR TESTING RAISING /aws1/cx_rt_generic,
+      describeautoscalinggroups FOR TESTING RAISING /aws1/cx_rt_generic,
+      updateautoscalinggroup FOR TESTING RAISING /aws1/cx_rt_generic,
+      setdesiredcapacity FOR TESTING RAISING /aws1/cx_rt_generic,
+      describeautoscalinginsts FOR TESTING RAISING /aws1/cx_rt_generic,
+      describescalingactivities FOR TESTING RAISING /aws1/cx_rt_generic,
+      enablemetricscollection FOR TESTING RAISING /aws1/cx_rt_generic,
+      disablemetricscollection FOR TESTING RAISING /aws1/cx_rt_generic,
+      terminateinstinautoscgroup FOR TESTING RAISING /aws1/cx_rt_generic,
+      deleteautoscalinggroup FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
@@ -41,6 +41,10 @@ CLASS ltc_awsex_cl_asc_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-METHODS wait_for_group_ready
       IMPORTING iv_group_name    TYPE /aws1/ascxmlstringmaxlen255
                 iv_expected_state TYPE string DEFAULT 'InService'
+      RAISING   /aws1/cx_rt_generic.
+    CLASS-METHODS create_launch_template
+      IMPORTING iv_template_name     TYPE /aws1/asclaunchtemplatename
+      RETURNING VALUE(rv_template_id) TYPE /aws1/ascxmlstringmaxlen255
       RAISING   /aws1/cx_rt_generic.
 ENDCLASS.
 
@@ -128,8 +132,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     ENDIF.
   ENDMETHOD.
 
-  METHOD class_setup.
-    DATA lv_uuid TYPE string.
+  METHOD create_launch_template.
     DATA lt_tags TYPE /aws1/cl_ec2tag=>tt_taglist.
     DATA lo_tag TYPE REF TO /aws1/cl_ec2tag.
     DATA lo_tag_spec TYPE REF TO /aws1/cl_ec2launchtmpltgspec00.
@@ -137,23 +140,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
     DATA lo_template_data TYPE REF TO /aws1/cl_ec2reqlaunchtmpldata.
     DATA lo_create_result TYPE REF TO /aws1/cl_ec2crelaunchtmplrslt.
 
-    " Initialize session and clients
-    ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
-    ao_asc = /aws1/cl_asc_factory=>create( ao_session ).
-    ao_ec2 = /aws1/cl_ec2_factory=>create( ao_session ).
-    ao_asc_actions = NEW /awsex/cl_asc_actions( ao_session ).
-
-    " Find the default VPC - MUST succeed or tests will fail
-    av_default_subnet_id = find_default_vpc( ).
-
-    " Generate unique names using utility function
-    lv_uuid = /awsex/cl_utils=>get_random_string( ).
-    av_group_name = |asc-test-{ lv_uuid }|.
-    av_launch_template_name = |asc-tmpl-{ lv_uuid }|.
-    av_group_name_term = |asc-term-{ lv_uuid }|.
-    av_lnch_tmpl_name_term = |asc-tmpl-t-{ lv_uuid }|.
-
-    " Create tags for all resources with convert_test tag
+    " Create tags for the launch template
     lo_tag = NEW /aws1/cl_ec2tag(
       iv_key = 'convert_test'
       iv_value = 'true' ).
@@ -164,9 +151,9 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
       it_tags = lt_tags ).
     APPEND lo_tag_spec TO lt_tag_specs.
 
-    " Get region-specific AMI ID based on test region
-    DATA lv_ami_id TYPE string.
+    " Get region-specific AMI ID
     DATA(lv_region) = ao_session->get_region( ).
+    DATA lv_ami_id TYPE string.
 
     CASE lv_region.
       WHEN 'us-west-2'.
@@ -185,53 +172,64 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
       iv_instancetype = 't2.micro'
       it_tagspecifications = lt_tag_specs ).
 
-    " Create main launch template - MUST succeed
+    " Create the launch template
     TRY.
         lo_create_result = ao_ec2->createlaunchtemplate(
-          iv_launchtemplatename = av_launch_template_name
+          iv_launchtemplatename = iv_template_name
           io_launchtemplatedata = lo_template_data ).
-        av_launch_template_id = lo_create_result->get_launchtemplate( )->get_launchtemplateid( ).
-      CATCH /aws1/cx_rt_generic.
-        " If creation failed, try to get existing template
+        rv_template_id = lo_create_result->get_launchtemplate( )->get_launchtemplateid( ).
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        " If creation failed, try to get existing template (may exist from previous failed run)
         TRY.
             DATA(lo_describe_result) = ao_ec2->describelaunchtemplates(
               it_launchtmplnames = VALUE /aws1/cl_ec2lnchtmplnmestrlst=>tt_launchtemplatenamestringlist(
-                ( NEW /aws1/cl_ec2lnchtmplnmestrlst( iv_value = av_launch_template_name ) ) ) ).
+                ( NEW /aws1/cl_ec2lnchtmplnmestrlst( iv_value = iv_template_name ) ) ) ).
             DATA(lt_templates) = lo_describe_result->get_launchtemplates( ).
             IF lines( lt_templates ) > 0.
               READ TABLE lt_templates INDEX 1 INTO DATA(lo_template).
-              av_launch_template_id = lo_template->get_launchtemplateid( ).
+              rv_template_id = lo_template->get_launchtemplateid( ).
             ELSE.
-              cl_abap_unit_assert=>fail( |Failed to create or find launch template { av_launch_template_name }| ).
+              cl_abap_unit_assert=>fail( |Failed to create or find launch template { iv_template_name }: { lo_ex->get_text( ) }| ).
             ENDIF.
-          CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
-            cl_abap_unit_assert=>fail( |Failed to create or find launch template { av_launch_template_name }: { lo_ex->get_text( ) }| ).
+          CATCH /aws1/cx_rt_generic INTO DATA(lo_ex2).
+            cl_abap_unit_assert=>fail( |Failed to create or find launch template { iv_template_name }: { lo_ex2->get_text( ) }| ).
         ENDTRY.
     ENDTRY.
+  ENDMETHOD.
+
+  METHOD class_setup.
+    DATA lv_uuid_string TYPE string.
+
+    " Initialize session and clients
+    ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
+    ao_asc = /aws1/cl_asc_factory=>create( ao_session ).
+    ao_ec2 = /aws1/cl_ec2_factory=>create( ao_session ).
+    ao_asc_actions = NEW /awsex/cl_asc_actions( ao_session ).
+
+    " Find the default VPC - MUST succeed
+    av_default_subnet_id = find_default_vpc( ).
+    IF av_default_subnet_id IS INITIAL.
+      cl_abap_unit_assert=>fail( 'Cannot proceed with tests: No default VPC found' ).
+    ENDIF.
+
+    " Generate unique names using utility function
+    lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
+    av_group_name = |asc-test-{ lv_uuid_string }|.
+    av_launch_template_name = |asc-tmpl-{ lv_uuid_string }|.
+    av_group_name_term = |asc-term-{ lv_uuid_string }|.
+    av_lnch_tmpl_name_term = |asc-tmpl-t-{ lv_uuid_string }|.
+
+    " Create main launch template - MUST succeed
+    av_launch_template_id = create_launch_template( av_launch_template_name ).
+    IF av_launch_template_id IS INITIAL.
+      cl_abap_unit_assert=>fail( |Failed to create main launch template { av_launch_template_name }| ).
+    ENDIF.
 
     " Create terminate test launch template - MUST succeed
-    TRY.
-        lo_create_result = ao_ec2->createlaunchtemplate(
-          iv_launchtemplatename = av_lnch_tmpl_name_term
-          io_launchtemplatedata = lo_template_data ).
-        av_lnch_tmpl_id_term = lo_create_result->get_launchtemplate( )->get_launchtemplateid( ).
-      CATCH /aws1/cx_rt_generic.
-        " If creation failed, try to get existing template
-        TRY.
-            lo_describe_result = ao_ec2->describelaunchtemplates(
-              it_launchtmplnames = VALUE /aws1/cl_ec2lnchtmplnmestrlst=>tt_launchtemplatenamestringlist(
-                ( NEW /aws1/cl_ec2lnchtmplnmestrlst( iv_value = av_lnch_tmpl_name_term ) ) ) ).
-            lt_templates = lo_describe_result->get_launchtemplates( ).
-            IF lines( lt_templates ) > 0.
-              READ TABLE lt_templates INDEX 1 INTO lo_template.
-              av_lnch_tmpl_id_term = lo_template->get_launchtemplateid( ).
-            ELSE.
-              cl_abap_unit_assert=>fail( |Failed to create or find launch template { av_lnch_tmpl_name_term }| ).
-            ENDIF.
-          CATCH /aws1/cx_rt_generic INTO lo_ex.
-            cl_abap_unit_assert=>fail( |Failed to create or find launch template { av_lnch_tmpl_name_term }: { lo_ex->get_text( ) }| ).
-        ENDTRY.
-    ENDTRY.
+    av_lnch_tmpl_id_term = create_launch_template( av_lnch_tmpl_name_term ).
+    IF av_lnch_tmpl_id_term IS INITIAL.
+      cl_abap_unit_assert=>fail( |Failed to create terminate test launch template { av_lnch_tmpl_name_term }| ).
+    ENDIF.
 
     MESSAGE 'Class setup completed successfully' TYPE 'I'.
   ENDMETHOD.
@@ -305,7 +303,7 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
       ENDTRY.
     ENDIF.
 
-    " Clean up launch templates - Note: tagged with 'convert_test' for manual cleanup if needed
+    " Clean up launch templates - Tagged with 'convert_test' for manual cleanup if needed
     IF av_launch_template_id IS NOT INITIAL.
       TRY.
           ao_ec2->deletelaunchtemplate(
@@ -321,251 +319,301 @@ CLASS ltc_awsex_cl_asc_actions IMPLEMENTATION.
         CATCH /aws1/cx_rt_generic.
       ENDTRY.
     ENDIF.
+
+    MESSAGE 'Class teardown completed' TYPE 'I'.
   ENDMETHOD.
 
-  METHOD create_autoscaling_group.
+  METHOD createautoscalinggroup.
     " Test CreateAutoScalingGroup operation
-    ao_asc_actions->create_group(
-      iv_group_name = av_group_name
-      iv_vpc_zone_identifier = av_default_subnet_id
-      iv_launch_template_name = av_launch_template_name
-      iv_min_size = 0
-      iv_max_size = 1 ).
+    TRY.
+        ao_asc_actions->create_group(
+          iv_group_name = av_group_name
+          iv_vpc_zone_identifier = av_default_subnet_id
+          iv_launch_template_name = av_launch_template_name
+          iv_min_size = 0
+          iv_max_size = 1 ).
 
-    WAIT UP TO 5 SECONDS.
+        WAIT UP TO 5 SECONDS.
 
-    " Wait for group to be ready
-    wait_for_group_ready( iv_group_name = av_group_name ).
+        " Wait for group to be ready
+        wait_for_group_ready( iv_group_name = av_group_name ).
 
-    " Verify the group was created
-    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
-    cl_abap_unit_assert=>assert_bound(
-      act = lo_group
-      msg = |Auto Scaling group { av_group_name } was not created| ).
+        " Verify the group was created
+        DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
+        cl_abap_unit_assert=>assert_bound(
+          act = lo_group
+          msg = |Auto Scaling group { av_group_name } was not created| ).
 
-    cl_abap_unit_assert=>assert_equals(
-      exp = av_group_name
-      act = lo_group->get_autoscalinggroupname( )
-      msg = 'Group name does not match' ).
+        cl_abap_unit_assert=>assert_equals(
+          exp = av_group_name
+          act = lo_group->get_autoscalinggroupname( )
+          msg = 'Group name does not match' ).
 
-    MESSAGE 'CreateAutoScalingGroup test passed' TYPE 'I'.
+        MESSAGE 'CreateAutoScalingGroup test passed' TYPE 'I'.
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |CreateAutoScalingGroup failed: { lo_ex->get_text( ) }| ).
+    ENDTRY.
   ENDMETHOD.
 
-  METHOD describe_autoscaling_groups.
+  METHOD describeautoscalinggroups.
     " Test DescribeAutoScalingGroups operation
-    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
+    TRY.
+        DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
 
-    cl_abap_unit_assert=>assert_bound(
-      act = lo_group
-      msg = |describe_group returned no result for { av_group_name }| ).
+        cl_abap_unit_assert=>assert_bound(
+          act = lo_group
+          msg = |describe_group returned no result for { av_group_name }| ).
 
-    cl_abap_unit_assert=>assert_equals(
-      exp = av_group_name
-      act = lo_group->get_autoscalinggroupname( )
-      msg = 'Retrieved group name does not match' ).
+        cl_abap_unit_assert=>assert_equals(
+          exp = av_group_name
+          act = lo_group->get_autoscalinggroupname( )
+          msg = 'Retrieved group name does not match' ).
 
-    MESSAGE |Successfully described Auto Scaling group { av_group_name }| TYPE 'I'.
+        MESSAGE |Successfully described Auto Scaling group { av_group_name }| TYPE 'I'.
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |DescribeAutoScalingGroups failed: { lo_ex->get_text( ) }| ).
+    ENDTRY.
   ENDMETHOD.
 
-  METHOD update_autoscaling_group.
+  METHOD updateautoscalinggroup.
     " Test UpdateAutoScalingGroup operation
-    ao_asc_actions->update_group(
-      iv_group_name = av_group_name
-      iv_max_size = 3 ).
+    TRY.
+        ao_asc_actions->update_group(
+          iv_group_name = av_group_name
+          iv_max_size = 3 ).
 
-    WAIT UP TO 5 SECONDS.
+        WAIT UP TO 5 SECONDS.
 
-    " Verify the update
-    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
-    cl_abap_unit_assert=>assert_equals(
-      exp = 3
-      act = lo_group->get_maxsize( )
-      msg = |Max size was not updated to 3| ).
+        " Verify the update
+        DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
+        cl_abap_unit_assert=>assert_equals(
+          exp = 3
+          act = lo_group->get_maxsize( )
+          msg = |Max size was not updated to 3| ).
 
-    MESSAGE |Successfully updated Auto Scaling group max size to 3| TYPE 'I'.
+        MESSAGE |Successfully updated Auto Scaling group max size to 3| TYPE 'I'.
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |UpdateAutoScalingGroup failed: { lo_ex->get_text( ) }| ).
+    ENDTRY.
   ENDMETHOD.
 
-  METHOD set_desired_capacity.
+  METHOD setdesiredcapacity.
     " Test SetDesiredCapacity operation
-    ao_asc_actions->set_desired_capacity(
-      iv_group_name = av_group_name
-      iv_capacity = 0 ).
+    TRY.
+        ao_asc_actions->set_desired_capacity(
+          iv_group_name = av_group_name
+          iv_capacity = 0 ).
 
-    WAIT UP TO 5 SECONDS.
+        WAIT UP TO 5 SECONDS.
 
-    " Verify the desired capacity
-    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
-    cl_abap_unit_assert=>assert_equals(
-      exp = 0
-      act = lo_group->get_desiredcapacity( )
-      msg = |Desired capacity was not set to 0| ).
+        " Verify the desired capacity
+        DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
+        cl_abap_unit_assert=>assert_equals(
+          exp = 0
+          act = lo_group->get_desiredcapacity( )
+          msg = |Desired capacity was not set to 0| ).
 
-    MESSAGE 'Successfully set desired capacity to 0' TYPE 'I'.
+        MESSAGE 'Successfully set desired capacity to 0' TYPE 'I'.
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |SetDesiredCapacity failed: { lo_ex->get_text( ) }| ).
+    ENDTRY.
   ENDMETHOD.
 
-  METHOD describe_autoscaling_insts.
+  METHOD describeautoscalinginsts.
     " Test DescribeAutoScalingInstances operation
     DATA lt_instance_ids TYPE /aws1/cl_ascinstanceids_w=>tt_instanceids.
 
-    " Get instances from the group
-    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
-    DATA(lt_group_instances) = lo_group->get_instances( ).
+    TRY.
+        " Get instances from the group
+        DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
+        DATA(lt_group_instances) = lo_group->get_instances( ).
 
-    " Build instance IDs list
-    LOOP AT lt_group_instances INTO DATA(lo_inst).
-      APPEND NEW /aws1/cl_ascinstanceids_w( iv_value = lo_inst->get_instanceid( ) ) TO lt_instance_ids.
-    ENDLOOP.
+        " Build instance IDs list
+        LOOP AT lt_group_instances INTO DATA(lo_inst).
+          APPEND NEW /aws1/cl_ascinstanceids_w( iv_value = lo_inst->get_instanceid( ) ) TO lt_instance_ids.
+        ENDLOOP.
 
-    " Describe instances - should work even with empty list
-    DATA(lt_instances) = ao_asc_actions->describe_instances( lt_instance_ids ).
+        " Describe instances - should work even with empty list
+        DATA(lt_instances) = ao_asc_actions->describe_instances( lt_instance_ids ).
 
-    " Should not fail, instances list may be empty if no instances running
-    MESSAGE |DescribeAutoScalingInstances returned { lines( lt_instances ) } instances| TYPE 'I'.
+        " Should not fail, instances list may be empty if no instances running
+        MESSAGE |DescribeAutoScalingInstances returned { lines( lt_instances ) } instances| TYPE 'I'.
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |DescribeAutoScalingInstances failed: { lo_ex->get_text( ) }| ).
+    ENDTRY.
   ENDMETHOD.
 
-  METHOD describe_scaling_activities.
+  METHOD describescalingactivities.
     " Test DescribeScalingActivities operation
-    " Trigger an activity by setting desired capacity
-    ao_asc_actions->set_desired_capacity(
-      iv_group_name = av_group_name
-      iv_capacity = 0 ).
+    TRY.
+        " Trigger an activity by setting desired capacity
+        ao_asc_actions->set_desired_capacity(
+          iv_group_name = av_group_name
+          iv_capacity = 0 ).
 
-    WAIT UP TO 5 SECONDS.
+        WAIT UP TO 5 SECONDS.
 
-    " Describe activities
-    DATA(lt_activities) = ao_asc_actions->describe_scaling_activities( av_group_name ).
+        " Describe activities
+        DATA(lt_activities) = ao_asc_actions->describe_scaling_activities( av_group_name ).
 
-    " Activities may take time to appear, but the call should not fail
-    MESSAGE |DescribeScalingActivities returned { lines( lt_activities ) } activities| TYPE 'I'.
+        " Activities may take time to appear, but the call should not fail
+        MESSAGE |DescribeScalingActivities returned { lines( lt_activities ) } activities| TYPE 'I'.
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |DescribeScalingActivities failed: { lo_ex->get_text( ) }| ).
+    ENDTRY.
   ENDMETHOD.
 
-  METHOD enable_metrics_collection.
+  METHOD enablemetricscollection.
     " Test EnableMetricsCollection operation
     DATA lt_metrics TYPE /aws1/cl_ascmetrics_w=>tt_metrics.
 
-    " Build metrics list
-    APPEND NEW /aws1/cl_ascmetrics_w( iv_value = 'GroupMinSize' ) TO lt_metrics.
-    APPEND NEW /aws1/cl_ascmetrics_w( iv_value = 'GroupMaxSize' ) TO lt_metrics.
-
-    " Enable metrics
-    ao_asc_actions->enable_metrics(
-      iv_group_name = av_group_name
-      it_metrics = lt_metrics ).
-
-    WAIT UP TO 5 SECONDS.
-
-    " Verify metrics enabled
-    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
-    DATA(lt_enabled_metrics) = lo_group->get_enabledmetrics( ).
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lt_enabled_metrics
-      msg = |Metrics were not enabled| ).
-
-    MESSAGE 'Successfully enabled metrics collection' TYPE 'I'.
-  ENDMETHOD.
-
-  METHOD disable_metrics_collection.
-    " Test DisableMetricsCollection operation
-    ao_asc_actions->disable_metrics( av_group_name ).
-
-    WAIT UP TO 5 SECONDS.
-
-    " Verify disabled
-    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
-    DATA(lt_enabled_metrics) = lo_group->get_enabledmetrics( ).
-    cl_abap_unit_assert=>assert_initial(
-      act = lt_enabled_metrics
-      msg = |Metrics were not disabled| ).
-
-    MESSAGE 'Successfully disabled metrics collection' TYPE 'I'.
-  ENDMETHOD.
-
-  METHOD terminate_instance_in_asg.
-    " Test TerminateInstanceInAutoScalingGroup operation
-    " Create a separate group for terminate testing with min_size=0, desired=2
-    " This allows us to terminate one instance and still have one running
-    ao_asc_actions->create_group(
-      iv_group_name = av_group_name_term
-      iv_vpc_zone_identifier = av_default_subnet_id
-      iv_launch_template_name = av_lnch_tmpl_name_term
-      iv_min_size = 0
-      iv_max_size = 2 ).
-
-    " Set desired capacity to 2 to launch 2 instances
-    ao_asc_actions->set_desired_capacity(
-      iv_group_name = av_group_name_term
-      iv_capacity = 2 ).
-
-    " Wait for instances to be in service
-    wait_for_group_ready( iv_group_name = av_group_name_term ).
-
-    " Get the instance ID
-    DATA(lo_group) = ao_asc_actions->describe_group( av_group_name_term ).
-    DATA(lt_instances) = lo_group->get_instances( ).
-
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lt_instances
-      msg = 'No instances found in terminate test group' ).
-
-    " Verify we have at least 1 instance
-    DATA(lv_instance_count) = lines( lt_instances ).
-    cl_abap_unit_assert=>assert_true(
-      act = xsdbool( lv_instance_count >= 1 )
-      msg = |Expected at least 1 instance, found { lv_instance_count }| ).
-
-    READ TABLE lt_instances INDEX 1 INTO DATA(lo_instance).
-    DATA(lv_instance_id) = lo_instance->get_instanceid( ).
-
-    " Terminate the instance with decrease_capacity = true
-    " This should work because min_size=0 allows capacity to decrease
-    DATA(lo_activity) = ao_asc_actions->terminate_instance(
-      iv_instance_id = lv_instance_id
-      iv_decrease_capacity = abap_true ).
-
-    cl_abap_unit_assert=>assert_bound(
-      act = lo_activity
-      msg = 'terminate_instance did not return activity' ).
-
-    " Verify activity contains instance ID
-    DATA(lv_activity_desc) = lo_activity->get_description( ).
-    cl_abap_unit_assert=>assert_true(
-      act = xsdbool( lv_activity_desc CS lv_instance_id )
-      msg = |Activity description should contain instance ID { lv_instance_id }| ).
-
-    MESSAGE |Successfully terminated instance { lv_instance_id }| TYPE 'I'.
-
-    " Wait for instance to terminate
-    WAIT UP TO 30 SECONDS.
-  ENDMETHOD.
-
-  METHOD delete_autoscaling_group.
-    " Test DeleteAutoScalingGroup operation
-    " Set min size to 0 to allow deletion
-    ao_asc_actions->update_group(
-      iv_group_name = av_group_name_term
-      iv_min_size = 0 ).
-
-    WAIT UP TO 5 SECONDS.
-
-    " Delete the group
-    ao_asc_actions->delete_group( av_group_name_term ).
-
-    " Wait for deletion to complete
-    WAIT UP TO 10 SECONDS.
-
-    " Verify group was deleted
     TRY.
-        DATA(lo_group) = ao_asc_actions->describe_group( av_group_name_term ).
-        IF lo_group IS BOUND.
-          cl_abap_unit_assert=>fail( |Group { av_group_name_term } was not deleted| ).
-        ENDIF.
-      CATCH /aws1/cx_rt_generic.
-        " Group not found is expected - deletion was successful
-        MESSAGE |Successfully deleted Auto Scaling group { av_group_name_term }| TYPE 'I'.
-    ENDTRY.
+        " Build metrics list
+        APPEND NEW /aws1/cl_ascmetrics_w( iv_value = 'GroupMinSize' ) TO lt_metrics.
+        APPEND NEW /aws1/cl_ascmetrics_w( iv_value = 'GroupMaxSize' ) TO lt_metrics.
 
-    " Clear the variable so class_teardown doesn't try to delete again
-    CLEAR av_group_name_term.
+        " Enable metrics
+        ao_asc_actions->enable_metrics(
+          iv_group_name = av_group_name
+          it_metrics = lt_metrics ).
+
+        WAIT UP TO 5 SECONDS.
+
+        " Verify metrics enabled
+        DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
+        DATA(lt_enabled_metrics) = lo_group->get_enabledmetrics( ).
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lt_enabled_metrics
+          msg = |Metrics were not enabled| ).
+
+        MESSAGE 'Successfully enabled metrics collection' TYPE 'I'.
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |EnableMetricsCollection failed: { lo_ex->get_text( ) }| ).
+    ENDTRY.
+  ENDMETHOD.
+
+  METHOD disablemetricscollection.
+    " Test DisableMetricsCollection operation
+    TRY.
+        ao_asc_actions->disable_metrics( av_group_name ).
+
+        WAIT UP TO 5 SECONDS.
+
+        " Verify disabled
+        DATA(lo_group) = ao_asc_actions->describe_group( av_group_name ).
+        DATA(lt_enabled_metrics) = lo_group->get_enabledmetrics( ).
+        cl_abap_unit_assert=>assert_initial(
+          act = lt_enabled_metrics
+          msg = |Metrics were not disabled| ).
+
+        MESSAGE 'Successfully disabled metrics collection' TYPE 'I'.
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |DisableMetricsCollection failed: { lo_ex->get_text( ) }| ).
+    ENDTRY.
+  ENDMETHOD.
+
+  METHOD terminateinstinautoscgroup.
+    " Test TerminateInstanceInAutoScalingGroup operation
+    TRY.
+        " Create a separate group for terminate testing with min_size=0, desired=2
+        ao_asc_actions->create_group(
+          iv_group_name = av_group_name_term
+          iv_vpc_zone_identifier = av_default_subnet_id
+          iv_launch_template_name = av_lnch_tmpl_name_term
+          iv_min_size = 0
+          iv_max_size = 2 ).
+
+        " Set desired capacity to 2 to launch 2 instances
+        ao_asc_actions->set_desired_capacity(
+          iv_group_name = av_group_name_term
+          iv_capacity = 2 ).
+
+        " Wait for instances to be in service
+        wait_for_group_ready( iv_group_name = av_group_name_term ).
+
+        " Get the instance ID
+        DATA(lo_group) = ao_asc_actions->describe_group( av_group_name_term ).
+        DATA(lt_instances) = lo_group->get_instances( ).
+
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lt_instances
+          msg = 'No instances found in terminate test group' ).
+
+        " Verify we have at least 1 instance
+        DATA(lv_instance_count) = lines( lt_instances ).
+        cl_abap_unit_assert=>assert_true(
+          act = xsdbool( lv_instance_count >= 1 )
+          msg = |Expected at least 1 instance, found { lv_instance_count }| ).
+
+        READ TABLE lt_instances INDEX 1 INTO DATA(lo_instance).
+        DATA(lv_instance_id) = lo_instance->get_instanceid( ).
+
+        " Terminate the instance with decrease_capacity = true
+        DATA(lo_activity) = ao_asc_actions->terminate_instance(
+          iv_instance_id = lv_instance_id
+          iv_decrease_capacity = abap_true ).
+
+        cl_abap_unit_assert=>assert_bound(
+          act = lo_activity
+          msg = 'terminate_instance did not return activity' ).
+
+        " Verify activity contains instance ID
+        DATA(lv_activity_desc) = lo_activity->get_description( ).
+        cl_abap_unit_assert=>assert_true(
+          act = xsdbool( lv_activity_desc CS lv_instance_id )
+          msg = |Activity description should contain instance ID { lv_instance_id }| ).
+
+        MESSAGE |Successfully terminated instance { lv_instance_id }| TYPE 'I'.
+
+        " Wait for instance to terminate
+        WAIT UP TO 30 SECONDS.
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |TerminateInstanceInAutoScalingGroup failed: { lo_ex->get_text( ) }| ).
+    ENDTRY.
+  ENDMETHOD.
+
+  METHOD deleteautoscalinggroup.
+    " Test DeleteAutoScalingGroup operation
+    TRY.
+        " Set min size to 0 to allow deletion
+        ao_asc_actions->update_group(
+          iv_group_name = av_group_name_term
+          iv_min_size = 0 ).
+
+        WAIT UP TO 5 SECONDS.
+
+        " Delete the group
+        ao_asc_actions->delete_group( av_group_name_term ).
+
+        " Wait for deletion to complete
+        WAIT UP TO 10 SECONDS.
+
+        " Verify group was deleted by trying to describe it
+        TRY.
+            DATA(lo_group) = ao_asc_actions->describe_group( av_group_name_term ).
+            IF lo_group IS BOUND.
+              cl_abap_unit_assert=>fail( |Group { av_group_name_term } was not deleted| ).
+            ENDIF.
+          CATCH /aws1/cx_rt_generic.
+            " Group not found is expected - deletion was successful
+            MESSAGE |Successfully deleted Auto Scaling group { av_group_name_term }| TYPE 'I'.
+        ENDTRY.
+
+        " Clear the variable so class_teardown doesn't try to delete again
+        CLEAR av_group_name_term.
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |DeleteAutoScalingGroup failed: { lo_ex->get_text( ) }| ).
+    ENDTRY.
   ENDMETHOD.
 
 ENDCLASS.
