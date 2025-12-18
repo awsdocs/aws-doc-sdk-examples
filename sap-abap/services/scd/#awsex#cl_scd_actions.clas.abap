@@ -64,22 +64,21 @@ CLASS /AWSEX/CL_SCD_ACTIONS IMPLEMENTATION.
         " Constants for time calculations
         DATA lv_start_date TYPE /aws1/scdstartdate.
         DATA lv_end_date TYPE /aws1/scdenddate.
-        DATA lv_timestamp TYPE timestamp.
-        DATA lv_hours_to_run TYPE p VALUE 1.
+        DATA lv_start_timestamp TYPE timestamp.
+        DATA lv_end_timestamp TYPE timestamp.
+        DATA lv_hours_to_run TYPE i VALUE 1.
 
-        " Get current timestamp and calculate start and end dates
-        GET TIME STAMP FIELD lv_timestamp.
+        " Get current timestamp
+        GET TIME STAMP FIELD lv_start_timestamp.
         
-        " Convert timestamp to proper decimal format with 7 decimal places
-        " Timestamps are in format YYYYMMDDHHMMSS with 7 decimal places
-        DATA lv_timestamp_dec TYPE decfloat34.
-        lv_timestamp_dec = lv_timestamp.
-        lv_start_date = lv_timestamp_dec.
+        " Add 1 hour to the current timestamp using CL_ABAP_TSTMP
+        lv_end_timestamp = cl_abap_tstmp=>add(
+          tstmp = lv_start_timestamp
+          secs = lv_hours_to_run * 3600 ).
 
-        " Add 1 hour (3600 seconds) to the timestamp for end date
-        DATA lv_end_timestamp_dec TYPE decfloat34.
-        lv_end_timestamp_dec = lv_timestamp_dec + ( lv_hours_to_run * 3600 ).
-        lv_end_date = lv_end_timestamp_dec.
+        " Convert timestamps to decimal format for AWS API
+        lv_start_date = lv_start_timestamp.
+        lv_end_date = lv_end_timestamp.
 
         " Prepare flexible time window configuration
         DATA lo_flexible_time_window TYPE REF TO /aws1/cl_scdflexibletimewindow.
