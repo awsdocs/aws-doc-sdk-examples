@@ -319,8 +319,7 @@ CLASS ltc_awsex_cl_sns_actions IMPLEMENTATION.
 
   METHOD publish_text_message.
     " Note: This test uses a dummy phone number for testing purposes.
-    " In production, use valid E.164 formatted phone numbers.
-    CONSTANTS cv_phone_number TYPE /aws1/snsphonenumber VALUE '+10000000000'.
+    CONSTANTS cv_phone_number TYPE /aws1/snsphonenumber VALUE '+12065550100'.
     CONSTANTS cv_message TYPE /aws1/snsmessage VALUE 'Test SMS message'.
 
     TRY.
