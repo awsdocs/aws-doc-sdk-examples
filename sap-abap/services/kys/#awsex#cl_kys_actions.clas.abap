@@ -177,7 +177,7 @@ CLASS /awsex/cl_kys_actions IMPLEMENTATION.
         MESSAGE 'Keyspace created successfully.' TYPE 'I'.
       CATCH /aws1/cx_kysconflictexception.
         MESSAGE 'Keyspace already exists.' TYPE 'I'.
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
@@ -197,7 +197,7 @@ CLASS /awsex/cl_kys_actions IMPLEMENTATION.
         MESSAGE 'Keyspace retrieved successfully.' TYPE 'I'.
       CATCH /aws1/cx_kysresourcenotfoundex.
         MESSAGE 'Keyspace does not exist.' TYPE 'I'.
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
@@ -215,7 +215,7 @@ CLASS /awsex/cl_kys_actions IMPLEMENTATION.
         oo_result = lo_kys->listkeyspaces(
           iv_maxresults = iv_max_results ).
         MESSAGE 'Keyspaces listed successfully.' TYPE 'I'.
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
@@ -259,7 +259,7 @@ CLASS /awsex/cl_kys_actions IMPLEMENTATION.
           io_schemadefinition = lo_schema
           io_pointintimerecovery = lo_pitr ).
         MESSAGE 'Table created successfully.' TYPE 'I'.
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
@@ -280,7 +280,7 @@ CLASS /awsex/cl_kys_actions IMPLEMENTATION.
         MESSAGE 'Table information retrieved successfully.' TYPE 'I'.
       CATCH /aws1/cx_kysresourcenotfoundex.
         MESSAGE 'Table does not exist.' TYPE 'I'.
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
@@ -298,7 +298,7 @@ CLASS /awsex/cl_kys_actions IMPLEMENTATION.
         oo_result = lo_kys->listtables(
           iv_keyspacename = iv_keyspace_name ).
         MESSAGE 'Tables listed successfully.' TYPE 'I'.
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
@@ -323,7 +323,7 @@ CLASS /awsex/cl_kys_actions IMPLEMENTATION.
           iv_tablename = iv_table_name
           it_addcolumns = lt_add_columns ).
         MESSAGE 'Table updated successfully.' TYPE 'I'.
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
@@ -345,7 +345,7 @@ CLASS /awsex/cl_kys_actions IMPLEMENTATION.
           iv_targettablename = iv_target_table_name
           iv_restoretimestamp = iv_restore_timestamp ).
         MESSAGE 'Table restore initiated successfully.' TYPE 'I'.
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
@@ -364,7 +364,7 @@ CLASS /awsex/cl_kys_actions IMPLEMENTATION.
           iv_keyspacename = iv_keyspace_name
           iv_tablename = iv_table_name ).
         MESSAGE 'Table deleted successfully.' TYPE 'I'.
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
@@ -382,7 +382,7 @@ CLASS /awsex/cl_kys_actions IMPLEMENTATION.
         lo_kys->deletekeyspace(
           iv_keyspacename = iv_keyspace_name ).
         MESSAGE 'Keyspace deleted successfully.' TYPE 'I'.
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
+      CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
         DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
     ENDTRY.
