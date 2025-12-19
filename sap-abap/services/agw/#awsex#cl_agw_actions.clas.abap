@@ -196,10 +196,10 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
         " iv_resource_id = 'xyz789'
         " iv_http_method = 'GET'
         DATA lt_models TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
-        DATA ls_model LIKE LINE OF lt_models.
+        DATA ls_model TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
         ls_model-key = 'application/json'.
-        ls_model-value = 'Empty'.
-        APPEND ls_model TO lt_models.
+        ls_model-value = NEW /aws1/cl_agwmapofstrtostr_w( 'Empty' ).
+        INSERT ls_model INTO TABLE lt_models.
 
         oo_result = lo_agw->putmethodresponse(
           iv_restapiid = iv_rest_api_id
@@ -234,10 +234,10 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
         " iv_role_arn = 'arn:aws:iam::123456789012:role/MyAPIGatewayRole'
         " iv_table_name = 'MyDynamoDBTable'
         DATA lt_templates TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
-        DATA ls_template LIKE LINE OF lt_templates.
+        DATA ls_template TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
         ls_template-key = 'application/json'.
-        ls_template-value = '{"TableName": "' && iv_table_name && '"}'.
-        APPEND ls_template TO lt_templates.
+        ls_template-value = NEW /aws1/cl_agwmapofstrtostr_w( '{"TableName": "' && iv_table_name && '"}' ).
+        INSERT ls_template INTO TABLE lt_templates.
 
         oo_result = lo_agw->putintegration(
           iv_restapiid = iv_rest_api_id
@@ -273,10 +273,10 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
         " iv_resource_id = 'xyz789'
         " iv_http_method = 'GET'
         DATA lt_templates TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
-        DATA ls_template LIKE LINE OF lt_templates.
+        DATA ls_template TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
         ls_template-key = 'application/json'.
-        ls_template-value = ''.
-        APPEND ls_template TO lt_templates.
+        ls_template-value = NEW /aws1/cl_agwmapofstrtostr_w( '' ).
+        INSERT ls_template INTO TABLE lt_templates.
 
         oo_result = lo_agw->putintegrationresponse(
           iv_restapiid = iv_rest_api_id
