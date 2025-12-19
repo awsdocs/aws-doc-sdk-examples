@@ -232,7 +232,7 @@ CLASS ltc_awsex_cl_iam_actions IMPLEMENTATION.
             TRY.
                 ao_iam->detachuserpolicy(
                   iv_username = av_test_user_name
-                  iv_policyarn = lo_attached_policy->get_arn( ) ).
+                  iv_policyarn = lo_attached_policy->get_policyarn( ) ).
               CATCH /aws1/cx_rt_generic.
             ENDTRY.
           ENDLOOP.
@@ -305,7 +305,7 @@ CLASS ltc_awsex_cl_iam_actions IMPLEMENTATION.
             TRY.
                 ao_iam->detachrolepolicy(
                   iv_rolename = av_test_role_name
-                  iv_policyarn = lo_role_policy->get_arn( ) ).
+                  iv_policyarn = lo_role_policy->get_policyarn( ) ).
               CATCH /aws1/cx_rt_generic.
             ENDTRY.
           ENDLOOP.
@@ -315,11 +315,11 @@ CLASS ltc_awsex_cl_iam_actions IMPLEMENTATION.
       " Delete inline policies
       TRY.
           DATA(lo_inline_policies) = ao_iam->listrolepolicies( iv_rolename = av_test_role_name ).
-          LOOP AT lo_inline_policies->get_policynames( ) INTO DATA(lv_policy_name).
+          LOOP AT lo_inline_policies->get_policynames( ) INTO DATA(lo_policy_name_wrapper).
             TRY.
                 ao_iam->deleterolepolicy(
                   iv_rolename = av_test_role_name
-                  iv_policyname = lv_policy_name ).
+                  iv_policyname = lo_policy_name_wrapper->get_value( ) ).
               CATCH /aws1/cx_rt_generic.
             ENDTRY.
           ENDLOOP.
@@ -889,7 +889,7 @@ CLASS ltc_awsex_cl_iam_actions IMPLEMENTATION.
     
     DATA lv_found TYPE abap_bool VALUE abap_false.
     LOOP AT lt_policies INTO DATA(lo_policy).
-      IF lo_policy->get_arn( ) = av_test_policy_arn.
+      IF lo_policy->get_policyarn( ) = av_test_policy_arn.
         lv_found = abap_true.
         EXIT.
       ENDIF.
@@ -927,7 +927,7 @@ CLASS ltc_awsex_cl_iam_actions IMPLEMENTATION.
     
     DATA lv_found TYPE abap_bool VALUE abap_false.
     LOOP AT lt_policies INTO DATA(lo_policy).
-      IF lo_policy->get_arn( ) = av_test_policy_arn.
+      IF lo_policy->get_policyarn( ) = av_test_policy_arn.
         lv_found = abap_true.
         EXIT.
       ENDIF.
@@ -1087,7 +1087,7 @@ CLASS ltc_awsex_cl_iam_actions IMPLEMENTATION.
     
     DATA lv_found TYPE abap_bool VALUE abap_false.
     LOOP AT lt_policies INTO DATA(lo_policy).
-      IF lo_policy->get_arn( ) = av_test_policy_arn.
+      IF lo_policy->get_policyarn( ) = av_test_policy_arn.
         lv_found = abap_true.
         EXIT.
       ENDIF.
@@ -1125,7 +1125,7 @@ CLASS ltc_awsex_cl_iam_actions IMPLEMENTATION.
     
     DATA lv_found TYPE abap_bool VALUE abap_false.
     LOOP AT lt_policies INTO DATA(lo_policy).
-      IF lo_policy->get_arn( ) = av_test_policy_arn.
+      IF lo_policy->get_policyarn( ) = av_test_policy_arn.
         lv_found = abap_true.
         EXIT.
       ENDIF.
@@ -1208,8 +1208,8 @@ CLASS ltc_awsex_cl_iam_actions IMPLEMENTATION.
     DATA(lo_result) = ao_iam->listaccountaliases( ).
     DATA(lt_aliases) = lo_result->get_accountaliases( ).
     DATA lv_found TYPE abap_bool VALUE abap_false.
-    LOOP AT lt_aliases INTO DATA(lv_alias).
-      IF lv_alias = lv_temp_alias.
+    LOOP AT lt_aliases INTO DATA(lo_alias_wrapper).
+      IF lo_alias_wrapper->get_value( ) = lv_temp_alias.
         lv_found = abap_true.
         EXIT.
       ENDIF.
@@ -1249,8 +1249,8 @@ CLASS ltc_awsex_cl_iam_actions IMPLEMENTATION.
     DATA(lo_result) = ao_iam->listaccountaliases( ).
     DATA(lt_aliases) = lo_result->get_accountaliases( ).
     DATA lv_found TYPE abap_bool VALUE abap_false.
-    LOOP AT lt_aliases INTO DATA(lv_alias).
-      IF lv_alias = lv_temp_alias.
+    LOOP AT lt_aliases INTO DATA(lo_alias_wrapper).
+      IF lo_alias_wrapper->get_value( ) = lv_temp_alias.
         lv_found = abap_true.
         EXIT.
       ENDIF.
@@ -1448,7 +1448,7 @@ CLASS ltc_awsex_cl_iam_actions IMPLEMENTATION.
             DATA lv_deletion_complete TYPE abap_bool VALUE abap_false.
             DO lv_max_attempts TIMES.
               TRY.
-                  DATA(lo_status_result) = ao_iam->getservicelinkedroledeletionstatus(
+                  DATA(lo_status_result) = ao_iam->getsvclinkedroledelstatus(
                     iv_deletiontaskid = lv_deletion_task_id ).
                   DATA(lv_status) = lo_status_result->get_status( ).
                   
