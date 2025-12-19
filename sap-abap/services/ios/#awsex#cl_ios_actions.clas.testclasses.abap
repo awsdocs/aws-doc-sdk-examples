@@ -79,11 +79,12 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     " Create IAM role for portal with necessary trust policy and tag it
     gv_role_name = |IoTSiteWiseRole-{ gv_uuid }|.
     DATA lv_assume_role_policy TYPE /aws1/iampolicydocumenttype.
+    DATA lo_role_result TYPE REF TO /aws1/cl_iamcreateroleresponse.
 
     lv_assume_role_policy = '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"Service":"iotsitewise.amazonaws.com"},"Action":"sts:AssumeRole"}]}'.
 
     TRY.
-        DATA(lo_role_result) = ao_iam->createrole(
+        lo_role_result = ao_iam->createrole(
           iv_rolename = gv_role_name
           iv_assumerolepolicydocument = lv_assume_role_policy
           it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
@@ -128,8 +129,11 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
 
     " Create shared asset model with tags
     DATA lv_asset_model_name TYPE /aws1/iosname.
+    DATA lt_properties TYPE /aws1/cl_iosassetmodelprpdefn=>tt_assetmodelpropertydefns.
+    DATA lo_model_result TYPE REF TO /aws1/cl_ioscreassetmodelrsp.
+    
     lv_asset_model_name = |test-model-{ gv_uuid }|.
-    DATA(lt_properties) = VALUE /aws1/cl_iosassetmodelprpdefn=>tt_assetmodelpropertydefns(
+    lt_properties = VALUE #(
       (
         NEW /aws1/cl_iosassetmodelprpdefn(
           iv_name = 'temperature'
@@ -150,7 +154,7 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
       )
     ).
 
-    DATA(lo_model_result) = ao_ios->createassetmodel(
+    lo_model_result = ao_ios->createassetmodel(
       iv_assetmodelname = lv_asset_model_name
       iv_assetmodeldescription = 'Test asset model for unit tests'
       it_assetmodelproperties = lt_properties
@@ -173,10 +177,13 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     wait_for_asset_model_active( gv_asset_model_id ).
 
     " Get property IDs
-    DATA(lo_props_result) = ao_ios->listassetmodelproperties(
+    DATA lo_props_result TYPE REF TO /aws1/cl_ioslstastmodelprpsrsp.
+    DATA lo_prop TYPE REF TO /aws1/cl_iosastmodelprpsum.
+    
+    lo_props_result = ao_ios->listassetmodelproperties(
       iv_assetmodelid = gv_asset_model_id
     ).
-    LOOP AT lo_props_result->get_assetmodelpropertysums( ) INTO DATA(lo_prop).
+    LOOP AT lo_props_result->get_assetmodelpropertysums( ) INTO lo_prop.
       IF lo_prop->get_name( ) = 'temperature'.
         gv_temperature_property_id = lo_prop->get_id( ).
       ELSEIF lo_prop->get_name( ) = 'humidity'.
@@ -190,8 +197,10 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
 
     " Create shared asset with tags
     DATA lv_asset_name TYPE /aws1/iosname.
+    DATA lo_asset_result TYPE REF TO /aws1/cl_ioscreateassetrsp.
+    
     lv_asset_name = |test-asset-{ gv_uuid }|.
-    DATA(lo_asset_result) = ao_ios->createasset(
+    lo_asset_result = ao_ios->createasset(
       iv_assetname = lv_asset_name
       iv_assetmodelid = gv_asset_model_id
       it_tags = VALUE /aws1/cl_iostagmap_w=>tt_tagmap(
@@ -399,11 +408,15 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
   METHOD batch_put_asset_property_value.
     " Get current timestamp
     DATA lv_timestamp TYPE timestamp.
+    DATA lv_seconds TYPE /aws1/iostimeinseconds.
+    DATA lv_nanos TYPE /aws1/iosoffsetinnanos.
+    DATA lt_entries TYPE /aws1/cl_iosputastprpvalueentr=>tt_putassetprpvalueentries.
+    
     GET TIME STAMP FIELD lv_timestamp.
-    DATA(lv_seconds) = lv_timestamp DIV 1000000.
-    DATA(lv_nanos) = ( lv_timestamp MOD 1000000 ) * 1000.
+    lv_seconds = lv_timestamp DIV 1000000.
+    lv_nanos = ( lv_timestamp MOD 1000000 ) * 1000.
 
-    DATA(lt_entries) = VALUE /aws1/cl_iosputastprpvalueentr=>tt_putassetprpvalueentries(
+    lt_entries = VALUE #(
       (
         NEW /aws1/cl_iosputastprpvalueentr(
           iv_entryid = '1'
@@ -753,7 +766,7 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
       )
     ).
 
-    DATA(lo_model_result) = ao_ios->createassetmodel(
+    lo_model_result = ao_ios->createassetmodel(
       iv_assetmodelname = lv_asset_model_name
       it_assetmodelproperties = lt_properties
       it_tags = VALUE /aws1/cl_iostagmap_w=>tt_tagmap(
