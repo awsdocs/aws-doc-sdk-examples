@@ -795,7 +795,7 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     DATA lv_max_attempts TYPE i VALUE 40.
     DATA lv_attempt TYPE i VALUE 0.
     DATA lv_state TYPE /aws1/iosassetmodelstate.
-    DATA lo_result TYPE REF TO /aws1/cl_iosdescassetmodelrsp.
+    DATA lo_result TYPE REF TO /aws1/cl_iosdescrassetmodelrsp.
     DATA lo_status TYPE REF TO /aws1/cl_iosassetmodelstatus.
 
     WHILE lv_attempt < lv_max_attempts.
@@ -826,7 +826,7 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     DATA lv_max_attempts TYPE i VALUE 40.
     DATA lv_attempt TYPE i VALUE 0.
     DATA lv_state TYPE /aws1/iosassetstate.
-    DATA lo_result TYPE REF TO /aws1/cl_iosdescribeassetrsp.
+    DATA lo_result TYPE REF TO /aws1/cl_iosdescrassetresponse.
     DATA lo_status TYPE REF TO /aws1/cl_iosassetstatus.
 
     WHILE lv_attempt < lv_max_attempts.
@@ -857,7 +857,7 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     DATA lv_max_attempts TYPE i VALUE 40.
     DATA lv_attempt TYPE i VALUE 0.
     DATA lv_state TYPE /aws1/iosportalstate.
-    DATA lo_result TYPE REF TO /aws1/cl_iosdescribeportalrsp.
+    DATA lo_result TYPE REF TO /aws1/cl_iosdescrportalrsp.
     DATA lo_status TYPE REF TO /aws1/cl_iosportalstatus.
 
     WHILE lv_attempt < lv_max_attempts.
