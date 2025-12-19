@@ -79,6 +79,7 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     DATA lo_prop TYPE REF TO /aws1/cl_iosassetmodelprpsumm.
     DATA lv_asset_name TYPE /aws1/iosname.
     DATA lo_asset_result TYPE REF TO /aws1/cl_ioscreateassetrsp.
+    DATA lv_policy_document TYPE /aws1/iampolicydocumenttype.
 
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_ios = /aws1/cl_ios_factory=>create( ao_session ).
@@ -88,10 +89,13 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     " Generate UUID for unique resource names
     gv_uuid = /awsex/cl_utils=>get_random_string( ).
 
-    " Create IAM role for portal with necessary trust policy and tag it
+    " Create IAM role for portal with necessary trust policy and inline policy, then tag it
     gv_role_name = |IoTSiteWiseRole-{ gv_uuid }|.
 
     lv_assume_role_policy = '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"Service":"iotsitewise.amazonaws.com"},"Action":"sts:AssumeRole"}]}'.
+
+    " Define inline policy that grants necessary IoT SiteWise permissions
+    lv_policy_document = '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Action":["iotsitewise:*"],"Resource":"*"}]}'.
 
     TRY.
         lo_role_result = ao_iam->createrole(
@@ -104,10 +108,11 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
         lo_role = lo_role_result->get_role( ).
         gv_role_arn = lo_role->get_arn( ).
 
-        " Attach necessary policies to the role
-        ao_iam->attachrolepolicy(
+        " Attach inline policy to the role
+        ao_iam->putrolepolicy(
           iv_rolename = gv_role_name
-          iv_policyarn = 'arn:aws:iam::aws:policy/AWSIoTSiteWiseMonitorPortalAccess'
+          iv_policyname = 'IoTSiteWiseAccess'
+          iv_policydocument = lv_policy_document
         ).
 
         " Wait for role to propagate
@@ -115,9 +120,9 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
       CATCH /aws1/cx_iamentityalrdyexex.
         " If role already exists from a previous run, delete and recreate
         TRY.
-            ao_iam->detachrolepolicy(
+            ao_iam->deleterolepolicy(
               iv_rolename = gv_role_name
-              iv_policyarn = 'arn:aws:iam::aws:policy/AWSIoTSiteWiseMonitorPortalAccess'
+              iv_policyname = 'IoTSiteWiseAccess'
             ).
           CATCH /aws1/cx_rt_generic.
         ENDTRY.
@@ -132,9 +137,10 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
         ).
         lo_role = lo_role_result->get_role( ).
         gv_role_arn = lo_role->get_arn( ).
-        ao_iam->attachrolepolicy(
+        ao_iam->putrolepolicy(
           iv_rolename = gv_role_name
-          iv_policyarn = 'arn:aws:iam::aws:policy/AWSIoTSiteWiseMonitorPortalAccess'
+          iv_policyname = 'IoTSiteWiseAccess'
+          iv_policydocument = lv_policy_document
         ).
         WAIT UP TO 10 SECONDS.
     ENDTRY.
@@ -249,10 +255,10 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     " Delete IAM role
     IF gv_role_arn IS NOT INITIAL AND gv_role_name IS NOT INITIAL.
       TRY.
-          " Detach policies first
-          ao_iam->detachrolepolicy(
+          " Delete inline policy first
+          ao_iam->deleterolepolicy(
             iv_rolename = gv_role_name
-            iv_policyarn = 'arn:aws:iam::aws:policy/AWSIoTSiteWiseMonitorPortalAccess'
+            iv_policyname = 'IoTSiteWiseAccess'
           ).
           " Delete role
           ao_iam->deleterole( iv_rolename = gv_role_name ).
