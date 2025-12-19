@@ -8,12 +8,6 @@
    <IGNORE>
     <item>/sap-abap/README.md</item>
     <item>/sap-abap/services/*/README.md</item>
-    <item>/sap-abap/services/cgp/README.md</item>
-    <item>/sap-abap/services/ctt/README.md</item>
-    <item>/sap-abap/services/fnt/README.md</item>
-    <item>/sap-abap/services/sfn/README.md</item>
-    <item>/sap-abap/services/smr/README.md</item>
-    <item>/sap-abap/services/tex/README.md</item>
    </IGNORE>
   </DATA>
  </asx:values>
