@@ -136,32 +136,32 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
 
             " Wait for table to be active with status-based polling
             DATA lv_table_status TYPE /aws1/dyntablestatus.
-            DATA lv_max_wait TYPE i VALUE 30.
-            DATA lv_wait_count TYPE i VALUE 0.
+            DATA lv_table_max_wait TYPE i VALUE 30.
+            DATA lv_table_wait_count TYPE i VALUE 0.
             DO.
               WAIT UP TO 2 SECONDS.
-              lv_wait_count = lv_wait_count + 1.
+              lv_table_wait_count = lv_table_wait_count + 1.
               DATA(lo_table) = ao_dyn->describetable( iv_tablename = av_table_name ).
               lv_table_status = lo_table->get_table( )->get_tablestatus( ).
-              IF lv_table_status = 'ACTIVE' OR lv_wait_count >= lv_max_wait.
+              IF lv_table_status = 'ACTIVE' OR lv_table_wait_count >= lv_table_max_wait.
                 EXIT.
               ENDIF.
             ENDDO.
 
             IF lv_table_status <> 'ACTIVE'.
               av_setup_failed = abap_true.
-              cl_abap_unit_assert=>fail( |DynamoDB table { av_table_name } did not become active after { lv_max_wait * 2 } seconds| ).
+              cl_abap_unit_assert=>fail( |DynamoDB table { av_table_name } did not become active after { lv_table_max_wait * 2 } seconds| ).
             ENDIF.
 
           CATCH /aws1/cx_dynresourceinuseex.
             " Table already exists from previous run, wait for it to be active
-            lv_wait_count = 0.
+            lv_table_wait_count = 0.
             DO.
               WAIT UP TO 2 SECONDS.
-              lv_wait_count = lv_wait_count + 1.
+              lv_table_wait_count = lv_table_wait_count + 1.
               lo_table = ao_dyn->describetable( iv_tablename = av_table_name ).
               lv_table_status = lo_table->get_table( )->get_tablestatus( ).
-              IF lv_table_status = 'ACTIVE' OR lv_wait_count >= lv_max_wait.
+              IF lv_table_status = 'ACTIVE' OR lv_table_wait_count >= lv_table_max_wait.
                 EXIT.
               ENDIF.
             ENDDO.
