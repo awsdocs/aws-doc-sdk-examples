@@ -27,10 +27,8 @@ CLASS ltc_awsex_cl_emr_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL 
     CLASS-DATA av_master_sg_id TYPE /aws1/emrxmlstringmaxlen256.
     CLASS-DATA av_slave_sg_id TYPE /aws1/emrxmlstringmaxlen256.
 
-    " Combined test methods to reduce cluster creation overhead
-    METHODS test_run_and_describe FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS test_add_list_describe_step FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS test_terminate FOR TESTING RAISING /aws1/cx_rt_generic.
+    " Single combined test method to ensure execution order
+    METHODS test_emr_operations FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
@@ -276,8 +274,14 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD test_run_and_describe.
-    " Test run_job_flow - Create a cluster
+  METHOD test_emr_operations.
+    " This single test method tests all 6 EMR operations in sequence
+    " to avoid issues with test execution order
+
+    "=======================================================================
+    " TEST 1 & 2: run_job_flow and describe_cluster
+    "=======================================================================
+    " Build applications list
     DATA lt_applications TYPE /aws1/cl_emrapplication=>tt_applicationlist.
     APPEND NEW /aws1/cl_emrapplication( iv_name = 'Spark' ) TO lt_applications.
 
@@ -302,7 +306,7 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
     DATA lt_steps TYPE /aws1/cl_emrstepconfig=>tt_stepconfiglist.
     APPEND lo_step_config TO lt_steps.
 
-    " Create cluster
+    " TEST: run_job_flow - Create cluster
     av_cluster_id = ao_emr_actions->run_job_flow(
       iv_name = 'SAP-ABAP-EMR-Test'
       iv_log_uri = |s3://{ av_log_bucket }/logs/|
@@ -318,43 +322,38 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
     " Verify cluster was created
     cl_abap_unit_assert=>assert_not_initial(
       act = av_cluster_id
-      msg = 'Cluster ID should not be empty'
+      msg = 'run_job_flow: Cluster ID should not be empty'
     ).
 
-    " Test describe_cluster immediately after creation
-    DATA(lo_result) = ao_emr_actions->describe_cluster( av_cluster_id ).
+    " TEST: describe_cluster - Get cluster information
+    DATA(lo_describe_result) = ao_emr_actions->describe_cluster( av_cluster_id ).
 
     cl_abap_unit_assert=>assert_bound(
-      act = lo_result
-      msg = 'DescribeCluster result should be bound'
+      act = lo_describe_result
+      msg = 'describe_cluster: Result should be bound'
     ).
 
-    DATA(lo_cluster) = lo_result->get_cluster( ).
+    DATA(lo_cluster) = lo_describe_result->get_cluster( ).
     cl_abap_unit_assert=>assert_bound(
       act = lo_cluster
-      msg = 'Cluster object should be bound'
+      msg = 'describe_cluster: Cluster object should be bound'
     ).
 
     DATA(lv_cluster_name) = lo_cluster->get_name( ).
     cl_abap_unit_assert=>assert_equals(
       exp = 'SAP-ABAP-EMR-Test'
       act = lv_cluster_name
-      msg = 'Cluster name should match'
+      msg = 'describe_cluster: Cluster name should match'
     ).
 
-  ENDMETHOD.
-
-  METHOD test_add_list_describe_step.
-    " Verify cluster exists from previous test
-    cl_abap_unit_assert=>assert_not_initial(
-      act = av_cluster_id
-      msg = 'Cluster must exist from previous test'
-    ).
-
-    " Test add_job_flow_steps
+    "=======================================================================
+    " TEST 3: add_job_flow_steps
+    "=======================================================================
+    " Build script args for additional step
     DATA lt_script_args TYPE /aws1/cl_emrxmlstringlist_w=>tt_xmlstringlist.
     APPEND NEW /aws1/cl_emrxmlstringlist_w( 'arg1' ) TO lt_script_args.
 
+    " TEST: add_job_flow_steps - Add a new step to the cluster
     av_step_id = ao_emr_actions->add_job_flow_steps(
       iv_cluster_id = av_cluster_id
       iv_name = 'Additional Test Step'
@@ -364,24 +363,36 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_not_initial(
       act = av_step_id
-      msg = 'Step ID should not be empty'
+      msg = 'add_job_flow_steps: Step ID should not be empty'
     ).
 
-    " Test list_steps
+    "=======================================================================
+    " TEST 4: list_steps
+    "=======================================================================
+    " TEST: list_steps - List all steps in the cluster
     DATA(lo_list_result) = ao_emr_actions->list_steps( av_cluster_id ).
 
     cl_abap_unit_assert=>assert_bound(
       act = lo_list_result
-      msg = 'ListSteps result should be bound'
+      msg = 'list_steps: Result should be bound'
     ).
 
-    DATA(lt_steps) = lo_list_result->get_steps( ).
+    DATA(lt_steps_list) = lo_list_result->get_steps( ).
     cl_abap_unit_assert=>assert_not_initial(
-      act = lines( lt_steps )
-      msg = 'Should have at least one step'
+      act = lines( lt_steps_list )
+      msg = 'list_steps: Should have at least one step'
     ).
 
-    " Test describe_step with the step we just added
+    " Verify we have at least 2 steps (initial + additional)
+    cl_abap_unit_assert=>assert_true(
+      act = COND #( WHEN lines( lt_steps_list ) >= 2 THEN abap_true ELSE abap_false )
+      msg = |list_steps: Expected at least 2 steps, found { lines( lt_steps_list ) }|
+    ).
+
+    "=======================================================================
+    " TEST 5: describe_step
+    "=======================================================================
+    " TEST: describe_step - Get details of the step we just added
     DATA(lo_step_result) = ao_emr_actions->describe_step(
       iv_cluster_id = av_cluster_id
       iv_step_id = av_step_id
@@ -389,38 +400,32 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
 
     cl_abap_unit_assert=>assert_bound(
       act = lo_step_result
-      msg = 'DescribeStep result should be bound'
+      msg = 'describe_step: Result should be bound'
     ).
 
     DATA(lo_step) = lo_step_result->get_step( ).
     cl_abap_unit_assert=>assert_bound(
       act = lo_step
-      msg = 'Step object should be bound'
+      msg = 'describe_step: Step object should be bound'
     ).
 
     DATA(lv_step_name) = lo_step->get_name( ).
     cl_abap_unit_assert=>assert_equals(
       exp = 'Additional Test Step'
       act = lv_step_name
-      msg = 'Step name should match'
+      msg = 'describe_step: Step name should match'
     ).
 
-  ENDMETHOD.
-
-  METHOD test_terminate.
-    " Verify cluster exists
-    cl_abap_unit_assert=>assert_not_initial(
-      act = av_cluster_id
-      msg = 'Cluster must exist before terminating'
-    ).
-
-    " Test terminate_job_flows
+    "=======================================================================
+    " TEST 6: terminate_job_flows
+    "=======================================================================
+    " TEST: terminate_job_flows - Terminate the cluster
     ao_emr_actions->terminate_job_flows( av_cluster_id ).
 
     " Verify cluster is terminating or terminated
-    DATA(lo_result) = ao_emr->describecluster( iv_clusterid = av_cluster_id ).
-    DATA(lo_cluster) = lo_result->get_cluster( ).
-    DATA(lo_status) = lo_cluster->get_status( ).
+    DATA(lo_terminate_result) = ao_emr->describecluster( iv_clusterid = av_cluster_id ).
+    DATA(lo_cluster_after_term) = lo_terminate_result->get_cluster( ).
+    DATA(lo_status) = lo_cluster_after_term->get_status( ).
     DATA(lv_state) = lo_status->get_state( ).
 
     cl_abap_unit_assert=>assert_true(
@@ -431,7 +436,7 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
         THEN abap_true
         ELSE abap_false
       )
-      msg = |Cluster should be terminating/terminated but is { lv_state }|
+      msg = |terminate_job_flows: Cluster should be terminating/terminated but is { lv_state }|
     ).
 
   ENDMETHOD.
