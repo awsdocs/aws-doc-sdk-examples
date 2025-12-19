@@ -241,7 +241,7 @@ CLASS ltc_awsex_cl_kms_actions IMPLEMENTATION.
         " Wait for role to propagate
         WAIT UP TO 10 SECONDS.
 
-      CATCH /aws1/cx_iamentityalrdyexists00.
+      CATCH /aws1/cx_iamentityalrdyexex.
         " Role already exists - get the ARN
         TRY.
             DATA(lo_get_role) = ao_iam->getrole( iv_rolename = av_role_name ).
