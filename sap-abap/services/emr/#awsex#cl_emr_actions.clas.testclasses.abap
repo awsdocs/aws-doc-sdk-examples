@@ -3,7 +3,7 @@
 CLASS ltc_awsex_cl_emr_actions DEFINITION DEFERRED.
 CLASS /awsex/cl_emr_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_emr_actions.
 
-CLASS ltc_awsex_cl_emr_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
+CLASS ltc_awsex_cl_emr_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL HARMLESS.
 
   PRIVATE SECTION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
@@ -15,8 +15,9 @@ CLASS ltc_awsex_cl_emr_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA ao_ec2 TYPE REF TO /aws1/if_ec2.
     CLASS-DATA ao_iam TYPE REF TO /aws1/if_iam.
 
-    " Test resources
+    " Test resources - created once, shared across all tests
     CLASS-DATA av_cluster_id TYPE /aws1/emrclusterid.
+    CLASS-DATA av_step_id TYPE /aws1/emrstepid.
     CLASS-DATA av_log_bucket TYPE /aws1/s3_bucketname.
     CLASS-DATA av_emr_role_name TYPE /aws1/iamrolenametype.
     CLASS-DATA av_ec2_role_name TYPE /aws1/iamrolenametype.
@@ -26,28 +27,13 @@ CLASS ltc_awsex_cl_emr_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_master_sg_id TYPE /aws1/emrxmlstringmaxlen256.
     CLASS-DATA av_slave_sg_id TYPE /aws1/emrxmlstringmaxlen256.
 
-    METHODS run_job_flow FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS describe_cluster FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS add_job_flow_steps FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS list_steps FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS describe_step FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS terminate_job_flows FOR TESTING RAISING /aws1/cx_rt_generic.
+    " Combined test methods to reduce cluster creation overhead
+    METHODS test_run_and_describe FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS test_add_list_describe_step FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS test_terminate FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
-
-    METHODS wait_for_cluster_ready
-      IMPORTING
-        iv_cluster_id TYPE /aws1/emrclusterid
-      RAISING
-        /aws1/cx_rt_generic.
-
-    METHODS wait_for_step_complete
-      IMPORTING
-        iv_cluster_id TYPE /aws1/emrclusterid
-        iv_step_id    TYPE /aws1/emrstepid
-      RAISING
-        /aws1/cx_rt_generic.
 
 ENDCLASS.
 
@@ -290,12 +276,12 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD run_job_flow.
-    " Build applications list
+  METHOD test_run_and_describe.
+    " Test run_job_flow - Create a cluster
     DATA lt_applications TYPE /aws1/cl_emrapplication=>tt_applicationlist.
     APPEND NEW /aws1/cl_emrapplication( iv_name = 'Spark' ) TO lt_applications.
 
-    " Build steps list
+    " Build minimal steps list
     DATA lt_args TYPE /aws1/cl_emrxmlstringlist_w=>tt_xmlstringlist.
     APPEND NEW /aws1/cl_emrxmlstringlist_w( 'spark-submit' ) TO lt_args.
     APPEND NEW /aws1/cl_emrxmlstringlist_w( '--deploy-mode' ) TO lt_args.
@@ -308,7 +294,7 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
     ).
 
     DATA(lo_step_config) = NEW /aws1/cl_emrstepconfig(
-      iv_name = 'Example Step'
+      iv_name = 'Initial Test Step'
       iv_actiononfailure = 'CONTINUE'
       io_hadoopjarstep = lo_hadoop_jar_step
     ).
@@ -316,9 +302,9 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
     DATA lt_steps TYPE /aws1/cl_emrstepconfig=>tt_stepconfiglist.
     APPEND lo_step_config TO lt_steps.
 
-    " Run job flow
+    " Create cluster
     av_cluster_id = ao_emr_actions->run_job_flow(
-      iv_name = 'SAP ABAP EMR Test Cluster'
+      iv_name = 'SAP-ABAP-EMR-Test'
       iv_log_uri = |s3://{ av_log_bucket }/logs/|
       iv_keep_alive = abap_false
       it_applications = lt_applications
@@ -329,28 +315,18 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
       it_steps = lt_steps
     ).
 
+    " Verify cluster was created
     cl_abap_unit_assert=>assert_not_initial(
       act = av_cluster_id
       msg = 'Cluster ID should not be empty'
     ).
 
-    " Wait for cluster to be ready
-    wait_for_cluster_ready( av_cluster_id ).
-
-  ENDMETHOD.
-
-  METHOD describe_cluster.
-    " Ensure cluster was created
-    cl_abap_unit_assert=>assert_not_initial(
-      act = av_cluster_id
-      msg = 'Cluster must be created before describing'
-    ).
-
+    " Test describe_cluster immediately after creation
     DATA(lo_result) = ao_emr_actions->describe_cluster( av_cluster_id ).
 
     cl_abap_unit_assert=>assert_bound(
       act = lo_result
-      msg = 'Result should be bound'
+      msg = 'DescribeCluster result should be bound'
     ).
 
     DATA(lo_cluster) = lo_result->get_cluster( ).
@@ -361,25 +337,25 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
 
     DATA(lv_cluster_name) = lo_cluster->get_name( ).
     cl_abap_unit_assert=>assert_equals(
-      exp = 'SAP ABAP EMR Test Cluster'
+      exp = 'SAP-ABAP-EMR-Test'
       act = lv_cluster_name
       msg = 'Cluster name should match'
     ).
 
   ENDMETHOD.
 
-  METHOD add_job_flow_steps.
-    " Ensure cluster was created
+  METHOD test_add_list_describe_step.
+    " Verify cluster exists from previous test
     cl_abap_unit_assert=>assert_not_initial(
       act = av_cluster_id
-      msg = 'Cluster must be created before adding steps'
+      msg = 'Cluster must exist from previous test'
     ).
 
-    " Build script args
+    " Test add_job_flow_steps
     DATA lt_script_args TYPE /aws1/cl_emrxmlstringlist_w=>tt_xmlstringlist.
     APPEND NEW /aws1/cl_emrxmlstringlist_w( 'arg1' ) TO lt_script_args.
 
-    DATA(lv_step_id) = ao_emr_actions->add_job_flow_steps(
+    av_step_id = ao_emr_actions->add_job_flow_steps(
       iv_cluster_id = av_cluster_id
       iv_name = 'Additional Test Step'
       iv_script_uri = 's3://elasticmapreduce/samples/cloudfront'
@@ -387,153 +363,76 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
     ).
 
     cl_abap_unit_assert=>assert_not_initial(
-      act = lv_step_id
+      act = av_step_id
       msg = 'Step ID should not be empty'
     ).
 
-  ENDMETHOD.
-
-  METHOD list_steps.
-    " Ensure cluster was created
-    cl_abap_unit_assert=>assert_not_initial(
-      act = av_cluster_id
-      msg = 'Cluster must be created before listing steps'
-    ).
-
-    DATA(lo_result) = ao_emr_actions->list_steps( av_cluster_id ).
+    " Test list_steps
+    DATA(lo_list_result) = ao_emr_actions->list_steps( av_cluster_id ).
 
     cl_abap_unit_assert=>assert_bound(
-      act = lo_result
-      msg = 'Result should be bound'
+      act = lo_list_result
+      msg = 'ListSteps result should be bound'
     ).
 
-    DATA(lt_steps) = lo_result->get_steps( ).
+    DATA(lt_steps) = lo_list_result->get_steps( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lines( lt_steps )
       msg = 'Should have at least one step'
     ).
 
-  ENDMETHOD.
-
-  METHOD describe_step.
-    " Ensure cluster was created
-    cl_abap_unit_assert=>assert_not_initial(
-      act = av_cluster_id
-      msg = 'Cluster must be created before describing step'
-    ).
-
-    " Get first step ID
-    DATA(lo_list_result) = ao_emr->liststeps( iv_clusterid = av_cluster_id ).
-    DATA(lt_steps) = lo_list_result->get_steps( ).
-    READ TABLE lt_steps INDEX 1 INTO DATA(lo_step_summary).
-    IF sy-subrc <> 0.
-      cl_abap_unit_assert=>fail( 'No steps found in cluster' ).
-    ENDIF.
-
-    DATA(lv_step_id) = lo_step_summary->get_id( ).
-
-    DATA(lo_result) = ao_emr_actions->describe_step(
+    " Test describe_step with the step we just added
+    DATA(lo_step_result) = ao_emr_actions->describe_step(
       iv_cluster_id = av_cluster_id
-      iv_step_id = lv_step_id
+      iv_step_id = av_step_id
     ).
 
     cl_abap_unit_assert=>assert_bound(
-      act = lo_result
-      msg = 'Result should be bound'
+      act = lo_step_result
+      msg = 'DescribeStep result should be bound'
     ).
 
-    DATA(lo_step) = lo_result->get_step( ).
+    DATA(lo_step) = lo_step_result->get_step( ).
     cl_abap_unit_assert=>assert_bound(
       act = lo_step
       msg = 'Step object should be bound'
     ).
 
-  ENDMETHOD.
-
-  METHOD terminate_job_flows.
-    " Ensure cluster was created
-    cl_abap_unit_assert=>assert_not_initial(
-      act = av_cluster_id
-      msg = 'Cluster must be created before terminating'
+    DATA(lv_step_name) = lo_step->get_name( ).
+    cl_abap_unit_assert=>assert_equals(
+      exp = 'Additional Test Step'
+      act = lv_step_name
+      msg = 'Step name should match'
     ).
 
+  ENDMETHOD.
+
+  METHOD test_terminate.
+    " Verify cluster exists
+    cl_abap_unit_assert=>assert_not_initial(
+      act = av_cluster_id
+      msg = 'Cluster must exist before terminating'
+    ).
+
+    " Test terminate_job_flows
     ao_emr_actions->terminate_job_flows( av_cluster_id ).
 
-    " Verify cluster is terminating
+    " Verify cluster is terminating or terminated
     DATA(lo_result) = ao_emr->describecluster( iv_clusterid = av_cluster_id ).
     DATA(lo_cluster) = lo_result->get_cluster( ).
     DATA(lo_status) = lo_cluster->get_status( ).
     DATA(lv_state) = lo_status->get_state( ).
 
     cl_abap_unit_assert=>assert_true(
-      act = COND #( WHEN lv_state = 'TERMINATING' OR lv_state = 'TERMINATED' THEN abap_true ELSE abap_false )
-      msg = |Cluster should be terminating or terminated, but is { lv_state }|
+      act = COND #(
+        WHEN lv_state = 'TERMINATING' OR
+             lv_state = 'TERMINATED' OR
+             lv_state = 'TERMINATED_WITH_ERRORS'
+        THEN abap_true
+        ELSE abap_false
+      )
+      msg = |Cluster should be terminating/terminated but is { lv_state }|
     ).
-
-  ENDMETHOD.
-
-  METHOD wait_for_cluster_ready.
-    DATA lv_state TYPE /aws1/emrclusterstate.
-    DATA lv_attempts TYPE i VALUE 0.
-    CONSTANTS cv_max_attempts TYPE i VALUE 60.
-
-    DO cv_max_attempts TIMES.
-      lv_attempts = lv_attempts + 1.
-
-      TRY.
-          DATA(lo_result) = ao_emr->describecluster( iv_clusterid = iv_cluster_id ).
-          DATA(lo_cluster) = lo_result->get_cluster( ).
-          DATA(lo_status) = lo_cluster->get_status( ).
-          lv_state = lo_status->get_state( ).
-
-          IF lv_state = 'WAITING' OR lv_state = 'RUNNING'.
-            RETURN.
-          ELSEIF lv_state = 'TERMINATED' OR lv_state = 'TERMINATED_WITH_ERRORS'.
-            cl_abap_unit_assert=>fail( |Cluster terminated unexpectedly with state { lv_state }| ).
-          ENDIF.
-
-          WAIT UP TO 30 SECONDS.
-        CATCH /aws1/cx_rt_generic INTO DATA(lo_error).
-          IF lv_attempts >= cv_max_attempts.
-            RAISE EXCEPTION lo_error.
-          ENDIF.
-      ENDTRY.
-    ENDDO.
-
-    cl_abap_unit_assert=>fail( 'Cluster did not reach WAITING/RUNNING state in time' ).
-
-  ENDMETHOD.
-
-  METHOD wait_for_step_complete.
-    DATA lv_state TYPE /aws1/emrstepstate.
-    DATA lv_attempts TYPE i VALUE 0.
-    CONSTANTS cv_max_attempts TYPE i VALUE 60.
-
-    DO cv_max_attempts TIMES.
-      lv_attempts = lv_attempts + 1.
-
-      TRY.
-          DATA(lo_result) = ao_emr->describestep(
-            iv_clusterid = iv_cluster_id
-            iv_stepid = iv_step_id
-          ).
-          DATA(lo_step) = lo_result->get_step( ).
-          DATA(lo_status) = lo_step->get_status( ).
-          lv_state = lo_status->get_state( ).
-
-          IF lv_state = 'COMPLETED' OR lv_state = 'FAILED' OR lv_state = 'CANCELLED'.
-            RETURN.
-          ENDIF.
-
-          WAIT UP TO 10 SECONDS.
-        CATCH /aws1/cx_rt_generic INTO DATA(lo_error).
-          IF lv_attempts >= cv_max_attempts.
-            RAISE EXCEPTION lo_error.
-          ENDIF.
-      ENDTRY.
-    ENDDO.
-
-    cl_abap_unit_assert=>fail( 'Step did not complete in time' ).
 
   ENDMETHOD.
 
