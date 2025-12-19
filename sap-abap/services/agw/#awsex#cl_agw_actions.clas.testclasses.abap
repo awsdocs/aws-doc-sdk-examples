@@ -2,7 +2,7 @@
 " SPDX-License-Identifier: Apache-2.0
 CLASS ltc_awsex_cl_agw_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
 
-  PROTECTED SECTION.
+  PRIVATE SECTION.
     CLASS-DATA go_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA go_agw TYPE REF TO /aws1/if_agw.
     CLASS-DATA gv_rest_api_id TYPE /aws1/agwstring.
