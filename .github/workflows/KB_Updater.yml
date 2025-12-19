@@ -1,0 +1,31 @@
+name: KB_Updater-Lambda
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - '.tools/lambda/KB_Updater/lambda_function.py'
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ secrets.AWS_ASSUME_ROLE }}
+          aws-region: us-west-2
+
+      - name: Deploy Lambda
+        run: |
+          cd .tools/lambda/KB_Updater
+          zip function.zip lambda_function.py
+          aws lambda update-function-code \
+            --function-name KB_Updater \
+            --zip-file fileb://function.zip

@@ -1,0 +1,188 @@
+# zexi 0.4.2
+inspector_Hello:
+  title: Hello &Inspector;
+  title_abbrev: Hello &Inspector;
+  synopsis: get started using &Inspector;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java2.hello.main
+  services:
+    inspector: {ListMembers}
+inspector_BatchGetFindingDetails:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java2.finding.details.main
+  services:
+    inspector: {BatchGetFindingDetails}
+inspector_DeleteFilter:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java2.delete.filter.main
+  services:
+    inspector: {DeleteFilter}
+inspector_Disable:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java2.disable.main
+  services:
+    inspector: {Disable}
+inspector_Enable:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java2.enable.main
+  services:
+    inspector: {Enable}
+inspector_CreateFilter:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java2.create.filter.main
+  services:
+    inspector: {CreateFilter}
+inspector_GetAccountStatus:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java2.get_account_status.main
+  services:
+    inspector: {BatchGetAccountStatus}
+inspector_ListFindings:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java2.list_findings.main
+  services:
+    inspector: {ListFindings}
+inspector_ListCoverageStatistics:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java2.list_coverage.stats.main
+  services:
+    inspector: {ListCoverageStatistics}
+inspector_ListCoverage:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java2.list_coverage.main
+  services:
+    inspector: {ListCoverage}
+inspector_ListUsageTotals:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java2.list_usage_totals.main
+  services:
+    inspector: {ListUsageTotals}
+inspector_ListFilters:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - inspector.java2.list_filters.main
+  services:
+    inspector: {ListFilters}
+inspector_Scenario:
+  synopsis_list:
+    - Check Inspector account status.
+    - Ensure Inspector is enabled.
+    - Analyze security findings.
+    - Check scan coverage.
+    - Create a findings filter.
+    - List existing filters.
+    - Check usage and costs.
+    - Get coverage statistics.
+    - Delete a filter.
+  category: Basics
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/inspector
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &Inspector; features.
+              snippet_tags:
+                - inspector.java2_scenario.main
+            - description: A wrapper class for &Inspector; SDK methods.
+              snippet_tags:
+                - inspector.java2_actions.main
+  services:
+    inspector: {BatchGetAccountStatus, BatchGetFindingDetails, DeleteFilter, Enable, ListFindings, ListCoverage, CreateFilter, ListFilters, ListUsageTotals, ListCoverageStatistics}
