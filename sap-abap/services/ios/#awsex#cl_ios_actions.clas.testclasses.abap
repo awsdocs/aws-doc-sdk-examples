@@ -100,7 +100,7 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
 
         " Wait for role to propagate
         WAIT UP TO 10 SECONDS.
-      CATCH /aws1/cx_iamentityalrdyexistsex.
+      CATCH /aws1/cx_iamentityalrdyexex.
         " If role already exists from a previous run, delete and recreate
         TRY.
             ao_iam->detachrolepolicy(
