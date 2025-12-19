@@ -197,7 +197,7 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
     ).
 
     " Add role to instance profile
-    ao_iam->addroletinstanceprofile(
+    ao_iam->addroletoinstanceprofile(
       iv_instanceprofilename = av_ec2_role_name
       iv_rolename = av_ec2_role_name
     ).
@@ -246,7 +246,7 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
     " Clean up IAM resources
     IF av_ec2_role_name IS NOT INITIAL.
       TRY.
-          ao_iam->removerolefrominstprof(
+          ao_iam->removerolefrominstanceprofile(
             iv_instanceprofilename = av_ec2_role_name
             iv_rolename = av_ec2_role_name
           ).
