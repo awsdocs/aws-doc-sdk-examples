@@ -1119,10 +1119,24 @@ CLASS ltc_awsex_cl_kms_actions IMPLEMENTATION.
       msg = 'Re-encrypted ciphertext should not be empty'
     ).
 
+    " KeyId in response contains the destination key ID (may be in ARN format)
+    " Verify it contains the second key ID
+    DATA(lv_response_key_id) = lo_result->get_keyid( ).
+    cl_abap_unit_assert=>assert_true(
+      act = xsdbool( lv_response_key_id CS av_key_id_2 )
+      msg = |Re-encrypted data should reference second key. Expected: { av_key_id_2 }, Got: { lv_response_key_id }|
+    ).
+
+    " Verify we can decrypt with the second key
+    DATA(lo_decrypt_result) = ao_kms->decrypt(
+      iv_keyid = av_key_id_2
+      iv_ciphertextblob = lo_result->get_ciphertextblob( )
+    ).
+    DATA(lv_decrypted) = cl_abap_codepage=>convert_from( source = lo_decrypt_result->get_plaintext( ) ).
     cl_abap_unit_assert=>assert_equals(
-      exp = av_key_id_2
-      act = lo_result->get_keyid( )
-      msg = 'Re-encrypted data should be encrypted with second key'
+      exp = 'Test message for re-encryption'
+      act = lv_decrypted
+      msg = 'Decrypted text should match original after re-encryption'
     ).
 
   ENDMETHOD.
