@@ -534,7 +534,7 @@ CLASS ltc_awsex_cl_kys_actions IMPLEMENTATION.
 
   METHOD update_table.
     " Create a unique table for this test
-    DATA(lv_update_table) = |movies_upd_{ /awsex/cl_utils=>get_random_string( ) }|.
+    DATA(lv_update_table) = |movies_update_{ /awsex/cl_utils=>get_random_string( ) }|.
 
     " First create a table with basic schema
     DATA(lt_columns) = VALUE /aws1/cl_kyscolumndefinition=>tt_columndefinitionlist(
@@ -573,14 +573,6 @@ CLASS ltc_awsex_cl_kys_actions IMPLEMENTATION.
       iv_keyspace_name = gv_keyspace_name
       iv_table_name = lv_update_table ).
 
-    " Verify initial column count
-    DATA(lo_initial_table) = go_kys->gettable(
-      iv_keyspacename = gv_keyspace_name
-      iv_tablename = lv_update_table ).
-    DATA(lo_initial_schema) = lo_initial_table->get_schemadefinition( ).
-    DATA(lt_initial_columns) = lo_initial_schema->get_allcolumns( ).
-    DATA(lv_initial_count) = lines( lt_initial_columns ).
-
     " Now call the example update method
     DATA lo_result TYPE REF TO /aws1/cl_kysupdatetablersp.
 
@@ -605,32 +597,46 @@ CLASS ltc_awsex_cl_kys_actions IMPLEMENTATION.
       iv_keyspace_name = gv_keyspace_name
       iv_table_name = lv_update_table ).
 
-    " Verify the new column was added
-    DATA(lo_table_result) = go_kys->gettable(
-      iv_keyspacename = gv_keyspace_name
-      iv_tablename = lv_update_table ).
+    " Wait additional time for schema changes to propagate
+    WAIT UP TO 10 SECONDS.
 
-    DATA(lo_updated_schema) = lo_table_result->get_schemadefinition( ).
-    DATA(lt_updated_columns) = lo_updated_schema->get_allcolumns( ).
+    " Verify the new column was added - poll until we see the change
+    DATA(lv_column_found) = abap_false.
+    DATA(lv_poll_count) = 0.
+    DATA(lv_max_polls) = 12.
 
-    " Should have one more column than before
-    cl_abap_unit_assert=>assert_equals(
-      exp = lv_initial_count + 1
-      act = lines( lt_updated_columns )
-      msg = |Should have { lv_initial_count + 1 } columns after update (was { lv_initial_count })| ).
+    WHILE lv_column_found = abap_false AND lv_poll_count < lv_max_polls.
+      DATA(lo_table_result) = go_kys->gettable(
+        iv_keyspacename = gv_keyspace_name
+        iv_tablename = lv_update_table ).
 
-    " Verify 'watched' column exists
-    DATA(lv_watched_found) = abap_false.
-    LOOP AT lt_updated_columns INTO DATA(lo_column).
-      IF lo_column->get_name( ) = 'watched'.
-        lv_watched_found = abap_true.
-        EXIT.
+      DATA(lo_updated_schema) = lo_table_result->get_schemadefinition( ).
+      DATA(lt_updated_columns) = lo_updated_schema->get_allcolumns( ).
+
+      " Check if 'watched' column exists
+      LOOP AT lt_updated_columns INTO DATA(lo_column).
+        IF lo_column->get_name( ) = 'watched'.
+          lv_column_found = abap_true.
+          EXIT.
+        ENDIF.
+      ENDLOOP.
+
+      IF lv_column_found = abap_false.
+        WAIT UP TO 5 SECONDS.
+        lv_poll_count = lv_poll_count + 1.
       ENDIF.
-    ENDLOOP.
+    ENDWHILE.
 
+    " Verify 'watched' column was added
     cl_abap_unit_assert=>assert_true(
-      act = lv_watched_found
+      act = lv_column_found
       msg = 'watched column should exist after update' ).
+
+    " Should now have 3 columns (id, data, watched)
+    cl_abap_unit_assert=>assert_equals(
+      exp = 3
+      act = lines( lt_updated_columns )
+      msg = 'Should have 3 columns after update' ).
 
     " Clean up
     cleanup_test_table(
@@ -650,7 +656,7 @@ CLASS ltc_awsex_cl_kys_actions IMPLEMENTATION.
     " Wait a bit to ensure timestamp is valid for restore
     WAIT UP TO 5 SECONDS.
 
-    DATA(lv_restore_table) = |mov_rst_{ /awsex/cl_utils=>get_random_string( ) }|.
+    DATA(lv_restore_table) = |movies_restored_{ /awsex/cl_utils=>get_random_string( ) }|.
     DATA lo_result TYPE REF TO /aws1/cl_kysrestoretablersp.
 
     TRY.
@@ -694,7 +700,7 @@ CLASS ltc_awsex_cl_kys_actions IMPLEMENTATION.
 
   METHOD delete_table.
     " Create a unique table specifically for deletion testing
-    DATA(lv_delete_table) = |mov_del_{ /awsex/cl_utils=>get_random_string( ) }|.
+    DATA(lv_delete_table) = |movies_delete_{ /awsex/cl_utils=>get_random_string( ) }|.
 
     " Create the table
     DATA(lt_columns) = VALUE /aws1/cl_kyscolumndefinition=>tt_columndefinitionlist(
@@ -752,7 +758,7 @@ CLASS ltc_awsex_cl_kys_actions IMPLEMENTATION.
 
   METHOD delete_keyspace.
     " Create a unique keyspace specifically for deletion testing
-    DATA(lv_delete_keyspace) = |kys_del_{ /awsex/cl_utils=>get_random_string( ) }|.
+    DATA(lv_delete_keyspace) = |kys_test_delete_{ /awsex/cl_utils=>get_random_string( ) }|.
 
     " Create the keyspace
     create_test_keyspace( lv_delete_keyspace ).
@@ -763,34 +769,24 @@ CLASS ltc_awsex_cl_kys_actions IMPLEMENTATION.
     " Now call the example delete method
     go_kys_actions->delete_keyspace( iv_keyspace_name = lv_delete_keyspace ).
 
-    " Verify keyspace deletion was called successfully
-    " We can't reliably check status immediately after deletion as:
-    " 1. The keyspace may be deleted instantly (ResourceNotFoundException)
-    " 2. The keyspace may still appear active briefly before transitioning
-    " 3. AWS doesn't provide a DELETING status for keyspaces in GetKeyspace response
-    " So we just verify the delete call succeeded without error
+    " Verify keyspace deletion initiated
+    " Note: We cannot reliably check the status as keyspaces may be deleted quickly
+    " or may still be in DELETING state. Both are acceptable outcomes.
     WAIT UP TO 2 SECONDS.
 
-    " Try to get the keyspace - it should either:
-    " - Not exist (ResourceNotFoundException) - deletion complete
-    " - Still exist briefly - deletion in progress
-    DATA(lv_deletion_verified) = abap_false.
     TRY.
         DATA(lo_result) = go_kys->getkeyspace( iv_keyspacename = lv_delete_keyspace ).
-        " If we can still retrieve it, the delete operation was at least initiated
-        " The keyspace is tagged for cleanup, so this is acceptable
-        lv_deletion_verified = abap_true.
+        " If we can still get it, check if it's being deleted
+        DATA(lv_is_active) = is_keyspace_active( lo_result ).
+        cl_abap_unit_assert=>assert_false(
+          act = lv_is_active
+          msg = 'Keyspace should not be active after deletion' ).
       CATCH /aws1/cx_kysresourcenotfoundex.
-        " Keyspace already deleted - this is the ideal outcome
-        lv_deletion_verified = abap_true.
+        " Expected - keyspace was deleted quickly
     ENDTRY.
 
-    cl_abap_unit_assert=>assert_true(
-      act = lv_deletion_verified
-      msg = 'Delete keyspace operation should complete without unexpected errors' ).
-
     " Note: Not waiting for full deletion as it can take time
-    " Keyspace is tagged with convert_test for manual cleanup if still exists
+    " Keyspace is tagged with convert_test for manual cleanup if needed
   ENDMETHOD.
 
 ENDCLASS.
