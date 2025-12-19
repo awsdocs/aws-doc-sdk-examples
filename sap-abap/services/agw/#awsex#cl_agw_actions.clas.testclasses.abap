@@ -140,7 +140,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
             av_role_arn = lo_role->get_role( )->get_arn( ).
 
             " Attach policy to allow DynamoDB access
-            DATA(lv_policy_arn) = 'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess'.
+            DATA(lv_policy_arn) = CONV /aws1/iamarntype( 'arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess' ).
             ao_iam->attachrolepolicy(
               iv_rolename = av_role_name
               iv_policyarn = lv_policy_arn ).
@@ -148,7 +148,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
             " Wait for role to propagate
             WAIT UP TO 10 SECONDS.
 
-          CATCH /aws1/cx_iamentityalrdyexists.
+          CATCH /aws1/cx_iamentityalrdyexex.
             " Role already exists from previous run, get its ARN
             DATA(lo_existing_role) = ao_iam->getrole( iv_rolename = av_role_name ).
             av_role_arn = lo_existing_role->get_role( )->get_arn( ).
