@@ -802,9 +802,9 @@ CLASS ltc_awsex_cl_kms_actions IMPLEMENTATION.
       cl_abap_unit_assert=>fail( msg = 'IAM role not created in class_setup' ).
     ENDIF.
 
-    APPEND 'Encrypt' TO lt_operations.
-    APPEND 'Decrypt' TO lt_operations.
-    APPEND 'GenerateDataKey' TO lt_operations.
+    APPEND NEW /aws1/cl_kmsgrantoplist_w( iv_value = 'Encrypt' ) TO lt_operations.
+    APPEND NEW /aws1/cl_kmsgrantoplist_w( iv_value = 'Decrypt' ) TO lt_operations.
+    APPEND NEW /aws1/cl_kmsgrantoplist_w( iv_value = 'GenerateDataKey' ) TO lt_operations.
 
     ao_kms_actions->create_grant(
       EXPORTING
@@ -841,7 +841,7 @@ CLASS ltc_awsex_cl_kms_actions IMPLEMENTATION.
     ENDIF.
 
     " Create a grant first
-    APPEND 'Encrypt' TO lt_operations.
+    APPEND NEW /aws1/cl_kmsgrantoplist_w( iv_value = 'Encrypt' ) TO lt_operations.
     DATA(lo_grant) = ao_kms->creategrant(
       iv_keyid = av_key_id
       iv_granteeprincipal = av_role_arn
@@ -881,7 +881,7 @@ CLASS ltc_awsex_cl_kms_actions IMPLEMENTATION.
     ENDIF.
 
     " Create a grant first
-    APPEND 'Encrypt' TO lt_operations.
+    APPEND NEW /aws1/cl_kmsgrantoplist_w( iv_value = 'Encrypt' ) TO lt_operations.
     DATA(lo_grant) = ao_kms->creategrant(
       iv_keyid = av_key_id
       iv_granteeprincipal = av_role_arn
@@ -921,7 +921,7 @@ CLASS ltc_awsex_cl_kms_actions IMPLEMENTATION.
     ENDIF.
 
     " Create a grant first
-    APPEND 'Encrypt' TO lt_operations.
+    APPEND NEW /aws1/cl_kmsgrantoplist_w( iv_value = 'Encrypt' ) TO lt_operations.
     DATA(lo_grant) = ao_kms->creategrant(
       iv_keyid = av_key_id
       iv_granteeprincipal = av_role_arn
