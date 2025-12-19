@@ -6,104 +6,101 @@ CLASS /awsex/cl_agw_actions DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
 
     METHODS create_rest_api
       IMPORTING
-        !iv_api_name        TYPE /aws1/agwstring
-      EXPORTING
-        !oo_result          TYPE REF TO /aws1/cl_agwrestapi
+        VALUE(iv_api_name) TYPE /aws1/agwstring
+      RETURNING
+        VALUE(oo_result)   TYPE REF TO /aws1/cl_agwrestapi
       RAISING
         /aws1/cx_rt_generic.
 
     METHODS add_rest_resource
       IMPORTING
-        !iv_rest_api_id     TYPE /aws1/agwstring
-        !iv_parent_id       TYPE /aws1/agwstring
-        !iv_resource_path   TYPE /aws1/agwstring
-      EXPORTING
-        !oo_result          TYPE REF TO /aws1/cl_agwresource
+        VALUE(iv_rest_api_id)   TYPE /aws1/agwstring
+        VALUE(iv_parent_id)     TYPE /aws1/agwstring
+        VALUE(iv_resource_path) TYPE /aws1/agwstring
+      RETURNING
+        VALUE(oo_result)        TYPE REF TO /aws1/cl_agwresource
       RAISING
         /aws1/cx_rt_generic.
 
     METHODS put_method
       IMPORTING
-        !iv_rest_api_id     TYPE /aws1/agwstring
-        !iv_resource_id     TYPE /aws1/agwstring
-        !iv_http_method     TYPE /aws1/agwstring
-      EXPORTING
-        !oo_result          TYPE REF TO /aws1/cl_agwmethod
+        VALUE(iv_rest_api_id) TYPE /aws1/agwstring
+        VALUE(iv_resource_id) TYPE /aws1/agwstring
+        VALUE(iv_http_method) TYPE /aws1/agwstring
+      RETURNING
+        VALUE(oo_result)      TYPE REF TO /aws1/cl_agwmethod
       RAISING
         /aws1/cx_rt_generic.
 
     METHODS put_method_response
       IMPORTING
-        !iv_rest_api_id     TYPE /aws1/agwstring
-        !iv_resource_id     TYPE /aws1/agwstring
-        !iv_http_method     TYPE /aws1/agwstring
-      EXPORTING
-        !oo_result          TYPE REF TO /aws1/cl_agwmethodresponse
+        VALUE(iv_rest_api_id) TYPE /aws1/agwstring
+        VALUE(iv_resource_id) TYPE /aws1/agwstring
+        VALUE(iv_http_method) TYPE /aws1/agwstring
+      RETURNING
+        VALUE(oo_result)      TYPE REF TO /aws1/cl_agwmethodresponse
       RAISING
         /aws1/cx_rt_generic.
 
     METHODS put_integration
       IMPORTING
-        !iv_rest_api_id     TYPE /aws1/agwstring
-        !iv_resource_id     TYPE /aws1/agwstring
-        !iv_http_method     TYPE /aws1/agwstring
-        !iv_service_uri     TYPE /aws1/agwstring
-        !iv_role_arn        TYPE /aws1/agwstring
-        !iv_table_name      TYPE /aws1/agwstring
-      EXPORTING
-        !oo_result          TYPE REF TO /aws1/cl_agwintegration
+        VALUE(iv_rest_api_id)   TYPE /aws1/agwstring
+        VALUE(iv_resource_id)   TYPE /aws1/agwstring
+        VALUE(iv_http_method)   TYPE /aws1/agwstring
+        VALUE(iv_integration_uri) TYPE /aws1/agwstring
+      RETURNING
+        VALUE(oo_result)        TYPE REF TO /aws1/cl_agwintegration
       RAISING
         /aws1/cx_rt_generic.
 
     METHODS put_integration_response
       IMPORTING
-        !iv_rest_api_id     TYPE /aws1/agwstring
-        !iv_resource_id     TYPE /aws1/agwstring
-        !iv_http_method     TYPE /aws1/agwstring
-      EXPORTING
-        !oo_result          TYPE REF TO /aws1/cl_agwintegrationrsp
+        VALUE(iv_rest_api_id) TYPE /aws1/agwstring
+        VALUE(iv_resource_id) TYPE /aws1/agwstring
+        VALUE(iv_http_method) TYPE /aws1/agwstring
+      RETURNING
+        VALUE(oo_result)      TYPE REF TO /aws1/cl_agwintegrationresp
       RAISING
         /aws1/cx_rt_generic.
 
     METHODS create_deployment
       IMPORTING
-        !iv_rest_api_id     TYPE /aws1/agwstring
-        !iv_stage_name      TYPE /aws1/agwstring
-      EXPORTING
-        !oo_result          TYPE REF TO /aws1/cl_agwdeployment
+        VALUE(iv_rest_api_id) TYPE /aws1/agwstring
+        VALUE(iv_stage_name)  TYPE /aws1/agwstring
+      RETURNING
+        VALUE(oo_result)      TYPE REF TO /aws1/cl_agwdeployment
       RAISING
         /aws1/cx_rt_generic.
 
     METHODS get_rest_apis
-      EXPORTING
-        !oo_result          TYPE REF TO /aws1/cl_agwrestapis
-      RAISING
-        /aws1/cx_rt_generic.
-
-    METHODS delete_rest_api
-      IMPORTING
-        !iv_rest_api_id     TYPE /aws1/agwstring
+      RETURNING
+        VALUE(oo_result) TYPE REF TO /aws1/cl_agwrestapis
       RAISING
         /aws1/cx_rt_generic.
 
     METHODS get_resources
       IMPORTING
-        !iv_rest_api_id     TYPE /aws1/agwstring
-      EXPORTING
-        !oo_result          TYPE REF TO /aws1/cl_agwresources
+        VALUE(iv_rest_api_id) TYPE /aws1/agwstring
+      RETURNING
+        VALUE(oo_result)      TYPE REF TO /aws1/cl_agwresources
       RAISING
         /aws1/cx_rt_generic.
 
-  PROTECTED SECTION.
-  PRIVATE SECTION.
+    METHODS delete_rest_api
+      IMPORTING
+        VALUE(iv_rest_api_id) TYPE /aws1/agwstring
+      RAISING
+        /aws1/cx_rt_generic.
 ENDCLASS.
 
 
 
-CLASS /awsex/cl_agw_actions IMPLEMENTATION.
+CLASS /AWSEX/CL_AGW_ACTIONS IMPLEMENTATION.
 
 
   METHOD create_rest_api.
@@ -114,16 +111,17 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
 
     " snippet-start:[agw.abapv1.create_rest_api]
     TRY.
-        " iv_api_name = 'MyDemoAPI'
         oo_result = lo_agw->createrestapi(
-          iv_name = iv_api_name ).
-        MESSAGE 'REST API created successfully.' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwlimitexceededex INTO DATA(lo_limit_ex).
-        MESSAGE lo_limit_ex->get_text( ) TYPE 'I'.
+          iv_name = iv_api_name
+          iv_description = 'Sample REST API created by ABAP SDK' ).
+        DATA(lv_api_id) = oo_result->get_id( ).
+        MESSAGE 'REST API created with ID: ' && lv_api_id TYPE 'I'.
+      CATCH /aws1/cx_agwbadrequest00.
+        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
+      CATCH /aws1/cx_agwtoomanyreqexc00.
+        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
+      CATCH /aws1/cx_agwunauthorizedexc00.
+        MESSAGE 'Unauthorized - check credentials' TYPE 'E'.
     ENDTRY.
     " snippet-end:[agw.abapv1.create_rest_api]
   ENDMETHOD.
@@ -135,24 +133,22 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_agw) = /aws1/cl_agw_factory=>create( lo_session ).
 
-    " snippet-start:[agw.abapv1.create_resource]
+    " snippet-start:[agw.abapv1.add_rest_resource]
     TRY.
-        " iv_rest_api_id = 'abc123def4'
-        " iv_parent_id = 'xyz789'
-        " iv_resource_path = 'users'
         oo_result = lo_agw->createresource(
           iv_restapiid = iv_rest_api_id
           iv_parentid = iv_parent_id
           iv_pathpart = iv_resource_path ).
-        MESSAGE 'Resource created successfully.' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
+        DATA(lv_resource_id) = oo_result->get_id( ).
+        MESSAGE 'Resource created with ID: ' && lv_resource_id TYPE 'I'.
+      CATCH /aws1/cx_agwbadrequest00.
+        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
+      CATCH /aws1/cx_agwnotfoundexc00.
+        MESSAGE 'REST API or parent resource not found' TYPE 'E'.
+      CATCH /aws1/cx_agwtoomanyreqexc00.
+        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
     ENDTRY.
-    " snippet-end:[agw.abapv1.create_resource]
+    " snippet-end:[agw.abapv1.add_rest_resource]
   ENDMETHOD.
 
 
@@ -164,21 +160,18 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
 
     " snippet-start:[agw.abapv1.put_method]
     TRY.
-        " iv_rest_api_id = 'abc123def4'
-        " iv_resource_id = 'xyz789'
-        " iv_http_method = 'GET'
         oo_result = lo_agw->putmethod(
           iv_restapiid = iv_rest_api_id
           iv_resourceid = iv_resource_id
           iv_httpmethod = iv_http_method
           iv_authorizationtype = 'NONE' ).
-        MESSAGE 'Method created successfully.' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
+        MESSAGE 'Method ' && iv_http_method && ' added to resource' TYPE 'I'.
+      CATCH /aws1/cx_agwbadrequest00.
+        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
+      CATCH /aws1/cx_agwnotfoundexc00.
+        MESSAGE 'Resource not found' TYPE 'E'.
+      CATCH /aws1/cx_agwtoomanyreqexc00.
+        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_method]
   ENDMETHOD.
@@ -192,28 +185,18 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
 
     " snippet-start:[agw.abapv1.put_method_response]
     TRY.
-        " iv_rest_api_id = 'abc123def4'
-        " iv_resource_id = 'xyz789'
-        " iv_http_method = 'GET'
-        DATA lt_models TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
-        DATA ls_model TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
-        ls_model-key = 'application/json'.
-        ls_model-value = NEW /aws1/cl_agwmapofstrtostr_w( 'Empty' ).
-        INSERT ls_model INTO TABLE lt_models.
-
         oo_result = lo_agw->putmethodresponse(
           iv_restapiid = iv_rest_api_id
           iv_resourceid = iv_resource_id
           iv_httpmethod = iv_http_method
-          iv_statuscode = '200'
-          it_responsemodels = lt_models ).
-        MESSAGE 'Method response created successfully.' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
+          iv_statuscode = '200' ).
+        MESSAGE 'Method response configured for status 200' TYPE 'I'.
+      CATCH /aws1/cx_agwbadrequest00.
+        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
+      CATCH /aws1/cx_agwnotfoundexc00.
+        MESSAGE 'Method not found' TYPE 'E'.
+      CATCH /aws1/cx_agwtoomanyreqexc00.
+        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_method_response]
   ENDMETHOD.
@@ -227,35 +210,20 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
 
     " snippet-start:[agw.abapv1.put_integration]
     TRY.
-        " iv_rest_api_id = 'abc123def4'
-        " iv_resource_id = 'xyz789'
-        " iv_http_method = 'GET'
-        " iv_service_uri = 'arn:aws:apigateway:us-east-1:dynamodb:action/Scan'
-        " iv_role_arn = 'arn:aws:iam::123456789012:role/MyAPIGatewayRole'
-        " iv_table_name = 'MyDynamoDBTable'
-        DATA lt_templates TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
-        DATA ls_template TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
-        ls_template-key = 'application/json'.
-        ls_template-value = NEW /aws1/cl_agwmapofstrtostr_w( '{"TableName": "' && iv_table_name && '"}' ).
-        INSERT ls_template INTO TABLE lt_templates.
-
         oo_result = lo_agw->putintegration(
           iv_restapiid = iv_rest_api_id
           iv_resourceid = iv_resource_id
           iv_httpmethod = iv_http_method
-          iv_type = 'AWS'
+          iv_type = 'AWS_PROXY'
           iv_integrationhttpmethod = 'POST'
-          iv_credentials = iv_role_arn
-          it_requesttemplates = lt_templates
-          iv_uri = iv_service_uri
-          iv_passthroughbehavior = 'WHEN_NO_TEMPLATES' ).
-        MESSAGE 'Integration created successfully.' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
+          iv_uri = iv_integration_uri ).
+        MESSAGE 'Integration configured for method' TYPE 'I'.
+      CATCH /aws1/cx_agwbadrequest00.
+        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
+      CATCH /aws1/cx_agwnotfoundexc00.
+        MESSAGE 'Method not found' TYPE 'E'.
+      CATCH /aws1/cx_agwtoomanyreqexc00.
+        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_integration]
   ENDMETHOD.
@@ -269,28 +237,18 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
 
     " snippet-start:[agw.abapv1.put_integration_response]
     TRY.
-        " iv_rest_api_id = 'abc123def4'
-        " iv_resource_id = 'xyz789'
-        " iv_http_method = 'GET'
-        DATA lt_templates TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
-        DATA ls_template TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
-        ls_template-key = 'application/json'.
-        ls_template-value = NEW /aws1/cl_agwmapofstrtostr_w( '' ).
-        INSERT ls_template INTO TABLE lt_templates.
-
         oo_result = lo_agw->putintegrationresponse(
           iv_restapiid = iv_rest_api_id
           iv_resourceid = iv_resource_id
           iv_httpmethod = iv_http_method
-          iv_statuscode = '200'
-          it_responsetemplates = lt_templates ).
-        MESSAGE 'Integration response created successfully.' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
+          iv_statuscode = '200' ).
+        MESSAGE 'Integration response configured for status 200' TYPE 'I'.
+      CATCH /aws1/cx_agwbadrequest00.
+        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
+      CATCH /aws1/cx_agwnotfoundexc00.
+        MESSAGE 'Integration not found' TYPE 'E'.
+      CATCH /aws1/cx_agwtoomanyreqexc00.
+        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_integration_response]
   ENDMETHOD.
@@ -304,18 +262,18 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
 
     " snippet-start:[agw.abapv1.create_deployment]
     TRY.
-        " iv_rest_api_id = 'abc123def4'
-        " iv_stage_name = 'test'
         oo_result = lo_agw->createdeployment(
           iv_restapiid = iv_rest_api_id
-          iv_stagename = iv_stage_name ).
-        MESSAGE 'Deployment created successfully.' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
+          iv_stagename = iv_stage_name
+          iv_description = 'Deployment created by ABAP SDK' ).
+        DATA(lv_deployment_id) = oo_result->get_id( ).
+        MESSAGE 'Deployment created with ID: ' && lv_deployment_id TYPE 'I'.
+      CATCH /aws1/cx_agwbadrequest00.
+        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
+      CATCH /aws1/cx_agwnotfoundexc00.
+        MESSAGE 'REST API not found' TYPE 'E'.
+      CATCH /aws1/cx_agwtoomanyreqexc00.
+        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
     ENDTRY.
     " snippet-end:[agw.abapv1.create_deployment]
   ENDMETHOD.
@@ -330,36 +288,15 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
     " snippet-start:[agw.abapv1.get_rest_apis]
     TRY.
         oo_result = lo_agw->getrestapis( ).
-        MESSAGE 'Retrieved REST APIs successfully.' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
+        DATA(lt_apis) = oo_result->get_items( ).
+        DATA(lv_count) = lines( lt_apis ).
+        MESSAGE 'Found ' && lv_count && ' REST APIs' TYPE 'I'.
+      CATCH /aws1/cx_agwbadrequest00.
+        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
+      CATCH /aws1/cx_agwtoomanyreqexc00.
+        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
     ENDTRY.
     " snippet-end:[agw.abapv1.get_rest_apis]
-  ENDMETHOD.
-
-
-  METHOD delete_rest_api.
-    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
-
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_agw) = /aws1/cl_agw_factory=>create( lo_session ).
-
-    " snippet-start:[agw.abapv1.delete_rest_api]
-    TRY.
-        " iv_rest_api_id = 'abc123def4'
-        lo_agw->deleterestapi(
-          iv_restapiid = iv_rest_api_id ).
-        MESSAGE 'REST API deleted successfully.' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
-    ENDTRY.
-    " snippet-end:[agw.abapv1.delete_rest_api]
   ENDMETHOD.
 
 
@@ -371,15 +308,40 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
 
     " snippet-start:[agw.abapv1.get_resources]
     TRY.
-        " iv_rest_api_id = 'abc123def4'
         oo_result = lo_agw->getresources(
           iv_restapiid = iv_rest_api_id ).
-        MESSAGE 'Retrieved resources successfully.' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
-      CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
+        DATA(lt_resources) = oo_result->get_items( ).
+        DATA(lv_count) = lines( lt_resources ).
+        MESSAGE 'Found ' && lv_count && ' resources' TYPE 'I'.
+      CATCH /aws1/cx_agwbadrequest00.
+        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
+      CATCH /aws1/cx_agwnotfoundexc00.
+        MESSAGE 'REST API not found' TYPE 'E'.
+      CATCH /aws1/cx_agwtoomanyreqexc00.
+        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
     ENDTRY.
     " snippet-end:[agw.abapv1.get_resources]
+  ENDMETHOD.
+
+
+  METHOD delete_rest_api.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_agw) = /aws1/cl_agw_factory=>create( lo_session ).
+
+    " snippet-start:[agw.abapv1.delete_rest_api]
+    TRY.
+        lo_agw->deleterestapi(
+          iv_restapiid = iv_rest_api_id ).
+        MESSAGE 'REST API deleted successfully' TYPE 'I'.
+      CATCH /aws1/cx_agwbadrequest00.
+        MESSAGE 'Bad request - invalid parameters' TYPE 'E'.
+      CATCH /aws1/cx_agwnotfoundexc00.
+        MESSAGE 'REST API not found' TYPE 'E'.
+      CATCH /aws1/cx_agwtoomanyreqexc00.
+        MESSAGE 'Too many requests - rate limit exceeded' TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[agw.abapv1.delete_rest_api]
   ENDMETHOD.
 ENDCLASS.
