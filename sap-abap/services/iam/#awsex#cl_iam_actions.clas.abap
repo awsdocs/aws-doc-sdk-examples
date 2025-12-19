@@ -1,3 +1,6 @@
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
+
 CLASS /awsex/cl_iam_actions DEFINITION
   PUBLIC
   FINAL
@@ -252,6 +255,28 @@ CLASS /awsex/cl_iam_actions DEFINITION
         !iv_description      TYPE /aws1/iamroledescriptiontype OPTIONAL
       EXPORTING
         !oo_result           TYPE REF TO /aws1/cl_iamcresvclnkrolersp
+      RAISING
+        /aws1/cx_rt_generic.
+
+    METHODS list_policy_versions
+      IMPORTING
+        !iv_policy_arn TYPE /aws1/iamarntype
+      EXPORTING
+        !oo_result     TYPE REF TO /aws1/cl_iamlistpolicyvrssrsp
+      RAISING
+        /aws1/cx_rt_generic.
+
+    METHODS set_default_policy_version
+      IMPORTING
+        !iv_policy_arn TYPE /aws1/iamarntype
+        !iv_version_id TYPE /aws1/iampolicyversionidtype
+      RAISING
+        /aws1/cx_rt_generic.
+
+    METHODS delete_policy_version
+      IMPORTING
+        !iv_policy_arn TYPE /aws1/iamarntype
+        !iv_version_id TYPE /aws1/iampolicyversionidtype
       RAISING
         /aws1/cx_rt_generic.
 
@@ -935,5 +960,71 @@ CLASS /AWSEX/CL_IAM_ACTIONS IMPLEMENTATION.
         MESSAGE 'Service does not support service-linked roles.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[iam.abapv1.create_service_linked_role]
+  ENDMETHOD.
+
+
+  METHOD list_policy_versions.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_iam) = /aws1/cl_iam_factory=>create( lo_session ).
+
+    " snippet-start:[iam.abapv1.list_policy_versions]
+    TRY.
+        oo_result = lo_iam->listpolicyversions(
+          iv_policyarn = iv_policy_arn ).
+        MESSAGE 'Retrieved policy versions list.' TYPE 'I'.
+      CATCH /aws1/cx_iamnosuchentityex.
+        MESSAGE 'Policy does not exist.' TYPE 'E'.
+      CATCH /aws1/cx_iamservicefailureex.
+        MESSAGE 'Service failure when listing policy versions.' TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[iam.abapv1.list_policy_versions]
+  ENDMETHOD.
+
+
+  METHOD set_default_policy_version.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_iam) = /aws1/cl_iam_factory=>create( lo_session ).
+
+    " snippet-start:[iam.abapv1.set_default_policy_version]
+    TRY.
+        lo_iam->setdefaultpolicyversion(
+          iv_policyarn = iv_policy_arn
+          iv_versionid = iv_version_id ).
+        MESSAGE 'Default policy version set successfully.' TYPE 'I'.
+      CATCH /aws1/cx_iamnosuchentityex.
+        MESSAGE 'Policy or version does not exist.' TYPE 'E'.
+      CATCH /aws1/cx_iaminvalidinputex.
+        MESSAGE 'Invalid input provided.' TYPE 'E'.
+      CATCH /aws1/cx_iamlimitexceededex.
+        MESSAGE 'Limit exceeded.' TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[iam.abapv1.set_default_policy_version]
+  ENDMETHOD.
+
+
+  METHOD delete_policy_version.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    DATA(lo_iam) = /aws1/cl_iam_factory=>create( lo_session ).
+
+    " snippet-start:[iam.abapv1.delete_policy_version]
+    TRY.
+        lo_iam->deletepolicyversion(
+          iv_policyarn = iv_policy_arn
+          iv_versionid = iv_version_id ).
+        MESSAGE 'Policy version deleted successfully.' TYPE 'I'.
+      CATCH /aws1/cx_iamnosuchentityex.
+        MESSAGE 'Policy or version does not exist.' TYPE 'E'.
+      CATCH /aws1/cx_iamdeleteconflictex.
+        MESSAGE 'Cannot delete default policy version.' TYPE 'E'.
+      CATCH /aws1/cx_iamlimitexceededex.
+        MESSAGE 'Limit exceeded.' TYPE 'E'.
+    ENDTRY.
+    " snippet-end:[iam.abapv1.delete_policy_version]
   ENDMETHOD.
 ENDCLASS.
