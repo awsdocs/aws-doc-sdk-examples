@@ -16,7 +16,7 @@ CLASS ltc_awsex_cl_ios_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA gv_asset_model_id TYPE /aws1/iosid.
     CLASS-DATA gv_asset_id TYPE /aws1/iosid.
     CLASS-DATA gv_role_arn TYPE /aws1/iosiamarn.
-    CLASS-DATA gv_role_name TYPE /aws1/iamrolenamestring.
+    CLASS-DATA gv_role_name TYPE /aws1/iamrolenametype.
     CLASS-DATA gv_temperature_property_id TYPE /aws1/iosid.
     CLASS-DATA gv_humidity_property_id TYPE /aws1/iosid.
     CLASS-DATA gv_uuid TYPE string.
