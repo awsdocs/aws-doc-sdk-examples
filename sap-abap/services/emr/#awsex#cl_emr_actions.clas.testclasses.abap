@@ -85,7 +85,7 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
       it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
         ( NEW /aws1/cl_ec2filter(
             iv_name = 'isDefault'
-            it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuesstringlist(
+            it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
               ( NEW /aws1/cl_ec2valuestringlist_w( 'true' ) )
             )
           )
