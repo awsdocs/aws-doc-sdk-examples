@@ -68,6 +68,17 @@ ENDCLASS.
 CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
 
   METHOD class_setup.
+    " Declare all variables at the beginning of the method
+    DATA lv_assume_role_policy TYPE /aws1/iampolicydocumenttype.
+    DATA lo_role_result TYPE REF TO /aws1/cl_iamcreateroleresponse.
+    DATA lv_asset_model_name TYPE /aws1/iosname.
+    DATA lt_properties TYPE /aws1/cl_iosassetmodelprpdefn=>tt_assetmodelpropertydefns.
+    DATA lo_model_result TYPE REF TO /aws1/cl_ioscreassetmodelrsp.
+    DATA lo_props_result TYPE REF TO /aws1/cl_ioslstastmodelprpsrsp.
+    DATA lo_prop TYPE REF TO /aws1/cl_iosassetmodelprpsumm.
+    DATA lv_asset_name TYPE /aws1/iosname.
+    DATA lo_asset_result TYPE REF TO /aws1/cl_ioscreateassetrsp.
+
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_ios = /aws1/cl_ios_factory=>create( ao_session ).
     ao_ios_actions = NEW /awsex/cl_ios_actions( ).
@@ -78,8 +89,6 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
 
     " Create IAM role for portal with necessary trust policy and tag it
     gv_role_name = |IoTSiteWiseRole-{ gv_uuid }|.
-    DATA lv_assume_role_policy TYPE /aws1/iampolicydocumenttype.
-    DATA lo_role_result TYPE REF TO /aws1/cl_iamcreateroleresponse.
 
     lv_assume_role_policy = '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"Service":"iotsitewise.amazonaws.com"},"Action":"sts:AssumeRole"}]}'.
 
@@ -128,10 +137,6 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     ENDTRY.
 
     " Create shared asset model with tags
-    DATA lv_asset_model_name TYPE /aws1/iosname.
-    DATA lt_properties TYPE /aws1/cl_iosassetmodelprpdefn=>tt_assetmodelpropertydefns.
-    DATA lo_model_result TYPE REF TO /aws1/cl_ioscreassetmodelrsp.
-    
     lv_asset_model_name = |test-model-{ gv_uuid }|.
     lt_properties = VALUE #(
       (
@@ -177,9 +182,6 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     wait_for_asset_model_active( gv_asset_model_id ).
 
     " Get property IDs
-    DATA lo_props_result TYPE REF TO /aws1/cl_ioslstastmodelprpsrsp.
-    DATA lo_prop TYPE REF TO /aws1/cl_iosassetmodelprpsumm.
-    
     lo_props_result = ao_ios->listassetmodelproperties(
       iv_assetmodelid = gv_asset_model_id
     ).
@@ -196,9 +198,6 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     ENDIF.
 
     " Create shared asset with tags
-    DATA lv_asset_name TYPE /aws1/iosname.
-    DATA lo_asset_result TYPE REF TO /aws1/cl_ioscreateassetrsp.
-    
     lv_asset_name = |test-asset-{ gv_uuid }|.
     lo_asset_result = ao_ios->createasset(
       iv_assetname = lv_asset_name
@@ -753,8 +752,12 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
   METHOD delete_asset_model.
     " Create asset model to delete and tag it
     DATA lv_asset_model_name TYPE /aws1/iosname.
+    DATA lt_properties TYPE /aws1/cl_iosassetmodelprpdefn=>tt_assetmodelpropertydefns.
+    DATA lo_model_result TYPE REF TO /aws1/cl_ioscreassetmodelrsp.
+    DATA lv_temp_model_id TYPE /aws1/iosid.
+    
     lv_asset_model_name = |test-del-model-{ gv_uuid }|.
-    DATA(lt_properties) = VALUE /aws1/cl_iosassetmodelprpdefn=>tt_assetmodelpropertydefns(
+    lt_properties = VALUE #(
       (
         NEW /aws1/cl_iosassetmodelprpdefn(
           iv_name = 'test-property'
@@ -778,7 +781,7 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
         )
       )
     ).
-    DATA(lv_temp_model_id) = lo_model_result->get_assetmodelid( ).
+    lv_temp_model_id = lo_model_result->get_assetmodelid( ).
     wait_for_asset_model_active( lv_temp_model_id ).
 
     ao_ios_actions->delete_asset_model( lv_temp_model_id ).
