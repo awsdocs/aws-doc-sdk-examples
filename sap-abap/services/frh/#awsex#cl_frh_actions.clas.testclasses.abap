@@ -15,7 +15,7 @@ CLASS ltc_awsex_cl_frh_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_delivery_stream TYPE /aws1/frhdeliverystreamname.
     CLASS-DATA av_bucket TYPE /aws1/s3_bucketname.
     CLASS-DATA av_role_arn TYPE /aws1/frhrolearn.
-    CLASS-DATA av_role_name TYPE /aws1/iamrolename.
+    CLASS-DATA av_role_name TYPE /aws1/iamrolenametype.
     CLASS-DATA av_lmd_uuid TYPE sysuuid_c36.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic cx_uuid_error.
