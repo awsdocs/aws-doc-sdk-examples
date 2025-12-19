@@ -915,7 +915,7 @@ CLASS /AWSEX/CL_IAM_ACTIONS IMPLEMENTATION.
         oo_result = lo_iam->getaccountpasswordpolicy( ).
         MESSAGE 'Retrieved account password policy.' TYPE 'I'.
       CATCH /aws1/cx_iamnosuchentityex.
-        MESSAGE 'No password policy exists.' TYPE 'E'.
+        MESSAGE 'No password policy exists.' TYPE 'I'.
       CATCH /aws1/cx_iamservicefailureex.
         MESSAGE 'Service failure when getting password policy.' TYPE 'E'.
     ENDTRY.
