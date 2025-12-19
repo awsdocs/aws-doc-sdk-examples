@@ -37,20 +37,6 @@ CLASS ltc_awsex_cl_agw_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
-
-    METHODS wait_for_api_ready
-      IMPORTING
-        iv_rest_api_id TYPE /aws1/agwstring
-      RAISING
-        /aws1/cx_rt_generic.
-
-    METHODS get_root_resource_id
-      IMPORTING
-        iv_rest_api_id TYPE /aws1/agwstring
-      RETURNING
-        VALUE(rv_root_id) TYPE /aws1/agwstring
-      RAISING
-        /aws1/cx_rt_generic.
 ENDCLASS.
 
 CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
@@ -69,6 +55,64 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         DATA(lv_random) = /awsex/cl_utils=>get_random_string( ).
         av_api_name = |agw-api-{ lv_random }|.
         av_stage_name = 'test'.
+
+        " Create REST API in setup for all tests to use
+        DATA lo_api TYPE REF TO /aws1/cl_agwrestapi.
+        ao_agw_actions->create_rest_api(
+          EXPORTING
+            iv_api_name = av_api_name
+          IMPORTING
+            oo_result = lo_api ).
+        av_rest_api_id = lo_api->get_id( ).
+
+        " Wait for API to be ready
+        DATA lv_max_wait TYPE i VALUE 15.
+        DATA lv_wait_count TYPE i VALUE 0.
+        DATA lv_ready TYPE abap_bool VALUE abap_false.
+        DO.
+          WAIT UP TO 2 SECONDS.
+          lv_wait_count = lv_wait_count + 1.
+          TRY.
+              ao_agw->getrestapi( iv_restapiid = av_rest_api_id ).
+              lv_ready = abap_true.
+              EXIT.
+            CATCH /aws1/cx_agwnotfoundexception.
+              lv_ready = abap_false.
+          ENDTRY.
+          IF lv_wait_count >= lv_max_wait.
+            EXIT.
+          ENDIF.
+        ENDDO.
+
+        IF lv_ready = abap_false.
+          av_setup_failed = abap_true.
+          cl_abap_unit_assert=>fail( |REST API { av_rest_api_id } is not ready after { lv_max_wait * 2 } seconds| ).
+        ENDIF.
+
+        " Get root resource ID
+        DATA(lo_resources) = ao_agw->getresources( iv_restapiid = av_rest_api_id ).
+        LOOP AT lo_resources->get_items( ) INTO DATA(lo_resource).
+          IF lo_resource->get_path( ) = '/'.
+            av_root_resource_id = lo_resource->get_id( ).
+            EXIT.
+          ENDIF.
+        ENDLOOP.
+
+        IF av_root_resource_id IS INITIAL.
+          av_setup_failed = abap_true.
+          cl_abap_unit_assert=>fail( |Root resource not found for API { av_rest_api_id }| ).
+        ENDIF.
+
+        " Create a resource for tests that need it
+        DATA lo_res TYPE REF TO /aws1/cl_agwresource.
+        ao_agw_actions->add_rest_resource(
+          EXPORTING
+            iv_rest_api_id = av_rest_api_id
+            iv_parent_id = av_root_resource_id
+            iv_resource_path = 'users'
+          IMPORTING
+            oo_result = lo_res ).
+        av_resource_id = lo_res->get_id( ).
 
         " Create DynamoDB table with convert_test tag
         av_table_name = |agw-tbl-{ lv_random }|.
@@ -211,11 +255,13 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
       cl_abap_unit_assert=>fail( 'Test cannot run because class_setup failed' ).
     ENDIF.
 
+    " Create a new API for this specific test
+    DATA(lv_test_api_name) = |agw-test-api-{ /awsex/cl_utils=>get_random_string( ) }|.
     DATA lo_result TYPE REF TO /aws1/cl_agwrestapi.
 
     ao_agw_actions->create_rest_api(
       EXPORTING
-        iv_api_name = av_api_name
+        iv_api_name = lv_test_api_name
       IMPORTING
         oo_result = lo_result ).
 
@@ -224,33 +270,32 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
       msg = |REST API was not created| ).
 
     cl_abap_unit_assert=>assert_equals(
-      exp = av_api_name
+      exp = lv_test_api_name
       act = lo_result->get_name( )
       msg = |REST API name does not match| ).
 
-    av_rest_api_id = lo_result->get_id( ).
-
-    wait_for_api_ready( av_rest_api_id ).
+    " Clean up test API
+    TRY.
+        ao_agw->deleterestapi( iv_restapiid = lo_result->get_id( ) ).
+      CATCH /aws1/cx_rt_generic.
+        " Ignore cleanup errors
+    ENDTRY.
 
   ENDMETHOD.
 
   METHOD add_rest_resource.
-    " Fail the test if setup failed or previous test didn't create API
+    " Fail the test if setup failed
     IF av_setup_failed = abap_true.
       cl_abap_unit_assert=>fail( 'Test cannot run because class_setup failed' ).
     ENDIF.
-    IF av_rest_api_id IS INITIAL.
-      cl_abap_unit_assert=>fail( 'Test cannot run because REST API was not created' ).
-    ENDIF.
 
     DATA lo_result TYPE REF TO /aws1/cl_agwresource.
-    DATA(lv_root_id) = get_root_resource_id( av_rest_api_id ).
 
     ao_agw_actions->add_rest_resource(
       EXPORTING
         iv_rest_api_id = av_rest_api_id
-        iv_parent_id = lv_root_id
-        iv_resource_path = 'users'
+        iv_parent_id = av_root_resource_id
+        iv_resource_path = 'testresource'
       IMPORTING
         oo_result = lo_result ).
 
@@ -259,21 +304,16 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
       msg = |Resource was not created| ).
 
     cl_abap_unit_assert=>assert_equals(
-      exp = 'users'
+      exp = 'testresource'
       act = lo_result->get_pathpart( )
       msg = |Resource path does not match| ).
-
-    av_resource_id = lo_result->get_id( ).
 
   ENDMETHOD.
 
   METHOD put_method.
-    " Fail the test if setup failed or previous tests didn't create resources
+    " Fail the test if setup failed
     IF av_setup_failed = abap_true.
       cl_abap_unit_assert=>fail( 'Test cannot run because class_setup failed' ).
-    ENDIF.
-    IF av_rest_api_id IS INITIAL OR av_resource_id IS INITIAL.
-      cl_abap_unit_assert=>fail( 'Test cannot run because REST API or resource was not created' ).
     ENDIF.
 
     DATA lo_result TYPE REF TO /aws1/cl_agwmethod.
@@ -298,13 +338,21 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD put_method_response.
-    " Fail the test if setup failed or previous tests didn't create resources
+    " Fail the test if setup failed
     IF av_setup_failed = abap_true.
       cl_abap_unit_assert=>fail( 'Test cannot run because class_setup failed' ).
     ENDIF.
-    IF av_rest_api_id IS INITIAL OR av_resource_id IS INITIAL.
-      cl_abap_unit_assert=>fail( 'Test cannot run because REST API or resource was not created' ).
-    ENDIF.
+
+    " First create the method
+    TRY.
+        ao_agw->putmethod(
+          iv_restapiid = av_rest_api_id
+          iv_resourceid = av_resource_id
+          iv_httpmethod = 'POST'
+          iv_authorizationtype = 'NONE' ).
+      CATCH /aws1/cx_agwconflictexception.
+        " Method already exists, continue
+    ENDTRY.
 
     DATA lo_result TYPE REF TO /aws1/cl_agwmethodresponse.
 
@@ -312,7 +360,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
       EXPORTING
         iv_rest_api_id = av_rest_api_id
         iv_resource_id = av_resource_id
-        iv_http_method = 'GET'
+        iv_http_method = 'POST'
       IMPORTING
         oo_result = lo_result ).
 
@@ -328,13 +376,21 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD put_integration.
-    " Fail the test if setup failed or previous tests didn't create resources
+    " Fail the test if setup failed
     IF av_setup_failed = abap_true.
       cl_abap_unit_assert=>fail( 'Test cannot run because class_setup failed' ).
     ENDIF.
-    IF av_rest_api_id IS INITIAL OR av_resource_id IS INITIAL.
-      cl_abap_unit_assert=>fail( 'Test cannot run because REST API or resource was not created' ).
-    ENDIF.
+
+    " First create the method
+    TRY.
+        ao_agw->putmethod(
+          iv_restapiid = av_rest_api_id
+          iv_resourceid = av_resource_id
+          iv_httpmethod = 'PUT'
+          iv_authorizationtype = 'NONE' ).
+      CATCH /aws1/cx_agwconflictexception.
+        " Method already exists, continue
+    ENDTRY.
 
     DATA lo_result TYPE REF TO /aws1/cl_agwintegration.
     DATA(lv_region) = ao_session->get_region( ).
@@ -344,7 +400,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
       EXPORTING
         iv_rest_api_id = av_rest_api_id
         iv_resource_id = av_resource_id
-        iv_http_method = 'GET'
+        iv_http_method = 'PUT'
         iv_service_uri = lv_service_uri
         iv_role_arn = av_role_arn
         iv_table_name = av_table_name
@@ -363,13 +419,40 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD put_integration_response.
-    " Fail the test if setup failed or previous tests didn't create resources
+    " Fail the test if setup failed
     IF av_setup_failed = abap_true.
       cl_abap_unit_assert=>fail( 'Test cannot run because class_setup failed' ).
     ENDIF.
-    IF av_rest_api_id IS INITIAL OR av_resource_id IS INITIAL.
-      cl_abap_unit_assert=>fail( 'Test cannot run because REST API or resource was not created' ).
-    ENDIF.
+
+    " First create the method and integration
+    TRY.
+        ao_agw->putmethod(
+          iv_restapiid = av_rest_api_id
+          iv_resourceid = av_resource_id
+          iv_httpmethod = 'DELETE'
+          iv_authorizationtype = 'NONE' ).
+
+        DATA(lv_region) = ao_session->get_region( ).
+        DATA(lv_service_uri) = |arn:aws:apigateway:{ lv_region }:dynamodb:action/Scan|.
+        DATA lt_templates TYPE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring.
+        DATA ls_template TYPE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow.
+        ls_template-key = 'application/json'.
+        ls_template-value = NEW /aws1/cl_agwmapofstrtostr_w( '{"TableName": "' && av_table_name && '"}' ).
+        INSERT ls_template INTO TABLE lt_templates.
+
+        ao_agw->putintegration(
+          iv_restapiid = av_rest_api_id
+          iv_resourceid = av_resource_id
+          iv_httpmethod = 'DELETE'
+          iv_type = 'AWS'
+          iv_integrationhttpmethod = 'POST'
+          iv_credentials = av_role_arn
+          it_requesttemplates = lt_templates
+          iv_uri = lv_service_uri
+          iv_passthroughbehavior = 'WHEN_NO_TEMPLATES' ).
+      CATCH /aws1/cx_agwconflictexception.
+        " Already exists, continue
+    ENDTRY.
 
     DATA lo_result TYPE REF TO /aws1/cl_agwintegrationrsp.
 
@@ -377,7 +460,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
       EXPORTING
         iv_rest_api_id = av_rest_api_id
         iv_resource_id = av_resource_id
-        iv_http_method = 'GET'
+        iv_http_method = 'DELETE'
       IMPORTING
         oo_result = lo_result ).
 
@@ -393,12 +476,9 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD create_deployment.
-    " Fail the test if setup failed or previous tests didn't create resources
+    " Fail the test if setup failed
     IF av_setup_failed = abap_true.
       cl_abap_unit_assert=>fail( 'Test cannot run because class_setup failed' ).
-    ENDIF.
-    IF av_rest_api_id IS INITIAL.
-      cl_abap_unit_assert=>fail( 'Test cannot run because REST API was not created' ).
     ENDIF.
 
     DATA lo_result TYPE REF TO /aws1/cl_agwdeployment.
@@ -420,9 +500,6 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     " Fail the test if setup failed
     IF av_setup_failed = abap_true.
       cl_abap_unit_assert=>fail( 'Test cannot run because class_setup failed' ).
-    ENDIF.
-    IF av_rest_api_id IS INITIAL.
-      cl_abap_unit_assert=>fail( 'Test cannot run because REST API was not created' ).
     ENDIF.
 
     DATA lo_result TYPE REF TO /aws1/cl_agwrestapis.
@@ -455,9 +532,6 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     IF av_setup_failed = abap_true.
       cl_abap_unit_assert=>fail( 'Test cannot run because class_setup failed' ).
     ENDIF.
-    IF av_rest_api_id IS INITIAL.
-      cl_abap_unit_assert=>fail( 'Test cannot run because REST API was not created' ).
-    ENDIF.
 
     DATA lo_result TYPE REF TO /aws1/cl_agwresources.
 
@@ -483,19 +557,30 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     IF av_setup_failed = abap_true.
       cl_abap_unit_assert=>fail( 'Test cannot run because class_setup failed' ).
     ENDIF.
-    IF av_rest_api_id IS INITIAL.
-      cl_abap_unit_assert=>fail( 'Test cannot run because REST API was not created' ).
-    ENDIF.
 
+    " Create a temporary API for deletion test
+    DATA(lv_test_api_name) = |agw-del-api-{ /awsex/cl_utils=>get_random_string( ) }|.
+    DATA lo_api TYPE REF TO /aws1/cl_agwrestapi.
+    ao_agw_actions->create_rest_api(
+      EXPORTING
+        iv_api_name = lv_test_api_name
+      IMPORTING
+        oo_result = lo_api ).
+    DATA(lv_test_api_id) = lo_api->get_id( ).
+
+    " Wait for API to be available
+    WAIT UP TO 2 SECONDS.
+
+    " Now test the delete
     ao_agw_actions->delete_rest_api(
-      iv_rest_api_id = av_rest_api_id ).
+      iv_rest_api_id = lv_test_api_id ).
 
-    " Verify deletion by trying to get the API
+    " Verify deletion
     DATA(lv_found) = abap_false.
     TRY.
         DATA(lo_apis) = ao_agw->getrestapis( ).
-        LOOP AT lo_apis->get_items( ) INTO DATA(lo_api).
-          IF lo_api->get_id( ) = av_rest_api_id.
+        LOOP AT lo_apis->get_items( ) INTO DATA(lo_api_check).
+          IF lo_api_check->get_id( ) = lv_test_api_id.
             lv_found = abap_true.
             EXIT.
           ENDIF.
@@ -507,49 +592,6 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     cl_abap_unit_assert=>assert_false(
       act = lv_found
       msg = |REST API was not deleted| ).
-
-  ENDMETHOD.
-
-  METHOD wait_for_api_ready.
-    DATA lv_max_wait TYPE i VALUE 15.
-    DATA lv_wait_count TYPE i VALUE 0.
-    DATA lv_ready TYPE abap_bool.
-
-    DO.
-      WAIT UP TO 2 SECONDS.
-      lv_wait_count = lv_wait_count + 1.
-
-      TRY.
-          ao_agw->getrestapi( iv_restapiid = iv_rest_api_id ).
-          lv_ready = abap_true.
-          EXIT.
-        CATCH /aws1/cx_agwnotfoundexception.
-          lv_ready = abap_false.
-      ENDTRY.
-
-      IF lv_wait_count >= lv_max_wait.
-        EXIT.
-      ENDIF.
-    ENDDO.
-
-    IF lv_ready = abap_false.
-      cl_abap_unit_assert=>fail( |REST API { iv_rest_api_id } is not ready after { lv_max_wait * 2 } seconds| ).
-    ENDIF.
-
-  ENDMETHOD.
-
-  METHOD get_root_resource_id.
-    DATA(lo_resources) = ao_agw->getresources( iv_restapiid = iv_rest_api_id ).
-    LOOP AT lo_resources->get_items( ) INTO DATA(lo_resource).
-      IF lo_resource->get_path( ) = '/'.
-        rv_root_id = lo_resource->get_id( ).
-        EXIT.
-      ENDIF.
-    ENDLOOP.
-
-    IF rv_root_id IS INITIAL.
-      cl_abap_unit_assert=>fail( |Root resource not found for API { iv_rest_api_id }| ).
-    ENDIF.
 
   ENDMETHOD.
 
