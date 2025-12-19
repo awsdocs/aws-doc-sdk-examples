@@ -204,6 +204,7 @@ language = {
                 "comprehend": "sap-abap/services/cpd",
                 "cloudwatch": "sap-abap/services/cwt",
                 "dynamodb": "sap-abap/services/dyn",
+                "glue": "sap-abap/services/glu",
                 "kinesis": "sap-abap/services/kns",
                 "lambda": "sap-abap/services/lmd",
                 "sagemaker": "sap-abap/services/sgm",
