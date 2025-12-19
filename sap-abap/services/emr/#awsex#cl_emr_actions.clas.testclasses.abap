@@ -82,10 +82,13 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
 
     " Get default VPC
     DATA(lo_vpc_result) = ao_ec2->describevpcs(
-      io_filter = NEW /aws1/cl_ec2filter(
-        iv_name = 'isDefault'
-        it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuesstringlist(
-          ( NEW /aws1/cl_ec2valuestringlist_w( 'true' ) )
+      it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
+        ( NEW /aws1/cl_ec2filter(
+            iv_name = 'isDefault'
+            it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuesstringlist(
+              ( NEW /aws1/cl_ec2valuestringlist_w( 'true' ) )
+            )
+          )
         )
       )
     ).
