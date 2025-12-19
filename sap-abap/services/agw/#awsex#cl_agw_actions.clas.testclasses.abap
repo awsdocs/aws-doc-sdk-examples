@@ -92,7 +92,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail( msg = 'Bad request - invalid parameters' ).
       CATCH /aws1/cx_agwtoomanyrequestsex.
         cl_abap_unit_assert=>fail( msg = 'Too many requests - rate limit exceeded' ).
-      CATCH /aws1/cx_agwunauthorizedexc00.
+      CATCH /aws1/cx_agwunauthorizedex.
         cl_abap_unit_assert=>fail( msg = 'Unauthorized - check credentials' ).
     ENDTRY.
     " snippet-end:[agw.abapv1.create_rest_api]
