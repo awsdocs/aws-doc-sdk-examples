@@ -246,7 +246,7 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
     " Clean up IAM resources
     IF av_ec2_role_name IS NOT INITIAL.
       TRY.
-          ao_iam->removerolefrominstanceprofile(
+          ao_iam->removerolefrominstprofile(
             iv_instanceprofilename = av_ec2_role_name
             iv_rolename = av_ec2_role_name
           ).
