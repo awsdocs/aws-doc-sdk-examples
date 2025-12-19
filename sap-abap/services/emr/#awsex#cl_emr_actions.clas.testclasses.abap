@@ -18,8 +18,8 @@ CLASS ltc_awsex_cl_emr_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     " Test resources
     CLASS-DATA av_cluster_id TYPE /aws1/emrclusterid.
     CLASS-DATA av_log_bucket TYPE /aws1/s3_bucketname.
-    CLASS-DATA av_emr_role_name TYPE /aws1/iamrolename.
-    CLASS-DATA av_ec2_role_name TYPE /aws1/iamrolename.
+    CLASS-DATA av_emr_role_name TYPE /aws1/iamrolenametype.
+    CLASS-DATA av_ec2_role_name TYPE /aws1/iamrolenametype.
     CLASS-DATA av_emr_role_arn TYPE /aws1/emrxmlstring.
     CLASS-DATA av_ec2_role_arn TYPE /aws1/emrxmlstring.
     CLASS-DATA av_default_vpc_id TYPE /aws1/ec2_string.
