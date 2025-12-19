@@ -16,7 +16,7 @@ CLASS ltc_awsex_cl_frh_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_bucket TYPE /aws1/s3_bucketname.
     CLASS-DATA av_role_arn TYPE /aws1/frhrolearn.
     CLASS-DATA av_role_name TYPE /aws1/iamrolenametype.
-    CLASS-DATA av_lmd_uuid TYPE sysuuid_c36.
+    CLASS-DATA av_lmd_uuid TYPE sysuuid_x16.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic cx_uuid_error.
     CLASS-METHODS class_teardown.
@@ -50,7 +50,7 @@ CLASS ltc_awsex_cl_frh_actions IMPLEMENTATION.
     ao_frh_actions = NEW /awsex/cl_frh_actions( ).
 
     " Generate unique names using UUID
-    av_lmd_uuid = cl_system_uuid=>create_uuid_c36_static( ).
+    av_lmd_uuid = cl_system_uuid=>create_uuid_x16_static( ).
     lv_account_id = ao_session->get_account_id( ).
     lv_region = ao_session->get_region( ).
 
@@ -58,10 +58,10 @@ CLASS ltc_awsex_cl_frh_actions IMPLEMENTATION.
     av_bucket = |sap-abap-frh-test-{ lv_account_id }|.
     TRANSLATE av_bucket TO LOWER CASE.
 
-    av_delivery_stream = 'test-stream-' && av_lmd_uuid(8).
+    av_delivery_stream = 'test-stream-' && av_lmd_uuid.
     TRANSLATE av_delivery_stream TO LOWER CASE.
 
-    av_role_name = 'frh-test-role-' && av_lmd_uuid(8).
+    av_role_name = 'frh-test-role-' && av_lmd_uuid.
     TRANSLATE av_role_name TO LOWER CASE.
 
     " Step 1: Create S3 bucket for Firehose destination
