@@ -41,11 +41,24 @@ CLASS ltc_awsex_cl_cfs_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
       RAISING
         /aws1/cx_rt_generic.
 
+    METHODS wait_for_rule_deletion
+      IMPORTING
+        iv_rule_name TYPE /aws1/cfsconfigrulename
+      RAISING
+        /aws1/cx_rt_generic.
+
     METHODS assert_rule_exists
       IMPORTING
         iv_rule_name TYPE /aws1/cfsconfigrulename
         iv_exp       TYPE abap_bool
         iv_msg       TYPE string
+      RAISING
+        /aws1/cx_rt_generic.
+
+    METHODS create_and_wait_for_rule
+      IMPORTING
+        iv_rule_name    TYPE /aws1/cfsconfigrulename
+        iv_description  TYPE /aws1/cfsstring
       RAISING
         /aws1/cx_rt_generic.
 ENDCLASS.
@@ -98,116 +111,16 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
     av_rule_name_delete = |sap-abap-cfs-rule-del-{ lv_uuid_string }|.
 
     " Create rule for describe test with convert_test tag
-    ao_cfs->putconfigrule(
-      io_configrule = NEW /aws1/cl_cfsconfigrule(
-        iv_configrulename = av_rule_name_describe
-        iv_description = |Test S3 Public Read Rule for Describe|
-        io_scope = NEW /aws1/cl_cfsscope(
-          it_complianceresourcetypes = VALUE /aws1/cl_cfscplncresrctypes_w=>tt_complianceresourcetypes(
-            ( NEW /aws1/cl_cfscplncresrctypes_w( |AWS::S3::Bucket| ) )
-          )
-        )
-        io_source = NEW /aws1/cl_cfssource(
-          iv_owner = |AWS|
-          iv_sourceidentifier = |S3_BUCKET_PUBLIC_READ_PROHIBITED|
-        )
-        iv_inputparameters = '{}'
-        iv_configrulestate = |ACTIVE|
-      )
-      it_tags = VALUE /aws1/cl_cfstag=>tt_tagslist(
-        ( NEW /aws1/cl_cfstag(
-            iv_key = |convert_test|
-            iv_value = |true|
-          ) )
-      )
+    create_and_wait_for_rule(
+      iv_rule_name = av_rule_name_describe
+      iv_description = |Test S3 Public Read Rule for Describe|
     ).
-
-    " Wait for describe rule to be available
-    DATA lv_start_time TYPE timestamp.
-    DATA lv_current_time TYPE timestamp.
-    DATA lv_elapsed_seconds TYPE i.
-
-    GET TIME STAMP FIELD lv_start_time.
-
-    DO.
-      TRY.
-          DATA(lo_check_result) = ao_cfs->describeconfigrules(
-            it_configrulenames = VALUE /aws1/cl_cfsconfigrulenames_w=>tt_configrulenames(
-              ( NEW /aws1/cl_cfsconfigrulenames_w( av_rule_name_describe ) )
-            )
-          ).
-          IF lo_check_result IS BOUND AND lo_check_result->get_configrules( ) IS NOT INITIAL.
-            EXIT.
-          ENDIF.
-        CATCH /aws1/cx_rt_generic.
-          " Rule not yet available
-      ENDTRY.
-
-      WAIT UP TO 2 SECONDS.
-
-      GET TIME STAMP FIELD lv_current_time.
-      lv_elapsed_seconds = cl_abap_tstmp=>subtract(
-        tstmp1 = lv_current_time
-        tstmp2 = lv_start_time ).
-
-      IF lv_elapsed_seconds > 120.
-        EXIT.
-      ENDIF.
-    ENDDO.
 
     " Create rule for delete test with convert_test tag
-    ao_cfs->putconfigrule(
-      io_configrule = NEW /aws1/cl_cfsconfigrule(
-        iv_configrulename = av_rule_name_delete
-        iv_description = |Test S3 Public Read Rule for Delete|
-        io_scope = NEW /aws1/cl_cfsscope(
-          it_complianceresourcetypes = VALUE /aws1/cl_cfscplncresrctypes_w=>tt_complianceresourcetypes(
-            ( NEW /aws1/cl_cfscplncresrctypes_w( |AWS::S3::Bucket| ) )
-          )
-        )
-        io_source = NEW /aws1/cl_cfssource(
-          iv_owner = |AWS|
-          iv_sourceidentifier = |S3_BUCKET_PUBLIC_READ_PROHIBITED|
-        )
-        iv_inputparameters = '{}'
-        iv_configrulestate = |ACTIVE|
-      )
-      it_tags = VALUE /aws1/cl_cfstag=>tt_tagslist(
-        ( NEW /aws1/cl_cfstag(
-            iv_key = |convert_test|
-            iv_value = |true|
-          ) )
-      )
+    create_and_wait_for_rule(
+      iv_rule_name = av_rule_name_delete
+      iv_description = |Test S3 Public Read Rule for Delete|
     ).
-
-    " Wait for delete rule to be available
-    GET TIME STAMP FIELD lv_start_time.
-
-    DO.
-      TRY.
-          lo_check_result = ao_cfs->describeconfigrules(
-            it_configrulenames = VALUE /aws1/cl_cfsconfigrulenames_w=>tt_configrulenames(
-              ( NEW /aws1/cl_cfsconfigrulenames_w( av_rule_name_delete ) )
-            )
-          ).
-          IF lo_check_result IS BOUND AND lo_check_result->get_configrules( ) IS NOT INITIAL.
-            EXIT.
-          ENDIF.
-        CATCH /aws1/cx_rt_generic.
-          " Rule not yet available
-      ENDTRY.
-
-      WAIT UP TO 2 SECONDS.
-
-      GET TIME STAMP FIELD lv_current_time.
-      lv_elapsed_seconds = cl_abap_tstmp=>subtract(
-        tstmp1 = lv_current_time
-        tstmp2 = lv_start_time ).
-
-      IF lv_elapsed_seconds > 120.
-        EXIT.
-      ENDIF.
-    ENDDO.
 
   ENDMETHOD.
 
@@ -234,11 +147,43 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
     " Cleanup Config recorder (this will handle stopping and deleting)
     cleanup_config_recorder( ).
 
-    " Cleanup IAM role
+    " Detach AWS_ConfigRole managed policy before deleting role
+    TRY.
+        ao_iam->detachrolepolicy(
+          iv_rolename = av_config_role_name
+          iv_policyarn = |arn:aws:iam::aws:policy/service-role/AWS_ConfigRole|
+        ).
+      CATCH /aws1/cx_iamnosuchentityex.
+        " Policy not attached
+      CATCH /aws1/cx_iaminvalidinputex
+            /aws1/cx_iamsvccfailureex INTO DATA(lo_detach_ex).
+        " Log but continue cleanup
+        WRITE: / |Error detaching AWS_ConfigRole policy: { lo_detach_ex->get_text( ) }|.
+    ENDTRY.
+
+    " Delete inline ConfigS3Policy before deleting role
+    TRY.
+        ao_iam->deleterolepolicy(
+          iv_rolename = av_config_role_name
+          iv_policyname = |ConfigS3Policy|
+        ).
+      CATCH /aws1/cx_iamnosuchentityex.
+        " Policy doesn't exist
+      CATCH /aws1/cx_iaminvalidinputex
+            /aws1/cx_iamsvccfailureex INTO DATA(lo_inline_ex).
+        " Log but continue cleanup
+        WRITE: / |Error deleting inline policy: { lo_inline_ex->get_text( ) }|.
+    ENDTRY.
+
+    " Delete IAM role
     TRY.
         ao_iam->deleterole( iv_rolename = av_config_role_name ).
-      CATCH /aws1/cx_rt_generic.
-        " Ignore errors during cleanup
+      CATCH /aws1/cx_iamnosuchentityex.
+        " Role doesn't exist
+      CATCH /aws1/cx_iamdelconflictex
+            /aws1/cx_iaminvalidinputex INTO DATA(lo_role_ex).
+        " Log but continue cleanup
+        WRITE: / |Error deleting IAM role: { lo_role_ex->get_text( ) }|.
     ENDTRY.
 
     " Note: S3 bucket is tagged with convert_test and will be manually cleaned up
@@ -448,17 +393,63 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
         av_config_role_arn = lo_get_role->get_role( )->get_arn( ).
     ENDTRY.
 
-    " Attach AWS managed policy for Config
+    " Attach AWS managed policy for Config (updated from deprecated ConfigRole to AWS_ConfigRole)
     TRY.
         ao_iam->attachrolepolicy(
           iv_rolename = av_config_role_name
-          iv_policyarn = |arn:aws:iam::aws:policy/service-role/ConfigRole|
+          iv_policyarn = |arn:aws:iam::aws:policy/service-role/AWS_ConfigRole|
         ).
-      CATCH /aws1/cx_rt_generic.
-        " Policy may already be attached
+      CATCH /aws1/cx_iaminvalidinputex
+            /aws1/cx_iamnosuchentityex INTO DATA(lo_attach_ex).
+        " Policy attachment failed
+        RAISE EXCEPTION TYPE /aws1/cx_rt_generic
+          EXPORTING
+            previous = lo_attach_ex.
+      CATCH /aws1/cx_iampolicynotattachex.
+        " Policy may already be attached, continue
     ENDTRY.
 
-    " Wait for role to propagate
+    " Create inline policy for S3 bucket access and additional Config permissions
+    DATA(lv_s3_policy) = |\{| &&
+      |"Version":"2012-10-17",| &&
+      |"Statement":[| &&
+      |\{| &&
+      |"Effect":"Allow",| &&
+      |"Action":[| &&
+      |"s3:GetBucketVersioning",| &&
+      |"s3:PutObject",| &&
+      |"s3:GetObject",| &&
+      |"s3:ListBucket"| &&
+      |],| &&
+      |"Resource":[| &&
+      |"arn:aws:s3:::{ av_config_bucket }",| &&
+      |"arn:aws:s3:::{ av_config_bucket }/*"| &&
+      |]| &&
+      |\},| &&
+      |\{| &&
+      |"Effect":"Allow",| &&
+      |"Action":[| &&
+      |"config:ListDiscoveredResources"| &&
+      |],| &&
+      |"Resource":"*"| &&
+      |\}]| &&
+      |\}|.
+
+    TRY.
+        ao_iam->putrolepolicy(
+          iv_rolename = av_config_role_name
+          iv_policyname = |ConfigS3Policy|
+          iv_policydocument = lv_s3_policy
+        ).
+      CATCH /aws1/cx_iaminvalidinputex
+            /aws1/cx_iamnosuchentityex INTO DATA(lo_policy_ex).
+        " Inline policy creation failed
+        RAISE EXCEPTION TYPE /aws1/cx_rt_generic
+          EXPORTING
+            previous = lo_policy_ex.
+    ENDTRY.
+
+    " Wait for role and policies to propagate
     WAIT UP TO 10 SECONDS.
 
   ENDMETHOD.
@@ -488,7 +479,13 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
           )
         ).
       CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bktalrdyownedbyyou.
-        " Bucket already exists
+        " Bucket already exists, continue
+      CATCH /aws1/cx_s3_bucketnotfound
+            /aws1/cx_s3_nosuchbucket INTO DATA(lo_s3_ex).
+        " S3 bucket creation failed
+        RAISE EXCEPTION TYPE /aws1/cx_rt_generic
+          EXPORTING
+            previous = lo_s3_ex.
     ENDTRY.
 
     " Create configuration recorder
@@ -503,8 +500,15 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
             )
           )
         ).
-      CATCH /aws1/cx_rt_generic.
-        " Recorder may already exist
+      CATCH /aws1/cx_cfsmaxnumconfigrecrdsex.
+        " Maximum number of recorders already exists, try to use existing
+      CATCH /aws1/cx_cfsinvalidparamvalueex
+            /aws1/cx_cfsinvalidroleex
+            /aws1/cx_cfsinvldrecordnameex INTO DATA(lo_recorder_ex).
+        " Configuration recorder creation failed with invalid parameters
+        RAISE EXCEPTION TYPE /aws1/cx_rt_generic
+          EXPORTING
+            previous = lo_recorder_ex.
     ENDTRY.
 
     " Create delivery channel
@@ -515,8 +519,17 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
             iv_s3bucketname = av_config_bucket
           )
         ).
-      CATCH /aws1/cx_rt_generic.
-        " Channel may already exist
+      CATCH /aws1/cx_cfsmaxnumdlvrychnlsex.
+        " Maximum number of channels already exists, try to use existing
+      CATCH /aws1/cx_cfsinsufficientdlvryplc
+            /aws1/cx_cfsinvalidparamvalueex
+            /aws1/cx_cfsinvalids3keyprefix
+            /aws1/cx_cfsinvalidsnstopiarn
+            /aws1/cx_cfsnosuchtopicex INTO DATA(lo_channel_ex).
+        " Delivery channel creation failed
+        RAISE EXCEPTION TYPE /aws1/cx_rt_generic
+          EXPORTING
+            previous = lo_channel_ex.
     ENDTRY.
 
     " Start configuration recorder
@@ -524,8 +537,18 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
         ao_cfs->startconfigurationrecorder(
           iv_configurationrecordername = av_config_recorder_name
         ).
-      CATCH /aws1/cx_rt_generic.
-        " Recorder may already be running
+      CATCH /aws1/cx_cfsnoavailbledlvrychnl.
+        " No available delivery channel - this is a critical error
+        RAISE EXCEPTION TYPE /aws1/cx_rt_generic
+          EXPORTING
+            textid = /aws1/cx_rt_generic=>generic_error
+            msgv1  = 'No available delivery channel to start recorder'.
+      CATCH /aws1/cx_cfsnosuchconfigrecrdrex.
+        " Configuration recorder doesn't exist - this is a critical error
+        RAISE EXCEPTION TYPE /aws1/cx_rt_generic
+          EXPORTING
+            textid = /aws1/cx_rt_generic=>generic_error
+            msgv1  = 'Configuration recorder does not exist'.
     ENDTRY.
 
     " Wait for recorder to start
@@ -562,6 +585,37 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
       CATCH /aws1/cx_rt_generic.
         " Ignore errors
     ENDTRY.
+
+  ENDMETHOD.
+
+  METHOD create_and_wait_for_rule.
+    " Create a config rule with standard settings and wait for it to be available
+    ao_cfs->putconfigrule(
+      io_configrule = NEW /aws1/cl_cfsconfigrule(
+        iv_configrulename = iv_rule_name
+        iv_description = iv_description
+        io_scope = NEW /aws1/cl_cfsscope(
+          it_complianceresourcetypes = VALUE /aws1/cl_cfscplncresrctypes_w=>tt_complianceresourcetypes(
+            ( NEW /aws1/cl_cfscplncresrctypes_w( |AWS::S3::Bucket| ) )
+          )
+        )
+        io_source = NEW /aws1/cl_cfssource(
+          iv_owner = |AWS|
+          iv_sourceidentifier = |S3_BUCKET_PUBLIC_READ_PROHIBITED|
+        )
+        iv_inputparameters = '{}'
+        iv_configrulestate = |ACTIVE|
+      )
+      it_tags = VALUE /aws1/cl_cfstag=>tt_tagslist(
+        ( NEW /aws1/cl_cfstag(
+            iv_key = |convert_test|
+            iv_value = |true|
+          ) )
+      )
+    ).
+
+    " Wait for rule to be available
+    wait_for_rule_creation( iv_rule_name ).
 
   ENDMETHOD.
 
