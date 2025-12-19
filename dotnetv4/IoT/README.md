@@ -1,8 +1,8 @@
-# AWS IoT code examples for the SDK for Kotlin
+# AWS IoT code examples for the SDK for .NET (v4)
 
 ## Overview
 
-Shows how to use the AWS SDK for Kotlin to work with AWS IoT.
+Shows how to use the AWS SDK for .NET (v4) to work with AWS IoT.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
@@ -23,7 +23,7 @@ _AWS IoT provides secure, bi-directional communication for Internet-connected de
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotlin` folder.
+For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4` folder.
 
 
 <!--custom.prerequisites.start-->
@@ -31,32 +31,32 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 ### Get started
 
-- [Hello AWS IoT](src/main/kotlin/com/example/iot/HelloIoT.kt#L6) (`listThings`)
+- [Hello AWS IoT](Actions/HelloIoT.cs#L9) (`listThings`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](src/main/kotlin/com/example/iot/IotScenario.kt)
+- [Learn the basics](Scenarios/IoTBasics.cs)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachThingPrincipal](src/main/kotlin/com/example/iot/IotScenario.kt#L476)
-- [CreateKeysAndCertificate](src/main/kotlin/com/example/iot/IotScenario.kt#L511)
-- [CreateThing](src/main/kotlin/com/example/iot/IotScenario.kt#L528)
-- [CreateTopicRule](src/main/kotlin/com/example/iot/IotScenario.kt#L331)
-- [DeleteCertificate](src/main/kotlin/com/example/iot/IotScenario.kt#L257)
-- [DeleteThing](src/main/kotlin/com/example/iot/IotScenario.kt#L243)
-- [DescribeEndpoint](src/main/kotlin/com/example/iot/IotScenario.kt#L397)
-- [DescribeThing](src/main/kotlin/com/example/iot/IotScenario.kt#L494)
-- [DetachThingPrincipal](src/main/kotlin/com/example/iot/IotScenario.kt#L277)
-- [ListCertificates](src/main/kotlin/com/example/iot/IotScenario.kt#L384)
-- [SearchIndex](src/main/kotlin/com/example/iot/IotScenario.kt#L295)
-- [UpdateThing](src/main/kotlin/com/example/iot/IotScenario.kt#L429)
+- [AttachThingPrincipal](Actions/IoTWrapper.cs#L98)
+- [CreateKeysAndCertificate](Actions/IoTWrapper.cs#L67)
+- [CreateThing](Actions/IoTWrapper.cs#L35)
+- [CreateTopicRule](Actions/IoTWrapper.cs#L298)
+- [DeleteCertificate](Actions/IoTWrapper.cs#L558)
+- [DeleteThing](Actions/IoTWrapper.cs#L599)
+- [DescribeEndpoint](Actions/IoTWrapper.cs#L170)
+- [DetachThingPrincipal](Actions/IoTWrapper.cs#L524)
+- [ListCertificates](Actions/IoTWrapper.cs#L201)
+- [ListThings](Actions/IoTWrapper.cs#L631)
+- [SearchIndex](Actions/IoTWrapper.cs#L409)
+- [UpdateThing](Actions/IoTWrapper.cs#L132)
 
 
 <!--custom.examples.start-->
@@ -104,8 +104,8 @@ This example shows you how to do the following:
 ⚠ Running tests might result in charges to your AWS account.
 
 
-To find instructions for running these tests, see the [README](../../README.md#Tests)
-in the `kotlin` folder.
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `dotnetv4` folder.
 
 
 
@@ -116,7 +116,7 @@ in the `kotlin` folder.
 
 - [AWS IoT Developer Guide](https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html)
 - [AWS IoT API Reference](https://docs.aws.amazon.com/iot/latest/apireference/Welcome.html)
-- [SDK for Kotlin AWS IoT reference](https://sdk.amazonaws.com/kotlin/api/latest/iot/index.html)
+- [SDK for .NET (v4) AWS IoT reference](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/IoT/NIoT.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
