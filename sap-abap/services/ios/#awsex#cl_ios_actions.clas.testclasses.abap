@@ -178,7 +178,7 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
 
     " Get property IDs
     DATA lo_props_result TYPE REF TO /aws1/cl_ioslstastmodelprpsrsp.
-    DATA lo_prop TYPE REF TO /aws1/cl_iosastmodelprpsum.
+    DATA lo_prop TYPE REF TO /aws1/cl_iosassetmodelprpsumm.
     
     lo_props_result = ao_ios->listassetmodelproperties(
       iv_assetmodelid = gv_asset_model_id
