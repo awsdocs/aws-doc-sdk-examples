@@ -71,6 +71,7 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     " Declare all variables at the beginning of the method
     DATA lv_assume_role_policy TYPE /aws1/iampolicydocumenttype.
     DATA lo_role_result TYPE REF TO /aws1/cl_iamcreateroleresponse.
+    DATA lo_role TYPE REF TO /aws1/cl_iamrole.
     DATA lv_asset_model_name TYPE /aws1/iosname.
     DATA lt_properties TYPE /aws1/cl_iosassetmodelprpdefn=>tt_assetmodelpropertydefns.
     DATA lo_model_result TYPE REF TO /aws1/cl_ioscreassetmodelrsp.
@@ -100,7 +101,8 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
             ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
           )
         ).
-        gv_role_arn = lo_role_result->get_role( )->get_arn( ).
+        lo_role = lo_role_result->get_role( ).
+        gv_role_arn = lo_role->get_arn( ).
 
         " Attach necessary policies to the role
         ao_iam->attachrolepolicy(
@@ -128,7 +130,8 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
             ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
           )
         ).
-        gv_role_arn = lo_role_result->get_role( )->get_arn( ).
+        lo_role = lo_role_result->get_role( ).
+        gv_role_arn = lo_role->get_arn( ).
         ao_iam->attachrolepolicy(
           iv_rolename = gv_role_name
           iv_policyarn = 'arn:aws:iam::aws:policy/AWSIoTSiteWiseMonitorPortalAccess'
