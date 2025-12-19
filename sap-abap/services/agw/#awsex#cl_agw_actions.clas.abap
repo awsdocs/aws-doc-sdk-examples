@@ -64,7 +64,7 @@ CLASS /awsex/cl_agw_actions DEFINITION
         VALUE(iv_resource_id) TYPE /aws1/agwstring
         VALUE(iv_http_method) TYPE /aws1/agwstring
       RETURNING
-        VALUE(oo_result)      TYPE REF TO /aws1/cl_agwintegrationresp
+        VALUE(oo_result)      TYPE REF TO /aws1/cl_agwintegrationrsp
       RAISING
         /aws1/cx_rt_generic.
 
