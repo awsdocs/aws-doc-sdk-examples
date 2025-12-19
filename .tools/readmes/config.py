@@ -208,6 +208,7 @@ language = {
                 "kinesis": "sap-abap/services/kns",
                 "lambda": "sap-abap/services/lmd",
                 "sagemaker": "sap-abap/services/sgm",
+                "scheduler": "sap-abap/services/scd",
                 "secrets-manager": "sap-abap/services/smr",
                 "textract": "sap-abap/services/tex",
                 "translate": "sap-abap/services/xl8",
