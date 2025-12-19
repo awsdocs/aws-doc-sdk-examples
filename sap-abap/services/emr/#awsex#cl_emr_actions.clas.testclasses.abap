@@ -22,7 +22,7 @@ CLASS ltc_awsex_cl_emr_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_ec2_role_name TYPE /aws1/iamrolenametype.
     CLASS-DATA av_emr_role_arn TYPE /aws1/emrxmlstring.
     CLASS-DATA av_ec2_role_arn TYPE /aws1/emrxmlstring.
-    CLASS-DATA av_default_vpc_id TYPE /aws1/ec2_string.
+    CLASS-DATA av_default_vpc_id TYPE /aws1/ec2string.
     CLASS-DATA av_master_sg_id TYPE /aws1/emrxmlstringmaxlen256.
     CLASS-DATA av_slave_sg_id TYPE /aws1/emrxmlstringmaxlen256.
 
