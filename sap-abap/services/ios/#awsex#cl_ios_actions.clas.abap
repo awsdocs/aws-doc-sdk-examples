@@ -43,20 +43,6 @@ CLASS /awsex/cl_ios_actions DEFINITION
       RETURNING
                 VALUE(oo_result) TYPE REF TO /aws1/cl_iosgetastprpvaluersp
       RAISING   /aws1/cx_rt_generic.
-    METHODS create_portal
-      IMPORTING
-                !iv_portal_name          TYPE /aws1/iosname
-                !iv_role_arn             TYPE /aws1/iosiamarn
-                !iv_portal_contact_email TYPE /aws1/iosemail
-      RETURNING
-                VALUE(oo_result)         TYPE REF TO /aws1/cl_ioscreateportalrsp
-      RAISING   /aws1/cx_rt_generic.
-    METHODS describe_portal
-      IMPORTING
-                !iv_portal_id    TYPE /aws1/iosid
-      RETURNING
-                VALUE(oo_result) TYPE REF TO /aws1/cl_iosdescrportalrsp
-      RAISING   /aws1/cx_rt_generic.
     METHODS create_gateway
       IMPORTING
                 !iv_gateway_name        TYPE /aws1/iosgatewayname
@@ -73,10 +59,6 @@ CLASS /awsex/cl_ios_actions DEFINITION
     METHODS delete_gateway
       IMPORTING
                 !iv_gateway_id TYPE /aws1/iosid
-      RAISING   /aws1/cx_rt_generic.
-    METHODS delete_portal
-      IMPORTING
-                !iv_portal_id TYPE /aws1/iosid
       RAISING   /aws1/cx_rt_generic.
     METHODS delete_asset
       IMPORTING
@@ -213,46 +195,6 @@ CLASS /AWSEX/CL_IOS_ACTIONS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD create_portal.
-    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
-
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_ios) = /aws1/cl_ios_factory=>create( lo_session ).
-
-    " snippet-start:[ios.abapv1.create_portal]
-    TRY.
-        oo_result = lo_ios->createportal(
-          iv_portalname = iv_portal_name
-          iv_rolearn = iv_role_arn
-          iv_portalcontactemail = iv_portal_contact_email
-        ). " oo_result is returned for testing purposes. "
-        MESSAGE 'IoT SiteWise portal created' TYPE 'I'.
-      CATCH /aws1/cx_iosresrcalrdyexistsex.
-        MESSAGE 'Portal already exists.' TYPE 'E'.
-    ENDTRY.
-    " snippet-end:[ios.abapv1.create_portal]
-  ENDMETHOD.
-
-
-  METHOD describe_portal.
-    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
-
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_ios) = /aws1/cl_ios_factory=>create( lo_session ).
-
-    " snippet-start:[ios.abapv1.describe_portal]
-    TRY.
-        oo_result = lo_ios->describeportal(
-          iv_portalid = iv_portal_id
-        ). " oo_result is returned for testing purposes. "
-        MESSAGE 'Retrieved portal description.' TYPE 'I'.
-      CATCH /aws1/cx_rt_generic.
-        MESSAGE 'Unable to describe portal.' TYPE 'E'.
-    ENDTRY.
-    " snippet-end:[ios.abapv1.describe_portal]
-  ENDMETHOD.
-
-
   METHOD create_gateway.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
@@ -320,25 +262,6 @@ CLASS /AWSEX/CL_IOS_ACTIONS IMPLEMENTATION.
         MESSAGE 'Gateway does not exist.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[ios.abapv1.delete_gateway]
-  ENDMETHOD.
-
-
-  METHOD delete_portal.
-    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
-
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_ios) = /aws1/cl_ios_factory=>create( lo_session ).
-
-    " snippet-start:[ios.abapv1.delete_portal]
-    TRY.
-        lo_ios->deleteportal(
-          iv_portalid = iv_portal_id
-        ).
-        MESSAGE 'IoT SiteWise portal deleted.' TYPE 'I'.
-      CATCH /aws1/cx_iosresourcenotfoundex.
-        MESSAGE 'Portal does not exist.' TYPE 'E'.
-    ENDTRY.
-    " snippet-end:[ios.abapv1.delete_portal]
   ENDMETHOD.
 
 

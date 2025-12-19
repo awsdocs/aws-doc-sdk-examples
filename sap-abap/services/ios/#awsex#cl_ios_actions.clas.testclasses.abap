@@ -11,12 +11,9 @@ CLASS ltc_awsex_cl_ios_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA ao_ios TYPE REF TO /aws1/if_ios.
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA ao_ios_actions TYPE REF TO /awsex/cl_ios_actions.
-    CLASS-DATA ao_iam TYPE REF TO /aws1/if_iam.
 
     CLASS-DATA gv_asset_model_id TYPE /aws1/iosid.
     CLASS-DATA gv_asset_id TYPE /aws1/iosid.
-    CLASS-DATA gv_role_arn TYPE /aws1/iosiamarn.
-    CLASS-DATA gv_role_name TYPE /aws1/iamrolenametype.
     CLASS-DATA gv_temperature_property_id TYPE /aws1/iosid.
     CLASS-DATA gv_humidity_property_id TYPE /aws1/iosid.
     CLASS-DATA gv_uuid TYPE string.
@@ -61,9 +58,6 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
 
   METHOD class_setup.
     " Declare all variables at the beginning of the method
-    DATA lv_assume_role_policy TYPE /aws1/iampolicydocumenttype.
-    DATA lo_role_result TYPE REF TO /aws1/cl_iamcreateroleresponse.
-    DATA lo_role TYPE REF TO /aws1/cl_iamrole.
     DATA lv_asset_model_name TYPE /aws1/iosname.
     DATA lt_properties TYPE /aws1/cl_iosassetmodelprpdefn=>tt_assetmodelpropertydefns.
     DATA lo_model_result TYPE REF TO /aws1/cl_ioscreassetmodelrsp.
@@ -71,71 +65,13 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     DATA lo_prop TYPE REF TO /aws1/cl_iosassetmodelprpsumm.
     DATA lv_asset_name TYPE /aws1/iosname.
     DATA lo_asset_result TYPE REF TO /aws1/cl_ioscreateassetrsp.
-    DATA lv_policy_document TYPE /aws1/iampolicydocumenttype.
 
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_ios = /aws1/cl_ios_factory=>create( ao_session ).
     ao_ios_actions = NEW /awsex/cl_ios_actions( ).
-    ao_iam = /aws1/cl_iam_factory=>create( ao_session ).
 
     " Generate UUID for unique resource names
     gv_uuid = /awsex/cl_utils=>get_random_string( ).
-
-    " Create IAM role for portal with necessary trust policy and inline policy, then tag it
-    gv_role_name = |IoTSiteWiseRole-{ gv_uuid }|.
-
-    lv_assume_role_policy = '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"Service":"iotsitewise.amazonaws.com"},"Action":"sts:AssumeRole"}]}'.
-
-    " Define inline policy that grants necessary IoT SiteWise permissions
-    lv_policy_document = '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Action":["iotsitewise:*"],"Resource":"*"}]}'.
-
-    TRY.
-        lo_role_result = ao_iam->createrole(
-          iv_rolename = gv_role_name
-          iv_assumerolepolicydocument = lv_assume_role_policy
-          it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
-            ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
-          )
-        ).
-        lo_role = lo_role_result->get_role( ).
-        gv_role_arn = lo_role->get_arn( ).
-
-        " Attach inline policy to the role
-        ao_iam->putrolepolicy(
-          iv_rolename = gv_role_name
-          iv_policyname = 'IoTSiteWiseAccess'
-          iv_policydocument = lv_policy_document
-        ).
-
-        " Wait for role to propagate
-        WAIT UP TO 10 SECONDS.
-      CATCH /aws1/cx_iamentityalrdyexex.
-        " If role already exists from a previous run, delete and recreate
-        TRY.
-            ao_iam->deleterolepolicy(
-              iv_rolename = gv_role_name
-              iv_policyname = 'IoTSiteWiseAccess'
-            ).
-          CATCH /aws1/cx_rt_generic.
-        ENDTRY.
-        ao_iam->deleterole( iv_rolename = gv_role_name ).
-        WAIT UP TO 5 SECONDS.
-        lo_role_result = ao_iam->createrole(
-          iv_rolename = gv_role_name
-          iv_assumerolepolicydocument = lv_assume_role_policy
-          it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
-            ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
-          )
-        ).
-        lo_role = lo_role_result->get_role( ).
-        gv_role_arn = lo_role->get_arn( ).
-        ao_iam->putrolepolicy(
-          iv_rolename = gv_role_name
-          iv_policyname = 'IoTSiteWiseAccess'
-          iv_policydocument = lv_policy_document
-        ).
-        WAIT UP TO 10 SECONDS.
-    ENDTRY.
 
     " Create shared asset model with tags
     lv_asset_model_name = |test-model-{ gv_uuid }|.
@@ -241,21 +177,6 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
           wait_for_asset_model_deleted( gv_asset_model_id ).
         CATCH /aws1/cx_rt_generic.
           " Ignore errors during cleanup - resource will be tagged
-      ENDTRY.
-    ENDIF.
-
-    " Delete IAM role
-    IF gv_role_arn IS NOT INITIAL AND gv_role_name IS NOT INITIAL.
-      TRY.
-          " Delete inline policy first
-          ao_iam->deleterolepolicy(
-            iv_rolename = gv_role_name
-            iv_policyname = 'IoTSiteWiseAccess'
-          ).
-          " Delete role
-          ao_iam->deleterole( iv_rolename = gv_role_name ).
-        CATCH /aws1/cx_rt_generic.
-          " Ignore errors during cleanup
       ENDTRY.
     ENDIF.
   ENDMETHOD.
