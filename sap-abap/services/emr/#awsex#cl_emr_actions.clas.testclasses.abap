@@ -1,0 +1,527 @@
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
+CLASS ltc_awsex_cl_emr_actions DEFINITION DEFERRED.
+CLASS /awsex/cl_emr_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_emr_actions.
+
+CLASS ltc_awsex_cl_emr_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
+
+  PRIVATE SECTION.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+    CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
+    CLASS-DATA ao_emr TYPE REF TO /aws1/if_emr.
+    CLASS-DATA ao_emr_actions TYPE REF TO /awsex/cl_emr_actions.
+    CLASS-DATA ao_s3 TYPE REF TO /aws1/if_s3.
+    CLASS-DATA ao_ec2 TYPE REF TO /aws1/if_ec2.
+    CLASS-DATA ao_iam TYPE REF TO /aws1/if_iam.
+
+    " Test resources
+    CLASS-DATA av_cluster_id TYPE /aws1/emrclusterid.
+    CLASS-DATA av_log_bucket TYPE /aws1/s3_bucketname.
+    CLASS-DATA av_emr_role_name TYPE /aws1/iamrolename.
+    CLASS-DATA av_ec2_role_name TYPE /aws1/iamrolename.
+    CLASS-DATA av_emr_role_arn TYPE /aws1/emrxmlstring.
+    CLASS-DATA av_ec2_role_arn TYPE /aws1/emrxmlstring.
+    CLASS-DATA av_default_vpc_id TYPE /aws1/ec2_string.
+    CLASS-DATA av_master_sg_id TYPE /aws1/emrxmlstringmaxlen256.
+    CLASS-DATA av_slave_sg_id TYPE /aws1/emrxmlstringmaxlen256.
+
+    METHODS run_job_flow FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS describe_cluster FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS add_job_flow_steps FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS list_steps FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS describe_step FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS terminate_job_flows FOR TESTING RAISING /aws1/cx_rt_generic.
+
+    CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
+    CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
+
+    METHODS wait_for_cluster_ready
+      IMPORTING
+        iv_cluster_id TYPE /aws1/emrclusterid
+      RAISING
+        /aws1/cx_rt_generic.
+
+    METHODS wait_for_step_complete
+      IMPORTING
+        iv_cluster_id TYPE /aws1/emrclusterid
+        iv_step_id    TYPE /aws1/emrstepid
+      RAISING
+        /aws1/cx_rt_generic.
+
+ENDCLASS.
+
+CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
+
+  METHOD class_setup.
+    ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
+    ao_emr = /aws1/cl_emr_factory=>create( ao_session ).
+    ao_emr_actions = NEW /awsex/cl_emr_actions( ).
+    ao_s3 = /aws1/cl_s3_factory=>create( ao_session ).
+    ao_ec2 = /aws1/cl_ec2_factory=>create( ao_session ).
+    ao_iam = /aws1/cl_iam_factory=>create( ao_session ).
+
+    " Create S3 bucket for logs with convert_test tag
+    DATA(lv_account_id) = ao_session->get_account_id( ).
+    av_log_bucket = |sap-abap-emr-demo-logs-{ lv_account_id }|.
+    /awsex/cl_utils=>create_bucket(
+      iv_bucket = av_log_bucket
+      io_s3 = ao_s3
+      io_session = ao_session
+    ).
+    
+    " Tag the S3 bucket for cleanup
+    ao_s3->putbuckettagging(
+      iv_bucket = av_log_bucket
+      io_tagging = NEW /aws1/cl_s3_tagging(
+        it_tagset = VALUE /aws1/cl_s3_tag=>tt_tagset(
+          ( NEW /aws1/cl_s3_tag( iv_key = 'convert_test' iv_value = 'true' ) )
+        )
+      )
+    ).
+
+    " Get default VPC
+    DATA(lo_vpc_result) = ao_ec2->describevpcs(
+      io_filter = NEW /aws1/cl_ec2_filter(
+        iv_name = 'isDefault'
+        it_values = VALUE /aws1/cl_ec2_valuestrlist_w=>tt_valuesstringlist(
+          ( NEW /aws1/cl_ec2_valuestrlist_w( 'true' ) )
+        )
+      )
+    ).
+    DATA(lt_vpcs) = lo_vpc_result->get_vpcs( ).
+    READ TABLE lt_vpcs INDEX 1 INTO DATA(lo_vpc).
+    IF sy-subrc = 0.
+      av_default_vpc_id = lo_vpc->get_vpcid( ).
+    ELSE.
+      cl_abap_unit_assert=>fail( 'No default VPC found.' ).
+    ENDIF.
+
+    " Create security groups
+    DATA(lv_timestamp) = |{ sy-datum }{ sy-uzeit }|.
+    av_master_sg_id = ao_ec2->createsecuritygroup(
+      iv_groupname = |emr-master-sg-{ lv_timestamp }|
+      iv_description = 'EMR Master Security Group'
+      iv_vpcid = av_default_vpc_id
+      it_tagspecifications = VALUE /aws1/cl_ec2_tagspecificatio00=>tt_tagspecificationlist(
+        ( NEW /aws1/cl_ec2_tagspecificatio00(
+            iv_resourcetype = 'security-group'
+            it_tags = VALUE /aws1/cl_ec2_tag=>tt_taglist(
+              ( NEW /aws1/cl_ec2_tag( iv_key = 'convert_test' iv_value = 'true' ) )
+            )
+          )
+        )
+      )
+    )->get_groupid( ).
+
+    av_slave_sg_id = ao_ec2->createsecuritygroup(
+      iv_groupname = |emr-slave-sg-{ lv_timestamp }|
+      iv_description = 'EMR Slave Security Group'
+      iv_vpcid = av_default_vpc_id
+      it_tagspecifications = VALUE /aws1/cl_ec2_tagspecificatio00=>tt_tagspecificationlist(
+        ( NEW /aws1/cl_ec2_tagspecificatio00(
+            iv_resourcetype = 'security-group'
+            it_tags = VALUE /aws1/cl_ec2_tag=>tt_taglist(
+              ( NEW /aws1/cl_ec2_tag( iv_key = 'convert_test' iv_value = 'true' ) )
+            )
+          )
+        )
+      )
+    )->get_groupid( ).
+
+    " Create IAM roles with enhanced permissions
+    av_emr_role_name = |EMRServiceRole{ lv_timestamp }|.
+    av_ec2_role_name = |EMREC2Role{ lv_timestamp }|.
+
+    " EMR Service Role trust policy
+    DATA(lv_emr_trust_policy) = |\{| &&
+      |"Version":"2012-10-17",| &&
+      |"Statement":[\{| &&
+      |"Effect":"Allow",| &&
+      |"Principal":\{"Service":"elasticmapreduce.amazonaws.com"\},| &&
+      |"Action":"sts:AssumeRole"| &&
+      |\}]| &&
+      |\}|.
+
+    " Create EMR service role
+    DATA(lo_emr_role) = ao_iam->createrole(
+      iv_rolename = av_emr_role_name
+      iv_assumerolepolicydocument = lv_emr_trust_policy
+      it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
+        ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
+      )
+    )->get_role( ).
+    av_emr_role_arn = lo_emr_role->get_arn( ).
+
+    " Attach managed policy to EMR service role
+    ao_iam->attachrolepolicy(
+      iv_rolename = av_emr_role_name
+      iv_policyarn = 'arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceRole'
+    ).
+
+    " EC2 Instance Profile trust policy
+    DATA(lv_ec2_trust_policy) = |\{| &&
+      |"Version":"2012-10-17",| &&
+      |"Statement":[\{| &&
+      |"Effect":"Allow",| &&
+      |"Principal":\{"Service":"ec2.amazonaws.com"\},| &&
+      |"Action":"sts:AssumeRole"| &&
+      |\}]| &&
+      |\}|.
+
+    " Create EC2 role
+    DATA(lo_ec2_role) = ao_iam->createrole(
+      iv_rolename = av_ec2_role_name
+      iv_assumerolepolicydocument = lv_ec2_trust_policy
+      it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
+        ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
+      )
+    )->get_role( ).
+    av_ec2_role_arn = lo_ec2_role->get_arn( ).
+
+    " Attach managed policy to EC2 role
+    ao_iam->attachrolepolicy(
+      iv_rolename = av_ec2_role_name
+      iv_policyarn = 'arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceforEC2Role'
+    ).
+
+    " Create instance profile
+    ao_iam->createinstanceprofile(
+      iv_instanceprofilename = av_ec2_role_name
+      it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
+        ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
+      )
+    ).
+
+    " Add role to instance profile
+    ao_iam->addroletinstanceprofile(
+      iv_instanceprofilename = av_ec2_role_name
+      iv_rolename = av_ec2_role_name
+    ).
+
+    " Wait for IAM roles to propagate
+    WAIT UP TO 10 SECONDS.
+
+  ENDMETHOD.
+
+  METHOD class_teardown.
+    " Terminate cluster if it exists
+    IF av_cluster_id IS NOT INITIAL.
+      TRY.
+          DATA lt_cluster_ids TYPE /aws1/cl_emrxmlstringlist_w=>tt_xmlstringlist.
+          APPEND NEW /aws1/cl_emrxmlstringlist_w( av_cluster_id ) TO lt_cluster_ids.
+          ao_emr->terminatejobflows( it_jobflowids = lt_cluster_ids ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore errors during cleanup
+      ENDTRY.
+    ENDIF.
+
+    " S3 bucket cleanup: The EMR cluster writes logs to this bucket during termination.
+    " Since cluster termination is asynchronous and can take 10+ minutes, we cannot
+    " delete the bucket here. The bucket is tagged with 'convert_test' for manual cleanup.
+    " To clean up: Wait for cluster termination, then delete bucket manually or via script.
+    " Uncomment below line only after cluster is fully terminated:
+    " /awsex/cl_utils=>cleanup_bucket( io_s3 = ao_s3 iv_bucket = av_log_bucket ).
+
+    " Clean up security groups
+    IF av_master_sg_id IS NOT INITIAL.
+      TRY.
+          ao_ec2->deletesecuritygroup( iv_groupid = av_master_sg_id ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore errors during cleanup
+      ENDTRY.
+    ENDIF.
+
+    IF av_slave_sg_id IS NOT INITIAL.
+      TRY.
+          ao_ec2->deletesecuritygroup( iv_groupid = av_slave_sg_id ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore errors during cleanup
+      ENDTRY.
+    ENDIF.
+
+    " Clean up IAM resources
+    IF av_ec2_role_name IS NOT INITIAL.
+      TRY.
+          ao_iam->removerolefrominstprof(
+            iv_instanceprofilename = av_ec2_role_name
+            iv_rolename = av_ec2_role_name
+          ).
+          ao_iam->deleteinstanceprofile( iv_instanceprofilename = av_ec2_role_name ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore errors during cleanup
+      ENDTRY.
+
+      TRY.
+          ao_iam->detachrolepolicy(
+            iv_rolename = av_ec2_role_name
+            iv_policyarn = 'arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceforEC2Role'
+          ).
+          ao_iam->deleterole( iv_rolename = av_ec2_role_name ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore errors during cleanup
+      ENDTRY.
+    ENDIF.
+
+    IF av_emr_role_name IS NOT INITIAL.
+      TRY.
+          ao_iam->detachrolepolicy(
+            iv_rolename = av_emr_role_name
+            iv_policyarn = 'arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceRole'
+          ).
+          ao_iam->deleterole( iv_rolename = av_emr_role_name ).
+        CATCH /aws1/cx_rt_generic.
+          " Ignore errors during cleanup
+      ENDTRY.
+    ENDIF.
+
+  ENDMETHOD.
+
+  METHOD run_job_flow.
+    " Build applications list
+    DATA lt_applications TYPE /aws1/cl_emrapplication=>tt_applicationlist.
+    APPEND NEW /aws1/cl_emrapplication( iv_name = 'Spark' ) TO lt_applications.
+
+    " Build steps list
+    DATA lt_args TYPE /aws1/cl_emrxmlstringlist_w=>tt_xmlstringlist.
+    APPEND NEW /aws1/cl_emrxmlstringlist_w( 'spark-submit' ) TO lt_args.
+    APPEND NEW /aws1/cl_emrxmlstringlist_w( '--deploy-mode' ) TO lt_args.
+    APPEND NEW /aws1/cl_emrxmlstringlist_w( 'cluster' ) TO lt_args.
+    APPEND NEW /aws1/cl_emrxmlstringlist_w( 's3://elasticmapreduce/samples/cloudfront' ) TO lt_args.
+
+    DATA(lo_hadoop_jar_step) = NEW /aws1/cl_emrhadoopjarstepcfg(
+      iv_jar = 'command-runner.jar'
+      it_args = lt_args
+    ).
+
+    DATA(lo_step_config) = NEW /aws1/cl_emrstepconfig(
+      iv_name = 'Example Step'
+      iv_actiononfailure = 'CONTINUE'
+      io_hadoopjarstep = lo_hadoop_jar_step
+    ).
+
+    DATA lt_steps TYPE /aws1/cl_emrstepconfig=>tt_stepconfiglist.
+    APPEND lo_step_config TO lt_steps.
+
+    " Run job flow
+    av_cluster_id = ao_emr_actions->run_job_flow(
+      iv_name = 'SAP ABAP EMR Test Cluster'
+      iv_log_uri = |s3://{ av_log_bucket }/logs/|
+      iv_keep_alive = abap_false
+      it_applications = lt_applications
+      iv_job_flow_role = av_ec2_role_name
+      iv_service_role = av_emr_role_arn
+      iv_master_sec_grp = av_master_sg_id
+      iv_slave_sec_grp = av_slave_sg_id
+      it_steps = lt_steps
+    ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = av_cluster_id
+      msg = 'Cluster ID should not be empty'
+    ).
+
+    " Wait for cluster to be ready
+    wait_for_cluster_ready( av_cluster_id ).
+
+  ENDMETHOD.
+
+  METHOD describe_cluster.
+    " Ensure cluster was created
+    cl_abap_unit_assert=>assert_not_initial(
+      act = av_cluster_id
+      msg = 'Cluster must be created before describing'
+    ).
+
+    DATA(lo_result) = ao_emr_actions->describe_cluster( av_cluster_id ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Result should be bound'
+    ).
+
+    DATA(lo_cluster) = lo_result->get_cluster( ).
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_cluster
+      msg = 'Cluster object should be bound'
+    ).
+
+    DATA(lv_cluster_name) = lo_cluster->get_name( ).
+    cl_abap_unit_assert=>assert_equals(
+      exp = 'SAP ABAP EMR Test Cluster'
+      act = lv_cluster_name
+      msg = 'Cluster name should match'
+    ).
+
+  ENDMETHOD.
+
+  METHOD add_job_flow_steps.
+    " Ensure cluster was created
+    cl_abap_unit_assert=>assert_not_initial(
+      act = av_cluster_id
+      msg = 'Cluster must be created before adding steps'
+    ).
+
+    " Build script args
+    DATA lt_script_args TYPE /aws1/cl_emrxmlstringlist_w=>tt_xmlstringlist.
+    APPEND NEW /aws1/cl_emrxmlstringlist_w( 'arg1' ) TO lt_script_args.
+
+    DATA(lv_step_id) = ao_emr_actions->add_job_flow_steps(
+      iv_cluster_id = av_cluster_id
+      iv_name = 'Additional Test Step'
+      iv_script_uri = 's3://elasticmapreduce/samples/cloudfront'
+      it_script_args = lt_script_args
+    ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lv_step_id
+      msg = 'Step ID should not be empty'
+    ).
+
+  ENDMETHOD.
+
+  METHOD list_steps.
+    " Ensure cluster was created
+    cl_abap_unit_assert=>assert_not_initial(
+      act = av_cluster_id
+      msg = 'Cluster must be created before listing steps'
+    ).
+
+    DATA(lo_result) = ao_emr_actions->list_steps( av_cluster_id ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Result should be bound'
+    ).
+
+    DATA(lt_steps) = lo_result->get_steps( ).
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lines( lt_steps )
+      msg = 'Should have at least one step'
+    ).
+
+  ENDMETHOD.
+
+  METHOD describe_step.
+    " Ensure cluster was created
+    cl_abap_unit_assert=>assert_not_initial(
+      act = av_cluster_id
+      msg = 'Cluster must be created before describing step'
+    ).
+
+    " Get first step ID
+    DATA(lo_list_result) = ao_emr->liststeps( iv_clusterid = av_cluster_id ).
+    DATA(lt_steps) = lo_list_result->get_steps( ).
+    READ TABLE lt_steps INDEX 1 INTO DATA(lo_step_summary).
+    IF sy-subrc <> 0.
+      cl_abap_unit_assert=>fail( 'No steps found in cluster' ).
+    ENDIF.
+
+    DATA(lv_step_id) = lo_step_summary->get_id( ).
+
+    DATA(lo_result) = ao_emr_actions->describe_step(
+      iv_cluster_id = av_cluster_id
+      iv_step_id = lv_step_id
+    ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Result should be bound'
+    ).
+
+    DATA(lo_step) = lo_result->get_step( ).
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_step
+      msg = 'Step object should be bound'
+    ).
+
+  ENDMETHOD.
+
+  METHOD terminate_job_flows.
+    " Ensure cluster was created
+    cl_abap_unit_assert=>assert_not_initial(
+      act = av_cluster_id
+      msg = 'Cluster must be created before terminating'
+    ).
+
+    ao_emr_actions->terminate_job_flows( av_cluster_id ).
+
+    " Verify cluster is terminating
+    DATA(lo_result) = ao_emr->describecluster( iv_clusterid = av_cluster_id ).
+    DATA(lo_cluster) = lo_result->get_cluster( ).
+    DATA(lo_status) = lo_cluster->get_status( ).
+    DATA(lv_state) = lo_status->get_state( ).
+
+    cl_abap_unit_assert=>assert_true(
+      act = COND #( WHEN lv_state = 'TERMINATING' OR lv_state = 'TERMINATED' THEN abap_true ELSE abap_false )
+      msg = |Cluster should be terminating or terminated, but is { lv_state }|
+    ).
+
+  ENDMETHOD.
+
+  METHOD wait_for_cluster_ready.
+    DATA lv_state TYPE /aws1/emrclusterstate.
+    DATA lv_attempts TYPE i VALUE 0.
+    CONSTANTS cv_max_attempts TYPE i VALUE 60.
+
+    DO cv_max_attempts TIMES.
+      lv_attempts = lv_attempts + 1.
+
+      TRY.
+          DATA(lo_result) = ao_emr->describecluster( iv_clusterid = iv_cluster_id ).
+          DATA(lo_cluster) = lo_result->get_cluster( ).
+          DATA(lo_status) = lo_cluster->get_status( ).
+          lv_state = lo_status->get_state( ).
+
+          IF lv_state = 'WAITING' OR lv_state = 'RUNNING'.
+            RETURN.
+          ELSEIF lv_state = 'TERMINATED' OR lv_state = 'TERMINATED_WITH_ERRORS'.
+            cl_abap_unit_assert=>fail( |Cluster terminated unexpectedly with state { lv_state }| ).
+          ENDIF.
+
+          WAIT UP TO 30 SECONDS.
+        CATCH /aws1/cx_rt_generic INTO DATA(lo_error).
+          IF lv_attempts >= cv_max_attempts.
+            RAISE EXCEPTION lo_error.
+          ENDIF.
+      ENDTRY.
+    ENDDO.
+
+    cl_abap_unit_assert=>fail( 'Cluster did not reach WAITING/RUNNING state in time' ).
+
+  ENDMETHOD.
+
+  METHOD wait_for_step_complete.
+    DATA lv_state TYPE /aws1/emrstepstate.
+    DATA lv_attempts TYPE i VALUE 0.
+    CONSTANTS cv_max_attempts TYPE i VALUE 60.
+
+    DO cv_max_attempts TIMES.
+      lv_attempts = lv_attempts + 1.
+
+      TRY.
+          DATA(lo_result) = ao_emr->describestep(
+            iv_clusterid = iv_cluster_id
+            iv_stepid = iv_step_id
+          ).
+          DATA(lo_step) = lo_result->get_step( ).
+          DATA(lo_status) = lo_step->get_status( ).
+          lv_state = lo_status->get_state( ).
+
+          IF lv_state = 'COMPLETED' OR lv_state = 'FAILED' OR lv_state = 'CANCELLED'.
+            RETURN.
+          ENDIF.
+
+          WAIT UP TO 10 SECONDS.
+        CATCH /aws1/cx_rt_generic INTO DATA(lo_error).
+          IF lv_attempts >= cv_max_attempts.
+            RAISE EXCEPTION lo_error.
+          ENDIF.
+      ENDTRY.
+    ENDDO.
+
+    cl_abap_unit_assert=>fail( 'Step did not complete in time' ).
+
+  ENDMETHOD.
+
+ENDCLASS.
