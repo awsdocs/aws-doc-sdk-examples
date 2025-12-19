@@ -33,7 +33,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     go_agw = /aws1/cl_agw_factory=>create( go_session ).
 
     " Create a test REST API for all tests
-    DATA(lv_uuid) = /awsex/cl_rt_utils=>get_uuid( ).
+    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_api_name) = 'test-api-' && lv_uuid.
 
     TRY.
@@ -83,7 +83,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_agw) = /aws1/cl_agw_factory=>create( lo_session ).
 
-    DATA(lv_uuid) = /awsex/cl_rt_utils=>get_uuid( ).
+    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_api_name) = 'test-create-' && lv_uuid.
 
     DATA(lo_actions) = NEW /awsex/cl_agw_actions( ).
@@ -127,7 +127,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD add_rest_resource.
-    DATA(lv_uuid) = /awsex/cl_rt_utils=>get_uuid( ).
+    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_resource_path) = 'test' && lv_uuid(8).
 
     DATA(lo_actions) = NEW /awsex/cl_agw_actions( ).
@@ -273,7 +273,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
       put_integration_response( ).
     ENDIF.
 
-    DATA(lv_uuid) = /awsex/cl_rt_utils=>get_uuid( ).
+    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_stage_name) = 'test' && lv_uuid(8).
 
     DATA(lo_actions) = NEW /awsex/cl_agw_actions( ).
@@ -298,7 +298,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     DATA(lo_agw) = /aws1/cl_agw_factory=>create( lo_session ).
 
     " Create a new API specifically for deletion test
-    DATA(lv_uuid) = /awsex/cl_rt_utils=>get_uuid( ).
+    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_api_name) = 'test-delete-' && lv_uuid.
 
     DATA(lo_api) = lo_agw->createrestapi(
