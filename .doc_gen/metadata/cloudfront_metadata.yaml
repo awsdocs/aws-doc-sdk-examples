@@ -11,6 +11,14 @@ cloudfront_ListDistributions:
               snippet_tags:
                 - python.example_code.cloudfront.CloudFrontWrapper
                 - python.example_code.cloudfront.ListDistributions
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/fnt
+          excerpts:
+            - description:
+              snippet_tags:
+                - fnt.abapv1.list_distributions
   services:
     cloudfront: {ListDistributions}
 cloudfront_GetDistributionConfig:
@@ -61,6 +69,14 @@ cloudfront_UpdateDistribution:
               snippet_tags:
                 - python.example_code.cloudfront.CloudFrontWrapper
                 - python.example_code.cloudfront.UpdateDistribution
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/fnt
+          excerpts:
+            - description:
+              snippet_tags:
+                - fnt.abapv1.update_distribution
   services:
     cloudfront: {UpdateDistribution}
 cloudfront_CreateDistribution:
