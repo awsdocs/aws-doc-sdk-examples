@@ -106,7 +106,7 @@ CLASS ltc_awsex_cl_frh_actions IMPLEMENTATION.
 
         av_role_arn = lo_role_result->get_role( )->get_arn( ).
 
-      CATCH /aws1/cx_iamentityalrdyexists.
+      CATCH /aws1/cx_iamentityalrdyexex.
         " Role already exists, get its ARN
         TRY.
             DATA(lo_existing_role) = ao_iam->getrole( iv_rolename = av_role_name ).
