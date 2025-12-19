@@ -1,3 +1,6 @@
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
+
 CLASS ltc_awsex_cl_iam_actions DEFINITION DEFERRED.
 CLASS /awsex/cl_iam_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_iam_actions.
 
@@ -62,7 +65,10 @@ CLASS ltc_awsex_cl_iam_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
       get_credential_report FOR TESTING RAISING /aws1/cx_rt_generic,
       get_account_password_policy FOR TESTING RAISING /aws1/cx_rt_generic,
       list_saml_providers FOR TESTING RAISING /aws1/cx_rt_generic,
-      create_service_linked_role FOR TESTING RAISING /aws1/cx_rt_generic.
+      create_service_linked_role FOR TESTING RAISING /aws1/cx_rt_generic,
+      list_policy_versions FOR TESTING RAISING /aws1/cx_rt_generic,
+      set_default_policy_version FOR TESTING RAISING /aws1/cx_rt_generic,
+      delete_policy_version FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
@@ -1474,6 +1480,119 @@ CLASS ltc_awsex_cl_iam_actions IMPLEMENTATION.
         " Service doesn't support service-linked roles, test passed
         MESSAGE 'Service does not support service-linked roles' TYPE 'I'.
     ENDTRY.
+  ENDMETHOD.
+
+  METHOD list_policy_versions.
+    DATA lo_result TYPE REF TO /aws1/cl_iamlistpolicyvrssrsp.
+
+    " Use test policy created in class_setup
+    ao_iam_actions->list_policy_versions(
+      EXPORTING
+        iv_policy_arn = av_test_policy_arn
+      IMPORTING
+        oo_result = lo_result ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = |List policy versions result should not be initial| ).
+
+    DATA(lt_versions) = lo_result->get_versions( ).
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lt_versions
+      msg = |Versions list should not be empty| ).
+
+    " Verify there's at least one default version
+    DATA lv_found_default TYPE abap_bool VALUE abap_false.
+    LOOP AT lt_versions INTO DATA(lo_version).
+      IF lo_version->get_isdefaultversion( ) = abap_true.
+        lv_found_default = abap_true.
+        EXIT.
+      ENDIF.
+    ENDLOOP.
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_found_default
+      msg = |Policy should have a default version| ).
+  ENDMETHOD.
+
+  METHOD set_default_policy_version.
+    DATA lv_new_policy_doc TYPE string.
+    DATA lv_version_id TYPE /aws1/iampolicyversionidtype.
+
+    " Use test policy created in class_setup
+    " First create a new version
+    lv_new_policy_doc = '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Action":"s3:GetObject","Resource":"arn:aws:s3:::*/*"}]}'.
+    DATA(lo_create_result) = ao_iam->createpolicyversion(
+      iv_policyarn = av_test_policy_arn
+      iv_policydocument = lv_new_policy_doc
+      iv_setasdefault = abap_false ).
+    lv_version_id = lo_create_result->get_policyversion( )->get_versionid( ).
+    WAIT UP TO 3 SECONDS.
+
+    " Set this version as default
+    ao_iam_actions->set_default_policy_version(
+      iv_policy_arn = av_test_policy_arn
+      iv_version_id = lv_version_id ).
+
+    " Wait for propagation
+    WAIT UP TO 3 SECONDS.
+
+    " Verify the version is now default
+    DATA(lo_list_result) = ao_iam->listpolicyversions( iv_policyarn = av_test_policy_arn ).
+    DATA(lt_versions) = lo_list_result->get_versions( ).
+    
+    DATA lv_is_default TYPE abap_bool VALUE abap_false.
+    LOOP AT lt_versions INTO DATA(lo_version).
+      IF lo_version->get_versionid( ) = lv_version_id.
+        lv_is_default = lo_version->get_isdefaultversion( ).
+        EXIT.
+      ENDIF.
+    ENDLOOP.
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_is_default
+      msg = |Policy version should be set as default| ).
+
+    " Note: We don't clean up the policy version here, class_teardown will handle it
+  ENDMETHOD.
+
+  METHOD delete_policy_version.
+    DATA lv_new_policy_doc TYPE string.
+    DATA lv_version_id TYPE /aws1/iampolicyversionidtype.
+
+    " Use test policy created in class_setup
+    " First create a new non-default version
+    lv_new_policy_doc = '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Action":"s3:PutObject","Resource":"arn:aws:s3:::*/*"}]}'.
+    DATA(lo_create_result) = ao_iam->createpolicyversion(
+      iv_policyarn = av_test_policy_arn
+      iv_policydocument = lv_new_policy_doc
+      iv_setasdefault = abap_false ).
+    lv_version_id = lo_create_result->get_policyversion( )->get_versionid( ).
+    WAIT UP TO 3 SECONDS.
+
+    " Delete the version
+    ao_iam_actions->delete_policy_version(
+      iv_policy_arn = av_test_policy_arn
+      iv_version_id = lv_version_id ).
+
+    " Wait for deletion propagation
+    WAIT UP TO 3 SECONDS.
+
+    " Verify deletion
+    DATA(lo_list_result) = ao_iam->listpolicyversions( iv_policyarn = av_test_policy_arn ).
+    DATA(lt_versions) = lo_list_result->get_versions( ).
+    
+    DATA lv_found TYPE abap_bool VALUE abap_false.
+    LOOP AT lt_versions INTO DATA(lo_version).
+      IF lo_version->get_versionid( ) = lv_version_id.
+        lv_found = abap_true.
+        EXIT.
+      ENDIF.
+    ENDLOOP.
+
+    cl_abap_unit_assert=>assert_false(
+      act = lv_found
+      msg = |Policy version should have been deleted| ).
   ENDMETHOD.
 
 ENDCLASS.
