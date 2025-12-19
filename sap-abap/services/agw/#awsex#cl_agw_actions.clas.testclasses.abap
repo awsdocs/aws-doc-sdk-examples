@@ -53,10 +53,10 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         ENDLOOP.
 
         " Tag the API for cleanup
-        DATA(lt_tags) = VALUE /aws1/cl_agwtags=>tt_maptofstring(
-          ( VALUE /aws1/cl_agwtags=>ts_maptofstring_maprow(
+        DATA(lt_tags) = VALUE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring(
+          ( VALUE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow(
               key = 'convert_test'
-              value = NEW /aws1/agwstring( 'true' ) ) ) ).
+              value = NEW /aws1/cl_agwmapofstrtostr_w( 'true' ) ) ) ).
         go_agw->tagresource(
           iv_resourcearn = 'arn:aws:apigateway:' && go_session->get_region( ) &&
                           '::/restapis/' && gv_rest_api_id
@@ -99,10 +99,10 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
       msg = 'REST API ID should not be empty' ).
 
     " Tag for cleanup
-    DATA(lt_tags) = VALUE /aws1/cl_agwtags=>tt_maptofstring(
-      ( VALUE /aws1/cl_agwtags=>ts_maptofstring_maprow(
+    DATA(lt_tags) = VALUE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring(
+      ( VALUE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow(
           key = 'convert_test'
-          value = NEW /aws1/agwstring( 'true' ) ) ) ).
+          value = NEW /aws1/cl_agwmapofstrtostr_w( 'true' ) ) ) ).
     lo_agw->tagresource(
       iv_resourcearn = 'arn:aws:apigateway:' && lo_session->get_region( ) &&
                       '::/restapis/' && lv_api_id
@@ -307,10 +307,10 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     DATA(lv_api_id) = lo_api->get_id( ).
 
     " Tag for cleanup
-    DATA(lt_tags) = VALUE /aws1/cl_agwtags=>tt_maptofstring(
-      ( VALUE /aws1/cl_agwtags=>ts_maptofstring_maprow(
+    DATA(lt_tags) = VALUE /aws1/cl_agwmapofstrtostr_w=>tt_mapofstringtostring(
+      ( VALUE /aws1/cl_agwmapofstrtostr_w=>ts_mapofstringtostring_maprow(
           key = 'convert_test'
-          value = NEW /aws1/agwstring( 'true' ) ) ) ).
+          value = NEW /aws1/cl_agwmapofstrtostr_w( 'true' ) ) ) ).
     lo_agw->tagresource(
       iv_resourcearn = 'arn:aws:apigateway:' && lo_session->get_region( ) &&
                       '::/restapis/' && lv_api_id
