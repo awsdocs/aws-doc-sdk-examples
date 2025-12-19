@@ -119,11 +119,11 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
           iv_name = iv_api_name ).
         MESSAGE 'REST API created successfully.' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwlimitexceededex INTO DATA(lo_limit_ex).
-        MESSAGE lo_limit_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_limit_ex->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.create_rest_api]
   ENDMETHOD.
@@ -146,11 +146,11 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
           iv_pathpart = iv_resource_path ).
         MESSAGE 'Resource created successfully.' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.create_resource]
   ENDMETHOD.
@@ -174,11 +174,11 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
           iv_authorizationtype = 'NONE' ).
         MESSAGE 'Method created successfully.' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_method]
   ENDMETHOD.
@@ -209,11 +209,11 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
           it_responsemodels = lt_models ).
         MESSAGE 'Method response created successfully.' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_method_response]
   ENDMETHOD.
@@ -251,11 +251,11 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
           iv_passthroughbehavior = 'WHEN_NO_TEMPLATES' ).
         MESSAGE 'Integration created successfully.' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_integration]
   ENDMETHOD.
@@ -286,11 +286,11 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
           it_responsetemplates = lt_templates ).
         MESSAGE 'Integration response created successfully.' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.put_integration_response]
   ENDMETHOD.
@@ -311,11 +311,11 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
           iv_stagename = iv_stage_name ).
         MESSAGE 'Deployment created successfully.' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.create_deployment]
   ENDMETHOD.
@@ -332,9 +332,9 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
         oo_result = lo_agw->getrestapis( ).
         MESSAGE 'Retrieved REST APIs successfully.' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.get_rest_apis]
   ENDMETHOD.
@@ -353,11 +353,11 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
           iv_restapiid = iv_rest_api_id ).
         MESSAGE 'REST API deleted successfully.' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwconflictexception INTO DATA(lo_conflict_ex).
-        MESSAGE lo_conflict_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_conflict_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.delete_rest_api]
   ENDMETHOD.
@@ -376,9 +376,9 @@ CLASS /awsex/cl_agw_actions IMPLEMENTATION.
           iv_restapiid = iv_rest_api_id ).
         MESSAGE 'Retrieved resources successfully.' TYPE 'I'.
       CATCH /aws1/cx_agwbadrequestex INTO DATA(lo_bad_request_ex).
-        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_bad_request_ex->get_text( ) TYPE 'I'.
       CATCH /aws1/cx_agwnotfoundexception INTO DATA(lo_not_found_ex).
-        MESSAGE lo_not_found_ex->get_text( ) TYPE 'E'.
+        MESSAGE lo_not_found_ex->get_text( ) TYPE 'I'.
     ENDTRY.
     " snippet-end:[agw.abapv1.get_resources]
   ENDMETHOD.

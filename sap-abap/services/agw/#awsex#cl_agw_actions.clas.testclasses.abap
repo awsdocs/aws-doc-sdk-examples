@@ -561,37 +561,62 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     " Create a temporary API for deletion test
     DATA(lv_test_api_name) = |agw-del-api-{ /awsex/cl_utils=>get_random_string( ) }|.
     DATA lo_api TYPE REF TO /aws1/cl_agwrestapi.
-    ao_agw_actions->create_rest_api(
-      EXPORTING
-        iv_api_name = lv_test_api_name
-      IMPORTING
-        oo_result = lo_api ).
-    DATA(lv_test_api_id) = lo_api->get_id( ).
-
-    " Wait for API to be available
-    WAIT UP TO 2 SECONDS.
-
-    " Now test the delete
-    ao_agw_actions->delete_rest_api(
-      iv_rest_api_id = lv_test_api_id ).
-
-    " Verify deletion
-    DATA(lv_found) = abap_false.
+    
     TRY.
-        DATA(lo_apis) = ao_agw->getrestapis( ).
-        LOOP AT lo_apis->get_items( ) INTO DATA(lo_api_check).
-          IF lo_api_check->get_id( ) = lv_test_api_id.
-            lv_found = abap_true.
-            EXIT.
-          ENDIF.
-        ENDLOOP.
-      CATCH /aws1/cx_agwnotfoundexception.
-        lv_found = abap_false.
-    ENDTRY.
+        ao_agw_actions->create_rest_api(
+          EXPORTING
+            iv_api_name = lv_test_api_name
+          IMPORTING
+            oo_result = lo_api ).
+        DATA(lv_test_api_id) = lo_api->get_id( ).
 
-    cl_abap_unit_assert=>assert_false(
-      act = lv_found
-      msg = |REST API was not deleted| ).
+        " Wait for API to be available
+        WAIT UP TO 3 SECONDS.
+
+        " Now test the delete with retry logic for rate limiting
+        DATA lv_retry_count TYPE i VALUE 0.
+        DATA lv_deleted TYPE abap_bool VALUE abap_false.
+        DO 3 TIMES.
+          TRY.
+              ao_agw_actions->delete_rest_api(
+                iv_rest_api_id = lv_test_api_id ).
+              lv_deleted = abap_true.
+              EXIT.
+            CATCH /aws1/cx_agwtoomanyrequestsex.
+              " Rate limited, wait and retry
+              lv_retry_count = lv_retry_count + 1.
+              IF lv_retry_count < 3.
+                WAIT UP TO 2 SECONDS.
+              ENDIF.
+          ENDTRY.
+        ENDDO.
+
+        IF lv_deleted = abap_false.
+          cl_abap_unit_assert=>fail( 'Delete API failed due to rate limiting after 3 retries' ).
+        ENDIF.
+
+        " Verify deletion
+        WAIT UP TO 2 SECONDS.
+        DATA(lv_found) = abap_false.
+        TRY.
+            DATA(lo_apis) = ao_agw->getrestapis( ).
+            LOOP AT lo_apis->get_items( ) INTO DATA(lo_api_check).
+              IF lo_api_check->get_id( ) = lv_test_api_id.
+                lv_found = abap_true.
+                EXIT.
+              ENDIF.
+            ENDLOOP.
+          CATCH /aws1/cx_agwnotfoundexception.
+            lv_found = abap_false.
+        ENDTRY.
+
+        cl_abap_unit_assert=>assert_false(
+          act = lv_found
+          msg = |REST API was not deleted| ).
+
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        cl_abap_unit_assert=>fail( |Test failed with exception: { lo_ex->get_text( ) }| ).
+    ENDTRY.
 
   ENDMETHOD.
 
