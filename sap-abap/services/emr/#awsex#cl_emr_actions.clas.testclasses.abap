@@ -64,11 +64,25 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
     " Create S3 bucket for logs with convert_test tag
     DATA(lv_account_id) = ao_session->get_account_id( ).
     av_log_bucket = |sap-abap-emr-demo-logs-{ lv_account_id }|.
-    /awsex/cl_utils=>create_bucket(
-      iv_bucket = av_log_bucket
-      io_s3 = ao_s3
-      io_session = ao_session
-    ).
+    
+    TRY.
+        /awsex/cl_utils=>create_bucket(
+          iv_bucket = av_log_bucket
+          io_s3 = ao_s3
+          io_session = ao_session
+        ).
+      CATCH /aws1/cx_s3_bktalrdyownedbyyou.
+        " Bucket already exists and is owned by us, clean it up and recreate
+        /awsex/cl_utils=>cleanup_bucket(
+          iv_bucket = av_log_bucket
+          io_s3 = ao_s3
+        ).
+        /awsex/cl_utils=>create_bucket(
+          iv_bucket = av_log_bucket
+          io_s3 = ao_s3
+          io_session = ao_session
+        ).
+    ENDTRY.
     
     " Tag the S3 bucket for cleanup
     ao_s3->putbuckettagging(
@@ -147,20 +161,30 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
       |\}|.
 
     " Create EMR service role
-    DATA(lo_emr_role) = ao_iam->createrole(
-      iv_rolename = av_emr_role_name
-      iv_assumerolepolicydocument = lv_emr_trust_policy
-      it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
-        ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
-      )
-    )->get_role( ).
-    av_emr_role_arn = lo_emr_role->get_arn( ).
+    TRY.
+        DATA(lo_emr_role) = ao_iam->createrole(
+          iv_rolename = av_emr_role_name
+          iv_assumerolepolicydocument = lv_emr_trust_policy
+          it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
+            ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
+          )
+        )->get_role( ).
+        av_emr_role_arn = lo_emr_role->get_arn( ).
+      CATCH /aws1/cx_iamentityalrdyexex.
+        " Role already exists, get its ARN
+        lo_emr_role = ao_iam->getrole( iv_rolename = av_emr_role_name )->get_role( ).
+        av_emr_role_arn = lo_emr_role->get_arn( ).
+    ENDTRY.
 
     " Attach managed policy to EMR service role
-    ao_iam->attachrolepolicy(
-      iv_rolename = av_emr_role_name
-      iv_policyarn = 'arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceRole'
-    ).
+    TRY.
+        ao_iam->attachrolepolicy(
+          iv_rolename = av_emr_role_name
+          iv_policyarn = 'arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceRole'
+        ).
+      CATCH /aws1/cx_rt_generic.
+        " Policy might already be attached, continue
+    ENDTRY.
 
     " EC2 Instance Profile trust policy
     DATA(lv_ec2_trust_policy) = |\{| &&
@@ -173,34 +197,52 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
       |\}|.
 
     " Create EC2 role
-    DATA(lo_ec2_role) = ao_iam->createrole(
-      iv_rolename = av_ec2_role_name
-      iv_assumerolepolicydocument = lv_ec2_trust_policy
-      it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
-        ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
-      )
-    )->get_role( ).
-    av_ec2_role_arn = lo_ec2_role->get_arn( ).
+    TRY.
+        DATA(lo_ec2_role) = ao_iam->createrole(
+          iv_rolename = av_ec2_role_name
+          iv_assumerolepolicydocument = lv_ec2_trust_policy
+          it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
+            ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
+          )
+        )->get_role( ).
+        av_ec2_role_arn = lo_ec2_role->get_arn( ).
+      CATCH /aws1/cx_iamentityalrdyexex.
+        " Role already exists, get its ARN
+        lo_ec2_role = ao_iam->getrole( iv_rolename = av_ec2_role_name )->get_role( ).
+        av_ec2_role_arn = lo_ec2_role->get_arn( ).
+    ENDTRY.
 
     " Attach managed policy to EC2 role
-    ao_iam->attachrolepolicy(
-      iv_rolename = av_ec2_role_name
-      iv_policyarn = 'arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceforEC2Role'
-    ).
+    TRY.
+        ao_iam->attachrolepolicy(
+          iv_rolename = av_ec2_role_name
+          iv_policyarn = 'arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceforEC2Role'
+        ).
+      CATCH /aws1/cx_rt_generic.
+        " Policy might already be attached, continue
+    ENDTRY.
 
     " Create instance profile
-    ao_iam->createinstanceprofile(
-      iv_instanceprofilename = av_ec2_role_name
-      it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
-        ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
-      )
-    ).
+    TRY.
+        ao_iam->createinstanceprofile(
+          iv_instanceprofilename = av_ec2_role_name
+          it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
+            ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
+          )
+        ).
+      CATCH /aws1/cx_iamentityalrdyexex.
+        " Instance profile already exists, continue
+    ENDTRY.
 
     " Add role to instance profile
-    ao_iam->addroletoinstanceprofile(
-      iv_instanceprofilename = av_ec2_role_name
-      iv_rolename = av_ec2_role_name
-    ).
+    TRY.
+        ao_iam->addroletoinstanceprofile(
+          iv_instanceprofilename = av_ec2_role_name
+          iv_rolename = av_ec2_role_name
+        ).
+      CATCH /aws1/cx_rt_generic.
+        " Role might already be in the instance profile, continue
+    ENDTRY.
 
     " Wait for IAM roles to propagate
     WAIT UP TO 10 SECONDS.
