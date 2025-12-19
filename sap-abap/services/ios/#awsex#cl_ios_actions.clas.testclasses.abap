@@ -39,27 +39,27 @@ CLASS ltc_awsex_cl_ios_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     METHODS delete_asset FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS delete_asset_model FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    METHODS wait_for_asset_model_active
+    CLASS-METHODS wait_for_asset_model_active
       IMPORTING
         iv_asset_model_id TYPE /aws1/iosid
       RAISING /aws1/cx_rt_generic.
 
-    METHODS wait_for_asset_active
+    CLASS-METHODS wait_for_asset_active
       IMPORTING
         iv_asset_id TYPE /aws1/iosid
       RAISING /aws1/cx_rt_generic.
 
-    METHODS wait_for_portal_active
+    CLASS-METHODS wait_for_portal_active
       IMPORTING
         iv_portal_id TYPE /aws1/iosid
       RAISING /aws1/cx_rt_generic.
 
-    METHODS wait_for_asset_deleted
+    CLASS-METHODS wait_for_asset_deleted
       IMPORTING
         iv_asset_id TYPE /aws1/iosid
       RAISING /aws1/cx_rt_generic.
 
-    METHODS wait_for_asset_model_deleted
+    CLASS-METHODS wait_for_asset_model_deleted
       IMPORTING
         iv_asset_model_id TYPE /aws1/iosid
       RAISING /aws1/cx_rt_generic.
@@ -795,13 +795,16 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     DATA lv_max_attempts TYPE i VALUE 40.
     DATA lv_attempt TYPE i VALUE 0.
     DATA lv_state TYPE /aws1/iosassetmodelstate.
+    DATA lo_result TYPE REF TO /aws1/cl_iosdescassetmodelrsp.
+    DATA lo_status TYPE REF TO /aws1/cl_iosassetmodelstatus.
 
     WHILE lv_attempt < lv_max_attempts.
       TRY.
-          DATA(lo_result) = ao_ios->describeassetmodel(
+          lo_result = ao_ios->describeassetmodel(
             iv_assetmodelid = iv_asset_model_id
           ).
-          lv_state = lo_result->get_assetmodelstatus( )->get_state( ).
+          lo_status = lo_result->get_assetmodelstatus( ).
+          lv_state = lo_status->get_state( ).
 
           IF lv_state = 'ACTIVE'.
             RETURN.
@@ -823,13 +826,16 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     DATA lv_max_attempts TYPE i VALUE 40.
     DATA lv_attempt TYPE i VALUE 0.
     DATA lv_state TYPE /aws1/iosassetstate.
+    DATA lo_result TYPE REF TO /aws1/cl_iosdescribeassetrsp.
+    DATA lo_status TYPE REF TO /aws1/cl_iosassetstatus.
 
     WHILE lv_attempt < lv_max_attempts.
       TRY.
-          DATA(lo_result) = ao_ios->describeasset(
+          lo_result = ao_ios->describeasset(
             iv_assetid = iv_asset_id
           ).
-          lv_state = lo_result->get_assetstatus( )->get_state( ).
+          lo_status = lo_result->get_assetstatus( ).
+          lv_state = lo_status->get_state( ).
 
           IF lv_state = 'ACTIVE'.
             RETURN.
@@ -851,13 +857,16 @@ CLASS ltc_awsex_cl_ios_actions IMPLEMENTATION.
     DATA lv_max_attempts TYPE i VALUE 40.
     DATA lv_attempt TYPE i VALUE 0.
     DATA lv_state TYPE /aws1/iosportalstate.
+    DATA lo_result TYPE REF TO /aws1/cl_iosdescribeportalrsp.
+    DATA lo_status TYPE REF TO /aws1/cl_iosportalstatus.
 
     WHILE lv_attempt < lv_max_attempts.
       TRY.
-          DATA(lo_result) = ao_ios->describeportal(
+          lo_result = ao_ios->describeportal(
             iv_portalid = iv_portal_id
           ).
-          lv_state = lo_result->get_portalstatus( )->get_state( ).
+          lo_status = lo_result->get_portalstatus( ).
+          lv_state = lo_status->get_state( ).
 
           IF lv_state = 'ACTIVE'.
             RETURN.
