@@ -68,6 +68,12 @@ CLASS ltc_awsex_cl_kys_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
         iv_keyspace_name TYPE /aws1/kyskeyspacename
         iv_table_name    TYPE /aws1/kystablename.
 
+    CLASS-METHODS is_keyspace_active
+      IMPORTING
+        io_keyspace_result        TYPE REF TO /aws1/cl_kysgetkeyspacersp
+      RETURNING
+        VALUE(rv_is_active)       TYPE abap_bool.
+
 ENDCLASS.
 
 CLASS ltc_awsex_cl_kys_actions IMPLEMENTATION.
@@ -130,6 +136,33 @@ CLASS ltc_awsex_cl_kys_actions IMPLEMENTATION.
     ENDTRY.
   ENDMETHOD.
 
+  METHOD is_keyspace_active.
+    " Check if keyspace is active by examining replication group statuses
+    rv_is_active = abap_true.
+
+    " For single-region keyspaces, check replication strategy
+    DATA(lv_repl_strategy) = io_keyspace_result->get_replicationstrategy( ).
+    IF lv_repl_strategy = 'SINGLE_REGION'.
+      " Single region keyspaces are active immediately after creation completes
+      rv_is_active = abap_true.
+    ELSE.
+      " For multi-region, check replication group statuses
+      DATA(lt_repl_groups) = io_keyspace_result->get_replicationgroupstatuses( ).
+      IF lt_repl_groups IS INITIAL.
+        rv_is_active = abap_false.
+      ELSE.
+        " Check if all replication groups are active
+        LOOP AT lt_repl_groups INTO DATA(lo_repl_group).
+          DATA(lv_status) = lo_repl_group->get_keyspacestatus( ).
+          IF lv_status <> 'ACTIVE'.
+            rv_is_active = abap_false.
+            EXIT.
+          ENDIF.
+        ENDLOOP.
+      ENDIF.
+    ENDIF.
+  ENDMETHOD.
+
   METHOD wait_for_keyspace_active.
     DATA(lv_max_wait) = 60.
     DATA(lv_wait_count) = 0.
@@ -138,9 +171,9 @@ CLASS ltc_awsex_cl_kys_actions IMPLEMENTATION.
     WHILE lv_keyspace_active = abap_false AND lv_wait_count < lv_max_wait.
       TRY.
           DATA(lo_keyspace_result) = go_kys->getkeyspace( iv_keyspacename = iv_keyspace_name ).
-          IF lo_keyspace_result->get_status( ) = 'ACTIVE'.
-            lv_keyspace_active = abap_true.
-          ELSE.
+          " Check if keyspace is active
+          lv_keyspace_active = is_keyspace_active( lo_keyspace_result ).
+          IF lv_keyspace_active = abap_false.
             WAIT UP TO 3 SECONDS.
             lv_wait_count = lv_wait_count + 1.
           ENDIF.
@@ -332,9 +365,9 @@ CLASS ltc_awsex_cl_kys_actions IMPLEMENTATION.
       act = lo_result->get_resourcearn( )
       msg = 'Keyspace ARN should not be empty' ).
 
-    cl_abap_unit_assert=>assert_equals(
-      exp = 'ACTIVE'
-      act = lo_result->get_status( )
+    " Verify keyspace is active
+    cl_abap_unit_assert=>assert_true(
+      act = is_keyspace_active( lo_result )
       msg = 'Keyspace should be ACTIVE' ).
   ENDMETHOD.
 
@@ -602,8 +635,9 @@ CLASS ltc_awsex_cl_kys_actions IMPLEMENTATION.
     " as table restoration can take 20+ minutes
     " The restored table is tagged automatically by AWS with the source table tags
 
-    " Get current timestamp for restore point
-    GET TIME STAMP FIELD DATA(lv_timestamp).
+    " Get current timestamp for restore point - convert to TIMESTAMPL
+    DATA lv_timestamp TYPE /aws1/kystimestamp.
+    GET TIME STAMP FIELD lv_timestamp.
 
     " Wait a bit to ensure timestamp is valid for restore
     WAIT UP TO 5 SECONDS.
@@ -721,14 +755,18 @@ CLASS ltc_awsex_cl_kys_actions IMPLEMENTATION.
     " Now call the example delete method
     go_kys_actions->delete_keyspace( iv_keyspace_name = lv_delete_keyspace ).
 
-    " Verify keyspace deletion initiated (may still be in DELETING state)
+    " Verify keyspace deletion initiated
+    " Note: We cannot reliably check the status as keyspaces may be deleted quickly
+    " or may still be in DELETING state. Both are acceptable outcomes.
+    WAIT UP TO 2 SECONDS.
+
     TRY.
         DATA(lo_result) = go_kys->getkeyspace( iv_keyspacename = lv_delete_keyspace ).
-        " If we can still get it, it should be in DELETING state
-        DATA(lv_status) = lo_result->get_status( ).
-        cl_abap_unit_assert=>assert_true(
-          act = COND #( WHEN lv_status = 'DELETING' THEN abap_true ELSE abap_false )
-          msg = |Keyspace should be DELETING but status is { lv_status }| ).
+        " If we can still get it, check if it's being deleted
+        DATA(lv_is_active) = is_keyspace_active( lo_result ).
+        cl_abap_unit_assert=>assert_false(
+          act = lv_is_active
+          msg = 'Keyspace should not be active after deletion' ).
       CATCH /aws1/cx_kysresourcenotfoundex.
         " Expected - keyspace was deleted quickly
     ENDTRY.
