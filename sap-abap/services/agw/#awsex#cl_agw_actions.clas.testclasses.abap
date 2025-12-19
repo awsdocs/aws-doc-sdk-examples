@@ -88,9 +88,9 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           iv_description = 'Sample REST API created by ABAP SDK' ).
         DATA(lv_api_id) = lo_result->get_id( ).
         MESSAGE 'REST API created with ID: ' && lv_api_id TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequest00.
+      CATCH /aws1/cx_agwbadrequestex.
         cl_abap_unit_assert=>fail( msg = 'Bad request - invalid parameters' ).
-      CATCH /aws1/cx_agwtoomanyreqexc00.
+      CATCH /aws1/cx_agwtoomanyrequestsex.
         cl_abap_unit_assert=>fail( msg = 'Too many requests - rate limit exceeded' ).
       CATCH /aws1/cx_agwunauthorizedexc00.
         cl_abap_unit_assert=>fail( msg = 'Unauthorized - check credentials' ).
@@ -126,9 +126,9 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         DATA(lt_apis) = lo_result->get_items( ).
         DATA(lv_count) = lines( lt_apis ).
         MESSAGE 'Found ' && lv_count && ' REST APIs' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequest00.
+      CATCH /aws1/cx_agwbadrequestex.
         cl_abap_unit_assert=>fail( msg = 'Bad request - invalid parameters' ).
-      CATCH /aws1/cx_agwtoomanyreqexc00.
+      CATCH /aws1/cx_agwtoomanyrequestsex.
         cl_abap_unit_assert=>fail( msg = 'Too many requests - rate limit exceeded' ).
     ENDTRY.
     " snippet-end:[agw.abapv1.get_rest_apis]
@@ -154,11 +154,11 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           iv_pathpart = lv_resource_path ).
         DATA(lv_resource_id) = lo_result->get_id( ).
         MESSAGE 'Resource created with ID: ' && lv_resource_id TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequest00.
+      CATCH /aws1/cx_agwbadrequestex.
         cl_abap_unit_assert=>fail( msg = 'Bad request - invalid parameters' ).
-      CATCH /aws1/cx_agwnotfoundexc00.
+      CATCH /aws1/cx_agwnotfoundexception.
         cl_abap_unit_assert=>fail( msg = 'REST API or parent resource not found' ).
-      CATCH /aws1/cx_agwtoomanyreqexc00.
+      CATCH /aws1/cx_agwtoomanyrequestsex.
         cl_abap_unit_assert=>fail( msg = 'Too many requests - rate limit exceeded' ).
     ENDTRY.
     " snippet-end:[agw.abapv1.add_rest_resource]
@@ -181,11 +181,11 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         DATA(lt_resources) = lo_result->get_items( ).
         DATA(lv_count) = lines( lt_resources ).
         MESSAGE 'Found ' && lv_count && ' resources' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequest00.
+      CATCH /aws1/cx_agwbadrequestex.
         cl_abap_unit_assert=>fail( msg = 'Bad request - invalid parameters' ).
-      CATCH /aws1/cx_agwnotfoundexc00.
+      CATCH /aws1/cx_agwnotfoundexception.
         cl_abap_unit_assert=>fail( msg = 'REST API not found' ).
-      CATCH /aws1/cx_agwtoomanyreqexc00.
+      CATCH /aws1/cx_agwtoomanyrequestsex.
         cl_abap_unit_assert=>fail( msg = 'Too many requests - rate limit exceeded' ).
     ENDTRY.
     " snippet-end:[agw.abapv1.get_resources]
@@ -213,11 +213,11 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           iv_httpmethod = 'GET'
           iv_authorizationtype = 'NONE' ).
         MESSAGE 'Method GET added to resource' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequest00.
+      CATCH /aws1/cx_agwbadrequestex.
         cl_abap_unit_assert=>fail( msg = 'Bad request - invalid parameters' ).
-      CATCH /aws1/cx_agwnotfoundexc00.
+      CATCH /aws1/cx_agwnotfoundexception.
         cl_abap_unit_assert=>fail( msg = 'Resource not found' ).
-      CATCH /aws1/cx_agwtoomanyreqexc00.
+      CATCH /aws1/cx_agwtoomanyrequestsex.
         cl_abap_unit_assert=>fail( msg = 'Too many requests - rate limit exceeded' ).
     ENDTRY.
     " snippet-end:[agw.abapv1.put_method]
@@ -248,11 +248,11 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           iv_httpmethod = 'GET'
           iv_statuscode = '200' ).
         MESSAGE 'Method response configured for status 200' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequest00.
+      CATCH /aws1/cx_agwbadrequestex.
         cl_abap_unit_assert=>fail( msg = 'Bad request - invalid parameters' ).
-      CATCH /aws1/cx_agwnotfoundexc00.
+      CATCH /aws1/cx_agwnotfoundexception.
         cl_abap_unit_assert=>fail( msg = 'Method not found' ).
-      CATCH /aws1/cx_agwtoomanyreqexc00.
+      CATCH /aws1/cx_agwtoomanyrequestsex.
         cl_abap_unit_assert=>fail( msg = 'Too many requests - rate limit exceeded' ).
     ENDTRY.
     " snippet-end:[agw.abapv1.put_method_response]
@@ -291,11 +291,11 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           iv_integrationhttpmethod = 'POST'
           iv_uri = lv_integration_uri ).
         MESSAGE 'Integration configured for method' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequest00.
+      CATCH /aws1/cx_agwbadrequestex.
         cl_abap_unit_assert=>fail( msg = 'Bad request - invalid parameters' ).
-      CATCH /aws1/cx_agwnotfoundexc00.
+      CATCH /aws1/cx_agwnotfoundexception.
         cl_abap_unit_assert=>fail( msg = 'Method not found' ).
-      CATCH /aws1/cx_agwtoomanyreqexc00.
+      CATCH /aws1/cx_agwtoomanyrequestsex.
         cl_abap_unit_assert=>fail( msg = 'Too many requests - rate limit exceeded' ).
     ENDTRY.
     " snippet-end:[agw.abapv1.put_integration]
@@ -327,11 +327,11 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           iv_httpmethod = 'GET'
           iv_statuscode = '200' ).
         MESSAGE 'Integration response configured for status 200' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequest00.
+      CATCH /aws1/cx_agwbadrequestex.
         cl_abap_unit_assert=>fail( msg = 'Bad request - invalid parameters' ).
-      CATCH /aws1/cx_agwnotfoundexc00.
+      CATCH /aws1/cx_agwnotfoundexception.
         cl_abap_unit_assert=>fail( msg = 'Integration not found' ).
-      CATCH /aws1/cx_agwtoomanyreqexc00.
+      CATCH /aws1/cx_agwtoomanyrequestsex.
         cl_abap_unit_assert=>fail( msg = 'Too many requests - rate limit exceeded' ).
     ENDTRY.
     " snippet-end:[agw.abapv1.put_integration_response]
@@ -368,11 +368,11 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
           iv_description = 'Deployment created by ABAP SDK' ).
         DATA(lv_deployment_id) = lo_result->get_id( ).
         MESSAGE 'Deployment created with ID: ' && lv_deployment_id TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequest00.
+      CATCH /aws1/cx_agwbadrequestex.
         cl_abap_unit_assert=>fail( msg = 'Bad request - invalid parameters' ).
-      CATCH /aws1/cx_agwnotfoundexc00.
+      CATCH /aws1/cx_agwnotfoundexception.
         cl_abap_unit_assert=>fail( msg = 'REST API not found' ).
-      CATCH /aws1/cx_agwtoomanyreqexc00.
+      CATCH /aws1/cx_agwtoomanyrequestsex.
         cl_abap_unit_assert=>fail( msg = 'Too many requests - rate limit exceeded' ).
     ENDTRY.
     " snippet-end:[agw.abapv1.create_deployment]
@@ -411,11 +411,11 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
         go_agw->deleterestapi(
           iv_restapiid = lv_api_id ).
         MESSAGE 'REST API deleted successfully' TYPE 'I'.
-      CATCH /aws1/cx_agwbadrequest00.
+      CATCH /aws1/cx_agwbadrequestex.
         cl_abap_unit_assert=>fail( msg = 'Bad request - invalid parameters' ).
-      CATCH /aws1/cx_agwnotfoundexc00.
+      CATCH /aws1/cx_agwnotfoundexception.
         cl_abap_unit_assert=>fail( msg = 'REST API not found' ).
-      CATCH /aws1/cx_agwtoomanyreqexc00.
+      CATCH /aws1/cx_agwtoomanyrequestsex.
         cl_abap_unit_assert=>fail( msg = 'Too many requests - rate limit exceeded' ).
     ENDTRY.
     " snippet-end:[agw.abapv1.delete_rest_api]
@@ -424,7 +424,7 @@ CLASS ltc_awsex_cl_agw_actions IMPLEMENTATION.
     TRY.
         go_agw->getrestapi( iv_restapiid = lv_api_id ).
         cl_abap_unit_assert=>fail( msg = 'API should have been deleted' ).
-      CATCH /aws1/cx_agwnotfoundexc00.
+      CATCH /aws1/cx_agwnotfoundexception.
         " Expected - API was successfully deleted
     ENDTRY.
   ENDMETHOD.
