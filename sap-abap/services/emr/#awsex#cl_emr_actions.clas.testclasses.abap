@@ -82,10 +82,10 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
 
     " Get default VPC
     DATA(lo_vpc_result) = ao_ec2->describevpcs(
-      io_filter = NEW /aws1/cl_ec2_filter(
+      io_filter = NEW /aws1/cl_ec2filter(
         iv_name = 'isDefault'
-        it_values = VALUE /aws1/cl_ec2_valuestrlist_w=>tt_valuesstringlist(
-          ( NEW /aws1/cl_ec2_valuestrlist_w( 'true' ) )
+        it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuesstringlist(
+          ( NEW /aws1/cl_ec2valuestringlist_w( 'true' ) )
         )
       )
     ).
@@ -103,11 +103,11 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
       iv_groupname = |emr-master-sg-{ lv_timestamp }|
       iv_description = 'EMR Master Security Group'
       iv_vpcid = av_default_vpc_id
-      it_tagspecifications = VALUE /aws1/cl_ec2_tagspecificatio00=>tt_tagspecificationlist(
-        ( NEW /aws1/cl_ec2_tagspecificatio00(
+      it_tagspecifications = VALUE /aws1/cl_ec2tagspecification=>tt_tagspecificationlist(
+        ( NEW /aws1/cl_ec2tagspecification(
             iv_resourcetype = 'security-group'
-            it_tags = VALUE /aws1/cl_ec2_tag=>tt_taglist(
-              ( NEW /aws1/cl_ec2_tag( iv_key = 'convert_test' iv_value = 'true' ) )
+            it_tags = VALUE /aws1/cl_ec2tag=>tt_taglist(
+              ( NEW /aws1/cl_ec2tag( iv_key = 'convert_test' iv_value = 'true' ) )
             )
           )
         )
@@ -118,11 +118,11 @@ CLASS ltc_awsex_cl_emr_actions IMPLEMENTATION.
       iv_groupname = |emr-slave-sg-{ lv_timestamp }|
       iv_description = 'EMR Slave Security Group'
       iv_vpcid = av_default_vpc_id
-      it_tagspecifications = VALUE /aws1/cl_ec2_tagspecificatio00=>tt_tagspecificationlist(
-        ( NEW /aws1/cl_ec2_tagspecificatio00(
+      it_tagspecifications = VALUE /aws1/cl_ec2tagspecification=>tt_tagspecificationlist(
+        ( NEW /aws1/cl_ec2tagspecification(
             iv_resourcetype = 'security-group'
-            it_tags = VALUE /aws1/cl_ec2_tag=>tt_taglist(
-              ( NEW /aws1/cl_ec2_tag( iv_key = 'convert_test' iv_value = 'true' ) )
+            it_tags = VALUE /aws1/cl_ec2tag=>tt_taglist(
+              ( NEW /aws1/cl_ec2tag( iv_key = 'convert_test' iv_value = 'true' ) )
             )
           )
         )
