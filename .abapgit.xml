@@ -7,21 +7,7 @@
    <FOLDER_LOGIC>PREFIX</FOLDER_LOGIC>
    <IGNORE>
     <item>/sap-abap/README.md</item>
-    <item>/sap-abap/services/bdr/README.md</item>
-    <item>/sap-abap/services/bdz/README.md</item>
-    <item>/sap-abap/services/cpd/README.md</item>
-    <item>/sap-abap/services/cwt/README.md</item>
-    <item>/sap-abap/services/dyn/README.md</item>
-    <item>/sap-abap/services/ec2/README.md</item>
-    <item>/sap-abap/services/kns/README.md</item>
-    <item>/sap-abap/services/lmd/README.md</item>
-    <item>/sap-abap/services/s3/README.md</item>
-    <item>/sap-abap/services/sgm/README.md</item>
-    <item>/sap-abap/services/sns/README.md</item>
-    <item>/sap-abap/services/sqs/README.md</item>
-    <item>/sap-abap/services/text/README.md</item>
-    <item>/sap-abap/services/xl8/README.md</item>
-    <item>/sap-abap/services/*/README.md</item>    
+    <item>/sap-abap/services/*/README.md</item>
    </IGNORE>
   </DATA>
  </asx:values>

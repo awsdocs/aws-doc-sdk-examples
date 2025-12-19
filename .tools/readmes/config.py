@@ -195,6 +195,7 @@ language = {
             "service_folder": 'sap-abap/services/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.aws.amazon.com/sdk-for-sap-abap/v1/api/latest/{{service["name"]}}/index.html',
             "service_folder_overrides": {
+                "auto-scaling": "sap-abap/services/asc",
                 "bedrock-runtime": "sap-abap/services/bdr",
                 "bedrock-agent-runtime": "sap-abap/services/bdz",
                 "cloudfront": "sap-abap/services/fnt",
