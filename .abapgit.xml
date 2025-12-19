@@ -21,6 +21,7 @@
     <item>/sap-abap/services/sqs/README.md</item>
     <item>/sap-abap/services/text/README.md</item>
     <item>/sap-abap/services/xl8/README.md</item>
+    <item>/sap-abap/services/*/README.md</item>    
    </IGNORE>
   </DATA>
  </asx:values>
