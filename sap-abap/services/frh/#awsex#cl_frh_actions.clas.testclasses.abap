@@ -260,7 +260,7 @@ CLASS ltc_awsex_cl_frh_actions IMPLEMENTATION.
           lo_describe_result = ao_frh->describedeliverystream(
             iv_deliverystreamname = iv_stream_name ).
 
-          lo_stream_desc = lo_describe_result->get_deliverystreamdescrip( ).
+          lo_stream_desc = lo_describe_result->get_deliverystreamdesc( ).
           lv_status = lo_stream_desc->get_deliverystreamstatus( ).
 
           IF lv_status = 'ACTIVE'.
@@ -349,11 +349,17 @@ CLASS ltc_awsex_cl_frh_actions IMPLEMENTATION.
 
   METHOD get_metric_statistics.
     DATA lo_result TYPE REF TO /aws1/cl_cwtgetmettatsoutput.
+    DATA lv_end_timestamp TYPE /aws1/cwttimestamp.
+    DATA lv_start_timestamp TYPE /aws1/cwttimestamp.
+    DATA lv_temp_timestamp TYPE timestamp.
 
     " Calculate time range for metrics (last 10 minutes)
-    GET TIME STAMP FIELD DATA(lv_end_timestamp).
-    DATA(lv_start_timestamp) = cl_abap_tstmp=>subtractsecs(
-      tstmp = lv_end_timestamp
+    GET TIME STAMP FIELD lv_temp_timestamp.
+    
+    " Convert to TIMESTAMPL format required by CloudWatch
+    lv_end_timestamp = lv_temp_timestamp.
+    lv_start_timestamp = cl_abap_tstmp=>subtractsecs(
+      tstmp = lv_temp_timestamp
       secs  = 600 ).  " 10 minutes ago
 
     " Test 1: Get IncomingBytes metric
