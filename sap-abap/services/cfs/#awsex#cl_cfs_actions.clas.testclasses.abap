@@ -239,7 +239,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
 
         GET TIME STAMP FIELD lv_start_time.
 
-        " Poll for up to 60 seconds to verify deletion
+        " Poll for up to 120 seconds to verify deletion
         DO.
           TRY.
               DATA(lo_result) = ao_cfs->describeconfigrules(
@@ -247,30 +247,41 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
                   ( NEW /aws1/cl_cfsconfigrulenames_w( av_rule_name_delete ) )
                 )
               ).
-              " If we get here without exception, rule still exists
-              IF lo_result IS INITIAL OR lo_result->get_configrules( ) IS INITIAL.
+              DATA(lt_rules) = lo_result->get_configrules( ).
+              " Check if the rule list is empty or the specific rule is not in the list
+              IF lt_rules IS INITIAL.
                 lv_deleted = abap_true.
                 EXIT.
+              ELSE.
+                " Check if our specific rule is in the list
+                DATA(lv_rule_found) = abap_false.
+                LOOP AT lt_rules INTO DATA(lo_rule).
+                  IF lo_rule->get_configrulename( ) = av_rule_name_delete.
+                    lv_rule_found = abap_true.
+                    EXIT.
+                  ENDIF.
+                ENDLOOP.
+                IF lv_rule_found = abap_false.
+                  " Rule is not in the list, it's been deleted
+                  lv_deleted = abap_true.
+                  EXIT.
+                ENDIF.
               ENDIF.
             CATCH /aws1/cx_cfsnosuchconfigruleex.
               " Rule has been deleted
               lv_deleted = abap_true.
               EXIT.
-            CATCH /aws1/cx_rt_generic.
-              " Rule may have been deleted
-              lv_deleted = abap_true.
-              EXIT.
           ENDTRY.
 
-          WAIT UP TO 3 SECONDS.
+          WAIT UP TO 5 SECONDS.
 
           GET TIME STAMP FIELD lv_current_time.
           lv_elapsed_seconds = cl_abap_tstmp=>subtract(
             tstmp1 = lv_current_time
             tstmp2 = lv_start_time ).
 
-          IF lv_elapsed_seconds > 60.
-            " Timeout after 60 seconds
+          IF lv_elapsed_seconds > 120.
+            " Timeout after 120 seconds
             EXIT.
           ENDIF.
         ENDDO.
