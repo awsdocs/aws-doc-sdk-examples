@@ -1,3 +1,5 @@
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
 CLASS ltc_awsex_cl_cfs_actions DEFINITION DEFERRED.
 CLASS /awsex/cl_cfs_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_cfs_actions.
 
@@ -38,11 +40,7 @@ CLASS ltc_awsex_cl_cfs_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
       RAISING
         /aws1/cx_rt_generic.
 
-    METHODS wait_for_rule_deletion
-      IMPORTING
-        iv_rule_name TYPE /aws1/cfsconfigrulename
-      RAISING
-        /aws1/cx_rt_generic.
+
 
     METHODS assert_rule_exists
       IMPORTING
@@ -153,9 +151,8 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
       CATCH /aws1/cx_iamnosuchentityex.
         " Policy not attached
       CATCH /aws1/cx_iaminvalidinputex
-            /aws1/cx_iamsvccfailureex INTO DATA(lo_detach_ex).
+            /aws1/cx_iamsvccfailureex.
         " Log but continue cleanup
-        WRITE: / |Error detaching AWS_ConfigRole policy: { lo_detach_ex->get_text( ) }|.
     ENDTRY.
 
     " Delete inline ConfigS3Policy before deleting role
@@ -167,9 +164,8 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
       CATCH /aws1/cx_iamnosuchentityex.
         " Policy doesn't exist
       CATCH /aws1/cx_iaminvalidinputex
-            /aws1/cx_iamsvccfailureex INTO DATA(lo_inline_ex).
+            /aws1/cx_iamsvccfailureex.
         " Log but continue cleanup
-        WRITE: / |Error deleting inline policy: { lo_inline_ex->get_text( ) }|.
     ENDTRY.
 
     " Delete IAM role
@@ -178,9 +174,8 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
       CATCH /aws1/cx_iamnosuchentityex.
         " Role doesn't exist
       CATCH /aws1/cx_iamdelconflictex
-            /aws1/cx_iaminvalidinputex INTO DATA(lo_role_ex).
+            /aws1/cx_iaminvalidinputex.
         " Log but continue cleanup
-        WRITE: / |Error deleting IAM role: { lo_role_ex->get_text( ) }|.
     ENDTRY.
 
     " Note: S3 bucket is tagged with convert_test and will be manually cleaned up
