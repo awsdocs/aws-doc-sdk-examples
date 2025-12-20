@@ -525,18 +525,16 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
         ao_cfs->startconfigurationrecorder(
           iv_configurationrecordername = av_config_recorder_name
         ).
-      CATCH /aws1/cx_cfsnoavailabledeliv00.
+      CATCH /aws1/cx_cfsnoavailabledeliv00 INTO DATA(lo_start_ex1).
         " No available delivery channel - this is a critical error
         RAISE EXCEPTION TYPE /aws1/cx_rt_generic
           EXPORTING
-            textid = /aws1/cx_rt_generic=>generic_error
-            msgv1  = 'No available delivery channel to start recorder'.
-      CATCH /aws1/cx_cfsnosuchconfrecerex.
+            previous = lo_start_ex1.
+      CATCH /aws1/cx_cfsnosuchconfrecerex INTO DATA(lo_start_ex2).
         " Configuration recorder doesn't exist - this is a critical error
         RAISE EXCEPTION TYPE /aws1/cx_rt_generic
           EXPORTING
-            textid = /aws1/cx_rt_generic=>generic_error
-            msgv1  = 'Configuration recorder does not exist'.
+            previous = lo_start_ex2.
     ENDTRY.
 
     " Wait for recorder to start
