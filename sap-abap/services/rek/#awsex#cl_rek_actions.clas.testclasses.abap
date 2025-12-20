@@ -176,28 +176,35 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
     ENDWHILE.
 
     " Upload test images to S3 for use in tests
-    " Create a minimal valid JPEG file (1x1 pixel black image) - split into parts
-    DATA lv_jpeg_part1 TYPE xstring.
-    DATA lv_jpeg_part2 TYPE xstring.
-    DATA lv_jpeg_part3 TYPE xstring.
+    " Create a minimal valid JPEG file - split to avoid line length limit
+    DATA lv_p1 TYPE xstring.
+    DATA lv_p2 TYPE xstring.
+    DATA lv_p3 TYPE xstring.
+    DATA lv_p4 TYPE xstring.
+    DATA lv_p5 TYPE xstring.
+    DATA lv_p6 TYPE xstring.
     DATA lv_jpeg_data TYPE xstring.
-    DATA lv_jpeg_temp TYPE xstring.
 
-    lv_jpeg_part1 = 'FFD8FFE000104A46494600010100000100010000FFDB00430008060607060508070707'.
-    lv_jpeg_part2 = '0909080A0C140D0C0B0B0C1912130F141D1A1F1E1D1A1C1C20242E2720222C231C1C28'.
-    lv_jpeg_part3 = '37292C30313434341F27393D38323C2E333432FFDB0043010909090C0B0C180D0D1832'.
-    CONCATENATE lv_jpeg_part1 lv_jpeg_part2 INTO lv_jpeg_temp IN BYTE MODE.
-    CONCATENATE lv_jpeg_temp lv_jpeg_part3 INTO lv_jpeg_data IN BYTE MODE.
+    " Valid 1x1 JPEG split into parts (each < 72 chars)
+    lv_p1 = 'FFD8FFE000104A46494600010100000100010000FFDB0043'.
+    lv_p2 = '00080606070605080707070909080A0C140D0C0B0B0C1912'.
+    lv_p3 = '130F141D1A1F1E1D1A1C1C20242E2720222C231C1C283729'.
+    lv_p4 = '2C30313434341F27393D38323C2E333432FFDB0043010909'.
+    lv_p5 = '090C0B0C180D0D1832211C2132323232323232323232323232323232'.
+    lv_p6 = '32323232323232323232323232323232323232323232323232323232'.
+    CONCATENATE lv_p1 lv_p2 lv_p3 lv_p4 lv_p5 lv_p6 INTO lv_jpeg_data IN BYTE MODE.
     
-    lv_jpeg_part1 = '211C2132323232323232323232323232323232323232323232323232323232323232'.
-    lv_jpeg_part2 = '3232323232323232323232323232323232323232323232FFC0001108000100010301'.
-    lv_jpeg_part3 = '2200021101031101FFC4001500010100000000000000000000000000000000FFC40014'.
-    CONCATENATE lv_jpeg_data lv_jpeg_part1 INTO lv_jpeg_temp IN BYTE MODE.
-    CONCATENATE lv_jpeg_temp lv_jpeg_part2 INTO lv_jpeg_data IN BYTE MODE.
-    CONCATENATE lv_jpeg_data lv_jpeg_part3 INTO lv_jpeg_temp IN BYTE MODE.
+    DATA lv_p7 TYPE xstring.
+    DATA lv_p8 TYPE xstring.
+    DATA lv_p9 TYPE xstring.
+    lv_p7 = 'FFC00011080001000103012200021101031101FFC4001500'.
+    lv_p8 = '010100000000000000000000000000000000FFC400140100'.
+    lv_p9 = '0100000000000000000000000000000000FFDA000C030100'.
+    CONCATENATE lv_jpeg_data lv_p7 lv_p8 lv_p9 INTO lv_jpeg_data IN BYTE MODE.
     
-    lv_jpeg_part1 = '0301010000000000000000000000000000000000FFD9'.
-    CONCATENATE lv_jpeg_temp lv_jpeg_part1 INTO lv_jpeg_data IN BYTE MODE.
+    DATA lv_p10 TYPE xstring.
+    lv_p10 = '02110311003F00F87FFFD9'.
+    CONCATENATE lv_jpeg_data lv_p10 INTO lv_jpeg_data IN BYTE MODE.
 
     ao_s3->putobject(
       iv_bucket = av_test_bucket
@@ -280,28 +287,35 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD upload_test_image.
-    " Create a minimal valid JPEG file (1x1 pixel black image) - split into parts
-    DATA lv_jpeg_part1 TYPE xstring.
-    DATA lv_jpeg_part2 TYPE xstring.
-    DATA lv_jpeg_part3 TYPE xstring.
+    " Create a minimal valid JPEG file - split to avoid line length limit
+    DATA lv_p1 TYPE xstring.
+    DATA lv_p2 TYPE xstring.
+    DATA lv_p3 TYPE xstring.
+    DATA lv_p4 TYPE xstring.
+    DATA lv_p5 TYPE xstring.
+    DATA lv_p6 TYPE xstring.
     DATA lv_jpeg_data TYPE xstring.
-    DATA lv_jpeg_temp TYPE xstring.
 
-    lv_jpeg_part1 = 'FFD8FFE000104A46494600010100000100010000FFDB00430008060607060508070707'.
-    lv_jpeg_part2 = '0909080A0C140D0C0B0B0C1912130F141D1A1F1E1D1A1C1C20242E2720222C231C1C28'.
-    lv_jpeg_part3 = '37292C30313434341F27393D38323C2E333432FFDB0043010909090C0B0C180D0D1832'.
-    CONCATENATE lv_jpeg_part1 lv_jpeg_part2 INTO lv_jpeg_temp IN BYTE MODE.
-    CONCATENATE lv_jpeg_temp lv_jpeg_part3 INTO lv_jpeg_data IN BYTE MODE.
+    " Valid 1x1 JPEG split into parts (each < 72 chars)
+    lv_p1 = 'FFD8FFE000104A46494600010100000100010000FFDB0043'.
+    lv_p2 = '00080606070605080707070909080A0C140D0C0B0B0C1912'.
+    lv_p3 = '130F141D1A1F1E1D1A1C1C20242E2720222C231C1C283729'.
+    lv_p4 = '2C30313434341F27393D38323C2E333432FFDB0043010909'.
+    lv_p5 = '090C0B0C180D0D1832211C2132323232323232323232323232323232'.
+    lv_p6 = '32323232323232323232323232323232323232323232323232323232'.
+    CONCATENATE lv_p1 lv_p2 lv_p3 lv_p4 lv_p5 lv_p6 INTO lv_jpeg_data IN BYTE MODE.
 
-    lv_jpeg_part1 = '211C2132323232323232323232323232323232323232323232323232323232323232'.
-    lv_jpeg_part2 = '3232323232323232323232323232323232323232323232FFC0001108000100010301'.
-    lv_jpeg_part3 = '2200021101031101FFC4001500010100000000000000000000000000000000FFC40014'.
-    CONCATENATE lv_jpeg_data lv_jpeg_part1 INTO lv_jpeg_temp IN BYTE MODE.
-    CONCATENATE lv_jpeg_temp lv_jpeg_part2 INTO lv_jpeg_data IN BYTE MODE.
-    CONCATENATE lv_jpeg_data lv_jpeg_part3 INTO lv_jpeg_temp IN BYTE MODE.
+    DATA lv_p7 TYPE xstring.
+    DATA lv_p8 TYPE xstring.
+    DATA lv_p9 TYPE xstring.
+    lv_p7 = 'FFC00011080001000103012200021101031101FFC4001500'.
+    lv_p8 = '010100000000000000000000000000000000FFC400140100'.
+    lv_p9 = '0100000000000000000000000000000000FFDA000C030100'.
+    CONCATENATE lv_jpeg_data lv_p7 lv_p8 lv_p9 INTO lv_jpeg_data IN BYTE MODE.
 
-    lv_jpeg_part1 = '0301010000000000000000000000000000000000FFD9'.
-    CONCATENATE lv_jpeg_temp lv_jpeg_part1 INTO lv_jpeg_data IN BYTE MODE.
+    DATA lv_p10 TYPE xstring.
+    lv_p10 = '02110311003F00F87FFFD9'.
+    CONCATENATE lv_jpeg_data lv_p10 INTO lv_jpeg_data IN BYTE MODE.
 
     " Upload the test image to S3 with tags
     ao_s3->putobject(
