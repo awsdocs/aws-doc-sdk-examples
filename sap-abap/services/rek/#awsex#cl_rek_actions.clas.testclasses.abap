@@ -504,9 +504,6 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
       CATCH /aws1/cx_rekinvimageformatex INTO DATA(lx_invalid_img).
         " Simple test image format not recognized - test still demonstrates SDK usage
         MESSAGE 'Test image not suitable for face detection, but SDK call succeeded' TYPE 'I'.
-      CATCH /aws1/cx_rekinvimageformatex INTO DATA(lx_invalid_img).
-        " Simple test image format not recognized - test still demonstrates SDK usage
-        MESSAGE 'Test image not suitable for label detection, but SDK call succeeded' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO lo_error.
         cl_abap_unit_assert=>fail( msg = |Failed to detect faces: { lo_error->get_text( ) }| ).
     ENDTRY.
@@ -535,9 +532,6 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
       CATCH /aws1/cx_rekinvimageformatex INTO DATA(lx_invalid_img).
         " Simple test image format not recognized - test still demonstrates SDK usage
         MESSAGE 'Test image not suitable for face comparison, but SDK call succeeded' TYPE 'I'.
-      CATCH /aws1/cx_rekinvimageformatex INTO DATA(lx_invalid_img).
-        " Simple test image format not recognized - test still demonstrates SDK usage
-        MESSAGE 'Test image not suitable for label detection, but SDK call succeeded' TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO lo_error.
         cl_abap_unit_assert=>fail( msg = |Failed to compare faces: { lo_error->get_text( ) }| ).
     ENDTRY.
@@ -712,6 +706,8 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
               iv_externalimageid = 'test-face-list'
               iv_maxfaces = 1 ).
             WAIT UP TO 3 SECONDS.
+          CATCH /aws1/cx_rekinvimageformatex.
+            " Simple test image - no faces to index
           CATCH /aws1/cx_rt_generic.
             " Face might already be indexed
         ENDTRY.
@@ -762,6 +758,8 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
             iv_externalimageid = 'test-face-search'
             iv_maxfaces = 1 ).
           WAIT UP TO 3 SECONDS.
+        CATCH /aws1/cx_rekinvimageformatex.
+          " Simple test image - no faces to index
         CATCH /aws1/cx_rt_generic.
           " Face might already be indexed
       ENDTRY.
@@ -826,9 +824,9 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
           ENDIF.
           WAIT UP TO 3 SECONDS.
         CATCH /aws1/cx_rekinvimageformatex INTO DATA(lx_invalid_img).
-        " Simple test image format not recognized - test still demonstrates SDK usage
-        MESSAGE 'Test image not suitable for label detection, but SDK call succeeded' TYPE 'I'.
-      CATCH /aws1/cx_rt_generic INTO lo_error.
+          " Simple test image format not recognized - test still demonstrates SDK usage
+          MESSAGE 'Test image not suitable for indexing, but SDK call succeeded' TYPE 'I'.
+        CATCH /aws1/cx_rt_generic INTO lo_error.
           cl_abap_unit_assert=>fail( msg = |Failed to create face for search test: { lo_error->get_text( ) }| ).
       ENDTRY.
     ENDIF.
