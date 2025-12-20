@@ -194,7 +194,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
     DATA lt_to_addresses TYPE /aws1/cl_pptlistof__string_w=>tt_listof__string.
     APPEND NEW /aws1/cl_pptlistof__string_w( av_recipient_email ) TO lt_to_addresses.
 
-    DATA lt_message_ids TYPE /aws1/cl_pptendptmessageresult=>tt_mapofmessageresult.
+    DATA lt_message_ids TYPE /aws1/cl_pptmessageresult=>tt_mapofmessageresult.
 
     " Note: This test will demonstrate the API call structure
     " It may fail if email addresses are not verified in Amazon Pinpoint
@@ -285,7 +285,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
     DATA lt_to_addresses TYPE /aws1/cl_pptlistof__string_w=>tt_listof__string.
     APPEND NEW /aws1/cl_pptlistof__string_w( av_recipient_email ) TO lt_to_addresses.
 
-    DATA lt_message_ids TYPE /aws1/cl_pptendptmessageresult=>tt_mapofmessageresult.
+    DATA lt_message_ids TYPE /aws1/cl_pptmessageresult=>tt_mapofmessageresult.
 
     " Note: This test will demonstrate the API call structure
     " It may fail if email addresses are not verified in Amazon Pinpoint

@@ -17,7 +17,7 @@ CLASS /awsex/cl_ppt_actions DEFINITION
                 !iv_html_message TYPE /aws1/ppt__string
                 !iv_text_message TYPE /aws1/ppt__string
       EXPORTING
-                !ot_message_ids  TYPE /aws1/cl_pptendptmessageresult=>tt_mapofmessageresult
+                !ot_message_ids  TYPE /aws1/cl_pptmessageresult=>tt_mapofmessageresult
       RAISING   /aws1/cx_rt_generic.
 
     METHODS send_sms_message
@@ -39,7 +39,7 @@ CLASS /awsex/cl_ppt_actions DEFINITION
                 !iv_template_name    TYPE /aws1/ppt__string
                 !iv_template_version TYPE /aws1/ppt__string
       EXPORTING
-                !ot_message_ids      TYPE /aws1/cl_pptendptmessageresult=>tt_mapofmessageresult
+                !ot_message_ids      TYPE /aws1/cl_pptmessageresult=>tt_mapofmessageresult
       RAISING   /aws1/cx_rt_generic.
 
     METHODS send_templated_sms_message
