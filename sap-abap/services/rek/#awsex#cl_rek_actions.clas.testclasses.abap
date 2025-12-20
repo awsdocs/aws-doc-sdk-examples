@@ -399,7 +399,7 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
   METHOD describe_collection.
     DATA lo_result TYPE REF TO /aws1/cl_rekdescrcollresponse.
     DATA lo_error TYPE REF TO /aws1/cx_rt_generic.
-    DATA lv_collection_arn TYPE /aws1/string.
+    DATA lv_collection_arn TYPE /aws1/rekstring.
 
     " Use the pre-created collection from class_setup
     TRY.
