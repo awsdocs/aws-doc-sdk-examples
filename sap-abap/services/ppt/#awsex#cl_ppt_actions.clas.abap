@@ -74,10 +74,10 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
         " Build the addresses map from the list of to_addresses
         DATA lt_addresses TYPE /aws1/cl_pptaddressconf=>tt_mapofaddressconfiguration.
         LOOP AT it_to_addresses INTO DATA(lo_address).
-          APPEND VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
+          INSERT VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
             key = lo_address->get_value( )
             value = NEW /aws1/cl_pptaddressconf( iv_channeltype = 'EMAIL' )
-          ) TO lt_addresses.
+          ) INTO TABLE lt_addresses.
         ENDLOOP.
 
         " Send the email message
@@ -85,7 +85,7 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
           iv_applicationid = iv_app_id
           io_messagerequest = NEW /aws1/cl_pptmessagerequest(
             it_addresses = lt_addresses
-            io_messageconfiguration = NEW /aws1/cl_pptmessageconf(
+            io_messageconfiguration = NEW /aws1/cl_pptdirectmessageconf(
               io_emailmessage = NEW /aws1/cl_pptemailmessage(
                 iv_fromaddress = iv_sender
                 io_simpleemail = NEW /aws1/cl_pptsimpleemail(
@@ -133,17 +133,17 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
     TRY.
         " Build the addresses map for the destination number
         DATA lt_addresses TYPE /aws1/cl_pptaddressconf=>tt_mapofaddressconfiguration.
-        APPEND VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
+        INSERT VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
           key = iv_destination_number
           value = NEW /aws1/cl_pptaddressconf( iv_channeltype = 'SMS' )
-        ) TO lt_addresses.
+        ) INTO TABLE lt_addresses.
 
         " Send the SMS message
         DATA(lo_result) = lo_ppt->sendmessages(
           iv_applicationid = iv_app_id
           io_messagerequest = NEW /aws1/cl_pptmessagerequest(
             it_addresses = lt_addresses
-            io_messageconfiguration = NEW /aws1/cl_pptmessageconf(
+            io_messageconfiguration = NEW /aws1/cl_pptdirectmessageconf(
               io_smsmessage = NEW /aws1/cl_pptsmsmessage(
                 iv_body = iv_message
                 iv_messagetype = iv_message_type
@@ -186,10 +186,10 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
         " Build the addresses map from the list of to_addresses
         DATA lt_addresses TYPE /aws1/cl_pptaddressconf=>tt_mapofaddressconfiguration.
         LOOP AT it_to_addresses INTO DATA(lo_address).
-          APPEND VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
+          INSERT VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
             key = lo_address->get_value( )
             value = NEW /aws1/cl_pptaddressconf( iv_channeltype = 'EMAIL' )
-          ) TO lt_addresses.
+          ) INTO TABLE lt_addresses.
         ENDLOOP.
 
         " Send the email message using a template
@@ -197,7 +197,7 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
           iv_applicationid = iv_app_id
           io_messagerequest = NEW /aws1/cl_pptmessagerequest(
             it_addresses = lt_addresses
-            io_messageconfiguration = NEW /aws1/cl_pptmessageconf(
+            io_messageconfiguration = NEW /aws1/cl_pptdirectmessageconf(
               io_emailmessage = NEW /aws1/cl_pptemailmessage(
                 iv_fromaddress = iv_sender
               )
@@ -237,17 +237,17 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
     TRY.
         " Build the addresses map for the destination number
         DATA lt_addresses TYPE /aws1/cl_pptaddressconf=>tt_mapofaddressconfiguration.
-        APPEND VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
+        INSERT VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
           key = iv_destination_number
           value = NEW /aws1/cl_pptaddressconf( iv_channeltype = 'SMS' )
-        ) TO lt_addresses.
+        ) INTO TABLE lt_addresses.
 
         " Send the SMS message using a template
         DATA(lo_result) = lo_ppt->sendmessages(
           iv_applicationid = iv_app_id
           io_messagerequest = NEW /aws1/cl_pptmessagerequest(
             it_addresses = lt_addresses
-            io_messageconfiguration = NEW /aws1/cl_pptmessageconf(
+            io_messageconfiguration = NEW /aws1/cl_pptdirectmessageconf(
               io_smsmessage = NEW /aws1/cl_pptsmsmessage(
                 iv_messagetype = iv_message_type
                 iv_originationnumber = iv_origination_number
