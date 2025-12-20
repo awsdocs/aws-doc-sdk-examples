@@ -79,7 +79,7 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
     DATA lt_tagset TYPE /aws1/cl_s3_tag=>tt_tagset.
     DATA lo_tagging TYPE REF TO /aws1/cl_s3_tagging.
     DATA lt_tags TYPE /aws1/cl_rektagmap_w=>tt_tagmap.
-    DATA ls_tag TYPE /aws1/cl_rektagmap_w=>ts_tagmaprow.
+    DATA ls_tag TYPE /aws1/cl_rektagmap_w=>ts_tagmap_maprow.
 
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_rek = /aws1/cl_rek_factory=>create( ao_session ).
@@ -119,7 +119,7 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
 
     " Create the main collection for testing with convert_test tag
     ls_tag-key = 'convert_test'.
-    ls_tag-value = 'true'.
+    ls_tag-value = NEW /aws1/cl_rektagmap_w( iv_value = 'true' ).
     APPEND ls_tag TO lt_tags.
 
     TRY.
@@ -150,7 +150,7 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
     " Create collection for delete test
     CLEAR lt_tags.
     ls_tag-key = 'convert_test'.
-    ls_tag-value = 'true'.
+    ls_tag-value = NEW /aws1/cl_rektagmap_w( iv_value = 'true' ).
     APPEND ls_tag TO lt_tags.
 
     TRY.
@@ -233,12 +233,12 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
 
   METHOD create_test_collection.
     DATA lt_tags TYPE /aws1/cl_rektagmap_w=>tt_tagmap.
-    DATA ls_tag TYPE /aws1/cl_rektagmap_w=>ts_tagmaprow.
+    DATA ls_tag TYPE /aws1/cl_rektagmap_w=>ts_tagmap_maprow.
 
     TRY.
         " Create collection with tags
         ls_tag-key = 'convert_test'.
-        ls_tag-value = 'true'.
+        ls_tag-value = NEW /aws1/cl_rektagmap_w( iv_value = 'true' ).
         APPEND ls_tag TO lt_tags.
 
         ao_rek->createcollection(
@@ -316,7 +316,7 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
     DATA lv_test_collection_id TYPE /aws1/rekcollectionid.
     DATA lv_status_code TYPE i.
     DATA lt_tags TYPE /aws1/cl_rektagmap_w=>tt_tagmap.
-    DATA ls_tag TYPE /aws1/cl_rektagmap_w=>ts_tagmaprow.
+    DATA ls_tag TYPE /aws1/cl_rektagmap_w=>ts_tagmap_maprow.
 
     " Create a new collection specifically for this test
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
@@ -325,7 +325,7 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
 
     " Create collection with tags
     ls_tag-key = 'convert_test'.
-    ls_tag-value = 'true'.
+    ls_tag-value = NEW /aws1/cl_rektagmap_w( iv_value = 'true' ).
     APPEND ls_tag TO lt_tags.
 
     TRY.
