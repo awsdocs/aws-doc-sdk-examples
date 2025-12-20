@@ -381,7 +381,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
         av_config_role_arn = lo_get_role->get_role( )->get_arn( ).
     ENDTRY.
 
-    " Attach AWS managed policy for Config (updated from deprecated ConfigRole to AWS_ConfigRole)
+    " Attach AWS managed policy for Config
     TRY.
         ao_iam->attachrolepolicy(
           iv_rolename = av_config_role_name
@@ -393,8 +393,9 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
         RAISE EXCEPTION TYPE /aws1/cx_rt_generic
           EXPORTING
             previous = lo_attach_ex.
-      CATCH /aws1/cx_iampolicynotattachex.
-        " Policy may already be attached, continue
+      CATCH /aws1/cx_iamplynotattachableex
+            /aws1/cx_iamservicefailureex.
+        " Policy type not attachable or service failure, continue
     ENDTRY.
 
     " Create inline policy for S3 bucket access and additional Config permissions
