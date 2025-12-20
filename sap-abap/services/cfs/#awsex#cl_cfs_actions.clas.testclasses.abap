@@ -488,11 +488,11 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
             )
           )
         ).
-      CATCH /aws1/cx_cfsmaxnumconfigrecrdsex.
+      CATCH /aws1/cx_cfsmaxnoofconfrcers00.
         " Maximum number of recorders already exists, try to use existing
-      CATCH /aws1/cx_cfsinvalidparamvalueex
+      CATCH /aws1/cx_cfsinvparamvalueex
             /aws1/cx_cfsinvalidroleex
-            /aws1/cx_cfsinvldrecordnameex INTO DATA(lo_recorder_ex).
+            /aws1/cx_cfsinvconfrecernameex INTO DATA(lo_recorder_ex).
         " Configuration recorder creation failed with invalid parameters
         RAISE EXCEPTION TYPE /aws1/cx_rt_generic
           EXPORTING
@@ -507,13 +507,13 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
             iv_s3bucketname = av_config_bucket
           )
         ).
-      CATCH /aws1/cx_cfsmaxnumdlvrychnlsex.
+      CATCH /aws1/cx_cfsmaxnoofdeliveryc00.
         " Maximum number of channels already exists, try to use existing
-      CATCH /aws1/cx_cfsinsufficientdlvryplc
-            /aws1/cx_cfsinvalidparamvalueex
-            /aws1/cx_cfsinvalids3keyprefix
-            /aws1/cx_cfsinvalidsnstopiarn
-            /aws1/cx_cfsnosuchtopicex INTO DATA(lo_channel_ex).
+      CATCH /aws1/cx_cfsinsufficientdeli00
+            /aws1/cx_cfsinvparamvalueex
+            /aws1/cx_cfsinvs3keyprefixex
+            /aws1/cx_cfsinvsnstopicarnex
+            /aws1/cx_cfsnosuchbucketex INTO DATA(lo_channel_ex).
         " Delivery channel creation failed
         RAISE EXCEPTION TYPE /aws1/cx_rt_generic
           EXPORTING
@@ -525,13 +525,13 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
         ao_cfs->startconfigurationrecorder(
           iv_configurationrecordername = av_config_recorder_name
         ).
-      CATCH /aws1/cx_cfsnoavailbledlvrychnl.
+      CATCH /aws1/cx_cfsnoavailabledeliv00.
         " No available delivery channel - this is a critical error
         RAISE EXCEPTION TYPE /aws1/cx_rt_generic
           EXPORTING
             textid = /aws1/cx_rt_generic=>generic_error
             msgv1  = 'No available delivery channel to start recorder'.
-      CATCH /aws1/cx_cfsnosuchconfigrecrdrex.
+      CATCH /aws1/cx_cfsnosuchconfrecerex.
         " Configuration recorder doesn't exist - this is a critical error
         RAISE EXCEPTION TYPE /aws1/cx_rt_generic
           EXPORTING
