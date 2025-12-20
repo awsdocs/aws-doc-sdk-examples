@@ -114,10 +114,10 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
         MESSAGE 'Email message sent successfully.' TYPE 'I'.
       CATCH /aws1/cx_pptbadrequestex INTO DATA(lo_bad_request).
         DATA(lv_error) = |Bad request: { lo_bad_request->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_pptnotfoundexception INTO DATA(lo_not_found).
         lv_error = |Not found: { lo_not_found->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[ppt.abapv1.send_email_message]
   ENDMETHOD.
@@ -166,10 +166,10 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
         MESSAGE 'SMS message sent successfully.' TYPE 'I'.
       CATCH /aws1/cx_pptbadrequestex INTO DATA(lo_bad_request).
         DATA(lv_error) = |Bad request: { lo_bad_request->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_pptnotfoundexception INTO DATA(lo_not_found).
         lv_error = |Not found: { lo_not_found->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[ppt.abapv1.send_sms_message]
   ENDMETHOD.
@@ -218,10 +218,10 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
         MESSAGE 'Templated email message sent successfully.' TYPE 'I'.
       CATCH /aws1/cx_pptbadrequestex INTO DATA(lo_bad_request).
         DATA(lv_error) = |Bad request: { lo_bad_request->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_pptnotfoundexception INTO DATA(lo_not_found).
         lv_error = |Not found: { lo_not_found->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[ppt.abapv1.send_templated_email_message]
   ENDMETHOD.
@@ -275,10 +275,10 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
         MESSAGE 'Templated SMS message sent successfully.' TYPE 'I'.
       CATCH /aws1/cx_pptbadrequestex INTO DATA(lo_bad_request).
         DATA(lv_error) = |Bad request: { lo_bad_request->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
       CATCH /aws1/cx_pptnotfoundexception INTO DATA(lo_not_found).
         lv_error = |Not found: { lo_not_found->get_text( ) }|.
-        MESSAGE lv_error TYPE 'E'.
+        MESSAGE lv_error TYPE 'I'.
     ENDTRY.
     " snippet-end:[ppt.abapv1.send_templated_sms_message]
   ENDMETHOD.

@@ -61,7 +61,6 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         
         MESSAGE |Pinpoint application created: { av_app_id }| TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_error).
-        MESSAGE |FAIL: Error creating Pinpoint application: { lo_error->get_text( ) }| TYPE 'E'.
         " Fail test setup if we can't create the app
         cl_abap_unit_assert=>fail( |Failed to create Pinpoint application: { lo_error->get_text( ) }| ).
     ENDTRY.
@@ -105,7 +104,6 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         
         MESSAGE |Email template created: { av_email_template_name }| TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO lo_error.
-        MESSAGE |FAIL: Error creating email template: { lo_error->get_text( ) }| TYPE 'E'.
         " Fail test setup if we can't create the template
         cl_abap_unit_assert=>fail( |Failed to create email template: { lo_error->get_text( ) }| ).
     ENDTRY.
@@ -135,7 +133,6 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         
         MESSAGE |SMS template created: { av_sms_template_name }| TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO lo_error.
-        MESSAGE |FAIL: Error creating SMS template: { lo_error->get_text( ) }| TYPE 'E'.
         " Fail test setup if we can't create the template
         cl_abap_unit_assert=>fail( |Failed to create SMS template: { lo_error->get_text( ) }| ).
     ENDTRY.
