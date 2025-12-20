@@ -469,8 +469,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
         ).
       CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bktalrdyownedbyyou.
         " Bucket already exists, continue
-      CATCH /aws1/cx_s3_bucketnotfound
-            /aws1/cx_s3_nosuchbucket INTO DATA(lo_s3_ex).
+      CATCH /aws1/cx_s3_nosuchbucket INTO DATA(lo_s3_ex).
         " S3 bucket creation failed
         RAISE EXCEPTION TYPE /aws1/cx_rt_generic
           EXPORTING
