@@ -69,8 +69,13 @@ CLASS ltc_awsex_cl_ply_actions IMPLEMENTATION.
     ENDTRY.
 
     " Create a lexicon for tests that need one
-    av_lexicon_name = |{ /awsex/cl_utils=>cv_asset_prefix }-lex-{ lv_uuid }|.
+    " Lexicon name must be alphanumeric only, max 20 characters
+    av_lexicon_name = |lex{ lv_uuid }|.
     av_lexicon_name = to_lower( av_lexicon_name ).
+    " Ensure it's not longer than 20 characters
+    IF strlen( av_lexicon_name ) > 20.
+      av_lexicon_name = av_lexicon_name(20).
+    ENDIF.
 
     " Create the lexicon in class_setup
     DATA(lv_lexicon_content) = |<?xml version="1.0" encoding="UTF-8"?>\n| &&
@@ -171,10 +176,14 @@ CLASS ltc_awsex_cl_ply_actions IMPLEMENTATION.
   METHOD put_lexicon.
     " Test creating a new lexicon (using a different name than class-level lexicon)
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    DATA(lv_new_lexicon_name) = |{ /awsex/cl_utils=>cv_asset_prefix }-put-{ lv_uuid }|.
+    " Lexicon name must be alphanumeric only, max 20 characters
+    DATA(lv_new_lexicon_name) = |put{ lv_uuid }|.
     lv_new_lexicon_name = to_lower( lv_new_lexicon_name ).
+    IF strlen( lv_new_lexicon_name ) > 20.
+      lv_new_lexicon_name = lv_new_lexicon_name(20).
+    ENDIF.
 
-    " iv_name - Example: 'test-lexicon'
+    " iv_name - Example: 'testlexicon'
     " iv_content - Example: PLS or SSML lexicon content
     DATA(lv_lexicon_content) = |<?xml version="1.0" encoding="UTF-8"?>\n| &&
       |<lexicon version="1.0" xmlns="http://www.w3.org/2005/01/pronunciation-lexicon" | &&
@@ -211,7 +220,7 @@ CLASS ltc_awsex_cl_ply_actions IMPLEMENTATION.
     " Verify it exists, if not, fail the test
     DATA lo_result TYPE REF TO /aws1/cl_plygetlexiconoutput.
 
-    " iv_name - Example: 'test-lexicon'
+    " iv_name - Example: 'testlexicon'
     ao_ply_actions->get_lexicon(
       EXPORTING
         iv_name = av_lexicon_name
@@ -423,8 +432,12 @@ CLASS ltc_awsex_cl_ply_actions IMPLEMENTATION.
   METHOD delete_lexicon.
     " Create a new lexicon specifically for this test
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    DATA(lv_delete_lex_name) = |{ /awsex/cl_utils=>cv_asset_prefix }-del-{ lv_uuid }|.
+    " Lexicon name must be alphanumeric only, max 20 characters
+    DATA(lv_delete_lex_name) = |del{ lv_uuid }|.
     lv_delete_lex_name = to_lower( lv_delete_lex_name ).
+    IF strlen( lv_delete_lex_name ) > 20.
+      lv_delete_lex_name = lv_delete_lex_name(20).
+    ENDIF.
 
     DATA(lv_lexicon_content) = |<?xml version="1.0" encoding="UTF-8"?>\n| &&
       |<lexicon version="1.0" xmlns="http://www.w3.org/2005/01/pronunciation-lexicon" | &&
@@ -456,7 +469,7 @@ CLASS ltc_awsex_cl_ply_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail( 'Lexicon was not created successfully' ).
     ENDTRY.
 
-    " iv_name - Example: 'lexicon-to-delete'
+    " iv_name - Example: 'lexicontodelete'
     " Now delete it using the action method
     ao_ply_actions->delete_lexicon( lv_delete_lex_name ).
 
