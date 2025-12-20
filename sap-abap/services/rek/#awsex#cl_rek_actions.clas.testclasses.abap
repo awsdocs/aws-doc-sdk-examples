@@ -120,7 +120,7 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
     " Create the main collection for testing with convert_test tag
     ls_tag-key = 'convert_test'.
     ls_tag-value = NEW /aws1/cl_rektagmap_w( iv_value = 'true' ).
-    APPEND ls_tag TO lt_tags.
+    INSERT ls_tag INTO TABLE lt_tags.
 
     TRY.
         ao_rek->createcollection(
@@ -151,7 +151,7 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
     CLEAR lt_tags.
     ls_tag-key = 'convert_test'.
     ls_tag-value = NEW /aws1/cl_rektagmap_w( iv_value = 'true' ).
-    APPEND ls_tag TO lt_tags.
+    INSERT ls_tag INTO TABLE lt_tags.
 
     TRY.
         ao_rek->createcollection(
@@ -175,8 +175,14 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
     ENDWHILE.
 
     " Upload test images to S3 for use in tests
+    " Create a minimal valid JPEG file (1x1 pixel black image) - split into parts
+    DATA lv_jpeg_part1 TYPE xstring.
+    DATA lv_jpeg_part2 TYPE xstring.
     DATA lv_jpeg_data TYPE xstring.
-    lv_jpeg_data = 'FFD8FFE000104A46494600010100000100010000FFDB004300080606070605080707070909080A0C140D0C0B0B0C1912130F141D1A1F1E1D1A1C1C20242E2720222C231C1C2837292C30313434341F27393D38323C2E333432FFDB0043010909090C0B0C180D0D1832211C213232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232FFC00011080001000103012200021101031101FFC4001500010100000000000000000000000000000000FFC400140301010000000000000000000000000000000000FFD9'.
+    
+    lv_jpeg_part1 = 'FFD8FFE000104A46494600010100000100010000FFDB004300080606070605080707070909080A0C140D0C0B0B0C1912130F141D1A1F1E1D1A1C1C20242E2720222C231C1C28'.
+    lv_jpeg_part2 = '37292C30313434341F27393D38323C2E333432FFDB0043010909090C0B0C180D0D1832211C213232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232FFC00011080001000103012200021101031101FFC4001500010100000000000000000000000000000000FFC400140301010000000000000000000000000000000000FFD9'.
+    CONCATENATE lv_jpeg_part1 lv_jpeg_part2 INTO lv_jpeg_data IN BYTE MODE.
 
     ao_s3->putobject(
       iv_bucket = av_test_bucket
@@ -239,7 +245,7 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
         " Create collection with tags
         ls_tag-key = 'convert_test'.
         ls_tag-value = NEW /aws1/cl_rektagmap_w( iv_value = 'true' ).
-        APPEND ls_tag TO lt_tags.
+        INSERT ls_tag INTO TABLE lt_tags.
 
         ao_rek->createcollection(
           iv_collectionid = iv_collection_id
@@ -259,9 +265,14 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD upload_test_image.
-    " Create a minimal valid JPEG file (1x1 pixel black image)
+    " Create a minimal valid JPEG file (1x1 pixel black image) - split into parts
+    DATA lv_jpeg_part1 TYPE xstring.
+    DATA lv_jpeg_part2 TYPE xstring.
     DATA lv_jpeg_data TYPE xstring.
-    lv_jpeg_data = 'FFD8FFE000104A46494600010100000100010000FFDB004300080606070605080707070909080A0C140D0C0B0B0C1912130F141D1A1F1E1D1A1C1C20242E2720222C231C1C2837292C30313434341F27393D38323C2E333432FFDB0043010909090C0B0C180D0D1832211C213232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232FFC00011080001000103012200021101031101FFC4001500010100000000000000000000000000000000FFC400140301010000000000000000000000000000000000FFD9'.
+
+    lv_jpeg_part1 = 'FFD8FFE000104A46494600010100000100010000FFDB004300080606070605080707070909080A0C140D0C0B0B0C1912130F141D1A1F1E1D1A1C1C20242E2720222C231C1C28'.
+    lv_jpeg_part2 = '37292C30313434341F27393D38323C2E333432FFDB0043010909090C0B0C180D0D1832211C213232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232323232FFC00011080001000103012200021101031101FFC4001500010100000000000000000000000000000000FFC400140301010000000000000000000000000000000000FFD9'.
+    CONCATENATE lv_jpeg_part1 lv_jpeg_part2 INTO lv_jpeg_data IN BYTE MODE.
 
     " Upload the test image to S3 with tags
     ao_s3->putobject(
@@ -321,12 +332,12 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
     " Create a new collection specifically for this test
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid TO LOWER CASE.
-    lv_test_collection_id = |sap-abap-rek-create-{ lv_uuid }|.
+    lv_test_collection_id = |sap-abap-rek-crt-{ lv_uuid }|.
 
     " Create collection with tags
     ls_tag-key = 'convert_test'.
     ls_tag-value = NEW /aws1/cl_rektagmap_w( iv_value = 'true' ).
-    APPEND ls_tag TO lt_tags.
+    INSERT ls_tag INTO TABLE lt_tags.
 
     TRY.
         ao_rek_actions->create_collection(
