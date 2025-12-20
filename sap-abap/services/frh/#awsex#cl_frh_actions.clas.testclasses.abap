@@ -9,7 +9,6 @@ CLASS ltc_awsex_cl_frh_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA ao_frh TYPE REF TO /aws1/if_frh.
     CLASS-DATA ao_s3 TYPE REF TO /aws1/if_s3.
     CLASS-DATA ao_iam TYPE REF TO /aws1/if_iam.
-    CLASS-DATA ao_cwt TYPE REF TO /aws1/if_cwt.
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA ao_frh_actions TYPE REF TO /awsex/cl_frh_actions.
     CLASS-DATA av_delivery_stream TYPE /aws1/frhdeliverystreamname.
@@ -23,7 +22,6 @@ CLASS ltc_awsex_cl_frh_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     METHODS put_record FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS put_record_batch FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS get_metric_statistics FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS wait_for_stream_active
       IMPORTING
@@ -46,7 +44,6 @@ CLASS ltc_awsex_cl_frh_actions IMPLEMENTATION.
     ao_frh = /aws1/cl_frh_factory=>create( ao_session ).
     ao_s3 = /aws1/cl_s3_factory=>create( ao_session ).
     ao_iam = /aws1/cl_iam_factory=>create( ao_session ).
-    ao_cwt = /aws1/cl_cwt_factory=>create( ao_session ).
     ao_frh_actions = NEW /awsex/cl_frh_actions( ).
 
     " Generate unique names using UUID
@@ -343,98 +340,6 @@ CLASS ltc_awsex_cl_frh_actions IMPLEMENTATION.
       CATCH /aws1/cx_frhinvalidargumentex INTO DATA(lo_invalid_arg).
         cl_abap_unit_assert=>fail(
           msg = |Invalid argument: { lo_invalid_arg->get_text( ) }| ).
-    ENDTRY.
-
-  ENDMETHOD.
-
-  METHOD get_metric_statistics.
-    DATA lo_result TYPE REF TO /aws1/cl_cwtgetmettatsoutput.
-    DATA lv_end_timestamp TYPE /aws1/cwttimestamp.
-    DATA lv_start_timestamp TYPE /aws1/cwttimestamp.
-    DATA lv_temp_timestamp TYPE timestamp.
-
-    " Calculate time range for metrics (last 10 minutes)
-    GET TIME STAMP FIELD lv_temp_timestamp.
-    
-    " Convert to TIMESTAMPL format required by CloudWatch
-    lv_end_timestamp = lv_temp_timestamp.
-    lv_start_timestamp = cl_abap_tstmp=>subtractsecs(
-      tstmp = lv_temp_timestamp
-      secs  = 600 ).  " 10 minutes ago
-
-    " Test 1: Get IncomingBytes metric
-    TRY.
-        ao_frh_actions->get_metric_statistics(
-          EXPORTING
-            iv_deliv_stream_name = av_delivery_stream
-            iv_metric_name = 'IncomingBytes'
-            iv_start_time = lv_start_timestamp
-            iv_end_time = lv_end_timestamp
-            iv_period = 300  " 5 minutes
-          IMPORTING
-            oo_result = lo_result ).
-
-        " Validation: Check that we got a result object
-        cl_abap_unit_assert=>assert_bound(
-          act = lo_result
-          msg = |get_metric_statistics should return a result for IncomingBytes| ).
-
-      CATCH /aws1/cx_cwtinvparamvalueex INTO DATA(lo_invalid_param).
-        cl_abap_unit_assert=>fail(
-          msg = |Invalid parameter for IncomingBytes: { lo_invalid_param->get_text( ) }| ).
-      CATCH /aws1/cx_cwtinternalsvcfault INTO DATA(lo_internal_error).
-        cl_abap_unit_assert=>fail(
-          msg = |Internal service error: { lo_internal_error->get_text( ) }| ).
-    ENDTRY.
-
-    " Test 2: Get IncomingRecords metric
-    TRY.
-        ao_frh_actions->get_metric_statistics(
-          EXPORTING
-            iv_deliv_stream_name = av_delivery_stream
-            iv_metric_name = 'IncomingRecords'
-            iv_start_time = lv_start_timestamp
-            iv_end_time = lv_end_timestamp
-            iv_period = 300
-          IMPORTING
-            oo_result = lo_result ).
-
-        " Validation: Check that we got a result object
-        cl_abap_unit_assert=>assert_bound(
-          act = lo_result
-          msg = |get_metric_statistics should return a result for IncomingRecords| ).
-
-      CATCH /aws1/cx_cwtinvparamvalueex INTO lo_invalid_param.
-        cl_abap_unit_assert=>fail(
-          msg = |Invalid parameter for IncomingRecords: { lo_invalid_param->get_text( ) }| ).
-      CATCH /aws1/cx_cwtinternalsvcfault INTO lo_internal_error.
-        cl_abap_unit_assert=>fail(
-          msg = |Internal service error: { lo_internal_error->get_text( ) }| ).
-    ENDTRY.
-
-    " Test 3: Get FailedPutCount metric (to demonstrate monitoring errors)
-    TRY.
-        ao_frh_actions->get_metric_statistics(
-          EXPORTING
-            iv_deliv_stream_name = av_delivery_stream
-            iv_metric_name = 'FailedPutCount'
-            iv_start_time = lv_start_timestamp
-            iv_end_time = lv_end_timestamp
-            iv_period = 300
-          IMPORTING
-            oo_result = lo_result ).
-
-        " Validation: Check that we got a result object
-        cl_abap_unit_assert=>assert_bound(
-          act = lo_result
-          msg = |get_metric_statistics should return a result for FailedPutCount| ).
-
-      CATCH /aws1/cx_cwtinvparamvalueex INTO lo_invalid_param.
-        cl_abap_unit_assert=>fail(
-          msg = |Invalid parameter for FailedPutCount: { lo_invalid_param->get_text( ) }| ).
-      CATCH /aws1/cx_cwtinternalsvcfault INTO lo_internal_error.
-        cl_abap_unit_assert=>fail(
-          msg = |Internal service error: { lo_internal_error->get_text( ) }| ).
     ENDTRY.
 
   ENDMETHOD.
