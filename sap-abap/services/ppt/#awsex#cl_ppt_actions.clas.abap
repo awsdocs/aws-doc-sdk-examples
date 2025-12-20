@@ -70,55 +70,47 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
     DATA(lo_ppt) = /aws1/cl_ppt_factory=>create( lo_session ).
 
     " snippet-start:[ppt.abapv1.send_email_message]
-    TRY.
-        " Build the addresses map from the list of to_addresses
-        DATA lt_addresses TYPE /aws1/cl_pptaddressconf=>tt_mapofaddressconfiguration.
-        LOOP AT it_to_addresses INTO DATA(lo_address).
-          INSERT VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
-            key = lo_address->get_value( )
-            value = NEW /aws1/cl_pptaddressconf( iv_channeltype = 'EMAIL' )
-          ) INTO TABLE lt_addresses.
-        ENDLOOP.
+    " Build the addresses map from the list of to_addresses
+    DATA lt_addresses TYPE /aws1/cl_pptaddressconf=>tt_mapofaddressconfiguration.
+    LOOP AT it_to_addresses INTO DATA(lo_address).
+      INSERT VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
+        key = lo_address->get_value( )
+        value = NEW /aws1/cl_pptaddressconf( iv_channeltype = 'EMAIL' )
+      ) INTO TABLE lt_addresses.
+    ENDLOOP.
 
-        " Send the email message
-        DATA(lo_result) = lo_ppt->sendmessages(
-          iv_applicationid = iv_app_id
-          io_messagerequest = NEW /aws1/cl_pptmessagerequest(
-            it_addresses = lt_addresses
-            io_messageconfiguration = NEW /aws1/cl_pptdirectmessageconf(
-              io_emailmessage = NEW /aws1/cl_pptemailmessage(
-                iv_fromaddress = iv_sender
-                io_simpleemail = NEW /aws1/cl_pptsimpleemail(
-                  io_subject = NEW /aws1/cl_pptsimpleemailpart(
-                    iv_charset = iv_char_set
-                    iv_data = iv_subject
-                  )
-                  io_htmlpart = NEW /aws1/cl_pptsimpleemailpart(
-                    iv_charset = iv_char_set
-                    iv_data = iv_html_message
-                  )
-                  io_textpart = NEW /aws1/cl_pptsimpleemailpart(
-                    iv_charset = iv_char_set
-                    iv_data = iv_text_message
-                  )
-                )
+    " Send the email message
+    DATA(lo_result) = lo_ppt->sendmessages(
+      iv_applicationid = iv_app_id
+      io_messagerequest = NEW /aws1/cl_pptmessagerequest(
+        it_addresses = lt_addresses
+        io_messageconfiguration = NEW /aws1/cl_pptdirectmessageconf(
+          io_emailmessage = NEW /aws1/cl_pptemailmessage(
+            iv_fromaddress = iv_sender
+            io_simpleemail = NEW /aws1/cl_pptsimpleemail(
+              io_subject = NEW /aws1/cl_pptsimpleemailpart(
+                iv_charset = iv_char_set
+                iv_data = iv_subject
+              )
+              io_htmlpart = NEW /aws1/cl_pptsimpleemailpart(
+                iv_charset = iv_char_set
+                iv_data = iv_html_message
+              )
+              io_textpart = NEW /aws1/cl_pptsimpleemailpart(
+                iv_charset = iv_char_set
+                iv_data = iv_text_message
               )
             )
           )
-        ).
+        )
+      )
+    ).
 
-        " Extract message IDs from response
-        DATA(lo_message_response) = lo_result->get_messageresponse( ).
-        ot_message_ids = lo_message_response->get_result( ).
+    " Extract message IDs from response
+    DATA(lo_message_response) = lo_result->get_messageresponse( ).
+    ot_message_ids = lo_message_response->get_result( ).
 
-        MESSAGE 'Email message sent successfully.' TYPE 'I'.
-      CATCH /aws1/cx_pptbadrequestex INTO DATA(lo_bad_request).
-        DATA(lv_error) = |Bad request: { lo_bad_request->get_text( ) }|.
-        MESSAGE lv_error TYPE 'I'.
-      CATCH /aws1/cx_pptnotfoundexception INTO DATA(lo_not_found).
-        lv_error = |Not found: { lo_not_found->get_text( ) }|.
-        MESSAGE lv_error TYPE 'I'.
-    ENDTRY.
+    MESSAGE 'Email message sent successfully.' TYPE 'I'.
     " snippet-end:[ppt.abapv1.send_email_message]
   ENDMETHOD.
 
@@ -130,47 +122,39 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
     DATA(lo_ppt) = /aws1/cl_ppt_factory=>create( lo_session ).
 
     " snippet-start:[ppt.abapv1.send_sms_message]
-    TRY.
-        " Build the addresses map for the destination number
-        DATA lt_addresses TYPE /aws1/cl_pptaddressconf=>tt_mapofaddressconfiguration.
-        INSERT VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
-          key = iv_destination_number
-          value = NEW /aws1/cl_pptaddressconf( iv_channeltype = 'SMS' )
-        ) INTO TABLE lt_addresses.
+    " Build the addresses map for the destination number
+    DATA lt_addresses TYPE /aws1/cl_pptaddressconf=>tt_mapofaddressconfiguration.
+    INSERT VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
+      key = iv_destination_number
+      value = NEW /aws1/cl_pptaddressconf( iv_channeltype = 'SMS' )
+    ) INTO TABLE lt_addresses.
 
-        " Send the SMS message
-        DATA(lo_result) = lo_ppt->sendmessages(
-          iv_applicationid = iv_app_id
-          io_messagerequest = NEW /aws1/cl_pptmessagerequest(
-            it_addresses = lt_addresses
-            io_messageconfiguration = NEW /aws1/cl_pptdirectmessageconf(
-              io_smsmessage = NEW /aws1/cl_pptsmsmessage(
-                iv_body = iv_message
-                iv_messagetype = iv_message_type
-                iv_originationnumber = iv_origination_number
-              )
-            )
+    " Send the SMS message
+    DATA(lo_result) = lo_ppt->sendmessages(
+      iv_applicationid = iv_app_id
+      io_messagerequest = NEW /aws1/cl_pptmessagerequest(
+        it_addresses = lt_addresses
+        io_messageconfiguration = NEW /aws1/cl_pptdirectmessageconf(
+          io_smsmessage = NEW /aws1/cl_pptsmsmessage(
+            iv_body = iv_message
+            iv_messagetype = iv_message_type
+            iv_originationnumber = iv_origination_number
           )
-        ).
+        )
+      )
+    ).
 
-        " Extract message ID from response
-        DATA(lo_message_response) = lo_result->get_messageresponse( ).
-        DATA(lt_results) = lo_message_response->get_result( ).
-        LOOP AT lt_results INTO DATA(ls_result).
-          IF ls_result-key = iv_destination_number.
-            ov_message_id = ls_result-value->get_messageid( ).
-            EXIT.
-          ENDIF.
-        ENDLOOP.
+    " Extract message ID from response
+    DATA(lo_message_response) = lo_result->get_messageresponse( ).
+    DATA(lt_results) = lo_message_response->get_result( ).
+    LOOP AT lt_results INTO DATA(ls_result).
+      IF ls_result-key = iv_destination_number.
+        ov_message_id = ls_result-value->get_messageid( ).
+        EXIT.
+      ENDIF.
+    ENDLOOP.
 
-        MESSAGE 'SMS message sent successfully.' TYPE 'I'.
-      CATCH /aws1/cx_pptbadrequestex INTO DATA(lo_bad_request).
-        DATA(lv_error) = |Bad request: { lo_bad_request->get_text( ) }|.
-        MESSAGE lv_error TYPE 'I'.
-      CATCH /aws1/cx_pptnotfoundexception INTO DATA(lo_not_found).
-        lv_error = |Not found: { lo_not_found->get_text( ) }|.
-        MESSAGE lv_error TYPE 'I'.
-    ENDTRY.
+    MESSAGE 'SMS message sent successfully.' TYPE 'I'.
     " snippet-end:[ppt.abapv1.send_sms_message]
   ENDMETHOD.
 
@@ -182,47 +166,39 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
     DATA(lo_ppt) = /aws1/cl_ppt_factory=>create( lo_session ).
 
     " snippet-start:[ppt.abapv1.send_templated_email_message]
-    TRY.
-        " Build the addresses map from the list of to_addresses
-        DATA lt_addresses TYPE /aws1/cl_pptaddressconf=>tt_mapofaddressconfiguration.
-        LOOP AT it_to_addresses INTO DATA(lo_address).
-          INSERT VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
-            key = lo_address->get_value( )
-            value = NEW /aws1/cl_pptaddressconf( iv_channeltype = 'EMAIL' )
-          ) INTO TABLE lt_addresses.
-        ENDLOOP.
+    " Build the addresses map from the list of to_addresses
+    DATA lt_addresses TYPE /aws1/cl_pptaddressconf=>tt_mapofaddressconfiguration.
+    LOOP AT it_to_addresses INTO DATA(lo_address).
+      INSERT VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
+        key = lo_address->get_value( )
+        value = NEW /aws1/cl_pptaddressconf( iv_channeltype = 'EMAIL' )
+      ) INTO TABLE lt_addresses.
+    ENDLOOP.
 
-        " Send the email message using a template
-        DATA(lo_result) = lo_ppt->sendmessages(
-          iv_applicationid = iv_app_id
-          io_messagerequest = NEW /aws1/cl_pptmessagerequest(
-            it_addresses = lt_addresses
-            io_messageconfiguration = NEW /aws1/cl_pptdirectmessageconf(
-              io_emailmessage = NEW /aws1/cl_pptemailmessage(
-                iv_fromaddress = iv_sender
-              )
-            )
-            io_templateconfiguration = NEW /aws1/cl_ppttemplateconf(
-              io_emailtemplate = NEW /aws1/cl_ppttemplate(
-                iv_name = iv_template_name
-                iv_version = iv_template_version
-              )
-            )
+    " Send the email message using a template
+    DATA(lo_result) = lo_ppt->sendmessages(
+      iv_applicationid = iv_app_id
+      io_messagerequest = NEW /aws1/cl_pptmessagerequest(
+        it_addresses = lt_addresses
+        io_messageconfiguration = NEW /aws1/cl_pptdirectmessageconf(
+          io_emailmessage = NEW /aws1/cl_pptemailmessage(
+            iv_fromaddress = iv_sender
           )
-        ).
+        )
+        io_templateconfiguration = NEW /aws1/cl_ppttemplateconf(
+          io_emailtemplate = NEW /aws1/cl_ppttemplate(
+            iv_name = iv_template_name
+            iv_version = iv_template_version
+          )
+        )
+      )
+    ).
 
-        " Extract message IDs from response
-        DATA(lo_message_response) = lo_result->get_messageresponse( ).
-        ot_message_ids = lo_message_response->get_result( ).
+    " Extract message IDs from response
+    DATA(lo_message_response) = lo_result->get_messageresponse( ).
+    ot_message_ids = lo_message_response->get_result( ).
 
-        MESSAGE 'Templated email message sent successfully.' TYPE 'I'.
-      CATCH /aws1/cx_pptbadrequestex INTO DATA(lo_bad_request).
-        DATA(lv_error) = |Bad request: { lo_bad_request->get_text( ) }|.
-        MESSAGE lv_error TYPE 'I'.
-      CATCH /aws1/cx_pptnotfoundexception INTO DATA(lo_not_found).
-        lv_error = |Not found: { lo_not_found->get_text( ) }|.
-        MESSAGE lv_error TYPE 'I'.
-    ENDTRY.
+    MESSAGE 'Templated email message sent successfully.' TYPE 'I'.
     " snippet-end:[ppt.abapv1.send_templated_email_message]
   ENDMETHOD.
 
@@ -234,52 +210,44 @@ CLASS /AWSEX/CL_PPT_ACTIONS IMPLEMENTATION.
     DATA(lo_ppt) = /aws1/cl_ppt_factory=>create( lo_session ).
 
     " snippet-start:[ppt.abapv1.send_templated_sms_message]
-    TRY.
-        " Build the addresses map for the destination number
-        DATA lt_addresses TYPE /aws1/cl_pptaddressconf=>tt_mapofaddressconfiguration.
-        INSERT VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
-          key = iv_destination_number
-          value = NEW /aws1/cl_pptaddressconf( iv_channeltype = 'SMS' )
-        ) INTO TABLE lt_addresses.
+    " Build the addresses map for the destination number
+    DATA lt_addresses TYPE /aws1/cl_pptaddressconf=>tt_mapofaddressconfiguration.
+    INSERT VALUE /aws1/cl_pptaddressconf=>ts_mapofaddressconf_maprow(
+      key = iv_destination_number
+      value = NEW /aws1/cl_pptaddressconf( iv_channeltype = 'SMS' )
+    ) INTO TABLE lt_addresses.
 
-        " Send the SMS message using a template
-        DATA(lo_result) = lo_ppt->sendmessages(
-          iv_applicationid = iv_app_id
-          io_messagerequest = NEW /aws1/cl_pptmessagerequest(
-            it_addresses = lt_addresses
-            io_messageconfiguration = NEW /aws1/cl_pptdirectmessageconf(
-              io_smsmessage = NEW /aws1/cl_pptsmsmessage(
-                iv_messagetype = iv_message_type
-                iv_originationnumber = iv_origination_number
-              )
-            )
-            io_templateconfiguration = NEW /aws1/cl_ppttemplateconf(
-              io_smstemplate = NEW /aws1/cl_ppttemplate(
-                iv_name = iv_template_name
-                iv_version = iv_template_version
-              )
-            )
+    " Send the SMS message using a template
+    DATA(lo_result) = lo_ppt->sendmessages(
+      iv_applicationid = iv_app_id
+      io_messagerequest = NEW /aws1/cl_pptmessagerequest(
+        it_addresses = lt_addresses
+        io_messageconfiguration = NEW /aws1/cl_pptdirectmessageconf(
+          io_smsmessage = NEW /aws1/cl_pptsmsmessage(
+            iv_messagetype = iv_message_type
+            iv_originationnumber = iv_origination_number
           )
-        ).
+        )
+        io_templateconfiguration = NEW /aws1/cl_ppttemplateconf(
+          io_smstemplate = NEW /aws1/cl_ppttemplate(
+            iv_name = iv_template_name
+            iv_version = iv_template_version
+          )
+        )
+      )
+    ).
 
-        " Extract message ID from response
-        DATA(lo_message_response) = lo_result->get_messageresponse( ).
-        DATA(lt_results) = lo_message_response->get_result( ).
-        LOOP AT lt_results INTO DATA(ls_result).
-          IF ls_result-key = iv_destination_number.
-            ov_message_id = ls_result-value->get_messageid( ).
-            EXIT.
-          ENDIF.
-        ENDLOOP.
+    " Extract message ID from response
+    DATA(lo_message_response) = lo_result->get_messageresponse( ).
+    DATA(lt_results) = lo_message_response->get_result( ).
+    LOOP AT lt_results INTO DATA(ls_result).
+      IF ls_result-key = iv_destination_number.
+        ov_message_id = ls_result-value->get_messageid( ).
+        EXIT.
+      ENDIF.
+    ENDLOOP.
 
-        MESSAGE 'Templated SMS message sent successfully.' TYPE 'I'.
-      CATCH /aws1/cx_pptbadrequestex INTO DATA(lo_bad_request).
-        DATA(lv_error) = |Bad request: { lo_bad_request->get_text( ) }|.
-        MESSAGE lv_error TYPE 'I'.
-      CATCH /aws1/cx_pptnotfoundexception INTO DATA(lo_not_found).
-        lv_error = |Not found: { lo_not_found->get_text( ) }|.
-        MESSAGE lv_error TYPE 'I'.
-    ENDTRY.
+    MESSAGE 'Templated SMS message sent successfully.' TYPE 'I'.
     " snippet-end:[ppt.abapv1.send_templated_sms_message]
   ENDMETHOD.
 ENDCLASS.
