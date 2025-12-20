@@ -33,27 +33,23 @@ CLASS ltc_awsex_cl_cfs_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-METHODS setup_config_recorder RAISING /aws1/cx_rt_generic.
     CLASS-METHODS create_config_role RAISING /aws1/cx_rt_generic.
     CLASS-METHODS cleanup_config_recorder.
-
-    METHODS wait_for_rule_creation
+    CLASS-METHODS create_and_wait_for_rule
+      IMPORTING
+        iv_rule_name    TYPE /aws1/cfsconfigrulename
+        iv_description  TYPE /aws1/cfsstring
+      RAISING
+        /aws1/cx_rt_generic.
+    CLASS-METHODS wait_for_rule_creation
       IMPORTING
         iv_rule_name TYPE /aws1/cfsconfigrulename
       RAISING
         /aws1/cx_rt_generic.
-
-
 
     METHODS assert_rule_exists
       IMPORTING
         iv_rule_name TYPE /aws1/cfsconfigrulename
         iv_exp       TYPE abap_bool
         iv_msg       TYPE string
-      RAISING
-        /aws1/cx_rt_generic.
-
-    METHODS create_and_wait_for_rule
-      IMPORTING
-        iv_rule_name    TYPE /aws1/cfsconfigrulename
-        iv_description  TYPE /aws1/cfsstring
       RAISING
         /aws1/cx_rt_generic.
 ENDCLASS.
@@ -151,7 +147,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
       CATCH /aws1/cx_iamnosuchentityex.
         " Policy not attached
       CATCH /aws1/cx_iaminvalidinputex
-            /aws1/cx_iamsvccfailureex.
+            /aws1/cx_iamservicefailureex.
         " Log but continue cleanup
     ENDTRY.
 
@@ -164,7 +160,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
       CATCH /aws1/cx_iamnosuchentityex.
         " Policy doesn't exist
       CATCH /aws1/cx_iaminvalidinputex
-            /aws1/cx_iamsvccfailureex.
+            /aws1/cx_iamservicefailureex.
         " Log but continue cleanup
     ENDTRY.
 
