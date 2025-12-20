@@ -133,6 +133,9 @@ CLASS ltc_awsex_cl_ply_actions IMPLEMENTATION.
   METHOD describe_voices.
     DATA lo_result TYPE REF TO /aws1/cl_plydescrvoicesoutput.
 
+    " Don't pass optional parameters if they're not set
+    " iv_engine - Example: 'neural'
+    " iv_language - Example: 'en-US'
     ao_ply_actions->describe_voices(
       IMPORTING
         oo_result = lo_result ).
@@ -154,6 +157,7 @@ CLASS ltc_awsex_cl_ply_actions IMPLEMENTATION.
     " iv_voice_id - Example: 'Joanna'
     " iv_engine - Example: 'neural'
     " iv_output_fmt - Example: 'mp3'
+    " Don't pass iv_lang_code as it's optional and will cause validation error if empty
     ao_ply_actions->synthesize_speech(
       EXPORTING
         iv_text = 'Hello from Amazon Polly'
@@ -284,6 +288,7 @@ CLASS ltc_awsex_cl_ply_actions IMPLEMENTATION.
     " iv_engine - Example: 'neural'
     " iv_audio_format - Example: 'mp3'
     " iv_s3_bucket - Example: 'my-bucket'
+    " Don't pass iv_lang_code as it's optional and will cause validation error if empty
     ao_ply_actions->start_speech_synthesis_task(
       EXPORTING
         iv_text = 'This is a test for asynchronous speech synthesis from ABAP SDK.'
@@ -397,6 +402,7 @@ CLASS ltc_awsex_cl_ply_actions IMPLEMENTATION.
       ENDTRY.
     ENDIF.
 
+    " Don't pass optional parameters - they cause validation errors if empty
     " iv_max_results - Example: 10
     " iv_status - Example: 'completed', 'scheduled', 'inProgress', 'failed'
     ao_ply_actions->list_speech_synthesis_tasks(

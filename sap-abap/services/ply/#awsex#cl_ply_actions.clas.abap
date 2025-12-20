@@ -101,9 +101,20 @@ CLASS /awsex/cl_ply_actions IMPLEMENTATION.
 
     " snippet-start:[ply.abapv1.describe_voices]
     TRY.
-        oo_result = lo_ply->describevoices(
-          iv_engine = iv_engine
-          iv_languagecode = iv_language ).
+        " Only pass optional parameters if they have values
+        IF iv_engine IS NOT INITIAL AND iv_language IS NOT INITIAL.
+          oo_result = lo_ply->describevoices(
+            iv_engine = iv_engine
+            iv_languagecode = iv_language ).
+        ELSEIF iv_engine IS NOT INITIAL.
+          oo_result = lo_ply->describevoices(
+            iv_engine = iv_engine ).
+        ELSEIF iv_language IS NOT INITIAL.
+          oo_result = lo_ply->describevoices(
+            iv_languagecode = iv_language ).
+        ELSE.
+          oo_result = lo_ply->describevoices( ).
+        ENDIF.
         MESSAGE 'Retrieved voice metadata.' TYPE 'I'.
       CATCH /aws1/cx_plyinvalidnexttokenex.
         MESSAGE 'The NextToken is invalid.' TYPE 'E'.
@@ -121,12 +132,21 @@ CLASS /awsex/cl_ply_actions IMPLEMENTATION.
 
     " snippet-start:[ply.abapv1.synthesize_speech]
     TRY.
-        oo_result = lo_ply->synthesizespeech(
-          iv_engine = iv_engine
-          iv_outputformat = iv_output_fmt
-          iv_text = iv_text
-          iv_voiceid = iv_voice_id
-          iv_languagecode = iv_lang_code ).
+        " Only pass optional language code if it has a value
+        IF iv_lang_code IS NOT INITIAL.
+          oo_result = lo_ply->synthesizespeech(
+            iv_engine = iv_engine
+            iv_outputformat = iv_output_fmt
+            iv_text = iv_text
+            iv_voiceid = iv_voice_id
+            iv_languagecode = iv_lang_code ).
+        ELSE.
+          oo_result = lo_ply->synthesizespeech(
+            iv_engine = iv_engine
+            iv_outputformat = iv_output_fmt
+            iv_text = iv_text
+            iv_voiceid = iv_voice_id ).
+        ENDIF.
         MESSAGE 'Speech synthesized successfully.' TYPE 'I'.
       CATCH /aws1/cx_plyinvalidssmlex.
         MESSAGE 'Invalid SSML.' TYPE 'E'.
@@ -148,14 +168,40 @@ CLASS /awsex/cl_ply_actions IMPLEMENTATION.
 
     " snippet-start:[ply.abapv1.start_speech_synthesis_task]
     TRY.
-        oo_result = lo_ply->startspeechsynthesistask(
-          iv_engine = iv_engine
-          iv_outputformat = iv_audio_format
-          iv_outputs3bucketname = iv_s3_bucket
-          iv_outputs3keyprefix = iv_s3_key_prefix
-          iv_text = iv_text
-          iv_voiceid = iv_voice_id
-          iv_languagecode = iv_lang_code ).
+        " Only pass optional parameters if they have values
+        IF iv_lang_code IS NOT INITIAL AND iv_s3_key_prefix IS NOT INITIAL.
+          oo_result = lo_ply->startspeechsynthesistask(
+            iv_engine = iv_engine
+            iv_outputformat = iv_audio_format
+            iv_outputs3bucketname = iv_s3_bucket
+            iv_outputs3keyprefix = iv_s3_key_prefix
+            iv_text = iv_text
+            iv_voiceid = iv_voice_id
+            iv_languagecode = iv_lang_code ).
+        ELSEIF iv_lang_code IS NOT INITIAL.
+          oo_result = lo_ply->startspeechsynthesistask(
+            iv_engine = iv_engine
+            iv_outputformat = iv_audio_format
+            iv_outputs3bucketname = iv_s3_bucket
+            iv_text = iv_text
+            iv_voiceid = iv_voice_id
+            iv_languagecode = iv_lang_code ).
+        ELSEIF iv_s3_key_prefix IS NOT INITIAL.
+          oo_result = lo_ply->startspeechsynthesistask(
+            iv_engine = iv_engine
+            iv_outputformat = iv_audio_format
+            iv_outputs3bucketname = iv_s3_bucket
+            iv_outputs3keyprefix = iv_s3_key_prefix
+            iv_text = iv_text
+            iv_voiceid = iv_voice_id ).
+        ELSE.
+          oo_result = lo_ply->startspeechsynthesistask(
+            iv_engine = iv_engine
+            iv_outputformat = iv_audio_format
+            iv_outputs3bucketname = iv_s3_bucket
+            iv_text = iv_text
+            iv_voiceid = iv_voice_id ).
+        ENDIF.
         MESSAGE 'Speech synthesis task started.' TYPE 'I'.
       CATCH /aws1/cx_plyinvalids3bucketex.
         MESSAGE 'Invalid S3 bucket.' TYPE 'E'.
@@ -203,9 +249,20 @@ CLASS /awsex/cl_ply_actions IMPLEMENTATION.
 
     " snippet-start:[ply.abapv1.list_speech_synthesis_tasks]
     TRY.
-        oo_result = lo_ply->listspeechsynthesistasks(
-          iv_maxresults = iv_max_results
-          iv_status = iv_status ).
+        " Only pass optional parameters if they have values
+        IF iv_max_results IS NOT INITIAL AND iv_status IS NOT INITIAL.
+          oo_result = lo_ply->listspeechsynthesistasks(
+            iv_maxresults = iv_max_results
+            iv_status = iv_status ).
+        ELSEIF iv_max_results IS NOT INITIAL.
+          oo_result = lo_ply->listspeechsynthesistasks(
+            iv_maxresults = iv_max_results ).
+        ELSEIF iv_status IS NOT INITIAL.
+          oo_result = lo_ply->listspeechsynthesistasks(
+            iv_status = iv_status ).
+        ELSE.
+          oo_result = lo_ply->listspeechsynthesistasks( ).
+        ENDIF.
         DATA(lt_tasks) = oo_result->get_synthesistasks( ).
         DATA(lv_count) = lines( lt_tasks ).
         MESSAGE |Found { lv_count } synthesis tasks| TYPE 'I'.
