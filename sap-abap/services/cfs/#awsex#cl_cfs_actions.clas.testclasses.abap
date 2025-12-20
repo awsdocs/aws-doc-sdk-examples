@@ -169,7 +169,7 @@ CLASS ltc_awsex_cl_cfs_actions IMPLEMENTATION.
         ao_iam->deleterole( iv_rolename = av_config_role_name ).
       CATCH /aws1/cx_iamnosuchentityex.
         " Role doesn't exist
-      CATCH /aws1/cx_iamdelconflictex
+      CATCH /aws1/cx_iamdeleteconflictex
             /aws1/cx_iaminvalidinputex.
         " Log but continue cleanup
     ENDTRY.
