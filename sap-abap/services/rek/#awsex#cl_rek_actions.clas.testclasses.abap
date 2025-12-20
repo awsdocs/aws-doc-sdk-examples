@@ -447,8 +447,10 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
           msg = 'Collection list should not be empty' ).
 
         " Verify our test collection is in the list
+        DATA lo_collection_wrapper TYPE REF TO /aws1/cl_rekcollectionidlist_w.
         lv_found = abap_false.
-        LOOP AT lt_collections INTO lv_collection_id.
+        LOOP AT lt_collections INTO lo_collection_wrapper.
+          lv_collection_id = lo_collection_wrapper->get_value( ).
           IF lv_collection_id = av_collection_id.
             lv_found = abap_true.
             EXIT.
@@ -846,8 +848,10 @@ CLASS ltc_awsex_cl_rek_actions IMPLEMENTATION.
       cl_abap_unit_assert=>fail( msg = 'Could not obtain face ID for delete_faces test' ).
     ENDIF.
 
-    " Create face ID list
-    APPEND lv_face_id_to_delete TO lt_face_ids.
+    " Create face ID list with wrapper
+    DATA lo_face_id_wrapper TYPE REF TO /aws1/cl_rekfaceidlist_w.
+    lo_face_id_wrapper = NEW /aws1/cl_rekfaceidlist_w( iv_value = lv_face_id_to_delete ).
+    INSERT lo_face_id_wrapper INTO TABLE lt_face_ids.
 
     TRY.
         ao_rek_actions->delete_faces(

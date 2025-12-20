@@ -402,7 +402,8 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
 
         " Detect faces in the image with all attributes
         DATA(lt_attributes) = VALUE /aws1/cl_rekattributes_w=>tt_attributes( ).
-        APPEND 'ALL' TO lt_attributes.
+        DATA(lo_attr_wrapper) = NEW /aws1/cl_rekattributes_w( iv_value = 'ALL' ).
+        INSERT lo_attr_wrapper INTO TABLE lt_attributes.
 
         oo_result = lo_rek->detectfaces(
           io_image = lo_image
