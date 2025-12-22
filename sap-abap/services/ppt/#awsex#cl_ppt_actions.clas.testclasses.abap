@@ -41,7 +41,9 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
     av_lv_uuid = /awsex/cl_utils=>get_random_string( ).
 
     " Create Pinpoint application - Required for all tests
-    " Required IAM permissions: mobiletargeting:CreateApp, mobiletargeting:TagResource
+    " Required IAM permissions: 
+    "   - mobiletargeting:CreateApp
+    "   - mobiletargeting:TagResource
     " iv_name example: 'MyPinpointApp'
     DATA(lv_app_name) = |abap-ppt-app-{ av_lv_uuid }|.
     TRY.
@@ -63,7 +65,9 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         MESSAGE |Pinpoint application created: { av_app_id }| TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_error).
         " Fail test setup if we can't create the app
-        " Required IAM permissions: mobiletargeting:CreateApp, mobiletargeting:TagResource
+        " If this fails, ensure the IAM role/user has the following permissions:
+        "   - mobiletargeting:CreateApp
+        "   - mobiletargeting:TagResource
         cl_abap_unit_assert=>fail( |Failed to create Pinpoint application: { lo_error->get_text( ) }. Required IAM permissions: mobiletargeting:CreateApp, mobiletargeting:TagResource| ).
     ENDTRY.
 
@@ -85,8 +89,11 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
     av_destination_number = '+14255550142'.
 
     " Try to create email template for testing templated email message
-    " Required IAM permissions: mobiletargeting:CreateEmailTemplate, mobiletargeting:TagResource
+    " Required IAM permissions: 
+    "   - mobiletargeting:CreateEmailTemplate
+    "   - mobiletargeting:TagResource
     " Note: Template creation may fail due to missing permissions - tests will adapt accordingly
+    " If template creation fails, ensure IAM role/user has mobiletargeting:CreateEmailTemplate
     av_email_template_name = |abap-email-tmpl-{ av_lv_uuid }|.
     TRY.
         ao_ppt->createemailtemplate(
@@ -109,13 +116,16 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         MESSAGE |Email template created: { av_email_template_name }| TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_email_tmpl_error).
         " Log the error but continue - template is optional for testing the API call structure
-        MESSAGE |Email template creation failed: { lo_email_tmpl_error->get_text( ) }. Templated email test will use alternative approach.| TYPE 'I'.
+        MESSAGE |Email template creation failed: { lo_email_tmpl_error->get_text( ) }. Templated email test will use alternative approach. Ensure IAM permissions: mobiletargeting:CreateEmailTemplate, mobiletargeting:TagResource| TYPE 'I'.
         CLEAR av_email_template_name.
     ENDTRY.
 
     " Try to create SMS template for testing templated SMS message
-    " Required IAM permissions: mobiletargeting:CreateSmsTemplate, mobiletargeting:TagResource
+    " Required IAM permissions: 
+    "   - mobiletargeting:CreateSmsTemplate
+    "   - mobiletargeting:TagResource
     " Note: Template creation may fail due to missing permissions - tests will adapt accordingly
+    " If template creation fails, ensure IAM role/user has mobiletargeting:CreateSmsTemplate
     av_sms_template_name = |abap-sms-tmpl-{ av_lv_uuid }|.
     TRY.
         ao_ppt->createsmstemplate(
@@ -136,7 +146,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         MESSAGE |SMS template created: { av_sms_template_name }| TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_sms_tmpl_error).
         " Log the error but continue - template is optional for testing the API call structure
-        MESSAGE |SMS template creation failed: { lo_sms_tmpl_error->get_text( ) }. Templated SMS test will use alternative approach.| TYPE 'I'.
+        MESSAGE |SMS template creation failed: { lo_sms_tmpl_error->get_text( ) }. Templated SMS test will use alternative approach. Ensure IAM permissions: mobiletargeting:CreateSmsTemplate, mobiletargeting:TagResource| TYPE 'I'.
         CLEAR av_sms_template_name.
     ENDTRY.
   ENDMETHOD.
@@ -180,8 +190,10 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD send_email_message.
-    " Required IAM permissions: mobiletargeting:SendMessages
+    " Required IAM permissions: 
+    "   - mobiletargeting:SendMessages
     " Note: Email channel must be configured in Pinpoint app and sender email must be verified
+    " If this test fails with permission errors, ensure IAM role/user has mobiletargeting:SendMessages
     
     " Verify prerequisites from setup
     cl_abap_unit_assert=>assert_not_initial(
@@ -243,8 +255,10 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD send_sms_message.
-    " Required IAM permissions: mobiletargeting:SendMessages
+    " Required IAM permissions: 
+    "   - mobiletargeting:SendMessages
     " Note: SMS channel must be configured in Pinpoint app and phone numbers must be verified/registered
+    " If this test fails with permission errors, ensure IAM role/user has mobiletargeting:SendMessages
     
     " Verify prerequisites from setup
     cl_abap_unit_assert=>assert_not_initial(
@@ -300,9 +314,11 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD send_templated_email_msg.
-    " Required IAM permissions: mobiletargeting:SendMessages
+    " Required IAM permissions: 
+    "   - mobiletargeting:SendMessages
     " Note: Email channel must be configured in Pinpoint app and sender email must be verified
     " Note: Template creation requires mobiletargeting:CreateEmailTemplate permission
+    " If this test fails with permission errors, ensure IAM role/user has mobiletargeting:SendMessages
     
     " Verify prerequisites from setup
     cl_abap_unit_assert=>assert_not_initial(
@@ -374,9 +390,11 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD send_templated_sms_msg.
-    " Required IAM permissions: mobiletargeting:SendMessages
+    " Required IAM permissions: 
+    "   - mobiletargeting:SendMessages
     " Note: SMS channel must be configured in Pinpoint app and phone numbers must be verified/registered
     " Note: Template creation requires mobiletargeting:CreateSmsTemplate permission
+    " If this test fails with permission errors, ensure IAM role/user has mobiletargeting:SendMessages
     
     " Verify prerequisites from setup
     cl_abap_unit_assert=>assert_not_initial(
