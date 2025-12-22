@@ -83,7 +83,6 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
     av_destination_number = '+14255550142'.
 
     " Try to create email template for testing templated email message
-    " If this fails due to permissions, tests will skip templated email examples
     av_email_template_name = |abap-email-tmpl-{ av_lv_uuid }|.
     TRY.
         ao_ppt->createemailtemplate(
@@ -104,18 +103,12 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         WAIT UP TO 1 SECONDS.
         
         MESSAGE |Email template created: { av_email_template_name }| TYPE 'I'.
-      CATCH /aws1/cx_pptforbiddenexception INTO DATA(lo_forbidden).
-        " Template creation not permitted - templated email tests will be skipped
-        MESSAGE |Email template creation not permitted (insufficient IAM permissions): { lo_forbidden->get_text( ) }| TYPE 'I'.
-        CLEAR av_email_template_name.
-      CATCH /aws1/cx_rt_generic INTO lo_error.
-        " Other errors - log but don't fail setup
-        MESSAGE |Email template creation failed: { lo_error->get_text( ) }| TYPE 'I'.
-        CLEAR av_email_template_name.
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_email_tmpl_error).
+        " Fail setup if we can't create the template
+        cl_abap_unit_assert=>fail( |Failed to create email template: { lo_email_tmpl_error->get_text( ) }. Check IAM permissions for pinpoint:CreateEmailTemplate| ).
     ENDTRY.
 
     " Try to create SMS template for testing templated SMS message
-    " If this fails due to permissions, tests will skip templated SMS examples
     av_sms_template_name = |abap-sms-tmpl-{ av_lv_uuid }|.
     TRY.
         ao_ppt->createsmstemplate(
@@ -134,14 +127,9 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         WAIT UP TO 1 SECONDS.
         
         MESSAGE |SMS template created: { av_sms_template_name }| TYPE 'I'.
-      CATCH /aws1/cx_pptforbiddenexception INTO lo_forbidden.
-        " Template creation not permitted - templated SMS tests will be skipped
-        MESSAGE |SMS template creation not permitted (insufficient IAM permissions): { lo_forbidden->get_text( ) }| TYPE 'I'.
-        CLEAR av_sms_template_name.
-      CATCH /aws1/cx_rt_generic INTO lo_error.
-        " Other errors - log but don't fail setup
-        MESSAGE |SMS template creation failed: { lo_error->get_text( ) }| TYPE 'I'.
-        CLEAR av_sms_template_name.
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_sms_tmpl_error).
+        " Fail setup if we can't create the template
+        cl_abap_unit_assert=>fail( |Failed to create SMS template: { lo_sms_tmpl_error->get_text( ) }. Check IAM permissions for pinpoint:CreateSmsTemplate| ).
     ENDTRY.
   ENDMETHOD.
 
@@ -298,19 +286,16 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD send_templated_email_msg.
-    " Check if email template was created in setup
-    IF av_email_template_name IS INITIAL.
-      MESSAGE 'Skipping templated email test - template creation not permitted (insufficient IAM permissions)' TYPE 'I'.
-      RETURN.
-    ENDIF.
-
     " Verify prerequisites from setup
     cl_abap_unit_assert=>assert_not_initial(
       act = av_app_id
       msg = 'Pinpoint application ID not initialized in setup' ).
+    
+    " If template wasn't created in setup, fail the test
+    " We don't skip tests - if resources can't be created, the test should fail
     cl_abap_unit_assert=>assert_not_initial(
       act = av_email_template_name
-      msg = 'Email template name not initialized in setup' ).
+      msg = 'Email template was not created in setup - check IAM permissions for Pinpoint template creation' ).
 
     " Build the to_addresses list
     DATA lt_to_addresses TYPE /aws1/cl_pptlistof__string_w=>tt_listof__string.
@@ -365,19 +350,16 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD send_templated_sms_msg.
-    " Check if SMS template was created in setup
-    IF av_sms_template_name IS INITIAL.
-      MESSAGE 'Skipping templated SMS test - template creation not permitted (insufficient IAM permissions)' TYPE 'I'.
-      RETURN.
-    ENDIF.
-
     " Verify prerequisites from setup
     cl_abap_unit_assert=>assert_not_initial(
       act = av_app_id
       msg = 'Pinpoint application ID not initialized in setup' ).
+    
+    " If template wasn't created in setup, fail the test
+    " We don't skip tests - if resources can't be created, the test should fail
     cl_abap_unit_assert=>assert_not_initial(
       act = av_sms_template_name
-      msg = 'SMS template name not initialized in setup' ).
+      msg = 'SMS template was not created in setup - check IAM permissions for Pinpoint template creation' ).
 
     DATA lv_message_id TYPE /aws1/ppt__string.
     DATA lv_test_passed TYPE abap_bool VALUE abap_false.
