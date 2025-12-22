@@ -41,6 +41,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
     av_lv_uuid = /awsex/cl_utils=>get_random_string( ).
 
     " Create Pinpoint application - Required for all tests
+    " Required IAM permissions: mobiletargeting:CreateApp, mobiletargeting:TagResource
     " iv_name example: 'MyPinpointApp'
     DATA(lv_app_name) = |abap-ppt-app-{ av_lv_uuid }|.
     TRY.
@@ -62,7 +63,8 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         MESSAGE |Pinpoint application created: { av_app_id }| TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_error).
         " Fail test setup if we can't create the app
-        cl_abap_unit_assert=>fail( |Failed to create Pinpoint application: { lo_error->get_text( ) }| ).
+        " Required IAM permissions: mobiletargeting:CreateApp, mobiletargeting:TagResource
+        cl_abap_unit_assert=>fail( |Failed to create Pinpoint application: { lo_error->get_text( ) }. Required IAM permissions: mobiletargeting:CreateApp, mobiletargeting:TagResource| ).
     ENDTRY.
 
     " Verify application was created successfully before proceeding
@@ -83,6 +85,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
     av_destination_number = '+14255550142'.
 
     " Try to create email template for testing templated email message
+    " Required IAM permissions: mobiletargeting:CreateEmailTemplate, mobiletargeting:TagResource
     av_email_template_name = |abap-email-tmpl-{ av_lv_uuid }|.
     TRY.
         ao_ppt->createemailtemplate(
@@ -105,10 +108,12 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         MESSAGE |Email template created: { av_email_template_name }| TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_email_tmpl_error).
         " Fail setup if we can't create the template
-        cl_abap_unit_assert=>fail( |Failed to create email template: { lo_email_tmpl_error->get_text( ) }. Check IAM permissions for pinpoint:CreateEmailTemplate| ).
+        " Required IAM permissions: mobiletargeting:CreateEmailTemplate, mobiletargeting:TagResource
+        cl_abap_unit_assert=>fail( |Failed to create email template: { lo_email_tmpl_error->get_text( ) }. Required IAM permissions: mobiletargeting:CreateEmailTemplate, mobiletargeting:TagResource| ).
     ENDTRY.
 
     " Try to create SMS template for testing templated SMS message
+    " Required IAM permissions: mobiletargeting:CreateSmsTemplate, mobiletargeting:TagResource
     av_sms_template_name = |abap-sms-tmpl-{ av_lv_uuid }|.
     TRY.
         ao_ppt->createsmstemplate(
@@ -129,7 +134,8 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         MESSAGE |SMS template created: { av_sms_template_name }| TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_sms_tmpl_error).
         " Fail setup if we can't create the template
-        cl_abap_unit_assert=>fail( |Failed to create SMS template: { lo_sms_tmpl_error->get_text( ) }. Check IAM permissions for pinpoint:CreateSmsTemplate| ).
+        " Required IAM permissions: mobiletargeting:CreateSmsTemplate, mobiletargeting:TagResource
+        cl_abap_unit_assert=>fail( |Failed to create SMS template: { lo_sms_tmpl_error->get_text( ) }. Required IAM permissions: mobiletargeting:CreateSmsTemplate, mobiletargeting:TagResource| ).
     ENDTRY.
   ENDMETHOD.
 
@@ -172,6 +178,9 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD send_email_message.
+    " Required IAM permissions: mobiletargeting:SendMessages
+    " Note: Email channel must be configured in Pinpoint app and sender email must be verified
+    
     " Verify prerequisites from setup
     cl_abap_unit_assert=>assert_not_initial(
       act = av_app_id
@@ -184,7 +193,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
     DATA lt_message_ids TYPE /aws1/cl_pptmessageresult=>tt_mapofmessageresult.
     DATA lv_test_passed TYPE abap_bool VALUE abap_false.
 
-    " Note: This test will demonstrate the API call structure
+    " This test demonstrates the API call structure
     " It may fail if email addresses are not verified in Amazon Pinpoint
     " or if the application does not have email channel configured
     TRY.
@@ -204,7 +213,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         " If we reach here, the call succeeded
         lv_test_passed = abap_true.
 
-        " Log the result (message IDs may or may not be present)
+        " Log the result
         IF lt_message_ids IS NOT INITIAL.
           MESSAGE |Email message test completed successfully. Message count: { lines( lt_message_ids ) }| TYPE 'I'.
         ELSE.
@@ -232,6 +241,9 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD send_sms_message.
+    " Required IAM permissions: mobiletargeting:SendMessages
+    " Note: SMS channel must be configured in Pinpoint app and phone numbers must be verified/registered
+    
     " Verify prerequisites from setup
     cl_abap_unit_assert=>assert_not_initial(
       act = av_app_id
@@ -240,7 +252,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
     DATA lv_message_id TYPE /aws1/ppt__string.
     DATA lv_test_passed TYPE abap_bool VALUE abap_false.
 
-    " Note: This test will demonstrate the API call structure
+    " This test demonstrates the API call structure
     " It may fail if phone numbers are not registered in Amazon Pinpoint
     " or if the application does not have SMS channel configured
     TRY.
@@ -258,7 +270,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         " If we reach here, the call succeeded
         lv_test_passed = abap_true.
         
-        " Log the result (message ID may or may not be present)
+        " Log the result
         IF lv_message_id IS NOT INITIAL.
           MESSAGE |SMS message test completed successfully. Message ID: { lv_message_id }| TYPE 'I'.
         ELSE.
@@ -286,13 +298,15 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD send_templated_email_msg.
+    " Required IAM permissions: mobiletargeting:SendMessages
+    " Note: Email channel must be configured in Pinpoint app and sender email must be verified
+    
     " Verify prerequisites from setup
     cl_abap_unit_assert=>assert_not_initial(
       act = av_app_id
       msg = 'Pinpoint application ID not initialized in setup' ).
     
     " If template wasn't created in setup, fail the test
-    " We don't skip tests - if resources can't be created, the test should fail
     cl_abap_unit_assert=>assert_not_initial(
       act = av_email_template_name
       msg = 'Email template was not created in setup - check IAM permissions for Pinpoint template creation' ).
@@ -304,7 +318,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
     DATA lt_message_ids TYPE /aws1/cl_pptmessageresult=>tt_mapofmessageresult.
     DATA lv_test_passed TYPE abap_bool VALUE abap_false.
 
-    " Note: This test will demonstrate the API call structure
+    " This test demonstrates the API call structure
     " It may fail if email addresses are not verified in Amazon Pinpoint
     " or if the application does not have email channel configured
     TRY.
@@ -322,7 +336,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         " If we reach here, the call succeeded
         lv_test_passed = abap_true.
 
-        " Log the result (message IDs may or may not be present)
+        " Log the result
         IF lt_message_ids IS NOT INITIAL.
           MESSAGE |Templated email message test completed successfully. Message count: { lines( lt_message_ids ) }| TYPE 'I'.
         ELSE.
@@ -350,13 +364,15 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD send_templated_sms_msg.
+    " Required IAM permissions: mobiletargeting:SendMessages
+    " Note: SMS channel must be configured in Pinpoint app and phone numbers must be verified/registered
+    
     " Verify prerequisites from setup
     cl_abap_unit_assert=>assert_not_initial(
       act = av_app_id
       msg = 'Pinpoint application ID not initialized in setup' ).
     
     " If template wasn't created in setup, fail the test
-    " We don't skip tests - if resources can't be created, the test should fail
     cl_abap_unit_assert=>assert_not_initial(
       act = av_sms_template_name
       msg = 'SMS template was not created in setup - check IAM permissions for Pinpoint template creation' ).
@@ -364,7 +380,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
     DATA lv_message_id TYPE /aws1/ppt__string.
     DATA lv_test_passed TYPE abap_bool VALUE abap_false.
 
-    " Note: This test will demonstrate the API call structure
+    " This test demonstrates the API call structure
     " It may fail if phone numbers are not registered in Amazon Pinpoint
     " or if the application does not have SMS channel configured
     TRY.
@@ -383,7 +399,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         " If we reach here, the call succeeded
         lv_test_passed = abap_true.
 
-        " Log the result (message ID may or may not be present)
+        " Log the result
         IF lv_message_id IS NOT INITIAL.
           MESSAGE |Templated SMS message test completed successfully. Message ID: { lv_message_id }| TYPE 'I'.
         ELSE.
