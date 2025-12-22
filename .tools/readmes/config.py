@@ -207,6 +207,7 @@ language = {
                 "glue": "sap-abap/services/glu",
                 "kinesis": "sap-abap/services/kns",
                 "lambda": "sap-abap/services/lmd",
+                "polly": "sap-abap/services/ply",
                 "sagemaker": "sap-abap/services/sgm",
                 "scheduler": "sap-abap/services/scd",
                 "secrets-manager": "sap-abap/services/smr",
