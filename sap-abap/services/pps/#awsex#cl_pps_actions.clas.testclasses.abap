@@ -41,6 +41,55 @@ ENDCLASS.
 CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
 
   METHOD class_setup.
+    " ====================================================================
+    " REQUIRED IAM PERMISSIONS FOR PINPOINT SMS VOICE V2 TESTS
+    " ====================================================================
+    " The IAM role/user associated with the AWS profile must have the
+    " following policy attached (Pinpoint SMS Voice does NOT support
+    " resource-level permissions, so Resource must be "*"):
+    "
+    " {
+    "   "Version": "2012-10-17",
+    "   "Statement": [
+    "     {
+    "       "Effect": "Allow",
+    "       "Action": [
+    "         "sms-voice:CreateConfigurationSet",
+    "         "sms-voice:DeleteConfigurationSet",
+    "         "sms-voice:ListConfigurationSets",
+    "         "sms-voice:GetConfigurationSetEventDestinations",
+    "         "sms-voice:CreateConfigurationSetEventDestination",
+    "         "sms-voice:UpdateConfigurationSetEventDestination",
+    "         "sms-voice:DeleteConfigurationSetEventDestination",
+    "         "sms-voice:SendVoiceMessage"
+    "       ],
+    "       "Resource": "*"
+    "     },
+    "     {
+    "       "Effect": "Allow",
+    "       "Action": [
+    "         "sns:CreateTopic",
+    "         "sns:DeleteTopic",
+    "         "sns:TagResource",
+    "         "logs:CreateLogGroup",
+    "         "logs:DeleteLogGroup",
+    "         "logs:TagLogGroup",
+    "         "iam:CreateRole",
+    "         "iam:DeleteRole",
+    "         "iam:PutRolePolicy",
+    "         "iam:DeleteRolePolicy",
+    "         "iam:ListRolePolicies",
+    "         "iam:ListAttachedRolePolicies",
+    "         "iam:DetachRolePolicy",
+    "         "iam:TagRole",
+    "         "iam:PassRole"
+    "       ],
+    "       "Resource": "*"
+    "     }
+    "   ]
+    " }
+    " ====================================================================
+
     " Initialize session and clients
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_pps = /aws1/cl_pps_factory=>create( ao_session ).
@@ -83,9 +132,26 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
 
         IF lv_error_msg CS 'Access Denied' OR lv_error_msg CS 'AccessDenied'
           OR lv_error_msg CS 'not authorized' OR lv_error_msg CS 'UnauthorizedOperation'.
-          " IAM permissions are missing - fail the setup
+          " IAM permissions are missing - provide detailed error message
           av_iam_permissions_missing = abap_true.
-          MESSAGE |IAM permissions missing for Pinpoint SMS Voice service: { lv_error_msg }| TYPE 'I'.
+
+          MESSAGE '===============================================' TYPE 'I'.
+          MESSAGE 'MISSING IAM PERMISSIONS FOR PINPOINT SMS VOICE' TYPE 'I'.
+          MESSAGE '===============================================' TYPE 'I'.
+          MESSAGE 'The IAM role/user for profile ZCODE_DEMO must' TYPE 'I'.
+          MESSAGE 'have the following permissions:' TYPE 'I'.
+          MESSAGE '  - sms-voice:CreateConfigurationSet' TYPE 'I'.
+          MESSAGE '  - sms-voice:DeleteConfigurationSet' TYPE 'I'.
+          MESSAGE '  - sms-voice:ListConfigurationSets' TYPE 'I'.
+          MESSAGE '  - sms-voice:GetConfigurationSetEventDestinations' TYPE 'I'.
+          MESSAGE '  - sms-voice:CreateConfigurationSetEventDestination' TYPE 'I'.
+          MESSAGE '  - sms-voice:UpdateConfigurationSetEventDestination' TYPE 'I'.
+          MESSAGE '  - sms-voice:DeleteConfigurationSetEventDestination' TYPE 'I'.
+          MESSAGE '  - sms-voice:SendVoiceMessage' TYPE 'I'.
+          MESSAGE 'Resource must be "*" (no resource-level permissions)' TYPE 'I'.
+          MESSAGE '===============================================' TYPE 'I'.
+          MESSAGE |Original error: { lv_error_msg }| TYPE 'I'.
+
           " Re-raise the client exception to fail the test setup
           RAISE EXCEPTION lo_client_ex.
         ELSE.
