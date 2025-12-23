@@ -48,7 +48,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_rsh = /aws1/cl_rsh_factory=>create( ao_session ).
-    ao_rsh_actions = NEW /awsex/cl_rsh_actions( ).
+    CREATE OBJECT ao_rsh_actions TYPE /awsex/cl_rsh_actions.
 
     " Generate unique cluster identifiers with convert_test tag
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
@@ -94,10 +94,10 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lt_tags TYPE /aws1/cl_rshtag=>tt_taglist.
     DATA lo_tag TYPE REF TO /aws1/cl_rshtag.
     
-    lo_tag = NEW /aws1/cl_rshtag(
-      iv_key = 'convert_test'
-      iv_value = 'true'
-    ).
+    CREATE OBJECT lo_tag
+      EXPORTING
+        iv_key   = 'convert_test'
+        iv_value = 'true'.
     APPEND lo_tag TO lt_tags.
 
     TRY.
@@ -133,10 +133,10 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
     DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
     
-    lo_tag = NEW /aws1/cl_rshtag(
-      iv_key = 'convert_test'
-      iv_value = 'true'
-    ).
+    CREATE OBJECT lo_tag
+      EXPORTING
+        iv_key   = 'convert_test'
+        iv_value = 'true'.
     APPEND lo_tag TO lt_tags.
 
     TRY.

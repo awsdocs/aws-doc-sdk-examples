@@ -69,7 +69,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_rsh = /aws1/cl_rsh_factory=>create( ao_session ).
     ao_rsd = /aws1/cl_rsd_factory=>create( ao_session ).
-    ao_rsd_actions = NEW /awsex/cl_rsd_actions( ).
+    CREATE OBJECT ao_rsd_actions TYPE /awsex/cl_rsd_actions.
 
     " Generate unique cluster identifier
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
@@ -87,10 +87,10 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     ENDIF.
 
     " Create Redshift cluster for testing with convert_test tag
-    lo_tag = NEW /aws1/cl_rshtag(
-      iv_key = 'convert_test'
-      iv_value = 'true'
-    ).
+    CREATE OBJECT lo_tag
+      EXPORTING
+        iv_key   = 'convert_test'
+        iv_value = 'true'.
     APPEND lo_tag TO lt_tags.
 
     TRY.
@@ -404,10 +404,10 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lt_columns TYPE /aws1/cl_rsdcolumnmetadata=>tt_columnmetadatalist.
     DATA lt_records TYPE /aws1/cl_rsdfield=>tt_sqlrecords.
     
-    lo_param = NEW /aws1/cl_rsdsqlparameter(
-      iv_name = 'year'
-      iv_value = '2024'
-    ).
+    CREATE OBJECT lo_param
+      EXPORTING
+        iv_name  = 'year'
+        iv_value = '2024'.
     APPEND lo_param TO lt_parameters.
 
     lv_query_sql = |SELECT * FROM { av_table_name } WHERE year = :year|.
