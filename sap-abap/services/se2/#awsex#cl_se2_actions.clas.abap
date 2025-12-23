@@ -189,7 +189,7 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
     TRY.
         " Create destination with recipient address
         DATA lt_to_addresses TYPE /aws1/cl_se2emailaddresslist_w=>tt_emailaddresslist.
-        APPEND iv_to_email_address TO lt_to_addresses.
+        APPEND NEW /aws1/cl_se2emailaddresslist_w( iv_value = iv_to_email_address ) TO lt_to_addresses.
         DATA(lo_destination) = NEW /aws1/cl_se2destination(
           it_toaddresses = lt_to_addresses ).
 
@@ -233,7 +233,7 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
     TRY.
         " Create destination with recipient address
         DATA lt_to_addresses TYPE /aws1/cl_se2emailaddresslist_w=>tt_emailaddresslist.
-        APPEND iv_to_email_address TO lt_to_addresses.
+        APPEND NEW /aws1/cl_se2emailaddresslist_w( iv_value = iv_to_email_address ) TO lt_to_addresses.
         DATA(lo_destination) = NEW /aws1/cl_se2destination(
           it_toaddresses = lt_to_addresses ).
 
