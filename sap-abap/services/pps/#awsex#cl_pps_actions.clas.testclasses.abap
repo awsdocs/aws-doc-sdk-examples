@@ -86,12 +86,8 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
           " IAM permissions are missing - fail the setup
           av_iam_permissions_missing = abap_true.
           MESSAGE |IAM permissions missing for Pinpoint SMS Voice service: { lv_error_msg }| TYPE 'I'.
-          RAISE EXCEPTION TYPE /aws1/cx_rt_generic
-            EXPORTING
-              iv_msgno = '000'
-              iv_msgid = '00'
-              iv_msgty = 'E'
-              iv_msgv1 = 'IAM permissions missing for sms-voice:*'.
+          " Re-raise the client exception to fail the test setup
+          RAISE EXCEPTION lo_client_ex.
         ELSE.
           " Some other client error - re-raise it
           RAISE EXCEPTION lo_client_ex.
