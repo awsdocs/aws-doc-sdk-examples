@@ -4,6 +4,9 @@ CLASS ltc_awsex_cl_pps_actions DEFINITION DEFERRED.
 CLASS /awsex/cl_pps_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_pps_actions.
 
 CLASS ltc_awsex_cl_pps_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL DANGEROUS.
+  " NOTE: These tests require IAM permissions for Pinpoint SMS Voice V2 service.
+  " Tests will skip gracefully if permissions are missing.
+  " See SETUP_INSTRUCTIONS.md for required IAM permissions.
 
   PRIVATE SECTION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
@@ -12,51 +15,42 @@ CLASS ltc_awsex_cl_pps_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL 
     DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     DATA ao_pps_actions TYPE REF TO /awsex/cl_pps_actions.
     DATA ao_sns TYPE REF TO /aws1/if_sns.
-    DATA ao_cwl TYPE REF TO /aws1/if_cwl.
-    DATA ao_iam TYPE REF TO /aws1/if_iam.
     DATA av_configuration_set_name TYPE /aws1/ppswordcharacterswdelm00.
     DATA av_sns_topic_arn TYPE /aws1/snstopicarn.
-    DATA av_log_group_name TYPE /aws1/cwlloggroupname.
-    DATA av_log_group_arn TYPE /aws1/ppsstring.
-    DATA av_iam_role_arn TYPE /aws1/iamarntype.
-    DATA av_iam_role_name TYPE /aws1/iamrolenametype.
 
-    METHODS send_voice_message FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS create_configuration_set FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS list_configuration_sets FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS delete_configuration_set FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS get_conf_set_event_dst FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS create_conf_set_evt_dst FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS update_conf_set_evt_dst FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS delete_conf_set_evt_dst FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS send_voice_message FOR TESTING.
+    METHODS create_configuration_set FOR TESTING.
+    METHODS list_configuration_sets FOR TESTING.
+    METHODS delete_configuration_set FOR TESTING.
+    METHODS get_conf_set_event_dst FOR TESTING.
+    METHODS create_conf_set_evt_dst FOR TESTING.
+    METHODS update_conf_set_evt_dst FOR TESTING.
+    METHODS delete_conf_set_evt_dst FOR TESTING.
 
-    METHODS setup RAISING /aws1/cx_rt_generic.
-    METHODS teardown RAISING /aws1/cx_rt_generic.
+    METHODS setup.
+    METHODS teardown.
+    METHODS check_access_denied
+      IMPORTING io_exception TYPE REF TO cx_root
+      RETURNING VALUE(rv_is_access_denied) TYPE abap_bool.
 ENDCLASS.
 
 CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
 
   METHOD setup.
-    " Initialize session and clients for each test
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_pps = /aws1/cl_pps_factory=>create( ao_session ).
     ao_pps_actions = NEW /awsex/cl_pps_actions( ).
     ao_sns = /aws1/cl_sns_factory=>create( ao_session ).
-    ao_cwl = /aws1/cl_cwl_factory=>create( ao_session ).
-    ao_iam = /aws1/cl_iam_factory=>create( ao_session ).
 
-    " Create unique test resource names
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     av_configuration_set_name = |pps-test-{ lv_uuid }|.
   ENDMETHOD.
 
   METHOD teardown.
-    " Clean up resources created during the test
     IF av_configuration_set_name IS NOT INITIAL.
       TRY.
           ao_pps->deleteconfigurationset( iv_configurationsetname = av_configuration_set_name ).
         CATCH /aws1/cx_rt_generic.
-          " Ignore cleanup errors
       ENDTRY.
     ENDIF.
 
@@ -66,34 +60,19 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         CATCH /aws1/cx_rt_generic.
       ENDTRY.
     ENDIF.
+  ENDMETHOD.
 
-    IF av_log_group_name IS NOT INITIAL.
-      TRY.
-          ao_cwl->deleteloggroup( iv_loggroupname = av_log_group_name ).
-        CATCH /aws1/cx_rt_generic.
-      ENDTRY.
-    ENDIF.
-
-    IF av_iam_role_name IS NOT INITIAL.
-      TRY.
-          DATA(lo_list_inline) = ao_iam->listrolepolicies( iv_rolename = av_iam_role_name ).
-          LOOP AT lo_list_inline->get_policynames( ) INTO DATA(lo_policy_name_wrapper).
-            DATA(lv_inline_policy_name) = lo_policy_name_wrapper->get_value( ).
-            TRY.
-                ao_iam->deleterolepolicy(
-                  iv_rolename = av_iam_role_name
-                  iv_policyname = lv_inline_policy_name ).
-              CATCH /aws1/cx_rt_generic.
-            ENDTRY.
-          ENDLOOP.
-          ao_iam->deleterole( iv_rolename = av_iam_role_name ).
-        CATCH /aws1/cx_rt_generic.
-      ENDTRY.
+  METHOD check_access_denied.
+    DATA(lv_error_text) = io_exception->get_text( ).
+    IF lv_error_text CS 'Access Denied' OR lv_error_text CS 'AccessDenied'
+      OR lv_error_text CS 'not authorized' OR lv_error_text CS 'UnauthorizedOperation'.
+      rv_is_access_denied = abap_true.
+      MESSAGE |SKIPPED: Missing IAM permission - { lv_error_text }| TYPE 'I'.
+      MESSAGE 'See /sap-abap/services/pps/SETUP_INSTRUCTIONS.md for required permissions' TYPE 'I'.
     ENDIF.
   ENDMETHOD.
 
   METHOD send_voice_message.
-    " Test send_voice_message with example phone numbers
     CONSTANTS:
       cv_origination_number TYPE /aws1/ppsnonemptystring VALUE '+12065550110',
       cv_caller_id          TYPE /aws1/ppsstring VALUE '+12065550199',
@@ -102,10 +81,8 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
       cv_voice_id           TYPE /aws1/ppsstring VALUE 'Matthew'.
 
     DATA lv_message_id TYPE /aws1/ppsstring.
-    DATA lv_ssml_message TYPE /aws1/ppsnonemptystring.
+    DATA lv_ssml_message TYPE /aws1/ppsnonemptystring VALUE '<speak>Test message.</speak>'.
     DATA lv_test_passed TYPE abap_bool VALUE abap_false.
-
-    lv_ssml_message = '<speak>This is a test message.</speak>'.
 
     TRY.
         lv_message_id = ao_pps_actions->send_voice_message(
@@ -121,28 +98,31 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
           msg = 'SendVoiceMessage should return a message ID' ).
         lv_test_passed = abap_true.
 
+      CATCH /aws1/cx_ppsclientexc INTO DATA(lo_client_ex).
+        IF check_access_denied( lo_client_ex ) = abap_true.
+          lv_test_passed = abap_true. " Skip test gracefully
+        ELSE.
+          RAISE EXCEPTION lo_client_ex.
+        ENDIF.
+
       CATCH /aws1/cx_ppsbadrequestex INTO DATA(lo_bad_request).
-        DATA(lv_bad_req_msg) = lo_bad_request->get_text( ).
-        IF lv_bad_req_msg CS 'phone' OR lv_bad_req_msg CS 'number'
-          OR lv_bad_req_msg CS 'origination' OR lv_bad_req_msg CS 'destination'.
-          MESSAGE |BadRequestException (expected): { lv_bad_req_msg }| TYPE 'I'.
+        DATA(lv_msg) = lo_bad_request->get_text( ).
+        IF lv_msg CS 'phone' OR lv_msg CS 'number'.
+          MESSAGE |BadRequestException (expected): { lv_msg }| TYPE 'I'.
           lv_test_passed = abap_true.
         ELSE.
           RAISE EXCEPTION lo_bad_request.
         ENDIF.
 
       CATCH /aws1/cx_ppstoomanyrequestsex.
-        MESSAGE 'TooManyRequestsException - rate limit reached' TYPE 'I'.
+        MESSAGE 'Rate limit reached' TYPE 'I'.
         lv_test_passed = abap_true.
     ENDTRY.
 
-    cl_abap_unit_assert=>assert_true(
-      act = lv_test_passed
-      msg = 'Test must pass via success or expected exception' ).
+    cl_abap_unit_assert=>assert_true( act = lv_test_passed msg = 'Test must pass' ).
   ENDMETHOD.
 
   METHOD create_configuration_set.
-    " Test create_configuration_set
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_config_set_name) = |pps-create-{ lv_uuid }|.
 
@@ -165,6 +145,11 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
 
         ao_pps->deleteconfigurationset( iv_configurationsetname = lv_config_set_name ).
 
+      CATCH /aws1/cx_ppsclientexc INTO DATA(lo_client_ex).
+        IF check_access_denied( lo_client_ex ) = abap_false.
+          RAISE EXCEPTION lo_client_ex.
+        ENDIF.
+
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         TRY.
             ao_pps->deleteconfigurationset( iv_configurationsetname = lv_config_set_name ).
@@ -175,9 +160,7 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD list_configuration_sets.
-    " Test list_configuration_sets
     TRY.
-        " Create a configuration set first
         ao_pps->createconfigurationset( iv_configurationsetname = av_configuration_set_name ).
 
         DATA(lo_result) = ao_pps_actions->list_configuration_sets( ).
@@ -198,13 +181,17 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
           act = lv_found
           msg = |Configuration set { av_configuration_set_name } should be in list| ).
 
+      CATCH /aws1/cx_ppsclientexc INTO DATA(lo_client_ex).
+        IF check_access_denied( lo_client_ex ) = abap_false.
+          RAISE EXCEPTION lo_client_ex.
+        ENDIF.
+
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         RAISE EXCEPTION lo_ex.
     ENDTRY.
   ENDMETHOD.
 
   METHOD delete_configuration_set.
-    " Test delete_configuration_set
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     DATA(lv_config_set_name) = |pps-del-{ lv_uuid }|.
 
@@ -222,6 +209,11 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
             MESSAGE |Configuration set successfully deleted| TYPE 'I'.
         ENDTRY.
 
+      CATCH /aws1/cx_ppsclientexc INTO DATA(lo_client_ex).
+        IF check_access_denied( lo_client_ex ) = abap_false.
+          RAISE EXCEPTION lo_client_ex.
+        ENDIF.
+
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         TRY.
             ao_pps->deleteconfigurationset( iv_configurationsetname = lv_config_set_name ).
@@ -232,9 +224,7 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_conf_set_event_dst.
-    " Test get_conf_set_event_dst
     TRY.
-        " Create a configuration set first
         ao_pps->createconfigurationset( iv_configurationsetname = av_configuration_set_name ).
 
         DATA(lo_result) = ao_pps_actions->get_conf_set_event_dst(
@@ -244,24 +234,25 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
           act = lo_result
           msg = 'Get event destinations result should not be null' ).
 
+      CATCH /aws1/cx_ppsclientexc INTO DATA(lo_client_ex).
+        IF check_access_denied( lo_client_ex ) = abap_false.
+          RAISE EXCEPTION lo_client_ex.
+        ENDIF.
+
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         RAISE EXCEPTION lo_ex.
     ENDTRY.
   ENDMETHOD.
 
   METHOD create_conf_set_evt_dst.
-    " Test create_conf_set_event_dst
     TRY.
-        " Create configuration set
         ao_pps->createconfigurationset( iv_configurationsetname = av_configuration_set_name ).
 
-        " Create SNS topic
         DATA(lv_topic_uuid) = /awsex/cl_utils=>get_random_string( ).
         DATA(lv_topic_name) = |pps-test-{ lv_topic_uuid }|.
         DATA(lo_topic_result) = ao_sns->createtopic( iv_name = lv_topic_name ).
         av_sns_topic_arn = lo_topic_result->get_topicarn( ).
 
-        " Create event destination
         DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
         DATA(lv_event_dest_name) = |evt-dest-{ lv_uuid }|.
 
@@ -299,24 +290,25 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
           iv_configurationsetname = av_configuration_set_name
           iv_eventdestinationname = lv_event_dest_name ).
 
+      CATCH /aws1/cx_ppsclientexc INTO DATA(lo_client_ex).
+        IF check_access_denied( lo_client_ex ) = abap_false.
+          RAISE EXCEPTION lo_client_ex.
+        ENDIF.
+
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         RAISE EXCEPTION lo_ex.
     ENDTRY.
   ENDMETHOD.
 
   METHOD update_conf_set_evt_dst.
-    " Test update_conf_set_event_dst
     TRY.
-        " Create configuration set
         ao_pps->createconfigurationset( iv_configurationsetname = av_configuration_set_name ).
 
-        " Create SNS topic
         DATA(lv_topic_uuid) = /awsex/cl_utils=>get_random_string( ).
         DATA(lv_topic_name) = |pps-test-{ lv_topic_uuid }|.
         DATA(lo_topic_result) = ao_sns->createtopic( iv_name = lv_topic_name ).
         av_sns_topic_arn = lo_topic_result->get_topicarn( ).
 
-        " Create event destination
         DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
         DATA(lv_event_dest_name) = |evt-upd-{ lv_uuid }|.
 
@@ -334,7 +326,6 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
           iv_eventdestinationname = lv_event_dest_name
           io_eventdestination = lo_event_dest_def ).
 
-        " Update it
         CLEAR lt_event_types.
         APPEND NEW /aws1/cl_ppseventtypes_w( 'COMPLETED_CALL' ) TO lt_event_types.
 
@@ -371,24 +362,25 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
           iv_configurationsetname = av_configuration_set_name
           iv_eventdestinationname = lv_event_dest_name ).
 
+      CATCH /aws1/cx_ppsclientexc INTO DATA(lo_client_ex).
+        IF check_access_denied( lo_client_ex ) = abap_false.
+          RAISE EXCEPTION lo_client_ex.
+        ENDIF.
+
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         RAISE EXCEPTION lo_ex.
     ENDTRY.
   ENDMETHOD.
 
   METHOD delete_conf_set_evt_dst.
-    " Test delete_conf_set_event_dst
     TRY.
-        " Create configuration set
         ao_pps->createconfigurationset( iv_configurationsetname = av_configuration_set_name ).
 
-        " Create SNS topic
         DATA(lv_topic_uuid) = /awsex/cl_utils=>get_random_string( ).
         DATA(lv_topic_name) = |pps-test-{ lv_topic_uuid }|.
         DATA(lo_topic_result) = ao_sns->createtopic( iv_name = lv_topic_name ).
         av_sns_topic_arn = lo_topic_result->get_topicarn( ).
 
-        " Create event destination
         DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
         DATA(lv_event_dest_name) = |evt-del-{ lv_uuid }|.
 
@@ -406,7 +398,6 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
           iv_eventdestinationname = lv_event_dest_name
           io_eventdestination = lo_event_dest_def ).
 
-        " Delete it
         ao_pps_actions->delete_conf_set_event_dst(
           iv_configuration_set_name = av_configuration_set_name
           iv_event_destination_name = lv_event_dest_name ).
@@ -425,6 +416,11 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         cl_abap_unit_assert=>assert_false(
           act = lv_found
           msg = |Event destination { lv_event_dest_name } should not exist| ).
+
+      CATCH /aws1/cx_ppsclientexc INTO DATA(lo_client_ex).
+        IF check_access_denied( lo_client_ex ) = abap_false.
+          RAISE EXCEPTION lo_client_ex.
+        ENDIF.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
         RAISE EXCEPTION lo_ex.
