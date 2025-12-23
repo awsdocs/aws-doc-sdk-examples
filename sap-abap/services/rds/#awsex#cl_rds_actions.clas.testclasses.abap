@@ -113,11 +113,12 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     ENDIF.
 
     " Get default security group for VPC - MUST succeed
-    DATA(lv_security_group_id) = get_default_security_group( av_default_vpc_id ).
+    DATA lv_security_group_id TYPE /aws1/rdsstring.
+    lv_security_group_id = get_default_security_group( av_default_vpc_id ).
     IF lv_security_group_id IS INITIAL.
       cl_abap_unit_assert=>fail( msg = 'No default security group found. Cannot proceed with tests.' ).
     ENDIF.
-    APPEND lv_security_group_id TO at_vpc_security_group_ids.
+    APPEND NEW /aws1/cl_rdsvpcsecgrpidlist_w( lv_security_group_id ) TO at_vpc_security_group_ids.
 
     " Create DB subnet group - MUST succeed
     create_db_subnet_group(
@@ -210,7 +211,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   METHOD get_default_vpc.
     " Get the default VPC
-    DATA(lo_vpcs_result) = ao_ec2->describevpcs( ).
+    DATA lo_vpcs_result TYPE REF TO /aws1/cl_ec2describevpcsresult.
+    lo_vpcs_result = ao_ec2->describevpcs( ).
 
     LOOP AT lo_vpcs_result->get_vpcs( ) INTO DATA(lo_vpc).
       IF lo_vpc->get_isdefault( ) = abap_true.
@@ -223,11 +225,13 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   METHOD create_db_subnet_group.
     " Get subnets from the VPC
-    DATA(lo_filter) = NEW /aws1/cl_ec2_filter( iv_name = 'vpc-id' ).
-    lo_filter->add_item_values( iv_vpc_id ).
-
-    DATA(lo_subnets_result) = ao_ec2->describesubnets(
-      it_filters = VALUE #( ( lo_filter ) ) ).
+    DATA lo_subnets_result TYPE REF TO /aws1/cl_ec2descrsubnetsresult.
+    lo_subnets_result = ao_ec2->describesubnets(
+      it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
+        ( NEW /aws1/cl_ec2filter(
+            iv_name = 'vpc-id'
+            it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+              ( NEW /aws1/cl_ec2valuestringlist_w( iv_vpc_id ) ) ) ) ) ) ).
 
     DATA lt_subnet_ids TYPE /aws1/cl_rdssubnetidlist_w=>tt_subnetidentifierlist.
     DATA lv_count TYPE i VALUE 0.
@@ -267,14 +271,17 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   METHOD get_default_security_group.
     " Get the default security group for the VPC
-    DATA(lo_vpc_filter) = NEW /aws1/cl_ec2_filter( iv_name = 'vpc-id' ).
-    lo_vpc_filter->add_item_values( iv_vpc_id ).
-
-    DATA(lo_name_filter) = NEW /aws1/cl_ec2_filter( iv_name = 'group-name' ).
-    lo_name_filter->add_item_values( 'default' ).
-
-    DATA(lo_sgs_result) = ao_ec2->describesecuritygroups(
-      it_filters = VALUE #( ( lo_vpc_filter ) ( lo_name_filter ) ) ).
+    DATA lo_sgs_result TYPE REF TO /aws1/cl_ec2descrsecgroupsrslt.
+    lo_sgs_result = ao_ec2->describesecuritygroups(
+      it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
+        ( NEW /aws1/cl_ec2filter(
+            iv_name = 'vpc-id'
+            it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+              ( NEW /aws1/cl_ec2valuestringlist_w( iv_vpc_id ) ) ) ) )
+        ( NEW /aws1/cl_ec2filter(
+            iv_name = 'group-name'
+            it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+              ( NEW /aws1/cl_ec2valuestringlist_w( 'default' ) ) ) ) ) ) ).
 
     LOOP AT lo_sgs_result->get_securitygroups( ) INTO DATA(lo_sg).
       rv_security_group_id = lo_sg->get_groupid( ).
