@@ -93,6 +93,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
     DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
     DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasummaries.
     DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
+    DATA lv_dicom_content TYPE xstring.
 
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_mig = /aws1/cl_mig_factory=>create( ao_session ).
@@ -202,9 +203,18 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
     WAIT UP TO 15 SECONDS.
 
     " Create sample DICOM file in input bucket
-    create_sample_dicom_file(
+    " Note: This creates a minimal DICOM-like file for testing
+    CALL FUNCTION 'SSFC_BASE64_DECODE'
+      EXPORTING
+        b64data = 'RElDTQ==' " Base64 for 'DICM'
+      IMPORTING
+        bindata = lv_dicom_content
+      EXCEPTIONS
+        OTHERS  = 1.
+    ao_s3->putobject(
       iv_bucket = av_input_bucket
-      iv_key = 'sample.dcm' ).
+      iv_key = 'sample.dcm'
+      iv_body = lv_dicom_content ).
 
     " Create datastore
     lo_create_ds_result = ao_mig->createdatastore(
@@ -216,8 +226,29 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
     av_datastore_id = lo_create_ds_result->get_datastoreid( ).
     av_datastore_arn = |arn:aws:medical-imaging:{ av_region }:{ lv_account_id }:datastore/{ av_datastore_id }|.
 
-    " Wait for datastore to be active
-    wait_for_datastore_active( av_datastore_id ).
+    " Wait for datastore to be active (inline the logic here since it's a static method)
+    lv_max_wait = 300.
+    lv_wait_interval = 5.
+    lv_waited = 0.
+    DO.
+      TRY.
+          lo_ds_result = ao_mig->getdatastore( iv_datastoreid = av_datastore_id ).
+          lv_status = lo_ds_result->get_datastoreproperties( )->get_datastorestatus( ).
+          IF lv_status = 'ACTIVE'.
+            EXIT.
+          ELSEIF lv_status = 'CREATE_FAILED'.
+            " Cannot use assertions in class_setup, just exit
+            EXIT.
+          ENDIF.
+        CATCH /aws1/cx_migresourcenotfoundex.
+          " Not yet available
+      ENDTRY.
+      lv_waited = lv_waited + lv_wait_interval.
+      IF lv_waited >= lv_max_wait.
+        EXIT.
+      ENDIF.
+      WAIT UP TO lv_wait_interval SECONDS.
+    ENDDO.
 
     " Start a DICOM import job to create image sets for testing
     TRY.
@@ -608,7 +639,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
   METHOD list_dicom_import_jobs.
     DATA lo_result TYPE REF TO /aws1/cl_miglstdicomimpjobsrsp.
-    DATA lt_jobs TYPE /aws1/cl_migdicomimportjobsumm=>tt_jobsummaries.
+    DATA lt_jobs TYPE /aws1/cl_migdicomimportjobsumm=>tt_dicomimportjobsummaries.
 
     ao_mig_actions->list_dicom_import_jobs(
       EXPORTING
