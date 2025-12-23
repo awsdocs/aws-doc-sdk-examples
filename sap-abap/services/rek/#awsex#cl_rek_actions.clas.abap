@@ -208,7 +208,8 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
         oo_result = lo_rek->describecollection(
           iv_collectionid = iv_collection_id ).
         DATA(lv_face_count) = oo_result->get_facecount( ).
-        MESSAGE 'Collection described successfully.' TYPE 'I'.
+        DATA(lv_msg) = |Collection described: { lv_face_count } face(s) indexed.|.
+        MESSAGE lv_msg TYPE 'I'.
       CATCH /aws1/cx_rekresourcenotfoundex.
         MESSAGE 'Collection not found.' TYPE 'E'.
       CATCH /aws1/cx_rekinvalidparameterex.
@@ -243,7 +244,9 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
           iv_maxfaces = iv_max_faces ).
 
         DATA(lt_face_records) = oo_result->get_facerecords( ).
-        MESSAGE 'Faces indexed successfully.' TYPE 'I'.
+        DATA(lv_indexed_count) = lines( lt_face_records ).
+        DATA(lv_msg2) = |{ lv_indexed_count } face(s) indexed successfully.|.
+        MESSAGE lv_msg2 TYPE 'I'.
       CATCH /aws1/cx_rekresourcenotfoundex.
         MESSAGE 'Collection not found.' TYPE 'E'.
       CATCH /aws1/cx_rekinvalids3objectex.
@@ -268,7 +271,9 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
           iv_maxresults = iv_max_results ).
 
         DATA(lt_faces) = oo_result->get_faces( ).
-        MESSAGE 'Faces listed successfully.' TYPE 'I'.
+        DATA(lv_face_count2) = lines( lt_faces ).
+        DATA(lv_msg3) = |{ lv_face_count2 } face(s) found in collection.|.
+        MESSAGE lv_msg3 TYPE 'I'.
       CATCH /aws1/cx_rekresourcenotfoundex.
         MESSAGE 'Collection not found.' TYPE 'E'.
       CATCH /aws1/cx_rekinvalidparameterex.
@@ -303,7 +308,9 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
           iv_maxfaces = iv_max_faces ).
 
         DATA(lt_face_matches) = oo_result->get_facematches( ).
-        MESSAGE 'Face search completed successfully.' TYPE 'I'.
+        DATA(lv_match_count) = lines( lt_face_matches ).
+        DATA(lv_msg4) = |Face search completed: { lv_match_count } match(es) found.|.
+        MESSAGE lv_msg4 TYPE 'I'.
       CATCH /aws1/cx_rekresourcenotfoundex.
         MESSAGE 'Collection not found.' TYPE 'E'.
       CATCH /aws1/cx_rekinvalids3objectex.
@@ -330,7 +337,9 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
           iv_maxfaces = iv_max_faces ).
 
         DATA(lt_face_matches) = oo_result->get_facematches( ).
-        MESSAGE 'Face search completed successfully.' TYPE 'I'.
+        DATA(lv_match_count2) = lines( lt_face_matches ).
+        DATA(lv_msg5) = |Face search completed: { lv_match_count2 } match(es) found.|.
+        MESSAGE lv_msg5 TYPE 'I'.
       CATCH /aws1/cx_rekresourcenotfoundex.
         MESSAGE 'Collection or face not found.' TYPE 'E'.
       CATCH /aws1/cx_rekinvalidparameterex.
@@ -353,7 +362,9 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
           it_faceids = it_face_ids ).
 
         DATA(lt_deleted_faces) = oo_result->get_deletedfaces( ).
-        MESSAGE 'Faces deleted successfully.' TYPE 'I'.
+        DATA(lv_deleted_count) = lines( lt_deleted_faces ).
+        DATA(lv_msg6) = |{ lv_deleted_count } face(s) deleted successfully.|.
+        MESSAGE lv_msg6 TYPE 'I'.
       CATCH /aws1/cx_rekresourcenotfoundex.
         MESSAGE 'Collection not found.' TYPE 'E'.
       CATCH /aws1/cx_rekinvalidparameterex.
@@ -375,7 +386,9 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
           iv_maxresults = iv_max_results ).
 
         DATA(lt_collection_ids) = oo_result->get_collectionids( ).
-        MESSAGE 'Collections listed successfully.' TYPE 'I'.
+        DATA(lv_coll_count) = lines( lt_collection_ids ).
+        DATA(lv_msg7) = |{ lv_coll_count } collection(s) found.|.
+        MESSAGE lv_msg7 TYPE 'I'.
       CATCH /aws1/cx_rekinvalidparameterex.
         MESSAGE 'Invalid parameter value.' TYPE 'E'.
     ENDTRY.
@@ -410,7 +423,9 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
           it_attributes = lt_attributes ).
 
         DATA(lt_face_details) = oo_result->get_facedetails( ).
-        MESSAGE 'Faces detected successfully.' TYPE 'I'.
+        DATA(lv_detected_count) = lines( lt_face_details ).
+        DATA(lv_msg8) = |{ lv_detected_count } face(s) detected in image.|.
+        MESSAGE lv_msg8 TYPE 'I'.
       CATCH /aws1/cx_rekinvalids3objectex.
         MESSAGE 'Invalid S3 object.' TYPE 'E'.
       CATCH /aws1/cx_rekinvalidparameterex.
@@ -453,7 +468,17 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
           iv_similaritythreshold = iv_similarity ).
 
         DATA(lt_face_matches) = oo_result->get_facematches( ).
-        MESSAGE 'Face comparison completed successfully.' TYPE 'I'.
+        DATA(lt_unmatched_faces) = oo_result->get_unmatchedfaces( ).
+
+        " Get counts of matched and unmatched faces
+        DATA(lv_matched_count) = lines( lt_face_matches ).
+        DATA(lv_unmatched_count) = lines( lt_unmatched_faces ).
+
+        " Output detailed comparison results
+        DATA(lv_message) = |Face comparison completed: | &&
+                           |{ lv_matched_count } matched face(s), | &&
+                           |{ lv_unmatched_count } unmatched face(s).|.
+        MESSAGE lv_message TYPE 'I'.
       CATCH /aws1/cx_rekinvalids3objectex.
         MESSAGE 'Invalid S3 object.' TYPE 'E'.
       CATCH /aws1/cx_rekinvalidparameterex.
@@ -486,7 +511,9 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
           iv_maxlabels = iv_max_labels ).
 
         DATA(lt_labels) = oo_result->get_labels( ).
-        MESSAGE 'Labels detected successfully.' TYPE 'I'.
+        DATA(lv_label_count) = lines( lt_labels ).
+        DATA(lv_msg9) = |{ lv_label_count } label(s) detected in image.|.
+        MESSAGE lv_msg9 TYPE 'I'.
       CATCH /aws1/cx_rekinvalids3objectex.
         MESSAGE 'Invalid S3 object.' TYPE 'E'.
       CATCH /aws1/cx_rekinvalidparameterex.
@@ -518,7 +545,9 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
           io_image = lo_image ).
 
         DATA(lt_moderation_labels) = oo_result->get_moderationlabels( ).
-        MESSAGE 'Moderation labels detected successfully.' TYPE 'I'.
+        DATA(lv_mod_count) = lines( lt_moderation_labels ).
+        DATA(lv_msg10) = |{ lv_mod_count } moderation label(s) detected.|.
+        MESSAGE lv_msg10 TYPE 'I'.
       CATCH /aws1/cx_rekinvalids3objectex.
         MESSAGE 'Invalid S3 object.' TYPE 'E'.
       CATCH /aws1/cx_rekinvalidparameterex.
@@ -550,7 +579,9 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
           io_image = lo_image ).
 
         DATA(lt_text_detections) = oo_result->get_textdetections( ).
-        MESSAGE 'Text detected successfully.' TYPE 'I'.
+        DATA(lv_text_count) = lines( lt_text_detections ).
+        DATA(lv_msg11) = |{ lv_text_count } text detection(s) found.|.
+        MESSAGE lv_msg11 TYPE 'I'.
       CATCH /aws1/cx_rekinvalids3objectex.
         MESSAGE 'Invalid S3 object.' TYPE 'E'.
       CATCH /aws1/cx_rekinvalidparameterex.
@@ -582,7 +613,9 @@ CLASS /AWSEX/CL_REK_ACTIONS IMPLEMENTATION.
           io_image = lo_image ).
 
         DATA(lt_celebrity_faces) = oo_result->get_celebrityfaces( ).
-        MESSAGE 'Celebrities recognized successfully.' TYPE 'I'.
+        DATA(lv_celeb_count) = lines( lt_celebrity_faces ).
+        DATA(lv_msg12) = |{ lv_celeb_count } celebrity/celebrities recognized.|.
+        MESSAGE lv_msg12 TYPE 'I'.
       CATCH /aws1/cx_rekinvalids3objectex.
         MESSAGE 'Invalid S3 object.' TYPE 'E'.
       CATCH /aws1/cx_rekinvalidparameterex.
