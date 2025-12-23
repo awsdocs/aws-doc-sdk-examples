@@ -217,12 +217,15 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
           io_destination = lo_destination
           io_content = lo_content ).
         MESSAGE 'Email sent successfully.' TYPE 'I'.
-      CATCH /aws1/cx_se2accountsuspendedex.
-        MESSAGE 'Account suspended.' TYPE 'E'.
-      CATCH /aws1/cx_se2badrequestex.
-        MESSAGE 'Bad request.' TYPE 'E'.
-      CATCH /aws1/cx_se2messagerejected.
-        MESSAGE 'Message rejected.' TYPE 'E'.
+      CATCH /aws1/cx_se2accountsuspendedex INTO DATA(lo_account_suspended).
+        MESSAGE 'Account suspended.' TYPE 'I'.
+        RAISE EXCEPTION lo_account_suspended.
+      CATCH /aws1/cx_se2badrequestex INTO DATA(lo_bad_request).
+        MESSAGE 'Bad request.' TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
+      CATCH /aws1/cx_se2messagerejected INTO DATA(lo_message_rejected).
+        MESSAGE 'Message rejected - check email verification.' TYPE 'I'.
+        RAISE EXCEPTION lo_message_rejected.
     ENDTRY.
     " snippet-end:[se2.abapv1.send_email]
   ENDMETHOD.
@@ -260,12 +263,15 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
           io_content = lo_content
           io_listmanagementoptions = lo_list_mgmt ).
         MESSAGE 'Email sent using template successfully.' TYPE 'I'.
-      CATCH /aws1/cx_se2accountsuspendedex.
-        MESSAGE 'Account suspended.' TYPE 'E'.
-      CATCH /aws1/cx_se2badrequestex.
-        MESSAGE 'Bad request.' TYPE 'E'.
-      CATCH /aws1/cx_se2messagerejected.
-        MESSAGE 'Message rejected.' TYPE 'E'.
+      CATCH /aws1/cx_se2accountsuspendedex INTO DATA(lo_account_suspended).
+        MESSAGE 'Account suspended.' TYPE 'I'.
+        RAISE EXCEPTION lo_account_suspended.
+      CATCH /aws1/cx_se2badrequestex INTO DATA(lo_bad_request).
+        MESSAGE 'Bad request.' TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
+      CATCH /aws1/cx_se2messagerejected INTO DATA(lo_message_rejected).
+        MESSAGE 'Message rejected - check email verification.' TYPE 'I'.
+        RAISE EXCEPTION lo_message_rejected.
     ENDTRY.
     " snippet-end:[se2.abapv1.send_email_template]
   ENDMETHOD.
@@ -282,10 +288,12 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
           iv_contactlistname = iv_contact_list_name ).
         DATA(lv_count) = lines( oo_result->get_contacts( ) ).
         MESSAGE |Retrieved { lv_count } contacts from list.| TYPE 'I'.
-      CATCH /aws1/cx_se2badrequestex.
-        MESSAGE 'Bad request.' TYPE 'E'.
-      CATCH /aws1/cx_se2notfoundexception.
-        MESSAGE 'Contact list not found.' TYPE 'E'.
+      CATCH /aws1/cx_se2badrequestex INTO DATA(lo_bad_request).
+        MESSAGE 'Bad request.' TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
+      CATCH /aws1/cx_se2notfoundexception INTO DATA(lo_not_found).
+        MESSAGE 'Contact list not found.' TYPE 'I'.
+        RAISE EXCEPTION lo_not_found.
     ENDTRY.
     " snippet-end:[se2.abapv1.list_contacts]
   ENDMETHOD.
@@ -303,8 +311,9 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
         MESSAGE 'Contact list deleted successfully.' TYPE 'I'.
       CATCH /aws1/cx_se2notfoundexception.
         MESSAGE 'Contact list not found.' TYPE 'I'.
-      CATCH /aws1/cx_se2badrequestex.
-        MESSAGE 'Bad request.' TYPE 'E'.
+      CATCH /aws1/cx_se2badrequestex INTO DATA(lo_bad_request).
+        MESSAGE 'Bad request.' TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
     ENDTRY.
     " snippet-end:[se2.abapv1.delete_contact_list]
   ENDMETHOD.
@@ -322,8 +331,9 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
         MESSAGE 'Email template deleted successfully.' TYPE 'I'.
       CATCH /aws1/cx_se2notfoundexception.
         MESSAGE 'Email template not found.' TYPE 'I'.
-      CATCH /aws1/cx_se2badrequestex.
-        MESSAGE 'Bad request.' TYPE 'E'.
+      CATCH /aws1/cx_se2badrequestex INTO DATA(lo_bad_request).
+        MESSAGE 'Bad request.' TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
     ENDTRY.
     " snippet-end:[se2.abapv1.delete_email_template]
   ENDMETHOD.
@@ -341,8 +351,9 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
         MESSAGE 'Email identity deleted successfully.' TYPE 'I'.
       CATCH /aws1/cx_se2notfoundexception.
         MESSAGE 'Email identity not found.' TYPE 'I'.
-      CATCH /aws1/cx_se2badrequestex.
-        MESSAGE 'Bad request.' TYPE 'E'.
+      CATCH /aws1/cx_se2badrequestex INTO DATA(lo_bad_request).
+        MESSAGE 'Bad request.' TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request.
     ENDTRY.
     " snippet-end:[se2.abapv1.delete_email_identity]
   ENDMETHOD.
