@@ -54,8 +54,11 @@ CLASS /AWSEX/CL_RSH_ACTIONS IMPLEMENTATION.
 
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_rsh) = /aws1/cl_rsh_factory=>create( lo_session ).
+    DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
+    DATA lo_rsh TYPE REF TO /aws1/if_rsh.
+    
+    lo_session = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    lo_rsh = /aws1/cl_rsh_factory=>create( lo_session ).
 
     " snippet-start:[rsh.abapv1.create_cluster]
     TRY.
@@ -87,8 +90,11 @@ CLASS /AWSEX/CL_RSH_ACTIONS IMPLEMENTATION.
 
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_rsh) = /aws1/cl_rsh_factory=>create( lo_session ).
+    DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
+    DATA lo_rsh TYPE REF TO /aws1/if_rsh.
+    
+    lo_session = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    lo_rsh = /aws1/cl_rsh_factory=>create( lo_session ).
 
     " snippet-start:[rsh.abapv1.delete_cluster]
     TRY.
@@ -111,8 +117,11 @@ CLASS /AWSEX/CL_RSH_ACTIONS IMPLEMENTATION.
 
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_rsh) = /aws1/cl_rsh_factory=>create( lo_session ).
+    DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
+    DATA lo_rsh TYPE REF TO /aws1/if_rsh.
+    
+    lo_session = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    lo_rsh = /aws1/cl_rsh_factory=>create( lo_session ).
 
     " snippet-start:[rsh.abapv1.modify_cluster]
     TRY.
@@ -136,8 +145,13 @@ CLASS /AWSEX/CL_RSH_ACTIONS IMPLEMENTATION.
 
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_rsh) = /aws1/cl_rsh_factory=>create( lo_session ).
+    DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
+    DATA lo_rsh TYPE REF TO /aws1/if_rsh.
+    DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
+    DATA lv_cluster_count TYPE i.
+    
+    lo_session = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    lo_rsh = /aws1/cl_rsh_factory=>create( lo_session ).
 
     " snippet-start:[rsh.abapv1.describe_clusters]
     TRY.
@@ -145,8 +159,8 @@ CLASS /AWSEX/CL_RSH_ACTIONS IMPLEMENTATION.
         oo_result = lo_rsh->describeclusters(
           iv_clusteridentifier = iv_cluster_identifier
         ).
-        DATA(lt_clusters) = oo_result->get_clusters( ).
-        DATA(lv_cluster_count) = lines( lt_clusters ).
+        lt_clusters = oo_result->get_clusters( ).
+        lv_cluster_count = lines( lt_clusters ).
         MESSAGE |Retrieved { lv_cluster_count } cluster(s).| TYPE 'I'.
       CATCH /aws1/cx_rshclustnotfoundfault.
         MESSAGE 'Cluster not found.' TYPE 'E'.

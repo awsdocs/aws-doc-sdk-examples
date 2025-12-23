@@ -301,7 +301,8 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lo_result TYPE REF TO /aws1/cl_rsdlistdatabasesrsp.
     DATA lt_databases TYPE /aws1/cl_rsddatabaselist_w=>tt_databaselist.
     DATA lv_dev_found TYPE abap_bool VALUE abap_false.
-    DATA lv_database TYPE /aws1/rsdstring.
+    DATA lv_database_name TYPE /aws1/rsdstring.
+    FIELD-SYMBOLS <fs_database> TYPE any.
     
     lo_result = ao_rsd_actions->list_databases(
       iv_cluster_identifier = av_cluster_id
@@ -319,8 +320,9 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
       msg = |No databases returned| ).
 
     " The 'dev' database should exist by default
-    LOOP AT lt_databases INTO lv_database.
-      IF lv_database = 'dev'.
+    LOOP AT lt_databases ASSIGNING <fs_database>.
+      lv_database_name = <fs_database>.
+      IF lv_database_name = 'dev'.
         lv_dev_found = abap_true.
         EXIT.
       ENDIF.

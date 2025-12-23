@@ -58,8 +58,13 @@ CLASS /AWSEX/CL_RSD_ACTIONS IMPLEMENTATION.
 
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_rsd) = /aws1/cl_rsd_factory=>create( lo_session ).
+    DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
+    DATA lo_rsd TYPE REF TO /aws1/if_rsd.
+    DATA lt_databases TYPE /aws1/cl_rsddatabaselist_w=>tt_databaselist.
+    DATA lv_db_count TYPE i.
+    
+    lo_session = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    lo_rsd = /aws1/cl_rsd_factory=>create( lo_session ).
 
     " snippet-start:[rsd.abapv1.list_databases]
     TRY.
@@ -71,8 +76,8 @@ CLASS /AWSEX/CL_RSD_ACTIONS IMPLEMENTATION.
           iv_database = iv_database_name
           iv_dbuser = iv_database_user
         ).
-        DATA(lt_databases) = oo_result->get_databases( ).
-        DATA(lv_db_count) = lines( lt_databases ).
+        lt_databases = oo_result->get_databases( ).
+        lv_db_count = lines( lt_databases ).
         MESSAGE |Retrieved { lv_db_count } database(s).| TYPE 'I'.
       CATCH /aws1/cx_rsddatabaseconnex.
         MESSAGE 'Database connection error.' TYPE 'E'.
@@ -87,8 +92,12 @@ CLASS /AWSEX/CL_RSD_ACTIONS IMPLEMENTATION.
 
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_rsd) = /aws1/cl_rsd_factory=>create( lo_session ).
+    DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
+    DATA lo_rsd TYPE REF TO /aws1/if_rsd.
+    DATA lv_statement_id TYPE /aws1/rsduuid.
+    
+    lo_session = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    lo_rsd = /aws1/cl_rsd_factory=>create( lo_session ).
 
     " snippet-start:[rsd.abapv1.execute_statement]
     TRY.
@@ -104,7 +113,7 @@ CLASS /AWSEX/CL_RSD_ACTIONS IMPLEMENTATION.
           iv_sql = iv_sql
           it_parameters = it_parameter_list
         ).
-        DATA(lv_statement_id) = oo_result->get_id( ).
+        lv_statement_id = oo_result->get_id( ).
         MESSAGE |Statement executed. ID: { lv_statement_id }| TYPE 'I'.
       CATCH /aws1/cx_rsdexecutestatementex.
         MESSAGE 'Statement execution error.' TYPE 'E'.
@@ -119,8 +128,12 @@ CLASS /AWSEX/CL_RSD_ACTIONS IMPLEMENTATION.
 
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_rsd) = /aws1/cl_rsd_factory=>create( lo_session ).
+    DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
+    DATA lo_rsd TYPE REF TO /aws1/if_rsd.
+    DATA lv_status TYPE /aws1/rsdstatusstring.
+    
+    lo_session = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    lo_rsd = /aws1/cl_rsd_factory=>create( lo_session ).
 
     " snippet-start:[rsd.abapv1.describe_statement]
     TRY.
@@ -128,7 +141,7 @@ CLASS /AWSEX/CL_RSD_ACTIONS IMPLEMENTATION.
         oo_result = lo_rsd->describestatement(
           iv_id = iv_statement_id
         ).
-        DATA(lv_status) = oo_result->get_status( ).
+        lv_status = oo_result->get_status( ).
         MESSAGE |Statement status: { lv_status }| TYPE 'I'.
       CATCH /aws1/cx_rsdresourcenotfoundex.
         MESSAGE 'Statement not found.' TYPE 'E'.
@@ -143,24 +156,30 @@ CLASS /AWSEX/CL_RSD_ACTIONS IMPLEMENTATION.
 
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
-    DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
-    DATA(lo_rsd) = /aws1/cl_rsd_factory=>create( lo_session ).
+    DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
+    DATA lo_rsd TYPE REF TO /aws1/if_rsd.
+    DATA lv_next_token TYPE /aws1/rsdstring.
+    DATA lt_all_records TYPE /aws1/cl_rsdfield=>tt_sqlrecords.
+    DATA lo_result_page TYPE REF TO /aws1/cl_rsdgetstmtresultrsp.
+    DATA lt_page_records TYPE /aws1/cl_rsdfield=>tt_sqlrecords.
+    DATA lv_record_count TYPE i.
+    
+    lo_session = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+    lo_rsd = /aws1/cl_rsd_factory=>create( lo_session ).
 
     " snippet-start:[rsd.abapv1.get_statement_result]
     TRY.
         " Example values: iv_statement_id = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
         " Handle pagination for large result sets
-        DATA lv_next_token TYPE /aws1/rsdstring.
-        DATA lt_all_records TYPE /aws1/cl_rsdfield=>tt_sqlrecords.
 
         DO.
-          DATA(lo_result_page) = lo_rsd->getstatementresult(
+          lo_result_page = lo_rsd->getstatementresult(
             iv_id = iv_statement_id
             iv_nexttoken = lv_next_token
           ).
 
           " Collect records from this page
-          DATA(lt_page_records) = lo_result_page->get_records( ).
+          lt_page_records = lo_result_page->get_records( ).
           APPEND LINES OF lt_page_records TO lt_all_records.
 
           " Check if there are more pages
@@ -172,7 +191,7 @@ CLASS /AWSEX/CL_RSD_ACTIONS IMPLEMENTATION.
 
         " For the last call, set oo_result for return value
         oo_result = lo_result_page.
-        DATA(lv_record_count) = lines( lt_all_records ).
+        lv_record_count = lines( lt_all_records ).
         MESSAGE |Retrieved { lv_record_count } record(s).| TYPE 'I'.
       CATCH /aws1/cx_rsdresourcenotfoundex.
         MESSAGE 'Statement not found or results not available.' TYPE 'E'.
