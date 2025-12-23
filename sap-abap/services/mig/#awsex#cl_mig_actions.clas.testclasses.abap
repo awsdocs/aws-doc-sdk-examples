@@ -74,14 +74,34 @@ ENDCLASS.
 CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
   METHOD class_setup.
+    DATA lv_uuid TYPE string.
+    DATA lv_account_id TYPE string.
+    DATA lv_assume_role_policy TYPE /aws1/iampolicydocumenttype.
+    DATA lo_create_role_result TYPE REF TO /aws1/cl_iamcreateroleresponse.
+    DATA lo_role TYPE REF TO /aws1/cl_iamgetroleresponse.
+    DATA lv_policy_document TYPE /aws1/iampolicydocumenttype.
+    DATA lo_create_ds_result TYPE REF TO /aws1/cl_migcreatedatastorersp.
+    DATA lv_status TYPE /aws1/migdatastorestatus.
+    DATA lv_wait_count TYPE i.
+    DATA lo_ds_result TYPE REF TO /aws1/cl_miggetdatastorersp.
+    DATA lo_job_result TYPE REF TO /aws1/cl_migstrtdicomimpjobrsp.
+    DATA lv_max_wait TYPE i.
+    DATA lv_wait_interval TYPE i.
+    DATA lv_waited TYPE i.
+    DATA lv_job_status TYPE /aws1/migjobstatus.
+    DATA lo_job_props TYPE REF TO /aws1/cl_miggetdicomimpjobrsp.
+    DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
+
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_mig = /aws1/cl_mig_factory=>create( ao_session ).
     ao_s3 = /aws1/cl_s3_factory=>create( ao_session ).
     ao_iam = /aws1/cl_iam_factory=>create( ao_session ).
     ao_mig_actions = NEW /awsex/cl_mig_actions( ).
 
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    DATA(lv_account_id) = ao_session->get_account_id( ).
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    lv_account_id = ao_session->get_account_id( ).
     av_region = ao_session->get_region( ).
     av_datastore_name = |abap-mig-ds-{ lv_uuid }|.
     av_input_bucket = |abap-mig-input-{ lv_account_id }-{ lv_uuid }|.
@@ -111,7 +131,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
           ( NEW /aws1/cl_s3_tag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ) ).
 
     " Create IAM role for DICOM import with comprehensive permissions
-    DATA(lv_assume_role_policy) = |\{| &&
+    lv_assume_role_policy = |\{| &&
       |"Version":"2012-10-17",| &&
       |"Statement":[\{| &&
       |"Effect":"Allow",| &&
@@ -121,7 +141,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       |\}|.
 
     TRY.
-        DATA(lo_create_role_result) = ao_iam->createrole(
+        lo_create_role_result = ao_iam->createrole(
           iv_rolename = av_role_name
           iv_assumerolepolicydocument = lv_assume_role_policy
           it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
@@ -129,12 +149,12 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
         av_role_arn = lo_create_role_result->get_role( )->get_arn( ).
       CATCH /aws1/cx_iamentityalrdyexex.
         " Role exists, get its ARN
-        DATA(lo_role) = ao_iam->getrole( iv_rolename = av_role_name ).
+        lo_role = ao_iam->getrole( iv_rolename = av_role_name ).
         av_role_arn = lo_role->get_role( )->get_arn( ).
     ENDTRY.
 
     " Attach comprehensive policies for Medical Imaging, S3, and CloudWatch
-    DATA(lv_policy_document) = |\{| &&
+    lv_policy_document = |\{| &&
       |"Version":"2012-10-17",| &&
       |"Statement":[| &&
       |\{| &&
@@ -187,7 +207,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       iv_key = 'sample.dcm' ).
 
     " Create datastore
-    DATA(lo_create_ds_result) = ao_mig->createdatastore(
+    lo_create_ds_result = ao_mig->createdatastore(
       iv_datastorename = av_datastore_name
       it_tags = VALUE /aws1/cl_migtagmap_w=>tt_tagmap(
         ( VALUE /aws1/cl_migtagmap_w=>ts_tagmap_maprow(
@@ -201,7 +221,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
     " Start a DICOM import job to create image sets for testing
     TRY.
-        DATA(lo_job_result) = ao_mig->startdicomimportjob(
+        lo_job_result = ao_mig->startdicomimportjob(
           iv_jobname = |test-import-{ lv_uuid }|
           iv_datastoreid = av_datastore_id
           iv_dataaccessrolearn = av_role_arn
@@ -210,16 +230,15 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
         av_job_id = lo_job_result->get_jobid( ).
 
         " Wait for job to complete (or fail)
-        DATA(lv_max_wait) = 600.
-        DATA(lv_wait_interval) = 10.
-        DATA(lv_waited) = 0.
-        DATA(lv_job_status) TYPE /aws1/migjobstatus.
+        lv_max_wait = 600.
+        lv_wait_interval = 10.
+        lv_waited = 0.
 
         DO.
           WAIT UP TO lv_wait_interval SECONDS.
           lv_waited = lv_waited + lv_wait_interval.
 
-          DATA(lo_job_props) = ao_mig->getdicomimportjob(
+          lo_job_props = ao_mig->getdicomimportjob(
             iv_datastoreid = av_datastore_id
             iv_jobid = av_job_id ).
           lv_job_status = lo_job_props->get_jobproperties( )->get_jobstatus( ).
@@ -231,12 +250,12 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
         " If job completed, get the first image set
         IF lv_job_status = 'COMPLETED'.
-          DATA(lo_search_result) = ao_mig->searchimagesets(
+          lo_search_result = ao_mig->searchimagesets(
             iv_datastoreid = av_datastore_id
             io_searchcriteria = NEW /aws1/cl_migsearchcriteria( ) ).
-          DATA(lt_imagesets) = lo_search_result->get_imagesetsmetadatasums( ).
+          lt_imagesets = lo_search_result->get_imagesetsmetadatasums( ).
           IF lines( lt_imagesets ) > 0.
-            READ TABLE lt_imagesets INDEX 1 INTO DATA(lo_imageset).
+            READ TABLE lt_imagesets INDEX 1 INTO lo_imageset.
             av_image_set_id = lo_imageset->get_imagesetid( ).
           ENDIF.
         ENDIF.
@@ -246,24 +265,34 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD class_teardown.
+    DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
+    DATA lv_img_id TYPE /aws1/migimagesetid.
+    DATA lv_max_wait TYPE i.
+    DATA lv_waited TYPE i.
+    DATA lo_img_result TYPE REF TO /aws1/cl_miggetimagesetrsp.
+    DATA lv_state TYPE /aws1/migimagesetstate.
+
     " Clean up image sets first
     IF av_datastore_id IS NOT INITIAL.
       TRY.
-          DATA(lo_search_result) = ao_mig->searchimagesets(
+          lo_search_result = ao_mig->searchimagesets(
             iv_datastoreid = av_datastore_id
             io_searchcriteria = NEW /aws1/cl_migsearchcriteria( ) ).
-          LOOP AT lo_search_result->get_imagesetsmetadatasums( ) INTO DATA(lo_imageset).
+          lt_imagesets = lo_search_result->get_imagesetsmetadatasums( ).
+          LOOP AT lt_imagesets INTO lo_imageset.
             TRY.
-                DATA(lv_img_id) = lo_imageset->get_imagesetid( ).
+                lv_img_id = lo_imageset->get_imagesetid( ).
                 " Wait for image set to be available before deleting
-                DATA(lv_max_wait) = 60.
-                DATA(lv_waited) = 0.
+                lv_max_wait = 60.
+                lv_waited = 0.
                 DO.
                   TRY.
-                      DATA(lo_img_result) = ao_mig->getimageset(
+                      lo_img_result = ao_mig->getimageset(
                         iv_datastoreid = av_datastore_id
                         iv_imagesetid = lv_img_id ).
-                      DATA(lv_state) = lo_img_result->get_imagesetstate( ).
+                      lv_state = lo_img_result->get_imagesetstate( ).
                       IF lv_state <> 'LOCKED'.
                         EXIT.
                       ENDIF.
@@ -318,14 +347,19 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD wait_for_datastore_active.
-    DATA(lv_max_wait) = 300.
-    DATA(lv_wait_interval) = 5.
-    DATA(lv_waited) = 0.
-    DATA(lv_status) TYPE /aws1/migdatastorestatus.
+    DATA lv_max_wait TYPE i.
+    DATA lv_wait_interval TYPE i.
+    DATA lv_waited TYPE i.
+    DATA lv_status TYPE /aws1/migdatastorestatus.
+    DATA lo_result TYPE REF TO /aws1/cl_miggetdatastorersp.
+
+    lv_max_wait = 300.
+    lv_wait_interval = 5.
+    lv_waited = 0.
 
     DO.
       TRY.
-          DATA(lo_result) = ao_mig->getdatastore( iv_datastoreid = iv_datastore_id ).
+          lo_result = ao_mig->getdatastore( iv_datastoreid = iv_datastore_id ).
           lv_status = lo_result->get_datastoreproperties( )->get_datastorestatus( ).
           IF lv_status = 'ACTIVE'.
             RETURN.
@@ -345,14 +379,19 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD wait_for_job_completed.
-    DATA(lv_max_wait) = 600.
-    DATA(lv_wait_interval) = 10.
-    DATA(lv_waited) = 0.
-    DATA(lv_status) TYPE /aws1/migjobstatus.
+    DATA lv_max_wait TYPE i.
+    DATA lv_wait_interval TYPE i.
+    DATA lv_waited TYPE i.
+    DATA lv_status TYPE /aws1/migjobstatus.
+    DATA lo_result TYPE REF TO /aws1/cl_miggetdicomimpjobrsp.
+
+    lv_max_wait = 600.
+    lv_wait_interval = 10.
+    lv_waited = 0.
 
     DO.
       TRY.
-          DATA(lo_result) = ao_mig->getdicomimportjob(
+          lo_result = ao_mig->getdicomimportjob(
             iv_datastoreid = iv_datastore_id
             iv_jobid = iv_job_id ).
           lv_status = lo_result->get_jobproperties( )->get_jobstatus( ).
@@ -375,14 +414,19 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD wait_for_imageset_available.
-    DATA(lv_max_wait) = 300.
-    DATA(lv_wait_interval) = 5.
-    DATA(lv_waited) = 0.
-    DATA(lv_state) TYPE /aws1/migimagesetstate.
+    DATA lv_max_wait TYPE i.
+    DATA lv_wait_interval TYPE i.
+    DATA lv_waited TYPE i.
+    DATA lv_state TYPE /aws1/migimagesetstate.
+    DATA lo_result TYPE REF TO /aws1/cl_miggetimagesetrsp.
+
+    lv_max_wait = 300.
+    lv_wait_interval = 5.
+    lv_waited = 0.
 
     DO.
       TRY.
-          DATA(lo_result) = ao_mig->getimageset(
+          lo_result = ao_mig->getimageset(
             iv_datastoreid = iv_datastore_id
             iv_imagesetid = iv_image_set_id ).
           lv_state = lo_result->get_imagesetstate( ).
@@ -403,10 +447,13 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD create_sample_dicom_file.
+    DATA lv_dicom_header TYPE string.
+    DATA lv_content TYPE xstring.
+    DATA lv_padding TYPE xstring.
+
     " Create a minimal DICOM-like file for testing
     " This creates a simple binary file with DICOM magic number
-    DATA(lv_dicom_header) = '4449434D'. " 'DICM' in hex
-    DATA(lv_content) TYPE xstring.
+    lv_dicom_header = '4449434D'. " 'DICM' in hex
 
     " Convert hex string to xstring
     CALL FUNCTION 'SSFC_BASE64_DECODE'
@@ -419,7 +466,6 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
     " Add some minimal DICOM data (just enough to not be rejected immediately)
     " This is a very basic structure and may still fail validation
-    DATA(lv_padding) TYPE xstring.
     lv_padding = '0000000000000000000000000000000000000000'.
 
     CONCATENATE lv_content lv_padding INTO lv_content IN BYTE MODE.
@@ -432,9 +478,13 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD create_datastore.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    DATA(lv_ds_name) = |test-ds-{ lv_uuid }|.
-    DATA(lo_result) TYPE REF TO /aws1/cl_migcreatedatastorersp.
+    DATA lv_uuid TYPE string.
+    DATA lv_ds_name TYPE /aws1/migdatastorename.
+    DATA lo_result TYPE REF TO /aws1/cl_migcreatedatastorersp.
+    DATA lv_new_ds_id TYPE /aws1/migdatastoreid.
+
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    lv_ds_name = |test-ds-{ lv_uuid }|.
 
     ao_mig_actions->create_datastore(
       EXPORTING
@@ -446,7 +496,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       act = lo_result
       msg = 'Create datastore result should not be initial' ).
 
-    DATA(lv_new_ds_id) = lo_result->get_datastoreid( ).
+    lv_new_ds_id = lo_result->get_datastoreid( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lv_new_ds_id
       msg = 'Datastore ID should not be initial' ).
@@ -457,7 +507,9 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_datastore_properties.
-    DATA(lo_result) TYPE REF TO /aws1/cl_miggetdatastorersp.
+    DATA lo_result TYPE REF TO /aws1/cl_miggetdatastorersp.
+    DATA lo_props TYPE REF TO /aws1/cl_migdatastoreprps.
+    DATA lv_name TYPE /aws1/migdatastorename.
 
     ao_mig_actions->get_datastore_properties(
       EXPORTING
@@ -469,12 +521,12 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       act = lo_result
       msg = 'Get datastore result should not be initial' ).
 
-    DATA(lo_props) = lo_result->get_datastoreproperties( ).
+    lo_props = lo_result->get_datastoreproperties( ).
     cl_abap_unit_assert=>assert_bound(
       act = lo_props
       msg = 'Datastore properties should not be initial' ).
 
-    DATA(lv_name) = lo_props->get_datastorename( ).
+    lv_name = lo_props->get_datastorename( ).
     cl_abap_unit_assert=>assert_equals(
       act = lv_name
       exp = av_datastore_name
@@ -482,7 +534,8 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD list_datastores.
-    DATA(lo_result) TYPE REF TO /aws1/cl_miglistdatastoresrsp.
+    DATA lo_result TYPE REF TO /aws1/cl_miglistdatastoresrsp.
+    DATA lt_datastores TYPE /aws1/cl_migdatastoresummary=>tt_datastoresummaries.
 
     ao_mig_actions->list_datastores(
       IMPORTING
@@ -492,16 +545,20 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       act = lo_result
       msg = 'List datastores result should not be initial' ).
 
-    DATA(lt_datastores) = lo_result->get_datastoresummaries( ).
+    lt_datastores = lo_result->get_datastoresummaries( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lines( lt_datastores )
       msg = 'Should have at least one datastore' ).
   ENDMETHOD.
 
   METHOD start_dicom_import_job.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    DATA(lv_job_name) = |test-job-{ lv_uuid }|.
-    DATA(lo_result) TYPE REF TO /aws1/cl_migstrtdicomimpjobrsp.
+    DATA lv_uuid TYPE string.
+    DATA lv_job_name TYPE /aws1/migjobname.
+    DATA lo_result TYPE REF TO /aws1/cl_migstrtdicomimpjobrsp.
+    DATA lv_new_job_id TYPE /aws1/migjobid.
+
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    lv_job_name = |test-job-{ lv_uuid }|.
 
     ao_mig_actions->start_dicom_import_job(
       EXPORTING
@@ -517,19 +574,20 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       act = lo_result
       msg = 'Start DICOM import job result should not be initial' ).
 
-    DATA(lv_new_job_id) = lo_result->get_jobid( ).
+    lv_new_job_id = lo_result->get_jobid( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lv_new_job_id
       msg = 'Job ID should not be initial' ).
   ENDMETHOD.
 
   METHOD get_dicom_import_job.
+    DATA lo_result TYPE REF TO /aws1/cl_miggetdicomimpjobrsp.
+    DATA lo_props TYPE REF TO /aws1/cl_migdicomimportjobprps.
+
     " Job ID must exist from class_setup
     cl_abap_unit_assert=>assert_not_initial(
       act = av_job_id
       msg = 'Job ID should be available from class setup' ).
-
-    DATA(lo_result) TYPE REF TO /aws1/cl_miggetdicomimpjobrsp.
 
     ao_mig_actions->get_dicom_import_job(
       EXPORTING
@@ -542,14 +600,15 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       act = lo_result
       msg = 'Get DICOM import job result should not be initial' ).
 
-    DATA(lo_props) = lo_result->get_jobproperties( ).
+    lo_props = lo_result->get_jobproperties( ).
     cl_abap_unit_assert=>assert_bound(
       act = lo_props
       msg = 'Job properties should not be initial' ).
   ENDMETHOD.
 
   METHOD list_dicom_import_jobs.
-    DATA(lo_result) TYPE REF TO /aws1/cl_miglstdicomimpjobsrsp.
+    DATA lo_result TYPE REF TO /aws1/cl_miglstdicomimpjobsrsp.
+    DATA lt_jobs TYPE /aws1/cl_migdicomimportjobsumm=>tt_jobsummaries.
 
     ao_mig_actions->list_dicom_import_jobs(
       EXPORTING
@@ -561,15 +620,17 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       act = lo_result
       msg = 'List DICOM import jobs result should not be initial' ).
 
-    DATA(lt_jobs) = lo_result->get_jobsummaries( ).
+    lt_jobs = lo_result->get_jobsummaries( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lines( lt_jobs )
       msg = 'Should have at least one job' ).
   ENDMETHOD.
 
   METHOD search_image_sets.
-    DATA(lo_result) TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
-    DATA(lo_search_criteria) = NEW /aws1/cl_migsearchcriteria( ).
+    DATA lo_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
+    DATA lo_search_criteria TYPE REF TO /aws1/cl_migsearchcriteria.
+
+    lo_search_criteria = NEW /aws1/cl_migsearchcriteria( ).
 
     ao_mig_actions->search_image_sets(
       EXPORTING
@@ -586,23 +647,26 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_image_set.
+    DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
+    DATA lo_result TYPE REF TO /aws1/cl_miggetimagesetrsp.
+
     " If no image set exists from import, create expectations accordingly
     IF av_image_set_id IS INITIAL.
       " Search for any image sets
-      DATA(lo_search_result) = ao_mig->searchimagesets(
+      lo_search_result = ao_mig->searchimagesets(
         iv_datastoreid = av_datastore_id
         io_searchcriteria = NEW /aws1/cl_migsearchcriteria( ) ).
-      DATA(lt_imagesets) = lo_search_result->get_imagesetsmetadatasums( ).
+      lt_imagesets = lo_search_result->get_imagesetsmetadatasums( ).
       IF lines( lt_imagesets ) = 0.
         " No image sets available - this is acceptable as import may have failed
         MESSAGE 'No image sets available for testing get_image_set' TYPE 'I'.
         RETURN.
       ENDIF.
-      READ TABLE lt_imagesets INDEX 1 INTO DATA(lo_imageset).
+      READ TABLE lt_imagesets INDEX 1 INTO lo_imageset.
       av_image_set_id = lo_imageset->get_imagesetid( ).
     ENDIF.
-
-    DATA(lo_result) TYPE REF TO /aws1/cl_miggetimagesetrsp.
 
     ao_mig_actions->get_image_set(
       EXPORTING
@@ -617,21 +681,24 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_image_set_metadata.
+    DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
+    DATA lo_result TYPE REF TO /aws1/cl_miggetimagesetmetrsp.
+
     " Use same logic as get_image_set
     IF av_image_set_id IS INITIAL.
-      DATA(lo_search_result) = ao_mig->searchimagesets(
+      lo_search_result = ao_mig->searchimagesets(
         iv_datastoreid = av_datastore_id
         io_searchcriteria = NEW /aws1/cl_migsearchcriteria( ) ).
-      DATA(lt_imagesets) = lo_search_result->get_imagesetsmetadatasums( ).
+      lt_imagesets = lo_search_result->get_imagesetsmetadatasums( ).
       IF lines( lt_imagesets ) = 0.
         MESSAGE 'No image sets available for testing get_image_set_metadata' TYPE 'I'.
         RETURN.
       ENDIF.
-      READ TABLE lt_imagesets INDEX 1 INTO DATA(lo_imageset).
+      READ TABLE lt_imagesets INDEX 1 INTO lo_imageset.
       av_image_set_id = lo_imageset->get_imagesetid( ).
     ENDIF.
-
-    DATA(lo_result) TYPE REF TO /aws1/cl_miggetimagesetmetrsp.
 
     ao_mig_actions->get_image_set_metadata(
       EXPORTING
@@ -646,29 +713,35 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_image_frame.
+    DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
+    DATA lo_metadata TYPE REF TO /aws1/cl_miggetimagesetmetrsp.
+    DATA lv_frame_id TYPE /aws1/migimageframeid.
+    DATA lo_result TYPE REF TO /aws1/cl_miggetimageframersp.
+
     " This requires actual image frame data
     IF av_image_set_id IS INITIAL.
-      DATA(lo_search_result) = ao_mig->searchimagesets(
+      lo_search_result = ao_mig->searchimagesets(
         iv_datastoreid = av_datastore_id
         io_searchcriteria = NEW /aws1/cl_migsearchcriteria( ) ).
-      DATA(lt_imagesets) = lo_search_result->get_imagesetsmetadatasums( ).
+      lt_imagesets = lo_search_result->get_imagesetsmetadatasums( ).
       IF lines( lt_imagesets ) = 0.
         MESSAGE 'No image sets available for testing get_image_frame' TYPE 'I'.
         RETURN.
       ENDIF.
-      READ TABLE lt_imagesets INDEX 1 INTO DATA(lo_imageset).
+      READ TABLE lt_imagesets INDEX 1 INTO lo_imageset.
       av_image_set_id = lo_imageset->get_imagesetid( ).
     ENDIF.
 
     " Get metadata to find a frame ID
-    DATA(lo_metadata) = ao_mig->getimagesetmetadata(
+    lo_metadata = ao_mig->getimagesetmetadata(
       iv_datastoreid = av_datastore_id
       iv_imagesetid = av_image_set_id ).
 
     " For testing, we'll use a dummy frame ID since we need actual DICOM data
     " The call may fail, but we verify the method executes
-    DATA(lv_frame_id) = '1234567890123456789012345678901234567890'.
-    DATA(lo_result) TYPE REF TO /aws1/cl_miggetimageframersp.
+    lv_frame_id = '1234567890123456789012345678901234567890'.
 
     TRY.
         ao_mig_actions->get_image_frame(
@@ -688,20 +761,23 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD list_image_set_versions.
+    DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
+    DATA lo_result TYPE REF TO /aws1/cl_miglstimagesetvrssrsp.
+
     IF av_image_set_id IS INITIAL.
-      DATA(lo_search_result) = ao_mig->searchimagesets(
+      lo_search_result = ao_mig->searchimagesets(
         iv_datastoreid = av_datastore_id
         io_searchcriteria = NEW /aws1/cl_migsearchcriteria( ) ).
-      DATA(lt_imagesets) = lo_search_result->get_imagesetsmetadatasums( ).
+      lt_imagesets = lo_search_result->get_imagesetsmetadatasums( ).
       IF lines( lt_imagesets ) = 0.
         MESSAGE 'No image sets available for testing list_image_set_versions' TYPE 'I'.
         RETURN.
       ENDIF.
-      READ TABLE lt_imagesets INDEX 1 INTO DATA(lo_imageset).
+      READ TABLE lt_imagesets INDEX 1 INTO lo_imageset.
       av_image_set_id = lo_imageset->get_imagesetid( ).
     ENDIF.
-
-    DATA(lo_result) TYPE REF TO /aws1/cl_miglstimagesetvrssrsp.
 
     ao_mig_actions->list_image_set_versions(
       EXPORTING
@@ -716,16 +792,24 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD update_image_set_metadata.
+    DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
+    DATA lv_attributes TYPE string.
+    DATA lv_attributes_xstring TYPE xstring.
+    DATA lo_updates TYPE REF TO /aws1/cl_migmetadataupdates.
+    DATA lo_result TYPE REF TO /aws1/cl_migupdimagesetmetrsp.
+
     IF av_image_set_id IS INITIAL.
-      DATA(lo_search_result) = ao_mig->searchimagesets(
+      lo_search_result = ao_mig->searchimagesets(
         iv_datastoreid = av_datastore_id
         io_searchcriteria = NEW /aws1/cl_migsearchcriteria( ) ).
-      DATA(lt_imagesets) = lo_search_result->get_imagesetsmetadatasums( ).
+      lt_imagesets = lo_search_result->get_imagesetsmetadatasums( ).
       IF lines( lt_imagesets ) = 0.
         MESSAGE 'No image sets available for testing update_image_set_metadata' TYPE 'I'.
         RETURN.
       ENDIF.
-      READ TABLE lt_imagesets INDEX 1 INTO DATA(lo_imageset).
+      READ TABLE lt_imagesets INDEX 1 INTO lo_imageset.
       av_image_set_id = lo_imageset->get_imagesetid( ).
     ENDIF.
 
@@ -734,8 +818,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       iv_datastore_id = av_datastore_id
       iv_image_set_id = av_image_set_id ).
 
-    DATA(lv_attributes) = |\{"SchemaVersion":1.1,"Study":\{"DICOM":\{"StudyDescription":"ABAP Test"\}\}\}|.
-    DATA(lv_attributes_xstring) TYPE xstring.
+    lv_attributes = |\{"SchemaVersion":1.1,"Study":\{"DICOM":\{"StudyDescription":"ABAP Test"\}\}\}|.
 
     CALL FUNCTION 'SCMS_STRING_TO_XSTRING'
       EXPORTING
@@ -743,11 +826,9 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       IMPORTING
         buffer = lv_attributes_xstring.
 
-    DATA(lo_updates) = NEW /aws1/cl_migmetadataupdates(
+    lo_updates = NEW /aws1/cl_migmetadataupdates(
       io_dicomupdates = NEW /aws1/cl_migdicomupdates(
         iv_updatableattributes = lv_attributes_xstring ) ).
-
-    DATA(lo_result) TYPE REF TO /aws1/cl_migupdimagesetmetrsp.
 
     TRY.
         ao_mig_actions->update_image_set_metadata(
@@ -769,16 +850,24 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD copy_image_set.
+    DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
+    DATA lo_result TYPE REF TO /aws1/cl_migcopyimagesetrsp.
+    DATA lo_copy_result TYPE REF TO /aws1/cl_migcopyimagesetrsp.
+    DATA lo_dest_props TYPE REF TO /aws1/cl_migcpydstimagesetprps.
+    DATA lv_copied_id TYPE /aws1/migimagesetid.
+
     IF av_image_set_id IS INITIAL.
-      DATA(lo_search_result) = ao_mig->searchimagesets(
+      lo_search_result = ao_mig->searchimagesets(
         iv_datastoreid = av_datastore_id
         io_searchcriteria = NEW /aws1/cl_migsearchcriteria( ) ).
-      DATA(lt_imagesets) = lo_search_result->get_imagesetsmetadatasums( ).
+      lt_imagesets = lo_search_result->get_imagesetsmetadatasums( ).
       IF lines( lt_imagesets ) = 0.
         MESSAGE 'No image sets available for testing copy_image_set' TYPE 'I'.
         RETURN.
       ENDIF.
-      READ TABLE lt_imagesets INDEX 1 INTO DATA(lo_imageset).
+      READ TABLE lt_imagesets INDEX 1 INTO lo_imageset.
       av_image_set_id = lo_imageset->get_imagesetid( ).
     ENDIF.
 
@@ -786,8 +875,6 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
     wait_for_imageset_available(
       iv_datastore_id = av_datastore_id
       iv_image_set_id = av_image_set_id ).
-
-    DATA(lo_result) TYPE REF TO /aws1/cl_migcopyimagesetrsp.
 
     TRY.
         ao_mig_actions->copy_image_set(
@@ -803,8 +890,8 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
           msg = 'Copy image set result should not be initial' ).
 
         " Clean up copied image set
-        DATA(lo_dest_props) = lo_result->get_dstimagesetproperties( ).
-        DATA(lv_copied_id) = lo_dest_props->get_imagesetid( ).
+        lo_dest_props = lo_result->get_dstimagesetproperties( ).
+        lv_copied_id = lo_dest_props->get_imagesetid( ).
         wait_for_imageset_available(
           iv_datastore_id = av_datastore_id
           iv_image_set_id = lv_copied_id ).
@@ -817,7 +904,11 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD tag_resource.
-    DATA(lt_tags) = VALUE /aws1/cl_migtagmap_w=>tt_tagmap(
+    DATA lt_tags TYPE /aws1/cl_migtagmap_w=>tt_tagmap.
+    DATA lo_list_result TYPE REF TO /aws1/cl_miglisttgsforresrcrsp.
+    DATA lt_result_tags TYPE /aws1/cl_migtagmap_w=>tt_tagmap.
+
+    lt_tags = VALUE /aws1/cl_migtagmap_w=>tt_tagmap(
       ( VALUE /aws1/cl_migtagmap_w=>ts_tagmap_maprow(
           key = 'test-key'
           value = NEW /aws1/cl_migtagmap_w( 'test-value' ) ) ) ).
@@ -827,15 +918,16 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       it_tags = lt_tags ).
 
     " Verify tag was added
-    DATA(lo_list_result) = ao_mig->listtagsforresource( iv_resourcearn = av_datastore_arn ).
-    DATA(lt_result_tags) = lo_list_result->get_tags( ).
+    lo_list_result = ao_mig->listtagsforresource( iv_resourcearn = av_datastore_arn ).
+    lt_result_tags = lo_list_result->get_tags( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lines( lt_result_tags )
       msg = 'Should have at least one tag after tagging' ).
   ENDMETHOD.
 
   METHOD list_tags_for_resource.
-    DATA(lo_result) TYPE REF TO /aws1/cl_miglisttgsforresrcrsp.
+    DATA lo_result TYPE REF TO /aws1/cl_miglisttgsforresrcrsp.
+    DATA lt_tags TYPE /aws1/cl_migtagmap_w=>tt_tagmap.
 
     ao_mig_actions->list_tags_for_resource(
       EXPORTING
@@ -847,15 +939,21 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       act = lo_result
       msg = 'List tags result should not be initial' ).
 
-    DATA(lt_tags) = lo_result->get_tags( ).
+    lt_tags = lo_result->get_tags( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lines( lt_tags )
       msg = 'Should have at least one tag (convert_test from setup)' ).
   ENDMETHOD.
 
   METHOD untag_resource.
+    DATA lt_tags TYPE /aws1/cl_migtagmap_w=>tt_tagmap.
+    DATA lt_tag_keys TYPE /aws1/cl_migtagkeylist_w=>tt_tagkeylist.
+    DATA lo_list_result TYPE REF TO /aws1/cl_miglisttgsforresrcrsp.
+    DATA lt_result_tags TYPE /aws1/cl_migtagmap_w=>tt_tagmap.
+    DATA ls_tag TYPE /aws1/cl_migtagmap_w=>ts_tagmap_maprow.
+
     " First add a tag to remove
-    DATA(lt_tags) = VALUE /aws1/cl_migtagmap_w=>tt_tagmap(
+    lt_tags = VALUE /aws1/cl_migtagmap_w=>tt_tagmap(
       ( VALUE /aws1/cl_migtagmap_w=>ts_tagmap_maprow(
           key = 'removable-key'
           value = NEW /aws1/cl_migtagmap_w( 'removable-value' ) ) ) ).
@@ -864,7 +962,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       it_tags = lt_tags ).
 
     " Now remove it
-    DATA(lt_tag_keys) = VALUE /aws1/cl_migtagkeylist_w=>tt_tagkeylist(
+    lt_tag_keys = VALUE /aws1/cl_migtagkeylist_w=>tt_tagkeylist(
       ( NEW /aws1/cl_migtagkeylist_w( 'removable-key' ) ) ).
 
     ao_mig_actions->untag_resource(
@@ -872,9 +970,9 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       it_tag_keys = lt_tag_keys ).
 
     " Verify tag was removed
-    DATA(lo_list_result) = ao_mig->listtagsforresource( iv_resourcearn = av_datastore_arn ).
-    DATA(lt_result_tags) = lo_list_result->get_tags( ).
-    LOOP AT lt_result_tags INTO DATA(ls_tag).
+    lo_list_result = ao_mig->listtagsforresource( iv_resourcearn = av_datastore_arn ).
+    lt_result_tags = lo_list_result->get_tags( ).
+    LOOP AT lt_result_tags INTO ls_tag.
       cl_abap_unit_assert=>assert_differs(
         act = ls_tag-key
         exp = 'removable-key'
@@ -883,17 +981,24 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD delete_image_set.
+    DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
+    DATA lo_copy_result TYPE REF TO /aws1/cl_migcopyimagesetrsp.
+    DATA lv_copied_id TYPE /aws1/migimagesetid.
+    DATA lo_result TYPE REF TO /aws1/cl_migdeleteimagesetrsp.
+
     " Create a new image set by copying if one exists, or skip if none available
     IF av_image_set_id IS INITIAL.
-      DATA(lo_search_result) = ao_mig->searchimagesets(
+      lo_search_result = ao_mig->searchimagesets(
         iv_datastoreid = av_datastore_id
         io_searchcriteria = NEW /aws1/cl_migsearchcriteria( ) ).
-      DATA(lt_imagesets) = lo_search_result->get_imagesetsmetadatasums( ).
+      lt_imagesets = lo_search_result->get_imagesetsmetadatasums( ).
       IF lines( lt_imagesets ) = 0.
         MESSAGE 'No image sets available for testing delete_image_set' TYPE 'I'.
         RETURN.
       ENDIF.
-      READ TABLE lt_imagesets INDEX 1 INTO DATA(lo_imageset).
+      READ TABLE lt_imagesets INDEX 1 INTO lo_imageset.
       av_image_set_id = lo_imageset->get_imagesetid( ).
     ENDIF.
 
@@ -903,18 +1008,17 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       iv_image_set_id = av_image_set_id ).
 
     TRY.
-        DATA(lo_copy_result) = ao_mig->copyimageset(
+        lo_copy_result = ao_mig->copyimageset(
           iv_datastoreid = av_datastore_id
           iv_sourceimagesetid = av_image_set_id
           io_copyimagesetinformation = NEW /aws1/cl_migcpimagesetinfmtion(
             io_sourceimageset = NEW /aws1/cl_migcpsrcimagesetinf00( iv_latestversionid = '1' ) ) ).
 
-        DATA(lv_copied_id) = lo_copy_result->get_dstimagesetproperties( )->get_imagesetid( ).
+        lv_copied_id = lo_copy_result->get_dstimagesetproperties( )->get_imagesetid( ).
         wait_for_imageset_available(
           iv_datastore_id = av_datastore_id
           iv_image_set_id = lv_copied_id ).
 
-        DATA(lo_result) TYPE REF TO /aws1/cl_migdeleteimagesetrsp.
         ao_mig_actions->delete_image_set(
           EXPORTING
             iv_datastore_id = av_datastore_id
@@ -931,16 +1035,21 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD delete_datastore.
-    " Create a temporary datastore for deletion test
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    DATA(lv_ds_name) = |test-ds-del-{ lv_uuid }|.
+    DATA lv_uuid TYPE string.
+    DATA lv_ds_name TYPE /aws1/migdatastorename.
+    DATA lo_create_result TYPE REF TO /aws1/cl_migcreatedatastorersp.
+    DATA lv_temp_ds_id TYPE /aws1/migdatastoreid.
+    DATA lo_result TYPE REF TO /aws1/cl_migdeletedatastorersp.
 
-    DATA(lo_create_result) = ao_mig->createdatastore( iv_datastorename = lv_ds_name ).
-    DATA(lv_temp_ds_id) = lo_create_result->get_datastoreid( ).
+    " Create a temporary datastore for deletion test
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    lv_ds_name = |test-ds-del-{ lv_uuid }|.
+
+    lo_create_result = ao_mig->createdatastore( iv_datastorename = lv_ds_name ).
+    lv_temp_ds_id = lo_create_result->get_datastoreid( ).
 
     wait_for_datastore_active( lv_temp_ds_id ).
 
-    DATA(lo_result) TYPE REF TO /aws1/cl_migdeletedatastorersp.
     ao_mig_actions->delete_datastore(
       EXPORTING
         iv_datastore_id = lv_temp_ds_id
