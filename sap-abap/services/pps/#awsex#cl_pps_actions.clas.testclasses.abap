@@ -19,7 +19,7 @@ CLASS ltc_awsex_cl_pps_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL 
     CLASS-DATA av_log_group_name TYPE /aws1/cwlloggroupname.
     CLASS-DATA av_log_group_arn TYPE /aws1/ppsstring.
     CLASS-DATA av_iam_role_arn TYPE /aws1/iamarntype.
-    CLASS-DATA av_iam_role_name TYPE /aws1/iamrolename.
+    CLASS-DATA av_iam_role_name TYPE /aws1/iamrolenametype.
     CLASS-DATA av_iam_permissions_missing TYPE abap_bool.
 
     METHODS send_voice_message FOR TESTING RAISING /aws1/cx_rt_generic.
