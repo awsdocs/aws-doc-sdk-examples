@@ -187,11 +187,12 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
 
           " Delete inline policies
           DATA(lo_list_inline) = ao_iam->listrolepolicies( iv_rolename = av_iam_role_name ).
-          LOOP AT lo_list_inline->get_policynames( ) INTO DATA(lv_policy_name).
+          LOOP AT lo_list_inline->get_policynames( ) INTO DATA(lo_policy_name_wrapper).
+            DATA(lv_inline_policy_name) = lo_policy_name_wrapper->get_value( ).
             TRY.
                 ao_iam->deleterolepolicy(
                   iv_rolename = av_iam_role_name
-                  iv_policyname = lv_policy_name ).
+                  iv_policyname = lv_inline_policy_name ).
               CATCH /aws1/cx_rt_generic.
                 " Ignore errors
             ENDTRY.
@@ -242,8 +243,9 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         ao_cwl->createloggroup( iv_loggroupname = av_log_group_name ).
 
         " Tag the log group for cleanup
-        DATA lt_log_tags TYPE /aws1/cl_cwltags=>tt_tags.
-        lt_log_tags = VALUE #( ( key = 'convert_test' value = 'true' ) ).
+        DATA lt_log_tags TYPE /aws1/cl_cwltags_w=>tt_tags.
+        DATA(lo_log_tag) = NEW /aws1/cl_cwltags_w( iv_key = 'convert_test' iv_value = 'true' ).
+        APPEND lo_log_tag TO lt_log_tags.
         ao_cwl->tagloggroup(
           iv_loggroupname = av_log_group_name
           it_tags = lt_log_tags ).
