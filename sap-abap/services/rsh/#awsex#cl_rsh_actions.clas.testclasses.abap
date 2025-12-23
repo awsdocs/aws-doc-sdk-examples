@@ -24,12 +24,12 @@ CLASS ltc_awsex_cl_rsh_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
 
-    METHODS wait_for_cluster_available
+    CLASS-METHODS wait_for_cluster_available
       IMPORTING
                 iv_cluster_id TYPE /aws1/rshstring
       RAISING   /aws1/cx_rt_generic.
 
-    METHODS create_cluster_with_tags
+    CLASS-METHODS create_cluster_with_tags
       IMPORTING
                 iv_cluster_id TYPE /aws1/rshstring
       RAISING   /aws1/cx_rt_generic.
@@ -61,9 +61,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     CREATE OBJECT ao_rsh_actions TYPE /awsex/cl_rsh_actions.
 
     " Generate unique cluster identifiers with convert_test tag
-    CALL METHOD /awsex/cl_utils=>get_random_string
-      RECEIVING
-        ov_result = lv_uuid.
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
     lv_uuid_string = lv_uuid.
     
     " Main cluster for create test
