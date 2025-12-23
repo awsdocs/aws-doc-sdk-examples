@@ -309,7 +309,7 @@ CLASS /AWSEX/CL_RDS_ACTIONS IMPLEMENTATION.
         oo_result = lo_rds->descrorderabledbinstoptions(
           iv_engine        = iv_engine
           iv_engineversion = iv_engineversion ).
-        DATA(lv_option_count) = lines( oo_result->get_orderabledbinstanceoptions( ) ).
+        DATA(lv_option_count) = lines( oo_result->get_orderabledbinstoptions( ) ).
         MESSAGE |Retrieved { lv_option_count } orderable DB instance options.| TYPE 'I'.
     ENDTRY.
     " snippet-end:[rds.abapv1.describe_orderable_db_instance_options]
