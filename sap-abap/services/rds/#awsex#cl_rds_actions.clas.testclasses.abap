@@ -88,7 +88,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
   METHOD class_setup.
     DATA lv_uuid TYPE string.
     DATA lv_security_group_id TYPE /aws1/rdsstring.
-    DATA lo_subnet_group_result TYPE REF TO /aws1/cl_rdsdbsnetgrpmessage.
+    DATA lo_subnet_group_result TYPE REF TO /aws1/cl_rdsdbsubnetgroupmsg.
     DATA lo_param_group_result TYPE REF TO /aws1/cl_rdsdbparamgroupsmsg.
     
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
