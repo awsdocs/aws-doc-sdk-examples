@@ -147,7 +147,6 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
         ENDIF.
 
         " Create test table
-        DATA lv_statement_id TYPE /aws1/rsduuid.
         lv_create_sql = |CREATE TABLE { av_table_name } (id INT, title VARCHAR(100), year INT)|.
         CALL METHOD ao_rsd->executestatement EXPORTING
             iv_clusteridentifier = av_cluster_id
@@ -196,7 +195,6 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
         ENDIF.
         
         " Try to create table if cluster existed from previous test
-        DATA lv_retry_statement_id TYPE /aws1/rsduuid.
         TRY.
             lv_retry_create_sql = |CREATE TABLE { av_table_name } (id INT, title VARCHAR(100), year INT)|.
             CALL METHOD ao_rsd->executestatement EXPORTING
