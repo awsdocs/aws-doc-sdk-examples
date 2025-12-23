@@ -206,6 +206,7 @@ language = {
                 "dynamodb": "sap-abap/services/dyn",
                 "firehose": "sap-abap/services/frh",
                 "glue": "sap-abap/services/glu",
+                "iotsitewise": "sap-abap/services/ios",
                 "kinesis": "sap-abap/services/kns",
                 "lambda": "sap-abap/services/lmd",
                 "polly": "sap-abap/services/ply",
