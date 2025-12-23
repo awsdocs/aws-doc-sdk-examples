@@ -83,7 +83,9 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         MESSAGE 'PPS test resources created successfully' TYPE 'I'.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
-        MESSAGE |Error setting up test resources: { lo_exception->get_text( ) }| TYPE 'E'.
+        " If setup fails, we cannot run the tests
+        " Re-raise the exception so the test framework knows setup failed
+        RAISE EXCEPTION lo_exception.
     ENDTRY.
   ENDMETHOD.
 
