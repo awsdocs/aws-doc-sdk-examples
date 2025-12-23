@@ -48,6 +48,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lo_tag TYPE REF TO /aws1/cl_rshtag.
     DATA lv_status TYPE /aws1/rshstring.
     DATA lv_max_waits TYPE i VALUE 60.
+    DATA lo_create_cluster_result TYPE REF TO /aws1/cl_rshcreateclustresult.
     DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
     DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
     DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
@@ -65,12 +66,10 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lv_retry_insert TYPE string.
     DATA lo_retry_insert TYPE REF TO /aws1/cl_rsdexecutestmtoutput.
     DATA lo_ex TYPE REF TO /aws1/cx_rt_generic.
+    DATA lv_statement_id TYPE /aws1/rsduuid.
+    DATA lv_retry_statement_id TYPE /aws1/rsduuid.
     
-    CALL METHOD /aws1/cl_rt_session_aws=>create
-      EXPORTING
-        iv_profile_id = cv_pfl
-      RECEIVING
-        oo_result     = ao_session.
+    ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
         
     CALL METHOD /aws1/cl_rsh_factory=>create
       EXPORTING

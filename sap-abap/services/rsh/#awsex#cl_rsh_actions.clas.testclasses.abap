@@ -46,11 +46,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
     DATA lv_status TYPE /aws1/rshstring.
     
-    CALL METHOD /aws1/cl_rt_session_aws=>create
-      EXPORTING
-        iv_profile_id = cv_pfl
-      RECEIVING
-        oo_result     = ao_session.
+    ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
         
     CALL METHOD /aws1/cl_rsh_factory=>create
       EXPORTING
