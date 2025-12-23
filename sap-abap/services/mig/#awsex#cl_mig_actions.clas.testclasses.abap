@@ -91,7 +91,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
     DATA lv_job_status TYPE /aws1/migjobstatus.
     DATA lo_job_props TYPE REF TO /aws1/cl_miggetdicomimpjobrsp.
     DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
-    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasummaries.
     DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
 
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
@@ -266,7 +266,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
   METHOD class_teardown.
     DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
-    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasummaries.
     DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
     DATA lv_img_id TYPE /aws1/migimagesetid.
     DATA lv_max_wait TYPE i.
@@ -648,7 +648,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
   METHOD get_image_set.
     DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
-    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasummaries.
     DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
     DATA lo_result TYPE REF TO /aws1/cl_miggetimagesetrsp.
 
@@ -682,7 +682,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
   METHOD get_image_set_metadata.
     DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
-    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasummaries.
     DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
     DATA lo_result TYPE REF TO /aws1/cl_miggetimagesetmetrsp.
 
@@ -714,7 +714,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
   METHOD get_image_frame.
     DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
-    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasummaries.
     DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
     DATA lo_metadata TYPE REF TO /aws1/cl_miggetimagesetmetrsp.
     DATA lv_frame_id TYPE /aws1/migimageframeid.
@@ -762,7 +762,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
   METHOD list_image_set_versions.
     DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
-    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasummaries.
     DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
     DATA lo_result TYPE REF TO /aws1/cl_miglstimagesetvrssrsp.
 
@@ -793,7 +793,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
   METHOD update_image_set_metadata.
     DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
-    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasummaries.
     DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
     DATA lv_attributes TYPE string.
     DATA lv_attributes_xstring TYPE xstring.
@@ -851,10 +851,9 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
   METHOD copy_image_set.
     DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
-    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasummaries.
     DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
     DATA lo_result TYPE REF TO /aws1/cl_migcopyimagesetrsp.
-    DATA lo_copy_result TYPE REF TO /aws1/cl_migcopyimagesetrsp.
     DATA lo_dest_props TYPE REF TO /aws1/cl_migcpydstimagesetprps.
     DATA lv_copied_id TYPE /aws1/migimagesetid.
 
@@ -982,7 +981,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
   METHOD delete_image_set.
     DATA lo_search_result TYPE REF TO /aws1/cl_migsearchimagesetsrsp.
-    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasums.
+    DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasummaries.
     DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
     DATA lo_copy_result TYPE REF TO /aws1/cl_migcopyimagesetrsp.
     DATA lv_copied_id TYPE /aws1/migimagesetid.
