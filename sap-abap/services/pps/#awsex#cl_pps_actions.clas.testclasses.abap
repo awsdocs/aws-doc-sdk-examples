@@ -12,7 +12,6 @@ CLASS ltc_awsex_cl_pps_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA ao_pps_actions TYPE REF TO /awsex/cl_pps_actions.
     CLASS-DATA ao_sns TYPE REF TO /aws1/if_sns.
-    CLASS-DATA ao_iam TYPE REF TO /aws1/if_iam.
     CLASS-DATA av_configuration_set_name TYPE /aws1/ppswordcharacterswdelm00.
     CLASS-DATA av_sns_topic_arn TYPE /aws1/snstopicarn.
     CLASS-DATA av_sns_topic_name TYPE /aws1/snstopicname.
@@ -37,7 +36,6 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
     ao_pps = /aws1/cl_pps_factory=>create( ao_session ).
     ao_pps_actions = NEW /awsex/cl_pps_actions( ).
     ao_sns = /aws1/cl_sns_factory=>create( ao_session ).
-    ao_iam = /aws1/cl_iam_factory=>create( ao_session ).
 
     " Create unique names for test resources
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
@@ -65,8 +63,7 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         ).
 
         " Get AWS account ID for policy
-        DATA(lo_caller_identity) = ao_session->get_caller_identity( ).
-        DATA(lv_account_id) = lo_caller_identity-account.
+        DATA(lv_account_id) = ao_session->get_account_id( ).
 
         " Create SNS topic policy to allow PPS to publish
         DATA(lv_policy) = |[{| &&
