@@ -244,8 +244,10 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
 
         " Tag the log group for cleanup
         DATA lt_log_tags TYPE /aws1/cl_cwltags_w=>tt_tags.
-        DATA(lo_log_tag) = NEW /aws1/cl_cwltags_w( iv_key = 'convert_test' iv_value = 'true' ).
-        APPEND lo_log_tag TO lt_log_tags.
+        INSERT VALUE #(
+          key = 'convert_test'
+          value = NEW /aws1/cl_cwltags_w( 'true' )
+        ) INTO TABLE lt_log_tags.
         ao_cwl->tagloggroup(
           iv_loggroupname = av_log_group_name
           it_tags = lt_log_tags ).
