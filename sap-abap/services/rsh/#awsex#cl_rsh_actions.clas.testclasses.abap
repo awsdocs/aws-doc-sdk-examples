@@ -115,7 +115,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
             iv_masterusername     = 'awsuser'
             iv_masteruserpassword = 'AwsUser1000'
             iv_publiclyaccessible = abap_false
-            iv_numberofnodes      = 1
+            iv_numberofnodes      = 2
             it_tags               = lt_tags
           RECEIVING
             oo_output             = lo_result.
@@ -156,7 +156,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
             iv_masterusername     = 'awsuser'
             iv_masteruserpassword = 'AwsUser1000'
             iv_publiclyaccessible = abap_false
-            iv_numberofnodes      = 1
+            iv_numberofnodes      = 2
             it_tags               = lt_tags
           RECEIVING
             oo_output             = lo_result.

@@ -114,7 +114,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
             iv_masterusername     = av_user_name
             iv_masteruserpassword = av_user_password
             iv_publiclyaccessible = abap_false
-            iv_numberofnodes      = 1
+            iv_numberofnodes      = 2
             it_tags               = lt_tags
           RECEIVING oo_output = lo_create_cluster_result.
 
