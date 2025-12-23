@@ -23,6 +23,7 @@ CLASS ltc_awsex_cl_mig_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_job_id TYPE /aws1/migjobid.
     CLASS-DATA av_datastore_arn TYPE /aws1/migarn.
     CLASS-DATA av_region TYPE /aws1/rt_region_id.
+    CLASS-DATA av_datastore_created TYPE abap_bool.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
@@ -94,6 +95,9 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
     DATA lt_imagesets TYPE /aws1/cl_migimagesetsmetsumm=>tt_imagesetsmetadatasummaries.
     DATA lo_imageset TYPE REF TO /aws1/cl_migimagesetsmetsumm.
     DATA lv_dicom_content TYPE xstring.
+    DATA lo_list_result TYPE REF TO /aws1/cl_miglistdatastoresrsp.
+    DATA lt_datastores TYPE /aws1/cl_migdatastoresummary=>tt_datastoresummaries.
+    DATA lo_datastore TYPE REF TO /aws1/cl_migdatastoresummary.
 
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_mig = /aws1/cl_mig_factory=>create( ao_session ).
@@ -238,15 +242,35 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       iv_key = 'sample.dcm'
       iv_body = lv_dicom_content ).
 
-    " Create datastore
-    lo_create_ds_result = ao_mig->createdatastore(
-      iv_datastorename = av_datastore_name
-      it_tags = VALUE /aws1/cl_migtagmap_w=>tt_tagmap(
-        ( VALUE /aws1/cl_migtagmap_w=>ts_tagmap_maprow(
-            key = 'convert_test'
-            value = NEW /aws1/cl_migtagmap_w( 'true' ) ) ) ) ).
-    av_datastore_id = lo_create_ds_result->get_datastoreid( ).
-    av_datastore_arn = |arn:aws:medical-imaging:{ av_region }:{ lv_account_id }:datastore/{ av_datastore_id }|.
+    " Create datastore (or use existing if quota exceeded)
+    TRY.
+        lo_create_ds_result = ao_mig->createdatastore(
+          iv_datastorename = av_datastore_name
+          it_tags = VALUE /aws1/cl_migtagmap_w=>tt_tagmap(
+            ( VALUE /aws1/cl_migtagmap_w=>ts_tagmap_maprow(
+                key = 'convert_test'
+                value = NEW /aws1/cl_migtagmap_w( 'true' ) ) ) ) ).
+        av_datastore_id = lo_create_ds_result->get_datastoreid( ).
+        av_datastore_arn = |arn:aws:medical-imaging:{ av_region }:{ lv_account_id }:datastore/{ av_datastore_id }|.
+        av_datastore_created = abap_true.
+      CATCH /aws1/cx_migservicequotaexcdex.
+        " Quota exceeded - try to find and reuse an existing datastore
+        lo_list_result = ao_mig->listdatastores( ).
+        lt_datastores = lo_list_result->get_datastoresummaries( ).
+        
+        IF lines( lt_datastores ) > 0.
+          " Use the first available datastore
+          READ TABLE lt_datastores INDEX 1 INTO lo_datastore.
+          av_datastore_id = lo_datastore->get_datastoreid( ).
+          av_datastore_name = lo_datastore->get_datastorename( ).
+          av_datastore_arn = |arn:aws:medical-imaging:{ av_region }:{ lv_account_id }:datastore/{ av_datastore_id }|.
+          av_datastore_created = abap_false.
+        ELSE.
+          " No datastores available and can't create new one
+          " Tests will be skipped
+          RETURN.
+        ENDIF.
+    ENDTRY.
 
     " Wait for datastore to be active (inline the logic here since it's a static method)
     lv_max_wait = 300.
@@ -374,8 +398,8 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       WAIT UP TO 30 SECONDS.
     ENDIF.
 
-    " Clean up datastore
-    IF av_datastore_id IS NOT INITIAL.
+    " Clean up datastore (only if we created it)
+    IF av_datastore_id IS NOT INITIAL AND av_datastore_created = abap_true.
       TRY.
           ao_mig->deletedatastore( iv_datastoreid = av_datastore_id ).
         CATCH /aws1/cx_rt_generic.
@@ -537,26 +561,33 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
     DATA lv_new_ds_id TYPE /aws1/migdatastoreid.
 
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    TRANSLATE lv_uuid TO LOWER CASE.
+    REPLACE ALL OCCURRENCES OF REGEX '[^a-z0-9-]' IN lv_uuid WITH '-'.
     lv_ds_name = |test-ds-{ lv_uuid }|.
 
-    ao_mig_actions->create_datastore(
-      EXPORTING
-        iv_datastore_name = lv_ds_name
-      IMPORTING
-        oo_result = lo_result ).
+    TRY.
+        ao_mig_actions->create_datastore(
+          EXPORTING
+            iv_datastore_name = lv_ds_name
+          IMPORTING
+            oo_result = lo_result ).
 
-    cl_abap_unit_assert=>assert_bound(
-      act = lo_result
-      msg = 'Create datastore result should not be initial' ).
+        cl_abap_unit_assert=>assert_bound(
+          act = lo_result
+          msg = 'Create datastore result should not be initial' ).
 
-    lv_new_ds_id = lo_result->get_datastoreid( ).
-    cl_abap_unit_assert=>assert_not_initial(
-      act = lv_new_ds_id
-      msg = 'Datastore ID should not be initial' ).
+        lv_new_ds_id = lo_result->get_datastoreid( ).
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lv_new_ds_id
+          msg = 'Datastore ID should not be initial' ).
 
-    " Clean up
-    wait_for_datastore_active( lv_new_ds_id ).
-    ao_mig->deletedatastore( iv_datastoreid = lv_new_ds_id ).
+        " Clean up
+        wait_for_datastore_active( lv_new_ds_id ).
+        ao_mig->deletedatastore( iv_datastoreid = lv_new_ds_id ).
+      CATCH /aws1/cx_migservicequotaexcdex.
+        " Quota exceeded - this is expected and acceptable
+        MESSAGE 'Service quota exceeded - test skipped' TYPE 'I'.
+    ENDTRY.
   ENDMETHOD.
 
   METHOD get_datastore_properties.
@@ -1095,22 +1126,29 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
 
     " Create a temporary datastore for deletion test
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    TRANSLATE lv_uuid TO LOWER CASE.
+    REPLACE ALL OCCURRENCES OF REGEX '[^a-z0-9-]' IN lv_uuid WITH '-'.
     lv_ds_name = |test-ds-del-{ lv_uuid }|.
 
-    lo_create_result = ao_mig->createdatastore( iv_datastorename = lv_ds_name ).
-    lv_temp_ds_id = lo_create_result->get_datastoreid( ).
+    TRY.
+        lo_create_result = ao_mig->createdatastore( iv_datastorename = lv_ds_name ).
+        lv_temp_ds_id = lo_create_result->get_datastoreid( ).
 
-    wait_for_datastore_active( lv_temp_ds_id ).
+        wait_for_datastore_active( lv_temp_ds_id ).
 
-    ao_mig_actions->delete_datastore(
-      EXPORTING
-        iv_datastore_id = lv_temp_ds_id
-      IMPORTING
-        oo_result = lo_result ).
+        ao_mig_actions->delete_datastore(
+          EXPORTING
+            iv_datastore_id = lv_temp_ds_id
+          IMPORTING
+            oo_result = lo_result ).
 
-    cl_abap_unit_assert=>assert_bound(
-      act = lo_result
-      msg = 'Delete datastore result should not be initial' ).
+        cl_abap_unit_assert=>assert_bound(
+          act = lo_result
+          msg = 'Delete datastore result should not be initial' ).
+      CATCH /aws1/cx_migservicequotaexcdex.
+        " Quota exceeded - can't create datastore to test deletion
+        MESSAGE 'Service quota exceeded - test skipped' TYPE 'I'.
+    ENDTRY.
   ENDMETHOD.
 
 ENDCLASS.
