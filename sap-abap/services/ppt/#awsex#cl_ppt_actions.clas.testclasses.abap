@@ -24,7 +24,7 @@ CLASS ltc_awsex_cl_ppt_actions DEFINITION FOR TESTING DURATION SHORT RISK LEVEL 
     METHODS send_email_message FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS send_sms_message FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS send_templated_email_msg FOR TESTING RAISING /aws1/cx_rt_generic.
-    METHODS send_templated_sms_msg FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS send_templated_sms_message FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
@@ -389,7 +389,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
       msg = 'Templated email message test did not execute properly' ).
   ENDMETHOD.
 
-  METHOD send_templated_sms_msg.
+  METHOD send_templated_sms_message.
     " Required IAM permissions: 
     "   - mobiletargeting:SendMessages
     " Note: SMS channel must be configured in Pinpoint app and phone numbers must be verified/registered
