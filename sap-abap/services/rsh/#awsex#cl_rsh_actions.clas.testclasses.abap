@@ -39,13 +39,19 @@ ENDCLASS.
 CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
 
   METHOD class_setup.
+    DATA lv_uuid TYPE string.
+    DATA lv_uuid_string TYPE string.
+    DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
+    DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
+    DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
+    DATA lv_status TYPE /aws1/rshstring.
+    
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_rsh = /aws1/cl_rsh_factory=>create( ao_session ).
     ao_rsh_actions = NEW /awsex/cl_rsh_actions( ).
 
     " Generate unique cluster identifiers with convert_test tag
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    DATA lv_uuid_string TYPE string.
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
     lv_uuid_string = lv_uuid.
     
     " Main cluster for create test
@@ -86,7 +92,9 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
   METHOD create_cluster_with_tags.
     " Create cluster with convert_test tag
     DATA lt_tags TYPE /aws1/cl_rshtag=>tt_taglist.
-    DATA(lo_tag) = NEW /aws1/cl_rshtag(
+    DATA lo_tag TYPE REF TO /aws1/cl_rshtag.
+    
+    lo_tag = NEW /aws1/cl_rshtag(
       iv_key = 'convert_test'
       iv_value = 'true'
     ).
@@ -119,14 +127,20 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     " Test create_cluster method
     " Create a new cluster with convert_test tag
     DATA lt_tags TYPE /aws1/cl_rshtag=>tt_taglist.
-    DATA(lo_tag) = NEW /aws1/cl_rshtag(
+    DATA lo_tag TYPE REF TO /aws1/cl_rshtag.
+    DATA lo_result TYPE REF TO /aws1/cl_rshcreateclustresult.
+    DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
+    DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
+    DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
+    
+    lo_tag = NEW /aws1/cl_rshtag(
       iv_key = 'convert_test'
       iv_value = 'true'
     ).
     APPEND lo_tag TO lt_tags.
 
     TRY.
-        DATA(lo_result) = ao_rsh->createcluster(
+        lo_result = ao_rsh->createcluster(
           iv_clusteridentifier = av_cluster_id
           iv_nodetype = 'ra3.xlplus'
           iv_masterusername = 'awsuser'
@@ -140,7 +154,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
           act = lo_result
           msg = |Cluster creation failed for { av_cluster_id }| ).
 
-        DATA(lo_cluster) = lo_result->get_cluster( ).
+        lo_cluster = lo_result->get_cluster( ).
         cl_abap_unit_assert=>assert_equals(
           exp = av_cluster_id
           act = lo_cluster->get_clusteridentifier( )
@@ -151,10 +165,10 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
 
       CATCH /aws1/cx_rshclustalrdyexfault.
         " If cluster exists from previous failed test, verify it exists
-        DATA(lo_describe_result) = ao_rsh->describeclusters(
+        lo_describe_result = ao_rsh->describeclusters(
           iv_clusteridentifier = av_cluster_id
         ).
-        DATA(lt_clusters) = lo_describe_result->get_clusters( ).
+        lt_clusters = lo_describe_result->get_clusters( ).
         cl_abap_unit_assert=>assert_not_initial(
           act = lt_clusters
           msg = |Cluster should exist but not found| ).
@@ -164,18 +178,21 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
   METHOD wait_for_cluster_available.
     DATA lv_status TYPE /aws1/rshstring.
     DATA lv_wait_count TYPE i VALUE 0.
-    DATA lv_max_waits TYPE i VALUE 60. " Wait up to 30 minutes (60 * 30 seconds)
+    DATA lv_max_waits TYPE i VALUE 60.
+    DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
+    DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
+    DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
 
     DO lv_max_waits TIMES.
       WAIT UP TO 30 SECONDS.
       
       TRY.
-          DATA(lo_describe_result) = ao_rsh->describeclusters(
+          lo_describe_result = ao_rsh->describeclusters(
             iv_clusteridentifier = iv_cluster_id
           ).
-          DATA(lt_clusters) = lo_describe_result->get_clusters( ).
+          lt_clusters = lo_describe_result->get_clusters( ).
           IF lines( lt_clusters ) > 0.
-            DATA(lo_cluster) = lt_clusters[ 1 ].
+            lo_cluster = lt_clusters[ 1 ].
             lv_status = lo_cluster->get_clusterstatus( ).
 
             IF lv_status = 'available'.
@@ -199,6 +216,10 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
 
   METHOD modify_cluster.
     " Test modify_cluster method using pre-created cluster
+    DATA lo_result TYPE REF TO /aws1/cl_rshclustersmessage.
+    DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
+    DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
+    
     ao_rsh_actions->modify_cluster(
       iv_cluster_identifier = av_cluster_id_modify
       iv_pref_maintenance_wn = 'wed:07:30-wed:08:00'
@@ -208,16 +229,16 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     wait_for_cluster_available( av_cluster_id_modify ).
 
     " Verify modification by describing the cluster
-    DATA(lo_result) = ao_rsh->describeclusters(
+    lo_result = ao_rsh->describeclusters(
       iv_clusteridentifier = av_cluster_id_modify
     ).
 
-    DATA(lt_clusters) = lo_result->get_clusters( ).
+    lt_clusters = lo_result->get_clusters( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_clusters
       msg = |Cluster not found after modification| ).
 
-    DATA(lo_cluster) = lt_clusters[ 1 ].
+    lo_cluster = lt_clusters[ 1 ].
     cl_abap_unit_assert=>assert_equals(
       exp = 'wed:07:30-wed:08:00'
       act = lo_cluster->get_preferredmaintenancewin00( )
@@ -226,7 +247,13 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
 
   METHOD describe_clusters.
     " Test describing a specific cluster using pre-created cluster
-    DATA(lo_result) = ao_rsh_actions->describe_clusters(
+    DATA lo_result TYPE REF TO /aws1/cl_rshclustersmessage.
+    DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
+    DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
+    DATA lo_all_result TYPE REF TO /aws1/cl_rshclustersmessage.
+    DATA lt_all_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
+    
+    lo_result = ao_rsh_actions->describe_clusters(
       iv_cluster_identifier = av_cluster_id_describe
     ).
 
@@ -234,20 +261,20 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
       act = lo_result
       msg = |Describe clusters failed| ).
 
-    DATA(lt_clusters) = lo_result->get_clusters( ).
+    lt_clusters = lo_result->get_clusters( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_clusters
       msg = |No clusters returned| ).
 
-    DATA(lo_cluster) = lt_clusters[ 1 ].
+    lo_cluster = lt_clusters[ 1 ].
     cl_abap_unit_assert=>assert_equals(
       exp = av_cluster_id_describe
       act = lo_cluster->get_clusteridentifier( )
       msg = |Cluster identifier mismatch| ).
 
     " Test describing all clusters (no filter)
-    DATA(lo_all_result) = ao_rsh_actions->describe_clusters( ).
-    DATA(lt_all_clusters) = lo_all_result->get_clusters( ).
+    lo_all_result = ao_rsh_actions->describe_clusters( ).
+    lt_all_clusters = lo_all_result->get_clusters( ).
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_all_clusters
       msg = |No clusters returned when listing all| ).
@@ -255,6 +282,11 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
 
   METHOD delete_cluster.
     " Test delete_cluster method using pre-created cluster
+    DATA lo_result TYPE REF TO /aws1/cl_rshclustersmessage.
+    DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
+    DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
+    DATA lv_status TYPE /aws1/rshstring.
+    
     ao_rsh_actions->delete_cluster(
       iv_cluster_identifier = av_cluster_id_delete
     ).
@@ -264,13 +296,13 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
 
     " Verify deletion by trying to describe the cluster
     TRY.
-        DATA(lo_result) = ao_rsh->describeclusters(
+        lo_result = ao_rsh->describeclusters(
           iv_clusteridentifier = av_cluster_id_delete
         ).
-        DATA(lt_clusters) = lo_result->get_clusters( ).
+        lt_clusters = lo_result->get_clusters( ).
         IF lines( lt_clusters ) > 0.
-          DATA(lo_cluster) = lt_clusters[ 1 ].
-          DATA(lv_status) = lo_cluster->get_clusterstatus( ).
+          lo_cluster = lt_clusters[ 1 ].
+          lv_status = lo_cluster->get_clusterstatus( ).
           " Cluster should be in deleting state
           cl_abap_unit_assert=>assert_equals(
             exp = 'deleting'
