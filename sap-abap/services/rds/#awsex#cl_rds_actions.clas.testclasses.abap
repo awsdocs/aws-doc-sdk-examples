@@ -90,6 +90,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     DATA lv_security_group_id TYPE /aws1/rdsstring.
     DATA lo_subnet_group_result TYPE REF TO /aws1/cl_rdsdbsubnetgroupmsg.
     DATA lo_param_group_result TYPE REF TO /aws1/cl_rdsdbparamgroupsmsg.
+    DATA lo_engine_versions TYPE REF TO /aws1/cl_rdsdbenginevrsmessage.
+    DATA lo_engine_version TYPE REF TO /aws1/cl_rdsdbengineversion.
     
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_rds = /aws1/cl_rds_factory=>create( ao_session ).
@@ -108,8 +110,25 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     av_master_password = |Pass{ lv_uuid }123!|.
     av_engine = 'mysql'.
     av_param_group_family = 'mysql8.0'.
-    av_engine_version = '8.0.35'.
     av_instance_class = 'db.t3.micro'.
+
+    " Get an available MySQL 8.0 engine version
+    lo_engine_versions = ao_rds->describedbengineversions(
+      iv_engine = av_engine
+      iv_dbparametergroupfamily = av_param_group_family
+      iv_maxrecords = 20 ).
+
+    " Find first available engine version
+    LOOP AT lo_engine_versions->get_dbengineversions( ) INTO lo_engine_version.
+      av_engine_version = lo_engine_version->get_engineversion( ).
+      IF av_engine_version IS NOT INITIAL.
+        EXIT.
+      ENDIF.
+    ENDLOOP.
+
+    IF av_engine_version IS INITIAL.
+      cl_abap_unit_assert=>fail( msg = 'No MySQL 8.0 engine version available' ).
+    ENDIF.
 
     " Get default VPC - MUST succeed
     av_default_vpc_id = get_default_vpc( ).
