@@ -64,19 +64,19 @@ CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
       RAISING
         /aws1/cx_rt_generic.
 
-    METHODS wait_for_db_instance_available
+    CLASS-METHODS wait_for_db_instance_available
       IMPORTING
         iv_db_instance_id TYPE /aws1/rdsstring
       RAISING
         /aws1/cx_rt_generic.
 
-    METHODS wait_for_snapshot_available
+    CLASS-METHODS wait_for_snapshot_available
       IMPORTING
         iv_snapshot_id TYPE /aws1/rdsstring
       RAISING
         /aws1/cx_rt_generic.
 
-    METHODS wait_for_db_instance_deleted
+    CLASS-METHODS wait_for_db_instance_deleted
       IMPORTING
         iv_db_instance_id TYPE /aws1/rdsstring
       RAISING
