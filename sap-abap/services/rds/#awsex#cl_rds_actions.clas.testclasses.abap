@@ -86,13 +86,18 @@ ENDCLASS.
 CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   METHOD class_setup.
+    DATA lv_uuid TYPE string.
+    DATA lv_security_group_id TYPE /aws1/rdsstring.
+    DATA lo_subnet_group_result TYPE REF TO /aws1/cl_rdsdbsnetgrpmessage.
+    DATA lo_param_group_result TYPE REF TO /aws1/cl_rdsdbparamgroupsmsg.
+    
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_rds = /aws1/cl_rds_factory=>create( ao_session ).
     ao_ec2 = /aws1/cl_ec2_factory=>create( ao_session ).
     ao_rds_actions = NEW /awsex/cl_rds_actions( ).
 
     " Set up test data using utils
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
     av_param_group_name = |sap-rds-pg-{ lv_uuid }|.
     av_db_instance_id = |sap-rds-db-{ lv_uuid }|.
     av_snapshot_id = |sap-rds-snap-{ lv_uuid }|.
@@ -113,7 +118,6 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     ENDIF.
 
     " Get default security group for VPC - MUST succeed
-    DATA lv_security_group_id TYPE /aws1/rdsstring.
     lv_security_group_id = get_default_security_group( av_default_vpc_id ).
     IF lv_security_group_id IS INITIAL.
       cl_abap_unit_assert=>fail( msg = 'No default security group found. Cannot proceed with tests.' ).
@@ -127,7 +131,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
     " Verify DB subnet group was created
     TRY.
-        DATA(lo_subnet_group_result) = ao_rds->describedbsubnetgroups(
+        lo_subnet_group_result = ao_rds->describedbsubnetgroups(
           iv_dbsubnetgroupname = av_db_subnet_group_name ).
         IF lo_subnet_group_result IS INITIAL OR
            lo_subnet_group_result->get_dbsubnetgroups( ) IS INITIAL.
@@ -150,7 +154,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
     " Verify parameter group was created
     TRY.
-        DATA(lo_param_group_result) = ao_rds->describedbparametergroups(
+        lo_param_group_result = ao_rds->describedbparametergroups(
           iv_dbparametergroupname = av_param_group_name ).
         IF lo_param_group_result IS INITIAL OR
            lo_param_group_result->get_dbparametergroups( ) IS INITIAL.
