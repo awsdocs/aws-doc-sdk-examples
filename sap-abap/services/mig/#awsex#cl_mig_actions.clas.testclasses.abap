@@ -102,6 +102,10 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
     ao_mig_actions = NEW /awsex/cl_mig_actions( ).
 
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    " Convert UUID to lowercase and remove any non-alphanumeric characters except hyphens
+    TRANSLATE lv_uuid TO LOWER CASE.
+    REPLACE ALL OCCURRENCES OF REGEX '[^a-z0-9-]' IN lv_uuid WITH '-'.
+    
     lv_account_id = ao_session->get_account_id( ).
     av_region = ao_session->get_region( ).
     av_datastore_name = |abap-mig-ds-{ lv_uuid }|.
@@ -110,26 +114,44 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
     av_role_name = |abap-mig-role-{ lv_uuid }|.
 
     " Create S3 buckets for DICOM import using utils
-    /awsex/cl_utils=>create_bucket(
-      iv_bucket = av_input_bucket
-      io_s3 = ao_s3
-      io_session = ao_session ).
-    /awsex/cl_utils=>create_bucket(
-      iv_bucket = av_output_bucket
-      io_s3 = ao_s3
-      io_session = ao_session ).
+    TRY.
+        /awsex/cl_utils=>create_bucket(
+          iv_bucket = av_input_bucket
+          io_s3 = ao_s3
+          io_session = ao_session ).
+      CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bktalrdyownedbyyou.
+        " Bucket already exists, that's OK for testing
+    ENDTRY.
+    
+    TRY.
+        /awsex/cl_utils=>create_bucket(
+          iv_bucket = av_output_bucket
+          io_s3 = ao_s3
+          io_session = ao_session ).
+      CATCH /aws1/cx_s3_bucketalrdyexists /aws1/cx_s3_bktalrdyownedbyyou.
+        " Bucket already exists, that's OK for testing
+    ENDTRY.
 
     " Tag buckets for cleanup
-    ao_s3->putbuckettagging(
-      iv_bucket = av_input_bucket
-      io_tagging = NEW /aws1/cl_s3_tagging(
-        it_tagset = VALUE /aws1/cl_s3_tag=>tt_tagset(
-          ( NEW /aws1/cl_s3_tag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ) ).
-    ao_s3->putbuckettagging(
-      iv_bucket = av_output_bucket
-      io_tagging = NEW /aws1/cl_s3_tagging(
-        it_tagset = VALUE /aws1/cl_s3_tag=>tt_tagset(
-          ( NEW /aws1/cl_s3_tag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ) ).
+    TRY.
+        ao_s3->putbuckettagging(
+          iv_bucket = av_input_bucket
+          io_tagging = NEW /aws1/cl_s3_tagging(
+            it_tagset = VALUE /aws1/cl_s3_tag=>tt_tagset(
+              ( NEW /aws1/cl_s3_tag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ) ).
+      CATCH /aws1/cx_rt_generic.
+        " Tagging failed, continue anyway
+    ENDTRY.
+    
+    TRY.
+        ao_s3->putbuckettagging(
+          iv_bucket = av_output_bucket
+          io_tagging = NEW /aws1/cl_s3_tagging(
+            it_tagset = VALUE /aws1/cl_s3_tag=>tt_tagset(
+              ( NEW /aws1/cl_s3_tag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ) ).
+      CATCH /aws1/cx_rt_generic.
+        " Tagging failed, continue anyway
+    ENDTRY.
 
     " Create IAM role for DICOM import with comprehensive permissions
     lv_assume_role_policy = |\{| &&
