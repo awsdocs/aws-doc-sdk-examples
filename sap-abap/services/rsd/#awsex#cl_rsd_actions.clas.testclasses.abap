@@ -85,9 +85,10 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
         
     CREATE OBJECT ao_rsd_actions TYPE /awsex/cl_rsd_actions.
 
-    " Generate unique cluster identifier
+    " Generate unique cluster identifier (must be lowercase)
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
     lv_uuid_string = lv_uuid.
+    TRANSLATE lv_uuid_string TO LOWER CASE.
     av_cluster_id = |rsd-test-{ lv_uuid_string }|.
     " Truncate to 30 characters max
     IF strlen( av_cluster_id ) > 30.

@@ -56,9 +56,10 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
         
     CREATE OBJECT ao_rsh_actions TYPE /awsex/cl_rsh_actions.
 
-    " Generate unique cluster identifiers with convert_test tag
+    " Generate unique cluster identifiers with convert_test tag (must be lowercase)
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
     lv_uuid_string = lv_uuid.
+    TRANSLATE lv_uuid_string TO LOWER CASE.
     
     " Main cluster for create test
     av_cluster_id = |rsh-crt-{ lv_uuid_string }|.
