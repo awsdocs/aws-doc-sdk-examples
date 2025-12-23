@@ -101,6 +101,10 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
         MESSAGE 'Email identity created successfully.' TYPE 'I'.
       CATCH /aws1/cx_se2alreadyexistsex.
         MESSAGE 'Email identity already exists.' TYPE 'I'.
+      CATCH /aws1/cx_se2badrequestex INTO DATA(lo_bad_request).
+        MESSAGE lo_bad_request TYPE 'I' DISPLAY LIKE 'E'.
+      CATCH /aws1/cx_se2limitexceededex INTO DATA(lo_limit_exceeded).
+        MESSAGE lo_limit_exceeded TYPE 'I' DISPLAY LIKE 'E'.
     ENDTRY.
     " snippet-end:[se2.abapv1.create_email_identity]
   ENDMETHOD.
@@ -118,6 +122,14 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
         MESSAGE 'Contact list created successfully.' TYPE 'I'.
       CATCH /aws1/cx_se2alreadyexistsex.
         MESSAGE 'Contact list already exists.' TYPE 'I'.
+      CATCH /aws1/cx_se2badrequestex INTO DATA(lo_bad_request).
+        MESSAGE 'Bad request - contact list limit may be reached.' TYPE 'I'.
+        " Re-raise the exception so the caller can handle it
+        RAISE EXCEPTION lo_bad_request.
+      CATCH /aws1/cx_se2limitexceededex INTO DATA(lo_limit_exceeded).
+        MESSAGE 'Limit exceeded - contact list limit reached.' TYPE 'I'.
+        " Re-raise the exception so the caller can handle it
+        RAISE EXCEPTION lo_limit_exceeded.
     ENDTRY.
     " snippet-end:[se2.abapv1.create_contact_list]
   ENDMETHOD.
@@ -141,6 +153,10 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
         MESSAGE 'Email template created successfully.' TYPE 'I'.
       CATCH /aws1/cx_se2alreadyexistsex.
         MESSAGE 'Email template already exists.' TYPE 'I'.
+      CATCH /aws1/cx_se2badrequestex.
+        MESSAGE 'Bad request.' TYPE 'E'.
+      CATCH /aws1/cx_se2limitexceededex.
+        MESSAGE 'Limit exceeded.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[se2.abapv1.create_email_template]
   ENDMETHOD.
@@ -159,6 +175,10 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
         MESSAGE 'Contact created successfully.' TYPE 'I'.
       CATCH /aws1/cx_se2alreadyexistsex.
         MESSAGE 'Contact already exists.' TYPE 'I'.
+      CATCH /aws1/cx_se2badrequestex.
+        MESSAGE 'Bad request.' TYPE 'E'.
+      CATCH /aws1/cx_se2notfoundexception.
+        MESSAGE 'Contact list not found.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[se2.abapv1.create_contact]
   ENDMETHOD.
@@ -197,6 +217,12 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
           io_destination = lo_destination
           io_content = lo_content ).
         MESSAGE 'Email sent successfully.' TYPE 'I'.
+      CATCH /aws1/cx_se2accountsuspendedex.
+        MESSAGE 'Account suspended.' TYPE 'E'.
+      CATCH /aws1/cx_se2badrequestex.
+        MESSAGE 'Bad request.' TYPE 'E'.
+      CATCH /aws1/cx_se2messagerejected.
+        MESSAGE 'Message rejected.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[se2.abapv1.send_email]
   ENDMETHOD.
@@ -234,6 +260,12 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
           io_content = lo_content
           io_listmanagementoptions = lo_list_mgmt ).
         MESSAGE 'Email sent using template successfully.' TYPE 'I'.
+      CATCH /aws1/cx_se2accountsuspendedex.
+        MESSAGE 'Account suspended.' TYPE 'E'.
+      CATCH /aws1/cx_se2badrequestex.
+        MESSAGE 'Bad request.' TYPE 'E'.
+      CATCH /aws1/cx_se2messagerejected.
+        MESSAGE 'Message rejected.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[se2.abapv1.send_email_template]
   ENDMETHOD.
@@ -250,6 +282,10 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
           iv_contactlistname = iv_contact_list_name ).
         DATA(lv_count) = lines( oo_result->get_contacts( ) ).
         MESSAGE |Retrieved { lv_count } contacts from list.| TYPE 'I'.
+      CATCH /aws1/cx_se2badrequestex.
+        MESSAGE 'Bad request.' TYPE 'E'.
+      CATCH /aws1/cx_se2notfoundexception.
+        MESSAGE 'Contact list not found.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[se2.abapv1.list_contacts]
   ENDMETHOD.
@@ -267,6 +303,8 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
         MESSAGE 'Contact list deleted successfully.' TYPE 'I'.
       CATCH /aws1/cx_se2notfoundexception.
         MESSAGE 'Contact list not found.' TYPE 'I'.
+      CATCH /aws1/cx_se2badrequestex.
+        MESSAGE 'Bad request.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[se2.abapv1.delete_contact_list]
   ENDMETHOD.
@@ -284,6 +322,8 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
         MESSAGE 'Email template deleted successfully.' TYPE 'I'.
       CATCH /aws1/cx_se2notfoundexception.
         MESSAGE 'Email template not found.' TYPE 'I'.
+      CATCH /aws1/cx_se2badrequestex.
+        MESSAGE 'Bad request.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[se2.abapv1.delete_email_template]
   ENDMETHOD.
@@ -301,6 +341,8 @@ CLASS /awsex/cl_se2_actions IMPLEMENTATION.
         MESSAGE 'Email identity deleted successfully.' TYPE 'I'.
       CATCH /aws1/cx_se2notfoundexception.
         MESSAGE 'Email identity not found.' TYPE 'I'.
+      CATCH /aws1/cx_se2badrequestex.
+        MESSAGE 'Bad request.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[se2.abapv1.delete_email_identity]
   ENDMETHOD.
