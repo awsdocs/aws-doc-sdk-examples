@@ -18,7 +18,7 @@ CLASS ltc_awsex_cl_mig_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_input_bucket TYPE /aws1/s3_bucketname.
     CLASS-DATA av_output_bucket TYPE /aws1/s3_bucketname.
     CLASS-DATA av_role_arn TYPE /aws1/migrolearn.
-    CLASS-DATA av_role_name TYPE /aws1/iamrolename.
+    CLASS-DATA av_role_name TYPE /aws1/iamrolenametype.
     CLASS-DATA av_image_set_id TYPE /aws1/migimagesetid.
     CLASS-DATA av_job_id TYPE /aws1/migjobid.
     CLASS-DATA av_datastore_arn TYPE /aws1/migarn.
