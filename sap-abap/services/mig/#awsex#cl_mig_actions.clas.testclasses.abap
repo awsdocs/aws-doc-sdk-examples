@@ -108,7 +108,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
       iv_bucket = av_output_bucket
       io_tagging = NEW /aws1/cl_s3_tagging(
         it_tagset = VALUE /aws1/cl_s3_tag=>tt_tagset(
-          ( NEW /aws1/cl_s3_tag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
+          ( NEW /aws1/cl_s3_tag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ) ).
 
     " Create IAM role for DICOM import with comprehensive permissions
     DATA(lv_assume_role_policy) = |\{| &&
@@ -127,7 +127,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
           it_tags = VALUE /aws1/cl_iamtag=>tt_taglisttype(
             ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
         av_role_arn = lo_create_role_result->get_role( )->get_arn( ).
-      CATCH /aws1/cx_iamentityalrdyexists.
+      CATCH /aws1/cx_iamentityalrdyexex.
         " Role exists, get its ARN
         DATA(lo_role) = ao_iam->getrole( iv_rolename = av_role_name ).
         av_role_arn = lo_role->get_role( )->get_arn( ).
