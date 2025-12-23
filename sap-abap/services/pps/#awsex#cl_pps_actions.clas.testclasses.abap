@@ -74,7 +74,7 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
           '"Resource":"' && av_sns_topic_arn && '",' &&
           '"Condition":{ "StringEquals":{ "aws:SourceAccount":"' && lv_account_id && '" } } }'.
 
-        ao_sns->settopiattributes(
+        ao_sns->settopicattributes(
           iv_topicarn = av_sns_topic_arn
           iv_attributename = 'Policy'
           iv_attributevalue = lv_policy
