@@ -109,15 +109,32 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
         MESSAGE |Contact list { av_contact_list_name } already exists| TYPE 'I'.
       CATCH /aws1/cx_se2badrequestex INTO DATA(lo_bad_req).
         " May hit limit - use default list if exists
-        MESSAGE |Contact list limit reached, tests will use existing list| TYPE 'I'.
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
-        " Cannot create contact list - try to find existing one
+        MESSAGE |Contact list limit reached, finding existing list| TYPE 'I'.
         TRY.
             DATA(lo_lists) = ao_se2->listcontactlists( ).
             IF lines( lo_lists->get_contactlists( ) ) > 0.
               " Use first available contact list
               LOOP AT lo_lists->get_contactlists( ) INTO DATA(lo_list).
                 av_contact_list_name = lo_list->get_contactlistname( ).
+                EXIT.
+              ENDLOOP.
+              MESSAGE |Using existing contact list: { av_contact_list_name }| TYPE 'I'.
+            ELSE.
+              cl_abap_unit_assert=>fail(
+                msg = |No contact list available and cannot create: { lo_bad_req->get_text( ) }| ).
+            ENDIF.
+          CATCH /aws1/cx_rt_generic INTO DATA(lo_list_ex).
+            cl_abap_unit_assert=>fail(
+              msg = |Failed to find contact list: { lo_list_ex->get_text( ) }| ).
+        ENDTRY.
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
+        " Cannot create contact list - try to find existing one
+        TRY.
+            DATA(lo_lists2) = ao_se2->listcontactlists( ).
+            IF lines( lo_lists2->get_contactlists( ) ) > 0.
+              " Use first available contact list
+              LOOP AT lo_lists2->get_contactlists( ) INTO DATA(lo_list2).
+                av_contact_list_name = lo_list2->get_contactlistname( ).
                 EXIT.
               ENDLOOP.
               MESSAGE |Using existing contact list: { av_contact_list_name }| TYPE 'I'.
@@ -264,66 +281,56 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
     ao_se2_actions->create_email_identity( lv_test_identity ).
 
     " Verify it was created by attempting to get it
-    TRY.
-        DATA(lo_result) = ao_se2->getemailidentity(
-          iv_emailidentity = lv_test_identity ).
+    DATA(lo_result) = ao_se2->getemailidentity(
+      iv_emailidentity = lv_test_identity ).
 
-        cl_abap_unit_assert=>assert_equals(
-          act = lo_result->get_identitytype( )
-          exp = 'EMAIL_ADDRESS'
-          msg = |Email identity { lv_test_identity } was not created correctly| ).
+    cl_abap_unit_assert=>assert_equals(
+      act = lo_result->get_identitytype( )
+      exp = 'EMAIL_ADDRESS'
+      msg = |Email identity { lv_test_identity } was not created correctly| ).
 
-        " Tag for cleanup
-        DATA(lv_arn) = |arn:aws:ses:{ ao_session->get_region( ) }:{ ao_session->get_account_id( ) }:identity/{ lv_test_identity }|.
-        tag_resource( lv_arn ).
+    " Tag for cleanup
+    DATA(lv_arn) = |arn:aws:ses:{ ao_session->get_region( ) }:{ ao_session->get_account_id( ) }:identity/{ lv_test_identity }|.
+    tag_resource( lv_arn ).
 
-        " Clean up - delete the test identity
-        ao_se2->deleteemailidentity( iv_emailidentity = lv_test_identity ).
-
-      CATCH /aws1/cx_se2notfoundexception.
-        cl_abap_unit_assert=>fail(
-          msg = |Email identity { lv_test_identity } was not created| ).
-    ENDTRY.
+    " Clean up - delete the test identity
+    ao_se2->deleteemailidentity( iv_emailidentity = lv_test_identity ).
   ENDMETHOD.
 
   METHOD create_contact_list.
     " In sandbox mode, we can only have 1 contact list
     " Test the create_contact_list method but handle the limit gracefully
     DATA(lv_test_uuid) = /awsex/cl_utils=>get_random_string( ).
-    DATA(lv_test_list) = |test-list-create-{ lv_test_uuid }|.
+    DATA(lv_test_list) = |test-list-cre-{ lv_test_uuid }|.
 
-    " Try to call the action method
+    " Try to call the action method and handle limit errors
     TRY.
         ao_se2_actions->create_contact_list( lv_test_list ).
 
-        " If we got here, verify it was created
-        TRY.
-            DATA(lo_result) = ao_se2->getcontactlist(
-              iv_contactlistname = lv_test_list ).
+        " Verify it was created
+        DATA(lo_result) = ao_se2->getcontactlist(
+          iv_contactlistname = lv_test_list ).
 
-            cl_abap_unit_assert=>assert_equals(
-              act = lo_result->get_contactlistname( )
-              exp = lv_test_list
-              msg = |Contact list { lv_test_list } was not created| ).
+        cl_abap_unit_assert=>assert_equals(
+          act = lo_result->get_contactlistname( )
+          exp = lv_test_list
+          msg = |Contact list { lv_test_list } was created successfully| ).
 
-            " Tag for cleanup
-            DATA(lv_arn) = |arn:aws:ses:{ ao_session->get_region( ) }:{ ao_session->get_account_id( ) }:contact-list/{ lv_test_list }|.
-            tag_resource( lv_arn ).
+        " Tag for cleanup
+        DATA(lv_arn) = |arn:aws:ses:{ ao_session->get_region( ) }:{ ao_session->get_account_id( ) }:contact-list/{ lv_test_list }|.
+        tag_resource( lv_arn ).
 
-            " Clean up
-            ao_se2->deletecontactlist( iv_contactlistname = lv_test_list ).
+        " Clean up
+        ao_se2->deletecontactlist( iv_contactlistname = lv_test_list ).
 
-          CATCH /aws1/cx_se2notfoundexception.
-            cl_abap_unit_assert=>fail(
-              msg = |Contact list { lv_test_list } was not created| ).
-        ENDTRY.
+      CATCH /aws1/cx_se2badrequestex INTO DATA(lo_bad_req).
+        " Hit the limit - this is expected in sandbox mode
+        " Verify that the method didn't crash and handled the error
+        MESSAGE |Contact list limit hit: { lo_bad_req->get_text( ) }. Method handled error correctly.| TYPE 'I'.
 
-      CATCH /aws1/cx_se2badrequestex.
-        " Hit the limit - this is expected in sandbox, verify error is handled
-        MESSAGE 'Contact list limit reached - test passed as error was handled' TYPE 'I'.
-      CATCH /aws1/cx_se2limitexceededex.
-        " Limit exceeded - also expected, test passed
-        MESSAGE 'Contact list limit exceeded - test passed as error was handled' TYPE 'I'.
+      CATCH /aws1/cx_se2limitexceededex INTO DATA(lo_limit).
+        " Limit exceeded - also expected in sandbox
+        MESSAGE |Contact list limit exceeded: { lo_limit->get_text( ) }. Method handled error correctly.| TYPE 'I'.
     ENDTRY.
   ENDMETHOD.
 
@@ -339,26 +346,20 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
       iv_text = 'Test Text' ).
 
     " Verify it was created
-    TRY.
-        DATA(lo_result) = ao_se2->getemailtemplate(
-          iv_templatename = lv_test_template ).
+    DATA(lo_result) = ao_se2->getemailtemplate(
+      iv_templatename = lv_test_template ).
 
-        cl_abap_unit_assert=>assert_equals(
-          act = lo_result->get_templatename( )
-          exp = lv_test_template
-          msg = |Email template { lv_test_template } was not created| ).
+    cl_abap_unit_assert=>assert_equals(
+      act = lo_result->get_templatename( )
+      exp = lv_test_template
+      msg = |Email template { lv_test_template } was not created| ).
 
-        " Tag for cleanup
-        DATA(lv_arn) = |arn:aws:ses:{ ao_session->get_region( ) }:{ ao_session->get_account_id( ) }:template/{ lv_test_template }|.
-        tag_resource( lv_arn ).
+    " Tag for cleanup
+    DATA(lv_arn) = |arn:aws:ses:{ ao_session->get_region( ) }:{ ao_session->get_account_id( ) }:template/{ lv_test_template }|.
+    tag_resource( lv_arn ).
 
-        " Clean up
-        ao_se2->deleteemailtemplate( iv_templatename = lv_test_template ).
-
-      CATCH /aws1/cx_se2notfoundexception.
-        cl_abap_unit_assert=>fail(
-          msg = |Email template { lv_test_template } was not created| ).
-    ENDTRY.
+    " Clean up
+    ao_se2->deleteemailtemplate( iv_templatename = lv_test_template ).
   ENDMETHOD.
 
   METHOD create_contact.
@@ -508,7 +509,7 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
     " Instead, verify the delete method handles the scenario correctly
     " by testing with a non-existent list name
     DATA(lv_test_uuid) = /awsex/cl_utils=>get_random_string( ).
-    DATA(lv_nonexistent_list) = |nonexistent-list-{ lv_test_uuid }|.
+    DATA(lv_nonexistent_list) = |noexist-list-{ lv_test_uuid }|.
 
     " Call the action method with a non-existent list
     " This should handle the not found exception gracefully
@@ -524,24 +525,18 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
     DATA(lv_test_template) = |test-tmpl-del-{ lv_test_uuid }|.
 
     " Create the template
-    TRY.
-        DATA(lo_template_content) = NEW /aws1/cl_se2emailtmplcontent(
-          iv_subject = 'Test Delete'
-          iv_html = '<html><body>Test</body></html>'
-          iv_text = 'Test' ).
+    DATA(lo_template_content) = NEW /aws1/cl_se2emailtmplcontent(
+      iv_subject = 'Test Delete'
+      iv_html = '<html><body>Test</body></html>'
+      iv_text = 'Test' ).
 
-        ao_se2->createemailtemplate(
-          iv_templatename = lv_test_template
-          io_templatecontent = lo_template_content ).
+    ao_se2->createemailtemplate(
+      iv_templatename = lv_test_template
+      io_templatecontent = lo_template_content ).
 
-        " Tag it for cleanup in case test fails
-        DATA(lv_arn) = |arn:aws:ses:{ ao_session->get_region( ) }:{ ao_session->get_account_id( ) }:template/{ lv_test_template }|.
-        tag_resource( lv_arn ).
-
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
-        cl_abap_unit_assert=>fail(
-          msg = |Failed to create test template: { lo_ex->get_text( ) }| ).
-    ENDTRY.
+    " Tag it for cleanup in case test fails
+    DATA(lv_arn) = |arn:aws:ses:{ ao_session->get_region( ) }:{ ao_session->get_account_id( ) }:template/{ lv_test_template }|.
+    tag_resource( lv_arn ).
 
     " Call the action method to delete it
     ao_se2_actions->delete_email_template( lv_test_template ).
@@ -562,17 +557,11 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
     DATA(lv_test_identity) = |test{ lv_test_uuid }@example.com|.
 
     " Create the identity
-    TRY.
-        ao_se2->createemailidentity( iv_emailidentity = lv_test_identity ).
+    ao_se2->createemailidentity( iv_emailidentity = lv_test_identity ).
 
-        " Tag it for cleanup in case test fails
-        DATA(lv_arn) = |arn:aws:ses:{ ao_session->get_region( ) }:{ ao_session->get_account_id( ) }:identity/{ lv_test_identity }|.
-        tag_resource( lv_arn ).
-
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
-        cl_abap_unit_assert=>fail(
-          msg = |Failed to create test identity: { lo_ex->get_text( ) }| ).
-    ENDTRY.
+    " Tag it for cleanup in case test fails
+    DATA(lv_arn) = |arn:aws:ses:{ ao_session->get_region( ) }:{ ao_session->get_account_id( ) }:identity/{ lv_test_identity }|.
+    tag_resource( lv_arn ).
 
     " Call the action method to delete it
     ao_se2_actions->delete_email_identity( lv_test_identity ).
