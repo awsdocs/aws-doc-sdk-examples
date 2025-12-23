@@ -56,7 +56,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
       EXPORTING
         io_session = ao_session
       RECEIVING
-        oo_result  = ao_rsh.
+        oo_client  = ao_rsh.
         
     CREATE OBJECT ao_rsh_actions TYPE /awsex/cl_rsh_actions.
 
@@ -124,7 +124,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
             iv_numberofnodes      = 1
             it_tags               = lt_tags
           RECEIVING
-            oo_result             = lo_result.
+            oo_output             = lo_result.
       CATCH /aws1/cx_rshclustalrdyexfault.
         " Cluster may exist from previous failed test - continue
         MESSAGE 'Cluster already exists, continuing with existing cluster.' TYPE 'I'.
@@ -165,15 +165,13 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
             iv_numberofnodes      = 1
             it_tags               = lt_tags
           RECEIVING
-            oo_result             = lo_result.
+            oo_output             = lo_result.
 
         cl_abap_unit_assert=>assert_bound(
           act = lo_result
           msg = |Cluster creation failed for { av_cluster_id }| ).
 
-        CALL METHOD lo_result->get_cluster
-          RECEIVING
-            oo_result = lo_cluster.
+        lo_cluster = lo_result->get_cluster( ).
             
         cl_abap_unit_assert=>assert_equals(
           exp = av_cluster_id
@@ -189,11 +187,9 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
           EXPORTING
             iv_clusteridentifier = av_cluster_id
           RECEIVING
-            oo_result            = lo_describe_result.
+            oo_output            = lo_describe_result.
             
-        CALL METHOD lo_describe_result->get_clusters
-          RECEIVING
-            ot_result = lt_clusters.
+        lt_clusters = lo_describe_result->get_clusters( ).
             
         cl_abap_unit_assert=>assert_not_initial(
           act = lt_clusters
@@ -217,17 +213,13 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
             EXPORTING
               iv_clusteridentifier = iv_cluster_id
             RECEIVING
-              oo_result            = lo_describe_result.
+              oo_output            = lo_describe_result.
               
-          CALL METHOD lo_describe_result->get_clusters
-            RECEIVING
-              ot_result = lt_clusters.
+          lt_clusters = lo_describe_result->get_clusters( ).
               
           IF lines( lt_clusters ) > 0.
             READ TABLE lt_clusters INDEX 1 INTO lo_cluster.
-            CALL METHOD lo_cluster->get_clusterstatus
-              RECEIVING
-                ov_result = lv_status.
+            lv_status = lo_cluster->get_clusterstatus( ).
 
             IF lv_status = 'available'.
               RETURN.
@@ -268,20 +260,16 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
       EXPORTING
         iv_clusteridentifier = av_cluster_id_modify
       RECEIVING
-        oo_result            = lo_result.
+        oo_output            = lo_result.
 
-    CALL METHOD lo_result->get_clusters
-      RECEIVING
-        ot_result = lt_clusters.
+    lt_clusters = lo_result->get_clusters( ).
         
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_clusters
       msg = |Cluster not found after modification| ).
 
     READ TABLE lt_clusters INDEX 1 INTO lo_cluster.
-    CALL METHOD lo_cluster->get_preferredmaintenancewin00
-      RECEIVING
-        ov_result = lv_maintenance_window.
+    lv_maintenance_window = lo_cluster->get_preferredmaintenancewin00( ).
         
     cl_abap_unit_assert=>assert_equals(
       exp = 'wed:07:30-wed:08:00'
@@ -308,18 +296,14 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
       act = lo_result
       msg = |Describe clusters failed| ).
 
-    CALL METHOD lo_result->get_clusters
-      RECEIVING
-        ot_result = lt_clusters.
+    lt_clusters = lo_result->get_clusters( ).
         
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_clusters
       msg = |No clusters returned| ).
 
     READ TABLE lt_clusters INDEX 1 INTO lo_cluster.
-    CALL METHOD lo_cluster->get_clusteridentifier
-      RECEIVING
-        ov_result = lv_cluster_id.
+    lv_cluster_id = lo_cluster->get_clusteridentifier( ).
         
     cl_abap_unit_assert=>assert_equals(
       exp = av_cluster_id_describe
@@ -331,9 +315,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
       RECEIVING
         oo_result = lo_all_result.
         
-    CALL METHOD lo_all_result->get_clusters
-      RECEIVING
-        ot_result = lt_all_clusters.
+    lt_all_clusters = lo_all_result->get_clusters( ).
         
     cl_abap_unit_assert=>assert_not_initial(
       act = lt_all_clusters
@@ -360,17 +342,13 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
           EXPORTING
             iv_clusteridentifier = av_cluster_id_delete
           RECEIVING
-            oo_result            = lo_result.
+            oo_output            = lo_result.
             
-        CALL METHOD lo_result->get_clusters
-          RECEIVING
-            ot_result = lt_clusters.
+        lt_clusters = lo_result->get_clusters( ).
             
         IF lines( lt_clusters ) > 0.
           READ TABLE lt_clusters INDEX 1 INTO lo_cluster.
-          CALL METHOD lo_cluster->get_clusterstatus
-            RECEIVING
-              ov_result = lv_status.
+          lv_status = lo_cluster->get_clusterstatus( ).
               
           " Cluster should be in deleting state
           cl_abap_unit_assert=>assert_equals(

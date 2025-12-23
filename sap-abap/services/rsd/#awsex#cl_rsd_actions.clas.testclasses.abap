@@ -76,13 +76,13 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
       EXPORTING
         io_session = ao_session
       RECEIVING
-        oo_result  = ao_rsh.
+        oo_client  = ao_rsh.
         
     CALL METHOD /aws1/cl_rsd_factory=>create
       EXPORTING
         io_session = ao_session
       RECEIVING
-        oo_result  = ao_rsd.
+        oo_client  = ao_rsd.
         
     CREATE OBJECT ao_rsd_actions TYPE /awsex/cl_rsd_actions.
 
