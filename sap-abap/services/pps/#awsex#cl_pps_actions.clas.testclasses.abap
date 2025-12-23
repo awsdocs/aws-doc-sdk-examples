@@ -16,7 +16,7 @@ CLASS ltc_awsex_cl_pps_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_sns_topic_arn TYPE /aws1/snstopicarn.
     CLASS-DATA av_sns_topic_name TYPE /aws1/snstopicname.
 
-    CLASS-METHODS class_setup.
+    CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown.
 
     METHODS send_voice_message FOR TESTING.
