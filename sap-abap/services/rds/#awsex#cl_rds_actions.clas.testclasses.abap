@@ -18,7 +18,7 @@ CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_engine_version TYPE /aws1/rdsstring.
     CLASS-DATA av_instance_class TYPE /aws1/rdsstring.
     CLASS-DATA av_param_group_family TYPE /aws1/rdsstring.
-    CLASS-DATA av_default_vpc_id TYPE /aws1/ec2_vpcid.
+    CLASS-DATA av_default_vpc_id TYPE /aws1/rdsstring.
     CLASS-DATA av_db_subnet_group_name TYPE /aws1/rdsstring.
     CLASS-DATA at_vpc_security_group_ids TYPE /aws1/cl_rdsvpcsecgrpidlist_w=>tt_vpcsecuritygroupidlist.
 
@@ -45,22 +45,22 @@ CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     CLASS-METHODS get_default_vpc
       RETURNING
-        VALUE(rv_vpc_id) TYPE /aws1/ec2_vpcid
+        VALUE(rv_vpc_id) TYPE /aws1/rdsstring
       RAISING
         /aws1/cx_rt_generic.
 
     CLASS-METHODS create_db_subnet_group
       IMPORTING
         iv_subnet_group_name TYPE /aws1/rdsstring
-        iv_vpc_id            TYPE /aws1/ec2_vpcid
+        iv_vpc_id            TYPE /aws1/rdsstring
       RAISING
         /aws1/cx_rt_generic.
 
     CLASS-METHODS get_default_security_group
       IMPORTING
-        iv_vpc_id                   TYPE /aws1/ec2_vpcid
+        iv_vpc_id                   TYPE /aws1/rdsstring
       RETURNING
-        VALUE(rv_security_group_id) TYPE /aws1/ec2_groupid
+        VALUE(rv_security_group_id) TYPE /aws1/rdsstring
       RAISING
         /aws1/cx_rt_generic.
 
