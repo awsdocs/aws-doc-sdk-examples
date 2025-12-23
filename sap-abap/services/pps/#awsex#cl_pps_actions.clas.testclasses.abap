@@ -66,14 +66,13 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
         DATA(lv_account_id) = ao_session->get_account_id( ).
 
         " Create SNS topic policy to allow PPS to publish
-        DATA(lv_policy) = |[{| &&
-          |"Sid":"AllowPPSPublish",| &&
-          |"Effect":"Allow",| &&
-          |"Principal":[{"Service":"sms-voice.amazonaws.com"}],| &&
-          |"Action":"SNS:Publish",| &&
-          |"Resource":"{ av_sns_topic_arn }",| &&
-          |"Condition":[{"StringEquals":[{"aws:SourceAccount":"{ lv_account_id }"}]}]| &&
-          |}]|.
+        DATA lv_policy TYPE string.
+        lv_policy = '{ "Sid":"AllowPPSPublish",' &&
+          '"Effect":"Allow",' &&
+          '"Principal":{ "Service":"sms-voice.amazonaws.com" },' &&
+          '"Action":"SNS:Publish",' &&
+          '"Resource":"' && av_sns_topic_arn && '",' &&
+          '"Condition":{ "StringEquals":{ "aws:SourceAccount":"' && lv_account_id && '" } } }'.
 
         ao_sns->settopiattributes(
           iv_topicarn = av_sns_topic_arn
