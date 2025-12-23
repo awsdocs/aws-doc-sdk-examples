@@ -156,17 +156,17 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_datastore_id) = oo_result->get_datastoreid( ).
         MESSAGE 'Data store created.' TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_migconflictexception.
-        MESSAGE 'Conflict. Data store may already exist.' TYPE 'E'.
+        MESSAGE 'Conflict. Data store may already exist.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migservicequotaexcdex.
-        MESSAGE 'Service quota exceeded.' TYPE 'E'.
+        MESSAGE 'Service quota exceeded.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.createdatastore]
   ENDMETHOD.
@@ -187,15 +187,15 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_status) = lo_properties->get_datastorestatus( ).
         MESSAGE 'Data store properties retrieved.' TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Data store not found.' TYPE 'E'.
+        MESSAGE 'Data store not found.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.getdatastore]
   ENDMETHOD.
@@ -214,13 +214,13 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_count) = lines( lt_datastores ).
         MESSAGE |Found { lv_count } data stores.| TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.listdatastores]
   ENDMETHOD.
@@ -238,17 +238,17 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         oo_result = lo_mig->deletedatastore( iv_datastoreid = iv_datastore_id ).
         MESSAGE 'Data store deleted.' TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_migconflictexception.
-        MESSAGE 'Conflict. Data store may contain resources.' TYPE 'E'.
+        MESSAGE 'Conflict. Data store may contain resources.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Data store not found.' TYPE 'E'.
+        MESSAGE 'Data store not found.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.deletedatastore]
   ENDMETHOD.
@@ -276,19 +276,19 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_job_id) = oo_result->get_jobid( ).
         MESSAGE |DICOM import job started with ID: { lv_job_id }.| TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_migconflictexception.
-        MESSAGE 'Conflict error.' TYPE 'E'.
+        MESSAGE 'Conflict error.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Resource not found.' TYPE 'E'.
+        MESSAGE 'Resource not found.' TYPE 'I'.
       CATCH /aws1/cx_migservicequotaexcdex.
-        MESSAGE 'Service quota exceeded.' TYPE 'E'.
+        MESSAGE 'Service quota exceeded.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.startdicomimportjob]
   ENDMETHOD.
@@ -311,17 +311,17 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_job_status) = lo_job_props->get_jobstatus( ).
         MESSAGE |Job status: { lv_job_status }.| TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_migconflictexception.
-        MESSAGE 'Conflict error.' TYPE 'E'.
+        MESSAGE 'Conflict error.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Job not found.' TYPE 'E'.
+        MESSAGE 'Job not found.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.getdicomimportjob]
   ENDMETHOD.
@@ -341,17 +341,17 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_count) = lines( lt_jobs ).
         MESSAGE |Found { lv_count } DICOM import jobs.| TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_migconflictexception.
-        MESSAGE 'Conflict error.' TYPE 'E'.
+        MESSAGE 'Conflict error.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Resource not found.' TYPE 'E'.
+        MESSAGE 'Resource not found.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.listdicomimportjobs]
   ENDMETHOD.
@@ -373,17 +373,17 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_count) = lines( lt_imagesets ).
         MESSAGE |Found { lv_count } image sets.| TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_migconflictexception.
-        MESSAGE 'Conflict error.' TYPE 'E'.
+        MESSAGE 'Conflict error.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Resource not found.' TYPE 'E'.
+        MESSAGE 'Resource not found.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.searchimagesets]
   ENDMETHOD.
@@ -413,17 +413,17 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_state) = oo_result->get_imagesetstate( ).
         MESSAGE |Image set retrieved with state: { lv_state }.| TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_migconflictexception.
-        MESSAGE 'Conflict error.' TYPE 'E'.
+        MESSAGE 'Conflict error.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Image set not found.' TYPE 'E'.
+        MESSAGE 'Image set not found.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.getimageset]
   ENDMETHOD.
@@ -453,17 +453,17 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_metadata_blob) = oo_result->get_imagesetmetadatablob( ).
         MESSAGE 'Image set metadata retrieved.' TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_migconflictexception.
-        MESSAGE 'Conflict error.' TYPE 'E'.
+        MESSAGE 'Conflict error.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Image set not found.' TYPE 'E'.
+        MESSAGE 'Image set not found.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.getimagesetmetadata]
   ENDMETHOD.
@@ -488,17 +488,17 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_frame_blob) = oo_result->get_imageframeblob( ).
         MESSAGE 'Image frame retrieved.' TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_migconflictexception.
-        MESSAGE 'Conflict error.' TYPE 'E'.
+        MESSAGE 'Conflict error.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Image frame not found.' TYPE 'E'.
+        MESSAGE 'Image frame not found.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.getimageframe]
   ENDMETHOD.
@@ -521,17 +521,17 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_count) = lines( lt_versions ).
         MESSAGE |Found { lv_count } image set versions.| TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_migconflictexception.
-        MESSAGE 'Conflict error.' TYPE 'E'.
+        MESSAGE 'Conflict error.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Image set not found.' TYPE 'E'.
+        MESSAGE 'Image set not found.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.listimagesetversions]
   ENDMETHOD.
@@ -558,19 +558,19 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_new_version) = oo_result->get_latestversionid( ).
         MESSAGE |Image set metadata updated to version: { lv_new_version }.| TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_migconflictexception.
-        MESSAGE 'Conflict error.' TYPE 'E'.
+        MESSAGE 'Conflict error.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Image set not found.' TYPE 'E'.
+        MESSAGE 'Image set not found.' TYPE 'I'.
       CATCH /aws1/cx_migservicequotaexcdex.
-        MESSAGE 'Service quota exceeded.' TYPE 'E'.
+        MESSAGE 'Service quota exceeded.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.updateimagesetmetadata]
   ENDMETHOD.
@@ -612,19 +612,19 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_new_id) = lo_dest_props->get_imagesetid( ).
         MESSAGE |Image set copied with new ID: { lv_new_id }.| TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_migconflictexception.
-        MESSAGE 'Conflict error.' TYPE 'E'.
+        MESSAGE 'Conflict error.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Image set not found.' TYPE 'E'.
+        MESSAGE 'Image set not found.' TYPE 'I'.
       CATCH /aws1/cx_migservicequotaexcdex.
-        MESSAGE 'Service quota exceeded.' TYPE 'E'.
+        MESSAGE 'Service quota exceeded.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.copyimageset]
   ENDMETHOD.
@@ -645,17 +645,17 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
           iv_imagesetid = iv_image_set_id ).
         MESSAGE 'Image set deleted.' TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_migconflictexception.
-        MESSAGE 'Conflict error.' TYPE 'E'.
+        MESSAGE 'Conflict error.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Image set not found.' TYPE 'E'.
+        MESSAGE 'Image set not found.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.deleteimageset]
   ENDMETHOD.
@@ -675,15 +675,15 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
           it_tags = it_tags ).
         MESSAGE 'Resource tagged successfully.' TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Resource not found.' TYPE 'E'.
+        MESSAGE 'Resource not found.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.tagresource]
   ENDMETHOD.
@@ -703,15 +703,15 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
           it_tagkeys = it_tag_keys ).
         MESSAGE 'Resource untagged successfully.' TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Resource not found.' TYPE 'E'.
+        MESSAGE 'Resource not found.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.untagresource]
   ENDMETHOD.
@@ -731,15 +731,15 @@ CLASS /AWSEX/CL_MIG_ACTIONS IMPLEMENTATION.
         DATA(lv_count) = lines( lt_tags ).
         MESSAGE |Found { lv_count } tags for resource.| TYPE 'I'.
       CATCH /aws1/cx_migaccessdeniedex.
-        MESSAGE 'Access denied.' TYPE 'E'.
+        MESSAGE 'Access denied.' TYPE 'I'.
       CATCH /aws1/cx_miginternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
       CATCH /aws1/cx_migresourcenotfoundex.
-        MESSAGE 'Resource not found.' TYPE 'E'.
+        MESSAGE 'Resource not found.' TYPE 'I'.
       CATCH /aws1/cx_migthrottlingex.
-        MESSAGE 'Request throttled.' TYPE 'E'.
+        MESSAGE 'Request throttled.' TYPE 'I'.
       CATCH /aws1/cx_migvalidationex.
-        MESSAGE 'Validation error.' TYPE 'E'.
+        MESSAGE 'Validation error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[mig.abapv1.listtagsforresource]
   ENDMETHOD.
