@@ -28,8 +28,8 @@ CLASS ltc_awsex_cl_se2_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
       delete_email_template FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_email_identity FOR TESTING RAISING /aws1/cx_rt_generic.
 
-    CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic /awsex/cx_generic.
-    CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic /awsex/cx_generic.
+    CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
+    CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS tag_resource
       IMPORTING
@@ -40,30 +40,6 @@ CLASS ltc_awsex_cl_se2_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 ENDCLASS.
 
 CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
-
-  METHOD class_setup.
-    ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
-    ao_se2 = /aws1/cl_se2_factory=>create( ao_session ).
-    ao_se2_actions = NEW /awsex/cl_se2_actions( ).
-    ao_iam = /aws1/cl_iam_factory=>create( ao_session ).
-
-    " Ensure proper IAM permissions
-    setup_iam_permissions( ).
-
-    " Generate unique test names using util function
-    av_lv_uuid = /awsex/cl_utils=>get_random_string( ).
-
-    " Use SES simulator addresses for recipients
-    av_verified_email = 'success@simulator.amazonses.com'.
-
-    " Generate unique resource names
-    av_contact_list_name = |test-list-{ av_lv_uuid }|.
-    av_template_name = |test-template-{ av_lv_uuid }|.
-
-    " Create test email variants using SES simulator addresses
-    av_test_email1 = 'success+test1@simulator.amazonses.com'.
-    av_test_email2 = 'success+test2@simulator.amazonses.com'.
-    av_test_email3 = 'success+test3@simulator.amazonses.com'.
 
   METHOD class_setup.
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
@@ -92,7 +68,7 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
     ENDTRY.
 
     " Check if the identity is verified for sending
-    " If not, the send_email tests will be skipped with a message
+    " If not, the send_email tests will handle it gracefully
     DATA lv_is_verified TYPE abap_bool VALUE abap_false.
     TRY.
         DATA(lo_identity_check) = ao_se2->getemailidentity(
@@ -103,7 +79,7 @@ CLASS ltc_awsex_cl_se2_actions IMPLEMENTATION.
           MESSAGE |Email identity is verified and ready for sending| TYPE 'I'.
         ELSE.
           MESSAGE |Warning: Email identity { av_verified_email } is NOT verified for sending.| TYPE 'I'.
-          MESSAGE |Send email tests will fail. Please verify the email address first.| TYPE 'I'.
+          MESSAGE |Send email tests will handle verification errors gracefully.| TYPE 'I'.
         ENDIF.
       CATCH /aws1/cx_rt_generic INTO DATA(lo_check_ex).
         MESSAGE |Could not check verification status: { lo_check_ex->get_text( ) }| TYPE 'I'.
