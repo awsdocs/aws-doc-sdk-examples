@@ -45,22 +45,22 @@ CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     CLASS-METHODS get_default_vpc
       RETURNING
-        VALUE(rv_vpc_id) TYPE /aws1/ec2_vpcid
+        VALUE(rv_vpc_id) TYPE /aws1/rdsstring
       RAISING
         /aws1/cx_rt_generic.
 
     CLASS-METHODS create_db_subnet_group
       IMPORTING
         iv_subnet_group_name TYPE /aws1/rdsstring
-        iv_vpc_id            TYPE /aws1/ec2_vpcid
+        iv_vpc_id            TYPE /aws1/rdsstring
       RAISING
         /aws1/cx_rt_generic.
 
     CLASS-METHODS get_default_security_group
       IMPORTING
-        iv_vpc_id                   TYPE /aws1/ec2_vpcid
+        iv_vpc_id                   TYPE /aws1/rdsstring
       RETURNING
-        VALUE(rv_security_group_id) TYPE /aws1/ec2_groupid
+        VALUE(rv_security_group_id) TYPE /aws1/rdsstring
       RAISING
         /aws1/cx_rt_generic.
 
@@ -113,11 +113,12 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     ENDIF.
 
     " Get default security group for VPC - MUST succeed
-    DATA(lv_security_group_id) = get_default_security_group( av_default_vpc_id ).
+    DATA lv_security_group_id TYPE /aws1/rdsstring.
+    lv_security_group_id = get_default_security_group( av_default_vpc_id ).
     IF lv_security_group_id IS INITIAL.
       cl_abap_unit_assert=>fail( msg = 'No default security group found. Cannot proceed with tests.' ).
     ENDIF.
-    APPEND lv_security_group_id TO at_vpc_security_group_ids.
+    APPEND NEW /aws1/cl_rdsvpcsecgrpidlist_w( lv_security_group_id ) TO at_vpc_security_group_ids.
 
     " Create DB subnet group - MUST succeed
     create_db_subnet_group(
@@ -210,9 +211,12 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   METHOD get_default_vpc.
     " Get the default VPC
-    DATA(lo_vpcs_result) = ao_ec2->describevpcs( ).
+    DATA lo_vpcs_result TYPE REF TO /aws1/cl_ec2describevpcsresult.
+    DATA lo_vpc TYPE REF TO /aws1/cl_ec2vpc.
+    
+    lo_vpcs_result = ao_ec2->describevpcs( ).
 
-    LOOP AT lo_vpcs_result->get_vpcs( ) INTO DATA(lo_vpc).
+    LOOP AT lo_vpcs_result->get_vpcs( ) INTO lo_vpc.
       IF lo_vpc->get_isdefault( ) = abap_true.
         rv_vpc_id = lo_vpc->get_vpcid( ).
         RETURN.
@@ -223,23 +227,31 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   METHOD create_db_subnet_group.
     " Get subnets from the VPC
-    DATA(lo_filter) = NEW /aws1/cl_ec2_filter( iv_name = 'vpc-id' ).
-    lo_filter->add_item_values( iv_vpc_id ).
-
-    DATA(lo_subnets_result) = ao_ec2->describesubnets(
-      it_filters = VALUE #( ( lo_filter ) ) ).
-
+    DATA lo_subnets_result TYPE REF TO /aws1/cl_ec2descrsubnetsresult.
+    DATA lo_subnet TYPE REF TO /aws1/cl_ec2subnet.
+    DATA lv_subnet_id TYPE /aws1/rdsstring.
+    DATA lv_az TYPE /aws1/rdsstring.
     DATA lt_subnet_ids TYPE /aws1/cl_rdssubnetidlist_w=>tt_subnetidentifierlist.
-    DATA lv_count TYPE i VALUE 0.
+    DATA lv_count TYPE i.
     DATA lt_azs TYPE STANDARD TABLE OF string.
+    
+    lo_subnets_result = ao_ec2->describesubnets(
+      it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
+        ( NEW /aws1/cl_ec2filter(
+            iv_name = 'vpc-id'
+            it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+              ( NEW /aws1/cl_ec2valuestringlist_w( iv_vpc_id ) ) ) ) ) ) ).
+
+    lv_count = 0.
 
     " We need at least 2 subnets in different AZs for RDS
-    LOOP AT lo_subnets_result->get_subnets( ) INTO DATA(lo_subnet).
-      DATA(lv_az) = lo_subnet->get_availabilityzone( ).
+    LOOP AT lo_subnets_result->get_subnets( ) INTO lo_subnet.
+      lv_az = lo_subnet->get_availabilityzone( ).
       " Only add subnets from different AZs
       READ TABLE lt_azs TRANSPORTING NO FIELDS WITH KEY table_line = lv_az.
       IF sy-subrc <> 0.
-        APPEND lo_subnet->get_subnetid( ) TO lt_subnet_ids.
+        lv_subnet_id = lo_subnet->get_subnetid( ).
+        APPEND NEW /aws1/cl_rdssubnetidlist_w( lv_subnet_id ) TO lt_subnet_ids.
         APPEND lv_az TO lt_azs.
         lv_count = lv_count + 1.
         IF lv_count >= 2.
@@ -267,16 +279,21 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   METHOD get_default_security_group.
     " Get the default security group for the VPC
-    DATA(lo_vpc_filter) = NEW /aws1/cl_ec2_filter( iv_name = 'vpc-id' ).
-    lo_vpc_filter->add_item_values( iv_vpc_id ).
+    DATA lo_sgs_result TYPE REF TO /aws1/cl_ec2descrsecgroupsrslt.
+    DATA lo_sg TYPE REF TO /aws1/cl_ec2securitygroup.
+    
+    lo_sgs_result = ao_ec2->describesecuritygroups(
+      it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
+        ( NEW /aws1/cl_ec2filter(
+            iv_name = 'vpc-id'
+            it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+              ( NEW /aws1/cl_ec2valuestringlist_w( iv_vpc_id ) ) ) ) )
+        ( NEW /aws1/cl_ec2filter(
+            iv_name = 'group-name'
+            it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
+              ( NEW /aws1/cl_ec2valuestringlist_w( 'default' ) ) ) ) ) ) ).
 
-    DATA(lo_name_filter) = NEW /aws1/cl_ec2_filter( iv_name = 'group-name' ).
-    lo_name_filter->add_item_values( 'default' ).
-
-    DATA(lo_sgs_result) = ao_ec2->describesecuritygroups(
-      it_filters = VALUE #( ( lo_vpc_filter ) ( lo_name_filter ) ) ).
-
-    LOOP AT lo_sgs_result->get_securitygroups( ) INTO DATA(lo_sg).
+    LOOP AT lo_sgs_result->get_securitygroups( ) INTO lo_sg.
       rv_security_group_id = lo_sg->get_groupid( ).
       RETURN.
     ENDLOOP.
@@ -470,19 +487,30 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   METHOD modify_db_parameter_group.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbparamgrpnamemsg.
-
+    DATA lo_params_result TYPE REF TO /aws1/cl_rdsdbparamgroupdets.
+    DATA lo_param TYPE REF TO /aws1/cl_rdsparameter.
+    DATA lv_param_name TYPE /aws1/rdsstring.
+    DATA lv_param_value TYPE /aws1/rdspotentiallysensitiv01.
+    DATA lv_allowed TYPE /aws1/rdsstring.
+    DATA lv_min TYPE string.
+    DATA lv_max TYPE string.
+    DATA lt_update_params TYPE /aws1/cl_rdsparameter=>tt_parameterslist.
+    
     " First get parameters to find modifiable ones
-    DATA(lo_params_result) = ao_rds->describedbparameters(
+    lo_params_result = ao_rds->describedbparameters(
       iv_dbparametergroupname = av_param_group_name ).
 
-    DATA lt_update_params TYPE /aws1/cl_rdsparameter=>tt_parameterslist.
-    LOOP AT lo_params_result->get_parameters( ) INTO DATA(lo_param).
+    LOOP AT lo_params_result->get_parameters( ) INTO lo_param.
       IF lo_param->get_ismodifiable( ) = abap_true AND
          lo_param->get_datatype( ) = 'integer' AND
          lo_param->get_parametername( ) CP 'max_connections*'.
-        lo_param->set_applymethod( 'immediate' ).
-        lo_param->set_parametervalue( '100' ).
-        APPEND lo_param TO lt_update_params.
+        lv_param_name = lo_param->get_parametername( ).
+        lv_param_value = '100'.
+        " Create new parameter object with modified values
+        APPEND NEW /aws1/cl_rdsparameter(
+          iv_parametername = lv_param_name
+          iv_parametervalue = lv_param_value
+          iv_applymethod = 'immediate' ) TO lt_update_params.
         EXIT.
       ENDIF.
     ENDLOOP.
@@ -493,13 +521,17 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         IF lo_param->get_ismodifiable( ) = abap_true AND
            lo_param->get_datatype( ) = 'integer'.
           " Parse allowed values to get a valid value
-          DATA(lv_allowed) = lo_param->get_allowedvalues( ).
+          lv_allowed = lo_param->get_allowedvalues( ).
           IF lv_allowed CP '*-*'.
             " Range format like '1-65535'
-            SPLIT lv_allowed AT '-' INTO DATA(lv_min) DATA(lv_max).
-            lo_param->set_applymethod( 'immediate' ).
-            lo_param->set_parametervalue( lv_min ).
-            APPEND lo_param TO lt_update_params.
+            SPLIT lv_allowed AT '-' INTO lv_min lv_max.
+            lv_param_name = lo_param->get_parametername( ).
+            lv_param_value = lv_min.
+            " Create new parameter object with modified values
+            APPEND NEW /aws1/cl_rdsparameter(
+              iv_parametername = lv_param_name
+              iv_parametervalue = lv_param_value
+              iv_applymethod = 'immediate' ) TO lt_update_params.
             EXIT.
           ENDIF.
         ENDIF.
@@ -564,7 +596,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       msg = 'Result should not be initial' ).
 
     cl_abap_unit_assert=>assert_not_initial(
-      act = lo_result->get_orderabledbinstanceoptions( )
+      act = lo_result->get_orderabledbinstoptions( )
       msg = 'Orderable options should not be empty' ).
 
   ENDMETHOD.
