@@ -82,9 +82,32 @@ CLASS ltc_awsex_cl_pps_actions IMPLEMENTATION.
 
         MESSAGE 'PPS test resources created successfully' TYPE 'I'.
 
+      CATCH /aws1/cx_ppsclientexc INTO DATA(lo_pps_client_ex).
+        " PPS service access denied - likely missing IAM permissions
+        DATA(lv_error_msg) = lo_pps_client_ex->get_text( ).
+        MESSAGE |PPS Access Denied. Required IAM permissions:| TYPE 'I'.
+        MESSAGE |  - sms-voice:CreateConfigurationSet| TYPE 'I'.
+        MESSAGE |  - sms-voice:DeleteConfigurationSet| TYPE 'I'.
+        MESSAGE |  - sms-voice:ListConfigurationSets| TYPE 'I'.
+        MESSAGE |  - sms-voice:CreateConfigurationSetEventDestination| TYPE 'I'.
+        MESSAGE |  - sms-voice:UpdateConfigurationSetEventDestination| TYPE 'I'.
+        MESSAGE |  - sms-voice:DeleteConfigurationSetEventDestination| TYPE 'I'.
+        MESSAGE |  - sms-voice:GetConfigurationSetEventDestinations| TYPE 'I'.
+        MESSAGE |  - sms-voice:SendVoiceMessage| TYPE 'I'.
+        MESSAGE |Error: { lv_error_msg }| TYPE 'I'.
+        " Re-raise so tests fail with proper error message
+        RAISE EXCEPTION lo_pps_client_ex.
+
+      CATCH /aws1/cx_snsclientexc INTO DATA(lo_sns_client_ex).
+        " SNS service access denied
+        MESSAGE |SNS Access Denied - Missing IAM permissions: { lo_sns_client_ex->get_text( ) }| TYPE 'I'.
+        " Re-raise so tests fail with proper error message
+        RAISE EXCEPTION lo_sns_client_ex.
+
       CATCH /aws1/cx_rt_generic INTO DATA(lo_exception).
         " If setup fails, we cannot run the tests
         " Re-raise the exception so the test framework knows setup failed
+        MESSAGE |Setup failed: { lo_exception->get_text( ) }| TYPE 'I'.
         RAISE EXCEPTION lo_exception.
     ENDTRY.
   ENDMETHOD.
