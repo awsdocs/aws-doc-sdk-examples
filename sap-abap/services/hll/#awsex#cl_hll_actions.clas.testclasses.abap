@@ -1,3 +1,5 @@
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
 CLASS ltc_awsex_cl_hll_actions DEFINITION DEFERRED.
 CLASS /awsex/cl_hll_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_hll_actions.
 
@@ -152,7 +154,12 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
                       |"Statement":[\{| &&
                       |"Effect":"Allow",| &&
                       |"Principal":\{"Service":"healthlake.amazonaws.com"\},| &&
-                      |"Action":"sts:AssumeRole"| &&
+                      |"Action":"sts:AssumeRole",| &&
+                      |"Condition":\{| &&
+                      |"StringEquals":\{| &&
+                      |"aws:SourceAccount":"{ lv_account_id }"| &&
+                      |\}| &&
+                      |\}| &&
                       |\}]| &&
                       |\}|.
 
@@ -175,17 +182,47 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail( |Failed to create IAM role: { lo_ex->get_text( ) }| ).
     ENDTRY.
 
-    " Attach necessary policies to the role for S3 and KMS access
+    " Attach necessary policies to the role for S3, KMS, and HealthLake access
     TRY.
         DATA lv_policy_document TYPE string.
         lv_policy_document = |\{| &&
                             |"Version":"2012-10-17",| &&
-                            |"Statement":[\{| &&
+                            |"Statement":[| &&
+                            |\{| &&
                             |"Effect":"Allow",| &&
-                            |"Action":["s3:GetObject","s3:PutObject","s3:ListBucket","kms:Decrypt","kms:GenerateDataKey","kms:DescribeKey"],| &&
-                            |"Resource":["arn:aws:s3:::{ av_import_bucket }/*","arn:aws:s3:::{ av_import_bucket }",| &&
-                            |"arn:aws:s3:::{ av_export_bucket }/*","arn:aws:s3:::{ av_export_bucket }","*"]| &&
-                            |\}]| &&
+                            |"Action":[| &&
+                            |"s3:GetObject",| &&
+                            |"s3:PutObject",| &&
+                            |"s3:ListBucket",| &&
+                            |"s3:GetBucketLocation",| &&
+                            |"s3:GetObjectVersion",| &&
+                            |"s3:DeleteObject"| &&
+                            |],| &&
+                            |"Resource":[| &&
+                            |"arn:aws:s3:::{ av_import_bucket }/*",| &&
+                            |"arn:aws:s3:::{ av_import_bucket }",| &&
+                            |"arn:aws:s3:::{ av_export_bucket }/*",| &&
+                            |"arn:aws:s3:::{ av_export_bucket }"| &&
+                            |]| &&
+                            |\},| &&
+                            |\{| &&
+                            |"Effect":"Allow",| &&
+                            |"Action":[| &&
+                            |"kms:Decrypt",| &&
+                            |"kms:GenerateDataKey",| &&
+                            |"kms:DescribeKey",| &&
+                            |"kms:CreateGrant"| &&
+                            |],| &&
+                            |"Resource":"*"| &&
+                            |\},| &&
+                            |\{| &&
+                            |"Effect":"Allow",| &&
+                            |"Action":[| &&
+                            |"healthlake:*"| &&
+                            |],| &&
+                            |"Resource":"*"| &&
+                            |\}| &&
+                            |]| &&
                             |\}|.
 
         ao_iam->putrolepolicy(
@@ -350,7 +387,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
   METHOD create_fhir_datastore.
     " This test verifies the create_fhir_datastore action method
     " The actual datastore is already created in class_setup
-    " We just verify it exists and the action method can be called
+    " We verify it exists and was created successfully
 
     cl_abap_unit_assert=>assert_not_initial(
       act = av_datastore_id
@@ -362,13 +399,32 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       msg = 'Datastore ARN should be available'
     ).
 
-    " Verify we can call the action method (though it will fail with throttling if we try to create another)
-    " For demonstration purposes, we verify the method exists and is callable
-    DATA lo_test_result TYPE REF TO /aws1/cl_hllcrefhirdatastore01.
-    
-    " We don't actually create a new datastore to avoid throttling
-    " The class_setup already created one successfully
-    MESSAGE 'Create FHIR datastore action verified.' TYPE 'I'.
+    " Verify the datastore is accessible via the action method
+    DATA lo_result TYPE REF TO /aws1/cl_hlldscfhirdatastore01.
+    ao_hll_actions->describe_fhir_datastore(
+      EXPORTING
+        iv_datastore_id = av_datastore_id
+      IMPORTING
+        oo_result = lo_result
+    ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Should be able to describe created datastore'
+    ).
+
+    DATA(lo_properties) = lo_result->get_datastoreproperties( ).
+    cl_abap_unit_assert=>assert_equals(
+      act = lo_properties->get_datastoreid( )
+      exp = av_datastore_id
+      msg = 'Datastore ID should match the one created in setup'
+    ).
+
+    cl_abap_unit_assert=>assert_equals(
+      act = lo_properties->get_datastorestatus( )
+      exp = 'ACTIVE'
+      msg = 'Datastore should be in ACTIVE status'
+    ).
   ENDMETHOD.
 
   METHOD describe_fhir_datastore.
@@ -417,26 +473,32 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
 
     DATA(lt_datastores) = lo_result->get_datastorepropertieslist( ).
     
-    " Note: The list may not immediately show the newly created datastore
-    " due to eventual consistency. We just verify the list operation works.
-    MESSAGE 'List FHIR datastores action verified.' TYPE 'I'.
-    
-    " Optional: Check if our datastore is in the list (but don't fail if not)
+    " Verify our datastore is in the list
     DATA lv_found TYPE abap_bool VALUE abap_false.
-    IF lt_datastores IS NOT INITIAL.
-      LOOP AT lt_datastores INTO DATA(lo_datastore).
-        IF lo_datastore->get_datastoreid( ) = av_datastore_id.
-          lv_found = abap_true.
-          EXIT.
-        ENDIF.
-      ENDLOOP.
-      
-      IF lv_found = abap_true.
-        MESSAGE 'Created datastore found in the list.' TYPE 'I'.
-      ELSE.
-        MESSAGE 'Datastore not yet visible in list (eventual consistency).' TYPE 'I'.
+    LOOP AT lt_datastores INTO DATA(lo_datastore).
+      IF lo_datastore->get_datastoreid( ) = av_datastore_id.
+        lv_found = abap_true.
+        
+        " Verify datastore properties
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lo_datastore->get_datastorename( )
+          msg = 'Datastore name should not be empty'
+        ).
+        
+        cl_abap_unit_assert=>assert_equals(
+          act = lo_datastore->get_datastorestatus( )
+          exp = 'ACTIVE'
+          msg = 'Datastore should be ACTIVE'
+        ).
+        
+        EXIT.
       ENDIF.
-    ENDIF.
+    ENDLOOP.
+    
+    cl_abap_unit_assert=>assert_true(
+      act = lv_found
+      msg = 'Created datastore should be found in the list'
+    ).
   ENDMETHOD.
 
   METHOD tag_resource.
@@ -481,30 +543,18 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
         ot_tags = lt_tags
     ).
 
-    " Tags may or may not exist depending on test execution order
-    " Just verify the list operation works
-    MESSAGE 'List tags for resource method verified.' TYPE 'I'.
+    " Verify the convert_test tag exists (added in class_setup)
+    DATA lv_found_convert_test TYPE abap_bool VALUE abap_false.
+    LOOP AT lt_tags INTO DATA(lo_tag).
+      IF lo_tag->get_key( ) = 'convert_test' AND lo_tag->get_value( ) = 'true'.
+        lv_found_convert_test = abap_true.
+      ENDIF.
+    ENDLOOP.
     
-    " Optional: Check if our test tags exist but don't fail if they don't
-    IF lt_tags IS NOT INITIAL.
-      DATA lv_found_env TYPE abap_bool VALUE abap_false.
-      DATA lv_found_project TYPE abap_bool VALUE abap_false.
-      LOOP AT lt_tags INTO DATA(lo_tag).
-        IF lo_tag->get_key( ) = 'Environment' AND lo_tag->get_value( ) = 'Test'.
-          lv_found_env = abap_true.
-        ENDIF.
-        IF lo_tag->get_key( ) = 'Project' AND lo_tag->get_value( ) = 'SAP-ABAP-SDK'.
-          lv_found_project = abap_true.
-        ENDIF.
-      ENDLOOP.
-      
-      IF lv_found_env = abap_true.
-        MESSAGE 'Environment tag found.' TYPE 'I'.
-      ENDIF.
-      IF lv_found_project = abap_true.
-        MESSAGE 'Project tag found.' TYPE 'I'.
-      ENDIF.
-    ENDIF.
+    cl_abap_unit_assert=>assert_true(
+      act = lv_found_convert_test
+      msg = 'convert_test tag should exist on the datastore'
+    ).
   ENDMETHOD.
 
   METHOD untag_resource.
@@ -513,7 +563,19 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       msg = 'Datastore ARN must be available'
     ).
 
-    " First check if there are any tags
+    " First, add a test tag that we can remove
+    DATA lt_tags_to_add TYPE /aws1/cl_hlltag=>tt_taglist.
+    APPEND NEW /aws1/cl_hlltag(
+      iv_key = 'TestTagToRemove'
+      iv_value = 'TestValue'
+    ) TO lt_tags_to_add.
+
+    ao_hll_actions->tag_resource(
+      iv_resource_arn = av_datastore_arn
+      it_tags = lt_tags_to_add
+    ).
+
+    " Verify the tag was added
     DATA lt_tags_before TYPE /aws1/cl_hlltag=>tt_taglist.
     ao_hll_actions->list_tags_for_resource(
       EXPORTING
@@ -522,21 +584,29 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
         ot_tags = lt_tags_before
     ).
 
-    " If there are no tags, just verify the untag method works without error
-    IF lt_tags_before IS INITIAL.
-      MESSAGE 'No tags to remove (untag method verified).' TYPE 'I'.
-      RETURN.
-    ENDIF.
+    DATA lv_found_before TYPE abap_bool VALUE abap_false.
+    LOOP AT lt_tags_before INTO DATA(lo_tag_before).
+      IF lo_tag_before->get_key( ) = 'TestTagToRemove'.
+        lv_found_before = abap_true.
+        EXIT.
+      ENDIF.
+    ENDLOOP.
 
+    cl_abap_unit_assert=>assert_true(
+      act = lv_found_before
+      msg = 'TestTagToRemove should exist before untag operation'
+    ).
+
+    " Now remove the tag
     DATA lt_tag_keys TYPE /aws1/cl_hlltagkeylist_w=>tt_tagkeylist.
-    APPEND NEW /aws1/cl_hlltagkeylist_w( 'Environment' ) TO lt_tag_keys.
+    APPEND NEW /aws1/cl_hlltagkeylist_w( 'TestTagToRemove' ) TO lt_tag_keys.
 
     ao_hll_actions->untag_resource(
       iv_resource_arn = av_datastore_arn
       it_tag_keys = lt_tag_keys
     ).
 
-    " Verify tag was removed (if it existed)
+    " Verify tag was removed
     DATA lt_tags_after TYPE /aws1/cl_hlltag=>tt_taglist.
     ao_hll_actions->list_tags_for_resource(
       EXPORTING
@@ -545,20 +615,18 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
         ot_tags = lt_tags_after
     ).
 
-    DATA lv_found TYPE abap_bool VALUE abap_false.
-    LOOP AT lt_tags_after INTO DATA(lo_tag).
-      IF lo_tag->get_key( ) = 'Environment'.
-        lv_found = abap_true.
+    DATA lv_found_after TYPE abap_bool VALUE abap_false.
+    LOOP AT lt_tags_after INTO DATA(lo_tag_after).
+      IF lo_tag_after->get_key( ) = 'TestTagToRemove'.
+        lv_found_after = abap_true.
         EXIT.
       ENDIF.
     ENDLOOP.
 
-    " Don't fail if tag wasn't there to begin with
-    IF lv_found = abap_false.
-      MESSAGE 'Environment tag successfully removed or was not present.' TYPE 'I'.
-    ELSE.
-      MESSAGE 'Environment tag still exists after untag.' TYPE 'I'.
-    ENDIF.
+    cl_abap_unit_assert=>assert_false(
+      act = lv_found_after
+      msg = 'TestTagToRemove should not exist after untag operation'
+    ).
   ENDMETHOD.
 
   METHOD start_fhir_import_job.
@@ -583,39 +651,34 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
 
     DATA lo_result TYPE REF TO /aws1/cl_hllstartfhirimpjobrsp.
     
-    TRY.
-        ao_hll_actions->start_fhir_import_job(
-          EXPORTING
-            iv_job_name = lv_job_name
-            iv_datastore_id = av_datastore_id
-            iv_input_s3_uri = lv_input_s3_uri
-            iv_job_output_s3_uri = lv_output_s3_uri
-            iv_kms_key_id = av_kms_key_id
-            iv_data_access_role_arn = av_role_arn
-          IMPORTING
-            oo_result = lo_result
-        ).
+    ao_hll_actions->start_fhir_import_job(
+      EXPORTING
+        iv_job_name = lv_job_name
+        iv_datastore_id = av_datastore_id
+        iv_input_s3_uri = lv_input_s3_uri
+        iv_job_output_s3_uri = lv_output_s3_uri
+        iv_kms_key_id = av_kms_key_id
+        iv_data_access_role_arn = av_role_arn
+      IMPORTING
+        oo_result = lo_result
+    ).
 
-        cl_abap_unit_assert=>assert_bound(
-          act = lo_result
-          msg = 'Start FHIR import job result should not be initial'
-        ).
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Start FHIR import job result should not be initial'
+    ).
 
-        DATA(lv_job_id) = lo_result->get_jobid( ).
-        cl_abap_unit_assert=>assert_not_initial(
-          act = lv_job_id
-          msg = 'Job ID should not be initial'
-        ).
+    DATA(lv_job_id) = lo_result->get_jobid( ).
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lv_job_id
+      msg = 'Job ID should not be initial'
+    ).
 
-      CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
-        " Role trust policy issue - this is expected in test environment
-        " The test verifies the method can be called correctly
-        IF lo_validation_ex->av_err_msg CS 'not authorized to assume role'.
-          MESSAGE 'Start FHIR import job method verified (role trust policy expected in test).' TYPE 'I'.
-        ELSE.
-          RAISE EXCEPTION lo_validation_ex.
-        ENDIF.
-    ENDTRY.
+    DATA(lv_job_status) = lo_result->get_jobstatus( ).
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lv_job_status
+      msg = 'Job status should not be initial'
+    ).
   ENDMETHOD.
 
   METHOD describe_fhir_import_job.
@@ -624,22 +687,37 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       msg = 'Datastore ID must be available'
     ).
 
-    " List jobs to get a job ID - may be empty if no jobs exist
-    DATA(lo_list_result) = ao_hll->listfhirimportjobs(
+    " First start an import job to have something to describe
+    DATA lv_uuid TYPE sysuuid_c32.
+    lv_uuid = cl_system_uuid=>create_uuid_c32_static( ).
+    DATA lv_uuid_string TYPE string.
+    lv_uuid_string = lv_uuid.
+
+    DATA lv_job_name TYPE /aws1/hlljobname.
+    lv_job_name = |SAPIJ{ lv_uuid_string(20) }|.
+
+    DATA lv_input_s3_uri TYPE /aws1/hlls3uri.
+    lv_input_s3_uri = |s3://{ av_import_bucket }/patient_example.ndjson|.
+
+    DATA lv_output_s3_uri TYPE /aws1/hlls3uri.
+    lv_output_s3_uri = |s3://{ av_import_bucket }/output/|.
+
+    DATA(lo_start_result) = ao_hll->startfhirimportjob(
+      iv_jobname = lv_job_name
+      io_inputdataconfig = NEW /aws1/cl_hllinputdataconfig( iv_s3uri = lv_input_s3_uri )
+      io_joboutputdataconfig = NEW /aws1/cl_hlloutputdataconfig(
+        io_s3configuration = NEW /aws1/cl_hlls3configuration(
+          iv_s3uri = lv_output_s3_uri
+          iv_kmskeyid = av_kms_key_id
+        )
+      )
+      iv_dataaccessrolearn = av_role_arn
       iv_datastoreid = av_datastore_id
     ).
 
-    DATA(lt_jobs) = lo_list_result->get_importjobpropertieslist( ).
-    
-    " If no jobs exist, verify the method works by checking list result instead
-    IF lt_jobs IS INITIAL.
-      MESSAGE 'No import jobs available to describe (method verified via list operation).' TYPE 'I'.
-      RETURN.
-    ENDIF.
+    DATA(lv_job_id) = lo_start_result->get_jobid( ).
 
-    READ TABLE lt_jobs INDEX 1 INTO DATA(lo_job).
-    DATA(lv_job_id) = lo_job->get_jobid( ).
-
+    " Now describe the job
     DATA lo_result TYPE REF TO /aws1/cl_hlldescrfhirimpjobrsp.
     ao_hll_actions->describe_fhir_import_job(
       EXPORTING
@@ -665,6 +743,11 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       exp = lv_job_id
       msg = 'Job ID should match'
     ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lo_properties->get_jobstatus( )
+      msg = 'Job status should not be empty'
+    ).
   ENDMETHOD.
 
   METHOD list_fhir_import_jobs.
@@ -675,7 +758,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
 
     DATA lo_result TYPE REF TO /aws1/cl_hlllistfhirimpjobsrsp.
     
-    " Don't pass a timestamp filter - list all jobs
+    " List all jobs without timestamp filter
     ao_hll_actions->list_fhir_import_jobs(
       EXPORTING
         iv_datastore_id = av_datastore_id
@@ -688,8 +771,23 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       msg = 'List FHIR import jobs result should not be initial'
     ).
 
-    " Jobs list may be empty - just verify the method works
-    MESSAGE 'List FHIR import jobs method verified.' TYPE 'I'.
+    " The list should be retrievable (even if empty)
+    DATA(lt_jobs) = lo_result->get_importjobpropertieslist( ).
+    
+    " Verify that we can iterate through jobs if any exist
+    IF lt_jobs IS NOT INITIAL.
+      LOOP AT lt_jobs INTO DATA(lo_job).
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lo_job->get_jobid( )
+          msg = 'Job ID should not be empty'
+        ).
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lo_job->get_jobstatus( )
+          msg = 'Job status should not be empty'
+        ).
+        EXIT. " Just validate first job
+      ENDLOOP.
+    ENDIF.
   ENDMETHOD.
 
   METHOD start_fhir_export_job.
@@ -711,38 +809,33 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
 
     DATA lo_result TYPE REF TO /aws1/cl_hllstartfhirexpjobrsp.
     
-    TRY.
-        ao_hll_actions->start_fhir_export_job(
-          EXPORTING
-            iv_job_name = lv_job_name
-            iv_datastore_id = av_datastore_id
-            iv_output_s3_uri = lv_output_s3_uri
-            iv_kms_key_id = av_kms_key_id
-            iv_data_access_role_arn = av_role_arn
-          IMPORTING
-            oo_result = lo_result
-        ).
+    ao_hll_actions->start_fhir_export_job(
+      EXPORTING
+        iv_job_name = lv_job_name
+        iv_datastore_id = av_datastore_id
+        iv_output_s3_uri = lv_output_s3_uri
+        iv_kms_key_id = av_kms_key_id
+        iv_data_access_role_arn = av_role_arn
+      IMPORTING
+        oo_result = lo_result
+    ).
 
-        cl_abap_unit_assert=>assert_bound(
-          act = lo_result
-          msg = 'Start FHIR export job result should not be initial'
-        ).
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Start FHIR export job result should not be initial'
+    ).
 
-        DATA(lv_job_id) = lo_result->get_jobid( ).
-        cl_abap_unit_assert=>assert_not_initial(
-          act = lv_job_id
-          msg = 'Job ID should not be initial'
-        ).
+    DATA(lv_job_id) = lo_result->get_jobid( ).
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lv_job_id
+      msg = 'Job ID should not be initial'
+    ).
 
-      CATCH /aws1/cx_hllvalidationex INTO DATA(lo_validation_ex).
-        " Role trust policy issue - this is expected in test environment
-        " The test verifies the method can be called correctly
-        IF lo_validation_ex->av_err_msg CS 'not authorized to assume role'.
-          MESSAGE 'Start FHIR export job method verified (role trust policy expected in test).' TYPE 'I'.
-        ELSE.
-          RAISE EXCEPTION lo_validation_ex.
-        ENDIF.
-    ENDTRY.
+    DATA(lv_job_status) = lo_result->get_jobstatus( ).
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lv_job_status
+      msg = 'Job status should not be initial'
+    ).
   ENDMETHOD.
 
   METHOD describe_fhir_export_job.
@@ -751,22 +844,33 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       msg = 'Datastore ID must be available'
     ).
 
-    " List jobs to get a job ID - may be empty if no jobs exist
-    DATA(lo_list_result) = ao_hll->listfhirexportjobs(
+    " First start an export job to have something to describe
+    DATA lv_uuid TYPE sysuuid_c32.
+    lv_uuid = cl_system_uuid=>create_uuid_c32_static( ).
+    DATA lv_uuid_string TYPE string.
+    lv_uuid_string = lv_uuid.
+
+    DATA lv_job_name TYPE /aws1/hlljobname.
+    lv_job_name = |SAPEJ{ lv_uuid_string(20) }|.
+
+    DATA lv_output_s3_uri TYPE /aws1/hlls3uri.
+    lv_output_s3_uri = |s3://{ av_export_bucket }/output/|.
+
+    DATA(lo_start_result) = ao_hll->startfhirexportjob(
+      iv_jobname = lv_job_name
+      io_outputdataconfig = NEW /aws1/cl_hlloutputdataconfig(
+        io_s3configuration = NEW /aws1/cl_hlls3configuration(
+          iv_s3uri = lv_output_s3_uri
+          iv_kmskeyid = av_kms_key_id
+        )
+      )
+      iv_dataaccessrolearn = av_role_arn
       iv_datastoreid = av_datastore_id
     ).
 
-    DATA(lt_jobs) = lo_list_result->get_exportjobpropertieslist( ).
-    
-    " If no jobs exist, verify the method works by checking list result instead
-    IF lt_jobs IS INITIAL.
-      MESSAGE 'No export jobs available to describe (method verified via list operation).' TYPE 'I'.
-      RETURN.
-    ENDIF.
+    DATA(lv_job_id) = lo_start_result->get_jobid( ).
 
-    READ TABLE lt_jobs INDEX 1 INTO DATA(lo_job).
-    DATA(lv_job_id) = lo_job->get_jobid( ).
-
+    " Now describe the job
     DATA lo_result TYPE REF TO /aws1/cl_hlldescrfhirexpjobrsp.
     ao_hll_actions->describe_fhir_export_job(
       EXPORTING
@@ -792,6 +896,11 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       exp = lv_job_id
       msg = 'Job ID should match'
     ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lo_properties->get_jobstatus( )
+      msg = 'Job status should not be empty'
+    ).
   ENDMETHOD.
 
   METHOD list_fhir_export_jobs.
@@ -802,7 +911,7 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
 
     DATA lo_result TYPE REF TO /aws1/cl_hlllistfhirexpjobsrsp.
     
-    " Don't pass a timestamp filter - list all jobs
+    " List all jobs without timestamp filter
     ao_hll_actions->list_fhir_export_jobs(
       EXPORTING
         iv_datastore_id = av_datastore_id
@@ -815,33 +924,76 @@ CLASS ltc_awsex_cl_hll_actions IMPLEMENTATION.
       msg = 'List FHIR export jobs result should not be initial'
     ).
 
-    " Jobs list may be empty - just verify the method works
-    MESSAGE 'List FHIR export jobs method verified.' TYPE 'I'.
+    " The list should be retrievable (even if empty)
+    DATA(lt_jobs) = lo_result->get_exportjobpropertieslist( ).
+    
+    " Verify that we can iterate through jobs if any exist
+    IF lt_jobs IS NOT INITIAL.
+      LOOP AT lt_jobs INTO DATA(lo_job).
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lo_job->get_jobid( )
+          msg = 'Job ID should not be empty'
+        ).
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lo_job->get_jobstatus( )
+          msg = 'Job status should not be empty'
+        ).
+        EXIT. " Just validate first job
+      ENDLOOP.
+    ENDIF.
   ENDMETHOD.
 
   METHOD delete_fhir_datastore.
-    " This test verifies the delete_fhir_datastore action method exists
-    " We don't actually delete the shared datastore as other tests depend on it
-    " The actual cleanup is done in class_teardown
+    " This test verifies the delete_fhir_datastore action method
+    " We create a separate datastore just for deletion testing
     
-    cl_abap_unit_assert=>assert_not_initial(
-      act = av_datastore_id
-      msg = 'Datastore ID must be available'
+    DATA lv_uuid TYPE sysuuid_c32.
+    lv_uuid = cl_system_uuid=>create_uuid_c32_static( ).
+    DATA lv_uuid_string TYPE string.
+    lv_uuid_string = lv_uuid.
+
+    DATA lv_datastore_name TYPE /aws1/hlldatastorename.
+    lv_datastore_name = |SAPDS{ lv_uuid_string(20) }|.
+
+    " Create a datastore to delete
+    DATA(lo_create_result) = ao_hll->createfhirdatastore(
+      iv_datastorename = lv_datastore_name
+      iv_datastoretypeversion = 'R4'
     ).
 
-    " We verify the datastore exists and can be described
-    " but we don't delete it to avoid breaking other tests
-    DATA(lo_describe_result) = ao_hll->describefhirdatastore(
-      iv_datastoreid = av_datastore_id
+    DATA(lv_delete_datastore_id) = lo_create_result->get_datastoreid( ).
+
+    " Wait for the datastore to become active before deleting
+    wait_for_datastore_active( lv_delete_datastore_id ).
+
+    " Now delete the datastore using the action method
+    DATA lo_delete_result TYPE REF TO /aws1/cl_hlldelfhirdatastore01.
+    ao_hll_actions->delete_fhir_datastore(
+      EXPORTING
+        iv_datastore_id = lv_delete_datastore_id
+      IMPORTING
+        oo_result = lo_delete_result
     ).
-    
+
     cl_abap_unit_assert=>assert_bound(
-      act = lo_describe_result
-      msg = 'Datastore should exist and be describable'
+      act = lo_delete_result
+      msg = 'Delete FHIR datastore result should not be initial'
     ).
-    
-    " The actual delete will happen in class_teardown after all tests
-    MESSAGE 'Delete FHIR datastore action verified (actual delete in teardown).' TYPE 'I'.
+
+    " Verify the datastore ID in the response
+    cl_abap_unit_assert=>assert_equals(
+      act = lo_delete_result->get_datastoreid( )
+      exp = lv_delete_datastore_id
+      msg = 'Deleted datastore ID should match'
+    ).
+
+    " Verify the status is DELETING
+    DATA(lv_status) = lo_delete_result->get_datastorestatus( ).
+    cl_abap_unit_assert=>assert_equals(
+      act = lv_status
+      exp = 'DELETING'
+      msg = 'Datastore status should be DELETING'
+    ).
   ENDMETHOD.
 
   METHOD wait_for_datastore_active.
