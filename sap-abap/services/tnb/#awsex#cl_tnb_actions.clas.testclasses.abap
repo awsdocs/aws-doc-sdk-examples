@@ -845,6 +845,11 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
           ENDIF.
           " If not ready yet, wait and retry
           WAIT UP TO 3 SECONDS.
+        CATCH /aws1/cx_tnbbadrequestex.
+          " BadRequest usually means not found - wait and retry
+          IF lv_verification_attempts < 3.
+            WAIT UP TO 3 SECONDS.
+          ENDIF.
         CATCH /aws1/cx_tnbnotfoundexception.
           " Wait and retry
           IF lv_verification_attempts < 3.
@@ -876,6 +881,8 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     TRY.
         ao_tnb->getvocabulary( lv_test_vocab_name ).
         cl_abap_unit_assert=>fail( 'Vocabulary should have been deleted' ).
+      CATCH /aws1/cx_tnbbadrequestex.
+        " Expected - BadRequest means vocabulary was deleted
       CATCH /aws1/cx_tnbnotfoundexception.
         " Expected - vocabulary was deleted
     ENDTRY.
