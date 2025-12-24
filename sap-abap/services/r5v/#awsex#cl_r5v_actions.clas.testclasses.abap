@@ -159,22 +159,7 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
         ENDIF.
         av_cluster_arn = lo_cluster->get_clusterarn( ).
 
-        " Extract cluster endpoints - REQUIRED for routing control operations
-        DATA(lt_endpoints) = lo_cluster->get_clusterendpoints( ).
-        IF lines( lt_endpoints ) = 0.
-          cl_abap_unit_assert=>fail(
-            msg = |Cluster { av_cluster_arn } has no endpoints| ).
-        ENDIF.
-
-        " Build comma-separated endpoint string in format "url|region,url|region"
-        LOOP AT lt_endpoints INTO DATA(lo_endpoint).
-          IF av_cluster_endpoints IS NOT INITIAL.
-            av_cluster_endpoints = |{ av_cluster_endpoints },|.
-          ENDIF.
-          av_cluster_endpoints = |{ av_cluster_endpoints }{ lo_endpoint->get_endpoint( ) }\|{ lo_endpoint->get_region( ) }|.
-        ENDLOOP.
-
-        MESSAGE |Created cluster { av_cluster_arn } with endpoints: { av_cluster_endpoints }| TYPE 'I'.
+        MESSAGE |Created cluster { av_cluster_arn }, waiting for deployment before extracting endpoints...| TYPE 'I'.
 
       CATCH /aws1/cx_r5cconflictexception INTO DATA(lo_conflict_ex).
         " Cluster might already exist, try to describe it
@@ -199,14 +184,7 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
             ENDIF.
             av_cluster_arn = lo_cluster->get_clusterarn( ).
 
-            " Extract endpoints
-            lt_endpoints = lo_cluster->get_clusterendpoints( ).
-            LOOP AT lt_endpoints INTO lo_endpoint.
-              IF av_cluster_endpoints IS NOT INITIAL.
-                av_cluster_endpoints = |{ av_cluster_endpoints },|.
-              ENDIF.
-              av_cluster_endpoints = |{ av_cluster_endpoints }{ lo_endpoint->get_endpoint( ) }\|{ lo_endpoint->get_region( ) }|.
-            ENDLOOP.
+            MESSAGE |Found existing cluster { av_cluster_arn }, will wait for deployment...| TYPE 'I'.
 
           CATCH /aws1/cx_rt_generic INTO DATA(lo_describe_ex).
             cl_abap_unit_assert=>fail(
@@ -227,6 +205,40 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
     ENDIF.
 
     MESSAGE |Cluster { av_cluster_arn } is now deployed| TYPE 'I'.
+
+    " Extract cluster endpoints now that cluster is deployed
+    TRY.
+        DATA(lo_deployed_cluster) = ao_r5c->describecluster( iv_clusterarn = av_cluster_arn ).
+        IF lo_deployed_cluster IS BOUND.
+          DATA(lo_cluster_obj) = lo_deployed_cluster->get_cluster( ).
+          IF lo_cluster_obj IS BOUND.
+            DATA(lt_endpoints) = lo_cluster_obj->get_clusterendpoints( ).
+            IF lines( lt_endpoints ) = 0.
+              cl_abap_unit_assert=>fail(
+                msg = |Deployed cluster { av_cluster_arn } still has no endpoints| ).
+            ENDIF.
+
+            " Build comma-separated endpoint string in format "url|region,url|region"
+            LOOP AT lt_endpoints INTO DATA(lo_endpoint).
+              IF av_cluster_endpoints IS NOT INITIAL.
+                av_cluster_endpoints = |{ av_cluster_endpoints },|.
+              ENDIF.
+              av_cluster_endpoints = |{ av_cluster_endpoints }{ lo_endpoint->get_endpoint( ) }\|{ lo_endpoint->get_region( ) }|.
+            ENDLOOP.
+
+            MESSAGE |Extracted { lines( lt_endpoints ) } endpoints from deployed cluster| TYPE 'I'.
+          ELSE.
+            cl_abap_unit_assert=>fail(
+              msg = |Could not get cluster object after deployment| ).
+          ENDIF.
+        ELSE.
+          cl_abap_unit_assert=>fail(
+            msg = |Could not describe deployed cluster| ).
+        ENDIF.
+      CATCH /aws1/cx_rt_generic INTO DATA(lo_endpoint_ex).
+        cl_abap_unit_assert=>fail(
+          msg = |Error extracting endpoints: { lo_endpoint_ex->if_message~get_text( ) }| ).
+    ENDTRY.
 
     " Get the default control panel ARN
     TRY.
