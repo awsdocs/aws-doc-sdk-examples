@@ -323,13 +323,11 @@ CLASS /AWSEX/CL_TNB_ACTIONS IMPLEMENTATION.
         MESSAGE 'Vocabulary updated.' TYPE 'I'.
       CATCH /aws1/cx_tnbbadrequestex INTO DATA(lo_bad_request_ex).
         MESSAGE lo_bad_request_ex TYPE 'I'.
-        RAISE EXCEPTION lo_bad_request_ex.
       CATCH /aws1/cx_tnblimitexceededex INTO DATA(lo_limit_ex).
         MESSAGE lo_limit_ex TYPE 'I'.
         RAISE EXCEPTION lo_limit_ex.
       CATCH /aws1/cx_tnbnotfoundexception INTO DATA(lo_not_found_ex).
         MESSAGE lo_not_found_ex TYPE 'I'.
-        RAISE EXCEPTION lo_not_found_ex.
       CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lo_internal_ex).
         MESSAGE lo_internal_ex TYPE 'I'.
         RAISE EXCEPTION lo_internal_ex.
@@ -354,13 +352,11 @@ CLASS /AWSEX/CL_TNB_ACTIONS IMPLEMENTATION.
         MESSAGE 'Vocabulary deleted.' TYPE 'I'.
       CATCH /aws1/cx_tnbbadrequestex INTO DATA(lo_bad_request_ex).
         MESSAGE lo_bad_request_ex TYPE 'I'.
-        RAISE EXCEPTION lo_bad_request_ex.
       CATCH /aws1/cx_tnblimitexceededex INTO DATA(lo_limit_ex).
         MESSAGE lo_limit_ex TYPE 'I'.
         RAISE EXCEPTION lo_limit_ex.
       CATCH /aws1/cx_tnbnotfoundexception INTO DATA(lo_not_found_ex).
         MESSAGE lo_not_found_ex TYPE 'I'.
-        RAISE EXCEPTION lo_not_found_ex.
       CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lo_internal_ex).
         MESSAGE lo_internal_ex TYPE 'I'.
         RAISE EXCEPTION lo_internal_ex.
