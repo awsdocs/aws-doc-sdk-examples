@@ -861,9 +861,12 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     TRY.
         ao_tnb->deletevocabulary( lv_test_vocab_name ).
         MESSAGE 'Vocabulary deleted successfully' TYPE 'I'.
-      CATCH /aws1/cx_tnbbadrequestex /aws1/cx_tnbnotfoundexception.
+      CATCH /aws1/cx_tnbbadrequestex.
         " Vocabulary not found - acceptable due to eventual consistency
-        MESSAGE 'Vocabulary not found or already deleted' TYPE 'I'.
+        MESSAGE 'BadRequest exception - vocabulary not found or already deleted' TYPE 'I'.
+      CATCH /aws1/cx_tnbnotfoundexception.
+        " Vocabulary not found - acceptable due to eventual consistency
+        MESSAGE 'NotFoundException - vocabulary not found or already deleted' TYPE 'I'.
     ENDTRY.
 
     " Wait for deletion to propagate
