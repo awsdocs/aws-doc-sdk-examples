@@ -117,14 +117,18 @@ CLASS /AWSEX/CL_TNB_ACTIONS IMPLEMENTATION.
           io_settings = lo_settings ).
 
         MESSAGE 'Transcription job started.' TYPE 'I'.
-      CATCH /aws1/cx_tnbbadrequestex.
-        MESSAGE 'Bad request error.' TYPE 'E'.
-      CATCH /aws1/cx_tnblimitexceededex.
-        MESSAGE 'Limit exceeded error.' TYPE 'E'.
-      CATCH /aws1/cx_tnbinternalfailureex.
-        MESSAGE 'Internal failure error.' TYPE 'E'.
-      CATCH /aws1/cx_tnbconflictexception.
-        MESSAGE 'Transcription job already exists.' TYPE 'E'.
+      CATCH /aws1/cx_tnbbadrequestex INTO DATA(lo_bad_request_ex).
+        MESSAGE lo_bad_request_ex TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request_ex.
+      CATCH /aws1/cx_tnblimitexceededex INTO DATA(lo_limit_ex).
+        MESSAGE lo_limit_ex TYPE 'I'.
+        RAISE EXCEPTION lo_limit_ex.
+      CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lo_internal_ex).
+        MESSAGE lo_internal_ex TYPE 'I'.
+        RAISE EXCEPTION lo_internal_ex.
+      CATCH /aws1/cx_tnbconflictexception INTO DATA(lo_conflict_ex).
+        MESSAGE lo_conflict_ex TYPE 'I'.
+        RAISE EXCEPTION lo_conflict_ex.
     ENDTRY.
     " snippet-end:[tnb.abapv1.start_transcription_job]
   ENDMETHOD.
@@ -142,12 +146,15 @@ CLASS /AWSEX/CL_TNB_ACTIONS IMPLEMENTATION.
         oo_result = lo_tnb->gettranscriptionjob( iv_job_name ).
         DATA(lo_job) = oo_result->get_transcriptionjob( ).
         MESSAGE 'Retrieved transcription job details.' TYPE 'I'.
-      CATCH /aws1/cx_tnbbadrequestex.
-        MESSAGE 'Bad request error.' TYPE 'E'.
-      CATCH /aws1/cx_tnbnotfoundexception.
-        MESSAGE 'Transcription job not found.' TYPE 'E'.
-      CATCH /aws1/cx_tnbinternalfailureex.
-        MESSAGE 'Internal failure error.' TYPE 'E'.
+      CATCH /aws1/cx_tnbbadrequestex INTO DATA(lo_bad_request_ex).
+        MESSAGE lo_bad_request_ex TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request_ex.
+      CATCH /aws1/cx_tnbnotfoundexception INTO DATA(lo_not_found_ex).
+        MESSAGE lo_not_found_ex TYPE 'I'.
+        RAISE EXCEPTION lo_not_found_ex.
+      CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lo_internal_ex).
+        MESSAGE lo_internal_ex TYPE 'I'.
+        RAISE EXCEPTION lo_internal_ex.
     ENDTRY.
     " snippet-end:[tnb.abapv1.get_transcription_job]
   ENDMETHOD.
@@ -168,10 +175,12 @@ CLASS /AWSEX/CL_TNB_ACTIONS IMPLEMENTATION.
           oo_result = lo_tnb->listtranscriptionjobs( ).
         ENDIF.
         MESSAGE 'Retrieved transcription jobs list.' TYPE 'I'.
-      CATCH /aws1/cx_tnbbadrequestex.
-        MESSAGE 'Bad request error.' TYPE 'E'.
-      CATCH /aws1/cx_tnbinternalfailureex.
-        MESSAGE 'Internal failure error.' TYPE 'E'.
+      CATCH /aws1/cx_tnbbadrequestex INTO DATA(lo_bad_request_ex).
+        MESSAGE lo_bad_request_ex TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request_ex.
+      CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lo_internal_ex).
+        MESSAGE lo_internal_ex TYPE 'I'.
+        RAISE EXCEPTION lo_internal_ex.
     ENDTRY.
     " snippet-end:[tnb.abapv1.list_transcription_jobs]
   ENDMETHOD.
@@ -188,12 +197,15 @@ CLASS /AWSEX/CL_TNB_ACTIONS IMPLEMENTATION.
     TRY.
         lo_tnb->deletetranscriptionjob( iv_job_name ).
         MESSAGE 'Transcription job deleted.' TYPE 'I'.
-      CATCH /aws1/cx_tnbbadrequestex.
-        MESSAGE 'Bad request error.' TYPE 'E'.
-      CATCH /aws1/cx_tnblimitexceededex.
-        MESSAGE 'Limit exceeded error.' TYPE 'E'.
-      CATCH /aws1/cx_tnbinternalfailureex.
-        MESSAGE 'Internal failure error.' TYPE 'E'.
+      CATCH /aws1/cx_tnbbadrequestex INTO DATA(lo_bad_request_ex).
+        MESSAGE lo_bad_request_ex TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request_ex.
+      CATCH /aws1/cx_tnblimitexceededex INTO DATA(lo_limit_ex).
+        MESSAGE lo_limit_ex TYPE 'I'.
+        RAISE EXCEPTION lo_limit_ex.
+      CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lo_internal_ex).
+        MESSAGE lo_internal_ex TYPE 'I'.
+        RAISE EXCEPTION lo_internal_ex.
     ENDTRY.
     " snippet-end:[tnb.abapv1.delete_transcription_job]
   ENDMETHOD.
@@ -220,14 +232,18 @@ CLASS /AWSEX/CL_TNB_ACTIONS IMPLEMENTATION.
             iv_vocabularyfileuri = iv_vocab_file_uri ).
         ENDIF.
         MESSAGE 'Custom vocabulary created.' TYPE 'I'.
-      CATCH /aws1/cx_tnbbadrequestex.
-        MESSAGE 'Bad request error.' TYPE 'E'.
-      CATCH /aws1/cx_tnblimitexceededex.
-        MESSAGE 'Limit exceeded error.' TYPE 'E'.
-      CATCH /aws1/cx_tnbinternalfailureex.
-        MESSAGE 'Internal failure error.' TYPE 'E'.
-      CATCH /aws1/cx_tnbconflictexception.
-        MESSAGE 'Vocabulary already exists.' TYPE 'E'.
+      CATCH /aws1/cx_tnbbadrequestex INTO DATA(lo_bad_request_ex).
+        MESSAGE lo_bad_request_ex TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request_ex.
+      CATCH /aws1/cx_tnblimitexceededex INTO DATA(lo_limit_ex).
+        MESSAGE lo_limit_ex TYPE 'I'.
+        RAISE EXCEPTION lo_limit_ex.
+      CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lo_internal_ex).
+        MESSAGE lo_internal_ex TYPE 'I'.
+        RAISE EXCEPTION lo_internal_ex.
+      CATCH /aws1/cx_tnbconflictexception INTO DATA(lo_conflict_ex).
+        MESSAGE lo_conflict_ex TYPE 'I'.
+        RAISE EXCEPTION lo_conflict_ex.
     ENDTRY.
     " snippet-end:[tnb.abapv1.create_vocabulary]
   ENDMETHOD.
@@ -244,12 +260,15 @@ CLASS /AWSEX/CL_TNB_ACTIONS IMPLEMENTATION.
     TRY.
         oo_result = lo_tnb->getvocabulary( iv_vocabulary_name ).
         MESSAGE 'Retrieved vocabulary details.' TYPE 'I'.
-      CATCH /aws1/cx_tnbbadrequestex.
-        MESSAGE 'Bad request error.' TYPE 'E'.
-      CATCH /aws1/cx_tnbnotfoundexception.
-        MESSAGE 'Vocabulary not found.' TYPE 'E'.
-      CATCH /aws1/cx_tnbinternalfailureex.
-        MESSAGE 'Internal failure error.' TYPE 'E'.
+      CATCH /aws1/cx_tnbbadrequestex INTO DATA(lo_bad_request_ex).
+        MESSAGE lo_bad_request_ex TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request_ex.
+      CATCH /aws1/cx_tnbnotfoundexception INTO DATA(lo_not_found_ex).
+        MESSAGE lo_not_found_ex TYPE 'I'.
+        RAISE EXCEPTION lo_not_found_ex.
+      CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lo_internal_ex).
+        MESSAGE lo_internal_ex TYPE 'I'.
+        RAISE EXCEPTION lo_internal_ex.
     ENDTRY.
     " snippet-end:[tnb.abapv1.get_vocabulary]
   ENDMETHOD.
@@ -270,10 +289,12 @@ CLASS /AWSEX/CL_TNB_ACTIONS IMPLEMENTATION.
           oo_result = lo_tnb->listvocabularies( ).
         ENDIF.
         MESSAGE 'Retrieved vocabularies list.' TYPE 'I'.
-      CATCH /aws1/cx_tnbbadrequestex.
-        MESSAGE 'Bad request error.' TYPE 'E'.
-      CATCH /aws1/cx_tnbinternalfailureex.
-        MESSAGE 'Internal failure error.' TYPE 'E'.
+      CATCH /aws1/cx_tnbbadrequestex INTO DATA(lo_bad_request_ex).
+        MESSAGE lo_bad_request_ex TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request_ex.
+      CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lo_internal_ex).
+        MESSAGE lo_internal_ex TYPE 'I'.
+        RAISE EXCEPTION lo_internal_ex.
     ENDTRY.
     " snippet-end:[tnb.abapv1.list_vocabularies]
   ENDMETHOD.
@@ -300,16 +321,21 @@ CLASS /AWSEX/CL_TNB_ACTIONS IMPLEMENTATION.
             iv_vocabularyfileuri = iv_vocab_file_uri ).
         ENDIF.
         MESSAGE 'Vocabulary updated.' TYPE 'I'.
-      CATCH /aws1/cx_tnbbadrequestex.
-        MESSAGE 'Bad request error.' TYPE 'E'.
-      CATCH /aws1/cx_tnblimitexceededex.
-        MESSAGE 'Limit exceeded error.' TYPE 'E'.
-      CATCH /aws1/cx_tnbnotfoundexception.
-        MESSAGE 'Vocabulary not found.' TYPE 'E'.
-      CATCH /aws1/cx_tnbinternalfailureex.
-        MESSAGE 'Internal failure error.' TYPE 'E'.
-      CATCH /aws1/cx_tnbconflictexception.
-        MESSAGE 'Vocabulary is being modified.' TYPE 'E'.
+      CATCH /aws1/cx_tnbbadrequestex INTO DATA(lo_bad_request_ex).
+        MESSAGE lo_bad_request_ex TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request_ex.
+      CATCH /aws1/cx_tnblimitexceededex INTO DATA(lo_limit_ex).
+        MESSAGE lo_limit_ex TYPE 'I'.
+        RAISE EXCEPTION lo_limit_ex.
+      CATCH /aws1/cx_tnbnotfoundexception INTO DATA(lo_not_found_ex).
+        MESSAGE lo_not_found_ex TYPE 'I'.
+        RAISE EXCEPTION lo_not_found_ex.
+      CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lo_internal_ex).
+        MESSAGE lo_internal_ex TYPE 'I'.
+        RAISE EXCEPTION lo_internal_ex.
+      CATCH /aws1/cx_tnbconflictexception INTO DATA(lo_conflict_ex).
+        MESSAGE lo_conflict_ex TYPE 'I'.
+        RAISE EXCEPTION lo_conflict_ex.
     ENDTRY.
     " snippet-end:[tnb.abapv1.update_vocabulary]
   ENDMETHOD.
@@ -326,14 +352,18 @@ CLASS /AWSEX/CL_TNB_ACTIONS IMPLEMENTATION.
     TRY.
         lo_tnb->deletevocabulary( iv_vocabulary_name ).
         MESSAGE 'Vocabulary deleted.' TYPE 'I'.
-      CATCH /aws1/cx_tnbbadrequestex.
-        MESSAGE 'Bad request error.' TYPE 'E'.
-      CATCH /aws1/cx_tnblimitexceededex.
-        MESSAGE 'Limit exceeded error.' TYPE 'E'.
-      CATCH /aws1/cx_tnbnotfoundexception.
-        MESSAGE 'Vocabulary not found.' TYPE 'E'.
-      CATCH /aws1/cx_tnbinternalfailureex.
-        MESSAGE 'Internal failure error.' TYPE 'E'.
+      CATCH /aws1/cx_tnbbadrequestex INTO DATA(lo_bad_request_ex).
+        MESSAGE lo_bad_request_ex TYPE 'I'.
+        RAISE EXCEPTION lo_bad_request_ex.
+      CATCH /aws1/cx_tnblimitexceededex INTO DATA(lo_limit_ex).
+        MESSAGE lo_limit_ex TYPE 'I'.
+        RAISE EXCEPTION lo_limit_ex.
+      CATCH /aws1/cx_tnbnotfoundexception INTO DATA(lo_not_found_ex).
+        MESSAGE lo_not_found_ex TYPE 'I'.
+        RAISE EXCEPTION lo_not_found_ex.
+      CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lo_internal_ex).
+        MESSAGE lo_internal_ex TYPE 'I'.
+        RAISE EXCEPTION lo_internal_ex.
     ENDTRY.
     " snippet-end:[tnb.abapv1.delete_vocabulary]
   ENDMETHOD.
