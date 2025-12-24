@@ -736,7 +736,12 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       msg = 'DB instances should not be empty' ).
 
     " Verify we got the right instance
-    lo_instance = lo_result->get_dbinstances( )[ 1 ].
+    READ TABLE lo_result->get_dbinstances( ) INTO lo_instance INDEX 1.
+    cl_abap_unit_assert=>assert_subrc(
+      act = sy-subrc
+      exp = 0
+      msg = 'Should have at least one DB instance in result' ).
+    
     lv_instance_id = lo_instance->get_dbinstanceidentifier( ).
     
     cl_abap_unit_assert=>assert_true(
@@ -810,7 +815,12 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       msg = 'DB snapshots should not be empty' ).
 
     " Verify we got the right snapshot
-    lo_snapshot = lo_result->get_dbsnapshots( )[ 1 ].
+    READ TABLE lo_result->get_dbsnapshots( ) INTO lo_snapshot INDEX 1.
+    cl_abap_unit_assert=>assert_subrc(
+      act = sy-subrc
+      exp = 0
+      msg = 'Should have at least one DB snapshot in result' ).
+    
     lv_snapshot_id = lo_snapshot->get_dbsnapshotidentifier( ).
     
     cl_abap_unit_assert=>assert_true(
@@ -827,7 +837,6 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     DATA lv_test_db_name TYPE /aws1/rdsstring.
     DATA lo_create_result TYPE REF TO /aws1/cl_rdscreatedbinstresult.
     DATA lv_arn TYPE /aws1/rdsstring.
-    DATA lv_status TYPE /aws1/rdsstring.
 
     " Create a separate instance specifically for deletion test
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
@@ -874,7 +883,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       msg = 'Result should not be initial' ).
 
     " Verify the instance is being deleted
-    lv_status = lo_result->get_dbinstance( )->get_dbinstancestatus( ).
+    DATA(lv_status) = lo_result->get_dbinstance( )->get_dbinstancestatus( ).
     cl_abap_unit_assert=>assert_true(
       act = boolc( lv_status = 'deleting' )
       msg = |Instance status should be 'deleting', got '{ lv_status }'| ).
@@ -885,11 +894,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD delete_db_parameter_group.
-    DATA lv_uuid TYPE string.
-    DATA lv_test_param_group TYPE /aws1/rdsstring.
-
-    lv_uuid = /awsex/cl_utils=>get_random_string( ).
-    lv_test_param_group = |test-pg-del-{ lv_uuid }|.
+    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
+    DATA(lv_test_param_group) = |test-pg-del-{ lv_uuid }|.
 
     " Create a test parameter group specifically for deletion
     ao_rds->createdbparametergroup(
