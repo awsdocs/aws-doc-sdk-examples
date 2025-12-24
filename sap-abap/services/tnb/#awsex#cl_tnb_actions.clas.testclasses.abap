@@ -114,11 +114,11 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     WAIT UP TO 3 SECONDS.
 
     " Create and attach policy for S3 access
-    lv_policy_doc = |{ |{ "Version": "2012-10-17", "Statement": [| }| &&
-                       |{ "Effect": "Allow", "Action": [ "s3:GetObject", "s3:PutObject", "s3:ListBucket" ], | &&
-                       |"Resource": [ "arn:aws:s3:::{ av_media_bucket }/*", "arn:aws:s3:::{ av_media_bucket }", | &&
-                       |"arn:aws:s3:::{ av_output_bucket }/*", "arn:aws:s3:::{ av_output_bucket }" ] }| &&
-                       |] }| }|.
+    lv_policy_doc = '{"Version":"2012-10-17","Statement":[' &&
+                    '{"Effect":"Allow","Action":["s3:GetObject","s3:PutObject","s3:ListBucket"],' &&
+                    '"Resource":["arn:aws:s3:::' && av_media_bucket && '/*","arn:aws:s3:::' && av_media_bucket && '",' &&
+                    '"arn:aws:s3:::' && av_output_bucket && '/*","arn:aws:s3:::' && av_output_bucket && '"]}' &&
+                    ']}'.
 
     TRY.
         DATA(lo_policy_result) = ao_iam->createpolicy(
