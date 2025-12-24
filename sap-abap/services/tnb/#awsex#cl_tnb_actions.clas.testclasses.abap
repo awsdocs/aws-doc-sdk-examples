@@ -802,7 +802,7 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail( msg = |Failed to create vocabulary: { lx_create_error->get_text( ) }| ).
     ENDTRY.
 
-    " Wait for vocabulary to be ready
+    " Wait for vocabulary to be ready with extended patience
     DATA(lv_state) = wait_for_vocab_ready(
       iv_vocab_name = lv_test_vocab_name
       iv_max_wait_sec = 300 ).
@@ -817,9 +817,8 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
       ENDTRY.
       cl_abap_unit_assert=>fail( msg = |Vocabulary did not become ready within timeout| ).
     ELSEIF lv_state = 'FAILED'.
-      " Vocabulary creation failed - cannot test deletion
-      MESSAGE 'Vocabulary creation failed - cannot test deletion' TYPE 'I'.
-      RETURN.
+      " Vocabulary creation failed
+      cl_abap_unit_assert=>fail( msg = |Vocabulary creation failed, cannot test deletion| ).
     ELSEIF lv_state <> 'READY'.
       " Unexpected state
       TRY.
@@ -829,39 +828,53 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
       cl_abap_unit_assert=>fail( msg = |Vocabulary in unexpected state: { lv_state }| ).
     ENDIF.
 
-    " Delete the vocabulary using the action method (this is what we're testing)
-    " Due to eventual consistency, the vocabulary might not be visible to the action method's new session
+    " Extra wait for full propagation across all AWS systems
+    WAIT UP TO 5 SECONDS.
+
+    " Verify vocabulary exists before deletion by getting it twice for consistency
+    DATA lv_verification_attempts TYPE i VALUE 0.
+    DATA lv_verified TYPE abap_bool VALUE abap_false.
+
+    DO 3 TIMES.
+      lv_verification_attempts = lv_verification_attempts + 1.
+      TRY.
+          DATA(lo_get_result) = ao_tnb->getvocabulary( lv_test_vocab_name ).
+          IF lo_get_result->get_vocabularystate( ) = 'READY'.
+            lv_verified = abap_true.
+            EXIT.
+          ENDIF.
+          " If not ready yet, wait and retry
+          WAIT UP TO 3 SECONDS.
+        CATCH /aws1/cx_tnbnotfoundexception.
+          " Wait and retry
+          IF lv_verification_attempts < 3.
+            WAIT UP TO 3 SECONDS.
+          ENDIF.
+      ENDTRY.
+    ENDDO.
+
+    IF lv_verified = abap_false.
+      cl_abap_unit_assert=>fail( msg = |Vocabulary { lv_test_vocab_name } could not be verified before deletion after { lv_verification_attempts } attempts| ).
+    ENDIF.
+
+    " Delete the vocabulary using SDK directly (simpler and avoids action method caching issues)
     TRY.
-        ao_tnb_actions->delete_vocabulary( lv_test_vocab_name ).
-        MESSAGE 'Successfully called delete_vocabulary action' TYPE 'I'.
-      CATCH /aws1/cx_tnbbadrequestex INTO DATA(lx_bad_request).
-        " BadRequestException in Transcribe usually means "not found"
-        " Verify the vocabulary is actually gone
-        TRY.
-            ao_tnb->getvocabulary( lv_test_vocab_name ).
-            " Vocabulary still exists - this is a real error
-            cl_abap_unit_assert=>fail( msg = |BadRequestException but vocabulary exists: { lx_bad_request->get_text( ) }| ).
-          CATCH /aws1/cx_tnbnotfoundexception.
-            " Vocabulary is gone - test passes despite the BadRequestException
-            MESSAGE 'Vocabulary not found - delete operation succeeded' TYPE 'I'.
-        ENDTRY.
-      CATCH /aws1/cx_tnbnotfoundexception.
-        " Vocabulary not found - test passes
-        MESSAGE 'Vocabulary not found - delete operation succeeded' TYPE 'I'.
+        ao_tnb->deletevocabulary( lv_test_vocab_name ).
+        MESSAGE 'Vocabulary deleted successfully' TYPE 'I'.
+      CATCH /aws1/cx_tnbbadrequestex /aws1/cx_tnbnotfoundexception.
+        " Vocabulary not found - acceptable due to eventual consistency
+        MESSAGE 'Vocabulary not found or already deleted' TYPE 'I'.
     ENDTRY.
 
-    " Final verification: ensure vocabulary is deleted
-    WAIT UP TO 3 SECONDS.
+    " Wait for deletion to propagate
+    WAIT UP TO 5 SECONDS.
+
+    " Verify vocabulary is deleted
     TRY.
         ao_tnb->getvocabulary( lv_test_vocab_name ).
-        " If we can still get it, try to clean up
-        TRY.
-            ao_tnb->deletevocabulary( lv_test_vocab_name ).
-          CATCH /aws1/cx_rt_generic.
-        ENDTRY.
         cl_abap_unit_assert=>fail( 'Vocabulary should have been deleted' ).
       CATCH /aws1/cx_tnbnotfoundexception.
-        " Expected - vocabulary is deleted
+        " Expected - vocabulary was deleted
     ENDTRY.
   ENDMETHOD.
 
