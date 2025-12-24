@@ -8,19 +8,13 @@ CLASS ltc_awsex_cl_r5v_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
   PRIVATE SECTION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
-    TYPES: BEGIN OF ty_cluster_endpoint,
-             endpoint TYPE string,
-             region   TYPE /aws1/rt_region_id,
-           END OF ty_cluster_endpoint.
-    TYPES: tty_cluster_endpoints TYPE STANDARD TABLE OF ty_cluster_endpoint WITH DEFAULT KEY.
-
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA ao_r5c TYPE REF TO /aws1/if_r5c.
     CLASS-DATA ao_r5v_actions TYPE REF TO /awsex/cl_r5v_actions.
     CLASS-DATA av_cluster_arn TYPE /aws1/r5c__string.
     CLASS-DATA av_routing_control_arn TYPE /aws1/r5varn.
     CLASS-DATA av_control_panel_arn TYPE /aws1/r5c__string.
-    CLASS-DATA at_cluster_endpoints TYPE tty_cluster_endpoints.
+    CLASS-DATA av_cluster_endpoints TYPE string.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
@@ -172,14 +166,15 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
             msg = |Cluster { av_cluster_arn } has no endpoints| ).
         ENDIF.
 
+        " Build comma-separated endpoint string in format "url|region,url|region"
         LOOP AT lt_endpoints INTO DATA(lo_endpoint).
-          APPEND VALUE #(
-            endpoint = lo_endpoint->get_endpoint( )
-            region   = lo_endpoint->get_region( )
-          ) TO at_cluster_endpoints.
+          IF av_cluster_endpoints IS NOT INITIAL.
+            av_cluster_endpoints = |{ av_cluster_endpoints },|.
+          ENDIF.
+          av_cluster_endpoints = |{ av_cluster_endpoints }{ lo_endpoint->get_endpoint( ) }\|{ lo_endpoint->get_region( ) }|.
         ENDLOOP.
 
-        MESSAGE |Created cluster { av_cluster_arn } with { lines( at_cluster_endpoints ) } endpoints| TYPE 'I'.
+        MESSAGE |Created cluster { av_cluster_arn } with endpoints: { av_cluster_endpoints }| TYPE 'I'.
 
       CATCH /aws1/cx_r5cconflictexception INTO DATA(lo_conflict_ex).
         " Cluster might already exist, try to describe it
@@ -207,10 +202,10 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
             " Extract endpoints
             lt_endpoints = lo_cluster->get_clusterendpoints( ).
             LOOP AT lt_endpoints INTO lo_endpoint.
-              APPEND VALUE #(
-                endpoint = lo_endpoint->get_endpoint( )
-                region   = lo_endpoint->get_region( )
-              ) TO at_cluster_endpoints.
+              IF av_cluster_endpoints IS NOT INITIAL.
+                av_cluster_endpoints = |{ av_cluster_endpoints },|.
+              ENDIF.
+              av_cluster_endpoints = |{ av_cluster_endpoints }{ lo_endpoint->get_endpoint( ) }\|{ lo_endpoint->get_region( ) }|.
             ENDLOOP.
 
           CATCH /aws1/cx_rt_generic INTO DATA(lo_describe_ex).
@@ -342,11 +337,11 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
       cl_abap_unit_assert=>fail( msg = 'Routing control ARN is not set' ).
     ENDIF.
 
-    IF lines( at_cluster_endpoints ) = 0.
+    IF av_cluster_endpoints IS INITIAL.
       cl_abap_unit_assert=>fail( msg = 'No cluster endpoints available' ).
     ENDIF.
 
-    MESSAGE |Setup complete! Cluster: { av_cluster_arn }, Routing Control: { av_routing_control_arn }, Endpoints: { lines( at_cluster_endpoints ) }| TYPE 'I'.
+    MESSAGE |Setup complete! Cluster: { av_cluster_arn }, Routing Control: { av_routing_control_arn }| TYPE 'I'.
   ENDMETHOD.
 
   METHOD class_teardown.
@@ -381,17 +376,11 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
   METHOD get_routing_control_state.
     " Test getting the routing control state
     DATA lo_result TYPE REF TO /aws1/cl_r5vgetroutingctlsta01.
-    DATA lt_endpoints TYPE /awsex/cl_r5v_actions=>tt_cluster_endpoints.
-
-    " Convert local type to action class type
-    LOOP AT at_cluster_endpoints INTO DATA(ls_endpoint).
-      APPEND VALUE #( endpoint = ls_endpoint-endpoint region = ls_endpoint-region ) TO lt_endpoints.
-    ENDLOOP.
 
     TRY.
         lo_result = ao_r5v_actions->get_routing_control_state(
           iv_routing_control_arn = av_routing_control_arn
-          it_cluster_endpoints   = lt_endpoints ).
+          iv_cluster_endpoints   = av_cluster_endpoints ).
 
         cl_abap_unit_assert=>assert_bound(
           act = lo_result
@@ -450,18 +439,12 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
     " Test updating the routing control state
     DATA lo_get_result TYPE REF TO /aws1/cl_r5vgetroutingctlsta01.
     DATA lo_update_result TYPE REF TO /aws1/cl_r5vuproutingctlstat01.
-    DATA lt_endpoints TYPE /awsex/cl_r5v_actions=>tt_cluster_endpoints.
-
-    " Convert local type to action class type
-    LOOP AT at_cluster_endpoints INTO DATA(ls_endpoint).
-      APPEND VALUE #( endpoint = ls_endpoint-endpoint region = ls_endpoint-region ) TO lt_endpoints.
-    ENDLOOP.
 
     TRY.
         " First, get the current state
         lo_get_result = ao_r5v_actions->get_routing_control_state(
           iv_routing_control_arn = av_routing_control_arn
-          it_cluster_endpoints   = lt_endpoints ).
+          iv_cluster_endpoints   = av_cluster_endpoints ).
 
         DATA(lv_current_state) = lo_get_result->get_routingcontrolstate( ).
 
@@ -475,7 +458,7 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
         " Update the routing control state
         lo_update_result = ao_r5v_actions->update_routing_control_state(
           iv_routing_control_arn   = av_routing_control_arn
-          it_cluster_endpoints     = lt_endpoints
+          iv_cluster_endpoints     = av_cluster_endpoints
           iv_routing_control_state = lv_new_state ).
 
         cl_abap_unit_assert=>assert_bound(
@@ -487,7 +470,7 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
 
         lo_get_result = ao_r5v_actions->get_routing_control_state(
           iv_routing_control_arn = av_routing_control_arn
-          it_cluster_endpoints   = lt_endpoints ).
+          iv_cluster_endpoints   = av_cluster_endpoints ).
 
         DATA(lv_updated_state) = lo_get_result->get_routingcontrolstate( ).
 
@@ -501,7 +484,7 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
         " Toggle it back to the original state for cleanup
         lo_update_result = ao_r5v_actions->update_routing_control_state(
           iv_routing_control_arn   = av_routing_control_arn
-          it_cluster_endpoints     = lt_endpoints
+          iv_cluster_endpoints     = av_cluster_endpoints
           iv_routing_control_state = lv_current_state ).
 
         MESSAGE |Restored routing control to original state: { lv_current_state }| TYPE 'I'.

@@ -6,17 +6,12 @@ CLASS /awsex/cl_r5v_actions DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
-    TYPES: BEGIN OF ts_cluster_endpoint,
-             endpoint TYPE string,
-             region   TYPE /aws1/rt_region_id,
-           END OF ts_cluster_endpoint.
-    TYPES: tt_cluster_endpoints TYPE STANDARD TABLE OF ts_cluster_endpoint WITH DEFAULT KEY.
 
     "! <p class="shorttext synchronized" lang="en">Gets the state of a routing control.</p>
     "! Gets the state of a routing control. Cluster endpoints are tried in
     "! sequence until the first successful response is received.
     "! @parameter iv_routing_control_arn | The ARN of the routing control to look up.
-    "! @parameter it_cluster_endpoints | The list of cluster endpoint structures to query.
+    "! @parameter iv_cluster_endpoints | The cluster endpoints as a comma-separated string.
     "! @parameter oo_result | The routing control state response.
     "! @raising /aws1/cx_r5vaccessdeniedex | You don't have sufficient permissions.
     "! @raising /aws1/cx_r5vendpttmpyunavailex | The cluster endpoint isn't available.
@@ -27,7 +22,7 @@ CLASS /awsex/cl_r5v_actions DEFINITION
     METHODS get_routing_control_state
       IMPORTING
         !iv_routing_control_arn TYPE /aws1/r5varn
-        !it_cluster_endpoints   TYPE /awsex/cl_r5v_actions=>tt_cluster_endpoints
+        !iv_cluster_endpoints   TYPE string
       RETURNING
         VALUE(oo_result)        TYPE REF TO /aws1/cl_r5vgetroutingctlsta01
       RAISING
@@ -43,7 +38,7 @@ CLASS /awsex/cl_r5v_actions DEFINITION
     "! Updates the state of a routing control. Cluster endpoints are tried in
     "! sequence until the first successful response is received.
     "! @parameter iv_routing_control_arn | The ARN of the routing control to update.
-    "! @parameter it_cluster_endpoints | The list of cluster endpoint structures to try.
+    "! @parameter iv_cluster_endpoints | The cluster endpoints as a comma-separated string.
     "! @parameter iv_routing_control_state | The new routing control state (On or Off).
     "! @parameter it_safety_rules_override | Optional safety rules to override.
     "! @parameter oo_result | The routing control update response.
@@ -57,7 +52,7 @@ CLASS /awsex/cl_r5v_actions DEFINITION
     METHODS update_routing_control_state
       IMPORTING
         !iv_routing_control_arn   TYPE /aws1/r5varn
-        !it_cluster_endpoints     TYPE /awsex/cl_r5v_actions=>tt_cluster_endpoints
+        !iv_cluster_endpoints     TYPE string
         !iv_routing_control_state TYPE /aws1/r5vroutingcontrolstate
         !it_safety_rules_override TYPE /aws1/cl_r5varns_w=>tt_arns OPTIONAL
       RETURNING
@@ -99,37 +94,41 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
   METHOD get_routing_control_state.
     " snippet-start:[r5v.abapv1.get_routing_control_state]
     DATA lo_exception TYPE REF TO /aws1/cx_rt_generic.
-    DATA lt_shuffled_endpoints TYPE /awsex/cl_r5v_actions=>tt_cluster_endpoints.
     DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
     DATA lo_client TYPE REF TO /aws1/if_r5v.
+    DATA lt_endpoints TYPE TABLE OF string.
+    DATA lv_endpoint TYPE string.
+    DATA lv_region TYPE /aws1/rt_region_id.
+
+    " Parse the comma-separated cluster endpoints
+    " Expected format: "https://endpoint1.com|us-west-2,https://endpoint2.com|us-east-1"
+    SPLIT iv_cluster_endpoints AT ',' INTO TABLE lt_endpoints.
 
     " As a best practice, shuffle cluster endpoints to distribute load
     " For more information, see https://docs.aws.amazon.com/r53recovery/latest/dg/route53-arc-best-practices.html#route53-arc-best-practices.regional
-    lt_shuffled_endpoints = it_cluster_endpoints.
+    " For simplicity, we'll try them in order (shuffling can be added if needed)
 
-    " Simple shuffle - use a random index swap approach
-    DATA(lv_size) = lines( lt_shuffled_endpoints ).
-    DO lv_size TIMES.
-      DATA(lv_idx1) = sy-index.
-      DATA(lv_idx2) = ( cl_abap_random_int=>create(
-        seed = CONV i( sy-uzeit )
-        min  = 1
-        max  = lv_size ) )->get_next( ).
-      DATA(ls_temp) = lt_shuffled_endpoints[ lv_idx1 ].
-      lt_shuffled_endpoints[ lv_idx1 ] = lt_shuffled_endpoints[ lv_idx2 ].
-      lt_shuffled_endpoints[ lv_idx2 ] = ls_temp.
-    ENDDO.
-
-    " Try each endpoint in shuffled order
-    LOOP AT lt_shuffled_endpoints INTO DATA(ls_endpoint).
+    " Try each endpoint in order
+    LOOP AT lt_endpoints INTO lv_endpoint.
       TRY.
-          " Create session for this region (reuse or create new)
+          " Parse endpoint and region from the format "url|region"
+          DATA(lv_pos) = find( val = lv_endpoint sub = '|' ).
+          IF lv_pos > 0.
+            DATA(lv_url) = substring( val = lv_endpoint len = lv_pos ).
+            lv_region = substring( val = lv_endpoint off = lv_pos + 1 ).
+          ELSE.
+            " If no region specified, use default
+            lv_url = lv_endpoint.
+            lv_region = 'us-east-1'.
+          ENDIF.
+
+          " Create session for this region
           lo_session = /aws1/cl_rt_session_aws=>create( ).
 
           " Create client with the specific endpoint
           lo_client = create_recovery_client(
-            iv_endpoint = ls_endpoint-endpoint
-            iv_region   = ls_endpoint-region
+            iv_endpoint = lv_url
+            iv_region   = lv_region
             io_session  = lo_session ).
 
           " Try to get the routing control state
@@ -171,37 +170,41 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
   METHOD update_routing_control_state.
     " snippet-start:[r5v.abapv1.update_routing_control_state]
     DATA lo_exception TYPE REF TO /aws1/cx_rt_generic.
-    DATA lt_shuffled_endpoints TYPE /awsex/cl_r5v_actions=>tt_cluster_endpoints.
     DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
     DATA lo_client TYPE REF TO /aws1/if_r5v.
+    DATA lt_endpoints TYPE TABLE OF string.
+    DATA lv_endpoint TYPE string.
+    DATA lv_region TYPE /aws1/rt_region_id.
+
+    " Parse the comma-separated cluster endpoints
+    " Expected format: "https://endpoint1.com|us-west-2,https://endpoint2.com|us-east-1"
+    SPLIT iv_cluster_endpoints AT ',' INTO TABLE lt_endpoints.
 
     " As a best practice, shuffle cluster endpoints to distribute load
     " For more information, see https://docs.aws.amazon.com/r53recovery/latest/dg/route53-arc-best-practices.html#route53-arc-best-practices.regional
-    lt_shuffled_endpoints = it_cluster_endpoints.
+    " For simplicity, we'll try them in order (shuffling can be added if needed)
 
-    " Simple shuffle - use a random index swap approach
-    DATA(lv_size) = lines( lt_shuffled_endpoints ).
-    DO lv_size TIMES.
-      DATA(lv_idx1) = sy-index.
-      DATA(lv_idx2) = ( cl_abap_random_int=>create(
-        seed = CONV i( sy-uzeit )
-        min  = 1
-        max  = lv_size ) )->get_next( ).
-      DATA(ls_temp) = lt_shuffled_endpoints[ lv_idx1 ].
-      lt_shuffled_endpoints[ lv_idx1 ] = lt_shuffled_endpoints[ lv_idx2 ].
-      lt_shuffled_endpoints[ lv_idx2 ] = ls_temp.
-    ENDDO.
-
-    " Try each endpoint in shuffled order
-    LOOP AT lt_shuffled_endpoints INTO DATA(ls_endpoint).
+    " Try each endpoint in order
+    LOOP AT lt_endpoints INTO lv_endpoint.
       TRY.
+          " Parse endpoint and region from the format "url|region"
+          DATA(lv_pos) = find( val = lv_endpoint sub = '|' ).
+          IF lv_pos > 0.
+            DATA(lv_url) = substring( val = lv_endpoint len = lv_pos ).
+            lv_region = substring( val = lv_endpoint off = lv_pos + 1 ).
+          ELSE.
+            " If no region specified, use default
+            lv_url = lv_endpoint.
+            lv_region = 'us-east-1'.
+          ENDIF.
+
           " Create session for this region
           lo_session = /aws1/cl_rt_session_aws=>create( ).
 
           " Create client with the specific endpoint
           lo_client = create_recovery_client(
-            iv_endpoint = ls_endpoint-endpoint
-            iv_region   = ls_endpoint-region
+            iv_endpoint = lv_url
+            iv_region   = lv_region
             io_session  = lo_session ).
 
           " Try to update the routing control state
