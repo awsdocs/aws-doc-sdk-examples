@@ -208,7 +208,8 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
     " Wait for role to propagate
     WAIT UP TO 15 SECONDS.
 
-    " Create sample DICOM file in input bucket
+    " Create sample DICOM file in input bucket with a folder prefix
+    " Medical Imaging requires a specific input prefix folder
     CALL FUNCTION 'SSFC_BASE64_DECODE'
       EXPORTING
         b64data = 'RElDTQ==' " Base64 for 'DICM'
@@ -218,7 +219,7 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
         OTHERS  = 1.
     ao_s3->putobject(
       iv_bucket = av_input_bucket
-      iv_key = 'sample.dcm'
+      iv_key = 'input/sample.dcm'
       iv_body = lv_dicom_content ).
 
     " Create datastore - MUST succeed
@@ -252,12 +253,13 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
     ENDDO.
 
     " Start a DICOM import job to create image sets for testing
+    " Input S3 URI must point to a specific folder, not just the bucket
     lo_job_result = ao_mig->startdicomimportjob(
       iv_jobname = |test-import-{ lv_uuid_string }|
       iv_datastoreid = av_datastore_id
       iv_dataaccessrolearn = av_role_arn
-      iv_inputs3uri = |s3://{ av_input_bucket }/|
-      iv_outputs3uri = |s3://{ av_output_bucket }/| ).
+      iv_inputs3uri = |s3://{ av_input_bucket }/input/|
+      iv_outputs3uri = |s3://{ av_output_bucket }/output/| ).
     av_job_id = lo_job_result->get_jobid( ).
 
     " Wait for job to complete
@@ -609,8 +611,8 @@ CLASS ltc_awsex_cl_mig_actions IMPLEMENTATION.
         iv_job_name = lv_job_name
         iv_datastore_id = av_datastore_id
         iv_role_arn = av_role_arn
-        iv_input_s3_uri = |s3://{ av_input_bucket }/|
-        iv_output_s3_uri = |s3://{ av_output_bucket }/|
+        iv_input_s3_uri = |s3://{ av_input_bucket }/input/|
+        iv_output_s3_uri = |s3://{ av_output_bucket }/output/|
       IMPORTING
         oo_result = lo_result ).
 
