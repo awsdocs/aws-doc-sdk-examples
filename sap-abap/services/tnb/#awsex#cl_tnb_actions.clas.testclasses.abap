@@ -64,6 +64,7 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     DATA lv_uuid_string TYPE string.
     DATA lt_iam_tags TYPE /aws1/cl_iamtag=>tt_taglisttype.
     DATA lt_s3_tags TYPE /aws1/cl_s3_tag=>tt_tagset.
+    DATA lv_policy_name TYPE /aws1/iampolicynametype.
 
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_tnb = /aws1/cl_tnb_factory=>create( ao_session ).
@@ -81,7 +82,8 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     av_media_bucket = |tnb-media-{ lv_acct }-{ lv_uuid_string+0(8) }|.
     av_output_bucket = |tnb-output-{ lv_acct }-{ lv_uuid_string+0(8) }|.
     av_media_key = 'test-audio.mp3'.
-    av_iam_role_name = |tnb-test-role-{ lv_uuid_string+0(10) }|.
+    av_iam_role_name = |tnb-role-{ lv_uuid_string+0(10) }|.
+    lv_policy_name = |tnb-pol-{ lv_uuid_string+0(10) }|.
 
     " Create IAM tags for test resources
     lt_iam_tags = VALUE #(
@@ -105,87 +107,81 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
         av_iam_role_arn = lo_role_result->get_role( )->get_arn( ).
         MESSAGE |Created IAM role: { av_iam_role_name }| TYPE 'I'.
       CATCH /aws1/cx_iamentityalrdyexex.
-        " Role exists, get its ARN
-        DATA(lo_get_role) = ao_iam->getrole( iv_rolename = av_iam_role_name ).
-        av_iam_role_arn = lo_get_role->get_role( )->get_arn( ).
-        MESSAGE |IAM role already exists: { av_iam_role_name }| TYPE 'I'.
+        " Role exists - this should not happen with unique names, fail test
+        cl_abap_unit_assert=>fail( msg = |IAM role { av_iam_role_name } already exists - UUID collision| ).
     ENDTRY.
 
+    " Wait for IAM role creation to propagate
     WAIT UP TO 3 SECONDS.
 
-    " Create and attach policy for S3 access
+    " Create S3 buckets first to include them in the policy
+    TRY.
+        /awsex/cl_utils=>create_bucket(
+          iv_bucket = av_media_bucket
+          io_s3 = ao_s3
+          io_session = ao_session ).
+        MESSAGE |Created media bucket: { av_media_bucket }| TYPE 'I'.
+      CATCH /aws1/cx_s3_bktalrdyownedbyyou /aws1/cx_s3_bucketalrdyexists.
+        " Bucket exists - fail test as this should not happen with unique names
+        cl_abap_unit_assert=>fail( msg = |Media bucket { av_media_bucket } already exists - UUID collision| ).
+    ENDTRY.
+
+    TRY.
+        /awsex/cl_utils=>create_bucket(
+          iv_bucket = av_output_bucket
+          io_s3 = ao_s3
+          io_session = ao_session ).
+        MESSAGE |Created output bucket: { av_output_bucket }| TYPE 'I'.
+      CATCH /aws1/cx_s3_bktalrdyownedbyyou /aws1/cx_s3_bucketalrdyexists.
+        " Bucket exists - fail test as this should not happen with unique names
+        cl_abap_unit_assert=>fail( msg = |Output bucket { av_output_bucket } already exists - UUID collision| ).
+    ENDTRY.
+
+    " Tag the buckets
+    TRY.
+        ao_s3->putbuckettagging(
+          iv_bucket = av_media_bucket
+          io_tagging = NEW /aws1/cl_s3_tagging( it_tagset = lt_s3_tags ) ).
+        ao_s3->putbuckettagging(
+          iv_bucket = av_output_bucket
+          io_tagging = NEW /aws1/cl_s3_tagging( it_tagset = lt_s3_tags ) ).
+      CATCH /aws1/cx_rt_generic.
+        " Tagging failure is not critical
+    ENDTRY.
+
+    " Create and attach policy for S3 access - use wildcards for all buckets with prefix
     lv_policy_doc = '{"Version":"2012-10-17","Statement":[' &&
-                    '{"Effect":"Allow","Action":["s3:GetObject","s3:PutObject","s3:ListBucket"],' &&
-                    '"Resource":["arn:aws:s3:::' && av_media_bucket && '/*","arn:aws:s3:::' && av_media_bucket && '",' &&
-                    '"arn:aws:s3:::' && av_output_bucket && '/*","arn:aws:s3:::' && av_output_bucket && '"]}' &&
+                    '{"Effect":"Allow","Action":["s3:GetObject","s3:PutObject","s3:DeleteObject"],' &&
+                    '"Resource":["arn:aws:s3:::tnb-*/*"]},' &&
+                    '{"Effect":"Allow","Action":["s3:ListBucket"],' &&
+                    '"Resource":["arn:aws:s3:::tnb-*"]}' &&
                     ']}'.
 
     TRY.
         DATA(lo_policy_result) = ao_iam->createpolicy(
-          iv_policyname = |tnb-s3-policy-{ lv_uuid_string+0(10) }|
+          iv_policyname = lv_policy_name
           iv_policydocument = lv_policy_doc
           iv_description = 'S3 access for Transcribe test role'
           it_tags = lt_iam_tags ).
         lv_policy_arn = lo_policy_result->get_policy( )->get_arn( ).
-        MESSAGE |Created IAM policy| TYPE 'I'.
+        MESSAGE |Created IAM policy: { lv_policy_name }| TYPE 'I'.
       CATCH /aws1/cx_iamentityalrdyexex.
-        " Policy exists, get its ARN
-        DATA(lo_list_policies) = ao_iam->listpolicies( iv_scope = 'Local' ).
-        LOOP AT lo_list_policies->get_policies( ) INTO DATA(lo_policy).
-          IF lo_policy->get_policyname( ) CS 'tnb-s3-policy'.
-            lv_policy_arn = lo_policy->get_arn( ).
-            EXIT.
-          ENDIF.
-        ENDLOOP.
+        " Policy exists - fail test as this should not happen with unique names
+        cl_abap_unit_assert=>fail( msg = |IAM policy { lv_policy_name } already exists - UUID collision| ).
     ENDTRY.
 
     " Attach policy to role
-    IF lv_policy_arn IS NOT INITIAL.
-      TRY.
-          ao_iam->attachrolepolicy(
-            iv_rolename = av_iam_role_name
-            iv_policyarn = lv_policy_arn ).
-          MESSAGE |Attached policy to role| TYPE 'I'.
-        CATCH /aws1/cx_rt_generic.
-          " Policy might already be attached
-      ENDTRY.
-    ENDIF.
+    TRY.
+        ao_iam->attachrolepolicy(
+          iv_rolename = av_iam_role_name
+          iv_policyarn = lv_policy_arn ).
+        MESSAGE |Attached policy to role| TYPE 'I'.
+      CATCH /aws1/cx_rt_generic INTO DATA(lx_attach_error).
+        cl_abap_unit_assert=>fail( msg = |Failed to attach policy to role: { lx_attach_error->get_text( ) }| ).
+    ENDTRY.
 
     " Wait for IAM propagation
     WAIT UP TO 10 SECONDS.
-
-    " Create S3 buckets for media files and output
-    TRY.
-        /awsex/cl_utils=>create_bucket(
-          iv_bucket = av_media_bucket
-          io_s3 = ao_s3
-          io_session = ao_session ).
-
-        " Tag the bucket
-        ao_s3->putbuckettagging(
-          iv_bucket = av_media_bucket
-          io_tagging = NEW /aws1/cl_s3_tagging( it_tagset = lt_s3_tags ) ).
-
-        MESSAGE |Created media bucket: { av_media_bucket }| TYPE 'I'.
-      CATCH /aws1/cx_s3_bktalrdyownedbyyou /aws1/cx_s3_bucketalrdyexists.
-        MESSAGE |Media bucket already exists: { av_media_bucket }| TYPE 'I'.
-    ENDTRY.
-
-    TRY.
-        /awsex/cl_utils=>create_bucket(
-          iv_bucket = av_output_bucket
-          io_s3 = ao_s3
-          io_session = ao_session ).
-
-        " Tag the bucket
-        ao_s3->putbuckettagging(
-          iv_bucket = av_output_bucket
-          io_tagging = NEW /aws1/cl_s3_tagging( it_tagset = lt_s3_tags ) ).
-
-        MESSAGE |Created output bucket: { av_output_bucket }| TYPE 'I'.
-      CATCH /aws1/cx_s3_bktalrdyownedbyyou /aws1/cx_s3_bucketalrdyexists.
-        MESSAGE |Output bucket already exists: { av_output_bucket }| TYPE 'I'.
-    ENDTRY.
 
     " Upload a minimal test audio file
     " This creates a minimal valid MP3 file with ID3v2 header
@@ -197,7 +193,7 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
         " Build tagging header string (format: key1=value1&key2=value2)
         DATA lv_tagging_header TYPE /aws1/s3_taggingheader.
         lv_tagging_header = 'TestType=convert_test'.
-        
+
         ao_s3->putobject(
           iv_bucket = av_media_bucket
           iv_key = av_media_key
@@ -219,8 +215,6 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD class_teardown.
-    " Note: Resources are tagged with 'convert_test' for manual cleanup if needed
-
     " Clean up IAM resources
     IF av_iam_role_name IS NOT INITIAL.
       " Detach all policies from role
@@ -231,9 +225,10 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
                 ao_iam->detachrolepolicy(
                   iv_rolename = av_iam_role_name
                   iv_policyarn = lo_policy->get_policyarn( ) ).
+                MESSAGE |Detached policy: { lo_policy->get_policyname( ) }| TYPE 'I'.
 
-                " Delete the policy if it's a test policy
-                IF lo_policy->get_policyname( ) CS 'tnb-s3-policy'.
+                " Delete the policy if it's a test policy (starts with tnb-pol or tnb-s3-policy)
+                IF lo_policy->get_policyname( ) CS 'tnb-pol' OR lo_policy->get_policyname( ) CS 'tnb-s3-policy'.
                   " Delete all non-default policy versions first
                   TRY.
                       DATA(lo_versions) = ao_iam->listpolicyversions( iv_policyarn = lo_policy->get_policyarn( ) ).
@@ -253,13 +248,17 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
                   " Delete the policy
                   TRY.
                       ao_iam->deletepolicy( iv_policyarn = lo_policy->get_policyarn( ) ).
-                    CATCH /aws1/cx_rt_generic.
+                      MESSAGE |Deleted policy: { lo_policy->get_policyname( ) }| TYPE 'I'.
+                    CATCH /aws1/cx_rt_generic INTO DATA(lx_del_policy_error).
+                      MESSAGE |Could not delete policy { lo_policy->get_policyname( ) }: { lx_del_policy_error->get_text( ) }| TYPE 'I'.
                   ENDTRY.
                 ENDIF.
-              CATCH /aws1/cx_rt_generic.
+              CATCH /aws1/cx_rt_generic INTO DATA(lx_detach_error).
+                MESSAGE |Could not detach policy: { lx_detach_error->get_text( ) }| TYPE 'I'.
             ENDTRY.
           ENDLOOP.
-        CATCH /aws1/cx_rt_generic.
+        CATCH /aws1/cx_rt_generic INTO DATA(lx_list_error).
+          MESSAGE |Could not list attached policies: { lx_list_error->get_text( ) }| TYPE 'I'.
       ENDTRY.
 
       " Delete inline policies
@@ -280,15 +279,35 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
       TRY.
           ao_iam->deleterole( iv_rolename = av_iam_role_name ).
           MESSAGE |Deleted IAM role: { av_iam_role_name }| TYPE 'I'.
-        CATCH /aws1/cx_rt_generic.
-          MESSAGE |Could not delete IAM role: { av_iam_role_name }| TYPE 'I'.
+        CATCH /aws1/cx_rt_generic INTO DATA(lx_role_error).
+          MESSAGE |Could not delete IAM role { av_iam_role_name }: { lx_role_error->get_text( ) }| TYPE 'I'.
       ENDTRY.
     ENDIF.
 
-    " Note: S3 buckets may contain transcription outputs
-    " We won't delete them automatically due to potential long cleanup
-    " They are tagged with 'convert_test' for manual cleanup
-    MESSAGE |S3 buckets tagged with convert_test for manual cleanup| TYPE 'I'.
+    " Clean up S3 buckets - buckets should be empty after test cleanup
+    " Note: S3 buckets may contain transcription outputs that take time to generate
+    " We'll try to clean them up but if they're not empty, they'll be tagged for manual cleanup
+    IF av_media_bucket IS NOT INITIAL.
+      TRY.
+          /awsex/cl_utils=>cleanup_bucket(
+            iv_bucket = av_media_bucket
+            io_s3 = ao_s3 ).
+          MESSAGE |Deleted media bucket: { av_media_bucket }| TYPE 'I'.
+        CATCH /aws1/cx_rt_generic INTO DATA(lx_media_bucket_error).
+          MESSAGE |Media bucket { av_media_bucket } tagged with convert_test for manual cleanup: { lx_media_bucket_error->get_text( ) }| TYPE 'I'.
+      ENDTRY.
+    ENDIF.
+
+    IF av_output_bucket IS NOT INITIAL.
+      TRY.
+          /awsex/cl_utils=>cleanup_bucket(
+            iv_bucket = av_output_bucket
+            io_s3 = ao_s3 ).
+          MESSAGE |Deleted output bucket: { av_output_bucket }| TYPE 'I'.
+        CATCH /aws1/cx_rt_generic INTO DATA(lx_output_bucket_error).
+          MESSAGE |Output bucket { av_output_bucket } tagged with convert_test for manual cleanup: { lx_output_bucket_error->get_text( ) }| TYPE 'I'.
+      ENDTRY.
+    ENDIF.
 
   ENDMETHOD.
 
