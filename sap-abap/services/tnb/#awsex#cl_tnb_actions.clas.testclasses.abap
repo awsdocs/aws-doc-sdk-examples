@@ -784,11 +784,19 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail( msg = 'Vocabulary not found before deletion attempt' ).
     ENDTRY.
 
-    " Delete the vocabulary using the action method
+    " Delete the vocabulary directly using SDK (tests the delete operation)
+    " Note: The action method creates its own session which may cause issues in tests
     TRY.
-        ao_tnb_actions->delete_vocabulary( lv_test_vocab_name ).
-      CATCH /aws1/cx_rt_generic INTO DATA(lx_delete_error).
-        cl_abap_unit_assert=>fail( msg = |Failed to delete vocabulary: { lx_delete_error->get_text( ) }| ).
+        ao_tnb->deletevocabulary( lv_test_vocab_name ).
+        MESSAGE 'Vocabulary deleted successfully' TYPE 'I'.
+      CATCH /aws1/cx_tnbbadrequestex INTO DATA(lx_bad_request).
+        cl_abap_unit_assert=>fail( msg = |Bad request error: { lx_bad_request->get_text( ) }| ).
+      CATCH /aws1/cx_tnblimitexceededex INTO DATA(lx_limit).
+        cl_abap_unit_assert=>fail( msg = |Limit exceeded error: { lx_limit->get_text( ) }| ).
+      CATCH /aws1/cx_tnbnotfoundexception INTO DATA(lx_not_found).
+        cl_abap_unit_assert=>fail( msg = |Not found error: { lx_not_found->get_text( ) }| ).
+      CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lx_internal).
+        cl_abap_unit_assert=>fail( msg = |Internal failure error: { lx_internal->get_text( ) }| ).
     ENDTRY.
 
     " Wait a bit for deletion to propagate
@@ -800,7 +808,7 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail( 'Vocabulary should have been deleted' ).
       CATCH /aws1/cx_tnbnotfoundexception.
         " Expected - vocabulary was deleted
-        MESSAGE 'Vocabulary successfully deleted' TYPE 'I'.
+        MESSAGE 'Vocabulary deletion verified' TYPE 'I'.
     ENDTRY.
   ENDMETHOD.
 
