@@ -20,7 +20,6 @@ CLASS ltc_awsex_cl_tnb_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_output_bucket TYPE /aws1/s3_bucketname.
     CLASS-DATA av_iam_role_name TYPE /aws1/iamrolenametype.
     CLASS-DATA av_iam_role_arn TYPE /aws1/iamarntype.
-    CLASS-DATA av_uuid TYPE sysuuid_c36.
 
     METHODS:
       start_transcription_job FOR TESTING RAISING /aws1/cx_rt_generic,
@@ -73,8 +72,7 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     ao_tnb_actions = NEW /awsex/cl_tnb_actions( ).
 
     " Generate unique names using utility function
-    av_uuid = /awsex/cl_utils=>get_random_string( ).
-    lv_uuid_string = av_uuid.
+    lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
     CONDENSE lv_uuid_string NO-GAPS.
     TRANSLATE lv_uuid_string TO LOWER CASE.
 
