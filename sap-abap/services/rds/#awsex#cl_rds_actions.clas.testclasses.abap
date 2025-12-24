@@ -663,9 +663,10 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
     lv_test_instance_id = |test-query-{ lv_uuid }|.
 
+    " Suppress MESSAGE handling in unit test context
+    cl_abap_unit_assert=>set_ignore_messages( abap_true ).
+
     " Try to describe a specific instance
-    " The action method raises MESSAGE TYPE 'E' which causes an exception
-    " We just want to verify the method can be called without crashing
     TRY.
         ao_rds_actions->describe_db_instances(
           EXPORTING
@@ -676,9 +677,11 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       CATCH /aws1/cx_rdsdbinstnotfndfault.
         " Expected if instance doesn't exist
       CATCH cx_root.
-        " Catch any other exception including MESSAGE TYPE 'E'
-        " This is expected for not found scenarios
+        " Catch any other exception
     ENDTRY.
+
+    " Reset MESSAGE handling
+    cl_abap_unit_assert=>set_ignore_messages( abap_false ).
 
     " The test passes if no unhandled exceptions occurred
 
@@ -699,9 +702,10 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
     lv_test_snapshot_id = |test-snap-{ lv_uuid }|.
 
+    " Suppress MESSAGE handling in unit test context
+    cl_abap_unit_assert=>set_ignore_messages( abap_true ).
+
     " Try to describe a specific snapshot
-    " The action method raises MESSAGE TYPE 'E' which causes an exception
-    " We just want to verify the method can be called without crashing
     TRY.
         ao_rds_actions->describe_db_snapshots(
           EXPORTING
@@ -712,9 +716,11 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       CATCH /aws1/cx_rdsdbsnapnotfndfault.
         " Expected if snapshot doesn't exist
       CATCH cx_root.
-        " Catch any other exception including MESSAGE TYPE 'E'
-        " This is expected for not found scenarios
+        " Catch any other exception
     ENDTRY.
+
+    " Reset MESSAGE handling
+    cl_abap_unit_assert=>set_ignore_messages( abap_false ).
 
     " The test passes if no unhandled exceptions occurred
 
