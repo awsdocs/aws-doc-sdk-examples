@@ -786,11 +786,11 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
 
     DATA(lv_test_vocab_name) = |delvoc{ lv_uuid_string+0(10) }|.
 
-    " Create a vocabulary with multiple meaningful phrases - must not skip if creation fails
+    " Create a vocabulary with unique single-word phrases for this test
     DATA(lt_phrases) = VALUE /aws1/cl_tnbphrases_w=>tt_phrases(
-      ( NEW /aws1/cl_tnbphrases_w( |Amazon Web Services| ) )
-      ( NEW /aws1/cl_tnbphrases_w( |Transcribe| ) )
-      ( NEW /aws1/cl_tnbphrases_w( |vocabulary| ) )
+      ( NEW /aws1/cl_tnbphrases_w( |frabjous| ) )
+      ( NEW /aws1/cl_tnbphrases_w( |callooh| ) )
+      ( NEW /aws1/cl_tnbphrases_w( |callay| ) )
     ).
 
     TRY.
@@ -943,7 +943,14 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
           " Reset not found counter if vocabulary is found
           lv_not_found_count = 0.
 
-          IF rv_state = 'READY' OR rv_state = 'FAILED'.
+          IF rv_state = 'READY'.
+            RETURN.
+          ELSEIF rv_state = 'FAILED'.
+            " Log the failure reason if available
+            DATA(lv_failure_reason) = lo_result->get_failurereason( ).
+            IF lv_failure_reason IS NOT INITIAL.
+              MESSAGE |Vocabulary creation failed: { lv_failure_reason }| TYPE 'I'.
+            ENDIF.
             RETURN.
           ENDIF.
 
