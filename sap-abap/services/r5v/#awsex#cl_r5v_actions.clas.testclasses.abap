@@ -9,20 +9,16 @@ CLASS ltc_awsex_cl_r5v_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
-    CLASS-DATA ao_iam TYPE REF TO /aws1/if_iam.
     CLASS-DATA ao_r5c TYPE REF TO /aws1/if_r5c.
     CLASS-DATA ao_r5v_actions TYPE REF TO /awsex/cl_r5v_actions.
     CLASS-DATA av_cluster_arn TYPE /aws1/r5carn.
     CLASS-DATA av_routing_control_arn TYPE /aws1/r5carn.
     CLASS-DATA av_control_panel_arn TYPE /aws1/r5carn.
     CLASS-DATA at_cluster_endpoints TYPE /awsex/cl_r5v_actions=>tt_cluster_endpoints.
-    CLASS-DATA av_test_role_name TYPE /aws1/iamrolename.
-    CLASS-DATA av_test_role_arn TYPE /aws1/iamarntype.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
 
-    CLASS-METHODS setup_iam_permissions RAISING /aws1/cx_rt_generic.
     CLASS-METHODS wait_for_cluster_deployed
       IMPORTING
         iv_cluster_arn    TYPE /aws1/r5carn
@@ -43,85 +39,6 @@ CLASS ltc_awsex_cl_r5v_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 ENDCLASS.
 
 CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
-
-  METHOD setup_iam_permissions.
-    " Setup IAM role with necessary permissions for Route 53 ARC testing
-    DATA lv_policy_document TYPE string.
-    DATA lv_policy_name TYPE /aws1/iampolicyname.
-    DATA lv_uuid TYPE sysuuid_x16.
-
-    ao_iam = /aws1/cl_iam_factory=>create( ao_session ).
-
-    " Generate unique role name
-    lv_uuid = cl_system_uuid=>create_uuid_x16_static( ).
-    DATA(lv_uuid_string) TYPE string.
-    lv_uuid_string = lv_uuid.
-    av_test_role_name = |r5v-test-role-{ lv_uuid_string(8) }|.
-
-    " Create assume role policy document for test role
-    DATA(lv_assume_role_policy) = |\{| &&
-      |"Version":"2012-10-17",| &&
-      |"Statement":[| &&
-      |\{| &&
-      |"Effect":"Allow",| &&
-      |"Principal":\{"Service":"route53-recovery-control.amazonaws.com"\},| &&
-      |"Action":"sts:AssumeRole"| &&
-      |\}| &&
-      |]| &&
-      |\}|.
-
-    TRY.
-        " Create IAM role for testing
-        DATA(lo_create_role_result) = ao_iam->createrole(
-          iv_rolename                 = av_test_role_name
-          iv_assumerolepolicydocument = lv_assume_role_policy
-          iv_description              = 'Test role for Route 53 Application Recovery Controller examples'
-          it_tags                     = VALUE /aws1/cl_iamtag=>tt_taglisttype(
-            ( NEW /aws1/cl_iamtag( iv_key = 'convert_test' iv_value = 'true' ) )
-          )
-        ).
-
-        av_test_role_arn = lo_create_role_result->get_role( )->get_arn( ).
-        MESSAGE |Created IAM role: { av_test_role_name } with ARN: { av_test_role_arn }| TYPE 'I'.
-
-      CATCH /aws1/cx_iamentityalrdyexsex INTO DATA(lo_exists_ex).
-        " Role already exists, get its ARN
-        DATA(lo_get_role_result) = ao_iam->getrole( iv_rolename = av_test_role_name ).
-        av_test_role_arn = lo_get_role_result->get_role( )->get_arn( ).
-        MESSAGE |IAM role already exists: { av_test_role_name }| TYPE 'I'.
-    ENDTRY.
-
-    " Create inline policy for Route 53 ARC permissions
-    lv_policy_name = 'R5VTestPolicy'.
-    lv_policy_document = |\{| &&
-      |"Version":"2012-10-17",| &&
-      |"Statement":[| &&
-      |\{| &&
-      |"Effect":"Allow",| &&
-      |"Action":[| &&
-      |"route53-recovery-control-config:*",| &&
-      |"route53-recovery-cluster:*"| &&
-      |],| &&
-      |"Resource":"*"| &&
-      |\}| &&
-      |]| &&
-      |\}|.
-
-    TRY.
-        ao_iam->putrolepolicy(
-          iv_rolename       = av_test_role_name
-          iv_policyname     = lv_policy_name
-          iv_policydocument = lv_policy_document
-        ).
-        MESSAGE |Attached inline policy { lv_policy_name } to role { av_test_role_name }| TYPE 'I'.
-
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_policy_ex).
-        MESSAGE |Warning: Could not attach policy: { lo_policy_ex->if_message~get_text( ) }| TYPE 'I'.
-    ENDTRY.
-
-    " Wait for IAM role to propagate
-    WAIT UP TO 10 SECONDS.
-  ENDMETHOD.
 
   METHOD wait_for_cluster_deployed.
     DATA lv_max_wait_time TYPE i VALUE 900. " 15 minutes
@@ -206,13 +123,6 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_r5c = /aws1/cl_r5c_factory=>create( ao_session ).
     ao_r5v_actions = NEW /awsex/cl_r5v_actions( ).
-
-    " Setup IAM permissions
-    TRY.
-        setup_iam_permissions( ).
-      CATCH /aws1/cx_rt_generic INTO DATA(lo_iam_ex).
-        MESSAGE |Warning: IAM setup encountered issues: { lo_iam_ex->if_message~get_text( ) }| TYPE 'I'.
-    ENDTRY.
 
     " Generate unique resource names using utility function
     DATA(lv_random_suffix) = /awsex/cl_utils=>get_random_string( ).
@@ -438,36 +348,6 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
       MESSAGE |Note: Cluster { av_cluster_arn } was NOT deleted automatically.| TYPE 'I'.
       MESSAGE |Cluster deletion takes 20-30 minutes and must be done manually.| TYPE 'I'.
       MESSAGE |Please delete it using the AWS console or CLI by filtering resources with tag 'convert_test=true'.| TYPE 'I'.
-    ENDIF.
-
-    " Clean up IAM role and policy
-    IF av_test_role_name IS NOT INITIAL AND ao_iam IS BOUND.
-      TRY.
-          " Delete inline policy first
-          ao_iam->deleterolepolicy(
-            iv_rolename   = av_test_role_name
-            iv_policyname = 'R5VTestPolicy'
-          ).
-          MESSAGE |Deleted inline policy from role { av_test_role_name }| TYPE 'I'.
-
-        CATCH /aws1/cx_iamnosuchentityex.
-          MESSAGE 'Inline policy already deleted or not found' TYPE 'I'.
-
-        CATCH /aws1/cx_rt_generic INTO DATA(lo_policy_ex).
-          MESSAGE |Error deleting inline policy: { lo_policy_ex->if_message~get_text( ) }| TYPE 'I'.
-      ENDTRY.
-
-      TRY.
-          " Delete IAM role
-          ao_iam->deleterole( iv_rolename = av_test_role_name ).
-          MESSAGE |Deleted IAM role: { av_test_role_name }| TYPE 'I'.
-
-        CATCH /aws1/cx_iamnosuchentityex.
-          MESSAGE 'IAM role already deleted or not found' TYPE 'I'.
-
-        CATCH /aws1/cx_rt_generic INTO DATA(lo_role_ex).
-          MESSAGE |Error deleting IAM role: { lo_role_ex->if_message~get_text( ) }| TYPE 'I'.
-      ENDTRY.
     ENDIF.
 
     MESSAGE 'Teardown complete' TYPE 'I'.
