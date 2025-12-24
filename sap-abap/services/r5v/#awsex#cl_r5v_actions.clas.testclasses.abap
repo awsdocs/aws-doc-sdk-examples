@@ -20,9 +20,9 @@ CLASS ltc_awsex_cl_r5v_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA ao_r5c TYPE REF TO /aws1/if_r5c.
     CLASS-DATA ao_r5v_actions TYPE REF TO /awsex/cl_r5v_actions.
-    CLASS-DATA av_cluster_arn TYPE /aws1/r5carn.
-    CLASS-DATA av_routing_control_arn TYPE /aws1/r5carn.
-    CLASS-DATA av_control_panel_arn TYPE /aws1/r5carn.
+    CLASS-DATA av_cluster_arn TYPE /aws1/r5c__string.
+    CLASS-DATA av_routing_control_arn TYPE /aws1/r5varn.
+    CLASS-DATA av_control_panel_arn TYPE /aws1/r5c__string.
     CLASS-DATA at_cluster_endpoints TYPE tty_cluster_endpoints.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
@@ -30,14 +30,14 @@ CLASS ltc_awsex_cl_r5v_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
 
     CLASS-METHODS wait_for_cluster_deployed
       IMPORTING
-        iv_cluster_arn    TYPE /aws1/r5carn
+        iv_cluster_arn    TYPE /aws1/r5c__string
       RETURNING
         VALUE(rv_success) TYPE abap_bool
       RAISING
         /aws1/cx_rt_generic.
     CLASS-METHODS wait_for_routing_control
       IMPORTING
-        iv_routing_control_arn TYPE /aws1/r5carn
+        iv_routing_control_arn TYPE /aws1/r5varn
       RETURNING
         VALUE(rv_success)      TYPE abap_bool
       RAISING
