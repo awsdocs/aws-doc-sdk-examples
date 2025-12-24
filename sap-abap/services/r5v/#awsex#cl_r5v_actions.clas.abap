@@ -93,6 +93,7 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
 
   METHOD get_routing_control_state.
     " snippet-start:[r5v.abapv1.get_routing_control_state]
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
     DATA lo_exception TYPE REF TO /aws1/cx_rt_generic.
     DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
     DATA lo_client TYPE REF TO /aws1/if_r5v.
@@ -123,7 +124,7 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
           ENDIF.
 
           " Create session for this region
-          lo_session = /aws1/cl_rt_session_aws=>create( ).
+          lo_session = /aws1/cl_rt_session_aws=>create( cv_pfl ).
 
           " Create client with the specific endpoint
           lo_client = create_recovery_client(
@@ -160,7 +161,6 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
     ELSE.
       RAISE EXCEPTION TYPE /aws1/cx_rt_generic
         EXPORTING
-          textid = /aws1/cx_rt_generic=>cx_generic_error
           av_msg = 'All cluster endpoints failed'.
     ENDIF.
     " snippet-end:[r5v.abapv1.get_routing_control_state]
@@ -169,6 +169,7 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
 
   METHOD update_routing_control_state.
     " snippet-start:[r5v.abapv1.update_routing_control_state]
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
     DATA lo_exception TYPE REF TO /aws1/cx_rt_generic.
     DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
     DATA lo_client TYPE REF TO /aws1/if_r5v.
@@ -199,7 +200,7 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
           ENDIF.
 
           " Create session for this region
-          lo_session = /aws1/cl_rt_session_aws=>create( ).
+          lo_session = /aws1/cl_rt_session_aws=>create( cv_pfl ).
 
           " Create client with the specific endpoint
           lo_client = create_recovery_client(
@@ -239,7 +240,6 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
     ELSE.
       RAISE EXCEPTION TYPE /aws1/cx_rt_generic
         EXPORTING
-          textid = /aws1/cx_rt_generic=>cx_generic_error
           av_msg = 'All cluster endpoints failed'.
     ENDIF.
     " snippet-end:[r5v.abapv1.update_routing_control_state]
