@@ -194,11 +194,15 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     lv_test_content = '4944330400000000000B54495432000000030000006162'.
 
     TRY.
+        " Build tagging header string (format: key1=value1&key2=value2)
+        DATA lv_tagging_header TYPE /aws1/s3_taggingheader.
+        lv_tagging_header = 'TestType=convert_test'.
+        
         ao_s3->putobject(
           iv_bucket = av_media_bucket
           iv_key = av_media_key
           iv_body = lv_test_content
-          io_tagging = NEW /aws1/cl_s3_tagging( it_tagset = lt_s3_tags ) ).
+          iv_tagging = lv_tagging_header ).
 
         av_media_uri = |s3://{ av_media_bucket }/{ av_media_key }|.
         MESSAGE |Uploaded test media file| TYPE 'I'.
