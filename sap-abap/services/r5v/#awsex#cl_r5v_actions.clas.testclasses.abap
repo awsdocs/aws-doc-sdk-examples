@@ -365,11 +365,17 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
   METHOD get_routing_control_state.
     " Test getting the routing control state
     DATA lo_result TYPE REF TO /aws1/cl_r5vgetroutingctlsta01.
+    DATA lt_endpoints TYPE /awsex/cl_r5v_actions=>tt_cluster_endpoints.
+
+    " Convert local type to action class type
+    LOOP AT at_cluster_endpoints INTO DATA(ls_endpoint).
+      APPEND VALUE #( endpoint = ls_endpoint-endpoint region = ls_endpoint-region ) TO lt_endpoints.
+    ENDLOOP.
 
     TRY.
         lo_result = ao_r5v_actions->get_routing_control_state(
           iv_routing_control_arn = av_routing_control_arn
-          it_cluster_endpoints   = at_cluster_endpoints ).
+          it_cluster_endpoints   = lt_endpoints ).
 
         cl_abap_unit_assert=>assert_bound(
           act = lo_result
@@ -428,12 +434,18 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
     " Test updating the routing control state
     DATA lo_get_result TYPE REF TO /aws1/cl_r5vgetroutingctlsta01.
     DATA lo_update_result TYPE REF TO /aws1/cl_r5vuproutingctlstat01.
+    DATA lt_endpoints TYPE /awsex/cl_r5v_actions=>tt_cluster_endpoints.
+
+    " Convert local type to action class type
+    LOOP AT at_cluster_endpoints INTO DATA(ls_endpoint).
+      APPEND VALUE #( endpoint = ls_endpoint-endpoint region = ls_endpoint-region ) TO lt_endpoints.
+    ENDLOOP.
 
     TRY.
         " First, get the current state
         lo_get_result = ao_r5v_actions->get_routing_control_state(
           iv_routing_control_arn = av_routing_control_arn
-          it_cluster_endpoints   = at_cluster_endpoints ).
+          it_cluster_endpoints   = lt_endpoints ).
 
         DATA(lv_current_state) = lo_get_result->get_routingcontrolstate( ).
 
@@ -447,7 +459,7 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
         " Update the routing control state
         lo_update_result = ao_r5v_actions->update_routing_control_state(
           iv_routing_control_arn   = av_routing_control_arn
-          it_cluster_endpoints     = at_cluster_endpoints
+          it_cluster_endpoints     = lt_endpoints
           iv_routing_control_state = lv_new_state ).
 
         cl_abap_unit_assert=>assert_bound(
@@ -459,7 +471,7 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
 
         lo_get_result = ao_r5v_actions->get_routing_control_state(
           iv_routing_control_arn = av_routing_control_arn
-          it_cluster_endpoints   = at_cluster_endpoints ).
+          it_cluster_endpoints   = lt_endpoints ).
 
         DATA(lv_updated_state) = lo_get_result->get_routingcontrolstate( ).
 
@@ -473,7 +485,7 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
         " Toggle it back to the original state for cleanup
         lo_update_result = ao_r5v_actions->update_routing_control_state(
           iv_routing_control_arn   = av_routing_control_arn
-          it_cluster_endpoints     = at_cluster_endpoints
+          it_cluster_endpoints     = lt_endpoints
           iv_routing_control_state = lv_current_state ).
 
         MESSAGE |Restored routing control to original state: { lv_current_state }| TYPE 'I'.
