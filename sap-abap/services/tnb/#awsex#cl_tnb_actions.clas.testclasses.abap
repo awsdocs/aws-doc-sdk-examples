@@ -298,9 +298,11 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     lv_uuid_string = lv_uuid.
     CONDENSE lv_uuid_string NO-GAPS.
     TRANSLATE lv_uuid_string TO LOWER CASE.
+    " Remove any non-alphanumeric characters except .-_
+    REPLACE ALL OCCURRENCES OF REGEX '[^0-9a-z._-]' IN lv_uuid_string WITH ''.
 
     " Use unique job name for this test
-    DATA(lv_test_job_name) = |test-job-{ lv_uuid_string+0(10) }|.
+    DATA(lv_test_job_name) = |testjob{ lv_uuid_string+0(10) }|.
 
     " Start transcription job
     DATA(lo_result) = ao_tnb_actions->start_transcription_job(
@@ -345,8 +347,10 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     lv_uuid_string = lv_uuid.
     CONDENSE lv_uuid_string NO-GAPS.
     TRANSLATE lv_uuid_string TO LOWER CASE.
+    " Remove any non-alphanumeric characters except .-_
+    REPLACE ALL OCCURRENCES OF REGEX '[^0-9a-z._-]' IN lv_uuid_string WITH ''.
 
-    DATA(lv_test_job_name) = |test-get-{ lv_uuid_string+0(10) }|.
+    DATA(lv_test_job_name) = |testget{ lv_uuid_string+0(10) }|.
 
     " Create a job first - must not skip if creation fails
     TRY.
@@ -389,9 +393,11 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     lv_uuid_string = lv_uuid.
     CONDENSE lv_uuid_string NO-GAPS.
     TRANSLATE lv_uuid_string TO LOWER CASE.
+    " Remove any non-alphanumeric characters except .-_
+    REPLACE ALL OCCURRENCES OF REGEX '[^0-9a-z._-]' IN lv_uuid_string WITH ''.
 
-    DATA(lv_prefix) = |test-list-{ lv_uuid_string+0(6) }|.
-    DATA(lv_test_job_name) = |{ lv_prefix }-job|.
+    DATA(lv_prefix) = |testlist{ lv_uuid_string+0(6) }|.
+    DATA(lv_test_job_name) = |{ lv_prefix }job|.
 
     " Create a test job - must not skip if creation fails
     TRY.
@@ -446,8 +452,10 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     lv_uuid_string = lv_uuid.
     CONDENSE lv_uuid_string NO-GAPS.
     TRANSLATE lv_uuid_string TO LOWER CASE.
+    " Remove any non-alphanumeric characters except .-_
+    REPLACE ALL OCCURRENCES OF REGEX '[^0-9a-z._-]' IN lv_uuid_string WITH ''.
 
-    DATA(lv_test_job_name) = |test-del-{ lv_uuid_string+0(10) }|.
+    DATA(lv_test_job_name) = |testdel{ lv_uuid_string+0(10) }|.
 
     " Create a job - must not skip if creation fails
     TRY.
@@ -484,8 +492,10 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     lv_uuid_string = lv_uuid.
     CONDENSE lv_uuid_string NO-GAPS.
     TRANSLATE lv_uuid_string TO LOWER CASE.
+    " Remove any non-alphanumeric characters except .-_
+    REPLACE ALL OCCURRENCES OF REGEX '[^0-9a-z._-]' IN lv_uuid_string WITH ''.
 
-    DATA(lv_test_vocab_name) = |vocab-{ lv_uuid_string+0(10) }|.
+    DATA(lv_test_vocab_name) = |vocab{ lv_uuid_string+0(10) }|.
 
     " Create test phrases
     DATA(lt_phrases) = VALUE /aws1/cl_tnbphrases_w=>tt_phrases(
@@ -543,8 +553,10 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     lv_uuid_string = lv_uuid.
     CONDENSE lv_uuid_string NO-GAPS.
     TRANSLATE lv_uuid_string TO LOWER CASE.
+    " Remove any non-alphanumeric characters except .-_
+    REPLACE ALL OCCURRENCES OF REGEX '[^0-9a-z._-]' IN lv_uuid_string WITH ''.
 
-    DATA(lv_test_vocab_name) = |getvoc-{ lv_uuid_string+0(10) }|.
+    DATA(lv_test_vocab_name) = |getvoc{ lv_uuid_string+0(10) }|.
 
     " Create a vocabulary first - must not skip if creation fails
     DATA(lt_phrases) = VALUE /aws1/cl_tnbphrases_w=>tt_phrases(
@@ -599,6 +611,8 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     lv_uuid_string = lv_uuid.
     CONDENSE lv_uuid_string NO-GAPS.
     TRANSLATE lv_uuid_string TO LOWER CASE.
+    " Remove any non-alphanumeric characters except .-_
+    REPLACE ALL OCCURRENCES OF REGEX '[^0-9a-z._-]' IN lv_uuid_string WITH ''.
 
     DATA(lv_prefix) = |listvoc{ lv_uuid_string+0(6) }|.
     DATA(lv_test_vocab_name) = |{ lv_prefix }vocab|.
@@ -669,8 +683,10 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     lv_uuid_string = lv_uuid.
     CONDENSE lv_uuid_string NO-GAPS.
     TRANSLATE lv_uuid_string TO LOWER CASE.
+    " Remove any non-alphanumeric characters except .-_
+    REPLACE ALL OCCURRENCES OF REGEX '[^0-9a-z._-]' IN lv_uuid_string WITH ''.
 
-    DATA(lv_test_vocab_name) = |upd-{ lv_uuid_string+0(10) }|.
+    DATA(lv_test_vocab_name) = |upd{ lv_uuid_string+0(10) }|.
 
     " Create a vocabulary first - must not skip if creation fails
     DATA(lt_phrases) = VALUE /aws1/cl_tnbphrases_w=>tt_phrases(
@@ -745,9 +761,13 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     lv_uuid_string = lv_uuid.
     CONDENSE lv_uuid_string NO-GAPS.
+    " Ensure only alphanumeric characters (pattern: ^[0-9a-zA-Z._-]+)
     TRANSLATE lv_uuid_string TO LOWER CASE.
-
-    DATA(lv_test_vocab_name) = |delvoc-{ lv_uuid_string+0(10) }|.
+    " Remove any non-alphanumeric characters except .-_
+    REPLACE ALL OCCURRENCES OF REGEX '[^0-9a-z._-]' IN lv_uuid_string WITH ''.
+    
+    " Use simpler name with only alphanumeric and hyphen
+    DATA(lv_test_vocab_name) = |delvoc{ lv_uuid_string+0(10) }|.
     MESSAGE |Test vocabulary name: { lv_test_vocab_name }| TYPE 'I'.
 
     " Create a vocabulary - must not skip if creation fails
@@ -797,26 +817,12 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail( msg = |Error checking vocabulary: { lx_check_error->get_text( ) }| ).
     ENDTRY.
 
-    " Add a small wait before deletion to ensure vocabulary is fully available
-    MESSAGE 'Waiting 5 seconds before deletion...' TYPE 'I'.
-    WAIT UP TO 5 SECONDS.
-
-    " Re-verify vocabulary still exists immediately before delete
-    MESSAGE 'Re-verifying vocabulary immediately before delete...' TYPE 'I'.
-    TRY.
-        DATA(lo_check2) = ao_tnb->getvocabulary( lv_test_vocab_name ).
-        MESSAGE |Vocabulary confirmed present: { lo_check2->get_vocabularyname( ) }| TYPE 'I'.
-      CATCH /aws1/cx_tnbnotfoundexception.
-        cl_abap_unit_assert=>fail( msg = 'Vocabulary disappeared before deletion!' ).
-    ENDTRY.
-
     " Delete the vocabulary directly using SDK
     MESSAGE |Attempting to delete vocabulary: { lv_test_vocab_name }| TYPE 'I'.
     TRY.
         ao_tnb->deletevocabulary( lv_test_vocab_name ).
         MESSAGE 'Vocabulary deleted successfully' TYPE 'I'.
       CATCH /aws1/cx_tnbbadrequestex INTO DATA(lx_bad_request).
-        " Log all details before failing
         MESSAGE |Bad request during delete: { lx_bad_request->get_text( ) }| TYPE 'I'.
         MESSAGE |Vocabulary name used: { lv_test_vocab_name }| TYPE 'I'.
         cl_abap_unit_assert=>fail( msg = |Bad request error: { lx_bad_request->get_text( ) }| ).
