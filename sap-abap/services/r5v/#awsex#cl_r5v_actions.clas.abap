@@ -6,6 +6,15 @@ CLASS /awsex/cl_r5v_actions DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
+    TYPES:
+      BEGIN OF ts_cluster_endpoint,
+        endpoint TYPE string,
+        region   TYPE /aws1/rt_region_id,
+      END OF ts_cluster_endpoint.
+
+    TYPES:
+      tt_cluster_endpoints TYPE STANDARD TABLE OF ts_cluster_endpoint WITH DEFAULT KEY.
+
     " snippet-start:[r5v.abapv1.get_routing_control_state]
     "! <p class="shorttext synchronized" lang="en">Gets the state of a routing control.</p>
     "! Gets the state of a routing control. Cluster endpoints are tried in
@@ -69,15 +78,6 @@ CLASS /awsex/cl_r5v_actions DEFINITION
         /aws1/cx_r5vvalidationex
         /aws1/cx_rt_generic .
     " snippet-end:[r5v.abapv1.update_routing_control_state]
-
-    TYPES:
-      BEGIN OF ts_cluster_endpoint,
-        endpoint TYPE string,
-        region   TYPE /aws1/rt_region_id,
-      END OF ts_cluster_endpoint.
-
-    TYPES:
-      tt_cluster_endpoints TYPE STANDARD TABLE OF ts_cluster_endpoint WITH DEFAULT KEY.
 
   PROTECTED SECTION.
   PRIVATE SECTION.
