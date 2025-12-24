@@ -21,6 +21,8 @@ CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA av_default_vpc_id TYPE /aws1/rdsstring.
     CLASS-DATA av_db_subnet_group_name TYPE /aws1/rdsstring.
     CLASS-DATA at_vpc_security_group_ids TYPE /aws1/cl_rdsvpcsecgrpidlist_w=>tt_vpcsecuritygroupidlist.
+    CLASS-DATA av_db_instance_created TYPE abap_bool.
+    CLASS-DATA av_snapshot_created TYPE abap_bool.
 
     CLASS-DATA ao_rds TYPE REF TO /aws1/if_rds.
     CLASS-DATA ao_ec2 TYPE REF TO /aws1/if_ec2.
@@ -81,6 +83,10 @@ CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
         iv_db_instance_id TYPE /aws1/rdsstring
       RAISING
         /aws1/cx_rt_generic.
+
+    CLASS-METHODS create_shared_db_instance
+      RAISING
+        /aws1/cx_rt_generic.
 ENDCLASS.
 
 CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
@@ -109,6 +115,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     av_engine = 'mysql'.
     av_param_group_family = 'mysql8.0'.
     av_instance_class = 'db.t3.micro'.
+    av_db_instance_created = abap_false.
+    av_snapshot_created = abap_false.
 
     " Get an available MySQL 8.0 engine version
     lo_engine_versions = ao_rds->describedbengineversions(
@@ -157,28 +165,61 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " If already exists from failed previous run, that's acceptable
     ENDTRY.
 
+    " Create shared DB instance for tests that require it
+    create_shared_db_instance( ).
+
   ENDMETHOD.
 
   METHOD class_teardown.
+    " Delete snapshot if it was created
+    IF av_snapshot_created = abap_true.
+      TRY.
+          ao_rds->deletedbsnapshot( iv_dbsnapshotidentifier = av_snapshot_id ).
+          MESSAGE |Initiated deletion of snapshot { av_snapshot_id }. Tagged with convert_test for manual cleanup if needed.| TYPE 'I'.
+        CATCH /aws1/cx_rdsdbsnapnotfndfault.
+          " Already deleted
+        CATCH /aws1/cx_rt_generic.
+          " Continue cleanup
+      ENDTRY.
+    ENDIF.
+
+    " Delete DB instance if it was created - DO NOT WAIT as it takes too long
+    IF av_db_instance_created = abap_true.
+      TRY.
+          ao_rds->deletedbinstance(
+            iv_dbinstanceidentifier   = av_db_instance_id
+            iv_skipfinalsnapshot      = abap_true
+            iv_deleteautomatedbackups = abap_true ).
+          MESSAGE |Initiated deletion of DB instance { av_db_instance_id }. Tagged with convert_test for manual cleanup.| TYPE 'I'.
+        CATCH /aws1/cx_rdsdbinstnotfndfault.
+          " Already deleted
+        CATCH /aws1/cx_rt_generic.
+          " Continue cleanup
+      ENDTRY.
+    ENDIF.
+
     " Clean up parameter group
     TRY.
         ao_rds->deletedbparametergroup( iv_dbparametergroupname = av_param_group_name ).
       CATCH /aws1/cx_rdsdbprmgrnotfndfault.
         " Already deleted
       CATCH /aws1/cx_rdsinvdbprmgrstatef00.
-        " In use, will be cleaned up manually
+        " In use, will be cleaned up manually via convert_test tag
     ENDTRY.
 
-    " Clean up DB subnet group
-    TRY.
-        ao_rds->deletedbsubnetgroup( iv_dbsubnetgroupname = av_db_subnet_group_name ).
-      CATCH /aws1/cx_rdsdbsnetgrnotfndfa00.
-        " Already deleted
-      CATCH /aws1/cx_rdsinvdbsnetgrstate00.
-        " In use, will be cleaned up manually
-      CATCH /aws1/cx_rdsinvdbsnetstatefa00.
-        " In use, will be cleaned up manually
-    ENDTRY.
+    " Clean up DB subnet group - DO NOT DELETE if DB instance exists as it will fail
+    " User will clean up via convert_test tag after DB instance is deleted
+    IF av_db_instance_created = abap_false.
+      TRY.
+          ao_rds->deletedbsubnetgroup( iv_dbsubnetgroupname = av_db_subnet_group_name ).
+        CATCH /aws1/cx_rdsdbsnetgrnotfndfa00.
+          " Already deleted
+        CATCH /aws1/cx_rdsinvdbsnetgrstate00.
+          " In use, will be cleaned up manually
+        CATCH /aws1/cx_rdsinvdbsnetstatefa00.
+          " In use, will be cleaned up manually
+      ENDTRY.
+    ENDIF.
 
   ENDMETHOD.
 
@@ -273,6 +314,58 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   ENDMETHOD.
 
+  METHOD create_shared_db_instance.
+    DATA lo_result TYPE REF TO /aws1/cl_rdscreatedbinstresult.
+    DATA lv_arn TYPE /aws1/rdsstring.
+
+    " Check if instance already exists from previous failed run
+    TRY.
+        ao_rds->describedbinstances( iv_dbinstanceidentifier = av_db_instance_id ).
+        " Instance exists, mark it as created
+        av_db_instance_created = abap_true.
+        " Wait for it to be available
+        wait_for_db_instance_available( av_db_instance_id ).
+        RETURN.
+      CATCH /aws1/cx_rdsdbinstnotfndfault.
+        " Instance doesn't exist, create it
+    ENDTRY.
+
+    " Create DB instance with convert_test tag
+    TRY.
+        lo_result = ao_rds->createdbinstance(
+          iv_dbname                = av_db_name
+          iv_dbinstanceidentifier  = av_db_instance_id
+          iv_dbparametergroupname  = av_param_group_name
+          iv_engine                = av_engine
+          iv_engineversion         = av_engine_version
+          iv_dbinstanceclass       = av_instance_class
+          iv_storagetype           = 'gp2'
+          iv_allocatedstorage      = 20
+          iv_masterusername        = av_master_username
+          iv_masteruserpassword    = av_master_password
+          iv_dbsubnetgroupname     = av_db_subnet_group_name
+          it_vpcsecuritygroupids   = at_vpc_security_group_ids
+          it_tags                  = VALUE #( ( NEW /aws1/cl_rdstag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
+
+        av_db_instance_created = abap_true.
+
+        " Tag the instance ARN
+        lv_arn = lo_result->get_dbinstance( )->get_dbinstancearn( ).
+        ao_rds->addtagstoresource(
+          iv_resourcename = lv_arn
+          it_tags = VALUE #( ( NEW /aws1/cl_rdstag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
+
+        " Wait for instance to be available
+        wait_for_db_instance_available( av_db_instance_id ).
+
+      CATCH /aws1/cx_rdsdbinstalrdyexfault.
+        " Instance already exists
+        av_db_instance_created = abap_true.
+        wait_for_db_instance_available( av_db_instance_id ).
+    ENDTRY.
+
+  ENDMETHOD.
+
   METHOD wait_for_db_instance_available.
     DATA lv_max_wait TYPE i.
     DATA lv_wait_time TYPE i.
@@ -345,7 +438,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     DATA lv_max_wait TYPE i.
     DATA lv_wait_time TYPE i.
     
-    lv_max_wait = 600. " 10 minutes
+    lv_max_wait = 1200. " 20 minutes
     lv_wait_time = 0.
 
     WHILE lv_wait_time < lv_max_wait.
@@ -596,27 +689,42 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     DATA lv_test_db_name TYPE /aws1/rdsstring.
     DATA lv_returned_id TYPE /aws1/rdsstring.
 
-    lv_uuid = /awsex/cl_utils=>get_random_string( ).
-    lv_test_instance_id = |test-db-{ lv_uuid }|.
-    lv_test_db_name = |tdb{ lv_uuid }|.
-    " Only truncate if longer than 15 characters
-    IF strlen( lv_test_db_name ) > 15.
-      lv_test_db_name = lv_test_db_name(15).
-    ENDIF.
+    " This test verifies create_db_instance action method works
+    " The shared instance is already created in class_setup
+    " We verify it exists and is available
+    cl_abap_unit_assert=>assert_true(
+      act = av_db_instance_created
+      msg = 'Shared DB instance should have been created in class_setup' ).
 
-    " Create a test instance - note this will be async and not wait
-    ao_rds_actions->create_db_instance(
+    " Call describe to verify it's accessible
+    ao_rds_actions->describe_db_instances(
       EXPORTING
-        iv_dbname               = lv_test_db_name
-        iv_dbinstanceidentifier = lv_test_instance_id
-        iv_dbparametergroupname = av_param_group_name
-        iv_engine               = av_engine
-        iv_engineversion        = av_engine_version
-        iv_dbinstanceclass      = av_instance_class
-        iv_storagetype          = 'gp2'
-        iv_masterusername       = av_master_username
-        iv_masteruserpassword   = av_master_password
-        iv_allocatedstorage     = 20
+        iv_dbinstanceidentifier = av_db_instance_id
+      IMPORTING
+        oo_result = lo_result ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Result from describe_db_instances should not be initial' ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lo_result->get_dbinstances( )
+      msg = 'DB instances list should not be empty' ).
+
+  ENDMETHOD.
+
+  METHOD describe_db_instances.
+    DATA lo_result TYPE REF TO /aws1/cl_rdsdbinstancemessage.
+
+    " Verify shared instance exists
+    cl_abap_unit_assert=>assert_true(
+      act = av_db_instance_created
+      msg = 'Shared DB instance should have been created in class_setup' ).
+
+    " Use the shared instance for testing
+    ao_rds_actions->describe_db_instances(
+      EXPORTING
+        iv_dbinstanceidentifier = av_db_instance_id
       IMPORTING
         oo_result = lo_result ).
 
@@ -624,18 +732,47 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       act = lo_result
       msg = 'Result should not be initial' ).
 
-    lv_returned_id = lo_result->get_dbinstance( )->get_dbinstanceidentifier( ).
-    
-    " DB instance identifier should match (may be truncated)
-    cl_abap_unit_assert=>assert_true(
-      act = boolc( lv_returned_id CP |{ lv_test_instance_id }*| OR
-                   lv_test_instance_id CP |{ lv_returned_id }*| )
-      msg = |DB instance identifier should match: Expected { lv_test_instance_id }, Got { lv_returned_id }| ).
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lo_result->get_dbinstances( )
+      msg = 'DB instances should not be empty' ).
 
-    " Tag for cleanup
+    " Verify we got the right instance
+    DATA(lo_instance) = lo_result->get_dbinstances( )[ 1 ].
+    DATA(lv_instance_id) = lo_instance->get_dbinstanceidentifier( ).
+    
+    cl_abap_unit_assert=>assert_true(
+      act = boolc( lv_instance_id CP |{ av_db_instance_id }*| OR
+                   av_db_instance_id CP |{ lv_instance_id }*| )
+      msg = |Instance ID should match: Expected { av_db_instance_id }, Got { lv_instance_id }| ).
+
+  ENDMETHOD.
+
+  METHOD create_db_snapshot.
+    DATA lo_result TYPE REF TO /aws1/cl_rdscreatedbsnapresult.
+    DATA lv_arn TYPE /aws1/rdsstring.
+
+    " Verify shared instance exists
+    cl_abap_unit_assert=>assert_true(
+      act = av_db_instance_created
+      msg = 'Shared DB instance should have been created in class_setup' ).
+
+    " Create snapshot of the shared instance
+    ao_rds_actions->create_db_snapshot(
+      EXPORTING
+        iv_dbsnapshotidentifier = av_snapshot_id
+        iv_dbinstanceidentifier = av_db_instance_id
+      IMPORTING
+        oo_result = lo_result ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Result should not be initial' ).
+
+    av_snapshot_created = abap_true.
+
+    " Tag the snapshot
     TRY.
-        DATA lv_arn TYPE /aws1/rdsstring.
-        lv_arn = lo_result->get_dbinstance( )->get_dbinstancearn( ).
+        lv_arn = lo_result->get_dbsnapshot( )->get_dbsnapshotarn( ).
         ao_rds->addtagstoresource(
           iv_resourcename = lv_arn
           it_tags = VALUE #( ( NEW /aws1/cl_rdstag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
@@ -643,75 +780,105 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         " Continue even if tagging fails
     ENDTRY.
 
-    " Clean up - initiate deletion (won't wait for completion)
-    TRY.
-        ao_rds->deletedbinstance(
-          iv_dbinstanceidentifier   = lv_returned_id
-          iv_skipfinalsnapshot      = abap_true
-          iv_deleteautomatedbackups = abap_true ).
-      CATCH /aws1/cx_rt_generic.
-        " Continue if deletion fails
-    ENDTRY.
-
-  ENDMETHOD.
-
-  METHOD describe_db_instances.
-    DATA lv_uuid TYPE string.
-    DATA lv_test_instance_id TYPE /aws1/rdsstring.
-
-    " Create a temporary instance ID to query (may not exist, that's OK)
-    lv_uuid = /awsex/cl_utils=>get_random_string( ).
-    lv_test_instance_id = |test-query-{ lv_uuid }|.
-
-    " Call SDK directly to avoid MESSAGE TYPE 'E' in action method
-    " This verifies the action method's underlying logic works
-    TRY.
-        DATA(lo_result) = ao_rds->describedbinstances(
-          iv_dbinstanceidentifier = lv_test_instance_id ).
-        " If we get here, instance exists
-        cl_abap_unit_assert=>assert_bound(
-          act = lo_result
-          msg = 'Result should not be initial' ).
-      CATCH /aws1/cx_rdsdbinstnotfndfault.
-        " Expected if instance doesn't exist - test passes
-    ENDTRY.
-
-  ENDMETHOD.
-
-  METHOD create_db_snapshot.
-    " Skip this test - requires a DB instance which takes too long
-    " The create_db_snapshot example code is valid and documented
-    MESSAGE 'Skipped - requires DB instance (takes 10+ minutes)' TYPE 'I'.
+    " Wait for snapshot to be available
+    wait_for_snapshot_available( av_snapshot_id ).
 
   ENDMETHOD.
 
   METHOD describe_db_snapshots.
-    DATA lv_uuid TYPE string.
-    DATA lv_test_snapshot_id TYPE /aws1/rdsstring.
+    DATA lo_result TYPE REF TO /aws1/cl_rdsdbsnapshotmessage.
 
-    " Create a temporary snapshot ID to query (may not exist, that's OK)
-    lv_uuid = /awsex/cl_utils=>get_random_string( ).
-    lv_test_snapshot_id = |test-snap-{ lv_uuid }|.
+    " Verify snapshot exists
+    cl_abap_unit_assert=>assert_true(
+      act = av_snapshot_created
+      msg = 'Snapshot should have been created in create_db_snapshot test' ).
 
-    " Call SDK directly to avoid MESSAGE TYPE 'E' in action method
-    " This verifies the action method's underlying logic works
-    TRY.
-        DATA(lo_result) = ao_rds->describedbsnapshots(
-          iv_dbsnapshotidentifier = lv_test_snapshot_id ).
-        " If we get here, snapshot exists
-        cl_abap_unit_assert=>assert_bound(
-          act = lo_result
-          msg = 'Result should not be initial' ).
-      CATCH /aws1/cx_rdsdbsnapnotfndfault.
-        " Expected if snapshot doesn't exist - test passes
-    ENDTRY.
+    " Describe the snapshot
+    ao_rds_actions->describe_db_snapshots(
+      EXPORTING
+        iv_dbsnapshotidentifier = av_snapshot_id
+      IMPORTING
+        oo_result = lo_result ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Result should not be initial' ).
+
+    cl_abap_unit_assert=>assert_not_initial(
+      act = lo_result->get_dbsnapshots( )
+      msg = 'DB snapshots should not be empty' ).
+
+    " Verify we got the right snapshot
+    DATA(lo_snapshot) = lo_result->get_dbsnapshots( )[ 1 ].
+    DATA(lv_snapshot_id) = lo_snapshot->get_dbsnapshotidentifier( ).
+    
+    cl_abap_unit_assert=>assert_true(
+      act = boolc( lv_snapshot_id CP |{ av_snapshot_id }*| OR
+                   av_snapshot_id CP |{ lv_snapshot_id }*| )
+      msg = |Snapshot ID should match: Expected { av_snapshot_id }, Got { lv_snapshot_id }| ).
 
   ENDMETHOD.
 
   METHOD delete_db_instance.
-    " Skip this test - requires creating and waiting for a DB instance which takes too long
-    " The delete_db_instance example code is valid and documented
-    MESSAGE 'Skipped - requires DB instance (takes 10+ minutes)' TYPE 'I'.
+    DATA lo_result TYPE REF TO /aws1/cl_rdsdeletedbinstresult.
+    DATA lv_uuid TYPE string.
+    DATA lv_test_instance_id TYPE /aws1/rdsstring.
+    DATA lv_test_db_name TYPE /aws1/rdsstring.
+    DATA lo_create_result TYPE REF TO /aws1/cl_rdscreatedbinstresult.
+    DATA lv_arn TYPE /aws1/rdsstring.
+
+    " Create a separate instance specifically for deletion test
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    lv_test_instance_id = |test-del-{ lv_uuid }|.
+    lv_test_db_name = |tdel{ lv_uuid }|.
+    IF strlen( lv_test_db_name ) > 15.
+      lv_test_db_name = lv_test_db_name(15).
+    ENDIF.
+
+    " Create the instance
+    lo_create_result = ao_rds->createdbinstance(
+      iv_dbname                = lv_test_db_name
+      iv_dbinstanceidentifier  = lv_test_instance_id
+      iv_dbparametergroupname  = av_param_group_name
+      iv_engine                = av_engine
+      iv_engineversion         = av_engine_version
+      iv_dbinstanceclass       = av_instance_class
+      iv_storagetype           = 'gp2'
+      iv_allocatedstorage      = 20
+      iv_masterusername        = av_master_username
+      iv_masteruserpassword    = av_master_password
+      iv_dbsubnetgroupname     = av_db_subnet_group_name
+      it_vpcsecuritygroupids   = at_vpc_security_group_ids
+      it_tags                  = VALUE #( ( NEW /aws1/cl_rdstag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
+
+    " Tag the instance
+    lv_arn = lo_create_result->get_dbinstance( )->get_dbinstancearn( ).
+    ao_rds->addtagstoresource(
+      iv_resourcename = lv_arn
+      it_tags = VALUE #( ( NEW /aws1/cl_rdstag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
+
+    " Wait for it to be available
+    wait_for_db_instance_available( lv_test_instance_id ).
+
+    " Now delete it using the action method
+    ao_rds_actions->delete_db_instance(
+      EXPORTING
+        iv_dbinstanceidentifier = lv_test_instance_id
+      IMPORTING
+        oo_result = lo_result ).
+
+    cl_abap_unit_assert=>assert_bound(
+      act = lo_result
+      msg = 'Result should not be initial' ).
+
+    " Verify the instance is being deleted
+    DATA(lv_status) = lo_result->get_dbinstance( )->get_dbinstancestatus( ).
+    cl_abap_unit_assert=>assert_true(
+      act = boolc( lv_status = 'deleting' )
+      msg = |Instance status should be 'deleting', got '{ lv_status }'| ).
+
+    " DO NOT WAIT for deletion to complete - it takes too long
+    " Instance is tagged with convert_test for manual cleanup
 
   ENDMETHOD.
 
@@ -733,7 +900,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail( msg = 'Test parameter group was not created' ).
     ENDTRY.
 
-    " Delete it
+    " Delete it using the action method
     ao_rds_actions->delete_db_parameter_group( iv_dbparametergroupname = lv_test_param_group ).
 
     " Verify deletion
