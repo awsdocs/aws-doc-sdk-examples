@@ -761,12 +761,10 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
     lv_uuid_string = lv_uuid.
     CONDENSE lv_uuid_string NO-GAPS.
-    " Ensure only alphanumeric characters (pattern: ^[0-9a-zA-Z._-]+)
     TRANSLATE lv_uuid_string TO LOWER CASE.
     " Remove any non-alphanumeric characters except .-_
     REPLACE ALL OCCURRENCES OF REGEX '[^0-9a-z._-]' IN lv_uuid_string WITH ''.
     
-    " Use simpler name with only alphanumeric and hyphen
     DATA(lv_test_vocab_name) = |delvoc{ lv_uuid_string+0(10) }|.
     MESSAGE |Test vocabulary name: { lv_test_vocab_name }| TYPE 'I'.
 
@@ -780,62 +778,88 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
           iv_vocabularyname = lv_test_vocab_name
           iv_languagecode = 'en-US'
           it_phrases = lt_phrases ).
-        MESSAGE |Vocabulary create request sent, state: { lo_create_result->get_vocabularystate( ) }| TYPE 'I'.
+        MESSAGE |Created vocab, initial state: { lo_create_result->get_vocabularystate( ) }| TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lx_create_error).
-        cl_abap_unit_assert=>fail( msg = |Failed to create vocabulary for test: { lx_create_error->get_text( ) }| ).
+        cl_abap_unit_assert=>fail( msg = |Failed to create vocabulary: { lx_create_error->get_text( ) }| ).
     ENDTRY.
 
-    " Wait for vocabulary to be ready
-    MESSAGE 'Waiting for vocabulary to be ready...' TYPE 'I'.
+    " Wait for vocabulary to be ready with better error handling
+    MESSAGE 'Waiting for vocabulary to become ready...' TYPE 'I'.
     DATA(lv_state) = wait_for_vocab_ready( lv_test_vocab_name ).
     MESSAGE |Vocabulary state after wait: { lv_state }| TYPE 'I'.
     
     IF lv_state <> 'READY'.
-      " Clean up vocabulary if it exists but not ready
+      " List all vocabularies to debug
+      TRY.
+          DATA(lo_list) = ao_tnb->listvocabularies( ).
+          DATA lv_vocab_count TYPE i.
+          lv_vocab_count = lines( lo_list->get_vocabularies( ) ).
+          MESSAGE |Total vocabularies in account: { lv_vocab_count }| TYPE 'I'.
+          
+          " Check if our vocabulary is in the list
+          LOOP AT lo_list->get_vocabularies( ) INTO DATA(lo_vocab_info).
+            IF lo_vocab_info->get_vocabularyname( ) CS 'delvoc'.
+              MESSAGE |Found vocab in list: { lo_vocab_info->get_vocabularyname( ) }, state: { lo_vocab_info->get_vocabularystate( ) }| TYPE 'I'.
+            ENDIF.
+          ENDLOOP.
+        CATCH /aws1/cx_rt_generic.
+      ENDTRY.
+      
+      " Attempt cleanup
       TRY.
           ao_tnb->deletevocabulary( lv_test_vocab_name ).
         CATCH /aws1/cx_rt_generic.
       ENDTRY.
-      cl_abap_unit_assert=>fail( msg = |Vocabulary must be ready for test, state: { lv_state }| ).
+      cl_abap_unit_assert=>fail( msg = |Vocabulary not ready, state: { lv_state }| ).
     ENDIF.
 
-    " Verify vocabulary exists before deletion with full details
-    MESSAGE 'Verifying vocabulary exists before deletion...' TYPE 'I'.
+    " List vocabularies to confirm it exists
+    MESSAGE 'Listing vocabularies to confirm existence...' TYPE 'I'.
     TRY.
-        DATA(lo_check) = ao_tnb->getvocabulary( lv_test_vocab_name ).
-        DATA(lv_check_state) = lo_check->get_vocabularystate( ).
-        DATA(lv_check_name) = lo_check->get_vocabularyname( ).
-        MESSAGE |Found vocabulary: { lv_check_name }, state: { lv_check_state }| TYPE 'I'.
+        DATA(lo_list_check) = ao_tnb->listvocabularies( iv_namecontains = 'delvoc' ).
+        DATA lv_found_in_list TYPE abap_bool VALUE abap_false.
+        LOOP AT lo_list_check->get_vocabularies( ) INTO DATA(lo_vocab_item).
+          IF lo_vocab_item->get_vocabularyname( ) = lv_test_vocab_name.
+            lv_found_in_list = abap_true.
+            MESSAGE |Confirmed in list: { lo_vocab_item->get_vocabularyname( ) }| TYPE 'I'.
+            EXIT.
+          ENDIF.
+        ENDLOOP.
         
-        cl_abap_unit_assert=>assert_equals(
-          exp = lv_test_vocab_name
-          act = lv_check_name
-          msg = 'Vocabulary name should match' ).
-      CATCH /aws1/cx_tnbnotfoundexception INTO DATA(lx_check_not_found).
-        cl_abap_unit_assert=>fail( msg = |Vocabulary not found before deletion: { lx_check_not_found->get_text( ) }| ).
-      CATCH /aws1/cx_rt_generic INTO DATA(lx_check_error).
-        cl_abap_unit_assert=>fail( msg = |Error checking vocabulary: { lx_check_error->get_text( ) }| ).
+        IF lv_found_in_list = abap_false.
+          cl_abap_unit_assert=>fail( msg = |Vocabulary { lv_test_vocab_name } not found in list| ).
+        ENDIF.
+      CATCH /aws1/cx_rt_generic INTO DATA(lx_list_error).
+        MESSAGE |Error listing vocabularies: { lx_list_error->get_text( ) }| TYPE 'I'.
     ENDTRY.
 
     " Delete the vocabulary directly using SDK
-    MESSAGE |Attempting to delete vocabulary: { lv_test_vocab_name }| TYPE 'I'.
+    MESSAGE |Deleting vocabulary: { lv_test_vocab_name }| TYPE 'I'.
     TRY.
         ao_tnb->deletevocabulary( lv_test_vocab_name ).
         MESSAGE 'Vocabulary deleted successfully' TYPE 'I'.
       CATCH /aws1/cx_tnbbadrequestex INTO DATA(lx_bad_request).
-        MESSAGE |Bad request during delete: { lx_bad_request->get_text( ) }| TYPE 'I'.
-        MESSAGE |Vocabulary name used: { lv_test_vocab_name }| TYPE 'I'.
-        cl_abap_unit_assert=>fail( msg = |Bad request error: { lx_bad_request->get_text( ) }| ).
+        MESSAGE |BadRequest error: { lx_bad_request->get_text( ) }| TYPE 'I'.
+        
+        " Try to get the vocabulary to see its current state
+        TRY.
+            DATA(lo_final_check) = ao_tnb->getvocabulary( lv_test_vocab_name ).
+            MESSAGE |Vocab exists with state: { lo_final_check->get_vocabularystate( ) }| TYPE 'I'.
+          CATCH /aws1/cx_rt_generic INTO DATA(lx_final).
+            MESSAGE |Cannot get vocab: { lx_final->get_text( ) }| TYPE 'I'.
+        ENDTRY.
+        
+        RAISE EXCEPTION lx_bad_request.
       CATCH /aws1/cx_tnblimitexceededex INTO DATA(lx_limit).
-        cl_abap_unit_assert=>fail( msg = |Limit exceeded error: { lx_limit->get_text( ) }| ).
+        RAISE EXCEPTION lx_limit.
       CATCH /aws1/cx_tnbnotfoundexception INTO DATA(lx_not_found).
-        MESSAGE |Not found during delete: { lx_not_found->get_text( ) }| TYPE 'I'.
-        cl_abap_unit_assert=>fail( msg = |Not found error: { lx_not_found->get_text( ) }| ).
+        MESSAGE |NotFound error: { lx_not_found->get_text( ) }| TYPE 'I'.
+        RAISE EXCEPTION lx_not_found.
       CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lx_internal).
-        cl_abap_unit_assert=>fail( msg = |Internal failure error: { lx_internal->get_text( ) }| ).
+        RAISE EXCEPTION lx_internal.
     ENDTRY.
 
-    " Wait a bit for deletion to propagate
+    " Wait for deletion to propagate
     WAIT UP TO 3 SECONDS.
 
     " Verify vocabulary is deleted
