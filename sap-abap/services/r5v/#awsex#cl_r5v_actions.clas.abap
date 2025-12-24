@@ -247,14 +247,10 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
 
 
   METHOD create_recovery_client.
-    " Create a configuration with the custom endpoint and region
-    DATA(lo_config) = NEW /aws1/cl_r5v_config(
-      iv_endpoint = iv_endpoint
-      iv_region   = iv_region ).
-
-    " Create and return the R5V client with this configuration
+    " Create R5V client with custom endpoint and region
     oo_client = /aws1/cl_r5v_factory=>create(
-      io_session = io_session
-      io_config  = lo_config ).
+      io_session          = io_session
+      iv_region           = iv_region
+      iv_custom_endpoint  = iv_endpoint ).
   ENDMETHOD.
 ENDCLASS.

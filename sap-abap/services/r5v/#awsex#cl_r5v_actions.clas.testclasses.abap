@@ -254,7 +254,8 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
             msg = |No control panels found for cluster { av_cluster_arn }| ).
         ENDIF.
 
-        av_control_panel_arn = lt_control_panels[ 1 ]->get_controlpanelarn( ).
+        DATA(lo_control_panel) = lt_control_panels[ 1 ].
+        av_control_panel_arn = lo_control_panel->get_controlpanelarn( ).
         MESSAGE |Using control panel: { av_control_panel_arn }| TYPE 'I'.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_list_ex).
