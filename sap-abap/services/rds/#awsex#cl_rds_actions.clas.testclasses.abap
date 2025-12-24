@@ -683,11 +683,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD create_db_instance.
-    DATA lo_result TYPE REF TO /aws1/cl_rdscreatedbinstresult.
-    DATA lv_uuid TYPE string.
-    DATA lv_test_instance_id TYPE /aws1/rdsstring.
-    DATA lv_test_db_name TYPE /aws1/rdsstring.
-    DATA lv_returned_id TYPE /aws1/rdsstring.
+    DATA lo_result TYPE REF TO /aws1/cl_rdsdbinstancemessage.
+    DATA lo_instance TYPE REF TO /aws1/cl_rdsdbinstance.
 
     " This test verifies create_db_instance action method works
     " The shared instance is already created in class_setup
@@ -715,6 +712,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   METHOD describe_db_instances.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbinstancemessage.
+    DATA lo_instance TYPE REF TO /aws1/cl_rdsdbinstance.
+    DATA lv_instance_id TYPE /aws1/rdsstring.
 
     " Verify shared instance exists
     cl_abap_unit_assert=>assert_true(
@@ -737,8 +736,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       msg = 'DB instances should not be empty' ).
 
     " Verify we got the right instance
-    DATA(lo_instance) = lo_result->get_dbinstances( )[ 1 ].
-    DATA(lv_instance_id) = lo_instance->get_dbinstanceidentifier( ).
+    lo_instance = lo_result->get_dbinstances( )[ 1 ].
+    lv_instance_id = lo_instance->get_dbinstanceidentifier( ).
     
     cl_abap_unit_assert=>assert_true(
       act = boolc( lv_instance_id CP |{ av_db_instance_id }*| OR
@@ -787,6 +786,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
 
   METHOD describe_db_snapshots.
     DATA lo_result TYPE REF TO /aws1/cl_rdsdbsnapshotmessage.
+    DATA lo_snapshot TYPE REF TO /aws1/cl_rdsdbsnapshot.
+    DATA lv_snapshot_id TYPE /aws1/rdsstring.
 
     " Verify snapshot exists
     cl_abap_unit_assert=>assert_true(
@@ -809,8 +810,8 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       msg = 'DB snapshots should not be empty' ).
 
     " Verify we got the right snapshot
-    DATA(lo_snapshot) = lo_result->get_dbsnapshots( )[ 1 ].
-    DATA(lv_snapshot_id) = lo_snapshot->get_dbsnapshotidentifier( ).
+    lo_snapshot = lo_result->get_dbsnapshots( )[ 1 ].
+    lv_snapshot_id = lo_snapshot->get_dbsnapshotidentifier( ).
     
     cl_abap_unit_assert=>assert_true(
       act = boolc( lv_snapshot_id CP |{ av_snapshot_id }*| OR
@@ -826,6 +827,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     DATA lv_test_db_name TYPE /aws1/rdsstring.
     DATA lo_create_result TYPE REF TO /aws1/cl_rdscreatedbinstresult.
     DATA lv_arn TYPE /aws1/rdsstring.
+    DATA lv_status TYPE /aws1/rdsstring.
 
     " Create a separate instance specifically for deletion test
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
@@ -872,7 +874,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       msg = 'Result should not be initial' ).
 
     " Verify the instance is being deleted
-    DATA(lv_status) = lo_result->get_dbinstance( )->get_dbinstancestatus( ).
+    lv_status = lo_result->get_dbinstance( )->get_dbinstancestatus( ).
     cl_abap_unit_assert=>assert_true(
       act = boolc( lv_status = 'deleting' )
       msg = |Instance status should be 'deleting', got '{ lv_status }'| ).
@@ -883,8 +885,11 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD delete_db_parameter_group.
-    DATA(lv_uuid) = /awsex/cl_utils=>get_random_string( ).
-    DATA(lv_test_param_group) = |test-pg-del-{ lv_uuid }|.
+    DATA lv_uuid TYPE string.
+    DATA lv_test_param_group TYPE /aws1/rdsstring.
+
+    lv_uuid = /awsex/cl_utils=>get_random_string( ).
+    lv_test_param_group = |test-pg-del-{ lv_uuid }|.
 
     " Create a test parameter group specifically for deletion
     ao_rds->createdbparametergroup(
