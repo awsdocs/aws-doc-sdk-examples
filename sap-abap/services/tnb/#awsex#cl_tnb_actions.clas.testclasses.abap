@@ -748,6 +748,7 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     TRANSLATE lv_uuid_string TO LOWER CASE.
 
     DATA(lv_test_vocab_name) = |delvoc-{ lv_uuid_string+0(10) }|.
+    MESSAGE |Test vocabulary name: { lv_test_vocab_name }| TYPE 'I'.
 
     " Create a vocabulary - must not skip if creation fails
     DATA(lt_phrases) = VALUE /aws1/cl_tnbphrases_w=>tt_phrases(
@@ -755,16 +756,20 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     ).
 
     TRY.
-        ao_tnb->createvocabulary(
+        DATA(lo_create_result) = ao_tnb->createvocabulary(
           iv_vocabularyname = lv_test_vocab_name
           iv_languagecode = 'en-US'
           it_phrases = lt_phrases ).
+        MESSAGE |Vocabulary create request sent, state: { lo_create_result->get_vocabularystate( ) }| TYPE 'I'.
       CATCH /aws1/cx_rt_generic INTO DATA(lx_create_error).
         cl_abap_unit_assert=>fail( msg = |Failed to create vocabulary for test: { lx_create_error->get_text( ) }| ).
     ENDTRY.
 
     " Wait for vocabulary to be ready
+    MESSAGE 'Waiting for vocabulary to be ready...' TYPE 'I'.
     DATA(lv_state) = wait_for_vocab_ready( lv_test_vocab_name ).
+    MESSAGE |Vocabulary state after wait: { lv_state }| TYPE 'I'.
+    
     IF lv_state <> 'READY'.
       " Clean up vocabulary if it exists but not ready
       TRY.
@@ -774,26 +779,51 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
       cl_abap_unit_assert=>fail( msg = |Vocabulary must be ready for test, state: { lv_state }| ).
     ENDIF.
 
-    " Verify vocabulary exists before deletion
+    " Verify vocabulary exists before deletion with full details
+    MESSAGE 'Verifying vocabulary exists before deletion...' TYPE 'I'.
     TRY.
         DATA(lo_check) = ao_tnb->getvocabulary( lv_test_vocab_name ).
-        cl_abap_unit_assert=>assert_not_initial(
-          act = lo_check
-          msg = 'Vocabulary should exist before deletion' ).
-      CATCH /aws1/cx_tnbnotfoundexception.
-        cl_abap_unit_assert=>fail( msg = 'Vocabulary not found before deletion attempt' ).
+        DATA(lv_check_state) = lo_check->get_vocabularystate( ).
+        DATA(lv_check_name) = lo_check->get_vocabularyname( ).
+        MESSAGE |Found vocabulary: { lv_check_name }, state: { lv_check_state }| TYPE 'I'.
+        
+        cl_abap_unit_assert=>assert_equals(
+          exp = lv_test_vocab_name
+          act = lv_check_name
+          msg = 'Vocabulary name should match' ).
+      CATCH /aws1/cx_tnbnotfoundexception INTO DATA(lx_check_not_found).
+        cl_abap_unit_assert=>fail( msg = |Vocabulary not found before deletion: { lx_check_not_found->get_text( ) }| ).
+      CATCH /aws1/cx_rt_generic INTO DATA(lx_check_error).
+        cl_abap_unit_assert=>fail( msg = |Error checking vocabulary: { lx_check_error->get_text( ) }| ).
     ENDTRY.
 
-    " Delete the vocabulary directly using SDK (tests the delete operation)
-    " Note: The action method creates its own session which may cause issues in tests
+    " Add a small wait before deletion to ensure vocabulary is fully available
+    MESSAGE 'Waiting 5 seconds before deletion...' TYPE 'I'.
+    WAIT UP TO 5 SECONDS.
+
+    " Re-verify vocabulary still exists immediately before delete
+    MESSAGE 'Re-verifying vocabulary immediately before delete...' TYPE 'I'.
+    TRY.
+        DATA(lo_check2) = ao_tnb->getvocabulary( lv_test_vocab_name ).
+        MESSAGE |Vocabulary confirmed present: { lo_check2->get_vocabularyname( ) }| TYPE 'I'.
+      CATCH /aws1/cx_tnbnotfoundexception.
+        cl_abap_unit_assert=>fail( msg = 'Vocabulary disappeared before deletion!' ).
+    ENDTRY.
+
+    " Delete the vocabulary directly using SDK
+    MESSAGE |Attempting to delete vocabulary: { lv_test_vocab_name }| TYPE 'I'.
     TRY.
         ao_tnb->deletevocabulary( lv_test_vocab_name ).
         MESSAGE 'Vocabulary deleted successfully' TYPE 'I'.
       CATCH /aws1/cx_tnbbadrequestex INTO DATA(lx_bad_request).
+        " Log all details before failing
+        MESSAGE |Bad request during delete: { lx_bad_request->get_text( ) }| TYPE 'I'.
+        MESSAGE |Vocabulary name used: { lv_test_vocab_name }| TYPE 'I'.
         cl_abap_unit_assert=>fail( msg = |Bad request error: { lx_bad_request->get_text( ) }| ).
       CATCH /aws1/cx_tnblimitexceededex INTO DATA(lx_limit).
         cl_abap_unit_assert=>fail( msg = |Limit exceeded error: { lx_limit->get_text( ) }| ).
       CATCH /aws1/cx_tnbnotfoundexception INTO DATA(lx_not_found).
+        MESSAGE |Not found during delete: { lx_not_found->get_text( ) }| TYPE 'I'.
         cl_abap_unit_assert=>fail( msg = |Not found error: { lx_not_found->get_text( ) }| ).
       CATCH /aws1/cx_tnbinternalfailureex INTO DATA(lx_internal).
         cl_abap_unit_assert=>fail( msg = |Internal failure error: { lx_internal->get_text( ) }| ).
