@@ -62,18 +62,20 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
           DATA(lo_describe_result) = ao_r5c->describecluster(
             iv_clusterarn = iv_cluster_arn ).
 
-          IF lo_describe_result IS BOUND AND lo_describe_result->has_cluster( ) = abap_true.
+          IF lo_describe_result IS BOUND.
             DATA(lo_cluster) = lo_describe_result->get_cluster( ).
-            lv_cluster_status = lo_cluster->get_status( ).
+            IF lo_cluster IS BOUND.
+              lv_cluster_status = lo_cluster->get_status( ).
 
-            MESSAGE |Cluster status: { lv_cluster_status }, waited { lv_elapsed } seconds| TYPE 'I'.
+              MESSAGE |Cluster status: { lv_cluster_status }, waited { lv_elapsed } seconds| TYPE 'I'.
 
-            IF lv_cluster_status = 'DEPLOYED'.
-              rv_success = abap_true.
-              RETURN.
-            ELSEIF lv_cluster_status = 'FAILED' OR lv_cluster_status = 'PENDING_DELETION'.
-              MESSAGE |Cluster deployment failed with status: { lv_cluster_status }| TYPE 'I'.
-              RETURN.
+              IF lv_cluster_status = 'DEPLOYED'.
+                rv_success = abap_true.
+                RETURN.
+              ELSEIF lv_cluster_status = 'FAILED' OR lv_cluster_status = 'PENDING_DELETION'.
+                MESSAGE |Cluster deployment failed with status: { lv_cluster_status }| TYPE 'I'.
+                RETURN.
+              ENDIF.
             ENDIF.
           ENDIF.
 
@@ -101,18 +103,20 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
           DATA(lo_describe_result) = ao_r5c->describeroutingcontrol(
             iv_routingcontrolarn = iv_routing_control_arn ).
 
-          IF lo_describe_result IS BOUND AND lo_describe_result->has_routingcontrol( ) = abap_true.
+          IF lo_describe_result IS BOUND.
             DATA(lo_routing_control) = lo_describe_result->get_routingcontrol( ).
-            lv_status = lo_routing_control->get_status( ).
+            IF lo_routing_control IS BOUND.
+              lv_status = lo_routing_control->get_status( ).
 
-            MESSAGE |Routing control status: { lv_status }, waited { lv_elapsed } seconds| TYPE 'I'.
+              MESSAGE |Routing control status: { lv_status }, waited { lv_elapsed } seconds| TYPE 'I'.
 
-            IF lv_status = 'DEPLOYED'.
-              rv_success = abap_true.
-              RETURN.
-            ELSEIF lv_status = 'FAILED' OR lv_status = 'PENDING_DELETION'.
-              MESSAGE |Routing control deployment failed with status: { lv_status }| TYPE 'I'.
-              RETURN.
+              IF lv_status = 'DEPLOYED'.
+                rv_success = abap_true.
+                RETURN.
+              ELSEIF lv_status = 'FAILED' OR lv_status = 'PENDING_DELETION'.
+                MESSAGE |Routing control deployment failed with status: { lv_status }| TYPE 'I'.
+                RETURN.
+              ENDIF.
             ENDIF.
           ENDIF.
 
@@ -145,19 +149,23 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
     TRY.
         DATA(lo_cluster_result) = ao_r5c->createcluster(
           iv_clustername = lv_cluster_name
-          it_tags        = VALUE /aws1/cl_r5c__mapof__strmin000=>tt_tags(
-            ( NEW /aws1/cl_r5c__mapof__strmin000(
-                iv_key   = 'convert_test'
-                iv_value = 'true' ) )
+          it_tags        = VALUE /aws1/cl_r5c__mapof__strmin000=>tt___mapof__strmin0max256pats(
+            ( VALUE #(
+                key   = 'convert_test'
+                value = NEW /aws1/cl_r5c__mapof__strmin000( iv_value = 'true' ) ) )
           )
         ).
 
-        IF lo_cluster_result IS NOT BOUND OR lo_cluster_result->has_cluster( ) = abap_false.
+        IF lo_cluster_result IS NOT BOUND.
           cl_abap_unit_assert=>fail(
-            msg = |Failed to create cluster { lv_cluster_name }. Result object is not bound or has no cluster.| ).
+            msg = |Failed to create cluster { lv_cluster_name }. Result object is not bound.| ).
         ENDIF.
 
         DATA(lo_cluster) = lo_cluster_result->get_cluster( ).
+        IF lo_cluster IS NOT BOUND.
+          cl_abap_unit_assert=>fail(
+            msg = |Failed to create cluster { lv_cluster_name }. Cluster object is not bound.| ).
+        ENDIF.
         av_cluster_arn = lo_cluster->get_clusterarn( ).
 
         " Extract cluster endpoints - REQUIRED for routing control operations
@@ -187,12 +195,16 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
 
             DATA(lo_describe_cluster) = ao_r5c->describecluster( iv_clusterarn = lv_existing_arn ).
 
-            IF lo_describe_cluster IS NOT BOUND OR lo_describe_cluster->has_cluster( ) = abap_false.
+            IF lo_describe_cluster IS NOT BOUND.
               cl_abap_unit_assert=>fail(
                 msg = |Conflict creating cluster but could not describe existing cluster: { lo_conflict_ex->if_message~get_text( ) }| ).
             ENDIF.
 
             lo_cluster = lo_describe_cluster->get_cluster( ).
+            IF lo_cluster IS NOT BOUND.
+              cl_abap_unit_assert=>fail(
+                msg = |Conflict creating cluster but cluster object is not bound: { lo_conflict_ex->if_message~get_text( ) }| ).
+            ENDIF.
             av_cluster_arn = lo_cluster->get_clusterarn( ).
 
             " Extract endpoints
@@ -231,19 +243,19 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
           iv_maxresults = 1
         ).
 
-        IF lo_list_panels IS BOUND AND lo_list_panels->has_controlpanels( ) = abap_true.
-          DATA(lt_control_panels) = lo_list_panels->get_controlpanels( ).
-          IF lines( lt_control_panels ) > 0.
-            av_control_panel_arn = lt_control_panels[ 1 ]->get_controlpanelarn( ).
-            MESSAGE |Using control panel: { av_control_panel_arn }| TYPE 'I'.
-          ELSE.
-            cl_abap_unit_assert=>fail(
-              msg = |No control panels found for cluster { av_cluster_arn }| ).
-          ENDIF.
-        ELSE.
+        IF lo_list_panels IS NOT BOUND.
           cl_abap_unit_assert=>fail(
             msg = |Failed to list control panels for cluster { av_cluster_arn }| ).
         ENDIF.
+
+        DATA(lt_control_panels) = lo_list_panels->get_controlpanels( ).
+        IF lt_control_panels IS INITIAL.
+          cl_abap_unit_assert=>fail(
+            msg = |No control panels found for cluster { av_cluster_arn }| ).
+        ENDIF.
+
+        av_control_panel_arn = lt_control_panels[ 1 ]->get_controlpanelarn( ).
+        MESSAGE |Using control panel: { av_control_panel_arn }| TYPE 'I'.
 
       CATCH /aws1/cx_rt_generic INTO DATA(lo_list_ex).
         cl_abap_unit_assert=>fail(
@@ -260,12 +272,16 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
           iv_controlpanelarn    = av_control_panel_arn
         ).
 
-        IF lo_rc_result IS NOT BOUND OR lo_rc_result->has_routingcontrol( ) = abap_false.
+        IF lo_rc_result IS NOT BOUND.
           cl_abap_unit_assert=>fail(
-            msg = |Failed to create routing control { lv_routing_control_name }| ).
+            msg = |Failed to create routing control { lv_routing_control_name }. Result is not bound.| ).
         ENDIF.
 
         DATA(lo_routing_control) = lo_rc_result->get_routingcontrol( ).
+        IF lo_routing_control IS NOT BOUND.
+          cl_abap_unit_assert=>fail(
+            msg = |Failed to create routing control { lv_routing_control_name }. Routing control object is not bound.| ).
+        ENDIF.
         av_routing_control_arn = lo_routing_control->get_routingcontrolarn( ).
 
         MESSAGE |Created routing control { av_routing_control_arn }| TYPE 'I'.
@@ -279,22 +295,24 @@ CLASS ltc_awsex_cl_r5v_actions IMPLEMENTATION.
               iv_controlpanelarn = av_control_panel_arn
             ).
 
-            IF lo_list_rc IS BOUND AND lo_list_rc->has_routingcontrols( ) = abap_true.
-              DATA(lt_routing_controls) = lo_list_rc->get_routingcontrols( ).
+            IF lo_list_rc IS NOT BOUND.
+              cl_abap_unit_assert=>fail(
+                msg = |Conflict creating routing control and could not list existing controls| ).
+            ENDIF.
+
+            DATA(lt_routing_controls) = lo_list_rc->get_routingcontrols( ).
+            IF lt_routing_controls IS NOT INITIAL.
               LOOP AT lt_routing_controls INTO DATA(lo_rc).
                 IF lo_rc->get_name( ) = lv_routing_control_name.
                   av_routing_control_arn = lo_rc->get_routingcontrolarn( ).
                   EXIT.
                 ENDIF.
               ENDLOOP.
+            ENDIF.
 
-              IF av_routing_control_arn IS INITIAL.
-                cl_abap_unit_assert=>fail(
-                  msg = |Conflict creating routing control but could not find existing control| ).
-              ENDIF.
-            ELSE.
+            IF av_routing_control_arn IS INITIAL.
               cl_abap_unit_assert=>fail(
-                msg = |Conflict creating routing control and could not list existing controls| ).
+                msg = |Conflict creating routing control but could not find existing control| ).
             ENDIF.
 
           CATCH /aws1/cx_rt_generic INTO DATA(lo_list_rc_ex).
