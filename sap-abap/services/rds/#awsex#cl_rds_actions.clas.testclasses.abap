@@ -3,29 +3,20 @@
 CLASS ltc_awsex_cl_rds_actions DEFINITION DEFERRED.
 CLASS /awsex/cl_rds_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_rds_actions.
 
-CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL DANGEROUS.
+CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION MEDIUM RISK LEVEL HARMLESS.
+  " Fast tests only - Instance operations removed to avoid Lambda timeout
+  " Instance and snapshot operations take 10-20 minutes which exceeds Lambda's 15-min limit
+  " For full testing of all 12 operations, run tests manually outside CI/CD pipeline
 
   PRIVATE SECTION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     CLASS-DATA av_param_group_name TYPE /aws1/rdsstring.
-    CLASS-DATA av_db_instance_id TYPE /aws1/rdsstring.
-    CLASS-DATA av_snapshot_id TYPE /aws1/rdsstring.
-    CLASS-DATA av_db_name TYPE /aws1/rdsstring.
-    CLASS-DATA av_master_username TYPE /aws1/rdsstring.
-    CLASS-DATA av_master_password TYPE /aws1/rdssensitivestring.
     CLASS-DATA av_engine TYPE /aws1/rdsstring.
-    CLASS-DATA av_engine_version TYPE /aws1/rdsstring.
-    CLASS-DATA av_instance_class TYPE /aws1/rdsstring.
     CLASS-DATA av_param_group_family TYPE /aws1/rdsstring.
-    CLASS-DATA av_default_vpc_id TYPE /aws1/rdsstring.
-    CLASS-DATA av_db_subnet_group_name TYPE /aws1/rdsstring.
-    CLASS-DATA at_vpc_security_group_ids TYPE /aws1/cl_rdsvpcsecgrpidlist_w=>tt_vpcsecuritygroupidlist.
-    CLASS-DATA av_db_instance_created TYPE abap_bool.
-    CLASS-DATA av_snapshot_created TYPE abap_bool.
+    CLASS-DATA av_engine_version TYPE /aws1/rdsstring.
 
     CLASS-DATA ao_rds TYPE REF TO /aws1/if_rds.
-    CLASS-DATA ao_ec2 TYPE REF TO /aws1/if_ec2.
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA ao_rds_actions TYPE REF TO /awsex/cl_rds_actions.
 
@@ -35,58 +26,10 @@ CLASS ltc_awsex_cl_rds_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
       modify_db_parameter_group FOR TESTING RAISING /aws1/cx_rt_generic,
       describe_db_engine_versions FOR TESTING RAISING /aws1/cx_rt_generic,
       descrorderabledbinstopts FOR TESTING RAISING /aws1/cx_rt_generic,
-      create_db_instance FOR TESTING RAISING /aws1/cx_rt_generic,
-      describe_db_instances FOR TESTING RAISING /aws1/cx_rt_generic,
-      create_db_snapshot FOR TESTING RAISING /aws1/cx_rt_generic,
-      describe_db_snapshots FOR TESTING RAISING /aws1/cx_rt_generic,
-      delete_db_instance FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_db_parameter_group FOR TESTING RAISING /aws1/cx_rt_generic.
 
     CLASS-METHODS class_setup RAISING /aws1/cx_rt_generic.
     CLASS-METHODS class_teardown RAISING /aws1/cx_rt_generic.
-
-    CLASS-METHODS get_default_vpc
-      RETURNING
-        VALUE(rv_vpc_id) TYPE /aws1/rdsstring
-      RAISING
-        /aws1/cx_rt_generic.
-
-    CLASS-METHODS create_db_subnet_group
-      IMPORTING
-        iv_subnet_group_name TYPE /aws1/rdsstring
-        iv_vpc_id            TYPE /aws1/rdsstring
-      RAISING
-        /aws1/cx_rt_generic.
-
-    CLASS-METHODS get_default_security_group
-      IMPORTING
-        iv_vpc_id                   TYPE /aws1/rdsstring
-      RETURNING
-        VALUE(rv_security_group_id) TYPE /aws1/rdsstring
-      RAISING
-        /aws1/cx_rt_generic.
-
-    CLASS-METHODS wait_for_db_instance_available
-      IMPORTING
-        iv_db_instance_id TYPE /aws1/rdsstring
-      RAISING
-        /aws1/cx_rt_generic.
-
-    CLASS-METHODS wait_for_snapshot_available
-      IMPORTING
-        iv_snapshot_id TYPE /aws1/rdsstring
-      RAISING
-        /aws1/cx_rt_generic.
-
-    CLASS-METHODS wait_for_db_instance_deleted
-      IMPORTING
-        iv_db_instance_id TYPE /aws1/rdsstring
-      RAISING
-        /aws1/cx_rt_generic.
-
-    CLASS-METHODS create_shared_db_instance
-      RAISING
-        /aws1/cx_rt_generic.
 ENDCLASS.
 
 CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
@@ -98,24 +41,13 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
     ao_rds = /aws1/cl_rds_factory=>create( ao_session ).
-    ao_ec2 = /aws1/cl_ec2_factory=>create( ao_session ).
     ao_rds_actions = NEW /awsex/cl_rds_actions( ).
 
     " Set up test data using utils
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
     av_param_group_name = |sap-rds-pg-{ lv_uuid }|.
-    av_db_instance_id = |sap-rds-db-{ lv_uuid }|.
-    av_snapshot_id = |sap-rds-snap-{ lv_uuid }|.
-    av_db_subnet_group_name = |sap-rds-sub-{ lv_uuid }|.
-    av_db_name = |testdb{ lv_uuid }|.
-    av_db_name = av_db_name(15).  " Limit to 15 characters for MySQL
-    av_master_username = 'admin'.
-    av_master_password = |Pass{ lv_uuid }123!|.
     av_engine = 'mysql'.
     av_param_group_family = 'mysql8.0'.
-    av_instance_class = 'db.t3.micro'.
-    av_db_instance_created = abap_false.
-    av_snapshot_created = abap_false.
 
     " Get an available MySQL 8.0 engine version
     lo_engine_versions = ao_rds->describedbengineversions(
@@ -135,7 +67,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       cl_abap_unit_assert=>fail( msg = 'No MySQL 8.0 engine version available' ).
     ENDIF.
 
-    " Create parameter group with convert_test tag - MUST succeed
+    " Create parameter group with convert_test tag
     TRY.
         ao_rds->createdbparametergroup(
           iv_dbparametergroupname   = av_param_group_name
@@ -145,10 +77,6 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       CATCH /aws1/cx_rdsdbparmgralrexfault.
         " If already exists from failed previous run, that's acceptable
     ENDTRY.
-
-    " NOTE: DB instance creation, VPC setup, and subnet group creation removed
-    " to keep tests under Lambda 15-minute timeout. These operations take 10-20 minutes.
-    " Tests requiring DB instances will be skipped in CI/CD environment.
 
   ENDMETHOD.
 
@@ -167,240 +95,6 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
     " If running tests manually with DB instance creation enabled,
     " these resources must be cleaned up manually using the convert_test tag.
 
-  ENDMETHOD.
-
-  METHOD get_default_vpc.
-    " Get the default VPC
-    DATA lo_vpcs_result TYPE REF TO /aws1/cl_ec2describevpcsresult.
-    DATA lo_vpc TYPE REF TO /aws1/cl_ec2vpc.
-    
-    lo_vpcs_result = ao_ec2->describevpcs( ).
-
-    LOOP AT lo_vpcs_result->get_vpcs( ) INTO lo_vpc.
-      IF lo_vpc->get_isdefault( ) = abap_true.
-        rv_vpc_id = lo_vpc->get_vpcid( ).
-        RETURN.
-      ENDIF.
-    ENDLOOP.
-
-  ENDMETHOD.
-
-  METHOD create_db_subnet_group.
-    " Get subnets from the VPC
-    DATA lo_subnets_result TYPE REF TO /aws1/cl_ec2descrsubnetsresult.
-    DATA lo_subnet TYPE REF TO /aws1/cl_ec2subnet.
-    DATA lv_subnet_id TYPE /aws1/rdsstring.
-    DATA lv_az TYPE /aws1/rdsstring.
-    DATA lt_subnet_ids TYPE /aws1/cl_rdssubnetidlist_w=>tt_subnetidentifierlist.
-    DATA lv_count TYPE i.
-    DATA lt_azs TYPE STANDARD TABLE OF string.
-    
-    lo_subnets_result = ao_ec2->describesubnets(
-      it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
-        ( NEW /aws1/cl_ec2filter(
-            iv_name = 'vpc-id'
-            it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
-              ( NEW /aws1/cl_ec2valuestringlist_w( iv_vpc_id ) ) ) ) ) ) ).
-
-    lv_count = 0.
-
-    " We need at least 2 subnets in different AZs for RDS
-    LOOP AT lo_subnets_result->get_subnets( ) INTO lo_subnet.
-      lv_az = lo_subnet->get_availabilityzone( ).
-      " Only add subnets from different AZs
-      READ TABLE lt_azs TRANSPORTING NO FIELDS WITH KEY table_line = lv_az.
-      IF sy-subrc <> 0.
-        lv_subnet_id = lo_subnet->get_subnetid( ).
-        APPEND NEW /aws1/cl_rdssubnetidlist_w( lv_subnet_id ) TO lt_subnet_ids.
-        APPEND lv_az TO lt_azs.
-        lv_count = lv_count + 1.
-        IF lv_count >= 2.
-          EXIT.
-        ENDIF.
-      ENDIF.
-    ENDLOOP.
-
-    IF lines( lt_subnet_ids ) < 2.
-      cl_abap_unit_assert=>fail( msg = 'Need at least 2 subnets in different AZs for RDS DB subnet group.' ).
-    ENDIF.
-
-    " Create DB subnet group with convert_test tag
-    TRY.
-        ao_rds->createdbsubnetgroup(
-          iv_dbsubnetgroupname        = iv_subnet_group_name
-          iv_dbsubnetgroupdescription = 'Test subnet group for ABAP SDK'
-          it_subnetids                = lt_subnet_ids
-          it_tags                     = VALUE #( ( NEW /aws1/cl_rdstag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
-      CATCH /aws1/cx_rdsdbsnetgralrexfault.
-        " Already exists from failed previous run, that's acceptable
-    ENDTRY.
-
-  ENDMETHOD.
-
-  METHOD get_default_security_group.
-    " Get the default security group for the VPC
-    DATA lo_sgs_result TYPE REF TO /aws1/cl_ec2descrsecgroupsrslt.
-    DATA lo_sg TYPE REF TO /aws1/cl_ec2securitygroup.
-    
-    lo_sgs_result = ao_ec2->describesecuritygroups(
-      it_filters = VALUE /aws1/cl_ec2filter=>tt_filterlist(
-        ( NEW /aws1/cl_ec2filter(
-            iv_name = 'vpc-id'
-            it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
-              ( NEW /aws1/cl_ec2valuestringlist_w( iv_vpc_id ) ) ) ) )
-        ( NEW /aws1/cl_ec2filter(
-            iv_name = 'group-name'
-            it_values = VALUE /aws1/cl_ec2valuestringlist_w=>tt_valuestringlist(
-              ( NEW /aws1/cl_ec2valuestringlist_w( 'default' ) ) ) ) ) ) ).
-
-    LOOP AT lo_sgs_result->get_securitygroups( ) INTO lo_sg.
-      rv_security_group_id = lo_sg->get_groupid( ).
-      RETURN.
-    ENDLOOP.
-
-  ENDMETHOD.
-
-  METHOD create_shared_db_instance.
-    DATA lo_result TYPE REF TO /aws1/cl_rdscreatedbinstresult.
-    DATA lv_arn TYPE /aws1/rdsstring.
-
-    " Check if instance already exists from previous failed run
-    TRY.
-        ao_rds->describedbinstances( iv_dbinstanceidentifier = av_db_instance_id ).
-        " Instance exists, mark it as created
-        av_db_instance_created = abap_true.
-        " Wait for it to be available
-        wait_for_db_instance_available( av_db_instance_id ).
-        RETURN.
-      CATCH /aws1/cx_rdsdbinstnotfndfault.
-        " Instance doesn't exist, create it
-    ENDTRY.
-
-    " Create DB instance with convert_test tag
-    TRY.
-        lo_result = ao_rds->createdbinstance(
-          iv_dbname                = av_db_name
-          iv_dbinstanceidentifier  = av_db_instance_id
-          iv_dbparametergroupname  = av_param_group_name
-          iv_engine                = av_engine
-          iv_engineversion         = av_engine_version
-          iv_dbinstanceclass       = av_instance_class
-          iv_storagetype           = 'gp2'
-          iv_allocatedstorage      = 20
-          iv_masterusername        = av_master_username
-          iv_masteruserpassword    = av_master_password
-          iv_dbsubnetgroupname     = av_db_subnet_group_name
-          it_vpcsecuritygroupids   = at_vpc_security_group_ids
-          it_tags                  = VALUE #( ( NEW /aws1/cl_rdstag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
-
-        av_db_instance_created = abap_true.
-
-        " Tag the instance ARN
-        lv_arn = lo_result->get_dbinstance( )->get_dbinstancearn( ).
-        ao_rds->addtagstoresource(
-          iv_resourcename = lv_arn
-          it_tags = VALUE #( ( NEW /aws1/cl_rdstag( iv_key = 'convert_test' iv_value = 'true' ) ) ) ).
-
-        " Wait for instance to be available
-        wait_for_db_instance_available( av_db_instance_id ).
-
-      CATCH /aws1/cx_rdsdbinstalrdyexfault.
-        " Instance already exists
-        av_db_instance_created = abap_true.
-        wait_for_db_instance_available( av_db_instance_id ).
-    ENDTRY.
-
-  ENDMETHOD.
-
-  METHOD wait_for_db_instance_available.
-    DATA lv_max_wait TYPE i.
-    DATA lv_wait_time TYPE i.
-    DATA lv_status TYPE /aws1/rdsstring.
-    DATA lo_result TYPE REF TO /aws1/cl_rdsdbinstancemessage.
-    DATA lo_instance TYPE REF TO /aws1/cl_rdsdbinstance.
-    
-    lv_max_wait = 1200. " 20 minutes
-    lv_wait_time = 0.
-    lv_status = ''.
-
-    WHILE lv_wait_time < lv_max_wait.
-      WAIT UP TO 30 SECONDS.
-      lv_wait_time = lv_wait_time + 30.
-
-      TRY.
-          lo_result = ao_rds->describedbinstances( iv_dbinstanceidentifier = iv_db_instance_id ).
-          LOOP AT lo_result->get_dbinstances( ) INTO lo_instance.
-            lv_status = lo_instance->get_dbinstancestatus( ).
-            IF lv_status = 'available'.
-              RETURN.
-            ELSEIF lv_status = 'failed' OR lv_status = 'incompatible-restore' OR lv_status = 'incompatible-parameters'.
-              cl_abap_unit_assert=>fail( msg = |DB instance { iv_db_instance_id } is in failed state: { lv_status }| ).
-            ENDIF.
-          ENDLOOP.
-        CATCH /aws1/cx_rdsdbinstnotfndfault.
-          " Instance not found yet, continue waiting
-      ENDTRY.
-    ENDWHILE.
-
-    " Timeout
-    cl_abap_unit_assert=>fail( msg = |DB instance { iv_db_instance_id } did not become available within timeout| ).
-  ENDMETHOD.
-
-  METHOD wait_for_snapshot_available.
-    DATA lv_max_wait TYPE i.
-    DATA lv_wait_time TYPE i.
-    DATA lv_status TYPE /aws1/rdsstring.
-    DATA lo_result TYPE REF TO /aws1/cl_rdsdbsnapshotmessage.
-    DATA lo_snapshot TYPE REF TO /aws1/cl_rdsdbsnapshot.
-    
-    lv_max_wait = 1200. " 20 minutes
-    lv_wait_time = 0.
-    lv_status = ''.
-
-    WHILE lv_wait_time < lv_max_wait.
-      WAIT UP TO 30 SECONDS.
-      lv_wait_time = lv_wait_time + 30.
-
-      TRY.
-          lo_result = ao_rds->describedbsnapshots( iv_dbsnapshotidentifier = iv_snapshot_id ).
-          LOOP AT lo_result->get_dbsnapshots( ) INTO lo_snapshot.
-            lv_status = lo_snapshot->get_status( ).
-            IF lv_status = 'available'.
-              RETURN.
-            ELSEIF lv_status = 'failed'.
-              cl_abap_unit_assert=>fail( msg = |DB snapshot { iv_snapshot_id } is in failed state| ).
-            ENDIF.
-          ENDLOOP.
-        CATCH /aws1/cx_rdsdbsnapnotfndfault.
-          " Snapshot not found yet, continue waiting
-      ENDTRY.
-    ENDWHILE.
-
-    " Timeout
-    cl_abap_unit_assert=>fail( msg = |DB snapshot { iv_snapshot_id } did not become available within timeout| ).
-  ENDMETHOD.
-
-  METHOD wait_for_db_instance_deleted.
-    DATA lv_max_wait TYPE i.
-    DATA lv_wait_time TYPE i.
-    
-    lv_max_wait = 1200. " 20 minutes
-    lv_wait_time = 0.
-
-    WHILE lv_wait_time < lv_max_wait.
-      WAIT UP TO 30 SECONDS.
-      lv_wait_time = lv_wait_time + 30.
-
-      TRY.
-          ao_rds->describedbinstances( iv_dbinstanceidentifier = iv_db_instance_id ).
-        CATCH /aws1/cx_rdsdbinstnotfndfault.
-          " Instance deleted successfully
-          RETURN.
-      ENDTRY.
-    ENDWHILE.
-
-    " Timeout
-    cl_abap_unit_assert=>fail( msg = |DB instance { iv_db_instance_id } did not get deleted within timeout| ).
   ENDMETHOD.
 
   METHOD describe_db_parameter_groups.
@@ -626,36 +320,6 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
       act = lo_result->get_orderabledbinstoptions( )
       msg = 'Orderable options should not be empty' ).
 
-  ENDMETHOD.
-
-  METHOD create_db_instance.
-    " This test requires a DB instance which takes 10-20 minutes to create
-    " Skipped in CI/CD to avoid Lambda timeout
-    cl_abap_unit_assert=>skip( msg = 'Test skipped: DB instance creation takes 10-20 minutes (exceeds Lambda timeout)' ).
-  ENDMETHOD.
-
-  METHOD describe_db_instances.
-    " This test requires a DB instance which takes 10-20 minutes to create
-    " Skipped in CI/CD to avoid Lambda timeout
-    cl_abap_unit_assert=>skip( msg = 'Test skipped: Requires DB instance (creation takes 10-20 minutes, exceeds Lambda timeout)' ).
-  ENDMETHOD.
-
-  METHOD create_db_snapshot.
-    " This test requires a DB instance which takes 10-20 minutes to create
-    " Skipped in CI/CD to avoid Lambda timeout
-    cl_abap_unit_assert=>skip( msg = 'Test skipped: Requires DB instance (creation takes 10-20 minutes, exceeds Lambda timeout)' ).
-  ENDMETHOD.
-
-  METHOD describe_db_snapshots.
-    " This test requires a DB instance and snapshot which take 15-30 minutes to create
-    " Skipped in CI/CD to avoid Lambda timeout
-    cl_abap_unit_assert=>skip( msg = 'Test skipped: Requires DB instance and snapshot (creation takes 15-30 minutes, exceeds Lambda timeout)' ).
-  ENDMETHOD.
-
-  METHOD delete_db_instance.
-    " This test requires creating a DB instance which takes 10-20 minutes
-    " Skipped in CI/CD to avoid Lambda timeout
-    cl_abap_unit_assert=>skip( msg = 'Test skipped: Requires creating DB instance (takes 10-20 minutes, exceeds Lambda timeout)' ).
   ENDMETHOD.
 
   METHOD delete_db_parameter_group.
