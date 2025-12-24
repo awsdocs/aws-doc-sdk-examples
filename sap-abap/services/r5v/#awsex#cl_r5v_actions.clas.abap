@@ -12,7 +12,6 @@ CLASS /awsex/cl_r5v_actions DEFINITION
            END OF ts_cluster_endpoint.
     TYPES: tt_cluster_endpoints TYPE STANDARD TABLE OF ts_cluster_endpoint WITH DEFAULT KEY.
 
-    " snippet-start:[r5v.abapv1.get_routing_control_state]
     "! <p class="shorttext synchronized" lang="en">Gets the state of a routing control.</p>
     "! Gets the state of a routing control. Cluster endpoints are tried in
     "! sequence until the first successful response is received.
@@ -39,9 +38,7 @@ CLASS /awsex/cl_r5v_actions DEFINITION
         /aws1/cx_r5vthrottlingex
         /aws1/cx_r5vvalidationex
         /aws1/cx_rt_generic .
-    " snippet-end:[r5v.abapv1.get_routing_control_state]
 
-    " snippet-start:[r5v.abapv1.update_routing_control_state]
     "! <p class="shorttext synchronized" lang="en">Updates the state of a routing control.</p>
     "! Updates the state of a routing control. Cluster endpoints are tried in
     "! sequence until the first successful response is received.
@@ -74,7 +71,6 @@ CLASS /awsex/cl_r5v_actions DEFINITION
         /aws1/cx_r5vthrottlingex
         /aws1/cx_r5vvalidationex
         /aws1/cx_rt_generic .
-    " snippet-end:[r5v.abapv1.update_routing_control_state]
 
   PROTECTED SECTION.
   PRIVATE SECTION.
@@ -101,6 +97,7 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
 
 
   METHOD get_routing_control_state.
+    " snippet-start:[r5v.abapv1.get_routing_control_state]
     DATA lo_exception TYPE REF TO /aws1/cx_rt_generic.
     DATA lt_shuffled_endpoints TYPE /awsex/cl_r5v_actions=>tt_cluster_endpoints.
     DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
@@ -167,10 +164,12 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
           textid = /aws1/cx_rt_generic=>cx_generic_error
           av_msg = 'All cluster endpoints failed'.
     ENDIF.
+    " snippet-end:[r5v.abapv1.get_routing_control_state]
   ENDMETHOD.
 
 
   METHOD update_routing_control_state.
+    " snippet-start:[r5v.abapv1.update_routing_control_state]
     DATA lo_exception TYPE REF TO /aws1/cx_rt_generic.
     DATA lt_shuffled_endpoints TYPE /awsex/cl_r5v_actions=>tt_cluster_endpoints.
     DATA lo_session TYPE REF TO /aws1/cl_rt_session_base.
@@ -240,6 +239,7 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
           textid = /aws1/cx_rt_generic=>cx_generic_error
           av_msg = 'All cluster endpoints failed'.
     ENDIF.
+    " snippet-end:[r5v.abapv1.update_routing_control_state]
   ENDMETHOD.
 
 
