@@ -155,13 +155,9 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
       ENDTRY.
     ENDLOOP.
 
-    " If we get here, all endpoints failed
+    " If we get here, all endpoints failed - re-raise the last exception
     IF lo_exception IS BOUND.
       RAISE EXCEPTION lo_exception.
-    ELSE.
-      RAISE EXCEPTION TYPE /aws1/cx_rt_generic
-        EXPORTING
-          av_msg = 'All cluster endpoints failed'.
     ENDIF.
     " snippet-end:[r5v.abapv1.get_routing_control_state]
   ENDMETHOD.
@@ -234,13 +230,9 @@ CLASS /awsex/cl_r5v_actions IMPLEMENTATION.
       ENDTRY.
     ENDLOOP.
 
-    " If we get here, all endpoints failed
+    " If we get here, all endpoints failed - re-raise the last exception
     IF lo_exception IS BOUND.
       RAISE EXCEPTION lo_exception.
-    ELSE.
-      RAISE EXCEPTION TYPE /aws1/cx_rt_generic
-        EXPORTING
-          av_msg = 'All cluster endpoints failed'.
     ENDIF.
     " snippet-end:[r5v.abapv1.update_routing_control_state]
   ENDMETHOD.
