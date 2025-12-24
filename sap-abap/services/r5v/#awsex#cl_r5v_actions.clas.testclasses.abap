@@ -12,9 +12,7 @@ CLASS ltc_awsex_cl_r5v_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
       BEGIN OF ty_cluster_endpoint,
         endpoint TYPE string,
         region   TYPE /aws1/rt_region_id,
-      END OF ty_cluster_endpoint.
-
-    TYPES:
+      END OF ty_cluster_endpoint,
       tty_cluster_endpoints TYPE STANDARD TABLE OF ty_cluster_endpoint WITH DEFAULT KEY.
 
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
