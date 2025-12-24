@@ -512,8 +512,22 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
 
     " Wait for vocabulary to be ready - must not skip test
     DATA(lv_state) = wait_for_vocab_ready( lv_test_vocab_name ).
-    IF lv_state <> 'READY' AND lv_state <> 'FAILED'.
-      cl_abap_unit_assert=>fail( msg = |Vocabulary did not become ready, state: { lv_state }| ).
+    IF lv_state = 'NOT_FOUND'.
+      cl_abap_unit_assert=>fail( msg = |Vocabulary was not found after creation: { lv_test_vocab_name }| ).
+    ELSEIF lv_state = 'TIMEOUT'.
+      " Clean up before failing
+      TRY.
+          ao_tnb->deletevocabulary( lv_test_vocab_name ).
+        CATCH /aws1/cx_rt_generic.
+      ENDTRY.
+      cl_abap_unit_assert=>fail( msg = |Vocabulary did not become ready within timeout| ).
+    ELSEIF lv_state <> 'READY' AND lv_state <> 'FAILED'.
+      " Clean up before failing
+      TRY.
+          ao_tnb->deletevocabulary( lv_test_vocab_name ).
+        CATCH /aws1/cx_rt_generic.
+      ENDTRY.
+      cl_abap_unit_assert=>fail( msg = |Vocabulary in unexpected state: { lv_state }| ).
     ENDIF.
 
     " Clean up
@@ -548,7 +562,14 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
 
     " Wait for vocabulary to be ready
     DATA(lv_state) = wait_for_vocab_ready( lv_test_vocab_name ).
-    IF lv_state <> 'READY'.
+    IF lv_state = 'NOT_FOUND'.
+      cl_abap_unit_assert=>fail( msg = |Vocabulary was not found after creation: { lv_test_vocab_name }| ).
+    ELSEIF lv_state <> 'READY'.
+      " Clean up before failing
+      TRY.
+          ao_tnb->deletevocabulary( lv_test_vocab_name ).
+        CATCH /aws1/cx_rt_generic.
+      ENDTRY.
       cl_abap_unit_assert=>fail( msg = |Vocabulary must be ready for test, state: { lv_state }| ).
     ENDIF.
 
@@ -598,7 +619,14 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
 
     " Wait for vocabulary to be ready
     DATA(lv_state) = wait_for_vocab_ready( lv_test_vocab_name ).
-    IF lv_state <> 'READY'.
+    IF lv_state = 'NOT_FOUND'.
+      cl_abap_unit_assert=>fail( msg = |Vocabulary was not found after creation: { lv_test_vocab_name }| ).
+    ELSEIF lv_state <> 'READY'.
+      " Clean up before failing
+      TRY.
+          ao_tnb->deletevocabulary( lv_test_vocab_name ).
+        CATCH /aws1/cx_rt_generic.
+      ENDTRY.
       cl_abap_unit_assert=>fail( msg = |Vocabulary must be ready for test, state: { lv_state }| ).
     ENDIF.
 
@@ -660,7 +688,14 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
 
     " Wait for vocabulary to be ready
     DATA(lv_state) = wait_for_vocab_ready( lv_test_vocab_name ).
-    IF lv_state <> 'READY'.
+    IF lv_state = 'NOT_FOUND'.
+      cl_abap_unit_assert=>fail( msg = |Vocabulary was not found after creation: { lv_test_vocab_name }| ).
+    ELSEIF lv_state <> 'READY'.
+      " Clean up before failing
+      TRY.
+          ao_tnb->deletevocabulary( lv_test_vocab_name ).
+        CATCH /aws1/cx_rt_generic.
+      ENDTRY.
       cl_abap_unit_assert=>fail( msg = |Vocabulary must be ready for test, state: { lv_state }| ).
     ENDIF.
 
@@ -687,7 +722,14 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
 
     " Wait for update to complete
     lv_state = wait_for_vocab_ready( lv_test_vocab_name ).
-    IF lv_state <> 'READY'.
+    IF lv_state = 'NOT_FOUND'.
+      cl_abap_unit_assert=>fail( msg = |Vocabulary disappeared during update: { lv_test_vocab_name }| ).
+    ELSEIF lv_state <> 'READY'.
+      " Clean up before failing
+      TRY.
+          ao_tnb->deletevocabulary( lv_test_vocab_name ).
+        CATCH /aws1/cx_rt_generic.
+      ENDTRY.
       cl_abap_unit_assert=>fail( msg = |Vocabulary update did not complete, state: { lv_state }| ).
     ENDIF.
 
@@ -724,11 +766,33 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     " Wait for vocabulary to be ready
     DATA(lv_state) = wait_for_vocab_ready( lv_test_vocab_name ).
     IF lv_state <> 'READY'.
+      " Clean up vocabulary if it exists but not ready
+      TRY.
+          ao_tnb->deletevocabulary( lv_test_vocab_name ).
+        CATCH /aws1/cx_rt_generic.
+      ENDTRY.
       cl_abap_unit_assert=>fail( msg = |Vocabulary must be ready for test, state: { lv_state }| ).
     ENDIF.
 
-    " Delete the vocabulary
-    ao_tnb_actions->delete_vocabulary( lv_test_vocab_name ).
+    " Verify vocabulary exists before deletion
+    TRY.
+        DATA(lo_check) = ao_tnb->getvocabulary( lv_test_vocab_name ).
+        cl_abap_unit_assert=>assert_not_initial(
+          act = lo_check
+          msg = 'Vocabulary should exist before deletion' ).
+      CATCH /aws1/cx_tnbnotfoundexception.
+        cl_abap_unit_assert=>fail( msg = 'Vocabulary not found before deletion attempt' ).
+    ENDTRY.
+
+    " Delete the vocabulary using the action method
+    TRY.
+        ao_tnb_actions->delete_vocabulary( lv_test_vocab_name ).
+      CATCH /aws1/cx_rt_generic INTO DATA(lx_delete_error).
+        cl_abap_unit_assert=>fail( msg = |Failed to delete vocabulary: { lx_delete_error->get_text( ) }| ).
+    ENDTRY.
+
+    " Wait a bit for deletion to propagate
+    WAIT UP TO 3 SECONDS.
 
     " Verify vocabulary is deleted
     TRY.
@@ -736,6 +800,7 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
         cl_abap_unit_assert=>fail( 'Vocabulary should have been deleted' ).
       CATCH /aws1/cx_tnbnotfoundexception.
         " Expected - vocabulary was deleted
+        MESSAGE 'Vocabulary successfully deleted' TYPE 'I'.
     ENDTRY.
   ENDMETHOD.
 
@@ -780,6 +845,7 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
     DATA lv_start_time TYPE timestampl.
     DATA lv_current_time TYPE timestampl.
     DATA lv_elapsed_sec TYPE i.
+    DATA lv_not_found_count TYPE i VALUE 0.
 
     GET TIME STAMP FIELD lv_start_time.
 
@@ -787,13 +853,23 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
       TRY.
           DATA(lo_result) = ao_tnb->getvocabulary( iv_vocab_name ).
           rv_state = lo_result->get_vocabularystate( ).
+          
+          " Reset not found counter if vocabulary is found
+          lv_not_found_count = 0.
 
           IF rv_state = 'READY' OR rv_state = 'FAILED'.
             RETURN.
           ENDIF.
 
         CATCH /aws1/cx_tnbnotfoundexception.
-          " Vocabulary might not be available yet, continue waiting
+          " Vocabulary might not be available yet due to eventual consistency
+          " But if it's not found too many times, it might not exist at all
+          lv_not_found_count = lv_not_found_count + 1.
+          IF lv_not_found_count > 10.
+            " Vocabulary not found after 10 attempts (50 seconds)
+            rv_state = 'NOT_FOUND'.
+            RETURN.
+          ENDIF.
       ENDTRY.
 
       " Check timeout
@@ -803,7 +879,10 @@ CLASS ltc_awsex_cl_tnb_actions IMPLEMENTATION.
         tstmp2 = lv_start_time ).
 
       IF lv_elapsed_sec >= iv_max_wait_sec.
-        " Return current state even if timeout
+        " Return current state even if timeout (might be initial if never found)
+        IF rv_state IS INITIAL.
+          rv_state = 'TIMEOUT'.
+        ENDIF.
         RETURN.
       ENDIF.
 
