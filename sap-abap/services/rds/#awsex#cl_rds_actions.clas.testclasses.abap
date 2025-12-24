@@ -165,7 +165,7 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         ao_rds->deletedbparametergroup( iv_dbparametergroupname = av_param_group_name ).
       CATCH /aws1/cx_rdsdbprmgrnotfndfault.
         " Already deleted
-      CATCH /aws1/cx_rdsinvdbprmgrstateflt.
+      CATCH /aws1/cx_rdsinvdbprmgrstatef00.
         " In use, will be cleaned up manually
     ENDTRY.
 
@@ -174,7 +174,9 @@ CLASS ltc_awsex_cl_rds_actions IMPLEMENTATION.
         ao_rds->deletedbsubnetgroup( iv_dbsubnetgroupname = av_db_subnet_group_name ).
       CATCH /aws1/cx_rdsdbsnetgrnotfndfa00.
         " Already deleted
-      CATCH /aws1/cx_rdsinvdbsnetgrstateflt.
+      CATCH /aws1/cx_rdsinvdbsnetgrstate00.
+        " In use, will be cleaned up manually
+      CATCH /aws1/cx_rdsinvdbsnetstatefa00.
         " In use, will be cleaned up manually
     ENDTRY.
 
