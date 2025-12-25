@@ -18,11 +18,13 @@ logger = logging.getLogger(__name__)
 class IoTWrapper:
     """Encapsulates AWS IoT actions."""
 
-    def __init__(self, iot_client):
+    def __init__(self, iot_client, iot_data_client=None):
         """
         :param iot_client: A Boto3 AWS IoT client.
+        :param iot_data_client: A Boto3 AWS IoT Data Plane client.
         """
         self.iot_client = iot_client
+        self.iot_data_client = iot_data_client
 
     # snippet-end:[python.example_code.iot.IoTWrapper]
 
@@ -352,3 +354,52 @@ class IoTWrapper:
             raise
 
     # snippet-end:[python.example_code.iot.DeleteTopicRule]
+
+    # snippet-start:[python.example_code.iot.UpdateThingShadow]
+    def update_thing_shadow(self, thing_name, shadow_state):
+        """
+        Updates the shadow for an AWS IoT thing.
+
+        :param thing_name: The name of the thing.
+        :param shadow_state: The shadow state as a dictionary.
+        """
+        import json
+        try:
+            self.iot_data_client.update_thing_shadow(
+                thingName=thing_name, payload=json.dumps(shadow_state)
+            )
+            logger.info("Updated shadow for thing %s.", thing_name)
+        except ClientError as err:
+            logger.error(
+                "Couldn't update thing shadow. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+
+    # snippet-end:[python.example_code.iot.UpdateThingShadow]
+
+    # snippet-start:[python.example_code.iot.GetThingShadow]
+    def get_thing_shadow(self, thing_name):
+        """
+        Gets the shadow for an AWS IoT thing.
+
+        :param thing_name: The name of the thing.
+        :return: The shadow state as a dictionary.
+        """
+        import json
+        try:
+            response = self.iot_data_client.get_thing_shadow(thingName=thing_name)
+            shadow = json.loads(response["payload"].read())
+            logger.info("Retrieved shadow for thing %s.", thing_name)
+        except ClientError as err:
+            logger.error(
+                "Couldn't get thing shadow. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            return shadow
+
+    # snippet-end:[python.example_code.iot.GetThingShadow]

@@ -16,8 +16,9 @@ from scenario_iot_basics import IoTScenario
 @pytest.mark.integ
 def test_scenario_complete_integration():
     """Test the complete IoT scenario flow against real AWS services."""
-    iot_wrapper = IoTWrapper(boto3.client("iot"))
+    iot_client = boto3.client("iot")
     iot_data_client = boto3.client("iot-data")
+    iot_wrapper = IoTWrapper(iot_client, iot_data_client)
     cfn_client = boto3.client("cloudformation")
     scenario = IoTScenario(iot_wrapper, iot_data_client, cfn_client)
     
