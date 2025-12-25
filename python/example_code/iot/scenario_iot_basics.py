@@ -207,8 +207,7 @@ class IoTScenario:
                     print(f"Found {len(things)} thing(s) matching the query")
                     for thing in things:
                         print(f"  Thing name: {thing.get('thingName', 'N/A')}")
-                        print(f"  Thing type: {thing.get('thingTypeName', 'N/A')}")
-                        print(f"  Thing ARN: {thing.get('thingArn', 'N/A')}")
+                        print(f"  Thing ID: {thing.get('thingId', 'N/A')}")
                 else:
                     print("No things found. Indexing may take a few minutes.")
             except ClientError as err:
