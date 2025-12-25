@@ -144,17 +144,14 @@ class IoTScenario:
             print("4. Update the thing shadow")
             print("-" * 88)
             shadow_state = {"state": {"reported": {"temperature": 25, "humidity": 50}}}
-            self.iot_data_client.update_thing_shadow(
-                thingName=thing_name, payload=json.dumps(shadow_state)
-            )
+            self.iot_wrapper.update_thing_shadow(thing_name, shadow_state)
             print(f"Updated shadow for thing: {thing_name}")
 
             self._wait("Next, we'll get the thing shadow.")
             print("\n" + "-" * 88)
             print("5. Get the thing shadow")
             print("-" * 88)
-            shadow_response = self.iot_data_client.get_thing_shadow(thingName=thing_name)
-            shadow = json.loads(shadow_response["payload"].read())
+            shadow = self.iot_wrapper.get_thing_shadow(thing_name)
             print(f"Shadow state: {json.dumps(shadow['state'], indent=2)}")
 
             self._wait("Next, we'll get the AWS IoT endpoint.")
@@ -286,7 +283,7 @@ if __name__ == "__main__":
         iot_client = boto3.client("iot")
         iot_data_client = boto3.client("iot-data")
         cfn_client = boto3.client("cloudformation")
-        wrapper = IoTWrapper(iot_client)
+        wrapper = IoTWrapper(iot_client, iot_data_client)
         scenario = IoTScenario(wrapper, iot_data_client, cfn_client)
 
         thing_name = q.ask("Enter a name for the IoT thing: ", q.non_empty)
