@@ -79,10 +79,11 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     TRY.
         lo_result = ao_rsh->createcluster(
           iv_clusteridentifier  = iv_cluster_id
-          iv_nodetype           = 'dc2.large'
+          iv_nodetype           = 'ra3.xlplus'
           iv_masterusername     = 'awsuser'
           iv_masteruserpassword = 'AwsUser1000'
           iv_publiclyaccessible = abap_false
+          iv_clustertype        = 'single-node'
           it_tags               = lt_tags
         ).
       CATCH /aws1/cx_rshclustalrdyexfault.
@@ -123,10 +124,11 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     TRY.
         lo_result = ao_rsh->createcluster(
           iv_clusteridentifier  = lv_test_cluster_id
-          iv_nodetype           = 'dc2.large'
+          iv_nodetype           = 'ra3.xlplus'
           iv_masterusername     = 'awsuser'
           iv_masteruserpassword = 'AwsUser1000'
           iv_publiclyaccessible = abap_false
+          iv_clustertype        = 'single-node'
           it_tags               = lt_tags
         ).
 

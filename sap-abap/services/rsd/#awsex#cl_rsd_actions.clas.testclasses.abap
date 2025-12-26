@@ -82,10 +82,11 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     TRY.
         lo_create_cluster_result = ao_rsh->createcluster(
           iv_clusteridentifier  = av_cluster_id
-          iv_nodetype           = 'dc2.large'
+          iv_nodetype           = 'ra3.xlplus'
           iv_masterusername     = av_user_name
           iv_masteruserpassword = av_user_password
           iv_publiclyaccessible = abap_false
+          iv_clustertype        = 'single-node'
           it_tags               = lt_tags
         ).
 
