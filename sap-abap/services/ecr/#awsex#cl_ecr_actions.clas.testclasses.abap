@@ -52,29 +52,30 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
     " Generate unique repository names using util function
     DATA(lv_random) = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_random TO LOWER CASE.
+    
     av_base_repo_name = |ecr-test-base-{ lv_random }|.
-
+    
     lv_random = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_random TO LOWER CASE.
     av_policy_repo_name = |ecr-test-policy-{ lv_random }|.
-
+    
     lv_random = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_random TO LOWER CASE.
     av_lifecycle_repo_name = |ecr-test-lc-{ lv_random }|.
-
+    
     lv_random = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_random TO LOWER CASE.
     av_images_repo_name = |ecr-test-images-{ lv_random }|.
-
+    
     lv_random = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_random TO LOWER CASE.
     av_create_repo_name = |ecr-test-create-{ lv_random }|.
-
+    
     lv_random = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_random TO LOWER CASE.
     av_delete_repo_name = |ecr-test-delete-{ lv_random }|.
 
-    " Create test repositories with proper tagging
+    " Create test repositories
     create_test_repository( av_base_repo_name ).
     create_test_repository( av_policy_repo_name ).
     create_test_repository( av_lifecycle_repo_name ).
@@ -151,8 +152,8 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
     DATA lo_result TYPE REF TO /aws1/cl_ecrdscrepositoriesrsp.
     DATA lt_repo_names TYPE /aws1/cl_ecrrepositorynamels00=>tt_repositorynamelist.
 
-    " Test describing existing repository - build table with wrapper object
-    APPEND NEW /aws1/cl_ecrrepositorynamels00( iv_value = av_base_repo_name ) TO lt_repo_names.
+    " Test describing existing repository
+    lt_repo_names = VALUE #( ( CONV /aws1/ecrrepositoryname( av_base_repo_name ) ) ).
 
     ao_ecr_actions->describe_repositories(
       EXPORTING
@@ -222,20 +223,19 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
   METHOD set_repository_policy.
     " Test setting a repository policy
     DATA(lv_account_id) = ao_session->get_account_id( ).
-
+    
     " Create a simple policy allowing specific actions
-    DATA lv_policy TYPE string.
-    lv_policy = '{ ' &&
-                '"Version":"2012-10-17",' &&
-                '"Statement":[{ ' &&
-                '"Sid":"AllowPull",' &&
-                '"Effect":"Allow",' &&
-                '"Principal":{ ' &&
-                '"AWS":"arn:aws:iam::' && lv_account_id && ':root"' &&
-                '},' &&
-                '"Action":["ecr:BatchGetImage","ecr:GetDownloadUrlForLayer"]' &&
-                '}]' &&
-                '}'.
+    DATA(lv_policy) = |{'{'}|  &&
+                      |"Version":"2012-10-17",|  &&
+                      |"Statement":[{'{'}|  &&
+                      |"Sid":"AllowPull",|  &&
+                      |"Effect":"Allow",|  &&
+                      |"Principal":{'{'}|  &&
+                      |"AWS":"arn:aws:iam::{ lv_account_id }:root"|  &&
+                      |{'}'},|  &&
+                      |"Action":["ecr:BatchGetImage","ecr:GetDownloadUrlForLayer"]|  &&
+                      |{'}'}]|  &&
+                      |{'}'}|.
 
     " Set the policy
     ao_ecr_actions->set_repository_policy(
@@ -264,18 +264,17 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
     DATA(lv_account_id) = ao_session->get_account_id( ).
 
     " First, ensure a policy is set on the repository
-    DATA lv_policy TYPE string.
-    lv_policy = '{ ' &&
-                '"Version":"2012-10-17",' &&
-                '"Statement":[{ ' &&
-                '"Sid":"TestGetPolicy",' &&
-                '"Effect":"Allow",' &&
-                '"Principal":{ ' &&
-                '"AWS":"arn:aws:iam::' && lv_account_id && ':root"' &&
-                '},' &&
-                '"Action":["ecr:BatchGetImage"]' &&
-                '}]' &&
-                '}'.
+    DATA(lv_policy) = |{'{'}|  &&
+                      |"Version":"2012-10-17",|  &&
+                      |"Statement":[{'{'}|  &&
+                      |"Sid":"TestGetPolicy",|  &&
+                      |"Effect":"Allow",|  &&
+                      |"Principal":{'{'}|  &&
+                      |"AWS":"arn:aws:iam::{ lv_account_id }:root"|  &&
+                      |{'}'},|  &&
+                      |"Action":["ecr:BatchGetImage"]|  &&
+                      |{'}'}]|  &&
+                      |{'}'}|.
 
     ao_ecr->setrepositorypolicy(
       iv_repositoryname = av_policy_repo_name
@@ -315,22 +314,21 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
 
   METHOD put_lifecycle_policy.
     " Create a lifecycle policy to expire old images
-    DATA lv_lc_policy TYPE string.
-    lv_lc_policy = '{ ' &&
-                   '"rules":[{ ' &&
-                   '"rulePriority":1,' &&
-                   '"description":"Expire images older than 14 days",' &&
-                   '"selection":{ ' &&
-                   '"tagStatus":"any",' &&
-                   '"countType":"sinceImagePushed",' &&
-                   '"countUnit":"days",' &&
-                   '"countNumber":14' &&
-                   '},' &&
-                   '"action":{ ' &&
-                   '"type":"expire"' &&
-                   '}' &&
-                   '}]' &&
-                   '}'.
+    DATA(lv_lc_policy) = |{'{'}|  &&
+                         |"rules":[{'{'}|  &&
+                         |"rulePriority":1,|  &&
+                         |"description":"Expire images older than 14 days",|  &&
+                         |"selection":{'{'}|  &&
+                         |"tagStatus":"any",|  &&
+                         |"countType":"sinceImagePushed",|  &&
+                         |"countUnit":"days",|  &&
+                         |"countNumber":14|  &&
+                         |{'}'},|  &&
+                         |"action":{'{'}|  &&
+                         |"type":"expire"|  &&
+                         |{'}'}|  &&
+                         |{'}'}]|  &&
+                         |{'}'}|.
 
     " Test putting the lifecycle policy
     ao_ecr_actions->put_lifecycle_policy(
@@ -381,12 +379,8 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
       act = lo_result
       msg = 'Result should be returned' ).
 
-    " The image details might be empty if no images are pushed
-    " but the result object and list should still be bound
+    " The image details is a table type, not an object reference
     DATA(lt_image_details) = lo_result->get_imagedetails( ).
-    cl_abap_unit_assert=>assert_bound(
-      act = lt_image_details
-      msg = 'Image details list should be bound' ).
 
     " Since no images are pushed, the list should be empty
     cl_abap_unit_assert=>assert_equals(
@@ -410,11 +404,8 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
       ) ).
 
     " Verify repository exists before deletion
-    DATA lt_repo_names_before TYPE /aws1/cl_ecrrepositorynamels00=>tt_repositorynamelist.
-    APPEND NEW /aws1/cl_ecrrepositorynamels00( iv_value = av_delete_repo_name ) TO lt_repo_names_before.
-
     DATA(lo_desc_before) = ao_ecr->describerepositories(
-      it_repositorynames = lt_repo_names_before ).
+      it_repositorynames = VALUE #( ( CONV /aws1/ecrrepositoryname( av_delete_repo_name ) ) ) ).
 
     cl_abap_unit_assert=>assert_equals(
       exp = 1
@@ -427,10 +418,8 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
 
     " Verify deletion by attempting to describe it
     TRY.
-        DATA lt_repo_names_after TYPE /aws1/cl_ecrrepositorynamels00=>tt_repositorynamelist.
-        APPEND NEW /aws1/cl_ecrrepositorynamels00( iv_value = av_delete_repo_name ) TO lt_repo_names_after.
         ao_ecr->describerepositories(
-          it_repositorynames = lt_repo_names_after ).
+          it_repositorynames = VALUE #( ( CONV /aws1/ecrrepositoryname( av_delete_repo_name ) ) ) ).
         cl_abap_unit_assert=>fail( msg = 'Repository should have been deleted' ).
       CATCH /aws1/cx_ecrrepositorynotfndex.
         " Expected - repository was successfully deleted
