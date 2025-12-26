@@ -80,9 +80,9 @@ CLASS /AWSEX/CL_RSD_ACTIONS IMPLEMENTATION.
         lv_db_count = lines( lt_databases ).
         MESSAGE |Retrieved { lv_db_count } database(s).| TYPE 'I'.
       CATCH /aws1/cx_rsddatabaseconnex.
-        MESSAGE 'Database connection error.' TYPE 'E'.
+        MESSAGE 'Database connection error.' TYPE 'I'.
       CATCH /aws1/cx_rsdresourcenotfoundex.
-        MESSAGE 'Cluster not found.' TYPE 'E'.
+        MESSAGE 'Cluster not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rsd.abapv1.list_databases]
   ENDMETHOD.
@@ -116,9 +116,9 @@ CLASS /AWSEX/CL_RSD_ACTIONS IMPLEMENTATION.
         lv_statement_id = oo_result->get_id( ).
         MESSAGE |Statement executed. ID: { lv_statement_id }| TYPE 'I'.
       CATCH /aws1/cx_rsdexecutestatementex.
-        MESSAGE 'Statement execution error.' TYPE 'E'.
+        MESSAGE 'Statement execution error.' TYPE 'I'.
       CATCH /aws1/cx_rsdresourcenotfoundex.
-        MESSAGE 'Resource not found.' TYPE 'E'.
+        MESSAGE 'Resource not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rsd.abapv1.execute_statement]
   ENDMETHOD.
@@ -144,9 +144,9 @@ CLASS /AWSEX/CL_RSD_ACTIONS IMPLEMENTATION.
         lv_status = oo_result->get_status( ).
         MESSAGE |Statement status: { lv_status }| TYPE 'I'.
       CATCH /aws1/cx_rsdresourcenotfoundex.
-        MESSAGE 'Statement not found.' TYPE 'E'.
+        MESSAGE 'Statement not found.' TYPE 'I'.
       CATCH /aws1/cx_rsdinternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rsd.abapv1.describe_statement]
   ENDMETHOD.
@@ -194,9 +194,9 @@ CLASS /AWSEX/CL_RSD_ACTIONS IMPLEMENTATION.
         lv_record_count = lines( lt_all_records ).
         MESSAGE |Retrieved { lv_record_count } record(s).| TYPE 'I'.
       CATCH /aws1/cx_rsdresourcenotfoundex.
-        MESSAGE 'Statement not found or results not available.' TYPE 'E'.
+        MESSAGE 'Statement not found or results not available.' TYPE 'I'.
       CATCH /aws1/cx_rsdinternalserverex.
-        MESSAGE 'Internal server error.' TYPE 'E'.
+        MESSAGE 'Internal server error.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rsd.abapv1.get_statement_result]
   ENDMETHOD.

@@ -1,3 +1,5 @@
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
 CLASS /awsex/cl_rsh_actions DEFINITION
   PUBLIC
   FINAL
@@ -76,9 +78,9 @@ CLASS /AWSEX/CL_RSH_ACTIONS IMPLEMENTATION.
         ).
         MESSAGE 'Redshift cluster created successfully.' TYPE 'I'.
       CATCH /aws1/cx_rshclustalrdyexfault.
-        MESSAGE 'Cluster already exists.' TYPE 'E'.
+        MESSAGE 'Cluster already exists.' TYPE 'I'.
       CATCH /aws1/cx_rshclstquotaexcdfault.
-        MESSAGE 'Cluster quota exceeded.' TYPE 'E'.
+        MESSAGE 'Cluster quota exceeded.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rsh.abapv1.create_cluster]
   ENDMETHOD.
@@ -103,9 +105,9 @@ CLASS /AWSEX/CL_RSH_ACTIONS IMPLEMENTATION.
         ).
         MESSAGE 'Redshift cluster deleted successfully.' TYPE 'I'.
       CATCH /aws1/cx_rshclustnotfoundfault.
-        MESSAGE 'Cluster not found.' TYPE 'E'.
+        MESSAGE 'Cluster not found.' TYPE 'I'.
       CATCH /aws1/cx_rshinvcluststatefault.
-        MESSAGE 'Invalid cluster state for deletion.' TYPE 'E'.
+        MESSAGE 'Invalid cluster state for deletion.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rsh.abapv1.delete_cluster]
   ENDMETHOD.
@@ -131,9 +133,9 @@ CLASS /AWSEX/CL_RSH_ACTIONS IMPLEMENTATION.
         ).
         MESSAGE 'Redshift cluster modified successfully.' TYPE 'I'.
       CATCH /aws1/cx_rshclustnotfoundfault.
-        MESSAGE 'Cluster not found.' TYPE 'E'.
+        MESSAGE 'Cluster not found.' TYPE 'I'.
       CATCH /aws1/cx_rshinvcluststatefault.
-        MESSAGE 'Invalid cluster state for modification.' TYPE 'E'.
+        MESSAGE 'Invalid cluster state for modification.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rsh.abapv1.modify_cluster]
   ENDMETHOD.
@@ -161,7 +163,7 @@ CLASS /AWSEX/CL_RSH_ACTIONS IMPLEMENTATION.
         lv_cluster_count = lines( lt_clusters ).
         MESSAGE |Retrieved { lv_cluster_count } cluster(s).| TYPE 'I'.
       CATCH /aws1/cx_rshclustnotfoundfault.
-        MESSAGE 'Cluster not found.' TYPE 'E'.
+        MESSAGE 'Cluster not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[rsh.abapv1.describe_clusters]
   ENDMETHOD.
