@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>/AWSEX/CL_RSD_ACTIONS</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>Redshift DataAPI Code Example</DESCRIPT>
+    <DESCRIPT>Redshift Code Example</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>
