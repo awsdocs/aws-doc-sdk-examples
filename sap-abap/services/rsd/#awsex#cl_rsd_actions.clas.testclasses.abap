@@ -48,7 +48,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lv_status TYPE /aws1/rshstring.
     DATA lv_max_waits TYPE i VALUE 60.
     DATA lo_create_cluster_result TYPE REF TO /aws1/cl_rshcreateclustresult.
-    DATA lo_describe_result TYPE /aws1/cl_rshclustersmessage.
+    DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
     DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
     DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
     DATA lv_create_sql TYPE string.
