@@ -250,9 +250,14 @@ CLASS /awsex/cl_ecr_actions IMPLEMENTATION.
     TRY.
         " iv_repository_name = 'my-repository'
         " it_image_ids = VALUE #( ( NEW /aws1/cl_ecrimageidentifier( iv_imagetag = 'latest' ) ) )
-        oo_result = lo_ecr->describeimages(
-          iv_repositoryname = iv_repository_name
-          it_imageids = it_image_ids ).
+        IF it_image_ids IS NOT INITIAL.
+          oo_result = lo_ecr->describeimages(
+            iv_repositoryname = iv_repository_name
+            it_imageids = it_image_ids ).
+        ELSE.
+          oo_result = lo_ecr->describeimages(
+            iv_repositoryname = iv_repository_name ).
+        ENDIF.
         DATA(lt_image_details) = oo_result->get_imagedetails( ).
         MESSAGE |Found { lines( lt_image_details ) } images in repository.| TYPE 'I'.
       CATCH /aws1/cx_ecrrepositorynotfndex.
