@@ -404,8 +404,10 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
       ) ).
 
     " Verify repository exists before deletion
+    DATA lt_delete_repo_names TYPE /aws1/cl_ecrrepositorynamels00=>tt_repositorynamelist.
+    APPEND NEW /aws1/cl_ecrrepositorynamels00( iv_value = av_delete_repo_name ) TO lt_delete_repo_names.
     DATA(lo_desc_before) = ao_ecr->describerepositories(
-      it_repositorynames = VALUE #( ( CONV /aws1/ecrrepositoryname( av_delete_repo_name ) ) ) ).
+      it_repositorynames = lt_delete_repo_names ).
 
     cl_abap_unit_assert=>assert_equals(
       exp = 1
@@ -418,8 +420,10 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
 
     " Verify deletion by attempting to describe it
     TRY.
+        DATA lt_deleted_repo_names TYPE /aws1/cl_ecrrepositorynamels00=>tt_repositorynamelist.
+        APPEND NEW /aws1/cl_ecrrepositorynamels00( iv_value = av_delete_repo_name ) TO lt_deleted_repo_names.
         ao_ecr->describerepositories(
-          it_repositorynames = VALUE #( ( CONV /aws1/ecrrepositoryname( av_delete_repo_name ) ) ) ).
+          it_repositorynames = lt_deleted_repo_names ).
         cl_abap_unit_assert=>fail( msg = 'Repository should have been deleted' ).
       CATCH /aws1/cx_ecrrepositorynotfndex.
         " Expected - repository was successfully deleted
