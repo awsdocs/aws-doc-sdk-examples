@@ -50,18 +50,9 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
     DATA(lv_role_name) = |abap-ppt-role-{ av_lv_uuid }|.
 
     " Trust policy allowing Pinpoint to assume the role
-    DATA(lv_trust_policy) = |{
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Effect": "Allow",
-          "Principal": {
-            "Service": "pinpoint.amazonaws.com"
-          },
-          "Action": "sts:AssumeRole"
-        }
-      ]
-    }|.
+    DATA(lv_trust_policy) = '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", ' &&
+                             '"Principal": { "Service": "pinpoint.amazonaws.com" }, ' &&
+                             '"Action": "sts:AssumeRole" } ] }'.
 
     TRY.
         " Create the IAM role
@@ -77,26 +68,10 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
         rv_role_arn = lo_role_result->get_role( )->get_arn( ).
 
         " Attach policy to allow Pinpoint to send emails via SES
-        DATA(lv_policy_doc) = |{
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Action": [
-                "ses:SendEmail",
-                "ses:SendRawEmail"
-              ],
-              "Resource": "*"
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
-                "sns:Publish"
-              ],
-              "Resource": "*"
-            }
-          ]
-        }|.
+        DATA(lv_policy_doc) = '{ "Version": "2012-10-17", "Statement": [ ' &&
+                               '{ "Effect": "Allow", "Action": [ "ses:SendEmail", "ses:SendRawEmail" ], ' &&
+                               '"Resource": "*" }, ' &&
+                               '{ "Effect": "Allow", "Action": [ "sns:Publish" ], "Resource": "*" } ] }'.
 
         ao_iam->putrolepolicy(
           iv_rolename = lv_role_name
