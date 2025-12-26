@@ -89,7 +89,7 @@ CLASS /awsex/cl_ecr_actions IMPLEMENTATION.
           iv_repositoryname = iv_repository_name ).
         DATA(lv_repository_uri) = oo_result->get_repository( )->get_repositoryuri( ).
         MESSAGE |Repository created with URI: { lv_repository_uri }| TYPE 'I'.
-      CATCH /aws1/cx_ecrrepositoryalrexex INTO DATA(lo_already_exists).
+      CATCH /aws1/cx_ecrrepositoryalrexex.
         " If repository already exists, retrieve it
         DATA lt_repo_names TYPE /aws1/cl_ecrrepositorynamels00=>tt_repositorynamelist.
         APPEND NEW /aws1/cl_ecrrepositorynamels00( iv_value = iv_repository_name ) TO lt_repo_names.
@@ -97,8 +97,7 @@ CLASS /awsex/cl_ecr_actions IMPLEMENTATION.
         DATA(lt_repos) = lo_describe_result->get_repositories( ).
         IF lines( lt_repos ) > 0.
           READ TABLE lt_repos INDEX 1 INTO DATA(lo_repo).
-          oo_result = NEW /aws1/cl_ecrcrerepositoryrsp( ).
-          oo_result->set_repository( lo_repo ).
+          oo_result = NEW /aws1/cl_ecrcrerepositoryrsp( io_repository = lo_repo ).
           MESSAGE |Repository { iv_repository_name } already exists.| TYPE 'I'.
         ENDIF.
     ENDTRY.
