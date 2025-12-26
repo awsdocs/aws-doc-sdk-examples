@@ -109,10 +109,7 @@ CLASS ltc_awsex_cl_ppt_actions IMPLEMENTATION.
     ENDWHILE.
 
     IF lv_ready = abap_false.
-      RAISE EXCEPTION TYPE /aws1/cx_rt_technical_generic
-        EXPORTING
-          textid   = /aws1/cx_rt_technical_generic=>generic
-          av_value = 'Application did not become ready in time'.
+      cl_abap_unit_assert=>fail( 'Application did not become ready in time' ).
     ENDIF.
   ENDMETHOD.
 
