@@ -35,11 +35,13 @@ logger = logging.getLogger(__name__)
 class IoTScenario:
     """Runs an interactive scenario that shows how to use AWS IoT."""
 
-    def __init__(self, iot_wrapper, iot_data_client, cfn_client):
+    def __init__(self, iot_wrapper, iot_data_client, cfn_client, stack_name="IoTBasicsStack", template_path=None):
         """
         :param iot_wrapper: An instance of the IoTWrapper class.
         :param iot_data_client: A Boto3 IoT Data Plane client.
         :param cfn_client: A Boto3 CloudFormation client.
+        :param stack_name: Name for the CloudFormation stack.
+        :param template_path: Path to the CloudFormation template file.
         """
         self.iot_wrapper = iot_wrapper
         self.iot_data_client = iot_data_client
@@ -48,11 +50,12 @@ class IoTScenario:
         self.certificate_arn = None
         self.certificate_id = None
         self.rule_name = None
-        self.stack_name = "IoTBasicsStack"
+        self.stack_name = stack_name
+        self.template_path = template_path or "../../../scenarios/basics/iot/iot_usecase/resources/cfn_template.yaml"
 
     def _deploy_stack(self):
         """Deploy CloudFormation stack and return outputs."""
-        with open("../../../scenarios/basics/iot/iot_usecase/resources/cfn_template.yaml", "r") as f:
+        with open(self.template_path, "r") as f:
             template_body = f.read()
         
         try:
@@ -283,7 +286,11 @@ if __name__ == "__main__":
         iot_data_client = boto3.client("iot-data")
         cfn_client = boto3.client("cloudformation")
         wrapper = IoTWrapper(iot_client, iot_data_client)
-        scenario = IoTScenario(wrapper, iot_data_client, cfn_client)
+        
+        stack_name = input("Enter a name for the CloudFormation stack (default: IoTBasicsStack): ").strip() or "IoTBasicsStack"
+        template_path = input("Enter path to CloudFormation template (default: ../../../scenarios/basics/iot/iot_usecase/resources/cfn_template.yaml): ").strip() or "../../../scenarios/basics/iot/iot_usecase/resources/cfn_template.yaml"
+        
+        scenario = IoTScenario(wrapper, iot_data_client, cfn_client, stack_name, template_path)
 
         thing_name = q.ask("Enter a name for the IoT thing: ", q.non_empty)
         rule_name = q.ask("Enter a name for the topic rule: ", q.non_empty)
@@ -292,3 +299,5 @@ if __name__ == "__main__":
     except Exception as e:
         logger.exception("An error occurred during the scenario.")
         print(f"An error occurred: {e}")
+
+
