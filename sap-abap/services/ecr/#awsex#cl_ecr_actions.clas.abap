@@ -89,12 +89,18 @@ CLASS /awsex/cl_ecr_actions IMPLEMENTATION.
           iv_repositoryname = iv_repository_name ).
         DATA(lv_repository_uri) = oo_result->get_repository( )->get_repositoryuri( ).
         MESSAGE |Repository created with URI: { lv_repository_uri }| TYPE 'I'.
-      CATCH /aws1/cx_ecrrepositoryalrexex.
-        MESSAGE 'Repository already exists.' TYPE 'E'.
-      CATCH /aws1/cx_ecrinvalidparameterex.
-        MESSAGE 'Invalid parameter provided.' TYPE 'E'.
-      CATCH /aws1/cx_ecrlimitexceededex.
-        MESSAGE 'Limit exceeded.' TYPE 'E'.
+      CATCH /aws1/cx_ecrrepositoryalrexex INTO DATA(lo_already_exists).
+        " If repository already exists, retrieve it
+        DATA lt_repo_names TYPE /aws1/cl_ecrrepositorynamels00=>tt_repositorynamelist.
+        APPEND NEW /aws1/cl_ecrrepositorynamels00( iv_value = iv_repository_name ) TO lt_repo_names.
+        DATA(lo_describe_result) = lo_ecr->describerepositories( it_repositorynames = lt_repo_names ).
+        DATA(lt_repos) = lo_describe_result->get_repositories( ).
+        IF lines( lt_repos ) > 0.
+          READ TABLE lt_repos INDEX 1 INTO DATA(lo_repo).
+          oo_result = NEW /aws1/cl_ecrcrerepositoryrsp( ).
+          oo_result->set_repository( lo_repo ).
+          MESSAGE |Repository { iv_repository_name } already exists.| TYPE 'I'.
+        ENDIF.
     ENDTRY.
     " snippet-end:[ecr.abapv1.create_repository]
   ENDMETHOD.
@@ -115,9 +121,7 @@ CLASS /awsex/cl_ecr_actions IMPLEMENTATION.
           iv_force = abap_true ).
         MESSAGE |Repository { iv_repository_name } deleted.| TYPE 'I'.
       CATCH /aws1/cx_ecrrepositorynotfndex.
-        MESSAGE 'Repository not found.' TYPE 'E'.
-      CATCH /aws1/cx_ecrinvalidparameterex.
-        MESSAGE 'Invalid parameter provided.' TYPE 'E'.
+        MESSAGE 'Repository not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[ecr.abapv1.delete_repository]
   ENDMETHOD.
@@ -132,15 +136,13 @@ CLASS /awsex/cl_ecr_actions IMPLEMENTATION.
 
     " snippet-start:[ecr.abapv1.describe_repositories]
     TRY.
-        " it_repository_names = VALUE #( ( CONV #( 'my-repository' ) ) )
+        " it_repository_names = VALUE #( ( NEW /aws1/cl_ecrrepositorynamels00( iv_value = 'my-repository' ) ) )
         oo_result = lo_ecr->describerepositories(
           it_repositorynames = it_repository_names ).
         DATA(lt_repositories) = oo_result->get_repositories( ).
         MESSAGE |Found { lines( lt_repositories ) } repositories.| TYPE 'I'.
       CATCH /aws1/cx_ecrrepositorynotfndex.
-        MESSAGE 'Repository not found.' TYPE 'E'.
-      CATCH /aws1/cx_ecrinvalidparameterex.
-        MESSAGE 'Invalid parameter provided.' TYPE 'E'.
+        MESSAGE 'Repository not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[ecr.abapv1.describe_repositories]
   ENDMETHOD.
@@ -162,10 +164,8 @@ CLASS /awsex/cl_ecr_actions IMPLEMENTATION.
           DATA(lv_token) = lo_auth_data->get_authorizationtoken( ).
           MESSAGE 'Authorization token retrieved.' TYPE 'I'.
         ENDIF.
-      CATCH /aws1/cx_ecrinvalidparameterex.
-        MESSAGE 'Invalid parameter provided.' TYPE 'E'.
       CATCH /aws1/cx_ecrserverexception.
-        MESSAGE 'Server exception occurred.' TYPE 'E'.
+        MESSAGE 'Server exception occurred.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[ecr.abapv1.get_authorization_token]
   ENDMETHOD.
@@ -186,11 +186,9 @@ CLASS /awsex/cl_ecr_actions IMPLEMENTATION.
         DATA(lv_policy_text) = oo_result->get_policytext( ).
         MESSAGE 'Repository policy retrieved.' TYPE 'I'.
       CATCH /aws1/cx_ecrrepositorynotfndex.
-        MESSAGE 'Repository not found.' TYPE 'E'.
+        MESSAGE 'Repository not found.' TYPE 'I'.
       CATCH /aws1/cx_ecrrepositoryplynot00.
-        MESSAGE 'Repository policy not found.' TYPE 'E'.
-      CATCH /aws1/cx_ecrinvalidparameterex.
-        MESSAGE 'Invalid parameter provided.' TYPE 'E'.
+        MESSAGE 'Repository policy not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[ecr.abapv1.get_repository_policy]
   ENDMETHOD.
@@ -212,9 +210,7 @@ CLASS /awsex/cl_ecr_actions IMPLEMENTATION.
           iv_policytext = iv_policy_text ).
         MESSAGE |Policy set for repository { iv_repository_name }.| TYPE 'I'.
       CATCH /aws1/cx_ecrrepositorynotfndex.
-        MESSAGE 'Repository not found.' TYPE 'E'.
-      CATCH /aws1/cx_ecrinvalidparameterex.
-        MESSAGE 'Invalid parameter provided.' TYPE 'E'.
+        MESSAGE 'Repository not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[ecr.abapv1.set_repository_policy]
   ENDMETHOD.
@@ -236,11 +232,9 @@ CLASS /awsex/cl_ecr_actions IMPLEMENTATION.
           iv_lifecyclepolicytext = iv_lifecycle_policy_text ).
         MESSAGE |Lifecycle policy set for repository { iv_repository_name }.| TYPE 'I'.
       CATCH /aws1/cx_ecrrepositorynotfndex.
-        MESSAGE 'Repository not found.' TYPE 'E'.
-      CATCH /aws1/cx_ecrinvalidparameterex.
-        MESSAGE 'Invalid parameter provided.' TYPE 'E'.
+        MESSAGE 'Repository not found.' TYPE 'I'.
       CATCH /aws1/cx_ecrvalidationex.
-        MESSAGE 'Invalid lifecycle policy format.' TYPE 'E'.
+        MESSAGE 'Invalid lifecycle policy format.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[ecr.abapv1.put_lifecycle_policy]
   ENDMETHOD.
@@ -263,11 +257,9 @@ CLASS /awsex/cl_ecr_actions IMPLEMENTATION.
         DATA(lt_image_details) = oo_result->get_imagedetails( ).
         MESSAGE |Found { lines( lt_image_details ) } images in repository.| TYPE 'I'.
       CATCH /aws1/cx_ecrrepositorynotfndex.
-        MESSAGE 'Repository not found.' TYPE 'E'.
+        MESSAGE 'Repository not found.' TYPE 'I'.
       CATCH /aws1/cx_ecrimagenotfoundex.
-        MESSAGE 'Image not found.' TYPE 'E'.
-      CATCH /aws1/cx_ecrinvalidparameterex.
-        MESSAGE 'Invalid parameter provided.' TYPE 'E'.
+        MESSAGE 'Image not found.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[ecr.abapv1.describe_images]
   ENDMETHOD.
