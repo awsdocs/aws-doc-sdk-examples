@@ -1,3 +1,5 @@
+" Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+" SPDX-License-Identifier: Apache-2.0
 CLASS ltc_awsex_cl_rsh_actions DEFINITION DEFERRED.
 CLASS /awsex/cl_rsh_actions DEFINITION LOCAL FRIENDS ltc_awsex_cl_rsh_actions.
 
