@@ -9,9 +9,7 @@ CLASS ltc_awsex_cl_rsh_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     CLASS-DATA av_cluster_id TYPE /aws1/rshstring.
-    CLASS-DATA av_cluster_id_modify TYPE /aws1/rshstring.
-    CLASS-DATA av_cluster_id_describe TYPE /aws1/rshstring.
-    CLASS-DATA av_cluster_id_delete TYPE /aws1/rshstring.
+    CLASS-DATA av_delete_test_cluster TYPE /aws1/rshstring.
     CLASS-DATA ao_rsh TYPE REF TO /aws1/if_rsh.
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
     CLASS-DATA ao_rsh_actions TYPE REF TO /awsex/cl_rsh_actions.
@@ -40,10 +38,6 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
 
   METHOD class_setup.
     DATA lv_uuid_string TYPE string.
-    DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
-    DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
-    DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
-    DATA lv_status TYPE /aws1/rshstring.
     
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
         
@@ -51,43 +45,24 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
         
     CREATE OBJECT ao_rsh_actions TYPE /awsex/cl_rsh_actions.
 
-    " Generate unique cluster identifiers with convert_test tag (must be lowercase)
     lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
     
-    " Main cluster for create test
-    av_cluster_id = |rsh-crt-{ lv_uuid_string }|.
+    av_cluster_id = |rsh-main-{ lv_uuid_string }|.
     IF strlen( av_cluster_id ) > 30.
       av_cluster_id = substring( val = av_cluster_id len = 30 ).
     ENDIF.
 
-    " Cluster for modify test
-    av_cluster_id_modify = |rsh-mod-{ lv_uuid_string }|.
-    IF strlen( av_cluster_id_modify ) > 30.
-      av_cluster_id_modify = substring( val = av_cluster_id_modify len = 30 ).
+    av_delete_test_cluster = |rsh-del-{ lv_uuid_string }|.
+    IF strlen( av_delete_test_cluster ) > 30.
+      av_delete_test_cluster = substring( val = av_delete_test_cluster len = 30 ).
     ENDIF.
 
-    " Cluster for describe test
-    av_cluster_id_describe = |rsh-dsc-{ lv_uuid_string }|.
-    IF strlen( av_cluster_id_describe ) > 30.
-      av_cluster_id_describe = substring( val = av_cluster_id_describe len = 30 ).
-    ENDIF.
+    create_cluster_with_tags( av_cluster_id ).
+    wait_for_cluster_available( av_cluster_id ).
 
-    " Cluster for delete test
-    av_cluster_id_delete = |rsh-del-{ lv_uuid_string }|.
-    IF strlen( av_cluster_id_delete ) > 30.
-      av_cluster_id_delete = substring( val = av_cluster_id_delete len = 30 ).
-    ENDIF.
-
-    " Create clusters for modify, describe, and delete tests
-    create_cluster_with_tags( av_cluster_id_modify ).
-    wait_for_cluster_available( av_cluster_id_modify ).
-
-    create_cluster_with_tags( av_cluster_id_describe ).
-    wait_for_cluster_available( av_cluster_id_describe ).
-
-    create_cluster_with_tags( av_cluster_id_delete ).
-    wait_for_cluster_available( av_cluster_id_delete ).
+    create_cluster_with_tags( av_delete_test_cluster ).
+    wait_for_cluster_available( av_delete_test_cluster ).
   ENDMETHOD.
 
   METHOD create_cluster_with_tags.
@@ -104,11 +79,10 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     TRY.
         lo_result = ao_rsh->createcluster(
           iv_clusteridentifier  = iv_cluster_id
-          iv_nodetype           = 'ra3.xlplus'
+          iv_nodetype           = 'dc2.large'
           iv_masterusername     = 'awsuser'
           iv_masteruserpassword = 'AwsUser1000'
           iv_publiclyaccessible = abap_false
-          iv_numberofnodes      = 2
           it_tags               = lt_tags
         ).
       CATCH /aws1/cx_rshclustalrdyexfault.
@@ -130,6 +104,15 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
     DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
     DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
+    DATA lv_uuid_string TYPE string.
+    DATA lv_test_cluster_id TYPE /aws1/rshstring.
+    
+    lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
+    TRANSLATE lv_uuid_string TO LOWER CASE.
+    lv_test_cluster_id = |rsh-crt-{ lv_uuid_string }|.
+    IF strlen( lv_test_cluster_id ) > 30.
+      lv_test_cluster_id = substring( val = lv_test_cluster_id len = 30 ).
+    ENDIF.
     
     CREATE OBJECT lo_tag
       EXPORTING
@@ -139,31 +122,35 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
 
     TRY.
         lo_result = ao_rsh->createcluster(
-          iv_clusteridentifier  = av_cluster_id
-          iv_nodetype           = 'ra3.xlplus'
+          iv_clusteridentifier  = lv_test_cluster_id
+          iv_nodetype           = 'dc2.large'
           iv_masterusername     = 'awsuser'
           iv_masteruserpassword = 'AwsUser1000'
           iv_publiclyaccessible = abap_false
-          iv_numberofnodes      = 2
           it_tags               = lt_tags
         ).
 
         cl_abap_unit_assert=>assert_bound(
           act = lo_result
-          msg = |Cluster creation failed for { av_cluster_id }| ).
+          msg = |Cluster creation failed for { lv_test_cluster_id }| ).
 
         lo_cluster = lo_result->get_cluster( ).
             
         cl_abap_unit_assert=>assert_equals(
-          exp = av_cluster_id
+          exp = lv_test_cluster_id
           act = lo_cluster->get_clusteridentifier( )
           msg = |Cluster identifier mismatch| ).
 
-        wait_for_cluster_available( av_cluster_id ).
+        wait_for_cluster_available( lv_test_cluster_id ).
+        
+        ao_rsh->deletecluster(
+          iv_clusteridentifier = lv_test_cluster_id
+          iv_skipfinalclustersnapshot = abap_true
+        ).
 
       CATCH /aws1/cx_rshclustalrdyexfault.
         lo_describe_result = ao_rsh->describeclusters(
-          iv_clusteridentifier = av_cluster_id
+          iv_clusteridentifier = lv_test_cluster_id
         ).
             
         lt_clusters = lo_describe_result->get_clusters( ).
@@ -221,14 +208,14 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lv_maintenance_window TYPE /aws1/rshstring.
     
     ao_rsh_actions->modify_cluster(
-      iv_cluster_identifier = av_cluster_id_modify
+      iv_cluster_identifier = av_cluster_id
       iv_pref_maintenance_wn = 'wed:07:30-wed:08:00'
     ).
 
-    wait_for_cluster_available( av_cluster_id_modify ).
+    wait_for_cluster_available( av_cluster_id ).
 
     lo_result = ao_rsh->describeclusters(
-      iv_clusteridentifier = av_cluster_id_modify
+      iv_clusteridentifier = av_cluster_id
     ).
 
     lt_clusters = lo_result->get_clusters( ).
@@ -255,7 +242,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lv_cluster_id TYPE /aws1/rshstring.
     
     lo_result = ao_rsh_actions->describe_clusters(
-      iv_cluster_identifier = av_cluster_id_describe
+      iv_cluster_identifier = av_cluster_id
     ).
 
     cl_abap_unit_assert=>assert_bound(
@@ -272,7 +259,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     lv_cluster_id = lo_cluster->get_clusteridentifier( ).
         
     cl_abap_unit_assert=>assert_equals(
-      exp = av_cluster_id_describe
+      exp = av_cluster_id
       act = lv_cluster_id
       msg = |Cluster identifier mismatch| ).
 
@@ -292,14 +279,14 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
     DATA lv_status TYPE /aws1/rshstring.
     
     ao_rsh_actions->delete_cluster(
-      iv_cluster_identifier = av_cluster_id_delete
+      iv_cluster_identifier = av_delete_test_cluster
     ).
 
     WAIT UP TO 5 SECONDS.
 
     TRY.
         lo_result = ao_rsh->describeclusters(
-          iv_clusteridentifier = av_cluster_id_delete
+          iv_clusteridentifier = av_delete_test_cluster
         ).
             
         lt_clusters = lo_result->get_clusters( ).
