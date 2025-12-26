@@ -17,7 +17,6 @@ CLASS ltc_awsex_cl_rsd_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL D
     CLASS-DATA ao_rsh TYPE REF TO /aws1/if_rsh.
     CLASS-DATA ao_rsd TYPE REF TO /aws1/if_rsd.
     CLASS-DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
-    CLASS-DATA ao_rsd_actions TYPE REF TO /awsex/cl_rsd_actions.
 
     METHODS: list_databases FOR TESTING RAISING /aws1/cx_rt_generic,
       execute_statement FOR TESTING RAISING /aws1/cx_rt_generic,
@@ -49,7 +48,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lv_status TYPE /aws1/rshstring.
     DATA lv_max_waits TYPE i VALUE 60.
     DATA lo_create_cluster_result TYPE REF TO /aws1/cl_rshcreateclustresult.
-    DATA lo_describe_result TYPE REF TO /aws1/cl_rshclustersmessage.
+    DATA lo_describe_result TYPE /aws1/cl_rshclustersmessage.
     DATA lt_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
     DATA lo_cluster TYPE REF TO /aws1/cl_rshcluster.
     DATA lv_create_sql TYPE string.
@@ -71,19 +70,8 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
         
-    CALL METHOD /aws1/cl_rsh_factory=>create
-      EXPORTING
-        io_session = ao_session
-      RECEIVING
-        oo_client  = ao_rsh.
-        
-    CALL METHOD /aws1/cl_rsd_factory=>create
-      EXPORTING
-        io_session = ao_session
-      RECEIVING
-        oo_client  = ao_rsd.
-        
-    CREATE OBJECT ao_rsd_actions TYPE /awsex/cl_rsd_actions.
+    ao_rsh = /aws1/cl_rsh_factory=>create( ao_session ).
+    ao_rsd = /aws1/cl_rsd_factory=>create( ao_session ).
 
     " Generate unique cluster identifier (must be lowercase)
     lv_uuid = /awsex/cl_utils=>get_random_string( ).
@@ -109,7 +97,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     APPEND lo_tag TO lt_tags.
 
     TRY.
-        CALL METHOD ao_rsh->createcluster EXPORTING
+        lo_create_cluster_result = ao_rsh->createcluster(
             iv_clusteridentifier  = av_cluster_id
             iv_nodetype           = 'ra3.xlplus'
             iv_masterusername     = av_user_name
@@ -117,15 +105,15 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
             iv_publiclyaccessible = abap_false
             iv_numberofnodes      = 2
             it_tags               = lt_tags
-          RECEIVING oo_output = lo_create_cluster_result.
+        ).
 
         " Wait for cluster to be available
         lv_max_waits = 60.
         DO lv_max_waits TIMES.
           WAIT UP TO 30 SECONDS.
-          CALL METHOD ao_rsh->describeclusters EXPORTING
+          lo_describe_result = ao_rsh->describeclusters(
               iv_clusteridentifier = av_cluster_id
-            RECEIVING oo_output = lo_describe_result.
+          ).
               
           lt_clusters = lo_describe_result->get_clusters( ).
               
@@ -149,23 +137,23 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
 
         " Create test table
         lv_create_sql = |CREATE TABLE { av_table_name } (id INT, title VARCHAR(100), year INT)|.
-        CALL METHOD ao_rsd->executestatement EXPORTING
+        lo_create_result = ao_rsd->executestatement(
             iv_clusteridentifier = av_cluster_id
             iv_database          = av_database_name
             iv_dbuser            = av_user_name
             iv_sql               = lv_create_sql
-          RECEIVING oo_output = lo_create_result.
+        ).
         lv_statement_id = lo_create_result->get_id( ).
         wait_for_statement_finished( lv_statement_id ).
 
         " Insert test data for get_statement_result test
         lv_insert_sql = |INSERT INTO { av_table_name } VALUES (1, 'Test Movie 1', 2024)|.
-        CALL METHOD ao_rsd->executestatement EXPORTING
+        lo_insert_result = ao_rsd->executestatement(
             iv_clusteridentifier = av_cluster_id
             iv_database          = av_database_name
             iv_dbuser            = av_user_name
             iv_sql               = lv_insert_sql
-          RECEIVING oo_output = lo_insert_result.
+        ).
         lv_statement_id = lo_insert_result->get_id( ).
         wait_for_statement_finished( lv_statement_id ).
 
@@ -175,9 +163,9 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
         lv_retry_count = 0.
         DO 60 TIMES.
           WAIT UP TO 30 SECONDS.
-          CALL METHOD ao_rsh->describeclusters EXPORTING
+          lo_retry_describe = ao_rsh->describeclusters(
               iv_clusteridentifier = av_cluster_id
-            RECEIVING oo_output = lo_retry_describe.
+          ).
               
           lt_retry_clusters = lo_retry_describe->get_clusters( ).
               
@@ -198,23 +186,23 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
         " Try to create table if cluster existed from previous test
         TRY.
             lv_retry_create_sql = |CREATE TABLE { av_table_name } (id INT, title VARCHAR(100), year INT)|.
-            CALL METHOD ao_rsd->executestatement EXPORTING
+            lo_retry_create = ao_rsd->executestatement(
                 iv_clusteridentifier = av_cluster_id
                 iv_database          = av_database_name
                 iv_dbuser            = av_user_name
                 iv_sql               = lv_retry_create_sql
-              RECEIVING oo_output = lo_retry_create.
+            ).
             lv_retry_statement_id = lo_retry_create->get_id( ).
             wait_for_statement_finished( lv_retry_statement_id ).
             
             " Insert test data
             lv_retry_insert = |INSERT INTO { av_table_name } VALUES (1, 'Test Movie 1', 2024)|.
-            CALL METHOD ao_rsd->executestatement EXPORTING
+            lo_retry_insert = ao_rsd->executestatement(
                 iv_clusteridentifier = av_cluster_id
                 iv_database          = av_database_name
                 iv_dbuser            = av_user_name
                 iv_sql               = lv_retry_insert
-              RECEIVING oo_output = lo_retry_insert.
+            ).
             lv_retry_statement_id = lo_retry_insert->get_id( ).
             wait_for_statement_finished( lv_retry_statement_id ).
           CATCH /aws1/cx_rsdexecutestatementex.
@@ -235,12 +223,12 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     
     TRY.
         lv_drop_sql = |DROP TABLE IF EXISTS { av_table_name }|.
-        CALL METHOD ao_rsd->executestatement EXPORTING
+        lo_drop_result = ao_rsd->executestatement(
             iv_clusteridentifier = av_cluster_id
             iv_database          = av_database_name
             iv_dbuser            = av_user_name
             iv_sql               = lv_drop_sql
-          RECEIVING oo_output = lo_drop_result.
+        ).
         lv_statement_id = lo_drop_result->get_id( ).
         wait_for_statement_finished( lv_statement_id ).
       CATCH /aws1/cx_rt_generic.
@@ -262,9 +250,9 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DO lv_max_waits TIMES.
       WAIT UP TO 30 SECONDS.
       TRY.
-          CALL METHOD ao_rsh->describeclusters EXPORTING
+          lo_describe_result = ao_rsh->describeclusters(
               iv_clusteridentifier = iv_cluster_id
-            RECEIVING oo_output = lo_describe_result.
+          ).
               
           lt_clusters = lo_describe_result->get_clusters( ).
               
@@ -300,9 +288,9 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DO lv_max_waits TIMES.
       WAIT UP TO 2 SECONDS.
       TRY.
-          CALL METHOD ao_rsd->describestatement EXPORTING
+          lo_describe_result = ao_rsd->describestatement(
               iv_id     = iv_statement_id
-            RECEIVING oo_output = lo_describe_result.
+          ).
               
           lv_status = lo_describe_result->get_status( ).
 
@@ -335,13 +323,11 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lv_database_name TYPE /aws1/rsdstring.
     FIELD-SYMBOLS <fs_database> TYPE any.
     
-    CALL METHOD ao_rsd_actions->list_databases
-      EXPORTING
-        iv_cluster_identifier = av_cluster_id
-        iv_database_name      = av_database_name
-        iv_database_user      = av_user_name
-      RECEIVING
-        oo_result             = lo_result.
+    lo_result = ao_rsd->listdatabases(
+      iv_clusteridentifier = av_cluster_id
+      iv_database          = av_database_name
+      iv_dbuser            = av_user_name
+    ).
 
     cl_abap_unit_assert=>assert_bound(
       act = lo_result
@@ -374,11 +360,11 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lv_statement_id TYPE /aws1/rsduuid.
     
     lv_insert_sql = |INSERT INTO { av_table_name } VALUES (1, 'Test Movie', 2024)|.
-    lo_result = ao_rsd_actions->execute_statement(
-      iv_cluster_identifier = av_cluster_id
-      iv_database_name = av_database_name
-      iv_user_name = av_user_name
-      iv_sql = lv_insert_sql
+    lo_result = ao_rsd->executestatement(
+      iv_clusteridentifier = av_cluster_id
+      iv_database          = av_database_name
+      iv_dbuser            = av_user_name
+      iv_sql               = lv_insert_sql
     ).
 
     cl_abap_unit_assert=>assert_bound(
@@ -413,8 +399,8 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     lv_statement_id = lo_exec_result->get_id( ).
 
     " Now describe the statement
-    lo_result = ao_rsd_actions->describe_statement(
-      iv_statement_id = lv_statement_id
+    lo_result = ao_rsd->describestatement(
+      iv_id = lv_statement_id
     ).
 
     cl_abap_unit_assert=>assert_bound(
@@ -445,12 +431,12 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     APPEND lo_param TO lt_parameters.
 
     lv_query_sql = |SELECT * FROM { av_table_name } WHERE year = :year|.
-    lo_exec_result = ao_rsd_actions->execute_statement(
-      iv_cluster_identifier = av_cluster_id
-      iv_database_name = av_database_name
-      iv_user_name = av_user_name
-      iv_sql = lv_query_sql
-      it_parameter_list = lt_parameters
+    lo_exec_result = ao_rsd->executestatement(
+      iv_clusteridentifier = av_cluster_id
+      iv_database          = av_database_name
+      iv_dbuser            = av_user_name
+      iv_sql               = lv_query_sql
+      it_parameters        = lt_parameters
     ).
 
     lv_statement_id = lo_exec_result->get_id( ).
@@ -459,8 +445,8 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     wait_for_statement_finished( lv_statement_id ).
 
     " Get the statement result
-    lo_result = ao_rsd_actions->get_statement_result(
-      iv_statement_id = lv_statement_id
+    lo_result = ao_rsd->getstatementresult(
+      iv_id = lv_statement_id
     ).
 
     cl_abap_unit_assert=>assert_bound(
