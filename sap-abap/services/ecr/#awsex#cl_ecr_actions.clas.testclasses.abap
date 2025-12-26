@@ -153,7 +153,7 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
     DATA lt_repo_names TYPE /aws1/cl_ecrrepositorynamels00=>tt_repositorynamelist.
 
     " Test describing existing repository
-    lt_repo_names = VALUE #( ( CONV /aws1/ecrrepositoryname( av_base_repo_name ) ) ).
+    APPEND NEW /aws1/cl_ecrrepositorynamels00( iv_value = av_base_repo_name ) TO lt_repo_names.
 
     ao_ecr_actions->describe_repositories(
       EXPORTING
@@ -225,17 +225,17 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
     DATA(lv_account_id) = ao_session->get_account_id( ).
     
     " Create a simple policy allowing specific actions
-    DATA(lv_policy) = |{'{'}|  &&
+    DATA(lv_policy) = |{ '{' }|  &&
                       |"Version":"2012-10-17",|  &&
-                      |"Statement":[{'{'}|  &&
+                      |"Statement":[{ '{' }|  &&
                       |"Sid":"AllowPull",|  &&
                       |"Effect":"Allow",|  &&
-                      |"Principal":{'{'}|  &&
+                      |"Principal":{ '{' }|  &&
                       |"AWS":"arn:aws:iam::{ lv_account_id }:root"|  &&
-                      |{'}'},|  &&
+                      |{ '}' },|  &&
                       |"Action":["ecr:BatchGetImage","ecr:GetDownloadUrlForLayer"]|  &&
-                      |{'}'}]|  &&
-                      |{'}'}|.
+                      |{ '}' }]|  &&
+                      |{ '}' }|.
 
     " Set the policy
     ao_ecr_actions->set_repository_policy(
@@ -264,17 +264,17 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
     DATA(lv_account_id) = ao_session->get_account_id( ).
 
     " First, ensure a policy is set on the repository
-    DATA(lv_policy) = |{'{'}|  &&
+    DATA(lv_policy) = |{ '{' }|  &&
                       |"Version":"2012-10-17",|  &&
-                      |"Statement":[{'{'}|  &&
+                      |"Statement":[{ '{' }|  &&
                       |"Sid":"TestGetPolicy",|  &&
                       |"Effect":"Allow",|  &&
-                      |"Principal":{'{'}|  &&
+                      |"Principal":{ '{' }|  &&
                       |"AWS":"arn:aws:iam::{ lv_account_id }:root"|  &&
-                      |{'}'},|  &&
+                      |{ '}' },|  &&
                       |"Action":["ecr:BatchGetImage"]|  &&
-                      |{'}'}]|  &&
-                      |{'}'}|.
+                      |{ '}' }]|  &&
+                      |{ '}' }|.
 
     ao_ecr->setrepositorypolicy(
       iv_repositoryname = av_policy_repo_name
@@ -314,21 +314,21 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
 
   METHOD put_lifecycle_policy.
     " Create a lifecycle policy to expire old images
-    DATA(lv_lc_policy) = |{'{'}|  &&
-                         |"rules":[{'{'}|  &&
+    DATA(lv_lc_policy) = |{ '{' }|  &&
+                         |"rules":[{ '{' }|  &&
                          |"rulePriority":1,|  &&
                          |"description":"Expire images older than 14 days",|  &&
-                         |"selection":{'{'}|  &&
+                         |"selection":{ '{' }|  &&
                          |"tagStatus":"any",|  &&
                          |"countType":"sinceImagePushed",|  &&
                          |"countUnit":"days",|  &&
                          |"countNumber":14|  &&
-                         |{'}'},|  &&
-                         |"action":{'{'}|  &&
+                         |{ '}' },|  &&
+                         |"action":{ '{' }|  &&
                          |"type":"expire"|  &&
-                         |{'}'}|  &&
-                         |{'}'}]|  &&
-                         |{'}'}|.
+                         |{ '}' }|  &&
+                         |{ '}' }]|  &&
+                         |{ '}' }|.
 
     " Test putting the lifecycle policy
     ao_ecr_actions->put_lifecycle_policy(
