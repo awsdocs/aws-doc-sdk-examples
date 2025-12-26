@@ -151,8 +151,8 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
     DATA lo_result TYPE REF TO /aws1/cl_ecrdscrepositoriesrsp.
     DATA lt_repo_names TYPE /aws1/cl_ecrrepositorynamels00=>tt_repositorynamelist.
 
-    " Test describing existing repository - build table properly
-    APPEND av_base_repo_name TO lt_repo_names.
+    " Test describing existing repository - build table with wrapper object
+    APPEND NEW /aws1/cl_ecrrepositorynamels00( iv_value = av_base_repo_name ) TO lt_repo_names.
 
     ao_ecr_actions->describe_repositories(
       EXPORTING
@@ -410,11 +410,11 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
       ) ).
 
     " Verify repository exists before deletion
-    DATA lt_repo_names TYPE /aws1/cl_ecrrepositorynamels00=>tt_repositorynamelist.
-    APPEND av_delete_repo_name TO lt_repo_names.
+    DATA lt_repo_names_before TYPE /aws1/cl_ecrrepositorynamels00=>tt_repositorynamelist.
+    APPEND NEW /aws1/cl_ecrrepositorynamels00( iv_value = av_delete_repo_name ) TO lt_repo_names_before.
 
     DATA(lo_desc_before) = ao_ecr->describerepositories(
-      it_repositorynames = lt_repo_names ).
+      it_repositorynames = lt_repo_names_before ).
 
     cl_abap_unit_assert=>assert_equals(
       exp = 1
@@ -427,10 +427,10 @@ CLASS ltc_awsex_cl_ecr_actions IMPLEMENTATION.
 
     " Verify deletion by attempting to describe it
     TRY.
-        CLEAR lt_repo_names.
-        APPEND av_delete_repo_name TO lt_repo_names.
+        DATA lt_repo_names_after TYPE /aws1/cl_ecrrepositorynamels00=>tt_repositorynamelist.
+        APPEND NEW /aws1/cl_ecrrepositorynamels00( iv_value = av_delete_repo_name ) TO lt_repo_names_after.
         ao_ecr->describerepositories(
-          it_repositorynames = lt_repo_names ).
+          it_repositorynames = lt_repo_names_after ).
         cl_abap_unit_assert=>fail( msg = 'Repository should have been deleted' ).
       CATCH /aws1/cx_ecrrepositorynotfndex.
         " Expected - repository was successfully deleted
