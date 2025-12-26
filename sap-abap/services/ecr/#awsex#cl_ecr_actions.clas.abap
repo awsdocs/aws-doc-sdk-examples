@@ -259,6 +259,8 @@ CLASS /awsex/cl_ecr_actions IMPLEMENTATION.
         MESSAGE 'Repository not found.' TYPE 'I'.
       CATCH /aws1/cx_ecrimagenotfoundex.
         MESSAGE 'Image not found.' TYPE 'I'.
+      CATCH /aws1/cx_ecrinvalidparameterex.
+        MESSAGE 'Invalid parameter provided.' TYPE 'I'.
     ENDTRY.
     " snippet-end:[ecr.abapv1.describe_images]
   ENDMETHOD.
