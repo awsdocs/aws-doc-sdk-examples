@@ -41,7 +41,6 @@ ENDCLASS.
 CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
 
   METHOD class_setup.
-    DATA lv_uuid TYPE string.
     DATA lv_uuid_string TYPE string.
     DATA lt_tags TYPE /aws1/cl_rshtag=>tt_taglist.
     DATA lo_tag TYPE REF TO /aws1/cl_rshtag.
@@ -55,41 +54,25 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lo_create_result TYPE REF TO /aws1/cl_rsdexecutestmtoutput.
     DATA lv_insert_sql TYPE string.
     DATA lo_insert_result TYPE REF TO /aws1/cl_rsdexecutestmtoutput.
-    DATA lv_retry_status TYPE /aws1/rshstring.
-    DATA lv_retry_count TYPE i VALUE 0.
-    DATA lo_retry_describe TYPE REF TO /aws1/cl_rshclustersmessage.
-    DATA lt_retry_clusters TYPE /aws1/cl_rshcluster=>tt_clusterlist.
-    DATA lo_retry_cluster TYPE REF TO /aws1/cl_rshcluster.
-    DATA lv_retry_create_sql TYPE string.
-    DATA lo_retry_create TYPE REF TO /aws1/cl_rsdexecutestmtoutput.
-    DATA lv_retry_insert TYPE string.
-    DATA lo_retry_insert TYPE REF TO /aws1/cl_rsdexecutestmtoutput.
-    DATA lo_ex TYPE REF TO /aws1/cx_rt_generic.
     DATA lv_statement_id TYPE /aws1/rsduuid.
-    DATA lv_retry_statement_id TYPE /aws1/rsduuid.
     
     ao_session = /aws1/cl_rt_session_aws=>create( iv_profile_id = cv_pfl ).
         
     ao_rsh = /aws1/cl_rsh_factory=>create( ao_session ).
     ao_rsd = /aws1/cl_rsd_factory=>create( ao_session ).
 
-    " Generate unique cluster identifier (must be lowercase)
-    lv_uuid = /awsex/cl_utils=>get_random_string( ).
-    lv_uuid_string = lv_uuid.
+    lv_uuid_string = /awsex/cl_utils=>get_random_string( ).
     TRANSLATE lv_uuid_string TO LOWER CASE.
     av_cluster_id = |rsd-test-{ lv_uuid_string }|.
-    " Truncate to 30 characters max
     IF strlen( av_cluster_id ) > 30.
       av_cluster_id = substring( val = av_cluster_id len = 30 ).
     ENDIF.
 
     av_table_name = |movies_{ lv_uuid_string }|.
-    " Truncate table name if needed
     IF strlen( av_table_name ) > 30.
       av_table_name = substring( val = av_table_name len = 30 ).
     ENDIF.
 
-    " Create Redshift cluster for testing with convert_test tag
     CREATE OBJECT lo_tag
       EXPORTING
         iv_key   = 'convert_test'
@@ -98,21 +81,20 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
 
     TRY.
         lo_create_cluster_result = ao_rsh->createcluster(
-            iv_clusteridentifier  = av_cluster_id
-            iv_nodetype           = 'ra3.xlplus'
-            iv_masterusername     = av_user_name
-            iv_masteruserpassword = av_user_password
-            iv_publiclyaccessible = abap_false
-            iv_numberofnodes      = 2
-            it_tags               = lt_tags
+          iv_clusteridentifier  = av_cluster_id
+          iv_nodetype           = 'ra3.xlplus'
+          iv_masterusername     = av_user_name
+          iv_masteruserpassword = av_user_password
+          iv_publiclyaccessible = abap_false
+          iv_numberofnodes      = 2
+          it_tags               = lt_tags
         ).
 
-        " Wait for cluster to be available
         lv_max_waits = 60.
         DO lv_max_waits TIMES.
           WAIT UP TO 30 SECONDS.
           lo_describe_result = ao_rsh->describeclusters(
-              iv_clusteridentifier = av_cluster_id
+            iv_clusteridentifier = av_cluster_id
           ).
               
           lt_clusters = lo_describe_result->get_clusters( ).
@@ -135,88 +117,56 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
             msg = |Cluster did not become available within timeout| ).
         ENDIF.
 
-        " Create test table
         lv_create_sql = |CREATE TABLE { av_table_name } (id INT, title VARCHAR(100), year INT)|.
         lo_create_result = ao_rsd->executestatement(
-            iv_clusteridentifier = av_cluster_id
-            iv_database          = av_database_name
-            iv_dbuser            = av_user_name
-            iv_sql               = lv_create_sql
+          iv_clusteridentifier = av_cluster_id
+          iv_database          = av_database_name
+          iv_dbuser            = av_user_name
+          iv_sql               = lv_create_sql
         ).
         lv_statement_id = lo_create_result->get_id( ).
         wait_for_statement_finished( lv_statement_id ).
 
-        " Insert test data for get_statement_result test
         lv_insert_sql = |INSERT INTO { av_table_name } VALUES (1, 'Test Movie 1', 2024)|.
         lo_insert_result = ao_rsd->executestatement(
-            iv_clusteridentifier = av_cluster_id
-            iv_database          = av_database_name
-            iv_dbuser            = av_user_name
-            iv_sql               = lv_insert_sql
+          iv_clusteridentifier = av_cluster_id
+          iv_database          = av_database_name
+          iv_dbuser            = av_user_name
+          iv_sql               = lv_insert_sql
         ).
         lv_statement_id = lo_insert_result->get_id( ).
         wait_for_statement_finished( lv_statement_id ).
 
       CATCH /aws1/cx_rshclustalrdyexfault.
-        " Cluster already exists from previous failed test
-        " Verify cluster is available before continuing
-        lv_retry_count = 0.
-        DO 60 TIMES.
-          WAIT UP TO 30 SECONDS.
-          lo_retry_describe = ao_rsh->describeclusters(
-              iv_clusteridentifier = av_cluster_id
-          ).
-              
-          lt_retry_clusters = lo_retry_describe->get_clusters( ).
-              
-          IF lines( lt_retry_clusters ) > 0.
-            READ TABLE lt_retry_clusters INDEX 1 INTO lo_retry_cluster.
-            lv_retry_status = lo_retry_cluster->get_clusterstatus( ).
-                
-            IF lv_retry_status = 'available'.
-              EXIT.
-            ENDIF.
-          ENDIF.
-        ENDDO.
-        IF lv_retry_status <> 'available'.
-          cl_abap_unit_assert=>fail(
-            msg = |Existing cluster not available| ).
-        ENDIF.
+        wait_for_cluster_available( av_cluster_id ).
         
-        " Try to create table if cluster existed from previous test
         TRY.
-            lv_retry_create_sql = |CREATE TABLE { av_table_name } (id INT, title VARCHAR(100), year INT)|.
-            lo_retry_create = ao_rsd->executestatement(
-                iv_clusteridentifier = av_cluster_id
-                iv_database          = av_database_name
-                iv_dbuser            = av_user_name
-                iv_sql               = lv_retry_create_sql
+            lv_create_sql = |CREATE TABLE { av_table_name } (id INT, title VARCHAR(100), year INT)|.
+            lo_create_result = ao_rsd->executestatement(
+              iv_clusteridentifier = av_cluster_id
+              iv_database          = av_database_name
+              iv_dbuser            = av_user_name
+              iv_sql               = lv_create_sql
             ).
-            lv_retry_statement_id = lo_retry_create->get_id( ).
-            wait_for_statement_finished( lv_retry_statement_id ).
+            lv_statement_id = lo_create_result->get_id( ).
+            wait_for_statement_finished( lv_statement_id ).
             
-            " Insert test data
-            lv_retry_insert = |INSERT INTO { av_table_name } VALUES (1, 'Test Movie 1', 2024)|.
-            lo_retry_insert = ao_rsd->executestatement(
-                iv_clusteridentifier = av_cluster_id
-                iv_database          = av_database_name
-                iv_dbuser            = av_user_name
-                iv_sql               = lv_retry_insert
+            lv_insert_sql = |INSERT INTO { av_table_name } VALUES (1, 'Test Movie 1', 2024)|.
+            lo_insert_result = ao_rsd->executestatement(
+              iv_clusteridentifier = av_cluster_id
+              iv_database          = av_database_name
+              iv_dbuser            = av_user_name
+              iv_sql               = lv_insert_sql
             ).
-            lv_retry_statement_id = lo_retry_insert->get_id( ).
-            wait_for_statement_finished( lv_retry_statement_id ).
+            lv_statement_id = lo_insert_result->get_id( ).
+            wait_for_statement_finished( lv_statement_id ).
           CATCH /aws1/cx_rsdexecutestatementex.
             " Table may already exist, continue
         ENDTRY.
-
-      CATCH /aws1/cx_rt_generic INTO lo_ex.
-        cl_abap_unit_assert=>fail(
-          msg = |Setup failed: { lo_ex->get_text( ) }| ).
     ENDTRY.
   ENDMETHOD.
 
   METHOD class_teardown.
-    " Drop test table first
     DATA lv_drop_sql TYPE string.
     DATA lo_drop_result TYPE REF TO /aws1/cl_rsdexecutestmtoutput.
     DATA lv_statement_id TYPE /aws1/rsduuid.
@@ -224,10 +174,10 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     TRY.
         lv_drop_sql = |DROP TABLE IF EXISTS { av_table_name }|.
         lo_drop_result = ao_rsd->executestatement(
-            iv_clusteridentifier = av_cluster_id
-            iv_database          = av_database_name
-            iv_dbuser            = av_user_name
-            iv_sql               = lv_drop_sql
+          iv_clusteridentifier = av_cluster_id
+          iv_database          = av_database_name
+          iv_dbuser            = av_user_name
+          iv_sql               = lv_drop_sql
         ).
         lv_statement_id = lo_drop_result->get_id( ).
         wait_for_statement_finished( lv_statement_id ).
@@ -235,8 +185,6 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
         " Ignore cleanup errors
     ENDTRY.
 
-    " Note: Redshift clusters take a long time to delete
-    " We tag them with 'convert_test' and let users clean them up manually
     MESSAGE 'Redshift cluster tagged with convert_test=true. Manual cleanup required.' TYPE 'I'.
   ENDMETHOD.
 
@@ -251,7 +199,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
       WAIT UP TO 30 SECONDS.
       TRY.
           lo_describe_result = ao_rsh->describeclusters(
-              iv_clusteridentifier = iv_cluster_id
+            iv_clusteridentifier = iv_cluster_id
           ).
               
           lt_clusters = lo_describe_result->get_clusters( ).
@@ -283,13 +231,12 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
     DATA lv_max_waits TYPE i VALUE 30.
     DATA lo_describe_result TYPE REF TO /aws1/cl_rsddescrstmtresponse.
     DATA lv_error TYPE /aws1/rsdstring.
-    DATA lo_ex TYPE REF TO /aws1/cx_rt_generic.
 
     DO lv_max_waits TIMES.
       WAIT UP TO 2 SECONDS.
       TRY.
           lo_describe_result = ao_rsd->describestatement(
-              iv_id     = iv_statement_id
+            iv_id = iv_statement_id
           ).
               
           lv_status = lo_describe_result->get_status( ).
@@ -306,7 +253,7 @@ CLASS ltc_awsex_cl_rsd_actions IMPLEMENTATION.
             cl_abap_unit_assert=>fail(
               msg = |Unexpected statement status: { lv_status }| ).
           ENDIF.
-        CATCH /aws1/cx_rt_generic INTO lo_ex.
+        CATCH /aws1/cx_rt_generic INTO DATA(lo_ex).
           cl_abap_unit_assert=>fail(
             msg = |Error checking statement status: { lo_ex->get_text( ) }| ).
       ENDTRY.
