@@ -238,7 +238,7 @@ CLASS ltc_awsex_cl_rsh_actions IMPLEMENTATION.
       msg = |Cluster not found after modification| ).
 
     READ TABLE lt_clusters INDEX 1 INTO lo_cluster.
-    lv_maintenance_window = lo_cluster->get_preferredmaintenancewin00( ).
+    lv_maintenance_window = lo_cluster->get_preferredmaintenancewi00( ).
         
     cl_abap_unit_assert=>assert_equals(
       exp = 'wed:07:30-wed:08:00'
